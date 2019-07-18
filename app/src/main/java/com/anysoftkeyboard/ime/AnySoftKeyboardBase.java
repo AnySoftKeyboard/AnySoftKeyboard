@@ -30,7 +30,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.WordComposer;
@@ -41,12 +40,11 @@ import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
+import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
-
-public abstract class AnySoftKeyboardBase extends InputMethodService implements OnKeyboardActionListener {
+public abstract class AnySoftKeyboardBase extends InputMethodService
+        implements OnKeyboardActionListener {
     protected static final String TAG = "ASK";
 
     protected static final long ONE_FRAME_DELAY = 1000L / 60L;
@@ -55,8 +53,10 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
     private InputViewBinder mInputView;
     private InputMethodManager mInputMethodManager;
 
-    protected final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
-    protected final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
+    protected final ModifierKeyState mShiftKeyState =
+            new ModifierKeyState(true /*supports locked state*/);
+    protected final ModifierKeyState mControlKeyState =
+            new ModifierKeyState(false /*does not support locked state*/);
 
     protected final WordComposer mWord = new WordComposer();
 
@@ -69,17 +69,29 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
     @Override
     @CallSuper
     public void onCreate() {
-        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
+        Logger.i(
+                TAG,
+                "****** AnySoftKeyboard v%s (%d) service started.",
+                BuildConfig.VERSION_NAME,
+                BuildConfig.VERSION_CODE);
         super.onCreate();
         if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
-                Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting, Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                                getApplicationContext(),
+                                R.string.debug_tracing_starting,
+                                Toast.LENGTH_SHORT)
+                        .show();
             } catch (Exception e) {
-                //see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
-                //I might get a "Permission denied" error.
+                // see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
+                // I might get a "Permission denied" error.
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                                getApplicationContext(),
+                                R.string.debug_tracing_starting_failed,
+                                Toast.LENGTH_LONG)
+                        .show();
             }
         }
 
@@ -92,14 +104,26 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
      */
     @Override
     @CallSuper
-    public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-            int newSelStart, int newSelEnd,
-            int candidatesStart, int candidatesEnd) {
-        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+    public void onUpdateSelection(
+            int oldSelStart,
+            int oldSelEnd,
+            int newSelStart,
+            int newSelEnd,
+            int candidatesStart,
+            int candidatesEnd) {
+        super.onUpdateSelection(
+                oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
         if (BuildConfig.DEBUG) {
-            Logger.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
-                    oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+            Logger.d(
+                    TAG,
+                    "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
+                    oldSelStart,
+                    oldSelEnd,
+                    newSelStart,
+                    newSelEnd,
+                    candidatesStart,
+                    candidatesEnd);
         }
 
         mGlobalCursorPosition = newSelEnd;
@@ -141,11 +165,13 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
         if (getInputView() != null) getInputView().onViewNotRequired();
         mInputView = null;
 
-        GCUtils.getInstance().performOperationWithMemRetry(TAG,
-                () -> {
-                    mInputViewContainer = createInputViewContainer();
-                    mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
-                });
+        GCUtils.getInstance()
+                .performOperationWithMemRetry(
+                        TAG,
+                        () -> {
+                            mInputViewContainer = createInputViewContainer();
+                            mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
+                        });
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
         mInputViewContainer.setOnKeyboardActionListener(this);
@@ -182,7 +208,11 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
             // com.android.internal.R.layout.input_method.xml.
             final View inputArea = window.findViewById(android.R.id.inputArea);
 
-            updateLayoutHeightOf((View) inputArea.getParent(), isFullscreenMode() ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT);
+            updateLayoutHeightOf(
+                    (View) inputArea.getParent(),
+                    isFullscreenMode()
+                            ? ViewGroup.LayoutParams.MATCH_PARENT
+                            : ViewGroup.LayoutParams.WRAP_CONTENT);
             updateLayoutGravityOf((View) inputArea.getParent(), Gravity.BOTTOM);
         }
     }
@@ -218,8 +248,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
                 view.setLayoutParams(params);
             }
         } else {
-            throw new IllegalArgumentException("Layout parameter doesn't have gravity: "
-                    + lp.getClass().getName());
+            throw new IllegalArgumentException(
+                    "Layout parameter doesn't have gravity: " + lp.getClass().getName());
         }
     }
 
@@ -237,18 +267,17 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
     }
 
     protected KeyboardViewContainerView createInputViewContainer() {
-        return (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+        return (KeyboardViewContainerView)
+                getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
     }
 
     @CallSuper
     protected boolean handleCloseRequest() {
-        //meaning, I didn't do anything with this request.
+        // meaning, I didn't do anything with this request.
         return false;
     }
 
-    /**
-     * This will ask the OS to hide all views of AnySoftKeyboard.
-     */
+    /** This will ask the OS to hide all views of AnySoftKeyboard. */
     @Override
     public void hideWindow() {
         while (handleCloseRequest()) {
@@ -275,6 +304,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
 
     @Override
     public void onCancel() {
-        //the user released their finger outside of any key... okay. I have nothing to do about that.
+        // the user released their finger outside of any key... okay. I have nothing to do about
+        // that.
     }
 }

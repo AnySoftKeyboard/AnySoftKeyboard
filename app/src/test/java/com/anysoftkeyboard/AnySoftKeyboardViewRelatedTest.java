@@ -6,12 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,27 +22,33 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSettingsBasic() throws Exception {
-        Assert.assertEquals(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
+        Assert.assertEquals(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
         final AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
 
-        Assert.assertEquals("AnySoftKeyboard", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
+        Assert.assertEquals(
+                "AnySoftKeyboard", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
         Assert.assertEquals(4, latestAlertDialog.getListView().getCount());
     }
 
     @Test
     public void testSettingsIncognito() throws Exception {
-        //initial watermark
-        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
+        // initial watermark
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
+                mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
-        Assert.assertEquals(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
+        Assert.assertEquals(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
 
         AlertDialog latestShownDialog = GeneralDialogTestUtil.getLatestShownDialog();
-        Assert.assertEquals("\uD83D\uDD75️ Incognito Mode", latestShownDialog.getListView().getAdapter().getItem(3));
+        Assert.assertEquals(
+                "\uD83D\uDD75️ Incognito Mode",
+                latestShownDialog.getListView().getAdapter().getItem(3));
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
@@ -53,7 +57,8 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
-        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(
+                mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
@@ -63,7 +68,8 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
-        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
+                mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
     }
 
     @Test
@@ -71,17 +77,27 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
         final AlertDialog settingsAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
 
-        Assert.assertEquals("Override default dictionary", settingsAlertDialog.getListView().getAdapter().getItem(1));
+        Assert.assertEquals(
+                "Override default dictionary",
+                settingsAlertDialog.getListView().getAdapter().getItem(1));
 
         Shadows.shadowOf(settingsAlertDialog.getListView()).performItemClick(1);
 
         final AlertDialog dictionaryAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotSame(dictionaryAlertDialog, settingsAlertDialog);
 
-        Assert.assertEquals("Override English dictionary", GeneralDialogTestUtil.getTitleFromDialog(dictionaryAlertDialog));
-        View.OnClickListener positiveListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)).getOnClickListener();
-        View.OnClickListener negativeListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)).getOnClickListener();
-        View.OnClickListener clearListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)).getOnClickListener();
+        Assert.assertEquals(
+                "Override English dictionary",
+                GeneralDialogTestUtil.getTitleFromDialog(dictionaryAlertDialog));
+        View.OnClickListener positiveListener =
+                Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
+                        .getOnClickListener();
+        View.OnClickListener negativeListener =
+                Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
+                        .getOnClickListener();
+        View.OnClickListener clearListener =
+                Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEUTRAL))
+                        .getOnClickListener();
 
         Assert.assertNotNull(positiveListener);
         Assert.assertNotNull(negativeListener);
@@ -100,8 +116,10 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(inputArea.getParent());
 
         final View parentView = (View) inputArea.getParent();
-        Assert.assertEquals(ViewGroup.LayoutParams.WRAP_CONTENT, parentView.getLayoutParams().height);
-        Assert.assertEquals(Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
+        Assert.assertEquals(
+                ViewGroup.LayoutParams.WRAP_CONTENT, parentView.getLayoutParams().height);
+        Assert.assertEquals(
+                Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
     }
 
     @Test
@@ -117,8 +135,10 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(inputArea.getParent());
 
         final View parentView = (View) inputArea.getParent();
-        Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, parentView.getLayoutParams().height);
-        Assert.assertEquals(Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
+        Assert.assertEquals(
+                ViewGroup.LayoutParams.MATCH_PARENT, parentView.getLayoutParams().height);
+        Assert.assertEquals(
+                Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
     }
 
     @Test

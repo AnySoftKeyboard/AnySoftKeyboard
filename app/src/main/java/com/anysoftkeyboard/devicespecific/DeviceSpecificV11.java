@@ -30,9 +30,9 @@ public class DeviceSpecificV11 extends DeviceSpecificLowest {
         return "DeviceSpecificV11";
     }
 
-
     @Override
-    public void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+    public void commitCorrectionToInputConnection(
+            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
         super.commitCorrectionToInputConnection(ic, wordOffsetInInput, oldWord, newWord);
         CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
 

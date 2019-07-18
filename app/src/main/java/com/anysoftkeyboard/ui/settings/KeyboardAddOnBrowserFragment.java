@@ -19,7 +19,6 @@ package com.anysoftkeyboard.ui.settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.helper.ItemTouchHelper;
-
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -28,11 +27,20 @@ import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class KeyboardAddOnBrowserFragment extends AbstractAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
+public class KeyboardAddOnBrowserFragment
+        extends AbstractAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
 
     public KeyboardAddOnBrowserFragment() {
-        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false, false,
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        super(
+                "LanguageAddOnBrowserFragment",
+                R.string.keyboards_group,
+                false,
+                false,
+                false,
+                ItemTouchHelper.UP
+                        | ItemTouchHelper.DOWN
+                        | ItemTouchHelper.LEFT
+                        | ItemTouchHelper.RIGHT);
     }
 
     @NonNull
@@ -53,7 +61,8 @@ public class KeyboardAddOnBrowserFragment extends AbstractAddOnsBrowserFragment<
     }
 
     @Override
-    protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+    protected void applyAddOnToDemoKeyboardView(
+            @NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         AnyKeyboard defaultKeyboard = addOn.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);

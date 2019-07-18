@@ -3,18 +3,15 @@ package com.anysoftkeyboard.quicktextkeys;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.annotation.SuppressLint;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressLint("CommitPrefEdits")
@@ -40,7 +37,10 @@ public class QuickKeyHistoryRecordsTest {
 
     @Test
     public void testLoad() {
-        mSharedPreferences.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty).set("1,2,3,4,5,6");
+        mSharedPreferences
+                .getString(
+                        R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+                .set("1,2,3,4,5,6");
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
         Assert.assertEquals(3, keys.size());
@@ -80,16 +80,27 @@ public class QuickKeyHistoryRecordsTest {
     public void testLoadMoreThanLimit() {
         StringBuilder exceedString = new StringBuilder();
         for (int i = 0; i < QuickKeyHistoryRecords.MAX_LIST_SIZE * 2; i++) {
-            exceedString.append(Integer.toString(2 * i)).append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR).append(Integer.toString(2 * i + 1)).append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR);
+            exceedString
+                    .append(Integer.toString(2 * i))
+                    .append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR)
+                    .append(Integer.toString(2 * i + 1))
+                    .append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR);
         }
-        mSharedPreferences.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty).set(exceedString.toString());
+        mSharedPreferences
+                .getString(
+                        R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+                .set(exceedString.toString());
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
         Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, keys.size());
         Assert.assertEquals("0", keys.get(0).name);
         Assert.assertEquals("1", keys.get(0).value);
-        Assert.assertEquals(Integer.toString(QuickKeyHistoryRecords.MAX_LIST_SIZE * 2 - 2), keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
-        Assert.assertEquals(Integer.toString(QuickKeyHistoryRecords.MAX_LIST_SIZE * 2 - 1), keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
+        Assert.assertEquals(
+                Integer.toString(QuickKeyHistoryRecords.MAX_LIST_SIZE * 2 - 2),
+                keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
+        Assert.assertEquals(
+                Integer.toString(QuickKeyHistoryRecords.MAX_LIST_SIZE * 2 - 1),
+                keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
     }
 
     @Test
@@ -99,9 +110,9 @@ public class QuickKeyHistoryRecordsTest {
         mUnderTest.store("3", "4");
         mUnderTest.store("5", "6");
 
-        final List<QuickKeyHistoryRecords.HistoryKey> currentHistory = mUnderTest.getCurrentHistory();
-        Assert.assertEquals(3 + 1/*first default emoji*/, currentHistory.size());
-
+        final List<QuickKeyHistoryRecords.HistoryKey> currentHistory =
+                mUnderTest.getCurrentHistory();
+        Assert.assertEquals(3 + 1 /*first default emoji*/, currentHistory.size());
 
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, currentHistory.get(0).name);
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, currentHistory.get(0).value);
@@ -115,7 +126,10 @@ public class QuickKeyHistoryRecordsTest {
 
     @Test
     public void testDoesNotLoadIfEmptyStrings() {
-        mSharedPreferences.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty).set("1,2,,4,5,");
+        mSharedPreferences
+                .getString(
+                        R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+                .set("1,2,,4,5,");
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
         Assert.assertEquals(1, keys.size());
@@ -132,7 +146,7 @@ public class QuickKeyHistoryRecordsTest {
 
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
 
-        Assert.assertEquals(2 + 1/*first default emoji*/, keys.size());
+        Assert.assertEquals(2 + 1 /*first default emoji*/, keys.size());
 
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, keys.get(0).name);
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, keys.get(0).value);
@@ -154,10 +168,14 @@ public class QuickKeyHistoryRecordsTest {
         List<QuickKeyHistoryRecords.HistoryKey> currentHistory = mUnderTest.getCurrentHistory();
         Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, currentHistory.size());
 
-        Assert.assertEquals("last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
-        Assert.assertEquals("last_last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
-        Assert.assertEquals("k118", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).name);
-        Assert.assertEquals("v119", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).value);
+        Assert.assertEquals(
+                "last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
+        Assert.assertEquals(
+                "last_last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
+        Assert.assertEquals(
+                "k118", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).name);
+        Assert.assertEquals(
+                "v119", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).value);
         Assert.assertEquals("k62", currentHistory.get(0).name);
         Assert.assertEquals("v63", currentHistory.get(0).value);
 
@@ -168,10 +186,15 @@ public class QuickKeyHistoryRecordsTest {
 
         Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, currentHistory.size());
 
-        Assert.assertEquals("last_again", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
-        Assert.assertEquals("last_again_last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
-        Assert.assertEquals("last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).name);
-        Assert.assertEquals("last_last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).value);
+        Assert.assertEquals(
+                "last_again", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
+        Assert.assertEquals(
+                "last_again_last",
+                currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
+        Assert.assertEquals(
+                "last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).name);
+        Assert.assertEquals(
+                "last_last", currentHistory.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).value);
         Assert.assertEquals("k64", currentHistory.get(0).name);
         Assert.assertEquals("v65", currentHistory.get(0).value);
     }
@@ -186,14 +209,14 @@ public class QuickKeyHistoryRecordsTest {
 
         mUnderTest.setIncognitoMode(true);
         List<QuickKeyHistoryRecords.HistoryKey> currentHistory = mUnderTest.getCurrentHistory();
-        Assert.assertEquals(initialItemsCount + 1/*initial emoji*/, currentHistory.size());
+        Assert.assertEquals(initialItemsCount + 1 /*initial emoji*/, currentHistory.size());
 
         for (int i = 10; i < 20; i += 2) {
             mUnderTest.store("k" + Integer.toString(i), "v" + Integer.toString(i + 1));
         }
 
         currentHistory = mUnderTest.getCurrentHistory();
-        Assert.assertEquals(initialItemsCount + 1/*initial emoji*/, currentHistory.size());
+        Assert.assertEquals(initialItemsCount + 1 /*initial emoji*/, currentHistory.size());
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, currentHistory.get(0).name);
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, currentHistory.get(0).value);
         Assert.assertEquals("k0", currentHistory.get(1).name);
@@ -205,12 +228,12 @@ public class QuickKeyHistoryRecordsTest {
         Assert.assertEquals("k6", currentHistory.get(4).name);
         Assert.assertEquals("v7", currentHistory.get(4).value);
 
-        //turning incognito mode off
+        // turning incognito mode off
         mUnderTest.setIncognitoMode(false);
         mUnderTest.store("last_again", "last_again_last");
 
         currentHistory = mUnderTest.getCurrentHistory();
-        Assert.assertEquals(initialItemsCount + 1 + 1/*the new record*/, currentHistory.size());
+        Assert.assertEquals(initialItemsCount + 1 + 1 /*the new record*/, currentHistory.size());
 
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, currentHistory.get(0).name);
         Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, currentHistory.get(0).value);

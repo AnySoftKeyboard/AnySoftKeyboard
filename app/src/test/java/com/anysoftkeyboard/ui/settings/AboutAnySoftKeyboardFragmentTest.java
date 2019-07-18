@@ -5,21 +5,18 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Shadows;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import androidx.test.core.app.ApplicationProvider;
-
-public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCase<AboutAnySoftKeyboardFragment> {
+public class AboutAnySoftKeyboardFragmentTest
+        extends RobolectricFragmentTestCase<AboutAnySoftKeyboardFragment> {
 
     @NonNull
     @Override
@@ -35,7 +32,9 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         Shadows.shadowOf(link).checkedPerformClick();
 
-        Intent intent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
+        Intent intent =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
 
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
@@ -50,11 +49,14 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         link.performClick();
 
-        Intent intent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
+        Intent intent =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
 
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
-        Assert.assertEquals("http://anysoftkeyboard.github.io/privacy-policy/", intent.getData().toString());
+        Assert.assertEquals(
+                "http://anysoftkeyboard.github.io/privacy-policy/", intent.getData().toString());
     }
 
     @Test
@@ -67,10 +69,13 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         ensureAllScheduledJobsAreDone();
 
-        Fragment nextFragment = fragment.getFragmentManager().findFragmentById(R.id.main_ui_content);
+        Fragment nextFragment =
+                fragment.getFragmentManager().findFragmentById(R.id.main_ui_content);
 
         Assert.assertNotNull(nextFragment);
-        Assert.assertTrue(nextFragment instanceof AboutAnySoftKeyboardFragment.AdditionalSoftwareLicensesFragment);
+        Assert.assertTrue(
+                nextFragment
+                        instanceof AboutAnySoftKeyboardFragment.AdditionalSoftwareLicensesFragment);
     }
 
     @Test
@@ -79,10 +84,15 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
         TextView copyright = fragment.getView().findViewById(R.id.about_copyright);
         Assert.assertTrue(copyright.getText().toString().contains("Menny"));
         Assert.assertTrue(copyright.getText().toString().contains("©"));
-        Assert.assertTrue(copyright.getText().toString().contains(Integer.toString(new GregorianCalendar().get(Calendar.YEAR))));
+        Assert.assertTrue(
+                copyright
+                        .getText()
+                        .toString()
+                        .contains(Integer.toString(new GregorianCalendar().get(Calendar.YEAR))));
 
         TextView version = fragment.getView().findViewById(R.id.about_app_version);
         Assert.assertTrue(version.getText().toString().contains(BuildConfig.VERSION_NAME));
-        Assert.assertTrue(version.getText().toString().contains(Integer.toString(BuildConfig.VERSION_CODE)));
+        Assert.assertTrue(
+                version.getText().toString().contains(Integer.toString(BuildConfig.VERSION_CODE)));
     }
 }

@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.utils;
 
 import com.anysoftkeyboard.base.Charsets;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,14 +30,14 @@ import java.util.Deque;
  * Makes writing XML much much easier.
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
- * @author <a href="mailto:menny|AT| evendanan{dot} net">Menny Even Danan - just
- * added some features on Henri's initial version</a>
+ * @author <a href="mailto:menny|AT| evendanan{dot} net">Menny Even Danan - just added some features
+ *     on Henri's initial version</a>
  * @version 0.2
  */
 public class XmlWriter {
 
     private static final String INDENT_STRING = "    ";
-    private final boolean mThisIsWriterOwner;// is this instance the owner?
+    private final boolean mThisIsWriterOwner; // is this instance the owner?
     private final Writer mWriter; // underlying mWriter
     private final int mIndentingOffset;
     private final Deque<String> mStack; // of xml entity names
@@ -52,7 +51,8 @@ public class XmlWriter {
      *
      * @throws IOException
      */
-    public XmlWriter(Writer writer, boolean takeOwnership, int indentingOffset, boolean addXmlPrefix)
+    public XmlWriter(
+            Writer writer, boolean takeOwnership, int indentingOffset, boolean addXmlPrefix)
             throws IOException {
         mThisIsWriterOwner = takeOwnership;
         this.mIndentingOffset = indentingOffset;
@@ -60,12 +60,15 @@ public class XmlWriter {
         this.mClosed = true;
         this.mStack = new ArrayDeque<>();
         this.mAttrs = new StringBuilder();
-        if (addXmlPrefix)
-            this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+        if (addXmlPrefix) this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
     }
 
     public XmlWriter(File outputFile) throws IOException {
-        this(new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8), true, 0, true);
+        this(
+                new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8),
+                true,
+                0,
+                true);
     }
 
     /**
@@ -92,8 +95,7 @@ public class XmlWriter {
             writeAttributes();
             this.mClosed = true;
             this.mWriter.write(">");
-            if (newLine)
-                this.mWriter.write("\n");
+            if (newLine) this.mWriter.write("\n");
         }
     }
 
@@ -105,11 +107,11 @@ public class XmlWriter {
     }
 
     /**
-     * Write an attribute out for the current entity. Any xml characters in the
-     * value are escaped. Currently it does not actually throw the exception,
-     * but the api is set that way for future changes.
+     * Write an attribute out for the current entity. Any xml characters in the value are escaped.
+     * Currently it does not actually throw the exception, but the api is set that way for future
+     * changes.
      *
-     * @param attr  name of attribute.
+     * @param attr name of attribute.
      * @param value value of attribute.
      */
     public XmlWriter writeAttribute(String attr, String value) {
@@ -122,8 +124,8 @@ public class XmlWriter {
     }
 
     /**
-     * End the current entity. This will throw an exception if it is called when
-     * there is not a currently open entity.
+     * End the current entity. This will throw an exception if it is called when there is not a
+     * currently open entity.
      *
      * @throws IOException
      */
@@ -151,8 +153,8 @@ public class XmlWriter {
     }
 
     /**
-     * Close this mWriter. It does not close the underlying mWriter, but does
-     * throw an exception if there are as yet unclosed tags.
+     * Close this mWriter. It does not close the underlying mWriter, but does throw an exception if
+     * there are as yet unclosed tags.
      *
      * @throws IOException
      */
@@ -162,13 +164,12 @@ public class XmlWriter {
             this.mWriter.close();
         }
         if (this.mStack.size() > 0) {
-            throw new IllegalStateException("Tags are not all closed. Possibly, " + this.mStack.pop() + " is unclosed. ");
+            throw new IllegalStateException(
+                    "Tags are not all closed. Possibly, " + this.mStack.pop() + " is unclosed. ");
         }
     }
 
-    /**
-     * Output body text. Any xml characters are escaped.
-     */
+    /** Output body text. Any xml characters are escaped. */
     public XmlWriter writeText(String text) throws IOException {
         closeOpeningTag(false);
         this.mEmpty = false;
@@ -195,13 +196,13 @@ public class XmlWriter {
     }
 
     /**
-     * Replace a string with another string inside a larger string, for the
-     * first n values of the search string.
+     * Replace a string with another string inside a larger string, for the first n values of the
+     * search string.
      *
      * @param text String to do search and replace in
      * @param repl String to search for
      * @param with String to replace with
-     * @param max  int values to replace
+     * @param max int values to replace
      * @return String with n values replacEd
      */
     private static String replaceString(String text, String repl, String with, int max) {

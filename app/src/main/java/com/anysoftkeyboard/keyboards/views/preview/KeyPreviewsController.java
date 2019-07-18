@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.keyboards.views.preview;
 
 import android.graphics.drawable.Drawable;
-
 import com.anysoftkeyboard.keyboards.Keyboard;
 
 public interface KeyPreviewsController {

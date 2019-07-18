@@ -1,12 +1,9 @@
 package com.anysoftkeyboard.debug;
 
 import android.util.Log;
-
 import com.anysoftkeyboard.base.utils.LogProvider;
 
-/**
- * Logger messages to Android's LogCat. Should be used only in DEBUG builds.
- */
+/** Logger messages to Android's LogCat. Should be used only in DEBUG builds. */
 public class LogCatLogProvider implements LogProvider {
 
     @Override

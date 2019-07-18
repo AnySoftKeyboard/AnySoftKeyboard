@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.prefs.backup;
 
 import android.support.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,7 +43,10 @@ public class PrefItem {
         if (text.matches("\\A[\\p{Upper}|\\p{Lower}]+[\\p{Upper}|\\p{Lower}|\\p{Digit}|_|-]*\\z")) {
             return text;
         } else {
-            throw new IllegalArgumentException("The key '" + text + "' has non ASCII or has whitespaces or is empty! This is not valid as an XML attribute");
+            throw new IllegalArgumentException(
+                    "The key '"
+                            + text
+                            + "' has non ASCII or has whitespaces or is empty! This is not valid as an XML attribute");
         }
     }
 

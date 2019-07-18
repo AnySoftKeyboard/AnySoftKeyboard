@@ -25,7 +25,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
@@ -40,20 +39,31 @@ public class AndroidUserDictionary extends BTreeDictionary {
     }
 
     @Override
-    protected void registerObserver(ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
-        contentResolver.registerContentObserver(Words.CONTENT_URI, false, dictionaryContentObserver);
+    protected void registerObserver(
+            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
+        contentResolver.registerContentObserver(
+                Words.CONTENT_URI, false, dictionaryContentObserver);
     }
 
     @Override
     protected void readWordsFromActualStorage(WordReadListener listener) {
         @SuppressLint("Recycle")
-        Cursor cursor = TextUtils.isEmpty(mLocale) ?
-                mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null) :
-                mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, Words.LOCALE + "=?", new String[]{mLocale}, null);
+        Cursor cursor =
+                TextUtils.isEmpty(mLocale)
+                        ? mContext.getContentResolver()
+                                .query(Words.CONTENT_URI, PROJECTION, null, null, null)
+                        : mContext.getContentResolver()
+                                .query(
+                                        Words.CONTENT_URI,
+                                        PROJECTION,
+                                        Words.LOCALE + "=?",
+                                        new String[] {mLocale},
+                                        null);
 
         if (cursor == null) throw new RuntimeException("No built-in Android dictionary!");
         if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast() && listener.onWordRead(cursor.getString(1), cursor.getInt(2))) {
+            while (!cursor.isAfterLast()
+                    && listener.onWordRead(cursor.getString(1), cursor.getInt(2))) {
                 cursor.moveToNext();
             }
         }
@@ -76,12 +86,20 @@ public class AndroidUserDictionary extends BTreeDictionary {
         values.put(Words.APP_ID, 0); // TODO: Get App UID
 
         Uri result = mContext.getContentResolver().insert(Words.CONTENT_URI, values);
-        Logger.i(TAG, "Added the word '" + word + "' at locale " + mLocale + " into Android's user dictionary. Result " + result);
+        Logger.i(
+                TAG,
+                "Added the word '"
+                        + word
+                        + "' at locale "
+                        + mLocale
+                        + " into Android's user dictionary. Result "
+                        + result);
     }
 
     @Override
     protected final void deleteWordFromStorage(String word) {
-        mContext.getContentResolver().delete(Words.CONTENT_URI, Words.WORD + "=?", new String[]{word});
+        mContext.getContentResolver()
+                .delete(Words.CONTENT_URI, Words.WORD + "=?", new String[] {word});
     }
 
     @Override

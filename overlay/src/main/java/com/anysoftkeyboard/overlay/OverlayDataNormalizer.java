@@ -14,7 +14,10 @@ public class OverlayDataNormalizer implements OverlyDataCreator {
     private final int mRequiredTextColorDiff;
     private final boolean mFixInvalid;
 
-    public OverlayDataNormalizer(OverlyDataCreator original, @IntRange(from = 1, to = 250) int textColorDiff, boolean fixInvalid) {
+    public OverlayDataNormalizer(
+            OverlyDataCreator original,
+            @IntRange(from = 1, to = 250) int textColorDiff,
+            boolean fixInvalid) {
         mOriginal = original;
         mRequiredTextColorDiff = textColorDiff;
         mFixInvalid = fixInvalid;
@@ -28,7 +31,7 @@ public class OverlayDataNormalizer implements OverlyDataCreator {
             final int diff = backgroundLuminance - luminance(original.getPrimaryTextColor());
             if (mRequiredTextColorDiff > Math.abs(diff)) {
                 if (backgroundLuminance > GRAY_LUM) {
-                    //closer to white, text will be black
+                    // closer to white, text will be black
                     original.setPrimaryTextColor(Color.BLACK);
                     original.setSecondaryTextColor(Color.DKGRAY);
                 } else {
@@ -40,9 +43,7 @@ public class OverlayDataNormalizer implements OverlyDataCreator {
         return original;
     }
 
-    /**
-     * Code taken (mostly) from AOSP Color class.
-     */
+    /** Code taken (mostly) from AOSP Color class. */
     @VisibleForTesting
     static int luminance(@ColorInt int color) {
         double r = Color.red(color) * 0.2126;

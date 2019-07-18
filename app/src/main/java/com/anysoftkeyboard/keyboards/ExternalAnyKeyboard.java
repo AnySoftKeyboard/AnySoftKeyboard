@@ -25,7 +25,6 @@ import android.support.annotation.XmlRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -35,16 +34,13 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Locale;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
@@ -61,8 +57,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private static final String XML_MULTITAP_CHARACTERS_ATTRIBUTE = "characters";
     private static final String XML_ALT_ATTRIBUTE = "altModifier";
     private static final String XML_SHIFT_ATTRIBUTE = "shiftModifier";
-    @NonNull
-    private final CharSequence mName;
+    @NonNull private final CharSequence mName;
     private final int mIconId;
     private final String mDefaultDictionary;
     private final Locale mLocale;
@@ -72,27 +67,55 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     private KeyboardExtension mExtensionLayout = null;
 
-    public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
-            @NonNull Context context, @XmlRes int xmlLayoutResId, @XmlRes int xmlLandscapeResId,
-            @NonNull CharSequence name, int iconResId,
-            int qwertyTranslationId, String defaultDictionary,
-            String additionalIsLetterExceptions, String sentenceSeparators,
+    public ExternalAnyKeyboard(
+            @NonNull AddOn keyboardAddOn,
+            @NonNull Context askContext,
+            @NonNull Context context,
+            @XmlRes int xmlLayoutResId,
+            @XmlRes int xmlLandscapeResId,
+            @NonNull CharSequence name,
+            int iconResId,
+            int qwertyTranslationId,
+            String defaultDictionary,
+            String additionalIsLetterExceptions,
+            String sentenceSeparators,
             @KeyboardRowModeId int mode) {
-        this(keyboardAddOn, askContext, context, xmlLayoutResId, xmlLandscapeResId, name, iconResId,
-                qwertyTranslationId, defaultDictionary, additionalIsLetterExceptions, sentenceSeparators, mode,
+        this(
+                keyboardAddOn,
+                askContext,
+                context,
+                xmlLayoutResId,
+                xmlLandscapeResId,
+                name,
+                iconResId,
+                qwertyTranslationId,
+                defaultDictionary,
+                additionalIsLetterExceptions,
+                sentenceSeparators,
+                mode,
                 AnyApplication.getKeyboardExtensionFactory(askContext).getEnabledAddOn());
     }
 
-    public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
-            @NonNull Context context, @XmlRes int xmlLayoutResId, @XmlRes int xmlLandscapeResId,
-            @NonNull CharSequence name, int iconResId,
-            int qwertyTranslationId, String defaultDictionary,
-            String additionalIsLetterExceptions, String sentenceSeparators,
+    public ExternalAnyKeyboard(
+            @NonNull AddOn keyboardAddOn,
+            @NonNull Context askContext,
+            @NonNull Context context,
+            @XmlRes int xmlLayoutResId,
+            @XmlRes int xmlLandscapeResId,
+            @NonNull CharSequence name,
+            int iconResId,
+            int qwertyTranslationId,
+            String defaultDictionary,
+            String additionalIsLetterExceptions,
+            String sentenceSeparators,
             @KeyboardRowModeId int mode,
             @Nullable KeyboardExtension extKbd) {
-        super(keyboardAddOn, askContext, context, getKeyboardId(
-                askContext, xmlLayoutResId,
-                xmlLandscapeResId), mode);
+        super(
+                keyboardAddOn,
+                askContext,
+                context,
+                getKeyboardId(askContext, xmlLayoutResId, xmlLandscapeResId),
+                mode);
         mName = name;
         mIconId = iconResId;
         mDefaultDictionary = defaultDictionary;
@@ -101,13 +124,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
             Logger.d(TAG, "Creating qwerty mapping: %d", qwertyTranslationId);
-            mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
+            mHardKeyboardTranslator =
+                    createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
         } else {
             mHardKeyboardTranslator = null;
         }
 
-        mAdditionalIsLetterExceptions = new HashSet<>(
-                additionalIsLetterExceptions != null ? additionalIsLetterExceptions.length() : 0);
+        mAdditionalIsLetterExceptions =
+                new HashSet<>(
+                        additionalIsLetterExceptions != null
+                                ? additionalIsLetterExceptions.length()
+                                : 0);
         if (additionalIsLetterExceptions != null) {
             for (int i = 0; i < additionalIsLetterExceptions.length(); i++) {
                 mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
@@ -125,7 +152,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mExtensionLayout;
     }
 
-    private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {
+    private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(
+            Context context, int qwertyTranslationId) {
         HardKeyboardSequenceHandler translator = new HardKeyboardSequenceHandler();
         XmlPullParser parser = context.getResources().getXml(qwertyTranslationId);
         final String TAG = "ASK Hard Translation Parser";
@@ -145,16 +173,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     } else if (inTranslations && XML_SEQUENCE_TAG.equals(tag)) {
                         AttributeSet attrs = Xml.asAttributeSet(parser);
 
-                        final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs
-                                .getAttributeValue(null, XML_KEYS_ATTRIBUTE));
-                        final boolean isAlt = attrs.getAttributeBooleanValue(
-                                null, XML_ALT_ATTRIBUTE, false);
-                        final boolean isShift = attrs.getAttributeBooleanValue(
-                                null, XML_SHIFT_ATTRIBUTE, false);
-                        final String targetChar = attrs.getAttributeValue(null,
-                                XML_TARGET_ATTRIBUTE);
-                        final String targetCharCode = attrs.getAttributeValue(
-                                null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
+                        final int[] keyCodes =
+                                getKeyCodesFromPhysicalSequence(
+                                        attrs.getAttributeValue(null, XML_KEYS_ATTRIBUTE));
+                        final boolean isAlt =
+                                attrs.getAttributeBooleanValue(null, XML_ALT_ATTRIBUTE, false);
+                        final boolean isShift =
+                                attrs.getAttributeBooleanValue(null, XML_SHIFT_ATTRIBUTE, false);
+                        final String targetChar =
+                                attrs.getAttributeValue(null, XML_TARGET_ATTRIBUTE);
+                        final String targetCharCode =
+                                attrs.getAttributeValue(null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
                         final Integer target;
                         if (targetCharCode == null) {
                             target = (int) targetChar.charAt(0);
@@ -164,15 +193,18 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
                         // asserting
                         if (keyCodes.length == 0) {
-                            Logger.e(TAG,
+                            Logger.e(
+                                    TAG,
                                     "Physical translator sequence does not include mandatory fields "
-                                            + XML_KEYS_ATTRIBUTE + " or "
+                                            + XML_KEYS_ATTRIBUTE
+                                            + " or "
                                             + XML_TARGET_ATTRIBUTE);
                         } else {
                             if (!isAlt && !isShift) {
                                 translator.addSequence(keyCodes, target);
                                 // http://code.google.com/p/softkeyboard/issues/detail?id=734
-                                translator.addShiftSequence(keyCodes, Character.toUpperCase(target));
+                                translator.addShiftSequence(
+                                        keyCodes, Character.toUpperCase(target));
                             } else if (isAlt) {
                                 translator.addAltSequence(keyCodes, target);
                             } else {
@@ -182,25 +214,43 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     } else if (inTranslations && XML_MULTITAP_TAG.equals(tag)) {
                         AttributeSet attrs = Xml.asAttributeSet(parser);
 
-                        final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs.getAttributeValue(null, XML_MULTITAP_KEY_ATTRIBUTE));
+                        final int[] keyCodes =
+                                getKeyCodesFromPhysicalSequence(
+                                        attrs.getAttributeValue(null, XML_MULTITAP_KEY_ATTRIBUTE));
                         if (keyCodes.length != 1) {
-                            throw new XmlPullParserException("attribute " + XML_MULTITAP_KEY_ATTRIBUTE + " should contain exactly one key-code when used in " + XML_MULTITAP_TAG + " tag!", parser,
-                                    new ParseException(XML_MULTITAP_KEY_ATTRIBUTE, parser.getLineNumber()));
-                        }
-
-                        final boolean isAlt = attrs.getAttributeBooleanValue(
-                                null, XML_ALT_ATTRIBUTE, false);
-                        final boolean isShift = attrs.getAttributeBooleanValue(
-                                null, XML_SHIFT_ATTRIBUTE, false);
-                        final String targetCharacters = attrs.getAttributeValue(null,
-                                XML_MULTITAP_CHARACTERS_ATTRIBUTE);
-                        if (TextUtils.isEmpty(targetCharacters) || targetCharacters.length() < 2) {
-                            throw new XmlPullParserException("attribute " + XML_MULTITAP_CHARACTERS_ATTRIBUTE + " should contain more than one character when used in " + XML_MULTITAP_TAG + " tag!",
+                            throw new XmlPullParserException(
+                                    "attribute "
+                                            + XML_MULTITAP_KEY_ATTRIBUTE
+                                            + " should contain exactly one key-code when used in "
+                                            + XML_MULTITAP_TAG
+                                            + " tag!",
                                     parser,
-                                    new ParseException(XML_MULTITAP_CHARACTERS_ATTRIBUTE, parser.getLineNumber()));
+                                    new ParseException(
+                                            XML_MULTITAP_KEY_ATTRIBUTE, parser.getLineNumber()));
                         }
 
-                        for (int characterIndex = 0; characterIndex <= targetCharacters.length(); characterIndex++) {
+                        final boolean isAlt =
+                                attrs.getAttributeBooleanValue(null, XML_ALT_ATTRIBUTE, false);
+                        final boolean isShift =
+                                attrs.getAttributeBooleanValue(null, XML_SHIFT_ATTRIBUTE, false);
+                        final String targetCharacters =
+                                attrs.getAttributeValue(null, XML_MULTITAP_CHARACTERS_ATTRIBUTE);
+                        if (TextUtils.isEmpty(targetCharacters) || targetCharacters.length() < 2) {
+                            throw new XmlPullParserException(
+                                    "attribute "
+                                            + XML_MULTITAP_CHARACTERS_ATTRIBUTE
+                                            + " should contain more than one character when used in "
+                                            + XML_MULTITAP_TAG
+                                            + " tag!",
+                                    parser,
+                                    new ParseException(
+                                            XML_MULTITAP_CHARACTERS_ATTRIBUTE,
+                                            parser.getLineNumber()));
+                        }
+
+                        for (int characterIndex = 0;
+                                characterIndex <= targetCharacters.length();
+                                characterIndex++) {
                             int[] multiTapCodes = new int[characterIndex + 1];
                             for (int tapIndex = 0; tapIndex < multiTapCodes.length; tapIndex++) {
                                 multiTapCodes[tapIndex] = keyCodes[0];
@@ -210,21 +260,26 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
                                 if (!isAlt && !isShift) {
                                     translator.addSequence(multiTapCodes, target);
-                                    translator.addShiftSequence(multiTapCodes, Character.toUpperCase(target));
+                                    translator.addShiftSequence(
+                                            multiTapCodes, Character.toUpperCase(target));
                                 } else if (isAlt) {
                                     translator.addAltSequence(keyCodes, target);
                                 } else {
                                     translator.addShiftSequence(keyCodes, target);
                                 }
                             } else {
-                                //and adding the rewind character
+                                // and adding the rewind character
                                 if (!isAlt && !isShift) {
-                                    translator.addSequence(multiTapCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
-                                    translator.addShiftSequence(multiTapCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
+                                    translator.addSequence(
+                                            multiTapCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
+                                    translator.addShiftSequence(
+                                            multiTapCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
                                 } else if (isAlt) {
-                                    translator.addAltSequence(keyCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
+                                    translator.addAltSequence(
+                                            keyCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
                                 } else {
-                                    translator.addShiftSequence(keyCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
+                                    translator.addShiftSequence(
+                                            keyCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
                                 }
                             }
                         }
@@ -234,7 +289,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 }
             }
         } catch (XmlPullParserException e) {
-            Logger.e(TAG, e, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardId(), getKeyboardAddOn().getPackageName(),
+            Logger.e(
+                    TAG,
+                    e,
+                    "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d",
+                    getKeyboardName(),
+                    getKeyboardId(),
+                    getKeyboardAddOn().getPackageName(),
                     qwertyTranslationId);
             if (BuildConfig.DEBUG) throw new RuntimeException("Failed to parse keyboard.", e);
         } catch (IOException e) {
@@ -249,18 +310,20 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         int[] keyCodes = new int[split.length];
         for (int i = 0; i < keyCodes.length; i++) {
             try {
-                keyCodes[i] = Integer.parseInt(split[i]);// try parsing as an
+                keyCodes[i] = Integer.parseInt(split[i]); // try parsing as an
                 // integer
-            } catch (final NumberFormatException nfe) {// no an integer
+            } catch (final NumberFormatException nfe) { // no an integer
                 final String v = split[i];
                 try {
-                    keyCodes[i] = android.view.KeyEvent.class.getField(v)
-                            .getInt(null);// here comes the reflection. No
+                    keyCodes[i] =
+                            android.view.KeyEvent.class
+                                    .getField(v)
+                                    .getInt(null); // here comes the reflection. No
                     // bother of performance.
                     // First hit takes just 20 milliseconds, the next hits <2
                     // Milliseconds.
-                } catch (final Exception ex) {// crap :(
-                    throw new RuntimeException(ex);// bum
+                } catch (final Exception ex) { // crap :(
+                    throw new RuntimeException(ex); // bum
                 }
             }
         }
@@ -295,10 +358,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mName;
     }
 
-    private static int getKeyboardId(Context context, int portraitId,
-            int landscapeId) {
-        final boolean inPortraitMode = (context.getResources()
-                .getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+    private static int getKeyboardId(Context context, int portraitId, int landscapeId) {
+        final boolean inPortraitMode =
+                (context.getResources().getConfiguration().orientation
+                        == Configuration.ORIENTATION_PORTRAIT);
 
         if (inPortraitMode) {
             return portraitId;
@@ -308,18 +371,23 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     @Override
-    public void translatePhysicalCharacter(HardKeyboardAction action, AnySoftKeyboardBase ime, int multiTapTimeout) {
+    public void translatePhysicalCharacter(
+            HardKeyboardAction action, AnySoftKeyboardBase ime, int multiTapTimeout) {
         if (mHardKeyboardTranslator != null) {
             final int translated;
-            if (action.isAltActive() && mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT, multiTapTimeout)) {
+            if (action.isAltActive()
+                    && mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT, multiTapTimeout)) {
                 return;
             }
 
-            if (action.isShiftActive() && mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT, multiTapTimeout)) {
+            if (action.isShiftActive()
+                    && mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT, multiTapTimeout)) {
                 return;
             }
 
-            translated = mHardKeyboardTranslator.getCurrentCharacter(action.getKeyCode(), ime, multiTapTimeout);
+            translated =
+                    mHardKeyboardTranslator.getCurrentCharacter(
+                            action.getKeyCode(), ime, multiTapTimeout);
 
             if (translated != 0) {
                 action.setNewKeyCode(translated);
@@ -359,11 +427,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'e':
-                    key.popupCharacters = "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac\u0113";// "èéêëę€";
+                    key.popupCharacters = "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac\u0113"; // "èéêëę€";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'g':
-                    key.popupCharacters = "\u011d";// "ĝ";
+                    key.popupCharacters = "\u011d"; // "ĝ";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'h':
@@ -371,15 +439,15 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'i':
-                    key.popupCharacters = "ìíîïłīι";// "ìíîïł";
+                    key.popupCharacters = "ìíîïłīι"; // "ìíîïł";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'j':
-                    key.popupCharacters = "\u0135";// "ĵ";
+                    key.popupCharacters = "\u0135"; // "ĵ";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'l':
-                    key.popupCharacters = "ľĺłλ";// "ł";
+                    key.popupCharacters = "ľĺłλ"; // "ł";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'o':
@@ -391,7 +459,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'u':
-                    key.popupCharacters = "\u00f9\u00fa\u00fb\u00fc\u016d\u0171\u016B";// "ùúûüŭű";
+                    key.popupCharacters = "\u00f9\u00fa\u00fb\u00fc\u016d\u0171\u016B"; // "ùúûüŭű";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 case 'n':

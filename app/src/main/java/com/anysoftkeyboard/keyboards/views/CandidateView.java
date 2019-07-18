@@ -36,7 +36,6 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions;
@@ -47,13 +46,11 @@ import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 
 public class CandidateView extends View implements ThemeableChild {
 
@@ -89,26 +86,27 @@ public class CandidateView extends View implements ThemeableChild {
     private int mTotalWidth;
 
     private boolean mAlwaysUseDrawText;
-    @NonNull
-    private Disposable mDisposable = Disposables.empty();
+    @NonNull private Disposable mDisposable = Disposables.empty();
 
     public CandidateView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    /**
-     * Construct a CandidateView for showing suggested words for completion.
-     */
+    /** Construct a CandidateView for showing suggested words for completion. */
     public CandidateView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mSelectionHighlight = ContextCompat.getDrawable(context, R.drawable.list_selector_background_pressed);
+        mSelectionHighlight =
+                ContextCompat.getDrawable(context, R.drawable.list_selector_background_pressed);
 
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
 
         mPaint = new Paint();
         mTextPaint = new TextPaint(mPaint);
-        final int minTouchableWidth = context.getResources().getDimensionPixelOffset(R.dimen.candidate_min_touchable_width);
-        mGestureDetector = new GestureDetector(context, new CandidateStripGestureListener(minTouchableWidth));
+        final int minTouchableWidth =
+                context.getResources()
+                        .getDimensionPixelOffset(R.dimen.candidate_min_touchable_width);
+        mGestureDetector =
+                new GestureDetector(context, new CandidateStripGestureListener(minTouchableWidth));
 
         setWillNotDraw(false);
         setHorizontalScrollBarEnabled(false);
@@ -127,34 +125,56 @@ public class CandidateView extends View implements ThemeableChild {
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         final Context context = getContext();
         final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
-        final int[] remoteStyleableArray = remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
-        mThemeOverlayCombiner.setThemeTextColor(new ColorStateList(new int[][]{{0}}, new int[]{ContextCompat.getColor(context, R.color.candidate_normal)}));
-        mThemeOverlayCombiner.setThemeNameTextColor(ContextCompat.getColor(context, R.color.candidate_recommended));
-        mThemeOverlayCombiner.setThemeHintTextColor(ContextCompat.getColor(context, R.color.candidate_other));
-        mHorizontalGap = context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
+        final int[] remoteStyleableArray =
+                remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        TypedArray a =
+                theme.getPackageContext()
+                        .obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
+        mThemeOverlayCombiner.setThemeTextColor(
+                new ColorStateList(
+                        new int[][] {{0}},
+                        new int[] {ContextCompat.getColor(context, R.color.candidate_normal)}));
+        mThemeOverlayCombiner.setThemeNameTextColor(
+                ContextCompat.getColor(context, R.color.candidate_recommended));
+        mThemeOverlayCombiner.setThemeHintTextColor(
+                ContextCompat.getColor(context, R.color.candidate_other));
+        mHorizontalGap =
+                context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
         mDivider = null;
         mCloseDrawable = null;
         setBackgroundDrawable(null);
         setBackgroundColor(Color.BLACK);
-        float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
+        float fontSizePixel =
+                context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
 
         final int resolvedAttrsCount = a.getIndexCount();
         for (int attrIndex = 0; attrIndex < resolvedAttrsCount; attrIndex++) {
             final int remoteIndex = a.getIndex(attrIndex);
             try {
-                //CHECKSTYLE:OFF: missingswitchdefault
+                // CHECKSTYLE:OFF: missingswitchdefault
                 switch (remoteAttrs.getLocalAttrId(remoteStyleableArray[remoteIndex])) {
                     case R.attr.suggestionNormalTextColor:
-                        mThemeOverlayCombiner.setThemeNameTextColor(a.getColor(remoteIndex, ContextCompat.getColor(context, R.color.candidate_normal)));
+                        mThemeOverlayCombiner.setThemeNameTextColor(
+                                a.getColor(
+                                        remoteIndex,
+                                        ContextCompat.getColor(context, R.color.candidate_normal)));
                         break;
                     case R.attr.suggestionRecommendedTextColor:
-                        mThemeOverlayCombiner.setThemeTextColor(new ColorStateList(new int[][]{{0}}, new int[]{
-                                a.getColor(remoteIndex, ContextCompat.getColor(context, R.color.candidate_recommended))
-                        }));
+                        mThemeOverlayCombiner.setThemeTextColor(
+                                new ColorStateList(
+                                        new int[][] {{0}},
+                                        new int[] {
+                                            a.getColor(
+                                                    remoteIndex,
+                                                    ContextCompat.getColor(
+                                                            context, R.color.candidate_recommended))
+                                        }));
                         break;
                     case R.attr.suggestionOthersTextColor:
-                        mThemeOverlayCombiner.setThemeHintTextColor(a.getColor(remoteIndex, ContextCompat.getColor(context, R.color.candidate_other)));
+                        mThemeOverlayCombiner.setThemeHintTextColor(
+                                a.getColor(
+                                        remoteIndex,
+                                        ContextCompat.getColor(context, R.color.candidate_other)));
                         break;
                     case R.attr.suggestionDividerImage:
                         mDivider = a.getDrawable(remoteIndex);
@@ -173,11 +193,14 @@ public class CandidateView extends View implements ThemeableChild {
                         if (stripImage != null) {
                             setBackgroundColor(Color.TRANSPARENT);
                             mThemeOverlayCombiner.setThemeKeyboardBackground(stripImage);
-                            setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
+                            setBackgroundDrawable(
+                                    mThemeOverlayCombiner
+                                            .getThemeResources()
+                                            .getKeyboardBackground());
                         }
                         break;
                 }
-                //CHECKSTYLE:ON: missingswitchdefault
+                // CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Got an exception while reading theme data", e);
             }
@@ -188,9 +211,11 @@ public class CandidateView extends View implements ThemeableChild {
             mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
         }
         if (mCloseDrawable == null) {
-            mCloseDrawable = ContextCompat.getDrawable(context, R.drawable.close_suggestions_strip_icon);
+            mCloseDrawable =
+                    ContextCompat.getDrawable(context, R.drawable.close_suggestions_strip_icon);
         }
-        mPaint.setColor(mThemeOverlayCombiner.getThemeResources().getKeyTextColor().getDefaultColor());
+        mPaint.setColor(
+                mThemeOverlayCombiner.getThemeResources().getKeyTextColor().getDefaultColor());
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(fontSizePixel);
         mPaint.setStrokeWidth(0);
@@ -201,10 +226,16 @@ public class CandidateView extends View implements ThemeableChild {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mDisposable = AnyApplication.prefs(getContext()).getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
-                .asObservable().subscribe(
-                        value -> mAlwaysUseDrawText = value,
-                        GenericOnError.onError("Failed reading settings_key_workaround_disable_rtl_fix in CandidateView."));
+        mDisposable =
+                AnyApplication.prefs(getContext())
+                        .getBoolean(
+                                R.string.settings_key_workaround_disable_rtl_fix,
+                                R.bool.settings_default_workaround_disable_rtl_fix)
+                        .asObservable()
+                        .subscribe(
+                                value -> mAlwaysUseDrawText = value,
+                                GenericOnError.onError(
+                                        "Failed reading settings_key_workaround_disable_rtl_fix in CandidateView."));
     }
 
     @Override
@@ -213,9 +244,7 @@ public class CandidateView extends View implements ThemeableChild {
         mDisposable.dispose();
     }
 
-    /**
-     * A connection back to the service to communicate with the text field
-     */
+    /** A connection back to the service to communicate with the text field */
     public void setService(AnySoftKeyboardSuggestions listener) {
         mService = listener;
     }
@@ -226,8 +255,8 @@ public class CandidateView extends View implements ThemeableChild {
     }
 
     /**
-     * If the canvas is null, then only touch calculations are performed to pick
-     * the target candidate.
+     * If the canvas is null, then only touch calculations are performed to pick the target
+     * candidate.
      */
     @Override
     protected void onDraw(Canvas canvas) {
@@ -242,8 +271,7 @@ public class CandidateView extends View implements ThemeableChild {
             if (getBackground() != null) {
                 getBackground().getPadding(mBgPadding);
             }
-            mDivider.setBounds(0, 0, mDivider.getIntrinsicWidth(),
-                    mDivider.getIntrinsicHeight());
+            mDivider.setBounds(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
         }
 
         final int dividerYOffset = (height - mDivider.getMinimumHeight()) / 2;
@@ -265,8 +293,8 @@ public class CandidateView extends View implements ThemeableChild {
             final int wordLength = suggestion.length();
 
             paint.setColor(themeResources.getNameTextColor());
-            if (mHaveMinimalSuggestion &&
-                    ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid))) {
+            if (mHaveMinimalSuggestion
+                    && ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid))) {
                 paint.setTypeface(Typeface.DEFAULT_BOLD);
                 paint.setColor(themeResources.getKeyTextColor().getDefaultColor());
                 // existsAutoCompletion = true;
@@ -289,13 +317,13 @@ public class CandidateView extends View implements ThemeableChild {
 
             mWordX[i] = x;
 
-            if (touchX != OUT_OF_BOUNDS_X_CORD && !scrolled
+            if (touchX != OUT_OF_BOUNDS_X_CORD
+                    && !scrolled
                     && touchX + scrollX >= x
                     && touchX + scrollX < x + wordWidth) {
                 if (canvas != null && !mShowingAddToDictionary) {
                     canvas.translate(x, 0);
-                    mSelectionHighlight.setBounds(0, bgPadding.top, wordWidth,
-                            height);
+                    mSelectionHighlight.setBounds(0, bgPadding.top, wordWidth, height);
                     mSelectionHighlight.draw(canvas);
                     canvas.translate(-x, 0);
                 }
@@ -318,9 +346,15 @@ public class CandidateView extends View implements ThemeableChild {
                     mTextPaint.setTypeface(paint.getTypeface());
                     mTextPaint.setColor(paint.getColor());
 
-                    StaticLayout suggestionText = new StaticLayout(suggestion,
-                            mTextPaint, wordWidth, Alignment.ALIGN_CENTER,
-                            1.0f, 0.0f, false);
+                    StaticLayout suggestionText =
+                            new StaticLayout(
+                                    suggestion,
+                                    mTextPaint,
+                                    wordWidth,
+                                    Alignment.ALIGN_CENTER,
+                                    1.0f,
+                                    0.0f,
+                                    false);
                     suggestionText.draw(canvas);
 
                     canvas.translate(-textX, -textY);
@@ -329,7 +363,7 @@ public class CandidateView extends View implements ThemeableChild {
                 paint.setColor(themeResources.getHintTextColor());
                 canvas.translate(x + wordWidth, 0);
                 // Draw a divider unless it's after the hint
-                //or the last suggested word
+                // or the last suggested word
                 if (count > 1 && !mShowingAddToDictionary && i != (count - 1)) {
                     canvas.translate(0, dividerYOffset);
                     mDivider.draw(canvas);
@@ -373,13 +407,16 @@ public class CandidateView extends View implements ThemeableChild {
     /**
      * Setup what's to display in the suggestions strip
      *
-     * @param suggestions           the list of words to show
-     * @param typedWordValid        the typed word (word at index 0) is a valid word
+     * @param suggestions the list of words to show
+     * @param typedWordValid the typed word (word at index 0) is a valid word
      * @param haveMinimalSuggestion the list of suggestions contains a valid word. So, either
-     *                              highlight the first word (typedWordValid == true), or
-     *                              highlight the second word (typedWordValid != true)
+     *     highlight the first word (typedWordValid == true), or highlight the second word
+     *     (typedWordValid != true)
      */
-    public void setSuggestions(@NonNull List<? extends CharSequence> suggestions, boolean typedWordValid, boolean haveMinimalSuggestion) {
+    public void setSuggestions(
+            @NonNull List<? extends CharSequence> suggestions,
+            boolean typedWordValid,
+            boolean haveMinimalSuggestion) {
         clear();
         int insertCount = Math.min(suggestions.size(), MAX_SUGGESTIONS);
         for (CharSequence suggestion : suggestions) {
@@ -393,7 +430,7 @@ public class CandidateView extends View implements ThemeableChild {
         scrollTo(0, getScrollY());
         mTargetScrollX = 0;
         mHaveMinimalSuggestion = haveMinimalSuggestion;
-        //re-drawing required.
+        // re-drawing required.
         invalidate();
     }
 
@@ -445,11 +482,15 @@ public class CandidateView extends View implements ThemeableChild {
         switch (action) {
             case MotionEvent.ACTION_MOVE:
                 // Fling up!?
-                //Fling up should be a hacker's way to delete words (user dictionary words)
+                // Fling up should be a hacker's way to delete words (user dictionary words)
                 if (y <= 0 && mSelectedString != null) {
-                    Logger.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
+                    Logger.d(
+                            TAG,
+                            "Fling up from candidates view. Deleting word at index %d, which is %s",
+                            mSelectedIndex,
+                            mSelectedString);
                     mService.removeFromUserDictionary(mSelectedString.toString());
-                    clear();//clear also calls invalidate().
+                    clear(); // clear also calls invalidate().
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -457,7 +498,10 @@ public class CandidateView extends View implements ThemeableChild {
                     if (mShowingAddToDictionary) {
                         final CharSequence word = mSuggestions.get(0);
                         if (word.length() >= 2 && !mNoticing) {
-                            Logger.d(TAG, "User wants to add the word '%s' to the user-dictionary.", word);
+                            Logger.d(
+                                    TAG,
+                                    "User wants to add the word '%s' to the user-dictionary.",
+                                    word);
                             mService.addWordToDictionary(word.toString());
                         }
                     } else if (!mNoticing) {
@@ -468,12 +512,13 @@ public class CandidateView extends View implements ThemeableChild {
                         mService.removeFromUserDictionary(mJustAddedWord.toString());
                     }
                 }
-                //allowing fallthrough to call invalidate.
-            case MotionEvent.ACTION_DOWN:
+                break;
             default:
-                invalidate();
                 break;
         }
+
+        invalidate();
+
         return true;
     }
 
@@ -513,8 +558,7 @@ public class CandidateView extends View implements ThemeableChild {
         return mCloseDrawable;
     }
 
-    private class CandidateStripGestureListener extends
-            GestureDetector.SimpleOnGestureListener {
+    private class CandidateStripGestureListener extends GestureDetector.SimpleOnGestureListener {
         private final int mTouchSlopSquare;
 
         public CandidateStripGestureListener(int touchSlop) {
@@ -530,8 +574,7 @@ public class CandidateView extends View implements ThemeableChild {
         }
 
         @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2,
-                float distanceX, float distanceY) {
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             if (!mScrolled) {
                 // This is applied only when we recognize that scrolling is
                 // starting.

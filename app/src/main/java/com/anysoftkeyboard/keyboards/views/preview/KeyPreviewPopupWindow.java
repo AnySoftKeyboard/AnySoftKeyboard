@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
@@ -50,19 +49,27 @@ class KeyPreviewPopupWindow implements KeyPreview {
         mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
         mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
         mPreviewIcon = mPreviewLayout.findViewById(R.id.key_preview_icon);
-        mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
+        mPopupWindow.setBackgroundDrawable(
+                mPreviewPopupTheme
+                        .getPreviewKeyBackground()
+                        .getConstantState()
+                        .newDrawable(context.getResources()));
         mPopupWindow.setContentView(mPreviewLayout);
-        mOffsetContentByKeyHeight = shouldExtendPopupHeight(previewPopupTheme.getPreviewAnimationType());
+        mOffsetContentByKeyHeight =
+                shouldExtendPopupHeight(previewPopupTheme.getPreviewAnimationType());
         mPopupWindow.setTouchable(false);
-        mPopupWindow.setAnimationStyle(getKeyPreviewAnimationStyle(previewPopupTheme.getPreviewAnimationType()));
+        mPopupWindow.setAnimationStyle(
+                getKeyPreviewAnimationStyle(previewPopupTheme.getPreviewAnimationType()));
     }
 
-    private static boolean shouldExtendPopupHeight(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
+    private static boolean shouldExtendPopupHeight(
+            @PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
         return previewAnimationType == PreviewPopupTheme.ANIMATION_STYLE_EXTEND;
     }
 
     @StyleRes
-    private static int getKeyPreviewAnimationStyle(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
+    private static int getKeyPreviewAnimationStyle(
+            @PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
         switch (previewAnimationType) {
             case PreviewPopupTheme.ANIMATION_STYLE_APPEAR:
                 return R.style.KeyPreviewAnimationAppear;
@@ -83,18 +90,22 @@ class KeyPreviewPopupWindow implements KeyPreview {
 
         mPreviewText.setText(label);
         if (label.length() > 1 && key.getCodesCount() < 2) {
-            mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    mPreviewPopupTheme.getPreviewLabelTextSize());
+            mPreviewText.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX, mPreviewPopupTheme.getPreviewLabelTextSize());
         } else {
-            mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    mPreviewPopupTheme.getPreviewKeyTextSize());
+            mPreviewText.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX, mPreviewPopupTheme.getPreviewKeyTextSize());
         }
 
         mPreviewText.measure(
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
-        showPopup(key, mPreviewText.getMeasuredWidth(), mPreviewText.getMeasuredHeight(), previewPosition);
+        showPopup(
+                key,
+                mPreviewText.getMeasuredWidth(),
+                mPreviewText.getMeasuredHeight(),
+                previewPosition);
     }
 
     @Override
@@ -109,10 +120,15 @@ class KeyPreviewPopupWindow implements KeyPreview {
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         mPreviewText.setText(null);
-        showPopup(key, mPreviewIcon.getMeasuredWidth(), mPreviewIcon.getMeasuredHeight(), previewPosition);
+        showPopup(
+                key,
+                mPreviewIcon.getMeasuredWidth(),
+                mPreviewIcon.getMeasuredHeight(),
+                previewPosition);
     }
 
-    private void showPopup(Keyboard.Key key, int contentWidth, int contentHeight, Point previewPosition) {
+    private void showPopup(
+            Keyboard.Key key, int contentWidth, int contentHeight, Point previewPosition) {
         contentWidth = Math.max(contentWidth, key.width);
         if (mOffsetContentByKeyHeight) contentHeight += key.height;
         contentHeight = Math.max(contentHeight, key.height);
@@ -152,17 +168,18 @@ class KeyPreviewPopupWindow implements KeyPreview {
                 // I don't understand why this should happen, and only with MIUI
                 // ROMs.
                 // anyhow, it easy to hide :)
-                mPopupWindow.showAtLocation(mParentView, Gravity.NO_GRAVITY, popupPreviewX, popupPreviewY);
+                mPopupWindow.showAtLocation(
+                        mParentView, Gravity.NO_GRAVITY, popupPreviewX, popupPreviewY);
             } catch (RuntimeException e) {
                 // nothing to do here. I think.
             }
-
         }
         mPreviewLayout.setVisibility(View.VISIBLE);
 
         // Set the preview background state
         if (previewKeyBackground != null) {
-            previewKeyBackground.setState(key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
+            previewKeyBackground.setState(
+                    key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
         }
 
         mPreviewLayout.requestLayout();

@@ -3,18 +3,17 @@ package com.anysoftkeyboard.ime;
 import android.os.Handler;
 import android.os.Message;
 import android.view.inputmethod.InputConnection;
-
 import com.menny.android.anysoftkeyboard.R;
-
 import java.lang.ref.WeakReference;
 
-/**
- * handles all kind of UI thread related operations.
- */
+/** handles all kind of UI thread related operations. */
 public final class KeyboardUIStateHandler extends Handler {
-    public static final int MSG_UPDATE_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_UPDATE_SUGGESTIONS;
-    public static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS;
-    public static final int MSG_CLOSE_DICTIONARIES = R.id.keyboard_ui_handler_MSG_CLOSE_DICTIONARIES;
+    public static final int MSG_UPDATE_SUGGESTIONS =
+            R.id.keyboard_ui_handler_MSG_UPDATE_SUGGESTIONS;
+    public static final int MSG_RESTART_NEW_WORD_SUGGESTIONS =
+            R.id.keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS;
+    public static final int MSG_CLOSE_DICTIONARIES =
+            R.id.keyboard_ui_handler_MSG_CLOSE_DICTIONARIES;
 
     private final WeakReference<AnySoftKeyboardSuggestions> mKeyboard;
 

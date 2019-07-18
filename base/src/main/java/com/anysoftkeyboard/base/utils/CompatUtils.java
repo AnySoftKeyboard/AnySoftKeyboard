@@ -23,7 +23,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.PopupWindow;
-
 import com.getkeepsafe.relinker.ReLinker;
 
 public class CompatUtils {
@@ -40,7 +39,11 @@ public class CompatUtils {
         if (d != null) d.setCallback(null);
     }
 
-    public static void loadNativeLibrary(@NonNull Context context, @NonNull String library, @NonNull String libraryVersion, final boolean isDebug) {
+    public static void loadNativeLibrary(
+            @NonNull Context context,
+            @NonNull String library,
+            @NonNull String libraryVersion,
+            final boolean isDebug) {
         if (Build.VERSION.SDK_INT >= 9 && !isDebug) {
             ReLinker.loadLibrary(context, library, libraryVersion);
         } else {
@@ -51,9 +54,20 @@ public class CompatUtils {
                 Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
                 Log.e(TAG, "******** Could not load native library " + library + " ********");
             } catch (Throwable t) {
-                Log.e(TAG, "******** Failed to load native dictionary library " + library + " ********");
-                Log.e(TAG, "******** Failed to load native dictionary library " + library + " *******", t);
-                Log.e(TAG, "******** Failed to load native dictionary library " + library + " ********");
+                Log.e(
+                        TAG,
+                        "******** Failed to load native dictionary library "
+                                + library
+                                + " ********");
+                Log.e(
+                        TAG,
+                        "******** Failed to load native dictionary library " + library + " *******",
+                        t);
+                Log.e(
+                        TAG,
+                        "******** Failed to load native dictionary library "
+                                + library
+                                + " ********");
             }
         }
     }

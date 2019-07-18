@@ -1,8 +1,6 @@
 package com.anysoftkeyboard.base.utils;
 
-/**
- * Doesn't do anything. For release.
- */
+/** Doesn't do anything. For release. */
 public class NullLogProvider implements LogProvider {
 
     @Override
@@ -11,8 +9,7 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void v(String tag, String text) {
-    }
+    public void v(String tag, String text) {}
 
     @Override
     public boolean supportsD() {
@@ -20,8 +17,7 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void d(String tag, String text) {
-    }
+    public void d(String tag, String text) {}
 
     @Override
     public boolean supportsYell() {
@@ -29,9 +25,7 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void yell(String tag, String text) {
-
-    }
+    public void yell(String tag, String text) {}
 
     @Override
     public boolean supportsI() {
@@ -39,9 +33,7 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void i(String tag, String text) {
-
-    }
+    public void i(String tag, String text) {}
 
     @Override
     public boolean supportsW() {
@@ -49,9 +41,7 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void w(String tag, String text) {
-
-    }
+    public void w(String tag, String text) {}
 
     @Override
     public boolean supportsE() {
@@ -59,9 +49,7 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void e(String tag, String text) {
-
-    }
+    public void e(String tag, String text) {}
 
     @Override
     public boolean supportsWTF() {
@@ -69,7 +57,5 @@ public class NullLogProvider implements LogProvider {
     }
 
     @Override
-    public void wtf(String tag, String text) {
-
-    }
+    public void wtf(String tag, String text) {}
 }

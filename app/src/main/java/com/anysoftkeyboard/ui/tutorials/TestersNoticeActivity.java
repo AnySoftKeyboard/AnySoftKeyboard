@@ -19,7 +19,6 @@ package com.anysoftkeyboard.ui.tutorials;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-
 import com.menny.android.anysoftkeyboard.R;
 
 public class TestersNoticeActivity extends Activity {

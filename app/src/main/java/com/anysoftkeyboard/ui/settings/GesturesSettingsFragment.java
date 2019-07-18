@@ -23,13 +23,10 @@ import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
-
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.pixel.GeneralDialogController;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.evendanan.pixel.GeneralDialogController;
 
 public class GesturesSettingsFragment extends PreferenceFragmentCompat {
 
@@ -41,10 +38,12 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
         mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
     }
 
-    private void setupDialog(android.support.v7.app.AlertDialog.Builder builder, int optionId, Object data) {
+    private void setupDialog(
+            android.support.v7.app.AlertDialog.Builder builder, int optionId, Object data) {
         builder.setTitle(R.string.gesture_typing_alert_title)
                 .setMessage(R.string.gesture_typing_alert_message)
-                .setPositiveButton(R.string.gesture_typing_alert_button, (dialog, which) -> dialog.dismiss());
+                .setPositiveButton(
+                        R.string.gesture_typing_alert_button, (dialog, which) -> dialog.dismiss());
     }
 
     @VisibleForTesting
@@ -62,24 +61,30 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findPreference(getString(R.string.settings_key_gesture_typing)).setOnPreferenceChangeListener((preference, newValue) -> {
-            final boolean gestureTypingEnabled = (boolean) newValue;
-            if (gestureTypingEnabled) {
-                mGeneralDialogController.showDialog(1);
-            }
-            for (Preference affectedPref : getAffectedPrefs()) {
-                affectedPref.setEnabled(!gestureTypingEnabled);
-            }
-            return true;
-        });
+        findPreference(getString(R.string.settings_key_gesture_typing))
+                .setOnPreferenceChangeListener(
+                        (preference, newValue) -> {
+                            final boolean gestureTypingEnabled = (boolean) newValue;
+                            if (gestureTypingEnabled) {
+                                mGeneralDialogController.showDialog(1);
+                            }
+                            for (Preference affectedPref : getAffectedPrefs()) {
+                                affectedPref.setEnabled(!gestureTypingEnabled);
+                            }
+                            return true;
+                        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.unicode_gestures_quick_text_key_name));
+        MainSettingsActivity.setActivityTitle(
+                this, getString(R.string.unicode_gestures_quick_text_key_name));
 
-        final boolean gestureTypingEnabled = ((CheckBoxPreference) findPreference(getString(R.string.settings_key_gesture_typing))).isChecked();
+        final boolean gestureTypingEnabled =
+                ((CheckBoxPreference)
+                                findPreference(getString(R.string.settings_key_gesture_typing)))
+                        .isChecked();
         for (Preference affectedPref : getAffectedPrefs()) {
             affectedPref.setEnabled(!gestureTypingEnabled);
         }

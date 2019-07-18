@@ -29,40 +29,45 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
-
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.lang.ref.WeakReference;
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pixel.EdgeEffectHacker;
-
-import java.lang.ref.WeakReference;
 
 public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
 
     private AlertDialog mAlertDialog;
 
-    private final DialogInterface.OnClickListener mContactsDictionaryDialogListener = (dialog, which) -> {
-        switch (which) {
-            case DialogInterface.BUTTON_POSITIVE:
-                if (ActivityCompat.shouldShowRequestPermissionRationale(BasicAnyActivity.this, Manifest.permission.READ_CONTACTS)) {
-                    startContactsPermissionRequest();
-                } else {
-                    startAppPermissionsActivity();
+    private final DialogInterface.OnClickListener mContactsDictionaryDialogListener =
+            (dialog, which) -> {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                                BasicAnyActivity.this, Manifest.permission.READ_CONTACTS)) {
+                            startContactsPermissionRequest();
+                        } else {
+                            startAppPermissionsActivity();
+                        }
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        SharedPreferences sharedPreferences =
+                                PreferenceManager.getDefaultSharedPreferences(
+                                        getApplicationContext());
+                        final SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(
+                                getString(R.string.settings_key_use_contacts_dictionary), false);
+                        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                                "Failed to handle "
+                                        + which
+                                        + " in mContactsDictionaryDialogListener");
                 }
-                break;
-            case DialogInterface.BUTTON_NEGATIVE:
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                final SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-                break;
-            default:
-                throw new IllegalArgumentException("Failed to handle " + which + " in mContactsDictionaryDialogListener");
-        }
-    };
+            };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -78,7 +83,7 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        //applying my very own Edge-Effect color
+        // applying my very own Edge-Effect color
         EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
     }
 
@@ -108,7 +113,8 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
 
     @NonNull
     @Override
-    protected PermissionsRequest createPermissionRequestFromIntentRequest(int requestId, @NonNull String[] permissions, @NonNull Intent intent) {
+    protected PermissionsRequest createPermissionRequestFromIntentRequest(
+            int requestId, @NonNull String[] permissions, @NonNull Intent intent) {
         if (requestId == PermissionsRequestCodes.CONTACTS.getRequestCode()) {
             return new ContactPermissionRequest(this);
         } else {
@@ -116,12 +122,15 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
         }
     }
 
-    private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
+    private static class ContactPermissionRequest
+            extends PermissionsRequest.PermissionsRequestBase {
 
         private final WeakReference<BasicAnyActivity> mMainSettingsActivityWeakReference;
 
         ContactPermissionRequest(BasicAnyActivity activity) {
-            super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+            super(
+                    PermissionsRequestCodes.CONTACTS.getRequestCode(),
+                    Manifest.permission.READ_CONTACTS);
             mMainSettingsActivityWeakReference = new WeakReference<>(activity);
         }
 
@@ -134,20 +143,33 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
         }
 
         @Override
-        public void onPermissionsDenied(@NonNull String[] grantedPermissions, @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
+        public void onPermissionsDenied(
+                @NonNull String[] grantedPermissions,
+                @NonNull String[] deniedPermissions,
+                @NonNull String[] declinedPermissions) {
             BasicAnyActivity activity = mMainSettingsActivityWeakReference.get();
             if (activity == null) return;
-            //if the result is DENIED and the OS says "do not show rationale", it means the user has ticked "Don't ask me again".
-            final boolean userSaysDontAskAgain = !ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_CONTACTS);
-            //the user has denied us from reading the Contacts information.
-            //I'll ask them to whether they want to grant anyway, or disable ContactDictionary
+            // if the result is DENIED and the OS says "do not show rationale", it means the user
+            // has ticked "Don't ask me again".
+            final boolean userSaysDontAskAgain =
+                    !ActivityCompat.shouldShowRequestPermissionRationale(
+                            activity, Manifest.permission.READ_CONTACTS);
+            // the user has denied us from reading the Contacts information.
+            // I'll ask them to whether they want to grant anyway, or disable ContactDictionary
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setCancelable(true);
             builder.setIcon(R.drawable.ic_notification_contacts_permission_required);
             builder.setTitle(R.string.notification_read_contacts_title);
             builder.setMessage(activity.getString(R.string.contacts_permissions_dialog_message));
-            builder.setPositiveButton(activity.getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), activity.mContactsDictionaryDialogListener);
-            builder.setNegativeButton(activity.getString(R.string.turn_off_contacts_dictionary), activity.mContactsDictionaryDialogListener);
+            builder.setPositiveButton(
+                    activity.getString(
+                            userSaysDontAskAgain
+                                    ? R.string.navigate_to_app_permissions
+                                    : R.string.allow_permission),
+                    activity.mContactsDictionaryDialogListener);
+            builder.setNegativeButton(
+                    activity.getString(R.string.turn_off_contacts_dictionary),
+                    activity.mContactsDictionaryDialogListener);
 
             if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing())
                 activity.mAlertDialog.dismiss();

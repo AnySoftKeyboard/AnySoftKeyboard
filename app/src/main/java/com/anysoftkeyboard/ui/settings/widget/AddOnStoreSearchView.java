@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -65,7 +64,8 @@ public class AddOnStoreSearchView extends FrameLayout implements OnClickListener
         }
     }
 
-    public static boolean startMarketActivity(@NonNull Context context, @NonNull String marketKeyword) {
+    public static boolean startMarketActivity(
+            @NonNull Context context, @NonNull String marketKeyword) {
         try {
             Intent search = new Intent(Intent.ACTION_VIEW);
             search.setData(Uri.parse("market://search?q=AnySoftKeyboard " + marketKeyword));

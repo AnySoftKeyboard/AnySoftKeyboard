@@ -28,19 +28,13 @@ public class WordComposer implements KeyCodesProvider {
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
 
     private static final int[] EMPTY_CODES_ARRAY = new int[0];
-    /**
-     * The list of unicode values for each keystroke (including surrounding keys)
-     */
+    /** The list of unicode values for each keystroke (including surrounding keys) */
     private final ArrayList<int[]> mCodes = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
 
-    /**
-     * This holds arrays for reuse. Will not exceed AndroidUserDictionary.MAX_WORD_LENGTH
-     */
+    /** This holds arrays for reuse. Will not exceed AndroidUserDictionary.MAX_WORD_LENGTH */
     private final List<int[]> mArraysToReuse = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
 
-    /**
-     * The word chosen from the candidate list, until it is committed.
-     */
+    /** The word chosen from the candidate list, until it is committed. */
     private CharSequence mPreferredWord;
 
     private final StringBuilder mTypedWord = new StringBuilder(Dictionary.MAX_WORD_LENGTH);
@@ -51,19 +45,14 @@ public class WordComposer implements KeyCodesProvider {
 
     private boolean mAutoCapitalized;
 
-    /**
-     * Whether the user chose to capitalize the first char of the word.
-     */
+    /** Whether the user chose to capitalize the first char of the word. */
     private boolean mIsFirstCharCapitalized;
 
-    public WordComposer() {
-    }
+    public WordComposer() {}
 
-    /**
-     * Clear out the keys registered so far.
-     */
+    /** Clear out the keys registered so far. */
     public void reset() {
-        //moving arrays back to re-use list
+        // moving arrays back to re-use list
         mArraysToReuse.addAll(mCodes);
         mCodes.clear();
         mIsFirstCharCapitalized = false;
@@ -83,22 +72,20 @@ public class WordComposer implements KeyCodesProvider {
         return mTypedWord.length();
     }
 
-    /**
-     * Cursor position
-     */
+    /** Cursor position */
     public int cursorPosition() {
         return mCursorPosition;
     }
 
-    public boolean setCursorPosition(int position/*, int candidatesStartPosition*/) {
+    public boolean setCursorPosition(int position /*, int candidatesStartPosition*/) {
         if (position < 0 || position > length()) {
-            //note: the cursor can be AFTER the word, so it can be equal to size()
+            // note: the cursor can be AFTER the word, so it can be equal to size()
             return false;
         }
         final boolean changed = mCursorPosition != position;
         mCursorPosition = position;
         return changed;
-        //mCandidatesStartPosition = candidatesStartPosition;
+        // mCandidatesStartPosition = candidatesStartPosition;
     }
     /*
     public boolean hasUserMovedCursor(int cursorPosition)
@@ -109,7 +96,7 @@ public class WordComposer implements KeyCodesProvider {
         }
         return (cursorPosition != (mCursorPosition + mCandidatesStartPosition));
     }
-    
+
     public boolean hasUserMovedCursorInsideOfWord(int cursorPosition)
     {
         if (AnyApplication.DEBUG)
@@ -132,8 +119,8 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     /**
-     * Add a new keystroke, with codes[0] containing the pressed key's unicode and the rest of
-     * the array containing unicode for adjacent keys, sorted by reducing probability/proximity.
+     * Add a new keystroke, with codes[0] containing the pressed key's unicode and the rest of the
+     * array containing unicode for adjacent keys, sorted by reducing probability/proximity.
      *
      * @param codes the array of unicode values
      */
@@ -142,7 +129,7 @@ public class WordComposer implements KeyCodesProvider {
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
 
         correctPrimaryJuxtapos(primaryCode, codes);
-        //this will return a copy of the codes array, stored in an array with sufficent storage 
+        // this will return a copy of the codes array, stored in an array with sufficent storage
         int[] reusableArray = getReusableArray(codes);
         mCodes.add(mCursorPosition, reusableArray);
         mCursorPosition++;
@@ -155,7 +142,7 @@ public class WordComposer implements KeyCodesProvider {
         mTypedWord.setLength(0);
         mTypedWord.insert(mCursorPosition, typedWord);
 
-        for (int charIndex=0; charIndex<typedWord.length(); charIndex++) {
+        for (int charIndex = 0; charIndex < typedWord.length(); charIndex++) {
             mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
             if (Character.isUpperCase(typedWord.charAt(charIndex))) mCapsCount++;
         }
@@ -166,7 +153,7 @@ public class WordComposer implements KeyCodesProvider {
     private int[] getReusableArray(int[] codes) {
         while (mArraysToReuse.size() > 0) {
             int[] possibleArray = mArraysToReuse.remove(0);
-            //is it usable in this situation?
+            // is it usable in this situation?
             if (possibleArray.length >= codes.length) {
                 System.arraycopy(codes, 0, possibleArray, 0, codes.length);
                 if (possibleArray.length > codes.length)
@@ -174,7 +161,7 @@ public class WordComposer implements KeyCodesProvider {
                 return possibleArray;
             }
         }
-        //if I got here, it means that the reusableArray does not contain a long enough array
+        // if I got here, it means that the reusableArray does not contain a long enough array
         int[] newArray = new int[codes.length];
         mArraysToReuse.add(newArray);
         return getReusableArray(codes);
@@ -185,7 +172,7 @@ public class WordComposer implements KeyCodesProvider {
      * value in the array but the second. This happens when the preferred key is not the key that
      * the user released the finger on.
      *
-     * @param primaryCode    the preferred character
+     * @param primaryCode the preferred character
      * @param nearByKeyCodes array of codes based on distance from touch point
      */
     private static void correctPrimaryJuxtapos(int primaryCode, int[] nearByKeyCodes) {
@@ -194,7 +181,10 @@ public class WordComposer implements KeyCodesProvider {
             codes[1] = codes[0];
             codes[0] = primaryCode;
         }*/
-        if (nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0] && primaryCode != Character.toLowerCase((char) nearByKeyCodes[0])) {
+        if (nearByKeyCodes != null
+                && nearByKeyCodes.length > 1
+                && primaryCode != nearByKeyCodes[0]
+                && primaryCode != Character.toLowerCase((char) nearByKeyCodes[0])) {
             int swappedItem = nearByKeyCodes[0];
             nearByKeyCodes[0] = primaryCode;
             boolean found = false;
@@ -205,19 +195,17 @@ public class WordComposer implements KeyCodesProvider {
                     break;
                 }
             }
-            if (!found) //reverting
-                nearByKeyCodes[0] = swappedItem;
+            if (!found) // reverting
+            nearByKeyCodes[0] = swappedItem;
         }
     }
 
-    /**
-     * Delete the last keystroke as a result of hitting backspace.
-     */
+    /** Delete the last keystroke as a result of hitting backspace. */
     public void deleteLast() {
         if (mCursorPosition > 0) {
-            //removing from the codes list, and taking it back to the reusable list
+            // removing from the codes list, and taking it back to the reusable list
             mArraysToReuse.add(mCodes.remove(mCursorPosition - 1));
-            //final int lastPos = mTypedWord.length() - 1;
+            // final int lastPos = mTypedWord.length() - 1;
             char last = mTypedWord.charAt(mCursorPosition - 1);
             mTypedWord.deleteCharAt(mCursorPosition - 1);
             mCursorPosition--;
@@ -225,9 +213,7 @@ public class WordComposer implements KeyCodesProvider {
         }
     }
 
-    /**
-     * Delete the character after the cursor
-     */
+    /** Delete the character after the cursor */
     public void deleteForward() {
         if (mCursorPosition < mTypedWord.length()) {
             mArraysToReuse.add(mCodes.remove(mCursorPosition));
@@ -277,9 +263,7 @@ public class WordComposer implements KeyCodesProvider {
         return (mCapsCount > 0) && (mCapsCount == length());
     }
 
-    /**
-     * Stores the user's selected word, before it is actually committed to the text field.
-     */
+    /** Stores the user's selected word, before it is actually committed to the text field. */
     public void setPreferredWord(CharSequence preferred) {
         mPreferredWord = preferred;
     }
@@ -288,16 +272,14 @@ public class WordComposer implements KeyCodesProvider {
         return mPreferredWord;
     }
 
-    /**
-     * Returns true if more than one character is upper case, otherwise returns false.
-     */
+    /** Returns true if more than one character is upper case, otherwise returns false. */
     public boolean isMostlyCaps() {
         return mCapsCount > 1;
     }
 
     /**
-     * Saves the reason why the word is capitalized - whether it was automatic or
-     * due to the user hitting shift in the middle of a sentence.
+     * Saves the reason why the word is capitalized - whether it was automatic or due to the user
+     * hitting shift in the middle of a sentence.
      *
      * @param auto whether it was an automatic capitalization due to start of sentence
      */
@@ -316,7 +298,11 @@ public class WordComposer implements KeyCodesProvider {
 
     public String logCodes() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Word: ").append(mTypedWord).append(", preferred word:").append(mPreferredWord);
+        stringBuilder
+                .append("Word: ")
+                .append(mTypedWord)
+                .append(", preferred word:")
+                .append(mPreferredWord);
         int i = 0;
         for (int[] codes : mCodes) {
             stringBuilder.append("\n");

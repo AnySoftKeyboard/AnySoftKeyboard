@@ -6,15 +6,14 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.base.utils.Logger;
-
 import java.util.Locale;
 
 public class LocaleTools {
     private static final String TAG = "ASK_LocaleTools";
 
-    public static void applyLocaleToContext(@NonNull Context context, @Nullable String localeString) {
+    public static void applyLocaleToContext(
+            @NonNull Context context, @Nullable String localeString) {
         final Locale forceLocale = LocaleTools.getLocaleForLocaleString(localeString);
 
         final Configuration configuration = context.getResources().getConfiguration();
@@ -37,13 +36,13 @@ public class LocaleTools {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     parsedLocale = Locale.forLanguageTag(localeString);
                 } else {
-                    //first, we'll try to be nice citizens
+                    // first, we'll try to be nice citizens
                     for (Locale locale : Locale.getAvailableLocales()) {
                         if (localeString.equals(locale.getLanguage())) {
                             return locale;
                         }
                     }
-                    //couldn't find it. Trying to force it.
+                    // couldn't find it. Trying to force it.
                     parsedLocale = new Locale(localeString);
                 }
 

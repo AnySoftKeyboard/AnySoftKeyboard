@@ -7,16 +7,11 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
-
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by suntabu on 17/9/27.
- */
+/** Created by suntabu on 17/9/27. */
 public class GestureTypingPathDrawHelper {
 
     static class LineElement {
@@ -74,7 +69,7 @@ public class GestureTypingPathDrawHelper {
 
         // for the first line
         void updatePath() {
-            //update path
+            // update path
             mPath.reset();
             mPath.moveTo(mPoints[0].x, mPoints[0].y);
             mPath.lineTo(mPoints[1].x, mPoints[1].y);
@@ -99,7 +94,7 @@ public class GestureTypingPathDrawHelper {
         float mEndY = -1;
         Paint mPaint;
         Path mPath;
-        PointF[] mPoints = new PointF[4]; //path's vertex
+        PointF[] mPoints = new PointF[4]; // path's vertex
         float mPathWidth;
         float mTempPathWidth;
 
@@ -112,17 +107,16 @@ public class GestureTypingPathDrawHelper {
         void invalidate();
     }
 
-    @NonNull
-    private final OnInvalidateCallback mCallback;
-    @NonNull
-    private LineElement mCurrentLine;
-    @NonNull
-    private final List<LineElement> mLines = new ArrayList<>();
+    @NonNull private final OnInvalidateCallback mCallback;
+    @NonNull private LineElement mCurrentLine;
+    @NonNull private final List<LineElement> mLines = new ArrayList<>();
     private final float mStrokeWidth;
-    @NonNull
-    private final Paint mPaint;
+    @NonNull private final Paint mPaint;
 
-    public GestureTypingPathDrawHelper(@NonNull Context context, @NonNull OnInvalidateCallback callback, @NonNull Paint paint) {
+    public GestureTypingPathDrawHelper(
+            @NonNull Context context,
+            @NonNull OnInvalidateCallback callback,
+            @NonNull Paint paint) {
         mPaint = paint;
         mCallback = callback;
         mStrokeWidth = context.getResources().getDimension(R.dimen.gesture_stroke_width);
@@ -145,8 +139,7 @@ public class GestureTypingPathDrawHelper {
 
         int action = event.getAction();
 
-
-        if (action == MotionEvent.ACTION_UP) {// end one line after finger release
+        if (action == MotionEvent.ACTION_UP) { // end one line after finger release
             if (isValidLine(mCurrentLine.mStartX, mCurrentLine.mStartY, x, y)) {
                 mCurrentLine.mEndX = x;
                 mCurrentLine.mEndY = y;
@@ -155,7 +148,8 @@ public class GestureTypingPathDrawHelper {
 
             mLines.clear();
             mCurrentLine = new LineElement(mStrokeWidth);
-        } else if (action == MotionEvent.ACTION_MOVE && isValidLine(mCurrentLine.mStartX, mCurrentLine.mStartY, x, y)) {
+        } else if (action == MotionEvent.ACTION_MOVE
+                && isValidLine(mCurrentLine.mStartX, mCurrentLine.mStartY, x, y)) {
             if (mCurrentLine.mStartX == -1) {
                 mCurrentLine.mStartX = x;
                 mCurrentLine.mStartY = y;
@@ -180,7 +174,6 @@ public class GestureTypingPathDrawHelper {
     private void updatePaths() {
         int size = mLines.size();
         if (size == 0) return;
-
 
         LineElement line = null;
         int j = 0;

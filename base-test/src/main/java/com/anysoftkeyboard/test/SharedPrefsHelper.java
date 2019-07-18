@@ -21,7 +21,8 @@ public class SharedPrefsHelper {
     }
 
     public static SharedPreferences setPrefsValue(String key, String value) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().putString(key, value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
@@ -29,14 +30,16 @@ public class SharedPrefsHelper {
     }
 
     public static SharedPreferences setPrefsValue(String key, boolean value) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().putBoolean(key, value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         return preferences;
     }
 
     public static SharedPreferences setPrefsValue(String key, int value) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().putInt(key, value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         return preferences;
@@ -47,23 +50,27 @@ public class SharedPrefsHelper {
     }
 
     public static void clearPrefsValue(String key) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().remove(key);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static boolean getPrefValue(@StringRes int keyStringRes, boolean defaultValue) {
         final String key = getApplicationContext().getResources().getString(keyStringRes);
-        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getBoolean(key, defaultValue);
     }
 
     public static int getPrefValue(@StringRes int keyStringRes, int defaultValue) {
         final String key = getApplicationContext().getResources().getString(keyStringRes);
-        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getInt(key, defaultValue);
     }
 
     public static String getPrefValue(@StringRes int keyStringRes, String defaultValue) {
         final String key = getApplicationContext().getResources().getString(keyStringRes);
-        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getString(key, defaultValue);
     }
 }

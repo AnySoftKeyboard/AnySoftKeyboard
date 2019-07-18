@@ -1,24 +1,20 @@
 package com.anysoftkeyboard.keyboards.views;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static org.mockito.ArgumentMatchers.any;
 
 import android.view.LayoutInflater;
 import android.view.View;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-
-import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardViewContainerViewTest {
@@ -27,7 +23,10 @@ public class KeyboardViewContainerViewTest {
 
     @Before
     public void setup() {
-        mUnderTest = (KeyboardViewContainerView) LayoutInflater.from(getApplicationContext()).inflate(R.layout.main_keyboard_layout, null, false);
+        mUnderTest =
+                (KeyboardViewContainerView)
+                        LayoutInflater.from(getApplicationContext())
+                                .inflate(R.layout.main_keyboard_layout, null, false);
         Assert.assertNotNull(mUnderTest.getCandidateView());
         Assert.assertNotNull(mUnderTest.getStandardKeyboardView());
     }
@@ -53,7 +52,9 @@ public class KeyboardViewContainerViewTest {
 
     @Test
     public void testAddViewWhenHasThemeWasSet() {
-        mUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(ApplicationProvider.getApplicationContext()).getEnabledAddOn());
+        mUnderTest.setKeyboardTheme(
+                AnyApplication.getKeyboardThemeFactory(ApplicationProvider.getApplicationContext())
+                        .getEnabledAddOn());
         AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
         mUnderTest.addView(mock);
 
@@ -73,7 +74,8 @@ public class KeyboardViewContainerViewTest {
 
         mUnderTest.addView(mock1);
 
-        Mockito.verify(mock1, Mockito.never()).setOnKeyboardActionListener(any(OnKeyboardActionListener.class));
+        Mockito.verify(mock1, Mockito.never())
+                .setOnKeyboardActionListener(any(OnKeyboardActionListener.class));
 
         final OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
 
@@ -120,7 +122,8 @@ public class KeyboardViewContainerViewTest {
     @Test
     public void testAddRemoveAction() {
         View view = new View(mUnderTest.getContext());
-        KeyboardViewContainerView.StripActionProvider provider = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        KeyboardViewContainerView.StripActionProvider provider =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
         Mockito.doReturn(view).when(provider).inflateActionView(any());
 
         mUnderTest.addStripAction(provider);
@@ -138,10 +141,11 @@ public class KeyboardViewContainerViewTest {
     @Test
     public void testStripVisibility() {
         final int initialChildCount = mUnderTest.getChildCount();
-        final int actionViewId = R.id.demo_keyboard_view/*can be whatever*/;
+        final int actionViewId = R.id.demo_keyboard_view /*can be whatever*/;
         View view = new View(mUnderTest.getContext());
         view.setId(actionViewId);
-        KeyboardViewContainerView.StripActionProvider provider = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        KeyboardViewContainerView.StripActionProvider provider =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
         Mockito.doReturn(view).when(provider).inflateActionView(any());
 
         mUnderTest.addStripAction(provider);
@@ -167,16 +171,18 @@ public class KeyboardViewContainerViewTest {
 
     @Test
     public void testQueueActionViewForAdditionWhenNotVisible() {
-        final int actionViewId = R.id.demo_keyboard_view/*can be whatever*/;
+        final int actionViewId = R.id.demo_keyboard_view /*can be whatever*/;
         View view = new View(mUnderTest.getContext());
         view.setId(actionViewId);
-        KeyboardViewContainerView.StripActionProvider provider = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        KeyboardViewContainerView.StripActionProvider provider =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
         Mockito.doReturn(view).when(provider).inflateActionView(any());
 
-        final int actionViewId2 = R.id.demo_keyboard_view_background/*can be whatever*/;
+        final int actionViewId2 = R.id.demo_keyboard_view_background /*can be whatever*/;
         View view2 = new View(mUnderTest.getContext());
         view2.setId(actionViewId2);
-        KeyboardViewContainerView.StripActionProvider provider2 = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        KeyboardViewContainerView.StripActionProvider provider2 =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
         Mockito.doReturn(view2).when(provider2).inflateActionView(any());
 
         mUnderTest.addStripAction(provider);
@@ -195,7 +201,7 @@ public class KeyboardViewContainerViewTest {
         mUnderTest.setStripActionsVisibility(true);
         Assert.assertSame(view, mUnderTest.findViewById(actionViewId));
         Assert.assertSame(view2, mUnderTest.findViewById(actionViewId2));
-        //no additional calls, still once.
+        // no additional calls, still once.
         Mockito.verify(provider).inflateActionView(any());
         Mockito.verify(provider).inflateActionView(any());
     }
@@ -203,7 +209,8 @@ public class KeyboardViewContainerViewTest {
     @Test
     public void testDoubleAddDoesNotAddAgain() {
         View view = new View(mUnderTest.getContext());
-        KeyboardViewContainerView.StripActionProvider provider = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        KeyboardViewContainerView.StripActionProvider provider =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
         Mockito.doReturn(view).when(provider).inflateActionView(any());
 
         mUnderTest.addStripAction(provider);
@@ -217,14 +224,18 @@ public class KeyboardViewContainerViewTest {
 
     @Test
     public void testMeasure() {
-        mUnderTest.onMeasure(View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));
+        mUnderTest.onMeasure(
+                View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));
         Assert.assertEquals(View.VISIBLE, mUnderTest.getCandidateView().getVisibility());
 
         Assert.assertEquals(1024, mUnderTest.getMeasuredWidth());
         Assert.assertEquals(1068, mUnderTest.getMeasuredHeight());
 
         mUnderTest.setStripActionsVisibility(false);
-        mUnderTest.onMeasure(View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));
+        mUnderTest.onMeasure(
+                View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));
         Assert.assertEquals(View.GONE, mUnderTest.getCandidateView().getVisibility());
 
         Assert.assertEquals(1024, mUnderTest.getMeasuredWidth());

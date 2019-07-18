@@ -27,17 +27,14 @@ import android.support.annotation.Nullable;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class DeviceSpecificLowest implements DeviceSpecific {
-    public DeviceSpecificLowest() {
-    }
+    public DeviceSpecificLowest() {}
 
     @Override
     public String getApiLevel() {
@@ -45,12 +42,14 @@ public class DeviceSpecificLowest implements DeviceSpecific {
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
+    public GestureDetector createGestureDetector(
+            Context appContext, AskOnGestureListener listener) {
         return new AskV8GestureDetector(appContext, listener);
     }
 
     @Override
-    public void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+    public void commitCorrectionToInputConnection(
+            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
         ic.commitText(newWord, 1);
     }
 
@@ -60,14 +59,21 @@ public class DeviceSpecificLowest implements DeviceSpecific {
     }
 
     @Override
-    public void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders) {
-        //no-op till API 14
+    public void reportInputMethodSubtypes(
+            @NonNull InputMethodManager inputMethodManager,
+            @NonNull String imeId,
+            @NonNull List<KeyboardAddOnAndBuilder> builders) {
+        // no-op till API 14
     }
 
     @Override
-    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale,
+    public void reportCurrentInputMethodSubtypes(
+            @NonNull InputMethodManager inputMethodManager,
+            @NonNull String imeId,
+            @NonNull IBinder token,
+            @Nullable String keyboardLocale,
             @NonNull CharSequence keyboardId) {
-        //no-op till API 14
+        // no-op till API 14
     }
 
     @Override

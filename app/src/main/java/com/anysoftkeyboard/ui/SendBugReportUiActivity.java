@@ -25,12 +25,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.dev.LogCatViewFragment;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
 
 public class SendBugReportUiActivity extends FragmentActivity {
 
@@ -56,23 +54,24 @@ public class SendBugReportUiActivity extends FragmentActivity {
             dest.writeString(crashReportText);
         }
 
-        public static final Parcelable.Creator<BugReportDetails> CREATOR = new Parcelable.Creator<BugReportDetails>() {
-            @Override
-            public BugReportDetails createFromParcel(Parcel in) {
-                return new BugReportDetails(in);
-            }
+        public static final Parcelable.Creator<BugReportDetails> CREATOR =
+                new Parcelable.Creator<BugReportDetails>() {
+                    @Override
+                    public BugReportDetails createFromParcel(Parcel in) {
+                        return new BugReportDetails(in);
+                    }
 
-            @Override
-            public BugReportDetails[] newArray(int size) {
-                return new BugReportDetails[size];
-            }
-        };
+                    @Override
+                    public BugReportDetails[] newArray(int size) {
+                        return new BugReportDetails[size];
+                    }
+                };
 
         @Override
         public int describeContents() {
             return 0;
         }
-        //End of Parcel part
+        // End of Parcel part
     }
 
     private static final String TAG = "ASK_BUG_SENDER";
@@ -95,11 +94,12 @@ public class SendBugReportUiActivity extends FragmentActivity {
         mCrashReportDetails = callingIntent.getParcelableExtra(EXTRA_KEY_BugReportDetails);
         if (mCrashReportDetails == null) {
             if (BuildConfig.DEBUG)
-                throw new IllegalArgumentException("Activity started without " + EXTRA_KEY_BugReportDetails + " extra!");
+                throw new IllegalArgumentException(
+                        "Activity started without " + EXTRA_KEY_BugReportDetails + " extra!");
             finish();
         } else {
             if (mCrashReportDetails.throwable == null || !BuildConfig.DEBUG) {
-            /*not showing the type of crash in RELEASE mode*/
+                /*not showing the type of crash in RELEASE mode*/
                 crashTypeView.setVisibility(View.GONE);
             } else {
                 Throwable throwable = mCrashReportDetails.throwable;
@@ -122,7 +122,8 @@ public class SendBugReportUiActivity extends FragmentActivity {
 
     public void onClickOnType(View v) {
         findViewById(R.id.logcat_fragment_container).setVisibility(View.VISIBLE);
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.logcat_fragment_container, new LogCatViewFragment())
                 .commit();
     }
@@ -132,7 +133,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
     }
 
     public void onSendCrashReport(View v) {
-        String[] recipients = new String[]{BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
+        String[] recipients = new String[] {BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
 
         Intent sendMail = new Intent();
         sendMail.setAction(Intent.ACTION_SEND);
@@ -142,7 +143,9 @@ public class SendBugReportUiActivity extends FragmentActivity {
         sendMail.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashReportText);
 
         try {
-            Intent sender = Intent.createChooser(sendMail, getString(R.string.ime_crashed_intent_selector_title));
+            Intent sender =
+                    Intent.createChooser(
+                            sendMail, getString(R.string.ime_crashed_intent_selector_title));
             sender.putExtra(Intent.EXTRA_EMAIL, sendMail.getStringArrayExtra(Intent.EXTRA_EMAIL));
             sender.putExtra(Intent.EXTRA_SUBJECT, sendMail.getStringExtra(Intent.EXTRA_SUBJECT));
             sender.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashReportText);
@@ -150,7 +153,11 @@ public class SendBugReportUiActivity extends FragmentActivity {
             Logger.i(TAG, "Will send crash report using " + sender);
             startActivity(sender);
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(getApplicationContext(), "Unable to send bug report via e-mail!", Toast.LENGTH_LONG).show();
+            Toast.makeText(
+                            getApplicationContext(),
+                            "Unable to send bug report via e-mail!",
+                            Toast.LENGTH_LONG)
+                    .show();
         }
 
         finish();

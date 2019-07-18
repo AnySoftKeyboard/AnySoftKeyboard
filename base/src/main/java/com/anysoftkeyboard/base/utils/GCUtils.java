@@ -3,12 +3,10 @@ package com.anysoftkeyboard.base.utils;
 import android.support.annotation.VisibleForTesting;
 import android.text.format.DateUtils;
 import android.util.Log;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class GCUtils {
-    @VisibleForTesting
-    static final int GC_TRY_LOOP_MAX = 5;
+    @VisibleForTesting static final int GC_TRY_LOOP_MAX = 5;
     private static final long GC_INTERVAL = DateUtils.SECOND_IN_MILLIS;
     private static final GCUtils sInstance = new GCUtils();
 
@@ -17,8 +15,7 @@ public class GCUtils {
     }
 
     @VisibleForTesting
-    /*package*/GCUtils() {
-    }
+    /*package*/ GCUtils() {}
 
     public void performOperationWithMemRetry(final String tag, MemRelatedOperation operation) {
         int retryCount = GC_TRY_LOOP_MAX;

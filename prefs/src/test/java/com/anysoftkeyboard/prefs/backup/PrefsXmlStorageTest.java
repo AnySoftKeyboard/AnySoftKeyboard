@@ -2,14 +2,12 @@ package com.anysoftkeyboard.prefs.backup;
 
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 import com.anysoftkeyboard.test.TestUtils;
-
+import java.io.File;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.File;
 
 @RunWith(AnySoftKeyboardPlainTestRunner.class)
 public class PrefsXmlStorageTest {
@@ -56,21 +54,30 @@ public class PrefsXmlStorageTest {
         final PrefItem rootItem = TestUtils.convertToList(loadedRoot.getChildren()).get(0);
         Assert.assertEquals(1, TestUtils.convertToList(rootItem.getValues()).size());
         Assert.assertEquals("key", TestUtils.convertToList(rootItem.getValues()).get(0).getKey());
-        Assert.assertEquals("value", TestUtils.convertToList(rootItem.getValues()).get(0).getValue());
+        Assert.assertEquals(
+                "value", TestUtils.convertToList(rootItem.getValues()).get(0).getValue());
         Assert.assertEquals(2, TestUtils.convertToList(rootItem.getChildren()).size());
         final PrefItem child1 = TestUtils.convertToList(rootItem.getChildren()).get(0);
         Assert.assertEquals(2, TestUtils.convertToList(child1.getValues()).size());
-        Assert.assertEquals("keyChild1", TestUtils.convertToList(child1.getValues()).get(0).getKey());
-        Assert.assertEquals("value 1", TestUtils.convertToList(child1.getValues()).get(0).getValue());
-        Assert.assertEquals("keyChild2", TestUtils.convertToList(child1.getValues()).get(1).getKey());
-        Assert.assertEquals("value 2", TestUtils.convertToList(child1.getValues()).get(1).getValue());
+        Assert.assertEquals(
+                "keyChild1", TestUtils.convertToList(child1.getValues()).get(0).getKey());
+        Assert.assertEquals(
+                "value 1", TestUtils.convertToList(child1.getValues()).get(0).getValue());
+        Assert.assertEquals(
+                "keyChild2", TestUtils.convertToList(child1.getValues()).get(1).getKey());
+        Assert.assertEquals(
+                "value 2", TestUtils.convertToList(child1.getValues()).get(1).getValue());
         Assert.assertEquals(0, TestUtils.convertToList(child1.getChildren()).size());
         final PrefItem child2 = TestUtils.convertToList(rootItem.getChildren()).get(1);
         Assert.assertEquals(2, TestUtils.convertToList(child2.getValues()).size());
-        Assert.assertEquals("keyChild3", TestUtils.convertToList(child2.getValues()).get(0).getKey());
-        Assert.assertEquals("value 3", TestUtils.convertToList(child2.getValues()).get(0).getValue());
-        Assert.assertEquals("keyChild4", TestUtils.convertToList(child2.getValues()).get(1).getKey());
-        Assert.assertEquals("value 4", TestUtils.convertToList(child2.getValues()).get(1).getValue());
+        Assert.assertEquals(
+                "keyChild3", TestUtils.convertToList(child2.getValues()).get(0).getKey());
+        Assert.assertEquals(
+                "value 3", TestUtils.convertToList(child2.getValues()).get(0).getValue());
+        Assert.assertEquals(
+                "keyChild4", TestUtils.convertToList(child2.getValues()).get(1).getKey());
+        Assert.assertEquals(
+                "value 4", TestUtils.convertToList(child2.getValues()).get(1).getValue());
         Assert.assertEquals(0, TestUtils.convertToList(child2.getChildren()).size());
     }
 
@@ -92,10 +99,36 @@ public class PrefsXmlStorageTest {
         PrefsRoot loadedRoot = mUnderTest.load();
         Assert.assertEquals(2, loadedRoot.getVersion());
         Assert.assertEquals(1, TestUtils.convertToList(loadedRoot.getChildren()).size());
-        Assert.assertEquals(1, TestUtils.convertToList(TestUtils.convertToList(loadedRoot.getChildren()).get(0).getValues()).size());
-        Assert.assertEquals(0, TestUtils.convertToList(TestUtils.convertToList(loadedRoot.getChildren()).get(0).getChildren()).size());
-        Assert.assertEquals("a", TestUtils.convertToList(TestUtils.convertToList(loadedRoot.getChildren()).get(0).getValues()).get(0).getKey());
-        Assert.assertEquals("b", TestUtils.convertToList(TestUtils.convertToList(loadedRoot.getChildren()).get(0).getValues()).get(0).getValue());
+        Assert.assertEquals(
+                1,
+                TestUtils.convertToList(
+                                TestUtils.convertToList(loadedRoot.getChildren())
+                                        .get(0)
+                                        .getValues())
+                        .size());
+        Assert.assertEquals(
+                0,
+                TestUtils.convertToList(
+                                TestUtils.convertToList(loadedRoot.getChildren())
+                                        .get(0)
+                                        .getChildren())
+                        .size());
+        Assert.assertEquals(
+                "a",
+                TestUtils.convertToList(
+                                TestUtils.convertToList(loadedRoot.getChildren())
+                                        .get(0)
+                                        .getValues())
+                        .get(0)
+                        .getKey());
+        Assert.assertEquals(
+                "b",
+                TestUtils.convertToList(
+                                TestUtils.convertToList(loadedRoot.getChildren())
+                                        .get(0)
+                                        .getValues())
+                        .get(0)
+                        .getValue());
     }
 
     @Test

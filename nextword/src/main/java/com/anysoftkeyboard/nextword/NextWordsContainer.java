@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.nextword;
 
 import android.support.v4.util.ArrayMap;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +8,8 @@ import java.util.Map;
 
 public class NextWordsContainer {
 
-    private static final NextWord.NextWordComparator msNextWordComparator = new NextWord.NextWordComparator();
+    private static final NextWord.NextWordComparator msNextWordComparator =
+            new NextWord.NextWordComparator();
 
     public final CharSequence word;
     private final List<NextWord> mOrderedNextWord = new ArrayList<>();
@@ -48,6 +48,6 @@ public class NextWordsContainer {
 
     @Override
     public String toString() {
-        return "("+word+") -> ["+mOrderedNextWord.toString()+"]";
+        return "(" + word + ") -> [" + mOrderedNextWord.toString() + "]";
     }
 }

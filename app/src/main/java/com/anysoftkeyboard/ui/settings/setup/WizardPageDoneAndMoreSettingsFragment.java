@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
@@ -14,11 +13,11 @@ import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment implements View.OnClickListener {
+public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment
+        implements View.OnClickListener {
 
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
@@ -39,7 +38,7 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return false;//this step is never done! You can always configure more :)
+        return false; // this step is never done! You can always configure more :)
     }
 
     @Override
@@ -47,29 +46,45 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
         FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
         switch (v.getId()) {
             case R.id.go_to_languages_action:
-                activity.addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                activity.addFragmentToUi(
+                        new KeyboardAddOnBrowserFragment(),
+                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_theme_action:
-                activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                activity.addFragmentToUi(
+                        new KeyboardThemeSelectorFragment(),
+                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_all_settings_action:
                 startActivity(new Intent(getContext(), MainSettingsActivity.class));
-                //not returning to this Activity any longer.
+                // not returning to this Activity any longer.
                 activity.finish();
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in WizardPageDoneAndMoreSettingsFragment");
+                throw new IllegalArgumentException(
+                        "Failed to handle "
+                                + v.getId()
+                                + " in WizardPageDoneAndMoreSettingsFragment");
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        AnyKeyboard defaultKeyboard =
+                AnyApplication.getKeyboardFactory(getContext())
+                        .getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
         mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
 
-        SetupSupport.popupViewAnimationWithIds(getView(), R.id.go_to_languages_action, 0, R.id.go_to_theme_action, 0, R.id.go_to_all_settings_action);
+        SetupSupport.popupViewAnimationWithIds(
+                getView(),
+                R.id.go_to_languages_action,
+                0,
+                R.id.go_to_theme_action,
+                0,
+                R.id.go_to_all_settings_action);
     }
 
     @Override

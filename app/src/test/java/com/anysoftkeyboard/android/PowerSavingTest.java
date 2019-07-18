@@ -1,9 +1,8 @@
 package com.anysoftkeyboard.android;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.menny.android.anysoftkeyboard.R.bool.settings_default_false;
 import static com.menny.android.anysoftkeyboard.R.string.settings_key_power_save_mode_sound_control;
-
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
 import android.app.Service;
@@ -11,11 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,18 +25,15 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowPowerManager;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import androidx.test.core.app.ApplicationProvider;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class PowerSavingTest {
 
     @Test
     public void testValuesArray() {
-        final String[] stringArray = getApplicationContext().getResources().getStringArray(R.array.power_save_mode_values);
+        final String[] stringArray =
+                getApplicationContext()
+                        .getResources()
+                        .getStringArray(R.array.power_save_mode_values);
         Assert.assertEquals(3, stringArray.length);
         Assert.assertEquals("never", stringArray[0]);
         Assert.assertEquals("on_low_battery", stringArray[1]);
@@ -44,19 +42,32 @@ public class PowerSavingTest {
 
     @Test
     public void testLifeCycle() {
-        Assert.assertFalse(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_LOW)));
-        Assert.assertFalse(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_OKAY)));
+        Assert.assertFalse(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_LOW)));
+        Assert.assertFalse(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_OKAY)));
 
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(getApplicationContext(), 0);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(getApplicationContext(), 0);
         final Disposable disposable = powerSavingState.subscribe(b -> {});
 
-        Assert.assertTrue(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_LOW)));
-        Assert.assertTrue(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_OKAY)));
+        Assert.assertTrue(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_LOW)));
+        Assert.assertTrue(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_OKAY)));
 
         disposable.dispose();
 
-        Assert.assertFalse(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_LOW)));
-        Assert.assertFalse(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_OKAY)));
+        Assert.assertFalse(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_LOW)));
+        Assert.assertFalse(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .hasReceiverForIntent(new Intent(Intent.ACTION_BATTERY_OKAY)));
     }
 
     @Test
@@ -64,11 +75,12 @@ public class PowerSavingTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "never");
 
         AtomicReference<Boolean> state = new AtomicReference<>(null);
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(getApplicationContext(), 0);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(getApplicationContext(), 0);
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
-        //starts as false
+        // starts as false
         Assert.assertEquals(Boolean.FALSE, state.get());
 
         sendBatteryState(false);
@@ -93,7 +105,8 @@ public class PowerSavingTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "always");
 
         AtomicReference<Boolean> state = new AtomicReference<>(null);
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(getApplicationContext(), 0);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(getApplicationContext(), 0);
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
@@ -114,17 +127,17 @@ public class PowerSavingTest {
         Assert.assertEquals(Boolean.TRUE, state.get());
         sendBatteryState(false);
         Assert.assertEquals(Boolean.TRUE, state.get());
-
     }
 
     @Test
     public void testWhenLowPowerSavingMode() {
         AtomicReference<Boolean> state = new AtomicReference<>(null);
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(getApplicationContext(), 0);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(getApplicationContext(), 0);
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
-        //starts as false
+        // starts as false
         Assert.assertEquals(Boolean.FALSE, state.get());
 
         sendBatteryState(false);
@@ -147,12 +160,13 @@ public class PowerSavingTest {
     @Test
     public void testControlledByEnabledPref() {
         AtomicReference<Boolean> state = new AtomicReference<>(null);
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(getApplicationContext(),
-                settings_key_power_save_mode_sound_control);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(
+                        getApplicationContext(), settings_key_power_save_mode_sound_control);
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
-        //starts as false
+        // starts as false
         Assert.assertEquals(Boolean.FALSE, state.get());
 
         sendBatteryState(false);
@@ -165,7 +179,7 @@ public class PowerSavingTest {
         Assert.assertEquals(Boolean.FALSE, state.get());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_sound_control, false);
-        //from this point it will always be FALSE (not low-battery)
+        // from this point it will always be FALSE (not low-battery)
         Assert.assertEquals(Boolean.FALSE, state.get());
         sendBatteryState(false);
         Assert.assertEquals(Boolean.FALSE, state.get());
@@ -192,13 +206,15 @@ public class PowerSavingTest {
     @Test
     public void testControlledByEnabledPrefDefaultFalse() {
         AtomicReference<Boolean> state = new AtomicReference<>(null);
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(getApplicationContext(),
-                settings_key_power_save_mode_sound_control,
-                settings_default_false);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(
+                        getApplicationContext(),
+                        settings_key_power_save_mode_sound_control,
+                        settings_default_false);
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
-        //starts as false
+        // starts as false
         Assert.assertEquals(Boolean.FALSE, state.get());
 
         sendBatteryState(false);
@@ -224,16 +240,18 @@ public class PowerSavingTest {
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testWhenLowPowerSavingModeWithDevicePowerSavingState() {
         Context context = Mockito.spy(getApplicationContext());
-        final PowerManager powerManager = (PowerManager) getApplicationContext().getSystemService(Service.POWER_SERVICE);
+        final PowerManager powerManager =
+                (PowerManager) getApplicationContext().getSystemService(Service.POWER_SERVICE);
         Mockito.doReturn(powerManager).when(context).getSystemService(Service.POWER_SERVICE);
         ShadowPowerManager shadowPowerManager = Shadows.shadowOf(powerManager);
 
         AtomicReference<Boolean> state = new AtomicReference<>(null);
-        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(context, 0);
+        final Observable<Boolean> powerSavingState =
+                PowerSaving.observePowerSavingState(context, 0);
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
-        //starts as false
+        // starts as false
         Assert.assertEquals(Boolean.FALSE, state.get());
 
         sendPowerSavingState(shadowPowerManager, false);
@@ -254,12 +272,16 @@ public class PowerSavingTest {
     }
 
     public static void sendBatteryState(boolean lowState) {
-        ApplicationProvider.getApplicationContext().sendBroadcast(new Intent(
-                lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
+        ApplicationProvider.getApplicationContext()
+                .sendBroadcast(
+                        new Intent(
+                                lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
     }
 
-    public static void sendPowerSavingState(ShadowPowerManager shadowPowerManager, boolean powerSaving) {
+    public static void sendPowerSavingState(
+            ShadowPowerManager shadowPowerManager, boolean powerSaving) {
         shadowPowerManager.setIsPowerSaveMode(powerSaving);
-        ApplicationProvider.getApplicationContext().sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+        ApplicationProvider.getApplicationContext()
+                .sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
     }
 }

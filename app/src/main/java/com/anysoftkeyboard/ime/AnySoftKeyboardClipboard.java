@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -33,15 +32,22 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             for (int entryIndex = 0; entryIndex < entries.length; entryIndex++) {
                 entries[entryIndex] = mClipboard.getText(entryIndex);
             }
-            showOptionsDialogWithData(R.string.clipboard_paste_entries_title, R.drawable.ic_clipboard_paste_light,
-                    entries, (dialog, which) -> onText(key, entries[which]));
+            showOptionsDialogWithData(
+                    R.string.clipboard_paste_entries_title,
+                    R.drawable.ic_clipboard_paste_light,
+                    entries,
+                    (dialog, which) -> onText(key, entries[which]));
         }
     }
 
-    protected void handleClipboardOperation(final Keyboard.Key key, final int primaryCode, InputConnection ic) {
+    protected void handleClipboardOperation(
+            final Keyboard.Key key, final int primaryCode, InputConnection ic) {
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
-                CharSequence clipboardText = mClipboard.getClipboardEntriesCount() > 0 ? mClipboard.getText(0/*last entry paste*/) : "";
+                CharSequence clipboardText =
+                        mClipboard.getClipboardEntriesCount() > 0
+                                ? mClipboard.getText(0 /*last entry paste*/)
+                                : "";
                 if (!TextUtils.isEmpty(clipboardText)) {
                     onText(key, clipboardText);
                 } else {
@@ -51,14 +57,15 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             case KeyCodes.CLIPBOARD_CUT:
             case KeyCodes.CLIPBOARD_COPY:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD && ic != null) {
-                    CharSequence selectedText = ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+                    CharSequence selectedText =
+                            ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
                     if (!TextUtils.isEmpty(selectedText)) {
                         mClipboard.setText(selectedText);
                         if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
-                            //sending a DEL key will delete the selected text
+                            // sending a DEL key will delete the selected text
                             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
                         } else {
-                            //showing toast, since there isn't any other UI feedback
+                            // showing toast, since there isn't any other UI feedback
                             showToastMessage(R.string.clipboard_copy_done_toast, true);
                         }
                     }
@@ -89,19 +96,28 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 break;
             case KeyCodes.REDO:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
+                    sendDownUpKeyEvents(
+                            KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 }
                 break;
             default:
-                throw new IllegalArgumentException("The keycode " + primaryCode + " is not covered by handleClipboardOperation!");
+                throw new IllegalArgumentException(
+                        "The keycode "
+                                + primaryCode
+                                + " is not covered by handleClipboardOperation!");
         }
     }
 
-    protected boolean handleSelectionExpending(int keyEventKeyCode, InputConnection ic, int globalSelectionStartPosition, int globalCursorPosition) {
+    protected boolean handleSelectionExpending(
+            int keyEventKeyCode,
+            InputConnection ic,
+            int globalSelectionStartPosition,
+            int globalCursorPosition) {
         if (mArrowSelectionState && ic != null) {
             switch (keyEventKeyCode) {
                 case KeyEvent.KEYCODE_DPAD_LEFT:
-                    ic.setSelection(Math.max(0, globalSelectionStartPosition - 1), globalCursorPosition);
+                    ic.setSelection(
+                            Math.max(0, globalSelectionStartPosition - 1), globalCursorPosition);
                     return true;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
                     ic.setSelection(globalSelectionStartPosition, globalCursorPosition + 1);
@@ -118,17 +134,34 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;
         long eventTime = SystemClock.uptimeMillis();
-        ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
-                KeyEvent.ACTION_DOWN, keyEventCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
-        ic.sendKeyEvent(new KeyEvent(eventTime, SystemClock.uptimeMillis(),
-                KeyEvent.ACTION_UP, keyEventCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
+        ic.sendKeyEvent(
+                new KeyEvent(
+                        eventTime,
+                        eventTime,
+                        KeyEvent.ACTION_DOWN,
+                        keyEventCode,
+                        0,
+                        metaState,
+                        KeyCharacterMap.VIRTUAL_KEYBOARD,
+                        0,
+                        KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
+        ic.sendKeyEvent(
+                new KeyEvent(
+                        eventTime,
+                        SystemClock.uptimeMillis(),
+                        KeyEvent.ACTION_UP,
+                        keyEventCode,
+                        0,
+                        metaState,
+                        KeyCharacterMap.VIRTUAL_KEYBOARD,
+                        0,
+                        KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
     }
 
     @Override
     public void onPress(int primaryCode) {
-        if (mArrowSelectionState && (primaryCode != KeyCodes.ARROW_LEFT && primaryCode != KeyCodes.ARROW_RIGHT)) {
+        if (mArrowSelectionState
+                && (primaryCode != KeyCodes.ARROW_LEFT && primaryCode != KeyCodes.ARROW_RIGHT)) {
             mArrowSelectionState = false;
         }
     }

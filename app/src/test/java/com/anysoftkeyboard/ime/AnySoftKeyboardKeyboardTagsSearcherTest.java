@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ime;
 
 import android.os.Build;
-
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
@@ -9,15 +8,13 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
-
-import java.util.List;
 
 @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
 @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
@@ -32,7 +29,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Test
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testDefaultFalseBeforeAPI22() {
-        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
     }
 
@@ -40,14 +38,16 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
     public void testDefaultTrueAtAPI22() {
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-        Assert.assertNotSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertNotSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
     }
 
     @Test
     public void testOnSharedPreferenceChangedCauseLoading() throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
-        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, true);
         Object searcher = mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher();
         Assert.assertNotSame(TagsExtractorImpl.NO_OP, searcher);
@@ -59,27 +59,34 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     public void testUnrelatedOnSharedPreferenceChangedDoesNotCreateSearcher() throws Exception {
         Object searcher = mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher();
         Assert.assertNotNull(searcher);
-        //unrelated pref change, should not create a new searcher
+        // unrelated pref change, should not create a new searcher
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, false);
         Assert.assertSame(searcher, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
-        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
-        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
 
     @Test
     public void testEnabledTypingTagProvidesSuggestionsFromTagsOnly() throws Exception {
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER, QuickKeyHistoryRecords.DEFAULT_EMOJI);
+        verifySuggestions(
+                true,
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER,
+                QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertEquals(134, suggestions.size());
-        Assert.assertEquals(AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa", suggestions.get(0));
+        Assert.assertEquals(
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
+                suggestions.get(0));
 
-        //now checking that suggestions will work without colon
+        // now checking that suggestions will work without colon
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
@@ -93,30 +100,41 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Test
     public void testDeleteLetters() throws Exception {
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER, QuickKeyHistoryRecords.DEFAULT_EMOJI);
+        verifySuggestions(
+                true,
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER,
+                QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertEquals(134, suggestions.size());
-        Assert.assertEquals(AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa", suggestions.get(0));
+        Assert.assertEquals(
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
+                suggestions.get(0));
         Assert.assertEquals("⏩", suggestions.get(1));
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('c');
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertEquals(132, suggestions.size());
-        Assert.assertEquals(AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac", suggestions.get(0));
+        Assert.assertEquals(
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac",
+                suggestions.get(0));
         Assert.assertEquals("☠", suggestions.get(1));
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertEquals(134, suggestions.size());
-        Assert.assertEquals(AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa", suggestions.get(0));
+        Assert.assertEquals(
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
+                suggestions.get(0));
         Assert.assertEquals("⏩", suggestions.get(1));
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('c');
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertEquals(132, suggestions.size());
-        Assert.assertEquals(AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac", suggestions.get(0));
+        Assert.assertEquals(
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac",
+                suggestions.get(0));
         Assert.assertEquals("☠", suggestions.get(1));
     }
 
@@ -124,12 +142,17 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     public void testOnlyTagsAreSuggestedWhenTypingColon() throws Exception {
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER, QuickKeyHistoryRecords.DEFAULT_EMOJI);
+        verifySuggestions(
+                true,
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER,
+                QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("face");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
         Assert.assertEquals(131, suggestions.size());
-        Assert.assertEquals(AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face", suggestions.get(0));
+        Assert.assertEquals(
+                AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face",
+                suggestions.get(0));
         Assert.assertEquals("☠", suggestions.get(1));
     }
 
@@ -174,15 +197,17 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
         verifySuggestions(true);
-        Assert.assertEquals("\uD83D\uDE00", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(
+                "\uD83D\uDE00", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
-        //deleting
+        // deleting
 
-        //correctly, this is a bug with TestInputConnection: it reports that there is one character in the input
-        //but that's because it does not support deleting multi-character emojis.
+        // correctly, this is a bug with TestInputConnection: it reports that there is one character
+        // in the input
+        // but that's because it does not support deleting multi-character emojis.
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText().length());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        //so, it was two characters, and now it's one
+        // so, it was two characters, and now it's one
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText().length());
     }
 
@@ -191,9 +216,10 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
-        List<QuickKeyHistoryRecords.HistoryKey> keys = mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().getCurrentHistory();
+        List<QuickKeyHistoryRecords.HistoryKey> keys =
+                mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().getCurrentHistory();
         Assert.assertEquals(2, keys.size());
-        //added last (this will be shown in reverse on the history tab)
+        // added last (this will be shown in reverse on the history tab)
         Assert.assertEquals("\uD83D\uDE00", keys.get(1).name);
         Assert.assertEquals("\uD83D\uDE00", keys.get(1).value);
     }
@@ -206,7 +232,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).getNextSuggestions(Mockito.any(CharSequence.class), Mockito.anyBoolean());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+                .getNextSuggestions(Mockito.any(CharSequence.class), Mockito.anyBoolean());
     }
 
     @Test
@@ -217,18 +244,20 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, ":face");
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).isValidWord(Mockito.any(CharSequence.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+                .isValidWord(Mockito.any(CharSequence.class));
     }
 
     @Test
     public void testPickingSearchCellInSuggestionsOutputTypedWord() throws Exception {
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
 
-        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(
+                0, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face");
 
-        //outputs the typed word
+        // outputs the typed word
         Assert.assertEquals(":face ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
-        //clears suggestions
+        // clears suggestions
         verifySuggestions(true);
     }
 
@@ -244,17 +273,20 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Test
     public void testQuickTextEnabledPluginsPrefsChangedCauseReload() throws Exception {
         Object searcher = mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher();
-        SharedPrefsHelper.setPrefsValue(QuickTextKeyFactory.PREF_ID_PREFIX+"jksdbc", "sdfsdfsd");
+        SharedPrefsHelper.setPrefsValue(QuickTextKeyFactory.PREF_ID_PREFIX + "jksdbc", "sdfsdfsd");
         Assert.assertNotSame(searcher, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
 
     @Test
-    public void testQuickTextEnabledPluginsPrefsChangedDoesNotCauseReloadIfTagsSearchIsDisabled() throws Exception {
+    public void testQuickTextEnabledPluginsPrefsChangedDoesNotCauseReloadIfTagsSearchIsDisabled()
+            throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
-        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
-        SharedPrefsHelper.setPrefsValue(QuickTextKeyFactory.PREF_ID_PREFIX+"ddddd", "sdfsdfsd");
+        Assert.assertSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        SharedPrefsHelper.setPrefsValue(QuickTextKeyFactory.PREF_ID_PREFIX + "ddddd", "sdfsdfsd");
 
-        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(
+                TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
 
     @Test
@@ -311,5 +343,4 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         List suggestions = verifyAndCaptureSuggestion(true);
         suggestions.remove("DEMO");
     }
-
 }

@@ -3,7 +3,6 @@ package com.anysoftkeyboard.keyboards.views.preview;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -17,8 +16,7 @@ public class PreviewPopupTheme {
     private int mPreviewKeyTextColor;
     private Typeface mKeyStyle = Typeface.DEFAULT;
     private int mVerticalOffset;
-    @PreviewAnimationType
-    private int mPreviewAnimationType = ANIMATION_STYLE_APPEAR;
+    @PreviewAnimationType private int mPreviewAnimationType = ANIMATION_STYLE_APPEAR;
 
     int getPreviewKeyTextSize() {
         return mPreviewKeyTextSize;
@@ -83,6 +81,5 @@ public class PreviewPopupTheme {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({ANIMATION_STYLE_NONE, ANIMATION_STYLE_EXTEND, ANIMATION_STYLE_APPEAR})
-    public @interface PreviewAnimationType {
-    }
+    public @interface PreviewAnimationType {}
 }

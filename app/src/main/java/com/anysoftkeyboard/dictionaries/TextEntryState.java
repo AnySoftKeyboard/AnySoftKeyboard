@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -75,12 +74,12 @@ public class TextEntryState {
         final boolean isSpace = c == ' ';
         final boolean isEnter = c == '\n';
 
-        //CHECKSTYLE:OFF: missingswitchdefault
+        // CHECKSTYLE:OFF: missingswitchdefault
         switch (sState) {
             case IN_WORD:
                 if (isSpace || isSeparator) {
                     sState = State.START;
-                }/* else State hasn't changed.*/
+                } /* else State hasn't changed.*/
                 break;
             case ACCEPTED_DEFAULT:
                 if (isSpace) {
@@ -127,7 +126,7 @@ public class TextEntryState {
                 }
                 break;
         }
-        //CHECKSTYLE:ON: missingswitchdefault
+        // CHECKSTYLE:ON: missingswitchdefault
         displayState();
     }
 
@@ -167,13 +166,15 @@ public class TextEntryState {
 
     public static void acceptedSuggestionAddedToDictionary() {
         if (BuildConfig.TESTING_BUILD && sState != State.PICKED_SUGGESTION) {
-            Logger.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
+            Logger.wtf(
+                    TAG,
+                    "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
         }
         sState = State.PICKED_TYPED_ADDED_TO_DICTIONARY;
     }
 
     public static void restartSession() {
-        //prediction flag should stay the same
+        // prediction flag should stay the same
         sState = State.START;
         displayState();
     }
@@ -199,4 +200,3 @@ public class TextEntryState {
         return sPredictionOn && !isPredicting();
     }
 }
-

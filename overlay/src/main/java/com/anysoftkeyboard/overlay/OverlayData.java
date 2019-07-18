@@ -14,7 +14,12 @@ public class OverlayData {
         this(0, 0, 0, 0, 0);
     }
 
-    public OverlayData(int primaryColor, int primaryDarkColor, int accentColor, int primaryTextColor, int secondaryTextColor) {
+    public OverlayData(
+            int primaryColor,
+            int primaryDarkColor,
+            int accentColor,
+            int primaryTextColor,
+            int secondaryTextColor) {
         mPrimaryColor = primaryColor;
         mPrimaryDarkColor = primaryDarkColor;
         mAccentColor = accentColor;
@@ -22,9 +27,7 @@ public class OverlayData {
         mSecondaryTextColor = secondaryTextColor;
     }
 
-    /**
-     * The remote app primary color for text.
-     */
+    /** The remote app primary color for text. */
     public int getPrimaryTextColor() {
         return mPrimaryTextColor;
     }
@@ -33,9 +36,7 @@ public class OverlayData {
         mPrimaryTextColor = primaryTextColor;
     }
 
-    /**
-     * The remote app secondary color for text.
-     */
+    /** The remote app secondary color for text. */
     public int getSecondaryTextColor() {
         return mSecondaryTextColor;
     }
@@ -44,9 +45,7 @@ public class OverlayData {
         mSecondaryTextColor = textColor;
     }
 
-    /**
-     * The remote app accent (activated) color.
-     */
+    /** The remote app accent (activated) color. */
     public int getAccentColor() {
         return mAccentColor;
     }
@@ -55,9 +54,7 @@ public class OverlayData {
         mAccentColor = color;
     }
 
-    /**
-     * The remote app primary elements color.
-     */
+    /** The remote app primary elements color. */
     public int getPrimaryColor() {
         return mPrimaryColor;
     }
@@ -66,9 +63,7 @@ public class OverlayData {
         mPrimaryColor = primaryColor;
     }
 
-    /**
-     * The remote app darker-primary elements color.
-     */
+    /** The remote app darker-primary elements color. */
     public int getPrimaryDarkColor() {
         return mPrimaryDarkColor;
     }
@@ -83,8 +78,13 @@ public class OverlayData {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "Overlay primary-color %s, dark-primary-color %s, primary text color %s, secondary text color %s (is valid %b)",
-                Integer.toHexString(getPrimaryColor()), Integer.toHexString(getPrimaryDarkColor()), Integer.toHexString(getPrimaryTextColor()), Integer.toHexString(getSecondaryTextColor()),
+        return String.format(
+                Locale.US,
+                "Overlay primary-color %s, dark-primary-color %s, primary text color %s, secondary text color %s (is valid %b)",
+                Integer.toHexString(getPrimaryColor()),
+                Integer.toHexString(getPrimaryDarkColor()),
+                Integer.toHexString(getPrimaryTextColor()),
+                Integer.toHexString(getSecondaryTextColor()),
                 isValid());
     }
 }

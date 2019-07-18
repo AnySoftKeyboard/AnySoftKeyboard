@@ -1,19 +1,15 @@
 package net.evendanan.pixel;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static net.evendanan.pixel.GeneralDialogTestUtil.getLatestShownDialog;
 import static net.evendanan.pixel.GeneralDialogTestUtil.getTitleFromDialog;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-
 import android.app.Dialog;
 import android.support.v7.app.AlertDialog;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,12 +41,15 @@ public class GeneralDialogControllerTest {
     public void testHappyPath() {
         Assert.assertNull(ShadowDialog.getLatestDialog());
 
-        Mockito.doAnswer(invocation -> {
-            AlertDialog.Builder builder = invocation.getArgument(0);
-            builder.setTitle("TEST 32");
+        Mockito.doAnswer(
+                        invocation -> {
+                            AlertDialog.Builder builder = invocation.getArgument(0);
+                            builder.setTitle("TEST 32");
 
-            return null;
-        }).when(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
+                            return null;
+                        })
+                .when(mPresenter)
+                .onSetupDialogRequired(any(), eq(32), isNull());
 
         mUnderTest.showDialog(32);
         Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
@@ -60,7 +59,12 @@ public class GeneralDialogControllerTest {
         final Dialog latestAlertDialog = ShadowDialog.getLatestDialog();
         Assert.assertNotNull(latestAlertDialog);
         Assert.assertTrue(latestAlertDialog.isShowing());
-        Assert.assertEquals(GeneralDialogController.TAG_VALUE, latestAlertDialog.getWindow().getDecorView().getTag(GeneralDialogController.TAG_ID));
+        Assert.assertEquals(
+                GeneralDialogController.TAG_VALUE,
+                latestAlertDialog
+                        .getWindow()
+                        .getDecorView()
+                        .getTag(GeneralDialogController.TAG_ID));
         Assert.assertEquals("TEST 32", getTitleFromDialog(latestAlertDialog));
 
         mUnderTest.dismiss();
@@ -70,14 +74,18 @@ public class GeneralDialogControllerTest {
 
     @Test
     public void testAlsoCallBeforeShow() {
-        Mockito.doAnswer(invocation -> {
-            AlertDialog.Builder builder = invocation.getArgument(0);
-            builder.setTitle("TEST 32");
+        Mockito.doAnswer(
+                        invocation -> {
+                            AlertDialog.Builder builder = invocation.getArgument(0);
+                            builder.setTitle("TEST 32");
 
-            return null;
-        }).when(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
+                            return null;
+                        })
+                .when(mPresenter)
+                .onSetupDialogRequired(any(), eq(32), isNull());
 
-        final ArgumentCaptor<AlertDialog> argumentCaptor = ArgumentCaptor.forClass(AlertDialog.class);
+        final ArgumentCaptor<AlertDialog> argumentCaptor =
+                ArgumentCaptor.forClass(AlertDialog.class);
         mUnderTest.showDialog(32);
         Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
         Mockito.verify(mPresenter).beforeDialogShown(argumentCaptor.capture(), isNull());

@@ -14,7 +14,15 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.4.2'
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.8.1'
+        classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.8'
     }
+}
+
+apply plugin: 'com.github.sherter.google-java-format'
+
+googleJavaFormat {
+    toolVersion = '1.7'
+    options style: 'AOSP'
 }
 
 allprojects {

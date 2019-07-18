@@ -1,15 +1,11 @@
 package emoji;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,6 +15,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 class EmojiKeyboardCreator {
     private final File keyboardResourceFile;
@@ -29,16 +27,23 @@ class EmojiKeyboardCreator {
         this(xmlResourceFolder, collector, "20%p");
     }
 
-    private EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector, String keyWidth) throws IOException {
+    private EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector, String keyWidth)
+            throws IOException {
         this.keyboardResourceFile = new File(xmlResourceFolder, collector.getResourceFileName());
         this.collector = collector;
         this.keyWidth = keyWidth;
     }
 
-    void buildKeyboardFile() throws ParserConfigurationException, TransformerException, IOException {
+    void buildKeyboardFile()
+            throws ParserConfigurationException, TransformerException, IOException {
         List<EmojiKeyboardCreator> additionalPopupCreators = new ArrayList<>();
 
-        System.out.print(String.format(Locale.US, "EmojiKeyboardCreator will write to %s with %d emojis...", keyboardResourceFile, collector.getOwnedEmjois().size()));
+        System.out.print(
+                String.format(
+                        Locale.US,
+                        "EmojiKeyboardCreator will write to %s with %d emojis...",
+                        keyboardResourceFile,
+                        collector.getOwnedEmjois().size()));
 
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -51,8 +56,12 @@ class EmojiKeyboardCreator {
             android:keyWidth="20%p"
             android:popupCharacters="asdasdas" >
         */
-        keyboardElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyHeight", "@integer/key_normal_height");
-        keyboardElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyWidth", keyWidth);
+        keyboardElement.setAttributeNS(
+                "http://schemas.android.com/apk/res/android",
+                "android:keyHeight",
+                "@integer/key_normal_height");
+        keyboardElement.setAttributeNS(
+                "http://schemas.android.com/apk/res/android", "android:keyWidth", keyWidth);
         doc.appendChild(keyboardElement);
 
         Element rowElement = doc.createElement("Row");
@@ -70,34 +79,58 @@ class EmojiKeyboardCreator {
             Element keyElement = doc.createElement("Key");
             rowElement.appendChild(keyElement);
 
-            keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyLabel", emojiData.output);
-            keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyOutputText", emojiData.output);
-            keyElement.setAttributeNS("http://schemas.android.com/apk/res-auto", "ask:tags", String.join(",", emojiData.tags));
+            keyElement.setAttributeNS(
+                    "http://schemas.android.com/apk/res/android",
+                    "android:keyLabel",
+                    emojiData.output);
+            keyElement.setAttributeNS(
+                    "http://schemas.android.com/apk/res/android",
+                    "android:keyOutputText",
+                    emojiData.output);
+            keyElement.setAttributeNS(
+                    "http://schemas.android.com/apk/res-auto",
+                    "ask:tags",
+                    String.join(",", emojiData.tags));
             final List<String> variants = emojiData.getVariants();
             if (variants.size() > 0) {
-                final String collectorName = collector.getResourceFileName().substring(0, collector.getResourceFileName().length() - 4);
+                final String collectorName =
+                        collector
+                                .getResourceFileName()
+                                .substring(0, collector.getResourceFileName().length() - 4);
                 final String popupKeysLayoutName = collectorName + "_popup_" + i;
 
-                keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:popupKeyboard", "@xml/" + popupKeysLayoutName);
+                keyElement.setAttributeNS(
+                        "http://schemas.android.com/apk/res/android",
+                        "android:popupKeyboard",
+                        "@xml/" + popupKeysLayoutName);
 
                 final List<EmojiData> emojiDataList = new ArrayList<>(variants.size());
                 for (int i1 = 0; i1 < variants.size(); i1++) {
                     String variant = variants.get(i1);
-                    EmojiData data = new EmojiData(i1, emojiData.grouping, variant, Collections.emptyList()/*let's say that variants should not show tags*/);
+                    EmojiData data =
+                            new EmojiData(
+                                    i1,
+                                    emojiData.grouping,
+                                    variant,
+                                    Collections
+                                            .emptyList() /*let's say that variants should not show tags*/);
                     emojiDataList.add(data);
                 }
-                EmojiCollection variantsCollection = new EmojiCollection() {
-                    @Override
-                    public String getResourceFileName() {
-                        return popupKeysLayoutName + ".xml";
-                    }
+                EmojiCollection variantsCollection =
+                        new EmojiCollection() {
+                            @Override
+                            public String getResourceFileName() {
+                                return popupKeysLayoutName + ".xml";
+                            }
 
-                    @Override
-                    public List<EmojiData> getOwnedEmjois() {
-                        return emojiDataList;
-                    }
-                };
-                additionalPopupCreators.add(new EmojiKeyboardCreator(keyboardResourceFile.getParentFile(), variantsCollection, "15%p"));
+                            @Override
+                            public List<EmojiData> getOwnedEmjois() {
+                                return emojiDataList;
+                            }
+                        };
+                additionalPopupCreators.add(
+                        new EmojiKeyboardCreator(
+                                keyboardResourceFile.getParentFile(), variantsCollection, "15%p"));
             }
         }
 

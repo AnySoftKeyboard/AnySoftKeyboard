@@ -20,11 +20,9 @@ import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +60,10 @@ public class ClipboardV11 implements Clipboard {
     }
 
     private void onPrimaryClipChanged() {
-        if (!mPrefs.getBoolean(R.string.settings_key_os_clipboard_sync, R.bool.settings_default_os_clipboard_sync).get()) return;
+        if (!mPrefs.getBoolean(
+                        R.string.settings_key_os_clipboard_sync,
+                        R.bool.settings_default_os_clipboard_sync)
+                .get()) return;
 
         ClipData cp = mClipboardManager.getPrimaryClip();
         if (cp != null) {

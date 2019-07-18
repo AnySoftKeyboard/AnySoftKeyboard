@@ -8,19 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.Calendar;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-
-import java.util.Calendar;
 
 public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnClickListener {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.about_anysoftkeyboard, container, false);
     }
 
@@ -28,7 +26,9 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView copyright = view.findViewById(R.id.about_copyright);
-        copyright.setText(getString(R.string.about_copyright_text, Calendar.getInstance().get(Calendar.YEAR)));
+        copyright.setText(
+                getString(
+                        R.string.about_copyright_text, Calendar.getInstance().get(Calendar.YEAR)));
 
         final String appVersionName = BuildConfig.VERSION_NAME;
         final int appVersionNumber = BuildConfig.VERSION_CODE;
@@ -52,7 +52,9 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
         switch (v.getId()) {
             case R.id.about_legal_stuff_link:
                 FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                activity.addFragmentToUi(
+                        new AdditionalSoftwareLicensesFragment(),
+                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.about_privacy_link:
                 String privacyUrl = getString(R.string.privacy_policy);
@@ -63,13 +65,15 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in AboutAnySoftKeyboardFragment");
+                throw new IllegalArgumentException(
+                        "Failed to handle " + v.getId() + " in AboutAnySoftKeyboardFragment");
         }
     }
 
     public static class AdditionalSoftwareLicensesFragment extends Fragment {
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        public View onCreateView(
+                LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.additional_software_licenses, container, false);
         }
 

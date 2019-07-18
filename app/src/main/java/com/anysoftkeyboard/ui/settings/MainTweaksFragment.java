@@ -23,17 +23,14 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
-
 import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class MainTweaksFragment extends PreferenceFragmentCompat {
 
-    @VisibleForTesting
-    static final String DEV_TOOLS_KEY = "dev_tools";
+    @VisibleForTesting static final String DEV_TOOLS_KEY = "dev_tools";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -46,7 +43,11 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
 
         Preference preference = findPreference(DEV_TOOLS_KEY);
         if (preference == null) {
-            throw new NullPointerException("Preference with key '" + DEV_TOOLS_KEY + "' was not found in resource " + R.xml.prefs_main_tweaks);
+            throw new NullPointerException(
+                    "Preference with key '"
+                            + DEV_TOOLS_KEY
+                            + "' was not found in resource "
+                            + R.xml.prefs_main_tweaks);
         } else {
             preference.setOnPreferenceClickListener(this::onDevToolsPreferenceClicked);
         }
@@ -61,7 +62,10 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
     private boolean onDevToolsPreferenceClicked(Preference p) {
         Activity activity = getActivity();
         if (activity != null && activity instanceof FragmentChauffeurActivity) {
-            ((FragmentChauffeurActivity) activity).addFragmentToUi(new DeveloperToolsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            ((FragmentChauffeurActivity) activity)
+                    .addFragmentToUi(
+                            new DeveloperToolsFragment(),
+                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
             return true;
         }
         return false;

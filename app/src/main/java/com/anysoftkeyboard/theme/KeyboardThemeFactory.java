@@ -21,29 +21,35 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.PreferenceManager;
 import android.util.AttributeSet;
-
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
-import java.util.Locale;
-
 import io.reactivex.Observable;
 import io.reactivex.annotations.CheckReturnValue;
+import java.util.Locale;
 
 public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<KeyboardTheme> {
 
     private static final String XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
     private static final String XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "iconsThemeRes";
     private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
-    private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "popupIconsThemeRes";
+    private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE =
+            "popupIconsThemeRes";
     public static final String PREF_ID_PREFIX = "theme_";
     private final CharSequence mFallbackThemeId;
 
     public KeyboardThemeFactory(@NonNull Context context) {
-        super(context, "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
-                "KeyboardThemes", "KeyboardTheme", PREF_ID_PREFIX,
-                R.xml.keyboard_themes, R.string.settings_default_keyboard_theme_key, true);
+        super(
+                context,
+                "ASK_KT",
+                "com.anysoftkeyboard.plugin.KEYBOARD_THEME",
+                "com.anysoftkeyboard.plugindata.keyboardtheme",
+                "KeyboardThemes",
+                "KeyboardTheme",
+                PREF_ID_PREFIX,
+                R.xml.keyboard_themes,
+                R.string.settings_default_keyboard_theme_key,
+                true);
         mFallbackThemeId = mContext.getText(R.string.fallback_keyboard_theme_id);
     }
 
@@ -52,38 +58,65 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
     }
 
     @Override
-    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex,
+    protected KeyboardTheme createConcreteAddOn(
+            Context askContext,
+            Context context,
+            int apiVersion,
+            CharSequence prefId,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
             AttributeSet attrs) {
-        final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
-                XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
-        final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
-                XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
-        final int iconsThemeResId = attrs.getAttributeResourceValue(null,
-                XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
-        final int popupKeyboardIconThemeResId = attrs.getAttributeResourceValue(null,
-                XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
+        final int keyboardThemeResId =
+                attrs.getAttributeResourceValue(null, XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
+        final int popupKeyboardThemeResId =
+                attrs.getAttributeResourceValue(null, XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
+        final int iconsThemeResId =
+                attrs.getAttributeResourceValue(null, XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
+        final int popupKeyboardIconThemeResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
 
         if (keyboardThemeResId == -1) {
-            String detailMessage = String.format(Locale.US, "Missing details for creating Keyboard theme! prefId %s, keyboardThemeResId: %d",
-                    prefId, keyboardThemeResId);
+            String detailMessage =
+                    String.format(
+                            Locale.US,
+                            "Missing details for creating Keyboard theme! prefId %s, keyboardThemeResId: %d",
+                            prefId,
+                            keyboardThemeResId);
 
             throw new RuntimeException(detailMessage);
         }
-        return new KeyboardTheme(askContext, context, apiVersion, prefId, name,
-                keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId, popupKeyboardIconThemeResId,
-                isHidden, description, sortIndex);
+        return new KeyboardTheme(
+                askContext,
+                context,
+                apiVersion,
+                prefId,
+                name,
+                keyboardThemeResId,
+                popupKeyboardThemeResId,
+                iconsThemeResId,
+                popupKeyboardIconThemeResId,
+                isHidden,
+                description,
+                sortIndex);
     }
 
     @NonNull
     @CheckReturnValue
     public static Observable<KeyboardTheme> observeCurrentTheme(@NonNull Context context) {
         final KeyboardThemeFactory factory = AnyApplication.getKeyboardThemeFactory(context);
-        return Observable.<String>create(emitter -> {
-            final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-            final SharedPreferences.OnSharedPreferenceChangeListener listener = (preferences, key) -> emitter.onNext(key);
-            emitter.setCancellable(() -> sp.unregisterOnSharedPreferenceChangeListener(listener));
-            sp.registerOnSharedPreferenceChangeListener(listener);
-        })
+        return Observable.<String>create(
+                        emitter -> {
+                            final SharedPreferences sp =
+                                    PreferenceManager.getDefaultSharedPreferences(context);
+                            final SharedPreferences.OnSharedPreferenceChangeListener listener =
+                                    (preferences, key) -> emitter.onNext(key);
+                            emitter.setCancellable(
+                                    () -> sp.unregisterOnSharedPreferenceChangeListener(listener));
+                            sp.registerOnSharedPreferenceChangeListener(listener);
+                        })
                 .filter(key -> key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX))
                 .map(key -> factory.getEnabledAddOn())
                 .startWith(factory.getEnabledAddOn())

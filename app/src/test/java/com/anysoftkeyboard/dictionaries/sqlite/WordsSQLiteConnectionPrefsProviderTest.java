@@ -1,24 +1,20 @@
 package com.anysoftkeyboard.dictionaries.sqlite;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static java.util.Arrays.asList;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-
 import android.support.v4.util.Pair;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.test.TestUtils;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class WordsSQLiteConnectionPrefsProviderTest {
@@ -27,7 +23,9 @@ public class WordsSQLiteConnectionPrefsProviderTest {
 
     @Before
     public void setUp() {
-        mUnderTest = new WordsSQLiteConnectionPrefsProvider(getApplicationContext(), DATABASE_FILENAME, asList("en", "fr"));
+        mUnderTest =
+                new WordsSQLiteConnectionPrefsProvider(
+                        getApplicationContext(), DATABASE_FILENAME, asList("en", "fr"));
     }
 
     @Test
@@ -37,10 +35,12 @@ public class WordsSQLiteConnectionPrefsProviderTest {
 
     @Test
     public void testBackupAndLoad() throws Exception {
-        WordsSQLiteConnection connetionEn = new WordsSQLiteConnection(getApplicationContext(), DATABASE_FILENAME, "en");
+        WordsSQLiteConnection connetionEn =
+                new WordsSQLiteConnection(getApplicationContext(), DATABASE_FILENAME, "en");
         connetionEn.addWord("one", 1);
         connetionEn.addWord("two", 2);
-        WordsSQLiteConnection connetionFr = new WordsSQLiteConnection(getApplicationContext(), DATABASE_FILENAME, "fr");
+        WordsSQLiteConnection connetionFr =
+                new WordsSQLiteConnection(getApplicationContext(), DATABASE_FILENAME, "fr");
         connetionFr.addWord("un", 1);
 
         final PrefsRoot prefsRoot = mUnderTest.getPrefsRoot();
@@ -49,16 +49,22 @@ public class WordsSQLiteConnectionPrefsProviderTest {
         PrefItem fr = TestUtils.convertToList(prefsRoot.getChildren()).get(1);
 
         Assert.assertEquals("en", en.getValue("locale"));
-        final Map<String, String> enWords = TestUtils.convertToMap(TestUtils.convertToList(en.getChildren()),
-                prefItem -> Pair.create(prefItem.getValue("word"), prefItem.getValue("freq")));
+        final Map<String, String> enWords =
+                TestUtils.convertToMap(
+                        TestUtils.convertToList(en.getChildren()),
+                        prefItem ->
+                                Pair.create(prefItem.getValue("word"), prefItem.getValue("freq")));
 
         Assert.assertEquals(2, enWords.size());
         Assert.assertEquals("1", enWords.get("one"));
         Assert.assertEquals("2", enWords.get("two"));
 
         Assert.assertEquals("fr", fr.getValue("locale"));
-        final Map<String, String> frWords = TestUtils.convertToMap(TestUtils.convertToList(fr.getChildren()),
-                prefItem -> Pair.create(prefItem.getValue("word"), prefItem.getValue("freq")));
+        final Map<String, String> frWords =
+                TestUtils.convertToMap(
+                        TestUtils.convertToList(fr.getChildren()),
+                        prefItem ->
+                                Pair.create(prefItem.getValue("word"), prefItem.getValue("freq")));
         Assert.assertEquals(1, frWords.size());
         Assert.assertEquals("1", frWords.get("un"));
 
