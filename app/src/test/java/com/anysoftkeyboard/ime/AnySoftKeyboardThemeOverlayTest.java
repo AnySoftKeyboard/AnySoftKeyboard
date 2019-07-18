@@ -3,25 +3,22 @@ package com.anysoftkeyboard.ime;
 import android.content.ComponentName;
 import android.os.Build;
 import android.view.inputmethod.EditorInfo;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
+import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
-import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
-
-import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
@@ -42,9 +39,12 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
 
         final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
         simulateOnStartInputFlow(false, editorInfo);
-        ArgumentCaptor<ComponentName> componentNameArgumentCaptor = ArgumentCaptor.forClass(ComponentName.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getMockOverlayDataCreator()).createOverlayData(componentNameArgumentCaptor.capture());
-        Assert.assertEquals(editorInfo.packageName, componentNameArgumentCaptor.getValue().getPackageName());
+        ArgumentCaptor<ComponentName> componentNameArgumentCaptor =
+                ArgumentCaptor.forClass(ComponentName.class);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockOverlayDataCreator())
+                .createOverlayData(componentNameArgumentCaptor.capture());
+        Assert.assertEquals(
+                editorInfo.packageName, componentNameArgumentCaptor.getValue().getPackageName());
 
         OverlayData appliedData = captureOverlay();
         Assert.assertTrue(appliedData.isValid());
@@ -96,7 +96,7 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
         Assert.assertFalse(captureOverlay().isValid());
 
         simulateFinishInputFlow();
-        //again, a valid app
+        // again, a valid app
         simulateOnStartInputFlow();
         Assert.assertTrue(captureOverlay().isValid());
     }
@@ -178,7 +178,7 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
         Assert.assertFalse(captureOverlay().isValid());
 
         simulateFinishInputFlow();
-        //again, a valid app
+        // again, a valid app
         simulateOnStartInputFlow();
         Assert.assertTrue(captureOverlay().isValid());
     }
@@ -188,9 +188,14 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
+        final OverlyDataCreator originalOverlayDataCreator =
+                mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
 
-        final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        final OverlayData normal =
+                originalOverlayDataCreator.createOverlayData(
+                        new ComponentName(
+                                ApplicationProvider.getApplicationContext(),
+                                MainSettingsActivity.class));
         Assert.assertTrue(normal.isValid());
         Assert.assertEquals(0xFFCC99FF, normal.getPrimaryColor());
         Assert.assertEquals(0xFFAA77DD, normal.getPrimaryDarkColor());
@@ -198,7 +203,11 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
 
         PowerSavingTest.sendBatteryState(true);
 
-        final OverlayData powerSaving = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        final OverlayData powerSaving =
+                originalOverlayDataCreator.createOverlayData(
+                        new ComponentName(
+                                ApplicationProvider.getApplicationContext(),
+                                MainSettingsActivity.class));
         Assert.assertTrue(powerSaving.isValid());
         Assert.assertEquals(0xFF000000, powerSaving.getPrimaryColor());
         Assert.assertEquals(0xFF000000, powerSaving.getPrimaryDarkColor());
@@ -211,7 +220,8 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
 
     public static OverlayData captureOverlay(TestableAnySoftKeyboard testableAnySoftKeyboard) {
         ArgumentCaptor<OverlayData> captor = ArgumentCaptor.forClass(OverlayData.class);
-        Mockito.verify(testableAnySoftKeyboard.getInputView(), Mockito.atLeastOnce()).setThemeOverlay(captor.capture());
+        Mockito.verify(testableAnySoftKeyboard.getInputView(), Mockito.atLeastOnce())
+                .setThemeOverlay(captor.capture());
 
         return captor.getValue();
     }

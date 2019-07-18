@@ -2,7 +2,6 @@ package com.anysoftkeyboard.dictionaries.prefsprovider;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
@@ -12,7 +11,8 @@ class TappingUserDictionary extends UserDictionary {
 
     private final BTreeDictionary.WordReadListener mWordsTapper;
 
-    public TappingUserDictionary(Context context, String locale, BTreeDictionary.WordReadListener wordsTapper) {
+    public TappingUserDictionary(
+            Context context, String locale, BTreeDictionary.WordReadListener wordsTapper) {
         super(context, locale);
         mWordsTapper = wordsTapper;
     }

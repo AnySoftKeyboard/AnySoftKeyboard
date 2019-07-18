@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.base.utils;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -4,7 +4,6 @@ import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +42,7 @@ class WizardPagesAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        //so "notifyDataSetChanged()" will cause recreation
+        // so "notifyDataSetChanged()" will cause recreation
         return POSITION_NONE;
     }
 }

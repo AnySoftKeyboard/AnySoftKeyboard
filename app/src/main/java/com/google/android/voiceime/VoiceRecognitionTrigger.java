@@ -19,10 +19,7 @@ package com.google.android.voiceime;
 import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.InputMethodSubtype;
 
-/**
- * Triggers a voice recognition by using {@link ImeTrigger} or
- * {@link IntentApiTrigger}.
- */
+/** Triggers a voice recognition by using {@link ImeTrigger} or {@link IntentApiTrigger}. */
 public class VoiceRecognitionTrigger {
 
     private final InputMethodService mInputMethodService;
@@ -72,10 +69,9 @@ public class VoiceRecognitionTrigger {
     /**
      * Starts a voice recognition
      *
-     * @param language The language in which the recognition should be done. If
-     *                 the recognition is done through the Google voice typing, the
-     *                 parameter is ignored and the recognition is done using the
-     *                 locale of the calling IME.
+     * @param language The language in which the recognition should be done. If the recognition is
+     *     done through the Google voice typing, the parameter is ignored and the recognition is
+     *     done using the locale of the calling IME.
      * @see InputMethodSubtype
      */
     public void startVoiceRecognition(String language) {

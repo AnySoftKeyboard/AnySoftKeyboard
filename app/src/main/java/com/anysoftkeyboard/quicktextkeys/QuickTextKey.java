@@ -20,17 +20,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
-
 import com.anysoftkeyboard.addons.AddOnImpl;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-/**
- * @author Malcolm
- */
+/** @author Malcolm */
 public class QuickTextKey extends AddOnImpl {
 
     private int mPopupKeyboardResId;
@@ -40,17 +35,36 @@ public class QuickTextKey extends AddOnImpl {
     private CharSequence mKeyOutputText;
 
     private CharSequence mKeyLabel;
-    @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
+
+    @SuppressFBWarnings(
+            value = "URF_UNREAD_FIELD",
+            justification = "At some point, we might want to do that")
     @SuppressWarnings("UnusedVariable")
     private int mKeyIconResId;
-    @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
+
+    @SuppressFBWarnings(
+            value = "URF_UNREAD_FIELD",
+            justification = "At some point, we might want to do that")
     @SuppressWarnings("UnusedVariable")
     private int mIconPreviewResId;
 
-    public QuickTextKey(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, int popupKeyboardResId,
-                        int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
-                        int keyIconResId, CharSequence keyLabel, CharSequence keyOutput, int iconPreviewResId,
-                        boolean isHidden, CharSequence description, int sortIndex) {
+    public QuickTextKey(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            int popupKeyboardResId,
+            int popupListNamesResId,
+            int popupListValuesResId,
+            int popupListIconsResId,
+            int keyIconResId,
+            CharSequence keyLabel,
+            CharSequence keyOutput,
+            int iconPreviewResId,
+            boolean isHidden,
+            CharSequence description,
+            int sortIndex) {
         super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
 
         Resources resources = packageContext.getResources();
@@ -75,7 +89,8 @@ public class QuickTextKey extends AddOnImpl {
         mIconPreviewResId = iconPreviewResId;
     }
 
-    protected String[] getStringArrayFromValuesResId(int popupListValuesResId, Resources resources) {
+    protected String[] getStringArrayFromValuesResId(
+            int popupListValuesResId, Resources resources) {
         return resources.getStringArray(popupListValuesResId);
     }
 

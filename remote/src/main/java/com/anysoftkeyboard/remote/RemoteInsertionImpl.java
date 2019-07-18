@@ -12,11 +12,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
-
 import com.anysoftkeyboard.api.MediaInsertion;
 import com.anysoftkeyboard.fileprovider.LocalProxy;
 import com.anysoftkeyboard.rx.GenericOnError;
-
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -40,11 +38,16 @@ public class RemoteInsertionImpl implements RemoteInsertion {
         mLocalProxy = localProxy;
         mContext = context;
         mMediaInsertionAvailableReceiver = new MediaInsertionAvailableReceiver(this);
-        mContext.registerReceiver(mMediaInsertionAvailableReceiver, MediaInsertionAvailableReceiver.createIntentFilter());
+        mContext.registerReceiver(
+                mMediaInsertionAvailableReceiver,
+                MediaInsertionAvailableReceiver.createIntentFilter());
     }
 
     @Override
-    public void startMediaRequest(@NonNull String[] mimeTypes, int requestId, @NonNull InsertionRequestCallback callback) {
+    public void startMediaRequest(
+            @NonNull String[] mimeTypes,
+            int requestId,
+            @NonNull InsertionRequestCallback callback) {
         mCurrentRunningLocalProxy.dispose();
 
         mCurrentRequest = requestId;
@@ -58,12 +61,15 @@ public class RemoteInsertionImpl implements RemoteInsertion {
     @NonNull
     @VisibleForTesting
     static Intent getMediaInsertRequestIntent(@NonNull String[] mimeTypes, int requestId) {
-        final Intent pickingIntent = new Intent(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION);
+        final Intent pickingIntent =
+                new Intent(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION);
         pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        // pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         pickingIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        pickingIntent.putExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, requestId);
-        pickingIntent.putExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY, mimeTypes);
+        pickingIntent.putExtra(
+                MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, requestId);
+        pickingIntent.putExtra(
+                MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY, mimeTypes);
         return pickingIntent;
     }
 
@@ -82,12 +88,20 @@ public class RemoteInsertionImpl implements RemoteInsertion {
             if (data == null) {
                 mCurrentCallback.onMediaRequestCancelled(mCurrentRequest);
             } else {
-                mCurrentRunningLocalProxy = mLocalProxy.proxy(mContext, data)
-                        .subscribe(
-                                localUri -> mCurrentCallback.onMediaRequestDone(
-                                        requestId,
-                                        new InputContentInfoCompat(localUri, new ClipDescription("media", mimeTypes), null)),
-                                GenericOnError.onError("mCurrentCallback.onMediaRequestDone"));
+                mCurrentRunningLocalProxy =
+                        mLocalProxy
+                                .proxy(mContext, data)
+                                .subscribe(
+                                        localUri ->
+                                                mCurrentCallback.onMediaRequestDone(
+                                                        requestId,
+                                                        new InputContentInfoCompat(
+                                                                localUri,
+                                                                new ClipDescription(
+                                                                        "media", mimeTypes),
+                                                                null)),
+                                        GenericOnError.onError(
+                                                "mCurrentCallback.onMediaRequestDone"));
             }
         }
 
@@ -113,9 +127,13 @@ public class RemoteInsertionImpl implements RemoteInsertion {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            mRemoteInsertion.onReply(intent.getIntExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_REQUEST_ID_KEY, 0),
-                    intent.getParcelableExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_URI_KEY),
-                    intent.getStringArrayExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_MIMES_KEY));
+            mRemoteInsertion.onReply(
+                    intent.getIntExtra(
+                            MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_REQUEST_ID_KEY, 0),
+                    intent.getParcelableExtra(
+                            MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_URI_KEY),
+                    intent.getStringArrayExtra(
+                            MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_MIMES_KEY));
         }
     }
 

@@ -2,16 +2,13 @@ package com.anysoftkeyboard.overlay;
 
 import android.content.ComponentName;
 import android.graphics.Color;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
+import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-
-import java.util.HashMap;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class OverlayDataOverriderTest {
@@ -37,13 +34,21 @@ public class OverlayDataOverriderTest {
 
     @Test
     public void testReturnsOriginalIfNotInMap() {
-        Assert.assertEquals(Color.GRAY, mUnderTest.createOverlayData(new ComponentName("com.example4", "Activity")).getPrimaryColor());
+        Assert.assertEquals(
+                Color.GRAY,
+                mUnderTest
+                        .createOverlayData(new ComponentName("com.example4", "Activity"))
+                        .getPrimaryColor());
         Mockito.verify(mOriginal).createOverlayData(new ComponentName("com.example4", "Activity"));
     }
 
     @Test
     public void testReturnsOverrideIfInMap() {
-        Assert.assertEquals(Color.BLUE, mUnderTest.createOverlayData(new ComponentName("com.example", "Activity")).getPrimaryColor());
+        Assert.assertEquals(
+                Color.BLUE,
+                mUnderTest
+                        .createOverlayData(new ComponentName("com.example", "Activity"))
+                        .getPrimaryColor());
         Mockito.verifyZeroInteractions(mOriginal);
     }
 }

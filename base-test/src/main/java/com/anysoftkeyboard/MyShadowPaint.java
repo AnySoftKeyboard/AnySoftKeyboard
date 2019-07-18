@@ -2,14 +2,12 @@ package com.anysoftkeyboard;
 
 import android.graphics.Paint;
 import android.os.Build;
-
+import java.util.HashSet;
+import java.util.Set;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.annotation.Resetter;
 import org.robolectric.shadows.ShadowPaint;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @SuppressWarnings({"UnusedDeclaration"})
 @Implements(Paint.class)

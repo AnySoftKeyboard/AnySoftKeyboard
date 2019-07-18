@@ -36,23 +36,21 @@ class KeyEventStateMachine {
         this.mWalker.putItem(new NFAPart());
 
         this.mWalkerUnused = new RingBuffer();
-        for (int i = 1; i < MAX_NFA_DIVIDES; i++)
-            this.mWalkerUnused.putItem(new NFAPart());
+        for (int i = 1; i < MAX_NFA_DIVIDES; i++) this.mWalkerUnused.putItem(new NFAPart());
 
         this.mWalkerHelper = new RingBuffer();
     }
 
     private static KeyEventState addNextState(KeyEventState current, int keyCode) {
         KeyEventState next = current.getNext(keyCode);
-        if (next != null)
-            return next;
+        if (next != null) return next;
         next = new KeyEventState();
         current.addNextState(keyCode, next);
         return next;
     }
 
     public void addSequence(int[] sequence, int result) {
-        addSpecialKeySequence(sequence, 0/*no special key*/, result);
+        addSpecialKeySequence(sequence, 0 /*no special key*/, result);
     }
 
     public void addSpecialKeySequence(int[] sequence, int specialKey, int result) {
@@ -60,10 +58,10 @@ class KeyEventStateMachine {
 
         for (int aSequence : sequence) {
             if (specialKey != 0) {
-                //special key first
+                // special key first
                 c = addNextState(c, specialKey);
             }
-            //the sequence second
+            // the sequence second
             c = addNextState(c, aSequence);
         }
         c.setCharacter(result);
@@ -104,8 +102,7 @@ class KeyEventStateMachine {
             }
 
             if (result == State.PART_MATCH || result == State.NO_MATCH) {
-                if (resultstate == State.RESET)
-                    resultstate = result;
+                if (resultstate == State.RESET) resultstate = result;
                 mWalkerHelper.putItem(cWalker);
             } else {
                 mWalkerUnused.putItem(cWalker);
@@ -115,13 +112,13 @@ class KeyEventStateMachine {
                 newwalker.reset();
                 mWalkerHelper.putItem(newwalker);
             }
-            if (result == State.PART_MATCH && ((found == null) || (found.mSequenceLength < cWalker.mSequenceLength))) {
+            if (result == State.PART_MATCH
+                    && ((found == null) || (found.mSequenceLength < cWalker.mSequenceLength))) {
                 found = cWalker;
                 resultstate = result;
             }
         }
-        while (mWalker.hasItem())
-            mWalkerUnused.putItem(mWalker.getItem());
+        while (mWalker.hasItem()) mWalkerUnused.putItem(mWalker.getItem());
 
         final RingBuffer switchWalkerarrays = mWalkerHelper;
         mWalkerHelper = mWalker;
@@ -137,15 +134,13 @@ class KeyEventStateMachine {
                 NFAPart part = mWalker.getItem();
                 mWalker.putItem(part);
                 i++;
-                if (part == found && resultstate == State.FULL_MATCH)
-                    break;
+                if (part == found && resultstate == State.FULL_MATCH) break;
 
                 if (found.mVisibleSequenceLength > 1) {
                     part.iVisibleSequenceLength -= found.mVisibleSequenceLength - 1;
                 }
 
-                if (part == found)
-                    break;
+                if (part == found) break;
             }
             while (i++ < count) {
                 this.mWalker.putItem(this.mWalker.getItem());
@@ -163,14 +158,19 @@ class KeyEventStateMachine {
     }
 
     public void reset() {
-        while (this.mWalker.hasItem())
-            this.mWalkerUnused.putItem(this.mWalker.getItem());
+        while (this.mWalker.hasItem()) this.mWalkerUnused.putItem(this.mWalker.getItem());
         NFAPart first = this.mWalkerUnused.getItem();
         first.reset();
         this.mWalker.putItem(first);
     }
 
-    public enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
+    public enum State {
+        RESET,
+        REWIND,
+        NO_MATCH,
+        PART_MATCH,
+        FULL_MATCH
+    }
 
     private static final class KeyEventTransition {
 
@@ -181,7 +181,6 @@ class KeyEventStateMachine {
             this.mNext = next;
             this.mKeyCode = keyCode;
         }
-
     }
 
     private static final class KeyEventState {
@@ -194,8 +193,7 @@ class KeyEventStateMachine {
         }
 
         public KeyEventState getNext(int keyCode) {
-            if (this.mTransitions == null)
-                return null;
+            if (this.mTransitions == null) return null;
             for (KeyEventTransition transition : this.mTransitions) {
                 if (transition.mKeyCode == keyCode) {
                     return transition.mNext;
@@ -205,8 +203,7 @@ class KeyEventStateMachine {
         }
 
         public void addNextState(int keyCode, KeyEventState next) {
-            if (this.mTransitions == null)
-                this.mTransitions = new ArrayList<>();
+            if (this.mTransitions == null) this.mTransitions = new ArrayList<>();
             this.mTransitions.add(new KeyEventTransition(keyCode, next));
         }
 
@@ -217,7 +214,6 @@ class KeyEventStateMachine {
         public boolean hasNext() {
             return (this.mTransitions != null);
         }
-
     }
 
     private class NFAPart {
@@ -245,11 +241,9 @@ class KeyEventStateMachine {
             this.iVisibleSequenceLength = part.iVisibleSequenceLength;
         }
 
-
         private void returnToFirst(int keyCode) {
             this.state = KeyEventStateMachine.this.mStart;
-            if (keyCode > 0)
-                this.iVisibleSequenceLength--;
+            if (keyCode > 0) this.iVisibleSequenceLength--;
             this.iSequenceLength--;
         }
 
@@ -259,8 +253,7 @@ class KeyEventStateMachine {
                 this.reset();
                 return State.RESET;
             }
-            if (keyCode > 0)
-                this.iVisibleSequenceLength++;
+            if (keyCode > 0) this.iVisibleSequenceLength++;
             this.iSequenceLength++;
 
             if (this.state.mResult != 0) {
@@ -317,7 +310,5 @@ class KeyEventStateMachine {
         int getCount() {
             return this.mCount;
         }
-
     }
-
 }

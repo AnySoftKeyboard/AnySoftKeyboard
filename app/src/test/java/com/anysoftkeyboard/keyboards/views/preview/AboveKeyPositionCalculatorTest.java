@@ -4,10 +4,9 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +14,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
@@ -42,9 +39,11 @@ public class AboveKeyPositionCalculatorTest {
     public void testCalculatePositionForPreviewWithNoneExtendAnimation() throws Exception {
         mTheme.setPreviewAnimationType(PreviewPopupTheme.ANIMATION_STYLE_APPEAR);
 
-        int[] offsets = new int[]{50, 60};
+        int[] offsets = new int[] {50, 60};
 
-        Point result = mUnderTest.calculatePositionForPreview(mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result =
+                mUnderTest.calculatePositionForPreview(
+                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + offsets[1], result.y);
@@ -54,9 +53,11 @@ public class AboveKeyPositionCalculatorTest {
     public void testCalculatePositionForPreviewWithExtendAnimation() throws Exception {
         mTheme.setPreviewAnimationType(PreviewPopupTheme.ANIMATION_STYLE_EXTEND);
 
-        int[] offsets = new int[]{50, 60};
+        int[] offsets = new int[] {50, 60};
 
-        Point result = mUnderTest.calculatePositionForPreview(mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result =
+                mUnderTest.calculatePositionForPreview(
+                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + mTestKey.height + offsets[1], result.y);
@@ -65,21 +66,25 @@ public class AboveKeyPositionCalculatorTest {
     @Test
     public void testCalculatePositionForPreviewWithBackgroundPadding() throws Exception {
         mTheme.setPreviewAnimationType(PreviewPopupTheme.ANIMATION_STYLE_APPEAR);
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                Rect padding = (Rect) invocation.getArguments()[0];
-                padding.bottom = 13;
-                return true;
-            }
-        }).when(mTheme.getPreviewKeyBackground()).getPadding(Mockito.any(Rect.class));
+        Mockito.doAnswer(
+                        new Answer() {
+                            @Override
+                            public Object answer(InvocationOnMock invocation) throws Throwable {
+                                Rect padding = (Rect) invocation.getArguments()[0];
+                                padding.bottom = 13;
+                                return true;
+                            }
+                        })
+                .when(mTheme.getPreviewKeyBackground())
+                .getPadding(Mockito.any(Rect.class));
 
-        int[] offsets = new int[]{50, 60};
+        int[] offsets = new int[] {50, 60};
 
-        Point result = mUnderTest.calculatePositionForPreview(mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result =
+                mUnderTest.calculatePositionForPreview(
+                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
-        Assert.assertEquals(mTestKey.y + offsets[1] + 13/*padding*/, result.y);
+        Assert.assertEquals(mTestKey.y + offsets[1] + 13 /*padding*/, result.y);
     }
-
 }

@@ -4,10 +4,9 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.MediaInsertion;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +17,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowApplication;
 
-import androidx.test.core.app.ApplicationProvider;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class RemoteInsertionActivityTest {
 
@@ -27,18 +24,23 @@ public class RemoteInsertionActivityTest {
 
     @Before
     public void setup() {
-        mShadowApplication = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext());
+        mShadowApplication =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext());
     }
 
     @Test
     public void testHappyPath() {
-        ActivityController<RemoteInsertionActivity> controller = Robolectric.buildActivity(RemoteInsertionActivity.class,
-                RemoteInsertionImpl.getMediaInsertRequestIntent(new String[]{"image/png"}, 123));
+        ActivityController<RemoteInsertionActivity> controller =
+                Robolectric.buildActivity(
+                        RemoteInsertionActivity.class,
+                        RemoteInsertionImpl.getMediaInsertRequestIntent(
+                                new String[] {"image/png"}, 123));
         controller.setup();
 
         final ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
 
-        final ShadowActivity.IntentForResult activityForResult = shadowActivity.getNextStartedActivityForResult();
+        final ShadowActivity.IntentForResult activityForResult =
+                shadowActivity.getNextStartedActivityForResult();
         Assert.assertTrue(activityForResult.requestCode >= 1024);
         final Intent chooserIntent = activityForResult.intent;
         Assert.assertNotNull(chooserIntent);
@@ -56,10 +58,15 @@ public class RemoteInsertionActivityTest {
     public void testDoesNotRequestOnRecreate() {
         Bundle outState = new Bundle();
         outState.putInt(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, 234);
-        outState.putStringArray(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY, new String[]{"image/png"});
+        outState.putStringArray(
+                MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY,
+                new String[] {"image/png"});
 
-        ActivityController<RemoteInsertionActivity> controller = Robolectric.buildActivity(RemoteInsertionActivity.class,
-                RemoteInsertionImpl.getMediaInsertRequestIntent(new String[]{"image/png"}, 123));
+        ActivityController<RemoteInsertionActivity> controller =
+                Robolectric.buildActivity(
+                        RemoteInsertionActivity.class,
+                        RemoteInsertionImpl.getMediaInsertRequestIntent(
+                                new String[] {"image/png"}, 123));
         controller.setup(outState);
 
         Assert.assertNull(Shadows.shadowOf(controller.get()).getNextStartedActivityForResult());
@@ -67,15 +74,22 @@ public class RemoteInsertionActivityTest {
 
     @Test
     public void testStoreDataInBundleOnSaveState() {
-        ActivityController<RemoteInsertionActivity> controller = Robolectric.buildActivity(RemoteInsertionActivity.class,
-                RemoteInsertionImpl.getMediaInsertRequestIntent(new String[]{"image/png"}, 123));
+        ActivityController<RemoteInsertionActivity> controller =
+                Robolectric.buildActivity(
+                        RemoteInsertionActivity.class,
+                        RemoteInsertionImpl.getMediaInsertRequestIntent(
+                                new String[] {"image/png"}, 123));
         controller.setup();
 
         Bundle out = new Bundle();
         controller.stop().pause().saveInstanceState(out);
 
         Assert.assertTrue(out.getInt("EXTERNAL_REQUEST_ID_EXTRA_KEY") >= 1024);
-        Assert.assertEquals(123, out.getInt(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY));
-        Assert.assertArrayEquals(new String[]{"image/png"}, out.getStringArray(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY));
+        Assert.assertEquals(
+                123,
+                out.getInt(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY));
+        Assert.assertArrayEquals(
+                new String[] {"image/png"},
+                out.getStringArray(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY));
     }
 }

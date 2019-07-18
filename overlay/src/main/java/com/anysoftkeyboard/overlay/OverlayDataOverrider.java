@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.overlay;
 
 import android.content.ComponentName;
-
 import java.util.HashMap;
 import java.util.Map;
 

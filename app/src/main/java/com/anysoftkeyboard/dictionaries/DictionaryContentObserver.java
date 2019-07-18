@@ -19,9 +19,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.database.ContentObserver;
 import android.os.Handler;
 import android.os.Looper;
-
 import com.anysoftkeyboard.base.utils.Logger;
-
 import java.lang.ref.WeakReference;
 
 public class DictionaryContentObserver extends ContentObserver {

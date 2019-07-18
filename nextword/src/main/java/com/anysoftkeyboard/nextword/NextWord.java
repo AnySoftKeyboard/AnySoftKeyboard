@@ -36,6 +36,6 @@ public class NextWord {
 
     @Override
     public String toString() {
-        return "["+nextWord+":"+mUsedCount+"]";
+        return "[" + nextWord + ":" + mUsedCount + "]";
     }
 }

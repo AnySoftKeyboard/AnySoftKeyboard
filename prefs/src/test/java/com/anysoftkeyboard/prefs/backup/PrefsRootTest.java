@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.prefs.backup;
 
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

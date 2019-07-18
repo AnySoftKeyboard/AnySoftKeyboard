@@ -6,22 +6,21 @@ import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowView;
 
-import androidx.test.core.app.ApplicationProvider;
-
-public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<WizardPageWelcomeFragmentTest.TestableWizardPageWelcomeFragment> {
+public class WizardPageWelcomeFragmentTest
+        extends RobolectricFragmentTestCase<
+                WizardPageWelcomeFragmentTest.TestableWizardPageWelcomeFragment> {
 
     @NonNull
     @Override
@@ -53,32 +52,39 @@ public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<W
 
         fragment.getView().findViewById(R.id.setup_wizard_welcome_privacy_action).performClick();
 
-        Intent wikiIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
+        Intent wikiIntent =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
         Assert.assertEquals(Intent.ACTION_VIEW, wikiIntent.getAction());
-        Assert.assertEquals("http://anysoftkeyboard.github.io/privacy-policy/", wikiIntent.getData().toString());
+        Assert.assertEquals(
+                "http://anysoftkeyboard.github.io/privacy-policy/",
+                wikiIntent.getData().toString());
     }
 
     @Test
     public void testDemoRotate() {
         WizardPageWelcomeFragment fragment = startFragment();
-        DemoAnyKeyboardView demoAnyKeyboardView = fragment.getView().findViewById(R.id.demo_keyboard_view);
+        DemoAnyKeyboardView demoAnyKeyboardView =
+                fragment.getView().findViewById(R.id.demo_keyboard_view);
         int timesDemoChanged = 0;
         final int runsToMake = 10;
         for (int tests = 0; tests < runsToMake; tests++) {
             final long startDemoDescription = describeDemoKeyboard(demoAnyKeyboardView);
             final long startTime = Robolectric.getForegroundThreadScheduler().getCurrentTime();
 
-            Assert.assertTrue(Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable());
+            Assert.assertTrue(
+                    Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable());
 
-            Assert.assertNotEquals(startTime, Robolectric.getForegroundThreadScheduler().getCurrentTime());
+            Assert.assertNotEquals(
+                    startTime, Robolectric.getForegroundThreadScheduler().getCurrentTime());
 
             if (startDemoDescription != describeDemoKeyboard(demoAnyKeyboardView)) {
                 timesDemoChanged++;
             }
         }
 
-        //making sure that the demo view changed more than half the times.
-        Assert.assertTrue(timesDemoChanged > runsToMake/2);
+        // making sure that the demo view changed more than half the times.
+        Assert.assertTrue(timesDemoChanged > runsToMake / 2);
     }
 
     private long describeDemoKeyboard(DemoAnyKeyboardView demoAnyKeyboardView) {

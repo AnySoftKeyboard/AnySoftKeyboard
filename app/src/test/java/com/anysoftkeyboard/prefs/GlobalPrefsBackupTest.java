@@ -4,7 +4,6 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
@@ -12,24 +11,21 @@ import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.test.TestUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GlobalPrefsBackupTest {
 
     static class FakePrefsProvider implements PrefsProvider {
         private final String mId;
-        @Nullable
-        public PrefsRoot storedPrefsRoot;
+        @Nullable public PrefsRoot storedPrefsRoot;
 
         FakePrefsProvider(String id) {
 
@@ -41,8 +37,7 @@ public class GlobalPrefsBackupTest {
             PrefsRoot root = new PrefsRoot(2);
             root.addValue("test", "value");
             root.addValue("ctorId", mId);
-            root.createChild()
-                    .addValue("child", "child-value");
+            root.createChild().addValue("child", "child-value");
             return root;
         }
 
@@ -59,7 +54,8 @@ public class GlobalPrefsBackupTest {
 
     @Test
     public void testGetAllPrefsProviders() {
-        final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders = GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext());
+        final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders =
+                GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext());
         Assert.assertNotNull(allPrefsProviders);
         Assert.assertEquals(4, allPrefsProviders.size());
     }
@@ -68,22 +64,28 @@ public class GlobalPrefsBackupTest {
     public void testBackupRestoreHappyPath() throws Exception {
         final FakePrefsProvider fakePrefsProvider = new FakePrefsProvider("id1");
         final PrefsRoot originalPrefsRoot = fakePrefsProvider.getPrefsRoot();
-        List<GlobalPrefsBackup.ProviderDetails> fakeDetails = Collections.singletonList(
-                new GlobalPrefsBackup.ProviderDetails(fakePrefsProvider, R.string.pop_text_type_title));
+        List<GlobalPrefsBackup.ProviderDetails> fakeDetails =
+                Collections.singletonList(
+                        new GlobalPrefsBackup.ProviderDetails(
+                                fakePrefsProvider, R.string.pop_text_type_title));
 
-        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits = new AtomicReference<>(new ArrayList<>());
-        GlobalPrefsBackup.backup(Pair.create(fakeDetails, new Boolean[]{true}))
+        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
+                new AtomicReference<>(new ArrayList<>());
+        GlobalPrefsBackup.backup(Pair.create(fakeDetails, new Boolean[] {true}))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(1, hits.get().size());
         Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
 
         hits.get().clear();
 
-        Assert.assertTrue(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).exists());
-        Assert.assertTrue(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).length() > 0);
+        Assert.assertTrue(
+                AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).exists());
+        Assert.assertTrue(
+                AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).length()
+                        > 0);
 
         Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
-        GlobalPrefsBackup.restore(Pair.create(fakeDetails, new Boolean[]{true}))
+        GlobalPrefsBackup.restore(Pair.create(fakeDetails, new Boolean[] {true}))
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -101,10 +103,13 @@ public class GlobalPrefsBackupTest {
         for (int providerIndex = 0; providerIndex < fakePrefsProviders.length; providerIndex++) {
             fakePrefsProviders[providerIndex] = new FakePrefsProvider("id_" + providerIndex);
             originalRoots[providerIndex] = fakePrefsProviders[providerIndex].getPrefsRoot();
-            fakesDetails.add(new GlobalPrefsBackup.ProviderDetails(fakePrefsProviders[providerIndex], R.string.pop_text_type_title));
+            fakesDetails.add(
+                    new GlobalPrefsBackup.ProviderDetails(
+                            fakePrefsProviders[providerIndex], R.string.pop_text_type_title));
         }
 
-        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits = new AtomicReference<>(new ArrayList<>());
+        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
+                new AtomicReference<>(new ArrayList<>());
         final Boolean[] providersToBackup = {true, true, true, false, true};
         GlobalPrefsBackup.backup(Pair.create(fakesDetails, providersToBackup))
                 .blockingSubscribe(p -> hits.get().add(p));
@@ -115,7 +120,8 @@ public class GlobalPrefsBackupTest {
         Assert.assertSame(fakesDetails.get(4).provider, hits.get().get(3).provider);
 
         hits.get().clear();
-        //restoring the first and last. Also asking for restore of the 4th, which is not in the list
+        // restoring the first and last. Also asking for restore of the 4th, which is not in the
+        // list
         final Boolean[] providersToRestore = {true, false, false, true, true};
         GlobalPrefsBackup.restore(Pair.create(fakesDetails, providersToRestore))
                 .blockingSubscribe(p -> hits.get().add(p));
@@ -127,11 +133,17 @@ public class GlobalPrefsBackupTest {
         for (int providerIndex = 0; providerIndex < fakePrefsProviders.length; providerIndex++) {
             final FakePrefsProvider fakePrefsProvider = fakePrefsProviders[providerIndex];
             if (providersToRestore[providerIndex] && providersToBackup[providerIndex]) {
-                Assert.assertNotNull("Provider at index " + providerIndex + " should have been restored!", fakePrefsProvider.storedPrefsRoot);
-                Assert.assertNotSame("Provider at index " + providerIndex, originalRoots[providerIndex], fakePrefsProvider.storedPrefsRoot);
+                Assert.assertNotNull(
+                        "Provider at index " + providerIndex + " should have been restored!",
+                        fakePrefsProvider.storedPrefsRoot);
+                Assert.assertNotSame(
+                        "Provider at index " + providerIndex,
+                        originalRoots[providerIndex],
+                        fakePrefsProvider.storedPrefsRoot);
                 assertRootsEqual(originalRoots[providerIndex], fakePrefsProvider.storedPrefsRoot);
             } else {
-                Assert.assertNull("Provider at index " + providerIndex, fakePrefsProvider.storedPrefsRoot);
+                Assert.assertNull(
+                        "Provider at index " + providerIndex, fakePrefsProvider.storedPrefsRoot);
             }
         }
     }

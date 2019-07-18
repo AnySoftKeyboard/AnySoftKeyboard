@@ -2,24 +2,21 @@ package com.anysoftkeyboard.gesturetyping;
 
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.subjects.ReplaySubject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
@@ -36,17 +33,13 @@ public class GestureTypingDetector {
 
     private final WorkspaceData mWorkspaceData = new WorkspaceData();
 
-    @NonNull
-    private final Iterable<Keyboard.Key> mKeys;
+    @NonNull private final Iterable<Keyboard.Key> mKeys;
 
-    @NonNull
-    private final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
+    @NonNull private final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
 
-    @NonNull
-    private List<char[][]> mWords = Collections.emptyList();
+    @NonNull private List<char[][]> mWords = Collections.emptyList();
 
-    @NonNull
-    private Disposable mGeneratingDisposable = Disposables.empty();
+    @NonNull private Disposable mGeneratingDisposable = Disposables.empty();
 
     public enum LoadingState {
         NOT_LOADED,
@@ -54,7 +47,8 @@ public class GestureTypingDetector {
         LOADED
     }
 
-    private final ReplaySubject<LoadingState> mGenerateStateSubject = ReplaySubject.createWithSize(1);
+    private final ReplaySubject<LoadingState> mGenerateStateSubject =
+            ReplaySubject.createWithSize(1);
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
     public GestureTypingDetector(int minPointDistance, @NonNull Iterable<Keyboard.Key> keys) {
@@ -75,8 +69,10 @@ public class GestureTypingDetector {
         Logger.d(TAG, "starting generateCorners");
         mGeneratingDisposable.dispose();
         mGenerateStateSubject.onNext(LoadingState.LOADING);
-        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, mKeys, mKeysByCharacter, mWorkspaceData)
-                .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
+        mGeneratingDisposable =
+                generateCornersInBackground(
+                                mWords, mWordsCorners, mKeys, mKeysByCharacter, mWorkspaceData)
+                        .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
     }
 
     public void destroy() {
@@ -85,8 +81,12 @@ public class GestureTypingDetector {
         mGenerateStateSubject.onComplete();
     }
 
-    private static Single<LoadingState> generateCornersInBackground(Iterable<char[][]> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys,
-                                                                    SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspaceData) {
+    private static Single<LoadingState> generateCornersInBackground(
+            Iterable<char[][]> words,
+            Collection<int[]> wordsCorners,
+            Iterable<Keyboard.Key> keys,
+            SparseArray<Keyboard.Key> keysByCharacter,
+            WorkspaceData workspaceData) {
 
         workspaceData.reset();
         wordsCorners.clear();
@@ -94,51 +94,74 @@ public class GestureTypingDetector {
 
         return Observable.fromIterable(words)
                 .subscribeOn(RxSchedulers.background())
-                .map(wordsArray -> new CornersGenerationData(wordsArray, wordsCorners, keys, keysByCharacter, workspaceData))
-                //consider adding here groupBy operator to fan-out the generation of paths
-                .flatMap(data -> Observable.<LoadingState>create(e -> {
-                    Logger.d(TAG, "generating in BG.");
+                .map(
+                        wordsArray ->
+                                new CornersGenerationData(
+                                        wordsArray,
+                                        wordsCorners,
+                                        keys,
+                                        keysByCharacter,
+                                        workspaceData))
+                // consider adding here groupBy operator to fan-out the generation of paths
+                .flatMap(
+                        data ->
+                                Observable.<LoadingState>create(
+                                        e -> {
+                                            Logger.d(TAG, "generating in BG.");
 
-                    // Fill keysByCharacter map for faster path generation
-                    for (Keyboard.Key key : data.mKeys) {
-                        for (int i = 0; i < key.getCodesCount(); ++i) {
-                            char c = Character.toLowerCase((char) key.getCodeAtIndex(i, false));
-                            data.mKeysByCharacter.put(c, key);
-                        }
-                    }
+                                            // Fill keysByCharacter map for faster path generation
+                                            for (Keyboard.Key key : data.mKeys) {
+                                                for (int i = 0; i < key.getCodesCount(); ++i) {
+                                                    char c =
+                                                            Character.toLowerCase(
+                                                                    (char)
+                                                                            key.getCodeAtIndex(
+                                                                                    i, false));
+                                                    data.mKeysByCharacter.put(c, key);
+                                                }
+                                            }
 
-                    int index = 0;
-                    for (char[] word : data.mWords) {
-                        if (index % 1000 == 0) {
-                            Logger.d(TAG, "generated %d paths in thread %s", index, Thread.currentThread().toString());
-                        }
-                        index++;
-                        int[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
-                        if (e.isDisposed()) {
-                            return;
-                        }
-                        data.mWordsCorners.add(path);
-                    }
+                                            int index = 0;
+                                            for (char[] word : data.mWords) {
+                                                if (index % 1000 == 0) {
+                                                    Logger.d(
+                                                            TAG,
+                                                            "generated %d paths in thread %s",
+                                                            index,
+                                                            Thread.currentThread().toString());
+                                                }
+                                                index++;
+                                                int[] path =
+                                                        generatePath(
+                                                                word,
+                                                                data.mKeysByCharacter,
+                                                                data.mWorkspace);
+                                                if (e.isDisposed()) {
+                                                    return;
+                                                }
+                                                data.mWordsCorners.add(path);
+                                            }
 
-                    Logger.d(TAG, "generating done");
-                    e.onNext(LoadingState.LOADED);
-                    e.onComplete();
-                }))
+                                            Logger.d(TAG, "generating done");
+                                            e.onNext(LoadingState.LOADED);
+                                            e.onComplete();
+                                        }))
                 .subscribeOn(RxSchedulers.background())
                 .lastOrError()
                 .onErrorReturnItem(LoadingState.NOT_LOADED)
                 .observeOn(RxSchedulers.mainThread());
     }
 
-    private static int[] generatePath(char[] word, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspaceData) {
+    private static int[] generatePath(
+            char[] word, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspaceData) {
         workspaceData.reset();
-        //word = Normalizer.normalize(word, Normalizer.Form.NFD);
+        // word = Normalizer.normalize(word, Normalizer.Form.NFD);
         char lastLetter = '\0';
 
         // Add points for each key
         for (char c : word) {
             c = Character.toLowerCase(c);
-            if (lastLetter == c) continue; //Avoid duplicate letters
+            if (lastLetter == c) continue; // Avoid duplicate letters
 
             Keyboard.Key keyHit = keysByCharacter.get(c);
 
@@ -163,8 +186,12 @@ public class GestureTypingDetector {
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) return;
 
         if (mWorkspaceData.mCurrentGestureArraySize > 0) {
-            final int dx = mWorkspaceData.mCurrentGestureXs[mWorkspaceData.mCurrentGestureArraySize - 1] - x;
-            final int dy = mWorkspaceData.mCurrentGestureYs[mWorkspaceData.mCurrentGestureArraySize - 1] - y;
+            final int dx =
+                    mWorkspaceData.mCurrentGestureXs[mWorkspaceData.mCurrentGestureArraySize - 1]
+                            - x;
+            final int dy =
+                    mWorkspaceData.mCurrentGestureYs[mWorkspaceData.mCurrentGestureArraySize - 1]
+                            - y;
 
             if (dx * dx + dy * dy <= mMinPointDistanceSquared) return;
         }
@@ -182,7 +209,9 @@ public class GestureTypingDetector {
             workspaceData.addMaximaPointOfIndex(0);
         }
 
-        for (int gesturePointIndex = 1; gesturePointIndex < workspaceData.mCurrentGestureArraySize - 1; gesturePointIndex++) {
+        for (int gesturePointIndex = 1;
+                gesturePointIndex < workspaceData.mCurrentGestureArraySize - 1;
+                gesturePointIndex++) {
             if (curvature(workspaceData, gesturePointIndex)) {
                 workspaceData.addMaximaPointOfIndex(gesturePointIndex);
             }
@@ -203,7 +232,10 @@ public class GestureTypingDetector {
         final int sx = workspaceData.mCurrentGestureXs[si];
         final int sy = workspaceData.mCurrentGestureYs[si];
 
-        final int ei = Math.min(workspaceData.mCurrentGestureArraySize - 1, middle + CURVATURE_NEIGHBORHOOD);
+        final int ei =
+                Math.min(
+                        workspaceData.mCurrentGestureArraySize - 1,
+                        middle + CURVATURE_NEIGHBORHOOD);
         final int ex = workspaceData.mCurrentGestureXs[ei];
         final int ey = workspaceData.mCurrentGestureYs[ei];
 
@@ -253,7 +285,8 @@ public class GestureTypingDetector {
             final char[][] words = mWords.get(dictIndex);
             for (int i = 0; i < words.length; i++) {
                 // Check if current word would start with the same key
-                Keyboard.Key wordStartKey = mKeysByCharacter.get(Character.toLowerCase(words[i][0]));
+                Keyboard.Key wordStartKey =
+                        mKeysByCharacter.get(Character.toLowerCase(words[i][0]));
                 if (wordStartKey == null) {
                     wordStartKey = mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
                 }
@@ -291,13 +324,18 @@ public class GestureTypingDetector {
         for (int i = 0; i < user.length / 2 && currentWordIndex < word.length / 2; i++) {
             int ux = user[i * 2];
             int uy = user[i * 2 + 1];
-            double d = dist(ux, uy, word[currentWordIndex * 2],
-                    word[currentWordIndex * 2 + 1]);
+            double d = dist(ux, uy, word[currentWordIndex * 2], word[currentWordIndex * 2 + 1]);
             double d2;
 
-            if (currentWordIndex + 1 < word.length / 2 && i > 0 &&
-                    (d2 = dist(ux, uy, word[currentWordIndex * 2 + 2],
-                            word[currentWordIndex * 2 + 3])) < d) {
+            if (currentWordIndex + 1 < word.length / 2
+                    && i > 0
+                    && (d2 =
+                                    dist(
+                                            ux,
+                                            uy,
+                                            word[currentWordIndex * 2 + 2],
+                                            word[currentWordIndex * 2 + 3]))
+                            < d) {
                 d = d2;
                 currentWordIndex++;
             }
@@ -307,8 +345,13 @@ public class GestureTypingDetector {
 
         while (currentWordIndex + 1 < word.length / 2) {
             currentWordIndex++;
-            dist += 10 * dist(user[user.length - 2], user[user.length - 1],
-                    word[currentWordIndex * 2], word[currentWordIndex * 2 + 1]);
+            dist +=
+                    10
+                            * dist(
+                                    user[user.length - 2],
+                                    user[user.length - 1],
+                                    word[currentWordIndex * 2],
+                                    word[currentWordIndex * 2 + 1]);
         }
 
         return dist;
@@ -360,7 +403,12 @@ public class GestureTypingDetector {
         private final SparseArray<Keyboard.Key> mKeysByCharacter;
         private final WorkspaceData mWorkspace;
 
-        CornersGenerationData(char[][] words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspace) {
+        CornersGenerationData(
+                char[][] words,
+                Collection<int[]> wordsCorners,
+                Iterable<Keyboard.Key> keys,
+                SparseArray<Keyboard.Key> keysByCharacter,
+                WorkspaceData workspace) {
             mWords = words;
             mWordsCorners = wordsCorners;
             mKeys = keys;

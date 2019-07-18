@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -36,7 +35,6 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
@@ -48,7 +46,12 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     private OverlayData mOverlayData = new OverlayData();
 
     public KeyboardThemeSelectorFragment() {
-        super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
+        super(
+                "KeyboardThemeSelectorFragment",
+                R.string.keyboard_theme_list_title,
+                true,
+                false,
+                true);
     }
 
     @NonNull
@@ -62,7 +65,9 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
         Activity activity = getActivity();
         if (activity instanceof FragmentChauffeurActivity) {
             FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            chauffeurActivity.addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            chauffeurActivity.addFragmentToUi(
+                    new KeyboardThemeTweaksFragment(),
+                    TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
         }
     }
 
@@ -71,9 +76,15 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
         super.onViewCreated(view, savedInstanceState);
         mSelectedKeyboardView = view.findViewById(R.id.demo_keyboard_view);
 
-        mApplyPrefs = AnyApplication.prefs(getContext()).getBoolean(R.string.settings_key_apply_remote_app_colors, R.bool.settings_default_apply_remote_app_colors);
+        mApplyPrefs =
+                AnyApplication.prefs(getContext())
+                        .getBoolean(
+                                R.string.settings_key_apply_remote_app_colors,
+                                R.bool.settings_default_apply_remote_app_colors);
         ViewGroup demoView = view.findViewById(R.id.demo_keyboard_view_background);
-        final View applyOverlayView = getLayoutInflater().inflate(R.layout.prefs_adapt_theme_to_remote_app, demoView, false);
+        final View applyOverlayView =
+                getLayoutInflater()
+                        .inflate(R.layout.prefs_adapt_theme_to_remote_app, demoView, false);
         demoView.addView(applyOverlayView);
         mApplySummaryText = applyOverlayView.findViewById(R.id.apply_overlay_summary);
         CheckBox checkBox = applyOverlayView.findViewById(R.id.apply_overlay);
@@ -82,23 +93,35 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
             checkBox.setVisibility(View.GONE);
         }
         View demoAppsRoot = applyOverlayView.findViewById(R.id.overlay_demo_apps_root);
-        checkBox.setOnCheckedChangeListener((v, isChecked) -> {
-            isChecked &= OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
-            mApplyPrefs.set(isChecked);
-            mApplySummaryText.setText(isChecked ? R.string.apply_overlay_summary_on : R.string.apply_overlay_summary_off);
-            demoAppsRoot.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            if (!isChecked) {
-                mOverlayData = new OverlayData();/*empty one, to clear overlay*/
-                mSelectedKeyboardView.setThemeOverlay(mOverlayData);
-            }
-        });
+        checkBox.setOnCheckedChangeListener(
+                (v, isChecked) -> {
+                    isChecked &= OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
+                    mApplyPrefs.set(isChecked);
+                    mApplySummaryText.setText(
+                            isChecked
+                                    ? R.string.apply_overlay_summary_on
+                                    : R.string.apply_overlay_summary_off);
+                    demoAppsRoot.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                    if (!isChecked) {
+                        mOverlayData = new OverlayData(); /*empty one, to clear overlay*/
+                        mSelectedKeyboardView.setThemeOverlay(mOverlayData);
+                    }
+                });
 
         checkBox.setChecked(mApplyPrefs.get());
 
-        demoAppsRoot.findViewById(R.id.theme_app_demo_phone).setOnClickListener(this::onDemoAppClicked);
-        demoAppsRoot.findViewById(R.id.theme_app_demo_twitter).setOnClickListener(this::onDemoAppClicked);
-        demoAppsRoot.findViewById(R.id.theme_app_demo_whatsapp).setOnClickListener(this::onDemoAppClicked);
-        demoAppsRoot.findViewById(R.id.theme_app_demo_gmail).setOnClickListener(this::onDemoAppClicked);
+        demoAppsRoot
+                .findViewById(R.id.theme_app_demo_phone)
+                .setOnClickListener(this::onDemoAppClicked);
+        demoAppsRoot
+                .findViewById(R.id.theme_app_demo_twitter)
+                .setOnClickListener(this::onDemoAppClicked);
+        demoAppsRoot
+                .findViewById(R.id.theme_app_demo_whatsapp)
+                .setOnClickListener(this::onDemoAppClicked);
+        demoAppsRoot
+                .findViewById(R.id.theme_app_demo_gmail)
+                .setOnClickListener(this::onDemoAppClicked);
     }
 
     private void onDemoAppClicked(View view) {
@@ -136,12 +159,13 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
         }
 
         Activity activity = getActivity();
-        mOverlayData = new OverlayData(
-                ContextCompat.getColor(activity, primaryBackground),
-                ContextCompat.getColor(activity, secondaryBackground),
-                ContextCompat.getColor(activity, primaryText),
-                ContextCompat.getColor(activity, primaryText),
-                ContextCompat.getColor(activity, secondaryText));
+        mOverlayData =
+                new OverlayData(
+                        ContextCompat.getColor(activity, primaryBackground),
+                        ContextCompat.getColor(activity, secondaryBackground),
+                        ContextCompat.getColor(activity, primaryText),
+                        ContextCompat.getColor(activity, primaryText),
+                        ContextCompat.getColor(activity, secondaryText));
 
         mSelectedKeyboardView.setThemeOverlay(mOverlayData);
     }
@@ -158,10 +182,14 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     }
 
     @Override
-    protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+    protected void applyAddOnToDemoKeyboardView(
+            @NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         demoKeyboardView.setKeyboardTheme(addOn);
         mSelectedKeyboardView.setThemeOverlay(mOverlayData);
-        AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        AnyKeyboard defaultKeyboard =
+                AnyApplication.getKeyboardFactory(getContext())
+                        .getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
     }

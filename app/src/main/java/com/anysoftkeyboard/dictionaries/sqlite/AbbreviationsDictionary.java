@@ -18,10 +18,8 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.dictionaries.WordComposer;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +54,8 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
         reportExplodedWords(callback, word);
 
         if (((WordComposer) codes).isFirstCharCapitalized()) {
-            String nonCapitalizedWord = toLowerCase(word.charAt(0)) + (word.length() > 1 ? word.substring(1) : "");
+            String nonCapitalizedWord =
+                    toLowerCase(word.charAt(0)) + (word.length() > 1 ? word.substring(1) : "");
             reportExplodedWords(callback, nonCapitalizedWord);
         }
     }
@@ -65,13 +64,18 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
         List<String> explodedStringsList = mAbbreviationsMap.get(word);
         if (explodedStringsList != null) {
             for (String explodedString : explodedStringsList)
-                callback.addWord(explodedString.toCharArray(), 0, explodedString.length(), MAX_WORD_FREQUENCY, this);
+                callback.addWord(
+                        explodedString.toCharArray(),
+                        0,
+                        explodedString.length(),
+                        MAX_WORD_FREQUENCY,
+                        this);
         }
     }
 
     @Override
     protected void addWordFromStorageToMemory(String word, int frequency) {
-        //not double storing the words in memory, so I'm not calling the super method
+        // not double storing the words in memory, so I'm not calling the super method
         String key = getAbbreviation(word, frequency);
         String value = getExplodedSentence(word, frequency);
         if (mAbbreviationsMap.containsKey(key)) {

@@ -27,9 +27,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 import com.anysoftkeyboard.base.utils.Logger;
-
 import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardService {
@@ -54,19 +52,30 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
         Toast.makeText(this.getApplication(), text, duration).show();
     }
 
-    protected void showOptionsDialogWithData(@StringRes int title, @DrawableRes int iconRedId,
-            final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
+    protected void showOptionsDialogWithData(
+            @StringRes int title,
+            @DrawableRes int iconRedId,
+            final CharSequence[] entries,
+            final DialogInterface.OnClickListener listener) {
         showOptionsDialogWithData(getText(title), iconRedId, entries, listener);
     }
 
-    protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
-            final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
+    protected void showOptionsDialogWithData(
+            CharSequence title,
+            @DrawableRes int iconRedId,
+            final CharSequence[] entries,
+            final DialogInterface.OnClickListener listener) {
         showOptionsDialogWithData(title, iconRedId, entries, listener, null);
     }
 
-    protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
-            final CharSequence[] entries, final DialogInterface.OnClickListener listener, @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
-        mGeneralDialogController.showDialog(OPTIONS_DIALOG,
+    protected void showOptionsDialogWithData(
+            CharSequence title,
+            @DrawableRes int iconRedId,
+            final CharSequence[] entries,
+            final DialogInterface.OnClickListener listener,
+            @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
+        mGeneralDialogController.showDialog(
+                OPTIONS_DIALOG,
                 new OptionsDialogData(title, iconRedId, entries, listener, extraPresenter));
     }
 
@@ -90,14 +99,16 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
 
     protected class OptionsDialogData {
         private final CharSequence mTitle;
-        @DrawableRes
-        private final int mIcon;
+        @DrawableRes private final int mIcon;
         private final CharSequence[] mOptions;
         private final DialogInterface.OnClickListener mOnClickListener;
-        @Nullable
-        private final GeneralDialogController.DialogPresenter mExtraPresenter;
+        @Nullable private final GeneralDialogController.DialogPresenter mExtraPresenter;
 
-        public OptionsDialogData(CharSequence title, int icon, CharSequence[] options, DialogInterface.OnClickListener onClickListener,
+        public OptionsDialogData(
+                CharSequence title,
+                int icon,
+                CharSequence[] options,
+                DialogInterface.OnClickListener onClickListener,
                 @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
             mTitle = title;
             mIcon = icon;
@@ -120,7 +131,8 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
 
     private class ImeDialogPresenter implements GeneralDialogController.DialogPresenter {
         @Override
-        public void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+        public void onSetupDialogRequired(
+                AlertDialog.Builder builder, int optionId, @Nullable Object data) {
             OptionsDialogData dialogData = (OptionsDialogData) data;
             builder.setCancelable(true);
             builder.setIcon(dialogData.mIcon);

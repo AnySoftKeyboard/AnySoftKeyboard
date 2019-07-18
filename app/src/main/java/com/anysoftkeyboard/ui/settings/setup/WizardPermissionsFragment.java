@@ -14,20 +14,19 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
-
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.lang.ref.WeakReference;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 
-import java.lang.ref.WeakReference;
+public class WizardPermissionsFragment extends WizardPageBaseFragment
+        implements View.OnClickListener {
 
-public class WizardPermissionsFragment extends WizardPageBaseFragment implements View.OnClickListener {
-
-    private final PermissionsRequest mContactsPermissionRequest = new ContactPermissionRequest(this);
+    private final PermissionsRequest mContactsPermissionRequest =
+            new ContactPermissionRequest(this);
 
     @Override
     protected int getPageLayoutId() {
@@ -45,12 +44,18 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return isContactsDictionaryDisabled(context) ||//either the user disabled Contacts
-                ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;//or the user granted permission
+        return isContactsDictionaryDisabled(context)
+                || // either the user disabled Contacts
+                ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
+                        == PackageManager.PERMISSION_GRANTED; // or the user granted permission
     }
 
     private boolean isContactsDictionaryDisabled(Context context) {
-        return !AnyApplication.prefs(context).getBoolean(R.string.settings_key_use_contacts_dictionary, R.bool.settings_default_contacts_dictionary).get();
+        return !AnyApplication.prefs(context)
+                .getBoolean(
+                        R.string.settings_key_use_contacts_dictionary,
+                        R.bool.settings_default_contacts_dictionary)
+                .get();
     }
 
     @Override
@@ -78,46 +83,63 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
 
         switch (v.getId()) {
             case R.id.ask_for_permissions_action:
-            case R.id.step_state_icon: {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                final SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                activity.startPermissionsRequest(mContactsPermissionRequest);
-                refreshWizardPager();
-            }
-            break;
-            case R.id.disable_contacts_dictionary: {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                final SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                refreshWizardPager();
-            }
-            break;
+            case R.id.step_state_icon:
+                {
+                    SharedPreferences sharedPreferences =
+                            PreferenceManager.getDefaultSharedPreferences(activity);
+                    final SharedPreferences.Editor edit = sharedPreferences.edit();
+                    edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    activity.startPermissionsRequest(mContactsPermissionRequest);
+                    refreshWizardPager();
+                }
+                break;
+            case R.id.disable_contacts_dictionary:
+                {
+                    SharedPreferences sharedPreferences =
+                            PreferenceManager.getDefaultSharedPreferences(activity);
+                    final SharedPreferences.Editor edit = sharedPreferences.edit();
+                    edit.putBoolean(
+                            getString(R.string.settings_key_use_contacts_dictionary), false);
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    refreshWizardPager();
+                }
+                break;
             case R.id.open_permissions_wiki_action:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.permissions_wiki_site_url)));
+                Intent browserIntent =
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                        getResources()
+                                                .getString(R.string.permissions_wiki_site_url)));
                 try {
                     startActivity(browserIntent);
                 } catch (ActivityNotFoundException weirdException) {
-                    //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/516
-                    //this means that there is nothing on the device
-                    //that can handle Intent.ACTION_VIEW with "https" schema..
-                    //silently swallowing it
-                    Logger.w("WizardPermissionsFragment", "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
+                    // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/516
+                    // this means that there is nothing on the device
+                    // that can handle Intent.ACTION_VIEW with "https" schema..
+                    // silently swallowing it
+                    Logger.w(
+                            "WizardPermissionsFragment",
+                            "Can not open '%' since there is nothing on the device that can handle it.",
+                            browserIntent.getData());
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle " + v.getId() + " in WizardPermissionsFragment");
+                throw new IllegalArgumentException(
+                        "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
         }
     }
 
-    private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
+    private static class ContactPermissionRequest
+            extends PermissionsRequest.PermissionsRequestBase {
 
         private final WeakReference<WizardPermissionsFragment> mFragmentWeakReference;
 
         ContactPermissionRequest(WizardPermissionsFragment fragment) {
-            super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+            super(
+                    PermissionsRequestCodes.CONTACTS.getRequestCode(),
+                    Manifest.permission.READ_CONTACTS);
             mFragmentWeakReference = new WeakReference<>(fragment);
         }
 
@@ -130,7 +152,10 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
         }
 
         @Override
-        public void onPermissionsDenied(@NonNull String[] grantedPermissions, @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
+        public void onPermissionsDenied(
+                @NonNull String[] grantedPermissions,
+                @NonNull String[] deniedPermissions,
+                @NonNull String[] declinedPermissions) {
             /*no-op - Main-Activity handles this case*/
         }
     }

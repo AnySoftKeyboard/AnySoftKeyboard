@@ -21,12 +21,12 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.menny.android.anysoftkeyboard.R;
 
-public class LayoutSwitchAnimationListener implements android.view.animation.Animation.AnimationListener {
+public class LayoutSwitchAnimationListener
+        implements android.view.animation.Animation.AnimationListener {
 
     public enum AnimationType {
         InPlaceSwitch,
@@ -34,10 +34,8 @@ public class LayoutSwitchAnimationListener implements android.view.animation.Ani
         SwipeRight
     }
 
-    @NonNull
-    private final AnySoftKeyboardBase mIme;
-    @NonNull
-    private final Context mAppContext;
+    @NonNull private final AnySoftKeyboardBase mIme;
+    @NonNull private final Context mAppContext;
 
     private Animation mSwitchAnimation = null;
     private Animation mSwitch2Animation = null;
@@ -59,12 +57,16 @@ public class LayoutSwitchAnimationListener implements android.view.animation.Ani
         mSwitchAnimation.setAnimationListener(this);
         mSwitch2Animation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_fadein);
 
-        mSwipeLeftAnimation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_out_left);
+        mSwipeLeftAnimation =
+                AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_out_left);
         mSwipeLeftAnimation.setAnimationListener(this);
-        mSwipeLeft2Animation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_in_right);
-        mSwipeRightAnimation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_out_right);
+        mSwipeLeft2Animation =
+                AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_in_right);
+        mSwipeRightAnimation =
+                AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_out_right);
         mSwipeRightAnimation.setAnimationListener(this);
-        mSwipeRight2Animation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_in_left);
+        mSwipeRight2Animation =
+                AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_in_left);
     }
 
     private void unloadAnimations() {
@@ -85,25 +87,33 @@ public class LayoutSwitchAnimationListener implements android.view.animation.Ani
         if (mSwitchAnimation != null && view != null && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {
-            mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode}, false/*not directly pressed the UI key*/);
+            mIme.onKey(
+                    mTargetKeyCode,
+                    null,
+                    -1,
+                    new int[] {mTargetKeyCode},
+                    false /*not directly pressed the UI key*/);
         }
     }
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view = (com.anysoftkeyboard.keyboards.views.AnyKeyboardView) mIme.getInputView();
-        if (view != null)
-            view.requestInAnimation(getEndAnimation(mCurrentAnimationType));
-        mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode}, false/*not directly pressed the UI key*/);
+        final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view =
+                (com.anysoftkeyboard.keyboards.views.AnyKeyboardView) mIme.getInputView();
+        if (view != null) view.requestInAnimation(getEndAnimation(mCurrentAnimationType));
+        mIme.onKey(
+                mTargetKeyCode,
+                null,
+                -1,
+                new int[] {mTargetKeyCode},
+                false /*not directly pressed the UI key*/);
     }
 
     @Override
-    public void onAnimationRepeat(Animation animation) {
-    }
+    public void onAnimationRepeat(Animation animation) {}
 
     @Override
-    public void onAnimationStart(Animation animation) {
-    }
+    public void onAnimationStart(Animation animation) {}
 
     private Animation getStartAnimation(AnimationType type) {
         switch (type) {
@@ -144,10 +154,8 @@ public class LayoutSwitchAnimationListener implements android.view.animation.Ani
     }
 
     public void setAnimations(boolean enabled) {
-        if (enabled && mSwitchAnimation == null)
-            loadAnimations();
-        else if (!enabled && mSwitchAnimation != null)
-            unloadAnimations();
+        if (enabled && mSwitchAnimation == null) loadAnimations();
+        else if (!enabled && mSwitchAnimation != null) unloadAnimations();
     }
 
     public void onDestroy() {

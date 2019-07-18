@@ -19,13 +19,11 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -42,9 +40,20 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
     private final int mAutoTextResId;
     private final int mInitialSuggestionsResId;
 
-    private DictionaryAddOnAndBuilder(Context askContext, Context packageContext, int apiVersion, CharSequence id,
-                                      CharSequence name, CharSequence description, boolean isHidden, int sortIndex, String dictionaryLanguage,
-                                      String assetsFilename, int dictResId, int autoTextResId, int initialSuggestionsResId) {
+    private DictionaryAddOnAndBuilder(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            String dictionaryLanguage,
+            String assetsFilename,
+            int dictResId,
+            int autoTextResId,
+            int initialSuggestionsResId) {
         super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
         mLanguage = dictionaryLanguage;
         mAssetsFilename = assetsFilename;
@@ -53,14 +62,61 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         mInitialSuggestionsResId = initialSuggestionsResId;
     }
 
-    public DictionaryAddOnAndBuilder(Context askContext, Context packageContext, int apiVersion, CharSequence id,
-                                     CharSequence name, CharSequence description, boolean isHidden, int sortIndex, String dictionaryLanguage, String assetsFilename, int initialSuggestionsResId) {
-        this(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex, dictionaryLanguage, assetsFilename, INVALID_RES_ID, INVALID_RES_ID, initialSuggestionsResId);
+    public DictionaryAddOnAndBuilder(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            String dictionaryLanguage,
+            String assetsFilename,
+            int initialSuggestionsResId) {
+        this(
+                askContext,
+                packageContext,
+                apiVersion,
+                id,
+                name,
+                description,
+                isHidden,
+                sortIndex,
+                dictionaryLanguage,
+                assetsFilename,
+                INVALID_RES_ID,
+                INVALID_RES_ID,
+                initialSuggestionsResId);
     }
 
-    public DictionaryAddOnAndBuilder(Context askContext, Context packageContext, int apiVersion, CharSequence id,
-                                     CharSequence name, CharSequence description, boolean isHidden, int sortIndex, String dictionaryLanguage, int dictionaryResId, int autoTextResId, int initialSuggestionsResId) {
-        this(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex, dictionaryLanguage, null, dictionaryResId, autoTextResId, initialSuggestionsResId);
+    public DictionaryAddOnAndBuilder(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            String dictionaryLanguage,
+            int dictionaryResId,
+            int autoTextResId,
+            int initialSuggestionsResId) {
+        this(
+                askContext,
+                packageContext,
+                apiVersion,
+                id,
+                name,
+                description,
+                isHidden,
+                sortIndex,
+                dictionaryLanguage,
+                null,
+                dictionaryResId,
+                autoTextResId,
+                initialSuggestionsResId);
     }
 
     public String getLanguage() {
@@ -69,9 +125,14 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 
     public Dictionary createDictionary() throws Exception {
         if (mDictionaryResId == INVALID_RES_ID)
-            return new BinaryDictionary(getPackageContext(), getName(), getPackageContext().getAssets().openFd(mAssetsFilename), BuildConfig.DEBUG);
+            return new BinaryDictionary(
+                    getPackageContext(),
+                    getName(),
+                    getPackageContext().getAssets().openFd(mAssetsFilename),
+                    BuildConfig.DEBUG);
         else
-            return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId, BuildConfig.DEBUG);
+            return new ResourceBinaryDictionary(
+                    getName(), getPackageContext(), mDictionaryResId, BuildConfig.DEBUG);
     }
 
     @Nullable
@@ -95,7 +156,8 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         } else {
             final Context packageContext = getPackageContext();
             if (packageContext == null) return Collections.emptyList();
-            return Arrays.asList(packageContext.getResources().getStringArray(mInitialSuggestionsResId));
+            return Arrays.asList(
+                    packageContext.getResources().getStringArray(mInitialSuggestionsResId));
         }
     }
 }

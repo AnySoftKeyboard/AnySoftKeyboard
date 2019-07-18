@@ -24,14 +24,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-
 import com.menny.android.anysoftkeyboard.BuildConfig;
-
 import java.util.ArrayList;
 
-/**
- * Helper activity used for triggering the Intent recognition, and for collecting the results.
- */
+/** Helper activity used for triggering the Intent recognition, and for collecting the results. */
 public class ActivityHelper extends Activity {
 
     @SuppressWarnings("unused")
@@ -48,8 +44,11 @@ public class ActivityHelper extends Activity {
         mServiceBridge = new ServiceBridge();
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra("calling_package"/*RecognizerIntent.EXTRA_CALLING_PACKAGE*/, BuildConfig.APPLICATION_ID);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(
+                "calling_package" /*RecognizerIntent.EXTRA_CALLING_PACKAGE*/,
+                BuildConfig.APPLICATION_ID);
+        intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
 
         // Specify the recognition language if provided.
@@ -64,10 +63,11 @@ public class ActivityHelper extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOGNITION_REQUEST && data != null
+        if (requestCode == RECOGNITION_REQUEST
+                && data != null
                 && data.hasExtra(RecognizerIntent.EXTRA_RESULTS)) {
-            ArrayList<String> results = data
-                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            ArrayList<String> results =
+                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             createResultDialog(results.toArray(new String[results.size()])).show();
         } else {
             notifyResult(null);
@@ -80,34 +80,38 @@ public class ActivityHelper extends Activity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             builder = new AlertDialog.Builder(this);
         } else {
-            builder = new AlertDialog.Builder(this,
-                    android.R.style.Theme_Holo_Dialog_NoActionBar);
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog_NoActionBar);
         }
 
-        builder.setItems(recognitionResults, new DialogInterface.OnClickListener() {
+        builder.setItems(
+                recognitionResults,
+                new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                notifyResult(recognitionResults[which]);
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        notifyResult(recognitionResults[which]);
+                    }
+                });
 
         builder.setCancelable(true);
-        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        builder.setOnCancelListener(
+                new DialogInterface.OnCancelListener() {
 
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                notifyResult(null);
-            }
-        });
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        notifyResult(null);
+                    }
+                });
 
-        builder.setNeutralButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(
+                android.R.string.cancel,
+                new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                notifyResult(null);
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        notifyResult(null);
+                    }
+                });
 
         return builder.create();
     }

@@ -22,10 +22,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import com.menny.android.anysoftkeyboard.R;
 
-public class VoiceInputNotInstalledActivity extends Activity implements android.view.View.OnClickListener {
+public class VoiceInputNotInstalledActivity extends Activity
+        implements android.view.View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,11 @@ public class VoiceInputNotInstalledActivity extends Activity implements android.
             try {
                 getApplicationContext().startActivity(search);
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), getText(R.string.voice_input_not_voice_pack_in_market), Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                                getApplicationContext(),
+                                getText(R.string.voice_input_not_voice_pack_in_market),
+                                Toast.LENGTH_LONG)
+                        .show();
             }
         }
 

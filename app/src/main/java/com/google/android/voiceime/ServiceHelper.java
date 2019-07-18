@@ -23,8 +23,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 /**
- * Service helper that connects the IME with the activity that triggers the recognition
- * and that will receive the recognition result.
+ * Service helper that connects the IME with the activity that triggers the recognition and that
+ * will receive the recognition result.
  */
 public class ServiceHelper extends Service {
 

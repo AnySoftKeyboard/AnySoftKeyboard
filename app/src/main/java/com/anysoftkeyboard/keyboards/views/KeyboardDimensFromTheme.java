@@ -28,8 +28,7 @@ public class KeyboardDimensFromTheme implements KeyboardDimens {
     private int mLargeKeyHeight;
     private float mPaddingBottom;
 
-    KeyboardDimensFromTheme() {
-    }
+    KeyboardDimensFromTheme() {}
 
     @Override
     public int getKeyboardMaxWidth() {

@@ -5,13 +5,11 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardFactoryTest {
@@ -42,8 +40,9 @@ public class KeyboardFactoryTest {
         Assert.assertNotNull(addon);
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", addon.getId());
 
-        Assert.assertTrue(mKeyboardFactory.isAddOnEnabledByDefault("c7535083-4fe6-49dc-81aa-c5438a1a343a"));
-        Assert.assertFalse(mKeyboardFactory.isAddOnEnabledByDefault("c7535083-4fe6-49dc-81aa-c5438a1a343b"));
+        Assert.assertTrue(
+                mKeyboardFactory.isAddOnEnabledByDefault("c7535083-4fe6-49dc-81aa-c5438a1a343a"));
+        Assert.assertFalse(
+                mKeyboardFactory.isAddOnEnabledByDefault("c7535083-4fe6-49dc-81aa-c5438a1a343b"));
     }
-
 }

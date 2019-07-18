@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.base.utils;
 
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,5 +39,4 @@ public class OptionalCompatTest {
         Assert.assertNotEquals(OptionalCompat.of(4).hashCode(), nonNullInt.hashCode());
         Assert.assertNotEquals(OptionalCompat.of("ggg").hashCode(), nonNullInt.hashCode());
     }
-
 }

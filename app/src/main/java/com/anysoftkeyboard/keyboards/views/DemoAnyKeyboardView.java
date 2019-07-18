@@ -11,20 +11,15 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-
 import java.lang.ref.WeakReference;
 
-/**
- * Will render the keyboard view but will not provide ANY interactivity.
- */
+/** Will render the keyboard view but will not provide ANY interactivity. */
 public class DemoAnyKeyboardView extends AnyKeyboardView {
     private TypingSimulator mTypingSimulator;
-    @Nullable
-    private OnViewBitmapReadyListener mOnViewBitmapReadyListener = null;
+    @Nullable private OnViewBitmapReadyListener mOnViewBitmapReadyListener = null;
     private final int mInitialKeyboardWidth;
     private float mKeyboardScale = 1f;
 
@@ -36,9 +31,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         super(context, attrs, defStyle);
         mTypingSimulator = new TypingSimulator(this);
 
-        //CHECKSTYLE:OFF: RawGetKeyboardTheme
+        // CHECKSTYLE:OFF: RawGetKeyboardTheme
         setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
-        //CHECKSTYLE:ON: RawGetKeyboardTheme
+        // CHECKSTYLE:ON: RawGetKeyboardTheme
 
         mInitialKeyboardWidth = getThemedKeyboardDimens().getKeyboardMaxWidth();
     }
@@ -69,7 +64,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent me) {
-        //not handling ANY touch event.
+        // not handling ANY touch event.
         return false;
     }
 
@@ -80,10 +75,16 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         for (Keyboard.Key key : keyboard.getKeys()) {
             if (key.getPrimaryCode() == keyChar) {
                 final long eventTime = SystemClock.uptimeMillis();
-                final long downEventTime = eventTime - (isDownEvent ? 0 : TypingSimulator.KEY_DOWN_DELAY);
-                MotionEvent motionEvent = MotionEvent.obtain(downEventTime, eventTime,
-                        isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
-                        key.centerX, key.centerY, 0);
+                final long downEventTime =
+                        eventTime - (isDownEvent ? 0 : TypingSimulator.KEY_DOWN_DELAY);
+                MotionEvent motionEvent =
+                        MotionEvent.obtain(
+                                downEventTime,
+                                eventTime,
+                                isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
+                                key.centerX,
+                                key.centerY,
+                                0);
                 super.onTouchEvent(motionEvent);
                 motionEvent.recycle();
             }
@@ -92,7 +93,8 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
 
     private void simulateCancelTouchEvent() {
         final long eventTime = SystemClock.uptimeMillis();
-        MotionEvent motionEvent = MotionEvent.obtain(eventTime, eventTime, MotionEvent.ACTION_CANCEL, 0, 0, 0);
+        MotionEvent motionEvent =
+                MotionEvent.obtain(eventTime, eventTime, MotionEvent.ACTION_CANCEL, 0, 0, 0);
         super.onTouchEvent(motionEvent);
         motionEvent.recycle();
     }
@@ -164,8 +166,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         private static final int CANCEL_MESSAGE = 111;
 
         private final WeakReference<DemoAnyKeyboardView> mDemoAnyKeyboardViewWeakReference;
-        @NonNull
-        private String mTextToSimulate = "";
+        @NonNull private String mTextToSimulate = "";
         private int mSimulationIndex = 0;
         private boolean mIsEnabled;
 
@@ -206,7 +207,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                     }
                     break;
                 case RELEASE_MESSAGE:
-                    //sending RELEASE even if we are disabled
+                    // sending RELEASE even if we are disabled
                     keyboardView.simulateKeyTouchEvent(keyToSimulate, false);
                     mSimulationIndex++;
                     if (mSimulationIndex == mTextToSimulate.length()) {
@@ -216,7 +217,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                         }
                     } else {
                         if (mIsEnabled) {
-                            sendMessageDelayed(obtainMessage(PRESS_MESSAGE), (keyToSimulate == ' ') ? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
+                            sendMessageDelayed(
+                                    obtainMessage(PRESS_MESSAGE),
+                                    (keyToSimulate == ' ') ? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
                         }
                     }
                     break;
@@ -237,7 +240,6 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
             clearPressMessages();
             sendMessage(obtainMessage(CANCEL_MESSAGE));
         }
-
 
         public void onViewAttach() {
             if (mIsEnabled) return;

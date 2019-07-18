@@ -8,8 +8,7 @@ public class OptionalCompat<T> {
         return new OptionalCompat<>(value);
     }
 
-    @Nullable
-    private final T mValue;
+    @Nullable private final T mValue;
 
     private OptionalCompat(T value) {
         mValue = value;

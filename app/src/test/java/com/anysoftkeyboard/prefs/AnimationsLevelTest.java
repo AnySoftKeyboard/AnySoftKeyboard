@@ -6,16 +6,13 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-
-import java.util.concurrent.atomic.AtomicReference;
-
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnimationsLevelTest {
@@ -23,8 +20,10 @@ public class AnimationsLevelTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testCreatePrefsObservable() throws Exception {
-        final Consumer<AnimationsLevel> consumer = (Consumer<AnimationsLevel>) Mockito.mock(Consumer.class);
-        final Disposable disposable = AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(consumer);
+        final Consumer<AnimationsLevel> consumer =
+                (Consumer<AnimationsLevel>) Mockito.mock(Consumer.class);
+        final Disposable disposable =
+                AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(consumer);
         Mockito.verify(consumer).accept(AnimationsLevel.Some);
         Mockito.verifyNoMoreInteractions(consumer);
 
@@ -62,7 +61,9 @@ public class AnimationsLevelTest {
     @Test
     public void testPowerSaving() {
         AtomicReference<AnimationsLevel> setAnimationLevel = new AtomicReference<>();
-        final Disposable disposable = AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(setAnimationLevel::set);
+        final Disposable disposable =
+                AnimationsLevel.createPrefsObservable(getApplicationContext())
+                        .subscribe(setAnimationLevel::set);
 
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
 
@@ -84,7 +85,9 @@ public class AnimationsLevelTest {
     @Test
     public void testPowerSavingWithPref() {
         AtomicReference<AnimationsLevel> setAnimationLevel = new AtomicReference<>();
-        final Disposable disposable = AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(setAnimationLevel::set);
+        final Disposable disposable =
+                AnimationsLevel.createPrefsObservable(getApplicationContext())
+                        .subscribe(setAnimationLevel::set);
 
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
 
@@ -92,7 +95,8 @@ public class AnimationsLevelTest {
 
         Assert.assertEquals(AnimationsLevel.None, setAnimationLevel.get());
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_animation_control, false);
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_power_save_mode_animation_control, false);
 
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
         PowerSavingTest.sendBatteryState(true);

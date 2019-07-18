@@ -5,9 +5,11 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.provider.UserDictionary;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
+import de.triplet.simpleprovider.AbstractProvider;
+import de.triplet.simpleprovider.Column;
+import de.triplet.simpleprovider.Table;
+import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +17,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.shadows.ShadowContentResolver;
-
-import java.util.Collection;
-
-import de.triplet.simpleprovider.AbstractProvider;
-import de.triplet.simpleprovider.Column;
-import de.triplet.simpleprovider.Table;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AndroidUserDictionaryTest {
@@ -31,7 +27,7 @@ public class AndroidUserDictionaryTest {
     public void setup() {
         mProvider = new AUDContentProvider();
         ContentProviderController.of(mProvider).create(mProvider.getAuthority());
-        //setting up some dummy words
+        // setting up some dummy words
         mProvider.addRow(1, "Dude", 1, "en");
         mProvider.addRow(2, "Dudess", 2, "en");
         mProvider.addRow(3, "shalom", 10, "iw");
@@ -63,7 +59,7 @@ public class AndroidUserDictionaryTest {
     public void testLoadedWordsWhenNoContentProvider() throws Exception {
         ShadowContentResolver.reset();
         AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
-        //this should throw an exception, since there is no system content provider
+        // this should throw an exception, since there is no system content provider
         dictionary.loadDictionary();
     }
 
@@ -72,7 +68,9 @@ public class AndroidUserDictionaryTest {
         AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         dictionary.loadDictionary();
 
-        Collection<ContentObserver> observerList = Shadows.shadowOf(getApplicationContext().getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI);
+        Collection<ContentObserver> observerList =
+                Shadows.shadowOf(getApplicationContext().getContentResolver())
+                        .getContentObservers(UserDictionary.Words.CONTENT_URI);
         Assert.assertEquals(1, observerList.size());
 
         Assert.assertFalse(dictionary.isValidWord("Dudesss"));
@@ -80,7 +78,10 @@ public class AndroidUserDictionaryTest {
         Assert.assertTrue(dictionary.isValidWord("Dudesss"));
 
         dictionary.close();
-        Assert.assertTrue(Shadows.shadowOf(getApplicationContext().getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI).isEmpty());
+        Assert.assertTrue(
+                Shadows.shadowOf(getApplicationContext().getContentResolver())
+                        .getContentObservers(UserDictionary.Words.CONTENT_URI)
+                        .isEmpty());
     }
 
     public static class AUDContentProvider extends AbstractProvider {
@@ -103,7 +104,6 @@ public class AndroidUserDictionaryTest {
 
             @Column(Column.FieldType.TEXT)
             public static final String KEY_LOCALE = UserDictionary.Words.LOCALE;
-
         }
 
         public void addRow(int id, String word, int freq, String locale) {

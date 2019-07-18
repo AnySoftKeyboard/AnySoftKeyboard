@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class WizardPageBaseFragment extends Fragment {
@@ -29,8 +28,14 @@ public abstract class WizardPageBaseFragment extends Fragment {
     protected abstract int getPageLayoutId();
 
     @Override
-    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        NestedScrollView scrollView = (NestedScrollView) inflater.inflate(R.layout.keyboard_setup_wizard_page_base_layout, container, false);
+    public final View onCreateView(
+            LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        NestedScrollView scrollView =
+                (NestedScrollView)
+                        inflater.inflate(
+                                R.layout.keyboard_setup_wizard_page_base_layout, container, false);
 
         View actualPageView = inflater.inflate(getPageLayoutId(), scrollView, false);
 
@@ -39,8 +44,7 @@ public abstract class WizardPageBaseFragment extends Fragment {
         return scrollView;
     }
 
-    protected void refreshFragmentUi() {
-    }
+    protected void refreshFragmentUi() {}
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -50,8 +54,9 @@ public abstract class WizardPageBaseFragment extends Fragment {
 
     protected void refreshWizardPager() {
         refreshFragmentUi();
-        //re-triggering UI update
-        Fragment owningFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+        // re-triggering UI update
+        Fragment owningFragment =
+                getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
         if (owningFragment == null || !(owningFragment instanceof SetUpKeyboardWizardFragment))
             return;
         SetUpKeyboardWizardFragment wizardFragment = (SetUpKeyboardWizardFragment) owningFragment;

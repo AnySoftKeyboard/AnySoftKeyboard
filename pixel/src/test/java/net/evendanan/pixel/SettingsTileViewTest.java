@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +24,8 @@ public class SettingsTileViewTest {
         SettingsTileView view = buildSettingTileView(Configuration.ORIENTATION_PORTRAIT);
 
         Assert.assertEquals(LinearLayout.HORIZONTAL, view.getOrientation());
-        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+        final LinearLayout.LayoutParams layoutParams =
+                (LinearLayout.LayoutParams) view.getLayoutParams();
         Assert.assertEquals(LinearLayout.LayoutParams.MATCH_PARENT, layoutParams.width);
         Assert.assertEquals(LinearLayout.LayoutParams.WRAP_CONTENT, layoutParams.height);
     }
@@ -36,16 +35,16 @@ public class SettingsTileViewTest {
         SettingsTileView view = buildSettingTileView(Configuration.ORIENTATION_LANDSCAPE);
 
         Assert.assertEquals(LinearLayout.VERTICAL, view.getOrientation());
-        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+        final LinearLayout.LayoutParams layoutParams =
+                (LinearLayout.LayoutParams) view.getLayoutParams();
         Assert.assertEquals(LinearLayout.LayoutParams.MATCH_PARENT, layoutParams.height);
         Assert.assertEquals(1f, layoutParams.weight, 0f);
         Assert.assertEquals(0, layoutParams.width);
-
     }
 
     @Test
     public void testUndefineOrientationLayout() {
-        //same as portrait
+        // same as portrait
         testPortraitLayout();
     }
 
@@ -66,7 +65,9 @@ public class SettingsTileViewTest {
         SettingsTileView view = buildSettingTileView();
 
         view.setImage(android.R.drawable.arrow_up_float);
-        Assert.assertEquals(android.R.drawable.arrow_up_float, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
+        Assert.assertEquals(
+                android.R.drawable.arrow_up_float,
+                Shadows.shadowOf(view.getImage()).getCreatedFromResId());
 
         ImageView innerImageView = view.findViewById(R.id.tile_image);
         Assert.assertNotNull(innerImageView);
@@ -77,8 +78,12 @@ public class SettingsTileViewTest {
     public void testInitialLayoutAttrValues() {
         SettingsTileView view = buildSettingTileView();
 
-        Assert.assertEquals(android.R.drawable.ic_delete, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
-        Assert.assertEquals(getApplicationContext().getText(android.R.string.paste).toString(), view.getLabel().toString());
+        Assert.assertEquals(
+                android.R.drawable.ic_delete,
+                Shadows.shadowOf(view.getImage()).getCreatedFromResId());
+        Assert.assertEquals(
+                getApplicationContext().getText(android.R.string.paste).toString(),
+                view.getLabel().toString());
     }
 
     private SettingsTileView buildSettingTileView() {
@@ -86,10 +91,14 @@ public class SettingsTileViewTest {
     }
 
     private SettingsTileView buildSettingTileView(int orientation) {
-        ActivityController<FragmentActivity> controller = Robolectric.buildActivity(FragmentActivity.class);
+        ActivityController<FragmentActivity> controller =
+                Robolectric.buildActivity(FragmentActivity.class);
         controller.get().getResources().getConfiguration().orientation = orientation;
         controller.setup();
-        final SettingsTileView view = (SettingsTileView) LayoutInflater.from(controller.get()).inflate(R.layout.settings_tile_view_test_layout, null);
+        final SettingsTileView view =
+                (SettingsTileView)
+                        LayoutInflater.from(controller.get())
+                                .inflate(R.layout.settings_tile_view_test_layout, null);
         Robolectric.flushForegroundThreadScheduler();
         return view;
     }

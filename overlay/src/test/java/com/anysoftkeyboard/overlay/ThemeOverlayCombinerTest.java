@@ -6,15 +6,12 @@ import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Shadows;
-
-import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ThemeOverlayCombinerTest {
@@ -104,23 +101,31 @@ public class ThemeOverlayCombinerTest {
         Assert.assertEquals(6, themeResources.getKeyTextColor().getDefaultColor());
         Assert.assertEquals(7, themeResources.getNameTextColor());
 
-        //setting invalid value
+        // setting invalid value
         combiner.setOverlayData(new OverlayData());
         themeResources = combiner.getThemeResources();
-        Assert.assertEquals(R.drawable.test_image_3, Shadows.shadowOf(themeResources.getKeyBackground()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.test_image_3,
+                Shadows.shadowOf(themeResources.getKeyBackground()).getCreatedFromResId());
         Assert.assertNull(themeResources.getKeyBackground().getColorFilter());
-        Assert.assertEquals(R.drawable.test_image_2, Shadows.shadowOf(themeResources.getKeyboardBackground()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.test_image_2,
+                Shadows.shadowOf(themeResources.getKeyboardBackground()).getCreatedFromResId());
         Assert.assertNull(themeResources.getKeyboardBackground().getColorFilter());
 
         combiner.setThemeKeyboardBackground(resources.getDrawable(R.drawable.test_image_1));
-        combiner.setThemeTextColor(new ColorStateList(new int[][]{{0}}, new int[]{Color.GRAY}));
+        combiner.setThemeTextColor(new ColorStateList(new int[][] {{0}}, new int[] {Color.GRAY}));
         combiner.setThemeNameTextColor(Color.DKGRAY);
         combiner.setThemeHintTextColor(Color.BLUE);
 
         themeResources = combiner.getThemeResources();
-        Assert.assertEquals(R.drawable.test_image_3, Shadows.shadowOf(themeResources.getKeyBackground()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.test_image_3,
+                Shadows.shadowOf(themeResources.getKeyBackground()).getCreatedFromResId());
         Assert.assertNull(themeResources.getKeyBackground().getColorFilter());
-        Assert.assertEquals(R.drawable.test_image_1, Shadows.shadowOf(themeResources.getKeyboardBackground()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.test_image_1,
+                Shadows.shadowOf(themeResources.getKeyboardBackground()).getCreatedFromResId());
         Assert.assertNull(themeResources.getKeyboardBackground().getColorFilter());
         Assert.assertEquals(Color.GRAY, themeResources.getKeyTextColor().getDefaultColor());
         Assert.assertEquals(Color.DKGRAY, themeResources.getNameTextColor());
@@ -134,7 +139,7 @@ public class ThemeOverlayCombinerTest {
 
         ThemeOverlayCombiner combiner = new ThemeOverlayCombiner();
 
-        //invalid, no apply
+        // invalid, no apply
         combiner.applyOnIcon(icon);
         Assert.assertNull(icon.getColorFilter());
         combiner.clearFromIcon(icon);
@@ -158,7 +163,8 @@ public class ThemeOverlayCombinerTest {
     }
 
     public static int extractColorFromFilter(Drawable drawable) {
-        //ShadowPorterDuffColorFilter shadow = Shadows.shadowOf((PorterDuffColorFilter) drawable.getColorFilter());
+        // ShadowPorterDuffColorFilter shadow = Shadows.shadowOf((PorterDuffColorFilter)
+        // drawable.getColorFilter());
         return ((LightingColorFilter) drawable.getColorFilter()).getColorAdd();
     }
 }

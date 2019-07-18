@@ -18,29 +18,35 @@ package com.anysoftkeyboard.theme;
 
 import android.content.Context;
 import android.support.annotation.StyleRes;
-
 import com.anysoftkeyboard.addons.AddOnImpl;
 
 public class KeyboardTheme extends AddOnImpl {
 
-    @StyleRes
-    private final int mThemeResId;
-    @StyleRes
-    private final int mPopupThemeResId;
-    @StyleRes
-    private final int mIconsThemeResId;
-    @StyleRes
-    private final int mPopupIconsThemeResId;
+    @StyleRes private final int mThemeResId;
+    @StyleRes private final int mPopupThemeResId;
+    @StyleRes private final int mIconsThemeResId;
+    @StyleRes private final int mPopupIconsThemeResId;
 
-    public KeyboardTheme(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name,
-                         @StyleRes int themeResId, @StyleRes int popupThemeResId, @StyleRes int iconsThemeResId, @StyleRes int popupIconsThemeResId,
-                         boolean isHidden, CharSequence description, int sortIndex) {
+    public KeyboardTheme(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            @StyleRes int themeResId,
+            @StyleRes int popupThemeResId,
+            @StyleRes int iconsThemeResId,
+            @StyleRes int popupIconsThemeResId,
+            boolean isHidden,
+            CharSequence description,
+            int sortIndex) {
         super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
 
         mThemeResId = themeResId;
         mPopupThemeResId = popupThemeResId == INVALID_RES_ID ? mThemeResId : popupThemeResId;
         mIconsThemeResId = iconsThemeResId;
-        mPopupIconsThemeResId = popupIconsThemeResId == INVALID_RES_ID ? mIconsThemeResId : popupIconsThemeResId;
+        mPopupIconsThemeResId =
+                popupIconsThemeResId == INVALID_RES_ID ? mIconsThemeResId : popupIconsThemeResId;
     }
 
     @StyleRes

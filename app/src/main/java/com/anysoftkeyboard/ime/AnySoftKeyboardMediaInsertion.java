@@ -11,14 +11,12 @@ import android.support.v13.view.inputmethod.InputConnectionCompat;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.remote.InsertionRequestCallback;
 import com.anysoftkeyboard.remote.MediaType;
 import com.anysoftkeyboard.remote.RemoteInsertion;
 import com.anysoftkeyboard.remote.RemoteInsertionImpl;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,7 +25,8 @@ import java.util.Set;
 public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardware {
 
     private final Set<MediaType> mSupportedMediaTypes = new HashSet<>();
-    private final Set<MediaType> mSupportedMediaTypesUnmodifiable = Collections.unmodifiableSet(mSupportedMediaTypes);
+    private final Set<MediaType> mSupportedMediaTypesUnmodifiable =
+            Collections.unmodifiableSet(mSupportedMediaTypes);
 
     private InsertionRequestCallback mInsertionRequestCallback;
     private RemoteInsertion mKeyboardRemoteInsertion;
@@ -91,17 +90,24 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
 
     protected void handleMediaInsertionKey() {
         final InputConnection inputConnection = getCurrentInputConnection();
-        if (inputConnection != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+        if (inputConnection != null
+                && android.os.Build.VERSION.SDK_INT
+                        >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             mPendingRequestId = 0;
             mPendingCommit = null;
-            mKeyboardRemoteInsertion.startMediaRequest(EditorInfoCompat.getContentMimeTypes(editorInfo), getIdForInsertionRequest(editorInfo), mInsertionRequestCallback);
+            mKeyboardRemoteInsertion.startMediaRequest(
+                    EditorInfoCompat.getContentMimeTypes(editorInfo),
+                    getIdForInsertionRequest(editorInfo),
+                    mInsertionRequestCallback);
         }
     }
 
     @VisibleForTesting
     static int getIdForInsertionRequest(EditorInfo info) {
-        return info == null ? 0 : Arrays.hashCode(new int[]{info.fieldId, info.packageName.hashCode()});
+        return info == null
+                ? 0
+                : Arrays.hashCode(new int[] {info.fieldId, info.packageName.hashCode()});
     }
 
     protected Set<MediaType> getSupportedMediaTypesForInput() {
@@ -113,10 +119,16 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
         final InputConnection inputConnection = getCurrentInputConnection();
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
         if (inputContentInfo != null) {
-            Logger.i(TAG, "Received media insertion for ID %d with URI %s", requestId, inputContentInfo.getContentUri());
+            Logger.i(
+                    TAG,
+                    "Received media insertion for ID %d with URI %s",
+                    requestId,
+                    inputContentInfo.getContentUri());
             if (requestId != getIdForInsertionRequest(editorInfo) || inputConnection == null) {
                 if (mPendingCommit == null) {
-                    Logger.d(TAG, "Input connection is not available or request ID is wrong. Waiting.");
+                    Logger.d(
+                            TAG,
+                            "Input connection is not available or request ID is wrong. Waiting.");
                     mPendingRequestId = requestId;
                     mPendingCommit = inputContentInfo;
                     showToastMessage(R.string.media_insertion_pending_message, false);
@@ -128,8 +140,13 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
                     flags |= InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION;
                 }
 
-                grantUriPermission(editorInfo.packageName, inputContentInfo.getContentUri(), Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                final boolean commitContent = commitMediaToInputConnection(inputContentInfo, inputConnection, editorInfo, flags);
+                grantUriPermission(
+                        editorInfo.packageName,
+                        inputContentInfo.getContentUri(),
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                final boolean commitContent =
+                        commitMediaToInputConnection(
+                                inputContentInfo, inputConnection, editorInfo, flags);
                 Logger.i(TAG, "Committed content to input-connection. Result: %s", commitContent);
             }
         }
@@ -140,8 +157,13 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
 
     @VisibleForTesting
     @RequiresApi(android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
-    protected boolean commitMediaToInputConnection(InputContentInfoCompat inputContentInfo, InputConnection inputConnection, EditorInfo editorInfo, int flags) {
-        return InputConnectionCompat.commitContent(inputConnection, editorInfo, inputContentInfo, flags, null);
+    protected boolean commitMediaToInputConnection(
+            InputContentInfoCompat inputContentInfo,
+            InputConnection inputConnection,
+            EditorInfo editorInfo,
+            int flags) {
+        return InputConnectionCompat.commitContent(
+                inputConnection, editorInfo, inputContentInfo, flags, null);
     }
 
     @RequiresApi(android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -160,21 +182,20 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
     private static class NoOpInsertionImpl implements RemoteInsertion {
 
         @Override
-        public void startMediaRequest(@NonNull String[] mimeTypes, int requestId, @NonNull InsertionRequestCallback callback) {
-        }
+        public void startMediaRequest(
+                @NonNull String[] mimeTypes,
+                int requestId,
+                @NonNull InsertionRequestCallback callback) {}
 
         @Override
-        public void destroy() {
-        }
+        public void destroy() {}
     }
 
     private static class NoOpCallback implements InsertionRequestCallback {
         @Override
-        public void onMediaRequestDone(int requestId, InputContentInfoCompat contentInputInfo) {
-        }
+        public void onMediaRequestDone(int requestId, InputContentInfoCompat contentInputInfo) {}
 
         @Override
-        public void onMediaRequestCancelled(int requestId) {
-        }
+        public void onMediaRequestCancelled(int requestId) {}
     }
 }

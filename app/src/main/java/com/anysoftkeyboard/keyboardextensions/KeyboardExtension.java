@@ -20,9 +20,7 @@ import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.XmlRes;
-
 import com.anysoftkeyboard.addons.AddOnImpl;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -30,12 +28,20 @@ public class KeyboardExtension extends AddOnImpl {
     public static final int TYPE_BOTTOM = 1;
     public static final int TYPE_TOP = 2;
     public static final int TYPE_EXTENSION = 3;
-    @XmlRes
-    private final int mKeyboardResId;
-    @KeyboardExtensionType
-    private final int mExtensionType;
+    @XmlRes private final int mKeyboardResId;
+    @KeyboardExtensionType private final int mExtensionType;
 
-    public KeyboardExtension(@NonNull Context askContext, @NonNull Context packageContext, int apiVersion, @NonNull CharSequence id, CharSequence name, @XmlRes int keyboardResId, @KeyboardExtensionType int type, @NonNull CharSequence description, boolean isHidden, int sortIndex) {
+    public KeyboardExtension(
+            @NonNull Context askContext,
+            @NonNull Context packageContext,
+            int apiVersion,
+            @NonNull CharSequence id,
+            CharSequence name,
+            @XmlRes int keyboardResId,
+            @KeyboardExtensionType int type,
+            @NonNull CharSequence description,
+            boolean isHidden,
+            int sortIndex) {
         super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
         mKeyboardResId = keyboardResId;
         mExtensionType = type;
@@ -49,7 +55,8 @@ public class KeyboardExtension extends AddOnImpl {
             case TYPE_EXTENSION:
                 return keyboardExtensionType;
             default:
-                throw new RuntimeException("Invalid keyboard-extension-type " + keyboardExtensionType);
+                throw new RuntimeException(
+                        "Invalid keyboard-extension-type " + keyboardExtensionType);
         }
     }
 
@@ -65,6 +72,5 @@ public class KeyboardExtension extends AddOnImpl {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({TYPE_BOTTOM, TYPE_TOP, TYPE_EXTENSION})
-    public @interface KeyboardExtensionType {
-    }
+    public @interface KeyboardExtensionType {}
 }

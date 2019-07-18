@@ -16,9 +16,7 @@
 
 package com.google.android.voiceime;
 
-/**
- * Triggers a voice recognition.
- */
+/** Triggers a voice recognition. */
 interface Trigger {
 
     /**
@@ -28,8 +26,6 @@ interface Trigger {
      */
     public abstract void startVoiceRecognition(String language);
 
-    /**
-     * Notifies that the calling IME started.
-     */
+    /** Notifies that the calling IME started. */
     public abstract void onStartInputView();
 }

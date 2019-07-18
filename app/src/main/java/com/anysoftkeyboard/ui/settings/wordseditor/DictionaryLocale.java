@@ -1,8 +1,6 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
-/**
- * This will hold the data about locales in the Languages Spinner view
- */
+/** This will hold the data about locales in the Languages Spinner view */
 final class DictionaryLocale {
     private final String mLocale;
     private final CharSequence mLocaleName;
@@ -30,14 +28,10 @@ final class DictionaryLocale {
     public boolean equals(Object o) {
         if (o instanceof DictionaryLocale) {
             String otherLocale = ((DictionaryLocale) o).getLocale();
-            if (otherLocale == null && mLocale == null)
-                return true;
-            else if (otherLocale == null)
-                return false;
-            else if (mLocale == null)
-                return false;
-            else
-                return mLocale.equals(otherLocale);
+            if (otherLocale == null && mLocale == null) return true;
+            else if (otherLocale == null) return false;
+            else if (mLocale == null) return false;
+            else return mLocale.equals(otherLocale);
         } else {
             return false;
         }

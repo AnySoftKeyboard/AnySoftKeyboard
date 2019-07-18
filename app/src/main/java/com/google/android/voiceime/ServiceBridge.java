@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-
 import com.anysoftkeyboard.base.utils.Logger;
 
 /**
@@ -42,38 +41,35 @@ class ServiceBridge {
         mCallback = callback;
     }
 
-    /**
-     * Start a voice search recognition.
-     */
+    /** Start a voice search recognition. */
     public void startVoiceRecognition(final Context context, final String languageCode) {
         final ConnectionRequest conReq = new ConnectionRequest(languageCode);
-        conReq.setServiceCallback(new ServiceHelper.Callback() {
+        conReq.setServiceCallback(
+                new ServiceHelper.Callback() {
 
-            @Override
-            public void onResult(final String recognitionResult) {
-                mCallback.onRecognitionResult(recognitionResult);
-                try {
-                    context.unbindService(conReq);
-                } catch (IllegalArgumentException e) {
-                    //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/432
-                    Logger.w(TAG, "Failed to unbind from service! Swallowing.", e);
-                }
-            }
-        });
+                    @Override
+                    public void onResult(final String recognitionResult) {
+                        mCallback.onRecognitionResult(recognitionResult);
+                        try {
+                            context.unbindService(conReq);
+                        } catch (IllegalArgumentException e) {
+                            // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/432
+                            Logger.w(TAG, "Failed to unbind from service! Swallowing.", e);
+                        }
+                    }
+                });
 
-        context.bindService(new Intent(context,
-                ServiceHelper.class), conReq, Context.BIND_AUTO_CREATE);
+        context.bindService(
+                new Intent(context, ServiceHelper.class), conReq, Context.BIND_AUTO_CREATE);
     }
 
     public void notifyResult(Context context, String recognitionResult) {
         ServiceConnection conn = new ConnectionResponse(context, recognitionResult);
-        context.bindService(new Intent(context,
-                ServiceHelper.class), conn, Context.BIND_AUTO_CREATE);
+        context.bindService(
+                new Intent(context, ServiceHelper.class), conn, Context.BIND_AUTO_CREATE);
     }
 
-    /**
-     * Service connection for requesting a recognition.
-     */
+    /** Service connection for requesting a recognition. */
     private static class ConnectionRequest implements ServiceConnection {
 
         private final String mLanguageCode;
@@ -101,9 +97,7 @@ class ServiceBridge {
         }
     }
 
-    /**
-     * Service connection for notifying a recognition result.
-     */
+    /** Service connection for notifying a recognition result. */
     private static class ConnectionResponse implements ServiceConnection {
 
         private final String mRecognitionResult;

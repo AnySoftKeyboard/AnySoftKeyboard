@@ -14,19 +14,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.lang.ref.WeakReference;
 
 /**
- * This fragment will guide the user through the process of enabling, switch to and configuring AnySoftKeyboard.
- * This will be done with three pages, each for a different task:
- * 1) enable
- * 2) switch to
- * 3) additional settings (and saying 'Thank You' for switching to).
- * -) under Marshmallow, we'll also show Permissions
+ * This fragment will guide the user through the process of enabling, switch to and configuring
+ * AnySoftKeyboard. This will be done with three pages, each for a different task: 1) enable 2)
+ * switch to 3) additional settings (and saying 'Thank You' for switching to). -) under Marshmallow,
+ * we'll also show Permissions
  */
 public class SetUpKeyboardWizardFragment extends Fragment {
 
@@ -70,18 +66,20 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     private ViewPager mWizardPager;
     private Context mAppContext;
 
-    private final ContentObserver mSecureSettingsChanged = new ContentObserver(null) {
-        @Override
-        public boolean deliverSelfNotifications() {
-            return false;
-        }
+    private final ContentObserver mSecureSettingsChanged =
+            new ContentObserver(null) {
+                @Override
+                public boolean deliverSelfNotifications() {
+                    return false;
+                }
 
-        @Override
-        public void onChange(boolean selfChange) {
-            mUiHandler.removeMessages(KEY_MESSAGE_UPDATE_FRAGMENTS);
-            mUiHandler.sendMessageDelayed(mUiHandler.obtainMessage(KEY_MESSAGE_UPDATE_FRAGMENTS), 50);
-        }
-    };
+                @Override
+                public void onChange(boolean selfChange) {
+                    mUiHandler.removeMessages(KEY_MESSAGE_UPDATE_FRAGMENTS);
+                    mUiHandler.sendMessageDelayed(
+                            mUiHandler.obtainMessage(KEY_MESSAGE_UPDATE_FRAGMENTS), 50);
+                }
+            };
 
     private boolean mReloadPager = false;
 
@@ -90,19 +88,25 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         FragmentActivity activity = getActivity();
         mAppContext = activity.getApplicationContext();
-        mAppContext.getContentResolver().registerContentObserver(Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
+        mAppContext
+                .getContentResolver()
+                .registerContentObserver(Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.keyboard_setup_wizard_layout, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager(),
-                !SetupSupport.hasLanguagePackForCurrentLocale(AnyApplication.getKeyboardFactory(getContext()).getAllAddOns()));
+        WizardPagesAdapter wizardPagesAdapter =
+                new WizardPagesAdapter(
+                        getChildFragmentManager(),
+                        !SetupSupport.hasLanguagePackForCurrentLocale(
+                                AnyApplication.getKeyboardFactory(getContext()).getAllAddOns()));
         mWizardPager = view.findViewById(R.id.wizard_pages_pager);
         mWizardPager.setEnabled(false);
         mWizardPager.setAdapter(wizardPagesAdapter);
@@ -111,7 +115,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //checking to see which page should be shown on start
+        // checking to see which page should be shown on start
         if (mReloadPager) {
             refreshFragmentsUi();
         } else {
@@ -133,7 +137,8 @@ public class SetUpKeyboardWizardFragment extends Fragment {
 
         int fragmentIndex = 0;
         for (; fragmentIndex < adapter.getCount(); fragmentIndex++) {
-            WizardPageBaseFragment wizardPageBaseFragment = (WizardPageBaseFragment) adapter.getItem(fragmentIndex);
+            WizardPageBaseFragment wizardPageBaseFragment =
+                    (WizardPageBaseFragment) adapter.getItem(fragmentIndex);
             if (!wizardPageBaseFragment.isStepCompleted(getActivity())) break;
         }
 
@@ -146,15 +151,15 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        //don't scroll if the UI is not visible
+        // don't scroll if the UI is not visible
         mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mAppContext != null)//in case it was destroyed before onActivityCreated was called.
-            mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
+        if (mAppContext != null) // in case it was destroyed before onActivityCreated was called.
+        mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
         mAppContext = null;
     }
 }

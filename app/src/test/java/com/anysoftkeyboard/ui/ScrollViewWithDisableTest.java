@@ -4,9 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.view.MotionEvent;
 import android.view.View;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,21 +25,26 @@ public class ScrollViewWithDisableTest {
     public void testOnTouchEventEnabled() throws Exception {
         mUnderTest.setEnabled(true);
 
-        Assert.assertTrue(mUnderTest.onTouchEvent(MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
+        Assert.assertTrue(
+                mUnderTest.onTouchEvent(
+                        MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
     }
 
     @Test
     public void testOnTouchEventDisabled() throws Exception {
         mUnderTest.setEnabled(false);
 
-        Assert.assertFalse(mUnderTest.onTouchEvent(MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
+        Assert.assertFalse(
+                mUnderTest.onTouchEvent(
+                        MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
     }
 
     @Test
     public void onInterceptTouchEventDisabled() throws Exception {
         mUnderTest.setEnabled(false);
 
-        Assert.assertFalse(mUnderTest.onInterceptTouchEvent(MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
+        Assert.assertFalse(
+                mUnderTest.onInterceptTouchEvent(
+                        MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
     }
-
 }

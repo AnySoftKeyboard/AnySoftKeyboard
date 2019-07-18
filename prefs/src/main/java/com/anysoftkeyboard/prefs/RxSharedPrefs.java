@@ -28,18 +28,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.f2prateek.rx.preferences2.Preference;
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
-
+import io.reactivex.Observable;
 import java.util.Map;
 import java.util.Set;
-
-import io.reactivex.Observable;
 
 public class RxSharedPrefs {
     private static final String TAG = "ASK_Cfg";
@@ -47,10 +44,8 @@ public class RxSharedPrefs {
     static final String CONFIGURATION_VERSION = "configurationVersion";
     static final int CONFIGURATION_LEVEL_VALUE = 11;
 
-    @NonNull
-    private final Resources mResources;
-    @NonNull
-    private final RxSharedPreferences mRxSharedPreferences;
+    @NonNull private final Resources mResources;
+    @NonNull private final RxSharedPreferences mRxSharedPreferences;
 
     public RxSharedPrefs(Context context, SharedPreferences sp) {
         mResources = context.getResources();
@@ -61,21 +56,28 @@ public class RxSharedPrefs {
     }
 
     public Preference<Boolean> getBoolean(@StringRes int prefKey, @BoolRes int defaultValue) {
-        return mRxSharedPreferences.getBoolean(mResources.getString(prefKey), mResources.getBoolean(defaultValue));
+        return mRxSharedPreferences.getBoolean(
+                mResources.getString(prefKey), mResources.getBoolean(defaultValue));
     }
 
     public Preference<Integer> getInteger(@StringRes int prefKey, @IntegerRes int defaultValue) {
-        return mRxSharedPreferences.getInteger(mResources.getString(prefKey), mResources.getInteger(defaultValue));
+        return mRxSharedPreferences.getInteger(
+                mResources.getString(prefKey), mResources.getInteger(defaultValue));
     }
 
     public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
-        return mRxSharedPreferences.getString(mResources.getString(prefKey), mResources.getString(defaultValue));
+        return mRxSharedPreferences.getString(
+                mResources.getString(prefKey), mResources.getString(defaultValue));
     }
 
-    public <T> Observable<T> getParsedString(@StringRes int prefKey, @StringRes int defaultValue, StringParser<T> parser) {
+    public <T> Observable<T> getParsedString(
+            @StringRes int prefKey, @StringRes int defaultValue, StringParser<T> parser) {
         final String defaultStringValue = mResources.getString(defaultValue);
-        return mRxSharedPreferences.getString(mResources.getString(prefKey), defaultStringValue)
-                .asObservable().map(parser::parse).onErrorReturnItem(parser.parse(defaultStringValue));
+        return mRxSharedPreferences
+                .getString(mResources.getString(prefKey), defaultStringValue)
+                .asObservable()
+                .map(parser::parse)
+                .onErrorReturnItem(parser.parse(defaultStringValue));
     }
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
@@ -85,60 +87,62 @@ public class RxSharedPrefs {
 
     private static void upgradeSettingsValues(SharedPreferences sp) {
         Logger.d(TAG, "Checking if configuration upgrade is needed.");
-        //please note: the default value should be the last version.
-        //upgrading should only be done when actually need to be done.
-        final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
+        // please note: the default value should be the last version.
+        // upgrading should only be done when actually need to be done.
+        final int configurationVersion =
+                sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
 
         if (configurationVersion < 11) {
-            //converting quick-text-key
-            //settings_key_active_quick_text_key value -> quick_text_[value]
+            // converting quick-text-key
+            // settings_key_active_quick_text_key value -> quick_text_[value]
             final Editor editor = sp.edit();
             final Map<String, ?> allValues = sp.getAll();
 
-            //QUICK-TEXT
+            // QUICK-TEXT
             if (allValues.containsKey("settings_key_ordered_active_quick_text_keys")) {
-                String orderedIds = allValues.get("settings_key_ordered_active_quick_text_keys").toString();
-                //order
+                String orderedIds =
+                        allValues.get("settings_key_ordered_active_quick_text_keys").toString();
+                // order
                 editor.putString("quick_text_AddOnsFactory_order_key", orderedIds);
-                //enabled
+                // enabled
                 String[] addonIds = orderedIds.split(",", -1);
                 for (String addonId : addonIds) {
                     editor.putBoolean("quick_text_" + addonId, true);
                 }
             }
 
-            //THEME
+            // THEME
             if (allValues.containsKey("settings_key_keyboard_theme_key")) {
                 String themeId = allValues.get("settings_key_keyboard_theme_key").toString();
-                //enabled
+                // enabled
                 editor.putBoolean("theme_" + themeId, true);
             }
 
-            //bottom row
+            // bottom row
             if (allValues.containsKey("settings_key_ext_kbd_bottom_row_key")) {
                 String id = allValues.get("settings_key_ext_kbd_bottom_row_key").toString();
-                //enabled
+                // enabled
                 editor.putBoolean("ext_kbd_enabled_1_" + id, true);
             }
 
-            //top row
+            // top row
             if (allValues.containsKey("settings_key_ext_kbd_top_row_key")) {
                 String id = allValues.get("settings_key_ext_kbd_top_row_key").toString();
-                //enabled
+                // enabled
                 editor.putBoolean("ext_kbd_enabled_2_" + id, true);
             }
 
-            //ext keyboard
+            // ext keyboard
             if (allValues.containsKey("settings_key_ext_kbd_ext_ketboard_key")) {
                 String id = allValues.get("settings_key_ext_kbd_ext_ketboard_key").toString();
-                //enabled
+                // enabled
                 editor.putBoolean("ext_kbd_enabled_3_" + id, true);
             }
 
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
 
-        //saving config level
+        // saving config level
         Editor e = sp.edit();
         e.putInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
@@ -189,7 +193,7 @@ public class RxSharedPrefs {
         @Override
         public void storePrefsRoot(PrefsRoot prefsRoot) {
             final Editor editor = mSharedPreferences.edit();
-            //first, clear anything currently in prefs
+            // first, clear anything currently in prefs
             for (Map.Entry<String, ?> entry : mSharedPreferences.getAll().entrySet()) {
                 editor.remove(entry.getKey());
             }
@@ -215,11 +219,12 @@ public class RxSharedPrefs {
                 }
             }
             editor.apply();
-            //upgrading anything that needs to be fixed
+            // upgrading anything that needs to be fixed
             upgradeSettingsValues(mSharedPreferences);
         }
 
-        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(@Nullable String valueType) {
+        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(
+                @Nullable String valueType) {
             if (valueType == null) return SharedPrefsProvider::storeStringToEditor;
 
             switch (valueType) {

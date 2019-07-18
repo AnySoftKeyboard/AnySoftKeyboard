@@ -23,13 +23,10 @@ import android.os.Build;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-
 import java.util.List;
 import java.util.Map;
 
-/**
- * Triggers a voice recognition using Google voice typing.
- */
+/** Triggers a voice recognition using Google voice typing. */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 class ImeTrigger implements Trigger {
 
@@ -43,9 +40,7 @@ class ImeTrigger implements Trigger {
         mInputMethodService = inputMethodService;
     }
 
-    /**
-     * Switches to Voice IME.
-     */
+    /** Switches to Voice IME. */
     @Override
     public void startVoiceRecognition(String language) {
         InputMethodManager inputMethodManager = getInputMethodManager(mInputMethodService);
@@ -56,22 +51,22 @@ class ImeTrigger implements Trigger {
             return;
         }
 
-        inputMethodManager.setInputMethodAndSubtype(mInputMethodService.getWindow().getWindow()
-                        .getAttributes().token,
+        inputMethodManager.setInputMethodAndSubtype(
+                mInputMethodService.getWindow().getWindow().getAttributes().token,
                 inputMethodInfo.getId(),
                 getVoiceImeSubtype(inputMethodManager, inputMethodInfo));
     }
 
     private static InputMethodManager getInputMethodManager(InputMethodService inputMethodService) {
-        return (InputMethodManager) inputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
+        return (InputMethodManager)
+                inputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     private InputMethodSubtype getVoiceImeSubtype(
             InputMethodManager inputMethodManager, InputMethodInfo inputMethodInfo)
-            throws SecurityException,
-            IllegalArgumentException {
-        Map<InputMethodInfo, List<InputMethodSubtype>> map = inputMethodManager
-                .getShortcutInputMethodsAndSubtypes();
+            throws SecurityException, IllegalArgumentException {
+        Map<InputMethodInfo, List<InputMethodSubtype>> map =
+                inputMethodManager.getShortcutInputMethodsAndSubtypes();
         List<InputMethodSubtype> list = map.get(inputMethodInfo);
         if (list != null && list.size() > 0) {
             return list.get(0);
@@ -85,8 +80,11 @@ class ImeTrigger implements Trigger {
         for (InputMethodInfo inputMethodInfo : inputMethodManager.getEnabledInputMethodList()) {
             for (int i = 0; i < inputMethodInfo.getSubtypeCount(); i++) {
                 InputMethodSubtype subtype = inputMethodInfo.getSubtypeAt(i);
-                if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode()) && inputMethodInfo.getComponent().getPackageName()
-                        .startsWith(VOICE_IME_PACKAGE_PREFIX)) {
+                if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode())
+                        && inputMethodInfo
+                                .getComponent()
+                                .getPackageName()
+                                .startsWith(VOICE_IME_PACKAGE_PREFIX)) {
                     return inputMethodInfo;
                 }
             }
@@ -94,15 +92,14 @@ class ImeTrigger implements Trigger {
         return null;
     }
 
-    /**
-     * Returns true if an implementation of Voice IME is installed.
-     */
+    /** Returns true if an implementation of Voice IME is installed. */
     public static boolean isInstalled(InputMethodService inputMethodService) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             return false;
         }
 
-        InputMethodInfo inputMethodInfo = getVoiceImeInputMethodInfo(getInputMethodManager(inputMethodService));
+        InputMethodInfo inputMethodInfo =
+                getVoiceImeInputMethodInfo(getInputMethodManager(inputMethodService));
 
         if (inputMethodInfo == null) {
             return false;

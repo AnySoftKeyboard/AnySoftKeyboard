@@ -23,20 +23,17 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-
+import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import io.reactivex.Observable;
 
 public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndBuilder> {
 
@@ -46,23 +43,38 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
     private static final String XML_RESOURCE_ATTRIBUTE = "dictionaryResourceId";
     private static final String XML_AUTO_TEXT_RESOURCE_ATTRIBUTE = "autoTextResourceId";
-    private static final String XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE = "initialSuggestions";
+    private static final String XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE =
+            "initialSuggestions";
 
     private final Map<String, DictionaryAddOnAndBuilder> mBuildersByLocale = new ArrayMap<>();
 
     public ExternalDictionaryFactory(Context context) {
-        super(context, TAG, "com.menny.android.anysoftkeyboard.DICTIONARY", "com.menny.android.anysoftkeyboard.dictionaries",
-                "Dictionaries", "Dictionary", "dictionary_",
-                0, 0, true);
+        super(
+                context,
+                TAG,
+                "com.menny.android.anysoftkeyboard.DICTIONARY",
+                "com.menny.android.anysoftkeyboard.dictionaries",
+                "Dictionaries",
+                "Dictionary",
+                "dictionary_",
+                0,
+                0,
+                true);
     }
 
     public static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
-        return String.format(Locale.US, "%s%s%s", KeyboardFactory.PREF_ID_PREFIX, currentKeyboard.getKeyboardId(), PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY);
+        return String.format(
+                Locale.US,
+                "%s%s%s",
+                KeyboardFactory.PREF_ID_PREFIX,
+                currentKeyboard.getKeyboardId(),
+                PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY);
     }
 
     public static boolean isOverrideDictionaryPrefKey(String key) {
-        return !TextUtils.isEmpty(key) &&
-                key.startsWith(KeyboardFactory.PREF_ID_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY);
+        return !TextUtils.isEmpty(key)
+                && key.startsWith(KeyboardFactory.PREF_ID_PREFIX)
+                && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY);
     }
 
     @Override
@@ -80,8 +92,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
 
     public synchronized DictionaryAddOnAndBuilder getDictionaryBuilderByLocale(String locale) {
-        if (mBuildersByLocale.size() == 0)
-            loadAddOns();
+        if (mBuildersByLocale.size() == 0) loadAddOns();
 
         return mBuildersByLocale.get(locale);
     }
@@ -102,22 +113,66 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
 
     @Override
-    protected DictionaryAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected DictionaryAddOnAndBuilder createConcreteAddOn(
+            Context askContext,
+            Context context,
+            int apiVersion,
+            CharSequence prefId,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            AttributeSet attrs) {
         final String language = attrs.getAttributeValue(null, XML_LANGUAGE_ATTRIBUTE);
         final String assets = attrs.getAttributeValue(null, XML_ASSETS_ATTRIBUTE);
-        final int dictionaryResourceId = attrs.getAttributeResourceValue(null, XML_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int autoTextResId = attrs.getAttributeResourceValue(null, XML_AUTO_TEXT_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int initialSuggestionsId = attrs.getAttributeResourceValue(null, XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        //asserting
-        if ((language == null) || ((assets == null) && (dictionaryResourceId == AddOn.INVALID_RES_ID))) {
-            Logger.e(TAG, "External dictionary does not include all mandatory details! Will not create dictionary.");
+        final int dictionaryResourceId =
+                attrs.getAttributeResourceValue(null, XML_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int autoTextResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_AUTO_TEXT_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int initialSuggestionsId =
+                attrs.getAttributeResourceValue(
+                        null,
+                        XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE,
+                        AddOn.INVALID_RES_ID);
+        // asserting
+        if ((language == null)
+                || ((assets == null) && (dictionaryResourceId == AddOn.INVALID_RES_ID))) {
+            Logger.e(
+                    TAG,
+                    "External dictionary does not include all mandatory details! Will not create dictionary.");
             return null;
         } else {
             final DictionaryAddOnAndBuilder creator;
             if (dictionaryResourceId == AddOn.INVALID_RES_ID)
-                creator = new DictionaryAddOnAndBuilder(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex, language, assets, initialSuggestionsId);
+                creator =
+                        new DictionaryAddOnAndBuilder(
+                                askContext,
+                                context,
+                                apiVersion,
+                                prefId,
+                                name,
+                                description,
+                                isHidden,
+                                sortIndex,
+                                language,
+                                assets,
+                                initialSuggestionsId);
             else
-                creator = new DictionaryAddOnAndBuilder(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
+                creator =
+                        new DictionaryAddOnAndBuilder(
+                                askContext,
+                                context,
+                                apiVersion,
+                                prefId,
+                                name,
+                                description,
+                                isHidden,
+                                sortIndex,
+                                language,
+                                dictionaryResourceId,
+                                autoTextResId,
+                                initialSuggestionsId);
 
             return creator;
         }
@@ -126,15 +181,19 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     @NonNull
     public List<DictionaryAddOnAndBuilder> getBuildersForKeyboard(AnyKeyboard keyboard) {
         List<DictionaryAddOnAndBuilder> builders = new ArrayList<>();
-        final String dictionaryValue = mSharedPreferences.getString(getDictionaryOverrideKey(keyboard), null);
+        final String dictionaryValue =
+                mSharedPreferences.getString(getDictionaryOverrideKey(keyboard), null);
 
         if (TextUtils.isEmpty(dictionaryValue)) {
-            final DictionaryAddOnAndBuilder builderByLocale = AnyApplication.getExternalDictionaryFactory(mContext).getDictionaryBuilderByLocale(keyboard.getDefaultDictionaryLocale());
+            final DictionaryAddOnAndBuilder builderByLocale =
+                    AnyApplication.getExternalDictionaryFactory(mContext)
+                            .getDictionaryBuilderByLocale(keyboard.getDefaultDictionaryLocale());
             if (builderByLocale != null) builders.add(builderByLocale);
         } else {
             String[] ids = dictionaryValue.split(":", -1);
             for (String id : ids) {
-                final DictionaryAddOnAndBuilder addOnById = AnyApplication.getExternalDictionaryFactory(mContext).getAddOnById(id);
+                final DictionaryAddOnAndBuilder addOnById =
+                        AnyApplication.getExternalDictionaryFactory(mContext).getAddOnById(id);
                 if (addOnById != null) builders.add(addOnById);
             }
         }
@@ -142,7 +201,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         return builders;
     }
 
-    public void setBuildersForKeyboard(AnyKeyboard keyboard, List<DictionaryAddOnAndBuilder> buildersForKeyboard) {
+    public void setBuildersForKeyboard(
+            AnyKeyboard keyboard, List<DictionaryAddOnAndBuilder> buildersForKeyboard) {
         final String mappingSettingsKey = getDictionaryOverrideKey(keyboard);
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         if (buildersForKeyboard.size() == 0) {
@@ -160,10 +220,11 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 
     @NonNull
     public static Iterable<String> getLocalesFromDictionaryAddOns(@NonNull Context context) {
-        return Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
+        return Observable.fromIterable(
+                        AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
                 .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))
                 .map(DictionaryAddOnAndBuilder::getLanguage)
-                .distinct()//will not return any previously seen value
+                .distinct() // will not return any previously seen value
                 .blockingIterable();
     }
 }

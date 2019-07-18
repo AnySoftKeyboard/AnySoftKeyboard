@@ -18,10 +18,8 @@ package com.anysoftkeyboard.canary;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.List;
 
 public class CanaryAnyApplication extends AnyApplication {

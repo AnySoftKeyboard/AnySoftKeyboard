@@ -32,7 +32,6 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatDelegate;
-
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.android.NightMode;
@@ -53,11 +52,6 @@ import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -65,15 +59,22 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.subjects.ReplaySubject;
 import io.reactivex.subjects.Subject;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnyApplication extends Application {
 
     private static final String TAG = "ASK_APP";
 
-    static final String PREF_KEYS_FIRST_INSTALLED_APP_VERSION = "settings_key_first_app_version_installed";
-    static final String PREF_KEYS_FIRST_INSTALLED_APP_TIME = "settings_key_first_time_app_installed";
-    static final String PREF_KEYS_LAST_INSTALLED_APP_VERSION = "settings_key_last_app_version_installed";
-    static final String PREF_KEYS_LAST_INSTALLED_APP_TIME = "settings_key_first_time_current_version_installed";
+    static final String PREF_KEYS_FIRST_INSTALLED_APP_VERSION =
+            "settings_key_first_app_version_installed";
+    static final String PREF_KEYS_FIRST_INSTALLED_APP_TIME =
+            "settings_key_first_time_app_installed";
+    static final String PREF_KEYS_LAST_INSTALLED_APP_VERSION =
+            "settings_key_last_app_version_installed";
+    static final String PREF_KEYS_LAST_INSTALLED_APP_TIME =
+            "settings_key_first_time_current_version_installed";
 
     private static DeviceSpecific msDeviceSpecific;
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -123,7 +124,9 @@ public class AnyApplication extends Application {
     public static File getBackupFile(String filename) {
         // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
         final File externalFolder = Environment.getExternalStorageDirectory();
-        return new File(new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"), filename);
+        return new File(
+                new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"),
+                filename);
     }
 
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
@@ -139,13 +142,18 @@ public class AnyApplication extends Application {
         Logger.i(TAG, "** DEBUG: " + BuildConfig.DEBUG);
         Logger.i(TAG, "** TESTING_BUILD: " + BuildConfig.TESTING_BUILD);
         msDeviceSpecific = createDeviceSpecificImplementation(Build.VERSION.SDK_INT);
-        Logger.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
+        Logger.i(
+                TAG,
+                "Loaded DeviceSpecific "
+                        + msDeviceSpecific.getApiLevel()
+                        + " concrete class "
+                        + msDeviceSpecific.getClass().getName());
 
         if (BuildConfig.DEBUG) {
             msDeviceSpecific.setupStrictMode();
         }
 
-        //setting some statistics
+        // setting some statistics
         updateStatistics(this);
 
         mRxSharedPrefs = new RxSharedPrefs(this, sp);
@@ -160,22 +168,47 @@ public class AnyApplication extends Application {
 
         TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 
-        mCompositeDisposable.add(mRxSharedPrefs.getBoolean(R.string.settings_key_show_settings_app, R.bool.settings_default_show_settings_app)
-                .asObservable().subscribe(showApp -> {
-                    PackageManager pm = getPackageManager();
-                    pm.setComponentEnabledSetting(new ComponentName(getApplicationContext(), LauncherSettingsActivity.class),
-                            showApp ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP);
-                }));
-        mCompositeDisposable.add(NightMode.observeNightModeState(this, R.string.settings_key_night_mode_app_theme_control, R.bool.settings_default_true)
-                .subscribe(nightMode -> AppCompatDelegate.setDefaultNightMode(nightMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO)));
-        mNightModeSubject.onNext((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
+        mCompositeDisposable.add(
+                mRxSharedPrefs
+                        .getBoolean(
+                                R.string.settings_key_show_settings_app,
+                                R.bool.settings_default_show_settings_app)
+                        .asObservable()
+                        .subscribe(
+                                showApp -> {
+                                    PackageManager pm = getPackageManager();
+                                    pm.setComponentEnabledSetting(
+                                            new ComponentName(
+                                                    getApplicationContext(),
+                                                    LauncherSettingsActivity.class),
+                                            showApp
+                                                    ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                                                    : PackageManager
+                                                            .COMPONENT_ENABLED_STATE_DISABLED,
+                                            PackageManager.DONT_KILL_APP);
+                                }));
+        mCompositeDisposable.add(
+                NightMode.observeNightModeState(
+                                this,
+                                R.string.settings_key_night_mode_app_theme_control,
+                                R.bool.settings_default_true)
+                        .subscribe(
+                                nightMode ->
+                                        AppCompatDelegate.setDefaultNightMode(
+                                                nightMode
+                                                        ? AppCompatDelegate.MODE_NIGHT_YES
+                                                        : AppCompatDelegate.MODE_NIGHT_NO)));
+        mNightModeSubject.onNext(
+                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                        == Configuration.UI_MODE_NIGHT_YES);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mNightModeSubject.onNext((newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
+        mNightModeSubject.onNext(
+                (newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                        == Configuration.UI_MODE_NIGHT_YES);
     }
 
     @Override
@@ -231,17 +264,29 @@ public class AnyApplication extends Application {
 
     @NonNull
     protected KeyboardExtensionFactory createToolsKeyboardExtensionFactory() {
-        return new KeyboardExtensionFactory(this, R.string.settings_default_ext_keyboard_key, KeyboardExtensionFactory.EXT_PREF_ID_PREFIX, KeyboardExtension.TYPE_EXTENSION);
+        return new KeyboardExtensionFactory(
+                this,
+                R.string.settings_default_ext_keyboard_key,
+                KeyboardExtensionFactory.EXT_PREF_ID_PREFIX,
+                KeyboardExtension.TYPE_EXTENSION);
     }
 
     @NonNull
     protected KeyboardExtensionFactory createTopKeyboardExtensionFactory() {
-        return new KeyboardExtensionFactory(this, R.string.settings_default_top_row_key, KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX, KeyboardExtension.TYPE_TOP);
+        return new KeyboardExtensionFactory(
+                this,
+                R.string.settings_default_top_row_key,
+                KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX,
+                KeyboardExtension.TYPE_TOP);
     }
 
     @NonNull
     protected KeyboardExtensionFactory createBottomKeyboardExtensionFactory() {
-        return new KeyboardExtensionFactory(this, R.string.settings_default_ext_kbd_bottom_row_key, KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX, KeyboardExtension.TYPE_BOTTOM);
+        return new KeyboardExtensionFactory(
+                this,
+                R.string.settings_default_ext_kbd_bottom_row_key,
+                KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX,
+                KeyboardExtension.TYPE_BOTTOM);
     }
 
     @NonNull
@@ -269,8 +314,11 @@ public class AnyApplication extends Application {
         RxJavaPlugins.setErrorHandler(globalErrorHandler);
         Thread.setDefaultUncaughtExceptionHandler(globalErrorHandler);
         final Resources resources = getResources();
-        if (sp.getBoolean(resources.getString(R.string.settings_key_show_chewbacca), resources.getBoolean(R.bool.settings_default_show_chewbacca))) {
-            final ChewbaccaUncaughtExceptionHandler chewbaccaUncaughtExceptionHandler = new ChewbaccaUncaughtExceptionHandler(this, globalErrorHandler);
+        if (sp.getBoolean(
+                resources.getString(R.string.settings_key_show_chewbacca),
+                resources.getBoolean(R.bool.settings_default_show_chewbacca))) {
+            final ChewbaccaUncaughtExceptionHandler chewbaccaUncaughtExceptionHandler =
+                    new ChewbaccaUncaughtExceptionHandler(this, globalErrorHandler);
             Thread.setDefaultUncaughtExceptionHandler(chewbaccaUncaughtExceptionHandler);
             RxJavaPlugins.setErrorHandler(chewbaccaUncaughtExceptionHandler);
         }
@@ -279,10 +327,16 @@ public class AnyApplication extends Application {
     }
 
     public void onPackageChanged(final Intent eventIntent, final AnySoftKeyboard ask) {
-        AddOnsFactory.onExternalPackChanged(eventIntent, ask,
-                mTopRowFactory, mBottomRowFactory, mExtensionKeyboardFactory,
-                mExternalDictionaryFactory, mKeyboardFactory,
-                mKeyboardThemeFactory, mQuickTextKeyFactory);
+        AddOnsFactory.onExternalPackChanged(
+                eventIntent,
+                ask,
+                mTopRowFactory,
+                mBottomRowFactory,
+                mExtensionKeyboardFactory,
+                mExternalDictionaryFactory,
+                mKeyboardFactory,
+                mKeyboardThemeFactory,
+                mQuickTextKeyFactory);
     }
 
     public static long getCurrentVersionInstallTime(Context appContext) {
@@ -300,7 +354,10 @@ public class AnyApplication extends Application {
         if (applicationContext instanceof AnyApplication) {
             return ((AnyApplication) applicationContext).mRxSharedPrefs;
         } else {
-            throw new IllegalStateException("What? expected 'context.getApplicationContext()' to be AnyApplication, but was '" + applicationContext.getClass() + "'!!");
+            throw new IllegalStateException(
+                    "What? expected 'context.getApplicationContext()' to be AnyApplication, but was '"
+                            + applicationContext.getClass()
+                            + "'!!");
         }
     }
 
@@ -308,7 +365,8 @@ public class AnyApplication extends Application {
         return new ArrayList<>();
     }
 
-    private static class JustPrintExceptionHandler implements Consumer<Throwable>, Thread.UncaughtExceptionHandler {
+    private static class JustPrintExceptionHandler
+            implements Consumer<Throwable>, Thread.UncaughtExceptionHandler {
         @Override
         public void accept(Throwable throwable) throws Exception {
             throwable.printStackTrace();
@@ -318,7 +376,12 @@ public class AnyApplication extends Application {
         @Override
         public void uncaughtException(Thread t, Throwable throwable) {
             throwable.printStackTrace();
-            Logger.e("ASK_FATAL", throwable, "Fatal Java error '%s' on thread '%s'", throwable.getMessage(), t.toString());
+            Logger.e(
+                    "ASK_FATAL",
+                    throwable,
+                    "Fatal Java error '%s' on thread '%s'",
+                    throwable.getMessage(),
+                    t.toString());
         }
     }
 }

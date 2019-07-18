@@ -21,24 +21,20 @@ public class ScrollViewWithDisable extends ScrollView {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public ScrollViewWithDisable(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ScrollViewWithDisable(
+            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (isEnabled())
-            return super.onTouchEvent(ev);
-        else
-            return false;
+        if (isEnabled()) return super.onTouchEvent(ev);
+        else return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (isEnabled())
-            return super.onInterceptTouchEvent(ev);
-        else
-            return false;
+        if (isEnabled()) return super.onInterceptTouchEvent(ev);
+        else return false;
     }
-
 }

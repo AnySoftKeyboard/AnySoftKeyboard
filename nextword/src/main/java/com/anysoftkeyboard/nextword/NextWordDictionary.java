@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -38,7 +37,8 @@ public class NextWordDictionary implements NextWordSuggestions {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
             if (previousSet == null) {
                 if (mNextWordMap.size() > MAX_NEXT_WORD_CONTAINERS) {
-                    CharSequence randomWordToDelete = mNextWordMap.keyAt(msRandom.nextInt(mNextWordMap.size()));
+                    CharSequence randomWordToDelete =
+                            mNextWordMap.keyAt(msRandom.nextInt(mNextWordMap.size()));
                     mNextWordMap.remove(randomWordToDelete);
                 }
                 previousSet = new NextWordsContainer(mPreviousWord);
@@ -53,10 +53,11 @@ public class NextWordDictionary implements NextWordSuggestions {
 
     @Override
     @NonNull
-    public Iterable<String> getNextWords(@NonNull CharSequence currentWord, int maxResults, final int minWordUsage) {
+    public Iterable<String> getNextWords(
+            @NonNull CharSequence currentWord, int maxResults, final int minWordUsage) {
         maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
 
-        //secondly, get a list of suggestions
+        // secondly, get a list of suggestions
         NextWordsContainer nextSet = mNextWordMap.get(currentWord);
         int suggestionsCount = 0;
         if (nextSet != null) {

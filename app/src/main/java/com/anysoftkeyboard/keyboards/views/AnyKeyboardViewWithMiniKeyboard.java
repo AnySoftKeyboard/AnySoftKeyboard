@@ -30,7 +30,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -44,7 +43,6 @@ import com.menny.android.anysoftkeyboard.R;
  * Supports popup keyboard when {@link com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey} says it has
  * that, and user long-press that key.
  */
-
 public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardView {
 
     public interface OnPopupShownListener {
@@ -58,10 +56,10 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
     final PopupWindow mMiniKeyboardPopup;
 
-    protected final MiniKeyboardActionListener mChildKeyboardActionListener = new MiniKeyboardActionListener(this);
+    protected final MiniKeyboardActionListener mChildKeyboardActionListener =
+            new MiniKeyboardActionListener(this);
 
-    @Nullable
-    private OnPopupShownListener mPopupShownListener;
+    @Nullable private OnPopupShownListener mPopupShownListener;
 
     public AnyKeyboardViewWithMiniKeyboard(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -73,7 +71,13 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
         CompatUtils.setPopupUnattachedToDecor(mMiniKeyboardPopup);
         mMiniKeyboardPopup.setBackgroundDrawable(null);
-        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mMiniKeyboardPopup.setAnimationStyle(value == AnimationsLevel.None ? 0 : R.style.MiniKeyboardAnimation)));
+        mDisposables.add(
+                mAnimationLevelSubject.subscribe(
+                        value ->
+                                mMiniKeyboardPopup.setAnimationStyle(
+                                        value == AnimationsLevel.None
+                                                ? 0
+                                                : R.style.MiniKeyboardAnimation)));
     }
 
     public void setOnPopupShownListener(@Nullable OnPopupShownListener listener) {
@@ -91,7 +95,9 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
             final int miniKeyboardY = (int) me.getY();
             final int action = MotionEventCompat.getActionMasked(me);
 
-            MotionEvent translated = generateMiniKeyboardMotionEvent(action, miniKeyboardX, miniKeyboardY, me.getEventTime());
+            MotionEvent translated =
+                    generateMiniKeyboardMotionEvent(
+                            action, miniKeyboardX, miniKeyboardY, me.getEventTime());
             getMiniKeyboard().onTouchEvent(translated);
             translated.recycle();
             return true;
@@ -107,16 +113,18 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         return super.isShifted();
     }
 
-    private void setupMiniKeyboardContainer(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
+    private void setupMiniKeyboardContainer(
+            @NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard = createPopupKeyboardForKey(keyboardAddOn, popupKey);
 
         if (isSticky) {
-            //using the vertical correction this keyboard has, since the input should behave
-            //just as the mParent keyboard
+            // using the vertical correction this keyboard has, since the input should behave
+            // just as the mParent keyboard
             mMiniKeyboard.setKeyboard(keyboard, mOriginalVerticalCorrection);
         } else {
-            //not passing vertical correction, so the popup keyboard will use its own correction
-            mMiniKeyboard.setKeyboard(keyboard, mNextAlphabetKeyboardName, mNextSymbolsKeyboardName);
+            // not passing vertical correction, so the popup keyboard will use its own correction
+            mMiniKeyboard.setKeyboard(
+                    keyboard, mNextAlphabetKeyboardName, mNextSymbolsKeyboardName);
         }
 
         mMiniKeyboard.measure(
@@ -125,14 +133,27 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     }
 
     @NonNull
-    protected AnyPopupKeyboard createPopupKeyboardForKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey) {
+    protected AnyPopupKeyboard createPopupKeyboardForKey(
+            @NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey) {
         if (popupKey.popupCharacters != null) {
-            //in this case, we must use ASK's context to inflate views and XMLs
-            return new AnyPopupKeyboard(mDefaultAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), "");
+            // in this case, we must use ASK's context to inflate views and XMLs
+            return new AnyPopupKeyboard(
+                    mDefaultAddOn,
+                    getContext().getApplicationContext(),
+                    popupKey.popupCharacters,
+                    mMiniKeyboard.getThemedKeyboardDimens(),
+                    "");
         } else {
-            return new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(),
-                    popupKey.externalResourcePopupLayout ? keyboardAddOn.getPackageContext() : getContext().getApplicationContext(),
-                    popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), "", null);
+            return new AnyPopupKeyboard(
+                    keyboardAddOn,
+                    getContext().getApplicationContext(),
+                    popupKey.externalResourcePopupLayout
+                            ? keyboardAddOn.getPackageContext()
+                            : getContext().getApplicationContext(),
+                    popupKey.popupResId,
+                    mMiniKeyboard.getThemedKeyboardDimens(),
+                    "",
+                    null);
         }
     }
 
@@ -151,15 +172,18 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     public void ensureMiniKeyboardInitialized() {
         if (mMiniKeyboard != null) return;
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMiniKeyboard = (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
+        LayoutInflater inflater =
+                (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mMiniKeyboard =
+                (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
         mMiniKeyboard.setKeyboardTheme(getLastSetKeyboardTheme());
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
         mMiniKeyboard.setThemeOverlay(mThemeOverlay);
     }
 
-    protected void setPopupKeyboardWithView(int x, int y, int originX, int originY, View contentView) {
+    protected void setPopupKeyboardWithView(
+            int x, int y, int originX, int originY, View contentView) {
         mMiniKeyboardOriginX = originX;
         mMiniKeyboardOriginY = originY;
 
@@ -174,12 +198,20 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
     private MotionEvent generateMiniKeyboardMotionEvent(int action, int x, int y, long eventTime) {
         return MotionEvent.obtain(
-                mMiniKeyboardPopupTime, eventTime, action,
-                x - mMiniKeyboardOriginX, y - mMiniKeyboardOriginY, 0);
+                mMiniKeyboardPopupTime,
+                eventTime,
+                action,
+                x - mMiniKeyboardOriginX,
+                y - mMiniKeyboardOriginY,
+                0);
     }
 
     @Override
-    protected boolean onLongPress(AddOn keyboardAddOn, Keyboard.Key key, boolean isSticky, @NonNull PointerTracker tracker) {
+    protected boolean onLongPress(
+            AddOn keyboardAddOn,
+            Keyboard.Key key,
+            boolean isSticky,
+            @NonNull PointerTracker tracker) {
         if (super.onLongPress(keyboardAddOn, key, isSticky, tracker)) return true;
         if (key.popupResId == 0) return false;
 
@@ -198,18 +230,21 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         super.setKeyboardTheme(theme);
-        //will be recreated with the new theme.
+        // will be recreated with the new theme.
         mMiniKeyboard = null;
     }
 
-    protected void showMiniKeyboardForPopupKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
+    protected void showMiniKeyboardForPopupKey(
+            @NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
         int[] windowOffset = getLocationInWindow();
 
         ensureMiniKeyboardInitialized();
 
         setupMiniKeyboardContainer(keyboardAddOn, popupKey, isSticky);
 
-        Point miniKeyboardPosition = PopupKeyboardPositionCalculator.calculatePositionForPopupKeyboard(popupKey, this, mMiniKeyboard, mPreviewPopupTheme, windowOffset);
+        Point miniKeyboardPosition =
+                PopupKeyboardPositionCalculator.calculatePositionForPopupKeyboard(
+                        popupKey, this, mMiniKeyboard, mPreviewPopupTheme, windowOffset);
 
         final int x = miniKeyboardPosition.x;
         final int y = miniKeyboardPosition.y;
@@ -230,17 +265,19 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         if (mPopupShownListener != null) mPopupShownListener.onPopupKeyboardShowingChanged(true);
     }
 
-    protected void setPopupStickinessValues(boolean isSticky, boolean requiresSlideInMotionEvent, int touchX, int touchY) {
+    protected void setPopupStickinessValues(
+            boolean isSticky, boolean requiresSlideInMotionEvent, int touchX, int touchY) {
         mChildKeyboardActionListener.setInOneShot(!isSticky);
         if (requiresSlideInMotionEvent) {
             // Inject down event on the key to mini keyboard.
             long eventTime = SystemClock.uptimeMillis();
             mMiniKeyboardPopupTime = eventTime;
-            MotionEvent downEvent = generateMiniKeyboardMotionEvent(MotionEvent.ACTION_DOWN, touchX, touchY, eventTime);
+            MotionEvent downEvent =
+                    generateMiniKeyboardMotionEvent(
+                            MotionEvent.ACTION_DOWN, touchX, touchY, eventTime);
             mMiniKeyboard.onTouchEvent(downEvent);
             downEvent.recycle();
         }
-
     }
 
     public boolean dismissPopupKeyboard() {

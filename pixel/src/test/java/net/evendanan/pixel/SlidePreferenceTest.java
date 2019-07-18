@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.widget.SeekBar;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +50,7 @@ public class SlidePreferenceTest {
 
     @Test
     public void testSlideChanges() {
-        mTestSlide.onProgressChanged(Mockito.mock(SeekBar.class), 15/*this is zero-based*/, false);
+        mTestSlide.onProgressChanged(Mockito.mock(SeekBar.class), 15 /*this is zero-based*/, false);
         Assert.assertEquals(15 + mTestSlide.getMin(), mTestSlide.getValue());
         Assert.assertEquals(15 + mTestSlide.getMin(), mSharedPreferences.getInt("test_slide", 11));
     }
