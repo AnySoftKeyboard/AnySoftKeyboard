@@ -468,12 +468,13 @@ public class CandidateView extends View implements ThemeableChild {
                         mService.removeFromUserDictionary(mJustAddedWord.toString());
                     }
                 }
-                //allowing fallthrough to call invalidate.
-            case MotionEvent.ACTION_DOWN:
+                break;
             default:
-                invalidate();
                 break;
         }
+
+        invalidate();
+
         return true;
     }
 

@@ -179,7 +179,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
         return resources.toString();
     }
 
-    private void addResourceNameWithId(StringBuilder resources, int resourceId, Class clazz) {
+    private void addResourceNameWithId(StringBuilder resources, int resourceId, Class<?> clazz) {
         for (Field field : clazz.getFields()) {
             if (field.getType().equals(int.class) && (field.getModifiers() & (Modifier.STATIC | Modifier.PUBLIC)) != 0) {
                 try {

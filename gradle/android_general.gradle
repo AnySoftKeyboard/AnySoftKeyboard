@@ -37,7 +37,14 @@ android {
 apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 afterEvaluate {
-    tasks.withType(JavaCompile) { task ->
-        task.options.compilerArgs << '-Werror'
+    tasks.withType(JavaCompile) { JavaCompile task ->
+        //fail on all warnings
+        task.options.compilerArgs << '-Xlint:all' << '-Werror'
+        //we need to support old devices, so we can trust Java's detection here.
+        task.options.compilerArgs << '-Xlint:-deprecation'
+        if (task.name.contains('UnitTest')) {
+            //for tests, we do not check other stuff too
+            task.options.compilerArgs << '-Xlint:-rawtypes' << '-Xlint:-cast' << '-Xlint:-unchecked' << '-Xlint:-classfile'
+        }
     }
 }

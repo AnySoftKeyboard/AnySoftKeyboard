@@ -87,11 +87,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private final String mAddonNodeTag;
     @XmlRes
     private final int mBuildInAddOnsResId;
-    protected final CharSequence mDefaultAddOnId;
+    final CharSequence mDefaultAddOnId;
     private final boolean mDevAddOnsIncluded;
 
     //NOTE: this should only be used when interacting with shared-prefs!
-    protected final String mPrefIdPrefix;
+    private final String mPrefIdPrefix;
     protected final SharedPreferences mSharedPreferences;
 
     protected AddOnsFactory(@NonNull Context context, String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, String prefIdPrefix,
@@ -129,7 +129,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
     }
 
-    public static void onExternalPackChanged(Intent eventIntent, AnySoftKeyboard ime, AddOnsFactory... factories) {
+    public static void onExternalPackChanged(Intent eventIntent, AnySoftKeyboard ime, AddOnsFactory<?>... factories) {
         boolean cleared = false;
         for (AddOnsFactory<?> factory : factories) {
             try {
@@ -160,7 +160,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return mSharedPreferences.getBoolean(mPrefIdPrefix + addOnId, isAddOnEnabledByDefault(addOnId));
     }
 
-    protected final void setAddOnEnableValueInPrefs(SharedPreferences.Editor editor, CharSequence addOnId, boolean enabled) {
+    final void setAddOnEnableValueInPrefs(SharedPreferences.Editor editor, CharSequence addOnId, boolean enabled) {
         editor.putBoolean(mPrefIdPrefix + addOnId, enabled);
     }
 

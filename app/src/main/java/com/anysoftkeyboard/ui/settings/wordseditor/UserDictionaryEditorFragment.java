@@ -315,7 +315,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                             mCurrentDictionary = null;
                         }
                     }));
-                    RecyclerView.Adapter adapter = createAdapterForWords(pair.second);
+                    EditorWordsAdapter adapter = createAdapterForWords(pair.second);
                     if (adapter != null) {
                         mWordsRecyclerView.setAdapter(adapter);
                     }

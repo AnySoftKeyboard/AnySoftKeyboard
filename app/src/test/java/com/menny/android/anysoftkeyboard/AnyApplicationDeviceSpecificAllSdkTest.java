@@ -40,7 +40,7 @@ import java.util.List;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class AnyApplicationDeviceSpecificAllSdkTest {
 
-    private final List<Class> mExpectedDeviceSpecificClass = Arrays.asList(
+    private final List<Class<? extends DeviceSpecific>> mExpectedDeviceSpecificClass = Arrays.asList(
             DeviceSpecificLowest.class,//0
             DeviceSpecificLowest.class,//1
             DeviceSpecificLowest.class,
@@ -71,7 +71,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
             DeviceSpecificV24.class,
             DeviceSpecificV24.class);
 
-    private final List<Class> mExpectedClipboardClass = Arrays.asList(
+    private final List<Class<? extends Clipboard>> mExpectedClipboardClass = Arrays.asList(
             ClipboardV3.class,//0
             ClipboardV3.class,//1
             ClipboardV3.class,
@@ -102,7 +102,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
             ClipboardV11.class,
             ClipboardV11.class);
 
-    private final List<Class> mExpectedDictionaryObserverClass = Arrays.asList(
+    private final List<Class<? extends DictionaryContentObserver>> mExpectedDictionaryObserverClass = Arrays.asList(
             DictionaryContentObserver.class,//0
             DictionaryContentObserver.class,//1
             DictionaryContentObserver.class,
@@ -133,7 +133,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class);
 
-    private final List<Class> mExpectedGestureDetectorClass = Arrays.asList(
+    private final List<Class<? extends GestureDetector>> mExpectedGestureDetectorClass = Arrays.asList(
             GestureDetector.class,//0
             GestureDetector.class,//1
             GestureDetector.class,

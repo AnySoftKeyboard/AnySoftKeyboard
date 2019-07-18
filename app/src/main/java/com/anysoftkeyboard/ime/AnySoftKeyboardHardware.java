@@ -73,6 +73,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     }
 
     @Override
+    @SuppressWarnings("fallthrough")
     public boolean onKeyDown(final int keyEventKeyCode, @NonNull KeyEvent event) {
         InputConnection ic = getCurrentInputConnection();
         if (handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition))

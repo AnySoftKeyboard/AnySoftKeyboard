@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+@SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class AnySoftKeyboardBaseTest {
 
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
