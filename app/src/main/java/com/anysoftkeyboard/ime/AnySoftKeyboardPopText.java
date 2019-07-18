@@ -19,13 +19,11 @@ package com.anysoftkeyboard.ime;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving {
@@ -34,63 +32,82 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     private boolean mPopTextOnWord = false;
     private boolean mPopTextOnKeyPress = false;
 
-    @Nullable
-    private PopTextExtraDraw.PopOut mLastTextPop;
+    @Nullable private PopTextExtraDraw.PopOut mLastTextPop;
     private Keyboard.Key mLastKey;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        addDisposable(prefs().getString(R.string.settings_key_pop_text_option, R.string.settings_default_pop_text_option)
-                .asObservable().subscribe(this::updatePopTextPrefs, GenericOnError.onError("settings_key_pop_text_option")));
+        addDisposable(
+                prefs().getString(
+                                R.string.settings_key_pop_text_option,
+                                R.string.settings_default_pop_text_option)
+                        .asObservable()
+                        .subscribe(
+                                this::updatePopTextPrefs,
+                                GenericOnError.onError("settings_key_pop_text_option")));
     }
 
     @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
+    @SuppressWarnings("fallthrough")
     private void updatePopTextPrefs(String newValue) {
         mPopTextOnCorrection = false;
         mPopTextOnWord = false;
         mPopTextOnKeyPress = false;
-        //letting the switch cases to fall-through - each value level enables additional flag
+        // letting the switch cases to fall-through - each value level enables additional flag
         switch (newValue) {
             case "any_key":
                 mPopTextOnKeyPress = true;
-                //letting the switch cases to fall-through - each value level enables additional flag
+                // letting the switch cases to fall-through - each value level enables additional
+                // flag
                 // fall through
             case "on_word":
                 mPopTextOnWord = true;
-                //letting the switch cases to fall-through - each value level enables additional flag
+                // letting the switch cases to fall-through - each value level enables additional
+                // flag
                 // fall through
             case "on_correction":
                 mPopTextOnCorrection = true;
                 break;
             default:
-                //keeping everything off.
+                // keeping everything off.
                 break;
         }
     }
 
     @Override
-    public void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
-        //we do not want to pop text when user picks from the suggestions bar
+    public void pickSuggestionManually(
+            int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
+        // we do not want to pop text when user picks from the suggestions bar
         mLastKey = null;
         super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
     }
 
     private void popText(CharSequence textToPop) {
         if (mLastKey == null) {
-            return; //could be because of manually picked word
+            return; // could be because of manually picked word
         }
 
         if (getInputView() instanceof AnyKeyboardViewWithExtraDraw) {
-            final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw = (AnyKeyboardViewWithExtraDraw) getInputView();
-            mLastTextPop = new PopTextExtraDraw.PopOut(textToPop, new Point(mLastKey.x + mLastKey.width / 2, mLastKey.y), mLastKey.y - anyKeyboardViewWithExtraDraw.getHeight() / 2);
+            final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw =
+                    (AnyKeyboardViewWithExtraDraw) getInputView();
+            mLastTextPop =
+                    new PopTextExtraDraw.PopOut(
+                            textToPop,
+                            new Point(mLastKey.x + mLastKey.width / 2, mLastKey.y),
+                            mLastKey.y - anyKeyboardViewWithExtraDraw.getHeight() / 2);
             anyKeyboardViewWithExtraDraw.addExtraDraw(mLastTextPop);
         }
     }
 
     @Override
-    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         mLastKey = key;
         if (mPopTextOnKeyPress && isAlphabet(primaryCode)) {
@@ -119,7 +136,8 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
         if (lastTextPop != null && !lastTextPop.isDone()) {
             final InputViewBinder inputView = getInputView();
             if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
-                ((AnyKeyboardViewWithExtraDraw) inputView).addExtraDraw(lastTextPop.generateRevert());
+                ((AnyKeyboardViewWithExtraDraw) inputView)
+                        .addExtraDraw(lastTextPop.generateRevert());
             }
 
             mLastTextPop = null;

@@ -18,7 +18,6 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
@@ -74,22 +73,32 @@ public class UserDictionary extends EditableDictionary {
 
         BTreeDictionary androidBuiltIn = null;
         try {
-            //The only reason I see someone uses this, is for development or debugging.
-            if (AnyApplication.prefs(mContext).getBoolean(R.string.settings_key_always_use_fallback_user_dictionary, R.bool.settings_default_always_use_fallback_user_dictionary).get())
-                throw new RuntimeException("User requested to always use fall-back user-dictionary.");
+            // The only reason I see someone uses this, is for development or debugging.
+            if (AnyApplication.prefs(mContext)
+                    .getBoolean(
+                            R.string.settings_key_always_use_fallback_user_dictionary,
+                            R.bool.settings_default_always_use_fallback_user_dictionary)
+                    .get())
+                throw new RuntimeException(
+                        "User requested to always use fall-back user-dictionary.");
 
             androidBuiltIn = createAndroidUserDictionary(mContext, mLocale);
             androidBuiltIn.loadDictionary();
             mActualDictionary = androidBuiltIn;
         } catch (Exception e) {
-            Logger.w(TAG, "Can not load Android's built-in user dictionary (due to error '%s'). FallbackUserDictionary to the rescue!", e.getMessage());
+            Logger.w(
+                    TAG,
+                    "Can not load Android's built-in user dictionary (due to error '%s'). FallbackUserDictionary to the rescue!",
+                    e.getMessage());
             if (androidBuiltIn != null) {
                 try {
                     androidBuiltIn.close();
                 } catch (Exception buildInCloseException) {
                     // it's an half-baked object, no need to worry about it
                     buildInCloseException.printStackTrace();
-                    Logger.w(TAG, "Failed to close the build-in user dictionary properly, but it should be fine.");
+                    Logger.w(
+                            TAG,
+                            "Failed to close the build-in user dictionary properly, but it should be fine.");
                 }
             }
             BTreeDictionary fallback = createFallbackUserDictionary(mContext, mLocale);
@@ -97,7 +106,6 @@ public class UserDictionary extends EditableDictionary {
 
             mActualDictionary = fallback;
         }
-
     }
 
     @NonNull
@@ -122,8 +130,7 @@ public class UserDictionary extends EditableDictionary {
 
     @Override
     public final void deleteWord(String word) {
-        if (mActualDictionary != null)
-            mActualDictionary.deleteWord(word);
+        if (mActualDictionary != null) mActualDictionary.deleteWord(word);
     }
 
     protected BTreeDictionary getActualDictionary() {

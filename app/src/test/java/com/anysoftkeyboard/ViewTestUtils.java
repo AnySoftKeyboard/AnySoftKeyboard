@@ -9,11 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.view.MotionEvent;
 import android.view.View;
-
+import androidx.test.core.view.MotionEventBuilder;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +23,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import androidx.test.core.view.MotionEventBuilder;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ViewTestUtils {
@@ -63,20 +59,39 @@ public class ViewTestUtils {
         return new Point(key.centerX, key.centerY);
     }
 
-    public static int navigateFromTo(final View view, final int startX, final int startY, final int endX, final int endY, final int duration, final boolean alsoDown, final boolean alsoUp) {
-        return navigateFromTo(view, Collections.singletonList(new Finger(startX, startY, endX, endY)), duration, alsoDown, alsoUp);
+    public static int navigateFromTo(
+            final View view,
+            final int startX,
+            final int startY,
+            final int endX,
+            final int endY,
+            final int duration,
+            final boolean alsoDown,
+            final boolean alsoUp) {
+        return navigateFromTo(
+                view,
+                Collections.singletonList(new Finger(startX, startY, endX, endY)),
+                duration,
+                alsoDown,
+                alsoUp);
     }
 
-    public static int navigateFromTo(final View view, final List<Finger> fingers, final int duration, final boolean alsoDown, final boolean alsoUp) {
+    public static int navigateFromTo(
+            final View view,
+            final List<Finger> fingers,
+            final int duration,
+            final boolean alsoDown,
+            final boolean alsoUp) {
         final long startTime = SystemClock.uptimeMillis();
         if (alsoDown) {
             for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
-                final MotionEventBuilder eventBuilder = MotionEventBuilder.newBuilder()
-                        .setAction(MotionEvent.ACTION_DOWN)
-                        .setActionIndex(fingerIndex)
-                        .setDownTime(startTime)
-                        .setEventTime(startTime)
-                        .setMetaState(0);
+                final MotionEventBuilder eventBuilder =
+                        MotionEventBuilder.newBuilder()
+                                .setAction(MotionEvent.ACTION_DOWN)
+                                .setActionIndex(fingerIndex)
+                                .setDownTime(startTime)
+                                .setEventTime(startTime)
+                                .setMetaState(0);
 
                 for (Finger finger : fingers) {
                     eventBuilder.setPointer(finger.mStartX, finger.mStartY);
@@ -88,7 +103,7 @@ public class ViewTestUtils {
             }
         }
 
-        final float timeEventBreaking = 1000f / 60f/*60 frames per second*/;
+        final float timeEventBreaking = 1000f / 60f /*60 frames per second*/;
         final float callsToMake = duration / timeEventBreaking;
         final float timeStep = duration / callsToMake;
 
@@ -98,11 +113,12 @@ public class ViewTestUtils {
         while (currentTime < startTime + duration) {
             currentTime += timeStep;
             SystemClock.setCurrentTimeMillis((long) currentTime);
-            final MotionEventBuilder eventBuilder = MotionEventBuilder.newBuilder()
-                    .setAction(MotionEvent.ACTION_MOVE)
-                    .setDownTime(startTime)
-                    .setEventTime((long) currentTime)
-                    .setMetaState(0);
+            final MotionEventBuilder eventBuilder =
+                    MotionEventBuilder.newBuilder()
+                            .setAction(MotionEvent.ACTION_MOVE)
+                            .setDownTime(startTime)
+                            .setEventTime((long) currentTime)
+                            .setMetaState(0);
             for (Finger finger : fingers) {
                 float currentX = finger.mStartX + callsDone * finger.getStepX(callsToMake);
                 float currentY = finger.mStartY + callsDone * finger.getStepY(callsToMake);
@@ -116,12 +132,13 @@ public class ViewTestUtils {
 
         if (alsoUp) {
             for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
-                final MotionEventBuilder eventBuilder = MotionEventBuilder.newBuilder()
-                        .setAction(MotionEvent.ACTION_UP)
-                        .setActionIndex(fingerIndex)
-                        .setDownTime(startTime)
-                        .setEventTime(startTime + duration)
-                        .setMetaState(0);
+                final MotionEventBuilder eventBuilder =
+                        MotionEventBuilder.newBuilder()
+                                .setAction(MotionEvent.ACTION_UP)
+                                .setActionIndex(fingerIndex)
+                                .setDownTime(startTime)
+                                .setEventTime(startTime + duration)
+                                .setMetaState(0);
 
                 for (Finger finger : fingers) {
                     eventBuilder.setPointer(finger.mEndX, finger.mEndY);
@@ -136,23 +153,40 @@ public class ViewTestUtils {
         return callsDone;
     }
 
-    public static int navigateFromTo(final View view, Point start, Point end, final int duration, final boolean alsoDown, final boolean alsoUp) {
+    public static int navigateFromTo(
+            final View view,
+            Point start,
+            Point end,
+            final int duration,
+            final boolean alsoDown,
+            final boolean alsoUp) {
         return navigateFromTo(view, start.x, start.y, end.x, end.y, duration, alsoDown, alsoUp);
     }
 
-    public static int navigateFromTo(final View view, Keyboard.Key start, Keyboard.Key end, final int duration, final boolean alsoDown, final boolean alsoUp) {
-        return navigateFromTo(view, getKeyCenterPoint(start), getKeyCenterPoint(end), duration, alsoDown, alsoUp);
+    public static int navigateFromTo(
+            final View view,
+            Keyboard.Key start,
+            Keyboard.Key end,
+            final int duration,
+            final boolean alsoDown,
+            final boolean alsoUp) {
+        return navigateFromTo(
+                view, getKeyCenterPoint(start), getKeyCenterPoint(end), duration, alsoDown, alsoUp);
     }
 
     @NonNull
     public static Fragment navigateByClicking(Fragment rootFragment, int viewToClick) {
         final View viewById = rootFragment.getView().findViewById(viewToClick);
         Assert.assertNotNull(viewById);
-        final View.OnClickListener onClickListener = Shadows.shadowOf(viewById).getOnClickListener();
+        final View.OnClickListener onClickListener =
+                Shadows.shadowOf(viewById).getOnClickListener();
         Assert.assertNotNull(onClickListener);
         onClickListener.onClick(viewById);
         Robolectric.flushForegroundThreadScheduler();
-        return rootFragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+        return rootFragment
+                .getActivity()
+                .getSupportFragmentManager()
+                .findFragmentById(R.id.main_ui_content);
     }
 
     private static class MotionEventData {
@@ -161,7 +195,6 @@ public class ViewTestUtils {
         public final float y;
         public final long eventTime;
         public final long downTime;
-
 
         private MotionEventData(MotionEvent event) {
             action = event.getAction();
@@ -177,10 +210,13 @@ public class ViewTestUtils {
         View view = Mockito.mock(View.class);
 
         final List<MotionEventData> actions = new ArrayList<>();
-        Mockito.doAnswer(invocation -> {
-            actions.add(new MotionEventData(invocation.getArgument(0)));
-            return null;
-        }).when(view).onTouchEvent(Mockito.any());
+        Mockito.doAnswer(
+                        invocation -> {
+                            actions.add(new MotionEventData(invocation.getArgument(0)));
+                            return null;
+                        })
+                .when(view)
+                .onTouchEvent(Mockito.any());
 
         final long startTime = SystemClock.uptimeMillis();
         navigateFromTo(view, 10, 15, 100, 150, 200, true, true);
@@ -210,10 +246,13 @@ public class ViewTestUtils {
     public void testNavigateFromToHelpMethodNoDown() {
         final View view = Mockito.mock(View.class);
         final List<MotionEventData> actions = new ArrayList<>();
-        Mockito.doAnswer(invocation -> {
-            actions.add(new MotionEventData(invocation.getArgument(0)));
-            return null;
-        }).when(view).onTouchEvent(Mockito.any());
+        Mockito.doAnswer(
+                        invocation -> {
+                            actions.add(new MotionEventData(invocation.getArgument(0)));
+                            return null;
+                        })
+                .when(view)
+                .onTouchEvent(Mockito.any());
 
         navigateFromTo(view, 10, 15, 100, 150, 200, false, true);
 
@@ -229,10 +268,13 @@ public class ViewTestUtils {
     public void testNavigateFromToHelpMethodNoUp() {
         final View view = Mockito.mock(View.class);
         final List<MotionEventData> actions = new ArrayList<>();
-        Mockito.doAnswer(invocation -> {
-            actions.add(new MotionEventData(invocation.getArgument(0)));
-            return null;
-        }).when(view).onTouchEvent(Mockito.any());
+        Mockito.doAnswer(
+                        invocation -> {
+                            actions.add(new MotionEventData(invocation.getArgument(0)));
+                            return null;
+                        })
+                .when(view)
+                .onTouchEvent(Mockito.any());
 
         navigateFromTo(view, 10, 15, 100, 150, 200, true, false);
 
@@ -259,7 +301,8 @@ public class ViewTestUtils {
     }
 
     @SuppressWarnings("unchecked")
-    private static void assertCurrentWatermark(InputViewBinder view, final boolean has, @DrawableRes final int drawableRes) {
+    private static void assertCurrentWatermark(
+            InputViewBinder view, final boolean has, @DrawableRes final int drawableRes) {
         ArgumentCaptor<List<Drawable>> watermarkCaptor = ArgumentCaptor.forClass(List.class);
         Mockito.verify(view, Mockito.atLeastOnce()).setWatermark(watermarkCaptor.capture());
         List<String> seenDrawables = new ArrayList<>();
@@ -273,18 +316,25 @@ public class ViewTestUtils {
 
             seenDrawables.add(String.valueOf(aDrawableRes));
         }
-        Assert.assertEquals(String.format("Assert for Drawable with value %d failed (has = %s). Found: %s", drawableRes, has, String.join(",", seenDrawables)), has, found);
+        Assert.assertEquals(
+                String.format(
+                        "Assert for Drawable with value %d failed (has = %s). Found: %s",
+                        drawableRes, has, String.join(",", seenDrawables)),
+                has,
+                found);
     }
 
     public static void assertZeroWatermarkInteractions(InputViewBinder view) {
         Mockito.verify(view, Mockito.never()).setWatermark(Mockito.anyList());
     }
 
-    public static void assertCurrentWatermarkHasDrawable(InputViewBinder view, @DrawableRes final int drawableRes) {
+    public static void assertCurrentWatermarkHasDrawable(
+            InputViewBinder view, @DrawableRes final int drawableRes) {
         assertCurrentWatermark(view, true, drawableRes);
     }
 
-    public static void assertCurrentWatermarkDoesNotHaveDrawable(InputViewBinder view, @DrawableRes final int drawableRes) {
+    public static void assertCurrentWatermarkDoesNotHaveDrawable(
+            InputViewBinder view, @DrawableRes final int drawableRes) {
         assertCurrentWatermark(view, false, drawableRes);
     }
 }

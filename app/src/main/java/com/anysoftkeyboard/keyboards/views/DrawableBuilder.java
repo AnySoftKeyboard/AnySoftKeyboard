@@ -21,14 +21,12 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-
 import com.anysoftkeyboard.theme.KeyboardTheme;
 
 public class DrawableBuilder {
     private final int mDrawableResourceId;
     private final KeyboardTheme mTheme;
-    @Nullable
-    private Drawable mDrawable;
+    @Nullable private Drawable mDrawable;
 
     private DrawableBuilder(KeyboardTheme theme, int drawableResId) {
         mTheme = theme;

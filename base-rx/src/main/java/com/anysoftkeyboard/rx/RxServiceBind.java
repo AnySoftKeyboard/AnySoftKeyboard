@@ -7,18 +7,20 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class RxServiceBind {
-    public static <B extends Binder> Observable<B> bind(final Context context, final Intent launch) {
+    public static <B extends Binder> Observable<B> bind(
+            final Context context, final Intent launch) {
         return bind(context, launch, Service.BIND_AUTO_CREATE);
     }
 
-    public static <B extends Binder> Observable<B> bind(final Context context, final Intent launch, final int flags) {
-        return Observable.using(Connection::new,
+    public static <B extends Binder> Observable<B> bind(
+            final Context context, final Intent launch, final int flags) {
+        return Observable.using(
+                Connection::new,
                 (final Connection<B> con) -> {
                     context.getApplicationContext().bindService(launch, con, flags);
                     return Observable.create(con);
@@ -26,7 +28,8 @@ public class RxServiceBind {
                 context::unbindService);
     }
 
-    private static class Connection<B extends Binder> implements ServiceConnection, ObservableOnSubscribe<B> {
+    private static class Connection<B extends Binder>
+            implements ServiceConnection, ObservableOnSubscribe<B> {
         private ObservableEmitter<? super B> mSubscriber;
 
         @Override

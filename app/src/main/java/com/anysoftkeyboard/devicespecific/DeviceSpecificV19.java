@@ -30,17 +30,18 @@ public class DeviceSpecificV19 extends DeviceSpecificV16 {
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
+    public GestureDetector createGestureDetector(
+            Context appContext, AskOnGestureListener listener) {
         return new AskV19GestureDetector(appContext, listener);
     }
 
     @Override
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
-        return buildAndFillSubtypeBuilder(locale, keyboardId)
-                .build();
+        return buildAndFillSubtypeBuilder(locale, keyboardId).build();
     }
 
-    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(String locale, CharSequence keyboardId) {
+    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(
+            String locale, CharSequence keyboardId) {
         return new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeNameResId(0)
                 .setSubtypeId(calculateSubtypeIdFromKeyboardId(keyboardId))
@@ -56,19 +57,17 @@ public class DeviceSpecificV19 extends DeviceSpecificV16 {
             hash = hash * 31L + keyboardId.charAt(i);
         }
 
-        return (int)(hash ^ (hash >>> 32));
+        return (int) (hash ^ (hash >>> 32));
     }
 
     @Override
     public void setupStrictMode() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .penaltyFlashScreen()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .build());
+        StrictMode.setThreadPolicy(
+                new StrictMode.ThreadPolicy.Builder()
+                        .detectAll()
+                        .penaltyLog()
+                        .penaltyFlashScreen()
+                        .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
     }
 }

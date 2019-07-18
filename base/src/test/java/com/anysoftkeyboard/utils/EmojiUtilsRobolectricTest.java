@@ -2,9 +2,7 @@ package com.anysoftkeyboard.utils;
 
 import android.graphics.Paint;
 import android.os.Build;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

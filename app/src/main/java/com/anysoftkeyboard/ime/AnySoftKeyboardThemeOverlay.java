@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
@@ -17,15 +16,13 @@ import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
 public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboardTagsSearcher {
-    @VisibleForTesting
-    static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
+    @VisibleForTesting static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
 
     private OverlyDataCreator mOverlyDataCreator;
     private String mLastOverlayPackage = "";
@@ -36,34 +33,42 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     }
 
     private boolean mApplyRemoteAppColors;
-    @NonNull
-    private OverlayData mCurrentOverlayData = INVALID_OVERLAY_DATA;
+    @NonNull private OverlayData mCurrentOverlayData = INVALID_OVERLAY_DATA;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mOverlyDataCreator = createOverlayDataCreator();
 
-        addDisposable(KeyboardThemeFactory.observeCurrentTheme(getApplicationContext())
-                .subscribe(this::onThemeChanged, GenericOnError.onError("KeyboardThemeFactory.observeCurrentTheme")));
+        addDisposable(
+                KeyboardThemeFactory.observeCurrentTheme(getApplicationContext())
+                        .subscribe(
+                                this::onThemeChanged,
+                                GenericOnError.onError(
+                                        "KeyboardThemeFactory.observeCurrentTheme")));
 
-        addDisposable(prefs().getBoolean(R.string.settings_key_apply_remote_app_colors, R.bool.settings_default_apply_remote_app_colors)
-                .asObservable().subscribe(enabled -> {
-                    mApplyRemoteAppColors = enabled;
-                    mCurrentOverlayData = INVALID_OVERLAY_DATA;
-                    mLastOverlayPackage = "";
-                    hideWindow();
-                }, GenericOnError.onError("settings_key_apply_remote_app_colors"))
-        );
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_apply_remote_app_colors,
+                                R.bool.settings_default_apply_remote_app_colors)
+                        .asObservable()
+                        .subscribe(
+                                enabled -> {
+                                    mApplyRemoteAppColors = enabled;
+                                    mCurrentOverlayData = INVALID_OVERLAY_DATA;
+                                    mLastOverlayPackage = "";
+                                    hideWindow();
+                                },
+                                GenericOnError.onError("settings_key_apply_remote_app_colors")));
     }
 
     protected void onThemeChanged(@NonNull KeyboardTheme theme) {
         mCurrentTheme = theme;
 
-        //we'll need to reload the keyboards
-        //TODO(vitalipom) - here recreate the current keyboard and clear all the others
+        // we'll need to reload the keyboards
+        // TODO(vitalipom) - here recreate the current keyboard and clear all the others
 
-        //and set the theme in the view
+        // and set the theme in the view
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
         if (inputViewContainer != null) {
             inputViewContainer.setKeyboardTheme(mCurrentTheme);
@@ -73,9 +78,14 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     protected OverlyDataCreator createOverlayDataCreator() {
         if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
             return new OverlyDataCreator() {
-                private final OverlyDataCreator mActualCreator = new OverlayDataOverrider(
-                        new OverlayDataNormalizer(new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this), 96, true),
-                        createOverridesForOverlays());
+                private final OverlyDataCreator mActualCreator =
+                        new OverlayDataOverrider(
+                                new OverlayDataNormalizer(
+                                        new OverlyDataCreatorForAndroid.Light(
+                                                AnySoftKeyboardThemeOverlay.this),
+                                        96,
+                                        true),
+                                createOverridesForOverlays());
 
                 @Override
                 public OverlayData createOverlayData(ComponentName remoteApp) {
@@ -104,9 +114,13 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     }
 
     protected void applyThemeOverlay(EditorInfo info) {
-        final Intent launchIntentForPackage = info.packageName == null ? null : getPackageManager().getLaunchIntentForPackage(info.packageName);
+        final Intent launchIntentForPackage =
+                info.packageName == null
+                        ? null
+                        : getPackageManager().getLaunchIntentForPackage(info.packageName);
         if (launchIntentForPackage != null) {
-            mCurrentOverlayData = mOverlyDataCreator.createOverlayData(launchIntentForPackage.getComponent());
+            mCurrentOverlayData =
+                    mOverlyDataCreator.createOverlayData(launchIntentForPackage.getComponent());
         } else {
             mCurrentOverlayData = INVALID_OVERLAY_DATA;
             mLastOverlayPackage = "";
@@ -149,7 +163,11 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
         private final AnySoftKeyboardThemeOverlay mOverlayController;
         private boolean mUseOverride;
 
-        ToggleOverlayCreator(OverlyDataCreator originalCreator, AnySoftKeyboardThemeOverlay overlayController, OverlayData overrideData, String owner) {
+        ToggleOverlayCreator(
+                OverlyDataCreator originalCreator,
+                AnySoftKeyboardThemeOverlay overlayController,
+                OverlayData overrideData,
+                String owner) {
             mOriginalCreator = originalCreator;
             mOverlayController = overlayController;
             mOverrideData = overrideData;
@@ -159,7 +177,8 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
         void setToggle(boolean useOverride) {
             mUseOverride = useOverride;
 
-            final EditorInfo currentInputEditorInfo = mOverlayController.getCurrentInputEditorInfo();
+            final EditorInfo currentInputEditorInfo =
+                    mOverlayController.getCurrentInputEditorInfo();
             if (currentInputEditorInfo != null) {
                 mOverlayController.applyThemeOverlay(currentInputEditorInfo);
             }
@@ -177,7 +196,8 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
         @NonNull
         @Override
         public String toString() {
-            return String.format(Locale.ROOT, "ToggleOverlayCreator %s %s", mOwner, super.toString());
+            return String.format(
+                    Locale.ROOT, "ToggleOverlayCreator %s %s", mOwner, super.toString());
         }
     }
 }

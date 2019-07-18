@@ -1,9 +1,7 @@
 package com.anysoftkeyboard.overlay;
 
 import android.graphics.Color;
-
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

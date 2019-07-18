@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.base.utils;
 
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,12 +60,12 @@ public class LoggerTest {
 
     @Test
     public void testGetAllLogLinesList() throws Exception {
-        //filling up the log buffer
+        // filling up the log buffer
         for (int i = 0; i < 1024; i++) Logger.d("t", "t");
 
         final int initialListSize = Logger.getAllLogLinesList().size();
 
-        //225 is the max lines count
+        // 225 is the max lines count
         Assert.assertEquals(255, initialListSize);
 
         Logger.d("mTag", "Text1");
@@ -147,7 +146,7 @@ public class LoggerTest {
         Logger.yell("mTag", "Text with no digits");
         Mockito.verify(mMockLog, Mockito.never()).yell("mTag", "Text with no digits");
 
-        //yes, other levels
+        // yes, other levels
         Logger.d("mTag", "Text with no digits");
         Mockito.verify(mMockLog).d("mTag", "Text with no digits");
     }
@@ -170,7 +169,7 @@ public class LoggerTest {
         Logger.i("mTag", "Text with no digits");
         Mockito.verify(mMockLog, Mockito.never()).i("mTag", "Text with no digits");
 
-        //yes, other levels
+        // yes, other levels
         Logger.d("mTag", "Text with no digits");
         Mockito.verify(mMockLog).d("mTag", "Text with no digits");
     }
@@ -193,7 +192,7 @@ public class LoggerTest {
         Logger.w("mTag", "Text with no digits");
         Mockito.verify(mMockLog, Mockito.never()).w("mTag", "Text with no digits");
 
-        //yes, other levels
+        // yes, other levels
         Logger.d("mTag", "Text with no digits");
         Mockito.verify(mMockLog).d("mTag", "Text with no digits");
     }
@@ -216,7 +215,7 @@ public class LoggerTest {
         Logger.e("mTag", "Text with no digits");
         Mockito.verify(mMockLog, Mockito.never()).e("mTag", "Text with no digits");
 
-        //yes, other levels
+        // yes, other levels
         Logger.d("mTag", "Text with no digits");
         Mockito.verify(mMockLog).d("mTag", "Text with no digits");
     }
@@ -239,7 +238,7 @@ public class LoggerTest {
         Logger.wtf("mTag", "Text with no digits");
         Mockito.verify(mMockLog, Mockito.never()).wtf("mTag", "Text with no digits");
 
-        //yes, other levels
+        // yes, other levels
         Logger.d("mTag", "Text with no digits");
         Mockito.verify(mMockLog).d("mTag", "Text with no digits");
     }

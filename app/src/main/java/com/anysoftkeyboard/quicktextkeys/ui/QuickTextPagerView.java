@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
@@ -27,7 +26,6 @@ import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.astuetz.PagerSlidingTabStrip;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -59,12 +57,18 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public QuickTextPagerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public QuickTextPagerView(
+            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    private static void setupSupportTab(float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener,
+    private static void setupSupportTab(
+            float tabTitleTextSize,
+            ColorStateList tabTitleTextColor,
+            ViewPager pager,
+            PagerAdapter adapter,
+            ViewPager.OnPageChangeListener onPageChangeListener,
             int startIndex) {
         PagerTabStrip pagerTabStrip = pager.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
@@ -77,8 +81,14 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     }
 
     @RequiresApi(Build.VERSION_CODES.GINGERBREAD_MR1)
-    private static void setupSlidingTab(View rootView, float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter,
-            ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
+    private static void setupSlidingTab(
+            View rootView,
+            float tabTitleTextSize,
+            ColorStateList tabTitleTextColor,
+            ViewPager pager,
+            PagerAdapter adapter,
+            ViewPager.OnPageChangeListener onPageChangeListener,
+            int startIndex) {
         PagerSlidingTabStrip pagerTabStrip = rootView.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize((int) tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
@@ -89,10 +99,15 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         pagerTabStrip.setOnPageChangeListener(onPageChangeListener);
     }
 
-    public void setThemeValues(@NonNull KeyboardTheme keyboardTheme,
-            float tabTextSize, ColorStateList tabTextColor,
-            Drawable closeKeyboardIcon, Drawable backspaceIcon, Drawable settingsIcon,
-            Drawable keyboardDrawable, Drawable mediaInsertionDrawable,
+    public void setThemeValues(
+            @NonNull KeyboardTheme keyboardTheme,
+            float tabTextSize,
+            ColorStateList tabTextColor,
+            Drawable closeKeyboardIcon,
+            Drawable backspaceIcon,
+            Drawable settingsIcon,
+            Drawable keyboardDrawable,
+            Drawable mediaInsertionDrawable,
             int bottomPadding,
             Set<MediaType> supportedMediaTypes) {
         mKeyboardTheme = keyboardTheme;
@@ -103,7 +118,8 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         mSettingsIcon = settingsIcon;
         mMediaInsertionDrawable = mediaInsertionDrawable;
         mBottomPadding = bottomPadding;
-        findViewById(R.id.quick_keys_popup_quick_keys_insert_media).setVisibility(supportedMediaTypes.isEmpty() ? View.GONE : VISIBLE);
+        findViewById(R.id.quick_keys_popup_quick_keys_insert_media)
+                .setVisibility(supportedMediaTypes.isEmpty() ? View.GONE : VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             setBackground(keyboardDrawable);
         } else {
@@ -114,47 +130,77 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
 
     @Override
     public void setOnKeyboardActionListener(OnKeyboardActionListener keyboardActionListener) {
-        FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
+        FrameKeyboardViewClickListener frameKeyboardViewClickListener =
+                new FrameKeyboardViewClickListener(keyboardActionListener);
         frameKeyboardViewClickListener.registerOnViews(this);
 
         final Context context = getContext();
         final List<QuickTextKey> list = new ArrayList<>();
-        //always starting with Recent
-        final HistoryQuickTextKey historyQuickTextKey = new HistoryQuickTextKey(context, mQuickKeyHistoryRecords);
+        // always starting with Recent
+        final HistoryQuickTextKey historyQuickTextKey =
+                new HistoryQuickTextKey(context, mQuickKeyHistoryRecords);
         list.add(historyQuickTextKey);
-        //then all the rest
+        // then all the rest
         list.addAll(AnyApplication.getQuickTextKeyFactory(context).getEnabledAddOns());
 
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
         ViewPagerWithDisable pager = findViewById(R.id.quick_text_keyboards_pager);
-        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list,
-                new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener),
-                mDefaultSkinTonePrefTracker, mKeyboardTheme, mBottomPadding);
+        PagerAdapter adapter =
+                new QuickKeysKeyboardPagerAdapter(
+                        context,
+                        pager,
+                        list,
+                        new RecordHistoryKeyboardActionListener(
+                                historyQuickTextKey, keyboardActionListener),
+                        mDefaultSkinTonePrefTracker,
+                        mKeyboardTheme,
+                        mBottomPadding);
 
-        ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                QuickTextKey selectedKey = list.get(position);
-                quickTextUserPrefs.setLastSelectedAddOnId(selectedKey.getId());
-            }
-        };
+        ViewPager.SimpleOnPageChangeListener onPageChangeListener =
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        QuickTextKey selectedKey = list.get(position);
+                        quickTextUserPrefs.setLastSelectedAddOnId(selectedKey.getId());
+                    }
+                };
         int startPageIndex = quickTextUserPrefs.getStartPageIndex(list);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
-            setupSlidingTab(this, mTabTitleTextSize, mTabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
+            setupSlidingTab(
+                    this,
+                    mTabTitleTextSize,
+                    mTabTitleTextColor,
+                    pager,
+                    adapter,
+                    onPageChangeListener,
+                    startPageIndex);
         } else {
-            setupSupportTab(mTabTitleTextSize, mTabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
+            setupSupportTab(
+                    mTabTitleTextSize,
+                    mTabTitleTextColor,
+                    pager,
+                    adapter,
+                    onPageChangeListener,
+                    startPageIndex);
         }
 
-        //setting up icons from theme
-        ((ImageView) findViewById(R.id.quick_keys_popup_close)).setImageDrawable(mCloseKeyboardIcon);
-        ((ImageView) findViewById(R.id.quick_keys_popup_backspace)).setImageDrawable(mBackspaceIcon);
-        ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_insert_media)).setImageDrawable(mMediaInsertionDrawable);
-        ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_settings)).setImageDrawable(mSettingsIcon);
+        // setting up icons from theme
+        ((ImageView) findViewById(R.id.quick_keys_popup_close))
+                .setImageDrawable(mCloseKeyboardIcon);
+        ((ImageView) findViewById(R.id.quick_keys_popup_backspace))
+                .setImageDrawable(mBackspaceIcon);
+        ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_insert_media))
+                .setImageDrawable(mMediaInsertionDrawable);
+        ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_settings))
+                .setImageDrawable(mSettingsIcon);
         final View actionsLayout = findViewById(R.id.quick_text_actions_layout);
-        actionsLayout.setPadding(actionsLayout.getPaddingLeft(), actionsLayout.getPaddingTop(), actionsLayout.getPaddingRight(),
-                //this will support the case were we have navigation-bar offset
+        actionsLayout.setPadding(
+                actionsLayout.getPaddingLeft(),
+                actionsLayout.getPaddingTop(),
+                actionsLayout.getPaddingRight(),
+                // this will support the case were we have navigation-bar offset
                 actionsLayout.getPaddingBottom() + mBottomPadding);
     }
 
@@ -162,7 +208,8 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         mQuickKeyHistoryRecords = quickKeyHistoryRecords;
     }
 
-    public void setDefaultSkinTonePrefTracker(DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
+    public void setDefaultSkinTonePrefTracker(
+            DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
         mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
     }
 }

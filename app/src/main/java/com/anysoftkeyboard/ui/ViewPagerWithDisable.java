@@ -16,17 +16,13 @@ public class ViewPagerWithDisable extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (isEnabled())
-            return super.onTouchEvent(ev);
-        else
-            return false;
+        if (isEnabled()) return super.onTouchEvent(ev);
+        else return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (isEnabled())
-            return super.onInterceptTouchEvent(ev);
-        else
-            return false;
+        if (isEnabled()) return super.onInterceptTouchEvent(ev);
+        else return false;
     }
 }

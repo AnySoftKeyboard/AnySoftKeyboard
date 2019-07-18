@@ -3,20 +3,17 @@ package com.anysoftkeyboard.gesturetyping;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-
+import io.reactivex.disposables.Disposable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
-
-import io.reactivex.disposables.Disposable;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GestureTypingDetectorTest {
@@ -32,9 +29,15 @@ public class GestureTypingDetectorTest {
         Robolectric.getBackgroundThreadScheduler().pause();
         GestureTypingDetector detector = new GestureTypingDetector(5, mKeys);
         AtomicReference<GestureTypingDetector.LoadingState> currentState = new AtomicReference<>();
-        final Disposable subscribe = detector.state().subscribe(currentState::set, throwable -> { throw new RuntimeException(throwable); });
+        final Disposable subscribe =
+                detector.state()
+                        .subscribe(
+                                currentState::set,
+                                throwable -> {
+                                    throw new RuntimeException(throwable);
+                                });
         Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, currentState.get());
-        detector.setWords(Collections.singletonList(new char[][]{"hello".toCharArray()}));
+        detector.setWords(Collections.singletonList(new char[][] {"hello".toCharArray()}));
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, currentState.get());
 
         Robolectric.getBackgroundThreadScheduler().unPause();
@@ -54,9 +57,18 @@ public class GestureTypingDetectorTest {
         Robolectric.getBackgroundThreadScheduler().pause();
         GestureTypingDetector detector = new GestureTypingDetector(5, mKeys);
         AtomicReference<GestureTypingDetector.LoadingState> currentState = new AtomicReference<>();
-        final Disposable subscribe = detector.state().subscribe(currentState::set, throwable -> { throw new RuntimeException(throwable); });
+        final Disposable subscribe =
+                detector.state()
+                        .subscribe(
+                                currentState::set,
+                                throwable -> {
+                                    throw new RuntimeException(throwable);
+                                });
         Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, currentState.get());
-        detector.setWords(Arrays.asList(new char[][]{"hello".toCharArray()}, new char[][]{"goodbye".toCharArray()}));
+        detector.setWords(
+                Arrays.asList(
+                        new char[][] {"hello".toCharArray()},
+                        new char[][] {"goodbye".toCharArray()}));
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, currentState.get());
         Robolectric.getBackgroundThreadScheduler().runOneTask();
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, currentState.get());
@@ -74,9 +86,18 @@ public class GestureTypingDetectorTest {
         Robolectric.getBackgroundThreadScheduler().pause();
         GestureTypingDetector detector = new GestureTypingDetector(5, mKeys);
         AtomicReference<GestureTypingDetector.LoadingState> currentState = new AtomicReference<>();
-        final Disposable subscribe = detector.state().subscribe(currentState::set, throwable -> { throw new RuntimeException(throwable); });
+        final Disposable subscribe =
+                detector.state()
+                        .subscribe(
+                                currentState::set,
+                                throwable -> {
+                                    throw new RuntimeException(throwable);
+                                });
         Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, currentState.get());
-        detector.setWords(Arrays.asList(new char[][]{"hello".toCharArray()}, new char[][]{"goodbye".toCharArray()}));
+        detector.setWords(
+                Arrays.asList(
+                        new char[][] {"hello".toCharArray()},
+                        new char[][] {"goodbye".toCharArray()}));
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, currentState.get());
         Robolectric.getBackgroundThreadScheduler().runOneTask();
         subscribe.dispose();
@@ -93,9 +114,18 @@ public class GestureTypingDetectorTest {
         Robolectric.getBackgroundThreadScheduler().pause();
         GestureTypingDetector detector = new GestureTypingDetector(5, mKeys);
         AtomicReference<GestureTypingDetector.LoadingState> currentState = new AtomicReference<>();
-        final Disposable subscribe = detector.state().subscribe(currentState::set, throwable -> { throw new RuntimeException(throwable); });
+        final Disposable subscribe =
+                detector.state()
+                        .subscribe(
+                                currentState::set,
+                                throwable -> {
+                                    throw new RuntimeException(throwable);
+                                });
         Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, currentState.get());
-        detector.setWords(Arrays.asList(new char[][]{"hello".toCharArray()}, new char[][]{"goodbye".toCharArray()}));
+        detector.setWords(
+                Arrays.asList(
+                        new char[][] {"hello".toCharArray()},
+                        new char[][] {"goodbye".toCharArray()}));
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, currentState.get());
         Robolectric.getBackgroundThreadScheduler().runOneTask();
         detector.destroy();

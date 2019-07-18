@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.helper.ItemTouchHelper;
-
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -17,7 +16,6 @@ import com.anysoftkeyboard.ui.settings.AbstractAddOnsBrowserFragment;
 import com.anysoftkeyboard.ui.settings.QuickTextSettingsFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
@@ -26,8 +24,16 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
     private DefaultSkinTonePrefTracker mSkinToneTracker;
 
     public QuickTextKeysBrowseFragment() {
-        super("QuickKey", R.string.quick_text_keys_order, false, false, true,
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        super(
+                "QuickKey",
+                R.string.quick_text_keys_order,
+                false,
+                false,
+                true,
+                ItemTouchHelper.UP
+                        | ItemTouchHelper.DOWN
+                        | ItemTouchHelper.LEFT
+                        | ItemTouchHelper.RIGHT);
     }
 
     @Override
@@ -54,24 +60,43 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
         Activity activity = getActivity();
         if (activity != null && activity instanceof FragmentChauffeurActivity) {
             FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            chauffeurActivity.addFragmentToUi(new QuickTextSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            chauffeurActivity.addFragmentToUi(
+                    new QuickTextSettingsFragment(),
+                    TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
         }
     }
 
     @Override
-    protected void applyAddOnToDemoKeyboardView(@NonNull QuickTextKey addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+    protected void applyAddOnToDemoKeyboardView(
+            @NonNull QuickTextKey addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         AnyKeyboard keyboard;
         if (addOn.isPopupKeyboardUsed()) {
-            keyboard = new AnyPopupKeyboard(addOn, getContext(), addOn.getPackageContext(), addOn.getPopupKeyboardResId(), demoKeyboardView.getThemedKeyboardDimens(), addOn.getName(), mSkinToneTracker.getDefaultSkinTone());
+            keyboard =
+                    new AnyPopupKeyboard(
+                            addOn,
+                            getContext(),
+                            addOn.getPackageContext(),
+                            addOn.getPopupKeyboardResId(),
+                            demoKeyboardView.getThemedKeyboardDimens(),
+                            addOn.getName(),
+                            mSkinToneTracker.getDefaultSkinTone());
         } else {
-            keyboard = new PopupListKeyboard(addOn, getContext(), demoKeyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
+            keyboard =
+                    new PopupListKeyboard(
+                            addOn,
+                            getContext(),
+                            demoKeyboardView.getThemedKeyboardDimens(),
+                            addOn.getPopupListNames(),
+                            addOn.getPopupListValues(),
+                            addOn.getName());
         }
         keyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(keyboard, null, null);
 
-        final int keyboardViewMaxWidth = demoKeyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
+        final int keyboardViewMaxWidth =
+                demoKeyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
         if (keyboard.getMinWidth() > keyboardViewMaxWidth) {
-            //fixing up the keyboard, so it will fit nicely in the width
+            // fixing up the keyboard, so it will fit nicely in the width
             int currentY = 0;
             int xSub = 0;
             int rowsShown = 0;
@@ -87,7 +112,7 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
                         key.y = currentY;
                         key.x = 0;
                     } else {
-                        break;//only showing maxRowsToShow rows
+                        break; // only showing maxRowsToShow rows
                     }
                 }
             }

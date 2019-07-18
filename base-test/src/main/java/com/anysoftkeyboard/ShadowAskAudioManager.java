@@ -1,7 +1,6 @@
 package com.anysoftkeyboard;
 
 import android.media.AudioManager;
-
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.shadows.ShadowAudioManager;
@@ -28,7 +27,7 @@ public class ShadowAskAudioManager extends ShadowAudioManager {
     }
 
     @Implementation
-    public void  playSoundEffect(int effectType, float volume) {
+    public void playSoundEffect(int effectType, float volume) {
         mEffectType = effectType;
         mVolume = volume;
     }

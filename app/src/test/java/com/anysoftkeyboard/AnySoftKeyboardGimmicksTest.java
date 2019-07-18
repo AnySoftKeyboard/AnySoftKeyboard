@@ -1,30 +1,26 @@
 package com.anysoftkeyboard;
 
-import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
-
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
 
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
-
-import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
@@ -38,10 +34,9 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + " ", inputConnection.getCurrentTextInInputConnection());
-        //double space
+        // double space
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + ". ", inputConnection.getCurrentTextInInputConnection());
-
     }
 
     @Test
@@ -53,8 +48,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + " ", inputConnection.getCurrentTextInInputConnection());
-        //double space very late
-        SystemClock.sleep(Integer.parseInt(getResText(R.string.settings_default_multitap_timeout).toString()) + 1);
+        // double space very late
+        SystemClock.sleep(
+                Integer.parseInt(getResText(R.string.settings_default_multitap_timeout).toString())
+                        + 1);
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + "  ", inputConnection.getCurrentTextInInputConnection());
     }
@@ -71,9 +68,11 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress('X');
         Assert.assertEquals(expectedText + " X", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + " X ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText + " X ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + " X. ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText + " X. ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -88,22 +87,26 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + ". ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + ".. ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText + ".. ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + "... ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText + "... ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
     public void testManualPickWordAndAnotherSpaceAndBackspace() {
-        TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
+        TestableAnySoftKeyboard.TestableSuggest spiedSuggest =
+                (TestableAnySoftKeyboard.TestableSuggest)
+                        mAnySoftKeyboardUnderTest.getSpiedSuggest();
         spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
         TestInputConnection inputConnection = getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hell");
-        //should have the picked word with an auto-added space
+        // should have the picked word with an auto-added space
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //another space should add a dot
+        // another space should add a dot
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
@@ -119,7 +122,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
         Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
         Assert.assertEquals("hello. ", inputConnection.getCurrentTextInInputConnection());
 
@@ -136,7 +139,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
         Assert.assertEquals("hell, ", inputConnection.getCurrentTextInInputConnection());
 
@@ -153,7 +156,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('2');
         Assert.assertEquals("hell 2", inputConnection.getCurrentTextInInputConnection());
 
@@ -164,7 +167,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell 2 hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('^');
         Assert.assertEquals("hell 2 hell ^", inputConnection.getCurrentTextInInputConnection());
     }
@@ -174,22 +177,27 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-        //typing punctuation
+        Assert.assertEquals(
+                "hell ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        // typing punctuation
         mAnySoftKeyboardUnderTest.onText(null, ":)");
-        Assert.assertEquals("hell :)", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "hell :)", getCurrentTestInputConnection().getCurrentTextInInputConnection());
     }
 
     @Test
     public void testDoNotSwapPunctuationIfSwapPrefDisabled() {
-        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_bool_should_swap_punctuation_and_space), false);
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext()
+                        .getString(R.string.settings_key_bool_should_swap_punctuation_and_space),
+                false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
         Assert.assertEquals("hell ,", inputConnection.getCurrentTextInInputConnection());
 
@@ -206,7 +214,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
         Assert.assertEquals("hell? ", inputConnection.getCurrentTextInInputConnection());
 
@@ -220,14 +228,19 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
-        Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventArgumentCaptor.capture());
+        Mockito.verify(inputConnection, Mockito.times(2))
+                .sendKeyEvent(keyEventArgumentCaptor.capture());
 
-        Assert.assertEquals(2/*down and up*/, keyEventArgumentCaptor.getAllValues().size());
-        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
-        Assert.assertEquals(KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
-        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
-        Assert.assertEquals(KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
-        //and never the ENTER character
+        Assert.assertEquals(2 /*down and up*/, keyEventArgumentCaptor.getAllValues().size());
+        Assert.assertEquals(
+                KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
+        Assert.assertEquals(
+                KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
+        Assert.assertEquals(
+                KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
+        Assert.assertEquals(
+                KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
+        // and never the ENTER character
         Assert.assertEquals("\n", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -237,14 +250,19 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
-        Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventArgumentCaptor.capture());
+        Mockito.verify(inputConnection, Mockito.times(2))
+                .sendKeyEvent(keyEventArgumentCaptor.capture());
 
-        Assert.assertEquals(2/*down and up*/, keyEventArgumentCaptor.getAllValues().size());
-        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
-        Assert.assertEquals(KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
-        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
-        Assert.assertEquals(KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
-        //and we have ENTER in the input-connection
+        Assert.assertEquals(2 /*down and up*/, keyEventArgumentCaptor.getAllValues().size());
+        Assert.assertEquals(
+                KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
+        Assert.assertEquals(
+                KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
+        Assert.assertEquals(
+                KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
+        Assert.assertEquals(
+                KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
+        // and we have ENTER in the input-connection
         Assert.assertEquals("\n", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -263,7 +281,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
         Mockito.verify(inputConnection).commitText("\n", 1);
-        //and never the key-events
+        // and never the key-events
         Mockito.verify(inputConnection, Mockito.never()).sendKeyEvent(Mockito.any(KeyEvent.class));
     }
 
@@ -303,9 +321,14 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWordWhenNotPredicting() {
         simulateFinishInputFlow();
 
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard =
+                Configuration.KEYBOARD_NOKEYS;
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+        simulateOnStartInputFlow(
+                false,
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_NONE,
+                        EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -328,9 +351,14 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testHappyPathBackWordWhenNotPredicting() {
         simulateFinishInputFlow();
 
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard =
+                Configuration.KEYBOARD_NOKEYS;
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+        simulateOnStartInputFlow(
+                false,
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_NONE,
+                        EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -390,7 +418,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
-
     }
 
     @Test
@@ -437,7 +464,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShiftLocked());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        //now it is locked
+        // now it is locked
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShiftLocked());
 
@@ -459,7 +486,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShiftLocked());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        //now it is locked
+        // now it is locked
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShiftLocked());
 
@@ -489,7 +516,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
 
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('!');
         Assert.assertEquals("hell!", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
@@ -503,10 +530,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
 
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
         Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
         Assert.assertEquals("hell.h", inputConnection.getCurrentTextInInputConnection());
     }
@@ -518,7 +545,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
 
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
         Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
@@ -541,7 +568,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testPrintsParenthesisReversedWithRTLKeyboard() {
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
-        AnyKeyboard fakeRtlKeyboard = Mockito.spy(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
+        AnyKeyboard fakeRtlKeyboard =
+                Mockito.spy(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
         Mockito.doReturn(false).when(fakeRtlKeyboard).isLeftToRightLanguage();
         mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(fakeRtlKeyboard);
 
@@ -594,15 +622,20 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testLongShiftBehaviorForLetters() throws Exception {
-        final int longPressTime = Integer.parseInt(getResText(R.string.settings_default_long_press_timeout).toString()) + 20;
+        final int longPressTime =
+                Integer.parseInt(
+                                getResText(R.string.settings_default_long_press_timeout).toString())
+                        + 20;
 
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("q", inputConnection.getCurrentTextInInputConnection());
 
-        //long press should switch to caps-lock
-        AnyKeyboard.AnyKey shiftKey = (AnyKeyboard.AnyKey) mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(KeyCodes.SHIFT);
+        // long press should switch to caps-lock
+        AnyKeyboard.AnyKey shiftKey =
+                (AnyKeyboard.AnyKey)
+                        mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(KeyCodes.SHIFT);
         Assert.assertNotNull(shiftKey);
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
@@ -619,7 +652,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQQQq", inputConnection.getCurrentTextInInputConnection());
 
-        //now from lock to unlock with just shift
+        // now from lock to unlock with just shift
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQQQqQ", inputConnection.getCurrentTextInInputConnection());
@@ -628,7 +661,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQQQqQq", inputConnection.getCurrentTextInInputConnection());
 
-        //and now long-press but multi-touch typing
+        // and now long-press but multi-touch typing
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         SystemClock.sleep(longPressTime);
 
@@ -641,7 +674,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQQQqQqQQq", inputConnection.getCurrentTextInInputConnection());
-
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         SystemClock.sleep(longPressTime);
@@ -707,7 +739,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_DONE,
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
@@ -715,7 +750,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
         Assert.assertEquals(EditorInfo.IME_ACTION_DONE, inputConnection.getLastEditorAction());
-        //did not passed the ENTER to the IC
+        // did not passed the ENTER to the IC
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -724,7 +759,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_UNSPECIFIED,
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         editorInfo.actionId = 99;
         editorInfo.actionLabel = "test label";
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
@@ -734,7 +772,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
         Assert.assertEquals(99, inputConnection.getLastEditorAction());
-        //did not passed the ENTER to the IC
+        // did not passed the ENTER to the IC
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -743,17 +781,19 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION,
-                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION,
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
-        //did not perform action
+        // did not perform action
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
-        //passed the ENTER to the IC
+        // passed the ENTER to the IC
         Assert.assertEquals("\n", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -762,16 +802,20 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_UNSPECIFIED,
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
-        //did not perform action
-        Assert.assertEquals(EditorInfo.IME_ACTION_UNSPECIFIED, inputConnection.getLastEditorAction());
-        //did not passed the ENTER to the IC
+        // did not perform action
+        Assert.assertEquals(
+                EditorInfo.IME_ACTION_UNSPECIFIED, inputConnection.getLastEditorAction());
+        // did not passed the ENTER to the IC
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -780,7 +824,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_DONE,
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
@@ -796,7 +843,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_NONE,
+                        InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
@@ -804,7 +854,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
-        //passed the ENTER to the IC
+        // passed the ENTER to the IC
         Assert.assertEquals("\n", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -813,7 +863,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, 0);
+        EditorInfo editorInfo =
+                TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, 0);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
@@ -826,16 +877,23 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(qualifiers = "w480dp-h640dp-port-mdpi")
     public void testSplitStatesPortrait() {
-        getApplicationContext().getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        getApplicationContext().getResources().getConfiguration().keyboard =
+                Configuration.KEYBOARD_NOKEYS;
 
-        //verify device config, to ensure test is valid
-        Assert.assertEquals(160, getApplicationContext().getResources().getConfiguration().densityDpi);
-        Assert.assertEquals(480, getApplicationContext().getResources().getConfiguration().screenWidthDp);
-        Assert.assertEquals(640, getApplicationContext().getResources().getConfiguration().screenHeightDp);
-        Assert.assertEquals(Configuration.ORIENTATION_PORTRAIT, getApplicationContext().getResources().getConfiguration().orientation);
+        // verify device config, to ensure test is valid
+        Assert.assertEquals(
+                160, getApplicationContext().getResources().getConfiguration().densityDpi);
+        Assert.assertEquals(
+                480, getApplicationContext().getResources().getConfiguration().screenWidthDp);
+        Assert.assertEquals(
+                640, getApplicationContext().getResources().getConfiguration().screenHeightDp);
+        Assert.assertEquals(
+                Configuration.ORIENTATION_PORTRAIT,
+                getApplicationContext().getResources().getConfiguration().orientation);
 
         simulateFinishInputFlow();
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "split");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_portrait, "split");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
@@ -843,48 +901,65 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
 
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 130);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 130);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_right");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_portrait, "compact_right");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 168, 5, 105);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0),
+                168,
+                5,
+                105);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_left");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_portrait, "compact_left");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 105);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 105);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "merged");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_portrait, "merged");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 163);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 163);
     }
 
     @Test
     @Config(qualifiers = "w480dp-h640dp-land-mdpi")
     public void testSplitStatesLandscape() {
-        getApplicationContext().getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        getApplicationContext().getResources().getConfiguration().keyboard =
+                Configuration.KEYBOARD_NOKEYS;
 
-        //verify device config, to ensure test is valid
-        Assert.assertEquals(160, getApplicationContext().getResources().getConfiguration().densityDpi);
-        Assert.assertEquals(640, getApplicationContext().getResources().getConfiguration().screenWidthDp);
-        Assert.assertEquals(480, getApplicationContext().getResources().getConfiguration().screenHeightDp);
-        Assert.assertEquals(Configuration.ORIENTATION_LANDSCAPE, getApplicationContext().getResources().getConfiguration().orientation);
+        // verify device config, to ensure test is valid
+        Assert.assertEquals(
+                160, getApplicationContext().getResources().getConfiguration().densityDpi);
+        Assert.assertEquals(
+                640, getApplicationContext().getResources().getConfiguration().screenWidthDp);
+        Assert.assertEquals(
+                480, getApplicationContext().getResources().getConfiguration().screenHeightDp);
+        Assert.assertEquals(
+                Configuration.ORIENTATION_LANDSCAPE,
+                getApplicationContext().getResources().getConfiguration().orientation);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "split");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_landscape, "split");
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
@@ -892,35 +967,45 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        //split, since we switched to landscape
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 131);
+        // split, since we switched to landscape
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 131);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_right");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_landscape, "compact_right");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 378, 5, 87);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0),
+                378,
+                5,
+                87);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_left");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_landscape, "compact_left");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 87);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 87);
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "merged");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_default_split_state_landscape, "merged");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 219);
+        assertKeyDimensions(
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 2, 5, 219);
     }
 
     @Test
@@ -931,7 +1016,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('!');
         Assert.assertEquals("hell! ", inputConnection.getCurrentTextInInputConnection());
 
@@ -939,7 +1024,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell! hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
         Assert.assertEquals("hell! hell? ", inputConnection.getCurrentTextInInputConnection());
 
@@ -947,17 +1032,29 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell! hell? hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        Assert.assertEquals("hell! hell? hell: ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "hell! hell? hell: ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
     public void testDoNotSwapDoublePunctuationsWhenInFrLocale() {
         final AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
-        ExternalAnyKeyboard keyboard = new ExternalAnyKeyboard(currentKeyboard.getKeyboardAddOn(), ApplicationProvider.getApplicationContext(),
-                ApplicationProvider.getApplicationContext(), R.xml.qwerty, R.xml.qwerty, "fr", R.drawable.ic_status_english, 0,
-                "fr", "", new String(currentKeyboard.getSentenceSeparators()), currentKeyboard.getKeyboardMode());
+        ExternalAnyKeyboard keyboard =
+                new ExternalAnyKeyboard(
+                        currentKeyboard.getKeyboardAddOn(),
+                        ApplicationProvider.getApplicationContext(),
+                        ApplicationProvider.getApplicationContext(),
+                        R.xml.qwerty,
+                        R.xml.qwerty,
+                        "fr",
+                        R.drawable.ic_status_english,
+                        0,
+                        "fr",
+                        "",
+                        new String(currentKeyboard.getSentenceSeparators()),
+                        currentKeyboard.getKeyboardMode());
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
 
         mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(keyboard);
@@ -967,7 +1064,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('!');
         Assert.assertEquals("hell !", inputConnection.getCurrentTextInInputConnection());
 
@@ -977,7 +1074,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ! hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
         Assert.assertEquals("hell ! hell ?", inputConnection.getCurrentTextInInputConnection());
 
@@ -986,20 +1083,24 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ! hell ? hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        Assert.assertEquals(
+                "hell ! hell ? hell ", inputConnection.getCurrentTextInInputConnection());
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        Assert.assertEquals("hell ! hell ? hell :", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "hell ! hell ? hell :", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ! hell ? hell : hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
+        Assert.assertEquals(
+                "hell ! hell ? hell : hell ", inputConnection.getCurrentTextInInputConnection());
+        // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(';');
-        Assert.assertEquals("hell ! hell ? hell : hell ;", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "hell ! hell ? hell : hell ;", inputConnection.getCurrentTextInInputConnection());
     }
 
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {

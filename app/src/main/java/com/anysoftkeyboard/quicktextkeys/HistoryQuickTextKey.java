@@ -2,10 +2,8 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
 import android.content.res.Resources;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,10 +13,23 @@ public class HistoryQuickTextKey extends QuickTextKey {
     private final List<QuickKeyHistoryRecords.HistoryKey> mHistoryKeys;
 
     public HistoryQuickTextKey(Context askContext, QuickKeyHistoryRecords quickKeyHistoryRecords) {
-        super(askContext, askContext, askContext.getResources().getInteger(R.integer.anysoftkeyboard_api_version_code), "b0316c86-ffa2-49e9-85f7-6cb6e63e18f9", askContext.getResources().getText(R.string.history_quick_text_key_name),
-                AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID,
-                R.drawable.ic_quick_text_dark_theme, "\uD83D\uDD50", "\uD83D\uDD50",
-                AddOn.INVALID_RES_ID, false, askContext.getResources().getString(R.string.history_quick_text_key_name), 0);
+        super(
+                askContext,
+                askContext,
+                askContext.getResources().getInteger(R.integer.anysoftkeyboard_api_version_code),
+                "b0316c86-ffa2-49e9-85f7-6cb6e63e18f9",
+                askContext.getResources().getText(R.string.history_quick_text_key_name),
+                AddOn.INVALID_RES_ID,
+                AddOn.INVALID_RES_ID,
+                AddOn.INVALID_RES_ID,
+                AddOn.INVALID_RES_ID,
+                R.drawable.ic_quick_text_dark_theme,
+                "\uD83D\uDD50",
+                "\uD83D\uDD50",
+                AddOn.INVALID_RES_ID,
+                false,
+                askContext.getResources().getString(R.string.history_quick_text_key_name),
+                0);
         mQuickKeyHistoryRecords = quickKeyHistoryRecords;
         mHistoryKeys = quickKeyHistoryRecords.getCurrentHistory();
     }
@@ -51,7 +62,8 @@ public class HistoryQuickTextKey extends QuickTextKey {
     }
 
     @Override
-    protected String[] getStringArrayFromValuesResId(int popupListValuesResId, Resources resources) {
+    protected String[] getStringArrayFromValuesResId(
+            int popupListValuesResId, Resources resources) {
         return new String[0];
     }
 

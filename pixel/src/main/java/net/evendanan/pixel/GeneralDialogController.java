@@ -8,10 +8,8 @@ import android.support.v7.app.AlertDialog;
 
 public class GeneralDialogController {
 
-    @VisibleForTesting
-    public static final int TAG_ID = R.id.progress_dialog_message_text_view;
-    @VisibleForTesting
-    public static final String TAG_VALUE = "GeneralDialogController";
+    @VisibleForTesting public static final int TAG_ID = R.id.progress_dialog_message_text_view;
+    @VisibleForTesting public static final String TAG_VALUE = "GeneralDialogController";
 
     private final Context mContext;
     private final DialogPresenter mDialogPresenter;
@@ -43,7 +41,8 @@ public class GeneralDialogController {
     public void showDialog(int optionId, @Nullable Object data) {
         dismiss();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.Theme_AppCompat_Dialog_Alert);
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(mContext, R.style.Theme_AppCompat_Dialog_Alert);
         mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
         mDialog = builder.create();
         mDialog.getWindow().getDecorView().setTag(TAG_ID, TAG_VALUE);
@@ -56,7 +55,8 @@ public class GeneralDialogController {
     }
 
     public interface JustSetupDialogPresenter {
-        void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, @Nullable Object data);
+        void onSetupDialogRequired(
+                AlertDialog.Builder builder, int optionId, @Nullable Object data);
     }
 
     private static class NoOpImpl implements DialogPresenter {
@@ -67,11 +67,11 @@ public class GeneralDialogController {
         }
 
         @Override
-        public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
-        }
+        public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {}
 
         @Override
-        public void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+        public void onSetupDialogRequired(
+                AlertDialog.Builder builder, int optionId, @Nullable Object data) {
             mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
         }
     }

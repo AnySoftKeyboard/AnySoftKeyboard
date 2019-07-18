@@ -46,23 +46,23 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     public SlidePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayoutResource(R.layout.slide_pref);
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SlidePreferenceAttributes);
+        TypedArray array =
+                context.obtainStyledAttributes(attrs, R.styleable.SlidePreferenceAttributes);
         mDefault = array.getInteger(R.styleable.SlidePreferenceAttributes_android_defaultValue, 0);
         mMax = array.getInteger(R.styleable.SlidePreferenceAttributes_slideMaximum, 100);
         mMin = array.getInteger(R.styleable.SlidePreferenceAttributes_slideMinimum, 0);
-        int titleResId = array.getResourceId(R.styleable.SlidePreferenceAttributes_android_title, 0);
+        int titleResId =
+                array.getResourceId(R.styleable.SlidePreferenceAttributes_android_title, 0);
         if (titleResId == 0)
             mTitle = array.getString(R.styleable.SlidePreferenceAttributes_android_title);
-        else
-            mTitle = context.getString(titleResId);
+        else mTitle = context.getString(titleResId);
         array.recycle();
     }
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        if (shouldPersist())
-            mValue = getPersistedInt(mDefault);
+        if (shouldPersist()) mValue = getPersistedInt(mDefault);
 
         mCurrentValue = (TextView) holder.findViewById(R.id.pref_current_value);
         mMaxValue = (TextView) holder.findViewById(R.id.pref_max_value);
@@ -81,16 +81,13 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     @Override
     protected void onSetInitialValue(boolean restore, Object defaultValue) {
         super.onSetInitialValue(restore, defaultValue);
-        if (restore)
-            mValue = shouldPersist() ? getPersistedInt(mDefault) : mMin;
-        else
-            mValue = (Integer) defaultValue;
+        if (restore) mValue = shouldPersist() ? getPersistedInt(mDefault) : mMin;
+        else mValue = (Integer) defaultValue;
 
         if (mValue > mMax) mValue = mMax;
         if (mValue < mMin) mValue = mMin;
 
-        if (mCurrentValue != null)
-            mCurrentValue.setText(Integer.toString(mValue));
+        if (mCurrentValue != null) mCurrentValue.setText(Integer.toString(mValue));
     }
 
     @Override
@@ -102,25 +99,21 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         if (shouldPersist()) persistInt(mValue);
         callChangeListener(mValue);
 
-        if (mCurrentValue != null)
-            mCurrentValue.setText(Integer.toString(mValue));
+        if (mCurrentValue != null) mCurrentValue.setText(Integer.toString(mValue));
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seek) {
-    }
+    public void onStartTrackingTouch(SeekBar seek) {}
 
     @Override
-    public void onStopTrackingTouch(SeekBar seek) {
-    }
+    public void onStopTrackingTouch(SeekBar seek) {}
 
     private void writeBoundaries() {
         mMaxValue.setText(Integer.toString(mMax));
         mMinValue.setText(Integer.toString(mMin));
         if (mValue > mMax) mValue = mMax;
         if (mValue < mMin) mValue = mMin;
-        if (mCurrentValue != null)
-            mCurrentValue.setText(Integer.toString(mValue));
+        if (mCurrentValue != null) mCurrentValue.setText(Integer.toString(mValue));
     }
 
     public int getMax() {
@@ -135,4 +128,3 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         return mValue;
     }
 }
-

@@ -43,7 +43,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
@@ -55,26 +54,24 @@ import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import net.evendanan.pixel.GeneralDialogController;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
-import net.evendanan.pixel.RxProgressDialog;
-
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposables;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
+import net.evendanan.pixel.GeneralDialogController;
+import net.evendanan.pixel.RxProgressDialog;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposables;
-
-public class UserDictionaryEditorFragment extends Fragment implements EditorWordsAdapter.DictionaryCallbacks {
+public class UserDictionaryEditorFragment extends Fragment
+        implements EditorWordsAdapter.DictionaryCallbacks {
 
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
@@ -82,12 +79,12 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     static final int DIALOG_LOAD_FAILED = 21;
     static final String TAG = "ASK_UDE";
     private static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
-    private static final Comparator<LoadedWord> msWordsComparator = (lhs, rhs) -> lhs.word.compareTo(rhs.word);
+    private static final Comparator<LoadedWord> msWordsComparator =
+            (lhs, rhs) -> lhs.word.compareTo(rhs.word);
     protected GeneralDialogController mDialogController;
     private Spinner mLanguagesSpinner;
 
-    @NonNull
-    private CompositeDisposable mDisposable = new CompositeDisposable();
+    @NonNull private CompositeDisposable mDisposable = new CompositeDisposable();
 
     private String mSelectedLocale = null;
     private EditableDictionary mCurrentDictionary;
@@ -111,42 +108,53 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDialogController = new GeneralDialogController(getActivity(),
-                (builder, optionId, data) -> {
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    switch (optionId) {
-                        case DIALOG_SAVE_SUCCESS:
-                            builder.setTitle(R.string.user_dict_backup_success_title);
-                            builder.setMessage(R.string.user_dict_backup_success_text);
-                            break;
-                        case DIALOG_SAVE_FAILED:
-                            builder.setTitle(R.string.user_dict_backup_fail_title);
-                            builder.setMessage(getString(R.string.user_dict_backup_fail_text_with_error, data));
-                            break;
-                        case DIALOG_LOAD_SUCCESS:
-                            builder.setTitle(R.string.user_dict_restore_success_title);
-                            builder.setMessage(R.string.user_dict_restore_success_text);
-                            break;
-                        case DIALOG_LOAD_FAILED:
-                            builder.setTitle(R.string.user_dict_restore_fail_title);
-                            builder.setMessage(getString(R.string.user_dict_restore_fail_text_with_error, data));
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Failed to handle " + optionId + " in UserDictionaryEditorFragment#onCreateDialog");
-                    }
-                });
+        mDialogController =
+                new GeneralDialogController(
+                        getActivity(),
+                        (builder, optionId, data) -> {
+                            builder.setPositiveButton(android.R.string.ok, null);
+                            switch (optionId) {
+                                case DIALOG_SAVE_SUCCESS:
+                                    builder.setTitle(R.string.user_dict_backup_success_title);
+                                    builder.setMessage(R.string.user_dict_backup_success_text);
+                                    break;
+                                case DIALOG_SAVE_FAILED:
+                                    builder.setTitle(R.string.user_dict_backup_fail_title);
+                                    builder.setMessage(
+                                            getString(
+                                                    R.string.user_dict_backup_fail_text_with_error,
+                                                    data));
+                                    break;
+                                case DIALOG_LOAD_SUCCESS:
+                                    builder.setTitle(R.string.user_dict_restore_success_title);
+                                    builder.setMessage(R.string.user_dict_restore_success_text);
+                                    break;
+                                case DIALOG_LOAD_FAILED:
+                                    builder.setTitle(R.string.user_dict_restore_fail_title);
+                                    builder.setMessage(
+                                            getString(
+                                                    R.string.user_dict_restore_fail_text_with_error,
+                                                    data));
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException(
+                                            "Failed to handle "
+                                                    + optionId
+                                                    + " in UserDictionaryEditorFragment#onCreateDialog");
+                            }
+                        });
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        @SuppressLint("InflateParams") View v = inflater.inflate(
-                R.layout.words_editor_actionbar_view, null);
+        @SuppressLint("InflateParams")
+        View v = inflater.inflate(R.layout.words_editor_actionbar_view, null);
         mLanguagesSpinner = v.findViewById(R.id.user_dictionay_langs);
         actionBar.setCustomView(v);
 
@@ -160,8 +168,8 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
         mWordsRecyclerView = view.findViewById(R.id.words_recycler_view);
         mWordsRecyclerView.setHasFixedSize(false);
-        final int wordsEditorColumns = getResources().getInteger(
-                R.integer.words_editor_columns_count);
+        final int wordsEditorColumns =
+                getResources().getInteger(R.integer.words_editor_columns_count);
         if (wordsEditorColumns > 1) {
             mWordsRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
             mWordsRecyclerView.setLayoutManager(
@@ -187,7 +195,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                 createEmptyItemForAdd();
                 return true;
             case R.id.backup_words:
-                //we required Storage permission
+                // we required Storage permission
                 mainSettingsActivity.startPermissionsRequest(
                         new StoragePermissionRequest(this, false));
                 return true;
@@ -204,45 +212,65 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage = new PrefsXmlStorage(
-                AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
+        PrefsXmlStorage storage =
+                new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), R.layout.progress_window)
-                .subscribeOn(RxSchedulers.background())
-                .map(pair -> {
-                    final PrefsRoot prefsRoot = pair.first.load();
-                    pair.second.storePrefsRoot(prefsRoot);
-                    return Boolean.TRUE;
-                })
-                .observeOn(RxSchedulers.mainThread())
-                .subscribe(
-                        o -> mDialogController.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS),
-                        throwable -> mDialogController.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_FAILED, throwable.getMessage()),
-                        this::fillWordsList));
+        mDisposable.add(
+                RxProgressDialog.create(
+                                Pair.create(storage, provider),
+                                getActivity(),
+                                R.layout.progress_window)
+                        .subscribeOn(RxSchedulers.background())
+                        .map(
+                                pair -> {
+                                    final PrefsRoot prefsRoot = pair.first.load();
+                                    pair.second.storePrefsRoot(prefsRoot);
+                                    return Boolean.TRUE;
+                                })
+                        .observeOn(RxSchedulers.mainThread())
+                        .subscribe(
+                                o ->
+                                        mDialogController.showDialog(
+                                                UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS),
+                                throwable ->
+                                        mDialogController.showDialog(
+                                                UserDictionaryEditorFragment.DIALOG_LOAD_FAILED,
+                                                throwable.getMessage()),
+                                this::fillWordsList));
     }
 
     protected void backupToStorage() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage = new PrefsXmlStorage(
-                AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
+        PrefsXmlStorage storage =
+                new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), R.layout.progress_window)
-                .subscribeOn(RxSchedulers.background())
-                .map(pair -> {
-                    final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                    pair.first.store(prefsRoot);
+        mDisposable.add(
+                RxProgressDialog.create(
+                                Pair.create(storage, provider),
+                                getActivity(),
+                                R.layout.progress_window)
+                        .subscribeOn(RxSchedulers.background())
+                        .map(
+                                pair -> {
+                                    final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
+                                    pair.first.store(prefsRoot);
 
-                    return Boolean.TRUE;
-                })
-                .observeOn(RxSchedulers.mainThread())
-                .subscribe(
-                        o -> mDialogController.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS),
-                        throwable -> mDialogController.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_FAILED, throwable.getMessage()),
-                        this::fillWordsList));
+                                    return Boolean.TRUE;
+                                })
+                        .observeOn(RxSchedulers.mainThread())
+                        .subscribe(
+                                o ->
+                                        mDialogController.showDialog(
+                                                UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS),
+                                throwable ->
+                                        mDialogController.showDialog(
+                                                UserDictionaryEditorFragment.DIALOG_SAVE_FAILED,
+                                                throwable.getMessage()),
+                                this::fillWordsList));
     }
 
     private void createEmptyItemForAdd() {
@@ -254,8 +282,8 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     @Override
     public void onStart() {
         super.onStart();
-        MainSettingsActivity.setActivityTitle(this,
-                getString(R.string.user_dict_settings_titlebar));
+        MainSettingsActivity.setActivityTitle(
+                this, getString(R.string.user_dict_settings_titlebar));
 
         fillLanguagesSpinner();
     }
@@ -276,8 +304,8 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     }
 
     private void fillLanguagesSpinner() {
-        ArrayAdapter<DictionaryLocale> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item);
+        ArrayAdapter<DictionaryLocale> adapter =
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Observable.fromIterable(AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOns())
@@ -294,33 +322,39 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
         final EditableDictionary editableDictionary = createEditableDictionary(mSelectedLocale);
-        mDisposable.add(RxProgressDialog.create(editableDictionary, getActivity(), R.layout.progress_window)
-                .subscribeOn(RxSchedulers.background())
-                .map(newDictionary -> {
-                    newDictionary.loadDictionary();
-                    List<LoadedWord> words =
-                            ((MyEditableDictionary) newDictionary).getLoadedWords();
-                    //now, sorting the word list alphabetically
-                    Collections.sort(words, msWordsComparator);
+        mDisposable.add(
+                RxProgressDialog.create(editableDictionary, getActivity(), R.layout.progress_window)
+                        .subscribeOn(RxSchedulers.background())
+                        .map(
+                                newDictionary -> {
+                                    newDictionary.loadDictionary();
+                                    List<LoadedWord> words =
+                                            ((MyEditableDictionary) newDictionary).getLoadedWords();
+                                    // now, sorting the word list alphabetically
+                                    Collections.sort(words, msWordsComparator);
 
-                    return Pair.create(newDictionary, words);
-                })
-                .observeOn(RxSchedulers.mainThread())
-                .subscribe(pair -> {
-                    final EditableDictionary newDictionary = pair.first;
-                    mCurrentDictionary = newDictionary;
-                    mDisposable.add(Disposables.fromAction(() -> {
-                        newDictionary.close();
-                        if (mCurrentDictionary == newDictionary) {
-                            mCurrentDictionary = null;
-                        }
-                    }));
-                    RecyclerView.Adapter adapter = createAdapterForWords(pair.second);
-                    if (adapter != null) {
-                        mWordsRecyclerView.setAdapter(adapter);
-                    }
-                }, GenericOnError.onError("Failed to load words from dictionary for editor."))
-        );
+                                    return Pair.create(newDictionary, words);
+                                })
+                        .observeOn(RxSchedulers.mainThread())
+                        .subscribe(
+                                pair -> {
+                                    final EditableDictionary newDictionary = pair.first;
+                                    mCurrentDictionary = newDictionary;
+                                    mDisposable.add(
+                                            Disposables.fromAction(
+                                                    () -> {
+                                                        newDictionary.close();
+                                                        if (mCurrentDictionary == newDictionary) {
+                                                            mCurrentDictionary = null;
+                                                        }
+                                                    }));
+                                    EditorWordsAdapter adapter = createAdapterForWords(pair.second);
+                                    if (adapter != null) {
+                                        mWordsRecyclerView.setAdapter(adapter);
+                                    }
+                                },
+                                GenericOnError.onError(
+                                        "Failed to load words from dictionary for editor.")));
     }
 
     protected EditorWordsAdapter createAdapterForWords(List<LoadedWord> wordsList) {
@@ -329,12 +363,12 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         return new EditorWordsAdapter(wordsList, LayoutInflater.from(activity), this);
     }
 
-    /*package*/Spinner getLanguagesSpinner() {
+    /*package*/ Spinner getLanguagesSpinner() {
         return mLanguagesSpinner;
     }
 
     @VisibleForTesting
-        /*package*/OnItemSelectedListener getSpinnerItemSelectedListener() {
+    /*package*/ OnItemSelectedListener getSpinnerItemSelectedListener() {
         return mSpinnerItemSelectedListener;
     }
 
@@ -344,15 +378,16 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
     @Override
     public void onWordDeleted(final LoadedWord word) {
-        mDisposable.add(RxProgressDialog.create(word, getActivity(), R.layout.progress_window)
-                .subscribeOn(RxSchedulers.background())
-                .map(loadedWord -> {
-                    deleteWord(loadedWord.word);
-                    return Boolean.TRUE;
-                })
-                .observeOn(RxSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                }));
+        mDisposable.add(
+                RxProgressDialog.create(word, getActivity(), R.layout.progress_window)
+                        .subscribeOn(RxSchedulers.background())
+                        .map(
+                                loadedWord -> {
+                                    deleteWord(loadedWord.word);
+                                    return Boolean.TRUE;
+                                })
+                        .observeOn(RxSchedulers.mainThread())
+                        .subscribe(aBoolean -> {}));
     }
 
     private void deleteWord(String word) {
@@ -361,20 +396,24 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
     @Override
     public void onWordUpdated(final String oldWord, final LoadedWord newWord) {
-        mDisposable.add(RxProgressDialog.create(Pair.create(oldWord, newWord), getActivity(), R.layout.progress_window)
-                .subscribeOn(RxSchedulers.background())
-                .map(pair -> {
-                    //it can be empty in case it's a new word.
-                    if (!TextUtils.isEmpty(pair.first)) {
-                        deleteWord(pair.first);
-                    }
-                    deleteWord(pair.second.word);
-                    mCurrentDictionary.addWord(pair.second.word, pair.second.freq);
-                    return Boolean.TRUE;
-                })
-                .observeOn(RxSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                }));
+        mDisposable.add(
+                RxProgressDialog.create(
+                                Pair.create(oldWord, newWord),
+                                getActivity(),
+                                R.layout.progress_window)
+                        .subscribeOn(RxSchedulers.background())
+                        .map(
+                                pair -> {
+                                    // it can be empty in case it's a new word.
+                                    if (!TextUtils.isEmpty(pair.first)) {
+                                        deleteWord(pair.first);
+                                    }
+                                    deleteWord(pair.second.word);
+                                    mCurrentDictionary.addWord(pair.second.word, pair.second.freq);
+                                    return Boolean.TRUE;
+                                })
+                        .observeOn(RxSchedulers.mainThread())
+                        .subscribe(aBoolean -> {}));
     }
 
     protected interface MyEditableDictionary {
@@ -396,26 +435,26 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         private final int mMargin;
 
         MarginDecoration(Context context) {
-            mMargin = context.getResources().getDimensionPixelSize(
-                    R.dimen.global_content_padding_side);
+            mMargin =
+                    context.getResources()
+                            .getDimensionPixelSize(R.dimen.global_content_padding_side);
         }
 
         @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
+        public void getItemOffsets(
+                Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             outRect.set(mMargin, mMargin, mMargin, mMargin);
         }
     }
 
-    private static class StoragePermissionRequest extends
-            PermissionsRequest.PermissionsRequestBase {
+    private static class StoragePermissionRequest
+            extends PermissionsRequest.PermissionsRequestBase {
 
         private final WeakReference<UserDictionaryEditorFragment> mFragmentWeakReference;
         private final boolean mForRead;
 
         StoragePermissionRequest(UserDictionaryEditorFragment fragment, boolean forRead) {
-            super(PermissionsRequestCodes.STORAGE.getRequestCode(),
-                    getPermissionsForOsVersion());
+            super(PermissionsRequestCodes.STORAGE.getRequestCode(), getPermissionsForOsVersion());
             mForRead = forRead;
             mFragmentWeakReference = new WeakReference<>(fragment);
         }
@@ -423,10 +462,12 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         @NonNull
         private static String[] getPermissionsForOsVersion() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE};
+                return new String[] {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                };
             } else {
-                return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                return new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             }
         }
 
@@ -443,8 +484,10 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         }
 
         @Override
-        public void onPermissionsDenied(@NonNull String[] grantedPermissions,
-                @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
+        public void onPermissionsDenied(
+                @NonNull String[] grantedPermissions,
+                @NonNull String[] deniedPermissions,
+                @NonNull String[] declinedPermissions) {
             /*no-op - Main-Activity handles this case*/
         }
     }
@@ -463,24 +506,23 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
         @NonNull
         @Override
-        protected AndroidUserDictionary createAndroidUserDictionary(Context context,
-                String locale) {
+        protected AndroidUserDictionary createAndroidUserDictionary(
+                Context context, String locale) {
             return new MyAndroidUserDictionary(context, locale);
         }
 
         @NonNull
         @Override
-        protected FallbackUserDictionary createFallbackUserDictionary(Context context,
-                String locale) {
+        protected FallbackUserDictionary createFallbackUserDictionary(
+                Context context, String locale) {
             return new MyFallbackUserDictionary(context, locale);
         }
     }
 
-    private static class MyFallbackUserDictionary extends FallbackUserDictionary implements
-            MyEditableDictionary {
+    private static class MyFallbackUserDictionary extends FallbackUserDictionary
+            implements MyEditableDictionary {
 
-        @NonNull
-        private List<LoadedWord> mLoadedWords = new ArrayList<>();
+        @NonNull private List<LoadedWord> mLoadedWords = new ArrayList<>();
 
         MyFallbackUserDictionary(Context context, String locale) {
             super(context, locale);
@@ -489,10 +531,11 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         @Override
         protected void readWordsFromActualStorage(final WordReadListener listener) {
             mLoadedWords.clear();
-            WordReadListener myListener = (word, frequency) -> {
-                mLoadedWords.add(new LoadedWord(word, frequency));
-                return listener.onWordRead(word, frequency);
-            };
+            WordReadListener myListener =
+                    (word, frequency) -> {
+                        mLoadedWords.add(new LoadedWord(word, frequency));
+                        return listener.onWordRead(word, frequency);
+                    };
             super.readWordsFromActualStorage(myListener);
         }
 
@@ -503,11 +546,10 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         }
     }
 
-    private static class MyAndroidUserDictionary extends AndroidUserDictionary implements
-            MyEditableDictionary {
+    private static class MyAndroidUserDictionary extends AndroidUserDictionary
+            implements MyEditableDictionary {
 
-        @NonNull
-        private List<LoadedWord> mLoadedWords = new ArrayList<>();
+        @NonNull private List<LoadedWord> mLoadedWords = new ArrayList<>();
 
         MyAndroidUserDictionary(Context context, String locale) {
             super(context, locale);
@@ -516,10 +558,11 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         @Override
         protected void readWordsFromActualStorage(final WordReadListener listener) {
             mLoadedWords.clear();
-            WordReadListener myListener = (word, frequency) -> {
-                mLoadedWords.add(new LoadedWord(word, frequency));
-                return listener.onWordRead(word, frequency);
-            };
+            WordReadListener myListener =
+                    (word, frequency) -> {
+                        mLoadedWords.add(new LoadedWord(word, frequency));
+                        return listener.onWordRead(word, frequency);
+                    };
             super.readWordsFromActualStorage(myListener);
         }
 

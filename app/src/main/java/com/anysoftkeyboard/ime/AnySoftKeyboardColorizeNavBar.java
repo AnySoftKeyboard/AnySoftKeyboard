@@ -14,16 +14,17 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
     private static final int NO_ID = 0;
 
-    @DimenRes
-    private int mNavigationBarHeightId = NO_ID;
+    @DimenRes private int mNavigationBarHeightId = NO_ID;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME)) {
-                mNavigationBarHeightId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+            if (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
+                    && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME)) {
+                mNavigationBarHeightId =
+                        getResources().getIdentifier("navigation_bar_height", "dimen", "android");
             }
         }
     }
@@ -47,9 +48,10 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
         return original;
     }
 
-
     private int getNavBarHeight() {
-        if (mNavigationBarHeightId != NO_ID && getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
+        if (mNavigationBarHeightId != NO_ID
+                && getResources().getConfiguration().orientation
+                        != Configuration.ORIENTATION_LANDSCAPE) {
             return getResources().getDimensionPixelSize(mNavigationBarHeightId);
         } else {
             return 0;

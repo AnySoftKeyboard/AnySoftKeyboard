@@ -7,20 +7,17 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.Locale;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Shadows;
 
-import java.util.Locale;
-
-import androidx.test.core.app.ApplicationProvider;
-
-public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<WizardLanguagePackFragment> {
+public class WizardLanguagePackFragmentTest
+        extends RobolectricFragmentTestCase<WizardLanguagePackFragment> {
 
     @After
     public void tearDownLanguagePack() {
@@ -43,7 +40,9 @@ public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<
         Assert.assertNotNull(stateIcon);
 
         Assert.assertFalse(stateIcon.isClickable());
-        Assert.assertEquals(R.drawable.ic_wizard_download_pack_ready, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.ic_wizard_download_pack_ready,
+                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
     }
 
     @Test
@@ -56,19 +55,31 @@ public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<
         Assert.assertNotNull(stateIcon);
 
         Assert.assertTrue(stateIcon.isClickable());
-        Assert.assertEquals(R.drawable.ic_wizard_download_pack_missing, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.ic_wizard_download_pack_missing,
+                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
 
-        View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler = Shadows.shadowOf((View) fragment.getView().findViewById(R.id.go_to_download_packs_action)).getOnClickListener();
+        View.OnClickListener stateIconClickHandler =
+                Shadows.shadowOf(stateIcon).getOnClickListener();
+        View.OnClickListener linkClickHandler =
+                Shadows.shadowOf(
+                                (View)
+                                        fragment.getView()
+                                                .findViewById(R.id.go_to_download_packs_action))
+                        .getOnClickListener();
 
         Assert.assertNotNull(stateIconClickHandler);
         Assert.assertSame(stateIconClickHandler, linkClickHandler);
 
-        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity());
+        Assert.assertNull(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity());
 
         stateIconClickHandler.onClick(null);
 
-        Intent searchIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
+        Intent searchIntent =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
         Assert.assertNotNull(searchIntent);
     }
 }

@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.base.utils;
 
 import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -25,7 +24,8 @@ public class Logger {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
-    private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder, Locale.US);
+    private static final java.util.Formatter msFormatter =
+            new java.util.Formatter(msFormatBuilder, Locale.US);
 
     private static final String[] msLogs = new String[255];
     private static int msLogIndex = 0;
@@ -38,11 +38,10 @@ public class Logger {
     private static final String LVL_E = "E";
     private static final String LVL_WTF = "WTF";
 
-    @NonNull
-    private static LogProvider msLogger = new NullLogProvider();
+    @NonNull private static LogProvider msLogger = new NullLogProvider();
 
     private Logger() {
-        //no instances please.
+        // no instances please.
     }
 
     public static void setLogProvider(@NonNull LogProvider logProvider) {
@@ -68,11 +67,9 @@ public class Logger {
                 index--;
                 if (index == -1) index = msLogs.length - 1;
                 String logLine = msLogs[index];
-                if (logLine == null)
-                    break;
+                if (logLine == null) break;
                 lines.add(msLogs[index]);
-            }
-            while (index != msLogIndex);
+            } while (index != msLogIndex);
         }
         return lines;
     }
@@ -80,7 +77,7 @@ public class Logger {
     @NonNull
     public static synchronized String getAllLogLines() {
         ArrayList<String> lines = getAllLogLinesList();
-        //now to build the string
+        // now to build the string
         StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
         while (lines.size() > 0) {
             String line = lines.remove(lines.size() - 1);
@@ -99,7 +96,8 @@ public class Logger {
     }
 
     private static synchronized String getFormattedString(String text, Object[] args) {
-        String msg = args == null || args.length == 0 ? text : msFormatter.format(text, args).toString();
+        String msg =
+                args == null || args.length == 0 ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         return msg;
     }
@@ -207,13 +205,12 @@ public class Logger {
         StringBuilder sb = new StringBuilder();
 
         for (StackTraceElement element : stackTrace) {
-            sb.append("at ");//this is required for easy Proguard decoding.
+            sb.append("at "); // this is required for easy Proguard decoding.
             sb.append(element.toString());
             sb.append(NEW_LINE);
         }
 
-        if (ex.getCause() == null)
-            return sb.toString();
+        if (ex.getCause() == null) return sb.toString();
         else {
             ex = ex.getCause();
             String cause = getStackTrace(ex);

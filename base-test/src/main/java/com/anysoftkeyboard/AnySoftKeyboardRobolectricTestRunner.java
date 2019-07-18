@@ -1,31 +1,24 @@
 package com.anysoftkeyboard;
 
 import android.os.Looper;
-
 import com.anysoftkeyboard.rx.TestRxSchedulers;
-
+import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
 import net.evendanan.testgrouping.TestClassHashingStrategy;
 import net.evendanan.testgrouping.TestsGroupingFilter;
-
 import org.junit.runners.model.InitializationError;
 import org.robolectric.DefaultTestLifecycle;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.TestLifecycle;
 import org.robolectric.android.util.concurrent.RoboExecutorService;
 
-import java.lang.reflect.Method;
-
-import javax.annotation.Nonnull;
-
-/**
- * Just a way to add general things on-top RobolectricTestRunner.
- */
-
+/** Just a way to add general things on-top RobolectricTestRunner. */
 @SuppressWarnings("CatchAndPrintStackTrace")
 public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner {
     public AnySoftKeyboardRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
-        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(this, new TestClassHashingStrategy(), false/*so running from AS will work*/);
+        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(
+                this, new TestClassHashingStrategy(), false /*so running from AS will work*/);
     }
 
     @Nonnull

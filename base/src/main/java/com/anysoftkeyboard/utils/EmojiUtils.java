@@ -12,7 +12,7 @@ public class EmojiUtils {
 
     public enum SkinTone {
 
-        //Fitzpatrick_1('\uDFFA'),//does not exist
+        // Fitzpatrick_1('\uDFFA'),//does not exist
         Fitzpatrick_2('\uDFFB'),
         Fitzpatrick_3('\uDFFC'),
         Fitzpatrick_4('\uDFFD'),
@@ -44,13 +44,16 @@ public class EmojiUtils {
         return false;
     }
 
-    public static CharSequence removeSkinTone(@NonNull CharSequence text, @NonNull SkinTone skinTone) {
+    public static CharSequence removeSkinTone(
+            @NonNull CharSequence text, @NonNull SkinTone skinTone) {
         msStringBuilder.setLength(0);
 
         for (int charIndex = 0; charIndex < text.length(); charIndex++) {
             final char c = text.charAt(charIndex);
-            if (c == SKIN_TONE_PREFIX_CHAR && charIndex < (text.length() - 1) && text.charAt(charIndex + 1) == skinTone.mModifier) {
-                charIndex++;//skipping this and next
+            if (c == SKIN_TONE_PREFIX_CHAR
+                    && charIndex < (text.length() - 1)
+                    && text.charAt(charIndex + 1) == skinTone.mModifier) {
+                charIndex++; // skipping this and next
             } else {
                 msStringBuilder.append(c);
             }

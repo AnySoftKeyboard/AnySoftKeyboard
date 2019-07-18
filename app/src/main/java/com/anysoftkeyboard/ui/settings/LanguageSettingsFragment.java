@@ -5,16 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class LanguageSettingsFragment extends Fragment implements View.OnClickListener {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.language_root_settings, container, false);
     }
 
@@ -45,11 +44,13 @@ public class LanguageSettingsFragment extends Fragment implements View.OnClickLi
                 addFragmentToUi(new AdditionalLanguageSettingsFragment());
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle "+view.getId()+" in LanguageSettingsFragment");
+                throw new IllegalArgumentException(
+                        "Failed to handle " + view.getId() + " in LanguageSettingsFragment");
         }
     }
 
     private void addFragmentToUi(Fragment fragment) {
-        ((FragmentChauffeurActivity) getActivity()).addFragmentToUi(fragment, TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+        ((FragmentChauffeurActivity) getActivity())
+                .addFragmentToUi(fragment, TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
     }
 }

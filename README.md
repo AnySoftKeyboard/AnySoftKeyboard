@@ -41,6 +41,12 @@ To develop this project, you'll need:
  * Android SDK API Level 28 installed. Set up `local.properties` file to point to it (that is, ensure you have `sdk.dir=/path/to/android/sdk` in it).
  * Android NDK [r14b](https://developer.android.com/ndk/downloads/older_releases.html) installed. Set up `local.properties` file to point to it (that is, ensure you have `ndk.dir=/path/to/android/ndk` in it).
 
+## Continuous Integration and Pull-Requests Verifications
+Each PR is verified by multiple tasks:
+ * Code Style is verified by _Google Java Format_. You can auto-format changes by running `./gradlew googleJavaFormat`
+ * Static-Analysis is done with PMD, checkstyle, lint and Error-Prone. Run `./scripts/ci/ci_check.sh` to execute all checks.
+ * Unit-Tests are verified using `./gradlew testDebugUnitTest`. 
+ 
 # Notes
 
 * Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bountys and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!

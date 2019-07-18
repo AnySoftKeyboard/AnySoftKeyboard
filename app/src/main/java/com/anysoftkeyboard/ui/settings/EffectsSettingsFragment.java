@@ -20,9 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
-
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class EffectsSettingsFragment extends PreferenceFragmentCompat {
@@ -35,15 +33,25 @@ public class EffectsSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findPreference(getText(R.string.settings_key_power_save_mode)).setOnPreferenceClickListener(preference -> {
-            ((MainSettingsActivity) getActivity()).addFragmentToUi(new PowerSavingSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-            return true;
-        });
+        findPreference(getText(R.string.settings_key_power_save_mode))
+                .setOnPreferenceClickListener(
+                        preference -> {
+                            ((MainSettingsActivity) getActivity())
+                                    .addFragmentToUi(
+                                            new PowerSavingSettingsFragment(),
+                                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                            return true;
+                        });
 
-        findPreference(getText(R.string.settings_key_night_mode)).setOnPreferenceClickListener(preference -> {
-            ((MainSettingsActivity) getActivity()).addFragmentToUi(new NightModeSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-            return true;
-        });
+        findPreference(getText(R.string.settings_key_night_mode))
+                .setOnPreferenceClickListener(
+                        preference -> {
+                            ((MainSettingsActivity) getActivity())
+                                    .addFragmentToUi(
+                                            new NightModeSettingsFragment(),
+                                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                            return true;
+                        });
     }
 
     @Override

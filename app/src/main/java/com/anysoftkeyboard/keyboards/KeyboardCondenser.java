@@ -17,11 +17,9 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -44,22 +42,25 @@ public class KeyboardCondenser {
     }
 
     private CondenseType mKeyboardCondenseType = CondenseType.None;
-    private List<KeySize> mKeySizesMap = null;//it is usually not used, so I'll create an instance when first needed.
+    private List<KeySize> mKeySizesMap =
+            null; // it is usually not used, so I'll create an instance when first needed.
     private final AnyKeyboard mKeyboard;
     private final float mCondensingFullFactor;
     private final float mCondensingEdgeFactor;
 
     public KeyboardCondenser(Context askContext, AnyKeyboard keyboard) {
         mKeyboard = keyboard;
-        mCondensingFullFactor = ((float) askContext.getResources()
-                .getInteger(R.integer.condensing_precentage)) / 100f;
-        mCondensingEdgeFactor = ((float) askContext.getResources()
-                .getInteger(R.integer.condensing_precentage_edge)) / 100f;
+        mCondensingFullFactor =
+                ((float) askContext.getResources().getInteger(R.integer.condensing_precentage))
+                        / 100f;
+        mCondensingEdgeFactor =
+                ((float) askContext.getResources().getInteger(R.integer.condensing_precentage_edge))
+                        / 100f;
     }
 
     public boolean setCondensedKeys(CondenseType condenseType, KeyboardDimens keyboardDimens) {
         if (mKeyboardCondenseType.equals(condenseType)) {
-            return false;//not changed
+            return false; // not changed
         }
 
         final float condensingFactor;
@@ -85,12 +86,13 @@ public class KeyboardCondenser {
             mKeySizesMap = new ArrayList<>(keys.size());
         }
 
-        //restoring sizes
+        // restoring sizes
         List<KeySize> stashedKeySizes = mKeySizesMap;
         if (stashedKeySizes.size() > 0) {
-            //we have condensed before
+            // we have condensed before
             if (stashedKeySizes.size() != keys.size()) {
-                throw new IllegalStateException("The size of the stashed keys and the actual keyboard keys is not the same!");
+                throw new IllegalStateException(
+                        "The size of the stashed keys and the actual keyboard keys is not the same!");
             }
             for (int i = 0; i < stashedKeySizes.size(); i++) {
                 Key k = keys.get(i);
@@ -103,7 +105,7 @@ public class KeyboardCondenser {
                 k.centerY = k.y + k.height / 2;
             }
         }
-        //back to original state, no need to keep those key-size data anymore
+        // back to original state, no need to keep those key-size data anymore
         mKeySizesMap.clear();
 
         final int keyboardWidth = mKeyboard.getMinWidth();
@@ -121,15 +123,20 @@ public class KeyboardCondenser {
                 // keys already restored
                 break;
             default:
-                throw new IllegalArgumentException("Unknown condensing type given: " + condenseType);
+                throw new IllegalArgumentException(
+                        "Unknown condensing type given: " + condenseType);
         }
 
         mKeyboardCondenseType = condenseType;
-        //changed
+        // changed
         return true;
     }
 
-    private void splitKeys(final int keyboardWidth, final int watershedLineX, final int halfHorizontalGap, final float condensingFactor) {
+    private void splitKeys(
+            final int keyboardWidth,
+            final int watershedLineX,
+            final int halfHorizontalGap,
+            final float condensingFactor) {
         int currentLeftX = 0;
         int currentRightX = keyboardWidth;
         int currentY = 0;
@@ -144,7 +151,13 @@ public class KeyboardCondenser {
             if (currentY != k.y) {
                 flipSideLeft = !flipSideLeft;
 
-                condenseRightSide(condensingFactor, halfHorizontalGap, keyboardWidth, currentRightX, rightKeys, spaceKey);
+                condenseRightSide(
+                        condensingFactor,
+                        halfHorizontalGap,
+                        keyboardWidth,
+                        currentRightX,
+                        rightKeys,
+                        spaceKey);
 
                 currentLeftX = 0;
                 currentRightX = keyboardWidth;
@@ -155,9 +168,12 @@ public class KeyboardCondenser {
             int targetWidth = (int) (k.width * condensingFactor);
             int keyMidPoint = k.x + (k.width / 2);
 
-            if (k.getPrimaryCode() == KeyCodes.SPACE &&
-                    k.x < watershedLineX &&//one side is to the left,
-                    k.x + k.width > watershedLineX) { //the other side of the key is to the right of the watershed-line
+            if (k.getPrimaryCode() == KeyCodes.SPACE
+                    && k.x < watershedLineX
+                    && // one side is to the left,
+                    k.x + k.width
+                            > watershedLineX) { // the other side of the key is to the right of the
+                // watershed-line
                 // space is a special case, I want to make it as wide as
                 // possible (since it is a space-bar in the middle of the screen
                 spaceKey = k;
@@ -178,7 +194,13 @@ public class KeyboardCondenser {
             currentLeftX += halfHorizontalGap;
         }
         // now to condense the last row
-        condenseRightSide(condensingFactor, halfHorizontalGap, keyboardWidth, currentRightX, rightKeys, spaceKey);
+        condenseRightSide(
+                condensingFactor,
+                halfHorizontalGap,
+                keyboardWidth,
+                currentRightX,
+                rightKeys,
+                spaceKey);
     }
 
     private int stackRightSideKeyForLater(Deque<Key> rightKeys, Key k, int targetWidth) {
@@ -196,16 +218,21 @@ public class KeyboardCondenser {
         return currentLeftX;
     }
 
-    private void condenseRightSide(final float condensingFactor, final int halfHorizontalGap,
-            final int keyboardWidth, int currentRightX, Deque<Key> rightKeys,
+    private void condenseRightSide(
+            final float condensingFactor,
+            final int halfHorizontalGap,
+            final int keyboardWidth,
+            int currentRightX,
+            Deque<Key> rightKeys,
             Key spaceKey) {
         // currentRightX holds the rightest x+width point. condensing a bit
-        currentRightX = (int) (keyboardWidth - ((keyboardWidth - currentRightX) * condensingFactor));
+        currentRightX =
+                (int) (keyboardWidth - ((keyboardWidth - currentRightX) * condensingFactor));
         while (!rightKeys.isEmpty()) {
             Key rightKey = rightKeys.pop();
 
             currentRightX -= halfHorizontalGap;
-            currentRightX -= rightKey.width;// already holds the new width
+            currentRightX -= rightKey.width; // already holds the new width
             rightKey.x = currentRightX;
             rightKey.centerX = rightKey.x + rightKey.width / 2;
             currentRightX -= halfHorizontalGap;

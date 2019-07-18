@@ -25,10 +25,8 @@ import android.support.annotation.Nullable;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-
 import java.util.List;
 
 public interface DeviceSpecific {
@@ -37,13 +35,21 @@ public interface DeviceSpecific {
 
     GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
-    void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);
+    void commitCorrectionToInputConnection(
+            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);
 
     boolean isHardwareAcceleratedCanvas(Canvas canvas);
 
-    void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders);
+    void reportInputMethodSubtypes(
+            @NonNull InputMethodManager inputMethodManager,
+            @NonNull String imeId,
+            @NonNull List<KeyboardAddOnAndBuilder> builders);
 
-    void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale,
+    void reportCurrentInputMethodSubtypes(
+            @NonNull InputMethodManager inputMethodManager,
+            @NonNull String imeId,
+            @NonNull IBinder token,
+            @Nullable String keyboardLocale,
             @NonNull CharSequence keyboardId);
 
     void setupStrictMode();

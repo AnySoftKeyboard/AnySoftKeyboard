@@ -6,7 +6,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.XmlRes;
 import android.support.v4.util.SparseArrayCompat;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.addons.DefaultAddOn;
@@ -17,69 +16,73 @@ import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.google.common.base.Preconditions;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ExternalAnyKeyboardRowsTest {
-    private static final KeyboardDimens SIMPLE_KeyboardDimens = new KeyboardDimens() {
-        @Override
-        public int getKeyboardMaxWidth() {
-            return 120;
-        }
+    private static final KeyboardDimens SIMPLE_KeyboardDimens =
+            new KeyboardDimens() {
+                @Override
+                public int getKeyboardMaxWidth() {
+                    return 120;
+                }
 
-        @Override
-        public float getKeyHorizontalGap() {
-            return 2;
-        }
+                @Override
+                public float getKeyHorizontalGap() {
+                    return 2;
+                }
 
-        @Override
-        public float getRowVerticalGap() {
-            return 3;
-        }
+                @Override
+                public float getRowVerticalGap() {
+                    return 3;
+                }
 
-        @Override
-        public int getNormalKeyHeight() {
-            return 5;
-        }
+                @Override
+                public int getNormalKeyHeight() {
+                    return 5;
+                }
 
-        @Override
-        public int getSmallKeyHeight() {
-            return 4;
-        }
+                @Override
+                public int getSmallKeyHeight() {
+                    return 4;
+                }
 
-        @Override
-        public int getLargeKeyHeight() {
-            return 6;
-        }
+                @Override
+                public int getLargeKeyHeight() {
+                    return 6;
+                }
 
-        @Override
-        public float getPaddingBottom() {
-            return 0;
-        }
-
-    };
+                @Override
+                public float getPaddingBottom() {
+                    return 0;
+                }
+            };
 
     private KeyboardAddOnAndBuilder mKeyboardBuilder;
 
     @Before
     public void setUp() {
-        mKeyboardBuilder = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn();
+        mKeyboardBuilder =
+                AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn();
     }
 
     @NonNull
-    private AnyKeyboard createAndLoadKeyboardForModeWithTopRowIndex(@Keyboard.KeyboardRowModeId int mode, int topRowIndex) throws Exception {
+    private AnyKeyboard createAndLoadKeyboardForModeWithTopRowIndex(
+            @Keyboard.KeyboardRowModeId int mode, int topRowIndex) throws Exception {
         AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(mode));
 
-        KeyboardExtension topRow = AnyApplication.getTopRowFactory(getApplicationContext()).getAllAddOns().get(topRowIndex);
-        KeyboardExtension bottomRow = AnyApplication.getBottomRowFactory(getApplicationContext()).getEnabledAddOn();
+        KeyboardExtension topRow =
+                AnyApplication.getTopRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(topRowIndex);
+        KeyboardExtension bottomRow =
+                AnyApplication.getBottomRowFactory(getApplicationContext()).getEnabledAddOn();
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens, topRow, bottomRow);
 
         verifyKeysLocationByListOrder(keyboard.getKeys());
@@ -89,11 +92,16 @@ public class ExternalAnyKeyboardRowsTest {
     }
 
     @NonNull
-    private AnyKeyboard createAndLoadKeyboardForModeWithBottomRowIndex(@Keyboard.KeyboardRowModeId int mode, int bottomRowIndex) throws Exception {
+    private AnyKeyboard createAndLoadKeyboardForModeWithBottomRowIndex(
+            @Keyboard.KeyboardRowModeId int mode, int bottomRowIndex) throws Exception {
         AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(mode));
 
-        KeyboardExtension topRow = AnyApplication.getTopRowFactory(getApplicationContext()).getEnabledAddOn();
-        KeyboardExtension bottomRow = AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(bottomRowIndex);
+        KeyboardExtension topRow =
+                AnyApplication.getTopRowFactory(getApplicationContext()).getEnabledAddOn();
+        KeyboardExtension bottomRow =
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(bottomRowIndex);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens, topRow, bottomRow);
 
         verifyKeysLocationByListOrder(keyboard.getKeys());
@@ -103,11 +111,19 @@ public class ExternalAnyKeyboardRowsTest {
     }
 
     @NonNull
-    private AnyKeyboard createAndLoadKeyboardForModeWithRowsIndex(@Keyboard.KeyboardRowModeId int mode, int topRowIndex, int bottomRowIndex) throws Exception {
+    private AnyKeyboard createAndLoadKeyboardForModeWithRowsIndex(
+            @Keyboard.KeyboardRowModeId int mode, int topRowIndex, int bottomRowIndex)
+            throws Exception {
         AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(mode));
 
-        KeyboardExtension topRow = AnyApplication.getTopRowFactory(getApplicationContext()).getAllAddOns().get(topRowIndex);
-        KeyboardExtension bottomRow = AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(bottomRowIndex);
+        KeyboardExtension topRow =
+                AnyApplication.getTopRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(topRowIndex);
+        KeyboardExtension bottomRow =
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(bottomRowIndex);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens, topRow, bottomRow);
 
         verifyKeysLocationByListOrder(keyboard.getKeys());
@@ -118,7 +134,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowNormalModeNoneTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0);
 
         Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
@@ -126,7 +143,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowImModeNoneTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 0);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 0);
 
         Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
@@ -134,7 +152,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowEmailModeNoneTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 0);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 0);
 
         Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
@@ -142,7 +161,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowUrlModeNoneTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
         Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
@@ -150,12 +170,14 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowUrlModeNoneTopRowHasDomain() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
         Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
 
-        Keyboard.Key key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Keyboard.Key key =
+                TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
         Assert.assertNotNull(key);
 
         Assert.assertEquals(R.xml.popup_domains, key.popupResId);
@@ -186,15 +208,17 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowPasswordModeNoneTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 0);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 0);
 
-        Assert.assertEquals(57/*extra row*/, keyboard.getHeight());
-        Assert.assertEquals(46/*additional 10 keys over normal*/, keyboard.getKeys().size());
+        Assert.assertEquals(57 /*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(46 /*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
     @Test
     public void testKeyboardRowNormalModeSmallTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1);
 
         Assert.assertEquals(54, keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
@@ -202,7 +226,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowImModeSmallTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 1);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 1);
 
         Assert.assertEquals(54, keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
@@ -210,7 +235,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowEmailModeSmallTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 1);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 1);
 
         Assert.assertEquals(54, keyboard.getHeight());
         Assert.assertEquals(39, keyboard.getKeys().size());
@@ -218,7 +244,8 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowUrlModeSmallTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 1);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 1);
 
         Assert.assertEquals(54, keyboard.getHeight());
         Assert.assertEquals(39, keyboard.getKeys().size());
@@ -226,48 +253,76 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowPasswordModeSmallTopRow() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 1);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 1);
 
-        Assert.assertEquals(61/*extra row*/, keyboard.getHeight());
-        Assert.assertEquals(50/*additional 10 keys over normal*/, keyboard.getKeys().size());
+        Assert.assertEquals(61 /*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(50 /*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
     @Test
     public void testKeyboardRowEmailModeWhenEmailRowProvided() throws Exception {
-        //ensuring that 4 is actually the bottom row without password specific row
-        Assert.assertEquals("3DFFC2AD-8BC8-47F3-962A-918156AD8DD0", AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(4).getId());
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 4);
+        // ensuring that 4 is actually the bottom row without password specific row
+        Assert.assertEquals(
+                "3DFFC2AD-8BC8-47F3-962A-918156AD8DD0",
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(4)
+                        .getId());
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 4);
 
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, keyboard.getKeyboardMode());
-        Assert.assertEquals(KeyCodes.ENTER, keyboard.getKeys().get(keyboard.getKeys().size() - 1).getPrimaryCode());
+        Assert.assertEquals(
+                KeyCodes.ENTER,
+                keyboard.getKeys().get(keyboard.getKeys().size() - 1).getPrimaryCode());
     }
 
     @Test
     public void testKeyboardRowPasswordModeWhenNoPasswordRowProvided() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 4);
-        //ensuring that 4 is actually the bottom row without password specific row
-        Assert.assertEquals("3DFFC2AD-8BC8-47F3-962A-918156AD8DD0", AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(4).getId());
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithBottomRowIndex(
+                        Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 4);
+        // ensuring that 4 is actually the bottom row without password specific row
+        Assert.assertEquals(
+                "3DFFC2AD-8BC8-47F3-962A-918156AD8DD0",
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(4)
+                        .getId());
 
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, keyboard.getKeyboardMode());
-        Assert.assertEquals(KeyCodes.ENTER, keyboard.getKeys().get(keyboard.getKeys().size() - 1).getPrimaryCode());
+        Assert.assertEquals(
+                KeyCodes.ENTER,
+                keyboard.getKeys().get(keyboard.getKeys().size() - 1).getPrimaryCode());
     }
 
     @Test
     public void testKeyboardWithoutMultiLayoutsEnabledIsWhenApplicable() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0, 6);
-        //sanity
-        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(3).getId());
-        Assert.assertFalse(AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0, 6);
+        // sanity
+        Assert.assertEquals(
+                "3659b9e0-dee2-11e0-9572-0800200c9a55",
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(3)
+                        .getId());
+        Assert.assertFalse(
+                AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
 
-        //ensuring no language key exists
-        Assert.assertEquals(35/*one key was removed*/, keyboard.getKeys().size());
+        // ensuring no language key exists
+        Assert.assertEquals(35 /*one key was removed*/, keyboard.getKeys().size());
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
-            Assert.assertNotEquals("Key at index " + i + " should not have code KeyCodes.MODE_ALPHABET!", KeyCodes.MODE_ALPHABET, key.getPrimaryCode());
+            Assert.assertNotEquals(
+                    "Key at index " + i + " should not have code KeyCodes.MODE_ALPHABET!",
+                    KeyCodes.MODE_ALPHABET,
+                    key.getPrimaryCode());
             Assert.assertTrue("Key at index " + i + " should not have negative x", key.x >= 0);
         }
-        //asserting key size
+        // asserting key size
         Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size() - 1).width);
         Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size() - 1).x);
     }
@@ -276,12 +331,20 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardWithMultiLayoutsEnabledAndKeyIsWhenApplicable() throws Exception {
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
-        //sanity
-        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(3).getId());
-        Assert.assertTrue(AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithBottomRowIndex(
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+        // sanity
+        Assert.assertEquals(
+                "3659b9e0-dee2-11e0-9572-0800200c9a55",
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(3)
+                        .getId());
+        Assert.assertTrue(
+                AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
 
-        //ensuring there is a language key
+        // ensuring there is a language key
         Assert.assertEquals(38, keyboard.getKeys().size());
         int foundLanguageKeys = 0;
         for (Keyboard.Key key : keyboard.getKeys()) {
@@ -296,13 +359,20 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardWithoutMultiLayoutsEnabledAndKeyIsAlways() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1, 6);
-        //sanity
-        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(3).getId());
-        Assert.assertFalse(AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1, 6);
+        // sanity
+        Assert.assertEquals(
+                "3659b9e0-dee2-11e0-9572-0800200c9a55",
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(3)
+                        .getId());
+        Assert.assertFalse(
+                AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
 
-        //ensuring no language key exists
-        Assert.assertEquals(39/*one key was removed*/, keyboard.getKeys().size());
+        // ensuring no language key exists
+        Assert.assertEquals(39 /*one key was removed*/, keyboard.getKeys().size());
         int langKeysSeen = 0;
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
@@ -313,27 +383,34 @@ public class ExternalAnyKeyboardRowsTest {
             Assert.assertTrue("Key at index " + i + " should not have negative x", key.x >= 0);
         }
         Assert.assertEquals("Should have seen only one lang key!", 1, langKeysSeen);
-        //asserting key size
+        // asserting key size
         Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size() - 1).width);
     }
 
     @Test
     public void testKeyboardWithMultiLayoutsEnabledButPrefsDisabled() throws Exception {
-        //asserting default settings
+        // asserting default settings
         Assert.assertFalse(KeyboardPrefs.alwaysHideLanguageKey(getApplicationContext()));
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_always_hide_language_key, true);
 
-        //asserting change
+        // asserting change
         Assert.assertTrue(KeyboardPrefs.alwaysHideLanguageKey(getApplicationContext()));
 
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1, 6);
-        //sanity
-        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(3).getId());
-        Assert.assertTrue(AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1, 6);
+        // sanity
+        Assert.assertEquals(
+                "3659b9e0-dee2-11e0-9572-0800200c9a55",
+                AnyApplication.getBottomRowFactory(getApplicationContext())
+                        .getAllAddOns()
+                        .get(3)
+                        .getId());
+        Assert.assertTrue(
+                AnyApplication.getKeyboardFactory(getApplicationContext()).hasMultipleAlphabets());
 
-        //ensuring no language key exists
-        Assert.assertEquals(39/*one was removed*/, keyboard.getKeys().size());
+        // ensuring no language key exists
+        Assert.assertEquals(39 /*one was removed*/, keyboard.getKeys().size());
         int langKeysSeen = 0;
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
@@ -348,85 +425,131 @@ public class ExternalAnyKeyboardRowsTest {
     }
 
     @Test
-    public void testKeyboardWithoutMultiLayoutsEnabledTopRowPositionsAndGapsAreValid() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+    public void testKeyboardWithoutMultiLayoutsEnabledTopRowPositionsAndGapsAreValid()
+            throws Exception {
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithBottomRowIndex(
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
 
-        //should have four keys at top row
+        // should have four keys at top row
         final int topY = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
         Assert.assertEquals(topY, keyboard.getKeys().get(0).y);
         Assert.assertEquals(topY, keyboard.getKeys().get(1).y);
         Assert.assertEquals(topY, keyboard.getKeys().get(2).y);
         Assert.assertEquals(topY, keyboard.getKeys().get(3).y);
-        //next row
+        // next row
         Assert.assertNotEquals(topY, keyboard.getKeys().get(4).y);
 
-        //positions (note - keys are not evenly spread)
+        // positions (note - keys are not evenly spread)
         // we have additional pixels now, since the language key was removed
-        int[] keyIndices = new int[]{32, 33, 34, 35, 36};
-        int[] xPositions = new int[]{1, 21, 72, 86, 101};
-        int[] widths = new int[]{18, 48, 12, 12, 18};
-        int[] gaps = new int[]{0, 0, 0, 0, 0};
+        int[] keyIndices = new int[] {32, 33, 34, 35, 36};
+        int[] xPositions = new int[] {1, 21, 72, 86, 101};
+        int[] widths = new int[] {18, 48, 12, 12, 18};
+        int[] gaps = new int[] {0, 0, 0, 0, 0};
         for (int keyIndexIndex = 0; keyIndexIndex < keyIndices.length; keyIndexIndex++) {
             final int keyIndex = keyIndices[keyIndexIndex];
             final int expectedX = xPositions[keyIndexIndex];
             final int expectedWidth = widths[keyIndexIndex];
             final int expectedGap = gaps[keyIndexIndex];
             final Keyboard.Key ketToTest = keyboard.getKeys().get(keyIndex);
-            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not positioned correctly.", expectedX, ketToTest.x);
-            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not the correct width.", expectedWidth, ketToTest.width);
-            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " has the wrong gap.", expectedGap, ketToTest.gap);
+            Assert.assertEquals(
+                    "Key at index "
+                            + keyIndex
+                            + ", "
+                            + keyIndexIndex
+                            + " is not positioned correctly.",
+                    expectedX,
+                    ketToTest.x);
+            Assert.assertEquals(
+                    "Key at index "
+                            + keyIndex
+                            + ", "
+                            + keyIndexIndex
+                            + " is not the correct width.",
+                    expectedWidth,
+                    ketToTest.width);
+            Assert.assertEquals(
+                    "Key at index " + keyIndex + ", " + keyIndexIndex + " has the wrong gap.",
+                    expectedGap,
+                    ketToTest.gap);
         }
     }
 
     @Test
-    public void testKeyboardWithMultiLayoutsEnabledTopRowPositionsAndGapsAreValid() throws Exception {
+    public void testKeyboardWithMultiLayoutsEnabledTopRowPositionsAndGapsAreValid()
+            throws Exception {
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+        AnyKeyboard keyboard =
+                createAndLoadKeyboardForModeWithBottomRowIndex(
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
 
-        //should have four keys at top row
+        // should have four keys at top row
         final int topY = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
         Assert.assertEquals(topY, keyboard.getKeys().get(0).y);
         Assert.assertEquals(topY, keyboard.getKeys().get(1).y);
         Assert.assertEquals(topY, keyboard.getKeys().get(2).y);
         Assert.assertEquals(topY, keyboard.getKeys().get(3).y);
-        //next row
+        // next row
         Assert.assertNotEquals(topY, keyboard.getKeys().get(4).y);
 
-        //positions (note - keys are not evenly spread)
-        int[] keyIndices = new int[]{32, 33, 34, 35, 36, 37};
-        int[] xPositions = new int[]{1, 19, 31, 79, 91, 103};
-        int[] widths = new int[]{16, 10, 46, 10, 10, 16};
-        int[] gaps = new int[]{0, 0, 0, 0, 0, 0};
+        // positions (note - keys are not evenly spread)
+        int[] keyIndices = new int[] {32, 33, 34, 35, 36, 37};
+        int[] xPositions = new int[] {1, 19, 31, 79, 91, 103};
+        int[] widths = new int[] {16, 10, 46, 10, 10, 16};
+        int[] gaps = new int[] {0, 0, 0, 0, 0, 0};
         for (int keyIndexIndex = 0; keyIndexIndex < keyIndices.length; keyIndexIndex++) {
             final int keyIndex = keyIndices[keyIndexIndex];
             final int expectedX = xPositions[keyIndexIndex];
             final int expectedWidth = widths[keyIndexIndex];
             final int expectedGap = gaps[keyIndexIndex];
             final Keyboard.Key ketToTest = keyboard.getKeys().get(keyIndex);
-            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not positioned correctly.", expectedX, ketToTest.x);
-            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not the correct width.", expectedWidth, ketToTest.width);
-            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " has the wrong gap.", expectedGap, ketToTest.gap);
+            Assert.assertEquals(
+                    "Key at index "
+                            + keyIndex
+                            + ", "
+                            + keyIndexIndex
+                            + " is not positioned correctly.",
+                    expectedX,
+                    ketToTest.x);
+            Assert.assertEquals(
+                    "Key at index "
+                            + keyIndex
+                            + ", "
+                            + keyIndexIndex
+                            + " is not the correct width.",
+                    expectedWidth,
+                    ketToTest.width);
+            Assert.assertEquals(
+                    "Key at index " + keyIndex + ", " + keyIndexIndex + " has the wrong gap.",
+                    expectedGap,
+                    ketToTest.gap);
         }
     }
 
     @Test
     public void testLetKeyboardOverrideGenericRows() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_layouts_to_provide_generic_rows, true);
-        TestingAnyKeyboard keyboardWithRows = new TestingAnyKeyboard(R.xml.keyboard_with_top_bottom_rows);
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_allow_layouts_to_provide_generic_rows, true);
+        TestingAnyKeyboard keyboardWithRows =
+                new TestingAnyKeyboard(R.xml.keyboard_with_top_bottom_rows);
         Assert.assertEquals(6, keyboardWithRows.getKeys().size());
 
-        TestingAnyKeyboard keyboardWithoutRows = new TestingAnyKeyboard(R.xml.keyboard_without_top_bottom_rows);
+        TestingAnyKeyboard keyboardWithoutRows =
+                new TestingAnyKeyboard(R.xml.keyboard_without_top_bottom_rows);
         Assert.assertEquals(18, keyboardWithoutRows.getKeys().size());
     }
 
     @Test
     public void testDoNotLetKeyboardOverrideGenericRows() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_layouts_to_provide_generic_rows, false);
-        TestingAnyKeyboard keyboardWithRows = new TestingAnyKeyboard(R.xml.keyboard_with_top_bottom_rows);
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_allow_layouts_to_provide_generic_rows, false);
+        TestingAnyKeyboard keyboardWithRows =
+                new TestingAnyKeyboard(R.xml.keyboard_with_top_bottom_rows);
         Assert.assertEquals(18, keyboardWithRows.getKeys().size());
 
-        TestingAnyKeyboard keyboardWithoutRows = new TestingAnyKeyboard(R.xml.keyboard_without_top_bottom_rows);
+        TestingAnyKeyboard keyboardWithoutRows =
+                new TestingAnyKeyboard(R.xml.keyboard_without_top_bottom_rows);
         Assert.assertEquals(18, keyboardWithoutRows.getKeys().size());
     }
 
@@ -436,7 +559,19 @@ public class ExternalAnyKeyboardRowsTest {
         }
 
         private TestingAnyKeyboard(@NonNull Context context, @XmlRes int layoutResId) {
-            super(new DefaultAddOn(context, context), context, context, layoutResId, layoutResId, "name", 0, 0, "en", "", "", KEYBOARD_ROW_MODE_NORMAL);
+            super(
+                    new DefaultAddOn(context, context),
+                    context,
+                    context,
+                    layoutResId,
+                    layoutResId,
+                    "name",
+                    0,
+                    0,
+                    "en",
+                    "",
+                    "",
+                    KEYBOARD_ROW_MODE_NORMAL);
             loadKeyboard(SIMPLE_KeyboardDimens);
         }
     }
@@ -445,10 +580,20 @@ public class ExternalAnyKeyboardRowsTest {
         Set<Integer> rowsSeen = new HashSet<>();
         for (Keyboard.Key key : keys) {
             if (rowsSeen.contains(key.y)) {
-                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_LEFT!",
+                Assert.assertFalse(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should NOT have edge flag Keyboard.EDGE_LEFT!",
                         (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
             } else {
-                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_LEFT!",
+                Assert.assertTrue(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should have edge flag Keyboard.EDGE_LEFT!",
                         (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
             }
             rowsSeen.add(key.y);
@@ -467,10 +612,20 @@ public class ExternalAnyKeyboardRowsTest {
             Keyboard.Key lastKeyForRow = lastKeysAtRow.get(key.y);
 
             if (lastKeyForRow != key) {
-                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_RIGHT!",
+                Assert.assertFalse(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should NOT have edge flag Keyboard.EDGE_RIGHT!",
                         (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
             } else {
-                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_RIGHT!",
+                Assert.assertTrue(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should have edge flag Keyboard.EDGE_RIGHT!",
                         (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
             }
         }
@@ -484,10 +639,20 @@ public class ExternalAnyKeyboardRowsTest {
 
         for (Keyboard.Key key : keys) {
             if (key.y == topY) {
-                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_TOP!",
+                Assert.assertTrue(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should have edge flag Keyboard.EDGE_TOP!",
                         (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
             } else {
-                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_TOP!",
+                Assert.assertFalse(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should NOT have edge flag Keyboard.EDGE_TOP!",
                         (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
             }
         }
@@ -501,10 +666,20 @@ public class ExternalAnyKeyboardRowsTest {
 
         for (Keyboard.Key key : keys) {
             if (key.y == lastY) {
-                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_BOTTOM!",
+                Assert.assertTrue(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should have edge flag Keyboard.EDGE_BOTTOM!",
                         (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
             } else {
-                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_BOTTOM!",
+                Assert.assertFalse(
+                        "Key with code "
+                                + key.getPrimaryCode()
+                                + ", at row Y "
+                                + key.y
+                                + ", should NOT have edge flag Keyboard.EDGE_BOTTOM!",
                         (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
             }
         }
@@ -514,9 +689,12 @@ public class ExternalAnyKeyboardRowsTest {
         Keyboard.Key previousKey = null;
         for (Keyboard.Key key : keys) {
             if (previousKey != null) {
-                Assert.assertTrue("Key should always be either at the next row or the same", previousKey.y <= key.y);
-                Assert.assertTrue("Key should always be either at the next column or in a new row", previousKey.y < key.y || previousKey.x < key.x);
-
+                Assert.assertTrue(
+                        "Key should always be either at the next row or the same",
+                        previousKey.y <= key.y);
+                Assert.assertTrue(
+                        "Key should always be either at the next column or in a new row",
+                        previousKey.y < key.y || previousKey.x < key.x);
             }
 
             previousKey = key;

@@ -2,14 +2,12 @@ package com.anysoftkeyboard.ime;
 
 import android.view.KeyEvent;
 import android.view.View;
-
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +17,8 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testOutputTextKeyOutputText() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
@@ -27,16 +26,20 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
+        Assert.assertSame(
+                mAnySoftKeyboardUnderTest.getInputView(),
+                mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
-        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
 
     @Test
     public void testOutputTextKeyOverrideOutputText() {
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
@@ -47,14 +50,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     public void testOutputTextDeletesOnBackspace() {
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         final String initialText = "hello ";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
@@ -66,14 +71,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
         SharedPrefsHelper.setPrefsValue("candidates_on", false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         final String initialText = "hello ";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
@@ -84,20 +91,24 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     public void testOutputTextDoesNotDeletesOnBackspaceIfCursorMoves() {
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         final String initialText = "hello Xello ";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         inputConnection.setSelection(7, 7);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
-        Assert.assertEquals((initialText + overrideText).replace("X", ""), inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                (initialText + overrideText).replace("X", ""),
+                inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -106,27 +117,33 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
         SharedPrefsHelper.setPrefsValue("candidates_on", false);
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         final String initialText = "hello Xello ";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         inputConnection.setSelection(7, 7);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
-        Assert.assertEquals((initialText + overrideText).replace("X", ""), inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                (initialText + overrideText).replace("X", ""),
+                inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
     public void testOutputTextKeySwitchKeyboardWhenFlipped() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_do_not_flip_quick_key_codes_functionality, false);
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_do_not_flip_quick_key_codes_functionality, false);
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
@@ -134,16 +151,21 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
+        Assert.assertSame(
+                mAnySoftKeyboardUnderTest.getInputView(),
+                mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
-        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
 
     @Test
     public void testPopupTextKeyOutputTextWhenFlipped() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_do_not_flip_quick_key_codes_functionality, false);
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_do_not_flip_quick_key_codes_functionality, false);
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
@@ -151,14 +173,18 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
+        Assert.assertSame(
+                mAnySoftKeyboardUnderTest.getInputView(),
+                mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
-        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
 
     @Test
     public void testPopupTextKeySwitchKeyboard() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
@@ -166,9 +192,12 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
+        Assert.assertSame(
+                mAnySoftKeyboardUnderTest.getInputView(),
+                mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
-        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
 
     @Test
@@ -177,21 +206,25 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
-        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
 
         mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
-        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
-        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
-        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.hideWindow();
@@ -204,14 +237,15 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
-        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
 
         // hideWindow() is now, essentially, the same as pressing the HOME hardware key
         mAnySoftKeyboardUnderTest.hideWindow();
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        //we switched to the main-keyboard view
-        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        // we switched to the main-keyboard view
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
-
 }

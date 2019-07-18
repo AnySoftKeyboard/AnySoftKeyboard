@@ -4,10 +4,8 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,9 +26,7 @@ public class AnySoftKeyboardTest {
     }
 
     @After
-    public void tearDown() throws Exception {
-
-    }
+    public void tearDown() throws Exception {}
 
     @Test
     public void testSimpleLifeCycle() throws Exception {
@@ -45,8 +41,10 @@ public class AnySoftKeyboardTest {
 
     @Test
     public void testKeyboardHiddenBehavior() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.create().get();
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController =
+                Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard =
+                testableAnySoftKeyboardServiceController.create().get();
         Assert.assertTrue(testableAnySoftKeyboard.isKeyboardViewHidden());
 
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
@@ -64,8 +62,10 @@ public class AnySoftKeyboardTest {
 
     @Test
     public void testKeyboardDoesNotCloseWhenUserCancelKey() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.create().get();
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController =
+                Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard =
+                testableAnySoftKeyboardServiceController.create().get();
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
 
         testableAnySoftKeyboard.onCreateInputView();
@@ -79,8 +79,10 @@ public class AnySoftKeyboardTest {
 
     @Test
     public void testExtractViewThemeSet() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.create().get();
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController =
+                Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard =
+                testableAnySoftKeyboardServiceController.create().get();
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
 
         testableAnySoftKeyboard.onCreateInputView();
@@ -90,24 +92,30 @@ public class AnySoftKeyboardTest {
         final View extractView = testableAnySoftKeyboard.onCreateExtractTextView();
         Assert.assertNotNull(extractView);
 
-        final EditText extractEditText = extractView.findViewById(android.R.id.inputExtractEditText);
+        final EditText extractEditText =
+                extractView.findViewById(android.R.id.inputExtractEditText);
         Assert.assertNotNull(extractEditText);
 
         testableAnySoftKeyboard.updateFullscreenMode();
 
-        Assert.assertEquals(R.drawable.yochees_dark_main_background, Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
+        Assert.assertEquals(
+                R.drawable.yochees_dark_main_background,
+                Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
         Assert.assertEquals(Color.WHITE, extractEditText.getTextColors().getDefaultColor());
     }
 
     @Test
     public void testExtractViewThemeNotSetWithoutInputViewCreated() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.create().get();
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController =
+                Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard =
+                testableAnySoftKeyboardServiceController.create().get();
 
         final View extractView = testableAnySoftKeyboard.onCreateExtractTextView();
         Assert.assertNotNull(extractView);
 
-        final EditText extractEditText = extractView.findViewById(android.R.id.inputExtractEditText);
+        final EditText extractEditText =
+                extractView.findViewById(android.R.id.inputExtractEditText);
         Assert.assertNotNull(extractEditText);
 
         testableAnySoftKeyboard.updateFullscreenMode();

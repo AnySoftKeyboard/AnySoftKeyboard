@@ -1,16 +1,13 @@
 package com.anysoftkeyboard.ui.tutorials;
 
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class VersionChangeLogsTest {
@@ -33,5 +30,4 @@ public class VersionChangeLogsTest {
             seenUrls.add(log.changesWebUrl.toString());
         }
     }
-
 }

@@ -20,13 +20,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
 
 public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String TAG = "ASK_KF";
@@ -35,50 +33,103 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     private static final String XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE = "landscapeResId";
     private static final String XML_ICON_RES_ID_ATTRIBUTE = "iconResId";
     private static final String XML_DICTIONARY_NAME_ATTRIBUTE = "defaultDictionaryLocale";
-    private static final String XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE = "additionalIsLetterExceptions";
+    private static final String XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE =
+            "additionalIsLetterExceptions";
     private static final String XML_SENTENCE_SEPARATOR_CHARACTERS_ATTRIBUTE = "sentenceSeparators";
     private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)]:;";
-    private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
+    private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE =
+            "physicalKeyboardMappingResId";
     private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
     public static final String PREF_ID_PREFIX = "keyboard_";
 
     public KeyboardFactory(@NonNull Context context) {
-        super(context, TAG, "com.menny.android.anysoftkeyboard.KEYBOARD", "com.menny.android.anysoftkeyboard.keyboards",
-                "Keyboards", "Keyboard", PREF_ID_PREFIX,
-                0, R.string.settings_default_keyboard_id, true);
+        super(
+                context,
+                TAG,
+                "com.menny.android.anysoftkeyboard.KEYBOARD",
+                "com.menny.android.anysoftkeyboard.keyboards",
+                "Keyboards",
+                "Keyboard",
+                PREF_ID_PREFIX,
+                0,
+                R.string.settings_default_keyboard_id,
+                true);
     }
 
     @Override
-    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
-        final int layoutResId = attrs.getAttributeResourceValue(null, XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int landscapeLayoutResId = attrs.getAttributeResourceValue(null, XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
-        final String defaultDictionary = attrs.getAttributeValue(null, XML_DICTIONARY_NAME_ATTRIBUTE);
-        final String additionalIsLetterExceptions = attrs.getAttributeValue(null, XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE);
-        String sentenceSeparators = attrs.getAttributeValue(null, XML_SENTENCE_SEPARATOR_CHARACTERS_ATTRIBUTE);
+    protected KeyboardAddOnAndBuilder createConcreteAddOn(
+            Context askContext,
+            Context context,
+            int apiVersion,
+            CharSequence prefId,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            AttributeSet attrs) {
+        final int layoutResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int landscapeLayoutResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int iconResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
+        final String defaultDictionary =
+                attrs.getAttributeValue(null, XML_DICTIONARY_NAME_ATTRIBUTE);
+        final String additionalIsLetterExceptions =
+                attrs.getAttributeValue(null, XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE);
+        String sentenceSeparators =
+                attrs.getAttributeValue(null, XML_SENTENCE_SEPARATOR_CHARACTERS_ATTRIBUTE);
         if (TextUtils.isEmpty(sentenceSeparators)) sentenceSeparators = DEFAULT_SENTENCE_SEPARATORS;
-        final int physicalTranslationResId = attrs.getAttributeResourceValue(null, XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int physicalTranslationResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         // A keyboard is enabled by default if it is the first one (index==1)
-        final boolean keyboardDefault = attrs.getAttributeBooleanValue(null, XML_DEFAULT_ATTRIBUTE, sortIndex == 1);
+        final boolean keyboardDefault =
+                attrs.getAttributeBooleanValue(null, XML_DEFAULT_ATTRIBUTE, sortIndex == 1);
 
         // asserting
         if (layoutResId == AddOn.INVALID_RES_ID) {
-            Logger.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
+            Logger.e(
+                    TAG,
+                    "External Keyboard does not include all mandatory details! Will not create keyboard.");
             return null;
         } else {
             if (BuildConfig.DEBUG) {
-                Logger.d(TAG,
-                        "External keyboard details: prefId:" + prefId + " nameId:"
-                                + name + " resId:" + layoutResId
-                                + " landscapeResId:" + landscapeLayoutResId
-                                + " iconResId:" + iconResId + " defaultDictionary:"
+                Logger.d(
+                        TAG,
+                        "External keyboard details: prefId:"
+                                + prefId
+                                + " nameId:"
+                                + name
+                                + " resId:"
+                                + layoutResId
+                                + " landscapeResId:"
+                                + landscapeLayoutResId
+                                + " iconResId:"
+                                + iconResId
+                                + " defaultDictionary:"
                                 + defaultDictionary);
             }
-            return new KeyboardAddOnAndBuilder(askContext, context, apiVersion,
-                    prefId, name, layoutResId, landscapeLayoutResId,
-                    defaultDictionary, iconResId, physicalTranslationResId,
-                    additionalIsLetterExceptions, sentenceSeparators,
-                    description, isHidden, sortIndex, keyboardDefault);
+            return new KeyboardAddOnAndBuilder(
+                    askContext,
+                    context,
+                    apiVersion,
+                    prefId,
+                    name,
+                    layoutResId,
+                    landscapeLayoutResId,
+                    defaultDictionary,
+                    iconResId,
+                    physicalTranslationResId,
+                    additionalIsLetterExceptions,
+                    sentenceSeparators,
+                    description,
+                    isHidden,
+                    sortIndex,
+                    keyboardDefault);
         }
     }
 
@@ -89,6 +140,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     @Override
     protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
         final KeyboardAddOnAndBuilder addOnById = getAddOnById(addOnId);
-        return super.isAddOnEnabledByDefault(addOnId) || (addOnById != null && addOnById.getKeyboardDefaultEnabled());
+        return super.isAddOnEnabledByDefault(addOnId)
+                || (addOnById != null && addOnById.getKeyboardDefaultEnabled());
     }
 }

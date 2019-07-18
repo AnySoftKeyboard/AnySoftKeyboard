@@ -3,26 +3,26 @@ package com.anysoftkeyboard.ime;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import java.util.List;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class WordListDictionaryListenerTest {
-
 
     @Test
     @SuppressWarnings("unchecked")
     public void testWaitsTillAllDictionariesLoadedBeforeGetWords() throws Exception {
-        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback consumer = Mockito.mock(AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback.class);
+        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback consumer =
+                Mockito.mock(
+                        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback.class);
         AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
 
-        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener underTest = new AnySoftKeyboardWithGestureTyping.WordListDictionaryListener(keyboard, consumer);
+        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener underTest =
+                new AnySoftKeyboardWithGestureTyping.WordListDictionaryListener(keyboard, consumer);
         final Dictionary dictionary1 = Mockito.mock(Dictionary.class);
         Mockito.doReturn(new char[1][1]).when(dictionary1).getWords();
         final Dictionary dictionary2 = Mockito.mock(Dictionary.class);
@@ -49,10 +49,13 @@ public class WordListDictionaryListenerTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testReportsZeroWordsOnException() throws Exception {
-        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback consumer = Mockito.mock(AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback.class);
+        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback consumer =
+                Mockito.mock(
+                        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback.class);
         AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
 
-        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener underTest = new AnySoftKeyboardWithGestureTyping.WordListDictionaryListener(keyboard, consumer);
+        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener underTest =
+                new AnySoftKeyboardWithGestureTyping.WordListDictionaryListener(keyboard, consumer);
         final Dictionary dictionary1 = Mockito.mock(Dictionary.class);
         Mockito.doThrow(new UnsupportedOperationException()).when(dictionary1).getWords();
         underTest.onDictionaryLoadingStarted(dictionary1);

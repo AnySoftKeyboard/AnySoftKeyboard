@@ -4,19 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
-/**
- * Driver for a Fragment unit-tests
- */
+/** Driver for a Fragment unit-tests */
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
@@ -33,11 +29,12 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     @NonNull
     protected final T startFragmentWithState(@Nullable Bundle state) {
         T fragment = createFragment();
-        mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class)
-                .create(R.id.main_ui_content, state)
-                .start()
-                .resume()
-                .visible();
+        mFragmentController =
+                SupportFragmentController.of(fragment, MainSettingsActivity.class)
+                        .create(R.id.main_ui_content, state)
+                        .start()
+                        .resume()
+                        .visible();
 
         ensureAllScheduledJobsAreDone();
 
@@ -49,8 +46,10 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     }
 
     protected void ensureAllScheduledJobsAreDone() {
-        int maxLoops = 20;//sometimes there is a re-added task. Animation?
-        while (maxLoops > 0 && (Robolectric.getForegroundThreadScheduler().size() > 0 || Robolectric.getBackgroundThreadScheduler().size() > 0)) {
+        int maxLoops = 20; // sometimes there is a re-added task. Animation?
+        while (maxLoops > 0
+                && (Robolectric.getForegroundThreadScheduler().size() > 0
+                        || Robolectric.getBackgroundThreadScheduler().size() > 0)) {
             Robolectric.flushBackgroundThreadScheduler();
             Robolectric.flushForegroundThreadScheduler();
             maxLoops--;

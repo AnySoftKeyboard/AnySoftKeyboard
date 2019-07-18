@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.rx;
 
 import com.anysoftkeyboard.base.utils.Logger;
-
 import io.reactivex.functions.Consumer;
 
 public class GenericOnError<T extends Throwable> implements Consumer<T> {

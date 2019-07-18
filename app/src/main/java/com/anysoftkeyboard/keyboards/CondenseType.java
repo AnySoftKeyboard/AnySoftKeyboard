@@ -19,7 +19,8 @@ public enum CondenseType {
             case KeyCodes.COMPACT_LAYOUT_TO_LEFT:
                 return CondenseType.CompactToLeft;
             default:
-                throw new IllegalArgumentException("Unknown primary code for condenseType: " + primaryCode);
+                throw new IllegalArgumentException(
+                        "Unknown primary code for condenseType: " + primaryCode);
         }
     }
 }

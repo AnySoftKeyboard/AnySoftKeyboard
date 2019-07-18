@@ -24,12 +24,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.Locale;
 
 public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<KeyboardExtension> {
@@ -43,41 +41,90 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
     private static final String XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE = "extensionKeyboardResId";
     private static final String XML_EXT_KEYBOARD_TYPE_ATTRIBUTE = "extensionKeyboardType";
 
-    @KeyboardExtension.KeyboardExtensionType
-    private final int mExtensionType;
+    @KeyboardExtension.KeyboardExtensionType private final int mExtensionType;
 
-    public KeyboardExtensionFactory(@NonNull Context context, @StringRes int defaultAddOnId, String prefIdPrefix, int extensionType) {
-        super(context, "ASK_EKF", "com.anysoftkeyboard.plugin.EXTENSION_KEYBOARD",
+    public KeyboardExtensionFactory(
+            @NonNull Context context,
+            @StringRes int defaultAddOnId,
+            String prefIdPrefix,
+            int extensionType) {
+        super(
+                context,
+                "ASK_EKF",
+                "com.anysoftkeyboard.plugin.EXTENSION_KEYBOARD",
                 "com.anysoftkeyboard.plugindata.extensionkeyboard",
-                "ExtensionKeyboards", "ExtensionKeyboard", prefIdPrefix,
-                R.xml.extension_keyboards, defaultAddOnId, true);
+                "ExtensionKeyboards",
+                "ExtensionKeyboard",
+                prefIdPrefix,
+                R.xml.extension_keyboards,
+                defaultAddOnId,
+                true);
         mExtensionType = extensionType;
     }
 
     @Override
-    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden,
-            int sortIndex, AttributeSet attrs) {
-        int keyboardResId = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+    protected KeyboardExtension createConcreteAddOn(
+            Context askContext,
+            Context context,
+            int apiVersion,
+            CharSequence prefId,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            AttributeSet attrs) {
+        int keyboardResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         if (keyboardResId == AddOn.INVALID_RES_ID) {
-            keyboardResId = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+            keyboardResId =
+                    attrs.getAttributeIntValue(
+                            null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         }
         @KeyboardExtension.KeyboardExtensionType
-        int extensionType = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        int extensionType =
+                attrs.getAttributeResourceValue(
+                        null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //noinspection WrongConstant
         if (extensionType != AddOn.INVALID_RES_ID) {
-            extensionType = KeyboardExtension.ensureValidType(context.getResources().getInteger(extensionType));
+            extensionType =
+                    KeyboardExtension.ensureValidType(
+                            context.getResources().getInteger(extensionType));
         } else {
             //noinspection WrongConstant
-            extensionType = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+            extensionType =
+                    attrs.getAttributeIntValue(
+                            null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
         }
-        Logger.d(mTag, "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d", prefId, keyboardResId, extensionType);
+        Logger.d(
+                mTag,
+                "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d",
+                prefId,
+                keyboardResId,
+                extensionType);
 
         //noinspection WrongConstant
         if (extensionType == AddOn.INVALID_RES_ID) {
-            throw new RuntimeException(String.format(Locale.US, "Missing details for creating Extension Keyboard! prefId %s keyboardResId: %d, type: %d", prefId, keyboardResId, extensionType));
+            throw new RuntimeException(
+                    String.format(
+                            Locale.US,
+                            "Missing details for creating Extension Keyboard! prefId %s keyboardResId: %d, type: %d",
+                            prefId,
+                            keyboardResId,
+                            extensionType));
         } else {
             if (extensionType == mExtensionType) {
-                return new KeyboardExtension(askContext, context, apiVersion, prefId, name, keyboardResId, extensionType, description, isHidden, sortIndex);
+                return new KeyboardExtension(
+                        askContext,
+                        context,
+                        apiVersion,
+                        prefId,
+                        name,
+                        keyboardResId,
+                        extensionType,
+                        description,
+                        isHidden,
+                        sortIndex);
             } else {
                 return null;
             }

@@ -1,20 +1,17 @@
 package com.anysoftkeyboard.dictionaries.prefsprovider;
 
-import static java.util.Arrays.asList;
-
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static java.util.Arrays.asList;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.test.TestUtils;
-
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class UserDictionaryPrefsProviderTest {
@@ -45,14 +42,15 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertTrue(nullUserDictionary.isValidWord("NULL"));
         nullUserDictionary.close();
 
-        UserDictionaryPrefsProvider underTest = new UserDictionaryPrefsProvider(getApplicationContext(), asList("en", "fr", null));
+        UserDictionaryPrefsProvider underTest =
+                new UserDictionaryPrefsProvider(getApplicationContext(), asList("en", "fr", null));
         final PrefsRoot prefsRoot = underTest.getPrefsRoot();
 
         Assert.assertEquals(1, prefsRoot.getVersion());
         final List<PrefItem> localeItems = TestUtils.convertToList(prefsRoot.getChildren());
         Assert.assertEquals(3, localeItems.size());
 
-        //deleting storage
+        // deleting storage
         enUserDictionary = new UserDictionary(getApplicationContext(), "en");
         enUserDictionary.loadDictionary();
         enUserDictionary.deleteWord("hello");

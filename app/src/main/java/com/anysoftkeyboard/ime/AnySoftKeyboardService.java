@@ -6,8 +6,7 @@ import android.support.annotation.Nullable;
 
 public abstract class AnySoftKeyboardService extends AnySoftKeyboardBase {
 
-    @Nullable
-    private IBinder mImeToken = null;
+    @Nullable private IBinder mImeToken = null;
 
     @Nullable
     protected IBinder getImeToken() {

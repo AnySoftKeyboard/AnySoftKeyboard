@@ -6,22 +6,22 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.WordComposer;
-
 import java.util.Random;
 
 public class ChewbaccaOnTheDrums {
     private static final String CHEWBACCAONTHEDRUMS = "chewbacca";
     private static final String DAVIDBOWIE = "davidbowie";
 
-    public static void onKeyTyped(@NonNull WordComposer wordComposer, @NonNull Context applicationContext) {
+    public static void onKeyTyped(
+            @NonNull WordComposer wordComposer, @NonNull Context applicationContext) {
         CharSequence typed = wordComposer.getTypedWord();
         if (TextUtils.isEmpty(typed)) return;
 
         String eggType = "";
-        if (typed.length() == CHEWBACCAONTHEDRUMS.length() && TextUtils.equals(typed, CHEWBACCAONTHEDRUMS)) {
+        if (typed.length() == CHEWBACCAONTHEDRUMS.length()
+                && TextUtils.equals(typed, CHEWBACCAONTHEDRUMS)) {
             eggType = CHEWBACCAONTHEDRUMS;
         } else if (typed.length() == DAVIDBOWIE.length() && TextUtils.equals(typed, DAVIDBOWIE)) {
             eggType = DAVIDBOWIE;
@@ -31,9 +31,14 @@ public class ChewbaccaOnTheDrums {
     }
 
     private static void layEgg(@NonNull String eggType, @NonNull Context context) {
-        Toast.makeText(context, "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG).show();
+        Toast.makeText(
+                        context,
+                        "Check the logcat for a note from AnySoftKeyboard developers!",
+                        Toast.LENGTH_LONG)
+                .show();
 
-        Logger.i("AnySoftKeyboard-" + eggType,
+        Logger.i(
+                "AnySoftKeyboard-" + eggType,
                 "*******************"
                         + "\nNICE!!! You found the our easter egg!"
                         + "\nAnySoftKeyboard R&D team would like to thank you for using our keyboard application."
@@ -43,9 +48,7 @@ public class ChewbaccaOnTheDrums {
                         + "\n*******************");
 
         if (new Random().nextInt(10) <= 2) {
-            Intent easterEgg = new Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(getUriForEggType(eggType)));
+            Intent easterEgg = new Intent(Intent.ACTION_VIEW, Uri.parse(getUriForEggType(eggType)));
             easterEgg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(easterEgg);
         }
