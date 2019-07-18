@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Shadows;
 
+@SuppressWarnings("cast")
 public class WizardPageEnableKeyboardFragmentTest extends RobolectricFragmentTestCase<WizardPageEnableKeyboardFragment> {
 
     @NonNull

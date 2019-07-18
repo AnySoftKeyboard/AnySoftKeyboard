@@ -104,6 +104,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 final int to = target.getAdapterPosition();
                 if (to >= mAllAddOns.size()) {
@@ -113,6 +114,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 }
 
                 final int from = viewHolder.getAdapterPosition();
+
                 E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
                 //anything that is dragged, must be enabled
                 mEnabledAddOnsIds.add(temp.getId());

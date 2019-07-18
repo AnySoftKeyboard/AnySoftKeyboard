@@ -47,6 +47,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     }
 
     @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
+    @SuppressWarnings("fallthrough")
     private void updatePopTextPrefs(String newValue) {
         mPopTextOnCorrection = false;
         mPopTextOnWord = false;
