@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.inputmethod.InputConnection;
-
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -17,7 +16,9 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
-
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,47 +27,56 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
     private boolean mGestureTypingEnabled;
     protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
-    @Nullable
-    private GestureTypingDetector mCurrentGestureDetector;
+    @Nullable private GestureTypingDetector mCurrentGestureDetector;
     private boolean mDetectorReady = false;
 
-    @NonNull
-    private Disposable mDetectorStateSubscription = Disposables.disposed();
+    @NonNull private Disposable mDetectorStateSubscription = Disposables.disposed();
 
     protected static String getKeyForDetector(@NonNull AnyKeyboard keyboard) {
-        return String.format(Locale.US, "%s,%d,%d", keyboard.getKeyboardId(), keyboard.getMinWidth(), keyboard.getHeight());
+        return String.format(
+                Locale.US,
+                "%s,%d,%d",
+                keyboard.getKeyboardId(),
+                keyboard.getMinWidth(),
+                keyboard.getHeight());
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        addDisposable(Observable.combineLatest(
-                PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_gesture_control),
-                prefs().getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing).asObservable(),
-                (powerState, gestureTyping) -> {
-                    if (powerState) return false;
-                    return gestureTyping;
-                }).subscribe(enabled -> {
-            mGestureTypingEnabled = enabled;
-            mDetectorStateSubscription.dispose();
-            if (!mGestureTypingEnabled) {
-                destroyAllDetectors();
-            } else {
-                final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-                if (currentAlphabetKeyboard != null) {
-                    setupGestureDetector(currentAlphabetKeyboard);
-                }
-            }
-        }, GenericOnError.onError("settings_key_gesture_typing")));
+        addDisposable(
+                Observable.combineLatest(
+                                PowerSaving.observePowerSavingState(
+                                        getApplicationContext(),
+                                        R.string.settings_key_power_save_mode_gesture_control),
+                                prefs().getBoolean(
+                                                R.string.settings_key_gesture_typing,
+                                                R.bool.settings_default_gesture_typing)
+                                        .asObservable(),
+                                (powerState, gestureTyping) -> {
+                                    if (powerState) return false;
+                                    return gestureTyping;
+                                })
+                        .subscribe(
+                                enabled -> {
+                                    mGestureTypingEnabled = enabled;
+                                    mDetectorStateSubscription.dispose();
+                                    if (!mGestureTypingEnabled) {
+                                        destroyAllDetectors();
+                                    } else {
+                                        final AnyKeyboard currentAlphabetKeyboard =
+                                                getCurrentAlphabetKeyboard();
+                                        if (currentAlphabetKeyboard != null) {
+                                            setupGestureDetector(currentAlphabetKeyboard);
+                                        }
+                                    }
+                                },
+                                GenericOnError.onError("settings_key_gesture_typing")));
     }
 
     private void destroyAllDetectors() {
@@ -92,27 +102,42 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             if (mGestureTypingDetectors.containsKey(key)) {
                 mCurrentGestureDetector = mGestureTypingDetectors.get(key);
             } else {
-                mCurrentGestureDetector = new GestureTypingDetector(getResources().getDimensionPixelSize(R.dimen.gesture_typing_min_point_distance), keyboard.getKeys());
+                mCurrentGestureDetector =
+                        new GestureTypingDetector(
+                                getResources()
+                                        .getDimensionPixelSize(
+                                                R.dimen.gesture_typing_min_point_distance),
+                                keyboard.getKeys());
                 mGestureTypingDetectors.put(key, mCurrentGestureDetector);
             }
 
-            mDetectorStateSubscription = mCurrentGestureDetector.state()
-                    .doOnDispose(() -> {
-                        Logger.d(TAG, "mCurrentGestureDetector state disposed");
-                        mDetectorReady = false;
-                        setupInputViewWatermark();
-                    })
-                    .subscribe(
-                            state -> {
-                                Logger.d(TAG, "mCurrentGestureDetector state changed to %s", state);
-                                mDetectorReady = state == GestureTypingDetector.LoadingState.LOADED;
-                                setupInputViewWatermark();
-                            },
-                            e -> {
-                                Logger.d(TAG, "mCurrentGestureDetector state ERROR %s", e.getMessage());
-                                mDetectorReady = false;
-                                setupInputViewWatermark();
-                            });
+            mDetectorStateSubscription =
+                    mCurrentGestureDetector
+                            .state()
+                            .doOnDispose(
+                                    () -> {
+                                        Logger.d(TAG, "mCurrentGestureDetector state disposed");
+                                        mDetectorReady = false;
+                                        setupInputViewWatermark();
+                                    })
+                            .subscribe(
+                                    state -> {
+                                        Logger.d(
+                                                TAG,
+                                                "mCurrentGestureDetector state changed to %s",
+                                                state);
+                                        mDetectorReady =
+                                                state == GestureTypingDetector.LoadingState.LOADED;
+                                        setupInputViewWatermark();
+                                    },
+                                    e -> {
+                                        Logger.d(
+                                                TAG,
+                                                "mCurrentGestureDetector state ERROR %s",
+                                                e.getMessage());
+                                        mDetectorReady = false;
+                                        setupInputViewWatermark();
+                                    });
         }
     }
 
@@ -121,8 +146,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         super.onLowMemory();
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (currentGestureDetector != null) {
-            //copying to a list so deleting detectors from the map will not change our iteration
-            List<Map.Entry<String, GestureTypingDetector>> allDetectors = new ArrayList<>(mGestureTypingDetectors.entrySet());
+            // copying to a list so deleting detectors from the map will not change our iteration
+            List<Map.Entry<String, GestureTypingDetector>> allDetectors =
+                    new ArrayList<>(mGestureTypingDetectors.entrySet());
             for (Map.Entry<String, GestureTypingDetector> pair : allDetectors) {
                 if (pair.getValue() != currentGestureDetector) {
                     pair.getValue().destroy();
@@ -164,9 +190,15 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 if (words != null && words.length > 0) {
                     mWords.add(words);
                 }
-                Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null ? 0 : words.length));
+                Logger.d(
+                        "WordListDictionaryListener",
+                        "onDictionaryLoadingDone got words with length %d",
+                        (words == null ? 0 : words.length));
             } catch (Exception e) {
-                Logger.w("WordListDictionaryListener", e, "onDictionaryLoadingDone got exception from dictionary.");
+                Logger.w(
+                        "WordListDictionaryListener",
+                        e,
+                        "onDictionaryLoadingDone got exception from dictionary.");
             }
 
             if (expectedDictionaries == 0) doCallback();
@@ -180,16 +212,23 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         @Override
         public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
             final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
-            Logger.e("WordListDictionaryListener", exception, "onDictionaryLoadingFailed for %s with error %s", dictionary, exception.getMessage());
+            Logger.e(
+                    "WordListDictionaryListener",
+                    exception,
+                    "onDictionaryLoadingFailed for %s with error %s",
+                    dictionary,
+                    exception.getMessage());
             if (expectedDictionaries == 0) doCallback();
         }
     }
 
     @NonNull
     @Override
-    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(@NonNull AnyKeyboard currentAlphabetKeyboard) {
+    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
+            @NonNull AnyKeyboard currentAlphabetKeyboard) {
         if (mGestureTypingEnabled && !mDetectorReady) {
-            return new WordListDictionaryListener(currentAlphabetKeyboard, this::onDictionariesLoaded);
+            return new WordListDictionaryListener(
+                    currentAlphabetKeyboard, this::onDictionariesLoaded);
         } else {
             return super.getDictionaryLoadedListener(currentAlphabetKeyboard);
         }
@@ -197,8 +236,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     private void onDictionariesLoaded(AnyKeyboard keyboard, List<char[][]> newWords) {
         if (mGestureTypingEnabled && mCurrentGestureDetector != null) {
-            //it might be null if the IME service started with enabled flag set to true. In that case
-            //the keyboard object will not be ready yet.
+            // it might be null if the IME service started with enabled flag set to true. In that
+            // case
+            // the keyboard object will not be ready yet.
             final String key = getKeyForDetector(keyboard);
             if (mGestureTypingDetectors.containsKey(key)) {
                 final GestureTypingDetector detector = mGestureTypingDetectors.get(key);
@@ -210,8 +250,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     /**
-     * When alphabet keyboard loaded, we start loading our gesture-typing word corners data.
-     * It is earlier than the first time we click on the keyboard.
+     * When alphabet keyboard loaded, we start loading our gesture-typing word corners data. It is
+     * earlier than the first time we click on the keyboard.
      */
     @Override
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
@@ -234,8 +274,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
-        if (mGestureTypingEnabled && currentGestureDetector != null && isValidGestureTypingStart(key)) {
-            //we can call this as many times as we want, it has a short-circuit check.
+        if (mGestureTypingEnabled
+                && currentGestureDetector != null
+                && isValidGestureTypingStart(key)) {
+            // we can call this as many times as we want, it has a short-circuit check.
             confirmLastGesture(mPrefsAutoSpace);
 
             currentGestureDetector.clearGesture();
@@ -283,7 +325,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             if (mDetectorReady) {
                 watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_gesture));
             } else if (mCurrentGestureDetector != null) {
-                watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_gesture_not_loaded));
+                watermark.add(
+                        ContextCompat.getDrawable(
+                                this, R.drawable.ic_watermark_gesture_not_loaded));
             }
         }
 
@@ -291,8 +335,15 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     @Override
-    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (mGestureTypingEnabled && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE && primaryCode > 0 /*printable character*/) {
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
+        if (mGestureTypingEnabled
+                && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE
+                && primaryCode > 0 /*printable character*/) {
             confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
         }
 
@@ -313,7 +364,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (ic != null && currentGestureDetector != null) {
-            ArrayList<CharSequence> gestureTypingPossibilities = currentGestureDetector.getCandidates();
+            ArrayList<CharSequence> gestureTypingPossibilities =
+                    currentGestureDetector.getCandidates();
 
             if (!gestureTypingPossibilities.isEmpty()) {
                 final boolean isShifted = mShiftKeyState.isActive();
@@ -354,7 +406,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 if (gestureTypingPossibilities.size() > 1) {
                     setSuggestions(gestureTypingPossibilities, false, true, true);
                 } else {
-                    //clearing any suggestion shown
+                    // clearing any suggestion shown
                     setSuggestions(Collections.emptyList(), false, false, false);
                 }
 

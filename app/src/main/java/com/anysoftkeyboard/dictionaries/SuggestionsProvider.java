@@ -3,7 +3,6 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
@@ -14,189 +13,200 @@ import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
+import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
-
 public class SuggestionsProvider {
 
     private static final String TAG = "SuggestionsProvider";
 
-    private static final EditableDictionary NullDictionary = new EditableDictionary("NULL") {
-        @Override
-        public boolean addWord(String word, int frequency) {
-            return false;
-        }
+    private static final EditableDictionary NullDictionary =
+            new EditableDictionary("NULL") {
+                @Override
+                public boolean addWord(String word, int frequency) {
+                    return false;
+                }
 
-        @Override
-        public void deleteWord(String word) {
-        }
+                @Override
+                public void deleteWord(String word) {}
 
-        @Override
-        public char[][] getWords() {
-            throw new UnsupportedOperationException();
-        }
+                @Override
+                public char[][] getWords() {
+                    throw new UnsupportedOperationException();
+                }
 
-        @Override
-        public void getWords(KeyCodesProvider composer, WordCallback callback) {
-        }
+                @Override
+                public void getWords(KeyCodesProvider composer, WordCallback callback) {}
 
-        @Override
-        public boolean isValidWord(CharSequence word) {
-            return false;
-        }
+                @Override
+                public boolean isValidWord(CharSequence word) {
+                    return false;
+                }
 
-        @Override
-        protected void closeAllResources() {
-        }
+                @Override
+                protected void closeAllResources() {}
 
-        @Override
-        protected void loadAllResources() {
-        }
-    };
+                @Override
+                protected void loadAllResources() {}
+            };
 
-    private static final NextWordSuggestions NULL_NEXT_WORD_SUGGESTIONS = new NextWordSuggestions() {
-        @Override
-        @NonNull
-        public Iterable<String> getNextWords(@NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
-            return Collections.emptyList();
-        }
+    private static final NextWordSuggestions NULL_NEXT_WORD_SUGGESTIONS =
+            new NextWordSuggestions() {
+                @Override
+                @NonNull
+                public Iterable<String> getNextWords(
+                        @NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
+                    return Collections.emptyList();
+                }
 
-        @Override
-        public void notifyNextTypedWord(@NonNull CharSequence currentWord) {
-        }
+                @Override
+                public void notifyNextTypedWord(@NonNull CharSequence currentWord) {}
 
-        @Override
-        public void resetSentence() {
-        }
-    };
+                @Override
+                public void resetSentence() {}
+            };
 
-    @NonNull
-    private final Context mContext;
-    @NonNull
-    private final List<String> mInitialSuggestionsList = new ArrayList<>();
+    @NonNull private final Context mContext;
+    @NonNull private final List<String> mInitialSuggestionsList = new ArrayList<>();
 
-    @NonNull
-    private CompositeDisposable mDictionaryDisposables = new CompositeDisposable();
+    @NonNull private CompositeDisposable mDictionaryDisposables = new CompositeDisposable();
 
     private int mCurrentSetupHashCode;
 
-    @NonNull
-    private final List<Dictionary> mMainDictionary = new ArrayList<>();
-    @NonNull
-    private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
-    @NonNull
-    private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
+    @NonNull private final List<Dictionary> mMainDictionary = new ArrayList<>();
+    @NonNull private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
+    @NonNull private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
     private boolean mQuickFixesEnabled;
-    @NonNull
-    private final List<AutoText> mQuickFixesAutoText = new ArrayList<>();
+    @NonNull private final List<AutoText> mQuickFixesAutoText = new ArrayList<>();
 
     private boolean mNextWordEnabled;
     private boolean mAlsoSuggestNextPunctuations;
     private int mMaxNextWordSuggestionsCount;
     private int mMinWordUsage;
 
-    @NonNull
-    private EditableDictionary mAutoDictionary = NullDictionary;
+    @NonNull private EditableDictionary mAutoDictionary = NullDictionary;
     private boolean mContactsDictionaryEnabled;
-    @NonNull
-    private Dictionary mContactsDictionary = NullDictionary;
+    @NonNull private Dictionary mContactsDictionary = NullDictionary;
 
     private boolean mIncognitoMode;
 
-    @NonNull
-    private NextWordSuggestions mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
+    @NonNull private NextWordSuggestions mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
 
-    private final DictionaryBackgroundLoader.Listener mContactsDictionaryListener = new DictionaryBackgroundLoader.Listener() {
-        @Override
-        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+    private final DictionaryBackgroundLoader.Listener mContactsDictionaryListener =
+            new DictionaryBackgroundLoader.Listener() {
+                @Override
+                public void onDictionaryLoadingStarted(Dictionary dictionary) {}
 
-        }
+                @Override
+                public void onDictionaryLoadingDone(Dictionary dictionary) {}
 
-        @Override
-        public void onDictionaryLoadingDone(Dictionary dictionary) {
-        }
-
-        @Override
-        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
-            if (dictionary == mContactsDictionary) {
-                mContactsDictionary = NullDictionary;
-                mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
-            }
-        }
-    };
-    @NonNull
-    private final List<Dictionary> mAbbreviationDictionary = new ArrayList<>();
+                @Override
+                public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+                    if (dictionary == mContactsDictionary) {
+                        mContactsDictionary = NullDictionary;
+                        mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
+                    }
+                }
+            };
+    @NonNull private final List<Dictionary> mAbbreviationDictionary = new ArrayList<>();
     private final CompositeDisposable mPrefsDisposables = new CompositeDisposable();
 
     public SuggestionsProvider(@NonNull Context context) {
         mContext = context.getApplicationContext();
 
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(mContext);
-        mPrefsDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_quick_fix, R.bool.settings_default_quick_fix)
-                .asObservable().subscribe(value -> {
-                    mCurrentSetupHashCode = 0;
-                    mQuickFixesEnabled = value;
-                }, GenericOnError.onError("settings_key_quick_fix")));
-        mPrefsDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_use_contacts_dictionary, R.bool.settings_default_contacts_dictionary)
-                .asObservable().subscribe(value -> {
-                    mCurrentSetupHashCode = 0;
-                    mContactsDictionaryEnabled = value;
-                    if (!mContactsDictionaryEnabled) {
-                        mContactsDictionary.close();
-                        mContactsDictionary = NullDictionary;
-                    }
-                }, GenericOnError.onError("settings_key_use_contacts_dictionary")));
-        mPrefsDisposables.add(rxSharedPrefs.getString(R.string.settings_key_next_word_suggestion_aggressiveness, R.string.settings_default_next_word_suggestion_aggressiveness)
-                .asObservable().subscribe(aggressiveness -> {
-                    switch (aggressiveness) {
-                        case "minimal_aggressiveness":
-                            mMaxNextWordSuggestionsCount = 3;
-                            mMinWordUsage = 5;
-                            break;
-                        case "medium_aggressiveness":
-                            mMaxNextWordSuggestionsCount = 5;
-                            mMinWordUsage = 3;
-                            break;
-                        case "maximum_aggressiveness":
-                            mMaxNextWordSuggestionsCount = 8;
-                            mMinWordUsage = 1;
-                            break;
-                        default:
-                            mMaxNextWordSuggestionsCount = 3;
-                            mMinWordUsage = 5;
-                            break;
-                    }
-                }, GenericOnError.onError("settings_key_next_word_suggestion_aggressiveness")));
-        mPrefsDisposables.add(rxSharedPrefs.getString(R.string.settings_key_next_word_dictionary_type, R.string.settings_default_next_words_dictionary_type)
-                .asObservable().subscribe(type -> {
-                    switch (type) {
-                        case "off":
-                            mNextWordEnabled = false;
-                            mAlsoSuggestNextPunctuations = false;
-                            break;
-                        case "word":
-                            mNextWordEnabled = true;
-                            mAlsoSuggestNextPunctuations = false;
-                            break;
-                        case "words_punctuations":
-                            mNextWordEnabled = true;
-                            mAlsoSuggestNextPunctuations = true;
-                            break;
-                        default:
-                            mNextWordEnabled = true;
-                            mAlsoSuggestNextPunctuations = false;
-                            break;
-                    }
-                }, GenericOnError.onError("settings_key_next_word_dictionary_type")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getBoolean(
+                                R.string.settings_key_quick_fix, R.bool.settings_default_quick_fix)
+                        .asObservable()
+                        .subscribe(
+                                value -> {
+                                    mCurrentSetupHashCode = 0;
+                                    mQuickFixesEnabled = value;
+                                },
+                                GenericOnError.onError("settings_key_quick_fix")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getBoolean(
+                                R.string.settings_key_use_contacts_dictionary,
+                                R.bool.settings_default_contacts_dictionary)
+                        .asObservable()
+                        .subscribe(
+                                value -> {
+                                    mCurrentSetupHashCode = 0;
+                                    mContactsDictionaryEnabled = value;
+                                    if (!mContactsDictionaryEnabled) {
+                                        mContactsDictionary.close();
+                                        mContactsDictionary = NullDictionary;
+                                    }
+                                },
+                                GenericOnError.onError("settings_key_use_contacts_dictionary")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getString(
+                                R.string.settings_key_next_word_suggestion_aggressiveness,
+                                R.string.settings_default_next_word_suggestion_aggressiveness)
+                        .asObservable()
+                        .subscribe(
+                                aggressiveness -> {
+                                    switch (aggressiveness) {
+                                        case "minimal_aggressiveness":
+                                            mMaxNextWordSuggestionsCount = 3;
+                                            mMinWordUsage = 5;
+                                            break;
+                                        case "medium_aggressiveness":
+                                            mMaxNextWordSuggestionsCount = 5;
+                                            mMinWordUsage = 3;
+                                            break;
+                                        case "maximum_aggressiveness":
+                                            mMaxNextWordSuggestionsCount = 8;
+                                            mMinWordUsage = 1;
+                                            break;
+                                        default:
+                                            mMaxNextWordSuggestionsCount = 3;
+                                            mMinWordUsage = 5;
+                                            break;
+                                    }
+                                },
+                                GenericOnError.onError(
+                                        "settings_key_next_word_suggestion_aggressiveness")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getString(
+                                R.string.settings_key_next_word_dictionary_type,
+                                R.string.settings_default_next_words_dictionary_type)
+                        .asObservable()
+                        .subscribe(
+                                type -> {
+                                    switch (type) {
+                                        case "off":
+                                            mNextWordEnabled = false;
+                                            mAlsoSuggestNextPunctuations = false;
+                                            break;
+                                        case "word":
+                                            mNextWordEnabled = true;
+                                            mAlsoSuggestNextPunctuations = false;
+                                            break;
+                                        case "words_punctuations":
+                                            mNextWordEnabled = true;
+                                            mAlsoSuggestNextPunctuations = true;
+                                            break;
+                                        default:
+                                            mNextWordEnabled = true;
+                                            mAlsoSuggestNextPunctuations = false;
+                                            break;
+                                    }
+                                },
+                                GenericOnError.onError("settings_key_next_word_dictionary_type")));
     }
 
-    private static boolean allDictionariesIsValid(List<? extends Dictionary> dictionaries, CharSequence word) {
+    private static boolean allDictionariesIsValid(
+            List<? extends Dictionary> dictionaries, CharSequence word) {
         for (Dictionary dictionary : dictionaries) {
             if (dictionary.isValidWord(word)) return true;
         }
@@ -204,22 +214,31 @@ public class SuggestionsProvider {
         return false;
     }
 
-    private static void allDictionariesGetWords(List<? extends Dictionary> dictionaries, WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
+    private static void allDictionariesGetWords(
+            List<? extends Dictionary> dictionaries,
+            WordComposer wordComposer,
+            Dictionary.WordCallback wordCallback) {
         for (Dictionary dictionary : dictionaries) {
             dictionary.getWords(wordComposer, wordCallback);
         }
     }
 
-    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders, @NonNull DictionaryBackgroundLoader.Listener cb) {
+    public void setupSuggestionsForKeyboard(
+            @NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders,
+            @NonNull DictionaryBackgroundLoader.Listener cb) {
         if (BuildConfig.TESTING_BUILD) {
             Logger.d(TAG, "setupSuggestionsFor %d dictionaries", dictionaryBuilders.size());
             for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
-                Logger.d(TAG, " * dictionary %s (%s)", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
+                Logger.d(
+                        TAG,
+                        " * dictionary %s (%s)",
+                        dictionaryBuilder.getId(),
+                        dictionaryBuilder.getLanguage());
             }
         }
         final int newSetupHashCode = calculateHashCodeForBuilders(dictionaryBuilders);
         if (newSetupHashCode == mCurrentSetupHashCode) {
-            //TODO: not sure this is needed
+            // TODO: not sure this is needed
             for (Dictionary dictionary : mMainDictionary) {
                 cb.onDictionaryLoadingStarted(dictionary);
                 cb.onDictionaryLoadingDone(dictionary);
@@ -234,18 +253,29 @@ public class SuggestionsProvider {
 
         for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
             try {
-                Logger.d(TAG, " Creating dictionary %s (%s)...", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
+                Logger.d(
+                        TAG,
+                        " Creating dictionary %s (%s)...",
+                        dictionaryBuilder.getId(),
+                        dictionaryBuilder.getLanguage());
                 final Dictionary dictionary = dictionaryBuilder.createDictionary();
                 mMainDictionary.add(dictionary);
-                Logger.d(TAG, " Loading dictionary %s (%s)...", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
-                disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
+                Logger.d(
+                        TAG,
+                        " Loading dictionary %s (%s)...",
+                        dictionaryBuilder.getId(),
+                        dictionaryBuilder.getLanguage());
+                disposablesHolder.add(
+                        DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
             } catch (Exception e) {
                 Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
             }
-            final UserDictionary userDictionary = createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
+            final UserDictionary userDictionary =
+                    createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
             mUserDictionary.add(userDictionary);
             Logger.d(TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
-            disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
+            disposablesHolder.add(
+                    DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
             mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
 
             if (mQuickFixesEnabled) {
@@ -253,24 +283,32 @@ public class SuggestionsProvider {
                 if (autoText != null) {
                     mQuickFixesAutoText.add(autoText);
                 }
-                final AbbreviationsDictionary abbreviationsDictionary = new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
+                final AbbreviationsDictionary abbreviationsDictionary =
+                        new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
                 mAbbreviationDictionary.add(abbreviationsDictionary);
-                Logger.d(TAG, " Loading abbr dictionary for %s...", dictionaryBuilder.getLanguage());
-                disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(abbreviationsDictionary));
+                Logger.d(
+                        TAG, " Loading abbr dictionary for %s...", dictionaryBuilder.getLanguage());
+                disposablesHolder.add(
+                        DictionaryBackgroundLoader.loadDictionaryInBackground(
+                                abbreviationsDictionary));
             }
 
             mInitialSuggestionsList.addAll(dictionaryBuilder.createInitialSuggestions());
 
-            //only one auto-dictionary. There is no way to know to which language the typed word belongs.
+            // only one auto-dictionary. There is no way to know to which language the typed word
+            // belongs.
             mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
             Logger.d(TAG, " Loading auto dictionary for %s...", dictionaryBuilder.getLanguage());
-            disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
+            disposablesHolder.add(
+                    DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
         }
 
         if (mContactsDictionaryEnabled && mContactsDictionary == NullDictionary) {
             mContactsDictionary = new ContactsDictionary(mContext);
             mContactsNextWordDictionary = (ContactsDictionary) mContactsDictionary;
-            disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mContactsDictionaryListener, mContactsDictionary));
+            disposablesHolder.add(
+                    DictionaryBackgroundLoader.loadDictionaryInBackground(
+                            mContactsDictionaryListener, mContactsDictionary));
         }
     }
 
@@ -304,7 +342,9 @@ public class SuggestionsProvider {
             return false;
         }
 
-        return allDictionariesIsValid(mMainDictionary, word) || allDictionariesIsValid(mUserDictionary, word) || mContactsDictionary.isValidWord(word);
+        return allDictionariesIsValid(mMainDictionary, word)
+                || allDictionariesIsValid(mUserDictionary, word)
+                || mContactsDictionary.isValidWord(word);
     }
 
     public void setIncognitoMode(boolean incognitoMode) {
@@ -364,14 +404,18 @@ public class SuggestionsProvider {
         return null;
     }
 
-    public void getNextWords(String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+    public void getNextWords(
+            String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
         if (!mNextWordEnabled) return;
 
-        allDictionariesGetNextWord(mUserNextWordDictionary, currentWord, suggestionsHolder, maxSuggestions);
+        allDictionariesGetNextWord(
+                mUserNextWordDictionary, currentWord, suggestionsHolder, maxSuggestions);
         maxSuggestions = maxSuggestions - suggestionsHolder.size();
         if (maxSuggestions == 0) return;
 
-        for (String nextWordSuggestion : mContactsNextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
+        for (String nextWordSuggestion :
+                mContactsNextWordDictionary.getNextWords(
+                        currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
             suggestionsHolder.add(nextWordSuggestion);
             maxSuggestions--;
             if (maxSuggestions == 0) return;
@@ -386,12 +430,18 @@ public class SuggestionsProvider {
         }
     }
 
-    private void allDictionariesGetNextWord(List<NextWordSuggestions> nextWordDictionaries, String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+    private void allDictionariesGetNextWord(
+            List<NextWordSuggestions> nextWordDictionaries,
+            String currentWord,
+            Collection<CharSequence> suggestionsHolder,
+            int maxSuggestions) {
         for (NextWordSuggestions nextWordDictionary : nextWordDictionaries) {
 
             if (!mIncognitoMode) nextWordDictionary.notifyNextTypedWord(currentWord);
 
-            for (String nextWordSuggestion : nextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
+            for (String nextWordSuggestion :
+                    nextWordDictionary.getNextWords(
+                            currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
                 suggestionsHolder.add(nextWordSuggestion);
                 maxSuggestions--;
                 if (maxSuggestions == 0) return;

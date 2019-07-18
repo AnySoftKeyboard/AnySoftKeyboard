@@ -12,12 +12,12 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
-
 import com.anysoftkeyboard.base.utils.Logger;
 
 public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
-    public static final boolean OS_SUPPORT_FOR_ACCENT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    public static final boolean OS_SUPPORT_FOR_ACCENT =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
     private static final OverlayData EMPTY = new InvalidOverlayData();
 
@@ -35,13 +35,22 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
         }
 
         try {
-            final ActivityInfo activityInfo = mLocalContext.getPackageManager().getActivityInfo(remoteApp, PackageManager.GET_META_DATA);
-            final Context context = mLocalContext.createPackageContext(remoteApp.getPackageName(), CONTEXT_IGNORE_SECURITY);
+            final ActivityInfo activityInfo =
+                    mLocalContext
+                            .getPackageManager()
+                            .getActivityInfo(remoteApp, PackageManager.GET_META_DATA);
+            final Context context =
+                    mLocalContext.createPackageContext(
+                            remoteApp.getPackageName(), CONTEXT_IGNORE_SECURITY);
 
             context.setTheme(activityInfo.getThemeResource());
             fetchRemoteColors(mCurrentOverlayData, context);
 
-            Logger.d("OverlyDataCreatorForAndroid", "For component %s we fetched %s", remoteApp, mCurrentOverlayData);
+            Logger.d(
+                    "OverlyDataCreatorForAndroid",
+                    "For component %s we fetched %s",
+                    remoteApp,
+                    mCurrentOverlayData);
 
             return mCurrentOverlayData;
         } catch (Exception e) {
@@ -52,16 +61,41 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     protected void fetchRemoteColors(OverlayData data, Context context) {
-        //ensuring text colors are completely opaque by apply Color.BLACK
+        // ensuring text colors are completely opaque by apply Color.BLACK
         final TypedValue typedValue = new TypedValue();
-        data.setPrimaryColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimary, Color.BLACK));
-        data.setPrimaryDarkColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
-        data.setAccentColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.colorAccent, data.getPrimaryColor()));
-        data.setPrimaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.textColorPrimary, Color.BLACK));
-        data.setSecondaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.textColorSecondary, data.getPrimaryTextColor()));
+        data.setPrimaryColor(
+                Color.BLACK
+                        | getColorFromThemeAttribute(
+                                context, typedValue, android.R.attr.colorPrimary, Color.BLACK));
+        data.setPrimaryDarkColor(
+                Color.BLACK
+                        | getColorFromThemeAttribute(
+                                context,
+                                typedValue,
+                                android.R.attr.colorPrimaryDark,
+                                data.getPrimaryColor()));
+        data.setAccentColor(
+                Color.BLACK
+                        | getColorFromThemeAttribute(
+                                context,
+                                typedValue,
+                                android.R.attr.colorAccent,
+                                data.getPrimaryColor()));
+        data.setPrimaryTextColor(
+                Color.BLACK
+                        | getColorFromThemeAttribute(
+                                context, typedValue, android.R.attr.textColorPrimary, Color.BLACK));
+        data.setSecondaryTextColor(
+                Color.BLACK
+                        | getColorFromThemeAttribute(
+                                context,
+                                typedValue,
+                                android.R.attr.textColorSecondary,
+                                data.getPrimaryTextColor()));
     }
 
-    private static int getColorFromThemeAttribute(Context context, TypedValue typedValue, @AttrRes int attr, int defaultColor) {
+    private static int getColorFromThemeAttribute(
+            Context context, TypedValue typedValue, @AttrRes int attr, int defaultColor) {
         if (context.getTheme().resolveAttribute(attr, typedValue, true)) {
             if (typedValue.type == TypedValue.TYPE_REFERENCE) {
                 return ContextCompat.getColor(context, typedValue.resourceId);
@@ -90,9 +124,16 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         protected void fetchRemoteColors(OverlayData data, Context context) {
             final TypedValue typedValue = new TypedValue();
-            data.setPrimaryColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimary, 0));
-            data.setPrimaryDarkColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
-            //these will be static
+            data.setPrimaryColor(
+                    getColorFromThemeAttribute(
+                            context, typedValue, android.R.attr.colorPrimary, 0));
+            data.setPrimaryDarkColor(
+                    getColorFromThemeAttribute(
+                            context,
+                            typedValue,
+                            android.R.attr.colorPrimaryDark,
+                            data.getPrimaryColor()));
+            // these will be static
             data.setAccentColor(data.getPrimaryColor());
             data.setPrimaryTextColor(Color.WHITE);
             data.setSecondaryTextColor(Color.LTGRAY);

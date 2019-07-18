@@ -20,7 +20,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -39,12 +38,16 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent == null || intent.getData() == null || context == null)
-            return;
+        if (intent == null || intent.getData() == null || context == null) return;
 
         if (BuildConfig.TESTING_BUILD) {
             mStringBuffer.setLength(0);
-            String text = mStringBuffer.append("Package '").append(intent.getData()).append("' have been changed.").toString();
+            String text =
+                    mStringBuffer
+                            .append("Package '")
+                            .append(intent.getData())
+                            .append("' have been changed.")
+                            .toString();
             Logger.d(TAG, text);
         }
         try {
@@ -65,7 +68,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
                 <action android:name="android.intent.action.PACKAGE_INSTALL"/>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>
                 <data android:scheme="package" />
-            </intent-filter>            
+            </intent-filter>
         </receiver>
          */
         IntentFilter filter = new IntentFilter();

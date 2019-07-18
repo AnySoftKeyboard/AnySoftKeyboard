@@ -20,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-
 import com.menny.android.anysoftkeyboard.R;
 
 public class QuickTextSettingsFragment extends PreferenceFragmentCompat {
@@ -29,7 +28,8 @@ public class QuickTextSettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_quick_text_addons_prefs);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            final Preference skinTonePref = findPreference(getString(R.string.settings_key_default_emoji_skin_tone));
+            final Preference skinTonePref =
+                    findPreference(getString(R.string.settings_key_default_emoji_skin_tone));
             skinTonePref.setEnabled(false);
             skinTonePref.setVisible(false);
         }

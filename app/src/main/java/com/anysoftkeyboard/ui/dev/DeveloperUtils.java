@@ -28,11 +28,9 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -44,11 +42,11 @@ public class DeveloperUtils {
     private static final String ASK_TRACE_FILENAME = "AnySoftKeyboard_tracing.trace";
     private static final String ASK_MEM_DUMP_FILENAME = "ask_mem_dump.hprof";
 
-    public static File createMemoryDump() throws IOException,
-            UnsupportedOperationException {
+    public static File createMemoryDump() throws IOException, UnsupportedOperationException {
         File extFolder = Environment.getExternalStorageDirectory();
         File target = new File(extFolder, ASK_MEM_DUMP_FILENAME);
-        if (target.exists() && !target.delete()) throw new IOException("Failed to delete " + target);
+        if (target.exists() && !target.delete())
+            throw new IOException("Failed to delete " + target);
         Debug.dumpHprofData(target.getAbsolutePath());
         return target;
     }
@@ -96,18 +94,16 @@ public class DeveloperUtils {
         sb.append("BRAND:").append(Build.BRAND).append(NEW_LINE);
         sb.append("DEVICE:").append(Build.DEVICE).append(NEW_LINE);
         sb.append("Build ID:").append(Build.DISPLAY).append(NEW_LINE);
-        sb.append("changelist number:").append(Build.ID)
-                .append("\n");
+        sb.append("changelist number:").append(Build.ID).append("\n");
         sb.append("MODEL:").append(Build.MODEL).append(NEW_LINE);
         sb.append("PRODUCT:").append(Build.PRODUCT).append(NEW_LINE);
         sb.append("TAGS:").append(Build.TAGS).append(NEW_LINE);
-        sb.append("VERSION.INCREMENTAL:")
-                .append(Build.VERSION.INCREMENTAL).append(NEW_LINE);
-        sb.append("VERSION.RELEASE:").append(Build.VERSION.RELEASE)
-                .append(NEW_LINE);
-        sb.append("VERSION.SDK_INT:").append(Build.VERSION.SDK_INT)
-                .append(NEW_LINE);
-        if (context != null && context.getResources() != null && context.getResources().getConfiguration() != null) {
+        sb.append("VERSION.INCREMENTAL:").append(Build.VERSION.INCREMENTAL).append(NEW_LINE);
+        sb.append("VERSION.RELEASE:").append(Build.VERSION.RELEASE).append(NEW_LINE);
+        sb.append("VERSION.SDK_INT:").append(Build.VERSION.SDK_INT).append(NEW_LINE);
+        if (context != null
+                && context.getResources() != null
+                && context.getResources().getConfiguration() != null) {
             Configuration configuration = context.getResources().getConfiguration();
             sb.append("Locale:").append(configuration.locale).append(NEW_LINE);
             sb.append("configuration:").append(configuration.toString()).append(NEW_LINE);
@@ -118,13 +114,19 @@ public class DeveloperUtils {
     }
 
     public static String getAppDetails(Context appContext) {
-        String appName = appContext.getString(R.string.ime_name) + " (" + appContext.getPackageName() + ")";
+        String appName =
+                appContext.getString(R.string.ime_name) + " (" + appContext.getPackageName() + ")";
         try {
-            PackageInfo info = appContext.getPackageManager().getPackageInfo(
-                    appContext.getPackageName(), 0);
+            PackageInfo info =
+                    appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
             appName = appName + " v" + info.versionName + " release " + info.versionCode;
-            appName = appName + ". Installed on " + AnyApplication.getCurrentVersionInstallTime(appContext)
-                    + ", first release installed was " + AnyApplication.getFirstAppVersionInstalled(appContext) + ".";
+            appName =
+                    appName
+                            + ". Installed on "
+                            + AnyApplication.getCurrentVersionInstallTime(appContext)
+                            + ", first release installed was "
+                            + AnyApplication.getFirstAppVersionInstalled(appContext)
+                            + ".";
         } catch (NameNotFoundException e) {
             appName = "NA";
             e.printStackTrace();

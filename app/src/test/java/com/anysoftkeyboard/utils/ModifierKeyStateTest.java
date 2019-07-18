@@ -1,13 +1,12 @@
 package com.anysoftkeyboard.utils;
 
-import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import static android.os.SystemClock.setCurrentTimeMillis;
+import static android.os.SystemClock.sleep;
 
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static android.os.SystemClock.setCurrentTimeMillis;
-import static android.os.SystemClock.sleep;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ModifierKeyStateTest {
@@ -110,7 +109,7 @@ public class ModifierKeyStateTest {
         state.onPress();
 
         Assert.assertTrue(state.isActive());
-        //for UI purposes, while the key is pressed, it can not be LOCKED
+        // for UI purposes, while the key is pressed, it can not be LOCKED
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
@@ -287,9 +286,9 @@ public class ModifierKeyStateTest {
 
         setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
-        //although the state is ACTIVE before the press-release
-        //sequence, we will not move to LOCKED state.
-        //we can only move to LOCKED state if the user has double-clicked.
+        // although the state is ACTIVE before the press-release
+        // sequence, we will not move to LOCKED state.
+        // we can only move to LOCKED state if the user has double-clicked.
         Assert.assertFalse(state.isActive());
         Assert.assertFalse(state.isLocked());
         Assert.assertFalse(state.isPressed());

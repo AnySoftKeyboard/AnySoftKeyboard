@@ -2,11 +2,6 @@ package com.anysoftkeyboard.prefs.backup;
 
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.utils.XmlWriter;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,9 +9,11 @@ import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Map;
-
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class PrefsXmlStorage {
 
@@ -28,7 +25,7 @@ public class PrefsXmlStorage {
 
     public void store(PrefsRoot prefsRoot) throws Exception {
         final File targetFolder = mStorageFile.getParentFile();
-        //parent folder may be null in case the file is on the root folder.
+        // parent folder may be null in case the file is on the root folder.
         if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
             throw new IOException("Failed to of storage folder " + targetFolder.getAbsolutePath());
         }
@@ -36,23 +33,30 @@ public class PrefsXmlStorage {
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
         final XmlWriter output = new XmlWriter(mStorageFile);
         try {
-            output.writeEntity("AnySoftKeyboardPrefs").writeAttribute("version", Integer.toString(prefsRoot.getVersion()));
+            output.writeEntity("AnySoftKeyboardPrefs")
+                    .writeAttribute("version", Integer.toString(prefsRoot.getVersion()));
 
             writePrefItems(output, Collections.singleton(prefsRoot), true);
 
-            output.endEntity(); //AnySoftKeyboardPrefs
+            output.endEntity(); // AnySoftKeyboardPrefs
         } finally {
             try {
                 output.close();
             } catch (IllegalStateException e) {
-                //catching and swallowing. This could be because of an exception while writing to the XML
-                //maybe a non-ASCII key?
-                Logger.w("PrefsXmlStorage", e, "Caught an IllegalStateException while closing storage backup file " + mStorageFile);
+                // catching and swallowing. This could be because of an exception while writing to
+                // the XML
+                // maybe a non-ASCII key?
+                Logger.w(
+                        "PrefsXmlStorage",
+                        e,
+                        "Caught an IllegalStateException while closing storage backup file "
+                                + mStorageFile);
             }
         }
     }
 
-    private static void writePrefItems(XmlWriter output, Iterable<PrefItem> items, boolean atRoot) throws IOException {
+    private static void writePrefItems(XmlWriter output, Iterable<PrefItem> items, boolean atRoot)
+            throws IOException {
         for (PrefItem item : items) {
             if (!atRoot) output.writeEntity("pref");
 
@@ -84,15 +88,19 @@ public class PrefsXmlStorage {
         private final Deque<PrefItem> mCurrentNode = new ArrayDeque<>();
 
         @Override
-        public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+        public void startElement(
+                String uri, String localName, String qualifiedName, Attributes attributes)
+                throws SAXException {
             super.startElement(uri, localName, qualifiedName, attributes);
             switch (qualifiedName) {
                 case "AnySoftKeyboardPrefs":
                     if (mCurrentNode.isEmpty()) {
-                        mParsedRoot = new PrefsRoot(Integer.parseInt(attributes.getValue("version")));
+                        mParsedRoot =
+                                new PrefsRoot(Integer.parseInt(attributes.getValue("version")));
                         mCurrentNode.push(mParsedRoot);
                     } else {
-                        throw new IllegalStateException("AnySoftKeyboardPrefs should be the root node!");
+                        throw new IllegalStateException(
+                                "AnySoftKeyboardPrefs should be the root node!");
                     }
                     break;
                 case "pref":
@@ -102,13 +110,14 @@ public class PrefsXmlStorage {
                     mCurrentNode.peek().addValue(attributes.getQName(0), attributes.getValue(0));
                     break;
                 default:
-                    //will allow unknown nodes, so we can try to support older/newer XML structures
+                    // will allow unknown nodes, so we can try to support older/newer XML structures
                     break;
             }
         }
 
         @Override
-        public void endElement(String uri, String localName, String qualifiedName) throws SAXException {
+        public void endElement(String uri, String localName, String qualifiedName)
+                throws SAXException {
             super.endElement(uri, localName, qualifiedName);
             switch (qualifiedName) {
                 case "AnySoftKeyboardPrefs":
@@ -116,7 +125,7 @@ public class PrefsXmlStorage {
                     mCurrentNode.pop();
                     break;
                 default:
-                    //the other nodes do not have children.
+                    // the other nodes do not have children.
                     break;
             }
         }

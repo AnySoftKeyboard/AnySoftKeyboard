@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.support.annotation.NonNull;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -20,8 +19,14 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     }
 
     @Override
-    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        mParentKeyboard.mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
+        mParentKeyboard.mKeyboardActionListener.onKey(
+                primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if ((mInOneShot && primaryCode != KeyCodes.DELETE) || primaryCode == KeyCodes.ENTER) {
             mParentKeyboard.dismissPopupKeyboard();
         }
@@ -49,28 +54,22 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     }
 
     @Override
-    public void onSwipeLeft(boolean twoFingers) {
-    }
+    public void onSwipeLeft(boolean twoFingers) {}
 
     @Override
-    public void onSwipeRight(boolean twoFingers) {
-    }
+    public void onSwipeRight(boolean twoFingers) {}
 
     @Override
-    public void onSwipeUp() {
-    }
+    public void onSwipeUp() {}
 
     @Override
-    public void onSwipeDown() {
-    }
+    public void onSwipeDown() {}
 
     @Override
-    public void onPinch() {
-    }
+    public void onPinch() {}
 
     @Override
-    public void onSeparate() {
-    }
+    public void onSeparate() {}
 
     @Override
     public void onPress(int primaryCode) {
@@ -89,17 +88,15 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
 
     @Override
     public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {
-        //no gesture in mini-keyboard
+        // no gesture in mini-keyboard
         return false;
     }
 
     @Override
-    public void onGestureTypingInput(int x, int y, long eventTime) {
-    }
+    public void onGestureTypingInput(int x, int y, long eventTime) {}
 
     @Override
-    public void onGestureTypingInputDone() {
-    }
+    public void onGestureTypingInputDone() {}
 
     @Override
     public void onLongPressDone(@NonNull Keyboard.Key key) {

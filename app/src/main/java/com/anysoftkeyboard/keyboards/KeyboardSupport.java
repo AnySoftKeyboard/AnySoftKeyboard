@@ -6,14 +6,11 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
-import java.util.StringTokenizer;
-
 import io.reactivex.Observable;
+import java.util.StringTokenizer;
 
 public class KeyboardSupport {
     private static final String TAG = "KeyboardSupport";
@@ -59,8 +56,9 @@ public class KeyboardSupport {
     public static int[] getKeyCodesFromTypedArray(TypedArray typedArray, int index) {
         typedArray.getValue(index, codesValue);
 
-        if (codesValue.type == TypedValue.TYPE_INT_DEC || codesValue.type == TypedValue.TYPE_INT_HEX) {
-            return new int[]{codesValue.data};
+        if (codesValue.type == TypedValue.TYPE_INT_DEC
+                || codesValue.type == TypedValue.TYPE_INT_HEX) {
+            return new int[] {codesValue.data};
         } else if (codesValue.type == TypedValue.TYPE_STRING) {
             return parseCSV(codesValue.coerceToString().toString());
         } else {
@@ -69,7 +67,8 @@ public class KeyboardSupport {
         }
     }
 
-    public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode, float heightFactor) {
+    public static int getKeyHeightFromHeightCode(
+            KeyboardDimens keyboardDimens, int heightCode, float heightFactor) {
         int height;
         switch (heightCode) {
             case 0:
@@ -81,7 +80,7 @@ public class KeyboardSupport {
             case -3:
                 height = keyboardDimens.getLargeKeyHeight();
                 break;
-            default:// -1
+            default: // -1
                 height = keyboardDimens.getNormalKeyHeight();
                 break;
         }
@@ -90,10 +89,19 @@ public class KeyboardSupport {
     }
 
     public static Observable<Float> getKeyboardHeightFactor(Context context) {
-        final boolean landscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        return AnyApplication.prefs(context).getParsedString(
-                landscape ? R.string.settings_key_landscape_keyboard_height_factor : R.string.settings_key_portrait_keyboard_height_factor,
-                landscape ? R.string.settings_default_landscape_keyboard_height_factor : R.string.settings_default_portrait_keyboard_height_factor, Float::parseFloat).map(KeyboardSupport::zoomFactorLimitation);
+        final boolean landscape =
+                context.getResources().getConfiguration().orientation
+                        == Configuration.ORIENTATION_LANDSCAPE;
+        return AnyApplication.prefs(context)
+                .getParsedString(
+                        landscape
+                                ? R.string.settings_key_landscape_keyboard_height_factor
+                                : R.string.settings_key_portrait_keyboard_height_factor,
+                        landscape
+                                ? R.string.settings_default_landscape_keyboard_height_factor
+                                : R.string.settings_default_portrait_keyboard_height_factor,
+                        Float::parseFloat)
+                .map(KeyboardSupport::zoomFactorLimitation);
     }
 
     private static float zoomFactorLimitation(float value) {

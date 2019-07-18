@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnImpl;
 
@@ -34,18 +33,32 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     private final boolean mKeyboardDefaultEnabled;
     private final Context mAskContext;
 
-    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, int apiVersion,
-                                   CharSequence id, CharSequence name,
-                                   int layoutResId, int landscapeLayoutResId,
-                                   String defaultDictionary, int iconResId,
-                                   int physicalTranslationResId,
-                                   String additionalIsLetterExceptions,
-                                   String sentenceSeparators,
-                                   CharSequence description,
-                                   boolean isHidden,
-                                   int keyboardIndex,
-                                   boolean keyboardDefaultEnabled) {
-        super(askContext, packageContext, apiVersion, id, name, description, isHidden, keyboardIndex);
+    public KeyboardAddOnAndBuilder(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            int layoutResId,
+            int landscapeLayoutResId,
+            String defaultDictionary,
+            int iconResId,
+            int physicalTranslationResId,
+            String additionalIsLetterExceptions,
+            String sentenceSeparators,
+            CharSequence description,
+            boolean isHidden,
+            int keyboardIndex,
+            boolean keyboardDefaultEnabled) {
+        super(
+                askContext,
+                packageContext,
+                apiVersion,
+                id,
+                name,
+                description,
+                isHidden,
+                keyboardIndex);
 
         mResId = layoutResId;
         if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {
@@ -79,6 +92,18 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
         Context remoteContext = getPackageContext();
         if (remoteContext == null) return null;
-        return new ExternalAnyKeyboard(this, mAskContext, remoteContext, mResId, mLandscapeResId, getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
+        return new ExternalAnyKeyboard(
+                this,
+                mAskContext,
+                remoteContext,
+                mResId,
+                mLandscapeResId,
+                getName(),
+                mIconResId,
+                mQwertyTranslationId,
+                mDefaultDictionary,
+                mAdditionalIsLetterExceptions,
+                mSentenceSeparators,
+                mode);
     }
 }

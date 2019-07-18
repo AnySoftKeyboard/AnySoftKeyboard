@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -115,7 +114,8 @@ public class TextEntryStateTest {
         Assert.assertFalse(TextEntryState.isPredicting());
         TextEntryState.typedCharacter(',', true);
         Assert.assertFalse(TextEntryState.isPredicting());
-        Assert.assertEquals(TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED, TextEntryState.getState());
+        Assert.assertEquals(
+                TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED, TextEntryState.getState());
     }
 
     @Test

@@ -19,10 +19,8 @@ package com.anysoftkeyboard.keyboards.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +37,6 @@ public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMi
     public AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mDisposables.add(mAnimationLevelSubject.subscribe(value -> mCurrentAnimationLevel = value));
-
     }
 
     public void addExtraDraw(ExtraDraw extraDraw) {
@@ -48,7 +45,7 @@ public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMi
         }
 
         if (mCurrentAnimationLevel == AnimationsLevel.None) {
-            return; //no animations requested.
+            return; // no animations requested.
         }
 
         mExtraDraws.add(extraDraw);
@@ -69,9 +66,9 @@ public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMi
             }
 
             if (!mExtraDraws.isEmpty()) {
-                //requesting another re-draw since we have more items waiting to be drawn
+                // requesting another re-draw since we have more items waiting to be drawn
                 // next frame
-                postInvalidateDelayed(1000 / 60);// doing 60 frames per second;
+                postInvalidateDelayed(1000 / 60); // doing 60 frames per second;
             }
         }
     }

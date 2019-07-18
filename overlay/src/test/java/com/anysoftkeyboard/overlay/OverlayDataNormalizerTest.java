@@ -2,9 +2,7 @@ package com.anysoftkeyboard.overlay;
 
 import android.content.ComponentName;
 import android.graphics.Color;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -12,9 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/**
- * A custom view from a
- */
+/** A custom view from a */
 public class SettingsTileView extends LinearLayout {
     private TextView mLabel;
     private ImageView mImage;

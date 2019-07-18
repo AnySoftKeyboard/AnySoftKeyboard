@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -19,11 +18,11 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.List;
 import java.util.Random;
 
-public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements View.OnClickListener {
+public class WizardPageWelcomeFragment extends WizardPageBaseFragment
+        implements View.OnClickListener {
     private static final String STARTED_PREF_KEY = "setup_wizard_STARTED_SETUP_PREF_KEY";
     public static final int DELAY_MILLIS_BEFORE_RESETTING_KEYBOARD = 1000;
 
@@ -47,14 +46,16 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(STARTED_PREF_KEY, false);
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(STARTED_PREF_KEY, false);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.go_to_start_setup:
-                final SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+                final SharedPreferences.Editor editor =
+                        PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
                 editor.putBoolean(STARTED_PREF_KEY, true);
                 SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                 refreshWizardPager();
@@ -64,14 +65,18 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle " + v.getId() + " in WizardPageDoneAndMoreSettingsFragment");
+                throw new IllegalArgumentException(
+                        "Failed to handle "
+                                + v.getId()
+                                + " in WizardPageDoneAndMoreSettingsFragment");
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mPerformDemoKeyboardChange = new ChangeDemoKeyboardRunnable(getContext(), mDemoAnyKeyboardView);
+        mPerformDemoKeyboardChange =
+                new ChangeDemoKeyboardRunnable(getContext(), mDemoAnyKeyboardView);
         mPerformDemoKeyboardChange.run();
         SetupSupport.popupViewAnimationWithIds(getView(), R.id.go_to_start_setup);
     }
@@ -97,7 +102,8 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
 
         private KeyboardAddOnAndBuilder mKeyboardBuilder;
 
-        public ChangeDemoKeyboardRunnable(Context context, DemoAnyKeyboardView demoAnyKeyboardView) {
+        public ChangeDemoKeyboardRunnable(
+                Context context, DemoAnyKeyboardView demoAnyKeyboardView) {
             mContext = context;
             mDemoAnyKeyboardView = demoAnyKeyboardView;
             mKeyboardBuilder = AnyApplication.getKeyboardFactory(mContext).getEnabledAddOn();
@@ -105,13 +111,17 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
 
         @Override
         public void run() {
-            mDemoAnyKeyboardView.setKeyboardTheme(getRandomAddOn(AnyApplication.getKeyboardThemeFactory(mContext)));
+            mDemoAnyKeyboardView.setKeyboardTheme(
+                    getRandomAddOn(AnyApplication.getKeyboardThemeFactory(mContext)));
 
-            KeyboardExtension bottomRow = getRandomAddOn(AnyApplication.getBottomRowFactory(mContext));
+            KeyboardExtension bottomRow =
+                    getRandomAddOn(AnyApplication.getBottomRowFactory(mContext));
             KeyboardExtension topRow = getRandomAddOn(AnyApplication.getTopRowFactory(mContext));
 
-            AnyKeyboard keyboard = mKeyboardBuilder.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-            keyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens(), topRow, bottomRow);
+            AnyKeyboard keyboard =
+                    mKeyboardBuilder.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+            keyboard.loadKeyboard(
+                    mDemoAnyKeyboardView.getThemedKeyboardDimens(), topRow, bottomRow);
             mDemoAnyKeyboardView.setKeyboard(keyboard, null, null);
 
             mDemoAnyKeyboardView.postDelayed(this, DELAY_MILLIS_BEFORE_RESETTING_KEYBOARD);

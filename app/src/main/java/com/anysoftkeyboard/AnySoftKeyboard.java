@@ -36,7 +36,6 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
@@ -62,21 +61,18 @@ import com.google.android.voiceime.VoiceRecognitionTrigger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.pixel.GeneralDialogController;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import net.evendanan.pixel.GeneralDialogController;
 
-/**
- * Input method implementation for QWERTY-ish keyboard.
- */
+/** Input method implementation for QWERTY-ish keyboard. */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
-    private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
+    private final PackagesChangedReceiver mPackagesChangedReceiver =
+            new PackagesChangedReceiver(this);
 
     private boolean mShowKeyboardIconInStatusBar;
 
@@ -96,7 +92,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         super();
     }
 
-    //TODO SHOULD NOT USE THIS METHOD AT ALL!
+    // TODO SHOULD NOT USE THIS METHOD AT ALL!
     private static int getCursorPosition(@Nullable InputConnection connection) {
         if (connection == null) {
             return 0;
@@ -119,47 +115,91 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
-                Toast.makeText(getApplicationContext(),
-                        R.string.debug_tracing_starting, Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                                getApplicationContext(),
+                                R.string.debug_tracing_starting,
+                                Toast.LENGTH_SHORT)
+                        .show();
             } catch (Exception e) {
-                //see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
-                //I might get a "Permission denied" error.
+                // see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
+                // I might get a "Permission denied" error.
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(),
-                        R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                                getApplicationContext(),
+                                R.string.debug_tracing_starting_failed,
+                                Toast.LENGTH_LONG)
+                        .show();
             }
         }
         if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.endsWith("-SNAPSHOT")) {
-            throw new RuntimeException("You can not run a 'RELEASE' build with a SNAPSHOT postfix!");
+            throw new RuntimeException(
+                    "You can not run a 'RELEASE' build with a SNAPSHOT postfix!");
         }
 
-        addDisposable(AnimationsLevel.createPrefsObservable(this).subscribe(animationsLevel -> {
-            final int fancyAnimation = getResources().getIdentifier("Animation_InputMethodFancy", "style", "android");
-            final Window window = getWindow().getWindow();
-            if (window == null) return;
+        addDisposable(
+                AnimationsLevel.createPrefsObservable(this)
+                        .subscribe(
+                                animationsLevel -> {
+                                    final int fancyAnimation =
+                                            getResources()
+                                                    .getIdentifier(
+                                                            "Animation_InputMethodFancy",
+                                                            "style",
+                                                            "android");
+                                    final Window window = getWindow().getWindow();
+                                    if (window == null) return;
 
-            if (fancyAnimation != 0) {
-                Logger.i(TAG, "Found Animation_InputMethodFancy as %d, so I'll use this", fancyAnimation);
-                window.setWindowAnimations(fancyAnimation);
-            } else {
-                Logger.w(TAG, "Could not find Animation_InputMethodFancy, using default animation");
-                window.setWindowAnimations(android.R.style.Animation_InputMethod);
-            }
-        }, GenericOnError.onError("AnimationsLevel")));
+                                    if (fancyAnimation != 0) {
+                                        Logger.i(
+                                                TAG,
+                                                "Found Animation_InputMethodFancy as %d, so I'll use this",
+                                                fancyAnimation);
+                                        window.setWindowAnimations(fancyAnimation);
+                                    } else {
+                                        Logger.w(
+                                                TAG,
+                                                "Could not find Animation_InputMethodFancy, using default animation");
+                                        window.setWindowAnimations(
+                                                android.R.style.Animation_InputMethod);
+                                    }
+                                },
+                                GenericOnError.onError("AnimationsLevel")));
 
-        addDisposable(prefs().getBoolean(R.string.settings_key_auto_capitalization, R.bool.settings_default_auto_capitalization)
-                .asObservable().subscribe(aBoolean -> mAutoCap = aBoolean, GenericOnError.onError("settings_key_auto_capitalization")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_auto_capitalization,
+                                R.bool.settings_default_auto_capitalization)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mAutoCap = aBoolean,
+                                GenericOnError.onError("settings_key_auto_capitalization")));
 
-        addDisposable(prefs().getString(R.string.settings_key_default_split_state_portrait, R.string.settings_default_default_split_state)
-                .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> {
-                    mPrefKeyboardInCondensedPortraitMode = type;
-                    setInitialCondensedState(getResources().getConfiguration());
-                }, GenericOnError.onError("settings_key_default_split_state_portrait")));
-        addDisposable(prefs().getString(R.string.settings_key_default_split_state_landscape, R.string.settings_default_default_split_state)
-                .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> {
-                    mPrefKeyboardInCondensedLandscapeMode = type;
-                    setInitialCondensedState(getResources().getConfiguration());
-                }, GenericOnError.onError("settings_key_default_split_state_landscape")));
+        addDisposable(
+                prefs().getString(
+                                R.string.settings_key_default_split_state_portrait,
+                                R.string.settings_default_default_split_state)
+                        .asObservable()
+                        .map(AnySoftKeyboard::parseCondenseType)
+                        .subscribe(
+                                type -> {
+                                    mPrefKeyboardInCondensedPortraitMode = type;
+                                    setInitialCondensedState(getResources().getConfiguration());
+                                },
+                                GenericOnError.onError(
+                                        "settings_key_default_split_state_portrait")));
+        addDisposable(
+                prefs().getString(
+                                R.string.settings_key_default_split_state_landscape,
+                                R.string.settings_default_default_split_state)
+                        .asObservable()
+                        .map(AnySoftKeyboard::parseCondenseType)
+                        .subscribe(
+                                type -> {
+                                    mPrefKeyboardInCondensedLandscapeMode = type;
+                                    setInitialCondensedState(getResources().getConfiguration());
+                                },
+                                GenericOnError.onError(
+                                        "settings_key_default_split_state_landscape")));
 
         setInitialCondensedState(getResources().getConfiguration());
 
@@ -167,8 +207,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // register to receive packages changes
         registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createIntentFilter());
 
-        addDisposable(prefs().getBoolean(R.string.settings_key_keyboard_icon_in_status_bar, R.bool.settings_default_keyboard_icon_in_status_bar)
-                .asObservable().subscribe(aBoolean -> mShowKeyboardIconInStatusBar = aBoolean, GenericOnError.onError("settings_key_keyboard_icon_in_status_bar")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_keyboard_icon_in_status_bar,
+                                R.bool.settings_default_keyboard_icon_in_status_bar)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mShowKeyboardIconInStatusBar = aBoolean,
+                                GenericOnError.onError(
+                                        "settings_key_keyboard_icon_in_status_bar")));
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
     }
@@ -199,9 +246,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (DeveloperUtils.hasTracingStarted()) {
             DeveloperUtils.stopTracing();
             Toast.makeText(
-                    getApplicationContext(),
-                    getString(R.string.debug_tracing_finished,
-                            DeveloperUtils.getTraceFile()), Toast.LENGTH_SHORT)
+                            getApplicationContext(),
+                            getString(
+                                    R.string.debug_tracing_finished, DeveloperUtils.getTraceFile()),
+                            Toast.LENGTH_SHORT)
                     .show();
         }
 
@@ -216,8 +264,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     @Override
     public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
-        Logger.v(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
-                attribute.imeOptions, attribute.inputType, restarting);
+        Logger.v(
+                TAG,
+                "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
+                attribute.imeOptions,
+                attribute.inputType,
+                restarting);
 
         super.onStartInputView(attribute, restarting);
 
@@ -253,13 +305,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (getCurrentInputEditorInfo() != null) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0) {
-                //if the view DOES NOT want fullscreen, then do what it wants
-                Logger.d(TAG, "Will not go to Fullscreen because input view requested IME_FLAG_NO_FULLSCREEN");
+                // if the view DOES NOT want fullscreen, then do what it wants
+                Logger.d(
+                        TAG,
+                        "Will not go to Fullscreen because input view requested IME_FLAG_NO_FULLSCREEN");
                 return false;
             } else if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0) {
-                Logger.d(TAG, "Will not go to Fullscreen because input view requested IME_FLAG_NO_EXTRACT_UI");
+                Logger.d(
+                        TAG,
+                        "Will not go to Fullscreen because input view requested IME_FLAG_NO_EXTRACT_UI");
                 return false;
-
             }
         }
 
@@ -274,15 +329,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         AnyKeyboard alphabetKeyboard = getCurrentAlphabetKeyboard();
         final IBinder imeToken = getImeToken();
         if (mShowKeyboardIconInStatusBar && alphabetKeyboard != null && imeToken != null) {
-            mInputMethodManager.showStatusIcon(imeToken,
+            mInputMethodManager.showStatusIcon(
+                    imeToken,
                     alphabetKeyboard.getKeyboardAddOn().getPackageName(),
                     alphabetKeyboard.getKeyboardIconResId());
         }
     }
 
-    /**
-     * Helper to determine if a given character code is alphabetic.
-     */
+    /** Helper to determine if a given character code is alphabetic. */
     @Override
     protected boolean isAlphabet(int code) {
         if (super.isAlphabet(code)) return true;
@@ -334,7 +388,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 if (fromUI) {
                     handleShift();
                 } else {
-                    //not from UI (user not actually pressed that button)
+                    // not from UI (user not actually pressed that button)
                     onPress(primaryCode);
                     onRelease(primaryCode);
                 }
@@ -365,7 +419,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 if (fromUI) {
                     handleControl();
                 } else {
-                    //not from UI (user not actually pressed that button)
+                    // not from UI (user not actually pressed that button)
                     onPress(primaryCode);
                     onRelease(primaryCode);
                 }
@@ -376,9 +430,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             case KeyCodes.ARROW_LEFT:
             case KeyCodes.ARROW_RIGHT:
-                final int keyEventKeyCode = primaryCode == KeyCodes.ARROW_LEFT ?
-                        KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
-                if (!handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition)) {
+                final int keyEventKeyCode =
+                        primaryCode == KeyCodes.ARROW_LEFT
+                                ? KeyEvent.KEYCODE_DPAD_LEFT
+                                : KeyEvent.KEYCODE_DPAD_RIGHT;
+                if (!handleSelectionExpending(
+                        keyEventKeyCode,
+                        ic,
+                        mGlobalSelectionStartPosition,
+                        mGlobalCursorPosition)) {
                     sendDownUpKeyEvents(keyEventKeyCode);
                 }
                 break;
@@ -390,7 +450,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             case KeyCodes.MOVE_HOME:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(0x0000007a/*API 11:KeyEvent.KEYCODE_MOVE_HOME*/);
+                    sendDownUpKeyEvents(0x0000007a /*API 11:KeyEvent.KEYCODE_MOVE_HOME*/);
                 } else {
                     if (ic != null) {
                         CharSequence textBefore = ic.getTextBeforeCursor(1024, 0);
@@ -413,7 +473,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             case KeyCodes.MOVE_END:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    //API 11: KeyEvent.KEYCODE_MOVE_END
+                    // API 11: KeyEvent.KEYCODE_MOVE_END
                     sendDownUpKeyEvents(0x0000007b);
                 } else {
                     if (ic != null) {
@@ -431,12 +491,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                                 newPosition = textAfter.length();
                             }
                             try {
-                                CharSequence textBefore = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+                                CharSequence textBefore =
+                                        ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
                                 if (!TextUtils.isEmpty(textBefore)) {
                                     newPosition = newPosition + textBefore.length();
                                 }
                                 ic.setSelection(newPosition, newPosition);
-                            } catch (Throwable e/*I'm using Integer.MAX_VALUE, it's scary.*/) {
+                            } catch (Throwable e /*I'm using Integer.MAX_VALUE, it's scary.*/) {
                                 Logger.w(TAG, "Failed to getTextBeforeCursor.", e);
                             }
                         }
@@ -445,9 +506,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             case KeyCodes.VOICE_INPUT:
                 if (mVoiceRecognitionTrigger.isInstalled()) {
-                    mVoiceRecognitionTrigger.startVoiceRecognition(getCurrentAlphabetKeyboard().getDefaultDictionaryLocale());
+                    mVoiceRecognitionTrigger.startVoiceRecognition(
+                            getCurrentAlphabetKeyboard().getDefaultDictionaryLocale());
                 } else {
-                    Intent voiceInputNotInstalledIntent = new Intent(getApplicationContext(), VoiceInputNotInstalledActivity.class);
+                    Intent voiceInputNotInstalledIntent =
+                            new Intent(
+                                    getApplicationContext(), VoiceInputNotInstalledActivity.class);
                     voiceInputNotInstalledIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(voiceInputNotInstalledIntent);
                 }
@@ -527,15 +591,21 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             default:
                 if (BuildConfig.DEBUG) {
-                    //this should not happen! We should handle ALL function keys.
-                    throw new RuntimeException("UNHANDLED FUNCTION KEY! primary code " + primaryCode);
+                    // this should not happen! We should handle ALL function keys.
+                    throw new RuntimeException(
+                            "UNHANDLED FUNCTION KEY! primary code " + primaryCode);
                 } else {
-                    Logger.w(TAG, "UNHANDLED FUNCTION KEY! primary code %d. Ignoring.", primaryCode);
+                    Logger.w(
+                            TAG, "UNHANDLED FUNCTION KEY! primary code %d. Ignoring.", primaryCode);
                 }
         }
     }
 
-    private void onNonFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes) {
+    private void onNonFunctionKey(
+            final int primaryCode,
+            final Key key,
+            final int multiTapIndex,
+            final int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -543,13 +613,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         switch (primaryCode) {
             case KeyCodes.ENTER:
                 if (mShiftKeyState.isPressed() && ic != null) {
-                    //power-users feature ahead: Shift+Enter
-                    //getting away from firing the default editor action, by forcing newline
+                    // power-users feature ahead: Shift+Enter
+                    // getting away from firing the default editor action, by forcing newline
                     ic.commitText("\n", 1);
                     break;
                 }
                 final EditorInfo editorInfo = getCurrentInputEditorInfo();
-                final int imeOptionsActionId = IMEUtil.getImeOptionsActionIdFromEditorInfo(editorInfo);
+                final int imeOptionsActionId =
+                        IMEUtil.getImeOptionsActionIdFromEditorInfo(editorInfo);
                 if (ic != null && IMEUtil.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
                     // Either we have an actionLabel and we should performEditorAction with
                     // actionId regardless of its value.
@@ -568,13 +639,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 }
                 break;
             case KeyCodes.SPACE:
-                //shortcut. Nothing more.
+                // shortcut. Nothing more.
                 handleSeparator(primaryCode);
-                //should we switch to alphabet keyboard?
+                // should we switch to alphabet keyboard?
                 if (!isInAlphabetKeyboardMode()) {
                     Logger.d(TAG, "SPACE/ENTER while in symbols mode");
                     if (mSwitchKeyboardOnSpace) {
-                        getKeyboardSwitcher().nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+                        getKeyboardSwitcher()
+                                .nextKeyboard(
+                                        getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
                     }
                 }
                 break;
@@ -591,7 +664,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     if (mControlKeyState.isActive() && primaryCode >= 32 && primaryCode < 127) {
                         // http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
                         int controlCode = primaryCode & 31;
-                        Logger.d(TAG, "CONTROL state: Char was %d and now it is %d", primaryCode, controlCode);
+                        Logger.d(
+                                TAG,
+                                "CONTROL state: Char was %d and now it is %d",
+                                primaryCode,
+                                controlCode);
                         if (controlCode == 9) {
                             sendTab();
                         } else {
@@ -607,7 +684,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     @Override
-    public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    public void onKey(
+            int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
         if (primaryCode > 0) {
@@ -641,18 +719,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
         // Note: tab and ^I don't work in ConnectBot, hackish workaround
         if (tabHack) {
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,
-                    KeyEvent.KEYCODE_DPAD_CENTER));
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,
-                    KeyEvent.KEYCODE_DPAD_CENTER));
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,
-                    KeyEvent.KEYCODE_I));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_CENTER));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_CENTER));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_I));
             ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_I));
         } else {
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,
-                    KeyEvent.KEYCODE_TAB));
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,
-                    KeyEvent.KEYCODE_TAB));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_TAB));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_TAB));
         }
     }
 
@@ -682,7 +755,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     private void showLanguageSelectionDialog() {
-        List<KeyboardAddOnAndBuilder> builders = getKeyboardSwitcher().getEnabledKeyboardsBuilders();
+        List<KeyboardAddOnAndBuilder> builders =
+                getKeyboardSwitcher().getEnabledKeyboardsBuilders();
         ArrayList<CharSequence> keyboardsIds = new ArrayList<>();
         ArrayList<CharSequence> keyboards = new ArrayList<>();
         // going over all enabled keyboards
@@ -702,18 +776,25 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         ids[ids.length - 1] = SETTINGS_ID;
         items[ids.length - 1] = getText(R.string.setup_wizard_step_three_action_languages);
 
-        showOptionsDialogWithData(R.string.select_keyboard_popup_title, R.drawable.ic_keyboard_globe_menu,
-                items, (di, position) -> {
+        showOptionsDialogWithData(
+                R.string.select_keyboard_popup_title,
+                R.drawable.ic_keyboard_globe_menu,
+                items,
+                (di, position) -> {
                     CharSequence id = ids[position];
                     Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
                     EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
                     if (SETTINGS_ID.equals(id.toString())) {
-                        startActivity(new Intent(getApplicationContext(), MainSettingsActivity.class)
-                                .putExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID, "keyboards")
-                                .setAction(Intent.ACTION_VIEW)
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        startActivity(
+                                new Intent(getApplicationContext(), MainSettingsActivity.class)
+                                        .putExtra(
+                                                MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID,
+                                                "keyboards")
+                                        .setAction(Intent.ACTION_VIEW)
+                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     } else {
-                        getKeyboardSwitcher().nextAlphabetKeyboard(currentEditorInfo, id.toString());
+                        getKeyboardSwitcher()
+                                .nextAlphabetKeyboard(currentEditorInfo, id.toString());
                     }
                 });
     }
@@ -722,7 +803,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     public View onCreateExtractTextView() {
         mFullScreenExtractView = super.onCreateExtractTextView();
         if (mFullScreenExtractView != null) {
-            mFullScreenExtractTextView = mFullScreenExtractView.findViewById(android.R.id.inputExtractEditText);
+            mFullScreenExtractTextView =
+                    mFullScreenExtractView.findViewById(android.R.id.inputExtractEditText);
         }
 
         return mFullScreenExtractView;
@@ -736,7 +818,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             final AnyKeyboardView anyKeyboardView = (AnyKeyboardView) inputViewBinder;
             ViewCompat.setBackground(mFullScreenExtractView, anyKeyboardView.getBackground());
             if (mFullScreenExtractTextView != null) {
-                mFullScreenExtractTextView.setTextColor(anyKeyboardView.getCurrentResourcesHolder().getKeyTextColor());
+                mFullScreenExtractTextView.setTextColor(
+                        anyKeyboardView.getCurrentResourcesHolder().getKeyTextColor());
             }
         }
     }
@@ -748,11 +831,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         }
 
         if (TextEntryState.isPredicting() && mWord.cursorPosition() > 0 && mWord.length() > 0) {
-            //sp#ace -> ace
-            //cursor == 2
-            //length == 5
-            //textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
-            final CharSequence textAfterCursor = mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
+            // sp#ace -> ace
+            // cursor == 2
+            // length == 5
+            // textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
+            final CharSequence textAfterCursor =
+                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
             mWord.reset();
             getSuggest().resetNextWordSentence();
             TextEntryState.newSession(isPredictionOn());
@@ -765,7 +849,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // Which is always good. This is a part of issue 951.
         CharSequence cs = ic.getTextBeforeCursor(128, 0);
         if (TextUtils.isEmpty(cs)) {
-            return;// nothing to delete
+            return; // nothing to delete
         }
         // TWO OPTIONS
         // 1) Either we do like Linux and Windows (and probably ALL desktop
@@ -799,13 +883,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // 2b) "test this, " -> "test this"
 
         final int inputLength = cs.length();
-        int idx = inputLength - 1;// it's OK since we checked whether cs is empty after retrieving it.
+        int idx =
+                inputLength
+                        - 1; // it's OK since we checked whether cs is empty after retrieving it.
         if (isBackWordDeleteChar((int) cs.charAt(idx))) {
             while (idx > 0 && isBackWordDeleteChar((int) cs.charAt(idx - 1))) {
                 idx--;
             }
         }
-        ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
+        ic.deleteSurroundingText(inputLength - idx, 0); // it is always > 0 !
     }
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
@@ -860,7 +946,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     // but will not handle "delete all selected text" feature,
                     // hence the "if (!forMultiTap)" above
                     final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
-                    final int textLengthBeforeDelete = TextUtils.isEmpty(beforeText) ? 0 : beforeText.length();
+                    final int textLengthBeforeDelete =
+                            TextUtils.isEmpty(beforeText) ? 0 : beforeText.length();
                     if (textLengthBeforeDelete > 0) {
                         ic.deleteSurroundingText(1, 0);
                     } else {
@@ -870,7 +957,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             }
         }
     }
-
 
     private void handleForwardDelete(InputConnection ic) {
         final boolean isPredicting = TextEntryState.isPredicting();
@@ -922,7 +1008,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void handleShift() {
         if (getInputView() != null) {
-            Logger.d(TAG, "shift Setting UI active:%s, locked: %s", mShiftKeyState.isActive(), mShiftKeyState.isLocked());
+            Logger.d(
+                    TAG,
+                    "shift Setting UI active:%s, locked: %s",
+                    mShiftKeyState.isActive(),
+                    mShiftKeyState.isLocked());
             getInputView().setShifted(mShiftKeyState.isActive());
             getInputView().setShiftLocked(mShiftKeyState.isLocked());
         }
@@ -944,12 +1034,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (selectedText.length() > 0) {
             ic.beginBatchEdit();
             String selectedTextString = selectedText.toString();
-            if (selectedTextString.compareTo(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale())) == 0) {
+            if (selectedTextString.compareTo(
+                            selectedTextString.toUpperCase(
+                                    getCurrentAlphabetKeyboard().getLocale()))
+                    == 0) {
                 // Convert to lower case
-                ic.setComposingText(selectedTextString.toLowerCase(getCurrentAlphabetKeyboard().getLocale()), 0);
+                ic.setComposingText(
+                        selectedTextString.toLowerCase(getCurrentAlphabetKeyboard().getLocale()),
+                        0);
             } else {
                 // Convert to upper case
-                ic.setComposingText(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale()), 0);
+                ic.setComposingText(
+                        selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale()),
+                        0);
             }
             ic.endBatchEdit();
             ic.setSelection(selectionStart, selectionEnd);
@@ -958,7 +1055,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     @Override
     protected boolean handleCloseRequest() {
-        return super.handleCloseRequest() || (getInputView() != null && getInputView().resetInputView());
+        return super.handleCloseRequest()
+                || (getInputView() != null && getInputView().resetInputView());
     }
 
     @Override
@@ -971,10 +1069,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private void nextAlterKeyboard(EditorInfo currentEditorInfo) {
         getKeyboardSwitcher().nextAlterKeyboard(currentEditorInfo);
 
-        Logger.d(TAG, "nextAlterKeyboard: Setting next keyboard to: %s", getCurrentSymbolsKeyboard().getKeyboardName());
+        Logger.d(
+                TAG,
+                "nextAlterKeyboard: Setting next keyboard to: %s",
+                getCurrentSymbolsKeyboard().getKeyboardName());
     }
 
-    private void nextKeyboard(EditorInfo currentEditorInfo, KeyboardSwitcher.NextKeyboardType type) {
+    private void nextKeyboard(
+            EditorInfo currentEditorInfo, KeyboardSwitcher.NextKeyboardType type) {
         getKeyboardSwitcher().nextKeyboard(currentEditorInfo, type);
     }
 
@@ -1052,8 +1154,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void launchDictionaryOverriding() {
         final List<DictionaryAddOnAndBuilder> buildersForKeyboard =
-                AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(getCurrentAlphabetKeyboard());
-        final List<DictionaryAddOnAndBuilder> allBuilders = AnyApplication.getExternalDictionaryFactory(this).getAllAddOns();
+                AnyApplication.getExternalDictionaryFactory(this)
+                        .getBuildersForKeyboard(getCurrentAlphabetKeyboard());
+        final List<DictionaryAddOnAndBuilder> allBuilders =
+                AnyApplication.getExternalDictionaryFactory(this).getAllAddOns();
 
         final CharSequence[] items = new CharSequence[allBuilders.size()];
         final boolean[] checked = new boolean[items.length];
@@ -1068,44 +1172,75 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             checked[dictionaryIndex] = buildersForKeyboard.contains(dictionaryBuilder);
         }
 
-        showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
-                items, (dialog, which) -> {/*no-op*/}, new GeneralDialogController.DialogPresenter() {
+        showOptionsDialogWithData(
+                getString(
+                        R.string.override_dictionary_title,
+                        getCurrentAlphabetKeyboard().getKeyboardName()),
+                R.drawable.ic_settings_language,
+                items,
+                (dialog, which) -> {
+                    /*no-op*/
+                },
+                new GeneralDialogController.DialogPresenter() {
                     @Override
-                    public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
-                    }
+                    public void beforeDialogShown(
+                            @NonNull AlertDialog dialog, @Nullable Object data) {}
 
                     @Override
-                    public void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, @Nullable Object data) {
-                        builder.setItems(null, null);//clearing previously set items, since we want checked item
-                        builder.setMultiChoiceItems(items, checked, (dialogInterface, i, b) -> checked[i] = b);
+                    public void onSetupDialogRequired(
+                            AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+                        builder.setItems(
+                                null,
+                                null); // clearing previously set items, since we want checked item
+                        builder.setMultiChoiceItems(
+                                items, checked, (dialogInterface, i, b) -> checked[i] = b);
 
-                        builder.setNegativeButton(android.R.string.cancel, (di, position) -> di.cancel());
-                        builder.setPositiveButton(R.string.label_done_key, (di, position) -> {
-                            List<DictionaryAddOnAndBuilder> newBuildersForKeyboard = new ArrayList<>(buildersForKeyboard.size());
-                            for (int itemIndex = 0; itemIndex < allBuilders.size(); itemIndex++) {
-                                if (checked[itemIndex]) {
-                                    newBuildersForKeyboard.add(allBuilders.get(itemIndex));
-                                }
-                            }
+                        builder.setNegativeButton(
+                                android.R.string.cancel, (di, position) -> di.cancel());
+                        builder.setPositiveButton(
+                                R.string.label_done_key,
+                                (di, position) -> {
+                                    List<DictionaryAddOnAndBuilder> newBuildersForKeyboard =
+                                            new ArrayList<>(buildersForKeyboard.size());
+                                    for (int itemIndex = 0;
+                                            itemIndex < allBuilders.size();
+                                            itemIndex++) {
+                                        if (checked[itemIndex]) {
+                                            newBuildersForKeyboard.add(allBuilders.get(itemIndex));
+                                        }
+                                    }
 
-                            AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this).setBuildersForKeyboard(getCurrentAlphabetKeyboard(), newBuildersForKeyboard);
+                                    AnyApplication.getExternalDictionaryFactory(
+                                                    AnySoftKeyboard.this)
+                                            .setBuildersForKeyboard(
+                                                    getCurrentAlphabetKeyboard(),
+                                                    newBuildersForKeyboard);
 
-                            di.dismiss();
-                        });
-                        builder.setNeutralButton(R.string.clear_all_dictionary_override, (dialogInterface, i) ->
-                                AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this)
-                                        .setBuildersForKeyboard(getCurrentAlphabetKeyboard(), Collections.emptyList()));
+                                    di.dismiss();
+                                });
+                        builder.setNeutralButton(
+                                R.string.clear_all_dictionary_override,
+                                (dialogInterface, i) ->
+                                        AnyApplication.getExternalDictionaryFactory(
+                                                        AnySoftKeyboard.this)
+                                                .setBuildersForKeyboard(
+                                                        getCurrentAlphabetKeyboard(),
+                                                        Collections.emptyList()));
                     }
                 });
     }
 
     private void showOptionsMenu() {
-        showOptionsDialogWithData(R.string.ime_name, R.mipmap.ic_launcher,
-                new CharSequence[]{
-                        getText(R.string.ime_settings),
-                        getText(R.string.override_dictionary),
-                        getText(R.string.change_ime),
-                        getString(R.string.switch_incognito_template, getText(R.string.switch_incognito))},
+        showOptionsDialogWithData(
+                R.string.ime_name,
+                R.mipmap.ic_launcher,
+                new CharSequence[] {
+                    getText(R.string.ime_settings),
+                    getText(R.string.override_dictionary),
+                    getText(R.string.change_ime),
+                    getString(
+                            R.string.switch_incognito_template, getText(R.string.switch_incognito))
+                },
                 (di, position) -> {
                     switch (position) {
                         case 0:
@@ -1115,16 +1250,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                             launchDictionaryOverriding();
                             break;
                         case 2:
-                            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+                            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                                    .showInputMethodPicker();
                             break;
                         case 3:
                             setIncognito(!getSuggest().isIncognitoMode(), true);
                             break;
                         default:
-                            throw new IllegalArgumentException("Position " + position + " is not covered by the ASK settings dialog.");
+                            throw new IllegalArgumentException(
+                                    "Position "
+                                            + position
+                                            + " is not covered by the ASK settings dialog.");
                     }
-                }
-        );
+                });
     }
 
     @Override
@@ -1138,8 +1276,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void setInitialCondensedState(Configuration configuration) {
         final CondenseType previousCondenseType = mKeyboardInCondensedMode;
-        mKeyboardInCondensedMode = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE ?
-                mPrefKeyboardInCondensedLandscapeMode : mPrefKeyboardInCondensedPortraitMode;
+        mKeyboardInCondensedMode =
+                configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+                        ? mPrefKeyboardInCondensedLandscapeMode
+                        : mPrefKeyboardInCondensedPortraitMode;
 
         if (previousCondenseType != mKeyboardInCondensedMode) {
             getKeyboardSwitcher().flushKeyboardsCache();
@@ -1181,7 +1321,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             if (isPredictionOn() && shouldDeleteUsingCompletion) {
-                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+                ic.setComposingText(mWord.getTypedWord() /* mComposing */, 1);
             } else {
                 ic.deleteSurroundingText(countToDelete, 0);
             }
@@ -1189,9 +1329,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     @Override
-    public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
+    public void onUpdateSelection(
+            int oldSelStart,
+            int oldSelEnd,
+            int newSelStart,
+            int newSelEnd,
+            int candidatesStart,
+            int candidatesEnd) {
         updateShiftStateNow();
-        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+        super.onUpdateSelection(
+                oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
     }
 
     private void updateShiftStateNow() {

@@ -3,9 +3,7 @@ package com.anysoftkeyboard.overlay;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +18,9 @@ public class StaticResourcesHolderTest {
         final Drawable keyboardBackground = Mockito.mock(Drawable.class);
         final ColorStateList textColor = Mockito.mock(ColorStateList.class);
 
-        final StaticResourcesHolder staticResourcesHolder = new StaticResourcesHolder(textColor, Color.BLUE, Color.RED, keyBackground, keyboardBackground);
+        final StaticResourcesHolder staticResourcesHolder =
+                new StaticResourcesHolder(
+                        textColor, Color.BLUE, Color.RED, keyBackground, keyboardBackground);
 
         Assert.assertSame(keyBackground, staticResourcesHolder.getKeyBackground());
         Assert.assertSame(keyboardBackground, staticResourcesHolder.getKeyboardBackground());

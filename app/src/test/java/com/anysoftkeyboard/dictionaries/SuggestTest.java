@@ -44,5 +44,4 @@ public class SuggestTest {
         Mockito.verify(mProvider).isIncognitoMode();
         Mockito.verifyNoMoreInteractions(mProvider);
     }
-
 }

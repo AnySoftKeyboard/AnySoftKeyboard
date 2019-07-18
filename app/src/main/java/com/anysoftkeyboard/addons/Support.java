@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
-
 import com.anysoftkeyboard.base.utils.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,21 +12,29 @@ class Support {
     private static final String TAG = Support.class.getName();
 
     /**
-     * Creates a mapping between the local styleable and the remote.
-     * NOTE: the return value may be in a different length, this can happen if a certain attr is
-     * not available in the remote-context, and therefore can not be queried.
+     * Creates a mapping between the local styleable and the remote. NOTE: the return value may be
+     * in a different length, this can happen if a certain attr is not available in the
+     * remote-context, and therefore can not be queried.
      *
      * @param localStyleableArray the local styleable to map against
-     * @param localContext        local APK's Context
-     * @param remoteContext       remote package's Context
-     * @param attributeIdMap      a mapping between the remote-id -> local-id
+     * @param localContext local APK's Context
+     * @param remoteContext remote package's Context
+     * @param attributeIdMap a mapping between the remote-id -> local-id
      * @return Always returns the remote version of localStyleableArray
      */
-    public static int[] createBackwardCompatibleStyleable(@NonNull int[] localStyleableArray, @NonNull Context localContext, @NonNull Context remoteContext, @NonNull SparseIntArray attributeIdMap) {
+    public static int[] createBackwardCompatibleStyleable(
+            @NonNull int[] localStyleableArray,
+            @NonNull Context localContext,
+            @NonNull Context remoteContext,
+            @NonNull SparseIntArray attributeIdMap) {
         final String remotePackageName = remoteContext.getPackageName();
         if (localContext.getPackageName().equals(remotePackageName)) {
-            Logger.d(TAG, "This is a local context (" + remotePackageName + "), optimization will be done.");
-            //optimization
+            Logger.d(
+                    TAG,
+                    "This is a local context ("
+                            + remotePackageName
+                            + "), optimization will be done.");
+            // optimization
             for (int attrId : localStyleableArray) {
                 attributeIdMap.put(attrId, attrId);
             }
@@ -39,16 +45,24 @@ class Support {
         final Resources remoteRes = remoteContext.getResources();
         List<Integer> styleableIdList = new ArrayList<>(localStyleableArray.length);
         for (int attrId : localStyleableArray) {
-            final boolean isAndroidAttribute = localRes.getResourcePackageName(attrId).equals("android");
+            final boolean isAndroidAttribute =
+                    localRes.getResourcePackageName(attrId).equals("android");
             final int remoteAttrId;
 
             if (isAndroidAttribute) {
-                //android attribute IDs are the same always. So, I can optimize.
+                // android attribute IDs are the same always. So, I can optimize.
                 remoteAttrId = attrId;
             } else {
                 final String attributeName = localRes.getResourceEntryName(attrId);
                 remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", remotePackageName);
-                Logger.d(TAG, "attr " + attributeName + ", local id " + attrId + ", remote id " + remoteAttrId);
+                Logger.d(
+                        TAG,
+                        "attr "
+                                + attributeName
+                                + ", local id "
+                                + attrId
+                                + ", remote id "
+                                + remoteAttrId);
             }
             if (remoteAttrId != 0) {
                 attributeIdMap.put(remoteAttrId, attrId);

@@ -4,7 +4,6 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.support.annotation.NonNull;
 import android.support.v7.preference.ListPreference;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.addons.SupportTest;
@@ -12,7 +11,6 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +18,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.util.Scheduler;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-public class LanguageTweaksFragmentTest extends RobolectricFragmentTestCase<LanguageTweaksFragment> {
+public class LanguageTweaksFragmentTest
+        extends RobolectricFragmentTestCase<LanguageTweaksFragment> {
 
     @NonNull
     @Override
@@ -33,13 +32,18 @@ public class LanguageTweaksFragmentTest extends RobolectricFragmentTestCase<Lang
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.CONSTANT_IDLE);
         Robolectric.getBackgroundThreadScheduler().setIdleState(Scheduler.IdleState.CONSTANT_IDLE);
 
-        final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(getApplicationContext());
+        final KeyboardFactory keyboardFactory =
+                AnyApplication.getKeyboardFactory(getApplicationContext());
 
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
         LanguageTweaksFragment fragment = startFragment();
-        ListPreference listPreference = (ListPreference) fragment.findPreference(fragment.getString(R.string.settings_key_layout_for_internet_fields));
+        ListPreference listPreference =
+                (ListPreference)
+                        fragment.findPreference(
+                                fragment.getString(
+                                        R.string.settings_key_layout_for_internet_fields));
         Assert.assertNotNull(listPreference);
 
         Assert.assertEquals(2, keyboardFactory.getEnabledIds().size());
@@ -50,11 +54,23 @@ public class LanguageTweaksFragmentTest extends RobolectricFragmentTestCase<Lang
         Assert.assertEquals("None", listPreference.getEntries()[0]);
         Assert.assertEquals("none", listPreference.getEntryValues()[0]);
 
-        for (int enabledKeyboardIndex = 0; enabledKeyboardIndex < keyboardFactory.getEnabledAddOns().size(); enabledKeyboardIndex++) {
-            final KeyboardAddOnAndBuilder builder = keyboardFactory.getEnabledAddOns().get(enabledKeyboardIndex);
-            Assert.assertTrue(listPreference.getEntries()[enabledKeyboardIndex + 1].toString().contains(builder.getName()));
-            Assert.assertTrue(listPreference.getEntries()[enabledKeyboardIndex + 1].toString().contains(builder.getDescription()));
-            Assert.assertEquals(listPreference.getEntryValues()[enabledKeyboardIndex + 1], builder.getId());
+        for (int enabledKeyboardIndex = 0;
+                enabledKeyboardIndex < keyboardFactory.getEnabledAddOns().size();
+                enabledKeyboardIndex++) {
+            final KeyboardAddOnAndBuilder builder =
+                    keyboardFactory.getEnabledAddOns().get(enabledKeyboardIndex);
+            Assert.assertTrue(
+                    listPreference
+                            .getEntries()[enabledKeyboardIndex + 1]
+                            .toString()
+                            .contains(builder.getName()));
+            Assert.assertTrue(
+                    listPreference
+                            .getEntries()[enabledKeyboardIndex + 1]
+                            .toString()
+                            .contains(builder.getDescription()));
+            Assert.assertEquals(
+                    listPreference.getEntryValues()[enabledKeyboardIndex + 1], builder.getId());
         }
     }
 }

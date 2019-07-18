@@ -1,10 +1,8 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.os.Build;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +23,8 @@ public class WizardPagesAdapterTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testHasPermissionsPageForAndroidM() {
-        WizardPagesAdapter adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
+        WizardPagesAdapter adapter =
+                new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
 
         Assert.assertEquals(5, adapter.getCount());
         Assert.assertTrue(adapter.getItem(3) instanceof WizardPermissionsFragment);
@@ -39,10 +38,11 @@ public class WizardPagesAdapterTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     public void testNoPermissionsPageBeforeAndroidM() {
-        WizardPagesAdapter adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
+        WizardPagesAdapter adapter =
+                new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
 
         Assert.assertEquals(4, adapter.getCount());
-        for (int fragmentIndex=0; fragmentIndex<adapter.getCount(); fragmentIndex++) {
+        for (int fragmentIndex = 0; fragmentIndex < adapter.getCount(); fragmentIndex++) {
             Assert.assertFalse(adapter.getItem(fragmentIndex) instanceof WizardPermissionsFragment);
         }
     }

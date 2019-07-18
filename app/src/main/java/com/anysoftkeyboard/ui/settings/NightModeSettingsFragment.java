@@ -19,11 +19,9 @@ package com.anysoftkeyboard.ui.settings;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
-
 import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
-
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
@@ -40,8 +38,17 @@ public class NightModeSettingsFragment extends PreferenceFragmentCompat {
     public void onStart() {
         super.onStart();
         MainSettingsActivity.setActivityTitle(this, getString(R.string.night_mode_screen));
-        mAppNightModeDisposable = NightMode.observeNightModeState(getContext(), R.string.settings_key_night_mode_app_theme_control, R.bool.settings_default_true)
-                .subscribe(enabled -> ((AppCompatActivity) getActivity()).getDelegate().applyDayNight(), GenericOnError.onError("NightModeSettingsFragment"));
+        mAppNightModeDisposable =
+                NightMode.observeNightModeState(
+                                getContext(),
+                                R.string.settings_key_night_mode_app_theme_control,
+                                R.bool.settings_default_true)
+                        .subscribe(
+                                enabled ->
+                                        ((AppCompatActivity) getActivity())
+                                                .getDelegate()
+                                                .applyDayNight(),
+                                GenericOnError.onError("NightModeSettingsFragment"));
     }
 
     @Override

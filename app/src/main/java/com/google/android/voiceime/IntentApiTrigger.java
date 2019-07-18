@@ -29,14 +29,11 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Triggers a voice recognition using the Intent api.
- */
+/** Triggers a voice recognition using the Intent api. */
 class IntentApiTrigger implements Trigger {
 
     private static final String TAG = "VoiceIntentApiTrigger";
@@ -56,13 +53,15 @@ class IntentApiTrigger implements Trigger {
     public IntentApiTrigger(InputMethodService inputMethodService) {
         mInputMethodService = inputMethodService;
 
-        mServiceBridge = new ServiceBridge(new Callback() {
+        mServiceBridge =
+                new ServiceBridge(
+                        new Callback() {
 
-            @Override
-            public void onRecognitionResult(String recognitionResult) {
-                postResult(recognitionResult);
-            }
-        });
+                            @Override
+                            public void onRecognitionResult(String recognitionResult) {
+                                postResult(recognitionResult);
+                            }
+                        });
 
         mUpperCaseChars = new HashSet<>();
         mUpperCaseChars.add('.');
@@ -82,22 +81,22 @@ class IntentApiTrigger implements Trigger {
 
     public static boolean isInstalled(InputMethodService inputMethodService) {
         PackageManager pm = inputMethodService.getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(
-                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        List<ResolveInfo> activities =
+                pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
         return activities.size() > 0;
     }
 
     private InputMethodManager getInputMethodManager() {
-        return (InputMethodManager) mInputMethodService
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        return (InputMethodManager)
+                mInputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     private void postResult(String recognitionResult) {
         mLastRecognitionResult = recognitionResult;
 
         // Request the system to display the IME.
-        getInputMethodManager().showSoftInputFromInputMethod(mToken,
-                InputMethodManager.SHOW_IMPLICIT);
+        getInputMethodManager()
+                .showSoftInputFromInputMethod(mToken, InputMethodManager.SHOW_IMPLICIT);
     }
 
     @Override
@@ -109,13 +108,14 @@ class IntentApiTrigger implements Trigger {
     }
 
     private void scheduleCommit() {
-        mHandler.post(new Runnable() {
+        mHandler.post(
+                new Runnable() {
 
-            @Override
-            public void run() {
-                commitResult();
-            }
-        });
+                    @Override
+                    public void run() {
+                        commitResult();
+                    }
+                });
     }
 
     private void commitResult() {
@@ -128,8 +128,10 @@ class IntentApiTrigger implements Trigger {
         InputConnection conn = mInputMethodService.getCurrentInputConnection();
 
         if (conn == null) {
-            Log.i(TAG, "Unable to commit recognition result, as the current input connection "
-                    + "is null. Did someone kill the IME?");
+            Log.i(
+                    TAG,
+                    "Unable to commit recognition result, as the current input connection "
+                            + "is null. Did someone kill the IME?");
             return;
         }
 
@@ -170,8 +172,8 @@ class IntentApiTrigger implements Trigger {
     }
 
     /**
-     * Formats the recognised text by adding white spaces at the beginning or at the end, and
-     * by making the first char upper case if necessary.
+     * Formats the recognised text by adding white spaces at the beginning or at the end, and by
+     * making the first char upper case if necessary.
      */
     private String format(ExtractedText et, String result) {
         int pos = et.selectionStart - 1;
@@ -195,7 +197,6 @@ class IntentApiTrigger implements Trigger {
         }
         return result;
     }
-
 
     interface Callback {
         void onRecognitionResult(String recognitionResult);

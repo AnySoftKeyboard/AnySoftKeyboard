@@ -19,7 +19,6 @@ package com.anysoftkeyboard.keyboards.views;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-
 import java.util.Arrays;
 
 class ProximityKeyDetector extends KeyDetector {
@@ -61,8 +60,9 @@ class ProximityKeyDetector extends KeyDetector {
             }
 
             if (((mProximityCorrectOn
-                    && (dist = key.squaredDistanceFrom(touchX, touchY)) < mProximityThresholdSquare)
-                    || isInside)
+                                    && (dist = key.squaredDistanceFrom(touchX, touchY))
+                                            < mProximityThresholdSquare)
+                            || isInside)
                     && key.getCodeAtIndex(0, keyboard.isShifted()) > KeyCodes.SPACE) {
                 // Find insertion point
                 final int nCodes = key.getCodesCount();
@@ -76,12 +76,13 @@ class ProximityKeyDetector extends KeyDetector {
                 for (int j = 0; j < distances.length; j++) {
                     if (distances[j] > dist) {
                         // Make space for nCodes mCodes
-                        System.arraycopy(distances, j, distances, j + nCodes,
-                                distances.length - j - nCodes);
-                        System.arraycopy(allKeys, j, allKeys, j + nCodes,
-                                allKeys.length - j - nCodes);
+                        System.arraycopy(
+                                distances, j, distances, j + nCodes, distances.length - j - nCodes);
+                        System.arraycopy(
+                                allKeys, j, allKeys, j + nCodes, allKeys.length - j - nCodes);
                         for (int codeIndex = 0; codeIndex < nCodes; codeIndex++)
-                            allKeys[j + codeIndex] = key.getCodeAtIndex(codeIndex, keyboard.isShifted());
+                            allKeys[j + codeIndex] =
+                                    key.getCodeAtIndex(codeIndex, keyboard.isShifted());
                         Arrays.fill(distances, j, j + nCodes, dist);
                         break;
                     }

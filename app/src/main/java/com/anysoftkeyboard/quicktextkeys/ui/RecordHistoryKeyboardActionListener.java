@@ -2,7 +2,6 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
@@ -12,7 +11,9 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     private final HistoryQuickTextKey mHistoryQuickTextKey;
     private final OnKeyboardActionListener mKeyboardActionListener;
 
-    RecordHistoryKeyboardActionListener(HistoryQuickTextKey historyQuickTextKey, OnKeyboardActionListener keyboardActionListener) {
+    RecordHistoryKeyboardActionListener(
+            HistoryQuickTextKey historyQuickTextKey,
+            OnKeyboardActionListener keyboardActionListener) {
         mHistoryQuickTextKey = historyQuickTextKey;
         mKeyboardActionListener = keyboardActionListener;
     }
@@ -28,7 +29,12 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     }
 
     @Override
-    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
         mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
 
@@ -98,12 +104,10 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     }
 
     @Override
-    public void onGestureTypingInput(int x, int y, long eventTime) {
-    }
+    public void onGestureTypingInput(int x, int y, long eventTime) {}
 
     @Override
-    public void onGestureTypingInputDone() {
-    }
+    public void onGestureTypingInputDone() {}
 
     @Override
     public void onLongPressDone(@NonNull Keyboard.Key key) {

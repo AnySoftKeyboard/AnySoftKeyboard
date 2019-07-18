@@ -7,16 +7,13 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
 
@@ -47,7 +44,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public KeyboardViewContainerView(
+            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
@@ -65,7 +63,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     public void setStripActionsVisibility(boolean visible) {
         if (mShowActionStrip != visible) {
             mShowActionStrip = visible;
-            if (mCandidateView != null) mCandidateView.setVisibility(visible ? View.VISIBLE : View.GONE);
+            if (mCandidateView != null)
+                mCandidateView.setVisibility(visible ? View.VISIBLE : View.GONE);
 
             for (View stripActionView : mStripActionViews) {
                 if (visible) {
@@ -123,8 +122,12 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
                 child.layout(left, currentTop, right, currentTop + child.getMeasuredHeight());
                 currentTop += child.getMeasuredHeight();
             } else {
-                //this is an action. It lives on the candidates-view
-                child.layout(actionRight - child.getMeasuredWidth(), actionsTop, actionRight, actionsTop + child.getMeasuredHeight());
+                // this is an action. It lives on the candidates-view
+                child.layout(
+                        actionRight - child.getMeasuredWidth(),
+                        actionsTop,
+                        actionRight,
+                        actionsTop + child.getMeasuredHeight());
                 actionRight -= child.getMeasuredWidth();
             }
         }
@@ -139,7 +142,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
             final View child = getChildAt(i);
             if (child.getVisibility() == View.GONE) continue;
             if (child.getTag(PROVIDER_TAG_ID) != null || child == mCandidateView) {
-                //this is an action. we just need to make sure it is measured.
+                // this is an action. we just need to make sure it is measured.
                 measureChild(child, widthMeasureSpec, heightMeasureSpec);
             } else {
                 measureChild(child, widthMeasureSpec, heightMeasureSpec);
@@ -163,7 +166,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         for (int childIndex = 0; childIndex < getChildCount(); childIndex++) {
             View child = getChildAt(childIndex);
             if (child instanceof InputViewActionsProvider) {
-                ((InputViewActionsProvider) child).setOnKeyboardActionListener(keyboardActionListener);
+                ((InputViewActionsProvider) child)
+                        .setOnKeyboardActionListener(keyboardActionListener);
             }
         }
     }

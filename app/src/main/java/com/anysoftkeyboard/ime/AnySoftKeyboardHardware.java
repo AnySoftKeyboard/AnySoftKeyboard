@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
@@ -28,16 +27,49 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     @Override
     public void onCreate() {
         super.onCreate();
-        addDisposable(prefs().getBoolean(R.string.settings_key_use_volume_key_for_left_right, R.bool.settings_default_use_volume_key_for_left_right)
-                .asObservable().subscribe(aBoolean -> mUseVolumeKeyForLeftRight = aBoolean, GenericOnError.onError("settings_key_use_volume_key_for_left_right")));
-        addDisposable(prefs().getBoolean(R.string.settings_key_use_key_repeat, R.bool.settings_default_use_key_repeat)
-                .asObservable().subscribe(aBoolean -> mUseKeyRepeat = aBoolean, GenericOnError.onError("settings_key_use_key_repeat")));
-        addDisposable(prefs().getBoolean(R.string.settings_key_enable_alt_space_language_shortcut, R.bool.settings_default_enable_alt_space_language_shortcut)
-                .asObservable().subscribe(aBoolean -> mSwitchLanguageOnAltSpace = aBoolean, GenericOnError.onError("settings_key_enable_alt_space_language_shortcut")));
-        addDisposable(prefs().getBoolean(R.string.settings_key_enable_shift_space_language_shortcut, R.bool.settings_default_enable_shift_space_language_shortcut)
-                .asObservable().subscribe(aBoolean -> mSwitchLanguageOnShiftSpace = aBoolean, GenericOnError.onError("settings_key_enable_shift_space_language_shortcut")));
-        addDisposable(prefs().getBoolean(R.string.settings_key_use_backword, R.bool.settings_default_use_backword)
-                .asObservable().subscribe(aBoolean -> mUseBackWord = aBoolean, GenericOnError.onError("settings_key_use_backword")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_use_volume_key_for_left_right,
+                                R.bool.settings_default_use_volume_key_for_left_right)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mUseVolumeKeyForLeftRight = aBoolean,
+                                GenericOnError.onError(
+                                        "settings_key_use_volume_key_for_left_right")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_use_key_repeat,
+                                R.bool.settings_default_use_key_repeat)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mUseKeyRepeat = aBoolean,
+                                GenericOnError.onError("settings_key_use_key_repeat")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_enable_alt_space_language_shortcut,
+                                R.bool.settings_default_enable_alt_space_language_shortcut)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mSwitchLanguageOnAltSpace = aBoolean,
+                                GenericOnError.onError(
+                                        "settings_key_enable_alt_space_language_shortcut")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_enable_shift_space_language_shortcut,
+                                R.bool.settings_default_enable_shift_space_language_shortcut)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mSwitchLanguageOnShiftSpace = aBoolean,
+                                GenericOnError.onError(
+                                        "settings_key_enable_shift_space_language_shortcut")));
+        addDisposable(
+                prefs().getBoolean(
+                                R.string.settings_key_use_backword,
+                                R.bool.settings_default_use_backword)
+                        .asObservable()
+                        .subscribe(
+                                aBoolean -> mUseBackWord = aBoolean,
+                                GenericOnError.onError("settings_key_use_backword")));
     }
 
     @Override
@@ -52,18 +84,24 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     @Override
     public void onFinishInput() {
         super.onFinishInput();
-        //properly finished input. Next time we DO want to show the keyboard view
+        // properly finished input. Next time we DO want to show the keyboard view
         mLastEditorIdPhysicalKeyboardWasUsed = 0;
     }
 
     @Override
     public boolean onShowInputRequested(int flags, boolean configChange) {
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
-        //in case the user has used physical keyboard with this input-field,
-        //we will not show the keyboard view (until completely finishing, or switching input fields)
+        // in case the user has used physical keyboard with this input-field,
+        // we will not show the keyboard view (until completely finishing, or switching input
+        // fields)
         final boolean previouslyPhysicalKeyboardInput;
-        if (!configChange && editorInfo != null && editorInfo.fieldId == mLastEditorIdPhysicalKeyboardWasUsed && editorInfo.fieldId != 0) {
-            Logger.d(TAG, "Already used physical keyboard on this input-field. Will not show keyboard view.");
+        if (!configChange
+                && editorInfo != null
+                && editorInfo.fieldId == mLastEditorIdPhysicalKeyboardWasUsed
+                && editorInfo.fieldId != 0) {
+            Logger.d(
+                    TAG,
+                    "Already used physical keyboard on this input-field. Will not show keyboard view.");
             previouslyPhysicalKeyboardInput = true;
         } else {
             previouslyPhysicalKeyboardInput = false;
@@ -76,12 +114,13 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     @SuppressWarnings("fallthrough")
     public boolean onKeyDown(final int keyEventKeyCode, @NonNull KeyEvent event) {
         InputConnection ic = getCurrentInputConnection();
-        if (handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition))
+        if (handleSelectionExpending(
+                keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition))
             return true;
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
-        //greater than zero means it is a physical keyboard.
-        //we also want to hide the view if it's a glyph (for example, not physical volume-up key)
+        // greater than zero means it is a physical keyboard.
+        // we also want to hide the view if it's a glyph (for example, not physical volume-up key)
         if (event.getDeviceId() > 0 && event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
 
         mHardKeyboardAction.initializeAction(event, mMetaState);
@@ -103,9 +142,9 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 // DO NOT DELAY VOLUME DOWN KEY with unneeded checks in default
                 // mark
                 return super.onKeyDown(keyEventKeyCode, event);
-            /*
-             * END of SPECIAL translated HW keys code section
-             */
+                /*
+                 * END of SPECIAL translated HW keys code section
+                 */
             case KeyEvent.KEYCODE_BACK:
                 if (event.getRepeatCount() == 0 && getInputView() != null && handleCloseRequest()) {
                     // consuming the meta keys
@@ -117,7 +156,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                     return true;
                 }
                 break;
-            case 0x000000cc:// API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
+            case 0x000000cc: // API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
                 switchToNextPhysicalKeyboard(ic);
                 return true;
             case KeyEvent.KEYCODE_SHIFT_LEFT:
@@ -138,37 +177,44 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
             default:
 
                 // Fix issue 185, check if we should process key repeat
-                if (!mUseKeyRepeat && event.getRepeatCount() > 0)
-                    return true;
+                if (!mUseKeyRepeat && event.getRepeatCount() > 0) return true;
 
-                AnyKeyboard.HardKeyboardTranslator keyTranslator = (AnyKeyboard.HardKeyboardTranslator) getCurrentAlphabetKeyboard();
+                AnyKeyboard.HardKeyboardTranslator keyTranslator =
+                        (AnyKeyboard.HardKeyboardTranslator) getCurrentAlphabetKeyboard();
                 if (getKeyboardSwitcher().isCurrentKeyboardPhysical() && keyTranslator != null) {
                     // sometimes, the physical keyboard will delete input, and then add some.
                     // we'll try to make it nice.
-                    if (ic != null)
-                        ic.beginBatchEdit();
+                    if (ic != null) ic.beginBatchEdit();
                     try {
                         // issue 393, back-word on the hw keyboard!
-                        if (mUseBackWord && keyEventKeyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()) {
+                        if (mUseBackWord
+                                && keyEventKeyCode == KeyEvent.KEYCODE_DEL
+                                && event.isShiftPressed()) {
                             handleBackWord(ic);
                             return true;
                         } else {
                             // http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
-                            keyTranslator.translatePhysicalCharacter(mHardKeyboardAction, this, mMultiTapTimeout);
+                            keyTranslator.translatePhysicalCharacter(
+                                    mHardKeyboardAction, this, mMultiTapTimeout);
 
                             if (mHardKeyboardAction.getKeyCodeWasChanged()) {
                                 final int translatedChar = mHardKeyboardAction.getKeyCode();
                                 // typing my own.
-                                onKey(translatedChar, null, -1, new int[]{translatedChar}, true/*faking from UI*/);
+                                onKey(
+                                        translatedChar,
+                                        null,
+                                        -1,
+                                        new int[] {translatedChar},
+                                        true /*faking from UI*/);
                                 // my handling we are at a regular key press, so we'll update
                                 // our meta-state member
-                                mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+                                mMetaState =
+                                        MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
                                 return true;
                             }
                         }
                     } finally {
-                        if (ic != null)
-                            ic.endBatchEdit();
+                        if (ic != null) ic.endBatchEdit();
                     }
                 }
                 if (event.isPrintingKey()) {
@@ -186,7 +232,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     @Override
     public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
         switch (keyCode) {
-            // Issue 248
+                // Issue 248
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (!isInputViewShown()) {
@@ -201,16 +247,21 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
             case KeyEvent.KEYCODE_DPAD_UP:
             case KeyEvent.KEYCODE_DPAD_LEFT:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                if (getInputView() != null && getInputView().isShown()
+                if (getInputView() != null
+                        && getInputView().isShown()
                         && getInputView().isShifted()) {
-                    event = new KeyEvent(event.getDownTime(), event.getEventTime(),
-                            event.getAction(), event.getKeyCode(),
-                            event.getRepeatCount(), event.getDeviceId(),
-                            event.getScanCode(), KeyEvent.META_SHIFT_LEFT_ON
-                            | KeyEvent.META_SHIFT_ON);
+                    event =
+                            new KeyEvent(
+                                    event.getDownTime(),
+                                    event.getEventTime(),
+                                    event.getAction(),
+                                    event.getKeyCode(),
+                                    event.getRepeatCount(),
+                                    event.getDeviceId(),
+                                    event.getScanCode(),
+                                    KeyEvent.META_SHIFT_LEFT_ON | KeyEvent.META_SHIFT_ON);
                     InputConnection ic = getCurrentInputConnection();
-                    if (ic != null)
-                        ic.sendKeyEvent(event);
+                    if (ic != null) ic.sendKeyEvent(event);
 
                     return true;
                 }
@@ -233,15 +284,12 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             int clearStatesFlags = 0;
-            if (MyMetaKeyKeyListener.getMetaState(mMetaState,
-                    MyMetaKeyKeyListener.META_ALT_ON) == 0)
-                clearStatesFlags += KeyEvent.META_ALT_ON;
-            if (MyMetaKeyKeyListener.getMetaState(mMetaState,
-                    MyMetaKeyKeyListener.META_SHIFT_ON) == 0)
-                clearStatesFlags += KeyEvent.META_SHIFT_ON;
-            if (MyMetaKeyKeyListener.getMetaState(mMetaState,
-                    MyMetaKeyKeyListener.META_SYM_ON) == 0)
-                clearStatesFlags += KeyEvent.META_SYM_ON;
+            if (MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_ALT_ON)
+                    == 0) clearStatesFlags += KeyEvent.META_ALT_ON;
+            if (MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_SHIFT_ON)
+                    == 0) clearStatesFlags += KeyEvent.META_SHIFT_ON;
+            if (MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_SYM_ON)
+                    == 0) clearStatesFlags += KeyEvent.META_SYM_ON;
             ic.clearMetaKeyStates(clearStatesFlags);
         }
     }
@@ -254,8 +302,10 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
         }
         mMetaState = 0;
         // only physical keyboard
-        getKeyboardSwitcher().nextKeyboard(getCurrentInputEditorInfo(),
-                KeyboardSwitcher.NextKeyboardType.AlphabetSupportsPhysical);
+        getKeyboardSwitcher()
+                .nextKeyboard(
+                        getCurrentInputEditorInfo(),
+                        KeyboardSwitcher.NextKeyboardType.AlphabetSupportsPhysical);
     }
 
     private void onPhysicalKeyboardKeyPressed() {

@@ -20,7 +20,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.sqlite.SQLiteException;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
@@ -43,8 +42,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     @Override
     protected void readWordsFromActualStorage(WordReadListener listener) {
         try {
-            if (mStorage == null)
-                mStorage = createStorage(mLocale);
+            if (mStorage == null) mStorage = createStorage(mLocale);
 
             mStorage.loadWords(listener);
         } catch (SQLiteException e) {
@@ -54,16 +52,22 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
                 mStorage.close();
             } catch (SQLiteException swallow) {
             }
-            Logger.w(TAG, "Caught an SQL exception while read database (message: '" + e.getMessage() + "'). I'll delete the database '" + dbFile + "'...");
+            Logger.w(
+                    TAG,
+                    "Caught an SQL exception while read database (message: '"
+                            + e.getMessage()
+                            + "'). I'll delete the database '"
+                            + dbFile
+                            + "'...");
             try {
                 mContext.deleteDatabase(dbFile);
             } catch (Exception okToFailEx) {
                 Logger.w(TAG, "Failed to delete database file " + dbFile + "!");
                 okToFailEx.printStackTrace();
             }
-            mStorage = null;// will re-create the storage.
+            mStorage = null; // will re-create the storage.
             mStorage = createStorage(mLocale);
-            //if this function will throw an exception again, well the hell with it.
+            // if this function will throw an exception again, well the hell with it.
             mStorage.loadWords(listener);
         }
     }
@@ -74,25 +78,23 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
 
     @Override
     protected final void addWordToStorage(String word, int frequency) {
-        if (mStorage != null)
-            mStorage.addWord(word, frequency);
+        if (mStorage != null) mStorage.addWord(word, frequency);
     }
 
     @Override
     protected final void deleteWordFromStorage(String word) {
-        if (mStorage != null)
-            mStorage.deleteWord(word);
+        if (mStorage != null) mStorage.deleteWord(word);
     }
 
     @Override
-    protected final void registerObserver(ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
-        //nothing to do here, the storage is internal and cannot be changed from the outside.
+    protected final void registerObserver(
+            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
+        // nothing to do here, the storage is internal and cannot be changed from the outside.
     }
 
     @Override
     protected void closeStorage() {
-        if (mStorage != null)
-            mStorage.close();
+        if (mStorage != null) mStorage.close();
         mStorage = null;
     }
 }

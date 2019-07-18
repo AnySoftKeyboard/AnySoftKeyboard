@@ -1,29 +1,25 @@
 package com.anysoftkeyboard.quicktextkeys;
 
-import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
-
-import static java.util.Arrays.asList;
-
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
+import static java.util.Arrays.asList;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class TagsExtractorTest {
@@ -44,10 +40,18 @@ public class TagsExtractorTest {
         keysForTest.get(2).text = "PLANE";
         keysForTest.get(3).text = "SHRUG";
 
-        Mockito.doReturn(Arrays.asList("face", "happy")).when((AnyKeyboard.AnyKey) keysForTest.get(0)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("flower", "rose")).when((AnyKeyboard.AnyKey) keysForTest.get(1)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("plane")).when((AnyKeyboard.AnyKey) keysForTest.get(2)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("face", "shrug")).when((AnyKeyboard.AnyKey) keysForTest.get(3)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("face", "happy"))
+                .when((AnyKeyboard.AnyKey) keysForTest.get(0))
+                .getKeyTags();
+        Mockito.doReturn(Arrays.asList("flower", "rose"))
+                .when((AnyKeyboard.AnyKey) keysForTest.get(1))
+                .getKeyTags();
+        Mockito.doReturn(Arrays.asList("plane"))
+                .when((AnyKeyboard.AnyKey) keysForTest.get(2))
+                .getKeyTags();
+        Mockito.doReturn(Arrays.asList("face", "shrug"))
+                .when((AnyKeyboard.AnyKey) keysForTest.get(3))
+                .getKeyTags();
 
         List<Keyboard.Key> keysForTest2 = new ArrayList<>();
         keysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
@@ -60,12 +64,25 @@ public class TagsExtractorTest {
         keysForTest2.get(2).text = "PALM";
         keysForTest2.get(3).text = "FACE";
 
-        Mockito.doReturn(Arrays.asList("car", "vehicle")).when((AnyKeyboard.AnyKey) keysForTest2.get(0)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("person", "face", "happy")).when((AnyKeyboard.AnyKey) keysForTest2.get(1)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("tree", "palm")).when((AnyKeyboard.AnyKey) keysForTest2.get(2)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("face")).when((AnyKeyboard.AnyKey) keysForTest2.get(3)).getKeyTags();
-        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext()));
-        mUnderTest = new TagsExtractorImpl(getApplicationContext(), asList(keysForTest, keysForTest2), mQuickKeyHistoryRecords);
+        Mockito.doReturn(Arrays.asList("car", "vehicle"))
+                .when((AnyKeyboard.AnyKey) keysForTest2.get(0))
+                .getKeyTags();
+        Mockito.doReturn(Arrays.asList("person", "face", "happy"))
+                .when((AnyKeyboard.AnyKey) keysForTest2.get(1))
+                .getKeyTags();
+        Mockito.doReturn(Arrays.asList("tree", "palm"))
+                .when((AnyKeyboard.AnyKey) keysForTest2.get(2))
+                .getKeyTags();
+        Mockito.doReturn(Arrays.asList("face"))
+                .when((AnyKeyboard.AnyKey) keysForTest2.get(3))
+                .getKeyTags();
+        mQuickKeyHistoryRecords =
+                new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext()));
+        mUnderTest =
+                new TagsExtractorImpl(
+                        getApplicationContext(),
+                        asList(keysForTest, keysForTest2),
+                        mQuickKeyHistoryRecords);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -78,23 +95,34 @@ public class TagsExtractorTest {
     public void getOutputForTag() throws Exception {
         final List<String> happyList = setOutputForTag("happy");
         Assert.assertEquals(2, happyList.size());
-        //although there are two keys that output HAPPY, they will be merged into one output.
-        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "happy", "HAPPY"}, happyList.toArray());
-        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "palm", "PALM"}, setOutputForTag("palm").toArray());
+        // although there are two keys that output HAPPY, they will be merged into one output.
+        Assert.assertArrayEquals(
+                new String[] {MAGNIFYING_GLASS_CHARACTER + "happy", "HAPPY"}, happyList.toArray());
+        Assert.assertArrayEquals(
+                new String[] {MAGNIFYING_GLASS_CHARACTER + "palm", "PALM"},
+                setOutputForTag("palm").toArray());
     }
 
     @Test
     public void getOutputForTagWithCaps() throws Exception {
-        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "Palm", "PALM"}, setOutputForTag("Palm").toArray());
-        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "PALM", "PALM"}, setOutputForTag("PALM").toArray());
-        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "paLM", "PALM"}, setOutputForTag("paLM").toArray());
+        Assert.assertArrayEquals(
+                new String[] {MAGNIFYING_GLASS_CHARACTER + "Palm", "PALM"},
+                setOutputForTag("Palm").toArray());
+        Assert.assertArrayEquals(
+                new String[] {MAGNIFYING_GLASS_CHARACTER + "PALM", "PALM"},
+                setOutputForTag("PALM").toArray());
+        Assert.assertArrayEquals(
+                new String[] {MAGNIFYING_GLASS_CHARACTER + "paLM", "PALM"},
+                setOutputForTag("paLM").toArray());
     }
 
     @Test
     public void getMultipleOutputsForTag() throws Exception {
         Assert.assertEquals(4, setOutputForTag("face").size());
-        //although there are two keys that output HAPPY, they will be merged into one output.
-        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "face", "FACE", "HAPPY", "SHRUG"}, setOutputForTag("face").toArray());
+        // although there are two keys that output HAPPY, they will be merged into one output.
+        Assert.assertArrayEquals(
+                new String[] {MAGNIFYING_GLASS_CHARACTER + "face", "FACE", "HAPPY", "SHRUG"},
+                setOutputForTag("face").toArray());
     }
 
     @Test
@@ -121,14 +149,15 @@ public class TagsExtractorTest {
 
     @Test
     public void testShowHistoryWhenStartingTagSearch() throws Exception {
-        //adding history
-        List<QuickKeyHistoryRecords.HistoryKey> history = mQuickKeyHistoryRecords.getCurrentHistory();
+        // adding history
+        List<QuickKeyHistoryRecords.HistoryKey> history =
+                mQuickKeyHistoryRecords.getCurrentHistory();
         Assert.assertEquals(1, history.size());
         mQuickKeyHistoryRecords.store("palm", "PALM");
         history = mQuickKeyHistoryRecords.getCurrentHistory();
         Assert.assertEquals(2, history.size());
         mQuickKeyHistoryRecords.store("tree", "TREE");
-        //simulating start of tag search
+        // simulating start of tag search
         final List<String> outputForTag = setOutputForTag("");
         Assert.assertEquals(4, outputForTag.size());
         Assert.assertEquals(MAGNIFYING_GLASS_CHARACTER, outputForTag.get(0));
@@ -161,12 +190,14 @@ public class TagsExtractorTest {
 
         Mockito.doReturn(typedText).when(provider).getTypedWord();
         Mockito.doReturn(typedText.length()).when(provider).length();
-        Mockito.doAnswer(invocation -> {
-            int index = invocation.getArgument(0);
-            return new int[]{typedText.toLowerCase(Locale.US).charAt(index)};
-        }).when(provider).getCodesAt(Mockito.anyInt());
+        Mockito.doAnswer(
+                        invocation -> {
+                            int index = invocation.getArgument(0);
+                            return new int[] {typedText.toLowerCase(Locale.US).charAt(index)};
+                        })
+                .when(provider)
+                .getCodesAt(Mockito.anyInt());
 
         return mUnderTest.getOutputForTag(typedTag, provider);
     }
-
 }

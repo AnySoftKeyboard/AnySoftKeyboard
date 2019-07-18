@@ -7,15 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.List;
 
 /*package*/ class QuickTextUserPrefs {
-    private static final String KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID = "KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID";
+    private static final String KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID =
+            "KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID";
     private static final String PREF_VALUE_INITIAL_TAB_ALWAYS_FIRST = "always_first";
     private static final String PREF_VALUE_INITIAL_TAB_LAST_USED = "last_used";
     private static final String PREF_VALUE_INITIAL_TAB_HISTORY = "history";
@@ -31,19 +30,26 @@ import java.util.List;
     private final boolean mOneShotQuickTextPopupDefault;
 
     QuickTextUserPrefs(Context context) {
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        mSharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         mStartUpTypePrefKey = context.getString(R.string.settings_key_initial_quick_text_tab);
-        mStartUpTypePrefDefault = context.getString(R.string.settings_default_initial_quick_text_tab);
-        mOneShotQuickTextPopupKey = context.getString(R.string.settings_key_one_shot_quick_text_popup);
-        mOneShotQuickTextPopupDefault = context.getResources().getBoolean(R.bool.settings_default_one_shot_quick_text_popup);
+        mStartUpTypePrefDefault =
+                context.getString(R.string.settings_default_initial_quick_text_tab);
+        mOneShotQuickTextPopupKey =
+                context.getString(R.string.settings_key_one_shot_quick_text_popup);
+        mOneShotQuickTextPopupDefault =
+                context.getResources()
+                        .getBoolean(R.bool.settings_default_one_shot_quick_text_popup);
     }
 
     public boolean isOneShotQuickTextPopup() {
-        return mSharedPreferences.getBoolean(mOneShotQuickTextPopupKey, mOneShotQuickTextPopupDefault);
+        return mSharedPreferences.getBoolean(
+                mOneShotQuickTextPopupKey, mOneShotQuickTextPopupDefault);
     }
 
     public int getStartPageIndex(List<QuickTextKey> allAddOns) {
-        final String startupType = mSharedPreferences.getString(mStartUpTypePrefKey, mStartUpTypePrefDefault);
+        final String startupType =
+                mSharedPreferences.getString(mStartUpTypePrefKey, mStartUpTypePrefDefault);
         return getTabIndexByStartUpType(allAddOns, startupType);
     }
 
@@ -56,7 +62,12 @@ import java.util.List;
             case PREF_VALUE_INITIAL_TAB_HISTORY:
                 return HISTORY_TAB_INDEX;
             default:
-                Logger.d("QuickTextUserPrefs", "Unrecognized %s value: %s. Defaulting to %s", mStartUpTypePrefKey, startupType, mStartUpTypePrefDefault);
+                Logger.d(
+                        "QuickTextUserPrefs",
+                        "Unrecognized %s value: %s. Defaulting to %s",
+                        mStartUpTypePrefKey,
+                        startupType,
+                        mStartUpTypePrefDefault);
                 return getTabIndexByStartUpType(allAddOns, mStartUpTypePrefDefault);
         }
     }
@@ -67,11 +78,17 @@ import java.util.List;
     }
 
     public void setLastSelectedAddOnId(@NonNull CharSequence addOnId) {
-        final SharedPreferences.Editor editor = mSharedPreferences.edit().putString(KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID, addOnId.toString());
+        final SharedPreferences.Editor editor =
+                mSharedPreferences
+                        .edit()
+                        .putString(
+                                KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID,
+                                addOnId.toString());
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
-    private static int getPositionForAddOnId(List<QuickTextKey> list, @Nullable String initialAddOnId) {
+    private static int getPositionForAddOnId(
+            List<QuickTextKey> list, @Nullable String initialAddOnId) {
         if (TextUtils.isEmpty(initialAddOnId)) {
             return FIRST_USER_TAB_INDEX;
         }

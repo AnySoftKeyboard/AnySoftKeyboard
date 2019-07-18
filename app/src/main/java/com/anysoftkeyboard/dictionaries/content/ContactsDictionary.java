@@ -29,52 +29,54 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.util.ArrayMap;
-
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 
 @TargetApi(7)
 public class ContactsDictionary extends BTreeDictionary implements NextWordSuggestions {
 
     protected static final String TAG = "ASK CDict";
-    /**
-     * A contact is a valid word in a language, and it usually very frequent.
-     */
+    /** A contact is a valid word in a language, and it usually very frequent. */
     private static final int MINIMUM_CONTACT_WORD_FREQUENCY = 64;
-    private static final String[] PROJECTION = {Contacts._ID, Contacts.DISPLAY_NAME, Contacts.STARRED, Contacts.TIMES_CONTACTED};
+
+    private static final String[] PROJECTION = {
+        Contacts._ID, Contacts.DISPLAY_NAME, Contacts.STARRED, Contacts.TIMES_CONTACTED
+    };
     private static final int INDEX_NAME = 1;
     private static final int INDEX_STARRED = 2;
     private static final int INDEX_TIMES = 3;
     private final Map<CharSequence, String[]> mNextNameParts = new ArrayMap<>();
-    private final Map<CharSequence, Map<CharSequence, NextWord>> mLoadingPhaseNextNames = new ArrayMap<>();
+    private final Map<CharSequence, Map<CharSequence, NextWord>> mLoadingPhaseNextNames =
+            new ArrayMap<>();
 
     public ContactsDictionary(Context context) {
         super("ContactsDictionary", context);
     }
 
     @Override
-    protected void registerObserver(ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
-        contentResolver.registerContentObserver(Contacts.CONTENT_URI, true, dictionaryContentObserver);
+    protected void registerObserver(
+            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
+        contentResolver.registerContentObserver(
+                Contacts.CONTENT_URI, true, dictionaryContentObserver);
     }
 
     @Override
     protected void loadAllResources() {
         super.loadAllResources();
         mNextNameParts.clear();
-        //converting the loaded NextWord into a simple, static array
-        for (Map.Entry<CharSequence, Map<CharSequence, NextWord>> entry : mLoadingPhaseNextNames.entrySet()) {
+        // converting the loaded NextWord into a simple, static array
+        for (Map.Entry<CharSequence, Map<CharSequence, NextWord>> entry :
+                mLoadingPhaseNextNames.entrySet()) {
             final CharSequence firstWord = entry.getKey();
             List<NextWord> nextWordList = new ArrayList<>(entry.getValue().values());
             Collections.sort(nextWordList, new NextWord.NextWordComparator());
@@ -88,34 +90,45 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
 
     @Override
     protected void readWordsFromActualStorage(WordReadListener listener) {
-        //we required Contacts permission
-        Intent contactsRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(mContext, MainSettingsActivity.class, PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+        // we required Contacts permission
+        Intent contactsRequired =
+                PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
+                        mContext,
+                        MainSettingsActivity.class,
+                        PermissionsRequestCodes.CONTACTS.getRequestCode(),
+                        Manifest.permission.READ_CONTACTS);
         if (contactsRequired != null) {
-            //we are running OUTSIDE an Activity
+            // we are running OUTSIDE an Activity
             contactsRequired.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //showing a notification, so the user's flow will not be interrupted.
+            // showing a notification, so the user's flow will not be interrupted.
             showNotificationWithIntent(contactsRequired);
-            //and failing. So it will try to read contacts again
+            // and failing. So it will try to read contacts again
             throw new RuntimeException("We do not have permission to read contacts!");
         } else {
-            Cursor cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
-                    PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
-                    new String[]{"1"}, null);
+            Cursor cursor =
+                    mContext.getContentResolver()
+                            .query(
+                                    Contacts.CONTENT_URI,
+                                    PROJECTION,
+                                    Contacts.IN_VISIBLE_GROUP + "=?",
+                                    new String[] {"1"},
+                                    null);
             if (cursor != null && cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     final String fullname = cursor.getString(INDEX_NAME);
                     final int freq;
-                    //in contacts, the frequency is a bit tricky:
-                    //stared contacts are really high
+                    // in contacts, the frequency is a bit tricky:
+                    // stared contacts are really high
                     final boolean isStarred = cursor.getInt(INDEX_STARRED) > 0;
                     if (isStarred) {
-                        freq = MAX_WORD_FREQUENCY;// WOW! important!
+                        freq = MAX_WORD_FREQUENCY; // WOW! important!
                     } else {
-                        //times contacted will be our frequency
+                        // times contacted will be our frequency
                         final int frequencyContacted = cursor.getInt(INDEX_TIMES);
-                        //A contact is a valid word in a language, and it usually very frequent.
-                        final int minimumAdjustedFrequencyContacted = Math.max(MINIMUM_CONTACT_WORD_FREQUENCY, frequencyContacted);
-                        //but no more than the max allowed
+                        // A contact is a valid word in a language, and it usually very frequent.
+                        final int minimumAdjustedFrequencyContacted =
+                                Math.max(MINIMUM_CONTACT_WORD_FREQUENCY, frequencyContacted);
+                        // but no more than the max allowed
                         freq = Math.min(minimumAdjustedFrequencyContacted, MAX_WORD_FREQUENCY);
                     }
                     if (!listener.onWordRead(fullname, freq)) break;
@@ -128,7 +141,8 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
 
     private void showNotificationWithIntent(Intent contactsRequired) {
         final int requestId = PermissionsRequestCodes.CONTACTS.getRequestCode();
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, requestId, contactsRequired, 0);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(mContext, requestId, contactsRequired, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
         builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));
         builder.setSmallIcon(R.drawable.ic_notification_contacts_permission_required);
@@ -141,8 +155,8 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
 
     @Override
     protected void addWordFromStorageToMemory(String name, int frequency) {
-        //the word in Contacts is actually the full name,
-        //so, let's break it to individual words.
+        // the word in Contacts is actually the full name,
+        // so, let's break it to individual words.
         int len = name.length();
 
         // TODO: Better tokenization for non-Latin writing systems
@@ -169,7 +183,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
                 // capitalization of i.
                 final int namePartLength = namePart.length();
                 if (namePartLength < MAX_WORD_LENGTH && namePartLength > 1) {
-                    //adding to next-namePart dictionary
+                    // adding to next-namePart dictionary
                     if (previousNamePart != null) {
                         Map<CharSequence, NextWord> nextWords;
                         if (mLoadingPhaseNextNames.containsKey(previousNamePart)) {
@@ -179,19 +193,17 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
                             mLoadingPhaseNextNames.put(previousNamePart, nextWords);
                         }
 
-                        if (nextWords.containsKey(namePart))
-                            nextWords.get(namePart).markAsUsed();
-                        else
-                            nextWords.put(namePart, new NextWord(namePart));
+                        if (nextWords.containsKey(namePart)) nextWords.get(namePart).markAsUsed();
+                        else nextWords.put(namePart, new NextWord(namePart));
                     }
 
                     int oldFrequency = getWordFrequency(namePart);
-                    //ensuring that frequencies do not go lower
+                    // ensuring that frequencies do not go lower
                     if (oldFrequency < frequency) {
                         super.addWordFromStorageToMemory(namePart, frequency);
                     }
                 }
-                //remembering this for the next loop
+                // remembering this for the next loop
                 previousNamePart = namePart;
             }
         }
@@ -199,12 +211,12 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
 
     @Override
     protected void deleteWordFromStorage(String word) {
-        //not going to support deletion of contacts!
+        // not going to support deletion of contacts!
     }
 
     @Override
     protected void addWordToStorage(String word, int frequency) {
-        //not going to support addition of contacts!
+        // not going to support addition of contacts!
     }
 
     @Override
@@ -219,7 +231,8 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
 
     @Override
     @NonNull
-    public Iterable<String> getNextWords(@NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
+    public Iterable<String> getNextWords(
+            @NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
         if (mNextNameParts.containsKey(currentWord)) {
             return Arrays.asList(mNextNameParts.get(currentWord));
         } else {

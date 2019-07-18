@@ -21,17 +21,13 @@ import android.content.res.AssetFileDescriptor;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
-
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
-
 import java.io.FileDescriptor;
 import java.util.Arrays;
 
-/**
- * Implements a static, compacted, binary dictionary of standard words.
- */
+/** Implements a static, compacted, binary dictionary of standard words. */
 public class BinaryDictionary extends Dictionary {
     public static final int MAX_WORD_LENGTH = 20;
     private static final String TAG = "ASK_BinaryDictionary";
@@ -44,7 +40,11 @@ public class BinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];
 
-    public BinaryDictionary(@NonNull Context context, @NonNull CharSequence dictionaryName, @NonNull AssetFileDescriptor afd, boolean isDebug) {
+    public BinaryDictionary(
+            @NonNull Context context,
+            @NonNull CharSequence dictionaryName,
+            @NonNull AssetFileDescriptor afd,
+            boolean isDebug) {
         super(dictionaryName);
         CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0", isDebug);
         mAfd = afd;
@@ -52,24 +52,44 @@ public class BinaryDictionary extends Dictionary {
 
     @Override
     protected final void loadAllResources() {
-        //The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
+        // The try-catch is for issue 878:
+        // http://code.google.com/p/softkeyboard/issues/detail?id=878
         try {
             mNativeDict = 0;
             long startTime = SystemClock.uptimeMillis();
-            mNativeDict = openNative(mAfd.getFileDescriptor(), mAfd.getStartOffset(), mAfd.getLength(), Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER);
+            mNativeDict =
+                    openNative(
+                            mAfd.getFileDescriptor(),
+                            mAfd.getStartOffset(),
+                            mAfd.getLength(),
+                            Dictionary.TYPED_LETTER_MULTIPLIER,
+                            Dictionary.FULL_WORD_FREQ_MULTIPLIER);
             Log.d(TAG, "Loaded dictionary in " + (SystemClock.uptimeMillis() - startTime) + "ms");
         } catch (UnsatisfiedLinkError ex) {
             Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
         }
     }
 
-    private native long openNative(FileDescriptor fd, long offset, long length, int typedLetterMultiplier, int fullWordMultiplier);
+    private native long openNative(
+            FileDescriptor fd,
+            long offset,
+            long length,
+            int typedLetterMultiplier,
+            int fullWordMultiplier);
 
     private native void closeNative(long dictPointer);
 
     private native boolean isValidWordNative(long dictPointer, char[] word, int wordLength);
 
-    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives,
+    private native int getSuggestionsNative(
+            long dictPointer,
+            int[] inputCodes,
+            int codesSize,
+            char[] outputChars,
+            int[] frequencies,
+            int maxWordLength,
+            int maxWords,
+            int maxAlternatives,
             int skipPos);
 
     @Override
@@ -87,12 +107,27 @@ public class BinaryDictionary extends Dictionary {
         Arrays.fill(mInputCodes, -1);
         for (int i = 0; i < codesSize; i++) {
             int[] alternatives = codes.getCodesAt(i);
-            System.arraycopy(alternatives, 0, mInputCodes, i * MAX_ALTERNATIVES, Math.min(alternatives.length, MAX_ALTERNATIVES));
+            System.arraycopy(
+                    alternatives,
+                    0,
+                    mInputCodes,
+                    i * MAX_ALTERNATIVES,
+                    Math.min(alternatives.length, MAX_ALTERNATIVES));
         }
         Arrays.fill(mOutputChars, (char) 0);
         Arrays.fill(mFrequencies, 0);
 
-        int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, -1);
+        int count =
+                getSuggestionsNative(
+                        mNativeDict,
+                        mInputCodes,
+                        codesSize,
+                        mOutputChars,
+                        mFrequencies,
+                        MAX_WORD_LENGTH,
+                        MAX_WORDS,
+                        MAX_ALTERNATIVES,
+                        -1);
 
         // If there aren't sufficient suggestions, search for words by allowing wild cards at
         // the different character positions. This feature is not ready for prime-time as we need
@@ -100,7 +135,17 @@ public class BinaryDictionary extends Dictionary {
         // completions.
         if (ENABLE_MISSED_CHARACTERS && count < 5) {
             for (int skip = 0; skip < codesSize; skip++) {
-                int tempCount = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, skip);
+                int tempCount =
+                        getSuggestionsNative(
+                                mNativeDict,
+                                mInputCodes,
+                                codesSize,
+                                mOutputChars,
+                                mFrequencies,
+                                MAX_WORD_LENGTH,
+                                MAX_WORDS,
+                                MAX_ALTERNATIVES,
+                                skip);
                 count = Math.max(count, tempCount);
                 if (tempCount > 0) break;
             }

@@ -22,13 +22,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private static final String TAG = "ASK SqliteCnnt";
-    private static final String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
+    private static final String TABLE_NAME = "WORDS"; // was FALL_BACK_USER_DICTIONARY;
     private static final String WORDS_ORDER_BY = Words._ID + " DESC";
     private final String mCurrentLocale;
     private final String mDbName;
@@ -42,7 +41,19 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         synchronized (mDbName) {
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + Words._ID + " INTEGER PRIMARY KEY," + Words.WORD + " TEXT," + Words.FREQUENCY + " INTEGER," + Words.LOCALE + " TEXT" + ");");
+            db.execSQL(
+                    "CREATE TABLE "
+                            + TABLE_NAME
+                            + " ("
+                            + Words._ID
+                            + " INTEGER PRIMARY KEY,"
+                            + Words.WORD
+                            + " TEXT,"
+                            + Words.FREQUENCY
+                            + " INTEGER,"
+                            + Words.LOCALE
+                            + " TEXT"
+                            + ");");
         }
     }
 
@@ -53,23 +64,40 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             // change.
             // if you upgrade from one version to another, make sure you use the
             // correct names!
-            Logger.d(TAG, "Upgrading WordsSQLiteConnection from version " + oldVersion + " to " + newVersion + "...");
+            Logger.d(
+                    TAG,
+                    "Upgrading WordsSQLiteConnection from version "
+                            + oldVersion
+                            + " to "
+                            + newVersion
+                            + "...");
             if (oldVersion < 4) {
-                Logger.d(TAG, "Upgrading WordsSQLiteConnection to version 4: Adding locale column...");
+                Logger.d(
+                        TAG,
+                        "Upgrading WordsSQLiteConnection to version 4: Adding locale column...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN locale TEXT;");
             }
             if (oldVersion < 5) {
-                Logger.d(TAG, "Upgrading WordsSQLiteConnection to version 5: Adding _id column and populating...");
+                Logger.d(
+                        TAG,
+                        "Upgrading WordsSQLiteConnection to version 5: Adding _id column and populating...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
                 db.execSQL("UPDATE FALL_BACK_USER_DICTIONARY SET _id=Id;");
             }
             if (oldVersion < 6) {
-                Logger.d(TAG, "Upgrading WordsSQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
-                db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
+                Logger.d(
+                        TAG,
+                        "Upgrading WordsSQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
+                db.execSQL(
+                        "ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
 
-                db.execSQL("CREATE TABLE FALL_BACK_USER_DICTIONARY (" + "_id INTEGER PRIMARY KEY,word TEXT," + "frequency INTEGER,locale TEXT);");
+                db.execSQL(
+                        "CREATE TABLE FALL_BACK_USER_DICTIONARY ("
+                                + "_id INTEGER PRIMARY KEY,word TEXT,"
+                                + "frequency INTEGER,locale TEXT);");
 
-                db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
+                db.execSQL(
+                        "INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
 
                 db.execSQL("DROP TABLE tmp_FALL_BACK_USER_DICTIONARY;");
             }
@@ -85,13 +113,22 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             SQLiteDatabase db = getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(Words._ID, word.hashCode());// ensuring that any word is inserted once
+            values.put(Words._ID, word.hashCode()); // ensuring that any word is inserted once
             values.put(Words.WORD, word);
             values.put(Words.FREQUENCY, freq);
             values.put(Words.LOCALE, mCurrentLocale);
             long res = db.insert(TABLE_NAME, null, values);
             if (res < 0) {
-                Logger.e(TAG, "Unable to insert '" + word + "' to SQLite storage (" + mCurrentLocale + "@" + mDbName + ")! Result:" + res);
+                Logger.e(
+                        TAG,
+                        "Unable to insert '"
+                                + word
+                                + "' to SQLite storage ("
+                                + mCurrentLocale
+                                + "@"
+                                + mDbName
+                                + ")! Result:"
+                                + res);
             }
             db.close();
         }
@@ -101,7 +138,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         synchronized (mDbName) {
             SQLiteDatabase db = getWritableDatabase();
 
-            db.delete(TABLE_NAME, Words.WORD + "=?", new String[]{word});
+            db.delete(TABLE_NAME, Words.WORD + "=?", new String[] {word});
             db.close();
         }
     }
@@ -111,10 +148,28 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             SQLiteDatabase db = getReadableDatabase();
             Cursor c;
             if (TextUtils.isEmpty(mCurrentLocale)) {
-                //some language packs will not provide locale, and Android _may_ crash here
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, WORDS_ORDER_BY, null);
+                // some language packs will not provide locale, and Android _may_ crash here
+                c =
+                        db.query(
+                                TABLE_NAME,
+                                new String[] {Words._ID, Words.WORD, Words.FREQUENCY},
+                                "(" + Words.LOCALE + " IS NULL)",
+                                null,
+                                null,
+                                null,
+                                WORDS_ORDER_BY,
+                                null);
             } else {
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, Words.LOCALE + "=?", new String[]{mCurrentLocale}, null, null, Words._ID + " DESC", null);
+                c =
+                        db.query(
+                                TABLE_NAME,
+                                new String[] {Words._ID, Words.WORD, Words.FREQUENCY},
+                                Words.LOCALE + "=?",
+                                new String[] {mCurrentLocale},
+                                null,
+                                null,
+                                Words._ID + " DESC",
+                                null);
             }
 
             if (c != null && c.moveToFirst()) {
@@ -127,9 +182,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         }
     }
 
-    /**
-     * This is a compatibility function: SQLiteOpenHelper.getDatabaseName exists only in API14
-     */
+    /** This is a compatibility function: SQLiteOpenHelper.getDatabaseName exists only in API14 */
     public String getDbFilename() {
         return mDbName;
     }

@@ -18,10 +18,8 @@ import android.widget.TextView;
 
 public class TestInputConnection extends BaseInputConnection {
 
-    @NonNull
-    private final AnySoftKeyboard mIme;
-    @NonNull
-    private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
+    @NonNull private final AnySoftKeyboard mIme;
+    @NonNull private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
     private boolean mSendUpdates = true;
     private boolean mInEditMode = false;
     private boolean mChangesWhileInEdit = false;
@@ -35,7 +33,6 @@ public class TestInputConnection extends BaseInputConnection {
         super(new TextView(ime.getApplicationContext()), false);
         mIme = ime;
     }
-
 
     @Override
     public CharSequence getTextBeforeCursor(int n, int flags) {
@@ -79,7 +76,8 @@ public class TestInputConnection extends BaseInputConnection {
         if (beforeLength == 0 && afterLength == 0) return true;
 
         final int deleteStart = Math.max(mCursorPosition - beforeLength, 0);
-        final int deleteEnd = Math.max(0, Math.min(mCursorPosition + afterLength, mInputText.length()));
+        final int deleteEnd =
+                Math.max(0, Math.min(mCursorPosition + afterLength, mInputText.length()));
         mInputText.delete(deleteStart, deleteEnd);
         final int cursorDelta = mCursorPosition - deleteStart;
         notifyTextChange(-cursorDelta);
@@ -99,7 +97,13 @@ public class TestInputConnection extends BaseInputConnection {
         } else {
             int[] composedTextRange = findComposedText();
             if (mSendUpdates) {
-                mIme.onUpdateSelection(oldStart, oldEnd, newStart, newEnd, composedTextRange[0], composedTextRange[1]);
+                mIme.onUpdateSelection(
+                        oldStart,
+                        oldEnd,
+                        newStart,
+                        newEnd,
+                        composedTextRange[0],
+                        composedTextRange[1]);
             }
         }
     }
@@ -121,10 +125,11 @@ public class TestInputConnection extends BaseInputConnection {
         return true;
     }
 
-    private void commitTextAs(final CharSequence text, final boolean asComposing, final int newCursorPosition) {
+    private void commitTextAs(
+            final CharSequence text, final boolean asComposing, final int newCursorPosition) {
         int[] composedTextRange;
         if (mCursorPosition != mSelectionEndPosition) {
-            composedTextRange = new int[]{mCursorPosition, mSelectionEndPosition};
+            composedTextRange = new int[] {mCursorPosition, mSelectionEndPosition};
         } else {
             composedTextRange = findComposedText();
         }
@@ -147,9 +152,9 @@ public class TestInputConnection extends BaseInputConnection {
         int start = mInputText.getSpanStart(mCurrentComposingSpan);
         int end = mInputText.getSpanEnd(mCurrentComposingSpan);
         if (start == -1) {
-            return new int[]{mCursorPosition, mCursorPosition};
+            return new int[] {mCursorPosition, mCursorPosition};
         } else {
-            return new int[]{start, end};
+            return new int[] {start, end};
         }
     }
 
@@ -199,7 +204,7 @@ public class TestInputConnection extends BaseInputConnection {
         if (start == end && start == mCursorPosition) return true;
 
         final int len = mInputText.length();
-        if (start < 0 || end < 0 || start > len || end > len) return true;//ignoring
+        if (start < 0 || end < 0 || start > len || end > len) return true; // ignoring
 
         int oldStart = mCursorPosition;
         int oldEnd = mSelectionEndPosition;
@@ -251,7 +256,7 @@ public class TestInputConnection extends BaseInputConnection {
          */
         boolean handled = false;
         if (event.getAction() == KeyEvent.ACTION_UP) {
-            //only handling UP events
+            // only handling UP events
             if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
                 if (mSelectionEndPosition == mCursorPosition) {
                     handled = true;
@@ -276,10 +281,12 @@ public class TestInputConnection extends BaseInputConnection {
             } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 handled = true;
                 commitText("\n", 1);
-            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0 || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
+            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0
+                    || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
                 handled = true;
                 commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
-            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A || event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
+            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A
+                    || event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
                 handled = true;
                 commitText("" + (char) (event.getKeyCode() - KeyEvent.KEYCODE_A + 'a'), 1);
             }

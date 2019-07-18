@@ -6,7 +6,6 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,9 +60,10 @@ public class RecordHistoryKeyboardActionListenerTest {
         Mockito.verify(mKeyboardListener).onMultiTapEnded();
 
         Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
-        int[] codes = new int[]{1, 2, 3};
+        int[] codes = new int[] {1, 2, 3};
         mUnderTest.onKey(1, key, 2, codes, true);
-        Mockito.verify(mKeyboardListener).onKey(Mockito.eq(1), same(key), Mockito.eq(2), same(codes), Mockito.eq(true));
+        Mockito.verify(mKeyboardListener)
+                .onKey(Mockito.eq(1), same(key), Mockito.eq(2), same(codes), Mockito.eq(true));
 
         mUnderTest.onPress(4);
         Mockito.verify(mKeyboardListener).onPress(4);
@@ -107,5 +107,4 @@ public class RecordHistoryKeyboardActionListenerTest {
         Mockito.verify(mKeyboardListener).onText(key, "testing_value");
         Mockito.verify(mHistoryKey).recordUsedKey("testing", "testing_value");
     }
-
 }

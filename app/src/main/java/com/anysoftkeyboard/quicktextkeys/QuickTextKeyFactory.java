@@ -19,11 +19,9 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.Locale;
 
 public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<QuickTextKey> {
@@ -39,41 +37,96 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
     public static final String PREF_ID_PREFIX = "quick_text_";
 
     public QuickTextKeyFactory(@NonNull Context context) {
-        super(context, "ASK_QKF", "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
+        super(
+                context,
+                "ASK_QKF",
+                "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
                 "com.anysoftkeyboard.plugindata.quicktextkeys",
-                "QuickTextKeys", "QuickTextKey", PREF_ID_PREFIX,
-                R.xml.quick_text_keys, R.string.settings_default_quick_text_key_id, true);
+                "QuickTextKeys",
+                "QuickTextKey",
+                PREF_ID_PREFIX,
+                R.xml.quick_text_keys,
+                R.string.settings_default_quick_text_key_id,
+                true);
     }
 
     @Override
-    protected QuickTextKey createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
-        final int popupKeyboardResId = attrs.getAttributeResourceValue(null, XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int popupListTextResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int popupListOutputResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int popupListIconsResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID); // Maybe should make a default
+    protected QuickTextKey createConcreteAddOn(
+            Context askContext,
+            Context context,
+            int apiVersion,
+            CharSequence prefId,
+            CharSequence name,
+            CharSequence description,
+            boolean isHidden,
+            int sortIndex,
+            AttributeSet attrs) {
+        final int popupKeyboardResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int popupListTextResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int popupListOutputResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int popupListIconsResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int iconResId =
+                attrs.getAttributeResourceValue(
+                        null,
+                        XML_ICON_RES_ID_ATTRIBUTE,
+                        AddOn.INVALID_RES_ID); // Maybe should make a default
 
-        final CharSequence keyLabel = getTextFromResourceOrText(context, attrs, XML_KEY_LABEL_RES_ID_ATTRIBUTE);
-        final CharSequence keyOutputText = getTextFromResourceOrText(context, attrs, XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE);
-        final int keyIconPreviewResId = attrs.getAttributeResourceValue(null, XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final CharSequence keyLabel =
+                getTextFromResourceOrText(context, attrs, XML_KEY_LABEL_RES_ID_ATTRIBUTE);
+        final CharSequence keyOutputText =
+                getTextFromResourceOrText(context, attrs, XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE);
+        final int keyIconPreviewResId =
+                attrs.getAttributeResourceValue(
+                        null, XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
 
-        if (((popupKeyboardResId == AddOn.INVALID_RES_ID) && ((popupListTextResId == AddOn.INVALID_RES_ID) || (popupListOutputResId == AddOn.INVALID_RES_ID)))
+        if (((popupKeyboardResId == AddOn.INVALID_RES_ID)
+                        && ((popupListTextResId == AddOn.INVALID_RES_ID)
+                                || (popupListOutputResId == AddOn.INVALID_RES_ID)))
                 || ((iconResId == AddOn.INVALID_RES_ID) && (keyLabel == null))
                 || (keyOutputText == null)) {
-            String detailMessage = String.format(Locale.US, "Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabel: %s), keyOutputText: %s",
-                    prefId, popupKeyboardResId, popupListTextResId,
-                    popupListOutputResId, iconResId, keyLabel, keyOutputText);
+            String detailMessage =
+                    String.format(
+                            Locale.US,
+                            "Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabel: %s), keyOutputText: %s",
+                            prefId,
+                            popupKeyboardResId,
+                            popupListTextResId,
+                            popupListOutputResId,
+                            iconResId,
+                            keyLabel,
+                            keyOutputText);
 
             throw new RuntimeException(detailMessage);
         }
-        return new QuickTextKey(askContext, context, apiVersion, prefId, name, popupKeyboardResId,
-                popupListTextResId, popupListOutputResId, popupListIconsResId,
-                iconResId, keyLabel, keyOutputText,
-                keyIconPreviewResId, isHidden, description, sortIndex);
+        return new QuickTextKey(
+                askContext,
+                context,
+                apiVersion,
+                prefId,
+                name,
+                popupKeyboardResId,
+                popupListTextResId,
+                popupListOutputResId,
+                popupListIconsResId,
+                iconResId,
+                keyLabel,
+                keyOutputText,
+                keyIconPreviewResId,
+                isHidden,
+                description,
+                sortIndex);
     }
 
     @Override
     protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
-        return true;//all quick-text addons are enabled by default.
+        return true; // all quick-text addons are enabled by default.
     }
 }

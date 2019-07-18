@@ -23,9 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
-
 import com.anysoftkeyboard.base.utils.Logger;
-
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Locale;
@@ -44,7 +42,15 @@ public abstract class AddOnImpl implements AddOn {
     private final boolean mHiddenAddOn;
     private final int mApiVersion;
 
-    protected AddOnImpl(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, CharSequence description, boolean hidden, int sortIndex) {
+    protected AddOnImpl(
+            Context askContext,
+            Context packageContext,
+            int apiVersion,
+            CharSequence id,
+            CharSequence name,
+            CharSequence description,
+            boolean hidden,
+            int sortIndex) {
         mId = id.toString();
         mAskAppContext = askContext;
         mApiVersion = apiVersion;
@@ -87,7 +93,9 @@ public abstract class AddOnImpl implements AddOn {
         Context c = mPackageContext.get();
         if (c == null) {
             try {
-                c = mAskAppContext.createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY);
+                c =
+                        mAskAppContext.createPackageContext(
+                                mPackageName, Context.CONTEXT_IGNORE_SECURITY);
                 mPackageContext = new WeakReference<>(c);
             } catch (NameNotFoundException e) {
                 Logger.w(TAG, "Failed to find package %s!", mPackageName);
@@ -114,8 +122,9 @@ public abstract class AddOnImpl implements AddOn {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof AddOn &&
-                TextUtils.equals(((AddOn) o).getId(), getId()) && ((AddOn) o).getApiVersion() == getApiVersion();
+        return o instanceof AddOn
+                && TextUtils.equals(((AddOn) o).getId(), getId())
+                && ((AddOn) o).getApiVersion() == getApiVersion();
     }
 
     @NonNull
@@ -133,7 +142,7 @@ public abstract class AddOnImpl implements AddOn {
 
         @Override
         public int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray) {
-            //same thing
+            // same thing
             return localStyleableArray;
         }
 
@@ -144,14 +153,14 @@ public abstract class AddOnImpl implements AddOn {
 
         @Override
         public int getLocalAttrId(int remoteAttrId) {
-            //same thing
+            // same thing
             return remoteAttrId;
         }
     }
 
     private static class AddOnResourceMappingImpl implements AddOnResourceMapping {
         private final WeakReference<AddOnImpl> mAddOnWeakReference;
-        //a mapping between the remote-id -> local-id
+        // a mapping between the remote-id -> local-id
         private final SparseIntArray mAttributesMapping = new SparseIntArray();
         private final SparseArrayCompat<int[]> mStyleableArrayMapping = new SparseArrayCompat<>();
         private final int mApiVersion;
@@ -170,7 +179,12 @@ public abstract class AddOnImpl implements AddOn {
             if (addOn == null) return new int[0];
             Context remoteContext = addOn.getPackageContext();
             if (remoteContext == null) return new int[0];
-            int[] remoteAttrIds = Support.createBackwardCompatibleStyleable(localStyleableArray, addOn.mAskAppContext, remoteContext, mAttributesMapping);
+            int[] remoteAttrIds =
+                    Support.createBackwardCompatibleStyleable(
+                            localStyleableArray,
+                            addOn.mAskAppContext,
+                            remoteContext,
+                            mAttributesMapping);
             mStyleableArrayMapping.put(localStyleableId, remoteAttrIds);
             return remoteAttrIds;
         }
@@ -193,6 +207,13 @@ public abstract class AddOnImpl implements AddOn {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "%s '%s' from %s (id %s), API-%d", getClass().getName(), mName, mPackageName, mId, mApiVersion);
+        return String.format(
+                Locale.US,
+                "%s '%s' from %s (id %s), API-%d",
+                getClass().getName(),
+                mName,
+                mPackageName,
+                mId,
+                mApiVersion);
     }
 }

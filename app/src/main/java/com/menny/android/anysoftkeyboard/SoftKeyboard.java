@@ -17,7 +17,6 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.content.ComponentName;
-
 import com.anysoftkeyboard.AnySoftKeyboard;
 
 /*

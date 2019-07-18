@@ -12,7 +12,8 @@ import org.robolectric.annotation.Config;
 public abstract class AnySoftKeyboardStartUpAllSdkTest extends AnySoftKeyboardBaseTest {
 
     void testBasicWorks_impl() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");

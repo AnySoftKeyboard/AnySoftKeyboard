@@ -4,17 +4,16 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-public class ChangeLogFragmentShowLatestTest extends RobolectricFragmentTestCase<ChangeLogFragment> {
+public class ChangeLogFragmentShowLatestTest
+        extends RobolectricFragmentTestCase<ChangeLogFragment> {
     @NonNull
     @Override
     protected ChangeLogFragment createFragment() {
@@ -53,6 +52,7 @@ public class ChangeLogFragmentShowLatestTest extends RobolectricFragmentTestCase
     @Test
     public void testChangeLogDoesNotHaveLinkToOpenWebChangeLog() {
         LinearLayout rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
-        Assert.assertEquals(View.GONE, rootView.findViewById(R.id.change_log__web_link_item).getVisibility());
+        Assert.assertEquals(
+                View.GONE, rootView.findViewById(R.id.change_log__web_link_item).getVisibility());
     }
 }

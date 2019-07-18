@@ -17,18 +17,15 @@
 package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import io.reactivex.disposables.Disposable;
 
 /**
- * Stores new words temporarily until they are promoted to the user dictionary
- * for longevity. Words in the auto dictionary are used to determine if it's ok
- * to accept a word that's not in the main or user dictionary. Using a new word
- * repeatedly will promote it to the user dictionary.
+ * Stores new words temporarily until they are promoted to the user dictionary for longevity. Words
+ * in the auto dictionary are used to determine if it's ok to accept a word that's not in the main
+ * or user dictionary. Using a new word repeatedly will promote it to the user dictionary.
  */
 public class AutoDictionary extends SQLiteUserDictionaryBase {
 
@@ -38,8 +35,14 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     public AutoDictionary(Context context, String locale) {
         super("Auto", context, locale);
-        mPrefDisposable = AnyApplication.prefs(context).getString(R.string.settings_key_auto_dictionary_threshold, R.string.settings_default_auto_dictionary_add_threshold)
-                .asObservable().map(Integer::parseInt).subscribe(value -> mLearnWordThreshold = value);
+        mPrefDisposable =
+                AnyApplication.prefs(context)
+                        .getString(
+                                R.string.settings_key_auto_dictionary_threshold,
+                                R.string.settings_default_auto_dictionary_add_threshold)
+                        .asObservable()
+                        .map(Integer::parseInt)
+                        .subscribe(value -> mLearnWordThreshold = value);
     }
 
     @Override
@@ -50,7 +53,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     @Override
     public boolean isValidWord(CharSequence word) {
-        return false;//words in the auto-dictionary are always invalid
+        return false; // words in the auto-dictionary are always invalid
     }
 
     @Override
@@ -61,19 +64,19 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
             }
             final int length = word.length();
             // Don't add very short or very long words.
-            if (length < 2 || length > MAX_WORD_LENGTH)
-                return false;
-            //ask can not be null! This should not happen (since the caller is ASK instance...)
+            if (length < 2 || length > MAX_WORD_LENGTH) return false;
+            // ask can not be null! This should not happen (since the caller is ASK instance...)
             int freq = getWordFrequency(word);
 
             freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
             if (freq >= mLearnWordThreshold) {
-                Logger.i(TAG, "Promoting the word '%s' to the user dictionary. It earned it.", word);
-                //no need for this word in this dictionary any longer
+                Logger.i(
+                        TAG, "Promoting the word '%s' to the user dictionary. It earned it.", word);
+                // no need for this word in this dictionary any longer
                 deleteWord(word);
                 return true;
             } else {
-                //this means that the word was not promoted.
+                // this means that the word was not promoted.
                 super.addWord(word, freq);
                 return false;
             }

@@ -24,10 +24,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,23 +37,41 @@ public class DeviceSpecificV14 extends DeviceSpecificV11 {
     }
 
     @Override
-    public final void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders) {
+    public final void reportInputMethodSubtypes(
+            @NonNull InputMethodManager inputMethodManager,
+            @NonNull String imeId,
+            @NonNull List<KeyboardAddOnAndBuilder> builders) {
         List<InputMethodSubtype> subtypes = new ArrayList<>();
         for (KeyboardAddOnAndBuilder builder : builders) {
-            Logger.d("reportInputMethodSubtypes","reportInputMethodSubtypes for %s with locale %s", builder.getId(), builder.getKeyboardLocale());
+            Logger.d(
+                    "reportInputMethodSubtypes",
+                    "reportInputMethodSubtypes for %s with locale %s",
+                    builder.getId(),
+                    builder.getKeyboardLocale());
             final String locale = builder.getKeyboardLocale();
             if (TextUtils.isEmpty(locale)) continue;
             InputMethodSubtype subtype = createSubtype(locale, builder.getId());
-            Logger.d("reportInputMethodSubtypes","created subtype for %s with hash %s", builder.getId(), subtype);
+            Logger.d(
+                    "reportInputMethodSubtypes",
+                    "created subtype for %s with hash %s",
+                    builder.getId(),
+                    subtype);
             subtypes.add(subtype);
         }
-        inputMethodManager.setAdditionalInputMethodSubtypes(imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
+        inputMethodManager.setAdditionalInputMethodSubtypes(
+                imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
     }
 
     @Override
-    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull CharSequence keyboardId) {
+    public void reportCurrentInputMethodSubtypes(
+            @NonNull InputMethodManager inputMethodManager,
+            @NonNull String imeId,
+            @NonNull IBinder token,
+            @Nullable String keyboardLocale,
+            @NonNull CharSequence keyboardId) {
         if (keyboardLocale != null)
-            inputMethodManager.setInputMethodAndSubtype(token, imeId, createSubtype(keyboardLocale, keyboardId));
+            inputMethodManager.setInputMethodAndSubtype(
+                    token, imeId, createSubtype(keyboardLocale, keyboardId));
     }
 
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {

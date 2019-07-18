@@ -21,11 +21,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
-
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import java.util.List;
 
 public class LanguageTweaksFragment extends PreferenceFragmentCompat {
@@ -39,8 +37,11 @@ public class LanguageTweaksFragment extends PreferenceFragmentCompat {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ListPreference listPreference = (ListPreference) findPreference(getText(R.string.settings_key_layout_for_internet_fields));
-        List<KeyboardAddOnAndBuilder> enabledKeyboards = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOns();
+        ListPreference listPreference =
+                (ListPreference)
+                        findPreference(getText(R.string.settings_key_layout_for_internet_fields));
+        List<KeyboardAddOnAndBuilder> enabledKeyboards =
+                AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOns();
         CharSequence[] entries = new CharSequence[enabledKeyboards.size() + 1];
         entries[0] = getString(R.string.no_internet_fields_specific_layout);
         CharSequence[] values = new CharSequence[enabledKeyboards.size() + 1];

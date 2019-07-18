@@ -18,31 +18,26 @@ package com.anysoftkeyboard.utils;
 
 import android.os.SystemClock;
 import android.support.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class ModifierKeyState {
     @IntDef({INACTIVE, ACTIVE, LOCKED})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface LogicalState {
-    }
+    public @interface LogicalState {}
 
     @IntDef({RELEASING, PRESSING})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface PhysicalState {
-    }
+    public @interface PhysicalState {}
 
     private static final int RELEASING = 0;
     private static final int PRESSING = 1;
-    @PhysicalState
-    private int mPhysicalState = RELEASING;
+    @PhysicalState private int mPhysicalState = RELEASING;
 
     private static final int INACTIVE = 0;
     private static final int ACTIVE = 1;
     private static final int LOCKED = 2;
-    @LogicalState
-    private int mLogicalState = INACTIVE;
+    @LogicalState private int mLogicalState = INACTIVE;
 
     private long mActiveStateStartTime = 0L;
     private long mPressTime = 0L;
@@ -71,8 +66,8 @@ public class ModifierKeyState {
 
     public boolean onOtherKeyReleased() {
         if (mPhysicalState != PRESSING && mLogicalState == ACTIVE && mConsumed) {
-            //another key was pressed and release while this key was active:
-            //it means that this modifier key was consumed
+            // another key was pressed and release while this key was active:
+            // it means that this modifier key was consumed
             mLogicalState = INACTIVE;
             return true;
         }
@@ -86,7 +81,8 @@ public class ModifierKeyState {
         } else {
             switch (mLogicalState) {
                 case INACTIVE:
-                    if (mSupportsLockedState && longPressTime < (SystemClock.elapsedRealtime() - mPressTime)) {
+                    if (mSupportsLockedState
+                            && longPressTime < (SystemClock.elapsedRealtime() - mPressTime)) {
                         mLogicalState = LOCKED;
                     } else {
                         mLogicalState = ACTIVE;
@@ -95,7 +91,9 @@ public class ModifierKeyState {
                     mConsumed = false;
                     break;
                 case ACTIVE:
-                    if (mSupportsLockedState && doubleClickTime > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
+                    if (mSupportsLockedState
+                            && doubleClickTime
+                                    > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
                         mLogicalState = LOCKED;
                     } else {
                         mLogicalState = INACTIVE;
@@ -105,7 +103,8 @@ public class ModifierKeyState {
                     mLogicalState = INACTIVE;
                     break;
                 default:
-                    throw new IllegalArgumentException("Failed to handle "+mLogicalState+" in ModifierKeyState#onRelease");
+                    throw new IllegalArgumentException(
+                            "Failed to handle " + mLogicalState + " in ModifierKeyState#onRelease");
             }
         }
         mMomentaryPress = false;
@@ -133,16 +132,16 @@ public class ModifierKeyState {
     }
 
     /**
-     * Sets the modifier state to active (or inactive) if possible.
-     * By possible, I mean, if it is LOCKED, it will stay locked.
+     * Sets the modifier state to active (or inactive) if possible. By possible, I mean, if it is
+     * LOCKED, it will stay locked.
      */
     public void setActiveState(boolean active) {
         if (mLogicalState == LOCKED) return;
         mLogicalState = active ? ACTIVE : INACTIVE;
 
         if (mLogicalState == ACTIVE) {
-            //setting the start time to zero, so LOCKED state will not
-            //be activated without actual user's double-clicking
+            // setting the start time to zero, so LOCKED state will not
+            // be activated without actual user's double-clicking
             mActiveStateStartTime = 0;
             mConsumed = false;
         }

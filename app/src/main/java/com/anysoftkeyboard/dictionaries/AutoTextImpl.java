@@ -18,17 +18,12 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-
 import com.anysoftkeyboard.utils.XmlUtils;
-
+import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
-
-/**
- * This class accesses a dictionary of corrections to frequent misspellings.
- */
+/** This class accesses a dictionary of corrections to frequent misspellings. */
 public class AutoTextImpl implements AutoText {
     // struct trie {
     //     char c;
@@ -52,8 +47,8 @@ public class AutoTextImpl implements AutoText {
 
     private static final int RIGHT = 9300; // Size of 'right' 13 Aug 2007
 
-//    private static AutoText sInstance =  null;//new AutoText(Resources.getSystem());
-//    private static final Object sLock = new Object();
+    //    private static AutoText sInstance =  null;//new AutoText(Resources.getSystem());
+    //    private static final Object sLock = new Object();
 
     // TODO:
     //
@@ -67,12 +62,12 @@ public class AutoTextImpl implements AutoText {
     private char[] mTrie;
     private char mTrieUsed;
     private String mText;
-    //private Locale mLocale;
-    //private int mSize;
+    // private Locale mLocale;
+    // private int mSize;
 
     AutoTextImpl(Resources resources, int resId) {
-        //mLocale = locale;
-        //init(resources);
+        // mLocale = locale;
+        // init(resources);
 
         XmlResourceParser parser = resources.getXml(resId);
 
@@ -155,14 +150,13 @@ public class AutoTextImpl implements AutoText {
         int slen = src.length();
         int herep = TRIE_ROOT;
         // Keep track of the size of the dictionary
-        //mSize++;
+        // mSize++;
 
         for (int i = 0; i < slen; i++) {
             char c = src.charAt(i);
             boolean found = false;
 
-            for (; mTrie[herep] != TRIE_NULL;
-                 herep = mTrie[herep] + TRIE_NEXT) {
+            for (; mTrie[herep] != TRIE_NULL; herep = mTrie[herep] + TRIE_NEXT) {
                 if (c == mTrie[mTrie[herep] + TRIE_C]) {
                     // There is a node for this letter, and this is the
                     // end, so fill in the right hand side fields.

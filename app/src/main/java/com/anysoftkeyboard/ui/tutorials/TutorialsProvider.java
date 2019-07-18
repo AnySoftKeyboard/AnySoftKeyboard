@@ -27,7 +27,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,20 +38,32 @@ public class TutorialsProvider {
         if (BuildConfig.TESTING_BUILD && firstTestersTimeVersionLoaded(context)) {
             Logger.i(TAG, "TESTERS VERSION added");
 
-            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, TestersNoticeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
+            PendingIntent contentIntent =
+                    PendingIntent.getActivity(
+                            context,
+                            0,
+                            new Intent(context, TestersNoticeActivity.class)
+                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                            0);
 
-            final NotificationManager manager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+            final NotificationManager manager =
+                    ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-            notificationBuilder.setSmallIcon(
-                    Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
-                            R.drawable.notification_icon_beta_version : R.drawable.ic_notification_debug_version)
+            NotificationCompat.Builder notificationBuilder =
+                    new NotificationCompat.Builder(context);
+            notificationBuilder
+                    .setSmallIcon(
+                            Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
+                                    ? R.drawable.notification_icon_beta_version
+                                    : R.drawable.ic_notification_debug_version)
                     .setContentText(context.getText(R.string.notification_text_testers))
                     .setContentTitle(context.getText(R.string.ime_name_beta))
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
-                    .setColor(ContextCompat.getColor(context, R.color.notification_background_debug_version))
-                    .setDefaults(0/*no sound, vibrate, etc*/)
+                    .setColor(
+                            ContextCompat.getColor(
+                                    context, R.color.notification_background_debug_version))
+                    .setDefaults(0 /*no sound, vibrate, etc*/)
                     .setAutoCancel(true);
 
             manager.notify(R.id.notification_icon_debug_version, notificationBuilder.build());

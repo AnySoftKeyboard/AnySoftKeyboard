@@ -6,13 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
@@ -21,7 +19,8 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.user_interface_root_settings, container, false);
     }
 
@@ -42,7 +41,10 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
         super.onStart();
         getActivity().setTitle(R.string.ui_root_tile);
 
-        AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        AnyKeyboard defaultKeyboard =
+                AnyApplication.getKeyboardFactory(getContext())
+                        .getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
         mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
     }
@@ -60,11 +62,13 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
                 addFragmentToUi(new AdditionalUiSettingsFragment());
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle "+view.getId()+" in UserInterfaceSettingsFragment");
+                throw new IllegalArgumentException(
+                        "Failed to handle " + view.getId() + " in UserInterfaceSettingsFragment");
         }
     }
 
     private void addFragmentToUi(Fragment fragment) {
-        ((FragmentChauffeurActivity) getActivity()).addFragmentToUi(fragment, TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+        ((FragmentChauffeurActivity) getActivity())
+                .addFragmentToUi(fragment, TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
     }
 }

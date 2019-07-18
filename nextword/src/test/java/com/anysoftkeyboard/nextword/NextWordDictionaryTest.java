@@ -3,26 +3,34 @@ package com.anysoftkeyboard.nextword;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-
+import java.util.Iterator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Iterator;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class NextWordDictionaryTest {
     private NextWordDictionary mNextWordDictionaryUnderTest;
 
-    private static void assertHasNextWordsForWord(NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords) throws Exception {
+    private static void assertHasNextWordsForWord(
+            NextWordDictionary nextWordDictionaryUnderTest,
+            String word,
+            String... expectedNextWords)
+            throws Exception {
         assertHasNextWordsForWord(true, nextWordDictionaryUnderTest, word, expectedNextWords);
     }
 
-    private static void assertHasNextWordsForWord(boolean withNotify, NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords) throws Exception {
+    private static void assertHasNextWordsForWord(
+            boolean withNotify,
+            NextWordDictionary nextWordDictionaryUnderTest,
+            String word,
+            String... expectedNextWords)
+            throws Exception {
         if (withNotify) nextWordDictionaryUnderTest.notifyNextTypedWord(word);
 
-        Iterator<String> nextWordsIterator = nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
+        Iterator<String> nextWordsIterator =
+                nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
         for (String expectedNextWord : expectedNextWords) {
             Assert.assertTrue(nextWordsIterator.hasNext());
             Assert.assertEquals(expectedNextWord, nextWordsIterator.next());
@@ -39,8 +47,10 @@ public class NextWordDictionaryTest {
     public void testLoadEmpty() throws Exception {
         mNextWordDictionaryUnderTest.load();
 
-        Assert.assertEquals(0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
+        Assert.assertEquals(
+                0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
+        Assert.assertEquals(
+                0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
 
         mNextWordDictionaryUnderTest.close();
     }
@@ -67,8 +77,10 @@ public class NextWordDictionaryTest {
         assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "bye");
         assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for", "hello", "bye");
 
-        Assert.assertEquals(8, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(9, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
+        Assert.assertEquals(
+                8, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
+        Assert.assertEquals(
+                9, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
 
         mNextWordDictionaryUnderTest.close();
     }
@@ -95,8 +107,10 @@ public class NextWordDictionaryTest {
         assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
         assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny", "hello");
 
-        Assert.assertEquals(2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
+        Assert.assertEquals(
+                2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
+        Assert.assertEquals(
+                2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
 
         mNextWordDictionaryUnderTest.close();
         mNextWordDictionaryUnderTest = null;

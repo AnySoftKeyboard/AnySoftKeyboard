@@ -14,7 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
@@ -36,20 +36,16 @@ import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.remote.RemoteInsertion;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
-
-import org.junit.Assert;
-import org.mockito.MockingDetails;
-import org.mockito.Mockito;
-import org.robolectric.Robolectric;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.test.core.app.ApplicationProvider;
+import org.junit.Assert;
+import org.mockito.MockingDetails;
+import org.mockito.Mockito;
+import org.robolectric.Robolectric;
 
 public class TestableAnySoftKeyboard extends SoftKeyboard {
     private Suggest mSpiedSuggest;
@@ -86,9 +82,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    protected boolean commitMediaToInputConnection(InputContentInfoCompat inputContentInfo, InputConnection inputConnection, EditorInfo editorInfo, int flags) {
+    protected boolean commitMediaToInputConnection(
+            InputContentInfoCompat inputContentInfo,
+            InputConnection inputConnection,
+            EditorInfo editorInfo,
+            int flags) {
         mInputContentInfo = inputContentInfo;
-        return super.commitMediaToInputConnection(inputContentInfo, inputConnection, editorInfo, flags);
+        return super.commitMediaToInputConnection(
+                inputContentInfo, inputConnection, editorInfo, flags);
     }
 
     public InputContentInfoCompat getCommitedInputContentInfo() {
@@ -119,9 +120,9 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mSpiedOverlayCreator;
     }
 
-    //Needs this since we want to use Mockito.spy, which gets the class at runtime
-    //and creates a stub for it, which will create an additional real instance
-    //of super.createOverlayDataCreator(), and confuses everyone.
+    // Needs this since we want to use Mockito.spy, which gets the class at runtime
+    // and creates a stub for it, which will create an additional real instance
+    // of super.createOverlayDataCreator(), and confuses everyone.
     private static class OverlayCreatorForSpy implements OverlyDataCreator {
 
         private final OverlyDataCreator mOriginalOverlayDataCreator;
@@ -178,7 +179,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mSpiedSuggest = Mockito.spy(new TestableSuggest(this));
     }
 
-    //MAGIC: now it is visible for tests
+    // MAGIC: now it is visible for tests
     @VisibleForTesting
     @Override
     public void setIncognito(boolean enable, boolean byUser) {
@@ -202,22 +203,33 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     private void setupMockCandidateView() {
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ViewGroup.LayoutParams lp =
+                new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Mockito.doReturn(lp).when(mMockCandidateView).getLayoutParams();
         Mockito.doReturn(R.id.candidate_view).when(mMockCandidateView).getId();
-        Mockito.doAnswer(invocation -> {
-            boolean previousState = mCandidateShowsHint;
-            mCandidateShowsHint = false;
-            return previousState;
-        }).when(mMockCandidateView).dismissAddToDictionaryHint();
-        Mockito.doAnswer(invocation -> {
-            mCandidateShowsHint = true;
-            return null;
-        }).when(mMockCandidateView).showAddToDictionaryHint(Mockito.any(CharSequence.class));
-        Mockito.doAnswer(invocation -> {
-            mCandidateShowsHint = false;
-            return null;
-        }).when(mMockCandidateView).notifyAboutWordAdded(Mockito.any(CharSequence.class));
+        Mockito.doAnswer(
+                        invocation -> {
+                            boolean previousState = mCandidateShowsHint;
+                            mCandidateShowsHint = false;
+                            return previousState;
+                        })
+                .when(mMockCandidateView)
+                .dismissAddToDictionaryHint();
+        Mockito.doAnswer(
+                        invocation -> {
+                            mCandidateShowsHint = true;
+                            return null;
+                        })
+                .when(mMockCandidateView)
+                .showAddToDictionaryHint(Mockito.any(CharSequence.class));
+        Mockito.doAnswer(
+                        invocation -> {
+                            mCandidateShowsHint = false;
+                            return null;
+                        })
+                .when(mMockCandidateView)
+                .notifyAboutWordAdded(Mockito.any(CharSequence.class));
     }
 
     @Override
@@ -302,7 +314,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         simulateTextTyping(text, true, true);
     }
 
-    public void simulateTextTyping(final String text, final boolean advanceTime, final boolean asDiscreteKeys) {
+    public void simulateTextTyping(
+            final String text, final boolean advanceTime, final boolean asDiscreteKeys) {
         if (asDiscreteKeys) {
             for (char key : text.toCharArray()) {
                 simulateKeyPress(key, advanceTime);
@@ -334,11 +347,17 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         Robolectric.flushForegroundThreadScheduler();
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);
-        if (key instanceof AnyKeyboard.AnyKey/*this will ensure this instance is not a mock*/) {
-            final int keyCodeWithShiftState = key.getCodeAtIndex(0, mSpiedKeyboardView != null && mSpiedKeyboardView.getKeyDetector().isKeyShifted(key));
+        if (key instanceof AnyKeyboard.AnyKey /*this will ensure this instance is not a mock*/) {
+            final int keyCodeWithShiftState =
+                    key.getCodeAtIndex(
+                            0,
+                            mSpiedKeyboardView != null
+                                    && mSpiedKeyboardView.getKeyDetector().isKeyShifted(key));
             int[] nearByKeyCodes = new int[64];
             if (mSpiedKeyboardView != null) {
-                mSpiedKeyboardView.getKeyDetector().getKeyIndexAndNearbyCodes(key.x + 5, key.y + 5, nearByKeyCodes);
+                mSpiedKeyboardView
+                        .getKeyDetector()
+                        .getKeyIndexAndNearbyCodes(key.x + 5, key.y + 5, nearByKeyCodes);
             }
             onKey(keyCodeWithShiftState, key, 0, nearByKeyCodes, true);
         } else {
@@ -371,7 +390,12 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
         mLastOnKeyPrimaryCode = primaryCode;
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
@@ -413,8 +437,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @NonNull
     @Override
-    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(@NonNull AnyKeyboard currentAlphabetKeyboard) {
-        final DictionaryBackgroundLoader.Listener dictionaryLoadedListener = super.getDictionaryLoadedListener(currentAlphabetKeyboard);
+    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
+            @NonNull AnyKeyboard currentAlphabetKeyboard) {
+        final DictionaryBackgroundLoader.Listener dictionaryLoadedListener =
+                super.getDictionaryLoadedListener(currentAlphabetKeyboard);
         if (dictionaryLoadedListener instanceof WordListDictionaryListener) {
             return new DictionaryBackgroundLoader.Listener() {
 
@@ -428,32 +454,35 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                     final MockingDetails mockingDetails = Mockito.mockingDetails(dictionary);
                     if (!mockingDetails.isMock() && !mockingDetails.isSpy()) {
                         dictionary = Mockito.spy(dictionary);
-                        Mockito.doReturn(new char[][]{
-                                "hello".toCharArray(),
-                                "welcome".toCharArray(),
-                                "is".toCharArray(),
-                                "you".toCharArray(),
-                                "good".toCharArray(),
-                                "bye".toCharArray(),
-                                "one".toCharArray(),
-                                "two".toCharArray(),
-                                "three".toCharArray()
-                        }).when(dictionary).getWords();
+                        Mockito.doReturn(
+                                        new char[][] {
+                                            "hello".toCharArray(),
+                                            "welcome".toCharArray(),
+                                            "is".toCharArray(),
+                                            "you".toCharArray(),
+                                            "good".toCharArray(),
+                                            "bye".toCharArray(),
+                                            "one".toCharArray(),
+                                            "two".toCharArray(),
+                                            "three".toCharArray()
+                                        })
+                                .when(dictionary)
+                                .getWords();
                     }
                     dictionaryLoadedListener.onDictionaryLoadingDone(dictionary);
                 }
 
                 @Override
                 public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
-                    if (exception instanceof Resources.NotFoundException && exception.getMessage().contains("resource ID #0x0")) {
-                        //Due to a bug in Robolectric, typed-array is returning empty
+                    if (exception instanceof Resources.NotFoundException
+                            && exception.getMessage().contains("resource ID #0x0")) {
+                        // Due to a bug in Robolectric, typed-array is returning empty
                         onDictionaryLoadingDone(dictionary);
                     } else {
                         final Dictionary spy = Mockito.spy(dictionary);
                         Mockito.doReturn(new char[0][0]).when(spy).getWords();
                         dictionaryLoadedListener.onDictionaryLoadingFailed(spy, exception);
                     }
-
                 }
             };
         } else {
@@ -476,13 +505,19 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
-        public void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance, int minimumWorLength) {
-            super.setCorrectionMode(enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
+        public void setCorrectionMode(
+                boolean enabledSuggestions,
+                int maxLengthDiff,
+                int maxDistance,
+                int minimumWorLength) {
+            super.setCorrectionMode(
+                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
             mEnabledSuggestions = enabledSuggestions;
         }
 
         @Override
-        public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
+        public List<CharSequence> getSuggestions(
+                WordComposer wordComposer, boolean includeTypedWordIfValid) {
             if (!mEnabledSuggestions) return Collections.emptyList();
 
             if (wordComposer.isAtTagsSearchState()) {
@@ -513,21 +548,29 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         private boolean mKeyboardsFlushed;
         private boolean mViewSet;
-        @InputModeId
-        private int mInputModeId;
+        @InputModeId private int mInputModeId;
 
         public TestableKeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
             super(ime, ApplicationProvider.getApplicationContext());
         }
 
         @Override
-        public /*was protected, now public*/ AnyKeyboard createKeyboardFromCreator(int mode, KeyboardAddOnAndBuilder creator) {
+        public /*was protected, now public*/ AnyKeyboard createKeyboardFromCreator(
+                int mode, KeyboardAddOnAndBuilder creator) {
             return super.createKeyboardFromCreator(mode, creator);
         }
 
         @Override
-        public /*was protected, now public*/ GenericKeyboard createGenericKeyboard(AddOn addOn, Context context, int layoutResId, int landscapeLayoutResId, String name, String keyboardId, int mode) {
-            return super.createGenericKeyboard(addOn, context, layoutResId, landscapeLayoutResId, name, keyboardId, mode);
+        public /*was protected, now public*/ GenericKeyboard createGenericKeyboard(
+                AddOn addOn,
+                Context context,
+                int layoutResId,
+                int landscapeLayoutResId,
+                String name,
+                String keyboardId,
+                int mode) {
+            return super.createGenericKeyboard(
+                    addOn, context, layoutResId, landscapeLayoutResId, name, keyboardId, mode);
         }
 
         public void verifyKeyboardsFlushed() {
@@ -557,7 +600,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
-        public void setKeyboardMode(@InputModeId int inputModeId, EditorInfo attr, boolean restarting) {
+        public void setKeyboardMode(
+                @InputModeId int inputModeId, EditorInfo attr, boolean restarting) {
             mInputModeId = inputModeId;
             super.setKeyboardMode(inputModeId, attr, restarting);
         }
@@ -582,5 +626,4 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             return Collections.unmodifiableList(Arrays.asList(mSymbolsKeyboardsArray));
         }
     }
-
 }

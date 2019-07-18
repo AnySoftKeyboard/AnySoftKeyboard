@@ -27,8 +27,9 @@ public class DeviceSpecificV24 extends DeviceSpecificV19 {
     }
 
     @Override
-    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(String locale, CharSequence keyboardId) {
-        //adding languageTag
+    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(
+            String locale, CharSequence keyboardId) {
+        // adding languageTag
         return super.buildAndFillSubtypeBuilder(locale, keyboardId).setLanguageTag(locale);
     }
 }
