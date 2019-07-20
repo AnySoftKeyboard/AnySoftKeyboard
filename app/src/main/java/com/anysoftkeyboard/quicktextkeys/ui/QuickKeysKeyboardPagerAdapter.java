@@ -88,7 +88,6 @@ import java.util.List;
                         new AnyPopupKeyboard(
                                 addOn,
                                 mContext,
-                                addOn.getPackageContext(),
                                 addOn.getPopupKeyboardResId(),
                                 keyboardView.getThemedKeyboardDimens(),
                                 addOn.getName(),

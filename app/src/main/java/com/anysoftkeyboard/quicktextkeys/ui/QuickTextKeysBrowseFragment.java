@@ -75,7 +75,6 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
                     new AnyPopupKeyboard(
                             addOn,
                             getContext(),
-                            addOn.getPackageContext(),
                             addOn.getPopupKeyboardResId(),
                             demoKeyboardView.getThemedKeyboardDimens(),
                             addOn.getName(),

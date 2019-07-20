@@ -562,7 +562,6 @@ public class ExternalAnyKeyboardRowsTest {
             super(
                     new DefaultAddOn(context, context),
                     context,
-                    context,
                     layoutResId,
                     layoutResId,
                     "name",
