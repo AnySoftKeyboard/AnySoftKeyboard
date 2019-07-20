@@ -90,7 +90,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -131,7 +130,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -171,7 +169,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         ExternalAnyKeyboard anyKeyboard =
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-                        getApplicationContext(),
                         getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
@@ -215,7 +212,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext(), 7),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -256,7 +252,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -295,7 +290,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         ExternalAnyKeyboard anyKeyboard =
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-                        getApplicationContext(),
                         getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
@@ -340,7 +334,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -384,7 +377,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -424,7 +416,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         ExternalAnyKeyboard anyKeyboard =
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
-                        getApplicationContext(),
                         getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
@@ -476,7 +467,6 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                 new ExternalAnyKeyboard(
                         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                         getApplicationContext(),
-                        getApplicationContext(),
                         keyboard_with_keys_with_no_codes,
                         keyboard_with_keys_with_no_codes,
                         "test",
@@ -513,6 +503,47 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     }
 
     @Test
+    public void testMiniKeyboardOfPopupCharacterIsAlwaysUsingTheDefaultAddOn() throws Exception {
+        final Keyboard.Key key = findKey('w');
+        Assert.assertTrue(key.popupCharacters.length() > 0);
+        mViewUnderTest.onLongPress(
+                mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
+
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertSame(
+                mViewUnderTest.mDefaultAddOn, miniKeyboard.getKeyboard().getKeyboardAddOn());
+    }
+
+    @Test
+    public void testMiniKeyboardWithExternalLayoutIdIsUseKeyboardAddOn() throws Exception {
+        final Keyboard.Key key = findKey('w');
+        key.popupCharacters = null;
+        key.externalResourcePopupLayout = true;
+        key.popupResId = R.xml.popup_16keys_abc;
+        mViewUnderTest.onLongPress(
+                mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
+
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertSame(
+                mViewUnderTest.getKeyboard().getKeyboardAddOn(),
+                miniKeyboard.getKeyboard().getKeyboardAddOn());
+    }
+
+    @Test
+    public void testMiniKeyboardWithInternalLayoutIdIsUsingDefaultAddOn() throws Exception {
+        final Keyboard.Key key = findKey('w');
+        key.popupCharacters = null;
+        key.externalResourcePopupLayout = false;
+        key.popupResId = R.xml.popup_16keys_abc;
+        mViewUnderTest.onLongPress(
+                mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
+
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertSame(
+                mViewUnderTest.mDefaultAddOn, miniKeyboard.getKeyboard().getKeyboardAddOn());
+    }
+
+    @Test
     public void testLongPressKeyWithPopupCharacters() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -528,6 +559,9 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
         Assert.assertEquals(3, miniKeyboard.getKeyboard().getKeys().size());
+        // always uses the default addon in this case
+        Assert.assertSame(
+                mViewUnderTest.mDefaultAddOn, miniKeyboard.getKeyboard().getKeyboardAddOn());
     }
 
     @Test

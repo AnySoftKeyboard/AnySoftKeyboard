@@ -623,15 +623,10 @@ public abstract class Keyboard {
     /**
      * Creates a mKeyboard from the given xml key layout file.
      *
-     * @param context the application or service context
      * @param xmlLayoutResId the resource file that contains the mKeyboard layout and keys.
      */
-    public Keyboard(
-            @NonNull AddOn keyboardAddOn,
-            @NonNull Context askContext,
-            @NonNull Context context,
-            int xmlLayoutResId) {
-        this(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, int xmlLayoutResId) {
+        this(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
     }
 
     protected KeyboardDimens getKeyboardDimens() {
@@ -658,14 +653,12 @@ public abstract class Keyboard {
      * Creates a mKeyboard from the given xml key layout file. Weeds out rows that have a mKeyboard
      * mode defined but don't match the specified mode.
      *
-     * @param context the application or service context
      * @param xmlLayoutResId the resource file that contains the mKeyboard layout and keys.
      * @param modeId mKeyboard mode identifier
      */
     public Keyboard(
             @NonNull AddOn keyboardAddOn,
             @NonNull Context askContext,
-            @NonNull Context context,
             int xmlLayoutResId,
             @KeyboardRowModeId int modeId) {
         mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(askContext).blockingFirst();

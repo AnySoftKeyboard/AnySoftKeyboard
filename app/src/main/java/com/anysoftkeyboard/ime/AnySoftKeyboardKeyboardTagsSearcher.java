@@ -127,7 +127,6 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
                             new NoOpKeyboard(
                                     quickTextKey,
                                     getApplicationContext(),
-                                    packageContext,
                                     quickTextKey.getPopupKeyboardResId());
 
                     listOfLists.add(keyboard.getKeys());
@@ -177,11 +176,8 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         private static final KeyboardDimens SIMPLE_KEYBOARD_DIMENS = new SimpleKeyboardDimens();
 
         private NoOpKeyboard(
-                @NonNull AddOn keyboardAddOn,
-                @NonNull Context askContext,
-                @NonNull Context context,
-                int xmlLayoutResId) {
-            super(keyboardAddOn, askContext, context, xmlLayoutResId);
+                @NonNull AddOn keyboardAddOn, @NonNull Context askContext, int xmlLayoutResId) {
+            super(keyboardAddOn, askContext, xmlLayoutResId);
             loadKeyboard(SIMPLE_KEYBOARD_DIMENS);
         }
 

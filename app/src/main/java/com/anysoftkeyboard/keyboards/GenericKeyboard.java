@@ -34,7 +34,6 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
         super(
                 keyboardAddOn,
                 askContext,
-                askContext,
                 xmlLayoutResId,
                 xmlLandscapeLayoutResId,
                 name,
@@ -51,8 +50,11 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
     /** This will ensure that password extra rows are not shown over a symbols keyboard. */
     @KeyboardRowModeId
     private static int filterPasswordMode(@KeyboardRowModeId int mode) {
-        if (mode == KEYBOARD_ROW_MODE_PASSWORD) return KEYBOARD_ROW_MODE_NORMAL;
-        else return mode;
+        if (mode == KEYBOARD_ROW_MODE_PASSWORD) {
+            return KEYBOARD_ROW_MODE_NORMAL;
+        } else {
+            return mode;
+        }
     }
 
     @NonNull
