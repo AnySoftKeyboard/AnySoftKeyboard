@@ -65,12 +65,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private final HashSet<Character> mAdditionalIsLetterExceptions;
     private final char[] mSentenceSeparators;
 
-    private KeyboardExtension mExtensionLayout = null;
+    private KeyboardExtension mExtensionLayout;
 
     public ExternalAnyKeyboard(
             @NonNull AddOn keyboardAddOn,
             @NonNull Context askContext,
-            @NonNull Context context,
             @XmlRes int xmlLayoutResId,
             @XmlRes int xmlLandscapeResId,
             @NonNull CharSequence name,
@@ -83,7 +82,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         this(
                 keyboardAddOn,
                 askContext,
-                context,
                 xmlLayoutResId,
                 xmlLandscapeResId,
                 name,
@@ -99,7 +97,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     public ExternalAnyKeyboard(
             @NonNull AddOn keyboardAddOn,
             @NonNull Context askContext,
-            @NonNull Context context,
             @XmlRes int xmlLayoutResId,
             @XmlRes int xmlLandscapeResId,
             @NonNull CharSequence name,
@@ -113,7 +110,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         super(
                 keyboardAddOn,
                 askContext,
-                context,
                 getKeyboardId(askContext, xmlLayoutResId, xmlLandscapeResId),
                 mode);
         mName = name;
@@ -125,7 +121,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
             Logger.d(TAG, "Creating qwerty mapping: %d", qwertyTranslationId);
             mHardKeyboardTranslator =
-                    createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
+                    createPhysicalTranslatorFromResourceId(
+                            keyboardAddOn.getPackageContext(), qwertyTranslationId);
         } else {
             mHardKeyboardTranslator = null;
         }
@@ -184,7 +181,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                                 attrs.getAttributeValue(null, XML_TARGET_ATTRIBUTE);
                         final String targetCharCode =
                                 attrs.getAttributeValue(null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
-                        final Integer target;
+                        final int target;
                         if (targetCharCode == null) {
                             target = (int) targetChar.charAt(0);
                         } else {

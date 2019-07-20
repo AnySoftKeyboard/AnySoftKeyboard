@@ -90,12 +90,10 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
 
     @Nullable
     public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
-        Context remoteContext = getPackageContext();
-        if (remoteContext == null) return null;
+        if (getPackageContext() == null) return null;
         return new ExternalAnyKeyboard(
                 this,
                 mAskContext,
-                remoteContext,
                 mResId,
                 mLandscapeResId,
                 getName(),

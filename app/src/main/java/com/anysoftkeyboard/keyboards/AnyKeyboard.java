@@ -80,7 +80,7 @@ public abstract class AnyKeyboard extends Keyboard {
             @NonNull Context context,
             int xmlLayoutResId) {
         // should use the package context for creating the layout
-        super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
+        super(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         // no generic rows in popup
     }
 
@@ -89,11 +89,10 @@ public abstract class AnyKeyboard extends Keyboard {
     protected AnyKeyboard(
             @NonNull AddOn keyboardAddOn,
             @NonNull Context askContext,
-            @NonNull Context context,
             int xmlLayoutResId,
             @KeyboardRowModeId int mode) {
         // should use the package context for creating the layout
-        super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
+        super(keyboardAddOn, askContext, xmlLayoutResId, mode);
     }
 
     @Override

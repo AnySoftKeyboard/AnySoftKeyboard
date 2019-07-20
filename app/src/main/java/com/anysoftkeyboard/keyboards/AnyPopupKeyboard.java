@@ -41,12 +41,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     public AnyPopupKeyboard(
             @NonNull AddOn keyboardAddOn,
             Context askContext,
-            Context context, // note: the context can be from a different package!
             int xmlLayoutResId,
             @NonNull final KeyboardDimens keyboardDimens,
             @NonNull CharSequence keyboardName,
             @Nullable EmojiUtils.SkinTone defaultSkinTone) {
-        super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
+        super(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         mDefaultSkinTone = defaultSkinTone;
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
@@ -240,7 +239,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
                     new AnyPopupKeyboard(
                             getKeyboardAddOn(),
                             askContext,
-                            keyboardContext,
                             key.popupResId,
                             keyboardDimens,
                             "temp",

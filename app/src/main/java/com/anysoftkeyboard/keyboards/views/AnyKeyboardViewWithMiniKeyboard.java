@@ -32,6 +32,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -144,12 +145,16 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
                     mMiniKeyboard.getThemedKeyboardDimens(),
                     "");
         } else {
+            Logger.d(
+                    "CRUSHER",
+                    "popupKey.externalResourcePopupLayout is %s. keyboard is %s, local is %s",
+                    popupKey.externalResourcePopupLayout,
+                    keyboardAddOn.getPackageContext().getPackageName(),
+                    getContext().getApplicationContext().getPackageName());
+
             return new AnyPopupKeyboard(
-                    keyboardAddOn,
+                    popupKey.externalResourcePopupLayout ? keyboardAddOn : mDefaultAddOn,
                     getContext().getApplicationContext(),
-                    popupKey.externalResourcePopupLayout
-                            ? keyboardAddOn.getPackageContext()
-                            : getContext().getApplicationContext(),
                     popupKey.popupResId,
                     mMiniKeyboard.getThemedKeyboardDimens(),
                     "",

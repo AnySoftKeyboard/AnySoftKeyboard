@@ -25,7 +25,6 @@ public class AnyPopupKeyboardTest {
         return new AnyPopupKeyboard(
                 new DefaultAddOn(getApplicationContext(), getApplicationContext()),
                 getApplicationContext(),
-                getApplicationContext(),
                 keyboardResId,
                 SIMPLE_KeyboardDimens,
                 "POP_KEYBOARD",
