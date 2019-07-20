@@ -150,7 +150,6 @@ public class ExternalAnyKeyboardTest {
                 new ExternalAnyKeyboard(
                         mDefaultAddOn,
                         mContext,
-                        mContext,
                         R.xml.keyboard_with_codes_as_letters,
                         R.xml.keyboard_with_codes_as_letters,
                         "test",
