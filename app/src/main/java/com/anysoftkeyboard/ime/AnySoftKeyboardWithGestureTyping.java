@@ -105,6 +105,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 mCurrentGestureDetector =
                         new GestureTypingDetector(
                                 getResources()
+                                        .getDimension(R.dimen.gesture_typing_frequency_factor),
+                                15 /*max suggestions. For now it is static*/,
+                                getResources()
                                         .getDimensionPixelSize(
                                                 R.dimen.gesture_typing_min_point_distance),
                                 keyboard.getKeys());
@@ -163,10 +166,12 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
 
         public interface Callback {
-            void consumeWords(AnyKeyboard keyboard, List<char[][]> words);
+            void consumeWords(
+                    AnyKeyboard keyboard, List<char[][]> words, List<int[]> wordFrequencies);
         }
 
         private ArrayList<char[][]> mWords = new ArrayList<>();
+        private ArrayList<int[]> mWordFrequencies = new ArrayList<>();
         private final Callback mOnLoadedCallback;
         private final AtomicInteger mExpectedDictionaries = new AtomicInteger(0);
         private final AnyKeyboard mKeyboard;
@@ -186,9 +191,11 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
             Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone for %s", dictionary);
             try {
-                char[][] words = dictionary.getWords();
+                final char[][] words = dictionary.getWords();
                 if (words != null && words.length > 0) {
                     mWords.add(words);
+                    // TODO: Actually, get the word-frequencies
+                    mWordFrequencies.add(new int[words.length]);
                 }
                 Logger.d(
                         "WordListDictionaryListener",
@@ -205,7 +212,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
 
         private void doCallback() {
-            mOnLoadedCallback.consumeWords(mKeyboard, mWords);
+            mOnLoadedCallback.consumeWords(mKeyboard, mWords, mWordFrequencies);
             mWords = new ArrayList<>();
         }
 
@@ -234,7 +241,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
-    private void onDictionariesLoaded(AnyKeyboard keyboard, List<char[][]> newWords) {
+    private void onDictionariesLoaded(
+            AnyKeyboard keyboard, List<char[][]> newWords, List<int[]> wordFrequencies) {
         if (mGestureTypingEnabled && mCurrentGestureDetector != null) {
             // it might be null if the IME service started with enabled flag set to true. In that
             // case
@@ -242,7 +250,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             final String key = getKeyForDetector(keyboard);
             if (mGestureTypingDetectors.containsKey(key)) {
                 final GestureTypingDetector detector = mGestureTypingDetectors.get(key);
-                detector.setWords(newWords);
+                detector.setWords(newWords, wordFrequencies);
             } else {
                 Logger.wtf(TAG, "Could not find detector for key %s", key);
             }

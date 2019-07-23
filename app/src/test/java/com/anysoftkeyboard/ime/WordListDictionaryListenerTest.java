@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.ime;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -33,13 +36,14 @@ public class WordListDictionaryListenerTest {
 
         Mockito.verify(dictionary1).getWords();
         Mockito.verify(dictionary2, Mockito.never()).getWords();
-        Mockito.verify(consumer, Mockito.never()).consumeWords(Mockito.any(), Mockito.anyList());
+        Mockito.verify(consumer, Mockito.never()).consumeWords(any(), anyList(), any());
 
         underTest.onDictionaryLoadingDone(dictionary2);
 
         Mockito.verify(dictionary2).getWords();
         ArgumentCaptor<List<char[][]>> wordsListCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(consumer).consumeWords(Mockito.same(keyboard), wordsListCaptor.capture());
+        Mockito.verify(consumer)
+                .consumeWords(Mockito.same(keyboard), wordsListCaptor.capture(), any());
 
         Assert.assertEquals(2, wordsListCaptor.getValue().size());
         Assert.assertEquals(1, wordsListCaptor.getValue().get(0).length);
@@ -63,7 +67,8 @@ public class WordListDictionaryListenerTest {
 
         Mockito.verify(dictionary1).getWords();
         ArgumentCaptor<List<char[][]>> wordsListCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(consumer).consumeWords(Mockito.same(keyboard), wordsListCaptor.capture());
+        Mockito.verify(consumer)
+                .consumeWords(Mockito.same(keyboard), wordsListCaptor.capture(), any());
 
         Assert.assertEquals(0, wordsListCaptor.getValue().size());
     }
