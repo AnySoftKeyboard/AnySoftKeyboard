@@ -115,7 +115,10 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                                     "one".toCharArray(),
                                     "two".toCharArray(),
                                     "three".toCharArray()
-                                }));
+                                }),
+                        Arrays.asList(
+                                new int[] {50, 100, 250, 200},
+                                new int[] {80, 190, 220, 140, 130, 129}));
 
         Robolectric.flushBackgroundThreadScheduler();
 

@@ -27,9 +27,10 @@ public class GestureTypingDetector {
     // How far away do two points of the gesture have to be (distance squared)?
     private final int mMinPointDistanceSquared;
 
-    private final ArrayList<CharSequence> mCandidates = new ArrayList<>(64);
+    private final ArrayList<CharSequence> mCandidates;
+    private final double mFrequencyFactor;
 
-    private ArrayList<Double> mCandidateWeights = new ArrayList<>();
+    private final ArrayList<Double> mCandidateWeights;
 
     private final WorkspaceData mWorkspaceData = new WorkspaceData();
 
@@ -38,8 +39,10 @@ public class GestureTypingDetector {
     @NonNull private final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
 
     @NonNull private List<char[][]> mWords = Collections.emptyList();
+    @NonNull private List<int[]> mWordFrequencies = Collections.emptyList();
 
     @NonNull private Disposable mGeneratingDisposable = Disposables.empty();
+    private int mMaxSuggestions;
 
     public enum LoadingState {
         NOT_LOADED,
@@ -51,7 +54,15 @@ public class GestureTypingDetector {
             ReplaySubject.createWithSize(1);
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
-    public GestureTypingDetector(int minPointDistance, @NonNull Iterable<Keyboard.Key> keys) {
+    public GestureTypingDetector(
+            double frequencyFactor,
+            int maxSuggestions,
+            int minPointDistance,
+            @NonNull Iterable<Keyboard.Key> keys) {
+        mFrequencyFactor = frequencyFactor;
+        mMaxSuggestions = maxSuggestions;
+        mCandidates = new ArrayList<>(mMaxSuggestions * 3);
+        mCandidateWeights = new ArrayList<>(mMaxSuggestions * 3);
         mMinPointDistanceSquared = minPointDistance * minPointDistance;
         mKeys = keys;
 
@@ -63,8 +74,9 @@ public class GestureTypingDetector {
         return mGenerateStateSubject;
     }
 
-    public void setWords(List<char[][]> words) {
+    public void setWords(@NonNull List<char[][]> words, @NonNull List<int[]> wordFrequencies) {
         mWords = words;
+        mWordFrequencies = wordFrequencies;
 
         Logger.d(TAG, "starting generateCorners");
         mGeneratingDisposable.dispose();
@@ -265,8 +277,6 @@ public class GestureTypingDetector {
         int[] corners = getPathCorners(mWorkspaceData);
         Logger.d(TAG, "Path is %s", Arrays.toString(corners));
 
-        final int numSuggestions = 15;
-
         Keyboard.Key startKey = null;
         for (Keyboard.Key k : mKeys) {
             if (k.isInside(corners[0], corners[1])) {
@@ -283,34 +293,36 @@ public class GestureTypingDetector {
         int cornersOffset = 0;
         for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
             final char[][] words = mWords.get(dictIndex);
+            final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
             for (int i = 0; i < words.length; i++) {
                 // Check if current word would start with the same key
-                Keyboard.Key wordStartKey =
-                        mKeysByCharacter.get(Character.toLowerCase(words[i][0]));
-                if (wordStartKey == null) {
-                    wordStartKey = mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
-                }
+                final Keyboard.Key wordStartKey =
+                        mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
+                // filtering all words that do not start with the initial pressed key
                 if (wordStartKey != startKey) continue;
 
-                double weight = getWordDistance(corners, mWordsCorners.get(i + cornersOffset));
-                /*if (mCandidateWeights.size() == numSuggestions && weight >= mCandidateWeights.get(mCandidateWeights.size() - 1)) {
-                    continue;
-                }*/
+                final double distanceFromCurve =
+                        getWordDistance(corners, mWordsCorners.get(i + cornersOffset));
+                final double revisedDistanceFromCurve =
+                        distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
 
-                int j = 0;
-                while (j < mCandidateWeights.size() && mCandidateWeights.get(j) <= weight) j++;
-                mCandidateWeights.add(j, weight);
-                mCandidates.add(j, new String(words[i]));
+                int candidateDistanceSortedIndex = 0;
+                while (candidateDistanceSortedIndex < mCandidateWeights.size()
+                        && mCandidateWeights.get(candidateDistanceSortedIndex)
+                                <= revisedDistanceFromCurve) candidateDistanceSortedIndex++;
 
-                if (mCandidateWeights.size() > numSuggestions) {
-                    mCandidateWeights.remove(mCandidateWeights.size() - 1);
-                    mCandidates.remove(mCandidates.size() - 1);
+                if (candidateDistanceSortedIndex < mMaxSuggestions) {
+                    mCandidateWeights.add(candidateDistanceSortedIndex, revisedDistanceFromCurve);
+                    mCandidates.add(candidateDistanceSortedIndex, new String(words[i]));
+                    if (mCandidateWeights.size() > mMaxSuggestions) {
+                        mCandidateWeights.remove(mMaxSuggestions - 1);
+                        mCandidates.remove(mMaxSuggestions - 1);
+                    }
                 }
             }
 
             cornersOffset += words.length;
         }
-        Logger.d(TAG, "Finished candidate finding");
 
         return mCandidates;
     }
@@ -362,7 +374,7 @@ public class GestureTypingDetector {
     }
 
     private static class WorkspaceData {
-        public static final int MAX_GESTURE_LENGTH = 2048;
+        static final int MAX_GESTURE_LENGTH = 2048;
         private int mCurrentGestureArraySize = 0;
         private final int[] mCurrentGestureXs = new int[MAX_GESTURE_LENGTH];
         private final int[] mCurrentGestureYs = new int[MAX_GESTURE_LENGTH];
