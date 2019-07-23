@@ -67,7 +67,7 @@ android {
             debuggable false
 
             minifyEnabled true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt', 'proguard-anysoftkeyboard.txt'
         }
 
         debug {
