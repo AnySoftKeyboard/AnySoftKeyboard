@@ -95,7 +95,7 @@ public class BTreeDictionaryTest {
 
     private CharSequence[] getWordsFor(TestableBTreeDictionary underTest, final String typedWord) {
         final ArrayList<CharSequence> words = new ArrayList<>();
-        underTest.getWords(
+        underTest.getSuggestions(
                 new KeyCodesProvider() {
                     @Override
                     public int length() {

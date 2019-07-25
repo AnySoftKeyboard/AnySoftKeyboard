@@ -43,13 +43,13 @@ public class UserDictionary extends EditableDictionary {
     }
 
     @Override
-    public char[][] getWords() {
-        return mActualDictionary.getWords();
+    public void getLoadedWords(@NonNull GetWordsCallback callback) {
+        mActualDictionary.getLoadedWords(callback);
     }
 
     @Override
-    public final void getWords(KeyCodesProvider composer, WordCallback callback) {
-        if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
+    public final void getSuggestions(KeyCodesProvider composer, WordCallback callback) {
+        if (mActualDictionary != null) mActualDictionary.getSuggestions(composer, callback);
     }
 
     NextWordSuggestions getUserNextWordGetter() {
@@ -78,9 +78,10 @@ public class UserDictionary extends EditableDictionary {
                     .getBoolean(
                             R.string.settings_key_always_use_fallback_user_dictionary,
                             R.bool.settings_default_always_use_fallback_user_dictionary)
-                    .get())
+                    .get()) {
                 throw new RuntimeException(
                         "User requested to always use fall-back user-dictionary.");
+            }
 
             androidBuiltIn = createAndroidUserDictionary(mContext, mLocale);
             androidBuiltIn.loadDictionary();

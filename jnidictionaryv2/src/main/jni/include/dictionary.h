@@ -17,6 +17,8 @@
 #ifndef LATINIME_DICTIONARY_H
 #define LATINIME_DICTIONARY_H
 
+#include <jni.h>
+
 namespace nativeime {
 
 // 22-bit address = ~4MB dictionary size limit, which on average would be about 200k-300k words
@@ -43,14 +45,14 @@ public:
             unsigned short *outWords, int *frequencies, int maxWordLength, int maxBigrams,
             int maxAlternatives);
     bool isValidWord(unsigned short *word, int length);
-    void getWords(short *words) { int a; int b; countWordsHelper(0, 0, a, b, words); }
-    void countWordsChars(int &wordCount, int &wordsCharsCount) { short *a = NULL; return countWordsHelper(0, 0, wordCount, wordsCharsCount, a); }
+    void getWords(short *words, int *freq) { int a; int b; countWordsHelper(0, 0, a, b, words, freq); }
+    void countWordsChars(int &wordCount, int &wordsCharsCount) { short *a = NULL; int *b = NULL; return countWordsHelper(0, 0, wordCount, wordsCharsCount, a, b); }
     void setAsset(void *asset) { mAsset = asset; }
     void *getAsset() { return mAsset; }
     ~Dictionary();
 
 private:
-    void countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words);
+    void countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words, int *&freqs);
     void getVersionNumber();
     bool checkIfDictVersionIsLatest();
     int getAddress(int *pos);

@@ -545,25 +545,20 @@ Dictionary::isValidWord(unsigned short *word, int length)
     return isValid;
 }
 
-void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words) {
+void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words, int *&freqs) {
     if (depth+1 >= 128) return;
     const int count = getCount(&pos);
 
     for (int i = 0; i < count; i++) {
-        // -- at char
         const unsigned short c = getChar(&pos);
-        // -- at flag/add
         const bool terminal = getTerminal(&pos);
         const int childrenAddress = getAddress(&pos);
-        // -- after address or flag
-        if (terminal) getFreq(&pos);
-        // -- after add or freq
-        if (words) {
-            mWord[depth] = c;
-        }
+        mWord[depth] = c;
 
         if (terminal) {
-            if (words) {
+            const int freq = getFreq(&pos);
+            if (words && freqs) {
+                freqs[wordCount] = freq;
                 mWord[depth + 1] = 0x00;
                 memcpy(words, mWord, (size_t) (depth+2) * sizeof(mWord[0]));
                 words += depth + 2;
@@ -572,7 +567,7 @@ void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &words
             wordCount++;
         }
         if (childrenAddress != 0) {
-            countWordsHelper(childrenAddress, depth+1, wordCount, wordsCharsCount, words);
+            countWordsHelper(childrenAddress, depth+1, wordCount, wordsCharsCount, words, freqs);
         }
     }
 }
@@ -610,6 +605,4 @@ Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length
     }
     return NOT_VALID_WORD;
 }
-
-
 } // namespace nativeime
