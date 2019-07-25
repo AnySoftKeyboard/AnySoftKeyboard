@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static org.mockito.ArgumentMatchers.any;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -18,6 +20,7 @@ import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
+import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -222,14 +225,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                             return null;
                         })
                 .when(mMockCandidateView)
-                .showAddToDictionaryHint(Mockito.any(CharSequence.class));
+                .showAddToDictionaryHint(any(CharSequence.class));
         Mockito.doAnswer(
                         invocation -> {
                             mCandidateShowsHint = false;
                             return null;
                         })
                 .when(mMockCandidateView)
-                .notifyAboutWordAdded(Mockito.any(CharSequence.class));
+                .notifyAboutWordAdded(any(CharSequence.class));
     }
 
     @Override
@@ -454,20 +457,29 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                     final MockingDetails mockingDetails = Mockito.mockingDetails(dictionary);
                     if (!mockingDetails.isMock() && !mockingDetails.isSpy()) {
                         dictionary = Mockito.spy(dictionary);
-                        Mockito.doReturn(
-                                        new char[][] {
-                                            "hello".toCharArray(),
-                                            "welcome".toCharArray(),
-                                            "is".toCharArray(),
-                                            "you".toCharArray(),
-                                            "good".toCharArray(),
-                                            "bye".toCharArray(),
-                                            "one".toCharArray(),
-                                            "two".toCharArray(),
-                                            "three".toCharArray()
+                        Mockito.doAnswer(
+                                        invocation -> {
+                                            ((GetWordsCallback) invocation.getArgument(0))
+                                                    .onGetWordsFinished(
+                                                            new char[][] {
+                                                                "hello".toCharArray(),
+                                                                "welcome".toCharArray(),
+                                                                "is".toCharArray(),
+                                                                "you".toCharArray(),
+                                                                "good".toCharArray(),
+                                                                "bye".toCharArray(),
+                                                                "one".toCharArray(),
+                                                                "two".toCharArray(),
+                                                                "three".toCharArray()
+                                                            },
+                                                            new int[] {
+                                                                180, 100, 253, 200, 120, 140, 100,
+                                                                80, 60
+                                                            });
+                                            return null;
                                         })
                                 .when(dictionary)
-                                .getWords();
+                                .getLoadedWords(any());
                     }
                     dictionaryLoadedListener.onDictionaryLoadingDone(dictionary);
                 }
@@ -480,7 +492,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                         onDictionaryLoadingDone(dictionary);
                     } else {
                         final Dictionary spy = Mockito.spy(dictionary);
-                        Mockito.doReturn(new char[0][0]).when(spy).getWords();
+                        Mockito.doAnswer(
+                                        invocation -> {
+                                            ((GetWordsCallback) invocation.getArgument(0))
+                                                    .onGetWordsFinished(new char[0][0], new int[0]);
+                                            return null;
+                                        })
+                                .when(spy)
+                                .getLoadedWords(any());
                         dictionaryLoadedListener.onDictionaryLoadingFailed(spy, exception);
                     }
                 }

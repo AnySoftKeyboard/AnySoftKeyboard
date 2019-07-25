@@ -165,6 +165,26 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
 
+        private void onGetWordsFinished(char[][] words, int[] frequencies) {
+            if (words.length > 0) {
+                if (frequencies.length != words.length) {
+                    throw new IllegalArgumentException(
+                            "words and frequencies do not have the same length ("
+                                    + words.length
+                                    + ", "
+                                    + frequencies.length
+                                    + ")");
+                }
+
+                mWords.add(words);
+                mWordFrequencies.add(frequencies);
+            }
+            Logger.d(
+                    "WordListDictionaryListener",
+                    "onDictionaryLoadingDone got words with length %d",
+                    words.length);
+        }
+
         public interface Callback {
             void consumeWords(
                     AnyKeyboard keyboard, List<char[][]> words, List<int[]> wordFrequencies);
@@ -191,16 +211,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
             Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone for %s", dictionary);
             try {
-                final char[][] words = dictionary.getWords();
-                if (words != null && words.length > 0) {
-                    mWords.add(words);
-                    // TODO: Actually, get the word-frequencies
-                    mWordFrequencies.add(new int[words.length]);
-                }
-                Logger.d(
-                        "WordListDictionaryListener",
-                        "onDictionaryLoadingDone got words with length %d",
-                        (words == null ? 0 : words.length));
+                dictionary.getLoadedWords(this::onGetWordsFinished);
             } catch (Exception e) {
                 Logger.w(
                         "WordListDictionaryListener",
