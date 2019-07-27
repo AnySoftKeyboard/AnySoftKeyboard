@@ -100,5 +100,5 @@
     <dimen name="gesture_stroke_width">4dp</dimen>
     <dimen name="watermark_size">12sp</dimen>
     <dimen name="watermark_margin">3dp</dimen>
-    <dimen name="gesture_typing_frequency_factor">2.5dp</dimen>
+    <dimen name="gesture_typing_frequency_factor">1dp</dimen>
 </resources>

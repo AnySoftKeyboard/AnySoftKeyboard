@@ -3,18 +3,23 @@ package com.anysoftkeyboard.gesturetyping;
 import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
 
+import android.content.Context;
 import android.graphics.Point;
+import android.support.v4.util.Pair;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+import java.util.stream.Stream;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,17 +49,25 @@ public class GestureTypingDetectorTest {
 
     @Before
     public void setUp() {
+        final Context context = ApplicationProvider.getApplicationContext();
         final AnyKeyboard keyboard =
-                AnyApplication.getKeyboardFactory(ApplicationProvider.getApplicationContext())
-                        .getEnabledAddOns()
-                        .get(0)
+                AnyApplication.getKeyboardFactory(context)
+                        .getAddOnById(context.getString(R.string.main_english_keyboard_id))
                         .createKeyboard(KEYBOARD_ROW_MODE_NORMAL);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
         mKeys = keyboard.getKeys();
 
         Robolectric.getBackgroundThreadScheduler().pause();
 
-        mDetectorUnderTest = new GestureTypingDetector(2.5, MAX_SUGGESTIONS, 5, mKeys);
+        mDetectorUnderTest =
+                new GestureTypingDetector(
+                        context.getResources()
+                                .getDimension(R.dimen.gesture_typing_frequency_factor),
+                        MAX_SUGGESTIONS,
+                        context.getResources()
+                                .getDimensionPixelSize(R.dimen.gesture_typing_min_point_distance),
+                        mKeys);
+
         mCurrentState = new AtomicReference<>();
         mSubscribeState =
                 mDetectorUnderTest
@@ -69,16 +82,16 @@ public class GestureTypingDetectorTest {
         mDetectorUnderTest.setWords(
                 Collections.singletonList(
                         new char[][] {
-                            "hell".toCharArray(),
-                            "hello".toCharArray(),
-                            "heello".toCharArray(),
-                            "heko".toCharArray(),
-                            "help".toCharArray(),
+                            "harp".toCharArray(), // distance 768
+                            "hero".toCharArray(), // 381
+                            "hell".toCharArray(), // 345
+                            "hello".toCharArray(), // 204
+                            "help".toCharArray(), // 263
                             "good".toCharArray(),
                             "god".toCharArray(),
-                            "gods".toCharArray(),
+                            "gods".toCharArray()
                         }),
-                Collections.singletonList(new int[] {20, 250, 1, 1, 50, 190, 120, 100}));
+                Collections.singletonList(new int[] {1, 99, 25, 46, 27, 190, 120, 100}));
 
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, mCurrentState.get());
     }
@@ -95,19 +108,20 @@ public class GestureTypingDetectorTest {
 
         mDetectorUnderTest.clearGesture();
 
-        "helo"
-                .chars()
-                .boxed()
-                .map(this::getPointForCharacter)
+        generatePointsStreamOfKeysString("helo")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
         final ArrayList<CharSequence> candidates = mDetectorUnderTest.getCandidates();
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
-        Arrays.asList("hello", "heello", "hell", "heko")
+        // "harp" is removed due to MAX_SUGGESTIONS limit
+        Arrays.asList("hero", "hello", "hell", "help")
                 .forEach(
                         word ->
                                 Assert.assertTrue(
-                                        "Missing the word " + word, candidates.contains(word)));
+                                        "Missing the word " + word + ". has " + candidates,
+                                        candidates.remove(word)));
+        // ensuring we asserted all words
+        Assert.assertTrue("Still has " + candidates, candidates.isEmpty());
     }
 
     @Test
@@ -117,18 +131,15 @@ public class GestureTypingDetectorTest {
 
         mDetectorUnderTest.clearGesture();
 
-        "help"
-                .chars()
-                .boxed()
-                .map(this::getPointForCharacter)
+        generatePointsStreamOfKeysString("help")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
         final ArrayList<CharSequence> candidates = mDetectorUnderTest.getCandidates();
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
         Assert.assertEquals("help", candidates.get(0));
-        Assert.assertEquals("hello", candidates.get(1));
+        Assert.assertEquals("hero", candidates.get(1));
         Assert.assertEquals("hell", candidates.get(2));
-        Assert.assertEquals("heello", candidates.get(3));
+        Assert.assertEquals("hello", candidates.get(3));
     }
 
     @Test
@@ -139,10 +150,7 @@ public class GestureTypingDetectorTest {
 
         mDetectorUnderTest.clearGesture();
 
-        "to"
-                .chars()
-                .boxed()
-                .map(this::getPointForCharacter)
+        generatePointsStreamOfKeysString("to")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
         candidates.addAll(mDetectorUnderTest.getCandidates());
 
@@ -150,10 +158,7 @@ public class GestureTypingDetectorTest {
 
         candidates.clear();
         mDetectorUnderTest.clearGesture();
-        "god"
-                .chars()
-                .boxed()
-                .map(this::getPointForCharacter)
+        generatePointsStreamOfKeysString("god")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
         candidates.addAll(mDetectorUnderTest.getCandidates());
 
@@ -162,7 +167,8 @@ public class GestureTypingDetectorTest {
                 .forEach(
                         word ->
                                 Assert.assertTrue(
-                                        "Missing the word " + word, candidates.contains(word)));
+                                        "Missing the word " + word, candidates.remove(word)));
+        Assert.assertTrue("Still has " + candidates.toString(), candidates.isEmpty());
     }
 
     @Test
@@ -211,5 +217,220 @@ public class GestureTypingDetectorTest {
         mSubscribeState.dispose();
 
         Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, mCurrentState.get());
+    }
+
+    @Test
+    public void testHasEnoughCurvatureStraight() {
+        final int[] Xs = new int[3];
+        final int[] Ys = new int[3];
+
+        Xs[0] = -100;
+        Ys[0] = 0;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 100;
+        Ys[2] = 0;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = 0;
+        Ys[0] = -100;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 0;
+        Ys[2] = 100;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = 50;
+        Ys[0] = -50;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = -50;
+        Ys[2] = 50;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = -50;
+        Ys[0] = 50;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 50;
+        Ys[2] = -50;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = -41;
+        Ys[0] = 50;
+
+        Xs[1] = 9;
+        Ys[1] = 0;
+
+        Xs[2] = 59;
+        Ys[2] = -50;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+    }
+
+    @Test
+    public void testHasEnoughCurvature90Degrees() {
+        final int[] Xs = new int[3];
+        final int[] Ys = new int[3];
+
+        Xs[0] = -50;
+        Ys[0] = 0;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 0;
+        Ys[2] = -50;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = -50;
+        Ys[0] = 0;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 0;
+        Ys[2] = 50;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = 0;
+        Ys[0] = -50;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 50;
+        Ys[2] = 0;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+    }
+
+    @Test
+    public void testHasEnoughCurvature180Degrees() {
+        final int[] Xs = new int[3];
+        final int[] Ys = new int[3];
+
+        Xs[0] = 0;
+        Ys[0] = -50;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = 0;
+        Ys[2] = -50;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = -50;
+        Ys[0] = 0;
+
+        Xs[1] = 0;
+        Ys[1] = 0;
+
+        Xs[2] = -50;
+        Ys[2] = 0;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+    }
+
+    @Test
+    public void testHasEnoughCurvature15Degrees() {
+        final int[] Xs = new int[3];
+        final int[] Ys = new int[3];
+
+        // https://www.triangle-calculator.com/?what=&q=A%3D165%2C+b%3D100%2C+c%3D100&submit=Solve
+        // A[100; 0] B[0; 0] C[196.593; 25.882]
+
+        Xs[0] = 0;
+        Ys[0] = 0;
+
+        Xs[1] = 100;
+        Ys[1] = 0;
+
+        Xs[2] = 196;
+        Ys[2] = 26;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = 0;
+        Ys[0] = 0;
+
+        Xs[1] = 100;
+        Ys[1] = 0;
+
+        Xs[2] = 196;
+        Ys[2] = -26;
+        Assert.assertTrue(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+    }
+
+    @Test
+    public void testHasEnoughCurvature9Degrees() {
+        final int[] Xs = new int[3];
+        final int[] Ys = new int[3];
+
+        // https://www.triangle-calculator.com/?what=&q=A%3D171%2C+b%3D100%2C+c%3D100&submit=Solve
+        // A[100; 0] B[0; 0] C[198.769; 15.643]
+
+        Xs[0] = 0;
+        Ys[0] = 0;
+
+        Xs[1] = 100;
+        Ys[1] = 0;
+
+        Xs[2] = 198;
+        Ys[2] = 16;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+
+        Xs[0] = 0;
+        Ys[0] = 0;
+
+        Xs[1] = 100;
+        Ys[1] = 0;
+
+        Xs[2] = 198;
+        Ys[2] = -16;
+        Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
+    }
+
+    private Stream<Point> generatePointsStreamOfKeysString(String path) {
+        return path.chars()
+                .boxed()
+                .map(this::getPointForCharacter)
+                .map(
+                        new Function<Point, Pair<Point, Point>>() {
+                            private Point mPrevious = new Point();
+
+                            @Override
+                            public Pair<Point, Point> apply(Point point) {
+                                final Point previous = mPrevious;
+                                mPrevious = point;
+
+                                return new Pair<>(previous, mPrevious);
+                            }
+                        })
+                .skip(1 /*the first one is just wrong*/)
+                .map(pair -> generateTraceBetweenPoints(pair.first, pair.second))
+                .flatMap(pointStream -> pointStream);
+    }
+
+    private static Stream<Point> generateTraceBetweenPoints(final Point start, final Point end) {
+        int callsToMake = 16;
+        final float stepX = (end.x - start.x) / (float) callsToMake;
+        final float stepY = (end.y - start.y) / (float) callsToMake;
+
+        List<Point> points = new ArrayList<>(1 + callsToMake);
+        while (callsToMake >= 0) {
+            points.add(
+                    new Point(
+                            end.x - (int) (callsToMake * stepX),
+                            end.y - (int) (callsToMake * stepY)));
+
+            callsToMake--;
+        }
+
+        return points.stream();
     }
 }
