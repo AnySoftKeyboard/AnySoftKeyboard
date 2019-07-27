@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.util.SparseArray;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
@@ -13,7 +14,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.subjects.ReplaySubject;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +22,7 @@ public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
 
     private static final double CURVATURE_THRESHOLD = Math.toRadians(170);
-    // How many points away from the current point do we use when calculating curvature?
+    // How many points away from the current point do we use when calculating hasEnoughCurvature?
     private static final int CURVATURE_NEIGHBORHOOD = 1;
     // How far away do two points of the gesture have to be (distance squared)?
     private final int mMinPointDistanceSquared;
@@ -133,16 +133,7 @@ public class GestureTypingDetector {
                                                 }
                                             }
 
-                                            int index = 0;
                                             for (char[] word : data.mWords) {
-                                                if (index % 1000 == 0) {
-                                                    Logger.d(
-                                                            TAG,
-                                                            "generated %d paths in thread %s",
-                                                            index,
-                                                            Thread.currentThread().toString());
-                                                }
-                                                index++;
                                                 int[] path =
                                                         generatePath(
                                                                 word,
@@ -224,7 +215,10 @@ public class GestureTypingDetector {
         for (int gesturePointIndex = 1;
                 gesturePointIndex < workspaceData.mCurrentGestureArraySize - 1;
                 gesturePointIndex++) {
-            if (curvature(workspaceData, gesturePointIndex)) {
+            if (hasEnoughCurvature(
+                    workspaceData.mCurrentGestureXs,
+                    workspaceData.mCurrentGestureYs,
+                    gesturePointIndex)) {
                 workspaceData.addMaximaPointOfIndex(gesturePointIndex);
             }
         }
@@ -238,36 +232,43 @@ public class GestureTypingDetector {
         return arr;
     }
 
-    private static boolean curvature(WorkspaceData workspaceData, int middle) {
-        // Calculate the angle formed between middle, and one point in either direction
-        final int si = Math.max(0, middle - CURVATURE_NEIGHBORHOOD);
-        final int sx = workspaceData.mCurrentGestureXs[si];
-        final int sy = workspaceData.mCurrentGestureYs[si];
+    @VisibleForTesting
+    static boolean hasEnoughCurvature(final int[] xs, final int[] ys, final int middlePointIndex) {
+        // Calculate the radianValue formed between middlePointIndex, and one point in either
+        // direction
+        final int startPointIndex = middlePointIndex - CURVATURE_NEIGHBORHOOD;
+        final int startX = xs[startPointIndex];
+        final int startY = ys[startPointIndex];
 
-        final int ei =
-                Math.min(
-                        workspaceData.mCurrentGestureArraySize - 1,
-                        middle + CURVATURE_NEIGHBORHOOD);
-        final int ex = workspaceData.mCurrentGestureXs[ei];
-        final int ey = workspaceData.mCurrentGestureYs[ei];
+        final int endPointIndex = middlePointIndex + CURVATURE_NEIGHBORHOOD;
+        final int endX = xs[endPointIndex];
+        final int endY = ys[endPointIndex];
 
-        if (sx == ex && sy == ey) return true;
+        final int middleX = xs[middlePointIndex];
+        final int middleY = ys[middlePointIndex];
 
-        final int mx = workspaceData.mCurrentGestureXs[middle];
-        final int my = workspaceData.mCurrentGestureYs[middle];
+        final int firstSectionXDiff = startX - middleX;
+        final int firstSectionYDiff = startY - middleY;
+        final double firstSectionLength =
+                Math.sqrt(
+                        firstSectionXDiff * firstSectionXDiff
+                                + firstSectionYDiff * firstSectionYDiff);
 
-        double m1 = Math.sqrt((sx - mx) * (sx - mx) + (sy - my) * (sy - my));
-        double m2 = Math.sqrt((ex - mx) * (ex - mx) + (ey - my) * (ey - my));
+        final int secondSectionXDiff = endX - middleX;
+        final int secondSectionYDiff = endY - middleY;
+        final double secondSectionLength =
+                Math.sqrt(
+                        secondSectionXDiff * secondSectionXDiff
+                                + secondSectionYDiff * secondSectionYDiff);
 
-        double dot = (sx - mx) * (ex - mx) + (sy - my) * (ey - my);
-        double angle = Math.acos(dot / m1 / m2);
+        final double dotProduct =
+                firstSectionXDiff * secondSectionXDiff + firstSectionYDiff * secondSectionYDiff;
+        final double radianValue = Math.acos(dotProduct / firstSectionLength / secondSectionLength);
 
-        return angle <= CURVATURE_THRESHOLD;
+        return radianValue <= CURVATURE_THRESHOLD;
     }
 
     public ArrayList<CharSequence> getCandidates() {
-        Logger.d(TAG, "Starting candidate finding");
-
         mCandidates.clear();
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) {
             return mCandidates;
@@ -275,7 +276,6 @@ public class GestureTypingDetector {
 
         mCandidateWeights.clear();
         int[] corners = getPathCorners(mWorkspaceData);
-        Logger.d(TAG, "Path is %s", Arrays.toString(corners));
 
         Keyboard.Key startKey = null;
         for (Keyboard.Key k : mKeys) {
@@ -290,7 +290,7 @@ public class GestureTypingDetector {
             return mCandidates;
         }
 
-        int cornersOffset = 0;
+        int dictionaryWordsCornersOffset = 0;
         for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
             final char[][] words = mWords.get(dictIndex);
             final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
@@ -302,71 +302,86 @@ public class GestureTypingDetector {
                 if (wordStartKey != startKey) continue;
 
                 final double distanceFromCurve =
-                        getWordDistance(corners, mWordsCorners.get(i + cornersOffset));
+                        calculateDistanceBetweenUserPathAndWord(
+                                corners, mWordsCorners.get(i + dictionaryWordsCornersOffset));
+                // TODO: convert wordFrequencies to a double[] in the loading phase.
                 final double revisedDistanceFromCurve =
                         distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
 
                 int candidateDistanceSortedIndex = 0;
                 while (candidateDistanceSortedIndex < mCandidateWeights.size()
                         && mCandidateWeights.get(candidateDistanceSortedIndex)
-                                <= revisedDistanceFromCurve) candidateDistanceSortedIndex++;
+                                <= revisedDistanceFromCurve) {
+                    candidateDistanceSortedIndex++;
+                }
 
                 if (candidateDistanceSortedIndex < mMaxSuggestions) {
                     mCandidateWeights.add(candidateDistanceSortedIndex, revisedDistanceFromCurve);
                     mCandidates.add(candidateDistanceSortedIndex, new String(words[i]));
                     if (mCandidateWeights.size() > mMaxSuggestions) {
-                        mCandidateWeights.remove(mMaxSuggestions - 1);
-                        mCandidates.remove(mMaxSuggestions - 1);
+                        mCandidateWeights.remove(mMaxSuggestions);
+                        mCandidates.remove(mMaxSuggestions);
                     }
                 }
             }
 
-            cornersOffset += words.length;
+            dictionaryWordsCornersOffset += words.length;
         }
 
         return mCandidates;
     }
 
-    private static double getWordDistance(int[] user, int[] word) {
-        if (word.length > user.length) return Double.MAX_VALUE;
+    private static double calculateDistanceBetweenUserPathAndWord(
+            int[] actualUserPath, int[] generatedWordPath) {
+        if (generatedWordPath.length > actualUserPath.length) return Double.MAX_VALUE;
 
-        double dist = 0;
-        int currentWordIndex = 0;
+        double cumulativeDistance = 0;
+        int generatedWordCornerIndex = 0;
 
-        for (int i = 0; i < user.length / 2 && currentWordIndex < word.length / 2; i++) {
-            int ux = user[i * 2];
-            int uy = user[i * 2 + 1];
-            double d = dist(ux, uy, word[currentWordIndex * 2], word[currentWordIndex * 2 + 1]);
-            double d2;
+        for (int userPathIndex = 0; userPathIndex < actualUserPath.length; userPathIndex += 2) {
+            final int ux = actualUserPath[userPathIndex];
+            final int uy = actualUserPath[userPathIndex + 1];
+            double distanceToGeneratedCorner =
+                    dist(
+                            ux,
+                            uy,
+                            generatedWordPath[generatedWordCornerIndex],
+                            generatedWordPath[generatedWordCornerIndex + 1]);
 
-            if (currentWordIndex + 1 < word.length / 2
-                    && i > 0
-                    && (d2 =
-                                    dist(
-                                            ux,
-                                            uy,
-                                            word[currentWordIndex * 2 + 2],
-                                            word[currentWordIndex * 2 + 3]))
-                            < d) {
-                d = d2;
-                currentWordIndex++;
+            if (generatedWordCornerIndex < generatedWordPath.length - 2) {
+                // maybe this new point is closer to the next corner?
+                // we only need to check one point ahead since the generated path little corners.
+                final double distanceToNextGeneratedCorner =
+                        dist(
+                                ux,
+                                uy,
+                                generatedWordPath[generatedWordCornerIndex + 2],
+                                generatedWordPath[generatedWordCornerIndex + 3]);
+                if (distanceToNextGeneratedCorner < distanceToGeneratedCorner) {
+                    generatedWordCornerIndex += 2;
+                    distanceToGeneratedCorner = distanceToNextGeneratedCorner;
+                }
             }
 
-            dist += d;
+            cumulativeDistance += distanceToGeneratedCorner;
         }
 
-        while (currentWordIndex + 1 < word.length / 2) {
-            currentWordIndex++;
-            dist +=
-                    10
-                            * dist(
-                                    user[user.length - 2],
-                                    user[user.length - 1],
-                                    word[currentWordIndex * 2],
-                                    word[currentWordIndex * 2 + 1]);
+        // we finished the user-path, but for this word there could still be additional
+        // generated-path corners.
+        // we'll need to those too.
+        for (int ux = actualUserPath[actualUserPath.length - 2],
+                        uy = actualUserPath[actualUserPath.length - 1];
+                generatedWordCornerIndex < generatedWordPath.length;
+                generatedWordCornerIndex += 2) {
+            cumulativeDistance +=
+                    dist(
+                            ux,
+                            uy,
+                            generatedWordPath[generatedWordCornerIndex],
+                            generatedWordPath[generatedWordCornerIndex + 1]);
         }
 
-        return dist;
+        return cumulativeDistance;
     }
 
     private static double dist(double x1, double y1, double x2, double y2) {

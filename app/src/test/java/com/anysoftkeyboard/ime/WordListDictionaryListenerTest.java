@@ -92,8 +92,7 @@ public class WordListDictionaryListenerTest {
         Mockito.verify(consumer)
                 .consumeWords(Mockito.same(keyboard), wordsListCaptor.capture(), any());
 
-        Assert.assertEquals(1, wordsListCaptor.getValue().size());
-        Assert.assertEquals(0, wordsListCaptor.getValue().get(0).length);
+        Assert.assertEquals(0, wordsListCaptor.getValue().size());
     }
 
     @Test
