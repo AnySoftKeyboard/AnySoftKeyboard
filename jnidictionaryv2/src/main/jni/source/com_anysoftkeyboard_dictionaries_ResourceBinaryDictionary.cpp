@@ -81,39 +81,13 @@ static int nativeime_ResourceBinaryDictionary_getSuggestions(
     return count;
 }
 
-static int nativeime_ResourceBinaryDictionary_getBigrams
-        (JNIEnv *env, jobject object, jlong dict, jcharArray prevWordArray, jint prevWordLength,
-         jintArray inputArray, jint inputArraySize, jcharArray outputArray,
-         jintArray frequencyArray, jint maxWordLength, jint maxBigrams, jint maxAlternatives) {
-    Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
-    if (dictionary == NULL) return 0;
-
-    jchar *prevWord = env->GetCharArrayElements(prevWordArray, NULL);
-    int *inputCodes = env->GetIntArrayElements(inputArray, NULL);
-    jchar *outputChars = env->GetCharArrayElements(outputArray, NULL);
-    int *frequencies = env->GetIntArrayElements(frequencyArray, NULL);
-
-    int count = dictionary->getBigrams((unsigned short *) prevWord, prevWordLength, inputCodes,
-                                       inputArraySize, (unsigned short *) outputChars, frequencies,
-                                       maxWordLength, maxBigrams,
-                                       maxAlternatives);
-
-    env->ReleaseCharArrayElements(prevWordArray, prevWord, JNI_ABORT);
-    env->ReleaseIntArrayElements(inputArray, inputCodes, JNI_ABORT);
-    env->ReleaseCharArrayElements(outputArray, outputChars, 0);
-    env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
-
-    return count;
-}
-
-
 static jboolean nativeime_ResourceBinaryDictionary_isValidWord
         (JNIEnv *env, jobject object, jlong dict, jcharArray wordArray, jint wordLength) {
     Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
     if (dictionary == NULL) return (jboolean) false;
 
     jchar *word = env->GetCharArrayElements(wordArray, NULL);
-    jboolean result = dictionary->isValidWord((unsigned short *) word, wordLength);
+    jboolean result = static_cast<jboolean>(dictionary->isValidWord(word, wordLength));
     env->ReleaseCharArrayElements(wordArray, word, JNI_ABORT);
 
     return result;
@@ -126,16 +100,15 @@ static void nativeime_ResourceBinaryDictionary_getWords
 
     int wordCount = 0, wordsCharsCount = 0;
     dictionary->countWordsChars(wordCount, wordsCharsCount);
-    short *words = new short[wordsCharsCount];
-    int *freq = new int[wordCount];
-    dictionary->getWords(words, freq);
+    unsigned short *words = new unsigned short[wordsCharsCount];
+    jintArray frequencyArray = env->NewIntArray(wordCount);
+    int *frequencies = env->GetIntArrayElements(frequencyArray, NULL);
+    dictionary->getWords(words, frequencies);
+    env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
 
     jobjectArray javaLandChars = env->NewObjectArray(wordCount, env->FindClass("[C"), NULL);
-    jintArray javaLandInts = env->NewIntArray(wordCount);
-    env->SetIntArrayRegion(javaLandInts, 0, wordCount, freq);
-    delete[] freq;
 
-    short *pos = words;
+    unsigned short *pos = words;
     for (int i = 0; i < wordCount; ++i) {
         size_t count = 0;
         while (pos[count] != 0x00) ++count;
@@ -143,9 +116,7 @@ static void nativeime_ResourceBinaryDictionary_getWords
         jcharArray jchr = env->NewCharArray((jsize) count);
         jchar *chr = env->GetCharArrayElements(jchr, NULL);
 
-        for (size_t j = 0; j < count; ++j) {
-            chr[j] = (jchar) pos[j];
-        }
+        memcpy(chr, pos, count * sizeof(unsigned short));
 
         env->ReleaseCharArrayElements(jchr, chr, 0);
         env->SetObjectArrayElement(javaLandChars, i, jchr);
@@ -155,7 +126,7 @@ static void nativeime_ResourceBinaryDictionary_getWords
 
     delete[] words;
 
-    env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, javaLandChars, javaLandInts);
+    env->CallVoidMethod(getWordsCallback, sGetWordsCallbackMethodId, javaLandChars, frequencyArray);
 }
 
 static void nativeime_ResourceBinaryDictionary_close

@@ -1334,10 +1334,10 @@ public abstract class Dictionary {
     /**
      * The weight to give to a word if it's length is the same as the number of typed characters.
      */
-    protected static final int FULL_WORD_FREQ_MULTIPLIER = 3;
+    protected static final int FULL_WORD_FREQ_MULTIPLIER = 2;
 
     /** The weight to give to a letter if it is typed. */
-    protected static final int TYPED_LETTER_MULTIPLIER = 3;
+    protected static final int TYPED_LETTER_MULTIPLIER = 2;
 
     public abstract void getLoadedWords(@NonNull GetWordsCallback callback);
 

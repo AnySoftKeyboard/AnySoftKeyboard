@@ -82,16 +82,17 @@ public class GestureTypingDetectorTest {
         mDetectorUnderTest.setWords(
                 Collections.singletonList(
                         new char[][] {
-                            "harp".toCharArray(), // distance 768
-                            "hero".toCharArray(), // 381
-                            "hell".toCharArray(), // 345
-                            "hello".toCharArray(), // 204
-                            "help".toCharArray(), // 263
-                            "good".toCharArray(),
-                            "god".toCharArray(),
-                            "gods".toCharArray()
+                            // this list is sorted alphabetically (as in the binary dictionary)
+                            "Hall".toCharArray(),
+                            "hell".toCharArray(),
+                            "hello".toCharArray(),
+                            "help".toCharArray(),
+                            "hero".toCharArray(),
+                            "God".toCharArray(),
+                            "gods".toCharArray(),
+                            "good".toCharArray()
                         }),
-                Collections.singletonList(new int[] {1, 99, 25, 46, 27, 190, 120, 100}));
+                Collections.singletonList(new int[] {134, 126, 108, 120, 149, 129, 121, 170}));
 
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, mCurrentState.get());
     }
@@ -114,7 +115,7 @@ public class GestureTypingDetectorTest {
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
         // "harp" is removed due to MAX_SUGGESTIONS limit
-        Arrays.asList("hero", "hello", "hell", "help")
+        Arrays.asList("hero", "hello", "hell", "Hall")
                 .forEach(
                         word ->
                                 Assert.assertTrue(
@@ -137,9 +138,9 @@ public class GestureTypingDetectorTest {
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
         Assert.assertEquals("help", candidates.get(0));
-        Assert.assertEquals("hero", candidates.get(1));
-        Assert.assertEquals("hell", candidates.get(2));
-        Assert.assertEquals("hello", candidates.get(3));
+        Assert.assertEquals("hell", candidates.get(1));
+        Assert.assertEquals("hero", candidates.get(2));
+        Assert.assertEquals("Hall", candidates.get(3));
     }
 
     @Test
@@ -163,7 +164,7 @@ public class GestureTypingDetectorTest {
         candidates.addAll(mDetectorUnderTest.getCandidates());
 
         Assert.assertEquals(3, candidates.size());
-        Arrays.asList("good", "god", "gods")
+        Arrays.asList("good", "God", "gods")
                 .forEach(
                         word ->
                                 Assert.assertTrue(

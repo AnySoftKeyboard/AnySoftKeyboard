@@ -133,11 +133,12 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                                     "bye".toCharArray(),
                                     "one".toCharArray(),
                                     "two".toCharArray(),
-                                    "three".toCharArray()
+                                    "three".toCharArray(),
+                                    "tree".toCharArray()
                                 }),
                         Arrays.asList(
                                 new int[] {50, 100, 250, 200},
-                                new int[] {80, 190, 220, 140, 130, 129}));
+                                new int[] {80, 190, 220, 140, 130, 27}));
 
         Robolectric.flushBackgroundThreadScheduler();
 
@@ -444,15 +445,15 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
             final float xStep = startKey.width / 3;
             final float yStep = startKey.height / 3;
 
-            final float xDistance = followingKey.x - startKey.x;
-            final float yDistance = followingKey.y - startKey.y;
+            final float xDistance = followingKey.centerX - startKey.centerX;
+            final float yDistance = followingKey.centerY - startKey.centerY;
             int callsToMake =
-                    (int) Math.ceil(((xDistance + yDistance) / 2) / ((xStep + yStep) / 2));
+                    (int) Math.ceil(((xDistance + yDistance) / 2f) / ((xStep + yStep) / 2f));
 
             final long timeStep = 16;
 
-            float currentX = startKey.x;
-            float currentY = startKey.y;
+            float currentX = startKey.centerX;
+            float currentY = startKey.centerY;
 
             SystemClock.sleep(timeStep);
             time = ShadowSystemClock.currentTimeMillis();
@@ -466,8 +467,11 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 SystemClock.sleep(timeStep);
                 time = ShadowSystemClock.currentTimeMillis();
                 mAnySoftKeyboardUnderTest.onGestureTypingInput(
-                        (int) currentX + 2, (int) currentY + 2, time);
+                        (int) currentX, (int) currentY, time);
             }
+
+            mAnySoftKeyboardUnderTest.onGestureTypingInput(
+                    followingKey.centerX, followingKey.centerY, time);
 
             startKey = followingKey;
         }
