@@ -24,6 +24,8 @@ public class GestureTypingDetector {
     private static final double CURVATURE_THRESHOLD = Math.toRadians(170);
     // How many points away from the current point do we use when calculating hasEnoughCurvature?
     private static final int CURVATURE_NEIGHBORHOOD = 1;
+    private static final double MINIMUM_DISTANCE_FILTER = 1000000;
+
     // How far away do two points of the gesture have to be (distance squared)?
     private final int mMinPointDistanceSquared;
 
@@ -121,15 +123,19 @@ public class GestureTypingDetector {
                                         e -> {
                                             Logger.d(TAG, "generating in BG.");
 
-                                            // Fill keysByCharacter map for faster path generation
-                                            for (Keyboard.Key key : data.mKeys) {
-                                                for (int i = 0; i < key.getCodesCount(); ++i) {
-                                                    char c =
-                                                            Character.toLowerCase(
-                                                                    (char)
-                                                                            key.getCodeAtIndex(
-                                                                                    i, false));
-                                                    data.mKeysByCharacter.put(c, key);
+                                            // Fill keysByCharacter map for faster path generation.
+                                            // This is called for each dictionary,
+                                            // but we only need to do it once.
+                                            if (data.mKeysByCharacter.size() == 0) {
+                                                for (Keyboard.Key key : data.mKeys) {
+                                                    for (int i = 0; i < key.getCodesCount(); ++i) {
+                                                        char c =
+                                                                Character.toLowerCase(
+                                                                        (char)
+                                                                                key.getCodeAtIndex(
+                                                                                        i, false));
+                                                        data.mKeysByCharacter.put(c, key);
+                                                    }
                                                 }
                                             }
 
@@ -274,8 +280,7 @@ public class GestureTypingDetector {
             return mCandidates;
         }
 
-        mCandidateWeights.clear();
-        int[] corners = getPathCorners(mWorkspaceData);
+        final int[] corners = getPathCorners(mWorkspaceData);
 
         Keyboard.Key startKey = null;
         for (Keyboard.Key k : mKeys) {
@@ -290,6 +295,7 @@ public class GestureTypingDetector {
             return mCandidates;
         }
 
+        mCandidateWeights.clear();
         int dictionaryWordsCornersOffset = 0;
         for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
             final char[][] words = mWords.get(dictIndex);
@@ -299,11 +305,17 @@ public class GestureTypingDetector {
                 final Keyboard.Key wordStartKey =
                         mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
                 // filtering all words that do not start with the initial pressed key
-                if (wordStartKey != startKey) continue;
+                if (wordStartKey != startKey) {
+                    continue;
+                }
 
                 final double distanceFromCurve =
                         calculateDistanceBetweenUserPathAndWord(
                                 corners, mWordsCorners.get(i + dictionaryWordsCornersOffset));
+                if (distanceFromCurve > MINIMUM_DISTANCE_FILTER) {
+                    continue;
+                }
+
                 // TODO: convert wordFrequencies to a double[] in the loading phase.
                 final double revisedDistanceFromCurve =
                         distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
