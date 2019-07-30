@@ -51,7 +51,7 @@ public class InMemoryDictionaryTest {
         Mockito.doReturn(new int[] {'e'}).when(word).getCodesAt(Mockito.eq(1));
 
         MyWordCallback callback = new MyWordCallback();
-        mUnderTest.getWords(word, callback);
+        mUnderTest.getSuggestions(word, callback);
 
         // NOTE: does not include typed word
         Assert.assertEquals("hell", callback.capturedWords.get(0));
@@ -76,7 +76,7 @@ public class InMemoryDictionaryTest {
         Mockito.doReturn(new int[] {'t'}).when(word).getCodesAt(Mockito.eq(6));
 
         MyWordCallback callback = new MyWordCallback();
-        mUnderTest.getWords(word, callback);
+        mUnderTest.getSuggestions(word, callback);
 
         // NOTE: does not include typed word
         Assert.assertEquals("AnySoftKeyboard", callback.capturedWords.get(0));
@@ -99,7 +99,7 @@ public class InMemoryDictionaryTest {
         Mockito.doReturn(new int[] {'y', 'u', 't', 'h'}).when(word).getCodesAt(Mockito.eq(6));
 
         MyWordCallback callback = new MyWordCallback();
-        mUnderTest.getWords(word, callback);
+        mUnderTest.getSuggestions(word, callback);
 
         // NOTE: does not include typed word
         Assert.assertEquals("AnySoftKeyboard", callback.capturedWords.get(0));

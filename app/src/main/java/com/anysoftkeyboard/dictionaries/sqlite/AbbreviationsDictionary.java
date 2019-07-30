@@ -47,7 +47,7 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     }
 
     @Override
-    public void getWords(KeyCodesProvider codes, WordCallback callback) {
+    public void getSuggestions(KeyCodesProvider codes, WordCallback callback) {
         if (isClosed() || isLoading()) return;
 
         String word = codes.getTypedWord().toString();

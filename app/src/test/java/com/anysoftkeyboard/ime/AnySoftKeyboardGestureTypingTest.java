@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ime;
 
+import static org.mockito.ArgumentMatchers.any;
+
 import android.os.SystemClock;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -8,6 +10,7 @@ import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
+import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -54,10 +57,18 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 .setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
         final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(1);
         Dictionary dictionary = Mockito.mock(Dictionary.class);
-        Mockito.doReturn(new char[][] {"hello".toCharArray()}).when(dictionary).getWords();
+        Mockito.doAnswer(
+                        invocation -> {
+                            ((GetWordsCallback) invocation.getArgument(0))
+                                    .onGetWordsFinished(
+                                            new char[][] {"hello".toCharArray()}, new int[] {1});
+                            return null;
+                        })
+                .when(dictionary)
+                .getLoadedWords(any());
         listener.onDictionaryLoadingStarted(dictionary);
         listener.onDictionaryLoadingDone(dictionary);
-        Mockito.verify(dictionary, Mockito.never()).getWords();
+        Mockito.verify(dictionary, Mockito.never()).getLoadedWords(any());
     }
 
     @Test
@@ -68,10 +79,18 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 .setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
         final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(0);
         Dictionary dictionary = Mockito.mock(Dictionary.class);
-        Mockito.doReturn(new char[][] {"hello".toCharArray()}).when(dictionary).getWords();
+        Mockito.doAnswer(
+                        invocation -> {
+                            ((GetWordsCallback) invocation.getArgument(0))
+                                    .onGetWordsFinished(
+                                            new char[][] {"hello".toCharArray()}, new int[] {1});
+                            return null;
+                        })
+                .when(dictionary)
+                .getLoadedWords(any());
         listener.onDictionaryLoadingStarted(dictionary);
         listener.onDictionaryLoadingDone(dictionary);
-        Mockito.verify(dictionary).getWords();
+        Mockito.verify(dictionary).getLoadedWords(any());
     }
 
     @Test
@@ -82,10 +101,10 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 .setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
         final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(0);
         Dictionary dictionary = Mockito.mock(Dictionary.class);
-        Mockito.doThrow(new UnsupportedOperationException()).when(dictionary).getWords();
+        Mockito.doThrow(new UnsupportedOperationException()).when(dictionary).getLoadedWords(any());
         listener.onDictionaryLoadingStarted(dictionary);
         listener.onDictionaryLoadingDone(dictionary);
-        Mockito.verify(dictionary).getWords();
+        Mockito.verify(dictionary).getLoadedWords(any());
     }
 
     @Test
@@ -114,8 +133,12 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                                     "bye".toCharArray(),
                                     "one".toCharArray(),
                                     "two".toCharArray(),
-                                    "three".toCharArray()
-                                }));
+                                    "three".toCharArray(),
+                                    "tree".toCharArray()
+                                }),
+                        Arrays.asList(
+                                new int[] {50, 100, 250, 200},
+                                new int[] {80, 190, 220, 140, 130, 27}));
 
         Robolectric.flushBackgroundThreadScheduler();
 
@@ -422,15 +445,15 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
             final float xStep = startKey.width / 3;
             final float yStep = startKey.height / 3;
 
-            final float xDistance = followingKey.x - startKey.x;
-            final float yDistance = followingKey.y - startKey.y;
+            final float xDistance = followingKey.centerX - startKey.centerX;
+            final float yDistance = followingKey.centerY - startKey.centerY;
             int callsToMake =
-                    (int) Math.ceil(((xDistance + yDistance) / 2) / ((xStep + yStep) / 2));
+                    (int) Math.ceil(((xDistance + yDistance) / 2f) / ((xStep + yStep) / 2f));
 
             final long timeStep = 16;
 
-            float currentX = startKey.x;
-            float currentY = startKey.y;
+            float currentX = startKey.centerX;
+            float currentY = startKey.centerY;
 
             SystemClock.sleep(timeStep);
             time = ShadowSystemClock.currentTimeMillis();
@@ -444,8 +467,11 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 SystemClock.sleep(timeStep);
                 time = ShadowSystemClock.currentTimeMillis();
                 mAnySoftKeyboardUnderTest.onGestureTypingInput(
-                        (int) currentX + 2, (int) currentY + 2, time);
+                        (int) currentX, (int) currentY, time);
             }
+
+            mAnySoftKeyboardUnderTest.onGestureTypingInput(
+                    followingKey.centerX, followingKey.centerY, time);
 
             startKey = followingKey;
         }

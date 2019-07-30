@@ -51,7 +51,7 @@ references:
 
 jobs:
 
-  build:
+  build_check:
     <<: *container_config
     steps:
       - checkout
@@ -64,33 +64,18 @@ jobs:
           command: scripts/ci/ci_setup.sh
 
       - run:
-          name: Initial build
-          command: scripts/ci/ci_assemble.sh
+          name: Run Checks
+          command: scripts/ci/ci_check.sh
 
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
           destination: apks/
 
-      - save_cache:
-          <<: *general_cache_key
-          <<: *cache_paths
-  check:
-    <<: *container_config
-    steps:
-      - checkout
-
-      - restore_cache:
-          <<: *check_cache_key
-
-      - run:
-          name: Run Checks
-          command: scripts/ci/ci_check.sh
-
       - run:
           name: Collect checks reports
           command: |
-            rm -rf all-checks-reports
-            mkdir all-checks-reports
+            rm -rf all-checks-reports || true
+            mkdir all-checks-reports || true
 
             find . -path ./all-checks-reports -prune -o -name "pmd*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
             find . -path ./all-checks-reports -prune -o -name "checkstyle*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
@@ -101,7 +86,7 @@ jobs:
           destination: checks_reports/
 
       - save_cache:
-          <<: *check_cache_key
+          <<: *general_cache_key
           <<: *cache_paths
 
   test:
@@ -130,8 +115,8 @@ jobs:
       - run:
           name: Collect junit reports
           command: |
-            rm -rf all-test-reports
-            mkdir all-test-reports
+            rm -rf all-test-reports || true
+            mkdir all-test-reports || true
             find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
 
       - store_test_results:
@@ -171,8 +156,8 @@ jobs:
       - run:
           name: Collect junit reports
           command: |
-            rm -rf all-test-reports
-            mkdir all-test-reports
+            rm -rf all-test-reports || true
+            mkdir all-test-reports || true
             find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
 
       - store_test_results:
@@ -206,25 +191,23 @@ workflows:
 
   build_check_tests_deploy:
     jobs:
-      - build
-      - check:
-          requires:
-            - build
-      - test:
-          requires:
-            - build
+      - build_check
+      - test
       - heavy_test:
+          filters:
+            branches:
+              only:
+                - /release-branch-v.*/
+                - master
           requires:
-            - build
-            - check
+            - build_check
       - deploy_release:
           filters:
             branches:
               only:
                 - /release-branch-v.*/
           requires:
-            - build
-            - check
+            - build_check
             - test
             - heavy_test
       - deploy_canary:
@@ -233,7 +216,6 @@ workflows:
               only:
                 - master
           requires:
-            - build
-            - check
+            - build_check
             - test
             - heavy_test
