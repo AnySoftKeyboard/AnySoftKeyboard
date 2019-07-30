@@ -27,7 +27,6 @@ public class AnySoftKeyboardExtendingTest extends AnySoftKeyboardBaseTest {
                                         .getClassLoader()
                                         .getResources(imePackage.replace('.', '/')))
                         .stream()
-                        .peek(url -> System.out.println("testAnySoftKeyboardClassHierarchy " + url))
                         .map(URL::getFile)
                         .map(File::new)
                         .filter(File::isDirectory)
@@ -60,7 +59,6 @@ public class AnySoftKeyboardExtendingTest extends AnySoftKeyboardBaseTest {
         Class<?> superclass = SoftKeyboard.class.getSuperclass();
         Assert.assertNotNull(superclass);
         while (!superclass.equals(AnySoftKeyboardBase.class)) {
-            System.out.println("ASK super " + superclass);
             Assert.assertTrue(
                     "Class "
                             + superclass

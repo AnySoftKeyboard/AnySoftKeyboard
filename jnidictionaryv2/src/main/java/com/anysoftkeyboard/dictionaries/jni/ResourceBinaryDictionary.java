@@ -27,6 +27,7 @@ import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,7 +103,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             @Nullable int[] nextLettersFrequencies,
             int nextLettersSize);
 
-    private native char[][] getWordsNative(long dictPointer);
+    private native void getWordsNative(long dictPointer, GetWordsCallback callback);
 
     @Override
     protected void loadAllResources() {
@@ -199,7 +200,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     }
 
     @Override
-    public void getWords(
+    public void getSuggestions(
             final KeyCodesProvider codes,
             final WordCallback callback /*, int[] nextLettersFrequencies*/) {
         if (isLoading() || isClosed()) return;
@@ -303,7 +304,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     }
 
     @Override
-    public char[][] getWords() {
-        return getWordsNative(mNativeDictPointer.get());
+    public void getLoadedWords(@NonNull GetWordsCallback callback) {
+        getWordsNative(mNativeDictPointer.get(), callback);
     }
 }

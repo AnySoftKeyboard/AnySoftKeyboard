@@ -23,13 +23,14 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import java.io.FileDescriptor;
 import java.util.Arrays;
 
 /** Implements a static, compacted, binary dictionary of standard words. */
 public class BinaryDictionary extends Dictionary {
-    public static final int MAX_WORD_LENGTH = 20;
+    private static final int MAX_WORD_LENGTH = 20;
     private static final String TAG = "ASK_BinaryDictionary";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 16;
@@ -93,12 +94,12 @@ public class BinaryDictionary extends Dictionary {
             int skipPos);
 
     @Override
-    public char[][] getWords() {
+    public void getLoadedWords(@NonNull GetWordsCallback callback) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void getWords(final KeyCodesProvider codes, final WordCallback callback) {
+    public void getSuggestions(final KeyCodesProvider codes, final WordCallback callback) {
         if (mNativeDict == 0 || isClosed()) return;
         final int codesSize = codes.length();
         // Wont deal with really long words.

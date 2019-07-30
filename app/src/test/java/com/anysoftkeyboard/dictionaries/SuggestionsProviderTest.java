@@ -85,7 +85,7 @@ public class SuggestionsProviderTest {
         Assert.assertEquals(2, mWordsCallback.wordsReceived.size());
 
         Mockito.verify(mFakeBuilder.mSpiedDictionary)
-                .getWords(Mockito.any(KeyCodesProvider.class), Mockito.same(mWordsCallback));
+                .getSuggestions(Mockito.any(KeyCodesProvider.class), Mockito.same(mWordsCallback));
     }
 
     @Test
@@ -203,9 +203,9 @@ public class SuggestionsProviderTest {
         mSuggestionsProvider.getSuggestions(wordComposer, mWordsCallback);
 
         Mockito.verify(mFakeBuilder.mSpiedDictionary)
-                .getWords(Mockito.same(wordComposer), Mockito.same(mWordsCallback));
+                .getSuggestions(Mockito.same(wordComposer), Mockito.same(mWordsCallback));
         Mockito.verify(fakeBuilder2.mSpiedDictionary)
-                .getWords(Mockito.same(wordComposer), Mockito.same(mWordsCallback));
+                .getSuggestions(Mockito.same(wordComposer), Mockito.same(mWordsCallback));
 
         Assert.assertEquals(3, mWordsCallback.wordsReceived.size());
         Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));

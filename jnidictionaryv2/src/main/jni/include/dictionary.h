@@ -17,6 +17,8 @@
 #ifndef LATINIME_DICTIONARY_H
 #define LATINIME_DICTIONARY_H
 
+#include <jni.h>
+
 namespace nativeime {
 
 // 22-bit address = ~4MB dictionary size limit, which on average would be about 200k-300k words
@@ -28,35 +30,21 @@ namespace nativeime {
 // if the word has other endings.
 #define FLAG_TERMINAL_MASK 0x80
 
-#define FLAG_BIGRAM_READ 0x80
-#define FLAG_BIGRAM_CHILDEXIST 0x40
-#define FLAG_BIGRAM_CONTINUED 0x80
-#define FLAG_BIGRAM_FREQ 0x7F
-
 class Dictionary {
 public:
     Dictionary(void *dict, int typedLetterMultipler, int fullWordMultiplier);
     int getSuggestions(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
             int maxWordLength, int maxWords, int maxAlternatives, int skipPos,
             int *nextLetters, int nextLettersSize);
-    int getBigrams(unsigned short *word, int length, int *codes, int codesSize,
-            unsigned short *outWords, int *frequencies, int maxWordLength, int maxBigrams,
-            int maxAlternatives);
     bool isValidWord(unsigned short *word, int length);
-    void getWords(short *words) { int a; int b; countWordsHelper(0, 0, a, b, words); }
-    void countWordsChars(int &wordCount, int &wordsCharsCount) { short *a = NULL; return countWordsHelper(0, 0, wordCount, wordsCharsCount, a); }
-    void setAsset(void *asset) { mAsset = asset; }
-    void *getAsset() { return mAsset; }
+    void getWords(unsigned short *words, int *freq) { int a; int b; countWordsHelper(0, 0, a, b, words, freq); }
+    void countWordsChars(int &wordCount, int &wordsCharsCount) { unsigned short *a = NULL; int *b = NULL; return countWordsHelper(0, 0, wordCount, wordsCharsCount, a, b); }
     ~Dictionary();
 
 private:
-    void countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words);
-    void getVersionNumber();
-    bool checkIfDictVersionIsLatest();
+    void countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, unsigned short *&words, int *&freqs);
     int getAddress(int *pos);
-    int getBigramAddress(int *pos, bool advance);
     int getFreq(int *pos);
-    int getBigramFreq(int *pos);
     void searchForTerminalNode(int address, int frequency);
 
     bool getFirstBitOfByte(int *pos) { return (mDict[*pos] & 0x80) > 0; }
@@ -80,12 +68,9 @@ private:
     void *mAsset;
 
     int *mFrequencies;
-    int *mBigramFreq;
     int mMaxWords;
-    int mMaxBigrams;
     int mMaxWordLength;
     unsigned short *mOutputChars;
-    unsigned short *mBigramChars;
     int *mInputCodes;
     int mInputLength;
     int mMaxAlternatives;
@@ -97,8 +82,6 @@ private:
     int mTypedLetterMultiplier;
     int *mNextLettersFrequencies;
     int mNextLettersSize;
-    int mVersion;
-    int mBigram;
 };
 
 // ----------------------------------------------------------------------------

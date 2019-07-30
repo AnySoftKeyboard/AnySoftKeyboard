@@ -229,7 +229,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected abstract void addWordToStorage(String word, int frequency);
 
     @Override
-    public void getWords(final KeyCodesProvider codes, final Dictionary.WordCallback callback) {
+    public void getSuggestions(
+            final KeyCodesProvider codes, final Dictionary.WordCallback callback) {
         if (isLoading() || isClosed()) return;
         mInputLength = codes.length();
         mMaxDepth = mInputLength * 2;
@@ -494,7 +495,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     @Override
-    public char[][] getWords() {
+    public void getLoadedWords(@NonNull GetWordsCallback callback) {
         throw new UnsupportedOperationException();
     }
 }

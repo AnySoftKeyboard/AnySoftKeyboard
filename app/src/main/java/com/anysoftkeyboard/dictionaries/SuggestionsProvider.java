@@ -35,12 +35,12 @@ public class SuggestionsProvider {
                 public void deleteWord(String word) {}
 
                 @Override
-                public char[][] getWords() {
+                public void getLoadedWords(@NonNull GetWordsCallback callback) {
                     throw new UnsupportedOperationException();
                 }
 
                 @Override
-                public void getWords(KeyCodesProvider composer, WordCallback callback) {}
+                public void getSuggestions(KeyCodesProvider composer, WordCallback callback) {}
 
                 @Override
                 public boolean isValidWord(CharSequence word) {
@@ -219,7 +219,7 @@ public class SuggestionsProvider {
             WordComposer wordComposer,
             Dictionary.WordCallback wordCallback) {
         for (Dictionary dictionary : dictionaries) {
-            dictionary.getWords(wordComposer, wordCallback);
+            dictionary.getSuggestions(wordComposer, wordCallback);
         }
     }
 
@@ -386,7 +386,7 @@ public class SuggestionsProvider {
     }
 
     public void getSuggestions(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
-        mContactsDictionary.getWords(wordComposer, wordCallback);
+        mContactsDictionary.getSuggestions(wordComposer, wordCallback);
         allDictionariesGetWords(mUserDictionary, wordComposer, wordCallback);
         allDictionariesGetWords(mMainDictionary, wordComposer, wordCallback);
     }

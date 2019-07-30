@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.dictionaries;
 
+import android.support.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -25,7 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public abstract class Dictionary {
     public static final int MAX_WORD_LENGTH = 32;
-    public static final int MAX_WORD_FREQUENCY = 255;
+    protected static final int MAX_WORD_FREQUENCY = 255;
 
     public static final char QUOTE = '\'';
     public static final char CURLY_QUOTE = 0x2019;
@@ -1333,17 +1334,17 @@ public abstract class Dictionary {
     /**
      * The weight to give to a word if it's length is the same as the number of typed characters.
      */
-    protected static final int FULL_WORD_FREQ_MULTIPLIER = 3;
+    protected static final int FULL_WORD_FREQ_MULTIPLIER = 2;
 
     /** The weight to give to a letter if it is typed. */
-    protected static final int TYPED_LETTER_MULTIPLIER = 3;
+    protected static final int TYPED_LETTER_MULTIPLIER = 2;
 
-    public abstract char[][] getWords();
+    public abstract void getLoadedWords(@NonNull GetWordsCallback callback);
 
     /**
      * Interface to be implemented by classes requesting words to be fetched from the dictionary.
      *
-     * @see #getWords(KeyCodesProvider, WordCallback)
+     * @see #getSuggestions(KeyCodesProvider, WordCallback)
      */
     public interface WordCallback {
         /**
@@ -1382,7 +1383,8 @@ public abstract class Dictionary {
      * @param callback the callback object to send matched words to as possible candidates
      * @see WordCallback#addWord(char[], int, int, int, Dictionary)
      */
-    public abstract void getWords(final KeyCodesProvider composer, final WordCallback callback);
+    public abstract void getSuggestions(
+            final KeyCodesProvider composer, final WordCallback callback);
 
     /**
      * Checks if the given word occurs in the dictionary
@@ -1472,7 +1474,7 @@ public abstract class Dictionary {
 
     protected abstract void loadAllResources();
 
-    public final CharSequence getDictionaryName() {
+    protected final CharSequence getDictionaryName() {
         return mDictionaryName;
     }
 

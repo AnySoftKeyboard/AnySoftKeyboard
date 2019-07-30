@@ -100,7 +100,7 @@ public class TagsExtractorImpl implements TagsExtractor {
         } else {
             mTempPossibleQuickTextsFromDictionary.clear();
             mWordComposer.setTypedTag(wordComposer, typedTagToSearch);
-            mTagsDictionary.getWords(
+            mTagsDictionary.getSuggestions(
                     mWordComposer,
                     (word, wordOffset, wordLength, frequency, from) -> {
                         // using a Set will ensure we do not have duplication
