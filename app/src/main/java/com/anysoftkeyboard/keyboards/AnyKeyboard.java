@@ -301,8 +301,9 @@ public abstract class AnyKeyboard extends Keyboard {
                             topRowPlugin.getPackageContext(),
                             topRowPlugin.getKeyboardResId(),
                             keyboardDimens,
-                            mKeyboardMode);
-            fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
+                            mKeyboardMode,
+                            true);
+            fixKeyboardDueToGenericRow(topMd, true);
         }
         if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
             Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
@@ -312,7 +313,8 @@ public abstract class AnyKeyboard extends Keyboard {
                             bottomRowPlugin.getPackageContext(),
                             bottomRowPlugin.getKeyboardResId(),
                             keyboardDimens,
-                            mKeyboardMode);
+                            mKeyboardMode,
+                            false);
             if (bottomMd.rowsCount == 0) {
                 Logger.i(
                         TAG,
@@ -324,21 +326,31 @@ public abstract class AnyKeyboard extends Keyboard {
                                 bottomRowPlugin.getPackageContext(),
                                 bottomRowPlugin.getKeyboardResId(),
                                 keyboardDimens,
-                                KEYBOARD_ROW_MODE_NORMAL);
+                                KEYBOARD_ROW_MODE_NORMAL,
+                                false);
             }
-            fixKeyboardDueToGenericRow(bottomMd, (int) keyboardDimens.getRowVerticalGap());
+            fixKeyboardDueToGenericRow(bottomMd, false);
         }
     }
 
-    private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
-        final int additionalPixels = md.totalHeight + rowVerticalGap;
-        mGenericRowsHeight += additionalPixels;
+    private void fixKeyboardDueToGenericRow(KeyboardMetadata md, boolean isTopRow) {
+        mGenericRowsHeight += md.totalHeight;
 
-        if (md.isTopRow) {
+        if (isTopRow) {
             final List<Key> keys = getKeys();
+
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
-                key.y += additionalPixels;
+                key.y += md.totalHeight;
+                key.centerY = key.y + key.height / 2;
+            }
+        } else {
+            // need to adjust the vertical gaps between the last and before last row
+            final List<Key> keys = getKeys();
+
+            for (int keyIndex = keys.size() - md.keysCount; keyIndex < keys.size(); keyIndex++) {
+                final Key key = keys.get(keyIndex);
+                key.y += md.lastVerticalGap;
                 key.centerY = key.y + key.height / 2;
             }
         }
@@ -350,53 +362,22 @@ public abstract class AnyKeyboard extends Keyboard {
             @NonNull Context context,
             int rowResId,
             final KeyboardDimens keyboardDimens,
-            @KeyboardRowModeId int rowMode) {
+            @KeyboardRowModeId int rowMode,
+            boolean isTopRow) {
         XmlResourceParser parser = context.getResources().getXml(rowResId);
         List<Key> keys = getKeys();
         boolean inKey = false;
         boolean inRow = false;
 
-        float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
-        float rowVerticalGap = keyboardDimens.getRowVerticalGap();
+        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
+        final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
         float x = 0;
-        float y = rowVerticalGap;
+        float y = isTopRow ? rowVerticalGap : getHeight();
         Key key = null;
         Row currentRow = null;
         float rowHeight = 0;
 
-        final AddOn.AddOnResourceMapping addOnResourceMapping = getKeyboardResourceMap();
         Resources res = context.getResources();
-        int[] remoteKeyboardLayoutStyleable =
-                addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
-        TypedArray a =
-                res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
-
-        // now reading from XML
-        int n = a.getIndexCount();
-        for (int i = 0; i < n; i++) {
-            final int remoteIndex = a.getIndex(i);
-            final int localAttrId =
-                    addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
-
-            try {
-                // CHECKSTYLE:OFF: missingswitchdefault
-                switch (localAttrId) {
-                    case R.attr.keyHorizontalGap:
-                        keyHorizontalGap = a.getDimensionPixelSize(remoteIndex, -1);
-                        break;
-                    case android.R.attr.verticalGap:
-                        rowVerticalGap =
-                                getDimensionOrFraction(
-                                        a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
-                        break;
-                }
-                // CHECKSTYLE:ON: missingswitchdefault
-            } catch (Exception e) {
-                Logger.w(TAG, "Failed to set data from XML!", e);
-            }
-        }
-        a.recycle();
-
         KeyboardMetadata m = new KeyboardMetadata();
 
         try {
@@ -406,6 +387,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     String tag = parser.getName();
                     if (TAG_ROW.equals(tag)) {
                         inRow = true;
+                        rowHeight = 0;
                         x = 0;
                         currentRow = createRowFromXml(resourceMapping, res, parser, rowMode);
                         if (currentRow == null) {
@@ -413,20 +395,6 @@ public abstract class AnyKeyboard extends Keyboard {
                             inRow = false;
                         } else {
                             m.rowsCount++;
-                            m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
-                            if (!m.isTopRow) {
-                                // the bottom row Y should be last
-                                // The last coordinate is height + keyboard's
-                                // default vertical gap
-                                // since mTotalHeight = y - mDefaultVerticalGap;
-                                // (see loadKeyboard
-                                // in the android sources)
-                                // We use our overriden getHeight method which
-                                // is just fixed so that it includes the first
-                                // generic row.
-                                y = getHeight() + getVerticalGap();
-                            }
-                            rowHeight = 0;
                         }
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
@@ -443,7 +411,7 @@ public abstract class AnyKeyboard extends Keyboard {
                                         parser);
                         key.width = (int) (key.width - keyHorizontalGap); // the gap is on both
                         // sides
-                        if (m.isTopRow) {
+                        if (isTopRow) {
                             keys.add(m.keysCount, key);
                         } else {
                             keys.add(key);
@@ -464,11 +432,11 @@ public abstract class AnyKeyboard extends Keyboard {
                         }
                     } else if (inRow) {
                         inRow = false;
-                        y += currentRow.verticalGap;
-                        y += rowHeight;
-                        y += rowVerticalGap;
-                        m.totalHeight =
-                                (int) (m.totalHeight + (rowHeight + currentRow.verticalGap));
+                        final int rowEffectiveHeight =
+                                (int) (rowHeight + rowVerticalGap + currentRow.verticalGap);
+                        y += rowEffectiveHeight;
+                        m.totalHeight += rowEffectiveHeight;
+                        m.lastVerticalGap = currentRow.verticalGap;
                     }
                 }
             }
@@ -748,11 +716,11 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     private static class KeyboardMetadata {
+        int lastVerticalGap;
         int keysCount = 0;
         int rowsCount = 0;
         int totalHeight = 0;
         int rowWidth = 0;
-        boolean isTopRow = false;
     }
 
     public static class AnyKey extends Keyboard.Key {

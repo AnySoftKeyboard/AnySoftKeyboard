@@ -137,7 +137,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0);
 
-        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
     }
 
@@ -146,7 +146,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 0);
 
-        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
     }
 
@@ -155,7 +155,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 0);
 
-        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
     }
 
@@ -164,7 +164,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
-        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
     }
 
@@ -173,7 +173,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
-        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
 
         Keyboard.Key key =
@@ -211,7 +211,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 0);
 
-        Assert.assertEquals(57 /*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(54 /*extra row*/, keyboard.getHeight());
         Assert.assertEquals(46 /*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
@@ -256,8 +256,33 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 1);
 
-        Assert.assertEquals(61 /*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(64 /*extra row*/, keyboard.getHeight());
         Assert.assertEquals(50 /*additional 10 keys over normal*/, keyboard.getKeys().size());
+        // also, verify that the gap is correct.
+        Assert.assertNotEquals(
+                "For this test, we assume that the first key and the 5th are not on the same row.",
+                keyboard.getKeys().get(0).y,
+                keyboard.getKeys().get(4).y);
+
+        final int expectedVerticalGap =
+                keyboard.getKeys().get(4).y
+                        - keyboard.getKeys().get(0).y
+                        - keyboard.getKeys().get(0).height;
+        Assert.assertTrue(expectedVerticalGap > 0);
+
+        Keyboard.Key previousKey = keyboard.getKeys().get(0);
+        for (int keyIndex = 0; keyIndex < keyboard.getKeys().size(); keyIndex++) {
+            final Keyboard.Key currentKey = keyboard.getKeys().get(keyIndex);
+            if (currentKey.y != previousKey.y) {
+                final int currentVerticalGap = currentKey.y - previousKey.y - previousKey.height;
+                Assert.assertEquals(
+                        "Vertical gap is wrong for key index " + keyIndex,
+                        expectedVerticalGap,
+                        currentVerticalGap);
+            }
+
+            previousKey = currentKey;
+        }
     }
 
     @Test
@@ -689,10 +714,20 @@ public class ExternalAnyKeyboardRowsTest {
         for (Keyboard.Key key : keys) {
             if (previousKey != null) {
                 Assert.assertTrue(
-                        "Key should always be either at the next row or the same",
+                        "Key should always be either at the next row or the same. previous: "
+                                + previousKey.y
+                                + ". next: "
+                                + key.y,
                         previousKey.y <= key.y);
                 Assert.assertTrue(
-                        "Key should always be either at the next column or in a new row",
+                        "Key should always be either at the next column or in a new row. previous: "
+                                + previousKey.x
+                                + ","
+                                + previousKey.y
+                                + ". next: "
+                                + key.x
+                                + ","
+                                + key.y,
                         previousKey.y < key.y || previousKey.x < key.x);
             }
 
