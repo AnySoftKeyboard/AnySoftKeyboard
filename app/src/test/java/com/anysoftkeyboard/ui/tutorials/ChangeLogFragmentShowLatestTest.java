@@ -13,10 +13,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ChangeLogFragmentShowLatestTest
-        extends RobolectricFragmentTestCase<ChangeLogFragment> {
+        extends RobolectricFragmentTestCase<ChangeLogFragment.LatestChangeLogFragment> {
     @NonNull
     @Override
-    protected ChangeLogFragment createFragment() {
+    protected ChangeLogFragment.LatestChangeLogFragment createFragment() {
         return new ChangeLogFragment.LatestChangeLogFragment();
     }
 
