@@ -58,10 +58,11 @@ public abstract class ChangeLogFragment extends Fragment {
 
         mBulletsBuilder.setLength(0);
         for (String changeEntry : change.changes) {
+            if (mBulletsBuilder.length() != 0) mBulletsBuilder.append('\n');
             mBulletsBuilder
-                    .append(getString(R.string.change_log_bullet_point, changeEntry))
-                    .append('\n');
+                    .append(getString(R.string.change_log_bullet_point, changeEntry));
         }
+
         holder.bulletPointsView.setText(mBulletsBuilder.toString());
 
         holder.webLinkChangeLogView.setText(

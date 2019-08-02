@@ -19,8 +19,9 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/91"),
                         "Colorized nav-bar on supported devices.",
-                        "Updated build tools.",
+                        "Gesture-Typing fixes and improvements.",
                         "Various fixes around theme setting.",
+                        "Updated build tools.",
                         "Updated translations."));
 
         log.add(

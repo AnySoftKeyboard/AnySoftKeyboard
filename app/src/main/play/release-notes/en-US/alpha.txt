@@ -1,6 +1,7 @@
 * Colorized nav-bar on supported devices.
-* Updated translations.
+* Gesture-Typing fixes and improvements.
 * Various fixes around theme setting.
+* Updated translations.
 * YABTU
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/91
