@@ -73,16 +73,31 @@
         <item>Mesana</item>
         <item>Forte</item>
     </string-array>
+    <string name="night_mode_screen">Impostatziones pro sa modalidade pro sa note</string>
+    <string name="night_mode_description">Sa modalideade pro sa note at a mudare custas funtzionalidades:</string>
+    <string name="night_mode_state_summary">In custu momentu, s\'innescu pro sa modalidade pro sa note: \u0020%s</string>
+    <string name="night_mode_dialog_title">Abìlita sa modalidade pro sa note</string>
+    <string name="night_mode_type_never">Mai</string>
+    <string name="night_mode_type_follow_system">Sighi su sistema</string>
+    <string name="night_mode_type_always">Semper</string>
+    <string name="night_mode_app_night_theme">Iscuri sas impostatziones de s\'interfache de s\'aplicatzione</string>
+    <string name="night_mode_darken_keyboard_theme">Iscuri su tema de sa tastiera</string>
+    <string name="night_mode_sound_control">Istuda sos sonos a s\'incarcada de sas teclas</string>
+    <string name="night_mode_vibration_control">Istuda sa vibratzione a s\'incarcada de sas teclas</string>
     <string name="power_save_mode_screen">Impostatziones pro su rispàrmiu energèticu</string>
     <string name="power_save_mode_description">Sa modalidade a rispàrmiu energèticu at a minimare su consumu de energia de AnySoftKeyboard istudende custas funtzionalidades:</string>
     <string name="power_save_mode_state_summary">In custu momentu, su lìmite pro s\'allughìngiu de su rispàrmiu energèticu:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Allughe sa modalidade a rispàrmiu energèticu</string>
+    <string name="power_save_mode_types_never">Mai</string>
+    <string name="power_save_mode_types_lower_battery">Cando b\'est pagu càrriga</string>
+    <string name="power_save_mode_types_always">Semper</string>
     <string name="power_saving_keyboard_theme_name">Tema de sa modalidade a rispàrmiu energèticu</string>
     <string name="power_saving_keyboard_theme_description">Colores iscuros, tema sèmplitze chi diat pòdere tènnere bisòngiu de unu pagu de mancu de energia dae su dispositivu.</string>
     <string name="power_save_mode_animation_control">Istuda sas animatziones e sas anteprimas de sas teclas</string>
     <string name="power_save_mode_sound_control">Istuda sos sonos a s\'incarcada de sas teclas</string>
     <string name="power_save_mode_vibration_control">Istuda sa vibratzione a s\'incarcada de sas teclas</string>
     <string name="power_save_mode_suggestions_control">Istuda sos impòsitos pro sas paràulas</string>
+    <string name="power_save_mode_gesture_typing_control">Disabìlita sa digitatzione a gestos</string>
     <string name="power_save_mode_theme_control">Cola a unu tema iscuru, sèmpritze</string>
     <string name="pop_text_type_title">Faghe essire su testu iscritu dae sas teclas</string>
     <string name="pop_text_type_summary">Cando fàghere essire su testu iscritu dae sas teclas incarcadas. Atualmente: %s</string>
@@ -638,4 +653,9 @@
     <string name="apply_remote_app_colors_to_theme">Càmbia sos colores de su tema sighende s\'aplicatzione impreada</string>
     <string name="apply_overlay_summary_on">Sos colores de sa tastiera ant a èssere ligados a s\'aplicatzione ativa (pro cantu possìbile).</string>
     <string name="apply_overlay_summary_off">Imprea semper sos colores de su tema.</string>
+    <string name="media_insertion_pending_message">Incarca in sa casella de testu pro insertare s\'immàgine</string>
+    <string name="aosp_dark_theme_name">Tema iscuru AOSP</string>
+    <string name="aosp_dark_theme_description">Tema de sa tastiera cun colores iscuros ispiradu a s\'AOSP</string>
+    <string name="aosp_light_theme_name">Tema craru AOSP</string>
+    <string name="aosp_light_theme_description">Tema de sa tastiera cun colores craros ispiradu a s\'AOSP</string>
 </resources>
