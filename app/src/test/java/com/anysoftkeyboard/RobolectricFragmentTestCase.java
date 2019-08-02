@@ -29,10 +29,13 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     @NonNull
     protected final T startFragmentWithState(@Nullable Bundle state) {
         T fragment = createFragment();
+        TestMainSettingsActivity.CREATED_FRAGMENT = fragment;
+
         mFragmentController =
-                SupportFragmentController.of(fragment, MainSettingsActivity.class)
+                SupportFragmentController.of(fragment, TestMainSettingsActivity.class)
                         .create(R.id.main_ui_content, state)
                         .start()
+                        .postCreate(state)
                         .resume()
                         .visible();
 
@@ -71,6 +74,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         startFragment();
 
         mFragmentController.pause().stop().destroy();
+
         ensureAllScheduledJobsAreDone();
     }
 
@@ -103,10 +107,12 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     }
 
     public static class TestMainSettingsActivity extends MainSettingsActivity {
+        private static Fragment CREATED_FRAGMENT;
+
         @NonNull
         @Override
         protected Fragment createRootFragmentInstance() {
-            return new Fragment();
+            return CREATED_FRAGMENT;
         }
     }
 }
