@@ -194,11 +194,6 @@ workflows:
       - build_check
       - test
       - heavy_test:
-          filters:
-            branches:
-              only:
-                - /release-branch-v.*/
-                - master
           requires:
             - build_check
       - deploy_release:

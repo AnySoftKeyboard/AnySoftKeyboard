@@ -3,9 +3,6 @@
 <Keyboard
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ask="http://schemas.android.com/apk/res-auto">
-    <Row android:keyHeight="@integer/key_zero_height"
-        android:keyWidth="35%p"
-        android:rowEdgeFlags="top"/>
     <Row android:keyboardMode="@integer/keyboard_mode_password" android:rowEdgeFlags="top" android:keyWidth="10%p"
         android:keyHeight="@integer/key_short_height">
         <Key android:codes="49" android:keyLabel="1" ask:shiftedCodes="33" android:keyEdgeFlags="left"/>

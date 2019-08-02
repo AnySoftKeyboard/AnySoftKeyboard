@@ -4,7 +4,7 @@
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Tracering gestart! \nZorg dat u het uiteindelijk weer stopt</string>
     <string name="debug_tracing_starting_failed">Starten van traceren is mislukt! Bekijk logcat voor details.</string>
-    <string name="debug_tracing_finished">Tracering is klaar! \nTraceerbestand is 
+    <string name="debug_tracing_finished">Tracering is klaar!\nTraceerbestand is 
 <xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Over</string>
     <!-- main form -->
@@ -76,10 +76,24 @@ woordenlijst
         <item>Gemiddeld</item>
         <item>Sterk</item>
     </string-array>
+    <string name="night_mode_screen">Nachtmodusinstellingen</string>
+    <string name="night_mode_description">Nachtmodus wijzigt deze eigenschappen:</string>
+    <string name="night_mode_state_summary">Huidige nachtmodusdrempel:\u0020%s</string>
+    <string name="night_mode_dialog_title">Schakel nachtmodus in</string>
+    <string name="night_mode_type_never">Nooit</string>
+    <string name="night_mode_type_follow_system">Volg systeem</string>
+    <string name="night_mode_type_always">Altijd</string>
+    <string name="night_mode_app_night_theme">Donkermaakinstellingen app UI</string>
+    <string name="night_mode_darken_keyboard_theme">Maak toetsenbordthema donkerder</string>
+    <string name="night_mode_sound_control">Schakel toetsgeluiden uit</string>
+    <string name="night_mode_vibration_control">Schakel toetsvibraties uit</string>
     <string name="power_save_mode_screen">Energiebesparende modus</string>
     <string name="power_save_mode_description">Energiebesparende modus vermindert het energieverbruik van AnySoftKeyboard door de volgende features uit te schakelen:</string>
     <string name="power_save_mode_state_summary">Momenteel, energiebesparende drempel:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Schakel energiebesparende modus in</string>
+    <string name="power_save_mode_types_never">Nooit</string>
+    <string name="power_save_mode_types_lower_battery">Als accu bijna leeg is</string>
+    <string name="power_save_mode_types_always">Altijd</string>
     <string name="power_saving_keyboard_theme_name">Thema energiebesparende modus</string>
     <string name="power_saving_keyboard_theme_description">Donkere kleuren, eenvoudigere layout verbruikt minder energie van apparaat.</string>
     <string name="power_save_mode_animation_control">Schakel animaties en toetsvoorbeelden uit</string>
@@ -121,6 +135,10 @@ woordenlijst
     <string name="hide_soft_when_physical">Verberg toetsenbord met fysieke toets</string>
     <string name="hide_soft_when_physical_on_summary">Verberg schermtoetsenbord als fysiek toetsenbord wordt gebruikt</string>
     <string name="hide_soft_when_physical_off_summary">Toon schermtoetsenbord als fysiek toetsenbord wordt gebruikt</string>
+    <string name="enable_alt_space_language_shortcut">Alt+Spatie wisselt van taal</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt+Spatie wisselt naar volgende layout.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt+Spatie voert een spatie in.</string>
+    <string name="enable_shift_space_language_shortcut">Shift+Spatie wisselt van taal</string>
     <string name="fullscreen_input_connection_supported">Gebruik volledig scherm in landschapsmodus</string>
     <string name="fullscreen_input_connection_supported_on_summary">Neem scherm over bij tekstinvoer in landschapsmodus</string>
     <string name="fullscreen_input_connection_supported_off_summary">Gebruik geen volledig scherm in landschapsmodus</string>
@@ -387,6 +405,7 @@ woordenlijst
     <string name="extension_kbd_top_numbers_alt">Alternatieve cijfertoetsen</string>
     <string name="extension_kbd_top_nav">Navigatietoetsen</string>
     <string name="extension_kbd_top_numbers_simple">Eenvoudig, enkel nummers</string>
+    <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_bottom_regular_with_voice">Gewoon</string>
     <string name="extension_kbd_bottom_regular">Klassiek (geen microfoon)</string>
     <string name="extension_kbd_bottom_iphone">iPhone stijl (geen microfoon)</string>
@@ -623,4 +642,14 @@ woordenlijst
     <string name="prefs_providers_backed_up_to">Het is gelukt om een back-up te maken van je gegevens naar %s</string>
     <string name="prefs_providers_failed_restore_due_to">Mislukt om je gegevens te herstellen vanwege %s</string>
     <string name="prefs_providers_restored_to">Herstellen van je gegevens van %s is geslaagd</string>
+    <string name="allow_layouts_to_provide_generic_rows">Toetsenborden kunnen algemene rijen bieden</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Gebruik altijd geselecteerde algemene rijen.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Sta layouts toe algemene rijen te overschrijven.</string>
+    <string name="gesture_typing_alert_title">Bètafeature!</string>
+    <string name="gesture_typing_alert_button">Begrepen</string>
+    <string name="apply_remote_app_colors_to_theme">Pas themakleuren aan naar gebruikte app</string>
+    <string name="apply_overlay_summary_off">Gebruik altijd themakleuren.</string>
+    <string name="media_insertion_pending_message">Klik tekstbox om afbeelding in te voegen</string>
+    <string name="aosp_dark_theme_name">AOSP-donkerthema</string>
+    <string name="aosp_light_theme_name">AOSP-lichtthema</string>
 </resources>
