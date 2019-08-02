@@ -33,6 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
+        android:paddingEnd="4dp"
+        android:paddingRight="4dp"
         android:paddingStart="4dp"
         android:paddingLeft="4dp" />
 
