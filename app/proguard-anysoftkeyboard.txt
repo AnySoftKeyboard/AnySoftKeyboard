@@ -4,11 +4,13 @@
 }
 
 -assumenosideeffects class com.anysoftkeyboard.base.utils.Logger {
-    *;
-}
-
--assumenosideeffects class com.anysoftkeyboard.base.utils.LogProvider {
-    *;
+    public static void v(...);
+    public static void i(...);
+    public static void w(...);
+    public static void d(...);
+    public static void e(...);
+    public static void yell(...);
+    public static void wtf(...);
 }
 
 -assumenosideeffects class android.util.Log {
