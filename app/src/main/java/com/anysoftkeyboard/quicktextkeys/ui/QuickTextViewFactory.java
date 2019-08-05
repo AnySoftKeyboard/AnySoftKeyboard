@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -23,7 +22,6 @@ public class QuickTextViewFactory {
         // hard setting the height - this should be the same height as the standard keyboard
         ViewGroup.LayoutParams params = rootView.getLayoutParams();
         params.height = parent.getHeight();
-        Logger.yell("NAVBAR", "params.height is %d", params.height);
 
         rootView.setLayoutParams(params);
         rootView.setQuickKeyHistoryRecords(quickKeyHistoryRecords);
