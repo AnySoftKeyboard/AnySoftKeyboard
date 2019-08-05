@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
@@ -75,8 +76,12 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
         cleanUpQuickTextKeyboard(false);
 
         final AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
-        actualInputView.setVisibility(View.GONE);
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+        Logger.yell(
+                "NAVBAR",
+                "actualInputView %d, inputViewContainer %d",
+                actualInputView.getHeight(),
+                inputViewContainer.getHeight());
         QuickTextPagerView quickTextsLayout =
                 QuickTextViewFactory.createQuickTextView(
                         getApplicationContext(),
@@ -96,6 +101,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
                 actualInputView.getPaddingBottom(),
                 getSupportedMediaTypesForInput());
 
+        actualInputView.setVisibility(View.GONE);
         inputViewContainer.addView(quickTextsLayout);
     }
 
