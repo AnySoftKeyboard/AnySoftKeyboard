@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -59,6 +61,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private CandidateView mMockCandidateView;
     private boolean mHidden = true;
     private boolean mCandidateShowsHint = false;
+    private int mCandidateVisiblity = View.VISIBLE;
     private InputMethodManager mSpiedInputMethodManager;
     private int mLastOnKeyPrimaryCode;
     private AbstractInputMethodImpl mCreatedInputMethodInterface;
@@ -233,6 +236,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                         })
                 .when(mMockCandidateView)
                 .notifyAboutWordAdded(any(CharSequence.class));
+
+        Mockito.doAnswer(invocation -> mCandidateVisiblity)
+                .when(mMockCandidateView)
+                .getVisibility();
+
+        Mockito.doAnswer(invocation -> mCandidateVisiblity = invocation.getArgument(0))
+                .when(mMockCandidateView)
+                .setVisibility(anyInt());
     }
 
     @Override

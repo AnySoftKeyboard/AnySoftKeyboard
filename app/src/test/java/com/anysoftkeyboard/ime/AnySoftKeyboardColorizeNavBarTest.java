@@ -2,8 +2,6 @@ package com.anysoftkeyboard.ime;
 
 import android.content.res.Resources;
 import android.os.Build;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
@@ -15,7 +13,6 @@ import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 import org.robolectric.annotation.RealObject;
 import org.robolectric.shadow.api.Shadow;
-import org.robolectric.shadows.ShadowKeyCharacterMap;
 import org.robolectric.shadows.ShadowResources;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -36,15 +33,15 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @Config(shadows = {TestShadowResources.class, MyShadowKeyCharacterMapWithBack.class})
-    public void testDoesNotSetPaddingIfHasBackKey() throws Exception {
+    @Config(shadows = {TestShadowResources.class, TestShadowResourcesFalseConfig.class})
+    public void testDoesNotSetPaddingIfOsSaysNoNavBar() throws Exception {
         Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
                 .setBottomOffset(Mockito.anyInt());
     }
 
     @Test
-    @Config(shadows = {TestShadowResources.class, MyShadowKeyCharacterMapWithHome.class})
-    public void testDoesNotSetPaddingIfHasHomeKey() throws Exception {
+    @Config(shadows = {TestShadowResources.class, TestShadowResourcesNoConfigResId.class})
+    public void testDoesNotSetPaddingIfNoConfigResource() throws Exception {
         Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
                 .setBottomOffset(Mockito.anyInt());
     }
@@ -75,6 +72,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         @RealObject Resources mResources;
 
         static int RES_ID = 18263213;
+        static int RES_CONFIG_ID = 19263224;
 
         @Implementation
         protected int getIdentifier(String name, String defType, String defPackage) {
@@ -82,6 +80,10 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
                     && "dimen".equals(defType)
                     && "android".equals(defPackage)) {
                 return RES_ID;
+            } else if ("config_showNavigationBar".equals(name)
+                    && "bool".equals(defType)
+                    && "android".equals(defPackage)) {
+                return RES_CONFIG_ID;
             } else {
                 return Shadow.directlyOn(mResources, Resources.class)
                         .getIdentifier(name, defType, defPackage);
@@ -94,6 +96,15 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
                 return 32;
             } else {
                 return Shadow.directlyOn(mResources, Resources.class).getDimensionPixelSize(id);
+            }
+        }
+
+        @Implementation
+        protected boolean getBoolean(int id) throws Resources.NotFoundException {
+            if (id == RES_CONFIG_ID) {
+                return true;
+            } else {
+                return Shadow.directlyOn(mResources, Resources.class).getBoolean(id);
             }
         }
     }
@@ -113,6 +124,36 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     }
 
     @Implements(Resources.class)
+    public static class TestShadowResourcesFalseConfig extends TestShadowResources {
+
+        @Implementation
+        @Override
+        protected boolean getBoolean(int id) throws Resources.NotFoundException {
+            if (id == RES_CONFIG_ID) {
+                return false;
+            } else {
+                return Shadow.directlyOn(mResources, Resources.class).getBoolean(id);
+            }
+        }
+    }
+
+    @Implements(Resources.class)
+    public static class TestShadowResourcesNoConfigResId extends TestShadowResources {
+
+        @Implementation
+        @Override
+        protected int getIdentifier(String name, String defType, String defPackage) {
+            if ("config_showNavigationBar".equals(name)
+                    && "bool".equals(defType)
+                    && "android".equals(defPackage)) {
+                return 0;
+            } else {
+                return super.getIdentifier(name, defType, defPackage);
+            }
+        }
+    }
+
+    @Implements(Resources.class)
     public static class TestShadowResourcesNoResId extends TestShadowResources {
 
         @Implementation
@@ -125,22 +166,6 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
             } else {
                 return super.getIdentifier(name, defType, defPackage);
             }
-        }
-    }
-
-    @Implements(KeyCharacterMap.class)
-    public static class MyShadowKeyCharacterMapWithHome extends ShadowKeyCharacterMap {
-        @Implementation
-        protected static boolean deviceHasKey(int keyCode) {
-            return keyCode == KeyEvent.KEYCODE_HOME;
-        }
-    }
-
-    @Implements(KeyCharacterMap.class)
-    public static class MyShadowKeyCharacterMapWithBack extends ShadowKeyCharacterMap {
-        @Implementation
-        protected static boolean deviceHasKey(int keyCode) {
-            return keyCode == KeyEvent.KEYCODE_BACK;
         }
     }
 }
