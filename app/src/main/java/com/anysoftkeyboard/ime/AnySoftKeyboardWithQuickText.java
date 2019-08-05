@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ime;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
@@ -20,6 +19,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
     private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
     private String mOverrideQuickTextText = "";
     private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
+    private boolean mActionStripsShown;
 
     @Override
     public void onCreate() {
@@ -65,18 +65,29 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
 
     private void outputCurrentQuickTextKey(Keyboard.Key key) {
         QuickTextKey quickTextKey = AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOn();
-        if (TextUtils.isEmpty(mOverrideQuickTextText)) onText(key, quickTextKey.getKeyOutputText());
-        else onText(key, mOverrideQuickTextText);
+        if (TextUtils.isEmpty(mOverrideQuickTextText)) {
+            onText(key, quickTextKey.getKeyOutputText());
+        } else {
+            onText(key, mOverrideQuickTextText);
+        }
+    }
+
+    @Override
+    public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
+        if (finishingInput) {
+            cleanUpQuickTextKeyboard(true);
+        }
     }
 
     private void switchToQuickTextKeyboard() {
+        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+        mActionStripsShown = inputViewContainer.getStripVisiblity();
         abortCorrectionAndResetPredictionState(false);
 
         cleanUpQuickTextKeyboard(false);
 
         final AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
-        actualInputView.setVisibility(View.GONE);
-        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
         QuickTextPagerView quickTextsLayout =
                 QuickTextViewFactory.createQuickTextView(
                         getApplicationContext(),
@@ -96,11 +107,13 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
                 actualInputView.getPaddingBottom(),
                 getSupportedMediaTypesForInput());
 
+        inputViewContainer.setStripActionsVisibility(false);
+        actualInputView.setVisibility(View.GONE);
         inputViewContainer.addView(quickTextsLayout);
     }
 
     private boolean cleanUpQuickTextKeyboard(boolean reshowStandardKeyboard) {
-        final ViewGroup inputViewContainer = getInputViewContainer();
+        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
         if (inputViewContainer == null) return false;
 
         QuickTextPagerView quickTextsLayout =
@@ -110,6 +123,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
             if (reshowStandardKeyboard) {
                 View standardKeyboardView = (View) getInputView();
                 standardKeyboardView.setVisibility(View.VISIBLE);
+                inputViewContainer.setStripActionsVisibility(mActionStripsShown);
             }
             return true;
         } else {

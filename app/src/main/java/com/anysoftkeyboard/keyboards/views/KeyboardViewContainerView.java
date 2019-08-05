@@ -60,11 +60,16 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         setThemeForChildView(child);
     }
 
+    public boolean getStripVisiblity() {
+        return mShowActionStrip;
+    }
+
     public void setStripActionsVisibility(boolean visible) {
         if (mShowActionStrip != visible) {
             mShowActionStrip = visible;
-            if (mCandidateView != null)
+            if (mCandidateView != null) {
                 mCandidateView.setVisibility(visible ? View.VISIBLE : View.GONE);
+            }
 
             for (View stripActionView : mStripActionViews) {
                 if (visible) {

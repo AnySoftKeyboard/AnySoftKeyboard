@@ -2,9 +2,11 @@ package com.anysoftkeyboard.ime;
 
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestInputConnection;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -149,7 +151,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
@@ -183,6 +185,15 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testPopupTextKeySwitchKeyboard() {
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
@@ -190,7 +201,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
@@ -198,6 +209,12 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(
                 View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
     }
 
     @Test
@@ -208,27 +225,142 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(
                 View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
 
         mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
         Assert.assertEquals(
                 View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
         Assert.assertEquals(
                 View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
         Assert.assertEquals(
                 View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.hideWindow();
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+    }
+
+    @Test
+    public void testCloseQuickTextKeyboardOnInputReallyFinished() {
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+
+        simulateFinishInputFlow();
+
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+    }
+
+    @Test
+    public void testDoNotCloseQuickTextKeyboardOnInputNotReallyFinished() {
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+
+        mAnySoftKeyboardUnderTest.onFinishInputView(false);
+
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+    }
+
+    @Test
+    public void testDoesNotReShowCandidatesIfNoCandidatesToBeginWith() {
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(
+                false,
+                TestableAnySoftKeyboard.createEditorInfo(
+                        EditorInfo.IME_ACTION_NONE,
+                        EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+
+        mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
+
+        Assert.assertEquals(
+                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
     }
 
     @Test
