@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.TextView;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -39,6 +40,44 @@ public class AboutAnySoftKeyboardFragmentTest
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
         Assert.assertEquals("https://anysoftkeyboard.github.io/", intent.getData().toString());
+    }
+
+    @Test
+    public void testShareApp() {
+        AboutAnySoftKeyboardFragment fragment = startFragment();
+        View icon = fragment.getView().findViewById(R.id.share_app_details);
+        Assert.assertNotNull(icon);
+
+        Shadows.shadowOf(icon).checkedPerformClick();
+
+        Intent intent =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
+
+        Assert.assertNotNull(intent);
+        Assert.assertEquals(Intent.ACTION_CHOOSER, intent.getAction());
+
+        Intent sharingIntent = intent.getParcelableExtra(Intent.EXTRA_INTENT);
+        Assert.assertNotNull(sharingIntent);
+    }
+
+    @Test
+    public void testRateApp() {
+        AboutAnySoftKeyboardFragment fragment = startFragment();
+        View icon = fragment.getView().findViewById(R.id.rate_app_in_store);
+        Assert.assertNotNull(icon);
+
+        Shadows.shadowOf(icon).checkedPerformClick();
+
+        Intent intent =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
+
+        Assert.assertNotNull(intent);
+        Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
+        Assert.assertEquals(
+                "http://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard",
+                intent.getData().toString());
     }
 
     @Test
