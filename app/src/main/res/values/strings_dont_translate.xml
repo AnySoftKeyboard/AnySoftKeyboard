@@ -40,4 +40,6 @@
 
     <string name="change_log_bullet_point">•\u0020<xliff:g id="change_log_entry">%s</xliff:g></string>
     <string name="switch_incognito_template">🕵️\u0020<xliff:g id="incognito">%s</xliff:g></string>
+
+    <string name="rate_app_in_store_url">http://play.google.com/store/apps/details?id=<xliff:g id="rate_url">%s</xliff:g></string>
 </resources>

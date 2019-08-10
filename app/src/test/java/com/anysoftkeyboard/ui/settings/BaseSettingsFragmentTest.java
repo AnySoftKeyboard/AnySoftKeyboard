@@ -34,7 +34,7 @@ public abstract class BaseSettingsFragmentTest<T extends Fragment>
         getApplicationContext().getResources().getConfiguration().orientation =
                 Configuration.ORIENTATION_PORTRAIT;
         final T fragment = startFragment();
-        final LinearLayout rootView = (LinearLayout) fragment.getView();
+        final LinearLayout rootView = fragment.getView().findViewById(R.id.settings_root);
 
         Assert.assertEquals(LinearLayout.VERTICAL, rootView.getOrientation());
     }
