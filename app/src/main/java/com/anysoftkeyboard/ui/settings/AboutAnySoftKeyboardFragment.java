@@ -39,6 +39,8 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
         getView().findViewById(R.id.about_legal_stuff_link).setOnClickListener(this);
         getView().findViewById(R.id.about_privacy_link).setOnClickListener(this);
         getView().findViewById(R.id.about_web_site_link).setOnClickListener(this);
+        getView().findViewById(R.id.share_app_details).setOnClickListener(this);
+        getView().findViewById(R.id.rate_app_in_store).setOnClickListener(this);
     }
 
     @Override
@@ -64,10 +66,30 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
                 String siteWebPage = getString(R.string.main_site_url);
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
                 break;
+            case R.id.share_app_details:
+                shareAppDetails();
+                break;
+            case R.id.rate_app_in_store:
+                startActivity(
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                        getString(
+                                                R.string.rate_app_in_store_url,
+                                                BuildConfig.APPLICATION_ID))));
+                break;
             default:
                 throw new IllegalArgumentException(
                         "Failed to handle " + v.getId() + " in AboutAnySoftKeyboardFragment");
         }
+    }
+
+    private void shareAppDetails() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_share_title));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_share_text));
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.app_share_menu_title)));
     }
 
     public static class AdditionalSoftwareLicensesFragment extends Fragment {
