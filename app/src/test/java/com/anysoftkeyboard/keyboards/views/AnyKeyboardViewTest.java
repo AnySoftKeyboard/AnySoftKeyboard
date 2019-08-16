@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import static android.os.SystemClock.sleep;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static com.anysoftkeyboard.ViewTestUtils.getKeyCenterPoint;
 import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_LEFT;
 import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
 import static org.mockito.ArgumentMatchers.any;
@@ -251,12 +252,28 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testSlideToExtensionKeyboard() {
+        final int threshold =
+                ApplicationProvider.getApplicationContext()
+                        .getResources()
+                        .getDimensionPixelOffset(R.dimen.extension_keyboard_reveal_point);
         sleep(1225);
         Assert.assertNull(
                 Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
                         .getLatestPopupWindow());
         ViewTestUtils.navigateFromTo(
-                mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
+                mViewUnderTest, new Point(10, 10), new Point(10, threshold - 1), 200, true, false);
+        // we're not showing immediately.
+        Assert.assertNull(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getLatestPopupWindow());
+        // if the finger stays there long enough, we'll show the popup
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest,
+                new Point(10, threshold - 1),
+                new Point(10, threshold - 1),
+                50,
+                true,
+                false);
 
         PopupWindow currentlyShownPopup =
                 Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
@@ -269,7 +286,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertEquals(20, miniKeyboard.getKeyboard().getKeys().size());
         // now moving back to the main keyboard - not quite yet
         ViewTestUtils.navigateFromTo(
-                mViewUnderTest, new Point(10, -20), new Point(10, 1), 100, false, false);
+                mViewUnderTest, new Point(10, threshold - 1), new Point(10, 1), 100, false, false);
         Assert.assertTrue(currentlyShownPopup.isShowing());
 
         ViewTestUtils.navigateFromTo(
@@ -284,22 +301,65 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testSlideToExtensionKeyboardWhenDisabled() {
+        final int threshold =
+                ApplicationProvider.getApplicationContext()
+                        .getResources()
+                        .getDimensionPixelOffset(R.dimen.extension_keyboard_reveal_point);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_extension_keyboard_enabled, false);
         sleep(1225);
         Assert.assertNull(
                 Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
                         .getLatestPopupWindow());
         ViewTestUtils.navigateFromTo(
-                mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
-
-        PopupWindow currentlyShownPopup =
+                mViewUnderTest, new Point(10, 10), new Point(10, threshold - 1), 200, true, false);
+        Assert.assertNull(
                 Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNull(currentlyShownPopup);
+                        .getLatestPopupWindow());
+
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest,
+                new Point(10, threshold - 1),
+                new Point(10, threshold - 1),
+                50,
+                true,
+                false);
+
+        Assert.assertNull(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getLatestPopupWindow());
     }
 
     @Test
-    public void testSwipeUpToUtilitiesKeyboardWithGestureTyping() {
+    public void testSlideToExtensionKeyboardWhenNotExceedingThreshold() {
+        final int threshold =
+                ApplicationProvider.getApplicationContext()
+                        .getResources()
+                        .getDimensionPixelOffset(R.dimen.extension_keyboard_reveal_point);
+        sleep(1225);
+        Assert.assertNull(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getLatestPopupWindow());
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest, new Point(10, 10), new Point(10, threshold + 1), 200, true, false);
+        Assert.assertNull(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getLatestPopupWindow());
+
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest,
+                new Point(10, threshold + 1),
+                new Point(10, threshold + 1),
+                50,
+                true,
+                false);
+
+        Assert.assertNull(
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getLatestPopupWindow());
+    }
+
+    @Test
+    public void testSwipeSpaceUpToUtilitiesKeyboardWithGestureTyping() {
         sleep(1225);
         Mockito.doReturn(true)
                 .when(mMockKeyboardListener)
@@ -307,10 +367,6 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         final AnyKeyboard.AnyKey key = findKey('a');
         ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, true);
-
-        Mockito.doReturn(false)
-                .when(mMockKeyboardListener)
-                .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
 
         assertSwipeUpToUtilitiesKeyboard();
     }
@@ -322,9 +378,9 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
                 .when(mMockKeyboardListener)
                 .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
 
-        final Point hPoint = ViewTestUtils.getKeyCenterPoint(findKey('h'));
-        final Point kPoint = ViewTestUtils.getKeyCenterPoint(findKey('k'));
-        final Point ePoint = ViewTestUtils.getKeyCenterPoint(findKey('e'));
+        final Point hPoint = getKeyCenterPoint(findKey('h'));
+        final Point kPoint = getKeyCenterPoint(findKey('k'));
+        final Point ePoint = getKeyCenterPoint(findKey('e'));
 
         ViewTestUtils.navigateFromTo(
                 mViewUnderTest,
@@ -375,11 +431,11 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     private void assertSwipeUpToUtilitiesKeyboard() {
         // flinging up
         final Keyboard.Key spaceKey = findKey(' ');
-        final Point upPoint = ViewTestUtils.getKeyCenterPoint(spaceKey);
+        final Point upPoint = getKeyCenterPoint(spaceKey);
         upPoint.offset(0, -(mViewUnderTest.mSwipeYDistanceThreshold + 1));
         Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
         ViewTestUtils.navigateFromTo(
-                mViewUnderTest, ViewTestUtils.getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
+                mViewUnderTest, getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
 
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(' ');
         Mockito.verify(mMockKeyboardListener).onSwipeUp();
@@ -404,7 +460,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         // doing it again
         ViewTestUtils.navigateFromTo(
-                mViewUnderTest, ViewTestUtils.getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
+                mViewUnderTest, getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
 
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(' ');
         Mockito.verify(mMockKeyboardListener).onSwipeUp();
