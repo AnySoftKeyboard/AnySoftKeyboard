@@ -56,7 +56,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35; // milliseconds
     private static final String TAG = "AnyKeyboardView";
-    public static final int DEFAULT_EXTENSION_POINT = -5;
     private AnimationsLevel mAnimationLevel;
 
     private boolean mExtensionVisible = false;
@@ -112,7 +111,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                                 enabled -> {
                                     if (enabled) {
                                         mExtensionKeyboardYActivationPoint =
-                                                DEFAULT_EXTENSION_POINT;
+                                                getResources()
+                                                        .getDimensionPixelOffset(
+                                                                R.dimen
+                                                                        .extension_keyboard_reveal_point);
                                     } else {
                                         mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
                                     }
