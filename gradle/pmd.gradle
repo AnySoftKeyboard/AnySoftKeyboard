@@ -1,7 +1,7 @@
 apply plugin: 'pmd'
 
 pmd {
-    toolVersion = '6.10.0'
+    toolVersion = '6.17.0'
 }
 
 tasks.register("pmdMain", Pmd) { task ->
