@@ -76,6 +76,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     </string-array>
     <string name="night_mode_screen">Gece Kipi ayarları</string>
     <string name="night_mode_description">Gece Kipi bu özellikleri değiştirecek:</string>
+    <string name="night_mode_state_summary">Geçerli Gece-Modu tetikleyici:\u0020%s</string>
     <string name="night_mode_dialog_title">Gece Kipi etkin</string>
     <string name="night_mode_type_never">Hiçbir zaman</string>
     <string name="night_mode_type_follow_system">İzleme sistemi</string>
@@ -510,6 +511,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="initial_quick_text_tab_last_used_tab">Son kullanılan grup ile başla</string>
     <string name="initial_quick_text_tab_history_tab">Geçmiş grubu ile başla</string>
     <string name="emoji_default_skin_tone_title">Duygu simgesi öntanımlı cilt tonu</string>
+    <string name="emoji_default_skin_tone_summary">Varsayılan Fitzpatrick cilt tipi: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Soysal</string>
     <string name="emoji_default_skin_tone_value_type_2">Açık Cilt Tonu</string>
     <string name="emoji_default_skin_tone_value_type_3">Orta-Açık Cilt Tonu</string>
@@ -636,12 +638,15 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="prefs_providers_restored_to">Veriniz %s\'den başarıyla geri yüklendi</string>
     <string name="allow_layouts_to_provide_generic_rows">Klavyeler genel satırlar sağlayabilir</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Her zaman seçili genel satırları kullan.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Yerleşimlerin jenerik satırları değiştirmesine izin ver.</string>
     <string name="gesture_typing_settings">Akış Hareketli Yazma ➿</string>
     <string name="gesture_typing_summary">Parmağınızı harfler arasında kaydırarak bir sözcük girin.</string>
     <string name="gesture_typing_action">Akış hareketli yazma etkin [BETA]</string>
     <string name="gesture_typing_alert_title">BETA Özelliği!</string>
+    <string name="gesture_typing_alert_message">Gesture-typing ➿ özelliği <b>beta</b> aşamasındadır. Bazı hatalar mevcut olup, yeterince hızlı değil, ve tam olarak tamamlanmamıştır.\nBuna rağmen, denemeniz tavsiye edilir.</string>
     <string name="gesture_typing_alert_button">Git</string>
     <string name="apply_remote_app_colors_to_theme">Kullanılan uygulamaya göre tema renklerini değiştir</string>
+    <string name="apply_overlay_summary_on">Klavye\'nin renkleri aktif uygulama ile uyumlu olacak (elimizden geldiği kadar).</string>
     <string name="apply_overlay_summary_off">Her zaman theme\'nın renklerini kullanın.</string>
     <string name="media_insertion_pending_message">Resim eklemek için metin kutusuna tıklayın</string>
     <string name="aosp_dark_theme_name">AOSP Koyu tema</string>
