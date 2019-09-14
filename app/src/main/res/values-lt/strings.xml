@@ -226,9 +226,6 @@
     <string name="special_dictionaries_group_summary">Pasiūlymų žodynai naudojami „AnySoftKeyboard“</string>
     <string name="use_user_dictionary">Naudotojo žodynas</string>
     <string name="use_user_dictionary_on_summary">Pasiūlyti naudotojo pridėtus žodžius (dukart spustelėkite įvestą pasiūlymą, kad pridėti)</string>
-    <string name="always_use_fallback_user_dictionary">Naudoti atsarginį naudotojo žodyną</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Naudoti tik „AnySoftKeyboard“ vidinį naudotojo žodyno mechanizmą (nepatartina).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Bandyti naudoti „Android“ įtrauktą naudotojo žodyno mechanizmą (rekomenduojama).</string>
     <string name="use_auto_dictionary">Auto žodynas</string>
     <string name="use_auto_dictionary_dialog_title">Pasirinkite mokymosi režimą</string>
     <string name="use_auto_dictionary_summary">Automatiškai išmokti naujus žodžius. Išmokimo metodas: %s</string>

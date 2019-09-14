@@ -193,9 +193,6 @@
     <string name="special_dictionaries_group_summary">Suggeriments utilitzats als diccionaris de l\'AnySoftKeyboard</string>
     <string name="use_user_dictionary">Diccionari de l\'usuari</string>
     <string name="use_user_dictionary_on_summary">Suggereix paraules afegides per l\'usuari (toqueu 2 vegades al suggeriment per afegir-ho)</string>
-    <string name="always_use_fallback_user_dictionary">Utilitza el diccionari per defecte</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Utilitza només el diccionari de l\'usuari de l\'AnySoftKeyboard (no recomanat).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Utilitza el diccionari original d\'Android (recomanat).</string>
     <string name="use_auto_dictionary">Diccionari automàtic</string>
     <string name="use_auto_dictionary_dialog_title">Seleccioneu el mètode d\'aprenentatge</string>
     <string name="use_auto_dictionary_summary">Aprèn paraules automàticament. Mètode triat: %s</string>

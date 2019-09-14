@@ -193,11 +193,6 @@
     <string name="special_dictionaries_group_summary">Az AnySoftKeyboard programban használt javaslati szótárak</string>
     <string name="use_user_dictionary">Felhasználói-szótár</string>
     <string name="use_user_dictionary_on_summary">Javasoljon felhasználói hozzáadott szavakat (kattintson duplán egy hozzáadott tipizált javaslatra)</string>
-    <string name="always_use_fallback_user_dictionary">Használja a tartalék felhasználói-szótárt</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Csak az AnySoftKeyboard beépített felhasználói-szótárának mechanizmusa használható (nem ajánlott).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Először próbálja meg használni az Android beépített
-        felhasználói szótárát (ajánlott).
-    </string>
     <string name="use_auto_dictionary">Automatikus szótár</string>
     <string name="use_auto_dictionary_dialog_title">Válassza ki a tanulási módot</string>
     <string name="use_auto_dictionary_summary">Automatikusan új szavakat tanulhat. Ismerje meg a módszert: %s

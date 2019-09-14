@@ -160,7 +160,6 @@
     <string name="more_ui_settings_group">Interface</string>
     <string name="special_dictionaries_group">Dicionários especiais</string>
     <string name="use_user_dictionary">Dicionário do utilizador</string>
-    <string name="always_use_fallback_user_dictionary">Utilizar dicionário de utilizador como recurso</string>
     <string name="use_auto_dictionary">Dicionário automático</string>
     <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
     <string name="use_auto_dictionary_summary">Aprender palavras automaticamente. Método: %s</string>

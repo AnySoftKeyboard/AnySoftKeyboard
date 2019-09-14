@@ -238,9 +238,6 @@
     <string name="special_dictionaries_group_summary">Dizionari di suggerimento utilizzati in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Dizionario utente</string>
     <string name="use_user_dictionary_on_summary">Suggerisci le parole aggiunte dall\'utente (doppio click su un suggerimento per aggiungerlo)</string>
-    <string name="always_use_fallback_user_dictionary">Usa il dizionario utente integrato</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Utilizza solo il dizionario utente integrato di AnySoftKeyboard (non raccomandato).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Prova prima ad utilizzare il dizionario utente integrato in Android (raccomandato).</string>
     <string name="use_auto_dictionary">Dizionario automatico</string>
     <string name="use_auto_dictionary_dialog_title">Seleziona metodo di apprendimento</string>
     <string name="use_auto_dictionary_summary">Impara automaticamente le nuove parole. Metodo di apprendimento: %s</string>

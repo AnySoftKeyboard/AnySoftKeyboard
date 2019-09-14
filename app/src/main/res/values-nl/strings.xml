@@ -225,9 +225,6 @@ woordenlijst
     <string name="special_dictionaries_group_summary">Woordenlijsten met voorstellen gebruikt in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Gebruikerswoordenlijst</string>
     <string name="use_user_dictionary_on_summary">Stel woorden voor die door gebruiker zijn toegevoegd (dubbelklik een voorstel om toe te voegen)</string>
-    <string name="always_use_fallback_user_dictionary">Gebruik uitwijk gebruikerswoordenlijst</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Gebruik alleen het ingebouwde gebruikerswoordenlijst mechanisme (niet aanbevolen).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Probeer eerst de gebruikerswoordenlijst van Android (aanbevolen).</string>
     <string name="use_auto_dictionary">Automatische woordenlijst</string>
     <string name="use_auto_dictionary_dialog_title">Kies leermethode</string>
     <string name="use_auto_dictionary_summary">Leer automatisch nieuwe woorden. Leermethode: %s</string>

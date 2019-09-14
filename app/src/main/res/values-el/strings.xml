@@ -138,7 +138,6 @@
     <string name="special_dictionaries_group">Ειδικά λεξικά</string>
     <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>
     <string name="use_user_dictionary">Λεξικό-χρήστη</string>
-    <string name="always_use_fallback_user_dictionary">Χρήση εφεδρικού λεξικού χρήστη</string>
     <string name="use_auto_dictionary">Αυτόματο λεξικό</string>
     <string name="use_auto_dictionary_dialog_title">Επιλέξτε μέθοδο εκμάθησης</string>
     <string name="use_auto_dictionary_summary">Αυτόματη εκμάθηση νέων λέξεων. Μέθοδος εκμάθησης: %s</string>

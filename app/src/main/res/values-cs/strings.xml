@@ -156,9 +156,6 @@
     <string name="special_dictionaries_group_summary">Návrhové slovníky používané v AnySoftKeyboard</string>
     <string name="use_user_dictionary">Uživatelský slovník</string>
     <string name="use_user_dictionary_on_summary">Navrhovat uživatelem přidaná slova (dvojklik na napsaném návrhu ho přidá)</string>
-    <string name="always_use_fallback_user_dictionary">Záložní uživ. slovník</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Použít pouze vestavěný mechanismus uživatelského slovníku AnySoftKeyboard (není doporučeno).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Pokusit se nejprve použít vestavěný mechanismus uživatelského slovníku systému Android (doporučeno).</string>
     <string name="use_auto_dictionary">Automatický slovník</string>
     <string name="use_auto_dictionary_dialog_title">Vyberte metodu učení</string>
     <string name="use_auto_dictionary_summary">Automaticky se učit nová slova. Metoda učení: %s</string>
