@@ -221,9 +221,6 @@
     <string name="special_dictionaries_group_summary">Словари, используемые в AnySoftKeyboard</string>
     <string name="use_user_dictionary">Словарь пользователя</string>
     <string name="use_user_dictionary_on_summary">Предлагать пользователю добавлять слова (двойное нажатие на слово для добавления)</string>
-    <string name="always_use_fallback_user_dictionary">Использовать резервный словарь пользователя</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Использовать только встроенный пользовательский словарь AnySoftKeyboard (не рекомендуется).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Использовать встроенный словарь пользователя Android в первую очередь (рекомендуется).</string>
     <string name="use_auto_dictionary">Автоматический словарь</string>
     <string name="use_auto_dictionary_dialog_title">Выберите метод запоминания</string>
     <string name="use_auto_dictionary_summary">Автоматически запоминать новые слова. Метод запоминания: %s</string>

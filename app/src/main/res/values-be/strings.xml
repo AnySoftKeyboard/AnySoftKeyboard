@@ -225,9 +225,6 @@
     <string name="special_dictionaries_group_summary">Прапановы слоўнікаў, што выкарыстоўваюцца ў AnySoftKeyboard</string>
     <string name="use_user_dictionary">Слоўнік карыстальніка</string>
     <string name="use_user_dictionary_on_summary">Прапаноўваць карыстальніку дадаваць словы (двойчы націсніце, каб дадаць набраную прапанову)</string>
-    <string name="always_use_fallback_user_dictionary">Выкарыстоўваць рэзервовы слоўнік карыстальніка</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Выкарыстоўваць толькі ўбудаваны слоўнік AnySoftKeyboard (не рэкамендуецца).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Спачатку спрабаваць задзейнічаць убудаваны слоўнік карыстальніка Android (рэкамендуецца).</string>
     <string name="use_auto_dictionary">Аўтаматычны слоўнік</string>
     <string name="use_auto_dictionary_dialog_title">Выбраць метад навучання</string>
     <string name="use_auto_dictionary_summary">Аўтаматычна вывучаць новыя словы. Метад навучання: %s</string>

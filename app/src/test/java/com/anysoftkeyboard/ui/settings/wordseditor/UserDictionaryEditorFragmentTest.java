@@ -9,9 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
+import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -218,6 +221,8 @@ public class UserDictionaryEditorFragmentTest
 
     @Test
     public void testAndroidDictionaryLoad() {
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_always_use_fallback_user_dictionary, false);
         // adding a few words to the dictionary
         AndroidUserDictionaryTest.AUDContentProvider provider =
                 new AndroidUserDictionaryTest.AUDContentProvider();
@@ -228,6 +233,38 @@ public class UserDictionaryEditorFragmentTest
         provider.addRow(3, "shalom", 10, "iw");
         provider.addRow(4, "telephone", 2, "iw");
         provider.addRow(5, "catchall", 5, null);
+
+        UserDictionaryEditorFragment fragment = startEditorFragment();
+
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
+        Assert.assertNotNull(wordsRecyclerView);
+        // we're expecting 3 items - 2 english words and one AddNew.
+        Assert.assertEquals(3, wordsRecyclerView.getAdapter().getItemCount());
+        Assert.assertEquals(
+                R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(0));
+        Assert.assertEquals(
+                R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(1));
+        Assert.assertEquals(
+                R.id.word_editor_view_type_add_new_row,
+                wordsRecyclerView.getAdapter().getItemViewType(2));
+    }
+
+    @Test
+    public void testFallbackDictionaryLoad() {
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_always_use_fallback_user_dictionary, true);
+        // adding a few words to the dictionary
+        WordsSQLiteConnection connectionEn =
+                new WordsSQLiteConnection(
+                        ApplicationProvider.getApplicationContext(), "fallback.db", "en");
+        connectionEn.addWord("Dude", 2);
+        connectionEn.addWord("Dudess", 3);
+
+        WordsSQLiteConnection connectionFr =
+                new WordsSQLiteConnection(
+                        ApplicationProvider.getApplicationContext(), "fallback.db", "fr");
+        connectionFr.addWord("Oui", 2);
+        connectionFr.addWord("No", 3);
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 

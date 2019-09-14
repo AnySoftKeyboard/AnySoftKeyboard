@@ -90,6 +90,87 @@ public class RxSharedPrefsTest {
     }
 
     @Test
+    public void testSetupFallbackDictionaryToFalseIfWasNotSetBefore() {
+        SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 11);
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Assert.assertFalse(
+                preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+
+        new RxSharedPrefs(
+                getApplicationContext(), getDefaultSharedPreferences(getApplicationContext()));
+
+        Assert.assertTrue(preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+        Assert.assertFalse(
+                preferences.getBoolean("settings_key_always_use_fallback_user_dictionary", true));
+    }
+
+    @Test
+    public void testDoesNotSetupFallbackDictionaryIfConfigurationVersionIsEmpty() {
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Assert.assertFalse(
+                preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+
+        new RxSharedPrefs(
+                getApplicationContext(), getDefaultSharedPreferences(getApplicationContext()));
+
+        Assert.assertFalse(
+                preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+    }
+
+    @Test
+    public void testDoesNotSetupFallbackDictionaryIfConfigurationVersion12() {
+        SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 12);
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Assert.assertFalse(
+                preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+
+        new RxSharedPrefs(
+                getApplicationContext(), getDefaultSharedPreferences(getApplicationContext()));
+
+        Assert.assertFalse(
+                preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+    }
+
+    @Test
+    public void testDoesNotSetupFallbackDictionaryToFalseIfWasSetBeforeToFalse() {
+        SharedPrefsHelper.setPrefsValue("settings_key_always_use_fallback_user_dictionary", false);
+        SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 11);
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Assert.assertTrue(preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+
+        new RxSharedPrefs(
+                getApplicationContext(), getDefaultSharedPreferences(getApplicationContext()));
+
+        Assert.assertTrue(preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+        Assert.assertFalse(
+                preferences.getBoolean("settings_key_always_use_fallback_user_dictionary", true));
+    }
+
+    @Test
+    public void testDoesNotSetupFallbackDictionaryToFalseIfWasSetBeforeToTrue() {
+        SharedPrefsHelper.setPrefsValue("settings_key_always_use_fallback_user_dictionary", true);
+        SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 11);
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Assert.assertTrue(preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+
+        new RxSharedPrefs(
+                getApplicationContext(), getDefaultSharedPreferences(getApplicationContext()));
+
+        Assert.assertTrue(preferences.contains("settings_key_always_use_fallback_user_dictionary"));
+        Assert.assertTrue(
+                preferences.getBoolean("settings_key_always_use_fallback_user_dictionary", false));
+    }
+
+    @Test
     public void testConvertTheme() {
         SharedPrefsHelper.setPrefsValue(
                 "settings_key_keyboard_theme_key", "28860f10-cf16-11e1-9b23-0800200c9a66");

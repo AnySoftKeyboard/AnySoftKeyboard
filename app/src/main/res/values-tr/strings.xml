@@ -224,9 +224,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="special_dictionaries_group_summary">AnySoftKeyboard için kullanılan öneri sözlükleri</string>
     <string name="use_user_dictionary">Kullanıcı-sözlüğü</string>
     <string name="use_user_dictionary_on_summary">Kullanıcının tanımladığı kelime önerileri (eklemek için öneriye çift dokunun)</string>
-    <string name="always_use_fallback_user_dictionary">Yedek kullanıcı sözlüğünü kullan</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Sadece, AnySoftKeyboard\'un içindeki kullanıcı sözlüğü mekanizmasını kullan (önerilmez).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Önce Android\'in yerleşik kullanıcı sözlüğüni kullanmaya çalış (önerilen).</string>
     <string name="use_auto_dictionary">Oto sözlük</string>
     <string name="use_auto_dictionary_dialog_title">Öğrenme metodunu seçin</string>
     <string name="use_auto_dictionary_summary">Yeni kelimeler otomatik olarak öğrenilir. Öğrenme metodu: %s</string>
