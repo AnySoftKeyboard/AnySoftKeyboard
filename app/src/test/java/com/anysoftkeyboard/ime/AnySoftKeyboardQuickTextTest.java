@@ -234,6 +234,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         Assert.assertEquals(
                 View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertEquals(
@@ -242,7 +243,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
                         .getInputViewContainer()
                         .getCandidateView()
                         .getVisibility());
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
@@ -287,14 +287,10 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         simulateFinishInputFlow();
 
-        Assert.assertEquals(
-                View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
-        Assert.assertEquals(
-                View.VISIBLE,
+        Assert.assertNull(
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .getCandidateView()
-                        .getVisibility());
+                        .findViewById(R.id.quick_text_pager_root));
     }
 
     @Test
@@ -309,9 +305,39 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
                         .getVisibility());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.quick_text_pager_root)
+                        .getVisibility());
 
+        final EditorInfo editorInfo = mAnySoftKeyboardUnderTest.getCurrentInputEditorInfo();
         mAnySoftKeyboardUnderTest.onFinishInputView(false);
 
+        Assert.assertEquals(
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.quick_text_pager_root)
+                        .getVisibility());
+        Assert.assertEquals(
+                View.GONE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .getCandidateView()
+                        .getVisibility());
+
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
+
+        Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.quick_text_pager_root)
+                        .getVisibility());
         Assert.assertEquals(
                 View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertEquals(
@@ -343,6 +369,12 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
         Assert.assertEquals(
+                View.VISIBLE,
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.quick_text_pager_root)
+                        .getVisibility());
+        Assert.assertEquals(
                 View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertEquals(
                 View.GONE,
@@ -361,6 +393,10 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
                         .getInputViewContainer()
                         .getCandidateView()
                         .getVisibility());
+        Assert.assertNull(
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.quick_text_pager_root));
     }
 
     @Test
