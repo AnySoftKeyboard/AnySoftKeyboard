@@ -206,9 +206,6 @@
     <string name="special_dictionaries_group_summary">In AnySoftKeyboard verwendete Vorschlagswörterbücher</string>
     <string name="use_user_dictionary">Benutzerwörterbuch</string>
     <string name="use_user_dictionary_on_summary">Schlägt vom Benutzer hinzugefügte Wörter vor (Doppelklick auf ein eingetipptes Wort zum Hinzufügen)</string>
-    <string name="always_use_fallback_user_dictionary">Verwende Ersatzwörterbuch</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Nur AnySoftKeyboards integriertes Benutzerwörterbuch verwenden (nicht empfohlen).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Versuche integriertes Benutzerwörterbuch von Android zuerst zu verwenden (empfohlen).</string>
     <string name="use_auto_dictionary">Automatisches Wörterbuch</string>
     <string name="use_auto_dictionary_dialog_title">Lernmethode wählen</string>
     <string name="use_auto_dictionary_summary">Neue Wörter automatisch lernen. Lernmethode: %s</string>

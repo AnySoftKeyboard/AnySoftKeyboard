@@ -153,17 +153,17 @@ public class KeyboardViewContainerViewTest {
         Assert.assertSame(view, mUnderTest.findViewById(actionViewId));
         Assert.assertEquals(initialChildCount + 1, mUnderTest.getChildCount());
 
-        mUnderTest.setStripActionsVisibility(false);
+        mUnderTest.setActionsStripVisibility(false);
         Assert.assertEquals(View.GONE, mUnderTest.getCandidateView().getVisibility());
         Assert.assertNull(mUnderTest.findViewById(actionViewId));
         Assert.assertEquals(initialChildCount, mUnderTest.getChildCount());
 
-        mUnderTest.setStripActionsVisibility(true);
+        mUnderTest.setActionsStripVisibility(true);
         Assert.assertEquals(View.VISIBLE, mUnderTest.getCandidateView().getVisibility());
         Assert.assertSame(view, mUnderTest.findViewById(actionViewId));
         Assert.assertEquals(initialChildCount + 1, mUnderTest.getChildCount());
 
-        mUnderTest.setStripActionsVisibility(true);
+        mUnderTest.setActionsStripVisibility(true);
         Assert.assertEquals(View.VISIBLE, mUnderTest.getCandidateView().getVisibility());
         Assert.assertSame(view, mUnderTest.findViewById(actionViewId));
         Assert.assertEquals(initialChildCount + 1, mUnderTest.getChildCount());
@@ -189,7 +189,7 @@ public class KeyboardViewContainerViewTest {
         Assert.assertSame(view, mUnderTest.findViewById(actionViewId));
         Mockito.verify(provider).inflateActionView(any());
 
-        mUnderTest.setStripActionsVisibility(false);
+        mUnderTest.setActionsStripVisibility(false);
         Assert.assertNull(mUnderTest.findViewById(actionViewId));
 
         mUnderTest.addStripAction(provider2);
@@ -198,7 +198,7 @@ public class KeyboardViewContainerViewTest {
         Mockito.verify(provider).inflateActionView(any());
         Mockito.verify(provider).inflateActionView(any());
 
-        mUnderTest.setStripActionsVisibility(true);
+        mUnderTest.setActionsStripVisibility(true);
         Assert.assertSame(view, mUnderTest.findViewById(actionViewId));
         Assert.assertSame(view2, mUnderTest.findViewById(actionViewId2));
         // no additional calls, still once.
@@ -232,7 +232,7 @@ public class KeyboardViewContainerViewTest {
         Assert.assertEquals(1024, mUnderTest.getMeasuredWidth());
         Assert.assertEquals(1068, mUnderTest.getMeasuredHeight());
 
-        mUnderTest.setStripActionsVisibility(false);
+        mUnderTest.setActionsStripVisibility(false);
         mUnderTest.onMeasure(
                 View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));

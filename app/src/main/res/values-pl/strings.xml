@@ -144,7 +144,6 @@
     <string name="more_ui_settings_group">Interfejs użytkownika</string>
     <string name="special_dictionaries_group">Specjalne słowniki</string>
     <string name="use_user_dictionary">Słownika użytkownika</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Użyj tylko wbudowanego mechanizmu słownika użytkownika AnySoftKeyboard (niezalecane).</string>
     <string name="use_auto_dictionary">Słownik automatyczny</string>
     <string name="use_auto_dictionary_dialog_title">Wybierz metodę uczenia</string>
     <string name="use_auto_dictionary_summary">Automatycznie ucz się nowych słów. Metoda uczenia: %s</string>

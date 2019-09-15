@@ -175,9 +175,6 @@
     <string name="special_dictionaries_group_summary">Slovarji predlogov, ki se uporabljajo v AnySoftKeyboardu</string>
     <string name="use_user_dictionary">Uporabniški slovar</string>
     <string name="use_user_dictionary_on_summary">Predlagaj uporabniško dodane besede (dvokliknite vtipkani predlog za dodajanje)</string>
-    <string name="always_use_fallback_user_dictionary">Uporabi zasilni uporabniški slovar</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Uporabi samo AnySoftKeyboardov vgrajeni mehanizem za uporabniški slovar (ni priporočljivo).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Najprej poizkusi uporabiti Androidov vgrajeni uporabniški slovar (priporočljivo).</string>
     <string name="use_auto_dictionary">Samodejni slovar</string>
     <string name="use_auto_dictionary_dialog_title">Izberite način učenja</string>
     <string name="use_auto_dictionary_summary">Samodejno se nauči nove besede. Način učenja: %s</string>

@@ -58,28 +58,45 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
 
         setThemeForChildView(child);
+        setActionsStripVisibility(mShowActionStrip);
     }
 
-    public boolean getStripVisiblity() {
-        return mShowActionStrip;
+    @Override
+    public void onViewRemoved(View child) {
+        super.onViewRemoved(child);
+        setActionsStripVisibility(mShowActionStrip);
     }
 
-    public void setStripActionsVisibility(boolean visible) {
-        if (mShowActionStrip != visible) {
-            mShowActionStrip = visible;
-            if (mCandidateView != null) {
-                mCandidateView.setVisibility(visible ? View.VISIBLE : View.GONE);
-            }
-
-            for (View stripActionView : mStripActionViews) {
-                if (visible) {
-                    addView(stripActionView);
-                } else {
-                    removeView(stripActionView);
+    public void setActionsStripVisibility(boolean requestedVisibility) {
+        mShowActionStrip = requestedVisibility;
+        if (mCandidateView != null) {
+            // calculating the actual needed visibility:
+            // at least one visible view which is a ActionsStripSupportedChild
+            boolean visible = false;
+            for (int childIndex = 0; childIndex < getChildCount(); childIndex++) {
+                View child = getChildAt(childIndex);
+                if (child.getVisibility() == View.VISIBLE) {
+                    if (child instanceof ActionsStripSupportedChild) {
+                        visible = requestedVisibility;
+                        break;
+                    }
                 }
             }
 
-            invalidate();
+            final int targetVisibility = visible ? View.VISIBLE : View.GONE;
+            if (targetVisibility != mCandidateView.getVisibility()) {
+                mCandidateView.setVisibility(targetVisibility);
+
+                for (View stripActionView : mStripActionViews) {
+                    if (visible) {
+                        addView(stripActionView);
+                    } else {
+                        removeView(stripActionView);
+                    }
+                }
+
+                invalidate();
+            }
         }
     }
 
@@ -141,7 +158,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int totalWidth = 0;
-        int totalHeight = mShowActionStrip ? mActionStripHeight : 0;
+        int totalHeight = mCandidateView.getVisibility() == View.VISIBLE ? mActionStripHeight : 0;
         final int count = getChildCount();
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);

@@ -225,9 +225,6 @@ Instalarla ahora desde Play Store.    </string>
     <string name="special_dictionaries_group_summary">Diccionarios de sugerencias usados en AnySoftKeyboard</string>
     <string name="use_user_dictionary">Diccionario de usuario</string>
     <string name="use_user_dictionary_on_summary">Sugerir palabras agregadas por el usuario (pulsar dos veces para agregarla)</string>
-    <string name="always_use_fallback_user_dictionary">Usar diccionario de usuario incorporado</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Usar únicamente el diccionario de usuario incorporado en AnySoftKeyboard (no recomendado).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Tratar de usar el diccionario de Android antes (recomendado).</string>
     <string name="use_auto_dictionary">Diccionario automático</string>
     <string name="use_auto_dictionary_dialog_title">Elegir método de aprendizaje</string>
     <string name="use_auto_dictionary_summary">Método para aprender nuevas palabras automáticamente: %s</string>
