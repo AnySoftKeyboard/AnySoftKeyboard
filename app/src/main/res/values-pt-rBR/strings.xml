@@ -224,9 +224,6 @@
     <string name="special_dictionaries_group_summary">Dicionários de sugestão usados em AnySoftKeyboard</string>
     <string name="use_user_dictionary">Dicionário do usuário</string>
     <string name="use_user_dictionary_on_summary">Adicionar palavra sugerida (clique duas vezes na palavra para adicionar)</string>
-    <string name="always_use_fallback_user_dictionary">Usar o dicionário do usuário já existente</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Usar apenas o dicionário do AnySoftKeyboard (não recomendado).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Tentar usar o dicionário do usuário já existente (recomendado).</string>
     <string name="use_auto_dictionary">Dicionário automático</string>
     <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
     <string name="use_auto_dictionary_summary">Aprender automaticamente novas palavras. Método de aprendizado: %s</string>

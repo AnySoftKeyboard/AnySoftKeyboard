@@ -221,9 +221,6 @@
     <string name="special_dictionaries_group_summary">Dictionnaires de suggestion utilisés dans AnySoftKeyboard</string>
     <string name="use_user_dictionary">Dictionnaire utilisateur</string>
     <string name="use_user_dictionary_on_summary">Suggérer des mots ajoutés par l\'utilisateur (appui double sur une suggestion pour l\'ajouter)</string>
-    <string name="always_use_fallback_user_dictionary">Utiliser le dictionnaire utilisateur de secours</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Utiliser uniquement le dictionnaire utilisateur intégré de AnySoftKeyboard (non recommandé)</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Essayer d\'abord d\'utiliser le dictionnaire utilisateur intégré Android (recommandé)</string>
     <string name="use_auto_dictionary">Dictionnaire automatique</string>
     <string name="use_auto_dictionary_dialog_title">Sélectionner la méthode d\'apprentissage</string>
     <string name="use_auto_dictionary_summary">Retenir automatiquement les nouveaux mots. Méthode d\'apprentissage : %s</string>

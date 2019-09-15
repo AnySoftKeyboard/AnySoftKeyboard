@@ -226,9 +226,6 @@
     <string name="special_dictionaries_group_summary">Ditzionàrios de impòsitu impreados in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Ditzionàriu impreadore</string>
     <string name="use_user_dictionary_on_summary">Cussigia sas paràulas annantas dae s\'impreadore (incarca duas bortas in un\'impòsitu pro l\'annànghere)</string>
-    <string name="always_use_fallback_user_dictionary">Imprea su ditzionàriu impreadore integradu</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Imprea petzi su ditzionàriu impreadore integradu de AnySoftKeyboard (non racumandadu).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Proa a impreare in antis su ditzionàriu impreadore integradu de Android (racumandadu).</string>
     <string name="use_auto_dictionary">Ditzionàriu automàticu</string>
     <string name="use_auto_dictionary_dialog_title">Ischerta sa manera de aprendimentu</string>
     <string name="use_auto_dictionary_summary">Impara automaticamente paràulas noas. Manera de aprendimentu: %s</string>

@@ -414,10 +414,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         TextEntryState.newSession(mPredictionOn);
 
         if (mPredictionOn) {
-            getInputViewContainer().setStripActionsVisibility(true);
+            getInputViewContainer().setActionsStripVisibility(true);
             getInputViewContainer().addStripAction(mCancelSuggestionsAction);
         } else {
-            getInputViewContainer().setStripActionsVisibility(false);
+            getInputViewContainer().setActionsStripVisibility(false);
         }
         clearSuggestions();
     }

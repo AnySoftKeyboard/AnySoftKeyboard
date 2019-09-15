@@ -19,7 +19,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
     private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
     private String mOverrideQuickTextText = "";
     private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
-    private boolean mActionStripsShown;
 
     @Override
     public void onCreate() {
@@ -82,7 +81,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
 
     private void switchToQuickTextKeyboard() {
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
-        mActionStripsShown = inputViewContainer.getStripVisiblity();
         abortCorrectionAndResetPredictionState(false);
 
         cleanUpQuickTextKeyboard(false);
@@ -107,7 +105,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
                 actualInputView.getPaddingBottom(),
                 getSupportedMediaTypesForInput());
 
-        inputViewContainer.setStripActionsVisibility(false);
         actualInputView.setVisibility(View.GONE);
         inputViewContainer.addView(quickTextsLayout);
     }
@@ -116,15 +113,15 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
         if (inputViewContainer == null) return false;
 
+        if (reshowStandardKeyboard) {
+            View standardKeyboardView = (View) getInputView();
+            standardKeyboardView.setVisibility(View.VISIBLE);
+        }
+
         QuickTextPagerView quickTextsLayout =
                 inputViewContainer.findViewById(R.id.quick_text_pager_root);
         if (quickTextsLayout != null) {
             inputViewContainer.removeView(quickTextsLayout);
-            if (reshowStandardKeyboard) {
-                View standardKeyboardView = (View) getInputView();
-                standardKeyboardView.setVisibility(View.VISIBLE);
-                inputViewContainer.setStripActionsVisibility(mActionStripsShown);
-            }
             return true;
         } else {
             return false;

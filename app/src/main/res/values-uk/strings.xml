@@ -224,9 +224,6 @@
     <string name="special_dictionaries_group_summary">Пропозиції словників, що використовуються в AnySoftKeyboard</string>
     <string name="use_user_dictionary">Словник користувача</string>
     <string name="use_user_dictionary_on_summary">Пропонувати користувачу додавання слів (двічі клацніть щоб додати набрану пропозицію)</string>
-    <string name="always_use_fallback_user_dictionary">Використання запасний варіант-словник користувача</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Використовуйте тільки в AnySoftKeyboard\ вбудований словник користувача (не рекомендовано).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Спочатку використовувати Android\, вбудований-словник користувача  (рекомендовано).</string>
     <string name="use_auto_dictionary">Авто словник</string>
     <string name="use_auto_dictionary_dialog_title">Виберіть метод навчання</string>
     <string name="use_auto_dictionary_summary">Автоматично запам’ятовувати нові слова. Метод навчання: %s</string>

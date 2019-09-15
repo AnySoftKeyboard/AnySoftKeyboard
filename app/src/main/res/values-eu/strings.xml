@@ -226,9 +226,6 @@
     <string name="special_dictionaries_group_summary">Proposamenak egiteko AnySoftKeyboard teklatuak darabiltzan hiztegiak</string>
     <string name="use_user_dictionary">Erabiltzailearen hiztegia</string>
     <string name="use_user_dictionary_on_summary">Proposatu erabiltzaileak gehitutako hitzak (klik bikoitza proposamen barran idatzitako hitza gehitzeko)</string>
-    <string name="always_use_fallback_user_dictionary">Erabili erabiltzailearen hiztegia</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Erabili soilik AnySoftKeyboard teklatuak dakarren erabiltzailearen hiztegia (ez da gomendatzen).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Saiatu lehenbizi Androidek dakarren erabiltzailearen hiztegia erabiltzen (gomendatzen da).</string>
     <string name="use_auto_dictionary">Hiztegi automatikoa</string>
     <string name="use_auto_dictionary_dialog_title">Aukeratu ikasteko metodoa</string>
     <string name="use_auto_dictionary_summary">Ikasi hitz berriak automatikoki. Ikasteko metodoa: %s    </string>

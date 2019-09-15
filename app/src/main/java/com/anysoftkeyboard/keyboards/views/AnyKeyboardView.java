@@ -52,7 +52,8 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements InputViewBinder {
+public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
+        implements InputViewBinder, ActionsStripSupportedChild {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35; // milliseconds
     private static final String TAG = "AnyKeyboardView";

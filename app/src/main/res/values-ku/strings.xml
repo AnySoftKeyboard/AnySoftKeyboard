@@ -280,11 +280,6 @@
     <string name="use_user_dictionary">فەرهەنگی بەکارهێنەر</string>
     <string name="use_user_dictionary_on_summary">پێشنیارکردنی ووشەکانی بەکارهێنەر (دووجار دەستی پێدابنێ بۆ زیادکردن)
     </string>
-    <string name="always_use_fallback_user_dictionary">بەکارهێنانی فەرهەنگی دروستکراوی بەکارهێنەر</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">تەنیا بەکارهێنانی فەرهەنگی تایبەتی بەرنامەکە (پێشنیار نەکراوە).
-    </string>
-    <string name="always_use_fallback_user_dictionary_off_summary">بەکارهێنانی فەرهەنگی بەکارهێنەری دامەزراوی بنەڕەتی سیستەمی ئەندرۆید (پێشنیارکراو)
-    </string>
     <string name="use_auto_dictionary">فەرهەنگی خۆکاری</string>
     <string name="use_auto_dictionary_dialog_title">شێوازی پاشەکەوتکردنی ووشەی نووێ هەڵبژێرە</string>
     <string name="use_auto_dictionary_summary">پاشەکەوتکردنی ووشە نوێیەکان بە خۆکاری، شێوازی پاشەکەوتکردن: %s    </string>

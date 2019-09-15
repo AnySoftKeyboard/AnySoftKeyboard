@@ -194,9 +194,6 @@
     <string name="special_dictionaries_group_summary">قواميس الإقتراحات المتوفرة على AnySoftKeyboard</string>
     <string name="use_user_dictionary">قاموس المستخدِم</string>
     <string name="use_user_dictionary_on_summary">إقتراح الكلمات المُضافَة من طرف المستخدِم (النقر مرتين لإضافة كلمة)</string>
-    <string name="always_use_fallback_user_dictionary">استخدام قاموس المستخدِم كبديل</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">إستخدم فقط ميكانزمات قاموس المستخدِم المدمج مع AnySoftWkeyboard.</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">حاول أولا إستعمال قاموس المستخدِم المدمج في أنرويد (مستحسن).</string>
     <string name="use_auto_dictionary">قاموس تلقائي</string>
     <string name="use_auto_dictionary_dialog_title">تحديد أسلوب التعلّم</string>
     <string name="use_auto_dictionary_summary">تعلّم الكلمات الجديدة تلقائياً. طريقة التعلّم : %s</string>

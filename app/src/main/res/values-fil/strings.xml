@@ -178,9 +178,6 @@
     <string name="special_dictionaries_group_summary">Mga mungkahing ginagamit ng diksyunaryo sa AnySoftKeyboard</string>
     <string name="use_user_dictionary">User-diksyunaryo</string>
     <string name="use_user_dictionary_on_summary">Magmungkahi sa mga dinadagdag ng mga salita ng mga gumagamit(I-double-click ang typed-suggestion upang maidagdag)</string>
-    <string name="always_use_fallback_user_dictionary">Gamitin ang fallback User-diksyunaryo</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Gumamit lamang ng AnySoftKeyboard\'s built-in User-disyunaryo na mekanismo(di inirerekumenda).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Subukan ang paggamit ng Android\'s built-in User-diksyunaryo muna(inirekomenda).</string>
     <string name="use_auto_dictionary">Auomatikong diksyunaryo</string>
     <string name="use_auto_dictionary_dialog_title">I-select ang learn method</string>
     <string name="use_auto_dictionary_summary">Awtomatikong matuto ng mga bagong salita. Matuto sa pamaraan: %s</string>

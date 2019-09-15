@@ -42,7 +42,7 @@ public class RxSharedPrefs {
     private static final String TAG = "ASK_Cfg";
 
     static final String CONFIGURATION_VERSION = "configurationVersion";
-    static final int CONFIGURATION_LEVEL_VALUE = 11;
+    static final int CONFIGURATION_LEVEL_VALUE = 12;
 
     @NonNull private final Resources mResources;
     @NonNull private final RxSharedPreferences mRxSharedPreferences;
@@ -91,6 +91,22 @@ public class RxSharedPrefs {
         // upgrading should only be done when actually need to be done.
         final int configurationVersion =
                 sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
+
+        if (configurationVersion < 12) {
+            // this means the user has used the app before this version, hence, might have used the
+            // default android dictionary
+            final Map<String, ?> allValues = sp.getAll();
+            if (!allValues.containsKey("settings_key_always_use_fallback_user_dictionary")) {
+                // if the key was not set, it means the user used the default value for v11
+                // which is use-android-built-in-dictionary.
+                // so, we'll need to set it to that value, so the new default will not change that.
+                final Editor editor = sp.edit();
+                editor.putBoolean(
+                        "settings_key_always_use_fallback_user_dictionary",
+                        false /*the previous default*/);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            }
+        }
 
         if (configurationVersion < 11) {
             // converting quick-text-key

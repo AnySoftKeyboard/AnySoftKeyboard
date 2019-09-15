@@ -221,9 +221,6 @@
     <string name="special_dictionaries_group_summary">Forslagsordlister brukt i AnySoftKeyboard    </string>
     <string name="use_user_dictionary">Bruker-ordliste</string>
     <string name="use_user_dictionary_on_summary">Foreslå ord som er lagt til av brukeren (dobbeltrykk på et skrevet forslag for å legge det til)</string>
-    <string name="always_use_fallback_user_dictionary">Benytt brukerordliste å falle tilbake på</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Bruk bare den innebygde brukerordlisten i AnySoftKeyboard (anbefales ikke).</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Prøv å bruke den innebygde brukerordlisten i Android først (anbefales).</string>
     <string name="use_auto_dictionary">Auto-ordliste</string>
     <string name="use_auto_dictionary_dialog_title">Velg læringsmetode</string>
     <string name="use_auto_dictionary_summary">Lær automatisk nye ord. Læringsmetode: %s
