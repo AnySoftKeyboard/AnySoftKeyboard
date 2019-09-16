@@ -19,7 +19,6 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.graphics.Paint;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -124,10 +123,12 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         // adding edge flag to the last key
         baseKey.edgeFlags = EDGE_LEFT;
         // this holds the last key
-        if (aKey != null) aKey.edgeFlags = EDGE_RIGHT;
-        else
+        if (aKey != null) {
+            aKey.edgeFlags = EDGE_RIGHT;
+        } else {
             baseKey.edgeFlags |=
                     EDGE_RIGHT; // adding another flag, since the baseKey is the only one in the row
+        }
 
         mAdditionalWidth = Math.max(rowWidth, mAdditionalWidth);
     }
@@ -148,8 +149,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     private static int getPopupRowsCount(CharSequence popupCharacters) {
         final int count = popupCharacters.length();
         if (count <= 8) return 1;
-        if (count <= 16) return 2;
-        else return 3;
+        if (count <= 16) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 
     @Override
@@ -220,9 +224,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
                                 y,
                                 parser);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && !TextUtils.isEmpty(key.text)
-                && !EmojiUtils.isRenderable(mPaint, key.text)) {
+        if (!TextUtils.isEmpty(key.text) && !EmojiUtils.isRenderable(mPaint, key.text)) {
             key.disable();
             key.width = 0;
             key.text = "";
