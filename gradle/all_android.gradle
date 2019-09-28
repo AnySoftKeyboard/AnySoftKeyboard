@@ -1,6 +1,6 @@
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         minSdkVersion 9
@@ -43,6 +43,6 @@ dependencies {
         api project(path: ':api')
     }
 
-    testImplementation 'org.robolectric:robolectric:4.2'
+    testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'junit:junit:4.12'
 }
