@@ -3,9 +3,7 @@ if (path == rootProject.path) {
     throw new IllegalStateException("versioning script should never be applied on the root project")
 }
 
-rootProject.afterEvaluate {
-    android.defaultConfig {
-        versionCode rootProject.autoVersioning.versionData.versionCode
-        versionName rootProject.autoVersioning.versionData.versionName
-    }
+android.defaultConfig {
+    versionCode rootProject.autoVersioning.versionData.versionCode
+    versionName rootProject.autoVersioning.versionData.versionName
 }
