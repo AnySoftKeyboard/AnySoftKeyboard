@@ -42,7 +42,7 @@ public class GenerateWordsListTask extends DefaultTask {
         if (!parentFile.exists() && !parentFile.mkdirs()) {
             throw new IllegalArgumentException("Failed to create output folder " + parentFile.getAbsolutePath());
         }
-        Parser parser = new Parser(inputTextFiles, outputWordsListFile, wordCharacters, locale, additionalInnerCharacters, maxWordsInList);
+        Parser parser = new Parser(inputTextFiles, outputWordsListFile, wordCharacters, locale, additionalInnerCharacters, maxWordsInList, maxWordFrequency);
         parser.parse();
     }
 
@@ -92,6 +92,15 @@ public class GenerateWordsListTask extends DefaultTask {
     }
 
     @Input
+    public int getMaxWordFrequency() {
+        return maxWordFrequency;
+    }
+
+    public void setMaxWordFrequency(int frequency) {
+        maxWordFrequency = frequency;
+    }
+
+    @Input
     public int getMaxWordsInList() {
         return maxWordsInList;
     }
@@ -106,4 +115,5 @@ public class GenerateWordsListTask extends DefaultTask {
     private char[] additionalInnerCharacters = "'".toCharArray();
     private Locale locale = Locale.US;
     private int maxWordsInList = Integer.MAX_VALUE;
+    private int maxWordFrequency = 64;
 }
