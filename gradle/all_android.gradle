@@ -5,9 +5,6 @@ android {
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 28
-        //the version data will be set after eval with auto-version
-        versionCode 1
-        versionName "1.0.0"
     }
 
     lintOptions {
