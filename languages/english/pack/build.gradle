@@ -4,3 +4,10 @@ ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
 
 apply from: "$rootDir/gradle/language_pack_lib.gradle"
+apply from: "$rootDir/gradle/publish_maven.gradle"
+
+publish {
+    repoName = 'Language-Packs'
+    artifactId = 'english'
+    desc = "English pack for AnySoftKeyboard"
+}
