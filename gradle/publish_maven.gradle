@@ -2,6 +2,7 @@ apply plugin: 'com.novoda.bintray-release'
 
 publish {
     userOrg = 'anysoftkeyboard'
+    repoName = 'AnySoftKeyboard'
     groupId = group
     publishVersion = version
     website = "https://github.com/AnySoftKeyboard/LanguagePack/${projectDir}"
