@@ -1,3 +1,10 @@
 apply plugin: 'com.android.library'
 
 apply from: "$rootDir/gradle/all_android.gradle"
+apply from: "$rootDir/gradle/publish_maven.gradle"
+
+publish {
+    repoName = 'Language-Packs'
+    artifactId = 'base'
+    desc = "Base library for AnySoftKeyboard packs"
+}
