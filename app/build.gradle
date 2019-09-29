@@ -120,8 +120,8 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 }
 
 dependencies {
-    implementation project(':external:api')
-    implementation project(':external:packs')
+    implementation "com.anysoftkeybaord.languagepack.english:english:$askExternalAddOnsVersion"
+    implementation "LanguagePack:base:$askExternalAddOnsVersion"
     implementation project(':base')
     implementation project(':base-rx')
     implementation project(':nextword')

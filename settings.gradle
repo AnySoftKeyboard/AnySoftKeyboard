@@ -1,4 +1,3 @@
-include ':external:api', ':external:packs'
 include ':base', ':base-rx', ':base-test', ':prefs'
 include ':remote', ':fileprovider'
 include ':dictionaries', ':jnidictionaryv1', ':jnidictionaryv2', ':nextword'
