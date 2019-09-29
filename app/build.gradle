@@ -1,40 +1,17 @@
 group 'net.evendanan'
 
-buildscript {
-    repositories {
-        google()
-        maven { url 'https://plugins.gradle.org/m2/' }
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'net.evendanan.autoversion:gradle-plugin:0.1.7'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
-apply plugin: 'net.evendanan.autoversion'
-
-def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(
-                1650/*adding to version. Should never change*/,
-                -2575-2600 /*decrementing due to minor, every minor/major bump, this should be decremented*/),
-        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
-]
-
-def versionData = versionGenerator.generateVersion(1, 10, 0, generators)
 
 apply from: "${rootDir}/gradle/android_general.gradle"
 
 android {
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode versionData.versionCode
-        versionName versionData.versionName
+        versionCode rootProject.autoVersioning.versionData.versionCode
+        versionName rootProject.autoVersioning.versionData.versionName
 
-        println "Building AnySoftKeyboard ${versionData.versionName} (or ${project.version}), code ${versionData.versionCode}."
+        println "Building AnySoftKeyboard ${versionName} (or ${project.version}), code ${versionCode}."
 
         //adding additional fields to the BuildConfig class.
         String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
@@ -120,8 +97,8 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 }
 
 dependencies {
-    implementation project(':external:api')
-    implementation project(':external:packs')
+    implementation "com.anysoftkeyboard.language.english:english:$askExternalAddOnsVersion"
+    implementation "com.anysoftkeyboard:base:$askExternalAddOnsVersion"
     implementation project(':base')
     implementation project(':base-rx')
     implementation project(':nextword')
