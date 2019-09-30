@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+	<Keyboard nameResId="@string/persian_qwerty" iconResId="@drawable/ic_status_persian" layoutResId="@xml/persian_qwerty"
+			landscapeResId="@xml/persian_qwerty"
+			id="57fe6e29-f514-4ae8-a268-88fe2c1d8332" defaultDictionaryLocale="fa" description="Persian QWERTY" index="1" />
+	<Keyboard nameResId="@string/persian_qwerty_compact" iconResId="@drawable/ic_status_persian" layoutResId="@xml/persian_qwerty_compact"
+			landscapeResId="@xml/persian_qwerty_compact"
+			id="777b856e-2b9a-4c81-8df8-268d4f131d6e" defaultDictionaryLocale="fa" description="Persian QWERTY compact for smaller screens" index="2" />
+</Keyboards>
