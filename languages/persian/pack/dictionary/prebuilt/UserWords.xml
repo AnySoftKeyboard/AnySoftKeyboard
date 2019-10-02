@@ -1,0 +1,6297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnySoftKeyboardPrefs version="1">
+    <pref>
+        <value locale="en"/>
+        <pref>
+            <value freq="128"/>
+            <value word="peekier"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ubuntu"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="opml"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="protonvpn"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="foss"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="uber"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="wttr"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="mzeinali"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="protonmail"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="Reza"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="mz"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="khalili"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="telegra"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="osm"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="mapfactor"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="Nextcloud"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="antennapod"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="Mi"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="hezaro"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="Yalp"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="yalp"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="zenbook"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="mangahelpers"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="Awsome"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="unicode"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="xfc"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="xcfe"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="indtall"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="orbot"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="tor"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="python"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="scipy"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="tensorflow"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="hamed"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="mzinali"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="saras"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="To:"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="zeinali"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="kde"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="wifi"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="acpid"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="mts"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="uss"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ssh"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="beginer"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="say:"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="yusef"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="majid"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="vivaldi"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="cmus"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="fzf"/>
+        </pref>
+    </pref>
+    <pref>
+        <value locale="fa"/>
+        <pref>
+            <value freq="128"/>
+            <value word="دلم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گریه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارتش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="براتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوبی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوابیدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="که"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماهور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اينقدر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نيستن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شکر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کردم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چشمات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خیلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوستت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تولدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ارديبهشته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فدات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بشم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="يادم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوبم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اذيت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سخته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امیدوارم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ممکنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توضیح"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشحالم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تولده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ايشالا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همشون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بيا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرامتنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ديگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بانو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهترین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببوسین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ممنون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اول"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سلام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیکشنریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اولین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="روش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیکشنری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اگر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کردن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="به"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اضافه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کیبورد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فارسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="با"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلیدها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هنوز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راجع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="این"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قبلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بعد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نصب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="درست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تلگرام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فعلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیدمان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پاپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="از"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بالا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تنظیمات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دارید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="من"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواهش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فکر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیایم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شمال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اما"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیدونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="روز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ما"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تنگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایشالا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خدا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نکنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سلامت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برابر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بابایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تخت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماشالا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سیاسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جانت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جانتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عزیز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منظورت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فعال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آیفون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شبیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ممنونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="الان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یعنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زمین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ستینگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوباره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داشته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حالا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تایپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زینلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ردیف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مرضیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یکی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آنتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ویروس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مارک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ولی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواستی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببخشید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="متوجه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پاک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گروه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آرشیو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خبرا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خونه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آباد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موفق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساختم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باهاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نظرتو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="احتمالا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حروف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="البته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بعضی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="روی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترجیح"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دکمه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یکیش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ردیفه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طبعا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لینوکس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دارم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ازش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="استفاده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فقط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="های"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیزی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کرد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ربات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مثلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فروش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قرار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سورس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قطعا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپلیکیشن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اندروید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوگله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیکشنریش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="در"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پیدا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینکه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تصمیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عموما"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بوده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مساله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="احساس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بحث"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وجود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرض"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نظر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وقتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نتیجه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="انقلاب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مثبت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندارم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگاه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آدمهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پیش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="است"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تحصیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کرده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نبودن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تحت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چهارتا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آخه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مسیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بودن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ادامه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رویداد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تحلیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دقیقا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="متن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اسلام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چهار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مغازه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قبلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توجه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خصوص"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طبق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قبل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سیاحی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایشون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تقسیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواهد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آقای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طرفین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فضای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جناب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شما"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مجموعه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چنانچه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیرو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جذب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سهراب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کیومرث"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دانلود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوستان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببینم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلمه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پادشاه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شورت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چطوری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="استودیو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برنامه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نویسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رایگان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌خوام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌گفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌کرد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌رفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌خندید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌شد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ردیابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امکان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تاپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینترنت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وصل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رهگیری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آدرس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طرف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تاپت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اکانت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌خواد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌تونی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌خونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌دم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌ذارن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌ری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌شم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌شه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌کنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌کنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سلامتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فاصله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلافاصله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عربی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماچش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگرفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مادر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="روزی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سنگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عقابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هوا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ازل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیوانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بودم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آمدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جانم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قربانت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چرا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وفا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="افتاده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="روزگاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مرد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عشق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کوزه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تحول"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شماره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سریال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سایت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کمپانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خیابون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هدایت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حواست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پرهام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اخم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تخم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لیلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="احوال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موکل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رفته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌نوشت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌نویسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌نویسیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="می‌گرفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینجا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سعیدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تاریخ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مشخص"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دفتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارشناسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دادگستری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اونها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نفر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تعیین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قیمت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بذاره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سهم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زمان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پرداخت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پول"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بازه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نکردی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مامان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ارث"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عرصه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نرخ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تسعیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اسناد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رسمی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رحمت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ثبت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوابید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کجابود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مامانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کدوم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رسیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سمت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آشپزخونن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اومدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودکار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="درو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دارو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مامانم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پارک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طبیعت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جواب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندادم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خبر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگفتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تازه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حسابداری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تموم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میپرسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پرسشنامه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="استاندارد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سوال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بچه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میفرستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باهاشون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صحبت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اجازه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگیرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مشکلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دانشگاه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نویسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ازشون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شمارشو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وقت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زمینه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تولید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دمنوش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گیاهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فعالیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میکنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صادرات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توزیع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محصولات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اروپا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کسانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساکن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هستند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بکنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تونه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لطفا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شمارش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هماهنگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تماس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگیرند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لطف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قبلش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باهاتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مناسب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لطفتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رضا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سوالات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیماری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شایع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شنیدید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اونجا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زیادتره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داروهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بینید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شمارتو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بفرستی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باهات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگیرن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رضاجان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="استرالیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اسکال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زنگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزنن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اشکالی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نداره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رحیمی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آلمانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پیام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میتونه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="واتس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایمو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وهاب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محبوبی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قهرمانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواهر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خانمش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اومده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="انگلیسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مصرف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="درد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخوره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توضیحات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داداش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عکس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پسرت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بفرست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ذوق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حسابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="واقعا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ناجی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بالقوه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگاهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوربین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرصت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نزدیک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وقتا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قدر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همدیگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داشتیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندونستیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نظرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خیری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندیدیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مزخرف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مخصوصا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="والا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تهرونیامونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بامعرفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فضاهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوستی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پایه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گذاشته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عمیق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قابل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اتکا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهمتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وقتها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اختلاف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داشت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میشد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حرف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گفتگو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فضا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حداقل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تکرار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهشون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چشم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حتما"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آمار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دمنوشهایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سوپری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رایج"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محمود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیگلو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نروژ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اسمش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مرجان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جرجانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میگیره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میگم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پرسیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میزنید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قراره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فداش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خدات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پسر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مبارک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همیشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تندرست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سایه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پدر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شیرازیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میایم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هفته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرعتش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پایینه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عکسها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فایل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اصلیش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شیرازم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جاتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بازم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دعا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پایان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رمضان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برنگردی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برسه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فردا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عسلویه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میکنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امروز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اومدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیرون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حیاط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرفته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بازی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کردیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حیف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موبایلم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نبود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوربینم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شاید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مزاحم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشگله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اوضاع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوبه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مسیریابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مینویسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مسیریاب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نکردم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیسش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نقشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="افزاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میشناسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تخمین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترافیک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کجا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آنلاین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وبسایت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرقی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخوام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مقایسه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آماری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بکنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دقت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بالاتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خالی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیخوام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوگل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمایش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هیچ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لوگویی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ویز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دستشو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیتاهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کاربر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کوتاه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داخلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایران"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مرجع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نداریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینجوری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نباشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تکنیکایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیتا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیستند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="انحصار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طلب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخوان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="الزامت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بکنن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جامع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساپورت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شرکت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آمریکایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساخت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="افزارهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موجود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کیبورده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توصیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نوشتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داشتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تجربه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باشم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تلاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کمکم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="معنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بکله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="معنیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آزاده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میتونی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کدهاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تغییر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شخصی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سازی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جدید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مدت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طولانی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="واردم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رایگانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لایسنس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پولی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فیچرهاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایرانسل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شکستن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رمزنگاریهاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="غیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تقریبا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میدونن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چطور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="افزار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ظاهرا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیتونه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رمزگشایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رمزگذاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="افزا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لازم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایرانسلم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنگانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حفظ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="متاسفانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رفتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بسته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلند"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماهه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گیگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همراه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تومنه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قیمتاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مجازی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جهت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلاینت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوتامون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سارا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینترنتش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زیاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وقتتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرستادم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فیلتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پادکست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیروک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فوق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="العاده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داستانهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عامیانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شیراز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلیط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محمد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تجهیزاتش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کوین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خرید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمودار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حسب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تندرستی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نظرت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهتره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وارد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دنیای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کمی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تکنولوژی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپلیکیشنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پیشنهاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تپلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کردی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باکس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داشتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جدیدا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فیلترشکن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سورسه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جستجوی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پادکستها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="توش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راحته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نداشتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوبیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مدتیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آخرین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بابت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مشکل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حساب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خانمم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گفت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پیگیری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خبری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اتفاقا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امشب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نوید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلاه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بذارم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اوضاعت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خرابه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کروم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مسج"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اسنپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ابزار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جاسوسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوشیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رحم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قلبم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عزیزم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اشکال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قربون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فکری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سحر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لیست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پسری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپلیکیشنهایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خاطر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تحریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشدنش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوابیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یهو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیدار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دنبال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یادم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اومد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پریدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخواب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شبت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوابای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مزه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آجیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نفسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صبحت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیشب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوابیده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شماست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوبن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چهل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تومن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شصت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوشیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باحاله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کامپیوتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینچی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جیبم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخوام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارامو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="انجام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="واریز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مجزاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندذ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راحتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دستوز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گیمپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ادیتور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دگم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نکنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اپهام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جایگزین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیکنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فدای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جمعی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کدس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="معمولا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پروتکلهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ارسال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دریافت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایمیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حجم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بالای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تبادل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مثل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فیلم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محدودیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پاکت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرویس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دهنده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نصبش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اندازیش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بنویسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منتشر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دردسر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بالاخره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راحت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عوض"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ویندوز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیتات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سبکه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شبکه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پروکسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عبور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="متاثر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محبتت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آشنا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سختی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حلهاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برخورد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امکانش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آینده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موقع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اندرید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کوچ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داکت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کوچیک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواهم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنگان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وسایل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بردارم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پروکسیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سیستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فایروال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="براش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دسترسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ایجاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کداش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دادم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حداکثر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راستش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخوای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یورو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خریدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خواستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سفر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کاش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زودتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گفته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جیبی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زخمش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نکن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کیرتو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زخم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تسلیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حسین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شادی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مرخصی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فرستاده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ناراحت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آگهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترحیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چاپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کیفیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نداشت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اصلی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بفرستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تغییری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باشید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خاله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نزدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گفتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دردت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آذر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خانم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قبض"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عمرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیتونیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بازدید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنندن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تمیمی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اصراری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سوخت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صبح"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شرایط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تنها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میدونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیزهایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخوایم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="درک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کجای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رفتیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تحمل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیشتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لیاقت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اصلا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهمه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اهمیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نباید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برسیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلتنگی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کلیشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="واقعیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اندازه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عاشق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نبوده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرفتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="غم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشحالی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مثبتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلخوشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جوری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میبینم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزرگترین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پناهت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دریایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="روح"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزرگ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیامرزه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عزیزای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرگرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کمه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حضور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بشیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میومدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وسایلمو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جمع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کاشکی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نرفتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چیکار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دارن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رفتن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میمونن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موندن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینجور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بعدش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همینو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کهبا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلندش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اذیت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بذار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخوابه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گناه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راضی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیرتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اتوبوسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیتونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوشیمو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میشم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عزیزترینم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دوتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عاشقتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هزاران"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همینجا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بفرستش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="رفتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آشوب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ندیدمت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عزیزترین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عشقم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چقدر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صداتو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شنیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صنعتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینقدر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخوابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صنعتیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صبحونه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اونپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خورشت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خلال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محبت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دارین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیرسن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببینید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جریان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="علی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آقا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="معرفی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساعتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرما"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دقیقه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وایساده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عجله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماشین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="معذرت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وسط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حرفات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حوایش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بمونیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="والدین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="هلیکوپتری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="داستانش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="متنت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اصلاح"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ازم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ناراحتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حالم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ذوقم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشونت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشحال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امروزمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شروع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زدن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="غذا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خورد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیروز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیخواست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ناراحتت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قصدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="همدردی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حواسش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ماشینش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نداشتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بفروشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برکچی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بنده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تلفنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مشارکت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مراسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگران"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نباش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باشیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میکنیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یادش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کرمان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شهربابک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بردنش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اتاق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پرسیدنش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مواظب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیستیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزنیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیزنیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخندیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشیهامون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قسمت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خنده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تلفنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میلرزه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اتفاقی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نگرانم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلشوره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اونجایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میشی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تمرکز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیخواستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منظورم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تلفن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شوق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="برش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ربطی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میفهمم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیترسم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزرگیش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آزار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میریزم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چجوریه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میکردم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میتونیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بکنیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تکون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صدات"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نفهمیدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساعت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ذهنم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فشار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بدیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سختیامون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شعار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دنیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دخل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قویتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عشقمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زندگیمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میسازیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تکلیف"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخوای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گوشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پایین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینتره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخندیدیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بقیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اینستا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یادته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بابا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چابهار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منبع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بودیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ظهر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نرسیدم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سالاد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سفری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لاستیکمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترکید"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بعدیمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="معلوم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="یادمه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آخرش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تازگی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کتابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دیدی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میرسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="انگار"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سریعتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قاطع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ویدیو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کنفرانس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نهایت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دلتنگیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ناراحتیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سختیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زندگی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سادس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="طور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شخصه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سوالی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خدمتم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بلد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بتونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="راهنمایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نبودم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میگیریم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بکنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شلخته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میتونم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بپرسی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آوردن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نوشته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گاهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودمم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بزرگه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سریع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گزینه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محیط"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرافیکی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کاربری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مرحله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میزنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترجیحا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نسخه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فلش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لایو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اونور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باشین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عکساش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جز"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخواد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پیشتون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حالمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شرکتای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهاجرت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="باهام"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حدود"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مدارک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="گرفتن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پذیرش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تعهد"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بگیره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قراردادش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بفرسته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تهران"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مدرک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دانشگاهمو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پشتت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تویی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شبی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مخلصم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="امن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بریها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فراهم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="درایو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نوکرم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهیا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لذت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جانبی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سرگرمیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پولش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="حقوق"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیشتره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نیروی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کارگر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نمیخواین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تایپیست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دورکاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="انتقالیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موافقت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پنجره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تکست"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ادیتوره"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="تلگرامه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="چپ"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترتیب"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موزیک"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پلیر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترمینال"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لینوکسه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عالیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="منیجر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بخشه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ترمیناله"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موتور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="فازی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پویان"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیکاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="قول"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="شیرین"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="الهی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بغض"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عکسامونو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="سخت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خالیه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بیداری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صبحی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخواستم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="محکم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ازونا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زودی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بغلت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ساعته"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهندس"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="عمو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بقیشو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خرابکاری"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نکنی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="میخوابی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مهمون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="جلسه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوابه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببینمت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خودتو"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="دکتر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مفصل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صلحنامه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="زحمتی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="وکیل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نشون"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ببینیم"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ضمانت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="اجرایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="مطمئن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="بهانه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ابوذر"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نده"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="درستش"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="موبایل"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="ورداشت"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="صدا"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="پاور"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="واقع"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="لایه"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کدهای"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="کدها"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خروجی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="نهایی"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="خوشبختانن"/>
+        </pref>
+        <pref>
+            <value freq="128"/>
+            <value word="آپها"/>
+        </pref>
+    </pref>
+</AnySoftKeyboardPrefs>
