@@ -1,4 +1,5 @@
-ext.shouldBePublished = true
+//The keystore is missing. Previous owner: pi3ch 
+ext.shouldBePublished = false
 
 apply from: "$rootDir/gradle/pack_apk.gradle"
 
