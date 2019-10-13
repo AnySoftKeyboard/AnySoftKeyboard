@@ -25,11 +25,14 @@ package net.evendanan.pixel;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceViewHolder;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import java.util.Locale;
 
 public class SlidePreference extends Preference implements SeekBar.OnSeekBarChangeListener {
 
@@ -37,6 +40,7 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     private TextView mCurrentValue;
     private TextView mMinValue;
     private String mTitle;
+    private String mValueTemplate;
 
     private final int mDefault;
     private final int mMax;
@@ -51,11 +55,20 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         mDefault = array.getInteger(R.styleable.SlidePreferenceAttributes_android_defaultValue, 0);
         mMax = array.getInteger(R.styleable.SlidePreferenceAttributes_slideMaximum, 100);
         mMin = array.getInteger(R.styleable.SlidePreferenceAttributes_slideMinimum, 0);
+
+        mValueTemplate = array.getString(R.styleable.SlidePreferenceAttributes_valueStringTemplate);
+        if (TextUtils.isEmpty(mValueTemplate)) {
+            mValueTemplate = "%d";
+        }
+
         int titleResId =
                 array.getResourceId(R.styleable.SlidePreferenceAttributes_android_title, 0);
-        if (titleResId == 0)
+        if (titleResId == 0) {
             mTitle = array.getString(R.styleable.SlidePreferenceAttributes_android_title);
-        else mTitle = context.getString(titleResId);
+        } else {
+            mTitle = context.getString(titleResId);
+        }
+
         array.recycle();
     }
 
@@ -67,7 +80,7 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         mCurrentValue = (TextView) holder.findViewById(R.id.pref_current_value);
         mMaxValue = (TextView) holder.findViewById(R.id.pref_max_value);
         mMinValue = (TextView) holder.findViewById(R.id.pref_min_value);
-        mCurrentValue.setText(Integer.toString(mValue));
+        mCurrentValue.setText(String.format(Locale.ROOT, mValueTemplate, mValue));
         ((TextView) holder.findViewById(R.id.pref_title)).setText(mTitle);
 
         writeBoundaries();
@@ -81,13 +94,17 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     @Override
     protected void onSetInitialValue(boolean restore, Object defaultValue) {
         super.onSetInitialValue(restore, defaultValue);
-        if (restore) mValue = shouldPersist() ? getPersistedInt(mDefault) : mMin;
-        else mValue = (Integer) defaultValue;
+        if (restore) {
+            mValue = shouldPersist() ? getPersistedInt(mDefault) : mMin;
+        } else {
+            mValue = (Integer) defaultValue;
+        }
 
         if (mValue > mMax) mValue = mMax;
         if (mValue < mMin) mValue = mMin;
 
-        if (mCurrentValue != null) mCurrentValue.setText(Integer.toString(mValue));
+        if (mCurrentValue != null)
+            mCurrentValue.setText(String.format(Locale.ROOT, mValueTemplate, mValue));
     }
 
     @Override
@@ -99,7 +116,8 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         if (shouldPersist()) persistInt(mValue);
         callChangeListener(mValue);
 
-        if (mCurrentValue != null) mCurrentValue.setText(Integer.toString(mValue));
+        if (mCurrentValue != null)
+            mCurrentValue.setText(String.format(Locale.ROOT, mValueTemplate, mValue));
     }
 
     @Override
@@ -113,14 +131,17 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         mMinValue.setText(Integer.toString(mMin));
         if (mValue > mMax) mValue = mMax;
         if (mValue < mMin) mValue = mMin;
-        if (mCurrentValue != null) mCurrentValue.setText(Integer.toString(mValue));
+        if (mCurrentValue != null)
+            mCurrentValue.setText(String.format(Locale.ROOT, mValueTemplate, mValue));
     }
 
-    public int getMax() {
+    @VisibleForTesting
+    int getMax() {
         return mMax;
     }
 
-    public int getMin() {
+    @VisibleForTesting
+    int getMin() {
         return mMin;
     }
 

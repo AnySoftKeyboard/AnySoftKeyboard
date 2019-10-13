@@ -25,6 +25,7 @@
     <declare-styleable name="SlidePreferenceAttributes">
         <attr name="android:title" />
         <attr name="android:defaultValue" />
+        <attr name="valueStringTemplate" format="reference" />
         <attr name="slideMinimum" format="integer|reference" />
         <attr name="slideMaximum" format="integer|reference" />
     </declare-styleable>
