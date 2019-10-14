@@ -102,12 +102,12 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                                         getApplicationContext(),
                                         R.string.settings_key_night_mode_vibration_control,
                                         R.bool.settings_default_true),
-                                prefs().getString(
-                                                R.string.settings_key_vibrate_on_key_press_duration,
+                                prefs().getInteger(
                                                 R.string
-                                                        .settings_default_vibrate_on_key_press_duration)
-                                        .asObservable()
-                                        .map(Integer::parseInt),
+                                                        .settings_key_vibrate_on_key_press_duration_int,
+                                                R.integer
+                                                        .settings_default_vibrate_on_key_press_duration_int)
+                                        .asObservable(),
                                 (powerState, nightState, vibrationDuration) ->
                                         powerState ? 0 : nightState ? 0 : vibrationDuration)
                         .subscribe(

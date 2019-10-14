@@ -21,15 +21,7 @@
     <!-- settings - effects-->
     <string name="effects_group">Effekter</string>
     <string name="ime_settings">Tangentbordsinställningar</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrera vid tangenttryckning</string>
-    <string name="vibrate_on_key_press_dialog_title">Välj vibrationstyp</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Ingen vibration</item>
-        <item>Mjuk</item>
-        <item>Medium</item>
-        <item>Hård</item>
-    </string-array>
     <string name="sound_on">Ljud vid tangenttryckning</string>
     <string name="sound_on_summary">Ljudeffekter vid tangenttryckning.</string>
     <string name="use_custom_sound_volume">Välj volym</string>

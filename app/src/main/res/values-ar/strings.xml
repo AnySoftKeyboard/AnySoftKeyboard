@@ -55,15 +55,7 @@
     <string name="effects_group">التأثيرات</string>
     <string name="ime_settings">إعدادات لوحة المفاتيح</string>
     <string name="switch_incognito">وضع التخفي</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">اهتزاز عند النقر على مفتاح</string>
-    <string name="vibrate_on_key_press_dialog_title">اختر نوع الاهتزاز</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>بدون اهتزاز</item>
-        <item>خفيف</item>
-        <item>متوسط</item>
-        <item>قوي</item>
-    </string-array>
     <string name="night_mode_screen">إعدادات الوضع الليلي</string>
     <string name="night_mode_description">سوف يقوم الوضع الليلي بتعديل الميزات التالية:</string>
     <string name="night_mode_dialog_title">تنشيط الوضع الليلي</string>

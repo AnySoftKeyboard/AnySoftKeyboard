@@ -63,16 +63,7 @@
     <string name="effects_group">Efetos</string>
     <string name="ime_settings">Impostatziones tastiera</string>
     <string name="switch_incognito">Modalidade anònima</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibratzione in sa tecla incarcada</string>
-    <string name="vibrate_on_key_press_summary">Livellu de sa vibratzione pro s\'incarcada de sas teclas. Atualmente: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Ischerta sa casta de vibratzione</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Peruna</item>
-        <item>Lèbia</item>
-        <item>Mesana</item>
-        <item>Forte</item>
-    </string-array>
     <string name="night_mode_screen">Impostatziones pro sa modalidade pro sa note</string>
     <string name="night_mode_description">Sa modalideade pro sa note at a mudare custas funtzionalidades:</string>
     <string name="night_mode_state_summary">In custu momentu, s\'innescu pro sa modalidade pro sa note: \u0020%s</string>

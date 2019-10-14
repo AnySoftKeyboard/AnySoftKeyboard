@@ -66,16 +66,7 @@
     <string name="effects_group">Efektuak</string>
     <string name="ime_settings">Teklatuaren ezarpenak</string>
     <string name="switch_incognito">Modu pribatua</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Bibrazioa tekla zapaltzean</string>
-    <string name="vibrate_on_key_press_summary">Bibrazio maila tekla zapaltzean. Orain: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Aukeratu bibrazio mota</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Bat ere ez</item>
-        <item>Arina</item>
-        <item>Ertaina</item>
-        <item>Sendoa</item>
-    </string-array>
     <string name="night_mode_screen">Gaur-moduaren ezarpenak</string>
     <string name="night_mode_description">Gau-moduak ezaugarri hauek aldatuko ditu:</string>
     <string name="night_mode_state_summary">Orain, gau-modua ezarriko duen gertaera:\u0020%s</string>

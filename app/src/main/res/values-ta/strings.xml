@@ -27,7 +27,6 @@
     <string name="ime_settings">விசைப்பலகை அமைப்புகள்</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">விசை அழுத்தத்தில் அதிர்</string>
-    <string name="vibrate_on_key_press_dialog_title">அதிர்வு வகையைத் தேர்ந்தெடு</string>
     <string name="sound_on">விசை அழுத்தத்தில் ஒலி</string>
     <string name="sound_on_summary">விசை அழுத்தத்தின் பொது ஒலிகள்.</string>
     <string name="use_custom_sound_volume">ஒலி அளவு</string>

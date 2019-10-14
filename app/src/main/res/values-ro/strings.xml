@@ -45,15 +45,7 @@
     <string name="gesture_settings">Gesturi</string>
     <string name="effects_group">Efecte</string>
     <string name="ime_settings">Setări tastatură</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrează la apăsarea tastei</string>
-    <string name="vibrate_on_key_press_dialog_title">Selectaţi tipul de vibraţii</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Nimic</item>
-        <item>Ușor</item>
-        <item>Mediu</item>
-        <item>Puternic</item>
-    </string-array>
     <string name="pop_text_type_never">Niciodată</string>
     <string name="pop_text_type_any_key">Pe orice tastă</string>
     <string name="sound_on">Sunetul la apăsarea tastei</string>
