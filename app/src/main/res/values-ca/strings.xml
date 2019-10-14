@@ -65,7 +65,6 @@
     <string name="effects_group">Efectes</string>
     <string name="ime_settings">Configuració del teclat</string>
     <string name="switch_incognito">Mode d\'incògnit</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibració de les tecles</string>
     <string name="pop_text_type_never">Mai</string>
     <string name="pop_text_type_on_correction">En corregir una paraula</string>

@@ -215,6 +215,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="special_dictionaries_group_summary">AnySoftKeyboard için kullanılan öneri sözlükleri</string>
     <string name="use_user_dictionary">Kullanıcı-sözlüğü</string>
     <string name="use_user_dictionary_on_summary">Kullanıcının tanımladığı kelime önerileri (eklemek için öneriye çift dokunun)</string>
+    <string name="always_use_fallback_user_dictionary">Özel Kullanıcı-Sözlüğü depolama alanını kullan</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">AnySoftKeyboard\'un yerleşik Kullanıcı-sözlüğü mekanizması özel depolama alanını kullan.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Android\'in global yerleşik Kullanıcı-sözlüğünü kullanmaya çalış.</string>
     <string name="use_auto_dictionary">Oto sözlük</string>
     <string name="use_auto_dictionary_dialog_title">Öğrenme metodunu seçin</string>
     <string name="use_auto_dictionary_summary">Yeni kelimeler otomatik olarak öğrenilir. Öğrenme metodu: %s</string>
@@ -641,4 +644,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="aosp_dark_theme_description">AOSP-Esinlenilmiş koyu renkler klavye teması</string>
     <string name="aosp_light_theme_name">AOSP Hafif tema</string>
     <string name="aosp_light_theme_description">AOSP-Esinlenilmiş açık renkler klavye teması</string>
+    <string name="app_share_title">AnySoftKeyboard\'dan merhaba</string>
+    <string name="app_share_menu_title">AnySoftKeyboard kullanmayı paylaş</string>
+    <string name="app_share_text">Açık-kaynak, mahremiyet-odaklı, özgür, fazlasıyla kişiselleştirilebilen, çok-dilli Android klavye uygulaması AnySoftKeyboard\'u tavsiye ediyorum.\nEdinebileceğiniz adresler:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&amp;hl=tr\nF-Droid: https://f-droid.org/tr/packages/com.menny.android.anysoftkeyboard/</string>
 </resources>

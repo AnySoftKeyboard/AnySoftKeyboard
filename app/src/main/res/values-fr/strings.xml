@@ -212,6 +212,9 @@
     <string name="special_dictionaries_group_summary">Dictionnaires de suggestion utilisés dans AnySoftKeyboard</string>
     <string name="use_user_dictionary">Dictionnaire utilisateur</string>
     <string name="use_user_dictionary_on_summary">Suggérer des mots ajoutés par l\'utilisateur (appui double sur une suggestion pour l\'ajouter)</string>
+    <string name="always_use_fallback_user_dictionary">Utiliser le stockage privé du dictionnaire utilisateur</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Utiliser le dictionnaire utilisateur intégré d\'AnySoftKeyboard (stockage privé).</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Essayer d\'utiliser le dictionnaire utilisateur intégré global d\'Android.</string>
     <string name="use_auto_dictionary">Dictionnaire automatique</string>
     <string name="use_auto_dictionary_dialog_title">Sélectionner la méthode d\'apprentissage</string>
     <string name="use_auto_dictionary_summary">Retenir automatiquement les nouveaux mots. Méthode d\'apprentissage : %s</string>
@@ -638,4 +641,7 @@
     <string name="aosp_dark_theme_description">Thème clavier à couleurs sombres comme AOSP</string>
     <string name="aosp_light_theme_name">Thème clair AOSP</string>
     <string name="aosp_light_theme_description">Thème clavier à couleurs claires comme AOSP</string>
+    <string name="app_share_title">Hello depuis AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Partager AnySoftKeyboard avec</string>
+    <string name="app_share_text">Recommandé : AnySoftKeyboard, un clavier multi-langues hautement personnalisable, respectant la vie privée, gratuit, en sources libres.\nÀ télécharger depuis :\nPlay Store : https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid : https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
 </resources>

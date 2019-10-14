@@ -217,6 +217,9 @@
     <string name="special_dictionaries_group_summary">Proposamenak egiteko AnySoftKeyboard teklatuak darabiltzan hiztegiak</string>
     <string name="use_user_dictionary">Erabiltzailearen hiztegia</string>
     <string name="use_user_dictionary_on_summary">Proposatu erabiltzaileak gehitutako hitzak (klik bikoitza proposamen barran idatzitako hitza gehitzeko)</string>
+    <string name="always_use_fallback_user_dictionary">Erabili erabiltzaile-hiztegiaren biltegiratze pribatua</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Erabili AnySoftKeyboard teklatuak hornitutako biltegiratze pribatua erabiltzaile-hiztegiak gordetzeko.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Saiatu Androidek hornitutako erabiltzaile-hiztegi biltegi globala erabiltzen.</string>
     <string name="use_auto_dictionary">Hiztegi automatikoa</string>
     <string name="use_auto_dictionary_dialog_title">Aukeratu ikasteko metodoa</string>
     <string name="use_auto_dictionary_summary">Ikasi hitz berriak automatikoki. Ikasteko metodoa: %s    </string>
@@ -641,4 +644,7 @@
     <string name="aosp_dark_theme_description">AOSP-n inspiratutako kolore ilunetako teklatu itxura</string>
     <string name="aosp_light_theme_name">AOSP itxura argia</string>
     <string name="aosp_light_theme_description">AOSP-n inspiratutako kolore argietako teklatu itxura</string>
+    <string name="app_share_title">Kaixo AnySoftKeyboard-etik</string>
+    <string name="app_share_menu_title">Partekatu anySoftKeyboard honen bidez</string>
+    <string name="app_share_text">Pribatutasuna aintzat duen hizkuntza askotarako Android teklatu aplikazio libre doako eta pertsonalizagarri hau aholkatzen dizut.\nEskuratu hemen:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
 </resources>
