@@ -106,6 +106,23 @@ public class RxSharedPrefs {
                         false /*the previous default*/);
                 SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
             }
+
+            if (allValues.containsKey("vibrate_on_key_press_duration")) {
+                try {
+                    int previousVibrationValue =
+                            Integer.parseInt(sp.getString("vibrate_on_key_press_duration", "0"));
+                    final Editor editor = sp.edit();
+                    editor.putInt(
+                            "settings_key_vibrate_on_key_press_duration_int",
+                            previousVibrationValue);
+                    editor.remove("vibrate_on_key_press_duration");
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                } catch (Exception e) {
+                    Logger.w(
+                            TAG,
+                            "Failed to parse vibrate_on_key_press_duration prefs value. Going with default value");
+                }
+            }
         }
 
         if (configurationVersion < 11) {
