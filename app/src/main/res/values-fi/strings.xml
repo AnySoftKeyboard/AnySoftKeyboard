@@ -53,15 +53,7 @@
     <string name="effects_group">Efektit</string>
     <string name="ime_settings">Näppäimistön asetukset</string>
     <string name="switch_incognito">Incognito-tila</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Värinä painettaessa</string>
-    <string name="vibrate_on_key_press_dialog_title">Valitse värinän tyyppi</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Ei mitään</item>
-        <item>Kevyt</item>
-        <item>Keskikokoinen</item>
-        <item>Vahva</item>
-    </string-array>
     <string name="pop_text_type_never">Ei koskaan</string>
     <string name="input_field_type_password">Salasanan syöttökenttä</string>
     <string name="input_field_type_email">Sähköpostiosoitteen syöttökenttä</string>

@@ -64,16 +64,7 @@
     <string name="effects_group">Efektai</string>
     <string name="ime_settings">Klaviatūros nustatymai</string>
     <string name="switch_incognito">Inkognito režimas</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibruoti paspaudus</string>
-    <string name="vibrate_on_key_press_summary">Vibracijos lygis grįžtamąjam klavišo paspaudimo ryšiui. Dabar yra: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Pasirinkite vibracijos tipą</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Jokios virbacijos</item>
-        <item>Švelnus</item>
-        <item>Vidutinis</item>
-        <item>Stiprus</item>
-    </string-array>
     <string name="night_mode_screen">Naktinio režimo nustatymai</string>
     <string name="night_mode_description">Naktinis režimas pakeis šias funkcijas:</string>
     <string name="night_mode_state_summary">Dabartinis naktinio režimo trigeris:\u0020%s</string>

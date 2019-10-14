@@ -55,16 +55,7 @@
     <string name="gesture_settings">Gesty</string>
     <string name="effects_group">Efekty</string>
     <string name="ime_settings">Ustawienia klawiatury</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Wibruj przy naciśnięciu</string>
-    <string name="vibrate_on_key_press_summary">Poziom wibracji przy naciśnięciu klawiszy. Obecnie: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Wybierz typ wibracji</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Żadne</item>
-        <item>Lekkie</item>
-        <item>Średnie</item>
-        <item>Mocne</item>
-    </string-array>
     <string name="sound_on">Dźwięk przy naciśnięciu</string>
     <string name="sound_on_summary">Efekt dźwiękowy przy naciśnięciu klawisza.</string>
     <string name="use_custom_sound_volume">Dostosuj głośność</string>

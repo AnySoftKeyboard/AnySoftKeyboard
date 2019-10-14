@@ -66,16 +66,7 @@ woordenlijst
     <string name="effects_group">Effecten</string>
     <string name="ime_settings">Toetsenbordinstellingen</string>
     <string name="switch_incognito">Incognitomodus</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Trillen bij toetsaanslag</string>
-    <string name="vibrate_on_key_press_summary">Trillingsniveauterugkoppeling voor indrukken toets. Momenteel: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Kies trillingensoort</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Geen</item>
-        <item>Licht</item>
-        <item>Gemiddeld</item>
-        <item>Sterk</item>
-    </string-array>
     <string name="night_mode_screen">Nachtmodusinstellingen</string>
     <string name="night_mode_description">Nachtmodus wijzigt deze eigenschappen:</string>
     <string name="night_mode_state_summary">Huidige nachtmodusdrempel:\u0020%s</string>

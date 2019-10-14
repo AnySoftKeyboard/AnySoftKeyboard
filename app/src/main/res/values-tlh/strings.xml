@@ -26,13 +26,6 @@
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string-array name="vibrate_on_key_press_types">
-        <item>pagh</item>
-        <item>Light</item>
-        <item>Medium</item>
-        <item>Strong</item>
-    </string-array>
     <string name="night_mode_type_never">not</string>
     <string name="night_mode_type_follow_system">De\'wI\' pat yIpab</string>
     <string name="night_mode_type_always">reH</string>

@@ -61,16 +61,7 @@
     <string name="effects_group">Effekte</string>
     <string name="ime_settings">Tastatureinstellungen</string>
     <string name="switch_incognito">Inkognito Modus</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrieren bei Tastendruck</string>
-    <string name="vibrate_on_key_press_summary">Vibrationsstärke für einen Tastendruck. Derzeit: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Wähle die Vibrationsstärke</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Keine</item>
-        <item>Leicht</item>
-        <item>Mittel</item>
-        <item>Stark</item>
-    </string-array>
     <string name="power_save_mode_screen">Energiespareinstellungen</string>
     <string name="power_save_mode_description">Der Energiesparmodus reduziert den Energieverbrauch von AnySoftKeyboard, indem Funktionen deaktiviert werden:</string>
     <string name="power_save_mode_state_summary">Derzeitiger Energiesparauslöser: \u0020%s</string>

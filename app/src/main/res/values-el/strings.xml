@@ -52,15 +52,7 @@
     <string name="gesture_settings">Χειρονομίες</string>
     <string name="effects_group">Επιδράσεις</string>
     <string name="ime_settings">Ρυθμίσεις πληκτρολογίου</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Δόνηση στο πάτημα των πλήκτρων</string>
-    <string name="vibrate_on_key_press_dialog_title">Επιλέξτε τύπο δόνησης</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Καμία</item>
-        <item>Αδύναμη</item>
-        <item>Μεσαία</item>
-        <item>Ισχυρή</item>
-    </string-array>
     <string name="sound_on">Ήχος κατά την πληκτρολόγηση</string>
     <string name="sound_on_summary">Ηχητικά εφέ στο πάτημα των πλήκτρων.</string>
     <string name="use_custom_sound_volume">Ορισμός προσαρμοσμένης έντασης</string>

@@ -27,15 +27,7 @@
     <!-- settings - effects-->
     <string name="effects_group">Effekter</string>
     <string name="ime_settings">Tastatur-indstillinger</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrer på tastetryk</string>
-    <string name="vibrate_on_key_press_dialog_title">Vælg vibratortype</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Ingen</item>
-        <item>Svag</item>
-        <item>Medium</item>
-        <item>Stærk</item>
-    </string-array>
     <string name="sound_on">Lyd ved tastetryk</string>
     <string name="sound_on_summary">Lydeffekter ved kort tastatur tryk.</string>
     <string name="use_custom_sound_volume">Sæt brugerdefinerede lydstyrke</string>

@@ -22,13 +22,6 @@
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string-array name="vibrate_on_key_press_types">
-        <item>None</item>
-        <item>Թեթև</item>
-        <item>Միջին</item>
-        <item>Ուժեղ</item>
-    </string-array>
     <string name="swipe_action_name_next_alphabet">Հաջորդ այբենական ստեղնաշար</string>
     <string name="swipe_action_name_next_symbols">Հաջորդ նշանների ստեղնաշար</string>
     <string name="swipe_action_name_hide">Թաքցնել ստեղնաշարը</string>

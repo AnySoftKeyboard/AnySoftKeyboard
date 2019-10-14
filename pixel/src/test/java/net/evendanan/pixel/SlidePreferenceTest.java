@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,6 +47,15 @@ public class SlidePreferenceTest {
         Assert.assertEquals(12, mTestSlide.getMin());
         Assert.assertEquals(57, mTestSlide.getMax());
         Assert.assertEquals(23, mTestSlide.getValue());
+    }
+
+    @Test
+    public void testValueTemplateChanges() {
+        TextView templateView = mTestPrefFragment.getView().findViewById(R.id.pref_current_value);
+        Assert.assertNotNull(templateView);
+        Assert.assertEquals("23 milliseconds", templateView.getText().toString());
+        mTestSlide.onProgressChanged(Mockito.mock(SeekBar.class), 15 /*this is zero-based*/, false);
+        Assert.assertEquals("27 milliseconds", templateView.getText().toString());
     }
 
     @Test

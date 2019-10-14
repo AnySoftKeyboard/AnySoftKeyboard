@@ -63,16 +63,7 @@
     <string name="effects_group">Hatások</string>
     <string name="ime_settings">Billentyűzet beállítások</string>
     <string name="switch_incognito">Inkognitó mód</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Gombnyomásra rezegjen</string>
-    <string name="vibrate_on_key_press_summary">Rezgésszint visszacsatolás a gombnyomáshoz. Jelenleg: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Rezgés erejének kiválasztása</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Nincs</item>
-        <item>Enyhe</item>
-        <item>Közepes</item>
-        <item>Erős</item>
-    </string-array>
     <string name="power_save_mode_dialog_title">Energiatakarékos mód engedélyezése</string>
     <string name="pop_text_type_title">Pop billentyűkkel gépelt szöveg</string>
     <string name="pop_text_type_summary">Mikor kell megnyomni a szöveget a megnyomott gombokból. Jelenleg: %s</string>

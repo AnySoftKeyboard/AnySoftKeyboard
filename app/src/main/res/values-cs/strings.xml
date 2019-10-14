@@ -51,16 +51,7 @@
     <string name="gesture_settings">Gesta</string>
     <string name="effects_group">Efekty</string>
     <string name="ime_settings">Možnosti klávesnice</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrovat při stisku klávesy</string>
-    <string name="vibrate_on_key_press_summary">Úroveň vibrační odezvy na stisk. Aktuálně: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Vyberte typ vibrace</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Bez vibrací</item>
-        <item>Lehké</item>
-        <item>Střední</item>
-        <item>Silné</item>
-    </string-array>
     <string name="sound_on">Zvuk při stisku klávesy</string>
     <string name="sound_on_summary">Zvukové efekty při stisku softwarové klávesnice.</string>
     <string name="use_custom_sound_volume">Vlastní hlasitost</string>

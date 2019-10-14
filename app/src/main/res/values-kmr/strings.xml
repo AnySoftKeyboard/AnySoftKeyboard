@@ -63,16 +63,7 @@
     <string name="effects_group">Tesîr</string>
     <string name="ime_settings">Mîhengên klavyeyên</string>
     <string name="switch_incognito">Nexwendin Awa</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Li ser pelikır vibrator bika</string>
-    <string name="vibrate_on_key_press_summary">Asta vibrasyonê ji bo ser bilvina. Niha: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Hilbijêre vibrator awa</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Tınna</item>
-        <item>Ronî</item>
-        <item>Medya</item>
-        <item>Bi Quvvet</item>
-    </string-array>
     <string name="night_mode_screen">Sazkariyên Moda Şevê</string>
     <string name="night_mode_description">Moda Şevê wê van taybetiyan biguherîne:</string>
     <string name="night_mode_state_summary">Vê gavê, Arandeya Moda Şevê:\u0020%s</string>
