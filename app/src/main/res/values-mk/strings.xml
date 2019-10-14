@@ -30,15 +30,7 @@
     <!-- settings - effects-->
     <string name="effects_group">Ефекти</string>
     <string name="ime_settings">Поставувања за тастатура</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Вибрации при притискање на копче</string>
-    <string name="vibrate_on_key_press_dialog_title">Избери начин на вибрација</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Ниедно</item>
-        <item>Лесно</item>
-        <item>Средно</item>
-        <item>Силно</item>
-    </string-array>
     <string name="sound_on">Звук при притискање на копче</string>
     <string name="sound_on_summary">Звук при притискање на копче.</string>
     <string name="use_custom_sound_volume">Постави јачина на звук</string>

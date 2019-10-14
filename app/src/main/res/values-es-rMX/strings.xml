@@ -65,16 +65,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="effects_group">Efectos</string>
     <string name="ime_settings">Configuración del teclado</string>
     <string name="switch_incognito">Modo Incógnito</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrar al presionar teclas</string>
-    <string name="vibrate_on_key_press_summary">Intensidad de vibración al presionar teclas:\u0020%s</string>
-    <string name="vibrate_on_key_press_dialog_title">Elegir intensidad de vibración</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Ninguna</item>
-        <item>Suave</item>
-        <item>Moderada</item>
-        <item>Fuerte</item>
-    </string-array>
     <string name="night_mode_screen">Configuración de modo nocturno</string>
     <string name="night_mode_description">Características alteradas por el modo nocturno:</string>
     <string name="night_mode_state_summary">Cuándo habilitar el modo nocturno:\u0020%s</string>
