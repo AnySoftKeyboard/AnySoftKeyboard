@@ -67,14 +67,6 @@
     <string name="switch_incognito">Mode d\'incògnit</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibració de les tecles</string>
-    <string name="vibrate_on_key_press_summary">Nivell de resposta de vibració per al toc de tecles. Actualment: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Seleccioneu la durada de vibració</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Cap vibració</item>
-        <item>Feble</item>
-        <item>Normal</item>
-        <item>Forta</item>
-    </string-array>
     <string name="pop_text_type_never">Mai</string>
     <string name="pop_text_type_on_correction">En corregir una paraula</string>
     <string name="pop_text_type_on_word">En qualsevol paraula</string>

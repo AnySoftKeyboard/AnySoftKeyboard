@@ -62,15 +62,7 @@
     <string name="effects_group">ეფექტები</string>
     <string name="ime_settings">კლავიატურის პარამეტრები</string>
     <string name="switch_incognito">ფარული რეჟიმი</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">ვიბრაცია კლავიშზე დაჭერისას</string>
-    <string name="vibrate_on_key_press_dialog_title">ვიბრაციის ხანგრძლივობის არჩევა</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>ვიბრაციის გარეშე</item>
-        <item>მსუბუქი</item>
-        <item>საშუალო</item>
-        <item>მძიმე</item>
-    </string-array>
     <string name="night_mode_screen">ღამის რეჟიმის პარამეტრები</string>
     <string name="night_mode_app_night_theme">პარამეტრების მუქი იერსახე</string>
     <string name="night_mode_darken_keyboard_theme">კლავიატურის მუქი იერსახე</string>

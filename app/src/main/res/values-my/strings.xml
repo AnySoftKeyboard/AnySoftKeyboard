@@ -55,16 +55,7 @@
     <string name="gesture_settings">အမူအရာများ</string>
     <string name="effects_group">ဖန်တီးမှု</string>
     <string name="ime_settings">လက်ကွက်အပြင်အဆင်</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">နှိပ်လျှင် တုန်ခါပါ</string>
-    <string name="vibrate_on_key_press_summary">ခလုတ်နှိပ်ခြင်း တုန်ခါမှုအဆင့် ပြသနာကို ပေးပို့ရန်။ လက်ရှိ %s</string>
-    <string name="vibrate_on_key_press_dialog_title">တုန်ခါမှု အမျိုးအစား</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>မရှိပါ။</item>
-        <item>မှိန်မှိန်</item>
-        <item>အလယ်အလတ်</item>
-        <item>ထင်ထင်ရှားရှား</item>
-    </string-array>
     <string name="sound_on">နှိပ်ပါက အသံထွက်ပါ</string>
     <string name="sound_on_summary">အသံထွက်များ။</string>
     <string name="use_custom_sound_volume">အသံချိန်ပါ</string>

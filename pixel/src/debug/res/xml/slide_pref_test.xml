@@ -9,6 +9,7 @@
         android:key="test_slide"
         android:persistent="true"
         android:title="Test title"
+        app:valueStringTemplate="@string/test_slide_value_template"
         app:slideMaximum="@integer/slide_max"
         app:slideMinimum="@integer/slide_min" />
 

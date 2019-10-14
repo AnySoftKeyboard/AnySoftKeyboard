@@ -160,7 +160,8 @@ public class AnySoftKeyboardKeyboardPressEffectsTest extends AnySoftKeyboardBase
     public void testDoNotVibrateWhenNightTime() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode, "follow_system");
         Robolectric.flushForegroundThreadScheduler();
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration, "10");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_vibrate_on_key_press_duration_int, 10);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
         Robolectric.flushForegroundThreadScheduler();
@@ -231,7 +232,7 @@ public class AnySoftKeyboardKeyboardPressEffectsTest extends AnySoftKeyboardBase
     @Test
     public void testDoesNotVibrateDisabled() {
         Robolectric.flushForegroundThreadScheduler();
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration, "0");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration_int, 0);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
         mAnySoftKeyboardUnderTest.onPress(0);
@@ -244,7 +245,8 @@ public class AnySoftKeyboardKeyboardPressEffectsTest extends AnySoftKeyboardBase
     @Test
     public void testVibrateWhenEnabled() {
         Robolectric.flushForegroundThreadScheduler();
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration, "10");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_vibrate_on_key_press_duration_int, 10);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
         // demo
         Assert.assertTrue(shadowVibrator.isVibrating());
@@ -263,7 +265,8 @@ public class AnySoftKeyboardKeyboardPressEffectsTest extends AnySoftKeyboardBase
     @Test
     public void testDoNotVibrateWhenLowPower() {
         Robolectric.flushForegroundThreadScheduler();
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration, "10");
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_vibrate_on_key_press_duration_int, 10);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
         Robolectric.flushForegroundThreadScheduler();

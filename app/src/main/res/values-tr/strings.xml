@@ -64,16 +64,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="effects_group">Efektler</string>
     <string name="ime_settings">Klavye ayarları</string>
     <string name="switch_incognito">Gizli mod</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Tuş temasında titreşim</string>
-    <string name="vibrate_on_key_press_summary">Tuş temasındaki titreşim seviyesi. Mevcut: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Titreşim tipini seçin</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Hiçbiri</item>
-        <item>Hafif</item>
-        <item>Orta</item>
-        <item>Güçlü</item>
-    </string-array>
     <string name="night_mode_screen">Gece Kipi ayarları</string>
     <string name="night_mode_description">Gece Kipi bu özellikleri değiştirecek:</string>
     <string name="night_mode_state_summary">Geçerli Gece-Modu tetikleyici:\u0020%s</string>

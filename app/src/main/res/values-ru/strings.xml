@@ -60,16 +60,7 @@
     <string name="effects_group">Эффекты</string>
     <string name="ime_settings">Настройки Клавиатуры</string>
     <string name="switch_incognito">Режим инкогнито</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
-    <string name="vibrate_on_key_press_summary">Уровень вибрации для нажатия кнопки. В настоящее время: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Выбор типа и силы вибрации</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Не вибрировать</item>
-        <item>Мягко</item>
-        <item>Средне</item>
-        <item>Сильно</item>
-    </string-array>
     <string name="night_mode_screen">Настройки ночного режима</string>
     <string name="night_mode_description">Ночной режим изменит эти функции:</string>
     <string name="night_mode_state_summary">В настоящее время триггер ночного режима:\u0020%s</string>

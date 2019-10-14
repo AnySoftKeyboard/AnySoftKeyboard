@@ -61,16 +61,7 @@
     <string name="effects_group">Effets</string>
     <string name="ime_settings">Paramètres du clavier</string>
     <string name="switch_incognito">Mode incognito</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrer lors de la saisie</string>
-    <string name="vibrate_on_key_press_summary">Intensité des vibrations lors de la saisie. Actuellement : %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Sélectionner le type de vibration</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Aucune</item>
-        <item>Légère</item>
-        <item>Moyenne</item>
-        <item>Forte</item>
-    </string-array>
     <string name="night_mode_screen">Paramètres du mode nuit</string>
     <string name="night_mode_description">Le mode nuit va modifier ces fonctionnalités :</string>
     <string name="night_mode_state_summary">Actuellement, déclencheur du mode nuit : \u0020%s</string>

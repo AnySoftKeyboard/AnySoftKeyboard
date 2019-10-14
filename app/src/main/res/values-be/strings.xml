@@ -65,14 +65,6 @@
     <string name="switch_incognito">Рэжым інкогніта</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Вібрыраваць падчас націску клавішаў</string>
-    <string name="vibrate_on_key_press_summary">Сіла вібрацыі для націску клавішы. У дадзены час: %s</string>
-    <string name="vibrate_on_key_press_dialog_title">Выбар тыпу і моцы вібрацыі</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Без вібрацыі</item>
-        <item>Мякка</item>
-        <item>Сярэдне</item>
-        <item>Моцна</item>
-    </string-array>
     <string name="night_mode_screen">Налады начнога рэжыму</string>
     <string name="night_mode_description">Начны рэжым зменіць наступныя функцыі:</string>
     <string name="night_mode_state_summary">Пераключальнік начнога рэжыму. У дадзены час:\u0020%s</string>

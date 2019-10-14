@@ -60,16 +60,7 @@
     <string name="gesture_settings">Gestá</string>
     <string name="effects_group">Efekty</string>
     <string name="switch_incognito">Inkognito mód</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrovať pri stlačení</string>
-    <string name="vibrate_on_key_press_summary">Sila vibrácie pri stlačení. Momentálne:\u0020%s</string>
-    <string name="vibrate_on_key_press_dialog_title">Vyberte silu vibrácie</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Žiadna</item>
-        <item>Slabá</item>
-        <item>Stredná</item>
-        <item>Silná</item>
-    </string-array>
     <string name="power_save_mode_screen">Nastavenie šetriaceho režimu úspory energie</string>
     <string name="power_save_mode_description">Režim úspory energie zníži spotrebu energie AnySoftKeyboard vypnutím týchto funkcií:</string>
     <string name="power_save_mode_dialog_title">Zapnúť mód úspory energie</string>
