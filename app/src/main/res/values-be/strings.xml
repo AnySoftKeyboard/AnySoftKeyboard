@@ -63,7 +63,6 @@
     <string name="effects_group">Эфекты</string>
     <string name="ime_settings">Налады клавіятуры</string>
     <string name="switch_incognito">Рэжым інкогніта</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Вібрыраваць падчас націску клавішаў</string>
     <string name="night_mode_screen">Налады начнога рэжыму</string>
     <string name="night_mode_description">Начны рэжым зменіць наступныя функцыі:</string>
@@ -217,6 +216,9 @@
     <string name="special_dictionaries_group_summary">Прапановы слоўнікаў, што выкарыстоўваюцца ў AnySoftKeyboard</string>
     <string name="use_user_dictionary">Слоўнік карыстальніка</string>
     <string name="use_user_dictionary_on_summary">Прапаноўваць карыстальніку дадаваць словы (двойчы націсніце, каб дадаць набраную прапанову)</string>
+    <string name="always_use_fallback_user_dictionary">Выкарыстоўваць прыватнае сховішча карыстальніцкага слоўніка</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Выкарыстоўваць механізм прыватнага сховішча карыстальніцкага слоўніка AnySoftKeyboard.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Паспрабуйце скарыстацца ўбудаваным слоўнікам Android.</string>
     <string name="use_auto_dictionary">Аўтаматычны слоўнік</string>
     <string name="use_auto_dictionary_dialog_title">Выбраць метад навучання</string>
     <string name="use_auto_dictionary_summary">Аўтаматычна вывучаць новыя словы. Метад навучання: %s</string>
@@ -648,4 +650,7 @@
     <string name="aosp_dark_theme_description">Тэма цёмных колераў клавіятуры натхнёная AOSP</string>
     <string name="aosp_light_theme_name">Светлая тэма (AOSP)</string>
     <string name="aosp_light_theme_description">Тэма светлых колераў клавіятуры натхнёная AOSP</string>
+    <string name="app_share_title">Вітанні ад AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Парайце AnySoftKeyboard іншым</string>
+    <string name="app_share_text">Я хачу параіць вам экранную клавіятуру для Android адметнымі рысамі якой з\'яўляюцца: адкрытасць зыходнага кода, бясплатнае распаўсюджанне, падтрымка ўводу амаль на ўсіх мовах свету, клопат пра прыватнасць вашых даных, тонкая настройка пад вашы задачы. \nАтрымаць па спасылцы ў Play Store:\nhttps://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
 </resources>
