@@ -37,7 +37,6 @@
     <string name="effects_group">Ефекти</string>
     <string name="ime_settings">Настройки на клавиатурата</string>
     <string name="switch_incognito">Режим инкогнито</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Вибрация</string>
     <string name="pop_text_type_never">Никога</string>
     <string name="sound_on">Звук при натискане на клавиш</string>

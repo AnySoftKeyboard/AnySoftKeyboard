@@ -153,8 +153,20 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     public void setBottomOffset(int extraBottomOffset) {
         mExtraBottomOffset = Math.max(extraBottomOffset, mMinimumKeyboardBottomPadding);
-        setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        setPadding(
+                getPaddingLeft(),
+                getPaddingTop(),
+                getPaddingRight(),
+                (int) Math.max(mExtraBottomOffset, getThemedKeyboardDimens().getPaddingBottom()));
         requestLayout();
+    }
+
+    @Override
+    public void setPadding(int left, int top, int right, int bottom) {
+        // this will ensure that even if something is setting the padding (say, in setTheme
+        // function)
+        // we will still keep the bottom-offset requirement.
+        super.setPadding(left, top, right, Math.max(mExtraBottomOffset, bottom));
     }
 
     @Override
@@ -188,11 +200,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     protected KeyPreviewsController createKeyPreviewManager(
             Context context, PreviewPopupTheme previewPopupTheme) {
         return new KeyPreviewsManager(context, this, mPreviewPopupTheme);
-    }
-
-    @Override
-    public void setPadding(int left, int top, int right, int bottom) {
-        super.setPadding(left, top, right, Math.max(bottom, mExtraBottomOffset));
     }
 
     @Override

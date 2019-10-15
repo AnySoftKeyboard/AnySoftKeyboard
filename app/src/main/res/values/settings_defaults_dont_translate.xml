@@ -9,6 +9,7 @@
     <string name="settings_default_pop_text_option">on_correction</string>
     <bool name="settings_default_sound_on">false</bool>
     <bool name="settings_default_vibrate_on_long_press">true</bool>
+    <bool name="settings_default_colorize_nav_bar">true</bool>
     <bool name="settings_default_keyboard_icon_in_status_bar">false</bool>
     <bool name="settings_default_auto_capitalization">true</bool>
     <bool name="settings_default_show_suggestions">true</bool>
