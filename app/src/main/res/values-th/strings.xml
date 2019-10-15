@@ -19,7 +19,6 @@
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="use_custom_sound_volume">ตั้งค่าระดับเสียง</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
