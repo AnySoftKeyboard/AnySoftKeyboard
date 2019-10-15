@@ -47,6 +47,14 @@
         <Preference android:title="@string/night_mode_screen"
                     android:key="@string/settings_key_night_mode" />
 
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_colorize_nav_bar"
+            android:key="@string/settings_key_colorize_nav_bar"
+            android:persistent="true"
+            android:summaryOff="@string/colorize_nav_bar_summary_off"
+            android:summaryOn="@string/colorize_nav_bar_summary_on"
+            android:title="@string/colorize_nav_bar_title"/>
+
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_pop_text_option"
             android:dialogTitle="@string/pop_text_type_title"
