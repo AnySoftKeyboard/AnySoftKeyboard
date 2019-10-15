@@ -1,5 +1,5 @@
-//The keystore is missing. Previous owner: pi3ch 
-ext.shouldBePublished = false
+ext.shouldBePublished = true
+ext.override_release_key_alias = 'persian'
 
 apply from: "$rootDir/gradle/pack_apk.gradle"
 
