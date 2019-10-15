@@ -5,10 +5,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.BoolRes;
 import android.support.annotation.DimenRes;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.rx.GenericOnError;
+import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncognito {
 
@@ -16,6 +18,7 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
     @DimenRes private int mNavigationBarHeightId = NO_ID;
     @BoolRes private int mNavigationBarShownId = NO_ID;
+    private boolean mPrefsToShow;
 
     @Override
     public void onCreate() {
@@ -32,6 +35,15 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
                     "Colorized nav-bar resources: navigation_bar_height %d, config_showNavigationBar %d",
                     mNavigationBarHeightId,
                     mNavigationBarShownId);
+
+            addDisposable(
+                    prefs().getBoolean(
+                                    R.string.settings_key_colorize_nav_bar,
+                                    R.bool.settings_default_colorize_nav_bar)
+                            .asObservable()
+                            .subscribe(
+                                    val -> mPrefsToShow = val,
+                                    GenericOnError.onError("settings_key_colorize_nav_bar")));
         }
     }
 
@@ -48,19 +60,26 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     }
 
     @Override
-    public View onCreateInputView() {
-        final View original = super.onCreateInputView();
-
+    public void onStartInputView(EditorInfo info, boolean restarting) {
+        super.onStartInputView(info, restarting);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (isInPortrait() && doesOsShowNavigationBar()) {
                 final Window w = getWindow().getWindow();
                 if (w != null) {
                     final int navBarHeight = getNavBarHeight();
-                    if (navBarHeight > 0) {
+                    if (navBarHeight > 0 && mPrefsToShow) {
                         Logger.d(TAG, "Showing Colorized nav-bar with height %d", navBarHeight);
                         w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                         w.setNavigationBarColor(Color.TRANSPARENT);
                         getInputViewContainer().setBottomPadding(navBarHeight);
+                    } else {
+                        Logger.d(
+                                TAG,
+                                "Showing Colorized nav-bar with height %d and prefs %s",
+                                navBarHeight,
+                                mPrefsToShow);
+                        w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                        getInputViewContainer().setBottomPadding(0);
                     }
                 }
             } else {
@@ -71,8 +90,6 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
                         doesOsShowNavigationBar());
             }
         }
-
-        return original;
     }
 
     private int getNavBarHeight() {

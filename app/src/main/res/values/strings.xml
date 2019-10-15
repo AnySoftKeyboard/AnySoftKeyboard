@@ -160,6 +160,10 @@
     <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space.</string>
     <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space.</string>
 
+    <string name="colorize_nav_bar_title">Draw behind the navigation-bar</string>
+    <string name="colorize_nav_bar_summary_on">Will draw the keyboard background behind the navigation-bar. This is not supported by all devices.</string>
+    <string name="colorize_nav_bar_summary_off">Do not draw behind the navigation-bar.</string>
+
     <string name="persistent_layout_per_package_id_title">Remember alphabet layout per App</string>
     <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous layout used in the App.</string>
