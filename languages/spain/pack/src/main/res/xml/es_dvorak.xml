@@ -16,8 +16,8 @@
     </Row>
     
     <Row>
-        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="á" android:keyEdgeFlags="left"/>
-        <Key android:codes="111" android:keyLabel="o" android:popupCharacters="óòôõöøőœō"/>
+        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="áª" android:keyEdgeFlags="left"/>
+        <Key android:codes="111" android:keyLabel="o" android:popupCharacters="óòôõöøőœōº"/>
         <Key android:codes="101" android:keyLabel="e" android:popupCharacters="éèêẽëęẻē€"/>
         <Key android:codes="117" android:keyLabel="u" android:popupCharacters="úùûüűŭūṷůµ"/>
         <Key android:codes="105" android:keyLabel="i" android:popupCharacters="íìî̇ïĩīǐɨι"/>
