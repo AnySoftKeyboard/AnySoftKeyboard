@@ -11,12 +11,12 @@
         <Key android:codes="121" android:popupCharacters="6ýÿψ"/>
         <Key android:codes="117" android:popupKeyboard="@xml/popup_qwerty_u"/>
         <Key android:codes="105" android:popupCharacters="8ìíîïłīι*"/>
-        <Key android:codes="111" android:popupCharacters="9òóôǒōõöőøœo"/>
+        <Key android:codes="111" android:popupCharacters="9òóôǒōõöőøœoº"/>
         <Key android:codes="112" android:popupCharacters="0π" android:keyEdgeFlags="right"/>
     </Row>
-    
+
     <Row>
-        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="áàâãāäåæąăα" android:keyEdgeFlags="left"/>
+        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="áàâãāäåæąăαª" android:keyEdgeFlags="left"/>
         <Key android:codes="115" android:keyLabel="s"/>
         <Key android:codes="100" android:keyLabel="d"/>
         <Key android:codes="102" android:keyLabel="f"/>
@@ -27,7 +27,7 @@
         <Key android:codes="108" android:keyLabel="l"/>
         <Key android:codes="241,209" android:keyLabel="ñ" android:keyEdgeFlags="right"/>
     </Row>
-    
+
     <Row>
         <Key android:keyWidth="15%p" android:codes="-1" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
