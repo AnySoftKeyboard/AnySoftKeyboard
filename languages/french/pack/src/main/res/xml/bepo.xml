@@ -34,7 +34,7 @@
             android:popupCharacters="àâäæáãåąā" />
         <Key
             android:codes="117,249"
-            android:popupCharacters="ùüúûŭűū" />
+            android:popupCharacters="ùüúûŭűµū" />
         <Key
             android:codes="105"
             android:popupCharacters="ïîìíłī" />
