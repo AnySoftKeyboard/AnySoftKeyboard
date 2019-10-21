@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Keyboard
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p">
 
@@ -34,13 +33,15 @@
             android:popupCharacters="àâäæáãåąā" />
         <Key
             android:codes="117,249"
-            android:popupCharacters="ùüúûŭűū" />
+            android:popupCharacters="ùüúûŭűµū" />
         <Key
             android:codes="105"
             android:popupCharacters="ïîìíłī" />
+
+        <!-- The "é" character is directly accessible on Bépo -->
         <Key
             android:codes="101"
-            android:popupCharacters="èêë€éęē" />
+            android:popupCharacters="èêë€ęē" />
         <Key android:codes="99" />
         <Key android:codes="116" />
         <Key
@@ -87,8 +88,8 @@
         android:rowEdgeFlags="bottom">
         <Key
             android:codes="-10"
-            android:keyEdgeFlags="left"
-            android:keyWidth="10.5%p" />
+            android:keyWidth="10.5%p"
+            android:keyEdgeFlags="left" />
 
         <Key
             android:codes="63,33"
@@ -119,8 +120,8 @@
         <Key
             android:codes="10"
             android:horizontalGap="2.5%p"
-            android:keyEdgeFlags="right"
             android:keyWidth="15%p"
+            android:keyEdgeFlags="right"
             ask:longPressCode="-100" />
     </Row>
     <Row
@@ -128,8 +129,8 @@
         android:rowEdgeFlags="bottom">
         <Key
             android:codes="-10"
-            android:keyEdgeFlags="left"
-            android:keyWidth="10.5%p" />
+            android:keyWidth="10.5%p"
+            android:keyEdgeFlags="left" />
 
         <Key
             android:codes="63,33"
@@ -160,8 +161,8 @@
         <Key
             android:codes="10"
             android:horizontalGap="2.5%p"
-            android:keyEdgeFlags="right"
             android:keyWidth="15%p"
+            android:keyEdgeFlags="right"
             ask:longPressCode="-100" />
     </Row>
 
@@ -170,8 +171,8 @@
         android:rowEdgeFlags="bottom">
         <Key
             android:codes="-9"
-            android:keyEdgeFlags="left"
-            android:keyWidth="10.5%p" />
+            android:keyWidth="10.5%p"
+            android:keyEdgeFlags="left" />
 
         <Key
             android:codes="64"
@@ -201,8 +202,8 @@
         <Key
             android:codes="10"
             android:horizontalGap="2.5%p"
-            android:keyEdgeFlags="right"
             android:keyWidth="15%p"
+            android:keyEdgeFlags="right"
             ask:longPressCode="-100" />
     </Row>
     <Row
@@ -210,8 +211,8 @@
         android:rowEdgeFlags="bottom">
         <Key
             android:codes="-9"
-            android:keyEdgeFlags="left"
-            android:keyWidth="10.5%p" />
+            android:keyWidth="10.5%p"
+            android:keyEdgeFlags="left" />
 
         <Key
             android:codes="64"
@@ -240,8 +241,8 @@
         <Key
             android:codes="10"
             android:horizontalGap="2.5%p"
-            android:keyEdgeFlags="right"
             android:keyWidth="15%p"
+            android:keyEdgeFlags="right"
             ask:longPressCode="-100" />
     </Row>
 
