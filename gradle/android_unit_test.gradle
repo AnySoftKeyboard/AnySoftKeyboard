@@ -45,7 +45,7 @@ android {
                 // set heap size for the test JVM(s)
                 // NOTE: This is needed since Gradle does not propagate the heap-size restrictions from gradle.properties file.
                 minHeapSize = "128m"
-                maxHeapSize = "1900m"
+                maxHeapSize = "4096m"
             }
         }
     }
