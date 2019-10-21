@@ -46,6 +46,10 @@ references:
           destination: apks/
 
       - store_artifacts:
+          path: /opt/workspace/outputs/
+          destination: outputs/
+
+      - store_artifacts:
           path: /opt/workspace/app/build/outputs/mapping/
           destination: mapping/
 
