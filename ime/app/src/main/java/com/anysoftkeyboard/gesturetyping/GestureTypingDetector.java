@@ -21,6 +21,7 @@ import java.util.List;
 public class GestureTypingDetector {
     private static final String TAG = "ASKGestureTypingDetector";
 
+    /** The minimum angle that's indicative of a corner in a gesture. */
     private static final double CURVATURE_THRESHOLD = Math.toRadians(170);
     // How many points away from the current point do we use when calculating hasEnoughCurvature?
     private static final int CURVATURE_NEIGHBORHOOD = 1;
@@ -30,6 +31,11 @@ public class GestureTypingDetector {
     private final int mMinPointDistanceSquared;
 
     private final ArrayList<String> mCandidates;
+    /**
+     * When finding candidate words, candidates are chosen by doing a weighted sum of the distance
+     * between the user gesture and the word gesture, and the frequency of the candidate word.
+     * This factor weighs the frequency term. The distance term has a weight of 1.
+     */
     private final double mFrequencyFactor;
 
     private final ArrayList<Double> mCandidateWeights;
@@ -76,6 +82,13 @@ public class GestureTypingDetector {
         return mGenerateStateSubject;
     }
 
+    /**
+     * Sets the list of detectable words and their frequencies, and finds their corners by which
+     * they'll be detected.
+     *
+     * @param words
+     * @param wordFrequencies
+     */
     public void setWords(@NonNull List<char[][]> words, @NonNull List<int[]> wordFrequencies) {
         mWords = words;
         mWordFrequencies = wordFrequencies;
@@ -95,6 +108,16 @@ public class GestureTypingDetector {
         mGenerateStateSubject.onComplete();
     }
 
+    /**
+     * Generate corner sequences for every word in the dictionary.
+     *
+     * @param words
+     * @param wordsCorners
+     * @param keys
+     * @param keysByCharacter
+     * @param workspaceData
+     * @return
+     */
     private static Single<LoadingState> generateCornersInBackground(
             Iterable<char[][]> words,
             Collection<int[]> wordsCorners,
@@ -161,6 +184,16 @@ public class GestureTypingDetector {
                 .observeOn(RxSchedulers.mainThread());
     }
 
+    /**
+     * Generates the gesture that needs to be traced to enter the word and finds the corresponding
+     * corners.
+     *
+     * @param word The characters that compose the word the user wants to type.
+     * @param keysByCharacter The key that needs to be pressed for each character.
+     * @param workspaceData An empty gesture object.
+     * @return An array of alternating x, y coordinates indicating the corners in the
+     * gesture's points.
+     */
     private static int[] generatePath(
             char[] word, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspaceData) {
         workspaceData.reset();
@@ -191,6 +224,12 @@ public class GestureTypingDetector {
         return getPathCorners(workspaceData);
     }
 
+    /**
+     * Adds a point to the current gesture as long as it's not too far from the previous point.
+     *
+     * @param x
+     * @param y
+     */
     public void addPoint(int x, int y) {
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) return;
 
@@ -212,6 +251,12 @@ public class GestureTypingDetector {
         mWorkspaceData.reset();
     }
 
+    /**
+     * Finds all the corners (large changes in direction) in the current gesture.
+     *
+     * @param workspaceData The gesture whose corners we want.
+     * @return An array of alternating x, y coordinates for every corner found.
+     */
     private static int[] getPathCorners(WorkspaceData workspaceData) {
         workspaceData.mMaximaArraySize = 0;
         if (workspaceData.mCurrentGestureArraySize > 0) {
@@ -238,6 +283,16 @@ public class GestureTypingDetector {
         return arr;
     }
 
+    /**
+     * Checks whether the points around a given middle-point present a curvature above a
+     * certain threshold.
+     *
+     * @param xs The x coordinates for the points in the gesture.
+     * @param ys The y coordinates for the points in the gesture.
+     * @param middlePointIndex The point whose nearby curvature we want to calculate.
+     * @return Whether there is a curvature indicative of a corner near the given
+     * point.
+     */
     @VisibleForTesting
     static boolean hasEnoughCurvature(final int[] xs, final int[] ys, final int middlePointIndex) {
         // Calculate the radianValue formed between middlePointIndex, and one point in either
@@ -274,6 +329,13 @@ public class GestureTypingDetector {
         return radianValue <= CURVATURE_THRESHOLD;
     }
 
+    /**
+     * Gets an array of candidate words based on the user's gesture by calculating the distance
+     * between the gesture and the gestures for the word set. The candidate words are weighed by
+     * distance and frequency and sorted from best to worst.
+     *
+     * @return An array of candidate words sorted from best to worst.
+     */
     public ArrayList<String> getCandidates() {
         mCandidates.clear();
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) {
@@ -343,6 +405,15 @@ public class GestureTypingDetector {
         return mCandidates;
     }
 
+    /**
+     * Matches two sequences of corners, of potentially different lengths, and calculates the
+     * cumulative distance between them.
+     *
+     * @param actualUserPath The sequence of corners in the user gesture as an alternative array
+     *                       of x, y coordinates.
+     * @param generatedWordPath The sequence of corners for a chosen word in the same format.
+     * @return The cumulative distance between the paths.
+     */
     private static double calculateDistanceBetweenUserPathAndWord(
             int[] actualUserPath, int[] generatedWordPath) {
         // Debugging is still needed, but at least ASK won't crash this way
@@ -406,10 +477,22 @@ public class GestureTypingDetector {
         return cumulativeDistance;
     }
 
+    /**
+     * Calculates the euclidean distance between two 2D points.
+     *
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return The distance.
+     */
     private static double dist(double x1, double y1, double x2, double y2) {
         return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
 
+    /**
+     * Gesture data.
+     */
     private static class WorkspaceData {
         static final int MAX_GESTURE_LENGTH = 2048;
         private int mCurrentGestureArraySize = 0;
@@ -424,6 +507,12 @@ public class GestureTypingDetector {
             mMaximaArraySize = 0;
         }
 
+        /**
+         * Adds a point to the gesture path.
+         *
+         * @param x
+         * @param y
+         */
         void addPoint(int x, int y) {
             if (MAX_GESTURE_LENGTH == mCurrentGestureArraySize) {
                 if (BuildConfig.TESTING_BUILD) {
@@ -437,6 +526,11 @@ public class GestureTypingDetector {
             mCurrentGestureArraySize++;
         }
 
+        /**
+         * Adds a point to the gesture's array of corners, as consecutive x, y coordinates.
+         *
+         * @param gesturePointIndex The index of the corner in the gesture path.
+         */
         void addMaximaPointOfIndex(int gesturePointIndex) {
             mMaximaWorkspace[mMaximaArraySize] = mCurrentGestureXs[gesturePointIndex];
             mMaximaArraySize++;
