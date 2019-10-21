@@ -1,0 +1,45 @@
+def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task ->
+    task.description = 'Generates a file with the YAML entry for publishing an APK fo a file'
+    task.group = 'publish'
+    def outputYamlFile = project.file("outputs/fdroid.yaml")
+    task.outputs.file(outputYamlFile)
+    doLast {
+        outputYamlFile.parentFile.mkdirs()
+        outputYamlFile.write("FDroid outputs. Version ${project.version}\n")
+        task.dependsOn.forEach { dependedTask ->
+            outputYamlFile.append("\n")
+            outputYamlFile.append("*** ${dependedTask.project.path}\n")
+
+            def taskProject = dependedTask.project
+            outputYamlFile.append("""
+  - versionName: ${taskProject.android.defaultConfig.versionName}
+    versionCode: ${taskProject.android.defaultConfig.versionCode}
+    commit: ${rootProject.file('.git/refs/heads/master').readLines().get(0)}
+    gradle:
+      - yes
+    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release.apk
+    gradleprops:
+      - forceVersionBuildCount=${System.getenv('CIRCLE_BUILD_NUM')}
+
+AutoUpdateMode: None
+UpdateCheckMode: RepoManifest
+CurrentVersion: ${taskProject.android.defaultConfig.versionName}
+CurrentVersionCode: ${taskProject.android.defaultConfig.versionCode}
+""")
+
+
+            outputYamlFile.append("***\n")
+            outputYamlFile.append("\n")
+        }
+    }
+}
+
+subprojects {
+    tasks.configureEach { newTask ->
+        if (newTask.name == 'assembleRelease') {
+            if (newTask.project.plugins.hasPlugin('com.android.application')) {
+                generateFdroidYamls.configure { dependsOn newTask }
+            }
+        }
+    }
+}
