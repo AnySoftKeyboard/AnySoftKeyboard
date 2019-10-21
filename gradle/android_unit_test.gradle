@@ -8,7 +8,7 @@ android {
 
             all {
                 int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', project.path == ':app' ? '4' : '1'))
-                maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
+                maxParallelForks Math.max(1, (int) Math.min(maxTestForks, (int) (Runtime.getRuntime().availableProcessors() / 2.0)))
 
                 forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', '1000'))
 
@@ -41,6 +41,11 @@ android {
                 if (project.hasProperty('excludeTestClasses')) {
                     exclude project.property('excludeTestClasses')
                 }
+
+                // set heap size for the test JVM(s)
+                // NOTE: This is needed since Gradle does not propagate the heap-size restrictions from gradle.properties file.
+                minHeapSize = "128m"
+                maxHeapSize = "1900m"
             }
         }
     }
