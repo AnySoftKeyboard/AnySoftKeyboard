@@ -5,6 +5,7 @@ build/
 *.iml
 local.properties
 /codecov.sh
+outputs/
 
 #ndk stuff
 .cxx
