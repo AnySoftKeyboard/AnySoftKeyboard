@@ -29,6 +29,13 @@ steps:
       - curl https://codecov.io/bash -o codecov.sh
       - chmod +x codecov.sh
       - ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+    when:
+      branch:
+        exclude:
+          - master
+      event:
+        exclude:
+          - pull_request
   - name: deploy-release
     image: menny/ndk_ask:1.12.1
     depends_on:
