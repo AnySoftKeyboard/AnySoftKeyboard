@@ -1,0 +1,122 @@
+name: AnySoftKeyboard
+
+on:
+  push:
+    branches:
+      - master
+      - release-branch-v*
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  checks:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.12.1
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: setup
+      env:
+        TERM: dumb
+        GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+      run: |
+        echo "ENV:"
+        printenv
+        echo "******"
+        echo "Event: "
+        cat ${GITHUB_EVENT_PATH}
+        echo "***"
+        ./scripts/ci/ci_setup.sh
+        
+    - name: check
+      env:
+        TERM: dumb
+        GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+      run: ./scripts/ci/ci_check.sh
+    - uses: actions/upload-artifact@v1.0.0
+      with:
+        name: debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
+
+  heavy-tests:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.12.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: setup
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: ./scripts/ci/ci_setup.sh
+      - name: tests
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+        run: |
+          ./scripts/ci/ci_test_heavy.sh
+          curl https://codecov.io/bash -o codecov.sh
+          chmod +x codecov.sh
+          ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+
+
+  normal-tests:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.12.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: setup
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: ./scripts/ci/ci_setup.sh
+      - name: tests
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+        run: |
+          ./gradlew --stacktrace testDebugUnitTest testDebugUnitTestCoverage -PexcludeTestClasses="**/*AllSdkTest*"
+          curl https://codecov.io/bash -o codecov.sh
+          chmod +x codecov.sh
+          ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+
+  deploy:
+    if: github.event_name == 'push'
+    needs: [checks, normal-tests, heavy-tests]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.12.1
+    steps:
+      - uses: actions/checkout@v1
+      - name: setup
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: ./scripts/ci/ci_setup.sh
+      - name: deploy
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+          RELEASE_BUILD: ${{ contains(github.ref, 'release-branch-v') }}
+          BUILD_TYPE: "release"
+          KEYSTORE_FILE_URL: ${{ secrets.KEYSTORE_FILE_URL }}
+          PUBLISH_CERT_FILE_URL: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+          ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
+          ANYSOFTKEYBOARD_KEYSTORE_ALIAS: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
+          ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
+          ANYSOFTKEYBOARD_KEYSTORE_PASSWORD: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
+          PUBLISH_APK_SERVICE_ACCOUNT_EMAIL: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+        run: |
+          echo "This will deploy"
+          export BUILD_COUNT_FOR_VERSION=$(git rev-list --count ${GITHUB_REF})
+          export BUILD_TYPE="canary"
+          if [[ "${RELEASE_BUILD}" == "true" ]] then BUILD_TYPE="release" fi
+          echo "Counter is ${BUILD_COUNT_FOR_VERSION}, build-type: ${BUILD_TYPE}, RELEASE_BUILD: ${RELEASE_BUILD}, and crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}"
