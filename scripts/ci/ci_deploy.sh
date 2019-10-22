@@ -3,7 +3,6 @@ set -e
 
 ## Assuming the following environment variables
 # BUILD_TYPE
-# REPO_USER
 # KEYSTORE_FILE_URL
 # PUBLISH_CERT_FILE_URL
 
@@ -19,13 +18,6 @@ elif [[ "${BUILD_TYPE}" == "dry-run-release" ]]; then
     GRADLE_TASKS="-DdeployChannel=alpha assembleRelease"
 else
     echo "Invalid build type '${BUILD_TYPE}'. Can not deploy."
-    exit 1
-fi
-
-if [[ "${REPO_USER}" == "AnySoftKeyboard" ]]; then
-    echo "Repo owner is allowed for deploy."
-else
-    echo "Invalid repo owner '${REPO_USER}'. Can not deploy."
     exit 1
 fi
 
