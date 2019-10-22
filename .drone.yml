@@ -29,13 +29,6 @@ steps:
       - curl https://codecov.io/bash -o codecov.sh
       - chmod +x codecov.sh
       - ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
-    when:
-      branch:
-        exclude:
-          - master
-      event:
-        exclude:
-          - pull_request
   - name: deploy-release
     image: menny/ndk_ask:1.12.1
     depends_on:
@@ -44,10 +37,25 @@ steps:
       TERM: dumb
       GRADLE_OPTS: "-Dorg.gradle.daemon=false"
       BUILD_TYPE: "release"
+      REPO_USER: ${DRONE_REPO_OWNER}
       BUILD_COUNT_FOR_VERSION: ${DRONE_BUILD_NUMBER}
       GRADLE_USER_HOME: "/drone/src/gradle_home_folder/"
+      KEYSTORE_FILE_URL:
+        from_secret: KEYSTORE_FILE_URL
+      PUBLISH_CERT_FILE_URL:
+        from_secret: PUBLISH_CERT_FILE_URL
+      ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL:
+        from_secret: ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL
+      ANYSOFTKEYBOARD_KEYSTORE_ALIAS:
+        from_secret: ANYSOFTKEYBOARD_KEYSTORE_ALIAS
+      ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD:
+        from_secret: ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD
+      ANYSOFTKEYBOARD_KEYSTORE_PASSWORD:
+        from_secret: ANYSOFTKEYBOARD_KEYSTORE_PASSWORD
+      PUBLISH_APK_SERVICE_ACCOUNT_EMAIL:
+        from_secret: PUBLISH_APK_SERVICE_ACCOUNT_EMAIL
     commands:
-      - ./scripts/ci/ci_deploy.sh ${UPLOAD_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${BUILD_TYPE}
+      - ./scripts/ci/ci_deploy.sh
     when:
       branch:
         - release-branch-v*
@@ -80,10 +88,25 @@ steps:
       TERM: dumb
       GRADLE_OPTS: "-Dorg.gradle.daemon=false"
       BUILD_TYPE: "canary"
+      REPO_USER: ${DRONE_REPO_OWNER}
       BUILD_COUNT_FOR_VERSION: ${DRONE_BUILD_NUMBER}
       GRADLE_USER_HOME: "/drone/src/gradle_home_folder/"
+      KEYSTORE_FILE_URL:
+        from_secret: KEYSTORE_FILE_URL
+      PUBLISH_CERT_FILE_URL:
+        from_secret: PUBLISH_CERT_FILE_URL
+      ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL:
+        from_secret: ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL
+      ANYSOFTKEYBOARD_KEYSTORE_ALIAS:
+        from_secret: ANYSOFTKEYBOARD_KEYSTORE_ALIAS
+      ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD:
+        from_secret: ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD
+      ANYSOFTKEYBOARD_KEYSTORE_PASSWORD:
+        from_secret: ANYSOFTKEYBOARD_KEYSTORE_PASSWORD
+      PUBLISH_APK_SERVICE_ACCOUNT_EMAIL:
+        from_secret: PUBLISH_APK_SERVICE_ACCOUNT_EMAIL
     commands:
-      - ./scripts/ci/ci_deploy.sh ${UPLOAD_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${BUILD_TYPE}
+      - ./scripts/ci/ci_deploy.sh
     when:
       branch:
         - master
