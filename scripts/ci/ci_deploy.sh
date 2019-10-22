@@ -1,30 +1,31 @@
 #!/usr/bin/env bash
 set -e
 
-KEYSTORE_FILE_URL=$1
-PUBLISH_CERT_FILE_URL=$2
-USERNAME=$3
-BUILD_TYPE=$4
+## Assuming the following environment variables
+# BUILD_TYPE
+# REPO_USER
+# KEYSTORE_FILE_URL
+# PUBLISH_CERT_FILE_URL
 
 if [[ "${BUILD_TYPE}" == "canary" ]]; then
     echo "Deploy build-type CANARY from master."
-    BUILD_TYPE="-DdeployChannel=alpha assembleCanary publishCanary"
+    GRADLE_TASKS="-DdeployChannel=alpha assembleCanary publishCanary"
 elif [[ "${BUILD_TYPE}" == "release" ]]; then
     echo "Deploy build-type RELEASE from 'release-branch'."
     cp app/src/main/play/release-notes/en-US/alpha.txt app/src/main/play/release-notes/en-US/beta.txt
-    BUILD_TYPE="-DdeployChannel=beta assembleRelease publishRelease"
+    GRADLE_TASKS="-DdeployChannel=beta assembleRelease publishRelease"
 elif [[ "${BUILD_TYPE}" == "dry-run-release" ]]; then
     echo "Dry Run Deploy build-type RELEASE."
-    BUILD_TYPE="-DdeployChannel=alpha assembleRelease"
+    GRADLE_TASKS="-DdeployChannel=alpha assembleRelease"
 else
-    echo "Invalid build type. Can not deploy."
+    echo "Invalid build type '${BUILD_TYPE}'. Can not deploy."
     exit 1
 fi
 
-if [[ "${USERNAME}" == "AnySoftKeyboard" ]]; then
+if [[ "${REPO_USER}" == "AnySoftKeyboard" ]]; then
     echo "Repo owner is allowed for deploy."
 else
-    echo "Invalid repo owner. Can not deploy."
+    echo "Invalid repo owner '${REPO_USER}'. Can not deploy."
     exit 1
 fi
 
@@ -43,6 +44,6 @@ fi
 echo "Downloading signature files..."
 wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
-./gradlew --stacktrace -PwithAutoVersioning ${BUILD_TYPE} generateFdroidYamls
+./gradlew --stacktrace -PwithAutoVersioning ${GRADLE_TASKS} generateFdroidYamls
 
 cat outputs/fdroid.yaml
