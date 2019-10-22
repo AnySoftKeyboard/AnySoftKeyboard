@@ -53,6 +53,25 @@ steps:
         - release-branch-v*
       event:
         - push
+  - name: dry-run-deploy-release
+    image: menny/ndk_ask:1.12.1
+    depends_on:
+      - build-check
+    environment:
+      TERM: dumb
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+      BUILD_TYPE: "dry-run-release"
+      BUILD_COUNT_FOR_VERSION: ${DRONE_BUILD_NUMBER}
+      GRADLE_USER_HOME: "/drone/src/gradle_home_folder/"
+    commands:
+      - wget https://raw.githubusercontent.com/facebook/react-native/63ebbd6bfcc9b76c000ed72a875218d388a7ee09/template/android/app/debug.keystore  -q -O /root/.android/debug.keystore
+      - ./gradlew --stacktrace -PwithAutoVersioning assembleRelease generateFdroidYamls
+      - cat outputs/fdroid.yaml
+    when:
+      branch:
+        - master
+      event:
+        - pull_request
   - name: deploy-canary
     image: menny/ndk_ask:1.12.1
     depends_on:
