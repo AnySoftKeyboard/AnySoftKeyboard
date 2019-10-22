@@ -13,6 +13,9 @@ elif [[ "${BUILD_TYPE}" == "release" ]]; then
     echo "Deploy build-type RELEASE from 'release-branch'."
     cp app/src/main/play/release-notes/en-US/alpha.txt app/src/main/play/release-notes/en-US/beta.txt
     BUILD_TYPE="-DdeployChannel=beta assembleRelease publishRelease"
+elif [[ "${BUILD_TYPE}" == "dry-run-release" ]]; then
+    echo "Dry Run Deploy build-type RELEASE."
+    BUILD_TYPE="-DdeployChannel=alpha assembleRelease"
 else
     echo "Invalid build type. Can not deploy."
     exit 1
@@ -41,3 +44,5 @@ echo "Downloading signature files..."
 wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 ./gradlew --stacktrace -PwithAutoVersioning ${BUILD_TYPE} generateFdroidYamls
+
+cat outputs/fdroid.yaml
