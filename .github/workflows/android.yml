@@ -14,7 +14,7 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.12.1
+    container: menny/ndk_ask:1.13.1
     steps:
     - uses: actions/checkout@v1
       with:
@@ -44,7 +44,7 @@ jobs:
 
   heavy-tests:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.12.1
+    container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v1
         with:
@@ -67,7 +67,7 @@ jobs:
 
   app-normal-tests_1:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.12.1
+    container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v1
         with:
@@ -92,7 +92,7 @@ jobs:
 
   app-normal-tests_2:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.12.1
+    container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v1
         with:
@@ -117,7 +117,7 @@ jobs:
 
   non-app-normal-tests:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.12.1
+    container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v1
         with:
@@ -138,11 +138,19 @@ jobs:
           chmod +x codecov.sh
           ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
 
+  pr_audit:
+    if: github.event_name == 'pull_request'
+    needs: [checks, app-normal-tests_1, app-normal-tests_2, heavy-tests, non-app-normal-tests]
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Success
+        run: echo "Thank you, ${GITHUB_ACTOR}. ${GITHUB_WORKFLOW} ${GITHUB_EVENT_NAME} verification of ref ${GITHUB_REF} finished successfully!"
+
   deploy:
     if: github.event_name == 'push'
     needs: [checks, app-normal-tests_1, app-normal-tests_2, heavy-tests, non-app-normal-tests]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.12.1
+    container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v1
       - name: setup
