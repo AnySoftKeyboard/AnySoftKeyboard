@@ -41,6 +41,20 @@ jobs:
       with:
         name: debug-apk
         path: app/build/outputs/apk/debug/app-debug.apk
+    - name: artifacts
+      if: always()
+      run: |
+        rm -rf all-checks-reports || true
+        mkdir all-checks-reports || true
+
+        find . -path ./all-checks-reports -prune -o -name "pmd*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
+        find . -path ./all-checks-reports -prune -o -name "checkstyle*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
+        find . -path ./all-checks-reports -prune -o -name "lint-results-*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
+    - uses: actions/upload-artifact@v1.0.0
+      if: always()
+      with:
+        name: checks-reports
+        path: all-checks-reports/
 
   heavy-tests:
     runs-on: ubuntu-18.04
@@ -58,12 +72,27 @@ jobs:
         env:
           TERM: dumb
           GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
         run: |
           ./gradlew --stacktrace :app:testDebugUnitTest --tests="*AllSdkTest*" :app:testDebugUnitTestCoverage
+      - name: codecov
+        env:
+          TERM: dumb
+          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+        run: |
           curl https://codecov.io/bash -o codecov.sh
           chmod +x codecov.sh
           ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+      - name: artifacts
+        if: always()
+        run: |
+          rm -rf all-test-reports || true
+          mkdir all-test-reports || true
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: heavy-tests
+          path: all-test-reports/
 
   app-normal-tests_1:
     runs-on: ubuntu-18.04
@@ -81,14 +110,29 @@ jobs:
         env:
           TERM: dumb
           GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
           TEST_GROUP_INDEX: 0
           TEST_GROUPS_COUNT: 2
         run: |
           ./gradlew --stacktrace app:testDebugUnitTest app:testDebugUnitTestCoverage -PexcludeTestClasses="**/*AllSdkTest*"
+      - name: codecov
+        env:
+          TERM: dumb
+          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+        run: |
           curl https://codecov.io/bash -o codecov.sh
           chmod +x codecov.sh
           ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+      - name: artifacts
+        if: always()
+        run: |
+          rm -rf all-test-reports || true
+          mkdir all-test-reports || true
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: app-normal-tests_1
+          path: all-test-reports/
 
   app-normal-tests_2:
     runs-on: ubuntu-18.04
@@ -106,14 +150,30 @@ jobs:
         env:
           TERM: dumb
           GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
           TEST_GROUP_INDEX: 1
           TEST_GROUPS_COUNT: 2
         run: |
           ./gradlew --stacktrace app:testDebugUnitTest app:testDebugUnitTestCoverage -PexcludeTestClasses="**/*AllSdkTest*"
+      - name: codecov
+        env:
+          TERM: dumb
+          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+        run: |
           curl https://codecov.io/bash -o codecov.sh
           chmod +x codecov.sh
           ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - name: artifacts
+        if: always()
+        run: |
+          rm -rf all-test-reports || true
+          mkdir all-test-reports || true
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: app-normal-tests_2
+          path: all-test-reports/
 
   non-app-normal-tests:
     runs-on: ubuntu-18.04
@@ -131,12 +191,28 @@ jobs:
         env:
           TERM: dumb
           GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
         run: |
           ./gradlew --stacktrace testDebugUnitTest testDebugUnitTestCoverage -x app:testDebugUnitTest -x app:testDebugUnitTestCoverage
+      - name: codecov
+        env:
+          TERM: dumb
+          CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+        run: |
           curl https://codecov.io/bash -o codecov.sh
           chmod +x codecov.sh
           ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - name: artifacts
+        if: always()
+        run: |
+          rm -rf all-test-reports || true
+          mkdir all-test-reports || true
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: non-app-normal-tests
+          path: all-test-reports/
 
   pr_audit:
     if: github.event_name == 'pull_request'
