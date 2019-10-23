@@ -1,6 +1,6 @@
 AnySoftKeyboard
 ====================
-`master` latest build: [![Build Status](https://cloud.drone.io/api/badges/AnySoftKeyboard/AnySoftKeyboard/status.svg)](https://cloud.drone.io/AnySoftKeyboard/AnySoftKeyboard)<br/>
+`master` latest build: ![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/AnySoftKeyboard/badge.svg)<br/>
 `master` coverage: [![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)<br/>
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;[![Gitter chat](https://badges.gitter.im/AnySoftKeyboard/gitter.png)](https://gitter.im/AnySoftKeyboard)

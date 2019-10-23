@@ -60,7 +60,7 @@ jobs:
           GRADLE_OPTS: "-Dorg.gradle.daemon=false"
           CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
         run: |
-          ./gradlew --stacktrace -DmaxTestForks=1 :app:testDebugUnitTest --tests="*AllSdkTest*" :app:testDebugUnitTestCoverage
+          ./gradlew --stacktrace :app:testDebugUnitTest --tests="*AllSdkTest*" :app:testDebugUnitTestCoverage
           curl https://codecov.io/bash -o codecov.sh
           chmod +x codecov.sh
           ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
@@ -143,7 +143,7 @@ jobs:
     needs: [checks, app-normal-tests_1, app-normal-tests_2, heavy-tests, non-app-normal-tests]
     runs-on: ubuntu-18.04
     steps:
-      - name: Success
+      - name: Success Message
         run: echo "Thank you, ${GITHUB_ACTOR}. ${GITHUB_WORKFLOW} ${GITHUB_EVENT_NAME} verification of ref ${GITHUB_REF} finished successfully!"
 
   deploy:
@@ -163,7 +163,6 @@ jobs:
           TERM: dumb
           GRADLE_OPTS: "-Dorg.gradle.daemon=false"
           RELEASE_BUILD: ${{ contains(github.ref, 'release-branch-v') }}
-          BUILD_TYPE: "release"
           KEYSTORE_FILE_URL: ${{ secrets.KEYSTORE_FILE_URL }}
           PUBLISH_CERT_FILE_URL: ${{ secrets.PUBLISH_CERT_FILE_URL }}
           ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
