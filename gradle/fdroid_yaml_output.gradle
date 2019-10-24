@@ -2,8 +2,10 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
     task.description = 'Generates a file with the YAML entry for publishing an APK fo a file'
     task.group = 'publish'
     def outputYamlFile = project.file("outputs/fdroid.yaml")
+    def versionDetailsFile = project.file("outputs/version.txt")
     task.outputs.file(outputYamlFile)
     doLast {
+        versionDetailsFile.write("${rootProject.autoVersioning.versionData.versionName} (code ${rootProject.autoVersioning.versionData.versionCode})")
         outputYamlFile.parentFile.mkdirs()
         outputYamlFile.write("FDroid outputs. Version ${project.version}\n")
         task.dependsOn.forEach { dependedTask ->
