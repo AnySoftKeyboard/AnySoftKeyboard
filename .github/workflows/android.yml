@@ -248,7 +248,7 @@ jobs:
           PUBLISH_APK_SERVICE_ACCOUNT_EMAIL: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
         run: |
           echo "This will deploy"
-          export BUILD_COUNT_FOR_VERSION=$(git rev-list --count ${GITHUB_REF})
+          export BUILD_COUNT_FOR_VERSION=$( git rev-list --count ${GITHUB_REF} -- )
           export BUILD_TYPE="canary"
           if [[ "${RELEASE_BUILD}" == "true" ]] then BUILD_TYPE="release" fi
           echo "Counter is ${BUILD_COUNT_FOR_VERSION}, build-type: ${BUILD_TYPE}, RELEASE_BUILD: ${RELEASE_BUILD}, and crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}"
