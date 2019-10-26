@@ -51,6 +51,10 @@ tasks.register("generateMarkDownOfLanguagePacks") {
     }
 }
 
+tasks.register("clean") {
+    delete 'buildSrc/build'
+}
+
 tasks.register("copyAnySoftKeyboardBaseLib") {
     group "AnySoftKeyboard"
     description 'Copies several of base aars from this repo into AnySoftKeyboard local repo. Use -PanysoftkeyboardPath=[path/to/AnySoftKeyboard/]'
