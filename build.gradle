@@ -6,7 +6,6 @@ buildscript {
         mavenCentral()
         mavenLocal()
         maven { url "https://plugins.gradle.org/m2/" }
-        maven { url 'https://dl.bintray.com/novoda-oss/snapshots/' }
         jcenter()
     }
     dependencies {
@@ -49,6 +48,10 @@ tasks.register("generateMarkDownOfLanguagePacks") {
             }
         }
     }
+}
+
+tasks.register("clean") {
+    delete 'buildSrc/build'
 }
 
 tasks.register("copyAnySoftKeyboardBaseLib") {
