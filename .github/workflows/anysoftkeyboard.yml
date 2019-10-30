@@ -11,6 +11,10 @@ on:
     paths-ignore:
       - '**.md'
 
+env:
+  TERM: dumb
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
 jobs:
   setup:
     runs-on: ubuntu-18.04
@@ -20,9 +24,6 @@ jobs:
         with:
           fetch-depth: 1
       - name: setup
-        env:
-          TERM: dumb
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
         run: |
           echo "ENV:"
           printenv
@@ -41,9 +42,6 @@ jobs:
         with:
           fetch-depth: 1
       - name: check
-        env:
-          TERM: dumb
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
         run: ./scripts/ci/ci_check.sh
       - uses: actions/upload-artifact@v1.0.0
         with:
@@ -76,9 +74,6 @@ jobs:
         with:
           fetch-depth: 1
       - name: tests
-        env:
-          TERM: dumb
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
         run: |
           ./gradlew --stacktrace :app:testDebugUnitTest --tests="*AllSdkTest*" :app:testDebugUnitTestCoverage
       - uses: ./.github/actions/codecov
@@ -92,10 +87,14 @@ jobs:
           name: heavy-tests
           path: collected_reports/
 
-  app-normal-tests_1:
+  app-normal-tests-shards:
     needs: [setup]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
+    strategy:
+      matrix:
+        index: [0, 1, 2]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v1
         with:
@@ -103,7 +102,7 @@ jobs:
       - name: tests
         uses: ./.github/actions/normal-test-shard-run
         with:
-          index: 0
+          index: ${{ matrix.index }}
       - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
         if: always()
@@ -112,53 +111,7 @@ jobs:
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
-          name: app-normal-tests_1
-          path: collected_reports/
-
-  app-normal-tests_2:
-    needs: [setup]
-    runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
-    steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-      - name: tests
-        uses: ./.github/actions/normal-test-shard-run
-        with:
-          index: 1
-      - uses: ./.github/actions/codecov
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
-          file_pattern: TEST-*.xml
-      - uses: actions/upload-artifact@v1.0.0
-        if: always()
-        with:
-          name: app-normal-tests_2
-          path: collected_reports/
-
-  app-normal-tests_3:
-    needs: [setup]
-    runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
-    steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-      - name: tests
-        uses: ./.github/actions/normal-test-shard-run
-        with:
-          index: 2
-      - uses: ./.github/actions/codecov
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
-          file_pattern: TEST-*.xml
-      - uses: actions/upload-artifact@v1.0.0
-        if: always()
-        with:
-          name: app-normal-tests_3
+          name: app-normal-tests_${{ matrix.index }}
           path: collected_reports/
 
   non-app-normal-tests:
@@ -170,9 +123,6 @@ jobs:
         with:
           fetch-depth: 1
       - name: tests
-        env:
-          TERM: dumb
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
         run: |
           ./gradlew --stacktrace testDebugUnitTest testDebugUnitTestCoverage -x app:testDebugUnitTest -x app:testDebugUnitTestCoverage
       - uses: ./.github/actions/codecov
@@ -188,7 +138,7 @@ jobs:
 
   pr_audit:
     if: github.event_name == 'pull_request'
-    needs: [checks, app-normal-tests_1, app-normal-tests_2, app-normal-tests_3, heavy-tests, non-app-normal-tests]
+    needs: [checks, app-normal-tests-shards, heavy-tests, non-app-normal-tests]
     runs-on: ubuntu-18.04
     steps:
       - name: Success Message
@@ -196,15 +146,13 @@ jobs:
 
   deploy:
     if: github.event_name == 'push'
-    needs: [checks, app-normal-tests_1, app-normal-tests_2, app-normal-tests_3, heavy-tests, non-app-normal-tests]
+    needs: [checks, app-normal-tests-shards, heavy-tests, non-app-normal-tests]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v1
       - name: deploy
         env:
-          TERM: dumb
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
           RELEASE_BUILD: ${{ contains(github.ref, 'release-branch-v') }}
           KEYSTORE_FILE_URL: ${{ secrets.KEYSTORE_FILE_URL }}
           PUBLISH_CERT_FILE_URL: ${{ secrets.PUBLISH_CERT_FILE_URL }}
