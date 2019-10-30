@@ -1,0 +1,221 @@
+name: AnySoftKeyboard
+
+on:
+  push:
+    branches:
+      - master
+      - release-branch-v*
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  setup:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: setup
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: |
+          echo "ENV:"
+          printenv
+          echo "******"
+          echo "Event: "
+          cat ${GITHUB_EVENT_PATH}
+          echo "***"
+          ./scripts/ci/ci_setup.sh
+
+  checks:
+    needs: [setup]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: check
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: ./scripts/ci/ci_check.sh
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: pmd*.html
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: checkstyle*.html
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: lint-results-*.html
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: checks-reports
+          path: collected_reports/
+
+  heavy-tests:
+    needs: [setup]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: tests
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: |
+          ./gradlew --stacktrace :app:testDebugUnitTest --tests="*AllSdkTest*" :app:testDebugUnitTestCoverage
+      - uses: ./.github/actions/codecov
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: TEST-*.xml
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: heavy-tests
+          path: collected_reports/
+
+  app-normal-tests_1:
+    needs: [setup]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: tests
+        uses: ./.github/actions/normal-test-shard-run
+        with:
+          index: 0
+      - uses: ./.github/actions/codecov
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: TEST-*.xml
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: app-normal-tests_1
+          path: collected_reports/
+
+  app-normal-tests_2:
+    needs: [setup]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: tests
+        uses: ./.github/actions/normal-test-shard-run
+        with:
+          index: 1
+      - uses: ./.github/actions/codecov
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: TEST-*.xml
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: app-normal-tests_2
+          path: collected_reports/
+
+  app-normal-tests_3:
+    needs: [setup]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: tests
+        uses: ./.github/actions/normal-test-shard-run
+        with:
+          index: 2
+      - uses: ./.github/actions/codecov
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: TEST-*.xml
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: app-normal-tests_3
+          path: collected_reports/
+
+  non-app-normal-tests:
+    needs: [setup]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: tests
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: |
+          ./gradlew --stacktrace testDebugUnitTest testDebugUnitTestCoverage -x app:testDebugUnitTest -x app:testDebugUnitTestCoverage
+      - uses: ./.github/actions/codecov
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: TEST-*.xml
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: non-app-normal-tests
+          path: collected_reports/
+
+  pr_audit:
+    if: github.event_name == 'pull_request'
+    needs: [checks, app-normal-tests_1, app-normal-tests_2, app-normal-tests_3, heavy-tests, non-app-normal-tests]
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Success Message
+        run: echo "Thank you, ${GITHUB_ACTOR}. ${GITHUB_WORKFLOW} ${GITHUB_EVENT_NAME} verification of ref ${GITHUB_REF} finished successfully!"
+
+  deploy:
+    if: github.event_name == 'push'
+    needs: [checks, app-normal-tests_1, app-normal-tests_2, app-normal-tests_3, heavy-tests, non-app-normal-tests]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v1
+      - name: deploy
+        env:
+          TERM: dumb
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+          RELEASE_BUILD: ${{ contains(github.ref, 'release-branch-v') }}
+          KEYSTORE_FILE_URL: ${{ secrets.KEYSTORE_FILE_URL }}
+          PUBLISH_CERT_FILE_URL: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+          ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
+          ANYSOFTKEYBOARD_KEYSTORE_ALIAS: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
+          ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
+          ANYSOFTKEYBOARD_KEYSTORE_PASSWORD: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
+          PUBLISH_APK_SERVICE_ACCOUNT_EMAIL: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+        run: |
+          echo "This will deploy"
+          export BUILD_COUNT_FOR_VERSION=$( git rev-list --count ${GITHUB_REF} -- )
+          export BUILD_TYPE="canary"
+          if [[ "${RELEASE_BUILD}" == "true" ]] then BUILD_TYPE="release" fi
+          echo "Counter is ${BUILD_COUNT_FOR_VERSION}, build-type: ${BUILD_TYPE}, RELEASE_BUILD: ${RELEASE_BUILD}, and crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}"
