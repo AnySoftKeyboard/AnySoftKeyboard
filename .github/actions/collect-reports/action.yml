@@ -1,11 +1,13 @@
 name: "Collect reports"
 author: "menny"
+
 inputs:
   output_folder:
     description: "collect destination"
     default: "collected_reports"
   file_pattern:
     description: "pattern"
+
 runs:
   using: "docker"
   image: "docker://menny/ndk_ask:1.13.1"
@@ -14,3 +16,7 @@ runs:
     - .github/actions/collect-reports/collect.sh
     - ${{ inputs.output_folder }}
     - ${{ inputs.file_pattern }}
+
+branding:
+  icon: 'package'
+  color: 'brown'

@@ -1,5 +1,6 @@
 name: "Code Cov"
 author: "menny"
+
 runs:
   using: "docker"
   image: "docker://menny/ndk_ask:1.13.1"
@@ -9,3 +10,7 @@ runs:
   entrypoint: /bin/bash
   args:
     - .github/actions/codecov/upload_coverage.sh
+
+branding:
+  icon: 'pie-chart'
+  color: 'green'
