@@ -1,0 +1,46 @@
+name: "Deploy app"
+author: "menny"
+
+inputs:
+  release_deploy:
+    description: "can be 'true', 'false' or 'dry-run'"
+  ref:
+    description: "the commit to calculate the version from"
+    default: "HEAD"
+  crash_report_email:
+    default: "none@example.com"
+  keystore_url:
+    default: ""
+  keystore_password:
+    default: ""
+  keystore_key_alias:
+    default: ""
+  keystore_key_password:
+    default: ""
+  publish_service_account_creds_url:
+    default: ""
+  publish_service_account:
+    default: ""
+runs:
+  using: "docker"
+  image: "docker://menny/ndk_ask:1.13.1"
+  env:
+    TERM: dumb
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+  entrypoint: /bin/bash
+  args:
+    - .github/actions/deploy/deploy.sh
+    - ${{ inputs.release_deploy }}
+    - ${{ inputs.ref }}
+    - ${{ inputs.crash_report_email }}
+    - ${{ inputs.keystore_url }}
+    - ${{ inputs.keystore_password }}
+    - ${{ inputs.keystore_key_alias }}
+    - ${{ inputs.keystore_key_password }}
+    - ${{ inputs.publish_service_account_creds_url }}
+    - ${{ inputs.publish_service_account }}
+
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
