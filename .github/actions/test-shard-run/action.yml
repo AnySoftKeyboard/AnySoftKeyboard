@@ -1,0 +1,29 @@
+name: "Run tests"
+author: "menny"
+
+inputs:
+  index:
+    description: "zero-based index of the shard"
+  groups_count:
+    description: "count of groups"
+    default: 3
+  module:
+    default: ""
+  extra_args:
+    default: ""
+runs:
+  using: "docker"
+  image: "docker://menny/ndk_ask:1.13.1"
+  env:
+    TERM: dumb
+  entrypoint: /bin/bash
+  args:
+    - .github/actions/test-shard-run/run_tests.sh
+    - ${{ inputs.groups_count }}
+    - ${{ inputs.index }}
+    - ${{ inputs.module }}
+    - ${{ inputs.extra_args }}
+
+branding:
+  icon: 'activity'
+  color: 'yellow'
