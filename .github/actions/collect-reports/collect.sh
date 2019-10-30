@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 OUTPUT=${1}
 PATTERN=${2}
