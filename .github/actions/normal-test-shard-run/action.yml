@@ -1,0 +1,19 @@
+name: "Run tests"
+author: "menny"
+inputs:
+  index:
+    description: "zero-based index of the shard"
+  groups_count:
+    description: "count of groups"
+    default: 3
+runs:
+  using: "docker"
+  image: "docker://menny/ndk_ask:1.13.1"
+  env:
+    TERM: dumb
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+    TEST_GROUP_INDEX: ${{ inputs.index }}
+    TEST_GROUPS_COUNT: ${{ inputs.groups_count }}
+  entrypoint: /bin/bash
+  args:
+    - .github/actions/normal-test-shard-run/run_tests.sh
