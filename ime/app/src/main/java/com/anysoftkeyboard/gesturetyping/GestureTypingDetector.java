@@ -14,6 +14,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.subjects.ReplaySubject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -537,6 +538,15 @@ public class GestureTypingDetector {
             mMaximaWorkspace[mMaximaArraySize] = mCurrentGestureYs[gesturePointIndex];
             mMaximaArraySize++;
         }
+    }
+
+    public String getWorkspaceToString() {
+        int[] x_coords = Arrays.copyOfRange(mWorkspaceData.mCurrentGestureXs, 0, mWorkspaceData.mCurrentGestureArraySize);
+        int[] y_coords = Arrays.copyOfRange(mWorkspaceData.mCurrentGestureYs, 0, mWorkspaceData.mCurrentGestureArraySize);
+
+        String x_string = Arrays.toString(x_coords);
+        String y_string = Arrays.toString(y_coords);
+        return x_string + "," + y_string;
     }
 
     private static class CornersGenerationData {
