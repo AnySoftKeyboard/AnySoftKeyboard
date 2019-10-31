@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-curl https://codecov.io/bash -o codecov.sh
+./scripts/retry.sh 5 curl https://codecov.io/bash -o codecov.sh
 chmod +x codecov.sh
-./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+COV_FILES=$(find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f ")
+./scripts/retry.sh 5 ./codecov.sh -X gcov -X coveragepy -X xcode ${COV_FILES}
