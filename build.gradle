@@ -27,8 +27,8 @@ autoVersioning {
     buildCounterEnvKey = "BUILD_COUNT_FOR_VERSION"
     major = 1
     minor = 10
-    buildCounterOffset = 1650 + 4500/*adding to version. Should never change*/
-    patchOffset = -2575-2600 /*decrementing due to minor, every minor/major bump, this should be decremented*/
+    buildCounterOffset = 0/*adding to version. Should never change*/
+    patchOffset = 0 /*decrementing due to minor, every minor/major bump, this should be decremented*/
 }
 
 apply plugin: 'com.github.sherter.google-java-format'

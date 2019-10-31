@@ -1,3 +1,4 @@
+
 def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task ->
     task.description = 'Generates a file with the YAML entry for publishing an APK fo a file'
     task.group = 'publish'
@@ -11,24 +12,25 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
         task.dependsOn.forEach { dependedTask ->
             outputYamlFile.append("\n")
             outputYamlFile.append("*** ${dependedTask.project.path}\n")
+            def gitCommitProcess = 'git rev-parse HEAD'.execute()
+            if (gitCommitProcess.waitFor() != 0) throw new IllegalStateException("Failed to get git commit sha. Error: ${gitCommitProcess.text.trim()}")
 
             def taskProject = dependedTask.project
             outputYamlFile.append("""
   - versionName: ${taskProject.android.defaultConfig.versionName}
     versionCode: ${taskProject.android.defaultConfig.versionCode}
-    commit: ${rootProject.file('.git/refs/heads/master').readLines().get(0)}
+    commit: ${gitCommitProcess.text.trim()}
     gradle:
       - yes
     output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release.apk
     gradleprops:
-      - forceVersionBuildCount=${System.getenv('CIRCLE_BUILD_NUM')}
+      - forceVersionBuildCount=${System.getenv('BUILD_COUNT_FOR_VERSION')}
 
 AutoUpdateMode: None
 UpdateCheckMode: RepoManifest
 CurrentVersion: ${taskProject.android.defaultConfig.versionName}
 CurrentVersionCode: ${taskProject.android.defaultConfig.versionCode}
 """)
-
 
             outputYamlFile.append("***\n")
             outputYamlFile.append("\n")
@@ -40,7 +42,9 @@ subprojects {
     tasks.configureEach { newTask ->
         if (newTask.name == 'assembleRelease') {
             if (newTask.project.plugins.hasPlugin('com.android.application')) {
-                generateFdroidYamls.configure { dependsOn newTask }
+                generateFdroidYamls.configure {
+                    dependsOn newTask
+                }
             }
         }
     }
