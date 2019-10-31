@@ -13,7 +13,7 @@ elif [[ "${RELEASE_BUILD}" == "true" ]]; then
     cp app/src/main/play/release-notes/en-US/alpha.txt app/src/main/play/release-notes/en-US/beta.txt
     GRADLE_TASKS="-DdeployChannel=beta assembleRelease publishRelease"
 elif [[ "${RELEASE_BUILD}" == "dry-run" ]]; then
-    echo "Dry Run Deploy build-type RELEASE."
+    echo "Dry Run Deploy build-type RELEASE+CANARY."
     GRADLE_TASKS="-DdeployChannel=alpha assembleRelease assembleCanary"
 else
     echo "Invalid build type '${RELEASE_BUILD}'. Can not deploy."
