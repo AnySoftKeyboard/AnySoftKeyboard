@@ -158,11 +158,11 @@ jobs:
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: signed-apk
+          path: app/build/outputs/apk/
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: proguard-mapping-release-apk
+          name: proguard-mapping
           path: app/build/outputs/mapping/
       - uses: actions/upload-artifact@v1.0.0
         with:
