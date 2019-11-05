@@ -32,7 +32,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TutorialsProvider {
-    private static final String TAG = "ASK Tutorial";
+    private static final String TAG = "ASKTutorial";
 
     public static void showDragonsIfNeeded(Context context) {
         if (BuildConfig.TESTING_BUILD && firstTestersTimeVersionLoaded(context)) {

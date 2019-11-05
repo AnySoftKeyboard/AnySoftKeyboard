@@ -26,7 +26,7 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
-    private static final String TAG = "ASK SqliteCnnt";
+    private static final String TAG = "ASKSQliteConnect";
     private static final String TABLE_NAME = "WORDS"; // was FALL_BACK_USER_DICTIONARY;
     private static final String WORDS_ORDER_BY = Words._ID + " DESC";
     private final String mCurrentLocale;

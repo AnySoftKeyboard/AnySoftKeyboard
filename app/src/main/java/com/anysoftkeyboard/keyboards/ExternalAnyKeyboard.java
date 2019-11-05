@@ -44,7 +44,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
-    private static final String TAG = "ASK - EAK";
+    private static final String TAG = "ASKExtendedAnyKeyboard";
 
     private static final String XML_TRANSLATION_TAG = "PhysicalTranslation";
     private static final String XML_QWERTY_ATTRIBUTE = "QwertyTranslation";
@@ -153,7 +153,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
             Context context, int qwertyTranslationId) {
         HardKeyboardSequenceHandler translator = new HardKeyboardSequenceHandler();
         XmlPullParser parser = context.getResources().getXml(qwertyTranslationId);
-        final String TAG = "ASK Hard Translation Parser";
+        final String TAG = "ASKHardTranslationParser";
         try {
             int event;
             boolean inTranslations = false;
