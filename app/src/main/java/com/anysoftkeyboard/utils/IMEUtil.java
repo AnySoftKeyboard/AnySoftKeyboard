@@ -26,7 +26,7 @@ import java.util.List;
 public class IMEUtil {
     public static final int IME_ACTION_CUSTOM_LABEL = EditorInfo.IME_MASK_ACTION + 1;
 
-    private static final String TAG = "ASK IMEUtils";
+    private static final String TAG = "ASKIMEUtils";
 
     /* Damerau-Levenshtein distance */
     public static int editDistance(@NonNull CharSequence s, @NonNull CharSequence t) {

@@ -54,7 +54,7 @@ import java.util.List;
 
 public class CandidateView extends View implements ThemeableChild {
 
-    private static final String TAG = "ASK CandidateView";
+    private static final String TAG = "ASKCandidateView";
 
     private static final int OUT_OF_BOUNDS_X_CORD = -1;
     private int mTouchX = OUT_OF_BOUNDS_X_CORD;
