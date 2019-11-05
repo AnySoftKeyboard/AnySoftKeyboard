@@ -71,8 +71,8 @@ public class TextEntryState {
     }
 
     public static void typedCharacter(char c, boolean isSeparator) {
-        final boolean isSpace = c == ' ';
-        final boolean isEnter = c == '\n';
+        boolean isSpace = c == ' ';
+        boolean isEnter = c == '\n';
 
         // CHECKSTYLE:OFF: missingswitchdefault
         switch (sState) {
