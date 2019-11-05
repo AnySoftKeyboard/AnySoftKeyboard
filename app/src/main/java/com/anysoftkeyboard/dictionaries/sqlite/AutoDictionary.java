@@ -69,7 +69,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
             int freq = getWordFrequency(word);
 
             freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
-            if (freq >= mLearnWordThreshold) {
+            if (mLearnWordThreshold != -1 && freq >= mLearnWordThreshold) {
                 Logger.i(
                         TAG, "Promoting the word '%s' to the user dictionary. It earned it.", word);
                 // no need for this word in this dictionary any longer
