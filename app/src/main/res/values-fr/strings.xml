@@ -62,6 +62,7 @@
     <string name="ime_settings">Paramètres du clavier</string>
     <string name="switch_incognito">Mode incognito</string>
     <string name="vibrate_on_key_press_title">Vibrer lors de la saisie</string>
+    <string name="vibrate_on_key_press_value_template">%d millisecondes</string>
     <string name="night_mode_screen">Paramètres du mode nuit</string>
     <string name="night_mode_description">Le mode nuit va modifier ces fonctionnalités :</string>
     <string name="night_mode_state_summary">Actuellement, déclencheur du mode nuit : \u0020%s</string>
@@ -110,6 +111,9 @@
     <string name="switch_keyboard_on_space">Appui sur Espace pour changer de clavier</string>
     <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
     <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
+    <string name="colorize_nav_bar_title">Dessiner derrière la barre de navigation</string>
+    <string name="colorize_nav_bar_summary_on">L\'arrière-plan du clavier sera dessiné derrière la barre de navigation. Ceci n\'est pas pris en charge par tous les appareils.</string>
+    <string name="colorize_nav_bar_summary_off">Ne pas dessiner derrière la barre de navigation.</string>
     <string name="persistent_layout_per_package_id_title">Mémoriser la disposition alphabétique par application</string>
     <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications</string>
     <string name="persistent_layout_per_package_id_on_summary">Passer automatiquement à la disposition précédente utilisée par l\'application</string>
