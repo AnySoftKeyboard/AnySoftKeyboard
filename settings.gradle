@@ -24,6 +24,7 @@ include ':languages:sardinian:pack', ':languages:sardinian:apk'
 include ':languages:serbian:pack', ':languages:serbian:apk'
 include ':languages:spain:pack', ':languages:spain:apk'
 include ':languages:tamazight:pack', ':languages:tamazight:apk'
+include ':languages:arabic:pack', ':languages:arabic:apk'
 
 //list of themes should be alphabetized-ordered
 include ':themes'
