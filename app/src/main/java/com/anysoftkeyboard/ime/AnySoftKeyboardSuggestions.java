@@ -1095,7 +1095,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         if (!TextUtils.isEmpty(actualWordToOutput)) {
             TextEntryState.acceptedDefault(typedWord);
-            boolean fixed = !TextUtils.equals(typedWord, actualWordToOutput);
+            final boolean fixed = !TextUtils.equals(typedWord, actualWordToOutput);
             commitWordToInput(actualWordToOutput, fixed);
             if (!fixed) { // if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
