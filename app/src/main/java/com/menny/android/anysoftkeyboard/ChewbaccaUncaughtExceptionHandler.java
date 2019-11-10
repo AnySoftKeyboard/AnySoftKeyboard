@@ -42,7 +42,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Consumer<Throwable> {
-    private static final String TAG = "ASK CHEWBACCA";
+    private static final String TAG = "ASKChewbacca";
 
     private final UncaughtExceptionHandler mOsDefaultHandler;
     private final Context mApp;

@@ -38,7 +38,7 @@ import java.util.Map;
 public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndBuilder> {
 
     private static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
-    private static final String TAG = "ASK ExtDictFctry";
+    private static final String TAG = "ASKExtDictFactory";
     private static final String XML_LANGUAGE_ATTRIBUTE = "locale";
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
     private static final String XML_RESOURCE_ATTRIBUTE = "dictionaryResourceId";

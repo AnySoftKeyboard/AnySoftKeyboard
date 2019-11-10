@@ -50,7 +50,7 @@ import java.util.Locale;
 import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class AnyKeyboard extends Keyboard {
-    private static final String TAG = "ASK - AK";
+    private static final String TAG = "ASKAnyKeyboard";
     private static final String TAG_ROW = "Row";
     private static final String TAG_KEY = "Key";
     private static final int STICKY_KEY_OFF = 0;
