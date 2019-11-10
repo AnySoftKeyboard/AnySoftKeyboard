@@ -36,7 +36,7 @@ import java.util.Locale;
  * characters. This includes corrections and completions.
  */
 public class Suggest {
-    private static final String TAG = "ASK Suggest";
+    private static final String TAG = "ASKSuggest";
     @NonNull private final SuggestionsProvider mSuggestionsProvider;
     private final List<CharSequence> mSuggestions = new ArrayList<>();
     private final List<CharSequence> mNextSuggestions = new ArrayList<>();

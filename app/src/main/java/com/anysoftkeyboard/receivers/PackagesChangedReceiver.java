@@ -27,7 +27,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "ASK PkgChanged";
+    private static final String TAG = "ASKPkgChanged";
 
     private final AnySoftKeyboard mIme;
     private final StringBuilder mStringBuffer = new StringBuilder();

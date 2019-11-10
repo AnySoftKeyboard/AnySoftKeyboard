@@ -60,6 +60,7 @@
     <string name="ime_settings">Configuración del teclado</string>
     <string name="switch_incognito">Modo incógnito</string>
     <string name="vibrate_on_key_press_title">Vibrar al pulsar una tecla</string>
+    <string name="vibrate_on_key_press_value_template">%d milisegundos</string>
     <string name="night_mode_screen">Configuración del modo nocturno</string>
     <string name="night_mode_description">El modo nocturno cambiará estas características:</string>
     <string name="night_mode_state_summary">Activación del modo nocturno. Actualmente: \u0020%s</string>
@@ -108,6 +109,9 @@
     <string name="switch_keyboard_on_space">El espacio cambia de teclados</string>
     <string name="switch_keyboard_on_space_on_summary">Cambiar de símbolos/números a alfabeto al pulsar espacio.</string>
     <string name="switch_keyboard_on_space_off_summary">No cambiar de símbolos/números a alfabeto al pulsar espacio.</string>
+    <string name="colorize_nav_bar_title">Dibujar detrás de la barra de navegación.</string>
+    <string name="colorize_nav_bar_summary_on">Dibujará el fondo del teclado detrás de la barra de navegación. Esto no es compatible con todos los dispositivos.</string>
+    <string name="colorize_nav_bar_summary_off">No dibujar detrás de la barra de navegación.</string>
     <string name="persistent_layout_per_package_id_title">Recordar la distribución del alfabeto por aplicación</string>
     <string name="persistent_layout_per_package_id_off_summary">Usar la misma distribución para todas las aplicaciones.</string>
     <string name="persistent_layout_per_package_id_on_summary">Cambiar automáticamente a la distribución anterior utilizada en la aplicación.</string>

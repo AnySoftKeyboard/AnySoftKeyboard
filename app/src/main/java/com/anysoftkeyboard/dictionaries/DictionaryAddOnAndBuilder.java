@@ -32,7 +32,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 
     private static final int INVALID_RES_ID = 0;
 
-    private static final String TAG = "ASK DAOB";
+    private static final String TAG = "ASKDictAddOnBuilder";
 
     private final String mLanguage;
     private final String mAssetsFilename;

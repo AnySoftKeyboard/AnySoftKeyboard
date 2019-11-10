@@ -26,7 +26,7 @@ import android.widget.PopupWindow;
 import com.getkeepsafe.relinker.ReLinker;
 
 public class CompatUtils {
-    private static final String TAG = "ASK CompatUtils";
+    private static final String TAG = "ASKCompatUtils";
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {

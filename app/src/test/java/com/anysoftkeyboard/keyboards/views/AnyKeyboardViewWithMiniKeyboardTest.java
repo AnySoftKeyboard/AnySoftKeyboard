@@ -629,7 +629,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithoutAny() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        final Keyboard.Key keyWithoutPopups = findKey('v');
+        final Keyboard.Key keyWithoutPopups = findKey(' ');
         // sanity checks
         Assert.assertTrue(TextUtils.isEmpty(keyWithoutPopups.popupCharacters));
         Assert.assertEquals(0, keyWithoutPopups.popupResId);
