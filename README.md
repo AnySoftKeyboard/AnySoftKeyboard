@@ -35,7 +35,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 
 # Development
 To develop this project, you'll need:
- * Java 10 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk10&jvmVariant=hotspot).
+ * Java 10 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk10&jvmVariant=hotspot). If you are using [jEnv](https://www.jenv.be/) then we have a `.java-version` file already set up.
  * Make sure you have the environment variable `JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'`. This is required to ensure the JVM is merciful with libraries that were not designed for Java9+ JVMs.
  * git
  * [Android Studio](https://developer.android.com/studio/install)

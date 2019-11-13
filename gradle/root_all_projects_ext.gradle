@@ -11,6 +11,7 @@ allprojects {
         sdkMinimumVersion = 9
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")
-        isCi = isCircleCi || 'true' == System.getenv("CI")
+        isGithubAction = 'true' == System.getenv("GITHUB_ACTIONS")
+        isCi = isCircleCi || isGithubAction || 'true' == System.getenv("CI")
     }
 }
