@@ -45,9 +45,10 @@ android {
         }
     }
 
+    def keystoreFile = file("/tmp/add_on_pack.keystore")
+
     signingConfigs {
         release {
-            def keystoreFile = file("/tmp/add_on_pack.keystore")
             if (keystoreFile.exists()) {
                 storeFile keystoreFile
                 storePassword System.getenv("PACKS_ALL_KEY_STORE_FILE_PASSWORD")
@@ -55,18 +56,18 @@ android {
                 keyPassword System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD")
                 println "Using '${storeFile.absolutePath}' to release APK ${path} (with alias '${keyAlias}')."
             } else {
-                println "Could not find '${keystoreFile.absolutePath}' file. Can not sign release APK with release keystore! Using debug."
-                initWith signingConfigs.debug
+                println "Could not find '${keystoreFile.absolutePath}' file. Release APK will not be signed."
             }
         }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            if (keystoreFile.exists()) {
+                signingConfig signingConfigs.release
+            }
             zipAlignEnabled true
             debuggable false
-
             minifyEnabled false
         }
     }
