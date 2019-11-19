@@ -22,7 +22,7 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
     commit: ${gitCommitProcess.text.trim()}
     gradle:
       - yes
-    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release.apk
+    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release-unsigned.apk
     gradleprops:
       - forceVersionBuildCount=${System.getenv('BUILD_COUNT_FOR_VERSION')}
 
