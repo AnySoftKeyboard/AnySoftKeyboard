@@ -65,6 +65,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="ime_settings">Klavye ayarları</string>
     <string name="switch_incognito">Gizli mod</string>
     <string name="vibrate_on_key_press_title">Tuş temasında titreşim</string>
+    <string name="vibrate_on_key_press_value_template">%d milisaniye</string>
     <string name="night_mode_screen">Gece Kipi ayarları</string>
     <string name="night_mode_description">Gece Kipi bu özellikleri değiştirecek:</string>
     <string name="night_mode_state_summary">Geçerli Gece-Modu tetikleyici:\u0020%s</string>
@@ -113,6 +114,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="switch_keyboard_on_space">Boşluk tuşu klavyeyi değiştirir</string>
     <string name="switch_keyboard_on_space_on_summary">Boşluğa basarken sembol/sayılardan alfabeye geçiş yap</string>
     <string name="switch_keyboard_on_space_off_summary">Boşluğa basarken sembol/sayılardan alfabeye geçiş yapma</string>
+    <string name="colorize_nav_bar_title">Gezinme çubuğunun arkasında resmet</string>
+    <string name="colorize_nav_bar_summary_on">Klavye arka planını gezinti çubuğunun arkasında resmedecektir. Bu, tüm cihazlar tarafından desteklenmemektedir.</string>
+    <string name="colorize_nav_bar_summary_off">Gezinme çubuğunun arkasında resmetme.</string>
     <string name="persistent_layout_per_package_id_title">Her uygulama için alfabe dizilimini hatırla</string>
     <string name="persistent_layout_per_package_id_off_summary">Bütün uygulamalar için aynı dizilimi kullan.</string>
     <string name="persistent_layout_per_package_id_on_summary">Otomatik olarak uygulamada son kullanılan dizilime geçiş yap.</string>

@@ -66,6 +66,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="ime_settings">Configuración del teclado</string>
     <string name="switch_incognito">Modo Incógnito</string>
     <string name="vibrate_on_key_press_title">Vibrar al presionar teclas</string>
+    <string name="vibrate_on_key_press_value_template">%d milisegundos</string>
     <string name="night_mode_screen">Configuración de modo nocturno</string>
     <string name="night_mode_description">Características alteradas por el modo nocturno:</string>
     <string name="night_mode_state_summary">Cuándo habilitar el modo nocturno:\u0020%s</string>
@@ -114,6 +115,9 @@ Instalarla ahora desde Play Store.    </string>
     <string name="switch_keyboard_on_space">Cambiar teclados con barra espaciadora</string>
     <string name="switch_keyboard_on_space_on_summary">Cambiar de símbolos y números al abecedario al presionar espacio.</string>
     <string name="switch_keyboard_on_space_off_summary">No cambiar de símbolos y números al abecedario al presionar espacio.</string>
+    <string name="colorize_nav_bar_title">Sacar detrás de la barra de navegación</string>
+    <string name="colorize_nav_bar_summary_on">El fondo del teclado saldrá detrás de la barra de navegación. No soportado por todos los dispositivos.</string>
+    <string name="colorize_nav_bar_summary_off">No sacar detrás de la barra de navegación.</string>
     <string name="persistent_layout_per_package_id_title">Recordar el diseño del teclado por aplicación</string>
     <string name="persistent_layout_per_package_id_off_summary">Usar el mismo diseño del teclado en todas las aplicaciones.</string>
     <string name="persistent_layout_per_package_id_on_summary">Cambiar automáticamente al diseño previo usado en la aplicación.</string>
