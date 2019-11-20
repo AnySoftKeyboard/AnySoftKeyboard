@@ -65,7 +65,7 @@ import java.util.List;
 
 public class AnyApplication extends Application {
 
-    private static final String TAG = "ASK_APP";
+    private static final String TAG = "ASKApp";
 
     static final String PREF_KEYS_FIRST_INSTALLED_APP_VERSION =
             "settings_key_first_app_version_installed";

@@ -44,7 +44,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
-    private static final String TAG = "ASKExtendedAnyKeyboard";
+    private static final String TAG = "ASKExtendedAnyKbd";
 
     private static final String XML_TRANSLATION_TAG = "PhysicalTranslation";
     private static final String XML_QWERTY_ATTRIBUTE = "QwertyTranslation";

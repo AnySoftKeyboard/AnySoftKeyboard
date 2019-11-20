@@ -606,7 +606,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             final Key key,
             final int multiTapIndex,
             final int[] nearByKeyCodes) {
-        if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
+        if (BuildConfig.DEBUG) Logger.d(TAG, "onNonFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
 
