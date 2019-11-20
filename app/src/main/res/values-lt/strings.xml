@@ -65,6 +65,7 @@
     <string name="ime_settings">Klaviatūros nustatymai</string>
     <string name="switch_incognito">Inkognito režimas</string>
     <string name="vibrate_on_key_press_title">Vibruoti paspaudus</string>
+    <string name="vibrate_on_key_press_value_template">%d milisekundžių</string>
     <string name="night_mode_screen">Naktinio režimo nustatymai</string>
     <string name="night_mode_description">Naktinis režimas pakeis šias funkcijas:</string>
     <string name="night_mode_state_summary">Dabartinis naktinio režimo trigeris:\u0020%s</string>
