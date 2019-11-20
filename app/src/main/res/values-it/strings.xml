@@ -71,6 +71,7 @@
     <string name="ime_settings">Impostazioni tastiera</string>
     <string name="switch_incognito">Modalità incognito</string>
     <string name="vibrate_on_key_press_title">Vibrazione su tasto premuto</string>
+    <string name="vibrate_on_key_press_value_template">%d millisecondi</string>
     <string name="night_mode_screen">Impostazioni modalità notte</string>
     <string name="night_mode_description">La modalità notte cambierà queste caratteristiche:</string>
     <string name="night_mode_state_summary">Attualmente, l\'innesco per la modalità notte: \u0020.%s</string>
@@ -120,6 +121,9 @@
     <string name="switch_keyboard_on_space">Lo spazio scambia le tastiere</string>
     <string name="switch_keyboard_on_space_on_summary">Passa da simboli/numeri alle lettere premendo spazio</string>
     <string name="switch_keyboard_on_space_off_summary">Non passare da simboli/numeri alle lettere premendo spazio</string>
+    <string name="colorize_nav_bar_title">Disegna dietro la barra di navigazione</string>
+    <string name="colorize_nav_bar_summary_on">Disegnerà lo sfondo della tastiera dietro la barra di navigazione. Non è supportato da tutti i dispositivi.</string>
+    <string name="colorize_nav_bar_summary_off">Non disegnare dietro la barra di navigazione.</string>
     <string name="persistent_layout_per_package_id_title">Ricorda il layout per ogni App</string>
     <string name="persistent_layout_per_package_id_off_summary">Utilizza lo stesso layout per tutte le App.</string>
     <string name="persistent_layout_per_package_id_on_summary">Passa automaticamente al layout precedentemente utilizzato nell\'App.</string>
