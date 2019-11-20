@@ -10,7 +10,7 @@ import com.anysoftkeyboard.base.utils.Logger;
 import java.util.Locale;
 
 public class LocaleTools {
-    private static final String TAG = "ASK_LocaleTools";
+    private static final String TAG = "ASKLocaleTools";
 
     public static void applyLocaleToContext(
             @NonNull Context context, @Nullable String localeString) {

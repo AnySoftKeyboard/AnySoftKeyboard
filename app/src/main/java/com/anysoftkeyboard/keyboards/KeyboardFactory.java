@@ -27,7 +27,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<KeyboardAddOnAndBuilder> {
-    private static final String TAG = "ASK_KF";
+    private static final String TAG = "ASKKeyboardFactory";
 
     private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
     private static final String XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE = "landscapeResId";

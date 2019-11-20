@@ -23,7 +23,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 
 final class AskGestureEventsListener implements AskOnGestureListener {
 
-    private static final String TAG = "AskGestureEventsListener";
+    private static final String TAG = "ASKGestureEventsListener";
 
     private final AnyKeyboardViewBase mKeyboardView;
 

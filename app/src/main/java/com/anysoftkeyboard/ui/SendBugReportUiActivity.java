@@ -74,7 +74,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
         // End of Parcel part
     }
 
-    private static final String TAG = "ASK_BUG_SENDER";
+    private static final String TAG = "ASKBugSender";
 
     public static final String EXTRA_KEY_BugReportDetails = "EXTRA_KEY_BugReportDetails";
 

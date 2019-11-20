@@ -24,7 +24,7 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
-    private static final String TAG = "SQLiteUserDictionaryBase";
+    private static final String TAG = "SQLiteUserDictBase";
 
     private volatile WordsSQLiteConnection mStorage;
     private final String mLocale;
