@@ -528,15 +528,19 @@ class PointerTracker {
                     ? anyKey.label.toString().toUpperCase(Locale.getDefault())
                     : anyKey.label;
         } else {
-            return Character.toString(getMultiTapCode(key));
+            int multiTapCode = getMultiTapCode(key);
+            // The following line became necessary when we stopped casting multiTapCode to char
+            if (multiTapCode < 32) {multiTapCode = 32;}
+            // because, if multiTapCode happened to be negative, this would fail:
+            return new String(new int[] {multiTapCode}, 0, 1);
         }
     }
 
-    private char getMultiTapCode(final Key key) {
+    private int getMultiTapCode(final Key key) {
         final int codesCount = key.getCodesCount();
         if (codesCount == 0) return KeyCodes.SPACE; // space is good for nothing
         int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codesCount;
-        return (char) key.getCodeAtIndex(safeMultiTapIndex, mKeyDetector.isKeyShifted(key));
+        return key.getCodeAtIndex(safeMultiTapIndex, mKeyDetector.isKeyShifted(key));
     }
 
     private void resetMultiTap() {

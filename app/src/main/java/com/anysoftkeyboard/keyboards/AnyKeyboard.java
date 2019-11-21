@@ -224,11 +224,11 @@ public abstract class AnyKeyboard extends Keyboard {
                         if (isAlphabetKey(key) && (key.icon == null)) {
                             final boolean labelIsOriginallyEmpty = TextUtils.isEmpty(key.label);
                             if (labelIsOriginallyEmpty) {
-                                final char code = (char) key.mCodes[0];
+                                final int code = key.mCodes[0];
                                 // check the ASCII table, everything below 32,
                                 // is not printable
                                 if (code > 31 && !Character.isWhitespace(code)) {
-                                    key.label = Character.toString(code);
+                                    key.label = new String(new int[] {code}, 0, 1);
                                 }
                             }
                         }

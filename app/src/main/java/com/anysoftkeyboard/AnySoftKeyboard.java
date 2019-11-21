@@ -672,7 +672,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                         if (controlCode == 9) {
                             sendTab();
                         } else {
-                            ic.commitText(Character.toString((char) controlCode), 1);
+                            ic.commitText(new String(new int[] {controlCode}, 0, 1), 1);
                         }
                     } else {
                         handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
