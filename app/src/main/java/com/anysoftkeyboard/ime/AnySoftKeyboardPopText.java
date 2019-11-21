@@ -111,7 +111,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         mLastKey = key;
         if (mPopTextOnKeyPress && isAlphabet(primaryCode)) {
-            popText(Character.toString((char) primaryCode));
+            popText(new String(new int[] {primaryCode}, 0, 1));
         }
     }
 

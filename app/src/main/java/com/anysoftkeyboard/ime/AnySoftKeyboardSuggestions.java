@@ -594,12 +594,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
             mAutoCorrectOn = mAutoComplete && mInputFieldSupportsAutoPick;
-            TextEntryState.typedCharacter((char) primaryCode, false);
+            TextEntryState.typedCharacter(primaryCode, false);
             if (mShiftKeyState.isActive()) {
                 mWord.setFirstCharCapitalized(true);
             }
         } else if (TextEntryState.isPredicting()) {
-            TextEntryState.typedCharacter((char) primaryCode, false);
+            TextEntryState.typedCharacter(primaryCode, false);
         }
 
         mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
@@ -634,7 +634,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
-            sendKeyChar((char) primaryCode);
+            if (Character.charCount(primaryCode) == 1) {
+                sendKeyChar((char) primaryCode);
+            } else {
+                sendKeyChar(Character.highSurrogate(primaryCode));
+                sendKeyChar(Character.lowSurrogate(primaryCode));
+            }
         }
         mJustAutoAddedWord = false;
     }
@@ -709,16 +714,21 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // input-box
                 // into "word "->"word, "
                 ic.deleteSurroundingText(1, 0);
-                ic.commitText(((char) primaryCode) + (newLine ? "" : " "), 1);
+                ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
                 mAdditionalCharacterForReverting = !newLine;
                 handledOutputToInputConnection = true;
             }
         }
 
         if (!handledOutputToInputConnection) {
-            sendKeyChar((char) primaryCode);
+            if (Character.charCount(primaryCode) == 1) {
+                sendKeyChar((char) primaryCode);
+            } else {
+                sendKeyChar(Character.highSurrogate(primaryCode));
+                sendKeyChar(Character.lowSurrogate(primaryCode));
+            }
         }
-        TextEntryState.typedCharacter((char) primaryCode, true);
+        TextEntryState.typedCharacter(primaryCode, true);
 
         if (ic != null) {
             ic.endBatchEdit();
@@ -1148,7 +1158,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 sendKeyChar((char) KeyCodes.SPACE);
                 mAdditionalCharacterForReverting = true;
                 setSpaceTimeStamp(true);
-                TextEntryState.typedCharacter(' ', true);
+                TextEntryState.typedCharacter((int) ' ', true);
             }
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
@@ -1368,7 +1378,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     @CallSuper
     protected boolean isSuggestionAffectingCharacter(int code) {
-        return Character.isLetter((char) code);
+        return Character.isLetter(code);
     }
 
     public void removeFromUserDictionary(String wordToRemove) {
