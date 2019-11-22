@@ -142,10 +142,13 @@ public class WordComposer implements KeyCodesProvider {
         mTypedWord.setLength(0);
         mTypedWord.insert(mCursorPosition, typedWord);
 
-        typedWord.codePoints().forEachOrdered(codePoint -> {
-            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
-            if (Character.isUpperCase(codePoint)) mCapsCount++;
-        });
+        typedWord
+                .codePoints()
+                .forEachOrdered(
+                        codePoint -> {
+                            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
+                            if (Character.isUpperCase(codePoint)) mCapsCount++;
+                        });
         mCursorPosition += typedWord.length();
     }
 
@@ -199,9 +202,11 @@ public class WordComposer implements KeyCodesProvider {
         }
     }
 
-    /** Delete the last keystroke (codepoint) as a result of hitting backspace.
+    /**
+     * Delete the last keystroke (codepoint) as a result of hitting backspace.
      *
-     * @return the number of chars (not codepoints) deleted. */
+     * @return the number of chars (not codepoints) deleted.
+     */
     public int deleteLast() {
         if (mCursorPosition > 0) {
             // removing from the codes list, and taking it back to the reusable list
@@ -216,9 +221,11 @@ public class WordComposer implements KeyCodesProvider {
         }
     }
 
-    /** Delete the character after the cursor
+    /**
+     * Delete the character after the cursor
      *
-     * @return the number of chars (not codepoints) deleted. */
+     * @return the number of chars (not codepoints) deleted.
+     */
     public int deleteForward() {
         if (mCursorPosition < mTypedWord.length()) {
             mArraysToReuse.add(mCodes.remove(mTypedWord.codePointCount(0, mCursorPosition)));

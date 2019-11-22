@@ -896,7 +896,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
-        final boolean wordManipulation = TextEntryState.isPredicting() && mWord.length() > 0 && mWord.cursorPosition() > 0;
+        final boolean wordManipulation =
+                TextEntryState.isPredicting() && mWord.length() > 0 && mWord.cursorPosition() > 0;
         final TextEntryState.State newState = TextEntryState.backspace();
 
         if (newState == TextEntryState.State.UNDO_COMMIT) {
@@ -941,7 +942,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     // hence the "if (!forMultiTap)" above
                     final CharSequence beforeText = ic.getTextBeforeCursor(8, 0);
                     final int textLengthBeforeDelete =
-                            TextUtils.isEmpty(beforeText) ? 0 : Character.charCount(Character.codePointBefore(beforeText, beforeText.length()));
+                            TextUtils.isEmpty(beforeText)
+                                    ? 0
+                                    : Character.charCount(
+                                            Character.codePointBefore(
+                                                    beforeText, beforeText.length()));
                     if (textLengthBeforeDelete > 0) {
                         ic.deleteSurroundingText(textLengthBeforeDelete, 0);
                     } else {
@@ -953,7 +958,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     private void handleForwardDelete(InputConnection ic) {
-        final boolean wordManipulation = TextEntryState.isPredicting() && mWord.length() > 0 && mWord.cursorPosition() < mWord.length();
+        final boolean wordManipulation =
+                TextEntryState.isPredicting()
+                        && mWord.length() > 0
+                        && mWord.cursorPosition() < mWord.length();
 
         if (wordManipulation) {
             mWord.deleteForward();
@@ -986,7 +994,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             } else {
                 final CharSequence afterText = ic.getTextAfterCursor(8, 0);
                 final int textLengthAfterDelete =
-                        TextUtils.isEmpty(afterText) ? 0 : Character.charCount(Character.codePointAt(afterText, 0));
+                        TextUtils.isEmpty(afterText)
+                                ? 0
+                                : Character.charCount(Character.codePointAt(afterText, 0));
                 ic.deleteSurroundingText(0, textLengthAfterDelete);
             }
         }

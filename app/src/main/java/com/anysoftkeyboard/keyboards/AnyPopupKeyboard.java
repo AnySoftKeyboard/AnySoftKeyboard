@@ -62,9 +62,9 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         loadKeyboard(keyboardDimens);
 
         final int rowsCount = getPopupRowsCount(popupCharacters);
-        final int popupCharactersLength = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        final int keysPerRow =
-                (int) Math.ceil((float) popupCharactersLength / (float) rowsCount);
+        final int popupCharactersLength =
+                Character.codePointCount(popupCharacters, 0, popupCharacters.length());
+        final int keysPerRow = (int) Math.ceil((float) popupCharactersLength / (float) rowsCount);
 
         List<Key> keys = getKeys();
         for (int rowIndex = rowsCount - 1; rowIndex >= 0; rowIndex--) {
@@ -92,22 +92,22 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         // now adding the popups
         final float y = baseKey.y;
         final float keyHorizontalGap = row.defaultHorizontalGap;
-        int popupCharacter = Character.codePointAt(popupCharacters, Character.offsetByCodePoints(popupCharacters, 0, characterOffset));
+        int[] popupKeycodes = popupCharacters.codePoints().toArray();
+        int popupCharacter = popupKeycodes[characterOffset];
         baseKey.mCodes = new int[] {popupCharacter};
         baseKey.label = new String(new int[] {popupCharacter}, 0, 1);
         int upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
         baseKey.mShiftedCodes = new int[] {upperCasePopupCharacter};
         float x = baseKey.width;
         AnyKey aKey = null;
-        final int popupCharactersLength = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
         for (int popupCharIndex = characterOffset + 1;
                 popupCharIndex < characterOffset + keysPerRow
-                        && popupCharIndex < popupCharactersLength;
+                        && popupCharIndex < popupKeycodes.length;
                 popupCharIndex++) {
             x += (keyHorizontalGap / 2);
 
             aKey = new AnyKey(row, keyboardDimens);
-            popupCharacter = Character.codePointAt(popupCharacters, Character.offsetByCodePoints(popupCharacters, 0, popupCharIndex));
+            popupCharacter = popupKeycodes[popupCharIndex];
             aKey.mCodes = new int[] {popupCharacter};
             aKey.label = new String(new int[] {popupCharacter}, 0, 1);
             upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
