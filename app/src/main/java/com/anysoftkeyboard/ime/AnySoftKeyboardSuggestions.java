@@ -613,7 +613,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.length()) {
                     // Cursor is not at the end of the word. I'll need to reposition
-                    cursorPosition = mGlobalCursorPosition + 1 /*adding the new character*/;
+                    cursorPosition = mGlobalCursorPosition + Character.charCount(primaryCode); /*adding the new character*/
                     ic.beginBatchEdit();
                 } else {
                     cursorPosition = -1;
@@ -816,8 +816,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             final int[] tempNearByKeys = new int[1];
 
-            for (int index = 0; index < word.length(); index++) {
-                final char c = word.charAt(index);
+            final int[] wordCodePoints = word.codePoints().toArray();
+            for (int index = 0; index < wordCodePoints.length; index++) {
+                final int c = wordCodePoints[index];
                 if (index == 0) mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
                 tempNearByKeys[0] = c;
