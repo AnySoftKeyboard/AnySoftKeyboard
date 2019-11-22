@@ -1445,11 +1445,14 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                     }
                 } else if (key.popupCharacters != null) {
                     final String hintString = key.popupCharacters.toString();
-                    final int hintLength = Character.codePointCount(hintString, 0, hintString.length());
+                    final int hintLength =
+                            Character.codePointCount(hintString, 0, hintString.length());
                     if (hintLength <= 3) {
                         hintText = hintString;
                     } else {
-                        hintText = hintString.substring(0, Character.offsetByCodePoints(hintString, 0, 3));
+                        hintText =
+                                hintString.substring(
+                                        0, Character.offsetByCodePoints(hintString, 0, 3));
                     }
                 }
 

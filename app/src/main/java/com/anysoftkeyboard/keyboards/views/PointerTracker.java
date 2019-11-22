@@ -530,7 +530,9 @@ class PointerTracker {
         } else {
             int multiTapCode = getMultiTapCode(key);
             // The following line became necessary when we stopped casting multiTapCode to char
-            if (multiTapCode < 32) {multiTapCode = 32;}
+            if (multiTapCode < 32) {
+                multiTapCode = 32;
+            }
             // because, if multiTapCode happened to be negative, this would fail:
             return new String(new int[] {multiTapCode}, 0, 1);
         }
