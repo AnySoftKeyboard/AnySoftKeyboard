@@ -63,13 +63,13 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     /**
-     * Number of keystrokes in the composing word.
+     * Number of keystrokes (codepoints, not chars) in the composing word.
      *
      * @return the number of keystrokes
      */
     @Override
     public int length() {
-        return mTypedWord.length();
+        return mCodes.size();
     }
 
     /** Cursor position */
@@ -78,7 +78,7 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public boolean setCursorPosition(int position /*, int candidatesStartPosition*/) {
-        if (position < 0 || position > length()) {
+        if (position < 0 || position > mTypedWord.length()) {
             // note: the cursor can be AFTER the word, so it can be equal to size()
             return false;
         }
@@ -126,14 +126,14 @@ public class WordComposer implements KeyCodesProvider {
      */
     public void add(int primaryCode, int[] codes) {
 
-        mTypedWord.insert(mCursorPosition, (char) primaryCode);
+        mTypedWord.insert(mCursorPosition, new String(new int[] {primaryCode}, 0, 1));
 
         correctPrimaryJuxtapos(primaryCode, codes);
         // this will return a copy of the codes array, stored in an array with sufficent storage
         int[] reusableArray = getReusableArray(codes);
-        mCodes.add(mCursorPosition, reusableArray);
-        mCursorPosition++;
-        if (Character.isUpperCase((char) primaryCode)) mCapsCount++;
+        mCodes.add(mTypedWord.codePointCount(0, mCursorPosition), reusableArray);
+        mCursorPosition += Character.charCount(primaryCode);
+        if (Character.isUpperCase(primaryCode)) mCapsCount++;
     }
 
     public void simulateTypedWord(CharSequence typedWord) {
@@ -142,11 +142,10 @@ public class WordComposer implements KeyCodesProvider {
         mTypedWord.setLength(0);
         mTypedWord.insert(mCursorPosition, typedWord);
 
-        for (int charIndex = 0; charIndex < typedWord.length(); charIndex++) {
+        typedWord.codePoints().forEachOrdered(codePoint -> {
             mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
-            if (Character.isUpperCase(typedWord.charAt(charIndex))) mCapsCount++;
-        }
-
+            if (Character.isUpperCase(codePoint)) mCapsCount++;
+        });
         mCursorPosition += typedWord.length();
     }
 
@@ -200,26 +199,35 @@ public class WordComposer implements KeyCodesProvider {
         }
     }
 
-    /** Delete the last keystroke as a result of hitting backspace. */
-    public void deleteLast() {
+    /** Delete the last keystroke (codepoint) as a result of hitting backspace.
+     *
+     * @return the number of chars (not codepoints) deleted. */
+    public int deleteLast() {
         if (mCursorPosition > 0) {
             // removing from the codes list, and taking it back to the reusable list
-            mArraysToReuse.add(mCodes.remove(mCursorPosition - 1));
-            // final int lastPos = mTypedWord.length() - 1;
-            char last = mTypedWord.charAt(mCursorPosition - 1);
-            mTypedWord.deleteCharAt(mCursorPosition - 1);
-            mCursorPosition--;
+            mArraysToReuse.add(mCodes.remove(mTypedWord.codePointCount(0, mCursorPosition) - 1));
+            int last = Character.codePointBefore(mTypedWord, mCursorPosition);
+            mTypedWord.delete(mCursorPosition - Character.charCount(last), mCursorPosition);
+            mCursorPosition -= Character.charCount(last);
             if (Character.isUpperCase(last)) mCapsCount--;
+            return Character.charCount(last);
+        } else {
+            return 0;
         }
     }
 
-    /** Delete the character after the cursor */
-    public void deleteForward() {
+    /** Delete the character after the cursor
+     *
+     * @return the number of chars (not codepoints) deleted. */
+    public int deleteForward() {
         if (mCursorPosition < mTypedWord.length()) {
-            mArraysToReuse.add(mCodes.remove(mCursorPosition));
-            char last = mTypedWord.charAt(mCursorPosition);
-            mTypedWord.deleteCharAt(mCursorPosition);
+            mArraysToReuse.add(mCodes.remove(mTypedWord.codePointCount(0, mCursorPosition)));
+            int last = Character.codePointAt(mTypedWord, mCursorPosition);
+            mTypedWord.delete(mCursorPosition, mCursorPosition + Character.charCount(last));
             if (Character.isUpperCase(last)) mCapsCount--;
+            return Character.charCount(last);
+        } else {
+            return 0;
         }
     }
 
@@ -230,11 +238,7 @@ public class WordComposer implements KeyCodesProvider {
      */
     @Override
     public CharSequence getTypedWord() {
-        int wordSize = mCodes.size();
-        if (wordSize == 0) {
-            return "";
-        }
-        return mTypedWord;
+        return mCodes.size() == 0 ? "" : mTypedWord;
     }
 
     public boolean isAtTagsSearchState() {
@@ -260,7 +264,7 @@ public class WordComposer implements KeyCodesProvider {
      * @return true if all user typed chars are upper case, false otherwise
      */
     public boolean isAllUpperCase() {
-        return (mCapsCount > 0) && (mCapsCount == length());
+        return (mCapsCount > 0) && (mCapsCount == mCodes.size());
     }
 
     /** Stores the user's selected word, before it is actually committed to the text field. */
