@@ -26,6 +26,7 @@ include ':languages:spain:pack', ':languages:spain:apk'
 include ':languages:tamazight:pack', ':languages:tamazight:apk'
 include ':languages:arabic:pack', ':languages:arabic:apk'
 include ':languages:danish:pack', ':languages:danish:apk'
+include ':languages:basque:pack', ':languages:basque:apk'
 
 //list of themes should be alphabetized-ordered
 include ':themes'
