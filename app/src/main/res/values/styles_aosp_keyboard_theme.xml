@@ -16,7 +16,6 @@
 
     <style name="AospBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="keyVerticalGap">5dp</item>
-        <item name="hintTextSize">0px</item>
 
         <item name="keyTextStyle">normal</item>
         <item name="shadowRadius">0px</item>
