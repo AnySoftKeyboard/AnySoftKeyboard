@@ -72,6 +72,15 @@ public class WordComposer implements KeyCodesProvider {
         return mCodes.size();
     }
 
+    /**
+     * Number of chars in the composing word.
+     *
+     * @return the number of chars
+     */
+    public int charLength() {
+        return mTypedWord.length();
+    }
+
     /** Cursor position */
     public int cursorPosition() {
         return mCursorPosition;
