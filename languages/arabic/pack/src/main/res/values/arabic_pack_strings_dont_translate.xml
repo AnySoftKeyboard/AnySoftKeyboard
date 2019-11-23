@@ -5,6 +5,9 @@
 
     <string name="arabic_dictionary">العربية</string>
 
+	<string name="arabic_keyboard">Arabic</string>
+	<string name="arabic_keyboard_description">Created by Yahya Hamidaddin</string>
+
     <string name="linux_keyboard">Arabic/Linux</string>
     <string name="linux_keyboard_description">Arabic/Linux keyboard</string>
 
