@@ -836,7 +836,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             // length == 5
             // textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
             final CharSequence textAfterCursor =
-                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
+                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.charLength());
             mWord.reset();
             getSuggest().resetNextWordSentence();
             TextEntryState.newSession(isPredictionOn());
@@ -905,7 +905,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         } else if (wordManipulation) {
             final int charsToDelete = mWord.deleteLast();
             final int cursorPosition;
-            if (mWord.cursorPosition() != mWord.length()) {
+            if (mWord.cursorPosition() != mWord.charLength()) {
                 cursorPosition = getCursorPosition(ic);
             } else {
                 cursorPosition = -1;
@@ -961,12 +961,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         final boolean wordManipulation =
                 TextEntryState.isPredicting()
                         && mWord.length() > 0
-                        && mWord.cursorPosition() < mWord.length();
+                        && mWord.cursorPosition() < mWord.charLength();
 
         if (wordManipulation) {
             mWord.deleteForward();
             final int cursorPosition;
-            if (mWord.cursorPosition() != mWord.length()) {
+            if (mWord.cursorPosition() != mWord.charLength()) {
                 cursorPosition = getCursorPosition(ic);
             } else {
                 cursorPosition = -1;
