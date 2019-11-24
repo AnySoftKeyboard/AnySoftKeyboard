@@ -272,11 +272,12 @@ public abstract class AnyKeyboard extends Keyboard {
                 for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
                     final Key keyToModify = keyList.get(keyIndex);
                     keyToModify.width = (int) (keyToModify.width + additionalSpacePerKey);
-                    if (keyIndex == foundLanguageKeyIndex) {
-                        xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
-                    }
                     keyToModify.x = (int) (keyToModify.x + xOffset);
-                    xOffset += additionalSpacePerKey;
+                    if (keyIndex == foundLanguageKeyIndex) {
+                        xOffset -= widthToRemove;
+                    } else {
+                        xOffset += additionalSpacePerKey;
+                    }
                 }
                 keyList.remove(foundLanguageKeyIndex);
             }
