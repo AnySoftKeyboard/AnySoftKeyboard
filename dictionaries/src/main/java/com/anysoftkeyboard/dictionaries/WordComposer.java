@@ -87,8 +87,8 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public boolean setCursorPosition(int position /*, int candidatesStartPosition*/) {
-        if (position < 0 || position > mTypedWord.length()) {
-            // note: the cursor can be AFTER the word, so it can be equal to size()
+        if (position < 0 || position > charLength()) {
+            // note: the cursor can be AFTER the word, so it can be equal to charLength()
             return false;
         }
         final boolean changed = mCursorPosition != position;
@@ -119,7 +119,7 @@ public class WordComposer implements KeyCodesProvider {
     /**
      * Returns the codes at a particular position in the word.
      *
-     * @param index the position in the word
+     * @param index the position in the word (measured in Unicode codepoints, not chars)
      * @return the unicode for the pressed and surrounding keys
      */
     @Override
@@ -146,18 +146,18 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public void simulateTypedWord(CharSequence typedWord) {
-        mCursorPosition -= mTypedWord.length();
+        mCursorPosition -= charLength();
 
         mTypedWord.setLength(0);
         mTypedWord.insert(mCursorPosition, typedWord);
 
-        typedWord
-                .codePoints()
-                .forEachOrdered(
-                        codePoint -> {
-                            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
-                            if (Character.isUpperCase(codePoint)) mCapsCount++;
-                        });
+        int index = 0;
+        while (index < typedWord.length()) {
+            final int codePoint = Character.codePointAt(typedWord, index);
+            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
+            if (Character.isUpperCase(codePoint)) mCapsCount++;
+            index += Character.charCount(codePoint);
+        }
         mCursorPosition += typedWord.length();
     }
 
