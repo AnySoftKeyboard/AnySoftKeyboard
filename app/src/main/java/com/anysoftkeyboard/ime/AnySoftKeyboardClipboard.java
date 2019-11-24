@@ -123,9 +123,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                         ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
                     } else {
                         ic.setSelection(
-                                globalSelectionStartPosition -
-                                    Character.charCount(toLeft.codePointBefore(toLeft.length())),
-                                    globalCursorPosition);
+                                globalSelectionStartPosition
+                                        - Character.charCount(
+                                                toLeft.codePointBefore(toLeft.length())),
+                                globalCursorPosition);
                     }
                     return true;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
@@ -135,8 +136,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     } else {
                         ic.setSelection(
                                 globalSelectionStartPosition,
-                                globalCursorPosition +
-                                    Character.charCount(toRight.codePointAt(0)));
+                                globalCursorPosition + Character.charCount(toRight.codePointAt(0)));
                     }
                     return true;
                 default:
