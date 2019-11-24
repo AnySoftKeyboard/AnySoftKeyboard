@@ -636,11 +636,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
-            if (Character.charCount(primaryCode) == 1) {
-                sendKeyChar((char) primaryCode);
-            } else {
-                sendKeyChar(Character.highSurrogate(primaryCode));
-                sendKeyChar(Character.lowSurrogate(primaryCode));
+            for (char c : Character.toChars(primaryCode)) {
+                sendKeyChar(c);
             }
         }
         mJustAutoAddedWord = false;
@@ -723,11 +720,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
 
         if (!handledOutputToInputConnection) {
-            if (Character.charCount(primaryCode) == 1) {
-                sendKeyChar((char) primaryCode);
-            } else {
-                sendKeyChar(Character.highSurrogate(primaryCode));
-                sendKeyChar(Character.lowSurrogate(primaryCode));
+            for (char c : Character.toChars(primaryCode)) {
+                sendKeyChar(c);
             }
         }
         TextEntryState.typedCharacter(primaryCode, true);
