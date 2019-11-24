@@ -70,10 +70,13 @@ TO DO!!!
 ## Languages in this repo
 
 1. <img src='languages/afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
+1. <img src='languages/arabic/apk/flag/flag.png' height='16'>&nbsp;Arabic: [Source](languages/arabic) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.arabic)
 1. <img src='languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](languages/armenian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.armenian2)
+1. <img src='languages/basque/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Basque: [Source](languages/basque) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.basque)
 1. <img src='languages/brazilian/apk/flag/flag.png' height='16'>&nbsp;Brazilian: [Source](languages/brazilian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.brazilian)
 1. <img src='languages/catalan/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Catalan: [Source](languages/catalan) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.catalan)
 1. <img src='languages/czech/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Czech: [Source](languages/czech) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.czech)
+1. <img src='languages/danish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Danish: [Source](languages/danish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.danish)
 1. <img src='languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](languages/english)
 1. <img src='languages/finnish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Finnish: [Source](languages/finnish) • [Play Store](https://play.google.com/store/apps/details?id=com.menny.anysoftkeyboard.finnish)
 1. <img src='languages/french/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;French: [Source](languages/french) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.french)
