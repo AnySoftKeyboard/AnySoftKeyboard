@@ -116,11 +116,28 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         if (mArrowSelectionState && ic != null) {
             switch (keyEventKeyCode) {
                 case KeyEvent.KEYCODE_DPAD_LEFT:
-                    ic.setSelection(
-                            Math.max(0, globalSelectionStartPosition - 1), globalCursorPosition);
+                    // A Unicode codepoint can be made up of two Java chars.
+                    // We check if that's what happening before the cursor:
+                    final String toLeft = ic.getTextBeforeCursor(8, 0).toString();
+                    if (toLeft.length() == 0) {
+                        ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
+                    } else {
+                        ic.setSelection(
+                                globalSelectionStartPosition -
+                                    Character.charCount(toLeft.codePointBefore(toLeft.length())),
+                                    globalCursorPosition);
+                    }
                     return true;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    ic.setSelection(globalSelectionStartPosition, globalCursorPosition + 1);
+                    final String toRight = ic.getTextAfterCursor(8, 0).toString();
+                    if (toRight.length() == 0) {
+                        ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
+                    } else {
+                        ic.setSelection(
+                                globalSelectionStartPosition,
+                                globalCursorPosition +
+                                    Character.charCount(toRight.codePointAt(0)));
+                    }
                     return true;
                 default:
                     mArrowSelectionState = false;
