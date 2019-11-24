@@ -812,15 +812,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             final int[] tempNearByKeys = new int[1];
 
-            final int[] wordCodePoints = word.codePoints().toArray();
-            for (int index = 0; index < wordCodePoints.length; index++) {
-                final int c = wordCodePoints[index];
+            int index = 0;
+            while (index < word.length()) {
+                final int c = Character.offsetByCodePoints(word, 0, index);
                 if (index == 0) mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
                 tempNearByKeys[0] = c;
                 mWord.add(c, tempNearByKeys);
 
                 TextEntryState.typedCharacter(c, false);
+                index += Character.charCount(c);
             }
             ic.setComposingRegion(
                     mGlobalCursorPosition - toLeft.length(),
