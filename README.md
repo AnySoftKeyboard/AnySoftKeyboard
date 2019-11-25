@@ -20,6 +20,10 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
  * Physical keyboard is supported as-well.
  * Auto capitalization.
  * Word suggestions, and Next-Word suggestions.
+ * Gesture typing
+ * Dark mode, automatic (based on system) and manual
+ * Power saving mode, disables various features to save battery
+ * Per-app tint, the keyboard changes color depending on the app
  * Special key-press effects:
      * Sound on key press (if phone is not muted).
      * Vibrate on key press.
