@@ -74,6 +74,7 @@ TO DO!!!
 1. <img src='languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](languages/armenian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.armenian2)
 1. <img src='languages/basque/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Basque: [Source](languages/basque) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.basque)
 1. <img src='languages/brazilian/apk/flag/flag.png' height='16'>&nbsp;Brazilian: [Source](languages/brazilian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.brazilian)
+1. <img src='languages/bulgarian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Bulgarian: [Source](languages/bulgarian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.bulgarian)
 1. <img src='languages/catalan/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Catalan: [Source](languages/catalan) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.catalan)
 1. <img src='languages/czech/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Czech: [Source](languages/czech) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.czech)
 1. <img src='languages/danish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Danish: [Source](languages/danish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.danish)
