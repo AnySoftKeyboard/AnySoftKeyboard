@@ -28,6 +28,7 @@ include ':languages:arabic:pack', ':languages:arabic:apk'
 include ':languages:danish:pack', ':languages:danish:apk'
 include ':languages:basque:pack', ':languages:basque:apk'
 include ':languages:bulgarian:pack', ':languages:bulgarian:apk'
+include ':languages:german:pack', ':languages:german:apk'
 
 //list of themes should be alphabetized-ordered
 include ':themes'
