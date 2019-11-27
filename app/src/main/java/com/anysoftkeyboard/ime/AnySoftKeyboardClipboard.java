@@ -17,6 +17,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
     private boolean mArrowSelectionState;
     private Clipboard mClipboard;
+    protected static final int MAX_CHARS_PER_CODEPOINT = 2;
 
     @Override
     public void onCreate() {
@@ -118,7 +119,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 case KeyEvent.KEYCODE_DPAD_LEFT:
                     // A Unicode codepoint can be made up of two Java chars.
                     // We check if that's what happening before the cursor:
-                    final String toLeft = ic.getTextBeforeCursor(8, 0).toString();
+                    final String toLeft =
+                            ic.getTextBeforeCursor(MAX_CHARS_PER_CODEPOINT, 0).toString();
                     if (toLeft.length() == 0) {
                         ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
                     } else {
@@ -130,7 +132,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     }
                     return true;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    final String toRight = ic.getTextAfterCursor(8, 0).toString();
+                    final String toRight =
+                            ic.getTextAfterCursor(MAX_CHARS_PER_CODEPOINT, 0).toString();
                     if (toRight.length() == 0) {
                         ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
                     } else {
