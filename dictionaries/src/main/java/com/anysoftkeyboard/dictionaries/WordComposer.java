@@ -67,8 +67,7 @@ public class WordComposer implements KeyCodesProvider {
      *
      * @return the number of keystrokes
      */
-    @Override
-    public int length() {
+    public int codePointCount() {
         return mCodes.size();
     }
 
@@ -77,8 +76,13 @@ public class WordComposer implements KeyCodesProvider {
      *
      * @return the number of chars
      */
-    public int charLength() {
+    public int charCount() {
         return mTypedWord.length();
+    }
+
+    @Override
+    public int length() {
+        return codePointCount();
     }
 
     /** Cursor position */
@@ -87,8 +91,8 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public boolean setCursorPosition(int position /*, int candidatesStartPosition*/) {
-        if (position < 0 || position > charLength()) {
-            // note: the cursor can be AFTER the word, so it can be equal to charLength()
+        if (position < 0 || position > charCount()) {
+            // note: the cursor can be AFTER the word, so it can be equal to charCount()
             return false;
         }
         final boolean changed = mCursorPosition != position;
@@ -146,7 +150,7 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public void simulateTypedWord(CharSequence typedWord) {
-        mCursorPosition -= charLength();
+        mCursorPosition -= charCount();
 
         mTypedWord.setLength(0);
         mTypedWord.insert(mCursorPosition, typedWord);
@@ -236,7 +240,7 @@ public class WordComposer implements KeyCodesProvider {
      * @return the number of chars (not codepoints) deleted.
      */
     public int deleteForward() {
-        if (mCursorPosition < mTypedWord.length()) {
+        if (mCursorPosition < charCount()) {
             mArraysToReuse.add(mCodes.remove(mTypedWord.codePointCount(0, mCursorPosition)));
             int last = Character.codePointAt(mTypedWord, mCursorPosition);
             mTypedWord.delete(mCursorPosition, mCursorPosition + Character.charCount(last));
@@ -258,7 +262,7 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public boolean isAtTagsSearchState() {
-        return mTypedWord.length() > 0 && mTypedWord.charAt(0) == ':';
+        return charCount() > 0 && mTypedWord.charAt(0) == ':';
     }
 
     public void setFirstCharCapitalized(boolean capitalized) {

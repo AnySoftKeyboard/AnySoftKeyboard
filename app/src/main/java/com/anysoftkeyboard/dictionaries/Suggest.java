@@ -289,7 +289,7 @@ public class Suggest {
         // Search the dictionary only if there are at least mMinimumWordLengthToStartCorrecting
         // (configurable)
         // characters
-        if (wordComposer.length() >= mMinimumWordLengthToStartCorrecting) {
+        if (wordComposer.codePointCount() >= mMinimumWordLengthToStartCorrecting) {
             mSuggestionsProvider.getSuggestions(wordComposer, mTypingDictionaryWordCallback);
             mSuggestionsProvider.getAbbreviations(wordComposer, mAbbreviationWordCallback);
 
