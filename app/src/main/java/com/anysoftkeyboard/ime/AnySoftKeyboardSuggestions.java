@@ -611,7 +611,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             if (ic != null) {
                 final int cursorPosition;
-                if (mWord.cursorPosition() != mWord.charLength()) {
+                if (mWord.cursorPosition() != mWord.charCount()) {
                     // Cursor is not at the end of the word. I'll need to reposition
                     cursorPosition =
                             mGlobalCursorPosition
@@ -674,7 +674,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // this is a special case, when the user presses a separator WHILE
         // inside the predicted word.
         // in this case, I will want to just dump the separator.
-        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.charLength());
+        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.charCount());
         if (TextEntryState.isPredicting() && !separatorInsideWord) {
             // ACTION does not invoke default picking. See
             // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
@@ -1349,7 +1349,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private void checkAddToDictionaryWithAutoDictionary(
             WordComposer suggestion, Suggest.AdditionType type) {
         mJustAutoAddedWord = false;
-        if (suggestion == null || suggestion.length() < 1 || !mShowSuggestions) {
+        if (suggestion == null || suggestion.codePointCount() < 1 || !mShowSuggestions) {
             return;
         }
 

@@ -830,13 +830,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             return;
         }
 
-        if (TextEntryState.isPredicting() && mWord.cursorPosition() > 0 && mWord.length() > 0) {
+        if (TextEntryState.isPredicting()
+                && mWord.cursorPosition() > 0
+                && mWord.codePointCount() > 0) {
             // sp#ace -> ace
             // cursor == 2
             // length == 5
             // textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
             final CharSequence textAfterCursor =
-                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.charLength());
+                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.charCount());
             mWord.reset();
             getSuggest().resetNextWordSentence();
             TextEntryState.newSession(isPredictionOn());
@@ -897,7 +899,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
         final boolean wordManipulation =
-                TextEntryState.isPredicting() && mWord.length() > 0 && mWord.cursorPosition() > 0;
+                TextEntryState.isPredicting()
+                        && mWord.codePointCount() > 0
+                        && mWord.cursorPosition() > 0;
         final TextEntryState.State newState = TextEntryState.backspace();
 
         if (newState == TextEntryState.State.UNDO_COMMIT) {
@@ -905,7 +909,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         } else if (wordManipulation) {
             final int charsToDelete = mWord.deleteLast();
             final int cursorPosition;
-            if (mWord.cursorPosition() != mWord.charLength()) {
+            if (mWord.cursorPosition() != mWord.charCount()) {
                 cursorPosition = getCursorPosition(ic);
             } else {
                 cursorPosition = -1;
@@ -916,7 +920,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             }
 
             ic.setComposingText(mWord.getTypedWord(), 1);
-            if (mWord.length() == 0) {
+            if (mWord.codePointCount() == 0) {
                 TextEntryState.newSession(isPredictionOn());
             } else if (cursorPosition >= 0) {
                 ic.setSelection(cursorPosition - charsToDelete, cursorPosition - charsToDelete);
@@ -960,13 +964,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private void handleForwardDelete(InputConnection ic) {
         final boolean wordManipulation =
                 TextEntryState.isPredicting()
-                        && mWord.length() > 0
-                        && mWord.cursorPosition() < mWord.charLength();
+                        && mWord.codePointCount() > 0
+                        && mWord.cursorPosition() < mWord.charCount();
 
         if (wordManipulation) {
             mWord.deleteForward();
             final int cursorPosition;
-            if (mWord.cursorPosition() != mWord.charLength()) {
+            if (mWord.cursorPosition() != mWord.charCount()) {
                 cursorPosition = getCursorPosition(ic);
             } else {
                 cursorPosition = -1;
@@ -977,7 +981,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             }
 
             ic.setComposingText(mWord.getTypedWord(), 1);
-            if (mWord.length() == 0) {
+            if (mWord.codePointCount() == 0) {
                 TextEntryState.newSession(isPredictionOn());
             } else if (cursorPosition >= 0) {
                 ic.setSelection(cursorPosition, cursorPosition);
@@ -1304,7 +1308,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             return;
         }
 
-        final int currentLength = mWord.length();
+        final int currentLength = mWord.codePointCount();
         boolean shouldDeleteUsingCompletion;
         if (currentLength > 0) {
             shouldDeleteUsingCompletion = true;
