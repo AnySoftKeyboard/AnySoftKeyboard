@@ -24,7 +24,7 @@ import java.util.Queue;
 
 public class KeyPreviewsManager implements KeyPreviewsController {
 
-    private static final String TAG = "ASK_PPM";
+    private static final String TAG = "ASKKeyPreviewsManager";
     private static final KeyPreview NULL_KEY_PREVIEW =
             new KeyPreview() {
                 @Override

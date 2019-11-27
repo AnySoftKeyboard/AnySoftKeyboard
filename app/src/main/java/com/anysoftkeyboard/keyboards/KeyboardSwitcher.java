@@ -90,7 +90,7 @@ public class KeyboardSwitcher {
     private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 4;
     private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 5;
     private static final int SYMBOLS_KEYBOARDS_COUNT = 6;
-    private static String TAG = "ASK_KeySwitcher";
+    private static String TAG = "ASKKbdSwitcher";
     @NonNull private final KeyboardSwitchedListener mKeyboardSwitchedListener;
     @NonNull private final Context mContext;
     // this will hold the last used keyboard ID per app's package ID

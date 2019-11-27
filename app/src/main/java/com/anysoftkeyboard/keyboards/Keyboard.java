@@ -42,7 +42,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class Keyboard {
 
-    private static final String TAG = "Keyboard";
+    private static final String TAG = "ASKKbd";
 
     public static final String PREF_KEY_ROW_MODE_ENABLED_PREFIX =
             "settings_key_support_keyboard_type_state_row_type_";

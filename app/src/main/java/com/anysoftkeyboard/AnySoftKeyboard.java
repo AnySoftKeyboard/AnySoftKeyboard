@@ -606,7 +606,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             final Key key,
             final int multiTapIndex,
             final int[] nearByKeyCodes) {
-        if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
+        if (BuildConfig.DEBUG) Logger.d(TAG, "onNonFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
 
@@ -672,7 +672,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                         if (controlCode == 9) {
                             sendTab();
                         } else {
-                            ic.commitText(Character.toString((char) controlCode), 1);
+                            ic.commitText(new String(new int[] {controlCode}, 0, 1), 1);
                         }
                     } else {
                         handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
@@ -830,13 +830,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             return;
         }
 
-        if (TextEntryState.isPredicting() && mWord.cursorPosition() > 0 && mWord.length() > 0) {
+        if (TextEntryState.isPredicting()
+                && mWord.cursorPosition() > 0
+                && mWord.codePointCount() > 0) {
             // sp#ace -> ace
             // cursor == 2
             // length == 5
             // textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
             final CharSequence textAfterCursor =
-                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
+                    mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.charCount());
             mWord.reset();
             getSuggest().resetNextWordSentence();
             TextEntryState.newSession(isPredictionOn());
@@ -896,43 +898,40 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
-        final boolean isPredicting = TextEntryState.isPredicting();
+        final boolean wordManipulation =
+                TextEntryState.isPredicting()
+                        && mWord.codePointCount() > 0
+                        && mWord.cursorPosition() > 0;
         final TextEntryState.State newState = TextEntryState.backspace();
 
-        if (isPredicting) {
-            final boolean wordManipulation = mWord.length() > 0 && mWord.cursorPosition() > 0;
-            if (wordManipulation) {
-                mWord.deleteLast();
-                final int cursorPosition;
-                if (mWord.cursorPosition() != mWord.length()) {
-                    cursorPosition = getCursorPosition(ic);
-                } else {
-                    cursorPosition = -1;
-                }
-
-                if (cursorPosition >= 0) {
-                    ic.beginBatchEdit();
-                }
-
-                ic.setComposingText(mWord.getTypedWord(), 1);
-                if (mWord.length() == 0) {
-                    TextEntryState.newSession(isPredictionOn());
-                } else if (cursorPosition >= 0) {
-                    ic.setSelection(cursorPosition - 1, cursorPosition - 1);
-                }
-
-                if (cursorPosition >= 0) {
-                    ic.endBatchEdit();
-                }
-
-                postUpdateSuggestions();
-            } else {
-                ic.deleteSurroundingText(1, 0);
-            }
-        } else if (newState == TextEntryState.State.UNDO_COMMIT) {
+        if (newState == TextEntryState.State.UNDO_COMMIT) {
             revertLastWord();
-        } else {
+        } else if (wordManipulation) {
+            final int charsToDelete = mWord.deleteLast();
+            final int cursorPosition;
+            if (mWord.cursorPosition() != mWord.charCount()) {
+                cursorPosition = getCursorPosition(ic);
+            } else {
+                cursorPosition = -1;
+            }
 
+            if (cursorPosition >= 0) {
+                ic.beginBatchEdit();
+            }
+
+            ic.setComposingText(mWord.getTypedWord(), 1);
+            if (mWord.codePointCount() == 0) {
+                TextEntryState.newSession(isPredictionOn());
+            } else if (cursorPosition >= 0) {
+                ic.setSelection(cursorPosition - charsToDelete, cursorPosition - charsToDelete);
+            }
+
+            if (cursorPosition >= 0) {
+                ic.endBatchEdit();
+            }
+
+            postUpdateSuggestions();
+        } else {
             if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
@@ -945,11 +944,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     // updated faster!
                     // but will not handle "delete all selected text" feature,
                     // hence the "if (!forMultiTap)" above
-                    final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
+                    final CharSequence beforeText = ic.getTextBeforeCursor(8, 0);
                     final int textLengthBeforeDelete =
-                            TextUtils.isEmpty(beforeText) ? 0 : beforeText.length();
+                            TextUtils.isEmpty(beforeText)
+                                    ? 0
+                                    : Character.charCount(
+                                            Character.codePointBefore(
+                                                    beforeText, beforeText.length()));
                     if (textLengthBeforeDelete > 0) {
-                        ic.deleteSurroundingText(1, 0);
+                        ic.deleteSurroundingText(textLengthBeforeDelete, 0);
                     } else {
                         sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
                     }
@@ -959,43 +962,46 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     private void handleForwardDelete(InputConnection ic) {
-        final boolean isPredicting = TextEntryState.isPredicting();
+        final boolean wordManipulation =
+                TextEntryState.isPredicting()
+                        && mWord.codePointCount() > 0
+                        && mWord.cursorPosition() < mWord.charCount();
 
-        if (isPredicting) {
-            final boolean wordManipulation = mWord.length() > 0 && mWord.cursorPosition() > 0;
-            if (wordManipulation) {
-                mWord.deleteForward();
-                final int cursorPosition;
-                if (mWord.cursorPosition() != mWord.length()) {
-                    cursorPosition = getCursorPosition(ic);
-                } else {
-                    cursorPosition = -1;
-                }
-
-                if (cursorPosition >= 0) {
-                    ic.beginBatchEdit();
-                }
-
-                ic.setComposingText(mWord.getTypedWord(), 1);
-                if (mWord.length() == 0) {
-                    TextEntryState.newSession(isPredictionOn());
-                } else if (cursorPosition >= 0) {
-                    ic.setSelection(cursorPosition, cursorPosition);
-                }
-
-                if (cursorPosition >= 0) {
-                    ic.endBatchEdit();
-                }
-
-                postUpdateSuggestions();
+        if (wordManipulation) {
+            mWord.deleteForward();
+            final int cursorPosition;
+            if (mWord.cursorPosition() != mWord.charCount()) {
+                cursorPosition = getCursorPosition(ic);
             } else {
-                ic.deleteSurroundingText(0, 1);
+                cursorPosition = -1;
             }
+
+            if (cursorPosition >= 0) {
+                ic.beginBatchEdit();
+            }
+
+            ic.setComposingText(mWord.getTypedWord(), 1);
+            if (mWord.codePointCount() == 0) {
+                TextEntryState.newSession(isPredictionOn());
+            } else if (cursorPosition >= 0) {
+                ic.setSelection(cursorPosition, cursorPosition);
+            }
+
+            if (cursorPosition >= 0) {
+                ic.endBatchEdit();
+            }
+
+            postUpdateSuggestions();
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_FORWARD_DEL);
             } else {
-                ic.deleteSurroundingText(0, 1);
+                final CharSequence afterText = ic.getTextAfterCursor(8, 0);
+                final int textLengthAfterDelete =
+                        TextUtils.isEmpty(afterText)
+                                ? 0
+                                : Character.charCount(Character.codePointAt(afterText, 0));
+                ic.deleteSurroundingText(0, textLengthAfterDelete);
             }
         }
     }
@@ -1302,7 +1308,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             return;
         }
 
-        final int currentLength = mWord.length();
+        final int currentLength = mWord.codePointCount();
         boolean shouldDeleteUsingCompletion;
         if (currentLength > 0) {
             shouldDeleteUsingCompletion = true;

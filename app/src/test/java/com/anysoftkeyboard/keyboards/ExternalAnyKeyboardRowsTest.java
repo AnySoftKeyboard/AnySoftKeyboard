@@ -468,7 +468,7 @@ public class ExternalAnyKeyboardRowsTest {
         // positions (note - keys are not evenly spread)
         // we have additional pixels now, since the language key was removed
         int[] keyIndices = new int[] {32, 33, 34, 35, 36};
-        int[] xPositions = new int[] {1, 21, 72, 86, 101};
+        int[] xPositions = new int[] {1, 21, 71, 86, 100};
         int[] widths = new int[] {18, 48, 12, 12, 18};
         int[] gaps = new int[] {0, 0, 0, 0, 0};
         for (int keyIndexIndex = 0; keyIndexIndex < keyIndices.length; keyIndexIndex++) {

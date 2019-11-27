@@ -1441,15 +1441,18 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                     // not put too many characters in the hint label...
                 } else if (key.longPressCode != 0) {
                     if (Character.isLetterOrDigit(key.longPressCode)) {
-                        hintText = Character.toString((char) key.longPressCode);
+                        hintText = new String(new int[] {key.longPressCode}, 0, 1);
                     }
                 } else if (key.popupCharacters != null) {
                     final String hintString = key.popupCharacters.toString();
-                    final int hintLength = hintString.length();
+                    final int hintLength =
+                            Character.codePointCount(hintString, 0, hintString.length());
                     if (hintLength <= 3) {
                         hintText = hintString;
                     } else {
-                        hintText = hintString.substring(0, 3);
+                        hintText =
+                                hintString.substring(
+                                        0, Character.offsetByCodePoints(hintString, 0, 3));
                     }
                 }
 

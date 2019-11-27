@@ -594,12 +594,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
             mAutoCorrectOn = mAutoComplete && mInputFieldSupportsAutoPick;
-            TextEntryState.typedCharacter((char) primaryCode, false);
+            TextEntryState.typedCharacter(primaryCode, false);
             if (mShiftKeyState.isActive()) {
                 mWord.setFirstCharCapitalized(true);
             }
         } else if (TextEntryState.isPredicting()) {
-            TextEntryState.typedCharacter((char) primaryCode, false);
+            TextEntryState.typedCharacter(primaryCode, false);
         }
 
         mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
@@ -611,9 +611,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             if (ic != null) {
                 final int cursorPosition;
-                if (mWord.cursorPosition() != mWord.length()) {
+                if (mWord.cursorPosition() != mWord.charCount()) {
                     // Cursor is not at the end of the word. I'll need to reposition
-                    cursorPosition = mGlobalCursorPosition + 1 /*adding the new character*/;
+                    cursorPosition =
+                            mGlobalCursorPosition
+                                    + Character.charCount(primaryCode); /*adding the new character*/
                     ic.beginBatchEdit();
                 } else {
                     cursorPosition = -1;
@@ -634,7 +636,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
-            sendKeyChar((char) primaryCode);
+            for (char c : Character.toChars(primaryCode)) {
+                sendKeyChar(c);
+            }
         }
         mJustAutoAddedWord = false;
     }
@@ -670,7 +674,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // this is a special case, when the user presses a separator WHILE
         // inside the predicted word.
         // in this case, I will want to just dump the separator.
-        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
+        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.charCount());
         if (TextEntryState.isPredicting() && !separatorInsideWord) {
             // ACTION does not invoke default picking. See
             // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
@@ -709,16 +713,18 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // input-box
                 // into "word "->"word, "
                 ic.deleteSurroundingText(1, 0);
-                ic.commitText(((char) primaryCode) + (newLine ? "" : " "), 1);
+                ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
                 mAdditionalCharacterForReverting = !newLine;
                 handledOutputToInputConnection = true;
             }
         }
 
         if (!handledOutputToInputConnection) {
-            sendKeyChar((char) primaryCode);
+            for (char c : Character.toChars(primaryCode)) {
+                sendKeyChar(c);
+            }
         }
-        TextEntryState.typedCharacter((char) primaryCode, true);
+        TextEntryState.typedCharacter(primaryCode, true);
 
         if (ic != null) {
             ic.endBatchEdit();
@@ -806,14 +812,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             final int[] tempNearByKeys = new int[1];
 
-            for (int index = 0; index < word.length(); index++) {
-                final char c = word.charAt(index);
+            int index = 0;
+            while (index < word.length()) {
+                final int c = Character.offsetByCodePoints(word, 0, index);
                 if (index == 0) mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
                 tempNearByKeys[0] = c;
                 mWord.add(c, tempNearByKeys);
 
                 TextEntryState.typedCharacter(c, false);
+                index += Character.charCount(c);
             }
             ic.setComposingRegion(
                     mGlobalCursorPosition - toLeft.length(),
@@ -1148,7 +1156,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 sendKeyChar((char) KeyCodes.SPACE);
                 mAdditionalCharacterForReverting = true;
                 setSpaceTimeStamp(true);
-                TextEntryState.typedCharacter(' ', true);
+                TextEntryState.typedCharacter((int) ' ', true);
             }
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
@@ -1341,7 +1349,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private void checkAddToDictionaryWithAutoDictionary(
             WordComposer suggestion, Suggest.AdditionType type) {
         mJustAutoAddedWord = false;
-        if (suggestion == null || suggestion.length() < 1 || !mShowSuggestions) {
+        if (suggestion == null || suggestion.codePointCount() < 1 || !mShowSuggestions) {
             return;
         }
 
@@ -1368,7 +1376,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     @CallSuper
     protected boolean isSuggestionAffectingCharacter(int code) {
-        return Character.isLetter((char) code);
+        return Character.isLetter(code);
     }
 
     public void removeFromUserDictionary(String wordToRemove) {

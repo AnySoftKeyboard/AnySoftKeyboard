@@ -187,7 +187,7 @@ public class Logger {
     public static synchronized void e(final String tag, Throwable e, String text, Object... args) {
         if (msLogger.supportsE()) {
             String msg = getFormattedString(text, args);
-            msLogger.e(tag, appendErrorText(text, e));
+            msLogger.e(tag, appendErrorText(msg, e));
             addLog(LVL_E, tag, msg);
         }
     }
