@@ -81,6 +81,7 @@ TO DO!!!
 1. <img src='languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](languages/english)
 1. <img src='languages/finnish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Finnish: [Source](languages/finnish) • [Play Store](https://play.google.com/store/apps/details?id=com.menny.anysoftkeyboard.finnish)
 1. <img src='languages/french/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;French: [Source](languages/french) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.french)
+1. <img src='languages/georgian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Georgian: [Source](languages/georgian)
 1. <img src='languages/greek/apk/flag/flag.png' height='16'>&nbsp;Greek: [Source](languages/greek) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.greek)
 1. <img src='languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
 1. <img src='languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
