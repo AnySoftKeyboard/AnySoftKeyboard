@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 import java.util.StringTokenizer;
 
 public class KeyboardSupport {
-    private static final String TAG = "KeyboardSupport";
+    private static final String TAG = "ASKKbdSupport";
 
     private static int[] parseCSV(String value) {
         int count = 0;

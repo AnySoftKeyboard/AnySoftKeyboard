@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
 
 public class DictionaryContentObserver extends ContentObserver {
 
-    private static final String TAG = "DictionaryContentObserver";
+    private static final String TAG = "DictContentObserver";
     private final WeakReference<BTreeDictionary> mDictionary;
 
     public DictionaryContentObserver(BTreeDictionary dictionary) {
