@@ -82,6 +82,7 @@ public class WordComposer implements KeyCodesProvider {
 
     @Override
     public int length() {
+        // DEPRECATED. Please use codePointCount() or charCount().
         return codePointCount();
     }
 
