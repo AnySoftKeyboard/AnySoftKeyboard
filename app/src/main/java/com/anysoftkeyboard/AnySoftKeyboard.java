@@ -932,30 +932,25 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
             postUpdateSuggestions();
         } else {
-            if (!forMultiTap) {
+            if (!forMultiTap || ic == null) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
-                if (ic == null) {
-                    sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                // this code tries to delete the text in a different way,
+                // because of multi-tap stuff
+                // using "deleteSurroundingText" will actually get the input
+                // updated faster!
+                // but will not handle "delete all selected text" feature,
+                // hence the "if (!forMultiTap)" above
+                final CharSequence beforeText = ic.getTextBeforeCursor(MAX_CHARS_PER_CODEPOINT, 0);
+                final int textLengthBeforeDelete =
+                        TextUtils.isEmpty(beforeText)
+                                ? 0
+                                : Character.charCount(
+                                        Character.codePointBefore(beforeText, beforeText.length()));
+                if (textLengthBeforeDelete > 0) {
+                    ic.deleteSurroundingText(textLengthBeforeDelete, 0);
                 } else {
-                    // this code tries to delete the text in a different way,
-                    // because of multi-tap stuff
-                    // using "deleteSurroundingText" will actually get the input
-                    // updated faster!
-                    // but will not handle "delete all selected text" feature,
-                    // hence the "if (!forMultiTap)" above
-                    final CharSequence beforeText = ic.getTextBeforeCursor(8, 0);
-                    final int textLengthBeforeDelete =
-                            TextUtils.isEmpty(beforeText)
-                                    ? 0
-                                    : Character.charCount(
-                                            Character.codePointBefore(
-                                                    beforeText, beforeText.length()));
-                    if (textLengthBeforeDelete > 0) {
-                        ic.deleteSurroundingText(textLengthBeforeDelete, 0);
-                    } else {
-                        sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-                    }
+                    sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
                 }
             }
         }
@@ -996,7 +991,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_FORWARD_DEL);
             } else {
-                final CharSequence afterText = ic.getTextAfterCursor(8, 0);
+                final CharSequence afterText = ic.getTextAfterCursor(MAX_CHARS_PER_CODEPOINT, 0);
                 final int textLengthAfterDelete =
                         TextUtils.isEmpty(afterText)
                                 ? 0
