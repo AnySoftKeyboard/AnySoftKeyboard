@@ -42,6 +42,6 @@
         <Key android:codes="45" android:keyLabel="-" android:popupCharacters="–—&#1470;"/>
         <Key android:codes="61" android:keyLabel="=" android:popupCharacters="&#8800;&#8776;&#8801;&#8802;&#8803;&#8793;&#8792;&#8791;"/>
         <Key android:codes="43" android:keyLabel="+"/>
-        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="@integer_key_code_delete" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>
