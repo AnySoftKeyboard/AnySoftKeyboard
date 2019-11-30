@@ -11,4 +11,6 @@
     <string name="de_keyboard_broad_description">Slightly broader layout with umlauts as popups (saving keys)</string>
     <string name="de_keyboard_extra">German broad+</string>
     <string name="de_keyboard_extra_description">Slightly broader layout with umlauts as popups (saving keys), also additional characters</string>
+    <string name="de_keyboard_neo2">German neo2</string>
+    <string name="de_keyboard_neo2_simple">German neo2 simple</string>
 </resources>
