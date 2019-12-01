@@ -49,9 +49,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
 
-    private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
-    // a year ago.
-    private static final long NEVER_TIME_STAMP = -1L * 365L * 24L * 60L * 60L * 1000L;
+    private static final long NEVER_TIME_STAMP = -1L * 365L * 24L * 60L * 60L * 1000L; // a year ago.
 
     private static final int UNDO_COMMIT_NONE = -1;
     private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
@@ -131,7 +129,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
      */
     private int mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
 
-    private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     /*
      * is prediction needed for the current input connection
      */
@@ -458,14 +455,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mUndoCommitCursorPosition = newSelStart;
         }
 
-        final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
-        mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
-
-        if (isExpectedEvent) {
-            Logger.v(TAG, "onUpdateSelection: Expected event. Discarding.");
-            return;
-        }
-
         if (TextEntryState.willUndoCommitOnBackspace()
                 && mUndoCommitCursorPosition == oldSelStart
                 && mUndoCommitCursorPosition != newSelStart) {
@@ -585,8 +574,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     TextEntryState.isPredicting());
         }
 
-        mExpectingSelectionUpdateBy =
-                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         if (TextEntryState.isReadyToPredict()
                 && isAlphabet(primaryCode)
                 && !isCursorTouchingWord()) {
@@ -604,16 +591,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
 
+        final InputConnection ic = getCurrentInputConnection();
         if (TextEntryState.isPredicting()) {
-            final InputConnection ic = getCurrentInputConnection();
             mWord.add(primaryCode, nearByKeyCodes);
             ChewbaccaOnTheDrums.onKeyTyped(mWord, getApplicationContext());
 
             if (ic != null) {
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.charCount()) {
-                    // Cursor is not at the end of the word. I'll need to reposition
-                    /* The code for tracking the current position is split among several files and difficult to debug.
+                    /* Cursor is not at the end of the word. I'll need to reposition.
+                    The code for tracking the current position is split among several files and difficult to debug.
                     This has been proven to work in every case: */
                     if (multiTapIndex > 0) {
                         final int previousKeyCode = key.getMultiTapCode(multiTapIndex - 1);
@@ -644,8 +631,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
+            if (ic != null) {
+                ic.beginBatchEdit();
+            }
             for (char c : Character.toChars(primaryCode)) {
                 sendKeyChar(c);
+            }
+            if (ic != null) {
+                ic.endBatchEdit();
             }
         }
         mJustAutoAddedWord = false;
@@ -660,8 +653,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 primaryCode = (int) ')';
             }
         }
-        mExpectingSelectionUpdateBy =
-                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         // will not show next-word suggestion in case of a new line or if the separator is a
         // sentence separator.
         boolean newLine = primaryCode == KeyCodes.ENTER;
