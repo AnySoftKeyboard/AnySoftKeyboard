@@ -30,6 +30,7 @@ include ':languages:basque:pack', ':languages:basque:apk'
 include ':languages:bulgarian:pack', ':languages:bulgarian:apk'
 include ':languages:german:pack', ':languages:german:apk'
 include ':languages:croatian:pack', ':languages:croatian:apk'
+include ':languages:georgian:pack', ':languages:georgian:apk'
 include ':languages:latvian:pack', ':languages:latvian:apk'
 
 //list of themes should be alphabetized-ordered
