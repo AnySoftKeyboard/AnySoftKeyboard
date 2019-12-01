@@ -71,7 +71,8 @@ jobs:
     container: menny/ndk_ask:1.13.1
     strategy:
       matrix:
-        index: [0, 1, 2]
+        index: [0, 1, 2, 3]
+        groups_count: [4]
       fail-fast: false
     steps:
       - uses: actions/checkout@v1
@@ -81,6 +82,7 @@ jobs:
         uses: ./.github/actions/test-shard-run
         with:
           index: ${{ matrix.index }}
+          groups_count: ${{ matrix.groups_count }}
           module: "app:"
       - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
