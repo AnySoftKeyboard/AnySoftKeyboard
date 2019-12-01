@@ -613,9 +613,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.charCount()) {
                     // Cursor is not at the end of the word. I'll need to reposition
-                    cursorPosition =
-                            mGlobalCursorPosition
-                                    + Character.charCount(primaryCode); /*adding the new character*/
+                    /* The code for tracking the current position is split among several files and difficult to debug.
+                    This has been proven to work in every case: */
+                    if (multiTapIndex > 0) {
+                        final int previousKeyCode = key.getMultiTapCode(multiTapIndex - 1);
+                        cursorPosition =
+                                mGlobalCursorPosition
+                                        + Character.charCount(primaryCode)
+                                        - Character.charCount(previousKeyCode);
+                    } else {
+                        cursorPosition = mGlobalCursorPosition + Character.charCount(primaryCode);
+                    }
                     ic.beginBatchEdit();
                 } else {
                     cursorPosition = -1;

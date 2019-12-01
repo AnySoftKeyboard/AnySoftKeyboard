@@ -19,7 +19,6 @@ package com.anysoftkeyboard.keyboards.views;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.MotionEvent;
-import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase.KeyPressTimingHandler;
@@ -485,7 +484,7 @@ class PointerTracker {
                     } else {
                         mTapCount = 0;
                     }
-                    code = getMultiTapCode(key);
+                    code = key.getMultiTapCode(mTapCount);
                 }
                 /*
                  * Swap the first and second values in the mCodes array if the primary code is not
@@ -528,7 +527,7 @@ class PointerTracker {
                     ? anyKey.label.toString().toUpperCase(Locale.getDefault())
                     : anyKey.label;
         } else {
-            int multiTapCode = getMultiTapCode(key);
+            int multiTapCode = key.getMultiTapCode(mTapCount);
             // The following line became necessary when we stopped casting multiTapCode to char
             if (multiTapCode < 32) {
                 multiTapCode = 32;
@@ -536,13 +535,6 @@ class PointerTracker {
             // because, if multiTapCode happened to be negative, this would fail:
             return new String(new int[] {multiTapCode}, 0, 1);
         }
-    }
-
-    private int getMultiTapCode(final Key key) {
-        final int codesCount = key.getCodesCount();
-        if (codesCount == 0) return KeyCodes.SPACE; // space is good for nothing
-        int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codesCount;
-        return key.getCodeAtIndex(safeMultiTapIndex, mKeyDetector.isKeyShifted(key));
     }
 
     private void resetMultiTap() {
@@ -564,7 +556,7 @@ class PointerTracker {
         if (key.getCodesCount() > 1) {
             mInMultiTap = true;
             if (isMultiTap) {
-                mTapCount = (mTapCount + 1) % key.getCodesCount();
+                mTapCount++;
                 return;
             } else {
                 mTapCount = -1;
