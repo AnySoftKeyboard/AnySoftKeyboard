@@ -6,7 +6,6 @@ inputs:
     description: "zero-based index of the shard"
   groups_count:
     description: "count of groups"
-    default: 3
   module:
     default: ""
   extra_args:
