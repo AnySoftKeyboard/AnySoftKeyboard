@@ -288,7 +288,8 @@ public class SuggestionsProvider {
                 final UserDictionary userDictionary =
                         createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
                 mUserDictionary.add(userDictionary);
-                Logger.d(TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
+                Logger.d(
+                        TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
                 mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
