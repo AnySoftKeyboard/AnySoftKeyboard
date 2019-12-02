@@ -3,9 +3,10 @@
 if (( $# != 1 )); then
     echo "Syntax: adb.sh [E|W|I|D|V]
 
-    adb.sh discards logcat lines not related with this project.
-    By default, it outputs messages with priority debug and higher;
-    use an initial to choose another level (Error/Warning/Info/Debug/Verbose)"
+    adb.sh outputs a logcat and filters out lines not related with this project.
+    \`dalvikvm\`, \`System.err\` and \`AndroidRuntime\` are included, as those are used to debug fatal crashes.
+
+    The only argument is the initial of your log priority. (Error/Warning/Info/Debug/Verbose)"
 else
     # These variables are just to higlight text:
     color="\033[0;36m"
@@ -29,7 +30,8 @@ else
     # We can go back to our original folder now:
     cd "$oldpath"
     tags="$(echo $tags | sed -E 's![a-z/A-Z12]*\.java: (protected |private )?(static )?(final )?String [A-Z_]* = "([^\"]*)";!\4!g')"
-    comm="adb logcat $(echo "$tags " | sed "s/ /:$1 /g")*:S"
+    tags="$tags dalvikvm System.err AndroidRuntime "
+    comm="adb logcat $(echo "$tags" | sed "s/ /:$1 /g")*:S"
     echo -e "${color}Running: $nocolor$comm"
     # Run command:
     echo -e "${color}Logcat:$nocolor"
