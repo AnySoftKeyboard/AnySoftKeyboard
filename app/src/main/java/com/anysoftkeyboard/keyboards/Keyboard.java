@@ -458,6 +458,13 @@ public abstract class Keyboard {
             centerY = y + height / 2;
         }
 
+        public int getMultiTapCode(int tapCount) {
+            final int codesCount = getCodesCount();
+            if (codesCount == 0) return KeyCodes.SPACE; // space is good for nothing
+            int safeMultiTapIndex = tapCount < 0 ? 0 : tapCount % codesCount;
+            return getCodeAtIndex(safeMultiTapIndex, mKeyboard.isShifted());
+        }
+
         private void setDataFromTypedArray(
                 Row parent,
                 KeyboardDimens keyboardDimens,

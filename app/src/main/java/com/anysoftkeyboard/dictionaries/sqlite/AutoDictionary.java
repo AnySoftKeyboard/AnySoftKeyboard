@@ -63,13 +63,14 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
                 return false;
             }
             final int length = word.length();
-            // Don't add very short or very long words.
-            if (length < 2 || length > MAX_WORD_LENGTH) return false;
+            // Don't add words if they're too long, too short, or user has decided not to learn
+            // words:
+            if (length < 2 || length > MAX_WORD_LENGTH || mLearnWordThreshold == -1) return false;
             // ask can not be null! This should not happen (since the caller is ASK instance...)
             int freq = getWordFrequency(word);
 
             freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
-            if (mLearnWordThreshold != -1 && freq >= mLearnWordThreshold) {
+            if (freq >= mLearnWordThreshold) {
                 Logger.i(
                         TAG, "Promoting the word '%s' to the user dictionary. It earned it.", word);
                 // no need for this word in this dictionary any longer
