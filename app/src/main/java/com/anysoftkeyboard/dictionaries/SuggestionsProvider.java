@@ -90,6 +90,7 @@ public class SuggestionsProvider {
 
     @NonNull private EditableDictionary mAutoDictionary = NullDictionary;
     private boolean mContactsDictionaryEnabled;
+    private boolean mUserDictionaryEnabled;
     @NonNull private Dictionary mContactsDictionary = NullDictionary;
 
     private boolean mIncognitoMode;
@@ -146,6 +147,18 @@ public class SuggestionsProvider {
                                     }
                                 },
                                 GenericOnError.onError("settings_key_use_contacts_dictionary")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getBoolean(
+                                R.string.settings_key_use_user_dictionary,
+                                R.bool.settings_default_user_dictionary)
+                        .asObservable()
+                        .subscribe(
+                                value -> {
+                                    mCurrentSetupHashCode = 0;
+                                    mUserDictionaryEnabled = value;
+                                },
+                                GenericOnError.onError("settings_key_use_user_dictionary")));
         mPrefsDisposables.add(
                 rxSharedPrefs
                         .getString(
@@ -270,13 +283,18 @@ public class SuggestionsProvider {
             } catch (Exception e) {
                 Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
             }
-            final UserDictionary userDictionary =
-                    createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
-            mUserDictionary.add(userDictionary);
-            Logger.d(TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
-            disposablesHolder.add(
-                    DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
-            mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
+
+            if (mUserDictionaryEnabled) {
+                final UserDictionary userDictionary =
+                        createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
+                mUserDictionary.add(userDictionary);
+                Logger.d(TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
+                disposablesHolder.add(
+                        DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
+                mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
+            } else {
+                Logger.d(TAG, " User does not want user dictionary, skipping...");
+            }
 
             if (mQuickFixesEnabled) {
                 final AutoText autoText = dictionaryBuilder.createAutoText();
