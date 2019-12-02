@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 class Parser {
 
@@ -20,8 +21,9 @@ class Parser {
     private final HashMap<String, WordWithCount> mWords;
     private final int mMaxListSize;
     private final Locale mLocale;
+    private final int mMaxWordFrequency;
 
-    public Parser(List<File> inputFiles, File outputFile, char[] wordCharacters, Locale locale, char[] additionalInnerWordCharacters, int maxListSize) throws IOException {
+    public Parser(List<File> inputFiles, File outputFile, char[] wordCharacters, Locale locale, char[] additionalInnerWordCharacters, int maxListSize, int maxFrequency) throws IOException {
         if (inputFiles.size() == 0) {
             throw new IllegalArgumentException("Files list should be at least 1 size.");
         }
@@ -31,6 +33,10 @@ class Parser {
             }
             if (!inputFile.isFile()) throw new IOException("Input must be a file.");
         }
+        if (maxFrequency > 255) {
+            throw new IllegalArgumentException("max-word-frequency can not be more than 255");
+        }
+        mMaxWordFrequency = maxFrequency;
         mOutputFile = outputFile;
         mInputFiles = Collections.unmodifiableList(inputFiles);
         mLocale = locale;
@@ -49,7 +55,8 @@ class Parser {
 
         mWords = new HashMap<>();
 
-        System.out.println(String.format(Locale.US, "Parsing %d files for a maximum of %d words, and writing into '%s'.", mInputFiles.size(), mMaxListSize, outputFile));
+        System.out.println(
+                String.format(Locale.US, "Parsing %d files for a maximum of %d words (with max-frequency %d), and writing into '%s'.", mInputFiles.size(), mMaxListSize, maxFrequency, outputFile));
     }
 
     public void parse() throws IOException {
@@ -65,30 +72,28 @@ class Parser {
         List<WordWithCount> sortedList = new ArrayList<>(mWords.values());
         Collections.sort(sortedList);
 
+        if (mMaxListSize < sortedList.size()) {
+            System.out.println("Removing over-the-limit words...");
+            while (mMaxListSize > sortedList.size()) sortedList.remove(mMaxListSize - 1);
+        }
+
+        final double maxFrequencyFactor = sortedList.stream()
+                .max((w1, w2) -> w1.getFreq() - w2.getFreq())
+                .map(WordWithCount::getFreq)
+                .map(currentMaxFreq -> (double) currentMaxFreq)
+                .map(currentMaxFreq -> ((double) mMaxWordFrequency) / currentMaxFreq)
+                .orElseThrow(() -> new IllegalStateException("could not find max-frequency word. No words provided?"));
+        System.out.println(String.format(Locale.US, "Adjusting frequencies with factor %.4f...", maxFrequencyFactor));
+        sortedList = sortedList.stream()
+                .map(word -> new WordWithCount(word.getWord(), 1 + (int) (word.getFreq() * maxFrequencyFactor)))
+                .collect(Collectors.toList());
+
         System.out.println("Creating output XML file...");
 
         try (WordListWriter wordListWriter = new WordListWriter(mOutputFile)) {
             sortedList.forEach(word -> WordListWriter.writeWordWithRuntimeException(wordListWriter, word.getWord(), word.getFreq()));
             System.out.println("Done.");
         }
-    }
-
-//    public static void createXml(List<WordWithCount> sortedList, Writer outputWriter, int maxListSize, boolean takeFrequencyFromWordObject) throws IOException {
-//        final int wordsCount = Math.min(maxListSize, sortedList.size());
-//
-//        XmlWriter writer = new XmlWriter(outputWriter, false, 0, true);
-//        writer.writeEntity("wordlist");
-//        for (int wordIndex = 0; wordIndex < wordsCount; wordIndex++) {
-//            WordWithCount word = sortedList.get(wordIndex);
-//
-//            writer.writeEntity("w").writeAttribute("f", Integer.toString(takeFrequencyFromWordObject? word.getFreq() : calcActualFreq(wordIndex, wordsCount))).writeText(word.getWord()).endEntity();
-//        }
-//        System.out.println("Wrote " + wordsCount + " words.");
-//        writer.endEntity();
-//    }
-
-    private static int calcActualFreq(double wordIndex, double wordsCount) {
-        return Math.min(255, 1 + (int) (255 * (wordsCount - wordIndex) / wordsCount));
     }
 
     private void addWordsFromInputStream(final long inputSize, InputStreamReader input) throws IOException {
@@ -101,7 +106,7 @@ class Parser {
             if ((read % 50000) == 0 || read == inputSize) {
                 System.out.print("." + ((100 * read) / inputSize) + "%.");
             }
-            char currentChar = (char) intChar;
+            char currentChar = fixup(intChar);
             read++;
             switch (state) {
                 case LOOKING_FOR_WORD_START:
@@ -125,6 +130,18 @@ class Parser {
             addWord(word);
         }
         System.out.println("Done.");
+    }
+
+    private char fixup(int intChar) {
+        switch (intChar) {
+            case '’':
+                return '\'';
+            case '”':
+            case '“':
+                return '\"';
+            default:
+                return (char) intChar;
+        }
     }
 
     private void addWord(StringBuilder word) {

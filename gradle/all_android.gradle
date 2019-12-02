@@ -1,12 +1,11 @@
+
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 28
-        versionCode rootProject.ext.versionData.versionCode
-        versionName rootProject.ext.versionData.versionName
     }
 
     lintOptions {
@@ -21,8 +20,15 @@ android {
         }
     }
 
+    aaptOptions {
+        //does not compress any asset
+        noCompress ''
+    }
+
     testOptions.unitTests.includeAndroidResources true
 }
+
+apply from: "$rootDir/gradle/versioning_add_on.gradle"
 
 dependencies {
     repositories {
@@ -35,6 +41,6 @@ dependencies {
         api project(path: ':api')
     }
 
-    testImplementation 'org.robolectric:robolectric:4.2'
+    testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'junit:junit:4.12'
 }

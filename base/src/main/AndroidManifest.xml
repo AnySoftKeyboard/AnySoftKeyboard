@@ -1,2 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.anysoftkeyboard.addon" />
+<manifest xmlns:tools="http://schemas.android.com/tools"
+          package="com.anysoftkeyboard.addon">
+
+    <uses-sdk tools:overrideLibrary="androidx.test,androidx.test.core" />
+</manifest>

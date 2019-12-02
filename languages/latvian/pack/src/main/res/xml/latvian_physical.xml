@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PhysicalTranslation
+	QwertyTranslation="qwertyuiopasdfghjklzxcvbnm">
+
+	<SequenceMapping keySequence="KEYCODE_A,KEYCODE_A" targetChar="ā" />
+	<SequenceMapping keySequence="KEYCODE_C,KEYCODE_C" targetChar="č" />
+	<SequenceMapping keySequence="KEYCODE_E,KEYCODE_E" targetChar="ē" />
+	<SequenceMapping keySequence="KEYCODE_G,KEYCODE_G" targetChar="ģ" />
+	<SequenceMapping keySequence="KEYCODE_I,KEYCODE_I" targetChar="ī" />
+	<SequenceMapping keySequence="KEYCODE_K,KEYCODE_K" targetChar="ķ" />
+	<SequenceMapping keySequence="KEYCODE_L,KEYCODE_L" targetChar="ļ" />
+	<SequenceMapping keySequence="KEYCODE_N,KEYCODE_N" targetChar="ņ" />
+	<SequenceMapping keySequence="KEYCODE_S,KEYCODE_S" targetChar="š" />
+	<SequenceMapping keySequence="KEYCODE_U,KEYCODE_U" targetChar="ū" />
+	<SequenceMapping keySequence="KEYCODE_Z,KEYCODE_Z" targetChar="ž" />
+	<SequenceMapping keySequence="KEYCODE_O,KEYCODE_O" targetChar="ō" />
+	<SequenceMapping keySequence="KEYCODE_R,KEYCODE_R" targetChar="ŗ" />
+</PhysicalTranslation>

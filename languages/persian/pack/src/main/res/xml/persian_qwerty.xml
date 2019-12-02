@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:ask="http://schemas.android.com/apk/res-auto"
+          android:keyWidth="10%p"
+	  >
+	<!-- "android:keyWidth" specify the default width of a key. In this example, 10% of parent (the whole keyboard) -->
+
+    <Row>
+        <!-- Key attributes:
+         "android:codes" : a comma separated unicode values of the keys. If you specify more than one code, then the other codes are accessible via multi-tap.
+         "android:popupCharacters" : characters to show on long-press popup keyboard
+         "android:keyLabel" : the text to show on the key. If this attribute is missing, the first code in "android:codes" will be used.
+         "android:horizontalGap" : gap to add to the left of this key.
+         "android:isModifier" : true/false (default is false) whether this key is a modifier key. Means it will be rendered with a differnt background (shift, delete are example of modifier key)
+         "android:isRepeatable" : true/false (default is false) whether this key repeats printing on long press (like the backspace). Setting this to true will disable the long-press (android:popupCharacters) functionality
+         "android:keyWidth" : specify the width of this key
+         -->
+
+        <Key android:codes="1590" android:keyLabel="ض" android:popupCharacters="&#1777;" ask:hintLabel="۱" android:keyWidth="9.09%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="1589" android:keyLabel="ص" android:popupCharacters="&#1778;" ask:hintLabel="۲" android:keyWidth="9.09%p"/>
+        <Key android:codes="1579" android:keyLabel="ث" android:popupCharacters="&#1779;" ask:hintLabel="۳" android:keyWidth="9.09%p"/>
+        <Key android:codes="1602" android:keyLabel="ق" android:popupCharacters="&#1780;" ask:hintLabel="۴" android:keyWidth="9.09%p"/>
+        <Key android:codes="1601" android:keyLabel="ف" android:popupCharacters="&#1781;" ask:hintLabel="۵" android:keyWidth="9.09%p"/>
+        <Key android:codes="1594" android:keyLabel="غ" android:popupCharacters="&#1782;" ask:hintLabel="۶" android:keyWidth="9.09%p"/>
+        <Key android:codes="1593" android:keyLabel="ع" android:popupCharacters="&#1783;" ask:hintLabel="۷" android:keyWidth="9.09%p"/>
+        <Key android:codes="1607" android:keyLabel="ه" android:popupCharacters="&#1784;" ask:hintLabel="۸" android:keyWidth="9.09%p"/>
+        <Key android:codes="1582" android:keyLabel="خ" android:popupCharacters="&#1785;" ask:hintLabel="۹" android:keyWidth="9.09%p"/>
+        <Key android:codes="1581" android:keyLabel="ح" android:popupCharacters="&#1776;" ask:hintLabel="۰" android:keyWidth="9.09%p"/>
+        <Key android:codes="1580" android:keyLabel="ج" android:popupCharacters="&#1643;" ask:hintLabel="٫" android:keyWidth="9.09%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="1588" android:keyLabel="ش" android:keyWidth="9.09%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="1587" android:keyLabel="س" android:popupCharacters="&#1642;" android:keyWidth="9.09%p"/>
+        <Key android:codes="1740" android:keyLabel="ی" android:popupCharacters="&#1574;&#1610;&#1609;" android:keyWidth="9.09%p"/>
+        <Key android:codes="1576" android:keyLabel="ب" android:keyWidth="9.09%p"/>
+        <Key android:codes="1604" android:keyLabel="ل" android:keyWidth="9.09%p"/>
+        <Key android:codes="1575" android:keyLabel="ا" android:popupCharacters="&#1570;&#1569;&#1571;&#1573;&#1649;" android:keyWidth="9.09%p"/>
+        <Key android:codes="1578" android:keyLabel="ت" android:popupCharacters="&#1577;" android:keyWidth="9.09%p"/>
+        <Key android:codes="1606" android:keyLabel="ن" android:keyWidth="9.09%p"/>
+        <Key android:codes="1605" android:keyLabel="م" android:keyWidth="9.09%p"/>
+        <Key android:codes="1705" android:keyLabel="ک" android:keyWidth="9.09%p"/>
+        <Key android:codes="1711" android:keyLabel="گ" android:popupCharacters="&#1603;" android:keyWidth="9.09%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+    	<Key android:codes="1592" android:keyLabel="ظ" android:keyWidth="9.09%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="1591" android:keyLabel="ط" android:keyWidth="9.09%p"/>
+        <Key android:codes="1688" android:keyLabel="ژ" android:keyWidth="9.09%p"/>
+        <Key android:codes="1586" android:keyLabel="ز" android:keyWidth="9.09%p"/>
+        <Key android:codes="1585" android:keyLabel="ر" android:popupCharacters="&#65020;" android:keyWidth="9.09%p"/>
+        <Key android:codes="1584" android:keyLabel="ذ" android:keyWidth="9.09%p"/>
+        <Key android:codes="1583" android:keyLabel="د" android:keyWidth="9.09%p"/>
+        <Key android:codes="1662" android:keyLabel="پ" android:keyWidth="9.09%p"/>
+        <Key android:codes="1608" android:keyLabel="و" android:popupCharacters="&#1572;" android:keyWidth="9.09%p"/>
+        <Key android:codes="1670" android:keyLabel="چ" android:keyWidth="9.09%p"/>
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:keyWidth="9.1%p" android:isRepeatable="true"/>
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="left"/>
+        <Key android:codes="1548" android:keyLabel="،" android:popupCharacters="&#1563;,;&#1614;&#1616;&#1615;&#1611;&#1613;&#1612;&#1619;&#1618;&#1617;&#1648;&#1622;"/>
+        <Key android:codes="8204" android:keyLabel=".|." android:popupCharacters="&#39;&#34;\u201c\u201e\u201d\u2018\u2019"/>
+        <Key android:codes="32" android:keyWidth="30%p"/>
+        <Key android:codes="1567" android:keyLabel="؟" android:popupCharacters="/@\u0026\u00bf\u00a1&#11822;&#8253;_-?"/>
+        <Key android:codes="46" android:keyLabel="." android:popupCharacters="!:-\u2014_\u00b7\u2026&#171;&#187;"/>
+        <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+    </Row>
+
+</Keyboard>

@@ -9,6 +9,7 @@ dependencies {
 }
 
 def languageName = parent.name
+group "com.anysoftkeyboard.language.${languageName}"
 
 def generateIconsTask = tasks.register('generateLanguagePackIcons') {
     it.group "AnySoftKeyboard"
