@@ -33,6 +33,11 @@
 		index="4" physicalKeyboardMappingResId="@xml/czech_qwerty_physical"
 		defaultDictionaryLocale="cs" />
 
+	<Keyboard nameResId="@string/czech_qwertz_simple_keyboard" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwertz_simple"  landscapeResId="@xml/czech_qwertz_simple"
+		id="a9dbab70-f04b-11e9-aaef-0800200c9a66" description="@string/czech_qwertz_simple_description"
+		index="3" defaultDictionaryLocale="cs" />
+
 	<Keyboard nameResId="@string/czech_qwertz_keyboard_diacritic" iconResId="@drawable/ic_status_czech"
 		layoutResId="@xml/czech_qwertz_diacritic"  landscapeResId="@xml/czech_qwertz_diacritic"
 		id="6480fe40-5e6b-4ea5-80ba-46ef89ca0670" description="@string/czech_keyboard_diacritic_description"

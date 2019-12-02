@@ -1,0 +1,19 @@
+//this should only be applied on the root project
+if (path != rootProject.path) {
+    throw new IllegalStateException("versioning script should only be applied on the root project")
+}
+
+apply plugin: 'net.evendanan.autoversion.simple'
+
+autoVersioning {
+    enabled = rootProject.hasProperty("withAutoVersioning")
+    buildCounterEnvKey = "CIRCLE_BUILD_NUM"
+    major = 4
+    minor = 0
+    buildCounterOffset = 1000
+    patchOffset = -1600
+}
+
+rootProject.afterEvaluate {
+    file('.generated_pack_version').write(autoVersioning.versionData.versionName)
+}

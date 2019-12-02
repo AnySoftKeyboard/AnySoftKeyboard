@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary
+        autoTextResourceId="@xml/persian_autotext"
+        description="@string/persian_dictionary_description"
+        dictionaryResourceId="@array/persian_words_dict_array"
+        id="2cff7c62-0a3b-4077-bcea-a678f3162abe"
+        locale="fa"
+        nameResId="@string/persian_dictionary"
+        type="binary_resource" />
+</Dictionaries>

@@ -26,7 +26,7 @@ include ":languages:klingon:pack", ":languages:klingon:apk"
     * Try to locate AOSP dictionary files (could be found at [AOSP](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/), or [LineageOS](https://github.com/LineageOS/android_packages_inputmethods_LatinIME/tree/lineage-16.0/dictionaries)) (you should use the `XX_wordlist.combined.gz` file).
     * If you have anything that was pre-built into a word-list XML, put those under `klingon/pack/dictionary/prebuilt`.
     * Add text files that will be parsed - word-counted -  to generate word-list XMLs
-1. Generate the dictionary: `./gradlew :languages:kligon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
+1. Generate the dictionary: `./gradlew :languages:klingon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
     * raw resources under `klingon/pack/src/main/res/raw/klingon_words_?.dict`
     * IDs resource array under `klingon/pack/src/main/res/values/klingon_words_dict_array.xml`
 1. Edit `klingon_dictionaries.xml`:
@@ -35,10 +35,10 @@ include ":languages:klingon:pack", ":languages:klingon:apk"
     * replace name and description
     * replace the locale
 1. Set the status-bar icon text at `klingon/pack/build.gradle`: `ext.status_icon_text = "kl"`
-1. Replace the flag at klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
+1. Replace the flag at `klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
 1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
-1. Generate the icons: `./gradlew :languages:kligon:pack:generateLanguagePackIcons :languages:kligon:apk:generateStoreLogoIcon`. This will generate the following files (which _should_ be checked into the repo):
-    * `klingon/pack/src/main/res/drawable-*/ic_status_kligon.png`
+1. Generate the icons: `./gradlew :languages:klingon:pack:generateLanguagePackIcons :languages:klingon:apk:generateStoreLogoIcon`. This will generate the following files (which _should_ be checked into the repo):
+    * `klingon/pack/src/main/res/drawable-*/ic_status_klingon.png`
     * `klingon/apk/src/main/res/mipmap-*/ic_launcher.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/feature-graphic/pack_store_feature_graphics.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/icon/pack_store_icon.png`
@@ -70,20 +70,33 @@ TO DO!!!
 ## Languages in this repo
 
 1. <img src='languages/afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
-1. <img src='languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](languages/armenian2)
+1. <img src='languages/arabic/apk/flag/flag.png' height='16'>&nbsp;Arabic: [Source](languages/arabic) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.arabic)
+1. <img src='languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](languages/armenian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.armenian2)
+1. <img src='languages/basque/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Basque: [Source](languages/basque) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.basque)
 1. <img src='languages/brazilian/apk/flag/flag.png' height='16'>&nbsp;Brazilian: [Source](languages/brazilian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.brazilian)
+1. <img src='languages/bulgarian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Bulgarian: [Source](languages/bulgarian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.bulgarian)
 1. <img src='languages/catalan/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Catalan: [Source](languages/catalan) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.catalan)
+1. <img src='languages/croatian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Croatian: [Source](languages/croatian)
+1. <img src='languages/czech/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Czech: [Source](languages/czech) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.czech)
+1. <img src='languages/danish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Danish: [Source](languages/danish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.danish)
 1. <img src='languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](languages/english)
+1. <img src='languages/finnish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Finnish: [Source](languages/finnish) • [Play Store](https://play.google.com/store/apps/details?id=com.menny.anysoftkeyboard.finnish)
 1. <img src='languages/french/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;French: [Source](languages/french) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.french)
+1. <img src='languages/georgian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Georgian: [Source](languages/georgian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.georgian)
+1. <img src='languages/german/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;German: [Source](languages/german) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.german)
 1. <img src='languages/greek/apk/flag/flag.png' height='16'>&nbsp;Greek: [Source](languages/greek) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.greek)
 1. <img src='languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
 1. <img src='languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
 1. <img src='languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
+1. <img src='languages/latvian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Latvian: [Source](languages/latvian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.latvian)
 1. <img src='languages/lithuanian/apk/flag/flag.svg' height='16'>&nbsp;Lithuanian: [Source](languages/lithuanian) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.lithuanian)
+1. <img src='languages/nias/apk/flag/flag.png' height='16'>&nbsp;Nias: [Source](languages/nias)
 1. <img src='languages/ossturkish/apk/flag/flag.png' height='16'>&nbsp;Ossturkish: [Source](languages/ossturkish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.ossturkish)
+1. <img src='languages/persian/apk/flag/flag.png' height='16'>&nbsp;Persian: [Source](languages/persian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.persian)
 1. <img src='languages/romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
 1. <img src='languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
-1. <img src='languages/sardinian/apk/flag/flag.png' height='16'>&nbsp;Sardinian: [Source](languages/sardinian)
+1. <img src='languages/sardinian/apk/flag/flag.png' height='16'>&nbsp;Sardinian: [Source](languages/sardinian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.sardinian)
+1. <img src='languages/serbian/apk/flag/flag.png' height='16'>&nbsp;Serbian: [Source](languages/serbian)
 1. <img src='languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
 1. <img src='languages/tamazight/apk/flag/flag.png' height='16'>&nbsp;Tamazight: [Source](languages/tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight)
 
@@ -102,4 +115,3 @@ TO DO!!!
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-

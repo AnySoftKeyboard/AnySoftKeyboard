@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 KEYSTORE_FILE_URL=$1
 PUBLISH_CERT_FILE_URL=$2
@@ -24,6 +25,6 @@ wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 
 echo "**** Uploading to Play Store..."
 ./gradlew ${EXTRA_GRADLE_ARGS} clean
-./gradlew ${EXTRA_GRADLE_ARGS} --no-build-cache assembleRelease publishRelease
+./gradlew ${EXTRA_GRADLE_ARGS} --no-build-cache -PwithAutoVersioning assembleRelease publishRelease --continue
 
 

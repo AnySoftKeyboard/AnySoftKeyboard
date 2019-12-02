@@ -1,0 +1,8 @@
+//owner unknown (may have not been published yet)
+ext.shouldBePublished = false
+
+apply from: "$rootDir/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':languages:serbian:pack')
+}
