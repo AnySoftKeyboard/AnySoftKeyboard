@@ -104,8 +104,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         return extracted.startOffset + extracted.selectionStart;
     }
 
-    private static boolean isBackWordDeleteChar(int c) {
-        return Character.isLetter(c);
+    private static boolean isBackWordDeleteCodePoint(int c) {
+        return Character.isLetterOrDigit(c);
     }
 
     @Override
@@ -859,7 +859,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // Delete all the characters till a complete word was deleted:
         /*
          * What to do: We delete until we find a separator (the function
-         * isBackWordStopChar). Note that we MUST delete a delete a whole word!
+         * isBackWordDeleteCodePoint). Note that we MUST delete a delete a whole word!
          * So if the back-word starts at separators, we'll delete those, and then
          * the word before: "test this,       ," -> "test "
          */
@@ -874,7 +874,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // delete at least one character.
         /*
          * What to do: We delete until we find a separator (the function
-         * isBackWordStopChar). Note that we MUST delete a delete at least one
+         * isBackWordDeleteCodePoint). Note that we MUST delete a delete at least one
          * character "test this, " -> "test this," -> "test this" -> "test "
          */
         // Pro: Supports auto-caps, and mostly similar to desktop OSes
@@ -885,13 +885,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // 2b) "test this, " -> "test this"
 
         final int inputLength = cs.length();
-        int idx =
-                inputLength
-                        - 1; // it's OK since we checked whether cs is empty after retrieving it.
-        if (isBackWordDeleteChar((int) cs.charAt(idx))) {
-            while (idx > 0 && isBackWordDeleteChar((int) cs.charAt(idx - 1))) {
-                idx--;
-            }
+        int idx = inputLength;
+        int lastCodePoint = Character.codePointBefore(cs, idx);
+        // This while-loop isn't guaranteed to run even once...
+        while (isBackWordDeleteCodePoint(lastCodePoint)) {
+            idx -= Character.charCount(lastCodePoint);
+            if (idx == 0) break;
+            lastCodePoint = Character.codePointBefore(cs, idx);
+        }
+        // but we're supposed to delete at least one Unicode codepoint.
+        if (idx == inputLength) {
+            idx -= Character.charCount(lastCodePoint);
         }
         ic.deleteSurroundingText(inputLength - idx, 0); // it is always > 0 !
     }
