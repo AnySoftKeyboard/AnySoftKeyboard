@@ -9,7 +9,7 @@
         <Key android:codes="49" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>
         <Key android:codes="51" android:keyIcon="@drawable/sym_keyboard_num3"/>
-        <Key android:codes="32"/>
+        <Key android:codes="@integer/key_code_space"/>
     </Row>
     <Row>
         <Key android:codes="52" android:keyIcon="@drawable/sym_keyboard_num4" android:keyEdgeFlags="left"/>
@@ -22,13 +22,13 @@
         <Key android:codes="55" android:keyIcon="@drawable/sym_keyboard_num7" android:keyEdgeFlags="left"/>
         <Key android:codes="56" android:keyIcon="@drawable/sym_keyboard_num8"/>
         <Key android:codes="57" android:keyIcon="@drawable/sym_keyboard_num9"/>
-        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_delete" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="42" android:keyLabel="*" android:popupCharacters=",;N" android:keyEdgeFlags="left"/>
         <Key android:codes="48" android:keyIcon="@drawable/sym_keyboard_num0" ask:longPressCode="43"/>
         <Key android:codes="35" android:popupCharacters=",;N"/>
-        <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
+        <Key android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="@integer/key_code_settings"/>
     </Row>
 </Keyboard>

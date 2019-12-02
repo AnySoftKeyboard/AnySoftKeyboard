@@ -4,7 +4,7 @@
     <Row android:rowEdgeFlags="top" android:keyWidth="10%p" android:keyHeight="@integer/key_short_height">
         <Key android:keyWidth="15%p" android:codes="@integer/key_code_ctrl" android:isModifier="true" android:keyEdgeFlags="left"/>
 
-        <Key android:codes="9"/>
+        <Key android:codes="@integer/key_code_tab"/>
 
         <Key android:codes="124" android:keyLabel="|"/>
         <Key android:codes="47" android:keyLabel="/" />
@@ -14,6 +14,6 @@
         <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
         <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true"/>
 
-        <Key android:keyWidth="15%p" android:codes="27" android:keyLabel="ESC" android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="15%p" android:codes="@integer/key_code_esc" android:keyLabel="ESC" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
