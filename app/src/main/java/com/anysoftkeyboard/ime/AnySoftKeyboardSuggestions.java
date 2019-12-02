@@ -49,7 +49,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
 
-    private static final long NEVER_TIME_STAMP = -1L * 365L * 24L * 60L * 60L * 1000L; // a year ago.
+    private static final long NEVER_TIME_STAMP =
+            -1L * 365L * 24L * 60L * 60L * 1000L; // a year ago.
 
     private static final int UNDO_COMMIT_NONE = -1;
     private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
