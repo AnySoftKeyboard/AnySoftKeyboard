@@ -89,6 +89,7 @@ TO DO!!!
 1. <img src='languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
 1. <img src='languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
 1. <img src='languages/latvian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Latvian: [Source](languages/latvian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.latvian)
+1. <img src='languages/lithuanian/apk/flag/flag.svg' height='16'>&nbsp;Lithuanian: [Source](languages/lithuanian) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.lithuanian)
 1. <img src='languages/nias/apk/flag/flag.png' height='16'>&nbsp;Nias: [Source](languages/nias)
 1. <img src='languages/ossturkish/apk/flag/flag.png' height='16'>&nbsp;Ossturkish: [Source](languages/ossturkish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.ossturkish)
 1. <img src='languages/persian/apk/flag/flag.png' height='16'>&nbsp;Persian: [Source](languages/persian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.persian)

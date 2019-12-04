@@ -1,0 +1,9 @@
+ext.shouldBePublished = true
+ext.override_app_id = 'org.herrlado.ask.languagepack.lithuanian'
+ext.override_release_key_alias = 'lithuanian'
+
+apply from: "$rootDir/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':languages:lithuanian:pack')
+}
