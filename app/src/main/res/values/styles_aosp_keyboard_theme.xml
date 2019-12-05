@@ -46,6 +46,7 @@
         <item name="keyBackground">@drawable/aosp_dark_btn_popup_key</item>
         <item name="keyTextStyle">normal</item>
         <item name="shadowRadius">0px</item>
+        <item name="keyTextColor">#AAA</item>
     </style>
 
     <style name="AospDarkKeyIconTheme"
@@ -57,11 +58,11 @@
         <item name="android:background">@color/aosp_light_background</item>
         <item name="keyBackground">@drawable/aosp_light_btn_key</item>
         <item name="keyPreviewBackground">@drawable/aosp_light_popup_background</item>
-        <item name="keyPreviewTextColor">#111</item>
         <item name="suggestionBackgroundImage">@color/aosp_light_suggestions_background</item>
 
-        <item name="keyboardNameTextColor">#F666</item>
         <item name="keyTextColor">#111</item>
+        <item name="keyPreviewTextColor">#111</item>
+        <item name="keyboardNameTextColor">#F666</item>
     </style>
 
     <style name="AospLightPopup"
@@ -70,6 +71,7 @@
         <item name="keyBackground">@drawable/aosp_light_btn_popup_key</item>
         <item name="keyTextStyle">normal</item>
         <item name="shadowRadius">0px</item>
+        <item name="keyTextColor">#111</item>
     </style>
 
     <style name="AospLightKeyIconTheme"
