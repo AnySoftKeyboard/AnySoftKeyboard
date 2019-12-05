@@ -498,6 +498,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     // 1) predicting and moved inside the word - just update the
                     // cursor position and shift state
                     // inside the currently selected word
+                    if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
+                        TextEntryState.inWord();
+                    }
                     int cursorPosition = newSelEnd - candidatesStart;
                     if (mWord.setCursorPosition(cursorPosition)) {
                         Logger.d(
