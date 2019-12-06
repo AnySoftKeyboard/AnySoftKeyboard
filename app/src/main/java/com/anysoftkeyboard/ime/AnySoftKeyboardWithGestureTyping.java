@@ -418,6 +418,25 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 mWord.simulateTypedWord(word);
 
                 mWord.setPreferredWord(mWord.getTypedWord());
+                // If there's any non-separator before the cursor, add a space:
+                // TODO: Improve the detection of mid-word separations (not hardcode a hyphen and an
+                // apostrophe),
+                // and disable this check on URL tex fields.
+                CharSequence toLeft = ic.getTextBeforeCursor(MAX_CHARS_PER_CODEPOINT, 0);
+                if (toLeft.length() == 0) {
+                    Logger.v(TAG, "Beginning of text found, not adding a space.");
+                } else {
+                    int lastCodePoint = Character.codePointBefore(toLeft, toLeft.length());
+                    if (Character.isWhitespace(lastCodePoint)
+                            || lastCodePoint == (int) '\''
+                            || lastCodePoint == (int) '-') {
+                        Logger.v(TAG, "Separator found, not adding a space.");
+                    } else {
+                        ic.commitText(new String(new int[] {KeyCodes.SPACE}, 0, 1), 1);
+                        TextEntryState.typedCharacter(KeyCodes.SPACE, true);
+                        Logger.v(TAG, "Non-separator found, adding a space.");
+                    }
+                }
                 ic.setComposingText(mWord.getTypedWord(), 1);
 
                 TextEntryState.performedGesture();
