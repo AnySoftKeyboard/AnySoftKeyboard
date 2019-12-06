@@ -164,6 +164,11 @@ public class TextEntryState {
         displayState();
     }
 
+    public static void inWord() {
+        sState = State.IN_WORD;
+        displayState();
+    }
+
     public static void acceptedSuggestionAddedToDictionary() {
         if (BuildConfig.TESTING_BUILD && sState != State.PICKED_SUGGESTION) {
             Logger.wtf(

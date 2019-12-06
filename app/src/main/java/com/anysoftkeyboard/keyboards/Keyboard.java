@@ -450,7 +450,7 @@ public abstract class Keyboard {
             if (resourceMapping.getApiVersion() < 8
                     && mCodes.length == 0
                     && !TextUtils.isEmpty(label)) {
-                mCodes = new int[] {label.charAt(0)};
+                mCodes = new int[] {Character.codePointAt(label, 0)};
             }
             a.recycle();
 
