@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class GestureTypingDetector {
-    private static final String TAG = "GestureTypingDetector";
+    private static final String TAG = "ASKGestureTypingDetector";
 
     private static final double CURVATURE_THRESHOLD = Math.toRadians(170);
     // How many points away from the current point do we use when calculating hasEnoughCurvature?
