@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class GestureTypingDetector {
-    private static final String TAG = "GestureTypingDetector";
+    private static final String TAG = "ASKGestureTypingDetector";
 
     private static final double CURVATURE_THRESHOLD = Math.toRadians(170);
     // How many points away from the current point do we use when calculating hasEnoughCurvature?
@@ -345,6 +345,16 @@ public class GestureTypingDetector {
 
     private static double calculateDistanceBetweenUserPathAndWord(
             int[] actualUserPath, int[] generatedWordPath) {
+        // Debugging is still needed, but at least ASK won't crash this way
+        if (actualUserPath.length < 2 || generatedWordPath.length == 0) {
+            Logger.w(
+                    TAG,
+                    "calculateDistanceBetweenUserPathAndWord: actualUserPath = \"%s\", generatedWordPath = \"%s\"",
+                    actualUserPath,
+                    generatedWordPath);
+            Logger.w(TAG, "Some strings are too short; will return maximum distance.");
+            return Double.MAX_VALUE;
+        }
         if (generatedWordPath.length > actualUserPath.length) return Double.MAX_VALUE;
 
         double cumulativeDistance = 0;

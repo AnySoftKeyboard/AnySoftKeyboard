@@ -1,12 +1,20 @@
 #! /bin/bash
 
-if (( $# != 1 )); then
-    echo "Syntax: adb.sh [E|W|I|D|V]
+# Default flags
+clearlogcat=0;
+if [ "$1" == "-c" ]; then
+    clearlogcat=1
+    shift
+fi
+if [ $# != 1 ]; then
+    echo "Syntax: adb.sh [-c] {E|W|I|D|V}
 
-    adb.sh outputs a logcat and filters out lines not related with this project.
+    adb.sh outputs the logcat to standard output and filters out lines not related with this project.
     \`dalvikvm\`, \`System.err\` and \`AndroidRuntime\` are included, as those are used to debug fatal crashes.
 
-    The only argument is the initial of your log priority. (Error/Warning/Info/Debug/Verbose)"
+    The only argument is the initial of your log priority. (Error/Warning/Info/Debug/Verbose)
+
+    You can optionally add the \`-c\` flag to clear the logcat prior to printing new logcat lines."
 else
     # These variables are just to higlight text:
     color="\033[0;36m"
@@ -14,6 +22,10 @@ else
     error="\033[0;31m"
     # Retrieving current working path
     oldpath="$(pwd)"
+    if [ $clearlogcat == 1 ]; then
+        echo -e "${color}Clearing${nocolor} last entries…"
+        adb logcat -c
+    fi
     echo -e "${color}Searching${nocolor} for tags in source code…"
     # cd project_root_folder
     # This will traverse from current folder to its parent folderwork until it finds a .git folder:

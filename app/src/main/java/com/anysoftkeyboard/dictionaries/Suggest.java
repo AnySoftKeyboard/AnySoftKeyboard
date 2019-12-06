@@ -250,7 +250,7 @@ public class Suggest {
                 }
             }
         } else {
-            Logger.d(TAG, "getNextSuggestions for '%s' is invalid.");
+            Logger.d(TAG, "getNextSuggestions for '%s' is invalid.", previousWord);
         }
         return mNextSuggestions;
     }
