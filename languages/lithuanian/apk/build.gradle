@@ -1,6 +1,6 @@
 ext.shouldBePublished = true
 ext.override_app_id = 'org.herrlado.ask.languagepack.lithuanian'
-ext.override_release_key_alias = 'lithuanian'
+ext.override_release_key_alias = 'czech' //ownership taken from the same owner for czech
 
 apply from: "$rootDir/gradle/pack_apk.gradle"
 
