@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+width="3000" height="2000" viewBox="-1500 -1000 3000 2000" stroke-width="4500">
+<path stroke="#278E43" d="m0,0v1000"/>
+<path stroke="#ED2024" d="m0,0v-1000"/>
+<path stroke="#FFF" d="m0-333V333"/>
+<g id="d" fill="#FEBD11"><g id="c"><g id="b">
+<path id="a" d="m-73.5,16 73.6-516 73.6,516"/>
+<use xlink:href="#a" transform="rotate(17.143)"/></g>
+<use xlink:href="#b" transform="rotate(34.286)"/></g>
+<use xlink:href="#c" transform="rotate(68.57)"/></g>
+<use xlink:href="#d" transform="rotate(120)"/>
+<use xlink:href="#d" transform="rotate(240)"/>
+</svg>
