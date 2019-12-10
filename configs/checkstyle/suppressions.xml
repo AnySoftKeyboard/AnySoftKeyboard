@@ -29,4 +29,6 @@
     <suppress files="GeneralDialogControllerTest\.java" id="UsingNativeDialog" />
     <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
     <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
+
+    <suppress files="simple_phone\.xml" id="DoNotUseAndroidKeyIcon" />
 </suppressions>
