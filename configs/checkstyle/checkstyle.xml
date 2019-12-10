@@ -12,6 +12,13 @@
 
     <property name="severity" value="error" />
 
+    <module name="RegexpSingleline">
+        <property name="id" value="DoNotUseAndroidKeyIcon" />
+        <property name="format" value="android:keyIcon" />
+        <property name="fileExtensions" value="xml" />
+        <property name="message" value="Do not use this. Use only official icons." />
+    </module>
+
     <module name="TreeWalker">
         <module name="SuppressWarningsHolder" />
 
