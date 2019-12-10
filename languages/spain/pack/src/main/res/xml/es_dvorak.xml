@@ -20,7 +20,7 @@
         <Key android:codes="111" android:popupCharacters="óòöõôǒōőøœoº"/>
         <Key android:codes="101" android:popupCharacters="éèëêęėēẽẻε€"/>
         <Key android:codes="117" android:popupCharacters="úùüûŭűūųṷůθ"/>
-        <Key android:codes="105" android:popupCharacters="íìïîīĩīǐįî̇ïɨι"/>
+        <Key android:codes="105" android:popupCharacters="íìïîīǐįïɨι"/>
         <Key android:codes="100"/>
         <Key android:codes="114"/>
         <Key android:codes="116"/>

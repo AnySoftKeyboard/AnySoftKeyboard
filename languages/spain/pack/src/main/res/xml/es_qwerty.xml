@@ -10,7 +10,7 @@
         <Key android:codes="116" android:popupCharacters="5țťţτ"/>
         <Key android:codes="121" android:popupCharacters="6ýÿυ"/>
         <Key android:codes="117" android:popupCharacters="7úùüûŭűūųṷůθ"/>
-        <Key android:codes="105" android:popupCharacters="8íìïîīĩīǐįî̇ïɨι"/>
+        <Key android:codes="105" android:popupCharacters="8íìïîīǐįïɨι"/>
         <Key android:codes="111" android:popupCharacters="9óòöõôǒōőøœoº"/>
         <Key android:codes="112" android:popupCharacters="0π" android:keyEdgeFlags="right"/>
     </Row>
