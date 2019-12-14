@@ -4,15 +4,9 @@
         autoTextResourceId="@xml/kachin_autotext"
         description="@string/kachin_dictionary_description"
         dictionaryResourceId="@array/kachin_words_dict_array"
-<<<<<<< HEAD
-        id="c6b3ab9e-1e2c-11ea-80a6-9f5255f4a74b"
-        initialSuggestions="@array/kachin_initial_suggestions"
-        locale="en"
-=======
         id="d0e086b1-5380-4dee-854c-4046c7e6a20d"
         initialSuggestions="@array/kachin_initial_suggestions"
         locale="kac"
->>>>>>> 727612af3f752eb15e11f312eaa3a9c9c6143c8d
         nameResId="@string/kachin_dictionary"
         type="binary_resource" />
 </Dictionaries>
