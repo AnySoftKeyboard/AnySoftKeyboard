@@ -1,5 +1,6 @@
 <resources>
     <string name="kachin_dictionary_description">Kachin</string>
+<<<<<<< HEAD
     <string name="kachin_keyboard_description">QWERTY kachin Latin keyboard</string>
     <string name="kachin_keyboard_symbols_description">QWERTY kachin Latin keyboard with symbols (on long press)</string>
     <string name="dvorak_keyboard_description">Dvorak kachin layout. Created with Stephen Paul Weber</string>
@@ -8,6 +9,16 @@
     <string name="compact_keyboard_16keys_description">16 keys Kachin layout</string>
     <string name="terminal_keyboard_description">Created with bittrance - kac </string>
     <string name="colemak_keyboard_description">Colemak layout. Created with Hugo Lopes - kac </string>
+=======
+    <string name="kachin_keyboard_description">QWERTY Latin keyboard</string>
+    <string name="kachin_keyboard_symbols_description">QWERTY Latin keyboard with symbols (on long press)</string>
+    <string name="dvorak_keyboard_description">Dvorak layout. Created with Stephen Paul Weber</string>
+    <string name="compact_keyboard_description">Compact in portrait</string>
+    <string name="compact_dvorak_keyboard_description">Compact Dvorak in portrait</string>
+    <string name="compact_keyboard_16keys_description">16 keys kachin layout</string>
+    <string name="terminal_keyboard_description">Created with bittrance</string>
+    <string name="colemak_keyboard_description">Colemak layout. Created with Hugo Lopes</string>
+>>>>>>> 727612af3f752eb15e11f312eaa3a9c9c6143c8d
     <string name="workman_keyboard_description">Layout by OJ Bucao</string>
     <string name="halmak_keyboard_description">Nikolay Nemshilov\'s Halmak layout, implemented by Zorkedon</string>
 </resources>
