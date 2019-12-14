@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary
+        autoTextResourceId="@xml/kachin_autotext"
+        description="@string/kachin_dictionary_description"
+        dictionaryResourceId="@array/kachin_words_dict_array"
+        id="c6b3ab9e-1e2c-11ea-80a6-9f5255f4a74b"
+        initialSuggestions="@array/kachin_initial_suggestions"
+        locale="en"
+        nameResId="@string/kachin_dictionary"
+        type="binary_resource" />
+</Dictionaries>
