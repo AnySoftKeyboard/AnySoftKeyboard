@@ -7,10 +7,6 @@ apply from: "$rootDir/gradle/language_pack_lib.gradle"
 apply from: "$rootDir/gradle/publish_maven.gradle"
 
 publish {
-<<<<<<< HEAD
     artifactId = 'Kachin'
-=======
-    artifactId = 'kachin'
->>>>>>> 727612af3f752eb15e11f312eaa3a9c9c6143c8d
     desc = "Kachin pack for AnySoftKeyboard"
 }
