@@ -6,14 +6,14 @@
     <string name="kachin_dictionary">Kachin</string>
     <string name="kachin_keyboard">Kachin</string>
     <string name="kachin_keyboard_symbols">Kachin</string>
-    <string name="dvorak_keyboard">Dvorak KAC</string>
+    <string name="dvorak_keyboard">KAC Dvorak</string>
     <string name="compact_keyboard">KAC Compact</string>
-    <string name="compact_dvorak_keyboard">Dv Compact KAC</string>
+    <string name="compact_dvorak_keyboard">KAC Dv Compact</string>
     <string name="compact_keyboard_16keys">KAC Keypad</string>
-    <string name="terminal_keyboard">Terminal KAC</string>
-    <string name="colemak_keyboard">Colemaki KAC</string>
-    <string name="workman_keyboard">Workman KAC</string>
-    <string name="halmak_keyboard">Halmak KAC</string>
+    <string name="terminal_keyboard">KAC Terminal</string>
+    <string name="colemak_keyboard">KAC Colemaki</string>
+    <string name="workman_keyboard">KAC Workman</string>
+    <string name="halmak_keyboard">KAC Halmak</string>
     <string name="main_kachin_keyboard_id">593cacfe-1e28-11ea-9564-473ea430eb5a</string>
     <string-array name="kachin_initial_suggestions">
         <item>!</item>
