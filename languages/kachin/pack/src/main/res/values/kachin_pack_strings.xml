@@ -1,11 +1,11 @@
 <resources>
     <string name="kachin_dictionary_description">Kachin</string>
-    <string name="kachin_keyboard_description">QWERTY KAC Latin keyboard</string>
-    <string name="kachin_keyboard_symbols_description">QWERTY KAC Latin keyboard with symbols (on long press)</string>
-    <string name="dvorak_keyboard_description">Dvorak kachin layout. Created with Stephen Paul Weber</string>
-    <string name="compact_keyboard_description">KAC Compact in portraiti</string>
+    <string name="kachin_keyboard_description">QWERTY Kachin Latin keyboard</string>
+    <string name="kachin_keyboard_symbols_description">QWERTY Kachin Latin keyboard with symbols (on long press)</string>
+    <string name="dvorak_keyboard_description">KAC Dvorak layout. Created with Stephen Paul Weber</string>
+    <string name="compact_keyboard_description">KAC Compact in portrait</string>
     <string name="compact_dvorak_keyboard_description">KAC Compact Dvorak in portrait</string>
-    <string name="compact_keyboard_16keys_description">16 keys KAC layout</string>
+    <string name="compact_keyboard_16keys_description">KAC 16 keys layout</string>
     <string name="terminal_keyboard_description">KAC Created with bittrance</string>
     <string name="colemak_keyboard_description">KAC Colemak layout. Created with Hugo Lopes</string>
     <string name="workman_keyboard_description">KAC Layout by OJ Bucao</string>
