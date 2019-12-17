@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyWidth="15%p"
+          android:keyHeight="@integer/key_normal_height">
+    <Row android:rowEdgeFlags="top">
+        <!-- 4ĝ -->
+        <Key android:codes="52" android:keyEdgeFlags="left"/>
+        <Key android:codes="285"/>
+    </Row>
+    <Row>
+        <!-- ĥ -->
+        <Key android:codes="293" android:keyEdgeFlags="left"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <!-- ìíîïī -->
+        <Key android:codes="236" android:keyEdgeFlags="left"/>
+        <Key android:codes="237"/>
+        <Key android:codes="238"/>
+        <Key android:codes="239"/>
+        <Key android:codes="299" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

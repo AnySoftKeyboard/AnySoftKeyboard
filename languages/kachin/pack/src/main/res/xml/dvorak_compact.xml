@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="20%p">
+
+    <!-- Left hand of the Dvorak layout. Primaries: home-row, secondaries: bottom-row -->
+    <Row>
+        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
+        <Key android:codes="111,113" android:keyLabel="oq"/>
+        <Key android:codes="101,106" android:keyLabel="ej"/>
+        <Key android:codes="117,107" android:keyLabel="uk"/>
+        <Key android:codes="105,120" android:keyLabel="ix" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <!-- Right hand of the Dvorak layout. Primaries: home-row, secondaries: bottom-row -->
+    <Row>
+        <Key android:codes="100,98" android:keyLabel="db" android:keyEdgeFlags="left"/>
+        <Key android:codes="104,109" android:keyLabel="hm"/>
+        <Key android:codes="116,119" android:keyLabel="tw"/>
+        <Key android:codes="110,118" android:keyLabel="nv"/>
+        <Key android:codes="115,122" android:keyLabel="sz" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <!-- Top-row of the Dvorak layout. -->
+    <Row>
+        <Key android:keyWidth="15%p" android:codes="-1"
+             android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:horizontalGap="5%p"
+             android:keyWidth="15%p" android:codes="112,121" android:keyLabel="py"/>
+        <Key android:keyWidth="15%p" android:codes="102,103" android:keyLabel="fg"/>
+        <Key android:keyWidth="15%p" android:codes="99,114" android:keyLabel="cr"/>
+        <Key android:keyWidth="15%p" android:codes="108" android:keyLabel="l"/>
+        <Key android:horizontalGap="5%p"
+             android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>
