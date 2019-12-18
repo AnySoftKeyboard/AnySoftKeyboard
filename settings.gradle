@@ -36,6 +36,7 @@ include ':languages:latvian:pack', ':languages:latvian:apk'
 include ':languages:kurdish:pack', ':languages:kurdish:apk'
 include ':languages:hungarian:pack', ':languages:hungarian:apk'
 include ':languages:kachin:pack', ':languages:kachin:apk'
+include ':languages:dutch:pack', ':languages:dutch:apk'
 
 
 
