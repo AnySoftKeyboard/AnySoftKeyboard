@@ -15,6 +15,18 @@
         android:summary="@string/bottom_generic_row_summary"
         android:title="@string/bottom_generic_row_group" />
 
+    <EditTextPreference
+        android:autoText="false"
+        android:defaultValue="@string/settings_key_popup_characters_order_default"
+        android:dialogTitle="@string/popup_characters_order_title"
+        android:summary="@string/popup_characters_order_summary"
+        android:inputType="textCapCharacters"
+        android:key="@string/settings_key_popup_characters_order"
+        android:lines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="@string/popup_characters_order_title" />
+
     <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_allow_layouts_to_provide_generic_rows"
         android:key="@string/settings_key_allow_layouts_to_provide_generic_rows"

@@ -34,6 +34,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.R;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -66,9 +67,14 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
     private final Set<Integer> mAdditionalIsLetterExceptions;
     private final char[] mSentenceSeparators;
+    private String mPopupCharactersOrder;
     private static final int EXPECTED_CAPACITY_SYMBOLS = 4;
     private static final int EXPECTED_CAPACITY_LETTERS = 16;
     private static final int EXPECTED_CAPACITY_NUMBERS = 4;
+    private final char ADD_LANGUAGE_SPECIFIC_LETTERS = 'L';
+    private final char ADD_LANGUAGE_NUMBERS = 'N';
+    private final char ADD_LANGUAGE_SYMBOLS = 'S';
+    private final char ADD_LANGUAGE_DEFAULT_LETTERS = 'O';
 
     private KeyboardExtension mExtensionLayout;
 
@@ -121,6 +127,14 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         mIconId = iconResId;
         mDefaultDictionary = defaultDictionary;
         mLocale = LocaleTools.getLocaleForLocaleString(mDefaultDictionary);
+        mPopupCharactersOrder =
+                AnyApplication.prefs(askContext)
+                        .getString(
+                                R.string.settings_key_popup_characters_order,
+                                R.string.settings_key_popup_characters_order_default)
+                        .get()
+                        .toUpperCase();
+        Logger.v(TAG, "Popup characters order preference: %s", mPopupCharactersOrder);
         mExtensionLayout = extKbd;
 
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
@@ -439,83 +453,83 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
          * ΑΒΨΔΕΦΓΗΙΞΚΛΜΝΟΠ;ΡΣΤΘΩΣΧΥΖ GREEK LAYOUT
          * αβχδεφγηι κλμνοπθρστυ ωχψζ Magicplot
          * ΑΒΧΔΕΦΓΗΙ ΚΛΜΝΟΠΘΡΣΤΥ ΩΧΨΖ MAGICPLOT */
-        CharSequence defaultCharacters = "";
+        CharSequence defaultLetters = "";
         if (key.mCodes.length > 0) {
             switch (key.getPrimaryCode()) {
                 case 'a':
-                    defaultCharacters = "àáâãāäåæąăαª";
+                    defaultLetters = "àáâãāäåæąăαª";
                     break;
                 case 'b':
-                    defaultCharacters = "β";
+                    defaultLetters = "β";
                     break;
                 case 'c':
-                    defaultCharacters = "çćĉčψ";
+                    defaultLetters = "çćĉčψ";
                     break;
                 case 'd':
-                    defaultCharacters = "đďδ";
+                    defaultLetters = "đďδ";
                     break;
                 case 'e':
-                    defaultCharacters = "èéêëęėěēẽẻε€";
+                    defaultLetters = "èéêëęėěēẽẻε€";
                     break;
                 case 'f':
-                    defaultCharacters = "φ";
+                    defaultLetters = "φ";
                     break;
                 case 'g':
-                    defaultCharacters = "ĝğγ";
+                    defaultLetters = "ĝğγ";
                     break;
                 case 'h':
-                    defaultCharacters = "ĥη";
+                    defaultLetters = "ĥη";
                     break;
                 case 'i':
-                    defaultCharacters = "ìíîïīǐįıɨι";
+                    defaultLetters = "ìíîïīǐįıɨι";
                     break;
                 case 'j':
-                    defaultCharacters = "ĵξ";
+                    defaultLetters = "ĵξ";
                     break;
                 case 'k':
-                    defaultCharacters = "κ";
+                    defaultLetters = "κ";
                     break;
                 case 'l':
-                    defaultCharacters = "ľĺłλ";
+                    defaultLetters = "ľĺłλ";
                     break;
                 case 'm':
-                    defaultCharacters = "μ";
+                    defaultLetters = "μ";
                     break;
                 case 'n':
-                    defaultCharacters = "ñńν";
+                    defaultLetters = "ñńν";
                     break;
                 case 'o':
-                    defaultCharacters = "òóôǒōõöőøœoº";
+                    defaultLetters = "òóôǒōõöőøœoº";
                     break;
                 case 'p':
-                    defaultCharacters = "π";
+                    defaultLetters = "π";
                     break;
                 case 'r':
-                    defaultCharacters = "řŕρ";
+                    defaultLetters = "řŕρ";
                     break;
                 case 's':
-                    defaultCharacters = "ßśŝšș§σ";
+                    defaultLetters = "ßśŝšș§σ";
                     break;
                 case 't':
-                    defaultCharacters = "țťţτ";
+                    defaultLetters = "țťţτ";
                     break;
                 case 'u':
-                    defaultCharacters = "ùúǔûüŭűūųůṷθ";
+                    defaultLetters = "ùúǔûüŭűūųůṷθ";
                     break;
                 case 'v':
-                    defaultCharacters = "ω";
+                    defaultLetters = "ω";
                     break;
                 case 'w':
-                    defaultCharacters = "ŵς";
+                    defaultLetters = "ŵς";
                     break;
                 case 'x':
-                    defaultCharacters = "χ";
+                    defaultLetters = "χ";
                     break;
                 case 'y':
-                    defaultCharacters = "ýÿυ";
+                    defaultLetters = "ýÿυ";
                     break;
                 case 'z':
-                    defaultCharacters = "żžźζ";
+                    defaultLetters = "żžźζ";
                     break;
             }
             StringBuilder languageSpecificLetters = new StringBuilder(EXPECTED_CAPACITY_LETTERS);
@@ -535,14 +549,49 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     index += Character.charCount(codePoint);
                 }
             }
-            // using a fixed, weird order as proof of concept:
-            final CharSequence allTheSymbols = symbols.append(languageSpecificLetters).append(numbers).append(defaultCharacters);
-            // removing repeated characters (remembering that some Unicode characters can fill up two Java chars)
-            HashSet<Integer> popupKeyCodes = new HashSet<>(EXPECTED_CAPACITY_LETTERS + EXPECTED_CAPACITY_NUMBERS + EXPECTED_CAPACITY_SYMBOLS);
-            StringBuilder popupCharactersBuilder = new StringBuilder(EXPECTED_CAPACITY_LETTERS + EXPECTED_CAPACITY_NUMBERS + EXPECTED_CAPACITY_SYMBOLS);
+            final StringBuilder requestedSymbols =
+                    new StringBuilder(
+                            EXPECTED_CAPACITY_LETTERS
+                                    + EXPECTED_CAPACITY_NUMBERS
+                                    + EXPECTED_CAPACITY_SYMBOLS);
+            for (int index = 0; index < mPopupCharactersOrder.length(); index++) {
+                switch (mPopupCharactersOrder.charAt(index)) {
+                    case ADD_LANGUAGE_SPECIFIC_LETTERS:
+                        requestedSymbols.append(languageSpecificLetters);
+                        break;
+                    case ADD_LANGUAGE_NUMBERS:
+                        requestedSymbols.append(numbers);
+                        break;
+                    case ADD_LANGUAGE_SYMBOLS:
+                        requestedSymbols.append(symbols);
+                        break;
+                    case ADD_LANGUAGE_DEFAULT_LETTERS:
+                        requestedSymbols.append(defaultLetters);
+                        break;
+                    default:
+                        Logger.d(
+                                TAG,
+                                "Unrecognized tag at position %d in mPopupCharactersOrder (%s); discarding.",
+                                index,
+                                mPopupCharactersOrder);
+                        break;
+                }
+            }
+            // removing repeated characters (remembering that some Unicode characters can fill up
+            // two Java chars)
+            HashSet<Integer> popupKeyCodes =
+                    new HashSet<>(
+                            EXPECTED_CAPACITY_LETTERS
+                                    + EXPECTED_CAPACITY_NUMBERS
+                                    + EXPECTED_CAPACITY_SYMBOLS);
+            final StringBuilder popupCharactersBuilder =
+                    new StringBuilder(
+                            EXPECTED_CAPACITY_LETTERS
+                                    + EXPECTED_CAPACITY_NUMBERS
+                                    + EXPECTED_CAPACITY_SYMBOLS);
             int index = 0;
-            while (index < allTheSymbols.length()) {
-                final int codePoint = Character.codePointAt(allTheSymbols, index);
+            while (index < requestedSymbols.length()) {
+                final int codePoint = Character.codePointAt(requestedSymbols, index);
                 if (popupKeyCodes.add(codePoint)) {
                     popupCharactersBuilder.append(Character.toChars(codePoint));
                 }
