@@ -558,7 +558,8 @@ public abstract class AnyKeyboard extends Keyboard {
 
     public boolean isInnerWordLetter(char keyValue) {
         return Character.isLetter(keyValue)
-                || (keyValue == BTreeDictionary.QUOTE || keyValue == BTreeDictionary.CURLY_QUOTE);
+                || (keyValue == BTreeDictionary.QUOTE || keyValue == BTreeDictionary.CURLY_QUOTE)
+                || (Character.getType(keyValue) == 6 || Character.getType(keyValue) == 8);
     }
 
     public abstract char[] getSentenceSeparators();
