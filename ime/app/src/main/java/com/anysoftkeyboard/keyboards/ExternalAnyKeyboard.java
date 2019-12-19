@@ -535,79 +535,80 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     defaultLetters = "";
                     break;
             }
-            StringBuilder languageSpecificLetters = new StringBuilder(EXPECTED_CAPACITY_LETTERS);
-            StringBuilder symbols = new StringBuilder(EXPECTED_CAPACITY_SYMBOLS);
-            StringBuilder numbers = new StringBuilder(EXPECTED_CAPACITY_NUMBERS);
-            if (key.popupCharacters != null && key.popupCharacters.length() != 0) {
-                int index = 0;
-                while (index < key.popupCharacters.length()) {
-                    final int codePoint = Character.codePointAt(key.popupCharacters, index);
-                    if (Character.isLetter(codePoint)) {
-                        languageSpecificLetters.append(Character.toChars(codePoint));
-                    } else if (Character.isDigit(codePoint)) {
-                        numbers.append(Character.toChars(codePoint));
-                    } else {
-                        symbols.append(Character.toChars(codePoint));
-                    }
-                    index += Character.charCount(codePoint);
-                }
-            }
-            final StringBuilder requestedSymbols =
-                    new StringBuilder(
-                            EXPECTED_CAPACITY_LETTERS
-                                    + EXPECTED_CAPACITY_NUMBERS
-                                    + EXPECTED_CAPACITY_SYMBOLS);
-            for (int index = 0; index < mPopupCharactersOrder.length(); index++) {
-                switch (mPopupCharactersOrder.charAt(index)) {
-                    case ADD_LANGUAGE_SPECIFIC_LETTERS:
-                        requestedSymbols.append(languageSpecificLetters);
-                        break;
-                    case ADD_LANGUAGE_NUMBERS:
-                        requestedSymbols.append(numbers);
-                        break;
-                    case ADD_LANGUAGE_SYMBOLS:
-                        requestedSymbols.append(symbols);
-                        break;
-                    case ADD_LANGUAGE_DEFAULT_LETTERS:
-                        requestedSymbols.append(defaultLetters);
-                        break;
-                    default:
-                        Logger.d(
-                                TAG,
-                                "Unrecognized tag at position %d in mPopupCharactersOrder (%s); discarding.",
-                                index,
-                                mPopupCharactersOrder);
-                        break;
-                }
-            }
-            // removing repeated characters (remembering that some Unicode characters can fill up
-            // two Java chars)
-            HashSet<Integer> popupKeyCodes =
-                    new HashSet<>(
-                            EXPECTED_CAPACITY_LETTERS
-                                    + EXPECTED_CAPACITY_NUMBERS
-                                    + EXPECTED_CAPACITY_SYMBOLS);
-            final StringBuilder popupCharactersBuilder =
-                    new StringBuilder(
-                            EXPECTED_CAPACITY_LETTERS
-                                    + EXPECTED_CAPACITY_NUMBERS
-                                    + EXPECTED_CAPACITY_SYMBOLS);
+        } else {
+            defaultLetters = "";
+        }
+        StringBuilder languageSpecificLetters = new StringBuilder(EXPECTED_CAPACITY_LETTERS);
+        StringBuilder symbols = new StringBuilder(EXPECTED_CAPACITY_SYMBOLS);
+        StringBuilder numbers = new StringBuilder(EXPECTED_CAPACITY_NUMBERS);
+        if (key.popupCharacters != null && key.popupCharacters.length() != 0) {
             int index = 0;
-            while (index < requestedSymbols.length()) {
-                final int codePoint = Character.codePointAt(requestedSymbols, index);
-                if (popupKeyCodes.add(codePoint)) {
-                    popupCharactersBuilder.append(Character.toChars(codePoint));
+            while (index < key.popupCharacters.length()) {
+                final int codePoint = Character.codePointAt(key.popupCharacters, index);
+                if (Character.isLetter(codePoint)) {
+                    languageSpecificLetters.append(Character.toChars(codePoint));
+                } else if (Character.isDigit(codePoint)) {
+                    numbers.append(Character.toChars(codePoint));
+                } else {
+                    symbols.append(Character.toChars(codePoint));
                 }
                 index += Character.charCount(codePoint);
             }
-            if (popupCharactersBuilder.length() > 0) {
-                key.popupCharacters = popupCharactersBuilder;
-                key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
-            } else {
-                super.setupKeyAfterCreation(key);
-            }
-            return true;
         }
-        return false;
+        final StringBuilder requestedSymbols =
+                new StringBuilder(
+                        EXPECTED_CAPACITY_LETTERS
+                                + EXPECTED_CAPACITY_NUMBERS
+                                + EXPECTED_CAPACITY_SYMBOLS);
+        for (int index = 0; index < mPopupCharactersOrder.length(); index++) {
+            switch (mPopupCharactersOrder.charAt(index)) {
+                case ADD_LANGUAGE_SPECIFIC_LETTERS:
+                    requestedSymbols.append(languageSpecificLetters);
+                    break;
+                case ADD_LANGUAGE_NUMBERS:
+                    requestedSymbols.append(numbers);
+                    break;
+                case ADD_LANGUAGE_SYMBOLS:
+                    requestedSymbols.append(symbols);
+                    break;
+                case ADD_LANGUAGE_DEFAULT_LETTERS:
+                    requestedSymbols.append(defaultLetters);
+                    break;
+                default:
+                    Logger.d(
+                            TAG,
+                            "Unrecognized tag at position %d in mPopupCharactersOrder (%s); discarding.",
+                            index,
+                            mPopupCharactersOrder);
+                    break;
+            }
+        }
+        // removing repeated characters (remembering that some Unicode characters can fill up
+        // two Java chars)
+        HashSet<Integer> popupKeyCodes =
+                new HashSet<>(
+                        EXPECTED_CAPACITY_LETTERS
+                                + EXPECTED_CAPACITY_NUMBERS
+                                + EXPECTED_CAPACITY_SYMBOLS);
+        final StringBuilder popupCharactersBuilder =
+                new StringBuilder(
+                        EXPECTED_CAPACITY_LETTERS
+                                + EXPECTED_CAPACITY_NUMBERS
+                                + EXPECTED_CAPACITY_SYMBOLS);
+        int index = 0;
+        while (index < requestedSymbols.length()) {
+            final int codePoint = Character.codePointAt(requestedSymbols, index);
+            if (popupKeyCodes.add(codePoint)) {
+                popupCharactersBuilder.append(Character.toChars(codePoint));
+            }
+            index += Character.charCount(codePoint);
+        }
+        if (popupCharactersBuilder.length() > 0) {
+            key.popupCharacters = popupCharactersBuilder.toString();
+            key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+        } else {
+            super.setupKeyAfterCreation(key);
+        }
+        return true;
     }
 }
