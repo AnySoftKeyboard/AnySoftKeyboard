@@ -340,7 +340,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     @Override
     protected boolean isAlphabet(int code) {
         if (super.isAlphabet(code)) return true;
-        // inner letters have more options: ' in English. " in Hebrew, and more.
+        // inner letters have more options: ' in English. " in Hebrew, and spacing and non-spacing combining characters.
         if (TextEntryState.isPredicting()) {
             return getCurrentAlphabetKeyboard().isInnerWordLetter((char) code);
         } else {
