@@ -71,10 +71,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private static final int EXPECTED_CAPACITY_SYMBOLS = 4;
     private static final int EXPECTED_CAPACITY_LETTERS = 16;
     private static final int EXPECTED_CAPACITY_NUMBERS = 4;
-    private final char ADD_LANGUAGE_SPECIFIC_LETTERS = 'L';
-    private final char ADD_LANGUAGE_NUMBERS = 'N';
-    private final char ADD_LANGUAGE_SYMBOLS = 'S';
-    private final char ADD_LANGUAGE_DEFAULT_LETTERS = 'O';
+    private static final char ADD_LANGUAGE_SPECIFIC_LETTERS = 'L';
+    private static final char ADD_LANGUAGE_NUMBERS = 'N';
+    private static final char ADD_LANGUAGE_SYMBOLS = 'S';
+    private static final char ADD_LANGUAGE_DEFAULT_LETTERS = 'O';
 
     private KeyboardExtension mExtensionLayout;
 
@@ -453,7 +453,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
          * ΑΒΨΔΕΦΓΗΙΞΚΛΜΝΟΠ;ΡΣΤΘΩΣΧΥΖ GREEK LAYOUT
          * αβχδεφγηι κλμνοπθρστυ ωχψζ Magicplot
          * ΑΒΧΔΕΦΓΗΙ ΚΛΜΝΟΠΘΡΣΤΥ ΩΧΨΖ MAGICPLOT */
-        CharSequence defaultLetters = "";
+        final CharSequence defaultLetters;
         if (key.mCodes.length > 0) {
             switch (key.getPrimaryCode()) {
                 case 'a':
@@ -530,6 +530,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     break;
                 case 'z':
                     defaultLetters = "żžźζ";
+                    break;
+                default:
+                    defaultLetters = "";
                     break;
             }
             StringBuilder languageSpecificLetters = new StringBuilder(EXPECTED_CAPACITY_LETTERS);
