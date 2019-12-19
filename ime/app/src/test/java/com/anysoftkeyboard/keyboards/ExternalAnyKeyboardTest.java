@@ -167,7 +167,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals((int) 'z', keyZ.getPrimaryCode());
         Assert.assertEquals((int) 'z', keyZ.getCodeAtIndex(0, false));
         Assert.assertEquals((int) 'Z', keyZ.getCodeAtIndex(0, true));
-        Assert.assertEquals("1żžź", keyZ.popupCharacters.toString());
+        Assert.assertEquals("1żžźζ", keyZ.popupCharacters.toString());
         Assert.assertEquals(R.xml.popup_one_row, keyZ.popupResId);
 
         final Keyboard.Key keyX = keyboard.getKeys().get(1);
@@ -175,8 +175,8 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals((int) 'x', keyX.getPrimaryCode());
         Assert.assertEquals((int) 'x', keyX.getCodeAtIndex(0, false));
         Assert.assertEquals((int) 'X', keyX.getCodeAtIndex(0, true));
-        Assert.assertTrue(TextUtils.isEmpty(keyX.popupCharacters));
-        Assert.assertEquals(0, keyX.popupResId);
+        Assert.assertEquals("χ", keyX.popupCharacters.toString());
+        Assert.assertEquals(R.xml.popup_one_row, keyX.popupResId);
 
         /*disabled due to Robolectric issue: https://github.com/robolectric/robolectric/pull/3671
                 final AnyKeyboard.AnyKey key3 = (AnyKeyboard.AnyKey) keyboard.getKeys().get(2);
@@ -216,8 +216,8 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals('A', keyP.getCodeAtIndex(1, true));
         Assert.assertEquals('b', keyP.getCodeAtIndex(2, false));
         Assert.assertEquals('B', keyP.getCodeAtIndex(2, true));
-        Assert.assertTrue(TextUtils.isEmpty(keyP.popupCharacters));
-        Assert.assertEquals(0, keyP.popupResId);
+        Assert.assertEquals("π", keyP.popupCharacters.toString());
+        Assert.assertEquals(R.xml.popup_one_row, keyP.popupResId);
         Assert.assertFalse(keyP.isFunctional());
 
         final AnyKeyboard.AnyKey key99 = (AnyKeyboard.AnyKey) keyboard.getKeys().get(6);
@@ -229,7 +229,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals('D', key99.getCodeAtIndex(1, true));
         Assert.assertEquals('e', key99.getCodeAtIndex(2, false));
         Assert.assertEquals('E', key99.getCodeAtIndex(2, true));
-        Assert.assertEquals("ĥ", key99.popupCharacters.toString());
+        Assert.assertEquals("ĥçćĉčψ", key99.popupCharacters.toString());
         Assert.assertEquals(R.xml.popup_one_row, key99.popupResId);
         Assert.assertFalse(key99.isFunctional());
     }
