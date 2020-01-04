@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 public interface KeyCodesProvider {
-    int length();
+    int codePointCount();
 
     int[] getCodesAt(int index);
 

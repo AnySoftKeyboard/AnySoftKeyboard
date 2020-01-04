@@ -371,7 +371,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             if (mSpiedKeyboardView != null) {
                 mSpiedKeyboardView
                         .getKeyDetector()
-                        .getKeyIndexAndNearbyCodes(key.x + 5, key.y + 5, nearByKeyCodes);
+                        .getKeyIndexAndNearbyCodes(key.centerX, key.centerY, nearByKeyCodes);
             }
             onKey(keyCodeWithShiftState, key, 0, nearByKeyCodes, true);
         } else {
