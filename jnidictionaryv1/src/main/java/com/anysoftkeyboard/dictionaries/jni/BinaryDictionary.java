@@ -101,7 +101,7 @@ public class BinaryDictionary extends Dictionary {
     @Override
     public void getSuggestions(final KeyCodesProvider codes, final WordCallback callback) {
         if (mNativeDict == 0 || isClosed()) return;
-        final int codesSize = codes.length();
+        final int codesSize = codes.codePointCount();
         // Wont deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
 

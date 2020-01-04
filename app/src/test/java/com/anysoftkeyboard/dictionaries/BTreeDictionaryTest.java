@@ -98,7 +98,7 @@ public class BTreeDictionaryTest {
         underTest.getSuggestions(
                 new KeyCodesProvider() {
                     @Override
-                    public int length() {
+                    public int codePointCount() {
                         return typedWord.length();
                     }
 
