@@ -34,8 +34,8 @@
     <string name="changelog">Log de alterações</string>
     <string name="search_market_for_addons">Procurar por complementos</string>
     <string name="search_market_for_keyboard_addons">Adquira mais teclados na loja de aplicativos</string>
-    <string name="search_market_for_quick_key_addons">Obtenha mais complementos na loja de aplicativos…</string>
-    <string name="no_market_store_available">Não foi possível encontrar uma loja de aplicativos no seu dispositivo. \nImpossível pesquisar Complementos!</string>
+    <string name="search_market_for_quick_key_addons">Obtenha mais complementos de <i>texto rápido</i> na loja de aplicativos…    </string>
+    <string name="no_market_store_available">Não foi possível encontrar uma loja de aplicativos no seu dispositivo. \nImpossível pesquisar complementos!    </string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Fechar</string>
     <!-- Indicates that a word has been added to the dictionary -->
@@ -64,6 +64,7 @@
     <string name="ime_settings">Configurações do teclado</string>
     <string name="switch_incognito">Modo anônimo</string>
     <string name="vibrate_on_key_press_title">Vibrar ao pressionar tecla</string>
+    <string name="vibrate_on_key_press_value_template">%d milissegundos</string>
     <string name="night_mode_screen">Configurações do modo noturno</string>
     <string name="night_mode_description">O modo noturno irá alterar essas características:</string>
     <string name="night_mode_state_summary">Modo noturno ativo, atualmente:\u0020%s</string>
@@ -84,7 +85,7 @@
     <string name="power_save_mode_types_always">Sempre</string>
     <string name="power_saving_keyboard_theme_name">Tema em economia de energia</string>
     <string name="power_saving_keyboard_theme_description">Cores escuras, layout simples que pode reduzir o consumo de energia.</string>
-    <string name="power_save_mode_animation_control">Desativar as animações e pré-visualição de caractere</string>
+    <string name="power_save_mode_animation_control">Desativar as animações e pré-visualição de caracteres</string>
     <string name="power_save_mode_sound_control">Desativar sons</string>
     <string name="power_save_mode_vibration_control">Desativar vibração</string>
     <string name="power_save_mode_suggestions_control">Desativar sugestão de palavras</string>
@@ -140,7 +141,7 @@
     <string name="backword_support_on_summary">Pressionar Backspace irá apagar a palavra inserida pelo corretor</string>
     <string name="backword_support_off_summary">Pressionar Backspace apagará somente o último caractere inserido</string>
     <string name="swipe_up_action">Puxar para cima</string>
-    <string name="swipe_up_action_summary">Define ação de gesto. Atualmente, %s</string>
+    <string name="swipe_up_action_summary">Define ação ao puxar para cima. Atualmente, %s    </string>
     <string name="swipe_up_action_title">Selecionar ação ao puxar para cima</string>
     <string name="swipe_up_from_spacebar_action">Puxar barra de espaço para cima</string>
     <string name="swipe_up_from_spacebar_action_summary">Define ação para o gesto de puxar barra de espaço para cima, %s</string>
@@ -172,8 +173,8 @@
     <string name="separate_gesture_action_title">Selecione ação do gesto de ampliar</string>
     <string name="separate_gesture_action_summary">Define ação do gesto de ampliar. Atualmente, %s</string>
     <string name="swipe_action_name_none">Nenhuma ação</string>
-    <string name="swipe_action_name_next_alphabet">Próximo teclado</string>
-    <string name="swipe_action_name_next_symbols">Próximo teclado</string>
+    <string name="swipe_action_name_next_alphabet">Próximo teclado alfabético</string>
+    <string name="swipe_action_name_next_symbols">Próximo teclado simbólico</string>
     <string name="swipe_action_name_next_inside_mode">Próximo no modo atual</string>
     <string name="swipe_action_name_cycle_keyboards">Ciclar pelos teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Ciclo reverso através de todos os teclados</string>
@@ -318,12 +319,12 @@
     <string name="tweak_animations_level_types_full">Todas</string>
     <string name="tweak_animations_level_types_some">Algumas</string>
     <string name="tweak_animations_level_types_none">Nenhuma</string>
-    <string name="cycle_all_symbols_keyboards">Movimento circular pelos símbolos</string>
-    <string name="cycle_all_symbols_keyboards_on_summary">O teclado de símbolos vai ciclar por todos os símbolos</string>
+    <string name="cycle_all_symbols_keyboards">Ciclar pelos símbolos</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Tecla de símbolos vai ciclar por todos os teclados de símbolos.</string>
     <string name="cycle_all_symbols_keyboards_off_summary">O teclado de símbolos irá mostrar apenas os principais símbolos</string>
     <string name="lang_key_shows_popup">Popup com os idiomas</string>
     <string name="lang_key_shows_popup_on_summary">Apertar na tecla de idiomas irá mostrar um popup</string>
-    <string name="lang_key_shows_popup_off_summary">Ciclar idiomas</string>
+    <string name="lang_key_shows_popup_off_summary">Tecla de linguagem vai ciclar idiomas</string>
     <string name="settings_os_clipboard_sync">Sincronização da área de colagem com o OS</string>
     <string name="settings_os_clipboard_sync_summary_on">Detectar mudanças na área de colagem e sincronizar com o AnySoftKeyboard.</string>
     <string name="settings_os_clipboard_sync_summary_off">Não monitorar ações na área de colagem fora do AnySoftKeyboard.</string>
@@ -347,14 +348,14 @@
     <string name="symbols_time_keyboard">tempo</string>
     <string name="keyboard_change_locked">n/a</string>
     <!-- settings - quick text keys -->
-    <string name="quick_text_keys_group">Complementos</string>
-    <string name="quick_text_keys_order">Ordem dos grupos de complementos</string>
+    <string name="quick_text_keys_group">Teclas de texto rápido</string>
+    <string name="quick_text_keys_order">Ordem e grupos de texto rápido</string>
     <!-- settings - top generic row -->
-    <string name="top_generic_row_group">Linha superior</string>
+    <string name="top_generic_row_group">Linha superior genérica</string>
     <string name="top_generic_row_dialog_title">Selecione o tipo de linha</string>
     <string name="top_generic_row_summary">Linha superior selecionada: %s</string>
     <!-- settings - bottom generic row -->
-    <string name="bottom_generic_row_group">Linha inferior</string>
+    <string name="bottom_generic_row_group">Linha inferior genérica</string>
     <string name="bottom_generic_row_dialog_title">Selecione tipo de linha</string>
     <string name="bottom_generic_row_summary">Linha inferior selecionada: %s</string>
     <string name="keyboard_theme_list_title">Selecione o tema</string>
@@ -459,9 +460,9 @@ simplistas    </string>
     <string name="settings_force_locale_title">Forçar localização</string>
     <string name="settings_force_locale_summary">Forçar a localização usada no AnySoftKeyboard (leva um tempo para funcionar). Atualmente: %s.</string>
     <string name="tweak_workarounds_group">Soluções alternativas</string>
-    <string name="workaround_disable_rtl_fix">Usar movimento da direita para a esquerda do Android</string>
-    <string name="workaround_disable_rtl_fix_summary_on">Usar a manipulação OS RTL (para celulares mais novos).</string>
-    <string name="workaround_disable_rtl_fix_summary_off">Usar manipulação do AnySoftKeyboard RTL. (Usar apenas se OS RTL não funcionar).</string>
+    <string name="workaround_disable_rtl_fix">Usar manipulação da direita para a esquerda do Android</string>
+    <string name="workaround_disable_rtl_fix_summary_on">Usar a manipulação RTL do sistema operacional (para celulares mais novos).    </string>
+    <string name="workaround_disable_rtl_fix_summary_off">Usar manipulação RTL do AnySoftKeyboard. Usar apenas se não funcionar a do OS.    </string>
     <string name="settings_split_state_title_portrait">Estado inicial do modo retrato dividir/unir</string>
     <string name="settings_split_state_title_landscape">Estado inicial do modo paisagem dividir/unir</string>
     <string name="settings_split_state_summary">Definir teclado dividido como padrão. Agora: %s</string>
@@ -494,14 +495,14 @@ simplistas    </string>
     <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por pontuação.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Substitui o espaço após palavra por uma pontuação.</string>
     <string name="initial_quick_text_tab_title">Grupo inicial</string>
-    <string name="initial_quick_text_tab_summary">Iniciar complementos em: %s</string>
+    <string name="initial_quick_text_tab_summary">Iniciar grupos de texto rápido em: %s</string>
     <string name="initial_quick_text_tab_always_first_tab">Sempre comece com o primeiro</string>
     <string name="initial_quick_text_tab_last_used_tab">Começar com o último grupo usado</string>
     <string name="initial_quick_text_tab_history_tab">Começar com histórico de grupos</string>
     <string name="emoji_default_skin_tone_title">Tom de pele padrão do emoji</string>
-    <string name="emoji_default_skin_tone_summary">Tom de pele padrão Fitzpatrick %s</string>
+    <string name="emoji_default_skin_tone_summary">Tom de pele padrão Fitzpatrick: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Genérico</string>
-    <string name="emoji_default_skin_tone_value_type_2">Clara</string>
+    <string name="emoji_default_skin_tone_value_type_2">Claro</string>
     <string name="emoji_default_skin_tone_value_type_3">Médio-claro</string>
     <string name="emoji_default_skin_tone_value_type_4">Médio</string>
     <string name="emoji_default_skin_tone_value_type_5">Médio-escuro</string>
@@ -530,7 +531,7 @@ simplistas    </string>
     <string name="enter_abbreviation_target_hint">Texto completo</string>
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
-    <string name="setup_wizard_step_one_details">Nesta etapa, você vai precisar ativar o <i>AnySoftKeyboard</i>. Por favor procure por <i>\'AnySoftKeyboard\'</i> nas suas configurações de <i>Idioma e Teclado</i>. Isso vai permitir que eu funcione no seu aparelho.😉</string>
+    <string name="setup_wizard_step_one_details">Nesta etapa, você vai precisar ativar o <i>AnySoftKeyboard</i>. Por favor procure por <i>\'AnySoftKeyboard\'</i> nas suas configurações de <i>Idioma e Teclado</i>. Isso vai permitir que eu funcione no seu aparelho.    </string>
     <string name="setup_wizard_step_one_action">Vá para as suas configurações de <i>Idioma e Teclado</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Erro: Seu aparelho não suporta teclados de terceiros. AnySoftKeyboard não pôde ser ativado!</string>
     <string name="setup_wizard_step_permissions_title">Habilitar permissões</string>
@@ -638,7 +639,7 @@ simplistas    </string>
     <string name="apply_remote_app_colors_to_theme">Mudar a cor do tema de acordo com o app atual</string>
     <string name="apply_overlay_summary_on">A cor do teclado irá combinar com a cor do app ativo, ou ao menos tentar.</string>
     <string name="apply_overlay_summary_off">Sempre usar a cor do tema.</string>
-    <string name="media_insertion_pending_message">Clicar na caixa de texto para inserir</string>
+    <string name="media_insertion_pending_message">Clicar na caixa de texto para inserir imagem</string>
     <string name="aosp_dark_theme_name">AOSP Dark theme</string>
     <string name="aosp_dark_theme_description">Baseado no AOSP, tema com cores escuras</string>
     <string name="aosp_light_theme_name">AOSP Light theme</string>
