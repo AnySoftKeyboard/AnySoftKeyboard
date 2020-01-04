@@ -45,7 +45,7 @@ public class InMemoryDictionaryTest {
     public void testGetWord() {
         mUnderTest.loadDictionary();
         KeyCodesProvider word = Mockito.mock(KeyCodesProvider.class);
-        Mockito.doReturn(2).when(word).length();
+        Mockito.doReturn(2).when(word).codePointCount();
         Mockito.doReturn("he").when(word).getTypedWord();
         Mockito.doReturn(new int[] {'h'}).when(word).getCodesAt(Mockito.eq(0));
         Mockito.doReturn(new int[] {'e'}).when(word).getCodesAt(Mockito.eq(1));
@@ -65,7 +65,7 @@ public class InMemoryDictionaryTest {
     public void testGetWordWithCaps() {
         mUnderTest.loadDictionary();
         KeyCodesProvider word = Mockito.mock(KeyCodesProvider.class);
-        Mockito.doReturn(7).when(word).length();
+        Mockito.doReturn(7).when(word).codePointCount();
         Mockito.doReturn("anysoft").when(word).getTypedWord();
         Mockito.doReturn(new int[] {'a'}).when(word).getCodesAt(Mockito.eq(0));
         Mockito.doReturn(new int[] {'n'}).when(word).getCodesAt(Mockito.eq(1));
@@ -88,7 +88,7 @@ public class InMemoryDictionaryTest {
     public void testGetWordNearBy() {
         mUnderTest.loadDictionary();
         KeyCodesProvider word = Mockito.mock(KeyCodesProvider.class);
-        Mockito.doReturn(7).when(word).length();
+        Mockito.doReturn(7).when(word).codePointCount();
         Mockito.doReturn("anysofy").when(word).getTypedWord();
         Mockito.doReturn(new int[] {'a'}).when(word).getCodesAt(Mockito.eq(0));
         Mockito.doReturn(new int[] {'n'}).when(word).getCodesAt(Mockito.eq(1));
