@@ -189,7 +189,7 @@ public class TagsExtractorTest {
         final KeyCodesProvider provider = Mockito.mock(KeyCodesProvider.class);
 
         Mockito.doReturn(typedText).when(provider).getTypedWord();
-        Mockito.doReturn(typedText.length()).when(provider).length();
+        Mockito.doReturn(typedText.length()).when(provider).codePointCount();
         Mockito.doAnswer(
                         invocation -> {
                             int index = invocation.getArgument(0);

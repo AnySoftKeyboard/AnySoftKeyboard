@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -142,5 +143,112 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                         .getInputViewContainer()
                         .findViewById(R.id.close_suggestions_strip_text));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+    }
+
+    @Test
+    public void testSuggestionsRestartWhenMovingCursor() {
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell yes");
+        Assert.assertEquals(
+                "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(2, 2);
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mWord.cursorPosition());
+        Assert.assertEquals(
+                "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        verifySuggestions(true, "hell", "hell", "hello");
+        Assert.assertEquals("hell", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mWord.cursorPosition());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+        Assert.assertEquals(
+                "hll yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals("hll", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('e');
+        Assert.assertEquals(
+                "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mWord.cursorPosition());
+        Assert.assertEquals("hell", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+    }
+
+    @Test
+    public void testSuggestionsRestartWhenBackSpace() {
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell ");
+        Assert.assertEquals(
+                "hell ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+        verifySuggestions(true, "hell", "hell", "hello");
+        Assert.assertEquals(
+                "hell", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mWord.cursorPosition());
+        Assert.assertEquals("hell", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+        verifySuggestions(true, "hel", "hell", "hello");
+        Assert.assertEquals(
+                "hel", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('l');
+        Assert.assertEquals(
+                "hell", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        verifySuggestions(true, "hell", "hell", "hello");
+        Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals("hell", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+    }
+
+    @Test
+    public void testSuggestionsRestartHappyPathWhenDisabled() {
+        simulateFinishInputFlow();
+        Assert.assertFalse(
+                "Default is FALSE",
+                SharedPrefsHelper.getPrefValue(
+                        R.string.settings_key_allow_suggestions_restart, false));
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell yes");
+        Assert.assertEquals(
+                "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+
+        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(2, 2);
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+        verifySuggestions(true);
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mWord.cursorPosition());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('r');
+        Assert.assertEquals(
+                "herll yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        verifyNoSuggestionsInteractions();
+        Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
     }
 }

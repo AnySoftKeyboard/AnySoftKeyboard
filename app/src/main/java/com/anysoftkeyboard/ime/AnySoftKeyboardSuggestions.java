@@ -818,7 +818,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             int index = 0;
             while (index < word.length()) {
-                final int c = Character.offsetByCodePoints(word, 0, index);
+                final int c =
+                        Character.codePointAt(word, Character.offsetByCodePoints(word, 0, index));
                 if (index == 0) mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
                 tempNearByKeys[0] = c;
@@ -827,6 +828,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 TextEntryState.typedCharacter(c, false);
                 index += Character.charCount(c);
             }
+            mWord.setCursorPosition(toLeft.length());
             ic.setComposingRegion(
                     mGlobalCursorPosition - toLeft.length(),
                     mGlobalCursorPosition + toRight.length());
