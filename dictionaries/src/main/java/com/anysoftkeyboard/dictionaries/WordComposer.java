@@ -195,7 +195,7 @@ public class WordComposer implements KeyCodesProvider {
         if (nearByKeyCodes != null
                 && nearByKeyCodes.length > 1
                 && primaryCode != nearByKeyCodes[0]
-                && primaryCode != Character.toLowerCase((char) nearByKeyCodes[0])) {
+                && primaryCode != Character.toLowerCase(nearByKeyCodes[0])) {
             int swappedItem = nearByKeyCodes[0];
             nearByKeyCodes[0] = primaryCode;
             boolean found = false;

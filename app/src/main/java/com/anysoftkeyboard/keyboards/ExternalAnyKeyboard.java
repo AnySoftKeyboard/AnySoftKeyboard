@@ -37,8 +37,10 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -62,7 +64,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private final String mDefaultDictionary;
     private final Locale mLocale;
     private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
-    private final HashSet<Character> mAdditionalIsLetterExceptions;
+    private final Set<Integer> mAdditionalIsLetterExceptions;
     private final char[] mSentenceSeparators;
 
     private KeyboardExtension mExtensionLayout;
@@ -127,15 +129,19 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
             mHardKeyboardTranslator = null;
         }
 
-        mAdditionalIsLetterExceptions =
-                new HashSet<>(
-                        additionalIsLetterExceptions != null
-                                ? additionalIsLetterExceptions.length()
-                                : 0);
         if (additionalIsLetterExceptions != null) {
-            for (int i = 0; i < additionalIsLetterExceptions.length(); i++) {
-                mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
+            mAdditionalIsLetterExceptions =
+                    new HashSet<>(
+                            additionalIsLetterExceptions.codePointCount(
+                                    0, additionalIsLetterExceptions.length()));
+            for (int i = 0;
+                    i < additionalIsLetterExceptions.length(); /*we increment in the code*/ ) {
+                final int codePoint = additionalIsLetterExceptions.codePointAt(i);
+                i += Character.charCount(codePoint);
+                mAdditionalIsLetterExceptions.add(codePoint);
             }
+        } else {
+            mAdditionalIsLetterExceptions = Collections.emptySet();
         }
 
         if (sentenceSeparators != null) {
@@ -393,7 +399,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     @Override
-    public boolean isInnerWordLetter(char keyValue) {
+    public boolean isInnerWordLetter(int keyValue) {
         return super.isInnerWordLetter(keyValue)
                 || mAdditionalIsLetterExceptions.contains(keyValue);
     }

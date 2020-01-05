@@ -343,9 +343,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // inner letters have more options: ' in English. " in Hebrew, and spacing and non-spacing
         // combining characters.
         if (TextEntryState.isPredicting()) {
-            return getCurrentAlphabetKeyboard().isInnerWordLetter((char) code);
+            return getCurrentAlphabetKeyboard().isInnerWordLetter(code);
         } else {
-            return getCurrentAlphabetKeyboard().isStartOfWordLetter((char) code);
+            return getCurrentAlphabetKeyboard().isStartOfWordLetter(code);
         }
     }
 
