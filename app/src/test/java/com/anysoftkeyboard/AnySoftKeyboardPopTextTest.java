@@ -170,6 +170,20 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDoesNotCrashOnPopTextWhenFunctionalKeyPress() {
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "any_key");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        verifyNothingAddedInteractions();
+    }
+
+    @Test
     public void testNeverPopTextOut() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "never");
 
