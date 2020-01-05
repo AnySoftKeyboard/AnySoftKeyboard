@@ -246,7 +246,7 @@ public class ExternalAnyKeyboardTest {
                         R.drawable.sym_keyboard_notification_icon,
                         0,
                         "en",
-                        "*&",
+                        "*&\uD83D\uDC71\u200D♂!️",
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
@@ -260,6 +260,9 @@ public class ExternalAnyKeyboardTest {
         // additional
         Assert.assertTrue(keyboard.isInnerWordLetter('*'));
         Assert.assertTrue(keyboard.isInnerWordLetter('&'));
+        Assert.assertTrue(
+                keyboard.isInnerWordLetter(Character.codePointAt("\uD83D\uDC71\u200D♂️", 0)));
+        Assert.assertTrue(keyboard.isInnerWordLetter('!'));
 
         // COMBINING_SPACING_MARK
         Assert.assertTrue(keyboard.isInnerWordLetter('ಂ'));
@@ -275,7 +278,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertFalse(keyboard.isInnerWordLetter('1'));
         // punctuation are not
         Assert.assertFalse(keyboard.isInnerWordLetter('?'));
-        Assert.assertFalse(keyboard.isInnerWordLetter('!'));
+        Assert.assertFalse(keyboard.isInnerWordLetter('('));
         Assert.assertFalse(keyboard.isInnerWordLetter('.'));
         Assert.assertFalse(keyboard.isInnerWordLetter(','));
         Assert.assertFalse(keyboard.isInnerWordLetter(':'));
