@@ -1,4 +1,3 @@
-
 def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task ->
     task.description = 'Generates a file with the YAML entry for publishing an APK fo a file'
     task.group = 'publish'
@@ -16,21 +15,29 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
             if (gitCommitProcess.waitFor() != 0) throw new IllegalStateException("Failed to get git commit sha. Error: ${gitCommitProcess.text.trim()}")
 
             def taskProject = dependedTask.project
-            outputYamlFile.append("""
-  - versionName: ${taskProject.android.defaultConfig.versionName}
-    versionCode: ${taskProject.android.defaultConfig.versionCode}
-    commit: ${gitCommitProcess.text.trim()}
-    gradle:
-      - yes
-    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release-unsigned.apk
-    gradleprops:
-      - forceVersionBuildCount=${System.getenv('BUILD_COUNT_FOR_VERSION')}
 
-AutoUpdateMode: None
-UpdateCheckMode: RepoManifest
-CurrentVersion: ${taskProject.android.defaultConfig.versionName}
-CurrentVersionCode: ${taskProject.android.defaultConfig.versionCode}
-""")
+            def lines = new ArrayList<String>()
+            lines.add("  - versionName: ${taskProject.android.defaultConfig.versionName}")
+            lines.add("    versionCode: ${taskProject.android.defaultConfig.versionCode}")
+            lines.add("    commit: ${gitCommitProcess.text.trim()}")
+            lines.add("    gradle:")
+            lines.add("      - yes")
+            lines.add("    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release-unsigned.apk")
+            if (taskProject.path == 'app') {
+                lines.add("    ndk: r14b")
+            }
+            lines.add("    gradleprops:")
+            lines.add("      - forceVersionBuildCount=${System.getenv('BUILD_COUNT_FOR_VERSION')}")
+            lines.add("")
+            lines.add("AutoUpdateMode: None")
+            lines.add("UpdateCheckMode: RepoManifest")
+            lines.add("CurrentVersion: ${taskProject.android.defaultConfig.versionName}")
+            lines.add("CurrentVersionCode: ${taskProject.android.defaultConfig.versionCode}")
+
+            lines.forEach { line ->
+                outputYamlFile.append(line)
+                outputYamlFile.append('\n')
+            }
 
             outputYamlFile.append("***\n")
             outputYamlFile.append("\n")
