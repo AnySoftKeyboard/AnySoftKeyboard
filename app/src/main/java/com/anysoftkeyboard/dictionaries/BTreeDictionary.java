@@ -232,7 +232,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     public void getSuggestions(
             final KeyCodesProvider codes, final Dictionary.WordCallback callback) {
         if (isLoading() || isClosed()) return;
-        mInputLength = codes.length();
+        mInputLength = codes.codePointCount();
         mMaxDepth = mInputLength * 2;
         getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1.0f, 0, callback);
     }

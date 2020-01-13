@@ -8,6 +8,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -231,5 +232,56 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals("ĥ", key99.popupCharacters.toString());
         Assert.assertEquals(R.xml.popup_one_row, key99.popupResId);
         Assert.assertFalse(key99.isFunctional());
+    }
+
+    @Test
+    public void testInnerCharacters() {
+        ExternalAnyKeyboard keyboard =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_codes_as_letters,
+                        R.xml.keyboard_with_codes_as_letters,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "*&\uD83D\uDC71\u200D♂!️",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
+
+        // sanity: known characters
+        Assert.assertTrue(keyboard.isInnerWordLetter('a'));
+        Assert.assertTrue(keyboard.isInnerWordLetter('b'));
+        // known, generic, inner letters
+        Assert.assertTrue(keyboard.isInnerWordLetter('\''));
+        Assert.assertTrue(keyboard.isInnerWordLetter(Dictionary.CURLY_QUOTE));
+        // additional
+        Assert.assertTrue(keyboard.isInnerWordLetter('*'));
+        Assert.assertTrue(keyboard.isInnerWordLetter('&'));
+        Assert.assertTrue(
+                keyboard.isInnerWordLetter(Character.codePointAt("\uD83D\uDC71\u200D♂️", 0)));
+        Assert.assertTrue(keyboard.isInnerWordLetter('!'));
+
+        // COMBINING_SPACING_MARK
+        Assert.assertTrue(keyboard.isInnerWordLetter('ಂ'));
+        // NON_SPACING_MARK
+        Assert.assertTrue(keyboard.isInnerWordLetter('\u032A'));
+
+        // whitespaces are not
+        Assert.assertFalse(keyboard.isInnerWordLetter(' '));
+        Assert.assertFalse(keyboard.isInnerWordLetter('\n'));
+        Assert.assertFalse(keyboard.isInnerWordLetter('\t'));
+        // digits are not
+        Assert.assertFalse(keyboard.isInnerWordLetter('0'));
+        Assert.assertFalse(keyboard.isInnerWordLetter('1'));
+        // punctuation are not
+        Assert.assertFalse(keyboard.isInnerWordLetter('?'));
+        Assert.assertFalse(keyboard.isInnerWordLetter('('));
+        Assert.assertFalse(keyboard.isInnerWordLetter('.'));
+        Assert.assertFalse(keyboard.isInnerWordLetter(','));
+        Assert.assertFalse(keyboard.isInnerWordLetter(':'));
+        Assert.assertFalse(keyboard.isInnerWordLetter('-'));
     }
 }

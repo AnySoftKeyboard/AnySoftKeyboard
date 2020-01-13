@@ -133,7 +133,7 @@ public class TagsExtractorImpl implements TagsExtractor {
         }
 
         @Override
-        public int length() {
+        public int codePointCount() {
             return mTypedWord.length();
         }
 

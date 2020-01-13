@@ -340,11 +340,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     @Override
     protected boolean isAlphabet(int code) {
         if (super.isAlphabet(code)) return true;
-        // inner letters have more options: ' in English. " in Hebrew, and more.
+        // inner letters have more options: ' in English. " in Hebrew, and spacing and non-spacing
+        // combining characters.
         if (TextEntryState.isPredicting()) {
-            return getCurrentAlphabetKeyboard().isInnerWordLetter((char) code);
+            return getCurrentAlphabetKeyboard().isInnerWordLetter(code);
         } else {
-            return getCurrentAlphabetKeyboard().isStartOfWordLetter((char) code);
+            return getCurrentAlphabetKeyboard().isStartOfWordLetter(code);
         }
     }
 
@@ -911,7 +912,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (newState == TextEntryState.State.UNDO_COMMIT) {
             revertLastWord();
         } else if (wordManipulation) {
-            final int charsToDelete = mWord.deleteLast();
+            final int charsToDelete = mWord.deleteCodePointAtCurrentPosition();
             final int cursorPosition;
             if (mWord.cursorPosition() != mWord.charCount()) {
                 cursorPosition = getCursorPosition(ic);
@@ -1314,7 +1315,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             if (currentLength > countToDelete) {
                 int deletesLeft = countToDelete;
                 while (deletesLeft > 0) {
-                    mWord.deleteLast();
+                    mWord.deleteCodePointAtCurrentPosition();
                     deletesLeft--;
                 }
             } else {
