@@ -67,6 +67,7 @@ public class WordComposer implements KeyCodesProvider {
      *
      * @return the number of keystrokes
      */
+    @Override
     public int codePointCount() {
         return mCodes.size();
     }
@@ -80,19 +81,13 @@ public class WordComposer implements KeyCodesProvider {
         return mTypedWord.length();
     }
 
-    @Override
-    public int length() {
-        // DEPRECATED. Please use codePointCount() or charCount().
-        return codePointCount();
-    }
-
-    /** Cursor position */
+    /** Cursor position (in characters count!) */
     public int cursorPosition() {
         return mCursorPosition;
     }
 
     public boolean setCursorPosition(int position /*, int candidatesStartPosition*/) {
-        if (position < 0 || position > charCount()) {
+        if (position < 0 || position > codePointCount()) {
             // note: the cursor can be AFTER the word, so it can be equal to charCount()
             return false;
         }
@@ -200,7 +195,7 @@ public class WordComposer implements KeyCodesProvider {
         if (nearByKeyCodes != null
                 && nearByKeyCodes.length > 1
                 && primaryCode != nearByKeyCodes[0]
-                && primaryCode != Character.toLowerCase((char) nearByKeyCodes[0])) {
+                && primaryCode != Character.toLowerCase(nearByKeyCodes[0])) {
             int swappedItem = nearByKeyCodes[0];
             nearByKeyCodes[0] = primaryCode;
             boolean found = false;
@@ -221,15 +216,17 @@ public class WordComposer implements KeyCodesProvider {
      *
      * @return the number of chars (not codepoints) deleted.
      */
-    public int deleteLast() {
+    public int deleteCodePointAtCurrentPosition() {
         if (mCursorPosition > 0) {
             // removing from the codes list, and taking it back to the reusable list
-            mArraysToReuse.add(mCodes.remove(mTypedWord.codePointCount(0, mCursorPosition) - 1));
-            int last = Character.codePointBefore(mTypedWord, mCursorPosition);
-            mTypedWord.delete(mCursorPosition - Character.charCount(last), mCursorPosition);
-            mCursorPosition -= Character.charCount(last);
-            if (Character.isUpperCase(last)) mCapsCount--;
-            return Character.charCount(last);
+            final int codePointsTillCurrentPosition = mTypedWord.codePointCount(0, mCursorPosition);
+            mArraysToReuse.add(mCodes.remove(codePointsTillCurrentPosition - 1));
+            final int lastCodePoint = Character.codePointBefore(mTypedWord, mCursorPosition);
+            final int lastCodePointLength = Character.charCount(lastCodePoint);
+            mTypedWord.delete(mCursorPosition - lastCodePointLength, mCursorPosition);
+            mCursorPosition -= lastCodePointLength;
+            if (Character.isUpperCase(lastCodePoint)) mCapsCount--;
+            return lastCodePointLength;
         } else {
             return 0;
         }

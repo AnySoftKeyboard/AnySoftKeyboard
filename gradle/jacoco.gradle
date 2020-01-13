@@ -42,7 +42,7 @@ private void createJacocoReportTask(testTaskName, name) {
         task.group = "Reporting"
         task.description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
 
-        task.classDirectories = fileTree(
+        task.classDirectories.plus(fileTree(
                 dir: "${project.buildDir}/intermediates/javac/${name}",
                 excludes: ['**/R.class',
                            '**/R$*.class',
@@ -54,11 +54,10 @@ private void createJacocoReportTask(testTaskName, name) {
                            '**/*Dagger*.*',
                            'android/**/*.*',
                            '**/*$*$*.*',
-                           '**/Manifest*.*']
-        )
+                           '**/Manifest*.*']))
 
-        task.sourceDirectories = files(["${project.projectDir}/src/main/java"] + android.sourceSets[name].java.srcDirs)
-        task.executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+        task.sourceDirectories.plus(files(["${project.projectDir}/src/main/java"] + android.sourceSets[name].java.srcDirs))
+        task.executionData.plus(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
 
         task.reports {
             xml.enabled = true

@@ -204,7 +204,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             final KeyCodesProvider codes,
             final WordCallback callback /*, int[] nextLettersFrequencies*/) {
         if (isLoading() || isClosed()) return;
-        final int codesSize = codes.length();
+        final int codesSize = codes.codePointCount();
         // Won't deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
 

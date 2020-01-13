@@ -552,13 +552,16 @@ public abstract class AnyKeyboard extends Keyboard {
         return !key.repeatable && key.getPrimaryCode() > 0;
     }
 
-    public boolean isStartOfWordLetter(char keyValue) {
+    public boolean isStartOfWordLetter(int keyValue) {
         return Character.isLetter(keyValue);
     }
 
-    public boolean isInnerWordLetter(char keyValue) {
-        return Character.isLetter(keyValue)
-                || (keyValue == BTreeDictionary.QUOTE || keyValue == BTreeDictionary.CURLY_QUOTE);
+    public boolean isInnerWordLetter(int keyValue) {
+        return isStartOfWordLetter(keyValue)
+                || keyValue == BTreeDictionary.QUOTE
+                || keyValue == BTreeDictionary.CURLY_QUOTE
+                || Character.getType(keyValue) == Character.NON_SPACING_MARK
+                || Character.getType(keyValue) == Character.COMBINING_SPACING_MARK;
     }
 
     public abstract char[] getSentenceSeparators();
