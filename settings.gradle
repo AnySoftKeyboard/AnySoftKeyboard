@@ -39,7 +39,7 @@ include ':languages:kachin:pack', ':languages:kachin:apk'
 include ':languages:dutch:pack', ':languages:dutch:apk'
 include ':languages:luxembourgish:pack', ':languages:luxembourgish:apk'
 include ':languages:norwegian:pack', ':languages:norwegian:apk'
-
+include ':languages:polish:pack', ':languages:polish:apk'
 
 
 //list of themes should be alphabetized-ordered
