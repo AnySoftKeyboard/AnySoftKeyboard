@@ -10,9 +10,9 @@
               defaultDictionaryLocale="ku" description="@string/kurmanji_qwerty_keyboard_description"
               index="2" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/kurdish_physical" />
-    <Keyboard nameResId="@string/kurdish_arabic_keyboard" iconResId="@drawable/ic_status_kurdish"
-              layoutResId="@xml/kurdish_arabic" id="94cdd2d1-b125-4ce4-957f-c41c0ac5a3bf"
-              defaultDictionaryLocale="ku" description="@string/kurdish_arabic_keyboard_description"
+    <Keyboard nameResId="@string/kurdish_full_keyboard" iconResId="@drawable/ic_status_kurdish"
+              layoutResId="@xml/kurdish_full_keyboard" id="94cdd2d1-b125-4ce4-957f-c41c0ac5a3bf"
+              defaultDictionaryLocale="ku" description="@string/kurdish_full_keyboard_description"
               index="3" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/kurdish_physical" />
 </Keyboards>
