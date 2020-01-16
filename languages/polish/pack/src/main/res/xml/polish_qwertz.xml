@@ -16,7 +16,7 @@
 
     <Row>
         <Key android:codes="a" android:horizontalGap="5%p" android:keyEdgeFlags="left" android:popupKeyboard="@xml/polish_popup_a" />
-        <Key android:codes="s" android:popupCharacters="" />
+        <Key android:codes="s" android:popupCharacters="@xml/polish_popup_s" />
         <Key android:codes="d" android:popupCharacters="" />
         <Key android:codes="f" android:popupCharacters="" />
         <Key android:codes="g" android:popupCharacters="" />
