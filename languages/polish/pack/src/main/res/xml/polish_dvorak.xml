@@ -23,7 +23,7 @@
         <Key android:codes="h" android:popupCharacters="" />
         <Key android:codes="t" android:popupCharacters="" />
         <Key android:codes="n" android:popupKeyboard="@xml/polish_popup_n" />
-        <Key android:codes="s" android:keyEdgeFlags="right" android:popupCharacters="" />
+        <Key android:codes="s" android:keyEdgeFlags="right" android:popupKeyboard="@xml/polish_popup_s" />
     </Row>
 
     <Row>
