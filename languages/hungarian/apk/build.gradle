@@ -1,5 +1,5 @@
-//released by someone else as com.anysoftkeyboard.languagepack.hungarian
-ext.shouldBePublished = false
+ext.shouldBePublished = true
+ext.override_app_id = 'com.anysoftkeyboard.languagepack.hungarian_oss'
 
 apply from: "$rootDir/gradle/pack_apk.gradle"
 
