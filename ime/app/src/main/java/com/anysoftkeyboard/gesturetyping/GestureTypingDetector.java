@@ -16,6 +16,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.subjects.ReplaySubject;
 
+import static java.lang.Math.max;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public abstract class GestureTypingDetector {
     private static final String TAG = "ASKGestureTypingDetector";
 
@@ -179,6 +183,96 @@ public abstract class GestureTypingDetector {
             }
 
             return length;
+        }
+
+        /**
+         * Resamples the gesture into a new gesture with the chosen number of points by
+         * oversampling it.
+         *
+         * @param numPoints The number of points that the new gesture will have. Must be superior
+         *                  to the number of points in the current gesture.
+         * @return An oversampled copy of the gesture.
+         */
+        public Gesture resample(int numPoints) {
+            if (numPoints <= mCurrentLength) {
+                throw new IllegalArgumentException();
+            }
+            int indexOfClosest;
+            double dx, dy;
+            double newX, newY;
+            double norm;
+
+            double interpointDistance = getLength() / numPoints;
+
+            Gesture resampledGesture = new Gesture();
+            resampledGesture.addPoint(mXs[0], mYs[0]);
+
+            for (int i=0; i < numPoints; i++) {
+                indexOfClosest = (i * mCurrentLength + numPoints / 2) / numPoints;
+
+                dx = mXs[indexOfClosest+1] - mXs[indexOfClosest];
+                dy = mYs[indexOfClosest+1] - mYs[indexOfClosest];
+                norm = sqrt(pow(dx, 2) + pow(dy, 2));
+
+                dx = dx / norm;
+                dy = dy / norm;
+
+                newX = mXs[indexOfClosest] + dx * interpointDistance;
+                newY = mYs[indexOfClosest] + dy * interpointDistance;
+
+                resampledGesture.addPoint((int) Math.round(newX), (int) Math.round(newY));
+            }
+
+            return resampledGesture;
+        }
+
+        /**
+         * Normalizes the gesture by dividing it by the longest side of its bounding box and
+         * centering it in zero.
+         *
+         * @return A normalized copy of the gesture.
+         */
+        public Gesture normalize() {
+            Gesture normalizedGesture = new Gesture();
+
+            int x, y;
+            int maxX = -1;
+            int maxY = -1;
+            int minX = 10000;
+            int minY = 10000;
+
+            for (int i=0; i < mCurrentLength; i++) {
+                x = mXs[i];
+                y = mYs[i];
+
+                if (x > maxX) {
+                    maxX = x;
+                }
+                if (y > maxY) {
+                    maxY = y;
+                }
+                if (x < minX) {
+                    minX = x;
+                }
+                if (y < minY) {
+                    minY = y;
+                }
+            }
+
+            int width = maxX - minX;
+            int height = maxY - minY;
+            int longestSide = max(width, height);
+
+            double centroidX = (width / 2 + minX) / longestSide;
+            double centroidY = (height / 2 + minY) / longestSide;
+
+            for (int i=0; i < mCurrentLength; i++) {
+                x = (int) (mXs[i] / longestSide - centroidX);
+                y = (int) (mYs[i] / longestSide - centroidY);
+                normalizedGesture.addPoint(x, y);
+            }
+
+            return normalizedGesture;
         }
 
         /**
