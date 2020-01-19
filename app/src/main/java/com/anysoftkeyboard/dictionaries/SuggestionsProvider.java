@@ -331,9 +331,9 @@ public class SuggestionsProvider {
         }
     }
 
-    private int calculateHashCodeForBuilders(List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
-        return Arrays.hashCode(dictionaryBuilders.toArray());
-    }
+    private static int calculateHashCodeForBuilders(List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
+		return Arrays.hashCode(dictionaryBuilders.toArray());
+	}
 
     @NonNull
     protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
