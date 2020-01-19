@@ -146,6 +146,41 @@ public abstract class GestureTypingDetector {
             mCurrentLength++;
         }
 
+        int getFirstX() {
+            return mXs[0];
+        }
+
+        int getFirstY() {
+            return mYs[0];
+        }
+
+        int getLastX() {
+            return mYs[mCurrentLength-1];
+        }
+
+        int getLastY() {
+            return mYs[mCurrentLength-1];
+        }
+
+        double getLength() {
+            int currentX, currentY;
+            int previousX, previousY;
+            double length;
+
+            length = 0;
+            for (int i=1; i < mCurrentLength; i++) {
+                previousX = mXs[i-1];
+                previousY = mYs[i-1];
+
+                currentX = mXs[i];
+                currentY = mYs[i];
+
+                length += euclideanDistance(previousX, previousY, currentX, currentY);
+            }
+
+            return length;
+        }
+
         /**
          * Generates an ideal gesture for the given word. An ideal gesture is one that passes
          * through the center of every character in the target word.
