@@ -5,7 +5,7 @@ buildscript {
         google()
         mavenLocal()
         jcenter()
-        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
@@ -41,7 +41,7 @@ allprojects {
     repositories {
         google()
         mavenLocal()
-        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
         jcenter()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }
