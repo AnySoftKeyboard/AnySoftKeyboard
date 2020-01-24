@@ -88,7 +88,11 @@ jobs:
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
-          file_pattern: TEST-*.xml
+          file_pattern: "TEST-*.xml"
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: "**/build/reports/tests/**/*"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
@@ -114,7 +118,11 @@ jobs:
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
-          file_pattern: TEST-*.xml
+          file_pattern: "TEST-*.xml"
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: "**/build/reports/tests/**/*"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
