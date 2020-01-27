@@ -107,6 +107,8 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: pre-test-run
+        run: ./gradlew :app:testDebugUnitTest --tests="*KeyboardThemeSelectorFragmentTest*"
       - name: tests
         uses: ./.github/actions/test-shard-run
         with:
