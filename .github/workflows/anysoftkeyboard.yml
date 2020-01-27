@@ -14,15 +14,14 @@ on:
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_USER_HOME: ".github_cache_gradle/"
 
 jobs:
   setup:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
+      - uses: actions/checkout@v2
       - name: setup
         run: |
           echo "ENV:"
@@ -38,9 +37,13 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
         with:
-          fetch-depth: 1
+          path: .github_cache_gradle/
+          key: checks-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
+          restore-keys: |
+            checks-gradle-
       - name: check
         run: ./scripts/ci/ci_check.sh
       - uses: actions/upload-artifact@v1.0.0
@@ -75,9 +78,13 @@ jobs:
         groups_count: [4]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
         with:
-          fetch-depth: 1
+          path: .github_cache_gradle/
+          key: tests-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
+          restore-keys: |
+            tests-gradle-
       - name: tests
         uses: ./.github/actions/test-shard-run
         with:
@@ -99,16 +106,18 @@ jobs:
           name: app-tests_${{ matrix.index }}
           path: collected_reports/
 
-  non-app-tests:
+  app-less-tests:
     needs: [setup]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
         with:
-          fetch-depth: 1
-      - name: pre-test-run
-        run: ./gradlew :app:testDebugUnitTest --tests="*KeyboardThemeSelectorFragmentTest*"
+          path: .github_cache_gradle/
+          key: tests-app-less-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
+          restore-keys: |
+            tests-app-less-gradle-
       - name: tests
         uses: ./.github/actions/test-shard-run
         with:
@@ -128,7 +137,7 @@ jobs:
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
-          name: non-app-tests
+          name: app-less-tests
           path: collected_reports/
   deploy-dry-run:
     if: github.event_name == 'pull_request'
@@ -142,17 +151,9 @@ jobs:
         with:
           release_deploy: "dry-run"
 
-  pr_audit:
-    if: github.event_name == 'pull_request'
-    needs: [checks, app-tests-shards, non-app-tests, deploy-dry-run]
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Success Message
-        run: echo "Thank you, ${GITHUB_ACTOR}. ${GITHUB_WORKFLOW} ${GITHUB_EVENT_NAME} verification of ref ${GITHUB_REF} finished successfully!"
-
   deploy:
     if: github.event_name == 'push'
-    needs: [checks, app-tests-shards, non-app-tests]
+    needs: [checks, app-tests-shards, app-less-tests]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
