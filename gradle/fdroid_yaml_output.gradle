@@ -11,15 +11,14 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
         task.dependsOn.forEach { dependedTask ->
             outputYamlFile.append("\n")
             outputYamlFile.append("*** ${dependedTask.project.path}\n")
-            def gitCommitProcess = 'git rev-parse HEAD'.execute()
-            if (gitCommitProcess.waitFor() != 0) throw new IllegalStateException("Failed to get git commit sha. Error: ${gitCommitProcess.text.trim()}")
+            def commit = 'git rev-parse HEAD'.execute().text.trim()
 
             def taskProject = dependedTask.project
 
             def lines = new ArrayList<String>()
             lines.add("  - versionName: ${taskProject.android.defaultConfig.versionName}")
             lines.add("    versionCode: ${taskProject.android.defaultConfig.versionCode}")
-            lines.add("    commit: ${gitCommitProcess.text.trim()}")
+            lines.add("    commit: ${commit}")
             lines.add("    gradle:")
             lines.add("      - yes")
             lines.add("    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release-unsigned.apk")
