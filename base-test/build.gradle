@@ -8,7 +8,7 @@ dependencies {
 
     implementation "com.android.support:preference-v7:$supportLibVersion"
 
-    api 'junit:junit:4.12'
+    api 'junit:junit:4.13'
     api("org.robolectric:robolectric:$robolectricVersion") {
         exclude group: 'com.google.auto.service', module: 'auto-service'
     }

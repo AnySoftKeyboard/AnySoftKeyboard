@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         //taken from https://github.com/tbroyer/gradle-errorprone-plugin
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.8.1'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:1.1.1'
     }
 }
 
@@ -16,12 +16,19 @@ dependencies {
     //annotationProcessor "com.uber.nullaway:nullaway:0.6.4"
 
     //taken from https://github.com/google/error-prone/releases
-    errorprone 'com.google.errorprone:error_prone_core:2.3.3'
+    errorprone 'com.google.errorprone:error_prone_core:2.3.4'
+
+    if (!JavaVersion.current().java9Compatible) {
+        //this is required for Java8, so error-prone can run.
+        errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
+    }
 }
 
 afterEvaluate {
     tasks.withType(JavaCompile).configureEach {
         options.errorprone.errorproneArgs.add('-Xep:MixedMutabilityReturnType:OFF')
+        options.errorprone.errorproneArgs.add('-Xep:UnnecessaryLambda:OFF')
+        options.errorprone.errorproneArgs.add('-Xep:UnnecessaryAnonymousClass:OFF')
 
         if (name.toLowerCase(Locale.ROOT).contains('test')) {
             options.errorprone.errorproneArgs.add('-Xep:UndefinedEquals:OFF')

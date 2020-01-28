@@ -1,11 +1,11 @@
 apply plugin: 'groovy'
 
 repositories {
-    mavenCentral()
+    maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
 }
 
 dependencies {
-    compile 'org.jsoup:jsoup:1.9.1'
-    compile gradleApi()
-    compile localGroovy()
+    implementation 'org.jsoup:jsoup:1.9.1'
+    implementation gradleApi()
+    implementation localGroovy()
 }
