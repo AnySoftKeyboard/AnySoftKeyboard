@@ -9,3 +9,5 @@ set -e
 ./gradlew --stacktrace lintDebug checkstyleMain pmdMain pmdTest --continue
 ./gradlew --stacktrace verifyReleaseResources
 ./gradlew --stacktrace generateReleasePlayResources
+#see https://github.com/actions/cache/issues/133
+chmod -R a+rwx .
