@@ -26,7 +26,7 @@ ${COPYBARA_BIN} --folder-dir ${TEMP_DIR}/files/ ${TEMP_DIR}/copy.bara.sky
 
 mv ${TEMP_DIR}/files/${TARGET_MODULE} languages/
 
-echo "include ':languages:${TARGET_MODULE}:pack', ':languages:${TARGET_MODULE}:apk'" >> settings.gradle
+echo "include ':addons:languages:${TARGET_MODULE}:pack', ':addons:languages:${TARGET_MODULE}:apk'" >> settings.gradle
 
 mv ${TARGET_FOLDER}/build.gradle ${TARGET_FOLDER}/build.gradle.old
 echo "// Language pack ${BRACNH_TO_MIGRATE}" > ${TARGET_FOLDER}/build.gradle
@@ -35,7 +35,7 @@ mkdir ${TARGET_FOLDER}/apk
 echo "apply plugin: 'com.android.application'" > ${TARGET_FOLDER}/apk/build.gradle
 echo "ext.shouldBePublished = false" >> ${TARGET_FOLDER}/apk/build.gradle
 echo "dependencies {" >> ${TARGET_FOLDER}/apk/build.gradle
-echo "    implementation project(path: ':languages:${TARGET_MODULE}:pack')" >> ${TARGET_FOLDER}/apk/build.gradle
+echo "    implementation project(path: ':addons:languages:${TARGET_MODULE}:pack')" >> ${TARGET_FOLDER}/apk/build.gradle
 echo "}" >> ${TARGET_FOLDER}/apk/build.gradle
 
 mkdir ${TARGET_FOLDER}/pack
@@ -44,5 +44,5 @@ echo "ext.status_icon_text = 'en'" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "ext.dictionaryInputPossibleCharacters = null//"".toCharArray()" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "dependencies {" >> ${TARGET_FOLDER}/pack/build.gradle
-echo "    implementation project(path: ':languages:base')" >> ${TARGET_FOLDER}/pack/build.gradle
+echo "    implementation project(path: ':addons:languages:base')" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "}" >> ${TARGET_FOLDER}/pack/build.gradle

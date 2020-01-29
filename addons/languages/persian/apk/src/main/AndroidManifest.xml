@@ -3,5 +3,5 @@
 
     <application android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="persian for anysoftkeyboard" />
+        android:label="@string/persian_app_name" />
 </manifest>

@@ -3,4 +3,4 @@ ext.status_icon_text = "hr"
 ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
 
-apply from: "$rootDir/gradle/language_pack_lib.gradle"
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"

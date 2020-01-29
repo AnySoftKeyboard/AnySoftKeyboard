@@ -1,8 +1,8 @@
 ext.shouldBePublished = true
 ext.override_release_key_alias = 'persian'
 
-apply from: "$rootDir/gradle/pack_apk.gradle"
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
 dependencies {
-    implementation project(path: ':languages:persian:pack')
+    implementation project(path: ':addons:languages:persian:pack')
 }

@@ -3,7 +3,7 @@
 
     <application>
         <receiver
-            android:name="com.anysoftkeyboard.languagepack.afrikaans_oss.PackBroadcastReceiver"
+            android:name="com.anysoftkeyboard.languagepack.armenian2.PackBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />

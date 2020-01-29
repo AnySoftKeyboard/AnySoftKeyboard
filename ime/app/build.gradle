@@ -98,6 +98,7 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 }
 
 dependencies {
+    implementation project(':api')
     implementation project(':addons:base')
     implementation project(':addons:languages:english:pack')
     implementation project(':ime:base')

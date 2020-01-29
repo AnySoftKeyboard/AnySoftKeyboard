@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-apply from: "$rootDir/gradle/all_android.gradle"
+apply from: "$rootDir/gradle/android_general.gradle"
 
 static <T> T getExtValue(Project proj, String key, T defaultValue) {
     if (proj.hasProperty(key)) {
@@ -33,7 +33,7 @@ android {
 
     applicationVariants.configureEach { variant ->
         variant.outputs.all {
-            outputFileName = "add-on-${project.path.replace(':', '-')}-${rootProject.autoVersioning.versionData.versionCode}.apk"
+            outputFileName = "add-on-${project.path.replace(':', '-')}-${android.defaultConfig.versionCode}.apk"
         }
         variant.assembleProvider.configure { assemble ->
             assemble.doLast {
@@ -87,7 +87,7 @@ if (project.ext.shouldBePublished) {
     println("Project ${path} is NOT marked for publishing")
 }
 
-def imageAssetsFolder = new File(new File(rootDir, "StoreStuff"), "assets")
+def imageAssetsFolder = new File(new File(rootDir, "addons/StoreStuff"), "assets")
 if (!imageAssetsFolder.exists()) {
     throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
 }
@@ -116,3 +116,4 @@ def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
     generateLogoTask.configure { dependsOn.add(convert) }
 }
 
+apply from: "$rootDir/addons/gradle/versioning_add_on.gradle"
