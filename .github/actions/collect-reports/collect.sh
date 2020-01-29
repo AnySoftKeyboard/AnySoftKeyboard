@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 OUTPUT=${1}
 PATTERN=${2}

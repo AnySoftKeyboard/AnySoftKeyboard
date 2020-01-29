@@ -1,4 +1,6 @@
 apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'java-gradle-plugin'
 
 repositories {
     maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
@@ -8,4 +10,13 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.9.1'
     implementation gradleApi()
     implementation localGroovy()
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'make-dictionary'
+            implementationClass = 'MakeDictionaryPlugin'
+        }
+    }
 }

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 export TEST_GROUPS_COUNT=${1}
 export TEST_GROUP_INDEX=${2}

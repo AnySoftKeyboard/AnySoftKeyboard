@@ -1,11 +1,7 @@
-group = 'com.anysoftkeyboard'
-
 apply plugin: 'com.android.library'
 
-apply from: "$rootDir/gradle/all_android.gradle"
-//apply from: "$rootDir/gradle/publish_maven.gradle"
-//
-//publish {
-//    artifactId = 'base'
-//    desc = "Base library for AnySoftKeyboard packs"
-//}
+apply from: "${rootDir}/gradle/android_general.gradle"
+
+dependencies {
+    api project(path: ':api')
+}

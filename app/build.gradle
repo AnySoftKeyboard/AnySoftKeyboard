@@ -98,8 +98,8 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 }
 
 dependencies {
-    implementation "com.anysoftkeyboard.language.english:english:$askExternalAddOnsVersion"
-    implementation "com.anysoftkeyboard:base:$askExternalAddOnsVersion"
+    implementation project(':addons:base')
+    implementation project(':addons:languages:english:pack')
     implementation project(':base')
     implementation project(':base-rx')
     implementation project(':nextword')
