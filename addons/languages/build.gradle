@@ -1,3 +1,0 @@
-subprojects {
-    it.group "com.anysoftkeybaord.languagepack.${it.parent.name}"
-}
