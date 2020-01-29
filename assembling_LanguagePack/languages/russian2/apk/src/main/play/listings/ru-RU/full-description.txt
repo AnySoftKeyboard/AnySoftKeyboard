@@ -1,0 +1,7 @@
+Русский языковый пакет для AnySoftKeyboard.
+Включает в себя обычную и фонетическую раскладки, поддерживает аппаратную клавиатуру, содержит словарь.
+
+Этот пакет работает только вместе с AnySoftKeyboard.
+Установите AnySoftKeyboard, зайдите в Настройки -> Язык и ввод -> AnySoftKeyboard -> Языки раскладок, и выберите Русский.
+
+Установить AnySoftKeyboard можно по ссылке: <a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard"><u>https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard</u></a>

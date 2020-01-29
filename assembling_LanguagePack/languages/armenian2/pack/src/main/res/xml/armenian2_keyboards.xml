@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+ "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
+ "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
+ "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+ "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+ "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+ -->
+    <Keyboard nameResId="@string/ar_keyboard" iconResId="@drawable/ic_status_armenian2"
+		layoutResId="@xml/ar_qwerty" landscapeResId="@xml/ar_qwerty"
+		id="75221b32-e09d-4273-9322-a65c5b45597f" description="Created with herrlado"
+		index="1"
+		defaultDictionaryLocale="hy" />
+
+    <Keyboard
+        defaultDictionaryLocale="hy"
+        description="@string/ar_credits_Narek"
+        iconResId="@drawable/ic_status_armenian2"
+        id="882230a0-4ea2-11e7-9598-0800200c9a66"
+        index="2"
+        landscapeResId="@xml/ar_qwerty_4_rows_v3"
+        layoutResId="@xml/ar_qwerty_4_rows_v3"
+        nameResId="@string/ar_keyboard_extra_rows_v3" />
+    <Keyboard
+        defaultDictionaryLocale="hy"
+        description="@string/ar_credits_Hayk"
+        iconResId="@drawable/ic_status_armenian2"
+        id="cc5f440b-2509-4ad0-845b-98052f27e0e6"
+        index="3"
+        landscapeResId="@xml/ar_qwerty_4_rows_v2"
+        layoutResId="@xml/ar_qwerty_4_rows_v2"
+        nameResId="@string/ar_keyboard_extra_rows_v2" />
+    <Keyboard
+        defaultDictionaryLocale="hy"
+        description="@string/ar_deprecated"
+        iconResId="@drawable/ic_status_armenian2"
+        id="3cd03b9b-72c0-44a1-ad6d-911734fcd576"
+        index="4"
+        landscapeResId="@xml/ar_qwerty_4_rows"
+        layoutResId="@xml/ar_qwerty_4_rows"
+        nameResId="@string/ar_keyboard_extra_rows" />
+
+</Keyboards>

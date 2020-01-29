@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard nameResId="@string/de_keyboard" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwertz" id="5a1b25da-c17d-4be1-ad8e-3e24333341ec"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_description"
+              index="1" defaultEnabled="true"
+              physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_broad" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwertz_broad" id="40f48890-e52f-11e6-9598-0800200c9a66"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_broad_description"
+              index="2" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_extra" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwertz_extra" id="5eb23620-e52f-11e6-9598-0800200c9a66"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_extra_description"
+              index="3" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_neo2" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_neo2" id="ad1b5ffa-15cc-4ba4-abb7-68df2c0874e7"
+              defaultDictionaryLocale="de"
+              index="4" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+    <Keyboard nameResId="@string/de_keyboard_neo2_simple" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_neo2_simple" id="37606729-66c1-4e04-9968-b32314c7094a"
+              defaultDictionaryLocale="de"
+              index="5" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+</Keyboards>

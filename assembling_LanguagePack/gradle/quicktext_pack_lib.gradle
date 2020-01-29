@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/gradle/all_android.gradle"
+
+dependencies {
+    api project(path: ':base')
+}
+
+group "com.anysoftkeyboard.quicktext.${parent.name}"

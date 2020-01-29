@@ -1,0 +1,4 @@
+ICS (Android 4.0.1) keyboard theme for AnySoftKeyboard.
+With this theme you'll get Ice Cream Sandwich look right now with AnySoftKeyboard.
+
+Note: this is a theme pack: first install the main keyboard application, AnySoftKeyboard, only then you'll be able to use this theme.

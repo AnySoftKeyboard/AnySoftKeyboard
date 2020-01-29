@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard nameResId="@string/nias_keyboard"
+		description="@string/nias_keyboard_description"
+		layoutResId="@xml/nias_keyboard"
+		iconResId="@drawable/ic_status_nias"
+		id="05706826-370f-4178-bb48-56f1043bc35a"
+		defaultDictionaryLocale="nia"
+		index="1" />
+    <Keyboard nameResId="@string/nias_compact"
+		description="@string/nias_compact_description"
+		layoutResId="@xml/nias_compact"
+		iconResId="@drawable/ic_status_nias"
+		id="3587e42e-389f-4240-a754-f37231f5912e"
+		defaultDictionaryLocale="nia"
+		index="2" />
+</Keyboards>
+

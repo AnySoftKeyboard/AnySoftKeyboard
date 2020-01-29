@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard
+        defaultDictionaryLocale="ca"
+        defaultEnabled="true"
+        description="@string/catalan_keyboard_description"
+        iconResId="@drawable/ic_status_catalan"
+        id="9f7f5bcb-a015-4387-b63e-1eff62be4e06"
+        index="1"
+        layoutResId="@xml/qwerty"
+        nameResId="@string/catalan_keyboard"
+        physicalKeyboardMappingResId="@xml/english_physical" />
+
+</Keyboards>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ar_keyboard">Հայերեն</string>
+    <string name="ar_keyboard_extra_rows">Հայերեն չորս շարքով</string>
+    <string name="ar_keyboard_extra_rows_v2">Հայերեն</string>
+    <string name="ar_keyboard_extra_rows_v3">Հայերեն</string>
+    <string name="ar_dictionary">Հայերեն</string>
+    <string name="ar_deprecated">Հնացած</string>
+    <string name="ar_credits_Hayk">Created by Hayk Yeghiazaryan (haykweb@gmail.com)</string>
+    <string name="ar_credits_Narek">Created by Narek Galstyan</string>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"> <!-- "android:keyWidth" specify the default width of a key. In this example, 10% of parent (the whole keyboard) -->
+
+    <Row>
+        <!-- Key attributes:
+         "android:codes" : a comma separated unicode values of the keys. If you specify more than one code, then the other codes are accessible via multi-tap.
+         "android:popupCharacters" : characters to show on long-press popup keyboard
+         "android:keyLabel" : the text to show on the key. If this attribute is missing, the first code in "android:codes" will be used.
+         "android:horizontalGap" : gap to add to the left of this key.
+         "android:isModifier" : true/false (default is false) whether this key is a modifier key. Means it will be rendered with a differnt background (shift, delete are example of modifier key)
+         "android:isRepeatable" : true/false (default is false) whether this key repeats printing on long press (like the backspace). Setting this to true will disable the long-press (android:popupCharacters) functionality
+         "android:keyWidth" : specify the width of this key
+         -->
+        <Key android:codes="1091" android:keyLabel="у" android:popupCharacters="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="1082" android:keyLabel="к" android:popupCharacters="2"/>
+        <Key android:codes="1077" android:keyLabel="е" android:popupCharacters="ё3"/>
+        <Key android:codes="1085" android:keyLabel="н" android:popupCharacters="4" />
+        <Key android:codes="1075" android:keyLabel="г" android:popupCharacters="5"/>
+        <Key android:codes="1096" android:keyLabel="ш" android:popupCharacters="щ6" />
+        <Key android:codes="1079" android:keyLabel="з" android:popupCharacters="7" />
+        <Key android:codes="1093" android:keyLabel="х" android:popupCharacters="8" />
+        <Key android:codes="1100" android:keyLabel="ь" android:popupCharacters="ъ9"/>
+        <Key android:codes="1102" android:keyLabel="ю" android:popupCharacters="0" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <!-- android:horizontalGap="5%p" -->
+        <Key android:codes="1099" android:keyLabel="ы" android:popupCharacters="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1074" android:keyLabel="в" android:popupCharacters="ф"/>
+        <Key android:codes="1072" android:keyLabel="а" android:popupCharacters=""/>
+        <Key android:codes="1087" android:keyLabel="п" android:popupCharacters=""/>
+        <Key android:codes="1088" android:keyLabel="р" android:popupCharacters=""/>
+        <Key android:codes="1086" android:keyLabel="о" android:popupCharacters=""/>
+        <Key android:codes="1083" android:keyLabel="л" android:popupCharacters=""/>
+        <Key android:codes="1076" android:keyLabel="д" android:popupCharacters=""/>
+        <Key android:codes="1078" android:keyLabel="ж" android:popupCharacters=""/>
+        <Key android:codes="1101" android:keyLabel="э" android:popupCharacters="" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="-1" android:keyWidth="15%p"
+                android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="1103" android:keyLabel="я" android:popupCharacters=""/>
+        <Key android:codes="1095" android:keyLabel="ч" android:popupCharacters="ц"/>
+        <Key android:codes="1089" android:keyLabel="с" android:popupCharacters=""/>
+        <Key android:codes="1084" android:keyLabel="м" android:popupCharacters=""/>
+        <Key android:codes="1080" android:keyLabel="и" android:popupCharacters="й"/>
+        <Key android:codes="1090" android:keyLabel="т" android:popupCharacters=""/>
+        <Key android:codes="1073" android:keyLabel="б" android:popupCharacters="" />
+        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

@@ -1,0 +1,6 @@
+
+Updated Finnish language pack with new keyboard layouts
+ - Simplified keyboard layout
+ - Keyboard with long-press numbers
+ - Keyboard with long-press numbers and symbols
+ - Keyboard with number row and long-press symbols

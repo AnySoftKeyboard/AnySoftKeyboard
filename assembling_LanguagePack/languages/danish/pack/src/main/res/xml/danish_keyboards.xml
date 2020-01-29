@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard nameResId="@string/danish_keyboard" iconResId="@drawable/ic_status_danish"
+              layoutResId="@xml/qwerty" id="c099971f-a603-4358-b888-0928ec918b87"
+              defaultDictionaryLocale="da" description="@string/danish_keyboard_description"
+              index="1" defaultEnabled="true"
+              physicalKeyboardMappingResId="@xml/danish_physical" />
+</Keyboards>

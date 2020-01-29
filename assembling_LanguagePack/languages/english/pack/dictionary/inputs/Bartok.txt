@@ -1,0 +1,161 @@
+
+   
+      
+         
+            Tonal Structure and Form in Bartók’s Concerto for Orchestra (I)
+            Drew F. Nobile
+            University of Washington
+            Before beginning an analysis of any piece by Béla Bartók, one must first decide to what degree tonal analysis will be used. Bartók’s music, although it is often difficult to call completely tonal, never entirely sheds itself of tonal elements and structure. This remains true even with one of his last compositions, the Concerto for Orchestra, written two years before his death in 1943. The discussion that follows analyzes the first movement of the Concerto, focusing on the tonal structures at play throughout the movement. The analysis will treat the movement tonally, investigating the progression of local “tonics” and its relationship to the overall form. We will also examine to what degree a “tonal” reading of this movement is limited in its analytical potential in an attempt to pinpoint exactly where Bartók strays from common-practice compositional techniques.
+            Harmonic Structure and Form
+            Bartók describes the form of the first movement as “more or less regular sonata form.”
+                  Bartók, 431.
+                While that does not seem to be a meaningful assertion, it is perfectly accurate: the movement is in sonata form, but there is an introduction that does not relate thematically to any other parts of the movement (not unheard of in Mozart sonatas), and the recapitulation presents the two themes of the exposition in reverse order. The “backwards” recapitulation is a technique that Bartók employs frequently because of the formal symmetry it creates.
+                  For example, the fifth string quartet. Also see Bartók’s comments on that (Bartók, 414).
+                Example 1 shows a diagram of the form of the movement; the symmetry is apparent within the seven sections following the introduction. As the example shows, the development section is divided into three subsections; the first and third subsections draw their thematic material from the first theme group, and the second subsection involves new material not drawn from the exposition. Hence, on either side of the middle section of the development we have the alternation FTG-STG-FTG which makes the overall form, with the exception of the Introduction, symmetric.
+                  Paul Wilson also discusses the inherent symmetry of the movement, although his interpretation is somewhat different. See Wilson, 168-170.
+               
+            
+            || Intro | FTG | STG | Dev I (FTG) | Dev II (new) | Dev III (FTG) | STG | FTG ||
+                  The abbreviations FTG and STG stand for First Theme Group and Second Theme Group, respectively.
+               
+            
+            example 1: formal structure of the first movement
+            Sonata form—or, “more-or-less” sonata form—carries harmonic as well as formal connotations. While “tonality” in this piece (and in Bartók’s music in general) is quite different from its classical interpretation, we find that the harmonic structure is at least analogous to the standard sonata-form structure. To begin with, the movement is in F. When we say “in F,” we do not imply F major (or minor, for that matter)—the major/minor tonal system in general does not apply to this piece—but rather that the pitch-class F is the tonal center of the movement, and acts analogously to the tonic in a Mozartian sonata movement. Using this interpretation, we can map out the local tonics (tonal centers) used throughout the movement, as shown in Example 2.
+            
+               
+            
+            example 2: harmonic structure of the first movement
+            In this example, the barlines divide the formal sections of the piece (Introduction–Exposition–Development­–Recapitulation)—so we can immediately see that the tonic F is not established until the exposition begins. Beginning with the exposition, the large-scale progression of tonal centers is a whole-tone descent from F to F, represented by the stemmed notes in Example 2, while the Introduction ascends from C♯ to F through D♯ (shown as D♭ and E♭ in the graph) in a quasi-bass Anstieg. The middle pitch of the descent, B, acts as the “dominant” to F, based on its symmetrical division of the whole-tone scale and the fact that the second theme appears in B in the exposition. Bartók has often applied a tonic-dominant relationship to a pitch-class and its tritone partner, and even admits to using that as a compositional framework in his fifth string quartet.
+                  See Bartók, 414-415.
+                In this particular movement, Bartók feigns moving to the tonal dominant, C, for the second theme before reinterpreting C as a chromatic passing tone between D♭ and B—this and other subtleties shown in Example 2 will be explained in detail in later sections.
+            
+               
+            
+            Paul Wilson gives a detailed account of the foreground activity throughout this movement in his analysis; we do not seek to duplicate or substitute for his findings. Our analysis will focus instead on relating the foreground activity to the overarching background structure. The graph in Example 2 will serve as a point of departure for the subsequent analysis; while we will periodically refer back to some of its specific elements, it should be understood that even when not explicitly referenced, this graph serves as the explanatory goal of this paper.
+            The Introduction
+            As Paul Wilson points out, the title “Introduzione” given to the movement as a whole seems to apply only to the first 75 measures.
+                  Wilson, 172.
+                The Introduction does not relate thematically to any of the main sections of the movement—in fact, it is the third movement that draws its thematic material from this section—but the harmonic and motivic principles at play here foreshadow some important elements of the entire piece. To begin with, the opening motive in the celli and basses, shown in Example 3, outlines a pentatonic set and strongly presents C♯ as the tonal center. The pentatonic set here is exclusively a pitch-class set, and its incarnations throughout the movement are devoid of any connotations associated with the pentatonic scale. Indeed, this set can be seen more as a by-product of stacked perfect fourths than a generative element itself. The perfect fourth in fact generates much of the motivic and harmonic material of the entire movement, and its importance is immediately evident in the Introduction with the opening bass motive. Furthermore, the following two instances of this opening motive, shown in Examples 4 and 5, remove any doubt as to the motivic importance of the perfect fourth, and in turn diminish the importance of the pentatonic set.
+            
+               
+            
+            example 3: measures 1-6 (celli and basses)
+            
+               
+            
+            example 4: measures 12-16 (celli and basses)
+            
+               
+            
+            example 5: measures 22-29 (celli, basses and violas)
+            Example 4 transitions from C♯ to F♯, and adds pitch-class E to the pentatonic set of Example 3, creating a six-note set of stacked fourths. Example 5 shows the true dominance of the perfect fourth; the set created is a ten-note set derived by stacking fourths.
+                  If we begin from the final D♯ and ascend the circle of fourths until we reach C we obtain the entire set presented in this example.
+                Each note is either approached or left (or both) by a fourth, and the structural motion is from F♯ to D♯. The overall motion in the first 29 measures is C♯ to D♯, through F♯; these are represented enharmonically in Example 2 as D♭, E♭ and G♭. As previously mentioned, this motion constitutes the initial ascent to what will eventually be a whole-tone descent from F to F. So the prevailing structural motion of the movement as a whole is a descending whole step and the prevailing melodic motion is a (usually ascending) perfect fourth. We can connect the two by noting that the descending whole step consists of two ascending fourths; indeed, the structural whole-tone descent is often “filled in” with the intervening fourth. This motion is exemplified in Example 2 in the second theme group (mm. 155-233), and as we will see, it occurs in other places, though not relevant enough to the background structure to be represented in Example 2. 
+            Each time the motion in Examples 3 through 5 breaks from chains of fourths, the same sequence of intervals occurs: two descending perfect fourths separated by an ascending major second (-5, +2, -5); each instance of this intervallic cell is bracketed in the examples. This sequence of intervals is the inversion of those found in the second head motive of the first theme of the exposition, shown in measures 2-3 of Example 8. So although there is no thematic relation between the Introduction and the main sections of the movement, within the first 29 measures we can already see structural, harmonic and motivic elements that apply to the movement as a whole.
+            The section from measures 35-50 is centered on E; upon the return of D♯, enharmonically respelled as E♭, in measure 58, we see that E acts as its upper-neighbor. This relationship is somewhat obscured by measures 51-57 however; while there is no clear tonal center for this section, G appears in the outer voices in measure 51, although the harmonic material is reminiscent of C minor. The concluding motive of this section in the violins (the bracketed sections of Example 6), as well as the bass motive of measure 58ff. (Example 7), are related to the first head motive of the first theme, which is shown in the first measure of Example 8. All three of these motives span a tritone, which as mentioned is the “dominant” relationship in this movement. Paul Wilson describes the transition from the Introduction to the Exposition as “quite abrupt and seemingly unmotivated,”
+                  Wilson, 173.
+                but it is in fact this motivic relationship that ties them together and creates a rather smooth transition.
+            
+               
+            
+            example 6: measures 56-58 (violin 1)
+            
+               
+            
+            example 7: measure 58 (violas, celli, basses); repeated through measure 75
+            The Exposition
+            Although the motivic relationship between the Introduction and the first theme of the exposition smooth the transition, nearly every other element changes when the first theme appears. The drastic tempo and meter changes as well as the first appearances of staccato articulations make it clear to the listener that the introduction is over. As mentioned, the first theme, the beginning of which is reproduced in Example 8, contains two head motives: the first is the tritone-spanning ascent that appears in the first measure, and the second is an iteration of the interval cell (+5, -2, +5) that appears in the second through third measures. While the presence of the perfect fourths that was so prevalent in the Introduction is clear in the latter, the former does not employ the perfect fourth in its formation. Rather, this motive is a small-scale representation of the tonic-dominant relationship of tritone partners, specifically F and B, that is the basis for the harmonic structure of this movement.
+            
+               
+            
+            example 8: measures 76-80 (violins)
+            Rhythmically, we have a dissonance between the melody, which follows the written meter, and the accompanying chords in the bassoons, horns and lower strings. Example 9 reproduces the chords, and Example 10 rewrites them in a meter that is more consistent with their rhythmic pattern. As Example 10 shows, the chords are more-or-less in duple meter (4/8 and 2/8) with one “hiccup” occurring in the 5/8 measure. This is in strict metric dissonance with the triple meter of the melody (with its own “hiccups” occurring in the written 2/8 measures). As we will later see, this dissonance disappears when this theme returns in the recapitulation.
+            
+               
+            
+            example 9: measures 77-91 (bassoons, horns, lower strings; reduced)
+            
+               
+            
+            example 10: measures 77-91 rebarred to reflect rhythmic pattern
+            We have already mentioned that the first theme group is in F—this is made clear from the onset, both in the melodic line and by the F minor triad that occurs on the downbeat of measure 77. While the material occasionally departs from this F in measures 76-94, these departures are all subordinate to the prolonged F. E♭ is the tonal center for measures 95-134, although it does not appear as a strong bass note until measure 131. Measures 95-130 contain a mostly chromatic descent from C to E♭, where E♭ is anticipated throughout as a goal tone for the bass. Example 11 illustrates this structure. Immediately following the arrival of E♭ in the bass, C♯ (D♭) is established as the tonal center for the final transition to the second theme. The trombone motive in measures 134-141, shown in Example 12, is the subject of the fugato section in part 3 of the development, although its importance is downplayed here. Note that the initial G♯ is a pickup to the section in C♯, which fills in the whole-tone descent from E♭ to C♯ with the intervening fourth. This motive also contains the intervallic cell of the second head motive of the first theme in the form of G♯-C♯-B-E (with the addition of some passing tones), in addition to consisting largely of motion by perfect fourths.
+            
+               
+            
+            example 11: bass structure of the first theme group, measures 76-155
+            
+               
+            
+            example 12: measures 134-141 (trombone)
+            Wilson claims that C and E♭ are “local dominants” to F in this first section of the exposition.
+                  Wilson, 174.
+                While the strong V-I motion from measures 90-91 does carry a tonal implication of dominant-tonic, such cadential bass motion does not imply anything about structural function in this context. E♭, furthermore, is not convincingly established as a dominant-functioning tone at all. The passage from measures 85-89 is centered on E♭ (and the pentatonic set from the opening of the exposition is transposed down a whole step), but its mere presence as local tonic does not signify any sort of dominant function. Rather, we can consider this occurrence of E♭ as a middleground-level whole-tone descent that foreshadows the structural descent to E♭ at measure 131 that is represented in Example 2. In measures 91-95, the bass descends F-E♭-D♭-C, which might seem to support C’s functioning as structural dominant. However, as previously mentioned, C acts as a “fake” dominant that in measures 149-155 actually functions as an upper neighbor to B, the “true” dominant. The descent in measures 91-95 in fact participates in the farce by projecting a descent ending on C, which makes the eventual reinterpretation of C and descent to B stronger. This creates both a smooth transition to the second theme and a strong sense that a new section is beginning, a combination that is generally rather difficult to forge.
+            The second theme is tranquil and harmonically simple, which is in stark contrast to the first theme. B dominates as tonal center from measures 155-191 with little or no harmonic motion away from it. Measures 192-197 are in E♭, with the bass notes in the harp, and measures 198-209 are in D♭. A♭ intervenes between E♭ and D♭ in measure 195—another instance of the whole-tone being “filled in” by a fourth. The return to B in measure 210 is also filled-in in this way by F♯ in measures 208-209. Hence, measures 155-210 constitute the bass progression B-E♭-D♭-B; the same stepwise descent (E♭-D♭) occurred in the first theme group while F rather than B was being prolonged. Paul Wilson points out that “[i]n substituting for F within an analogous structure, B receives confirmation at this point as the crucial interior center of the movement.”
+                  Wilson, 179.
+                In our terminology, this is the point at which B is unequivocally established as the structural dominant.
+            The Development
+            As mentioned, the development is divided into three subsections. In Example 2, the entire development section is represented by exactly three pitches, and indeed each subsection is associated with one of these three pitches as its tonal center—none of these pitches is involved in the structural whole-tone descent. As Paul Wilson states, the development “is, for Bartók’s music, developmental in a relatively conventional way”; the themes from the exposition are expanded and modified, and tonalities other than those expected arise.
+                  Wilson, 180.
+                The only slight abnormality, though it is certainly not unheard of even in classical-period sonata movements, is the emergence of a new theme in the second section of the development. Although Wilson claims that this theme is based on “a transformation in rhythm and contour of the second head-motive of [the first-theme],”
+                  Wilson, 182.
+                there is no intervallic relationship between the two motives, and it is not clear what elements of a motive remain when rhythm, contour and interval content are changed. Furthermore, this section, being the middle section of the movement, upholds the formal symmetry if interpreted as its own theme.
+            The first section of the development, measures 231-271, begins with a big D-minor chord which immediately establishes D as the tonal center for the section. Although it moves to E♭ minor in measure 239, it returns to D minor in measure 248, which suggests that E♭ is an upper neighbor prolonging D. The passage beginning at measure 248, shown in Example 13, can be considered to be the “theme” of this section, and is a development of the second head motive of the first theme. This motive undergoes inversion and extension throughout the section. While Wilson rightly identifies the resultant set of measures 261-264 as 6-Z50 ([014679]), identifying it as such does not offer much analytical insight until we point out that this is a simple extension of the intervallic sequence (+5, -2, +5) from the original motive.
+            
+               
+            
+            example 13: measures 248-264 (violins)
+            The second section of the development is in C♯ (which is sometimes spelled D♭). This section is reproduced as Example 14. This section returns to the calm simplicity (and tempo) of the second section, though apart from affect there are no references to that section. Although the C♯ major chord in measure 293, preceded by A♭ major (V) in measure 285, suggests C♯ as tonal center, the tonality is not strongly established until measure 303. The arrival at C♯ was foreshadowed by the first two measures of the development (Example 15), which are almost a direct transposition of the two head motives of the first theme to C♯.
+                  Because of its emphasis here in the development section and its position as leading to B in the second theme group, we could conceive of C# as a sub-dominant in this movement. As tempting as this interpretation may be, this observation is relegated to the notes section because it constitutes a horrible abuse of terminology—there is only so far that such tonal analogies can go before they begin to hide any true analytical insight behind misused terms.
+               
+            
+            
+               
+            
+            example 15: measures 231-232 (violins and trumpets)
+            
+            
+               
+            
+            
+            example 14: measures 272-313 (reduction): development, part 2
+            The third section of the development takes the trombone motive from the transition between the first and second sections of the exposition shown in Example 12, transposed to begin on F, and turns it into a fugato sequence, reproduced in Example 17. The tonal center B♭ is established immediately in measures 316-318 by the strong V-I chord progression (Example 16). As previously mentioned, the fugato motive incorporates the motion by perfect fourths found in the Introduction as well as the intervallic cell found in the second head motive of the first theme. The resultant set is the pentatonic set F-B♭-E♭-A♭-D♭; the entire passage shown in Example 17 remains within this set. The second and fourth entrances of the fugato subject are transposed up a perfect fifth, but the first note is B♭ rather than C, which allows Bartók to remain in this pentatonic set (and also to reinforce B♭ as tonal center).
+            
+               
+            
+            example 16: measures 316-318: establishment of b♭
+            The second instance of the fugato section, not reproduced in its entirety but based on the subject in Example 18, is an exact pitch inversion transposed to begin on C. The inversion blends seamlessly back into the original subject in measure 363. The following section (measures 363-389) especially brings out the quartal harmonies within the pentatonic set, so much so that B♭ is obscured as tonal center which allows A♭ to emerge as the goal tone of this section—only to be immediately reinterpreted as a leading tone to the A that begins the recapitulation. Both B♭ and A♭ are chromatic neighbors to A, which intensifies the arrival on A, and brings out the fact that the appearance of A continues the large-scale whole-tone descent that has been left stranded on B for the entire development section.
+            
+               
+            
+            example 17: measures 316-340 (brass): fugato section
+            
+               
+            
+            example 18: measures 342-349 (horns): inverted fugato subject
+            The Recapitulation
+            The recapitulation, as we have seen, presents the themes in reverse order. The second theme is initially presented in A, as part of the whole-tone descent, and proceeds directly to G, where it is restated slightly modified. It is worth pointing out that the arrival on G at measure 425 is led into by D, which constitutes another “filling in” of the whole-step by the intervening fourth. The A♯ in measure 438 might initially seem to be a new tonal area, but it leads to D in measure 444, which constitutes a V chord still applied to G. Rather than resolve this D back to G, however, Bartók shifts briefly to F♯ in measure 456 and leads to E in measure 467. E and F♯ are both active throughout the entire transition from second theme back to first theme (measures 456-487) which brings out their functions as upper and lower chromatic neighbors to F, which returns triumphantly in measure 488 with the much-anticipated recapitulation of the first theme.
+            The return of the first theme is certainly immediately recognized as such; however, there are some important differences. Firstly, its initial appearance in the exposition had a minor flare to it; the first chord in Example 9 is an F-minor triad, and the first four notes of Example 8 ascend the F-minor scale. In the recapitulation of this theme, shown in Example 19, the first chord is an F-major chord, and the A♭ is replaced by A♮ in the melody. In fact, the chord progression of the first four measures of Example 19 can be thought of tonally as I-vi-V in F major—while we are reluctant to say that this passage is in major (the conspicuous A♭ in measure 490 easily brings doubt to this interpretation), we can certainly say that the minor flare of the beginning has been replaced by a major flare here in the recapitulation.
+            In addition to the “mode”-shift, we notice that the metric dissonance shown in Examples 9 and 10 no longer appears (notice how regular the rhythm of the accompanying figure is in Example 19) and also that the written meter no longer changes. In other words, the piece, in becoming more regular, is beginning to drive towards the finish—because of the formal structure, the recapitulation of the first theme also serves as the closing section of the movement. Indeed, this section has the feel of a Coda to it—it is much shorter than any other major section or subsection, and the tonic harmony is active throughout. There are also no phrase divisions—the music simply drives forward with no pause until measure 514, where the fugato motive appears in the brass over an obvious V-I cadence, signaling the end of the movement which occurs as the motive completes.
+            
+               
+            
+            example 19: measures 488-494: the first theme in the recapitulation
+            
+               
+            
+            There is no fine line between music that is “tonal” and music that is “atonal.” Bartók is one of the many early-twentieth century composers whose music fits entirely in the gray area between tonality and atonality. While we know from his writings that he often composed with a tonal centers and relationships in mind, and that he regularly applied tonal structures and forms to his compositions, by merely glancing at any one of his pieces we can see that tonality as it is understood in the common practice period is not at work. Thanks largely to the work of tonal theorists such as Heinrich Schenker and others, we have a detailed system for analyzing tonal music—their system, however, is virtually useless in analyzing music that falls entirely on the atonal side of the spectrum. But if we apply it to music such as Bartók’s that is in the middle area, we can come up with some enlightening and perhaps unexpected results. To do so was the goal of this analysis of the first movement of the Concerto for Orchestra. By applying our tonal system to music that slips outside of the tonal realm, we not only find the elements of tonality that do remain, but we also pinpoint exactly when and how this music breaks from previous conventions. It is not disputed that Bartók’s music has great expressive power—perhaps now we can understand why.
+            References
+            Antokoletz, Elliot. The Music of Béla Bartók: A Study of Tonality and Progression in Twentieth-Century Music. Berkeley: University of California Press, 1992.
+            Bartók, Béla. Essays. Selected and Edited by Benjamin Suchoff. New York: St. Martin’s Press, 1976.
+            Bernard, Jonathan W. “Space and Symmetry in Bartók.” Journal of Music Theory 30 (1986): 185-201.
+            ________. “Zones of Impingement: Two Movements from Bartók’s Music for Strings, Percussion, and Celesta.” Music Theory Spectrum 25 (2003): 3-34.
+            Berry, Wallace. “Symmetrical Interval sets and Derivative Pitch Materials in Bartók’s String Quartet No. 3.” Perspectives of New Music 18 (1979/80): 287-379.
+            Cohn, Richard. “Inversional Symmetry and Transpositional Combination in Bartók.” Music Theory Spectrum 10 (1988): 19-42.
+            ________. “Bartók’s Octatonic Strategies: A Motivic Approach.” Journal of the American Musicological Society 44 (1991): 262-300.
+            Morrison, Charles D. “Prolongation in the Final Movement of Bartók’s String Quartet No. 4.” Music Theory Spectrum 13 (1991): 179-196.
+            Travis, Roy. “Tonal Coherence in the First Movement of Bartók’s Fourth String Quartet.” The Music Forum 2 (1970): 298-371.
+            Wilson, Paul. The Music of Béla Bartók. New Haven: Yale University Press, 1992.
+         
+      
+      
+   

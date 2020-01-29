@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+	<Keyboard nameResId="@string/lithuanian_qwerty_4rows" iconResId="@drawable/ic_status_lithuanian"
+		layoutResId="@xml/lithuanian_qwerty_4rows" landscapeResId="@xml/lithuanian_qwerty_4rows"
+		id="aace6147-5687-4ac4-26a6-011d507d90ff" description="@string/lithuanian_qwerty_4rows_description"
+		index="1" defaultEnabled="true" physicalKeyboardMappingResId="@xml/lithuanian_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lithuanian_qwerty" iconResId="@drawable/ic_status_lithuanian"
+		layoutResId="@xml/lithuanian_qwerty" landscapeResId="@xml/lithuanian_qwerty"
+		id="bcce6147-ba87-46c4-82a6-961d507d900f" description="@string/lithuanian_qwerty_description"
+		index="2" defaultEnabled="false" physicalKeyboardMappingResId="@xml/lithuanian_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lithuanian_azerty" iconResId="@drawable/ic_status_lithuanian"
+		layoutResId="@xml/lithuanian_azerty" landscapeResId="@xml/lithuanian_azerty"
+		id="9b9487f1-2c2a-11e6-bdf4-0800200c9a66" description="@string/lithuanian_azerty_description"
+		index="2" defaultEnabled="false" physicalKeyboardMappingResId="@xml/lithuanian_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lithuanian_16keys" iconResId="@drawable/ic_status_lithuanian"
+		layoutResId="@xml/lithuanian_16keys" landscapeResId="@xml/lithuanian_qwerty_4rows"
+		id="9b9487f0-2c2a-11e6-bdf4-0800200c9a66" description="@string/lithuanian_16keys_description"
+		index="4" defaultEnabled="false" physicalKeyboardMappingResId="@xml/lithuanian_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lithuanian_16keys_qwerty" iconResId="@drawable/ic_status_lithuanian"
+		layoutResId="@xml/lithuanian_16keys" landscapeResId="@xml/lithuanian_qwerty"
+		id="303d5ff0-2ed1-11e6-bdf4-0800200c9a66" description="@string/lithuanian_16keys_qwerty_description"
+		index="4" defaultEnabled="false" physicalKeyboardMappingResId="@xml/lithuanian_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lithuanian_16keys_azerty" iconResId="@drawable/ic_status_lithuanian"
+		layoutResId="@xml/lithuanian_16keys" landscapeResId="@xml/lithuanian_azerty"
+		id="5ad8d0a0-2ed1-11e6-bdf4-0800200c9a66" description="@string/lithuanian_16keys_azerty_description"
+		index="4" defaultEnabled="false" physicalKeyboardMappingResId="@xml/lithuanian_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+</Keyboards>

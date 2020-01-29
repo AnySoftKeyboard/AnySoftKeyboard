@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tamazight_keyboard_name">القبائلية</string>
+    <string name="tamazight_dictionary_name">القاموس القبائلي</string>
+    <string name="tamazight_tifinagh_keyboard">التيفيناغ</string>
+    <string name="tamazight_arabic_keyboard">العربية</string>
+    <string name="tamazight_arabic_keyboard_description">لوحة المفاتيح العربية</string>
+    <string name="tamazight_arabic_dictionary">القاموس العربي</string>
+    <string name="tamazight_tifinagh_dictionary">القاموس الأمازيغي</string>
+    <string name="tamazight_keyboard_name_description">القبائلية</string>
+    <string name="tamazight_tifinagh_keyboard_description">لوحة المفاتيح القبائلية</string>
+</resources>
