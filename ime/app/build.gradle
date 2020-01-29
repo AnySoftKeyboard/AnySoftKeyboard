@@ -100,16 +100,16 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 dependencies {
     implementation project(':addons:base')
     implementation project(':addons:languages:english:pack')
-    implementation project(':base')
-    implementation project(':base-rx')
-    implementation project(':nextword')
-    implementation project(':dictionaries')
-    implementation project(':jnidictionaryv1')
-    implementation project(':jnidictionaryv2')
-    implementation project(':prefs')
-    implementation project(':overlay')
-    implementation project(':pixel')
-    implementation project(':remote')
+    implementation project(':ime:base')
+    implementation project(':ime:base-rx')
+    implementation project(':ime:nextword')
+    implementation project(':ime:dictionaries')
+    implementation project(':ime:dictionaries:jnidictionaryv1')
+    implementation project(':ime:dictionaries:jnidictionaryv2')
+    implementation project(':ime:prefs')
+    implementation project(':ime:overlay')
+    implementation project(':ime:pixel')
+    implementation project(':ime:remote')
 
     implementation "com.android.support:support-fragment:$supportLibVersion"
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
@@ -126,6 +126,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    testImplementation project(path: ':base-test')
+    testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 }

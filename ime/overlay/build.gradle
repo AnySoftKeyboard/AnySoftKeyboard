@@ -4,7 +4,7 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 
 dependencies {
 
-    implementation project(path: ':base')
+    implementation project(path: ':ime:base')
 
-    testImplementation project(path: ':base-test')
+    testImplementation project(path: ':ime:base-test')
 }

@@ -11,7 +11,7 @@ android {
 }
 
 dependencies {
-    implementation project(':dictionaries')
-    implementation project(':base')
+    implementation project(':ime:dictionaries')
+    implementation project(':ime:base')
     implementation "com.android.support:support-annotations:$supportLibVersion"
 }
