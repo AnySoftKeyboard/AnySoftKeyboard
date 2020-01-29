@@ -1,2 +1,2 @@
 
-apply from: "$rootDir/gradle/theme_pack_lib.gradle"
+apply from: "$rootDir/addons/gradle/theme_pack_lib.gradle"

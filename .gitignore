@@ -23,3 +23,5 @@ outputs/
 *_words_*.dict
 *_words_dict_array.xml
 *.apk
+
+add_ons_apks/

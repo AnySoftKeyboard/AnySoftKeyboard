@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
 
-apply from: "$rootDir/gradle/all_android.gradle"
+apply from: "$rootDir/gradle/android_general.gradle"
 
 dependencies {
-    api project(path: ':base')
+    api project(path: ':addons:base')
 }
 
 group "com.anysoftkeyboard.theme.${parent.name}"
