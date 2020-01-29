@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary nameResId="@string/nias_dictionary"
+                description="@string/nias_dictionary_description"
+                locale="nia"
+                id="79e319e1-b9d2-4c73-8c56-fd98bddc7656"
+                type="binary_resource"
+                dictionaryResourceId="@array/nias_words_dict_array"
+                autoTextResourceId="@xml/nias_autotext"/>
+</Dictionaries>

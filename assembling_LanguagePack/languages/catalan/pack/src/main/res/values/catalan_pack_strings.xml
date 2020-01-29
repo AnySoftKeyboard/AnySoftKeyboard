@@ -1,0 +1,6 @@
+<resources>
+    <string name="catalan_dictionary">Català</string>
+    <string name="catalan_dictionary_description">Diccionari de català</string>
+    <string name="catalan_keyboard">Català</string>
+    <string name="catalan_keyboard_description">Teclat QWERTY</string>
+</resources>

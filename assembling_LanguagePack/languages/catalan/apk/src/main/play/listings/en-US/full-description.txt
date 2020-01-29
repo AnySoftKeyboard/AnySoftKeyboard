@@ -1,0 +1,6 @@
+AnySoftKeyboard keyboards pack:
+Catalan keyboard layout.
+* Dictionary now support inner-word "·"
+
+This is an expansion layouts pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.

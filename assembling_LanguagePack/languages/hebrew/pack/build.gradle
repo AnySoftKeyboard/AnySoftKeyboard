@@ -1,0 +1,6 @@
+ext.status_icon_text = 'ע'
+
+ext.dictionaryInputPossibleCharacters = "אבגדהוזחטיכלמנסעפצקרשת".toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = "ץםןף\"'".toCharArray()
+
+apply from: "$rootDir/gradle/language_pack_lib.gradle"

@@ -1,0 +1,11 @@
+This is a Cyrillic expansion pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.
+
+This pack contains Cyrillic and phonetic Russian keyboard layouts, physical keyboard mapping and dictionary.
+
+Search for AnySoftKeyboard on Google Play.
+
+.
+.
+
+<a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard"><u>https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard</u></a>

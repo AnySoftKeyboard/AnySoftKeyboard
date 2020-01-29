@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2010 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+	<style name="ICSAnyKeyboardIconsTheme">
+		<!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
+		<item name="iconKeyShift">@drawable/ics_key_shift_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyBackspace">@drawable/ics_key_delete_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeySpace">@drawable/ics_key_space_set</item>
+		<!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
+		<item name="iconKeyAction">@drawable/ics_key_action_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyMic">@drawable/ics_key_mic_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeySettings">@drawable/ics_key_settings_set</item>
+	</style>
+    <style name="ICSAnyKeyboardTheme">
+        <item name="android:background">@drawable/keyboard_background_holo</item>
+    	<item name="keyBackground">@drawable/btn_keyboard_key_ics</item>
+    	
+        <item name="keyTextSize">@dimen/key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+        <item name="keyTextColor">#FFFFFFFF</item>
+        <item name="hintTextColor">#FF999999</item>
+        <item name="labelTextSize">@dimen/key_label_text_size</item>
+        
+        <item name="shadowColor">#BB000000</item>
+        <item name="shadowRadius">0px</item>
+        <item name="shadowOffsetX">0px</item>
+        <item name="shadowOffsetY">0px</item>
+        <item name="backgroundDimAmount">0.5</item>
+        
+        <!-- key preview (feeback) -->
+        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_ics</item>
+    	<item name="keyPreviewTextColor">#FFFFFFFF</item>
+    	<item name="keyPreviewTextSize">32sp</item>
+    	<item name="keyPreviewLabelTextSize">22sp</item>
+    	
+    	<!-- suggestion strip -->
+    	<item name="suggestionBackgroundImage">@drawable/keyboard_suggest_strip_holo</item>
+    	<item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+    	<item name="suggestionTextSize">@dimen/candidate_font_height</item>
+
+		<!-- key heights -->
+		<item name="keyNormalHeight">@dimen/default_key_height</item>
+    	<item name="keySmallHeight">@dimen/default_key_half_height</item>
+    	<item name="keyLargeHeight">@dimen/default_key_tall_height</item>
+
+		<!-- key gaps -->    	
+		<item name="keyHorizontalGap">@dimen/default_key_horizontal_gap</item>
+		<item name="keyVerticalGap">@dimen/default_key_vertical_gap</item>
+    </style>
+    <style name="ICSAnyKeyboardPopupTheme" parent="@style/ICSAnyKeyboardTheme">
+        <item name="android:background">@drawable/keyboard_popup_panel_background_holo</item>
+    	<item name="keyBackground">@drawable/btn_keyboard_key_popup_ics</item>
+        <!-- this will say "no preview" -->
+    	<item name="keyPreviewTextSize">0px</item>
+    </style>
+</resources>

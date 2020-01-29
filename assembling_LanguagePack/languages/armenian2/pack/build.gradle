@@ -1,0 +1,4 @@
+ext.status_icon_text = "hy"
+ext.shouldGenerateDictionary = false
+
+apply from: "$rootDir/gradle/language_pack_lib.gradle"

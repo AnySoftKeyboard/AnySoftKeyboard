@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnySoftKeyboard - Suomi</string>
+    <string name="dictionary_name">Suomen sanasto</string>
+    
+    <string name="keyboard_name">Suomi</string>
+    <string name="keyboard_qwerty_name">Suomalainen QWERTY</string>
+    <string name="keyboard_qwerty_description">Suomalainen QWERTY-näppäimistö by ssalonen</string>
+    <string name="keyboard_qwerty_simple_description">Suomalainen yksinkertaistettu näppäimistö by llahteinen</string>
+    <string name="keyboard_qwerty_numbers_description">Suomalainen näppäimistö numeroilla by llahteinen</string>
+    <string name="keyboard_qwerty_numbers_symbols_description">Suomalainen näppäimistö numeroilla ja erikoismerkeillä by llahteinen</string>
+    <string name="keyboard_qwerty_symbols_top_row_numbers_description">Suomalainen näppäimistö numerorivillä ja erikoismerkeillä by llahteinen</string>
+    
+</resources>

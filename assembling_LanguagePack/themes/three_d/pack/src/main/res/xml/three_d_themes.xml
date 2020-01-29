@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KeyboardThemes>
+	<KeyboardTheme
+        id="37816fd0-9854-11e1-a8b0-0800200c9a66"
+        nameResId="@string/keyboard_theme_name"
+        themeRes="@style/ThreeDeeAnyKeyboardTheme"
+        popupThemeRes="@style/ThreeDeeAnyKeyboardPopupTheme"
+        description="@string/keyboard_theme_description"
+        index="1"/>
+</KeyboardThemes>

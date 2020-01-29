@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Row android:rowEdgeFlags="top|bottom">
+        <Key android:codes="49" android:keyEdgeFlags="left" />
+        <Key android:codes="8362" />
+        <Key android:keyOutputText="&#1513;&#1473;" android:keyLabel="&#1513;&#1473;" />
+        <Key android:keyOutputText="&#1513;&#1474;" android:keyLabel="&#1513;&#1474;" android:keyEdgeFlags="right" />
+    </Row>
+</Keyboard>
+    

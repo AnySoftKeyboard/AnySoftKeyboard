@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'java-gradle-plugin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile 'org.jsoup:jsoup:1.9.1'
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'make-dictionary'
+            implementationClass = 'MakeDictionaryPlugin'
+        }
+    }
+}

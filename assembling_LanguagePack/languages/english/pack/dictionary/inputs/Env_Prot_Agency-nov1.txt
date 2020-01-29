@@ -1,0 +1,540 @@
+
+
+
+
+Introduction 
+
+As recognized by the President's National Energy Plan (NEP), one
+of the principal energy challenges facing us is increasing our
+energy supplies in ways that protect and improve the environment.
+Thus, the President directed EPA to propose legislation that would
+significantly reduce SO2, NOx, and mercury emissions from power
+generation through a cap and trade program. Such a program, coupled
+with appropriate measures to address local concerns, would provide
+significant health benefits even as we increase energy supplies and
+maintain reasonable electricity rates.
+Our work on this issue has given us insight that I believe will
+be helpful to you. The more I learn about the cost and
+inefficiencies of the current and future regulatory regime to which
+power generators will be subjected if we do not have new
+legislation, the more I am convinced that we can --and must --
+develop a smarter approach that protects the environment and public
+health while reducing the cost to consumers and industry and
+optimizing the size of both the state and federal government
+machinery necessary to achieve that protection. It is possible to
+achieve better results at lower costs,
+but not if we simply add yet another program on top of all of
+the existing regulations.
+The current Clean Air Act has been enormously successful, but we
+can do better. Significant cost savings can be achieved for power
+generators and consumers through a comprehensive legislative
+package. I look forward to working with you to develop such an
+approach to reduce emissions from power generation. We applaud
+Senator Jeffords for tackling this important issue and for
+recognizing that a cap and trade program is the best way to achieve
+these reductions. However, we have significant concerns with S. 556
+as drafted. Our analysis to date suggests that it could increase
+consumers' electricity rates by as much as 50%, which we believe is
+unacceptable. In addition, the combination of emission reductions
+and timing is not feasible and could threaten the reliability of
+electricity supply. We are concerned that S. 556's short timeframes
+for installation of controls could lead power plants to be taken
+off-line at important times, which could lead to electricity
+shortages.
+In addition, there are a number of issues that Congress should
+consider that S. 556 does not address. As drafted, S. 556 would
+make some existing requirements unnecessary, but would not
+eliminate them. Rather than add yet another layer of environmental
+regulations on top of the existing ones, we believe that S. 556
+should eliminate those unnecessary existing requirements. S. 556
+also does not have an allocation scheme. One lesson we should learn
+from the success of the Acid Rain cap and trade program is that
+when certain key issues can be resolved through clear legislation,
+we can avoid years of litigation, business uncertainty and costs,
+and delayed environmental protection.
+Finally, and most importantly, the Administration strongly
+opposes including CO2 reductions in any multi-pollutant bill. The
+CO2 provisions in S. 556 will cost consumers too much and endanger
+our energy security by causing too much electricity generation to
+switch from coal to natural gas. Greenhouse gas emissions should be
+addressed in the context of climate change, which is being
+undertaken by the President's Cabinet level working group. For all
+of these reasons, the Administration must oppose S. 556. In my
+testimony today I will elaborate further on these key points.
+
+
+Background 
+
+Over the last 30 years, we have made substantial progress
+towards improved environmental quality under the Clean Air Act.
+During this time, gross domestic product has increased almost 160%.
+At the same time, we have reduced emissions of six key air
+pollutants by 29%, while coal consumption has increased 77% and
+energy consumption has increased 45%. Eleven years ago President
+George H. W. Bush signed into law the most far reaching amendments
+to the Clean Air Act since its enactment in 1970. Included in those
+amendments was the Acid Rain cap and trade program, the first
+program tailored specifically to the utility sector, which is
+achieving significant environmental and public health benefits at a
+fraction of the initial cost estimates and with relatively little
+government bureaucracy. It is time to revisit and update the Clean
+Air Act once again in order to achieve the additional reductions
+needed to address public health and environmental problems in the
+most cost effective manner.
+The Acid Rain Program is achieving its emission reduction goal
+at a fraction of the estimated costs because it allows and
+encourages innovative thinking and long range planning.1 The
+existing program establishes a cap on SO2 emissions to ensure that
+the environmental goal is met, and employs an innovative
+market-based allowance trading program to achieve the goal at
+lowest cost. Allowances are the currency with which compliance with
+the SO2 emissions requirements is achieved. Sources, rather than
+government, decide the most cost-effective way to use available
+resources to comply. Units that reduce their emissions below the
+number of allowances they hold may trade allowances with other
+units in the system, sell them to other sources or save them for
+future use. There are neither restrictions on trading nor
+government second-guessing.
+Allowance trading provides incentives for energy conservation
+and technology innovation that can both lower the cost of
+compliance and yield pollution prevention benefits. Simply, the
+allowance market puts a price or value on each ton of SO2 not 
+emitted. The association of a monetary value
+with reduced emissions encourages innovation: in the 1990's,
+scrubber costs decreased by approximately 40% and scrubber sulfur
+removal efficiencies improved from 90% to 95%, and experimentation
+led to the blending of fuels to lower emissions. To ensure that the
+cap is met and to provide credibility, sources also are required to
+install systems that continuously monitor and report emissions.
+The Acid Rain Program has proven to be an excellent model for
+cap and trade programs. Compliance with the program has been nearly
+100 percent and annual emissions of SO2 from power plants have
+already been reduced over 6 million tons (about 35 percent) from
+1980 levels. Greater reductions earlier than expected have lowered
+risks to human health and provided benefits to the environment
+sooner. Acid rain levels were dramatically reduced over large areas
+of the U.S. and trading did not result in geographic shifting of
+emissions, or "hot spots", as some feared.
+Despite the significant progress we have made under the Clean
+Air Act, air emissions from power generators are still contributing
+to serious public health and environmental problems. Administrator
+Whitman addressed these concerns extensively in her testimony
+before you on July 26, 2001. Rather than reiterate her testimony, I
+will emphasize just a few of her key points. Problems associated
+with sulfur dioxide (SO2), nitrogen oxides (NOx), and mercury
+emissions are of national and international significance, and the
+interstate and long range transport of emissions continue to play
+significant roles in the nature and magnitude of the problems.
+Emission and deposition of SO2, NOx, and mercury and their
+transformation byproducts are known to have a wide range of adverse
+effects on human health and the environment, including:
+• SO2 and NOx emissions contribute to fine particles, which are
+associated with premature mortality, aggravated chronic bronchitis,
+hospitalizations due to cardio-respiratory symptoms, emergency room
+visits due to aggravated asthma symptoms, and acute respiratory
+symptoms.
+1 Governor Whitman's July 26, 2001, testimony before this
+Committee contains a detailed discussion of the success of the Acid
+Rain cap and trade program.
+Fine particles formed from power plant emissions as well as
+mobile source emissions are of
+concern. • NOx emissions contribute to ground-level ozone,
+which aggravates respiratory illnesses and causes lung
+inflammation, particularly for at-risk populations such as
+children, the elderly and those afflicted with asthma, emphysema,
+and other respiratory ailments.
+• Mercury emissions contribute to mercury deposition in water.
+Children born to women who consume large amounts of
+mercury-contaminated fish while pregnant may be at risk for
+neurodevelopmental defects.
+• SO2 and NOx emissions contribute to atmospheric sulfate and
+nitrate concentrations that cause visibility impairment, including
+impairment in many national parks and wilderness areas.
+• SO2 and NOx contribute to acid deposition, which damages
+lakes and streams, adversely affecting the fish and other species
+that live in them, and leaches nutrients from the soil.
+• NOx emissions contribute to nitrogen deposition that may lead
+to eutrophication of estuaries and near-coastal waters and can
+damage forested watersheds.
+EPA, states, and industry, working together, have made important
+strides in addressing the adverse impacts of fossil fuel combustion
+by the electric power industry since the passage of the Clean Air
+Act in 1970. Despite significant improvements in air quality
+throughout the country however, emissions from power generation
+continue to result in serious health, environmental and economic
+impacts. In 1999, the electric power industry was responsible for
+67% of sulfur dioxide emissions, 25% of nitrogen oxide emissions,
+and 37% of mercury emissions in the United States.
+
+
+Business as Usual 
+
+The President's flexible, market-based approach to reducing
+emissions from power generators stands in sharp contrast to the
+complex web of existing regulations which currently confront the
+industry. Over the years, Congress, EPA and the States have
+responded to specific environmental and public health problems by
+developing separate regulatory programs to address the specific
+problems. Each individual program uses its own approach on its own
+timeline to serve its own purpose. Absent changes to the Act, EPA
+and states will be forced to follow the same approach in future
+regulations. It is time to consolidate and simplify to achieve our
+clean air goals. A comprehensive legislative approach with
+mandatory caps could replace a good portion of the current
+regulatory requirements with a system that will reduce the
+administrative burden on industry and governments, use market-based
+approaches to lower compliance costs, reduce consumers' costs, and
+increase national energy security by providing the industry with
+more certainty about its future regulatory obligations. By enacting
+such an approach, we can achieve environmental and public health
+protection more effectively and at less cost. If we do it the
+President's way, it will be a win-win.
+There are many regulations in place that will reduce air
+emissions from electric power generation. These regulations include
+both federal and State requirements that address a variety of
+emissions including SO2, NOx, CO, PM10, and a number of hazardous
+air pollutants. These programs
+include the National Ambient Air Quality Standards for SO2,
+particulate matter and ozone, the section 126 and the NOx SIP Call
+rules, the Acid Rain Program, new source review, new source
+performance standards, and the regional haze rule.
+But the regulation of power generators does not end with
+existing regulations. EPA is obligated by a settlement agreement to
+issue by the end of 2004 a Maximum Achievable Control Technology
+(MACT) standard to require source-specific controls of mercury and
+other hazardous air pollutants from electric utilities. Emissions
+reductions are required by the end of 2007. States will also be
+requiring utilities to comply with Best Available Retrofit
+Technology (BART) programs (either source-specific standards or a
+trading program) to meet requirements to reduce regional haze.
+It is expected that the existing fine particle and ozone
+standards now in place will also result in further regulation of
+power generators. Modeling shows that when full implementation of
+existing regulations such as the acid rain program, the NOx SIP
+Call, the Tier II standards for cars and trucks, the heavy duty
+diesel engine standards, and the low sulfur gasoline and diesel
+fuel rules are taken into account, additional reductions will be
+needed to bring areas into attainment. States will be required to
+develop plans for these areas. In addition, NOx and SO2 reductions
+are also needed to reduce continuing damage from acid rain and
+nitrogen deposition.
+Because states and EPA will have to find some way to
+significantly reduce NOx and SO2 emissions, it is probable that
+power generators will be required to reduce their emissions
+significantly. Power generation accounts for a significant
+percentage of these emissions, and our analysis shows that there
+are significant reductions available at lower cost than from other
+sources. Additionally, states know that if they do not get the
+reductions from power generators, they will have to impose
+significant reduction requirements on other local industrial and
+commercial sources or impose local transportation control
+measures.
+Under current law, the necessary reductions would be achieved
+through the development of individual state plans. States will not
+just control their own sources, however. They will be reaching out
+to control power generators and large industrial facilities in
+other states because transport from other states contributes to
+both ozone and fine particle pollution in many areas. This is what
+has happened in the eastern part of the country when states
+realized that emissions from sources in other states were
+significantly contributing to their 1-hour ozone non-attainment
+problems. Under section 126 of the Clean Air Act, a state can
+petition EPA and request that EPA require reductions from sources
+outside the petitioning state's borders. The petitioning state is
+entitled to relief if EPA finds that the sources are significantly
+contributing to the petitioning state's nonattainment problem.
+EPA's requirement, adopted in response to section 126 petitions,
+that sources in a number of eastern states reduce NOx emissions was
+recently upheld by the Court of Appeals for the District of
+Columbia Circuit. Since states now know that EPA has authority to
+address transport pollution through responses to 126 petitions or
+by issuing a rule like the NOx SIP Call, we anticipate that states
+will be turning to these types of control approaches early in the
+SIP process. Although those of us who are
+traveling that path with the current 126 petitions and NOx SIP
+Call believe it will eventually take us to our environmental goal,
+it has been -- and still is -- a very rocky road for industry,
+environmentalists, the states, EPA and other stakeholders.
+This one-at-a-time, uncoordinated series of regulatory
+requirements for the power industry is not the optimal approach for
+the environment, the power generation sector, or American
+consumers. With most plants needing to install control equipment to
+meet these requirements, it is likely that this approach would lead
+to installation of controls that become obsolete and stranded
+capital investments as additional requirements are promulgated.
+Further, the attainment efforts of individual States and localities
+not only impose costs on these entities, but also can increase
+complexity for companies which face differing requirements when
+operations cross state lines. These factors are exacerbated by
+limited timeframes that may constrain available compliance options
+and thwart long range planning. These and other inefficiencies
+point to the need for a nationally coordinated approach that could
+reduce cost while improving environmental progress and
+accountability.
+
+
+Changing the Way We Do Business: Certainty, Flexibility,
+Accountability and Innovation 
+
+We believe there is a better way, one that could cost American
+consumers and industry far less than under current law and ensure
+protection of the air we breathe in a far more certain,
+straightforward manner. I know that many members of this Committee
+share that belief and are also working to develop such an approach.
+It would provide power generators with more certainty about their
+regulatory future and thus allow them to make wiser decisions about
+investments in new technology, which would improve energy security.
+This Administration is developing such a proposal. It will build on
+the successes of the Acid Rain cap and trade program. It would
+establish national cap-and-trade programs for NOx, SO2 and mercury
+emissions from power generators (with appropriate measures to
+address local concerns). Such an approach will benefit the power
+generation industry, the economy, and the states, while improving
+public health and the environment.
+Up-front knowledge of future requirements for multiple
+pollutants would lead firms to follow significantly different and
+less expensive compliance strategies at individual plants, compared
+with compliance choices which must be made as requirements are
+addressed in a sequential manner under the current law. The savings
+come from the opportunity to make cost-effective plant investment
+and retirement decisions with full knowledge of upcoming SO2, NOx
+and mercury requirements, rather than investing in "add-on" control
+equipment to meet the requirements of each regulation. Integration,
+advance knowledge, and certainty regarding environmental
+requirements will have even greater value over the coming decade as
+the electric power industry undergoes further structural changes.
+An integrated package of measures that addresses both the existing
+regulatory requirements as well as many future environmental needs
+would provide the greatest degree of certainty and flexibility for
+the industry, while achieving the necessary emission reductions at
+lower cost than under current law.
+In exchange for flexibility in methods to control emissions, a
+full accounting of emissions through
+continuous monitoring and reporting is essential, as well as
+significant consequences for failing to comply. Such provisions
+have been critical to the success of the Acid Rain Program,
+encouraging individual sources to find the most cost-effective
+means of compliance with the collective emission reduction
+goal.
+Flexibility stimulates technological innovation, fuels economic
+activity and reduces cost to industry and consumers. Strategies and
+technologies for the control of SO2, NOx and mercury emissions
+exist now, and improved methods are expected to become available
+over the next several years. The air pollution control and
+monitoring technology industry is expected to continue to respond
+with cost-effective compliance solutions just as they have done for
+the past 30 years. A predictable demand for such jobs over the next
+15 years is preferable to the boom and bust cycle created by the
+current regulatory approach.
+This approach also would reduce states' administrative burdens
+and obligations. A national cap and trade program with appropriate
+caps for NOx and SO2 could provide the emission reductions
+necessary to bring a significant number of areas into attainment
+with the ozone and fine particle standards. Even those areas that
+would not be brought into attainment by these caps would need
+significantly fewer emission reductions to come into attainment.
+Our approach would significantly reduce the state resources needed
+to conduct modeling, planning and regulatory activities to attain
+the standards. Additionally, the Acid Rain cap and trade program is
+administered with a relatively small staff relying on strong,
+state-of-the-art data tracking and reporting capabilities. Thus,
+well-designed national cap and trade programs can help use
+government resources and taxpayer dollars more efficiently at both
+the state and federal level.
+Caps ensure that environmental goals are met. A cap that
+represents significant reductions of emissions protects the
+environment by reducing overall loadings. Consideration of local
+concerns is important in conjunction with trading provisions.
+Therefore, the National Energy Plan recommended that the
+Administration's approach include appropriate measures to address
+local concerns, such as the unlikely occurrence of an SO2 "hot
+spot" or area of concentrated emissions. Significant reductions
+will go a long way towards addressing local concerns. In addition,
+EPA will be conducting modeling that will predict where emissions
+reductions will occur. Under the Acid Rain cap and trade program,
+we have not seen local hot spots because the highest emitters are
+often the most cost-effective to control and therefore, the most
+likely to control.
+As I mentioned, EPA and the Administration are still in the
+process of developing our proposal. Several guidelines are shaping
+our efforts. These guidelines may provide a valuable basis as you
+weigh the proposals before you. They will also guide our assessment
+of other proposals, including S. 556. These principles are
+structured to ensure consistency with the NEP objectives. The NEP
+goals of increasing energy supplies, accelerating the protection
+and improvement of the environment, and increasing our nation's
+energy supply must be advanced. Towards that end, energy diversity,
+the preservation of electricity generation and transmission
+reliability, and improvement of energy
+9 efficiency/energy intensity of the electric power industry
+should be a key consideration. In particular, to prevent the
+reoccurrence of energy shortages and price volatility, a diverse
+mix of fuel sources should be maintained.
+
+
+Specific Comments on S. 556 
+
+We share the desire expressed in S. 556 to significantly reduce
+and cap emissions of SO2, NOx and mercury from power generation. We
+applaud your acknowledgment of market-based incentives,
+particularly cap and trade systems, as a powerful tool in
+environmental protection. In this way, S. 556 builds on successful
+elements of the Clean Air Act.
+We do, however, oppose S. 556 because of concerns with the bill
+-- both with some provisions that are in the bill and with some
+that are missing. We believe the emission reductions and timing in
+the bill will be too costly for consumers and will endanger
+national energy security. We believe the bill is missing some
+provisions -- it should address the allocation scheme and
+integration with existing programs. Finally, we oppose inclusion of
+CO2 in this bill.
+First, let me explain some of our specific concerns about the
+SO2, NOx, and mercury provisions in the bill. We are concerned that
+the significant emissions reductions are required too quickly. We
+do not believe it is reasonable to expect all the control
+technology installations to be completed in that time frame without
+very high costs and electricity reliability problems. To meet these
+deadlines, facilities may need to be taken off-line during critical
+periods. Reliability problems could arise as large amounts of
+capacity are taken out of service for extended periods of time to
+install the control equipment necessary to meet the emissions
+reduction requirements. The abbreviated time frame would force many
+generators to make these retrofits simultaneously. This would
+significantly reduce the amount of generating capacity available to
+meet consumer' electrical needs.
+We have not modeled the specific provisions in S. 556, but
+useful information is provided by comparing the analyses EPA and
+EIA conducted to respond to a request from Senators Smith,
+Voinovich and Brownback with the analyses responding to a request
+from Senators Jeffords and Lieberman. In the
+Smith/Voinovich/Brownback analysis, when we analyzed SO2 and NOx
+reduction levels similar to S. 556, mercury reduction levels more
+modest than S. 556 and no CO2 reductions, we did not find
+significant impacts on coal production or electricity prices.
+However, in the analysis responding to the Jeffords/Lieberman
+request that had NOx, SO2, mercury and CO2 reduction levels similar
+to S. 556, we found significant ramifications: approximately a
+20-30% decline of coal generation and a 30-50% increase in
+electricity prices compared to the reference case (depending on
+assumptions of energy technology penetration).
+The 90% source-specific control for mercury is also problematic.
+We have not seen anything that demonstrates that every coal-fired
+power plant would be able to achieve 90% source-specific controls
+for mercury by 2007, without considerable fuel switching, which
+would be very disruptive to our economy and undermine energy
+security. In addition, requiring the same level of reduction at
+a
+plant that emits 0.1 pounds of mercury and a plant that emits
+2000 pounds of mercury - regardless of cost - is neither efficient
+nor necessary.
+We are also very concerned about the "outdated power plant"
+provision. Requiring every plant over 30 years old to meet New
+Source Performance Standards and New Source Review modification
+requirements seems unnecessary and could undermine the benefits of
+the cap and trade approach. Allowing sources to make reductions
+where it is most economical to do so is one of the reasons cap and
+trade programs should be less costly than command-and-control
+programs that achieve the same or even fewer reductions. When you
+have a hard cap, as you would under S. 556, requiring emission
+reductions at a specific source does not reduce the overall level
+of pollution, it just limits industry's flexibility about where to
+make the reductions. Layering additional requirements, such as the
+"outdated power plants" provision, on top of a cap and trade
+program is very likely to increase costs without providing
+significant environmental benefits.
+Second, we have concerns about what is not in S. 556. Comparing
+our experience on the Acid Rain Program with the NOx SIP Call and
+the Section 126 petitions demonstrates the benefit of having
+certain key issues decided by Congress rather than left to Agency
+rulemakings. Congressional resolution of key issues simplifies
+whatever Agency rulemaking is needed and decreases the
+opportunities for the program to get tied up in protracted
+litigation.
+Perhaps the most important program element not addressed in the
+bill is integration of this new program with the existing Clean Air
+Act provisions. An effective market-based approach would make some
+existing provisions of the Clean Air Act unnecessary. For example,
+depending on the ultimate cap levels chosen by Congress, this type
+of legislation would obviate the need for Best Available Retrofit
+Technology requirements, mercury MACT, and new source review
+case-by-case technology requirements for power generators.
+Also missing from S. 556 is the scheme for allocating
+allowances. Developing an allocation scheme requires answering
+numerous questions. Should the allowances be auctioned off or be
+handed out for free? If they are not auctioned, should they be
+allocated based on heat input or electrical and steam output?
+Should power generators that do not emit air pollutants (e.g.,
+hydropower facilities) be given allowances? Should allowance
+allocations be updated, and if so, how frequently? Should
+allocations be fuel neutral? Imbedded in these and other questions
+are important environmental and energy policy choices with
+significant equity consequences. It may not be efficient for EPA to
+make these choices in rulemaking.
+There are other issues as well that this Committee should
+consider, such as coordination with existing state and regional
+programs like the Western Regional Air Partnership and the NOx
+reduction programs in the east. The Committee may also wish to
+consider provisions to track environmental progress to evaluate the
+efficacy of the program this bill would establish.
+Finally, the Administration strongly opposes including
+reductions for CO2 in S. 556 or any multi-pollutant bill. Pursuing
+sharp reductions in CO2 from the electricity generating sector
+alone would cause a dramatic shift from coal to natural gas and
+thus would run the risk of endangering national energy security,
+substantially increasing energy prices and harming consumers.
+The Administration will not support any legislation that would
+cause a significant decline in our nation's ability to use coal as
+a major source of current and future electricity. At the same time,
+the Administration will not support any legislation that does not
+enhance the cleanliness of coal-fired electricity generation and
+promote a future for clean coal technologies. In short, the
+Administration supports a clean coal policy as a critical component
+of our nation's energy and environmental policies, recognizing that
+other sources of energy also have a critical role to play.
+Additionally, as Governor Whitman said when she testified before
+you in July, including CO2 in this bill will slow down, if not
+prevent, the consensus necessary for passage of legislation to
+control multiple emissions from power plants. Governor Whitman and
+I both believe consensus on the appropriate levels and timing for
+reductions of NOx, SO2 and mercury is achievable relatively soon.
+We should not delay the public health and environmental benefits
+from reduction of these emissions while we wait for consensus to
+develop on CO2.
+We agree that climate change is a serious issue we need to
+address. However, CO2 has never been regulated as a pollutant under
+the Clean Air Act and does not pose any direct threat to human
+health unlike NOx, SO2 and mercury. The current body of scientific
+knowledge does not provide information regarding atmospheric
+concentrations of CO2 or reduction levels necessary to prevent
+dangerous interference with the climate system.
+In April, the President convened a Cabinet-level policy review
+of this issue and was provided with initial recommendations that he
+accepted and announced on June 11. In that regard, the
+Administration is implementing two major initiatives on climate
+science and advanced energy and sequestration technologies. The
+United States now spends $1.6 billion annually on climate science
+to reduce uncertainties - a commitment unmatched by any other
+nation. The "National Climate Change Technology Initiative" will
+accelerate priority research and the application of advanced energy
+and sequestration technologies, recognizing that the real answer to
+addressing climate change in the long term lies in the development
+and global introduction of such technologies in this century. And
+the cabinet-level policy review is ongoing. Finally, as greenhouse
+gas emissions are projected to grow exponentially in the developing
+world in the next two decades, we must evaluate the costs of
+imposing domestic reductions as a very high cost against
+potentially low-cost opportunities for mitigating and sequestering
+carbon emissions in the developing world.
+We appreciate the role of S. 556 in generating important
+discussions and emphasizing the importance of a new approach to
+controlling emissions in the power sector. I look forward to the
+additional hearings you will need to address these important issues
+and to working with the Committee
+to develop an approach that the President can support.
+The history of Clean Air Act legislation is one of great
+accomplishments made possible by bipartisan efforts. I thank you
+for the opportunity to work with you to continue that great
+tradition.
+
+
+

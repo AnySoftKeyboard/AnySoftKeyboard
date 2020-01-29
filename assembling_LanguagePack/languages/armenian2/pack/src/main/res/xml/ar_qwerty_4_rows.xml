@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    >
+<Row>
+  <Key android:codes="1389" android:keyLabel=""  android:keyEdgeFlags="left"/>
+  <Key android:codes="1408" android:keyLabel=""  android:popupCharacters="ռ"/>
+  <Key android:codes="1407" android:keyLabel=""  android:popupCharacters="թ"/>
+  <Key android:codes="1381" android:keyLabel=""  android:popupCharacters="է"/>
+  <Key android:codes="1384" android:keyLabel=""/>
+  <Key android:codes="1387" android:keyLabel=""/>
+  <Key android:codes="1400" android:keyLabel=""  android:popupCharacters="օ"/>
+  <Key android:codes="1402" android:keyLabel=""  android:popupCharacters="փ"/>
+  <Key android:codes="1393" android:keyLabel=""/>
+ 	<Key android:codes="1397" android:keyLabel="" android:keyEdgeFlags="right"/>
+</Row>    
+
+<Row>
+  <Key android:codes="1377" android:keyLabel="" android:keyEdgeFlags="left"/>
+  <Key android:codes="1405" android:keyLabel=""/>
+  <Key android:codes="1380" android:keyLabel=""/>
+  <Key android:codes="1414" android:keyLabel=""/>
+  <Key android:codes="1412" android:keyLabel=""/>
+  <Key android:codes="1392" android:keyLabel=""/>
+  <Key android:codes="1395" android:keyLabel=""/>
+  <Key android:codes="1391" android:keyLabel=""/>
+  <Key android:codes="1388" android:keyLabel=""/>
+  <Key android:codes="1386" android:keyLabel="" android:keyEdgeFlags="right"/>/>
+</Row>
+
+<!-- 
+օ (long press: ո) 1400
+ռ (long press: ր) 1408
+փ (long press: պ) 1402
+ծ (long press: ց)   1409  
+է (long press: ե)  1381
+թ (long press: տ)  1407
+-->
+
+
+
+<Row>
+  <Key android:codes="1382" android:keyLabel=""  android:horizontalGap="5%p" android:keyEdgeFlags="left"/>
+  <Key android:codes="1409" android:keyLabel=""  android:popupCharacters="ծ"/>
+  <Key android:codes="1379" android:keyLabel=""/>
+  <Key android:codes="1406" android:keyLabel=""/>
+  <Key android:codes="1378" android:keyLabel=""/>
+  <Key android:codes="1398" android:keyLabel=""/>
+  <Key android:codes="1396" android:keyLabel=""/>
+  <Key android:codes="1399" android:keyLabel=""/>
+  <Key android:codes="1403" android:keyLabel="" android:keyEdgeFlags="right"/>
+</Row>
+
+<Row>
+  <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+  <Key android:codes="1410" android:keyLabel=""  android:horizontalGap="10%p"/>
+  <Key android:codes="1415" android:keyLabel=""/>
+  <Key android:codes="1394" android:keyLabel=""/>
+  <Key android:codes="1401" android:keyLabel=""/>
+  <Key android:codes="58" android:keyLabel=""/>
+  <Key android:codes="1374" android:keyLabel=""/>
+  <Key android:codes="-5" android:horizontalGap="5%p" android:keyWidth="15%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+</Row>
+</Keyboard>

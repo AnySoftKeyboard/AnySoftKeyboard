@@ -1,0 +1,8 @@
+
+ext.status_icon_text = "af"
+
+ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
+
+apply from: "$rootDir/gradle/language_pack_lib.gradle"
+

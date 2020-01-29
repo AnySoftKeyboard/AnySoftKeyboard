@@ -1,0 +1,6 @@
+Sardinian keyboard layout and dictionary of over 100,000 words.
+
+Dictionary comes from a wordlist made for other open source projects. The source code is in another branch to the default.
+
+Install [[com.menny.android.anysoftkeyboard]] first, then select the desired
+layout from AnySoftKeyboard's Settings->Keyboards menu.

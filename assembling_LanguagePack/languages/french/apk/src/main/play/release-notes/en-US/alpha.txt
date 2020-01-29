@@ -1,0 +1,6 @@
+
+Updated French language pack :
+ - define 2 keyboards layout (AZERTY/QWERTY) with symbols
+   and rapid access to apostrophes and hyphen
+ - new dictionary based on AOSP (https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/)
+ - French Canadian SWERTY is fixed

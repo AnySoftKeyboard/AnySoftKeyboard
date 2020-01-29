@@ -1,0 +1,3 @@
+AnySoftKeyboard Theme for Israel's upcoming 64 birthday (cool, a round number!)
+
+This pack is an extension to AnySoftKeyboard. You must first install and activate AnySoftKeyboard.

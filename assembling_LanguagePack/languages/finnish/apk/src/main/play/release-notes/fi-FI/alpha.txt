@@ -1,0 +1,6 @@
+
+Päivitetty Suomen kielipaketti uusilla näppäimistöillä
+ - Yksinkertaistettu näppäimistö
+ - Näppäimistö pitkään painettavilla numeroilla
+ - Näppäimistö pitkään painettavilla numeroilla ja erikoismerkeillä
+ - Näppäimistö erillisellä numerorivillä ja pitkään painettavilla erikoismerkeillä
