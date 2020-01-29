@@ -18,8 +18,8 @@ android {
 
 dependencies {
     implementation "com.android.support:support-core-utils:$supportLibVersion"
-    implementation project(':base')
-    implementation project(':prefs')
+    implementation project(':ime:base')
+    implementation project(':ime:prefs')
 
-    testImplementation project(':base-test')
+    testImplementation project(':ime:base-test')
 }

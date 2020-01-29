@@ -9,5 +9,5 @@ dependencies {
     //so I can use SuppressFBWarnings
     api('com.google.code.findbugs:annotations:3.0.0')
 
-    testImplementation project(":base-test")
+    testImplementation project(":ime:base-test")
 }

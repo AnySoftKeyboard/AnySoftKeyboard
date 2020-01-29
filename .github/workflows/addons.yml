@@ -1,4 +1,4 @@
-name: AnySoftKeyboard
+name: AddOns
 
 on:
   push:
@@ -14,9 +14,7 @@ on:
       - '**/*.gradle'
       - '**/gradle.properties'
       - 'addons/scripts/**/*'
-      - 'addons/base/**/*'
-      - 'addons/languages/english/**/*'
-      - 'ime/**/*'
+      - 'addons/**/*'
     paths-ignore:
       - '**.md'
   pull_request:
@@ -31,9 +29,7 @@ on:
       - '**/*.gradle'
       - '**/gradle.properties'
       - 'addons/scripts/**/*'
-      - 'addons/base/**/*'
-      - 'addons/languages/english/**/*'
-      - 'ime/**/*'
+      - 'addons/**/*'
     paths-ignore:
       - '**.md'
 
@@ -67,7 +63,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: checks-gradle-${{ hashFiles('gradle/wrapper/*') }}
+          key: checks-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
           restore-keys: |
             checks-gradle-
       - name: check
@@ -108,7 +104,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: tests-gradle-${{ hashFiles('gradle/wrapper/*') }}
+          key: tests-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
           restore-keys: |
             tests-gradle-
       - name: tests
@@ -141,7 +137,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: tests-app-less-gradle-${{ hashFiles('gradle/wrapper/*') }}
+          key: tests-app-less-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
           restore-keys: |
             tests-app-less-gradle-
       - name: tests

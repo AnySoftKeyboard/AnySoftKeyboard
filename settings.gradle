@@ -1,11 +1,13 @@
 include ':api'
+
 include ':addons:base'
 include ':addons:languages'
 include ':addons:languages:english', ':addons:languages:english:pack'
 
-include ':base', ':base-rx', ':base-test', ':prefs'
-include ':remote', ':fileprovider'
-include ':dictionaries', ':jnidictionaryv1', ':jnidictionaryv2', ':nextword'
-include ':pixel', ':overlay'
-include ':app'
+include ':ime'
+include ':ime:base', ':ime:base-rx', ':ime:base-test', ':ime:prefs'
+include ':ime:remote', ':ime:fileprovider'
+include ':ime:dictionaries', ':ime:dictionaries:jnidictionaryv1', ':ime:dictionaries:jnidictionaryv2', ':ime:nextword'
+include ':ime:pixel', ':ime:overlay'
+include ':ime:app'
 
