@@ -11,4 +11,4 @@ echo "Will run tests for module '${MODULE}' with extra args '${EXTRA_ARGS}' for 
 ./gradlew --stacktrace -Dorg.gradle.daemon=false ${MODULE}testDebugUnitTest ${MODULE}testDebugUnitTestCoverage ${EXTRA_ARGS}
 
 #see https://github.com/actions/cache/issues/133
-chmod -R a+rwx .
+[[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

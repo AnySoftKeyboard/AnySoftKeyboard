@@ -15,6 +15,8 @@ runs:
   image: "docker://menny/ndk_ask:1.13.1"
   env:
     TERM: dumb
+    GRADLE_USER_HOME: ".github_cache_gradle/"
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   entrypoint: /bin/bash
   args:
     - .github/actions/test-shard-run/run_tests.sh
