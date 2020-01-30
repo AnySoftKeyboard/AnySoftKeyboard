@@ -19,7 +19,7 @@ export PUBLISH_APK_SERVICE_ACCOUNT_EMAIL="${1}"
 shift
 DEPLOY_TASKS="$*"
 
-export BUILD_COUNT_FOR_VERSION=$( git rev-list --count ${GITHUB_REF} )
+export BUILD_COUNT_FOR_VERSION=${GITHUB_RUN_NUMBER}
 
 if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
     echo "Using debug keystore for signing."
