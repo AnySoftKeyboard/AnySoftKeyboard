@@ -1,3 +1,5 @@
+import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,15 +12,18 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipInputStream;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.OutputFile;
+import org.gradle.api.tasks.PathSensitive;
 import org.gradle.api.tasks.TaskAction;
 
 /**
  * Task to generate words-list XML file from a AOSP words-list file.
  * https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
  */
+@CacheableTask
 public class GenerateWordsListFromAOSPTask extends DefaultTask {
     private static final Pattern mWordLineRegex =
             Pattern.compile("^\\s*word=([\\w\\p{L}'\"-]+),f=(\\d+).*$");
@@ -81,6 +86,7 @@ public class GenerateWordsListFromAOSPTask extends DefaultTask {
     }
 
     @InputFile
+    @PathSensitive(RELATIVE)
     public File getInputFile() {
         return inputFile;
     }
