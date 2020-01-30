@@ -45,7 +45,7 @@ android {
         }
     }
 
-    def keystoreFile = file("/tmp/add_on_pack.keystore")
+    def keystoreFile = file("/tmp/anysoftkeyboard.keystore")
 
     signingConfigs {
         release {
