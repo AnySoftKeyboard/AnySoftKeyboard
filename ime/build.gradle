@@ -1,0 +1,10 @@
+apply plugin: 'net.evendanan.autoversion.simple'
+
+autoVersioning {
+    enabled = rootProject.hasProperty("withAutoVersioning")
+    buildCounterEnvKey = "BUILD_COUNT_FOR_VERSION"
+    major = 1
+    minor = 10
+    buildCounterOffset = 1570/*adding to version. Should never change*/
+    patchOffset = -5170 /*decrementing due to minor, every minor/major bump, this should be decremented*/
+}

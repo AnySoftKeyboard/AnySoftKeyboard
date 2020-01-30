@@ -1,19 +1,14 @@
 def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task ->
     task.description = 'Generates a file with the YAML entry for publishing an APK fo a file'
     task.group = 'publish'
-    def outputYamlFile = project.file("outputs/fdroid.yaml")
-    def versionDetailsFile = project.file("outputs/version.txt")
-    task.outputs.file(outputYamlFile)
     doLast {
-        versionDetailsFile.write("${rootProject.autoVersioning.versionData.versionName} (code ${rootProject.autoVersioning.versionData.versionCode})")
-        outputYamlFile.parentFile.mkdirs()
-        outputYamlFile.write("FDroid outputs. Version ${project.version}\n")
-        task.dependsOn.forEach { dependedTask ->
-            outputYamlFile.append("\n")
-            outputYamlFile.append("*** ${dependedTask.project.path}\n")
-            def commit = 'git rev-parse HEAD'.execute().text.trim()
-
+        task.dependsOn.forEach { Task dependedTask ->
             def taskProject = dependedTask.project
+            File outputYamlFile = rootProject.file("outputs/fdroid/${taskProject.android.defaultConfig.applicationId}.yaml")
+            outputYamlFile.parentFile.mkdirs()
+            outputYamlFile.write("")
+            println("Will write fdroid data to ${outputYamlFile.absolutePath}")
+            def commit = 'git rev-parse HEAD'.execute().text.trim()
 
             def lines = new ArrayList<String>()
             lines.add("  - versionName: ${taskProject.android.defaultConfig.versionName}")
@@ -21,8 +16,8 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
             lines.add("    commit: ${commit}")
             lines.add("    gradle:")
             lines.add("      - yes")
-            lines.add("    output: ${rootProject.projectDir.relativePath(taskProject.buildDir)}/outputs/apk/release/app-release-unsigned.apk")
-            if (taskProject.path == 'app') {
+            lines.add("    output: outputs/apks/release/${taskProject.path.substring(1).replace(':', '-')}-${taskProject.android.defaultConfig.versionCode}.apk")
+            if (taskProject.path.contains('ime:app')) {
                 lines.add("    ndk: r14b")
             }
             lines.add("    gradleprops:")
@@ -37,9 +32,6 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
                 outputYamlFile.append(line)
                 outputYamlFile.append('\n')
             }
-
-            outputYamlFile.append("***\n")
-            outputYamlFile.append("\n")
         }
     }
 }
