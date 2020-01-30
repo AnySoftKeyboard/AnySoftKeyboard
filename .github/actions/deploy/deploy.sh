@@ -7,11 +7,11 @@ export ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL="${1}"
 shift
 KEYSTORE_FILE_URL="${1}"
 shift
-export ANYSOFTKEYBOARD_KEYSTORE_PASSWORD="${1}"
+export KEY_STORE_FILE_PASSWORD="${1}"
 shift
-export ANYSOFTKEYBOARD_KEYSTORE_ALIAS="${1}"
+export KEY_STORE_FILE_DEFAULT_ALIAS="${1}"
 shift
-export ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD="${1}"
+export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
 PUBLISH_CERT_FILE_URL="${1}"
 shift
@@ -27,5 +27,8 @@ if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
     cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
 fi
 
-echo "Counter is ${BUILD_COUNT_FOR_VERSION}, RELEASE_BUILD: ${RELEASE_BUILD}, and crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}"
-./scripts/ci/ci_deploy.sh ${KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${DEPLOY_TASKS}
+echo "Counter is ${BUILD_COUNT_FOR_VERSION}, RELEASE_BUILD: ${RELEASE_BUILD}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS}"
+./scripts/ci/ci_deploy.sh "${KEYSTORE_FILE_URL}" "${PUBLISH_CERT_FILE_URL}" ${DEPLOY_TASKS}
+
+ls -al outputs || true
+ls -al outputs/fdroid/ || true

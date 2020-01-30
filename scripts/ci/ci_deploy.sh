@@ -26,6 +26,6 @@ if [[ "${DEPLOY_TASKS}" == *"publish"* ]]; then
     wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 fi
 
-./gradlew --stacktrace -PwithAutoVersioning ${DEPLOY_TASKS} generateFdroidYamls
+./gradlew --stacktrace -PwithAutoVersioning ${DEPLOY_TASKS}
 
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

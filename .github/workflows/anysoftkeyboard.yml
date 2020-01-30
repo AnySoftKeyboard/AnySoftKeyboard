@@ -64,7 +64,7 @@ jobs:
         if: always()
         with:
           name: checks-reports
-          path: collected_reports/
+          path: collected_reports
 
   app-tests-shards:
     needs: [setup]
@@ -102,7 +102,7 @@ jobs:
         if: always()
         with:
           name: app-tests_${{ matrix.index }}
-          path: collected_reports/
+          path: collected_reports
 
   app-less-tests:
     needs: [setup]
@@ -136,7 +136,7 @@ jobs:
         if: always()
         with:
           name: app-less-tests
-          path: collected_reports/
+          path: collected_reports
 
   deploy-dry-run:
     if: github.event_name == 'pull_request'
@@ -144,15 +144,15 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: deploy
         uses: ./.github/actions/deploy
         with:
-          deploy_tasks: "-DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources verifyCanaryResources generateCanaryPlayResources"
+          deploy_tasks: "-DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources :generateFdroidYamls"
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: fdroid-metadata
-          path: outputs/fdroid.yaml
+          name: fdroid-metadata-dry-run
+          path: outputs/fdroid
 
   deploy_canary_ime_for_master:
     if: github.event_name == 'push' && github.ref == 'master'
@@ -160,7 +160,7 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: deploy
         uses: ./.github/actions/deploy
         with:
@@ -174,16 +174,12 @@ jobs:
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: signed-apk
-          path: ime/app/build/outputs/apk/
+          name: signed-apk-canary-ime
+          path: ime/app/build/outputs/apk
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: proguard-mapping
-          path: ime/app/build/outputs/mapping/
-      - uses: actions/upload-artifact@v1.0.0
-        with:
-          name: fdroid-metadata
-          path: outputs/fdroid.yaml
+          name: proguard-mapping-canary-ime
+          path: ime/app/build/outputs/mapping
 
   deploy_release_ime:
     if: github.event_name == 'push' && startsWith(github.ref, 'release-branch-v')
@@ -191,14 +187,14 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: setup-beta-release-notes
         run: |
           cp ime/app/src/main/play/release-notes/en-US/alpha.txt ime/app/src/main/play/release-notes/en-US/beta.txt
       - name: deploy
         uses: ./.github/actions/deploy
         with:
-          deploy_tasks: "-DdeployChannel=beta ime:app:assembleRelease ime:app:publishRelease"
+          deploy_tasks: "-DdeployChannel=beta ime:app:assembleRelease ime:app:publishRelease :generateFdroidYamls"
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.KEYSTORE_FILE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
@@ -208,16 +204,16 @@ jobs:
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: signed-apk
-          path: ime/app/build/outputs/apk/
+          name: signed-apk-release-ime
+          path: ime/app/build/outputs/apk
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: proguard-mapping
-          path: ime/app/build/outputs/mapping/
+          name: proguard-mapping-release-ime
+          path: ime/app/build/outputs/mapping
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: fdroid-metadata
-          path: outputs/fdroid.yaml
+          name: fdroid-metadata-release-ime
+          path: outputs/fdroid
 
   deploy_release_addons:
     if: github.event_name == 'push'
@@ -225,11 +221,11 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: deploy
         uses: ./.github/actions/deploy
         with:
-          deploy_tasks: "-DdeployChannel=alpha assembleRelease publishRelease -x ime:app:assembleRelease -x ime:app:publishRelease"
+          deploy_tasks: "-DdeployChannel=alpha assembleRelease publishRelease -x ime:app:assembleRelease -x ime:app:publishRelease :generateFdroidYamls"
           keystore_url: ${{ secrets.KEYSTORE_FILE_URL }}
           keystore_password: ${{ secrets.PACK_KEYSTORE_PASSWORD }}
           keystore_key_alias: ${{ secrets.PACK_KEYSTORE_ALIAS }}
@@ -239,8 +235,8 @@ jobs:
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: signed-add-ons-apks
-          path: add_ons_apks/release/
+          path: outputs/apks/release
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: fdroid-metadata
-          path: outputs/fdroid.yaml
+          name: fdroid-addons-metadata
+          path: outputs/fdroid
