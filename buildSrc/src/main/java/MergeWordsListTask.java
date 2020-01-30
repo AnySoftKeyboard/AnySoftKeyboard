@@ -1,3 +1,5 @@
+import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,9 +12,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputFile;
+import org.gradle.api.tasks.PathSensitive;
 import org.gradle.api.tasks.TaskAction;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -21,6 +25,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /** Task to merge several word-list files into one */
+@CacheableTask
 public class MergeWordsListTask extends DefaultTask {
     @TaskAction
     public void mergeWordsLists() throws IOException, ParserConfigurationException, SAXException {
@@ -79,6 +84,7 @@ public class MergeWordsListTask extends DefaultTask {
     }
 
     @InputFiles
+    @PathSensitive(RELATIVE)
     public File[] getInputWordsListFiles() {
         return inputWordsListFiles;
     }

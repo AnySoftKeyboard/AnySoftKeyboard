@@ -1,3 +1,5 @@
+import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -7,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputFile;
+import org.gradle.api.tasks.PathSensitive;
 import org.gradle.api.tasks.TaskAction;
 import org.jsoup.Jsoup;
 
 /** Task to generate words-list XML file from a input */
+@CacheableTask
 public class GenerateWordsListTask extends DefaultTask {
     @TaskAction
     public void generateWordsList() throws Exception {
@@ -58,6 +63,7 @@ public class GenerateWordsListTask extends DefaultTask {
     }
 
     @InputFiles
+    @PathSensitive(RELATIVE)
     public File[] getInputFiles() {
         return inputFiles;
     }

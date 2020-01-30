@@ -1,11 +1,16 @@
+import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
+
 import java.io.File;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.PathSensitive;
 import org.gradle.api.tasks.TaskAction;
 
 /** Task to create a binary-dictionary readable by AnySoftKeyboard */
+@CacheableTask
 public class MakeDictionaryTask extends DefaultTask {
 
     public MakeDictionaryTask() {
@@ -27,6 +32,7 @@ public class MakeDictionaryTask extends DefaultTask {
     }
 
     @InputFile
+    @PathSensitive(RELATIVE)
     public File getInputWordsListFile() {
         return inputWordsListFile;
     }
