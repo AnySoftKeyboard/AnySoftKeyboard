@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+	<Dictionary nameResId="@string/hebrew_dictionary" locale="iw" id="47c2baa2-8cf8-4019-aeff-b54c21e95577" type="binary_resource"
+	dictionaryResourceId="@array/hebrew_words_dict_array" autoTextResourceId="@xml/he_autotext" 
+	description="@string/hebrew_dictionary_description"/>	
+</Dictionaries>

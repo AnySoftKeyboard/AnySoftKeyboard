@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyWidth="15%p"
+          android:keyHeight="@integer/key_normal_height">
+    <Row android:rowEdgeFlags="top">
+        <Key android:codes="54" android:keyEdgeFlags="left"/>
+        <Key android:codes="ñ"/>
+        <Key android:codes="ń"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="ò" android:keyEdgeFlags="left"/>
+        <Key android:codes="ó"/>
+        <Key android:codes="õ"/>
+        <Key android:codes="ô"/>
+        <Key android:codes="ö"/>
+        <Key android:codes="ø"/>
+        <Key android:codes="ő"/>
+        <Key android:codes="ō"/>
+        <Key android:codes="œ" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

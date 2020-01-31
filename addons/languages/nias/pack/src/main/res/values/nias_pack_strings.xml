@@ -1,0 +1,8 @@
+<resources>
+    <string name="nias_dictionary">Nias</string>
+    <string name="nias_dictionary_description">Kamus Nias koleksi Sirus Laia</string>
+    <string name="nias_keyboard">Nias Keyboard</string>
+    <string name="nias_keyboard_description">Keyboard Nias standar</string>
+    <string name="nias_compact">Nias Kompak</string>
+    <string name="nias_compact_description">Keyboard Nias utk layar lebih kecil</string>
+</resources>

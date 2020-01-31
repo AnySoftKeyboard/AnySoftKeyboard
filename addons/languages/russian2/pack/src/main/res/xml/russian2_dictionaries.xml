@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the dictionary. Should be short. Reference to a string in values.xml 
+     "locale" : the ID of the dictionary's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The keyboard should declare the same locale. 
+     "id" : UUID for this dictionary. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "dictionaryResourceId" : a reference to the raw resource of the words dictionary
+     "autoTextResourceId" : a reference to a common typing mistakes XML.
+     -->
+	<Dictionary nameResId="@string/russian2_dictionary_name" locale="ru" id="afd228a6-3101-4998-b9c6-1e28aecc0e7a" type="binary_resource"
+	dictionaryResourceId="@array/russian2_words_dict_array" autoTextResourceId="@xml/russian2_autotext"
+	description="Dictionary from AOSP"/>
+</Dictionaries>

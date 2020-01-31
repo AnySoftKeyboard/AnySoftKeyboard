@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dictionary_name">persian Dictionary</string>
+    <string name="persian_dictionary">persian Dictionary</string>
+    <string name="persian_dictionary_description">persian for anysoftkey</string>
+    <string name="keyboard_qwerty_name">QWERTY persian</string>
+    <string name="persian_qwerty">م.زینلی فارسی</string>
+    <string name="persian_qwerty_compact">فارسی ۱۸ کلید</string>
+    <string name="keyboard_qwerty_description">persian keyboard - QWERTY layout</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    >
+
+    <Row android:keyWidth="8.33%p">
+    <!-- &#1081;&#1094;&#1091;&#1082;&#1077;&#1085;&#1075;&#1096;&#1097;&#1079;&#1093;&#1098; -->
+        <Key android:codes="1081" android:keyLabel="" android:popupCharacters="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="1094" android:keyLabel="" android:popupCharacters="2"/>
+        <Key android:codes="1091" android:keyLabel="" android:popupCharacters="3"/>
+        <Key android:codes="1082" android:keyLabel="" android:popupCharacters="4"/>
+        <Key android:codes="1077" android:keyLabel="" android:popupCharacters="ё5"/>
+        <Key android:codes="1085" android:keyLabel="" android:popupCharacters="6"/>
+        <Key android:codes="1075" android:keyLabel="" android:popupCharacters="7"/>
+        <Key android:codes="1096" android:keyLabel="" android:popupCharacters="8"/>
+        <Key android:codes="1097" android:keyLabel="" android:popupCharacters="9"/>
+        <Key android:codes="1079" android:keyLabel="" android:popupCharacters="0"/>
+        <Key android:codes="1093" android:keyLabel="" android:popupCharacters=""/>
+        <Key android:codes="1098" android:keyLabel="" android:popupCharacters="" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row android:keyWidth="9.09%p">
+    <!-- &#1092;&#1099;&#1074;&#1072;&#1087;&#1088;&#1086;&#1083;&#1076;&#1078;&#1101; -->
+        <Key android:codes="1092" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1099" android:keyLabel=""/>
+        <Key android:codes="1074" android:keyLabel=""/>
+        <Key android:codes="1072" android:keyLabel=""/>
+        <Key android:codes="1087" android:keyLabel=""/>
+        <Key android:codes="1088" android:keyLabel=""/>
+        <Key android:codes="1086" android:keyLabel=""/>
+        <Key android:codes="1083" android:keyLabel=""/>
+        <Key android:codes="1076" android:keyLabel=""/>
+        <Key android:codes="1078" android:keyLabel=""/>
+        <Key android:codes="1101" android:keyLabel="" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row android:keyWidth="9.09%p">
+    <!-- &#1103;&#1095;&#1089;&#1084;&#1080;&#1090;&#1100;&#1073;&#1102; -->
+    	<Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="1103" android:keyLabel=""/>
+        <Key android:codes="1095" android:keyLabel=""/>
+        <Key android:codes="1089" android:keyLabel=""/>
+        <Key android:codes="1084" android:keyLabel=""/>
+        <Key android:codes="1080" android:keyLabel=""/>
+        <Key android:codes="1090" android:keyLabel=""/>
+        <Key android:codes="1100" android:keyLabel=""/>
+        <Key android:codes="1073" android:keyLabel=""/>
+        <Key android:codes="1102" android:keyLabel=""/>
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

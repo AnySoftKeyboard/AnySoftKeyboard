@@ -6,8 +6,6 @@ set -e
     echo "run './gradlew googleJavaFormat' to fix."
     exit 1
 }
-./gradlew --stacktrace lintDebug checkstyleMain pmdMain pmdTest --continue
-./gradlew --stacktrace verifyReleaseResources
-./gradlew --stacktrace generateReleasePlayResources
+./gradlew --stacktrace lintDebug checkstyleMain --continue
 #see https://github.com/actions/cache/issues/133
-chmod -R a+rwx .
+[[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

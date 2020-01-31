@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           tools:ignore="MissingTranslation,TypographyDashes">
+
+    <string name="lithuanian_dictionary">Lithuanian</string>
+    <string name="lithuanian_qwerty_4rows">Lithuanian</string>
+    <string name="lithuanian_qwerty">Lithuanian (QWERTY)</string>
+    <string name="lithuanian_azerty">Lithuanian (ĄŽERTY)</string>
+    <string name="lithuanian_16keys">Lithuanian (16 keys/4 rows)</string>
+    <string name="lithuanian_16keys_qwerty">Lithuanian (16 keys/QWERTY)</string>
+    <string name="lithuanian_16keys_azerty">Lithuanian (16 keys/ĄŽERTY)</string>
+
+    <string-array name="lithuanian_initial_suggestions">
+        <item>!</item>
+        <item>\?</item>
+        <item>,</item>
+        <item>\"</item>
+        <item>\'</item>
+        <item>:</item>
+        <item>(</item>
+        <item>)</item>
+        <item>-</item>
+        <item>/</item>
+        <item>\@</item>
+        <item>_</item>
+    </string-array>
+</resources>

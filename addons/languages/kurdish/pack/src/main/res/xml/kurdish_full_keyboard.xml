@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="9.1%p"
+    android:keyHeight="@integer/key_normal_height">
+    <!-- for testing shiftCodes
+    <Row>
+        <Key android:codes="113" android:keyLabel="q" ask:mShiftedCodes="80" android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:keyLabel="w" ask:mShiftedCodes="86" ask:shiftedKeyLabel="V"/>
+        <Key android:codes="101" android:keyLabel="e" ask:mShiftedCodes="68" ask:shiftedKeyLabel="D"/>
+        <Key android:codes="114" android:keyLabel="r" ask:mShiftedCodes="81" ask:shiftedKeyLabel="Q"/>
+        <Key android:codes="116" android:keyLabel="t" ask:mShiftedCodes="83" ask:shiftedKeyLabel="S"/>
+        <Key android:codes="121" android:keyLabel="y" ask:mShiftedCodes="88" ask:shiftedKeyLabel="X"/>
+        <Key android:codes="117" android:keyLabel="u" ask:mShiftedCodes="84" ask:shiftedKeyLabel="T"/>
+        <Key android:codes="105" android:keyLabel="i" ask:mShiftedCodes="72" ask:shiftedKeyLabel="H"/>
+        <Key android:codes="111" android:keyLabel="o" ask:mShiftedCodes="78" ask:shiftedKeyLabel="M"/>
+        <Key android:codes="112" android:keyLabel="p" ask:mShiftedCodes="80" ask:shiftedKeyLabel="P" android:keyEdgeFlags="right"/>
+    </Row>
+    -->
+    <!-- original -->
+    <Row>
+        <Key android:codes="1670" android:keyLabel="چ" android:popupCharacters="۱" android:keyEdgeFlags="left"/>
+        <Key android:codes="1662" android:keyLabel="پ" android:popupCharacters="۲"/>
+        <Key android:codes="1602" android:keyLabel="ق" android:popupCharacters="۳"/>
+        <Key android:codes="1700" android:keyLabel="ڤ" android:popupCharacters="٤"/>
+        <Key android:codes="1601" android:keyLabel="ف" android:popupCharacters="٥"/>
+        <Key android:codes="1594" android:keyLabel="غ" android:popupCharacters="٦"/>
+        <Key android:codes="1593" android:keyLabel="ع" android:popupCharacters="٧"/>
+        <Key android:codes="1607" android:keyLabel="ھ" android:popupCharacters="٨" ask:shiftedKeyLabel="ھ"/>
+        <Key android:codes="1582" android:keyLabel="خ" android:popupCharacters="٩"/>
+        <Key android:codes="1581" android:keyLabel="ح" android:popupCharacters="٠" />
+        <Key android:codes="1580" android:keyLabel="ج" android:popupCharacters="؛،" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="1588" android:keyLabel="ش" android:keyEdgeFlags="left"/>
+        <Key android:codes="1587" android:keyLabel="س" />
+        <Key android:codes="1740" android:keyLabel="ی" />
+        <Key android:codes="1576" android:keyLabel="ب" />
+        <Key android:codes="1604" android:keyLabel="ل" />
+        <Key android:codes="1575" android:keyLabel="ا" />
+        <Key android:codes="1578" android:keyLabel="ت" />
+        <Key android:codes="1606" android:keyLabel="ن" />
+        <Key android:codes="1605" android:keyLabel="م" />
+        <Key android:codes="1705" android:keyLabel="ک" />
+        <Key android:codes="1711" android:keyLabel="گ"  android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="1574"  android:keyLabel="ئ"   android:keyEdgeFlags="left"/>
+        <Key android:codes="1685" android:keyLabel="ڕ" />
+        <Key android:codes="1585" android:keyLabel="ر" />
+        <Key android:codes="1742" android:keyLabel="ێ" />
+        <Key android:codes="1717" android:keyLabel="ڵ" />
+        <Key android:codes="1749" android:keyLabel="ە" />
+        <Key android:codes="1608" android:keyLabel="و" />
+        <Key android:codes="1586" android:keyLabel="ز" />
+        <Key android:codes="1734" android:keyLabel="ۆ" />
+        <Key android:codes="1583" android:keyLabel="د" ask:shiftedKeyLabel="د"/>
+        <Key android:keyWidth="9.1%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

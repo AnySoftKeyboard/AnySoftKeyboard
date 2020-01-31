@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard nameResId="@string/serbian_keyboard" iconResId="@drawable/ic_status_serbian"
+              layoutResId="@xml/serbian_qwertz"  landscapeResId="@xml/serbian_qwertz"
+              id="ad8beb0b-4973-4639-b003-6253ee85a073" defaultDictionaryLocale="sr"
+              description="@string/serbian_keyboard_description"
+              index="1" physicalKeyboardMappingResId="@xml/serbian_physical" />
+
+    <Keyboard nameResId="@string/serbian_keyboard_cyrillic" iconResId="@drawable/ic_status_serbian"
+              layoutResId="@xml/serbian_cyrillic" landscapeResId="@xml/serbian_cyrillic"
+              id="b38073d3-b7f5-4710-a5a6-b5b5c85e00d8" defaultDictionaryLocale="sr"
+              description="@string/serbian_keyboard_cyrillic_description"
+              index="2" physicalKeyboardMappingResId="@xml/serbian_physical" />
+
+    <Keyboard nameResId="@string/serbian_keyboard_layered" iconResId="@drawable/ic_status_serbian"
+              layoutResId="@xml/serbian_qwertz_layered" landscapeResId="@xml/serbian_qwertz_layered"
+              id="a3463dd2-f316-4d1d-b55d-60ef973596f3" defaultDictionaryLocale="sr"
+              description="@string/serbian_keyboard_layered_description"
+              index="3" physicalKeyboardMappingResId="@xml/serbian_physical" />
+
+    <Keyboard nameResId="@string/serbian_keyboard_cyrillic_layered" iconResId="@drawable/ic_status_serbian"
+              layoutResId="@xml/serbian_cyrillic_layered" landscapeResId="@xml/serbian_cyrillic_layered"
+              id="aee70741-f186-4405-95f6-0dabbfda5a78" defaultDictionaryLocale="sr"
+              description="@string/serbian_keyboard_cyrillic_layered_description"
+              index="4" physicalKeyboardMappingResId="@xml/serbian_physical" />
+</Keyboards>

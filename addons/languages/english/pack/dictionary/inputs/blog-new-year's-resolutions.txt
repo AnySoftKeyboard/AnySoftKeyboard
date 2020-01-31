@@ -1,0 +1,83 @@
+
+   
+      
+         Self-control, Self-efficacy, and New Year's Resolutions
+         Unresolved
+         
+I'm not one to make New Year's resolutions.
+
+I mean, sure, I could take my pick of popular New Year's resolutions ; I could decide, on the
+first day of the new year, that this year, I'll start exercising more and eating better, or that I'll spend more time
+with my family and friends, or that I'll learn a new skill. And if I chose to make resolutions, I'd be far from alone--a
+2008 survey on Dorthy.com found that 66% of the 2000+ adults polled
+had made resolutions at some point (though only 17% managed to keep them).
+
+Making resolutions: It's about self-control
+
+The question Anirban Mukhopadhyay of the Hong Kong University and Gita Venkatarmani Johar of the Graduate School of
+Business at Columbia University asked is this: What determines how many goals a person will set, and
+how successful a person will be at achieving those goals? They performed a few studies in 2005 to look at the
+relationship between self-control, goal setting, and goal achievement. They suggested that what you believe about self-control affects the
+goals you set and achieve [PDF].
+
+In the paper, "self-control" is used to mean a sense of willpower. Mukhopadhyay & Venkatarmani discuss various
+lay theories of self-control, noting that the amount of self-control a person has can be seen as either an inherently
+limited or unlimited resource, and that this resource can be seen either as malleable or as fixed (the amount of
+self-control a person has can change over time, or not). An important premise to note here is the idea that the
+probability of choosing a goal or making a resolution increases if a person thinks that goal can be attained. So if you
+think you'll be able to achieve a goal, you're more likely to set it. Combine this with theories of self-control, and in
+general, if you believe you have unlimited stores of self-control, you'll set a larger number of goals. If you believe
+self-control is malleable but limited, you'll set fewer goals.
+
+Mukhopadhyay & Venkatarmani also discuss self-efficacy: belief in one's capabilities, the perceived ability to
+carry out a desired action. They propose that people with high self-efficacy--people who believe that failure is the
+result of insufficient effort, and thus exhibit increased commitment and persistence--will achieve more of their goals
+than people with low self-efficacy, who tend to view failure as the result of deficient ability, and thus may simply
+give up.
+
+The studies
+
+In the first study, 85 participants (all college students) each read one of four passages presenting lay theories of
+self-control. Each passage contained two paragraphs; the first discussed self-control either as limited or as unlimited,
+and the second discussed self-control as either malleable or fixed. The participants then answered questions about their
+belief in each of two theories presented, followed by a second questionnaire to assess motivation, in which they listed
+all their current goals.
+
+The study was testing whether a belief in unlimited, malleable self-control would result in most resolutions, and
+indeed, this is what was found. The experimenters had some concerns about participants' natural beliefs in relation to
+the passages they read, however, so in study two, the order of the two measures (lay theories and motivation/goal
+listing) was varied. Data from 130 new participants revealed that, as hypothesized, if the motivation & goals
+questionnaire were assessed first, then among the people who believed self-control is malleable, those who also believed
+self-control to be unlimited (vs. limited) set more goals. When lay theories were assessed first, this result reversed.
+The people who believed that self-control is fixed were unaffected by order.
+
+The third study moved on to examine goal achievement, adding a measure to look at self-efficacy. The study had two
+sessions, in November then February. In the first session , the 159 participants read passages about lay theories (much
+like in study one, but with longer passages to strengthen the manipulation), listed the resolutions they were planning
+on making at New Years, rated how disappointed they would be if they failed to keep their resolutions, and filled out
+individual difference measures (which included a self-efficacy scale). Only 86 participants successfully returned for
+the second session, during which they indicated how much success they had had at keeping their resolutions.
+
+What does this mean for your resolutions?
+
+The resolutions made by participants across all conditions were qualitatively similar (take a look at any list of
+popular New Year's resolutions, and you'll see the majority of the goals). As shown in the first two studies, more goals
+were set by people who believe self-control is unlimited and malleable than by any other people--that is, if you expect
+more success, you may increase the difficulty and number of tasks that you set for yourself. Self-efficacy did not have
+a significant effect on goal-setting.
+
+As far as success goes, only the interaction between lay theory and self-efficacy was significant. If participants
+believed in limited self-control and were low in self-efficacy, they tended to give up more often, failing to achieve
+their goals. But if participants believed in unlimited self-control, self-efficacy had no effect; participants achieved
+just as many goals regardless, and people who set more resolutions were marginally more likely to succeed.
+
+Mukhopadhyay & Venkatarmani realize that their research does not directly look at the relationship between lay
+theories of self-control and beliefs about one's own amount of self-control and self-efficacy, and propose this as an
+area for future study. But in general, lay theories about self-control can determine how much success you'll expect (and
+thus, how many goals you'll set), and self-efficacy beliefs can determine how much success you'll actually have.
+
+References
+         
+Mukhopadhyay, A. & Johar, G.V. (2005). Where There Is a Will, Is There a Way? Effects of Lay Theories of Self-Control on Setting and Keeping Resolutions. Journal of Consumer Research , 31, 779-786 [ PDF ]
+      
+   

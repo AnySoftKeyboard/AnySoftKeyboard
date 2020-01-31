@@ -18,3 +18,12 @@ outputs/
 .settings/
 .classpath
 .vscode/
+
+#generated files
+*_words_*.dict
+*_words_dict_array.xml
+*.apk
+
+add_ons_apks/
+
+.robolectric-android-all-jars/

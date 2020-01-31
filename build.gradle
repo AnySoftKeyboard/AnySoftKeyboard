@@ -11,23 +11,12 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.github.triplet.gradle:play-publisher:2.4.2'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.8.1'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:1.1.1'
         classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.8'
         classpath 'net.evendanan.autoversion:gradle-plugin:0.2.2'
     }
-}
-
-apply plugin: 'net.evendanan.autoversion.simple'
-
-autoVersioning {
-    enabled = rootProject.hasProperty("withAutoVersioning")
-    buildCounterEnvKey = "BUILD_COUNT_FOR_VERSION"
-    major = 1
-    minor = 10
-    buildCounterOffset = 1570/*adding to version. Should never change*/
-    patchOffset = -5170 /*decrementing due to minor, every minor/major bump, this should be decremented*/
 }
 
 apply plugin: 'com.github.sherter.google-java-format'

@@ -5,6 +5,8 @@ on:
     branches:
       - master
       - release-branch-v*
+    paths-ignore:
+      - '**.md'
   pull_request:
     branches:
       - '*'
@@ -13,7 +15,7 @@ on:
 
 env:
   TERM: dumb
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
   GRADLE_USER_HOME: ".github_cache_gradle/"
 
 jobs:
@@ -41,19 +43,11 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: checks-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
+          key: checks-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             checks-gradle-
       - name: check
         run: ./scripts/ci/ci_check.sh
-      - uses: actions/upload-artifact@v1.0.0
-        with:
-          name: debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
-          file_pattern: pmd*.html
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -66,7 +60,7 @@ jobs:
         if: always()
         with:
           name: checks-reports
-          path: collected_reports/
+          path: collected_reports
 
   app-tests-shards:
     needs: [setup]
@@ -82,7 +76,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: tests-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
+          key: tests-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             tests-gradle-
       - name: tests
@@ -90,7 +84,7 @@ jobs:
         with:
           index: ${{ matrix.index }}
           groups_count: ${{ matrix.groups_count }}
-          module: "app:"
+          module: "ime:app:"
       - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
         if: always()
@@ -104,7 +98,7 @@ jobs:
         if: always()
         with:
           name: app-tests_${{ matrix.index }}
-          path: collected_reports/
+          path: collected_reports
 
   app-less-tests:
     needs: [setup]
@@ -115,7 +109,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: tests-app-less-gradle-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('gradle/**/*') }}
+          key: tests-app-less-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             tests-app-less-gradle-
       - name: tests
@@ -124,7 +118,7 @@ jobs:
           index: 0
           groups_count: 1
           module: ""
-          extra_args: "-x app:testDebugUnitTest -x app:testDebugUnitTestCoverage"
+          extra_args: "-x :ime:app:testDebugUnitTest -x :ime:app:testDebugUnitTestCoverage"
       - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
         if: always()
@@ -138,30 +132,41 @@ jobs:
         if: always()
         with:
           name: app-less-tests
-          path: collected_reports/
+          path: collected_reports
+
   deploy-dry-run:
     if: github.event_name == 'pull_request'
     needs: [setup]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: .github_cache_gradle/
+          key: dry-run-deploy-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: |
+            dry-run-deploy-gradle-
       - name: deploy
         uses: ./.github/actions/deploy
         with:
-          release_deploy: "dry-run"
+          deploy_tasks: "-DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources :generateFdroidYamls"
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: fdroid-metadata-dry-run
+          path: outputs/fdroid
 
-  deploy:
-    if: github.event_name == 'push'
+  deploy_canary_ime_for_master:
+    if: github.event_name == 'push' && github.ref == 'master'
     needs: [checks, app-tests-shards, app-less-tests]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: deploy
         uses: ./.github/actions/deploy
         with:
-          release_deploy: ${{ contains(github.ref, 'release-branch-v') }}
+          deploy_tasks: "-DdeployChannel=alpha ime:app:assembleCanary ime:app:publishCanary"
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.KEYSTORE_FILE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
@@ -171,13 +176,69 @@ jobs:
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: signed-apk
-          path: app/build/outputs/apk/
+          name: signed-apk-canary-ime
+          path: ime/app/build/outputs/apk
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: proguard-mapping
-          path: app/build/outputs/mapping/
+          name: proguard-mapping-canary-ime
+          path: ime/app/build/outputs/mapping
+
+  deploy_release_ime:
+    if: github.event_name == 'push' && startsWith(github.ref, 'release-branch-v')
+    needs: [checks, app-tests-shards, app-less-tests]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup-beta-release-notes
+        run: |
+          cp ime/app/src/main/play/release-notes/en-US/alpha.txt ime/app/src/main/play/release-notes/en-US/beta.txt
+      - name: deploy
+        uses: ./.github/actions/deploy
+        with:
+          deploy_tasks: "-DdeployChannel=beta ime:app:assembleRelease ime:app:publishRelease :generateFdroidYamls"
+          crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
+          keystore_url: ${{ secrets.KEYSTORE_FILE_URL }}
+          keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
+          keystore_key_alias: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
+          keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
+          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: fdroid-metadata
-          path: outputs/fdroid.yaml
+          name: signed-apk-release-ime
+          path: ime/app/build/outputs/apk
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: proguard-mapping-release-ime
+          path: ime/app/build/outputs/mapping
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: fdroid-metadata-release-ime
+          path: outputs/fdroid
+
+  deploy_release_addons:
+    if: github.event_name == 'push'
+    needs: [checks, app-less-tests]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: deploy
+        uses: ./.github/actions/deploy
+        with:
+          deploy_tasks: "-DdeployChannel=alpha assembleRelease publishRelease -x ime:app:assembleRelease -x ime:app:publishRelease :generateFdroidYamls"
+          keystore_url: ${{ secrets.KEYSTORE_FILE_URL }}
+          keystore_password: ${{ secrets.PACK_KEYSTORE_PASSWORD }}
+          keystore_key_alias: ${{ secrets.PACK_KEYSTORE_ALIAS }}
+          keystore_key_password: ${{ secrets.PACK_KEYSTORE_KEY_PASSWORD }}
+          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: signed-add-ons-apks
+          path: outputs/apks/release
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: fdroid-addons-metadata
+          path: outputs/fdroid

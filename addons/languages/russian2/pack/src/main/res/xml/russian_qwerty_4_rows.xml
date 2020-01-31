@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    >
+
+    <Row>
+        <Key android:codes="1081" android:keyLabel="" android:popupCharacters="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="1094" android:keyLabel="" android:popupCharacters="2"/>
+        <Key android:codes="1091" android:keyLabel="" android:popupCharacters="3"/>
+        <Key android:codes="1082" android:keyLabel="" android:popupCharacters="4"/>
+        <Key android:codes="1077" android:keyLabel="" android:popupCharacters="5"/>
+        <Key android:codes="1085" android:keyLabel="" android:popupCharacters="6"/>
+        <Key android:codes="1075" android:keyLabel="" android:popupCharacters="7"/>
+        <Key android:codes="1096" android:keyLabel="" android:popupCharacters="8"/>
+        <Key android:codes="1097" android:keyLabel="" android:popupCharacters="9"/>
+        <Key android:codes="1079" android:keyLabel="" android:popupCharacters="0" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key android:codes="1092" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1099" android:keyLabel=""/>
+        <Key android:codes="1074" android:keyLabel=""/>
+        <Key android:codes="1072" android:keyLabel=""/>
+        <Key android:codes="1087" android:keyLabel=""/>
+        <Key android:codes="1088" android:keyLabel=""/>
+        <Key android:codes="1086" android:keyLabel=""/>
+        <Key android:codes="1083" android:keyLabel=""/>
+        <Key android:codes="1076" android:keyLabel=""/>
+        <Key android:codes="1078" android:keyLabel="" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key android:codes="1103" android:keyLabel="" android:horizontalGap="5%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="1095" android:keyLabel=""/>
+        <Key android:codes="1089" android:keyLabel=""/>
+        <Key android:codes="1084" android:keyLabel=""/>
+        <Key android:codes="1080" android:keyLabel=""/>
+        <Key android:codes="1090" android:keyLabel=""/>
+        <Key android:codes="1100" android:keyLabel=""/>
+        <Key android:codes="1073" android:keyLabel=""/>
+        <Key android:codes="1102" android:keyLabel="" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+    	<Key android:codes="-1" android:keyWidth="15%p"
+                android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="1105" android:keyLabel="" android:horizontalGap="5%p"/>
+        <Key android:codes="33" android:keyLabel=""/>
+        <Key android:codes="45" android:keyLabel=""/>
+        <Key android:codes="1101" android:keyLabel=""/>
+        <Key android:codes="1093" android:keyLabel=""/>
+        <Key android:codes="1098" android:keyLabel=""/>
+        <Key android:codes="-5" android:horizontalGap="5%p" android:keyWidth="15%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

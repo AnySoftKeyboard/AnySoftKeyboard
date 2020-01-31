@@ -2,6 +2,16 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 android {
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -35,6 +45,14 @@ android {
                 systemProperty 'robolectric.logging.enabled', false
 
                 systemProperty 'robolectric.dependency.repo.url', 'https://repo1.maven.org/maven2'
+
+                if (isCi) {
+                    // In CI, we want a much more stable test-runs.
+                    // We will tell Roboletric where exactly it can find the android-all artifacts.
+                    // These files are downloaded using the "./scripts/download_robolectric_jars_to_machine.sh"
+                    // script (which is called as part of the CI scripts).
+                    systemProperty 'robolectric.dependency.dir', "${rootDir.absolutePath}/.robolectric-android-all-jars/"
+                }
 
                 if (project.hasProperty('excludeTestClasses')) {
                     exclude project.property('excludeTestClasses')

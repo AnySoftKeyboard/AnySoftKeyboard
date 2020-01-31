@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PhysicalTranslation QwertyTranslation="\u044f\u0448\u0435\u0440\u0442\u044b\u0443\u0438\u043e\u043f\u0430\u0441\u0434\u0444\u0433\u0447\u0439\u043a\u043b\u0437\u0445\u0446\u0432\u0431\u043d\u043c">
+	<!-- keycode_comma -->
+	<SequenceMapping keySequence="55,55" targetChar="ь"/>
+	<!-- KEYCODE_U -->
+	<SequenceMapping keySequence="49,49" targetChar="ю"/>
+	<!-- KEYCODE_W -->
+	<SequenceMapping keySequence="51,51" targetChar="щ"/>
+	<!-- KEYCODE_E -->
+	<SequenceMapping keySequence="33,33" targetChar="э"/>
+	<!-- KEYCODE_Z -->
+	<SequenceMapping keySequence="54,54" targetChar="ж"/>
+	<!-- KEYCODE_PERIOD -->
+	<SequenceMapping keySequence="56,56" targetChar="ъ"/>
+</PhysicalTranslation>
