@@ -18,7 +18,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.StrictMode;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -58,16 +57,5 @@ public class DeviceSpecificV19 extends DeviceSpecificV16 {
         }
 
         return (int) (hash ^ (hash >>> 32));
-    }
-
-    @Override
-    public void setupStrictMode() {
-        StrictMode.setThreadPolicy(
-                new StrictMode.ThreadPolicy.Builder()
-                        .detectAll()
-                        .penaltyLog()
-                        .penaltyFlashScreen()
-                        .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
     }
 }

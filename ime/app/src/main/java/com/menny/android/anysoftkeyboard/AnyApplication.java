@@ -149,10 +149,6 @@ public class AnyApplication extends Application {
                         + " concrete class "
                         + msDeviceSpecific.getClass().getName());
 
-        if (BuildConfig.DEBUG) {
-            msDeviceSpecific.setupStrictMode();
-        }
-
         // setting some statistics
         updateStatistics(this);
 

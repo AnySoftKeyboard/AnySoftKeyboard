@@ -52,8 +52,6 @@ public interface DeviceSpecific {
             @Nullable String keyboardLocale,
             @NonNull CharSequence keyboardId);
 
-    void setupStrictMode();
-
     ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary);
 
     Clipboard createClipboard(Context applicationContext);
