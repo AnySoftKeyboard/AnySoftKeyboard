@@ -141,6 +141,12 @@ jobs:
     container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: .github_cache_gradle/
+          key: dry-run-deploy-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: |
+            dry-run-deploy-gradle-
       - name: deploy
         uses: ./.github/actions/deploy
         with:
