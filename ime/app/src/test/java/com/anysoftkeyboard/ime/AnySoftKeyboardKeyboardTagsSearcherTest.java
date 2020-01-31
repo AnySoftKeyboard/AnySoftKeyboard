@@ -16,7 +16,6 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
-@SuppressWarnings("PMD.AvoidUsingHardCodedIP")
 @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
 public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBaseTest {
 
