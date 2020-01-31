@@ -2,15 +2,27 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.net.Uri;
 import android.text.TextUtils;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         final List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(
+                new VersionChangeLog(
+                        1,
+                        10,
+                        "r4",
+                        Uri.parse(
+                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92"),
+                        "Upgrading may result in a Coronavirus exposure.\n",
+                        "YABTU.",
+                        "Updated translations."));
         log.add(
                 new VersionChangeLog(
                         1,
