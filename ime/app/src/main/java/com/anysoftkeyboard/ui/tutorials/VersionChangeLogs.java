@@ -2,12 +2,10 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.net.Uri;
 import android.text.TextUtils;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {

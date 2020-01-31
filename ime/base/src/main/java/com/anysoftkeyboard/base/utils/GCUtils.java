@@ -3,7 +3,6 @@ package com.anysoftkeyboard.base.utils;
 import android.support.annotation.VisibleForTesting;
 import android.text.format.DateUtils;
 import android.util.Log;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class GCUtils {
     @VisibleForTesting static final int GC_TRY_LOOP_MAX = 5;
@@ -33,8 +32,6 @@ public class GCUtils {
         }
     }
 
-    @SuppressFBWarnings("DM_GC")
-    @SuppressWarnings("PMD.DoNotCallGarbageCollectionExplicitly")
     @VisibleForTesting
     void doGarbageCollection(final String tag) {
         System.gc();

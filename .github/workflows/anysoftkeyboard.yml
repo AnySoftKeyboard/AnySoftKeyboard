@@ -51,10 +51,6 @@ jobs:
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
-          file_pattern: pmd*.html
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
           file_pattern: checkstyle*.html
       - uses: ./.github/actions/collect-reports
         if: always()

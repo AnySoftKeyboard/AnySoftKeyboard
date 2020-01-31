@@ -196,7 +196,6 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
     }
 
-    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setWillNotDraw(
