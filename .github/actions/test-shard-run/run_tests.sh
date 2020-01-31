@@ -10,7 +10,7 @@ echo "Will run tests for module '${MODULE}' with extra args '${EXTRA_ARGS}' for 
 
 ./scripts/download_robolectric_jars_to_machine.sh
 
-./gradlew ${MODULE}testDebugUnitTest ${MODULE}testDebugUnitTestCoverage ${EXTRA_ARGS}
+./gradlew "${MODULE}testDebugUnitTest" "${MODULE}testDebugUnitTestCoverage" ${EXTRA_ARGS}
 
 #see https://github.com/actions/cache/issues/133
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

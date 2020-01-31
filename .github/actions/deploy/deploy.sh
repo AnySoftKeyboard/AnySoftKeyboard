@@ -29,6 +29,3 @@ fi
 
 echo "Counter is ${BUILD_COUNT_FOR_VERSION}, RELEASE_BUILD: ${RELEASE_BUILD}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS}"
 ./scripts/ci/ci_deploy.sh "${KEYSTORE_FILE_URL}" "${PUBLISH_CERT_FILE_URL}" ${DEPLOY_TASKS}
-
-ls -al outputs || true
-ls -al outputs/fdroid/ || true
