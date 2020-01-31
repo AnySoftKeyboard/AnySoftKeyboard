@@ -25,3 +25,5 @@ outputs/
 *.apk
 
 add_ons_apks/
+
+.robolectric-android-all-jars/

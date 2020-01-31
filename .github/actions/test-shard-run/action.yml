@@ -1,5 +1,6 @@
 name: "Run tests"
 author: "menny"
+description: "Runs tests using Gradle and sharding support"
 
 inputs:
   index:
@@ -16,7 +17,7 @@ runs:
   env:
     TERM: dumb
     GRADLE_USER_HOME: ".github_cache_gradle/"
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
   entrypoint: /bin/bash
   args:
     - .github/actions/test-shard-run/run_tests.sh
