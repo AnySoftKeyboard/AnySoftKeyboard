@@ -43,7 +43,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: checks-gradle-${{ hashFiles('gradle/wrapper/*') }}
+          key: checks-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             checks-gradle-
       - name: check
@@ -76,7 +76,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: tests-gradle-${{ hashFiles('gradle/wrapper/*') }}
+          key: tests-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             tests-gradle-
       - name: tests
@@ -109,7 +109,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: .github_cache_gradle/
-          key: tests-app-less-gradle-${{ hashFiles('gradle/wrapper/*') }}
+          key: tests-app-less-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             tests-app-less-gradle-
       - name: tests
