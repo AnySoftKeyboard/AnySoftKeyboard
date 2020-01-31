@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="15%p">
+    <Row>
+        <Key
+            android:keyLabel="[b]"
+            android:keyOutputText="[b]" />
+        <Key
+            android:keyLabel="[/b]"
+            android:keyOutputText="[/b] " />
+        <Key
+            android:keyLabel="[i]"
+            android:keyOutputText="[i]" />
+        <Key
+            android:keyLabel="[/i]"
+            android:keyOutputText="[/i] " />
+        <Key
+            android:keyLabel="[u]"
+            android:keyOutputText="[u]" />
+        <Key
+            android:keyLabel="[/u]"
+            android:keyOutputText="[/u] " />
+        <Key
+            android:keyLabel="[s]"
+            android:keyOutputText="[s]" />
+        <Key
+            android:keyLabel="[/s]"
+            android:keyOutputText="[/s] " />
+        <Key
+            android:keyLabel="[img]"
+            android:keyOutputText="[img]" />
+        <Key
+            android:keyLabel="[/img]"
+            android:keyOutputText="[/img] " />
+        <Key
+            android:keyLabel="[url]"
+            android:keyOutputText="[url]" />
+        <Key
+            android:keyLabel="[/url]"
+            android:keyOutputText="[/url] " />
+    </Row>
+</Keyboard>

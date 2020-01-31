@@ -31,4 +31,5 @@
     <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
 
     <suppress files="simple_phone\.xml" id="DoNotUseAndroidKeyIcon" />
+    <suppress files="keyboard_layout_api\.xml" id="DoNotUseAndroidKeyIcon" />
 </suppressions>

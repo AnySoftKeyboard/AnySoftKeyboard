@@ -1,7 +1,5 @@
 allprojects {
     project.ext {
-        askExternalAddOnsVersion = '4.0.947'
-
         androidBuildTools = '29.0.2'
         supportLibVersion = '25.4.0'
         robolectricVersion = '4.3.1'

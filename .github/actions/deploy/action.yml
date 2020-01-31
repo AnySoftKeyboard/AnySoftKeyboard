@@ -1,37 +1,47 @@
 name: "Deploy app"
+description: "Deploys the AnySoftKeyboard artifacts to Play Store"
 author: "menny"
 
 inputs:
-  release_deploy:
-    description: "can be 'true', 'false' or 'dry-run'"
+  deploy_tasks:
+    description: "gradle tasks to execute"
+    required: true
   ref:
     description: "the commit to calculate the version from"
     default: "HEAD"
+    required: false
   crash_report_email:
     default: "none@example.com"
+    required: false
   keystore_url:
     default: ""
+    required: false
   keystore_password:
     default: ""
+    required: false
   keystore_key_alias:
     default: ""
+    required: false
   keystore_key_password:
     default: ""
+    required: false
   publish_service_account_creds_url:
     default: ""
+    required: false
   publish_service_account:
     default: ""
+    required: false
 runs:
   using: "docker"
   image: "docker://menny/ndk_ask:1.13.1"
   env:
     TERM: dumb
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
+    GRADLE_USER_HOME: ".github_cache_gradle/"
 
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy/deploy.sh
-    - ${{ inputs.release_deploy }}
     - ${{ inputs.ref }}
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.keystore_url }}
@@ -40,6 +50,7 @@ runs:
     - ${{ inputs.keystore_key_password }}
     - ${{ inputs.publish_service_account_creds_url }}
     - ${{ inputs.publish_service_account }}
+    - ${{ inputs.deploy_tasks }}
 
 branding:
   icon: 'upload-cloud'

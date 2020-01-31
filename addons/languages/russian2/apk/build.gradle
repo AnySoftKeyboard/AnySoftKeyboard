@@ -1,0 +1,9 @@
+ext.shouldBePublished = true
+//russian was release with a different key-store (provided by Sergii Pylypenko)
+ext.override_release_key_alias = 'russian2'
+
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':addons:languages:russian2:pack')
+}

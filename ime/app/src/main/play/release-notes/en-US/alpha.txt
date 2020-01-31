@@ -1,0 +1,5 @@
+*
+* Updated translations.
+* YABTU
+
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92

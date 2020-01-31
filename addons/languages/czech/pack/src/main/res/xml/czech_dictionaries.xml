@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+	<Dictionary nameResId="@string/czech_dictionary" locale="cs"
+		id="f001c7a4-0949-4a96-b5f9-dd4bd5afac07" type="binary_resource"
+			dictionaryResourceId="@array/czech_words_dict_array" description="" autoTextResourceId="@xml/czech_autotext" />
+</Dictionaries>

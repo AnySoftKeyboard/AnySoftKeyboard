@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 ./scripts/retry.sh 5 curl  --fail https://codecov.io/bash -o codecov.sh
 chmod +x codecov.sh

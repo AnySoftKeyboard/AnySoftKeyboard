@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/android_general.gradle"
+
+dependencies {
+    implementation project(':ime:base')
+    implementation project(':ime:base-rx')
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+
+    testImplementation project(':ime:base-test')
+}

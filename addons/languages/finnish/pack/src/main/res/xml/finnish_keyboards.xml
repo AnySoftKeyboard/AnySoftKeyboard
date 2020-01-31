@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+    "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+    "description"
+    "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+    "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+    "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+    "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+    "landscapeResId" : an optional reference to a landscape mode layout XML.
+    -->
+
+    <Keyboard
+        nameResId="@string/keyboard_name" description="@string/keyboard_qwerty_description"
+        iconResId="@drawable/ic_status_finnish" defaultDictionaryLocale="fi"
+        layoutResId="@xml/finnish_qwerty"
+        id="bbc4e54e-1c2a-44d4-9df4-98309c9116de" index="1" />
+    <Keyboard
+        nameResId="@string/keyboard_name" description="@string/keyboard_qwerty_simple_description"
+        iconResId="@drawable/ic_status_finnish" defaultDictionaryLocale="fi"
+        layoutResId="@xml/finnish_qwerty_simple"
+        id="f33d99d0-28ab-11e9-b56e-0800200c9a66" index="2" />
+    <Keyboard
+        nameResId="@string/keyboard_name" description="@string/keyboard_qwerty_numbers_description"
+        iconResId="@drawable/ic_status_finnish" defaultDictionaryLocale="fi"
+        layoutResId="@xml/finnish_qwerty_numbers"
+        id="5f5b5340-1c9b-11e9-b56e-0800200c9a66" index="3" />
+    <Keyboard
+        nameResId="@string/keyboard_name" description="@string/keyboard_qwerty_numbers_symbols_description"
+        iconResId="@drawable/ic_status_finnish" defaultDictionaryLocale="fi"
+        layoutResId="@xml/finnish_qwerty_numbers_symbols"
+        id="cd54e1a0-1dbc-11e9-b56e-0800200c9a66" index="4" />
+    <Keyboard
+        nameResId="@string/keyboard_name" description="@string/keyboard_qwerty_symbols_top_row_numbers_description"
+        iconResId="@drawable/ic_status_finnish" defaultDictionaryLocale="fi"
+        layoutResId="@xml/finnish_qwerty_symbols_top_row_numbers"
+        id="3aeda640-1e79-11e9-b56e-0800200c9a66" index="5" />
+
+</Keyboards>

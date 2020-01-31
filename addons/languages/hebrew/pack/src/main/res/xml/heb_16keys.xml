@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="25%p"
+    >
+    <Row android:keyboardMode="@integer/keyboard_mode_normal">
+        <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
+        <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
+        <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
+        <Key android:codes="-5"
+        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_im">
+        <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
+        <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
+        <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
+        <Key android:codes="-5"
+        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_url">
+        <Key android:codes="46,47,64,63,33,95" android:keyLabel="./\@?!_" android:keyEdgeFlags="left"/>
+        <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
+        <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
+        <Key android:codes="-5"
+        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_email">
+        <Key android:codes="64,46,63,33,95,47" android:keyLabel="\@.?!_/" android:keyEdgeFlags="left"/>
+        <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
+        <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
+        <Key android:codes="-5"
+        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+    
+    <Row>
+        <Key android:codes="1502,1501,1504,1503" android:keyLabel="מנ" android:keyEdgeFlags="left"/>
+        <Key android:codes="1497,1499,1498,1500" android:keyLabel="יכל"/>
+        <Key android:codes="1494,1495,1496" android:keyLabel="זחט"/>
+        <Key android:codes="-2" android:keyLabel="123" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row android:keyboardMode="@integer/keyboard_mode_normal">
+        <Key android:codes="1512,1513,1514" android:keyLabel="רשת" android:keyEdgeFlags="left"/>
+        <Key android:codes="1510,1509,1511" android:keyLabel="צק"/>
+        <Key android:codes="1505,1506,1508,1507" android:keyLabel="סעפ"/>
+        <Key android:codes="-10" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_im">
+        <Key android:codes="1512,1513,1514" android:keyLabel="רשת" android:keyEdgeFlags="left"/>
+        <Key android:codes="1510,1509,1511" android:keyLabel="צק"/>
+        <Key android:codes="1505,1506,1508,1507" android:keyLabel="סעפ"/>
+        <Key android:codes="-10" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_email">
+        <Key android:codes="1512,1513,1514" android:keyLabel="רשת" android:keyEdgeFlags="left"/>
+        <Key android:codes="1510,1509,1511" android:keyLabel="צק"/>
+        <Key android:codes="1505,1506,1508,1507" android:keyLabel="סעפ"/>
+        <Key android:codes="-9" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_url">
+        <Key android:codes="1512,1513,1514" android:keyLabel="רשת" android:keyEdgeFlags="left"/>
+        <Key android:codes="1510,1509,1511" android:keyLabel="צק"/>
+        <Key android:codes="1505,1506,1508,1507" android:keyLabel="סעפ"/>
+        <Key android:codes="-9" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-99" android:keyEdgeFlags="left"/>
+        <Key android:codes="32" android:keyWidth="50%p"/>
+        <Key android:codes="10" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

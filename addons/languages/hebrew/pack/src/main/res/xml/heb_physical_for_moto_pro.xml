@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PhysicalTranslation QwertyTranslation="&#x05E5;&#x05E3;&#x05E7;&#x05E8;&#x05D0;&#x05D8;&#x05D5;&#x05DF;&#x05DD;&#x05E4;&#x05E9;&#x05D3;&#x05D2;&#x05DB;&#x05E2;&#x05D9;&#x05D7;&#x05DC;&#x05DA;&#x05D6;&#x05E1;&#x05D1;&#x05D4;&#x05E0;&#x05DE;&#x05E6;">
+	<!-- keycode_a -->
+	<SequenceMapping keySequence="29" altModifier="true" targetChar="&#x20aa;"/><!-- ALT SHIN is SHEKEL -->
+	<!-- keycode_period -->
+	<SequenceMapping keySequence="56" targetChar="&#x05ea;"/>
+	<SequenceMapping keySequence="56" altModifier="true" targetChar="."/>
+</PhysicalTranslation>

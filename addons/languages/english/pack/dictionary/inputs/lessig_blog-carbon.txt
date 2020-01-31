@@ -1,0 +1,202 @@
+
+
+
+
+United carbon offset disappointment
+April 27, 2009 9:08 AM
+
+
+I'm a big believer in carbon offsets (not so much the cap and trade game, but in
+the simple internalize-your-externality-sort). I talk about it in my Green
+Culture talk. IMHO, we all have an ethical obligation to offset our carbon
+footprint -- now. My wife and I have been doing so for a couple years. We're a
+couple months late buying credits for last year.
+
+One reason we're late (other than the obvious) is the insane complexity in
+calculating it well. I travel way too much. That's the biggest chunk to cover.
+But to calculate it accurately requires churning through a pile of flights. I
+could estimate, no doubt. But I want something more accurate.
+
+So I was really happy to see on the United page an announcement of a "Carbon
+Offset Program." What I expected it to be was a simple way to at least know what
+the total carbon footprint from your flights for some period was (after all,
+they have all the data), and ideally, a simple way to buy offsets.
+
+No such luck. United has simple linked to one of the million places where you can
+calculate a per flight carbon cost. It
+allows you to input total miles flown, but its Mileage Plus page doesn't give you
+total miles flown, it gives you the
+total added to your account (included bonuses, etc.)
+
+Looking forward to version 2.0.
+
+Posted by Lawrence Lessig on April 27, 2009 9:08 AM
+
+
+
+Comments (14) April 27, 2009 9:42 AM
+
+Peter Collopy: Dopplr has a nice carbon calculator built-in. You have to
+enter all your trips, but I think it's generally an exciting system if you
+don't mind the Little Brother surveillance.
+
+
+April 27, 2009 9:49 AM lessig: GREAT point. I do enter all mine in. Perfect
+solution.
+
+
+April 27, 2009 9:53 AM
+Padraic: Why aren't you a supporter of cap & trade? Isn't a mandatory
+scheme going to moresuccesful than voluntary measures?
+
+
+April 27, 2009 10:20 AM lessig: I favor a mandatory scheme -- internalize
+your externality. I am suspicious of cap & trade. It seems like a
+complicated partial version of that, created by the same genius quants who
+gave us the mess on wall street, that is designed to generate large fees
+finance types. My sense is for a simpler system.
+
+
+April 27, 2009 12:07 PM Padraic Ryan: Re: cap & trade - you shouldn't use
+the financial crisis as an excuse to write off all of economics. A cap &
+trade system worked very well at reducing sulfur dioxide pollution in the
+US, finance types and all. You're right that a carbon tax is definitely
+simpler, but there are upsides to cap & trade as well (such as the fact
+that the market will drive the price up, whereas a tax won't increase unless
+Congress wants it to).
+
+Re: your green culture talk, I think you are misappropriating the Gore clip:
+isn't he saying that your money would be better spent on political
+candidates and organizations that push for mandatory internalizing of
+externalities (changing the laws) instead of on carbon offsets (changing the
+lightbulbs)? My problem with carbon offsets and other voluntary measures is
+that given the finite amount of money, energy and attention we have to push
+for the environment, I feel like the opportunity cost of these measures is
+too high compared to policy-oriented actions, the citizen role that Gore
+referred. For example, Earth Hour would be much more productive if it were a
+global rally for carbon taxes; instead we de-politicize it and entertain the
+idea that voluntarily turning off lights will stop climate change.
+
+I'm a big fan of your work on IP and corruption, but I'm skeptical of these
+initial ventures into the environmental arena...
+
+
+April 27, 2009 12:17 PM mark: "I am suspicious of cap & trade. It seems
+like a complicated partial version of that, created by the same genius
+quants who gave us the mess on wall street, that is designed to generate
+large fees finance types. My sense is for a simpler system."
+
+That just shows you do not fully understand the cap and trade model....or the
+global financial crisis.
+
+
+April 27, 2009 2:51 PMCathy: When you book a route on United it tells you how
+many miles it will accrue, pre-bonus, for each leg. (I use it to calculate
+how many I'll get towards my premier status.) It's a tiny link they move
+around from time to time, but look for it near where the seat selection
+option is. You should see this on a screen before you purchase the ticket,
+and possibly also after.
+
+
+April 27, 2009 4:45 PM Brad Templeton: When I got to United's site it has two
+columns, one for true miles flown (sort of) and one for elite bonus. So cut
+and paste into your spreadsheet and it should be fine. However, it does show
+500 for the short haul flights, but I bet those are mostly L.A. so you can
+fill in the real mileage to L.A. on those, it should not take long. April
+27, 2009 6:03 PMYaacov Iland: I'd check into the effectiveness of carbon
+offsets, particularly tree plantations, before spending money on them:
+http://www.newint.org/features/2006/07/01/keynote/
+
+
+April 28, 2009 9:03 AM Jardinero1: The only way to reduce your carbon
+footprint, is to reduce your carbon footprint, period. Paying someone else
+to do something they are doing, already, does not reduce your carbon
+footprint one bit.
+
+If you don't believe that and still insist on paying someone else to consume
+less, then please consider paying me. My wife and I telecommute. We rarely
+travel. I ride my bike to the grocery store. We cook from whole ingredients
+and never eat processed or prepared foods. Both of our cars are high mpg and
+rarely used. They are both ten years old and we probably won't replace them
+for another ten years. I just finished insulating my house and installed
+high efficiency windows and HVAC. I keep the thermostat high in the summer
+and low in the winter. All the light bulbs are fluorescent, except for the
+dimmer above the dining room table. I removed all the turf from my property
+and replaced it with vines and perennials. There are twenty three trees on
+the property sequestering CO2 on a continuous basis. No motorized equipment
+is required to maintain my garden which is now over ten thousand square feet
+of CO2 consuming plants.
+
+I would gladly accept the sum of fifteen thousand dollars from Prof Lessig or
+anyone else to offset his carbon heavy lifestyle. In return, I would submit
+to an audit of my lifestyle and I would issue him a certificate stating the
+amount of his carbon offset.
+
+
+April 29, 2009 4:00 AM Eric the Red: Carbon credits: indulgences for the
+non-Catholic crowd. More modern, but just as dumb.
+
+
+April 29, 2009 7:18 AM pb: "we all have an ethical obligation to offset our
+carbon footprint -- now"
+
+
+There is nothing so dangerous as someone with an abundance of
+self-righteousness but very little knowledge.
+
+Carbon offsets 'harm environment'
+http://news.bbc.co.uk/1/hi/uk_politics/6378471.stm Tuesday, 20 February
+2007, 17:31 GMT
+
+
+Jutta Kill, of the Forests and the European Union Resource Network (FERN),
+was the most vehement opponent of the practice, arguing it probably did more
+harm than good.
+
+Carbon offsetting was "an unbelievably inefficient way of reducing
+emissions," she argued, and its effects were impossible to verify.
+
+In addition, "More than half" of the money given to companies selling carbon
+offsets went on research and administration costs, "benefiting not the
+climate but the burgeoning consultancy industry".
+
+"We believe it is worse than nothing because it creates the illusion, or the
+impression, in the public that action is being taken, while we are not
+really addressing the task at hand, significantly reducing greenhouse gas
+emissions," Ms Kill told MPs.
+
+
+Illusions are powerful around here, it seems. Professor - stop listening to
+your "intuitions" and do some basic research!
+
+
+
+May 14, 2009 2:45 PM Jason Sperling: It's nice to see feedback on the United
+program. I've posted your feedback on my carbon offsets news blog.
+
+Currently many companies are reticent to putting something in their purchase
+path as an upsell, just as they are reticent to putting anything in their
+purchase path. The cost for large companies to make any updates to their
+e-commerce sites is significant, another factor in keeping the type of
+program you'd like from being available. Additionally, there is a reluctance
+to share the data required for accurate emissions measurement due to
+perceived potential risks, possibly related to future regulatory
+concerns.
+
+The technology is certainly available. When the type of program you imagine
+IS put in place, the results have been very good. For example ShopGreen
+Merchant Reports 90% of customers 'go green'
+
+
+June 10, 2009 12:18 PM jason: check out this great new idea to offset
+
+http://www.treehugger.com/files/2009/06/man-auctions-own-carbon-offsets-on-ebay.php
+
+Here's the link to the auction
+
+http://cgi.ebay.com/ebaymotors/ws/eBayISAPI.dll?ViewItem&item=320381623555&viewitem=&sspagename=STRK%3AMESELX%3AIT
+
+
+
+
+

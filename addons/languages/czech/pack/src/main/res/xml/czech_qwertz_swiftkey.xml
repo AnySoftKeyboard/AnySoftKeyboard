@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p">
+<Row>
+    <Key android:codes="q" android:popupCharacters="1" android:keyEdgeFlags="left" />
+    <Key android:codes="w" android:popupCharacters="2" />
+    <Key android:codes="e" android:popupCharacters="3éě" />
+    <Key android:codes="r" android:popupCharacters="4ř" />
+    <Key android:codes="t" android:popupCharacters="5ť" />
+    <Key android:codes="z" android:popupCharacters="6ž" />
+    <Key android:codes="u" android:popupCharacters="7úů" />
+    <Key android:codes="i" android:popupCharacters="8í" />
+    <Key android:codes="o" android:popupCharacters="9ó" />
+    <Key android:codes="p" android:popupCharacters="0" android:keyEdgeFlags="right" />
+</Row>
+<Row android:keyWidth="11%p">
+    <Key android:codes="a" android:popupCharacters="\@á" android:keyEdgeFlags="left"  android:horizontalGap="0.5%p" />
+    <Key android:codes="s" android:popupCharacters="š#" />
+    <Key android:codes="d" android:popupCharacters="ď&#038;" />
+    <Key android:codes="f" android:popupCharacters="*" />
+    <Key android:codes="g" android:popupCharacters="-" />
+    <Key android:codes="h" android:popupCharacters="+" />
+    <Key android:codes="j" android:popupCharacters="=" />
+    <Key android:codes="k" android:popupCharacters="(" />
+    <Key android:codes="l" android:popupCharacters=")" android:keyEdgeFlags="right"  />
+</Row>
+<Row>
+    <Key android:codes="-1" android:isModifier="true" android:keyWidth="14%p" android:isSticky="true" android:keyEdgeFlags="left" />
+    <Key android:codes="y" android:popupCharacters="ý_" android:horizontalGap="1.1%p" />
+    <Key android:codes="x" android:popupCharacters="£¢$¥€" />
+    <Key android:codes="c" android:popupCharacters="č&#34;" />
+    <Key android:codes="v" android:popupCharacters="'" />
+    <Key android:codes="b" android:popupCharacters=":" />
+    <Key android:codes="n" android:popupCharacters="ň;" />
+    <Key android:codes="m" android:popupCharacters="/" />
+    <Key android:codes="-5" android:horizontalGap="1.1%p" android:keyWidth="14%p" android:keyEdgeFlags="right" android:isRepeatable="true" />
+</Row>
+</Keyboard>

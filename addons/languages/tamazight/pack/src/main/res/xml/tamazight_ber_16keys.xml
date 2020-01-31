@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyWidth="25.0%p">
+	<Row android:keyboardMode="@integer/keyboard_mode_normal">
+		<Key android:codes="46,44,63,33" android:keyEdgeFlags="left" android:keyLabel=",.?!" />
+		<Key android:codes="11568,11569,11611" android:keyLabel="ⴰⴱⵛ" />
+		<Key android:codes="" android:keyLabel="ⴷⴻⴼ" />
+		<Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_im">
+		<Key android:codes="46,44,63,33" android:keyEdgeFlags="left" android:keyLabel=",.?!" />
+		<Key android:codes="" android:keyLabel="ⵊⵀⴳ" />
+		<Key android:codes="" android:keyLabel="ⵉⵓⵢ" />
+		<Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_url">
+		<Key android:codes="46,47,64,63,33,95" android:keyEdgeFlags="left" android:keyLabel="./@?!_" />
+		<Key android:codes="" android:keyLabel="ⵉⵊⵜ" />
+		<Key android:codes="" android:keyLabel="ⵄⵖⵉ" />
+		<Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_email">
+		<Key android:codes="64,46,63,33,95,47" android:keyEdgeFlags="left" android:keyLabel="\@.?!_/" />
+		<Key android:codes="" android:keyLabel="ⴿⴸⵝ" />
+		<Key android:codes="" android:keyLabel="ⴷⵙⵇ" />
+		<Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true" />
+	</Row>
+	<Row>
+		<Key android:codes="" android:keyEdgeFlags="left" android:keyLabel="ⵉⵓ" />
+		<Key android:codes="" android:keyLabel="ⵜⵔⴻ" />
+		<Key android:codes="" android:keyLabel="ⵛⴼⵙ" />
+		<Key android:codes="-2" android:keyEdgeFlags="right" android:keyLabel="123" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_normal">
+		<Key android:codes="" android:keyEdgeFlags="left" android:keyLabel="ⵄⵉⵊ" />
+		<Key android:codes="" android:keyLabel="ⵇⵅ" />
+		<Key android:codes="" android:keyLabel="ⴳⴱ" />
+		<Key android:codes="-10" android:keyEdgeFlags="right" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_im">
+		<Key android:codes="" android:keyEdgeFlags="left" android:keyLabel="ⵖⵄⵉ" />
+		<Key android:codes="" android:keyLabel="ⴰⵣ" />
+		<Key android:codes="" android:keyLabel="ⵍⵔⵛ" />
+		<Key android:codes="-10" android:keyEdgeFlags="right" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_email">
+		<Key android:codes="" android:keyEdgeFlags="left" android:keyLabel="ⴰⴱⵙ" />
+		<Key android:codes="" android:keyLabel="ⴷⵉ" />
+		<Key android:codes="" android:keyLabel="ⴼⵊⵀ" />
+		<Key android:codes="-9" android:keyEdgeFlags="right" />
+	</Row>
+	<Row android:keyboardMode="@integer/keyboard_mode_url">
+		<Key android:codes="" android:keyEdgeFlags="left" android:keyLabel="ⴰⴱⵙ" />
+		<Key android:codes="" android:keyLabel="ⴷⵓ" />
+		<Key android:codes="" android:keyLabel="ⴼⵊⵀ" />
+		<Key android:codes="-9" android:keyEdgeFlags="right" />
+	</Row>
+	<Row android:rowEdgeFlags="bottom">
+		<Key android:codes="-99" android:keyEdgeFlags="left" />
+		<Key android:keyWidth="50.0%p" android:codes="32" />
+		<Key android:codes="10" android:keyEdgeFlags="right" />
+	</Row>
+</Keyboard>

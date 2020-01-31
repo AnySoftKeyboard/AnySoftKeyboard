@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+    <integer name="key_zero_height">0</integer>
+    <integer name="key_normal_height">-1</integer>
+    <integer name="key_short_height">-2</integer>
+    <integer name="key_tall_height">-3</integer>
+</resources>

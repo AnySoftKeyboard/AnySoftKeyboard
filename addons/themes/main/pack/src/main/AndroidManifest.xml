@@ -1,0 +1,24 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.anysoftkeyboard.theme.main.pack">
+
+    <application>
+        <receiver
+            android:name="com.anysoftkeyboard.theme.main.PackBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.anysoftkeyboard.plugin.KEYBOARD_THEME" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+
+
+            <!--
+            <meta-data
+                android:name="com.anysoftkeyboard.plugindata.keyboardtheme"
+                android:resource="@xml/main_keyboard_themes" />
+                -->
+        </receiver>
+    </application>
+</manifest>
