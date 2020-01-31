@@ -36,7 +36,7 @@ runs:
   image: "docker://menny/ndk_ask:1.13.1"
   env:
     TERM: dumb
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
     GRADLE_USER_HOME: ".github_cache_gradle/"
 
   entrypoint: /bin/bash

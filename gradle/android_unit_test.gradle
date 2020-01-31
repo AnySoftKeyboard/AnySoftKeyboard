@@ -46,6 +46,11 @@ android {
 
                 systemProperty 'robolectric.dependency.repo.url', 'https://repo1.maven.org/maven2'
 
+                // this is required since we can not be sure that robolectric artifacts will be downloaded
+                //in CI
+                //make sure you run "./scripts/download_robolectric_jars_to_machine.sh" before running unit-tests
+                systemProperty 'robolectric.dependency.dir', "${rootDir.absolutePath}/.robolectric-android-all-jars/"
+
                 if (project.hasProperty('excludeTestClasses')) {
                     exclude project.property('excludeTestClasses')
                 }
