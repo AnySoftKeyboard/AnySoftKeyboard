@@ -29,7 +29,7 @@ public class SetupSupportTest {
     @Before
     public void setup() {
         Locale.setDefault(Locale.US);
-        mApplication = (AnyRoboApplication) getApplicationContext();
+        mApplication = getApplicationContext();
     }
 
     @After

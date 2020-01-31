@@ -77,11 +77,6 @@ public class DeviceSpecificLowest implements DeviceSpecific {
     }
 
     @Override
-    public void setupStrictMode() {
-        /*no-op till API level 19*/
-    }
-
-    @Override
     public ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary) {
         return new DictionaryContentObserver(dictionary);
     }
