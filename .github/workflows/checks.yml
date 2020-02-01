@@ -1,4 +1,4 @@
-name: AnySoftKeyboard
+name: checks
 
 on:
   push:
