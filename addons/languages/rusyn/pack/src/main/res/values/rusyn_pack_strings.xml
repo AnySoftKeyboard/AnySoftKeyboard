@@ -1,0 +1,7 @@
+<resources>
+    <string name="rusyn_keyboard">Rusyn</string>
+    <string name="rusyn_keyboard_description">Rusyn keyboard</string>
+
+    <string name="rusyn_dictionary">Rusyn dictionary</string>
+    <string name="rusyn_dictionary_description">Rusyn dictionary</string>
+</resources>
