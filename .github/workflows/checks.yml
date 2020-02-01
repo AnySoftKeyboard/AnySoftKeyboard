@@ -157,7 +157,7 @@ jobs:
           path: outputs/fdroid
 
   deploy_canary_ime_for_master:
-    if: github.event_name == 'push' && github.ref == 'master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: [checks, app-tests-shards, app-less-tests]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.1
