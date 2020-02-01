@@ -71,6 +71,7 @@
     <string name="night_mode_type_always">Immer</string>
     <string name="night_mode_darken_keyboard_theme">Tastaturdesign verdunkeln</string>
     <string name="night_mode_sound_control">Eingabetöne deaktivieren</string>
+    <string name="night_mode_vibration_control">Deaktiviere Tastendruckvibrationen</string>
     <string name="power_save_mode_screen">Energiespareinstellungen</string>
     <string name="power_save_mode_description">Der Energiesparmodus reduziert den Energieverbrauch von AnySoftKeyboard, indem Funktionen deaktiviert werden:</string>
     <string name="power_save_mode_state_summary">Derzeitiger Energiesparauslöser: \u0020%s</string>
@@ -489,8 +490,8 @@
     <string name="initial_quick_text_tab_always_first_tab">Immer mit der ersten starten</string>
     <string name="initial_quick_text_tab_last_used_tab">Mit der letzten benutzten Gruppe starten</string>
     <string name="initial_quick_text_tab_history_tab">Beginne mit der Verlaufsgruppe</string>
-    <string name="emoji_default_skin_tone_title">Emoji Standardhautton</string>
-    <string name="emoji_default_skin_tone_summary">Standardmäßiger Fitzpatrickhautton: %s</string>
+    <string name="emoji_default_skin_tone_title">Emoji Standard-Hautton</string>
+    <string name="emoji_default_skin_tone_summary">Standardmäßiger Fitzpatrick-Hautton: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Generisch</string>
     <string name="emoji_default_skin_tone_value_type_2">Heller Hautton</string>
     <string name="emoji_default_skin_tone_value_type_3">Mittelheller Hautton</string>

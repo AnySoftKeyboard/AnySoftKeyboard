@@ -18,5 +18,5 @@ else
 fi
 
 curl \
-  -F "files[strings.xml]=@app/src/main/res/values/strings.xml" \
-  https://api.crowdin.com/api/project/anysoftkeyboard/update-file?key=${CROWDIN_API}${UPDATE_OPTION}
+  -F "files[strings.xml]=@ime/app/src/main/res/values/strings.xml" \
+  "https://api.crowdin.com/api/project/anysoftkeyboard/update-file?key=${CROWDIN_API}${UPDATE_OPTION}"
