@@ -1,0 +1,30 @@
+name: localization
+
+#always run on the default branch: master
+on:
+  schedule:
+    - cron: '24 02 * * *'
+
+env:
+  TERM: dumb
+  CROWDIN_API: ${{ secrets.CROWDIN_API }}
+
+jobs:
+  upload-to-crowdin:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Upload strings from ime/app master
+        run: ./scripts/upload_strings_to_crowdin_api.sh keep
+      - name: Download latest translations
+        run: ./scripts/update_strings_from_crowdin_api.sh build
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Automated Localization Update from Crowdin'
+          title: 'Automated Localization Update from Crowdin'
+          body: ''
+          assignees: menny
+          branch: 'bot-pr/localizatio-update'
