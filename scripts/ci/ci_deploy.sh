@@ -22,10 +22,11 @@ if [[ "${DEPLOY_TASKS}" == *"publish"* ]]; then
         exit 1
     fi
 
-    wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
-    wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
+    wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -q -O /tmp/anysoftkeyboard.keystore
+    wget --tries=5 --waitretry=5 "${PUBLISH_CERT_FILE_URL}" -q -O /tmp/apk_upload_key.p12
 fi
 
+# shellcheck disable=SC2086
 ./gradlew --stacktrace -PwithAutoVersioning ${DEPLOY_TASKS}
 
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
