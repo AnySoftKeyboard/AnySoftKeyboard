@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard nameResId="@string/rusyn_keyboard" iconResId="@drawable/ic_status_rusyn"
+              layoutResId="@xml/rusyn" landscapeResId="@xml/rusyn"
+              id="81d4c3a5-ba19-4e86-8eb2-822682c35ca7" defaultDictionaryLocale="rue"
+              description="@string/rusyn_keyboard_description"
+              index="1" physicalKeyboardMappingResId="@xml/rusyn_physical" />
+
+</Keyboards>
