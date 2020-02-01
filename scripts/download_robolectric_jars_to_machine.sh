@@ -27,5 +27,5 @@ for artifact in "${ARTIFACTS[@]}"
 do
   echo "downloading ${artifact}..."
   jar_name="android-all-${artifact}.jar"
-  wget --tries=2 --progress=dot:giga --output-document="${TARGET_FOLDER}/${jar_name}" "${DOWNLOAD_BASE_URL}/${artifact}/${jar_name}"
+  wget --tries=5 --waitretry=5 --progress=dot:giga --output-document="${TARGET_FOLDER}/${jar_name}" "${DOWNLOAD_BASE_URL}/${artifact}/${jar_name}"
 done

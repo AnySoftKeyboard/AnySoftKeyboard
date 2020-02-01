@@ -2,10 +2,16 @@ apply plugin: 'jacoco'
 
 jacoco {
     // https://bintray.com/bintray/jcenter/org.jacoco:org.jacoco.core
-    toolVersion = "0.8.4"
+    toolVersion = "0.8.5"
 }
 
 android {
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
     testOptions {
         unitTests.all {
             jacoco {
@@ -37,12 +43,12 @@ project.afterEvaluate {
 }
 
 private void createJacocoReportTask(testTaskName, name) {
-    tasks.register("${testTaskName}Coverage", JacocoReport) { task ->
+    tasks.register("${testTaskName}Coverage", JacocoReport) { JacocoReport task ->
         task.dependsOn tasks.named("$testTaskName")
         task.group = "Reporting"
         task.description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
 
-        task.classDirectories.plus(fileTree(
+        task.additionalClassDirs(fileTree(
                 dir: "${project.buildDir}/intermediates/javac/${name}",
                 excludes: ['**/R.class',
                            '**/R$*.class',
@@ -56,12 +62,14 @@ private void createJacocoReportTask(testTaskName, name) {
                            '**/*$*$*.*',
                            '**/Manifest*.*']))
 
-        task.sourceDirectories.plus(files(["${project.projectDir}/src/main/java"] + android.sourceSets[name].java.srcDirs))
-        task.executionData.plus(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
+        task.additionalSourceDirs(files(["${project.projectDir}/src/main/java"]))
+        task.executionData(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
 
         task.reports {
             xml.enabled = true
+            xml.destination = file("${project.buildDir}/jacoco/report/${testTaskName}Coverage.xml")
             html.enabled = true
+            html.destination = file("${project.buildDir}/jacoco/report/html/${testTaskName}")
         }
     }
 }
