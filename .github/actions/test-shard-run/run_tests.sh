@@ -10,7 +10,8 @@ echo "Will run tests for module '${MODULE}' with extra args '${EXTRA_ARGS}' for 
 
 ./scripts/download_robolectric_jars_to_machine.sh
 
-./gradlew "${MODULE}testDebugUnitTest" "${MODULE}testDebugUnitTestCoverage" ${EXTRA_ARGS}
+#extra args needs to come before the coverage task so "--tests" will be passed to the test tasks
+./gradlew "${MODULE}testDebugUnitTest" ${EXTRA_ARGS} "${MODULE}testDebugUnitTestCoverage"
 
 #see https://github.com/actions/cache/issues/133
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
