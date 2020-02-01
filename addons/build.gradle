@@ -5,8 +5,10 @@ autoVersioning {
     buildCounterEnvKey = "BUILD_COUNT_FOR_VERSION"
     major = 4
     minor = 0
-    buildCounterOffset = 2425/*adding to version. Should never change*/
-    patchOffset = -1512 /*decrementing due to minor, every minor/major bump, this should be decremented*/
+    /*adding to build-counter value. Should never change (unless build-counter resets. */
+    buildCounterOffset = 2575
+    /*decrementing due to minor, every minor/major bump, this should be decremented*/
+    patchOffset = -1512
 }
 
 afterEvaluate {
