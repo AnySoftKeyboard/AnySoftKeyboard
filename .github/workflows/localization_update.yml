@@ -8,11 +8,11 @@ on:
 env:
   TERM: dumb
   CROWDIN_API: ${{ secrets.CROWDIN_API }}
+  TMPDIR: "/tmp"
 
 jobs:
-  upload-to-crowdin:
+  localization-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
     steps:
       - uses: actions/checkout@v2
       - name: Upload strings from ime/app master
@@ -27,4 +27,4 @@ jobs:
           title: 'Automated Localization Update from Crowdin'
           body: ''
           assignees: menny
-          branch: 'bot-pr/localizatio-update'
+          branch: 'bot-pr/localization-update'

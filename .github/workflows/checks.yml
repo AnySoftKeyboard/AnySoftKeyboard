@@ -17,6 +17,7 @@ env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
   GRADLE_USER_HOME: ".github_cache_gradle/"
+  TMPDIR: "/tmp"
 
 jobs:
   setup:
