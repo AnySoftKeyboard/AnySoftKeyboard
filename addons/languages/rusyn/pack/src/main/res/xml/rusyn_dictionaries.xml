@@ -4,7 +4,7 @@
         autoTextResourceId="@xml/rusyn_autotext"
         description="@string/rusyn_dictionary_description"
         dictionaryResourceId="@array/rusyn_words_dict_array"
-        id="a6cc6503-e08d-499d-9f0c-4471a67b3258"
+        id="4087c6b1-e343-4b32-8e70-8b4c91778624"
         initialSuggestions="@array/rusyn_initial_suggestions"
         locale="rue"
         nameResId="@string/rusyn_dictionary"
