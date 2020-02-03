@@ -17,7 +17,12 @@ def generateIconsTask = tasks.register('generateLanguagePackIcons') {
     it.description 'Creating icons for AnySoftKeyboard language pack library'
 }
 
-[['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
+def dimensArray = [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]]
+if(project.ext.status_icon_text.length() == 3) {
+    dimensArray = [['xxxhdpi', 96, 64], ['xxhdpi', 72, 50], ['xhdpi', 48, 32], ['hdpi', 36, 24], ['mdpi', 24, 16]]
+}
+
+dimensArray.each { dimens ->
     def statusIcon = tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
         if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
             it.commandLine "cmd", "/c", "${rootDir.absolutePath}\\addons\\scripts\\generate_status_icon.bat", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}\\src\\main\\res\\drawable-${dimens[0]}"
