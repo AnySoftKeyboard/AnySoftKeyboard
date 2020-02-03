@@ -22,9 +22,9 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v2.2.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Automated Localization Update from Crowdin'
-          title: 'Automated Localization Update from Crowdin'
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Localization Update from crowdin'
+          title: 'Automated Localization Update from crowdin'
           body: ''
           assignees: menny
           branch: 'bot-pr/localization-update'
