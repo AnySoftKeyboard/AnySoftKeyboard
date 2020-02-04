@@ -1,0 +1,195 @@
+name: checks
+
+on:
+  #every time a checks suite has finished
+  check_suite:
+    types: [completed]
+
+env:
+  TERM: dumb
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
+  GRADLE_USER_HOME: ".github_cache_gradle/"
+
+jobs:
+  green-branch-check:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        env:
+          GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
+        run: |
+          echo "ENV:"
+          printenv
+          echo "******"
+          echo "Event: "
+          cat ${GITHUB_EVENT_PATH}
+          echo "***"
+          echo "CONTEXT: "
+          echo "${GITHUB_CONTEXT_JSON}"
+          echo "***"
+          ./scripts/ci/ci_setup.sh
+      - name: Getting current master checks status
+        run: wget --header=Accept:application/vnd.github.antiope-preview+json --tries=5 --waitretry=5 -O /tmp/checks.json https://api.github.com/repos/AnySoftKeyboard/AnySoftKeyboard/commits/${GITHUB_SHA}/check-suites
+      - name: Extracting statuses
+        run: cat /tmp/checks.json | jq '.check_suites[].conclusion' > statuses.txt
+      - name: Calculating green-branch
+        run: |
+          #no checks
+          [[ -z $(cat statuses.txt) ]] && echo "FALSE" > green-branch.txt && exit 0
+          #no success check
+          [[ -z $(cat statuses.txt | grep "success") ]] && echo "FALSE" > green-branch.txt && exit 0
+          #have non-success check
+          [[ -n $(cat statuses.txt | grep -v "success") ]] && echo "FALSE" > green-branch.txt && exit 0
+
+          #I guess it's green-branch
+          echo "TRUE" > green-branch.txt
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: green-branch
+          path: green-branch.txt
+
+  deploy_canary_ime_for_master:
+    if: github.ref == 'refs/heads/master'
+    needs: [green-branch-check]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get green-branch
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: green-branch
+      - name: deploy
+        run: |
+          if [[ "TRUE" == "$(cat green-branch.txt)" ]]; then
+          echo "branch is green"
+          else
+            echo "branch is not green"
+          fi
+
+  deploy_release_ime:
+    if: startsWith(github.ref, 'release-branch-v')
+    needs: [green-branch-check]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get green-branch
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: green-branch
+      - name: deploy
+        run: |
+          if [[ "TRUE" == "$(cat green-branch.txt)" ]]; then
+          echo "branch is green"
+          else
+          echo "branch is not green"
+          fi
+
+  deploy_release_addons:
+    if: github.ref == 'refs/heads/master'
+    needs: [green-branch-check]
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get green-branch
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: green-branch
+      - name: deploy
+        run: |
+          if [[ "TRUE" == "$(cat green-branch.txt)" ]]; then
+          echo "branch is green"
+          else
+          echo "branch is not green"
+          fi
+
+#
+#  deploy_canary_ime_for_master:
+#    if: github.ref == 'refs/heads/master'
+#    runs-on: ubuntu-18.04
+#    container: menny/ndk_ask:1.13.1
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: deploy
+#        uses: ./.github/actions/deploy
+#        with:
+#          deploy_tasks: "-DdeployChannel=alpha ime:app:assembleCanary ime:app:publishCanary"
+#          crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
+#          keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
+#          keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
+#          keystore_key_alias: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
+#          keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
+#          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+#          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: signed-apk-canary-ime
+#          path: ime/app/build/outputs/apk
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: proguard-mapping-canary-ime
+#          path: ime/app/build/outputs/mapping
+#
+#  deploy_release_ime:
+#    if: github.event_name == 'push' && startsWith(github.ref, 'release-branch-v')
+#    needs: [checks, app-tests-shards, app-all-sdks-tests, app-less-tests]
+#    runs-on: ubuntu-18.04
+#    container: menny/ndk_ask:1.13.1
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: setup-beta-release-notes
+#        run: |
+#          cp ime/app/src/main/play/release-notes/en-US/alpha.txt ime/app/src/main/play/release-notes/en-US/beta.txt
+#      - name: deploy
+#        uses: ./.github/actions/deploy
+#        with:
+#          deploy_tasks: "-DdeployChannel=beta ime:app:assembleRelease ime:app:publishRelease :generateFdroidYamls"
+#          crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
+#          keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
+#          keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
+#          keystore_key_alias: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
+#          keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
+#          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+#          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: signed-apk-release-ime
+#          path: ime/app/build/outputs/apk
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: proguard-mapping-release-ime
+#          path: ime/app/build/outputs/mapping
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: fdroid-metadata-release-ime
+#          path: outputs/fdroid
+#
+#  deploy_release_addons:
+#    if: github.event_name == 'push'
+#    needs: [checks, app-less-tests]
+#    runs-on: ubuntu-18.04
+#    container: menny/ndk_ask:1.13.1
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: deploy
+#        uses: ./.github/actions/deploy
+#        with:
+#          deploy_tasks: "-DdeployChannel=alpha assembleRelease publishRelease -x ime:app:assembleRelease -x ime:app:publishRelease :generateFdroidYamls"
+#          keystore_url: ${{ secrets.PACK_KEYSTORE_URL }}
+#          keystore_password: ${{ secrets.PACK_KEYSTORE_PASSWORD }}
+#          keystore_key_alias: ${{ secrets.PACK_KEYSTORE_ALIAS }}
+#          keystore_key_password: ${{ secrets.PACK_KEYSTORE_KEY_PASSWORD }}
+#          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
+#          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: signed-add-ons-apks
+#          path: outputs/apks/release
+#      - uses: actions/upload-artifact@v1.0.0
+#        with:
+#          name: fdroid-addons-metadata
+#          path: outputs/fdroid
