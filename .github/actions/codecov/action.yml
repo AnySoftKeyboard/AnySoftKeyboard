@@ -1,15 +1,22 @@
 name: "Code Cov"
 author: "menny"
+description: "action which locate coverage files and uploads them"
+
+inputs:
+  codecov_token:
+    description: "API token used to upload coverage"
+    required: false
+    default: "1a4cd171-2784-4f48-8a62-0b7ec31e6d7e"
 
 runs:
   using: "docker"
   image: "docker://menny/ndk_ask:1.13.1"
   env:
     TERM: dumb
-    CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
   entrypoint: /bin/bash
   args:
     - .github/actions/codecov/upload_coverage.sh
+    - ${{ inputs.codecov_token }}
 
 branding:
   icon: 'pie-chart'
