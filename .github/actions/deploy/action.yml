@@ -31,6 +31,9 @@ inputs:
   publish_service_account:
     default: ""
     required: false
+  deploy_approval_filename:
+    default: ""
+    required: false
 runs:
   using: "docker"
   image: "docker://menny/ndk_ask:1.13.1"
@@ -42,6 +45,7 @@ runs:
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy/deploy.sh
+    - ${{ inputs.deploy_approval_filename }}
     - ${{ inputs.ref }}
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.keystore_url }}

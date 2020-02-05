@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
+DEPLOY_APPROVAL_FILENAME="${1}"
+shift
+if [[ -n "$DEPLOY_APPROVAL_FILENAME" ]] && [[ -f "$$DEPLOY_APPROVAL_FILENAME" ]]; then
+  echo "deploy approval file '${$DEPLOY_APPROVAL_FILENAME}' could not be found. Skipping deploy."
+  exit 0
+fi
+
 GITHUB_REF="${1}"
 shift
 export ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL="${1}"
