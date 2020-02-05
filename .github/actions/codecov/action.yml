@@ -6,7 +6,7 @@ inputs:
   codecov_token:
     description: "API token used to upload coverage"
     required: false
-    default: "1a4cd171-2784-4f48-8a62-0b7ec31e6d7e"
+    default: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
 
 runs:
   using: "docker"

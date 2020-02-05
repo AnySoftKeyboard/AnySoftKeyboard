@@ -87,6 +87,7 @@ jobs:
           groups_count: ${{ matrix.groups_count }}
           module: ":ime:app:"
           extra_args: "-PexcludeTestClasses=\"**/*AllSdkTest*\""
+      - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -116,6 +117,7 @@ jobs:
           groups_count: 1
           module: ":ime:app:"
           extra_args: "--tests=*AllSdkTest*"
+      - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -145,6 +147,7 @@ jobs:
           groups_count: 1
           module: ""
           extra_args: "-x :ime:app:testDebugUnitTest -x :ime:app:testDebugUnitTestCoverage"
+      - uses: ./.github/actions/codecov
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
