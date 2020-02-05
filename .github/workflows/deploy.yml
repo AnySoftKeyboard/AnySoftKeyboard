@@ -1,9 +1,11 @@
 name: checks
 
 on:
-  #every time a checks suite has finished
   check_suite:
     types: [completed]
+    branches:
+      - 'master'
+      - 'release-branch-v*'
 
 env:
   TERM: dumb
@@ -19,6 +21,9 @@ jobs:
       - name: setup
         env:
           GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
+          SUITE_CONCLUSION: ${{ github.event.check_suite.conclusion }}
+          SUITE_NAME: ${{ github.event.check_suite.name }}
+
         run: |
           echo "ENV:"
           printenv
@@ -28,6 +33,12 @@ jobs:
           echo "***"
           echo "CONTEXT: "
           echo "${GITHUB_CONTEXT_JSON}"
+          echo "***"
+          echo "SUITE_NAME: "
+          echo "${SUITE_NAME}"
+          echo "***"
+          echo "SUITE_CONCLUSION: "
+          echo "${SUITE_CONCLUSION}"
           echo "***"
           ./scripts/ci/ci_setup.sh
       - name: Getting current master checks status
