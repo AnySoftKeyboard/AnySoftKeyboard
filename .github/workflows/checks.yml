@@ -53,10 +53,12 @@ jobs:
         if: always()
         with:
           file_pattern: checkstyle*.html
+          output_folder: collected_reports/checkstyle
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: lint-results-*.html
+          output_folder: collected_reports/lint
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
@@ -91,7 +93,7 @@ jobs:
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
-          file_pattern: "**/build/reports/tests/**/*"
+          file_pattern: "**/build/reports/tests/**"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
@@ -121,7 +123,7 @@ jobs:
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
-          file_pattern: "**/build/reports/tests/**/*"
+          file_pattern: "**/build/reports/tests/**"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
@@ -151,7 +153,7 @@ jobs:
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
-          file_pattern: "**/build/reports/tests/**/*"
+          file_pattern: "**/build/reports/tests/**"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
@@ -185,6 +187,7 @@ jobs:
     needs: [setup, checks, app-all-sdks-tests, app-tests-shards, app-less-tests]
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/deploy-request
         with:
           ref: ${{ github.ref }}

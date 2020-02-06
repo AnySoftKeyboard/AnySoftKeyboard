@@ -1,7 +1,5 @@
-AnySoftKeyboard
+AnySoftKeyboard [![Latest release](https://img.shields.io/github/release/AnySoftKeyboard/AnySoftKeyboard.svg)](https://github.com/AnySoftKeyboard/AnySoftKeyboard/releases)
 ====================
-[![Latest release](https://img.shields.io/github/release/AnySoftKeyboard/AnySoftKeyboard.svg)](https://github.com/AnySoftKeyboard/AnySoftKeyboard/releases)<br/>
-<br/>
 `master` latest build: ![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/checks/badge.svg?event=push&branch=master)<br/>
 `master` latest deploy: ![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/deploy/badge.svg?event=push&branch=master)<br/>
 `master` coverage: [![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)<br/>
