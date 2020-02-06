@@ -193,8 +193,9 @@ jobs:
           ref: ${{ github.ref }}
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          reports_folder: deploy-reports
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
           name: deploy-request
-          path: /tmp/deploy-request
+          path: deploy-reports

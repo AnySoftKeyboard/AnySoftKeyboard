@@ -12,6 +12,9 @@ inputs:
   api_user_token:
     description: "the user API token to use for API calls"
     required: true
+  reports_folder:
+    description: "Where to store requests and responses files."
+    required: true
 
 runs:
   using: "docker"
@@ -22,6 +25,7 @@ runs:
     - ${{ inputs.ref }}
     - ${{ inputs.api_user_name }}
     - ${{ inputs.api_user_token }}
+    - ${{ inputs.reports_folder }}
 
 branding:
   icon: 'package'
