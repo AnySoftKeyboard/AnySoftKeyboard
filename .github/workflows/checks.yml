@@ -182,9 +182,16 @@ jobs:
           name: fdroid-metadata-dry-run
           path: outputs/fdroid
 
-  deploy-request:
+  push-ready:
     if: github.event_name == 'push'
     needs: [setup, checks, app-all-sdks-tests, app-tests-shards, app-less-tests]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+  deploy-request:
+    if: github.event_name == 'push'
+    needs: [push-ready]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
