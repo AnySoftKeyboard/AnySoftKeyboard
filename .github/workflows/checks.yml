@@ -173,7 +173,8 @@ jobs:
             dry-run-deploy-gradle-
       - uses: ./.github/actions/deploy
         with:
-          deploy_tasks: "-DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources :generateFdroidYamls"
+          ref: ${{ github.ref }}
+          deploy_target: dry-run
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: fdroid-metadata-dry-run
@@ -181,7 +182,7 @@ jobs:
 
   deploy-request:
     if: github.event_name == 'push'
-    needs: [setup, checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run]
+    needs: [setup, checks, app-all-sdks-tests, app-tests-shards, app-less-tests]
     runs-on: ubuntu-18.04
     steps:
       - uses: ./.github/actions/deploy-request
