@@ -55,7 +55,6 @@ jobs:
           name: apks
           path: outputs/apks
       - uses: actions/upload-artifact@v1.0.0
-        if: ${{ startsWith(github.event.environment, 'app') }}
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
