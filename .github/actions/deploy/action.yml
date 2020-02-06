@@ -33,7 +33,7 @@ inputs:
     required: false
 runs:
   using: "docker"
-  image: "docker://menny/ndk_ask:1.13.1"
+  image: "docker://menny/ndk_ask:1.13.5"
   env:
     TERM: dumb
     GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"

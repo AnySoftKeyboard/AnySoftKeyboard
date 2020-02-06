@@ -10,7 +10,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker://menny/ndk_ask:1.13.1"
+  image: "docker://menny/ndk_ask:1.13.5"
   env:
     TERM: dumb
   entrypoint: /bin/bash

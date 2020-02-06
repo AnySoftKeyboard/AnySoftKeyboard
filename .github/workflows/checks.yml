@@ -22,7 +22,7 @@ env:
 jobs:
   setup:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
+    container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
       - name: setup
@@ -38,7 +38,7 @@ jobs:
   checks:
     needs: [setup]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
+    container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
@@ -68,7 +68,7 @@ jobs:
   app-tests-shards:
     needs: [setup]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
+    container: menny/ndk_ask:1.13.5
     strategy:
       matrix:
         index: [0, 1]
@@ -103,7 +103,7 @@ jobs:
   app-all-sdks-tests:
     needs: [setup]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
+    container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
@@ -133,7 +133,7 @@ jobs:
   app-less-tests:
     needs: [setup]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
+    container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
@@ -164,7 +164,7 @@ jobs:
     if: github.event_name == 'pull_request'
     needs: [setup]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.1
+    container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
