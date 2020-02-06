@@ -1,0 +1,28 @@
+name: "deployment-request"
+author: "menny"
+description: "Performs a deploy request"
+
+inputs:
+  ref:
+    description: "ref to publish"
+    required: true
+  api_user_name:
+    description: "the username to use for API calls"
+    required: true
+  api_user_token:
+    description: "the user API token to use for API calls"
+    required: true
+
+runs:
+  using: "docker"
+  image: "docker://menny/ndk_ask:1.13.1"
+  entrypoint: /bin/bash
+  args:
+    - .github/actions/deploy-request/request.sh
+    - ${{ inputs.ref }}
+    - ${{ inputs.api_user_name }}
+    - ${{ inputs.api_user_token }}
+
+branding:
+  icon: 'package'
+  color: 'purple'

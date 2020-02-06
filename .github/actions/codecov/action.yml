@@ -1,4 +1,4 @@
-name: "Code Cov"
+name: "code-coverage"
 author: "menny"
 description: "action which locate coverage files and uploads them"
 
