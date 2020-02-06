@@ -29,7 +29,7 @@ jobs:
           echo "${GITHUB_CONTEXT_JSON}"
           ./scripts/ci/ci_setup.sh
       - uses: ./.github/actions/deploy
-        if: ${{ startsWith(github.event.environment, 'app') }}
+        if: startsWith(github.event.environment, 'app')
         with:
           deploy_target: ${{ github.event.environment }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
@@ -40,7 +40,7 @@ jobs:
           publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: ./.github/actions/deploy
-        if: ${{ startsWith(github.event.environment, 'addons') }}
+        if: startsWith(github.event.environment, 'addons')
         with:
           deploy_target: ${{ github.event.environment }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}

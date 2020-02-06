@@ -17,7 +17,7 @@ function deployment_request() {
                     --arg jsonRef "${REF_TO_DEPLOY}" \
                     --arg jsonDeployTarget "${1}" \
                     --arg jsonDescription "${2}" \
-                    '{ ref: $jsonRef, task: "deploy", auto_merge: false, environment: $jsonDeployTarget, description: $jsonDescription, required_contexts=[ "push-ready" ] }' )
+                    '{ ref: $jsonRef, task: "deploy", auto_merge: false, environment: $jsonDeployTarget, description: $jsonDescription, required_contexts: [ "push-ready" ] }' )
 
   local JSON_FILENAME="${TEMP_FOLDER}/deployment_request_${1}.json"
   echo "${JSON_TEXT}" > "${JSON_FILENAME}"
