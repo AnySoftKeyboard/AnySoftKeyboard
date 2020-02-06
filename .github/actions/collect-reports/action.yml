@@ -1,5 +1,6 @@
-name: "Collect reports"
+name: "collect-reports"
 author: "menny"
+description: "Collect checks report files"
 
 inputs:
   output_folder:
@@ -19,4 +20,4 @@ runs:
 
 branding:
   icon: 'package'
-  color: 'brown'
+  color: 'green'

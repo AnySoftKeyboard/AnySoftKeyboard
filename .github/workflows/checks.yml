@@ -171,11 +171,26 @@ jobs:
           key: dry-run-deploy-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
           restore-keys: |
             dry-run-deploy-gradle-
-      - name: deploy
-        uses: ./.github/actions/deploy
+      - uses: ./.github/actions/deploy
         with:
           deploy_tasks: "-DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources :generateFdroidYamls"
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: fdroid-metadata-dry-run
           path: outputs/fdroid
+
+  deploy-request:
+    if: github.event_name == 'push'
+    needs: [setup, checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: ./.github/actions/deploy-request
+        with:
+          ref: ${{ github.ref }}
+          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: deploy-request
+          path: /tmp/deploy-request
