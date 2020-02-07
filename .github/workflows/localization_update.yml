@@ -15,6 +15,14 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - name: github_object
+        env:
+          GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
+        run: mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: github_object
+          path: build/github_object
       - name: Upload strings from ime/app master
         run: ./scripts/upload_strings_to_crowdin_api.sh keep
       - name: Download latest translations

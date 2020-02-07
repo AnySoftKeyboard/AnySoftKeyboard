@@ -4,7 +4,10 @@ description: "Performs a deploy request"
 
 inputs:
   ref:
-    description: "ref to publish"
+    description: "ref (branch) to publish"
+    required: true
+  sha:
+    description: "commit to deploy"
     required: true
   api_user_name:
     description: "the username to use for API calls"
@@ -23,6 +26,7 @@ runs:
   args:
     - .github/actions/deploy-request/request.sh
     - ${{ inputs.ref }}
+    - ${{ inputs.sha }}
     - ${{ inputs.api_user_name }}
     - ${{ inputs.api_user_token }}
     - ${{ inputs.reports_folder }}
