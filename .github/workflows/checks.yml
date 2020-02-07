@@ -25,15 +25,16 @@ jobs:
     container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
+      - name: github_object
+        env:
+          GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
+        run: mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: github_object
+          path: build/github_object
       - name: setup
-        run: |
-          echo "ENV:"
-          printenv
-          echo "******"
-          echo "Event: "
-          cat ${GITHUB_EVENT_PATH}
-          echo "***"
-          ./scripts/ci/ci_setup.sh
+        run: ./scripts/ci/ci_setup.sh
 
   checks:
     needs: [setup]
@@ -198,6 +199,7 @@ jobs:
       - uses: ./.github/actions/deploy-request
         with:
           ref: ${{ github.ref }}
+          sha: ${{ github.sha }}
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           reports_folder: deploy-reports

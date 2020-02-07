@@ -2,6 +2,8 @@
 set -e
 
 REF_TO_DEPLOY="${1}"
+#we are using exact SHA to deploy, and not branc (which can move)
+SHA_TO_DEPLOY="${1}"
 API_USERNAME="${2}"
 API_TOKEN="${3}"
 OUTPUT="${4}"
@@ -14,7 +16,7 @@ function deployment_request() {
   echo "making request to: ${1}"
   local JSON_TEXT
   JSON_TEXT=$( jq -n \
-                    --arg jsonRef "${REF_TO_DEPLOY}" \
+                    --arg jsonRef "${SHA_TO_DEPLOY}" \
                     --arg jsonDeployTarget "${1}" \
                     --arg jsonDescription "${2}" \
                     '{ ref: $jsonRef, task: "deploy", auto_merge: false, environment: $jsonDeployTarget, description: $jsonDescription, required_contexts: [ "push-ready" ] }' )
