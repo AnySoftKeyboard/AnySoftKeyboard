@@ -25,25 +25,12 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - uses: ./.github/actions/deploy
-        if: startsWith(github.event.deployment.environment, 'app')
         with:
           deploy_target: ${{ github.event.deployment.environment }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
-          keystore_key_alias: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
-          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
-          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
-      - uses: ./.github/actions/deploy
-        if: startsWith(github.event.deployment.environment, 'addons')
-        with:
-          deploy_target: ${{ github.event.deployment.environment }}
-          crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
-          keystore_url: ${{ secrets.PACK_KEYSTORE_URL }}
-          keystore_password: ${{ secrets.PACK_KEYSTORE_PASSWORD }}
-          keystore_key_alias: ${{ secrets.PACK_KEYSTORE_ALIAS }}
-          keystore_key_password: ${{ secrets.PACK_KEYSTORE_KEY_PASSWORD }}
           publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
       - uses: actions/upload-artifact@v1.0.0
