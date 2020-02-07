@@ -19,9 +19,6 @@ inputs:
   keystore_password:
     default: ""
     required: false
-  keystore_key_alias:
-    default: ""
-    required: false
   keystore_key_password:
     default: ""
     required: false
@@ -47,7 +44,6 @@ runs:
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.keystore_url }}
     - ${{ inputs.keystore_password }}
-    - ${{ inputs.keystore_key_alias }}
     - ${{ inputs.keystore_key_password }}
     - ${{ inputs.publish_service_account_creds_url }}
     - ${{ inputs.publish_service_account }}
