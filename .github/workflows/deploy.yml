@@ -27,7 +27,7 @@ jobs:
       - uses: ./.github/actions/deploy
         if: startsWith(github.event.deployment.environment, 'app')
         with:
-          deploy_target: ${{ github.event.environment }}
+          deploy_target: ${{ github.event.deployment.environment }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
@@ -38,7 +38,7 @@ jobs:
       - uses: ./.github/actions/deploy
         if: startsWith(github.event.deployment.environment, 'addons')
         with:
-          deploy_target: ${{ github.event.environment }}
+          deploy_target: ${{ github.event.deployment.environment }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.PACK_KEYSTORE_URL }}
           keystore_password: ${{ secrets.PACK_KEYSTORE_PASSWORD }}
