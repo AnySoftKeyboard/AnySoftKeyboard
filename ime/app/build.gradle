@@ -2,6 +2,7 @@ group 'net.evendanan'
 
 ext.override_app_id = 'com.menny.android.anysoftkeyboard'
 ext.shouldBePublished = true
+ext.override_release_key_alias = 'anysoftkeyboard'
 
 apply from: "${rootDir}/gradle/apk_module.gradle"
 
