@@ -1,0 +1,36 @@
+name: "deployment-status"
+author: "menny"
+description: "updates deployment status"
+
+inputs:
+  deployment_id:
+    description: "deployment-id"
+    required: true
+  state:
+    description: "commit to deploy"
+    required: true
+  environment:
+    description: "environment to deploy"
+    required: true
+  api_user_name:
+    description: "the username to use for API calls"
+    required: true
+  api_user_token:
+    description: "the user API token to use for API calls"
+    required: true
+
+runs:
+  using: "docker"
+  image: "docker://menny/ndk_ask:1.13.5"
+  entrypoint: /bin/bash
+  args:
+    - .github/actions/deploy-status/request.sh
+    - ${{ inputs.deployment_id }}
+    - ${{ inputs.state }}
+    - ${{ inputs.environment }}
+    - ${{ inputs.api_user_name }}
+    - ${{ inputs.api_user_token }}
+
+branding:
+  icon: 'package'
+  color: 'purple'
