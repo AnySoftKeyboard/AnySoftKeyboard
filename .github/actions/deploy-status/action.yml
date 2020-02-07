@@ -26,8 +26,8 @@ runs:
   args:
     - .github/actions/deploy-status/request.sh
     - ${{ inputs.deployment_id }}
-    - ${{ inputs.state }}
     - ${{ inputs.environment }}
+    - ${{ inputs.state }}
     - ${{ inputs.api_user_name }}
     - ${{ inputs.api_user_token }}
 
