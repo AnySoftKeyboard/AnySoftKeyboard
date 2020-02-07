@@ -24,7 +24,7 @@ jobs:
           path: build/github_object
       - uses: ./.github/actions/deploy-status
         with:
-          deployment_id: ${{ github.ref }}
+          deployment_id: ${{ github.event.deployment.id }}
           state: in_progress
           environment: ${{ github.event.deployment.environment }}
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
@@ -43,7 +43,7 @@ jobs:
       - uses: ./.github/actions/deploy-status
         if: success()
         with:
-          deployment_id: ${{ github.ref }}
+          deployment_id: ${{ github.event.deployment.id }}
           state: success
           environment: ${{ github.event.deployment.environment }}
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
@@ -51,7 +51,7 @@ jobs:
       - uses: ./.github/actions/deploy-status
         if: failure()
         with:
-          deployment_id: ${{ github.ref }}
+          deployment_id: ${{ github.event.deployment.id }}
           state: failure
           environment: ${{ github.event.deployment.environment }}
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
