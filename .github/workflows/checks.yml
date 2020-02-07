@@ -194,6 +194,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [push-ready]
     runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.5
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/deploy-request
@@ -202,9 +203,4 @@ jobs:
           sha: ${{ github.sha }}
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          reports_folder: deploy-reports
-      - uses: actions/upload-artifact@v1.0.0
-        if: always()
-        with:
-          name: deploy-request
-          path: deploy-reports
+          reports_folder: build/deploy-reports
