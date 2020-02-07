@@ -22,30 +22,40 @@ jobs:
         with:
           name: github_object
           path: build/github_object
+      - uses: ./.github/actions/deploy-status
+        with:
+          deployment_id: ${{ github.ref }}
+          state: in_progress
+          environment: ${{ github.event.deployment.environment }}
+          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - uses: ./.github/actions/deploy
-        if: startsWith(github.event.deployment.environment, 'app')
         with:
           deploy_target: ${{ github.event.deployment.environment }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
-          keystore_key_alias: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_ALIAS }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
           publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
-      - uses: ./.github/actions/deploy
-        if: startsWith(github.event.deployment.environment, 'addons')
+      - uses: ./.github/actions/deploy-status
+        if: success()
         with:
-          deploy_target: ${{ github.event.deployment.environment }}
-          crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
-          keystore_url: ${{ secrets.PACK_KEYSTORE_URL }}
-          keystore_password: ${{ secrets.PACK_KEYSTORE_PASSWORD }}
-          keystore_key_alias: ${{ secrets.PACK_KEYSTORE_ALIAS }}
-          keystore_key_password: ${{ secrets.PACK_KEYSTORE_KEY_PASSWORD }}
-          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
-          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+          deployment_id: ${{ github.ref }}
+          state: success
+          environment: ${{ github.event.deployment.environment }}
+          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: ./.github/actions/deploy-status
+        if: failure()
+        with:
+          deployment_id: ${{ github.ref }}
+          state: failure
+          environment: ${{ github.event.deployment.environment }}
+          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: apks
