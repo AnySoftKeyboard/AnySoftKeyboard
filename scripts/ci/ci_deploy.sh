@@ -23,7 +23,9 @@ if [[ "${DEPLOY_TASKS}" == *"publish"* ]]; then
     fi
 
     wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -q -O /tmp/anysoftkeyboard.keystore
+    stat /tmp/anysoftkeyboard.keystore
     wget --tries=5 --waitretry=5 "${PUBLISH_CERT_FILE_URL}" -q -O /tmp/apk_upload_key.p12
+    stat /tmp/apk_upload_key.p12
 fi
 
 # shellcheck disable=SC2086
