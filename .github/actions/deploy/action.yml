@@ -6,10 +6,6 @@ inputs:
   deploy_target:
     description: "Target to deploy. Should something deploy-request github-action outputs"
     required: true
-  ref:
-    description: "the commit to calculate the version from"
-    default: "HEAD"
-    required: false
   crash_report_email:
     default: "none@example.com"
     required: false
@@ -39,7 +35,6 @@ runs:
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy/deploy.sh
-    - ${{ inputs.ref }}
     - ${{ inputs.deploy_target }}
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.keystore_url }}
