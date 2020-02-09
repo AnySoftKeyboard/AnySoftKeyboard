@@ -2,10 +2,11 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
     task.description = 'Generates a file with the YAML entry for publishing an APK fo a file'
     task.group = 'publish'
     doLast {
+        //must create this folder. So out CI upload-artifacts will not fail on non-existing folder
+        rootProject.file('outputs/fdroid').mkdirs()
         task.dependsOn.forEach { Task dependedTask ->
             def taskProject = dependedTask.project
             File outputYamlFile = rootProject.file("outputs/fdroid/${taskProject.android.defaultConfig.applicationId}.yaml")
-            outputYamlFile.parentFile.mkdirs()
             outputYamlFile.write("")
             println("Will write fdroid data to ${outputYamlFile.absolutePath}")
             def commit = 'git rev-parse HEAD'.execute().text.trim()
