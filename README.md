@@ -34,7 +34,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
  * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/)
 
 # Release
-* Every commit to _master_ branch will deploy a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google+](https://plus.google.com/communities/106050362696748221135) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
+* Every commit to _master_ branch will deploy a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google Groups](https://groups.google.com/d/forum/anysoftkeyboard-alpha-testers) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Every once in a while, a stable enough _ALPHA_ will be promoted to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
 

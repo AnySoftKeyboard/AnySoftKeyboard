@@ -28,4 +28,4 @@ Main features:
 ** Arrows
 * And many more features!
 
-Support at: https://plus.google.com/communities/106050362696748221135
+Support at: https://github.com/AnySoftKeyboard
