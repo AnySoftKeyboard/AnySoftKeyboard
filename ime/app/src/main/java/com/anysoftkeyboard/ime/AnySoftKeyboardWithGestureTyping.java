@@ -12,6 +12,7 @@ import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
+import com.anysoftkeyboard.gesturetyping.SimpleGestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -120,13 +121,12 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 mCurrentGestureDetector = mGestureTypingDetectors.get(key);
             } else {
                 mCurrentGestureDetector =
-                        new GestureTypingDetector(
-                                getResources()
-                                        .getDimension(R.dimen.gesture_typing_frequency_factor),
+                        new SimpleGestureTypingDetector(
                                 15 /*max suggestions. For now it is static*/,
                                 getResources()
                                         .getDimensionPixelSize(
                                                 R.dimen.gesture_typing_min_point_distance),
+                                300,
                                 keyboard.getKeys());
                 mGestureTypingDetectors.put(key, mCurrentGestureDetector);
             }
@@ -450,7 +450,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (ic != null && currentGestureDetector != null) {
-            Logger.d(TAG, "Completed gesture: %s.", currentGestureDetector.getWorkspaceToString());
+            //Logger.d(TAG, "Completed gesture: %s.", currentGestureDetector.getWorkspaceToString());
             ArrayList<String> gestureTypingPossibilities = currentGestureDetector.getCandidates();
 
             if (!gestureTypingPossibilities.isEmpty()) {

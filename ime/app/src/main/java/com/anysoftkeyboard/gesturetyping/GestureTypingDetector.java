@@ -8,6 +8,8 @@ import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,19 +26,21 @@ public abstract class GestureTypingDetector {
     private static final String TAG = "ASKGestureTypingDetector";
 
     /** The gesture currently being traced by the user. */
-    private final GestureTypingDetector.Gesture mUserGesture = new GestureTypingDetector.Gesture();
-
+    protected final GestureTypingDetector.Gesture mUserGesture = new GestureTypingDetector.Gesture();
     /** The square of the minimum distance between two points in the user gesture. */
     private final int mMinPointDistanceSquared;
 
-    @NonNull private final Iterable<Keyboard.Key> mKeys;
-    @NonNull private final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
+    @NonNull protected final Iterable<Keyboard.Key> mKeys;
+    @NonNull protected final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
 
-    @NonNull private List<char[][]> mWords = Collections.emptyList();
-    @NonNull private List<int[]> mWordFrequencies = Collections.emptyList();
+    @NonNull protected List<char[][]> mWords = Collections.emptyList();
+    @NonNull protected List<int[]> mWordFrequencies = Collections.emptyList();
 
     @NonNull private Disposable mGeneratingDisposable = Disposables.empty();
-    private int mMaxSuggestions;
+    protected int mMaxSuggestions;
+    protected final ArrayList<String> mCandidates;
+    protected final ArrayList<Double> mCandidateWeights;
+
 
     public enum LoadingState {
         NOT_LOADED,
@@ -44,7 +48,7 @@ public abstract class GestureTypingDetector {
         LOADED
     }
 
-    private final ReplaySubject<GestureTypingDetector.LoadingState> mGenerateStateSubject =
+    protected final ReplaySubject<GestureTypingDetector.LoadingState> mGenerateStateSubject =
             ReplaySubject.createWithSize(1);
 
     public GestureTypingDetector(
@@ -53,8 +57,17 @@ public abstract class GestureTypingDetector {
             @NonNull Iterable<Keyboard.Key> keys)
     {
         mMaxSuggestions = maxSuggestions;
+        mCandidates = new ArrayList<>(mMaxSuggestions * 3);
+        mCandidateWeights = new ArrayList<>(mMaxSuggestions * 3);
         mMinPointDistanceSquared = minPointDistance * minPointDistance;
         mKeys = keys;
+        for (Keyboard.Key key : mKeys) {
+            for (int i = 0; i < key.getCodesCount(); ++i) {
+                char c = (char) key.getCodeAtIndex(i, false);
+                c = Character.toLowerCase(c);
+                mKeysByCharacter.put(c, key);
+            }
+        }
         mGenerateStateSubject.onNext(GestureTypingDetector.LoadingState.NOT_LOADED);
     }
 
@@ -80,6 +93,8 @@ public abstract class GestureTypingDetector {
         mGenerateStateSubject.onComplete();
     }
 
+    public abstract ArrayList<String> getCandidates();
+
     /**
      * Adds a point to the  user's gesture as long as it's not too far from the previous point.
      *
@@ -100,7 +115,7 @@ public abstract class GestureTypingDetector {
         mUserGesture.addPoint(x, y);
     }
 
-    public void clearUserGesture() {
+    public void clearGesture() {
         mUserGesture.reset();
     }
 
@@ -113,7 +128,7 @@ public abstract class GestureTypingDetector {
      * @param y2
      * @return The distance.
      */
-    public static double euclideanDistance(int x1, int y1, int x2, int y2) {
+    protected static double euclideanDistance(int x1, int y1, int x2, int y2) {
         return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
 
@@ -150,6 +165,16 @@ public abstract class GestureTypingDetector {
             mCurrentLength++;
         }
 
+        int getCurrentLength() { return mCurrentLength; }
+
+        int getX(int index) {
+            return mXs[index];
+        }
+
+        int getY(int index) {
+            return mYs[index];
+        }
+
         int getFirstX() {
             return mXs[0];
         }
@@ -159,7 +184,7 @@ public abstract class GestureTypingDetector {
         }
 
         int getLastX() {
-            return mYs[mCurrentLength-1];
+            return mXs[mCurrentLength-1];
         }
 
         int getLastY() {
@@ -207,8 +232,11 @@ public abstract class GestureTypingDetector {
             Gesture resampledGesture = new Gesture();
             resampledGesture.addPoint(mXs[0], mYs[0]);
 
-            for (int i=0; i < numPoints; i++) {
-                indexOfClosest = (i * mCurrentLength + numPoints / 2) / numPoints;
+            double lastX = mXs[0];
+            double lastY = mYs[0];
+
+            for (int i=0; i < numPoints-1; i++) {
+                indexOfClosest = (i * (mCurrentLength-2) + numPoints / 2) / numPoints;
 
                 dx = mXs[indexOfClosest+1] - mXs[indexOfClosest];
                 dy = mYs[indexOfClosest+1] - mYs[indexOfClosest];
@@ -217,8 +245,11 @@ public abstract class GestureTypingDetector {
                 dx = dx / norm;
                 dy = dy / norm;
 
-                newX = mXs[indexOfClosest] + dx * interpointDistance;
-                newY = mYs[indexOfClosest] + dy * interpointDistance;
+                newX = lastX + dx * interpointDistance;
+                newY = lastY + dy * interpointDistance;
+
+                lastX = newX;
+                lastY = newY;
 
                 resampledGesture.addPoint((int) Math.round(newX), (int) Math.round(newY));
             }
@@ -232,7 +263,50 @@ public abstract class GestureTypingDetector {
          *
          * @return A normalized copy of the gesture.
          */
-        public Gesture normalize() {
+        public Gesture normalizeByBoxSide() {
+            Gesture normalizedGesture = new Gesture();
+
+            int x, y;
+            int maxX = -1;
+            int maxY = -1;
+            int minX = 10000;
+            int minY = 10000;
+
+            for (int i=0; i < mCurrentLength; i++) {
+                x = mXs[i];
+                y = mYs[i];
+
+                if (x > maxX) {
+                    maxX = x;
+                }
+                if (y > maxY) {
+                    maxY = y;
+                }
+                if (x < minX) {
+                    minX = x;
+                }
+                if (y < minY) {
+                    minY = y;
+                }
+            }
+
+            int width = maxX - minX;
+            int height = maxY - minY;
+            int longestSide = max(width, height);
+
+            double centroidX = (width / 2 + minX) / longestSide;
+            double centroidY = (height / 2 + minY) / longestSide;
+
+            for (int i=0; i < mCurrentLength; i++) {
+                x = (int) (mXs[i] / longestSide - centroidX);
+                y = (int) (mYs[i] / longestSide - centroidY);
+                normalizedGesture.addPoint(x, y);
+            }
+
+            return normalizedGesture;
+        }
+
+        public Gesture normalizeByDisplaySize() {
             Gesture normalizedGesture = new Gesture();
 
             int x, y;
@@ -315,4 +389,12 @@ public abstract class GestureTypingDetector {
         }
     }
 
+    public String getWorkspaceToString(Gesture gesture) {
+        int[] x_coords = Arrays.copyOfRange(gesture.mXs, 0, gesture.mCurrentLength);
+        int[] y_coords = Arrays.copyOfRange(gesture.mYs, 0, gesture.mCurrentLength);
+
+        String x_string = Arrays.toString(x_coords);
+        String y_string = Arrays.toString(y_coords);
+        return x_string + "," + y_string;
+    }
 }

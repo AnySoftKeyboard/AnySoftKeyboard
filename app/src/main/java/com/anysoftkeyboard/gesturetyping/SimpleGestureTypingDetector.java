@@ -1,37 +1,182 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
-import java.lang.reflect.Array;
-import java.security.KeyPair;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.exp;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class SimpleGestureTypingDetector extends GestureTypingDetector {
-    private ArrayList<Pruner> mPruners;
+    private ArrayList<Pruner> mPruners = new ArrayList<>();
+    private final int mGestureLengthPruningThreshold;
+    private final int SAMPLING_POINTS = 300;
+    private final double SHAPE_STD = 30000; //22.9;
+    private final double LOCATION_STD = 400; //0.525;
+    private List<HashMap<String, Integer>> mWordFrequenciesMap;
 
     public SimpleGestureTypingDetector(
             int maxSuggestions,
             int minPointDistance,
+            int gestureLengthPruningThreshold,
             @NonNull Iterable<Keyboard.Key> keys)
     {
         super(maxSuggestions, minPointDistance, keys);
+        mGestureLengthPruningThreshold = gestureLengthPruningThreshold;
     }
 
-    private static class Pruner {
+    @Override
+    public void setWords(@NonNull List<char[][]> words, @NonNull List<int[]> wordFrequencies) {
+        super.setWords(words, wordFrequencies);
+
+        mWordFrequenciesMap = new ArrayList<>();
+        for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
+            final char[][] wordsForDict = mWords.get(dictIndex);
+            final int[] frequencies = wordFrequencies.get(dictIndex);
+            HashMap<String, Integer> frequenciesForDict = new HashMap<>();
+            mWordFrequenciesMap.add(frequenciesForDict);
+
+            for (int i = 0; i < wordsForDict.length; i++) {
+                String word = new String(wordsForDict[i]);
+                int freq = frequencies[i];
+                frequenciesForDict.put(word, freq);
+            }
+
+            Pruner pruner = new Pruner(
+                    mGestureLengthPruningThreshold,
+                    wordsForDict,
+                    mKeysByCharacter);
+            mPruners.add(pruner);
+        }
+
+        mGenerateStateSubject.onNext(LoadingState.LOADED);
+    }
+
+    private double calcShapeDistance(Gesture gesture1, Gesture gesture2) {
+        int x1, x2, y1, y2;
+        double distance, totalDistance = 0;
+        for (int i=0; i<300; i++) {
+            x1 = gesture1.getX(i);
+            x2 = gesture2.getX(i);
+            y1 = gesture1.getY(i);
+            y2 = gesture2.getY(i);
+
+            distance = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
+            totalDistance += distance;
+        }
+        return totalDistance;
+    }
+
+    private double calcLocationDistance(Gesture gesture1, Gesture gesture2) {
+        int x1, x2, y1, y2;
+        double distance, totalDistance = 0;
+        for (int i=0; i<300; i++) {
+            x1 = gesture1.getX(i);
+            x2 = gesture2.getX(i);
+            y1 = gesture1.getY(i);
+            y2 = gesture2.getY(i);
+
+            distance = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
+            totalDistance += distance;
+        }
+        return totalDistance / 300;
+    }
+
+    private double calcGaussianProbability(double value, double mean, double standardDeviation) {
+        double factor = 1. / (standardDeviation * sqrt(2 * 3.14));
+        double exponent =  pow(((value - mean) / standardDeviation), 2);
+        double probability = factor * exp((- 1. / 2) * exponent);
+        return probability;
+    }
+
+    /**
+     * Gets an array of candidate words based on the user's gesture by calculating the distance
+     * between the gesture and the gestures for the word set. The candidate words are weighed by
+     * distance and frequency and sorted from best to worst.
+     *
+     * @return An array of candidate words sorted from best to worst.
+     */
+    @Override
+    public ArrayList<String> getCandidates() {
+        mCandidates.clear();
+        mCandidateWeights.clear();
+
+        if (mGenerateStateSubject.getValue() != LoadingState.LOADED) {
+            return mCandidates;
+        }
+
+        for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
+            Pruner pruner = mPruners.get(dictIndex);
+
+            ArrayList<char[]> remainingWords;
+            remainingWords = pruner.pruneByExtremities(mUserGesture, mKeys);
+            remainingWords = pruner.pruneByLength(mUserGesture, remainingWords, mKeysByCharacter);
+
+            HashMap<String, Integer> wordFrequencies = mWordFrequenciesMap.get(dictIndex);
+
+            double shapeDistance, locationDistance, frequency;
+            double shapeProbability, locationProbability;
+            double confidence;
+
+            for (int i = 0; i < remainingWords.size(); i++) {
+                char[] word = remainingWords.get(i);
+                Gesture wordGesture = Gesture.generateIdealGesture(word, mKeysByCharacter);
+                wordGesture = wordGesture.resample(SAMPLING_POINTS);
+
+                Gesture normalizedGesture = wordGesture.normalizeByBoxSide();
+
+                shapeDistance = calcShapeDistance(normalizedGesture, mUserGesture);
+                locationDistance = calcLocationDistance(wordGesture, mUserGesture);
+                Log.d("GESTURETYPING", Double.toString(shapeDistance));
+                Log.d("GESTURETYPING", Double.toString(locationDistance));
+
+                shapeProbability = calcGaussianProbability(
+                        shapeDistance,
+                        0,
+                        SHAPE_STD);
+                locationProbability = calcGaussianProbability(
+                        locationDistance,
+                        0,
+                        LOCATION_STD);
+
+                frequency = wordFrequencies.get(new String(word));
+
+                confidence = shapeProbability * locationProbability * frequency;
+
+                int candidateDistanceSortedIndex = 0;
+                while (candidateDistanceSortedIndex < mCandidateWeights.size()
+                        && mCandidateWeights.get(candidateDistanceSortedIndex)
+                        <= confidence) {
+                    candidateDistanceSortedIndex++;
+                }
+
+                if (candidateDistanceSortedIndex < mMaxSuggestions) {
+                    mCandidateWeights.add(candidateDistanceSortedIndex, confidence);
+                    mCandidates.add(candidateDistanceSortedIndex, new String(word));
+                    if (mCandidateWeights.size() > mMaxSuggestions) {
+                        mCandidateWeights.remove(mMaxSuggestions);
+                        mCandidates.remove(mMaxSuggestions);
+                    }
+                }
+            }
+        }
+
+        return mCandidates;
+    }
+
+    protected static class Pruner {
         private final HashMap<FirstKeyLastKey, ArrayList<char[]>> wordTree;
         private final int lengthThreshold;
 
@@ -81,8 +226,8 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
                     .collect(Collectors.toList());
 
             ArrayList<Keyboard.Key> closestKeys = new ArrayList<>();
-            for (Map.Entry entry : nClosestEntries) {
-                Keyboard.Key key = (Keyboard.Key) entry.getKey();
+            for (Map.Entry<Keyboard.Key, Double> entry : nClosestEntries) {
+                Keyboard.Key key = entry.getKey();
                 closestKeys.add(key);
             }
 
@@ -135,6 +280,7 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
             for (char[] word : words) {
                  idealGesture = Gesture.generateIdealGesture(word, keysByCharacter);
                  wordIdealLength  = idealGesture.getLength();
+                 Log.d("GESTURETYPING21", Double.toString(Math.abs(userLength - wordIdealLength)));
                  if (Math.abs(userLength - wordIdealLength) < lengthThreshold) {
                      remainingWords.add(word);
                  }
@@ -142,7 +288,7 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
             return remainingWords;
         }
 
-        private static class FirstKeyLastKey {
+        private static final class FirstKeyLastKey {
 
             private final Keyboard.Key firstKey;
             private final Keyboard.Key lastKey;
