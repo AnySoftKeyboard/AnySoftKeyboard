@@ -26,10 +26,13 @@ import io.reactivex.disposables.Disposable;
 
 import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-public class SimpleGestureTypingDetectorTest {
+public class GestureTypingDetectorTest {
     private static final int MAX_SUGGESTIONS = 4;
     private static final int PRUNING_DISTANCE = 7;
     private List<Keyboard.Key> mKeys;
@@ -126,10 +129,10 @@ public class SimpleGestureTypingDetectorTest {
 
         Assert.assertEquals(2, gesture.getCurrentLength());
 
-        Assert.assertEquals(key1.centerX, gesture.getFirstX());
-        Assert.assertEquals(key1.centerY, gesture.getFirstY());
-        Assert.assertEquals(key2.centerX, gesture.getLastX());
-        Assert.assertEquals(key2.centerY, gesture.getLastY());
+        Assert.assertEquals(key1.centerX, gesture.getFirstX(), 0.001);
+        Assert.assertEquals(key1.centerY, gesture.getFirstY(), 0.001);
+        Assert.assertEquals(key2.centerX, gesture.getLastX(), 0.001);
+        Assert.assertEquals(key2.centerY, gesture.getLastY(), 0.001);
     }
 
     @Test
@@ -139,10 +142,10 @@ public class SimpleGestureTypingDetectorTest {
                 .Gesture
                 .generateIdealGesture(testWord, mDetectorUnderTest.mKeysByCharacter);
 
-        Assert.assertEquals(gesture.getFirstX(), gesture.getX(0));
-        Assert.assertEquals(gesture.getFirstY(), gesture.getY(0));
-        Assert.assertEquals(gesture.getLastX(), gesture.getX(2));
-        Assert.assertEquals(gesture.getLastY(), gesture.getY(2));
+        Assert.assertEquals(gesture.getFirstX(), gesture.getX(0), 0.001);
+        Assert.assertEquals(gesture.getFirstY(), gesture.getY(0), 0.001);
+        Assert.assertEquals(gesture.getLastX(), gesture.getX(2), 0.001);
+        Assert.assertEquals(gesture.getLastY(), gesture.getY(2), 0.001);
     }
 
     @Test
@@ -170,6 +173,32 @@ public class SimpleGestureTypingDetectorTest {
 
         Assert.assertEquals(length, gesture.getLength(), epsilon);
         Assert.assertEquals(length, resampled.getLength(), epsilon);
+    }
+
+    @Test
+    public void testGestureNormalizeByBoxSide() {
+        char[] testWord = "ab".toCharArray();
+        GestureTypingDetector.Gesture gesture = GestureTypingDetector
+                .Gesture
+                .generateIdealGesture(testWord, mDetectorUnderTest.mKeysByCharacter);
+
+        GestureTypingDetector.Gesture normalized = gesture.normalizeByBoxSide();
+
+        double width = abs(normalized.getX(0) - normalized.getX(1));
+        double height = abs(normalized.getY(0) - normalized.getY(1));
+
+        double side = max(width, height);
+
+        Assert.assertEquals(1, side, 0.05);
+
+        double minX = min(normalized.getX(0), normalized.getX(1));
+        double minY = min(normalized.getY(0), normalized.getY(1));
+
+        double centroidX = (width / 2 + minX) / side;
+        double centroidY = (height / 2 + minY) / side;
+
+        Assert.assertEquals(0, centroidX, 0.05);
+        Assert.assertEquals(0, centroidY, 0.05);
     }
 
     @Test

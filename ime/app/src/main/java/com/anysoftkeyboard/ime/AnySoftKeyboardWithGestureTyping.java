@@ -126,7 +126,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                                 getResources()
                                         .getDimensionPixelSize(
                                                 R.dimen.gesture_typing_min_point_distance),
-                                300,
+                                800,
                                 keyboard.getKeys());
                 mGestureTypingDetectors.put(key, mCurrentGestureDetector);
             }
