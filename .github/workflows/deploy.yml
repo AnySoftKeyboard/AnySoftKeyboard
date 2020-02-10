@@ -30,7 +30,11 @@ jobs:
           api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
-        run: ./scripts/ci/ci_setup.sh
+        run: |
+          ./scripts/ci/ci_setup.sh
+          mkdir -p outputs/apks || true
+          mkdir -p outputs/fdroid || true
+          mkdir -p ime/app/build/outputs/mapping || true
       - uses: ./.github/actions/deploy
         with:
           deploy_target: ${{ github.event.deployment.environment }}

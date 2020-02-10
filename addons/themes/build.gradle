@@ -1,3 +1,1 @@
-subprojects {
-    it.group "com.anysoftkeybaord.theme.${it.parent.name}"
-}
+apply from: "$rootDir/addons/gradle/add_on_list_generator.gradle"
