@@ -8,7 +8,8 @@ tasks.register("generatePacksMarkDown") {
             writer.writeLine('# Packs in this repository')
             subprojects.each {
                 if (it.plugins.hasPlugin('com.android.application')) {
-                    def image = "<img src='${it.rootDir.relativePath(it.projectDir)}/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
+                    // paths should be relating to this project
+                    def image = "<img src='${project.projectDir.relativePath(it.projectDir)}/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
                     if (it.file("flag/flag.png").exists()) {
                         image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
                     } else if (it.file("flag/flag.svg").exists()) {
@@ -16,7 +17,7 @@ tasks.register("generatePacksMarkDown") {
                     } else {
                         image = ""
                     }
-                    def packReadMeDetails = "1. ${image}${it.parent.name.capitalize()}: [Source](${it.rootDir.relativePath(it.parent.projectDir)})"
+                    def packReadMeDetails = "1. ${image}${it.parent.name.capitalize()}: [Source](${project.projectDir.relativePath(it.parent.projectDir)})"
 
                     if (it.ext.shouldBePublished) {
                         packReadMeDetails += " • [Play Store](https://play.google.com/store/apps/details?id=${it.android.defaultConfig.applicationId})"
