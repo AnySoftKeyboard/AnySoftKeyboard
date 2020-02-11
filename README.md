@@ -11,7 +11,7 @@ Android (f/w 2.1+, API level 7+) on screen keyboard for multiple languages.
 
 Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard). Beta versions are pushed via Google Play Store.
 
-# Features
+## Features
  * All kinds of keyboards:
      * supporting lots of languages via external packages. E.g., English (QWERTY, Dvorak, AZERTY, Colemak, and Workman), Hebrew, Russian, Arabic, Lao, Bulgarian, Swiss, German, Swedish, Spanish, Catalan, Belarusian, Portuguese, Ukrainian and [many more](addons/languages/PACKS.md).
      * Special keyboard for text fields which require only numbers.
@@ -19,34 +19,36 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
  * Physical keyboard is supported as-well.
  * Auto capitalization.
  * Word suggestions, and Next-Word suggestions.
- * Gesture typing
- * Dark mode, automatic (based on system) and manual
- * Power saving mode, disables various features to save battery
- * Per-app tint, the keyboard changes color depending on the app
+ * Gesture typing.
+ * Dark mode, automatic (based on system) and manual.
+ * Power saving mode, disables various features to save battery.
+ * Per-app tint, the keyboard changes color depending on the current app.
  * Special key-press effects:
      * Sound on key press (if phone is not muted).
      * Vibrate on key press.
  * Voice input. 
  * Incognito Mode - will not learn new words, will not keep history of what was typed (including emoji history).
  * Plenty of emojis - long-press the smiley key. You customize those by clicking the Settings icon in emojis window.
- * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/)
+ * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/).
 
-# Release
+## Releases
 * Every commit to _master_ branch will deploy a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google Groups](https://groups.google.com/d/forum/anysoftkeyboard-alpha-testers) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Every once in a while, a stable enough _ALPHA_ will be promoted to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
 
-# Read more
+## Read more
 * Our fancy [web-site](http://anysoftkeyboard.github.io/)
 * [Language-Pack](addons/languages/PACKS.md) add-ons in this repo.
 * [Theme](addons/themes/PACKS.md) add-ons in this repo.
 * [Quick-Text](addons/quicktexts/PACKS.md) add-ons in this repo.
 * [Crownin](https://crowdin.com/project/anysoftkeyboard) to translate the app to your language. [![Crowdin](https://badges.crowdin.net/anysoftkeyboard/localized.svg)](https://crowdin.com/project/anysoftkeyboard)
 * Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bounties and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!
-* Want to developer or contribute? Read more [here](CONTRIBUTING.md)
 
-License
--------
+# Development/Contributing
+Want to develop a new feature, fix a bug, or add new language-pack? Read more [here](CONTRIBUTING.md).
+Remember: the components in this repository are released under the Apache2 license. By contributing to this repository you give all copyright and distribution rights or AnySoftKeyboard maintainer.
+
+# License
 
     Copyright 2020 Menny Even-Danan
     
