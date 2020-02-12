@@ -4,9 +4,6 @@ name: packs-lists
 on:
   schedule:
     - cron: '30 09 * * *'
-  push:
-    branches:
-      - master
 
 env:
   TERM: dumb
@@ -25,12 +22,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: check-deps
-        run: |
-          which python3
-          which pip3
-          which python
-          which pip
       - name: update packs list
         run: ./gradlew :addons:languages:generatePacksMarkDown :addons:themes:generatePacksMarkDown :addons:quicktexts:generatePacksMarkDown
       - name: Create pull request
