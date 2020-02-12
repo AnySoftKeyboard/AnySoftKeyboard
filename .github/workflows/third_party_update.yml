@@ -29,7 +29,7 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latets-gradle
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/gradle/gradle/releases\?prerelease\=false | jq -c -r '.[] | select(.prerelease == false) | .name' | head -n 1)
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/gradle/gradle/releases | jq -c -r '.[] | select(.prerelease == false) | .name' | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
           ./gradlew wrapper --gradle-version="${LATEST_VERSION}"
       - name: Sanity verification
@@ -49,3 +49,39 @@ jobs:
           body: ''
           assignees: menny
           branch: 'bot-pr/gradle-update'
+  robolectric-update:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.6
+    steps:
+      - name: Install deps for create-pull-request
+        run: |
+          touch /etc/alpine-release
+          ln -sf python3 /usr/bin/python
+          ln -sf pip3 /usr/bin/pip
+      - uses: actions/checkout@v2
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: update-to-latets-gradle
+        run: |
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases | jq -c -r '.[] | .name' | head -n 1 | grep -o "\\(\\d\\+..\\+\\)")
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/robolectricVersion[[:space:]]=[[:space:]]'[[:digit:]].[[:digit:]].[[:digit:]]'/robolectricVersion = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
+          cp /tmp/output.file gradle/root_all_projects_ext.gradle
+      - name: Sanity verification
+        run: |
+          ./scripts/download_robolectric_jars_to_machine.sh
+          ./gradlew :api:testDebugUnitTest :ime:nextword:testDebugUnitTest
+      - name: Add changed gradle files
+        run: |
+          git add gradle/root_all_projects_ext.gradle
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2.4.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Robolectric Update'
+          title: 'Automated Robolectric Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: ''
+          assignees: menny
+          branch: 'bot-pr/robolectric-update'
