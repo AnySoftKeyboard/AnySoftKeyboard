@@ -7,13 +7,20 @@
     <!-- welcome tab -->
     <string name="how_to_pointer_title">ברוכים הבאים AnySoftKeyboardל</string>
     <!-- links tab -->
+    <string name="change_log_card_version_title_template">\u0020\u0020שינויים אחרונים עבור גירסה\u0020&lt;/xliff:g&gt;%s&lt;xliff:g id="name"&gt;\u0020\u0020    </string>
+    <string name="change_log_url">עוד:\u0020
+        <xliff:g id="url">%s</xliff:g>
+    </string>
     <!-- credits tab -->
     <!-- notifications -->
-    <string name="ime_name_beta">AnySoftKeyboard ביתא</string>
+    <string name="ime_name_beta">AnySoftKeyboard בטא</string>
     <string name="notification_text_testers">זוהי גירסת ביתא. השתמש בזהירות!</string>
     <string name="testers_version">גירסת בדיקות!</string>
     <!-- Language root menu -->
+    <string name="language_root_tile">שפה</string>
+    <string name="language_keyboards_settings_tile">בחר שפות ומקלדות.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">ממשק</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">רשימת שינויים</string>
@@ -21,10 +28,12 @@
     <string name="keyboard_theme_tweak_group">הגדרות נוספות</string>
     <string name="close_button">סגור</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">נשמר: <xliff:g id="word">%s</xliff:g>    </string>
     <string name="revert_added_word_question">להסיר\?</string>
     <string name="removed_word">הוסרה:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
     <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
+    <string name="hint_double_tap_to_close">לחץ שנית להסרת ההצעות</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">קלט קול אינו מותקן</string>
     <string name="voice_input_not_installed_action_install">התקן</string>
