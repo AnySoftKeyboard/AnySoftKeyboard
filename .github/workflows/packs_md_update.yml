@@ -4,6 +4,9 @@ name: packs-lists
 on:
   schedule:
     - cron: '30 09 * * *'
+  push:
+    branches:
+      - master
 
 env:
   TERM: dumb
@@ -14,15 +17,22 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
+      - name: Install deps for create-pull-request
+        run: |
+          touch /etc/alpine-release
+          ln -sf python3 /usr/bin/python
+          ln -sf pip3 /usr/bin/pip
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
+      - name: check-deps
+        run: |
+          which python3
+          which pip3
+          which python
+          which pip
       - name: update packs list
         run: ./gradlew :addons:languages:generatePacksMarkDown :addons:themes:generatePacksMarkDown :addons:quicktexts:generatePacksMarkDown
-      - name: Install deps for create-pull-request
-        run: |
-          ln -sf python3 /usr/bin/python
-          ln -sf pip3 /usr/bin/pip
       - name: Create pull request
         uses: peter-evans/create-pull-request@v2.4.0
         with:
