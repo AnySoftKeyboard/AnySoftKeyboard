@@ -1,42 +1,55 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
-
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
+
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-import io.reactivex.subjects.ReplaySubject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+import io.reactivex.subjects.ReplaySubject;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public abstract class GestureTypingDetector {
     private static final String TAG = "ASKGestureTypingDetector";
 
-    /** The gesture currently being traced by the user. */
+    /**
+     * The gesture currently being traced by the user.
+     */
     protected final GestureTypingDetector.Gesture mUserGesture =
             new GestureTypingDetector.Gesture();
-    /** The square of the minimum distance between two points in the user gesture. */
+    /**
+     * The square of the minimum distance between two points in the user gesture.
+     */
     private final int mMinPointDistanceSquared;
 
-    @NonNull protected final Iterable<Keyboard.Key> mKeys;
-    @NonNull protected final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
+    @NonNull
+    protected final Iterable<Keyboard.Key> mKeys;
+    @NonNull
+    protected final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
 
-    @NonNull protected List<char[][]> mWords = Collections.emptyList();
-    @NonNull protected List<int[]> mWordFrequencies = Collections.emptyList();
+    @NonNull
+    protected List<char[][]> mWords = Collections.emptyList();
+    @NonNull
+    protected List<int[]> mWordFrequencies = Collections.emptyList();
 
-    @NonNull private Disposable mGeneratingDisposable = Disposables.empty();
+    @NonNull
+    Disposable mGeneratingDisposable = Disposables.empty();
     protected int mMaxSuggestions;
     protected final ArrayList<String> mCandidates;
     protected final ArrayList<Double> mCandidateWeights;
@@ -82,13 +95,22 @@ public abstract class GestureTypingDetector {
      * @param wordFrequencies
      */
     public void setWords(@NonNull List<char[][]> words, @NonNull List<int[]> wordFrequencies) {
+        mGeneratingDisposable.dispose();
+        mGenerateStateSubject.onNext(LoadingState.LOADING);
         mWords = words;
         mWordFrequencies = wordFrequencies;
+        mGeneratingDisposable =
+                generateGestureData()
+                        .subscribeOn(RxSchedulers.background())
+                        .observeOn(RxSchedulers.mainThread())
+                        .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
     }
+
+    protected abstract Observable<LoadingState> generateGestureData();
 
     public void destroy() {
         mGeneratingDisposable.dispose();
-        mGenerateStateSubject.onNext(GestureTypingDetector.LoadingState.NOT_LOADED);
+        mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
         mGenerateStateSubject.onComplete();
     }
 
@@ -131,7 +153,9 @@ public abstract class GestureTypingDetector {
         return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
 
-    /** Represents a gesture, either traced by a user or generated from a known words. */
+    /**
+     * Represents a gesture, either traced by a user or generated from a known words.
+     */
     protected static class Gesture {
         static final int MAX_LENGTH = 2048;
         private int mCurrentLength = 0;
@@ -215,7 +239,7 @@ public abstract class GestureTypingDetector {
          * it.
          *
          * @param numPoints The number of points that the new gesture will have. Must be superior to
-         *     the number of points in the current gesture.
+         *                  the number of points in the current gesture.
          * @return An oversampled copy of the gesture.
          */
         public Gesture resample(int numPoints) {
@@ -302,9 +326,9 @@ public abstract class GestureTypingDetector {
          * Generates an ideal gesture for the given word. An ideal gesture is one that passes
          * through the center of every character in the target word.
          *
-         * @param word The target word whose gesture we want.
+         * @param word            The target word whose gesture we want.
          * @param keysByCharacter An array that associates characters to the corresponding keyboard
-         *     key.
+         *                        key.
          * @return A new gesture that goes through the center of every key in the word.
          */
         static Gesture generateIdealGesture(

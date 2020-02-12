@@ -1,20 +1,25 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import static java.lang.Math.exp;
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
-
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.util.SparseArray;
+
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+
+import io.reactivex.Observable;
+
+import static java.lang.Math.exp;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 public class SimpleGestureTypingDetector extends GestureTypingDetector {
     private ArrayList<Pruner> mPruners = new ArrayList<>();
@@ -34,28 +39,33 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
     }
 
     @Override
-    public void setWords(@NonNull List<char[][]> words, @NonNull List<int[]> wordFrequencies) {
-        super.setWords(words, wordFrequencies);
-
+    protected Observable<LoadingState> generateGestureData() {
         mWordFrequenciesMap = new ArrayList<>();
-        for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
-            final char[][] wordsForDict = mWords.get(dictIndex);
-            final int[] frequencies = wordFrequencies.get(dictIndex);
-            HashMap<String, Integer> frequenciesForDict = new HashMap<>();
-            mWordFrequenciesMap.add(frequenciesForDict);
+        return Observable.zip(
+                Observable.fromIterable(mWords),
+                Observable.fromIterable(mWordFrequencies),
+                Pair::new)
+                .map(pair -> {
+                    final char[][] wordsForDict = pair.first;
+                    final int[] frequencies = pair.second;
+                    HashMap<String, Integer> frequenciesForDict = new HashMap<>();
+                    mWordFrequenciesMap.add(frequenciesForDict);
 
-            for (int i = 0; i < wordsForDict.length; i++) {
-                String word = new String(wordsForDict[i]);
-                int freq = frequencies[i];
-                frequenciesForDict.put(word, freq);
-            }
+                    for (int i = 0; i < wordsForDict.length; i++) {
+                        String word = new String(wordsForDict[i]);
+                        int freq = frequencies[i];
+                        frequenciesForDict.put(word, freq);
+                    }
 
-            Pruner pruner =
-                    new Pruner(mGestureLengthPruningThreshold, wordsForDict, mKeysByCharacter);
-            mPruners.add(pruner);
-        }
-
-        mGenerateStateSubject.onNext(LoadingState.LOADED);
+                    return new Pruner(mGestureLengthPruningThreshold, wordsForDict, mKeysByCharacter);
+                })
+                .collect((Callable<ArrayList<Pruner>>) ArrayList::new, ArrayList::add)
+                .map(list -> {
+                    mPruners = list;
+                    return LoadingState.LOADED;
+                })
+                .toObservable()
+                .startWith(LoadingState.LOADING);
     }
 
     private double calcShapeDistance(Gesture gesture1, Gesture gesture2) {
