@@ -31,10 +31,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
     private boolean mGestureTypingEnabled;
-    /**
-     * Holds gesture detectors for different keyboards based on id and size.
-     */
+    /** Holds gesture detectors for different keyboards based on id and size. */
     protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
+
     @Nullable private GestureTypingDetector mCurrentGestureDetector;
     private boolean mDetectorReady = false;
     private boolean mJustPerformedGesture = false;
@@ -42,8 +41,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @NonNull private Disposable mDetectorStateSubscription = Disposables.disposed();
 
     /**
-     * Creates a unique id for the given keyboard which can be used
-     * to associate it with a gesture detector.
+     * Creates a unique id for the given keyboard which can be used to associate it with a gesture
+     * detector.
      *
      * @param keyboard The keyboard whose key we want to create.
      * @return A string to represent the keyboard.
@@ -108,8 +107,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     /**
-     * Sets the current gesture detector for the given keyboard and subscribes to its
-     * events to determine its readiness status.
+     * Sets the current gesture detector for the given keyboard and subscribes to its events to
+     * determine its readiness status.
      *
      * @param keyboard The keyboard to use.
      */
@@ -161,9 +160,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
-    /**
-     * Clears unused gesture detectors to save memory.
-     */
+    /** Clears unused gesture detectors to save memory. */
     @Override
     public void onLowMemory() {
         super.onLowMemory();
@@ -309,6 +306,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     /**
      * Disables gesture typing for symbols keyboard.
+     *
      * @param keyboard
      */
     @Override
@@ -348,8 +346,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     /**
-     * Checks whether the given key is a valid gesture starting key.
-     * A valid key is one that can be at the start of a word.
+     * Checks whether the given key is a valid gesture starting key. A valid key is one that can be
+     * at the start of a word.
      *
      * @param key The key to check.
      * @return A boolean indicating the validaty of the key as gesture start.
@@ -375,6 +373,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     /**
      * Adds a point to the current gesture detector.
+     *
      * @param x
      * @param y
      * @param eventTime
@@ -391,6 +390,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     /**
      * Adds the little squiggly line watermark on the bottom right of the keyboard, to indicate
      * gesture typing is on, and whether the detector is ready.
+     *
      * @return The watermark drawables.
      */
     @NonNull
@@ -429,6 +429,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     /**
      * Confirms the first suggestion for the last gesture if a gesture has been performed.
+     *
      * @param withAutoSpace Whether to add a space at the end of the gestured word.
      */
     private void confirmLastGesture(boolean withAutoSpace) {
@@ -439,8 +440,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     /**
-     * Sets the typed word and suggestions according to the candidates for the gestured
-     * that has just been performed.
+     * Sets the typed word and suggestions according to the candidates for the gestured that has
+     * just been performed.
      */
     @Override
     public void onGestureTypingInputDone() {

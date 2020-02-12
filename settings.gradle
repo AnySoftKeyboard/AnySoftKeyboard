@@ -4,6 +4,8 @@ include ':deployment'
 include ':api'
 
 include ':addons:base'
+
+//this pack is used in the main keyboard app
 include ':addons:languages'
 include ':addons:languages:english', ':addons:languages:english:pack'
 
@@ -65,6 +67,7 @@ include ':addons:themes:three_d:pack', ':addons:themes:three_d:apk'
 include ':addons:quicktexts'
 include ':addons:quicktexts:bbcodes:pack', ':addons:quicktexts:bbcodes:apk'
 
+//keyboard app
 include ':ime'
 include ':ime:base', ':ime:base-rx', ':ime:base-test', ':ime:prefs'
 include ':ime:remote', ':ime:fileprovider'
