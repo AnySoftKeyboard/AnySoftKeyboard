@@ -18,11 +18,6 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
-      - name: Install deps for create-pull-request
-        run: |
-          touch /etc/alpine-release
-          ln -sf python3 /usr/bin/python
-          ln -sf pip3 /usr/bin/pip
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
@@ -39,7 +34,7 @@ jobs:
           git add -f gradle/wrapper
           git add -f gradle/wrapper/gradle-wrapper.jar
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.0
+        uses: peter-evans/create-pull-request@v2.4.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Gradle Update'
@@ -53,11 +48,6 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
-      - name: Install deps for create-pull-request
-        run: |
-          touch /etc/alpine-release
-          ln -sf python3 /usr/bin/python
-          ln -sf pip3 /usr/bin/pip
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
@@ -75,7 +65,7 @@ jobs:
         run: |
           git add gradle/root_all_projects_ext.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.0
+        uses: peter-evans/create-pull-request@v2.4.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Robolectric Update'
@@ -89,11 +79,6 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
-      - name: Install deps for create-pull-request
-        run: |
-          touch /etc/alpine-release
-          ln -sf python3 /usr/bin/python
-          ln -sf pip3 /usr/bin/pip
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
@@ -109,7 +94,7 @@ jobs:
         run: |
           git add gradle/root_all_projects_ext.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.0
+        uses: peter-evans/create-pull-request@v2.4.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Build-Tools Update'
@@ -123,11 +108,6 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
-      - name: Install deps for create-pull-request
-        run: |
-          touch /etc/alpine-release
-          ln -sf python3 /usr/bin/python
-          ln -sf pip3 /usr/bin/pip
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
@@ -150,7 +130,7 @@ jobs:
       - name: Add changed gradle files
         run: git add gradle/errorprone.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.0
+        uses: peter-evans/create-pull-request@v2.4.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Error-Prone Update'
@@ -164,11 +144,6 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
-      - name: Install deps for create-pull-request
-        run: |
-          touch /etc/alpine-release
-          ln -sf python3 /usr/bin/python
-          ln -sf pip3 /usr/bin/pip
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
@@ -189,7 +164,7 @@ jobs:
       - name: Add changed formated files
         run: git add .
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.0
+        uses: peter-evans/create-pull-request@v2.4.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Google-Format Update'
