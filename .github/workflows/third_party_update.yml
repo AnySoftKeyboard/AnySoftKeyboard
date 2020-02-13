@@ -13,7 +13,8 @@ env:
   TMPDIR: "/tmp"
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-  GREP_VERSION_CLASSES: "[[:digit:]]\{1,\}[.][[:digit:]]\{1,\}[.][[:digit:]]\{1,\}"
+  #should support 1.2.3 and 2.3
+  GREP_VERSION_CLASSES: "[[:digit:]]\\{1,\\}[.][[:digit:]]\\{1,\\}[.]*[[:digit:]]*"
 
 jobs:
   gradle-update:
@@ -137,15 +138,15 @@ jobs:
         run: |
           LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/tbroyer/gradle-errorprone-plugin/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | sort -r | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}*/net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}/g" build.gradle > /tmp/output.file
+          sed "s/net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}/net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}/g" build.gradle > /tmp/output.file
           cp /tmp/output.file build.gradle
-          sed "s/net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}*/net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}/g" gradle/errorprone.gradle > /tmp/output.file
+          sed "s/net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}/net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}/g" gradle/errorprone.gradle > /tmp/output.file
           cp /tmp/output.file gradle/errorprone.gradle
       - name: update-to-latest-error-prone-tool
         run: |
           LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/error-prone/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | sort -r | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/com.google.errorprone:error_prone_core:${GREP_VERSION_CLASSES}*/com.google.errorprone:error_prone_core:${LATEST_VERSION}/g" gradle/errorprone.gradle > /tmp/output.file
+          sed "s/com.google.errorprone:error_prone_core:${GREP_VERSION_CLASSES}/com.google.errorprone:error_prone_core:${LATEST_VERSION}/g" gradle/errorprone.gradle > /tmp/output.file
           cp /tmp/output.file gradle/errorprone.gradle
       - name: Sanity verification
         run: ./gradlew :api:assembleDebug :api:lintDebug
@@ -162,3 +163,42 @@ jobs:
           body: ''
           assignees: menny
           branch: 'bot-pr/error-prone-update'
+  google-format-update:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.6
+    steps:
+      - name: Install deps for create-pull-request
+        run: |
+          touch /etc/alpine-release
+          ln -sf python3 /usr/bin/python
+          ln -sf pip3 /usr/bin/pip
+      - uses: actions/checkout@v2
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: update-to-latest-google-format-plugin
+        run: |
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/sherter/google-java-format-gradle-plugin/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | sort -r | head -n 1)
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${GREP_VERSION_CLASSES}/gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${LATEST_VERSION}/g" build.gradle > /tmp/output.file
+          cp /tmp/output.file build.gradle
+      - name: update-to-latest-google-format-tool
+        run: |
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/google-java-format/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | sort -r | head -n 1)
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/toolVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/toolVersion = '${LATEST_VERSION}'/g" build.gradle > /tmp/output.file
+          cp /tmp/output.file build.gradle
+      - name: Sanity verification
+        run: ./gradlew googleJavaFormat
+      - name: Add changed formated files
+        run: git add .
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2.4.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Google-Format Update'
+          title: 'Automated Google-Format Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: ''
+          assignees: menny
+          branch: 'bot-pr/google-format-update'
