@@ -7,6 +7,9 @@ local.properties
 /codecov.sh
 outputs/
 
+#jacoco
+*.exec
+
 #ndk stuff
 .cxx
 .externalNativeBuild/
