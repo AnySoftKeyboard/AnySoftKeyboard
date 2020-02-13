@@ -63,7 +63,7 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-robolectric
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases | jq -c -r '.[] | .name' | head -n 1 | grep -o "\\(\\d\\+.\\d\\+.\\d\\+\\)")
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases | jq -c -r '.[] | .tag_name' | head -n 1 | grep -wo "[[:digit:]]*.[[:digit:]]*.[[:digit:]]*")
           echo "Found version '${LATEST_VERSION}'."
           sed "s/robolectricVersion[[:space:]]=[[:space:]]'[[:digit:]]*.[[:digit:]]*.[[:digit:]]*'/robolectricVersion = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
@@ -99,7 +99,7 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-build-tools
         run: |
-          LATEST_VERSION=$("${ANDROID_HOME}/tools/bin/sdkmanager" --list | grep "build-tools;" | grep -o "\\(\\d\\+.\\d\\+.\\d\\+\\)" | uniq | sort -r | head -n 1)
+          LATEST_VERSION=$("${ANDROID_HOME}/tools/bin/sdkmanager" --list | grep "build-tools;" | grep -wo "[[:digit:]]*.[[:digit:]]*.[[:digit:]]*" | uniq | sort -r | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
           sed "s/androidBuildTools[[:space:]]=[[:space:]]'[[:digit:]]*.[[:digit:]]*.[[:digit:]]*'/androidBuildTools = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
@@ -119,3 +119,44 @@ jobs:
           body: ''
           assignees: menny
           branch: 'bot-pr/build-tools-update'
+  error-prone-update:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.6
+    steps:
+      - name: Install deps for create-pull-request
+        run: |
+          touch /etc/alpine-release
+          ln -sf python3 /usr/bin/python
+          ln -sf pip3 /usr/bin/pip
+      - uses: actions/checkout@v2
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: update-to-latest-error-prone-plugin
+        run: |
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/tbroyer/gradle-errorprone-plugin/releases | jq -c -r '.[] | .tag_name' | head -n 1 | grep -wo "[[:digit:]]*.[[:digit:]]*.[[:digit:]]*")
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/net.ltgt.gradle:gradle-errorprone-plugin:[[:digit:]]*.[[:digit:]]*.[[:digit:]]*/net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}/g" build.gradle > /tmp/output.file
+          cp /tmp/output.file build.gradle
+          sed "s/net.ltgt.gradle:gradle-errorprone-plugin:[[:digit:]]*.[[:digit:]]*.[[:digit:]]*/net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}/g" gradle/errorprone.gradle > /tmp/output.file
+          cp /tmp/output.file gradle/errorprone.gradle
+      - name: update-to-latest-error-prone-tool
+        run: |
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/error-prone/releases | jq -c -r '.[] | .tag_name' | head -n 1 | grep -wo "[[:digit:]]*.[[:digit:]]*.[[:digit:]]*")
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/com.google.errorprone:error_prone_core:[[:digit:]]*.[[:digit:]]*.[[:digit:]]*/com.google.errorprone:error_prone_core:${LATEST_VERSION}/g" gradle/errorprone.gradle > /tmp/output.file
+          cp /tmp/output.file gradle/errorprone.gradle
+      - name: Sanity verification
+        run: ./gradlew :api:assembleDebug :api:lintDebug
+      - name: Add changed gradle files
+        run: git add gradle/errorprone.gradle
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2.4.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Error-Prone Update'
+          title: 'Automated Error-Prone Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: ''
+          assignees: menny
+          branch: 'bot-pr/error-prone-update'
