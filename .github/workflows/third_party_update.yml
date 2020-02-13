@@ -4,9 +4,6 @@ name: third-party-update
 on:
   schedule:
     - cron: '29 04 * * *'
-  push:
-    branches:
-      - auto-tools-update
 
 env:
   TERM: dumb
