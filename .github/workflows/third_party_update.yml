@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latets-gradle
+      - name: update-to-latest-gradle
         run: |
           LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/gradle/gradle/releases | jq -c -r '.[] | select(.prerelease == false) | .name' | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
@@ -61,11 +61,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latets-gradle
+      - name: update-to-latest-robolectric
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases | jq -c -r '.[] | .name' | head -n 1 | grep -o "\\(\\d\\+..\\+\\)")
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases | jq -c -r '.[] | .name' | head -n 1 | grep -o "\\(\\d\\+.\\d\\+.\\d\\+\\)")
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/robolectricVersion[[:space:]]=[[:space:]]'[[:digit:]].[[:digit:]].[[:digit:]]'/robolectricVersion = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
+          sed "s/robolectricVersion[[:space:]]=[[:space:]]'[[:digit:]]*.[[:digit:]]*.[[:digit:]]*'/robolectricVersion = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
       - name: Sanity verification
         run: |
@@ -85,3 +85,37 @@ jobs:
           body: ''
           assignees: menny
           branch: 'bot-pr/robolectric-update'
+  build-tools-update:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.6
+    steps:
+      - name: Install deps for create-pull-request
+        run: |
+          touch /etc/alpine-release
+          ln -sf python3 /usr/bin/python
+          ln -sf pip3 /usr/bin/pip
+      - uses: actions/checkout@v2
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: update-to-latest-build-tools
+        run: |
+          LATEST_VERSION=$("${ANDROID_HOME}/tools/bin/sdkmanager" --list | grep "build-tools;" | grep -o "\\(\\d\\+.\\d\\+.\\d\\+\\)" | uniq | sort -r | head -n 1)
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/androidBuildTools[[:space:]]=[[:space:]]'[[:digit:]]*.[[:digit:]]*.[[:digit:]]*'/androidBuildTools = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
+          cp /tmp/output.file gradle/root_all_projects_ext.gradle
+      - name: Sanity verification
+        run: ./gradlew :api:assembleDebug :api:lintDebug
+      - name: Add changed gradle files
+        run: |
+          git add gradle/root_all_projects_ext.gradle
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2.4.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Build-Tools Update'
+          title: 'Automated Build-Tools Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: ''
+          assignees: menny
+          branch: 'bot-pr/build-tools-update'
