@@ -8,4 +8,8 @@
     <string name="de_keyboard">Deutsch</string>
     <string name="de_keyboard_broad">Deutsch breit</string>
     <string name="de_keyboard_extra">Deutsch breit+</string>
+    <string name="de_keyboard_qwerty">Deutsch QWERTY</string>
+    <string name="de_keyboard_qwerty_broad">Deutsch QWERTY breit</string>
+    <string name="de_keyboard_qwerty_extra">Deutsch QWERTY breit+</string>
+    <string name="de_keyboard_qwerty_slim">Deutsch QWERTY slim</string>
 </resources>
