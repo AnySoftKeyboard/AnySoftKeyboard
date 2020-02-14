@@ -11,7 +11,7 @@ Let's say you want to create a language-pack for Klingon. We'll call the pack `k
 ```
 include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
 ```
-1. At this point, you'll need to sync you Android Studio project.
+1. At this point, you'll need to sync your Android Studio project.
 1. Rename the package names (`com.anysoftkeyboard.english.*` -> `com.anysoftkeyboard.klingon.*`:
     * Change `package` value in `AndroidManifest.xml` files (one in `pack` and the second in `apk`).
     * Move the `PackBroadcastReceiver` package to the right place.
