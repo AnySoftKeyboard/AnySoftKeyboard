@@ -1,6 +1,6 @@
 allprojects {
     project.ext {
-        androidBuildTools = '29.0.2'
+        androidBuildTools = '29.0.3'
         supportLibVersion = '25.4.0'
         robolectricVersion = '4.3.1'
 
