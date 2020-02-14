@@ -4,6 +4,10 @@
     <string name="ime_name">لوحة مفاتيح AnySoft</string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point
     </string>
+    <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for
+        details.
+    </string>
+    <string name="debug_tracing_finished">Irabq</string>
     <string name="menu_about_item">عن التطبيق</string>
     <!-- main form -->
     <!-- welcome tab -->
