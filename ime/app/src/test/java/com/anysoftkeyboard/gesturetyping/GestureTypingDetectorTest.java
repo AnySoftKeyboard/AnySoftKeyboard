@@ -138,26 +138,42 @@ public class GestureTypingDetectorTest {
 
     @Test
     public void testGestureResample() {
-        char[] testWord = "ab".toCharArray();
+        char[] testWord = "abc".toCharArray();
         GestureTypingDetector.Gesture gesture =
                 GestureTypingDetector.Gesture.generateIdealGesture(
                         testWord, mDetectorUnderTest.mKeysByCharacter);
 
         Keyboard.Key key1 = mDetectorUnderTest.mKeysByCharacter.get('a');
         Keyboard.Key key2 = mDetectorUnderTest.mKeysByCharacter.get('b');
-        double length =
+        Keyboard.Key key3 = mDetectorUnderTest.mKeysByCharacter.get('c');
+        double lengthSegment1 =
                 SimpleGestureTypingDetector.euclideanDistance(
                         key1.centerX, key1.centerY, key2.centerX, key2.centerY);
+        double lengthSegment2 =
+                SimpleGestureTypingDetector.euclideanDistance(
+                        key2.centerX, key2.centerY, key3.centerX, key3.centerY);
+        double length = lengthSegment1 + lengthSegment2;
 
         GestureTypingDetector.Gesture resampled = gesture.resample(300);
 
-        Assert.assertEquals(2, gesture.getCurrentLength());
+        Assert.assertEquals(3, gesture.getCurrentLength());
         Assert.assertEquals(300, resampled.getCurrentLength());
 
-        double epsilon = 5. / 100 * length;
+        double epsilon = 1. / 100 * length;
 
         Assert.assertEquals(length, gesture.getLength(), epsilon);
         Assert.assertEquals(length, resampled.getLength(), epsilon);
+
+        Assert.assertEquals(gesture.getFirstX(), resampled.getFirstX(), epsilon);
+        Assert.assertEquals(gesture.getFirstY(), resampled.getFirstY(), epsilon);
+
+        Assert.assertEquals(gesture.getLastX(), resampled.getLastX(), epsilon);
+        Assert.assertEquals(gesture.getLastY(), resampled.getLastY(), epsilon);
+
+        int middlePoint = (int) (lengthSegment1 / length * 300);
+
+        Assert.assertEquals(gesture.getX(1), resampled.getX(middlePoint), epsilon);
+        Assert.assertEquals(gesture.getY(1), resampled.getY(middlePoint), epsilon);
     }
 
     @Test
