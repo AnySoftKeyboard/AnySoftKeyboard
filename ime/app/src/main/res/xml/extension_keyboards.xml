@@ -139,6 +139,14 @@
         description=""
         index="9"
         />
+    <ExtensionKeyboard
+        id="6f04bd17-b89d-4ba1-8b38-584a9e1f0f10"
+        nameResId="@string/extension_kbd_bottom_simple_with_emoji"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_simple_with_emoji"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="10"
+        />
 
     <!-- top extension keyboards -->
     <ExtensionKeyboard
