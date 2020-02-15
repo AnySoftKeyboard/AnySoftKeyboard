@@ -11,7 +11,7 @@ jobs:
       - uses: actions/stale@v1.1.0
         with:
           repo-token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          stale-issue-message: 'This issue is stale because it has been open 400 days with no activity. Remove stale label or comment or this will be closed in 8 days'
+          stale-issue-message: 'This issue is stale because it has been open 400 days with no activity. Remove stale label or this will be closed in 8 days'
           days-before-stale: 400
           days-before-close: 8
           operations-per-run: 30
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/stale@v1.1.0
         with:
           repo-token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          stale-pr-message: 'This pull-request is stale because it has been open 40 days with no activity. Remove stale label or comment or this will be closed in 8 days'
+          stale-pr-message: 'This pull-request is stale because it has been open 40 days with no activity. Remove stale label or this will be closed in 8 days'
           days-before-stale: 40
           days-before-close: 8
           operations-per-run: 30
