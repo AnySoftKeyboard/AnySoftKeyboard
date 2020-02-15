@@ -22,6 +22,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The gesture typing detector handles recording gestures traced by the user on the keyboard and can
+ * be extended with gesture classification logic.
+ */
 public abstract class GestureTypingDetector {
     private static final String TAG = "ASKGestureTypingDetector";
 
@@ -34,7 +38,12 @@ public abstract class GestureTypingDetector {
     @NonNull protected final Iterable<Keyboard.Key> mKeys;
     @NonNull protected final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
 
+    /** A list of dictionaries each containing a list of words for the current language. */
     @NonNull protected List<char[][]> mWords = Collections.emptyList();
+    /**
+     * A list of frequencies ordered in the same way as the words they correspond to in each
+     * dictionary.
+     */
     @NonNull protected List<int[]> mWordFrequencies = Collections.emptyList();
 
     @NonNull Disposable mGeneratingDisposable = Disposables.empty();
@@ -59,9 +68,6 @@ public abstract class GestureTypingDetector {
         mMinPointDistanceSquared = minPointDistance * minPointDistance;
         mKeys = keys;
         for (Keyboard.Key key : mKeys) {
-
-            Log.d("GESTUREKEYSIZE", Double.toString(key.height));
-            Log.d("GESTUREKEYSIZE", Double.toString(key.width));
             for (int i = 0; i < key.getCodesCount(); ++i) {
                 char c = (char) key.getCodeAtIndex(i, false);
                 c = Character.toLowerCase(c);
@@ -94,6 +100,7 @@ public abstract class GestureTypingDetector {
                         .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
     }
 
+    /** Pre-generates the data necessary to the gesture classification logic in the background. */
     protected abstract Observable<LoadingState> generateGestureData();
 
     public void destroy() {
@@ -102,6 +109,11 @@ public abstract class GestureTypingDetector {
         mGenerateStateSubject.onComplete();
     }
 
+    /**
+     * Runs the classification logic on the current gesture.
+     *
+     * @return An array of candidate words sorted from best to worst.
+     */
     public abstract ArrayList<String> getCandidates();
 
     /**
