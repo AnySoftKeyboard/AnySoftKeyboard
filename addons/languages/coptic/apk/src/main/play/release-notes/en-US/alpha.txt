@@ -1,0 +1,4 @@
+
+Initial release :
+ - Basic layout for Sahidic and Boharic.
+ - Single overbar for Sahidic-style syllabic consonants.
