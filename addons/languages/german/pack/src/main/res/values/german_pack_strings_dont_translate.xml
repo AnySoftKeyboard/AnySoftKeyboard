@@ -11,6 +11,14 @@
     <string name="de_keyboard_broad_description">Slightly broader layout with umlauts as popups (saving keys)</string>
     <string name="de_keyboard_extra">German broad+</string>
     <string name="de_keyboard_extra_description">Slightly broader layout with umlauts as popups (saving keys), also additional characters</string>
+    <string name="de_keyboard_qwerty">German QWERTY</string>
+    <string name="de_keyboard_qwerty_description">Created by Thomas Eizinger</string>
+    <string name="de_keyboard_qwerty_broad">German QWERTY broad</string>
+    <string name="de_keyboard_qwerty_broad_description">Slightly broader QWERTY layout with umlauts as popups (saving keys)</string>
+    <string name="de_keyboard_qwerty_extra">German QWERTY broad+</string>
+    <string name="de_keyboard_qwerty_extra_description">Slightly broader QWERTY layout with umlauts as popups (saving keys), also additional characters</string>
+    <string name="de_keyboard_qwerty_slim">German QWERTY slim</string>
+    <string name="de_keyboard_qwerty_slim_description">Slim QWERTY layout with umlauts as popups (saving keys)</string>
     <string name="de_keyboard_neo2">German neo2</string>
     <string name="de_keyboard_neo2_simple">German neo2 simple</string>
 </resources>

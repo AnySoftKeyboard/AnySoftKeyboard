@@ -15,14 +15,34 @@
               defaultDictionaryLocale="de" description="@string/de_keyboard_extra_description"
               index="3" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_qwerty" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwerty" id="797fbddf-346b-4216-b67c-80834638d7ce"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_qwerty_description"
+              index="4" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_qwerty_broad" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwerty_broad" id="9f5e0409-849b-423c-8d5f-46acbfe4e934"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_qwerty_broad_description"
+              index="5" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_qwerty_extra" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwerty_extra" id="6755ccc0-1015-4364-bd87-2b755bf9ab4b"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_qwerty_extra_description"
+              index="6" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard nameResId="@string/de_keyboard_qwerty_slim" iconResId="@drawable/ic_status_german"
+              layoutResId="@xml/de_qwerty_slim" id="33421de8-0d71-456c-90f1-3935fcb4e30f"
+              defaultDictionaryLocale="de" description="@string/de_keyboard_qwerty_slim_description"
+              index="7" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/german_physical" />
     <Keyboard nameResId="@string/de_keyboard_neo2" iconResId="@drawable/ic_status_german"
               layoutResId="@xml/de_neo2" id="ad1b5ffa-15cc-4ba4-abb7-68df2c0874e7"
               defaultDictionaryLocale="de"
-              index="4" defaultEnabled="false"
+              index="8" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/german_neo2_physical" />
     <Keyboard nameResId="@string/de_keyboard_neo2_simple" iconResId="@drawable/ic_status_german"
               layoutResId="@xml/de_neo2_simple" id="37606729-66c1-4e04-9968-b32314c7094a"
               defaultDictionaryLocale="de"
-              index="5" defaultEnabled="false"
+              index="9" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/german_neo2_physical" />
 </Keyboards>
