@@ -11,6 +11,7 @@ include ':addons:languages:afrikaans_oss:pack', ':addons:languages:afrikaans_oss
 include ':addons:languages:armenian2:pack', ':addons:languages:armenian2:apk'
 include ':addons:languages:brazilian:pack', ':addons:languages:brazilian:apk'
 include ':addons:languages:catalan:pack', ':addons:languages:catalan:apk'
+include ':addons:languages:coptic:pack', ':addons:languages:coptic:apk'
 include ':addons:languages:czech:pack', ':addons:languages:czech:apk'
 include ':addons:languages:english:pack', ':addons:languages:english:apk'
 include ':addons:languages:finnish:pack', ':addons:languages:finnish:apk'
