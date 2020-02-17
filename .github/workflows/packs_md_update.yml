@@ -15,6 +15,8 @@ jobs:
     container: menny/ndk_ask:1.13.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update packs list

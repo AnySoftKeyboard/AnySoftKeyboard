@@ -19,6 +19,8 @@ jobs:
     container: menny/ndk_ask:1.13.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-gradle
@@ -49,6 +51,8 @@ jobs:
     container: menny/ndk_ask:1.13.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-robolectric
@@ -80,6 +84,8 @@ jobs:
     container: menny/ndk_ask:1.13.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-build-tools
@@ -109,6 +115,8 @@ jobs:
     container: menny/ndk_ask:1.13.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-error-prone-plugin
@@ -145,6 +153,8 @@ jobs:
     container: menny/ndk_ask:1.13.6
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-google-format-plugin
