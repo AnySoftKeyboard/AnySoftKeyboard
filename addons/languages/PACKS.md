@@ -6,6 +6,7 @@
 1. <img src='brazilian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Brazilian: [Source](brazilian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.brazilian)
 1. <img src='bulgarian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Bulgarian: [Source](bulgarian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.bulgarian)
 1. <img src='catalan/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Catalan: [Source](catalan) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.catalan)
+1. <img src='coptic/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Coptic: [Source](coptic)
 1. <img src='croatian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Croatian: [Source](croatian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.croatian)
 1. <img src='czech/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Czech: [Source](czech) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.czech)
 1. <img src='danish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Danish: [Source](danish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.danish)
