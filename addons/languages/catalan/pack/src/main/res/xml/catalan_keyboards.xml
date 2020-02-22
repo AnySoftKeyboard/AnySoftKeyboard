@@ -9,6 +9,7 @@
         index="1"
         layoutResId="@xml/qwerty"
         nameResId="@string/catalan_keyboard"
-        physicalKeyboardMappingResId="@xml/english_physical" />
+        physicalKeyboardMappingResId="@xml/english_physical"
+        additionalIsLetterExceptions="@string/catalan_additional_is_letter_exceptions" />
 
 </Keyboards>
