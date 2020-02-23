@@ -18,6 +18,8 @@
 <resources>
     <!-- Whether should show preview. -->
     <attr name="showPreview" format="reference|boolean"/>
+    <!-- Whether to auto capitalize. -->
+    <attr name="autoCap" format="reference|boolean" />
 
     <declare-styleable name="keyType">
         <attr name="key_type_function" format="boolean"/>
