@@ -28,6 +28,8 @@ Copyright (C) 2013 Menny Even-Danan
         <attr name="android:verticalGap"/>
         <!-- Whether should show preview. -->
         <attr name="showPreview"/>
+        <!-- Whether to auto capitalize. -->
+        <attr name="autoCap"/>
     </declare-styleable>
 
     <declare-styleable name="KeyboardLayout_Row">
