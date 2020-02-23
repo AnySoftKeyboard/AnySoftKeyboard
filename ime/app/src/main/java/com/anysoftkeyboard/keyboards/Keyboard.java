@@ -984,8 +984,7 @@ public abstract class Keyboard {
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
                     case R.attr.autoCap:
-                        autoCap =
-                                a.getBoolean(remoteIndex, true /*auto caps by default*/);
+                        autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
                         break;
                 }
                 // CHECKSTYLE:ON: missingswitchdefault
