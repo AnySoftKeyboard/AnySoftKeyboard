@@ -1348,10 +1348,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     private void updateShiftStateNow() {
+        boolean keyboardAutoCap;
+        AnyKeyboard alphabetKeyboard = getCurrentAlphabetKeyboard();
+        keyboardAutoCap = alphabetKeyboard.autoCap;
         final InputConnection ic = getCurrentInputConnection();
         EditorInfo ei = getCurrentInputEditorInfo();
         final int caps;
-        if (mAutoCap && ic != null && ei != null && ei.inputType != EditorInfo.TYPE_NULL) {
+        if (keyboardAutoCap && mAutoCap && ic != null && ei != null
+            && ei.inputType != EditorInfo.TYPE_NULL) {
             caps = ic.getCursorCapsMode(ei.inputType);
         } else {
             caps = 0;
