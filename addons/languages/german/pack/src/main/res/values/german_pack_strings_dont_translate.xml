@@ -21,4 +21,6 @@
     <string name="de_keyboard_qwerty_slim_description">Slim QWERTY layout with umlauts as popups (saving keys)</string>
     <string name="de_keyboard_neo2">German neo2</string>
     <string name="de_keyboard_neo2_simple">German neo2 simple</string>
+    <string name="de_keyboard_adnw">German adnw</string>
+    <string name="de_keyboard_adnw_description">Aus der Neo Welt (Christoph Bauer)</string>
 </resources>
