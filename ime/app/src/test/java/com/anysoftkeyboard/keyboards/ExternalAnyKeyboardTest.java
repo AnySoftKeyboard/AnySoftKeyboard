@@ -284,4 +284,52 @@ public class ExternalAnyKeyboardTest {
         Assert.assertFalse(keyboard.isInnerWordLetter(':'));
         Assert.assertFalse(keyboard.isInnerWordLetter('-'));
     }
+    
+    @Test
+    public void testAutoCap() {
+        ExternalAnyKeyboard keyboard_autocap =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_autocap,
+                        R.xml.keyboard_with_autocap,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        ExternalAnyKeyboard keyboard_false_autocap =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_false_autocap,
+                        R.xml.keyboard_with_false_autocap,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        ExternalAnyKeyboard keyboard_default =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_codes_as_letters,
+                        R.xml.keyboard_with_codes_as_letters,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        // Check that autocap works
+        Assert.assertTrue(keyboard_autocap.autoCap);
+        Assert.assertFalse(keyboard_false_autocap.autoCap);
+        // Make sure default to on
+        Assert.assertTrue(keyboard_default.autoCap);
+    }
 }
