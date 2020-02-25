@@ -300,6 +300,8 @@ public class ExternalAnyKeyboardTest {
                         "",
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboardAutocap.loadKeyboard(SIMPLE_KeyboardDimens);
+
         ExternalAnyKeyboard keyboardFalseAutocap =
                 new ExternalAnyKeyboard(
                         mDefaultAddOn,
@@ -313,6 +315,8 @@ public class ExternalAnyKeyboardTest {
                         "",
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboardFalseAutocap.loadKeyboard(SIMPLE_KeyboardDimens);
+
         ExternalAnyKeyboard keyboardDefault =
                 new ExternalAnyKeyboard(
                         mDefaultAddOn,
@@ -326,6 +330,7 @@ public class ExternalAnyKeyboardTest {
                         "",
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboardDefault.loadKeyboard(SIMPLE_KeyboardDimens);
         // Check that autocap works
         Assert.assertTrue(keyboardAutocap.autoCap);
         Assert.assertFalse(keyboardFalseAutocap.autoCap);
