@@ -287,7 +287,7 @@ public class ExternalAnyKeyboardTest {
 
     @Test
     public void testAutoCap() {
-        ExternalAnyKeyboard keyboard_autocap =
+        ExternalAnyKeyboard keyboardAutocap =
                 new ExternalAnyKeyboard(
                         mDefaultAddOn,
                         mContext,
@@ -300,7 +300,7 @@ public class ExternalAnyKeyboardTest {
                         "",
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        ExternalAnyKeyboard keyboard_false_autocap =
+        ExternalAnyKeyboard keyboardFalseAutocap =
                 new ExternalAnyKeyboard(
                         mDefaultAddOn,
                         mContext,
@@ -313,7 +313,7 @@ public class ExternalAnyKeyboardTest {
                         "",
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        ExternalAnyKeyboard keyboard_default =
+        ExternalAnyKeyboard keyboardDefault =
                 new ExternalAnyKeyboard(
                         mDefaultAddOn,
                         mContext,
@@ -327,9 +327,9 @@ public class ExternalAnyKeyboardTest {
                         "",
                         Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         // Check that autocap works
-        Assert.assertTrue(keyboard_autocap.autoCap);
-        Assert.assertFalse(keyboard_false_autocap.autoCap);
+        Assert.assertTrue(keyboardAutocap.autoCap);
+        Assert.assertFalse(keyboardFalseAutocap.autoCap);
         // Make sure default to on
-        Assert.assertTrue(keyboard_default.autoCap);
+        Assert.assertTrue(keyboardDefault.autoCap);
     }
 }
