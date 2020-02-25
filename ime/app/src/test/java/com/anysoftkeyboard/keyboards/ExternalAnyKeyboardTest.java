@@ -284,7 +284,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertFalse(keyboard.isInnerWordLetter(':'));
         Assert.assertFalse(keyboard.isInnerWordLetter('-'));
     }
-    
+
     @Test
     public void testAutoCap() {
         ExternalAnyKeyboard keyboard_autocap =
