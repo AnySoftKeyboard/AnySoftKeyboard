@@ -40,7 +40,25 @@ public class SupportTest {
         Context remoteContext = Mockito.mock(Context.class);
         Mockito.doReturn("com.some.other.package").when(remoteContext).getPackageName();
         Resources remoteRes = Mockito.mock(Resources.class);
-        Mockito.doReturn(123)
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Object packageName = invocation.getArgument(2);
+                            final String resName = invocation.getArgument(0).toString();
+                            if (packageName == null || packageName.equals("android")) {
+                                return getApplicationContext()
+                                        .getResources()
+                                        .getIdentifier(resName, invocation.getArgument(1), null);
+                            } else {
+                                switch (resName) {
+                                    case "showPreview":
+                                        return 123;
+                                    case "autoCap":
+                                        return 124;
+                                    default:
+                                        return 0;
+                                }
+                            }
+                        })
                 .when(remoteRes)
                 .getIdentifier(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
         Mockito.doReturn(remoteRes).when(remoteContext).getResources();
@@ -52,6 +70,7 @@ public class SupportTest {
                         KeyboardLayout, getApplicationContext(), remoteContext, sparseIntArray);
 
         Mockito.verify(remoteRes).getIdentifier("showPreview", "attr", "com.some.other.package");
+        Mockito.verify(remoteRes).getIdentifier("autoCap", "attr", "com.some.other.package");
         Mockito.verifyNoMoreInteractions(remoteRes);
 
         Assert.assertNotSame(backwardCompatibleStyleable, R.styleable.KeyboardLayout);
@@ -60,6 +79,8 @@ public class SupportTest {
         for (int attrId : backwardCompatibleStyleable) {
             if (attrId == 123) {
                 Assert.assertEquals(R.attr.showPreview, sparseIntArray.get(123));
+            } else if (attrId == 124) {
+                Assert.assertEquals(R.attr.autoCap, sparseIntArray.get(124));
             } else {
                 Assert.assertEquals(attrId, sparseIntArray.get(attrId));
             }
@@ -84,11 +105,12 @@ public class SupportTest {
                         KeyboardLayout, getApplicationContext(), remoteContext, sparseIntArray);
 
         Mockito.verify(remoteRes).getIdentifier("showPreview", "attr", "com.some.other.package");
+        Mockito.verify(remoteRes).getIdentifier("autoCap", "attr", "com.some.other.package");
         Mockito.verifyNoMoreInteractions(remoteRes);
 
         Assert.assertNotSame(backwardCompatibleStyleable, R.styleable.KeyboardLayout);
         Assert.assertEquals(
-                backwardCompatibleStyleable.length, R.styleable.KeyboardLayout.length - 1);
+                backwardCompatibleStyleable.length, R.styleable.KeyboardLayout.length - 2);
         Assert.assertEquals(backwardCompatibleStyleable.length, sparseIntArray.size());
         for (int attrId : backwardCompatibleStyleable) {
             Assert.assertEquals(attrId, sparseIntArray.get(attrId));

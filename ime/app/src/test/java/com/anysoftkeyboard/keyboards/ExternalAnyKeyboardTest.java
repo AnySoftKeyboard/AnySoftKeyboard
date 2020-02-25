@@ -284,4 +284,57 @@ public class ExternalAnyKeyboardTest {
         Assert.assertFalse(keyboard.isInnerWordLetter(':'));
         Assert.assertFalse(keyboard.isInnerWordLetter('-'));
     }
+
+    @Test
+    public void testAutoCap() {
+        ExternalAnyKeyboard keyboardAutocap =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_autocap,
+                        R.xml.keyboard_with_autocap,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboardAutocap.loadKeyboard(SIMPLE_KeyboardDimens);
+
+        ExternalAnyKeyboard keyboardFalseAutocap =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_false_autocap,
+                        R.xml.keyboard_with_false_autocap,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboardFalseAutocap.loadKeyboard(SIMPLE_KeyboardDimens);
+
+        ExternalAnyKeyboard keyboardDefault =
+                new ExternalAnyKeyboard(
+                        mDefaultAddOn,
+                        mContext,
+                        R.xml.keyboard_with_codes_as_letters,
+                        R.xml.keyboard_with_codes_as_letters,
+                        "test",
+                        R.drawable.sym_keyboard_notification_icon,
+                        0,
+                        "en",
+                        "",
+                        "",
+                        Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboardDefault.loadKeyboard(SIMPLE_KeyboardDimens);
+        // Check that autocap works
+        Assert.assertTrue(keyboardAutocap.autoCap);
+        Assert.assertFalse(keyboardFalseAutocap.autoCap);
+        // Make sure default to on
+        Assert.assertTrue(keyboardDefault.autoCap);
+    }
 }

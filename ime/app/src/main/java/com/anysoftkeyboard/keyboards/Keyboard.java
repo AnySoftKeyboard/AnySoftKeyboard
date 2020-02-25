@@ -128,6 +128,9 @@ public abstract class Keyboard {
     /** Default {@link Key#showPreview} value. */
     public boolean showPreview = true;
 
+    /** Default auto capitalize at the beginning of sentences and such */
+    public boolean autoCap = true;
+
     /** Is the mKeyboard in the shifted state */
     private boolean mShifted;
 
@@ -980,6 +983,9 @@ public abstract class Keyboard {
                         //vertical gap is part of the Theme, not the mKeyboard.
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
+                    case R.attr.autoCap:
+                        autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
+                        break;
                 }
                 // CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
