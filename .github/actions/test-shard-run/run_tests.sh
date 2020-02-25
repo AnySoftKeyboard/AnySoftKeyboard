@@ -11,7 +11,8 @@ echo "Will run tests for module '${MODULE}' with extra args '${EXTRA_ARGS}' for 
 ./scripts/download_robolectric_jars_to_machine.sh
 
 #extra args needs to come before the coverage task so "--tests" will be passed to the test tasks
-./gradlew "${MODULE}testDebugUnitTest" ${EXTRA_ARGS} "${MODULE}testDebugUnitTestCoverage"
+# we automatically re-try on gradle crash
+./scripts/retry-on-SIGSEGV.sh 2 6,134 ./gradlew "${MODULE}testDebugUnitTest" ${EXTRA_ARGS} "${MODULE}testDebugUnitTestCoverage"
 
 #see https://github.com/actions/cache/issues/133
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
