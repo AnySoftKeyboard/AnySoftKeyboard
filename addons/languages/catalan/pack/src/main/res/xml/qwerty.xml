@@ -29,7 +29,7 @@
         <Key android:codes="105" android:popupCharacters="íï8"/>
         <Key android:codes="111" android:popupCharacters="òó9ö"/>
         <Key android:codes="112" android:popupCharacters="0"/>
-        <Key android:codes="45" android:keyLabel="-" android:popupCharacters="" android:keyEdgeFlags="right"/>
+        <Key android:codes="45" android:keyLabel="-" android:popupCharacters="'" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
