@@ -85,6 +85,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private EditText mFullScreenExtractTextView;
 
     private boolean mAutoCap;
+    private boolean mKeyboardAutoCap;
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
@@ -747,6 +748,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
         setKeyboardFinalStuff();
+        mKeyboardAutoCap = keyboard.autoCap;
     }
 
     @Override
@@ -1351,7 +1353,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         final InputConnection ic = getCurrentInputConnection();
         EditorInfo ei = getCurrentInputEditorInfo();
         final int caps;
-        if (mAutoCap && ic != null && ei != null && ei.inputType != EditorInfo.TYPE_NULL) {
+        if (mKeyboardAutoCap
+                && mAutoCap
+                && ic != null
+                && ei != null
+                && ei.inputType != EditorInfo.TYPE_NULL) {
             caps = ic.getCursorCapsMode(ei.inputType);
         } else {
             caps = 0;
