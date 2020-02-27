@@ -466,9 +466,14 @@ class PointerTracker {
                 listener.onCancel();
             }
         } else {
-            if (key.text != null) {
+            if (key.text != null && !mKeyDetector.isKeyShifted(key)) {
                 if (listener != null) {
                     listener.onText(key, key.text);
+                    listener.onRelease(0); // dummy key code
+                }
+            } else if (key.shiftedText != null && mKeyDetector.isKeyShifted(key)) {
+                if (listener != null) {
+                    listener.onText(key, key.shiftedText);
                     listener.onRelease(0); // dummy key code
                 }
             } else {
