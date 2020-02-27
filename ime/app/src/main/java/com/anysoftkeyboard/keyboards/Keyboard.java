@@ -334,6 +334,8 @@ public abstract class Keyboard {
         public boolean pressed;
         /** Text to output when pressed. This can be multiple characters, like ".com" */
         public CharSequence text;
+        /** Text to output when pressed and shifted. This can be multiple characters, like ".com" */
+        public CharSequence shiftedText;
         /** Popup characters */
         public CharSequence popupCharacters;
 
@@ -534,6 +536,9 @@ public abstract class Keyboard {
                     break;
                 case android.R.attr.keyOutputText:
                     text = a.getText(remoteIndex);
+                    break;
+                case R.attr.shiftedKeyOutputText:
+                    shiftedText = a.getText(remoteIndex);
                     break;
             }
             // CHECKSTYLE:ON: missingswitchdefault
