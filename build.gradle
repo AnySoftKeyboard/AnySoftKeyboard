@@ -1,11 +1,14 @@
 System.setProperty("file.encoding", "UTF-8")
 
+def logFile = rootProject.file("build-logging/build-log-${System.currentTimeMillis()}.log")
+gradle.addBuildListener(new BuildLogger(logFile))
+
 buildscript {
     repositories {
         google()
         mavenLocal()
         jcenter()
-        maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
+        maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
@@ -30,7 +33,7 @@ allprojects {
     repositories {
         google()
         mavenLocal()
-        maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
+        maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         jcenter()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }
@@ -40,3 +43,14 @@ allprojects {
 apply from: "${rootDir}/gradle/emoji_generator.gradle"
 apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
 apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
+
+
+tasks.register("clean", Delete) {
+    delete buildDir
+    //we do not want to delete the current log file
+    logFile.parentFile.listFiles().each {
+        if (it != null && it.absolutePath != logFile.absolutePath) {
+            delete it
+        }
+    }
+}
