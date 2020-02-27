@@ -30,3 +30,6 @@ outputs/
 add_ons_apks/
 
 .robolectric-android-all-jars/
+
+#gradle build loggin
+build-logging/

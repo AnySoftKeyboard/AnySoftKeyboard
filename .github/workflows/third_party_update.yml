@@ -25,6 +25,7 @@ jobs:
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -57,6 +58,7 @@ jobs:
           assignees: menny
           branch: 'bot-pr/gradle-update'
   robolectric-update:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -91,6 +93,7 @@ jobs:
           assignees: menny
           branch: 'bot-pr/robolectric-update'
   build-tools-update:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -124,6 +127,7 @@ jobs:
           assignees: menny
           branch: 'bot-pr/build-tools-update'
   error-prone-update:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -165,6 +169,7 @@ jobs:
           assignees: menny
           branch: 'bot-pr/error-prone-update'
   google-format-update:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
