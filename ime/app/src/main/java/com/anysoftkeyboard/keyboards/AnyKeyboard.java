@@ -736,7 +736,6 @@ public abstract class AnyKeyboard extends Keyboard {
         public int longPressCode;
         @ShowKeyInLayoutType public int showKeyInLayout;
         @NonNull int[] mShiftedCodes = EMPTY_INT_ARRAY;
-        private boolean mShiftCodesAlways;
         private boolean mFunctionalKey;
         private boolean mEnabled;
         @NonNull private List<String> mKeyTags = Collections.emptyList();
