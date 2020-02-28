@@ -830,20 +830,11 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
 
-            // if the shift-character is a symbol, we only show it if the SHIFT is pressed,
-            // not if the shift is active.
-            // Note: above doesn't work, it only shows the symbols if SHIFT is being held.
-            mShiftCodesAlways = true;
-
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in
                 // popupCharacters
                 popupResId = 0;
             }
-        }
-
-        public boolean isShiftCodesAlways() {
-            return mShiftCodesAlways;
         }
 
         @Override

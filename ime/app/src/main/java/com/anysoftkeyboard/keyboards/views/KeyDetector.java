@@ -116,6 +116,6 @@ public abstract class KeyDetector {
         AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
         return mKeyboard.keyboardSupportShift()
                 && ((mShiftKey != null && mShiftKey.pressed)
-                        || (anyKey.isShiftCodesAlways() && mKeyboard.isShifted()));
+                        || mKeyboard.isShifted()));
     }
 }
