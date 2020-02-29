@@ -36,5 +36,6 @@
 1. <img src='rusyn/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Rusyn: [Source](rusyn)
 1. <img src='sardinian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Sardinian: [Source](sardinian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.sardinian)
 1. <img src='serbian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Serbian: [Source](serbian)
+1. <img src='sinhala/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Sinhala: [Source](sinhala) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.sinhala)
 1. <img src='spain/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Spain: [Source](spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
 1. <img src='tamazight/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Tamazight: [Source](tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight)
