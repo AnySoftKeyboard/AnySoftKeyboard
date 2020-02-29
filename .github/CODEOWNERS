@@ -1,0 +1,10 @@
+* @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
+/LICENSE @AnySoftKeyboard/owners
+/.github @AnySoftKeyboard/owners
+/.github/CODEOWNERS @AnySoftKeyboard/owners
+/scripts @AnySoftKeyboard/owners
+/gradle @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
+/buildSrc @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
+/addons @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers @AnySoftKeyboard/languagemaintainers
+/ime @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
+/api @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
