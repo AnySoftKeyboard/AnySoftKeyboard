@@ -1151,6 +1151,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         if (isShiftedAccordingToCaseType(mKeyboard.isShifted())) {
             if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
                 return key.shiftedKeyLabel;
+            } else if (key.shiftedText != null) {
+                label = key.shiftedText;
             } else if (label != null && label.length() == 1) {
                 label =
                         Character.toString(
@@ -1161,7 +1163,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                                         mKeyDetector.isKeyShifted(key))));
             }
             // remembering for next time
-            if (key.isShiftCodesAlways()) key.shiftedKeyLabel = label;
+            key.shiftedKeyLabel = label;
         }
         return label;
     }

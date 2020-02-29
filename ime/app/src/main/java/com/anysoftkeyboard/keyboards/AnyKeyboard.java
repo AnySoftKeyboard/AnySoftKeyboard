@@ -736,7 +736,6 @@ public abstract class AnyKeyboard extends Keyboard {
         public int longPressCode;
         @ShowKeyInLayoutType public int showKeyInLayout;
         @NonNull int[] mShiftedCodes = EMPTY_INT_ARRAY;
-        private boolean mShiftCodesAlways;
         private boolean mFunctionalKey;
         private boolean mEnabled;
         @NonNull private List<String> mKeyTags = Collections.emptyList();
@@ -830,25 +829,11 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
 
-            // if the shift-character is a symbol, we only show it if the SHIFT is pressed,
-            // not if the shift is active.
-            // Note: above doesn't work, it only shows the symbols if SHIFT is being held.
-            mShiftCodesAlways =
-                    mShiftedCodes.length == 0
-                            || Character.isLetter(mShiftedCodes[0])
-                            || Character.getType(mShiftedCodes[0]) == Character.NON_SPACING_MARK
-                            || Character.getType(mShiftedCodes[0])
-                                    == Character.COMBINING_SPACING_MARK;
-
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in
                 // popupCharacters
                 popupResId = 0;
             }
-        }
-
-        public boolean isShiftCodesAlways() {
-            return mShiftCodesAlways;
         }
 
         @Override
