@@ -30,7 +30,7 @@ jobs:
       - name: Download latest translations
         run: ./scripts/update_strings_from_crowdin_api.sh build
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.1
+        uses: peter-evans/create-pull-request@v2.4.4
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'
@@ -38,5 +38,5 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          assignees: menny
+          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers, @AnySoftKeyboard/languagemaintainers'
           branch: 'bot-pr/localization-update'
