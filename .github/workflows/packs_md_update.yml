@@ -4,6 +4,11 @@ name: packs-lists
 on:
   schedule:
     - cron: '30 09 * * *'
+  push:
+    branches:
+      - master
+    paths:
+      - 'addons/**'
 
 env:
   TERM: dumb
@@ -30,5 +35,5 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers, @AnySoftKeyboard/languagemaintainers'
+          team-reviewers: owners, maintainers, languagemaintainers
           branch: 'bot-pr/packs-list-update'

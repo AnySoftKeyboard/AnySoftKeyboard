@@ -4,6 +4,11 @@ name: localization
 on:
   schedule:
     - cron: '24 02 * * *'
+  push:
+    branches:
+      - master
+    paths:
+      - 'ime/app/src/main/res/values/strings.xml'
 
 env:
   TERM: dumb
@@ -38,5 +43,5 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers, @AnySoftKeyboard/languagemaintainers'
+          team-reviewers: owners, maintainers, languagemaintainers
           branch: 'bot-pr/localization-update'
