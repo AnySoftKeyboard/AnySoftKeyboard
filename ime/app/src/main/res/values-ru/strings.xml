@@ -5,19 +5,13 @@
     <string name="debug_tracing_starting_failed">Запуск трассировки не удалась! Проверьте logcat для деталей.</string>
     <string name="debug_tracing_finished">Трассировка завершена! файл \nTrace-<xliff:g id="trace_file">%s </xliff:g></string>
     <string name="menu_about_item">О нас</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для v<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Ещё:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard бета</string>
     <string name="notification_text_testers">Это бета-версия. Следует использовать с осторожностью!</string>
     <string name="testers_version">Сборка для тестеров!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Язык</string>
     <string name="language_keyboards_settings_tile">Включить клавиатуры и языки.</string>
     <string name="language_grammar_settings_tile">Настроить поведение коррекции и прочие словари.</string>

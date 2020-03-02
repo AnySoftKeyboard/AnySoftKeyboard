@@ -5,21 +5,15 @@
     <string name="debug_tracing_starting_failed">Falha ao iniciar rastreamento! Verifique o log para obter detalhes.</string>
     <string name="debug_tracing_finished">Rastreamento concluído! \nTrace arquivo é <xliff:g id="trace_file">%s </xliff:g>     </string>
     <string name="menu_about_item">Sobre</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Bem-vindo ao AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Últimas mudanças para v<xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Mais:\u0020
          <xliff:g id="url">%s</xliff:g>
     </string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Esta é uma versão beta. Use com cuidado!</string>
     <string name="testers_version">Edição de testes!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Idioma</string>
     <string name="language_keyboards_settings_tile">Habilitar teclados e idiomas.</string>
     <string name="language_grammar_settings_tile">Configurações do corretor ortográfico.    </string>
