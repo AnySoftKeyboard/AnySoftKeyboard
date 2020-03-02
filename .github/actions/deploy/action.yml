@@ -3,27 +3,45 @@ description: "Deploys the AnySoftKeyboard artifacts to Play Store"
 author: "menny"
 
 inputs:
-  deploy_target:
-    description: "Target to deploy. Should something deploy-request github-action outputs"
+  deployment_id:
+    description: "ID given by github"
+    required: true
+  deployment_environment:
+    description: "Deploy to which environment"
+    required: true
+  deployment_task:
+    description: "Deployment task"
+    required: true
+  api_user:
+    description: "github API user"
+    required: true
+  api_token:
+    description: "github API user token"
     required: true
   crash_report_email:
     default: "none@example.com"
-    required: false
+    description: "email address for crash reporting "
+    required: true
   keystore_url:
     default: ""
-    required: false
+    description: "direct download URL to APK signing keystore"
+    required: true
   keystore_password:
     default: ""
-    required: false
+    description: "APK signing keystore password"
+    required: true
   keystore_key_password:
     default: ""
-    required: false
+    description: "APK signing keystore default key password"
+    required: true
   publish_service_account_creds_url:
+    description: "direct download URL to Play-Store credentials file"
     default: ""
-    required: false
+    required: true
   publish_service_account:
+    description: "account for Play-Store API"
     default: ""
-    required: false
+    required: true
 runs:
   using: "docker"
   image: "docker://menny/ndk_ask:1.13.6"
@@ -35,13 +53,17 @@ runs:
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy/deploy.sh
-    - ${{ inputs.deploy_target }}
+    - ${{ inputs.deployment_id }}
+    - ${{ inputs.deployment_environment }}
+    - ${{ inputs.deployment_task }}
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.keystore_url }}
     - ${{ inputs.keystore_password }}
     - ${{ inputs.keystore_key_password }}
     - ${{ inputs.publish_service_account_creds_url }}
     - ${{ inputs.publish_service_account }}
+    - ${{ inputs.api_user }}
+    - ${{ inputs.api_token }}
 
 branding:
   icon: 'upload-cloud'
