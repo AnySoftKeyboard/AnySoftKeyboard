@@ -52,7 +52,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: owners, maintainers
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
   robolectric-update:
     if: github.event_name == 'schedule'
@@ -87,7 +87,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: owners, maintainers
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/robolectric-update'
   build-tools-update:
     if: github.event_name == 'schedule'
@@ -121,7 +121,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: owners, maintainers
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/build-tools-update'
   error-prone-update:
     if: github.event_name == 'schedule'
@@ -163,7 +163,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: owners, maintainers
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
   google-format-update:
     if: github.event_name == 'schedule'
@@ -202,5 +202,5 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: owners, maintainers
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/google-format-update'
