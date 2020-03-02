@@ -186,16 +186,15 @@ jobs:
           name: fdroid-metadata-dry-run
           path: outputs/fdroid
 
-  push-ready:
-    if: github.event_name == 'push'
-    needs: [checks, app-all-sdks-tests, app-tests-shards, app-less-tests]
+  master-green-requirement:
+    needs: [checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
 
   deploy-request:
     if: github.event_name == 'push'
-    needs: [push-ready]
+    needs: [master-green-requirement]
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
