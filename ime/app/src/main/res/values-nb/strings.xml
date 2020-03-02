@@ -7,20 +7,14 @@
         <xliff:g id="trace_file">%s</xliff:g>
         </string>
     <string name="menu_about_item">Om</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Velkommen til AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Siste endringer for v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
     <string name="change_log_url">Mer:\u0020
         <xliff:g id="url">%s</xliff:g>
     </string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Dette er en beta-versjon. Bruk med forsiktighet!</string>
     <string name="testers_version">Testversjon!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Språk</string>
     <string name="language_keyboards_settings_tile">Aktiver tastaturer og språk.</string>
     <string name="language_grammar_settings_tile">Still inn korreksjonsvirkemåte og andre ordlister.    </string>
