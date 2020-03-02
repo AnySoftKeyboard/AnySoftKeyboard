@@ -1,10 +1,10 @@
-* @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
-/LICENSE @AnySoftKeyboard/owners
-/.github @AnySoftKeyboard/owners
-/.github/CODEOWNERS @AnySoftKeyboard/owners
-/scripts @AnySoftKeyboard/owners
-/gradle @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
-/buildSrc @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
-/addons @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers @AnySoftKeyboard/languagemaintainers
-/ime @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
-/api @AnySoftKeyboard/owners @AnySoftKeyboard/maintainers
+* @AnySoftKeyboard/infra @AnySoftKeyboard/maintainers
+/LICENSE @AnySoftKeyboard/infra
+/.github @AnySoftKeyboard/infra
+/.github/CODEOWNERS @AnySoftKeyboard/infra
+/scripts @AnySoftKeyboard/infra
+/gradle @AnySoftKeyboard/infra @AnySoftKeyboard/maintainers
+/buildSrc @AnySoftKeyboard/infra @AnySoftKeyboard/maintainers
+/addons @AnySoftKeyboard/infra @AnySoftKeyboard/maintainers @AnySoftKeyboard/add-on-maintainers
+/ime @AnySoftKeyboard/infra @AnySoftKeyboard/maintainers
+/api @AnySoftKeyboard/infra @AnySoftKeyboard/maintainers

@@ -4,9 +4,6 @@ name: third-party-update
 on:
   schedule:
     - cron: '29 04 * * *'
-  pull_request:
-    branches:
-      - '*'
 
 env:
   TERM: dumb
@@ -55,7 +52,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers'
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
   robolectric-update:
     if: github.event_name == 'schedule'
@@ -90,7 +87,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers'
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/robolectric-update'
   build-tools-update:
     if: github.event_name == 'schedule'
@@ -124,7 +121,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers'
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/build-tools-update'
   error-prone-update:
     if: github.event_name == 'schedule'
@@ -166,7 +163,7 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers'
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
   google-format-update:
     if: github.event_name == 'schedule'
@@ -205,5 +202,5 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: '@AnySoftKeyboard/owners, @AnySoftKeyboard/maintainers'
+          team-reviewers: infra, maintainers
           branch: 'bot-pr/google-format-update'
