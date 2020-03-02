@@ -10,10 +10,7 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
     <string name="menu_about_item">Thông tin</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Chào mừng đến với AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020
     </string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">
@@ -22,12 +19,9 @@
     <string name="change_log_url">More:\u0020
         <xliff:g id="url">%s</xliff:g>
     </string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
     <string name="testers_version">Testers build!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Language</string>
     <string name="language_keyboards_settings_tile">Enable keyboards and languages.</string>
     <string name="language_grammar_settings_tile">Configure correction behavior and other

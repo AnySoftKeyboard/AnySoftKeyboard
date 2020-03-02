@@ -7,37 +7,22 @@
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for
         details.
     </string>
-    <string name="debug_tracing_finished">Tracing finished!\nTrace file is
-        <xliff:g id="trace_file">%s</xliff:g>
-    </string>
+    <string name="debug_tracing_finished">Tracing finished!\nTrace file is\u0020<xliff:g id="trace_file">%s</xliff:g></string>
 
     <string name="menu_about_item">About</string>
 
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
 
-    <!-- links tab -->
-    <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020
-    </string>
-    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">
-        %s</xliff:g>\u0020\u0020
-    </string>
-    <string name="change_log_url">More:\u0020
-        <xliff:g id="url">%s</xliff:g>
-    </string>
-    <!-- credits tab -->
-    <!-- notifications -->
+    <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">More:\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
     <string name="testers_version">Testers build!</string>
 
-    <!-- Language root menu -->
     <string name="language_root_tile">Language</string>
     <string name="language_keyboards_settings_tile">Enable keyboards and languages.</string>
-    <string name="language_grammar_settings_tile">Configure correction behavior and other
-        dictionaries.
-    </string>
+    <string name="language_grammar_settings_tile">Configure correction behavior and other dictionaries.</string>
     <string name="language_tweaks_settings_tile">Tweaks and more.</string>
 
     <!-- UI root menu -->
@@ -50,23 +35,15 @@
     <string name="changelog">Change Log</string>
     <string name="search_market_for_addons">Search for add-ons</string>
     <string name="search_market_for_keyboard_addons">Get more keyboards at the app store</string>
-    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app
-        store…
-    </string>
-    <string name="no_market_store_available">Could not find an app store on your device.\nUnable to
-        search for add-ons!
-    </string>
+    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
+    <string name="no_market_store_available">Could not find an app store on your device.\nUnable to search for add-ons!</string>
     <string name="keyboard_theme_tweak_group">Tweaks</string>
     <string name="close_button">Close</string>
 
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">Saved:\u0020
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+    <string name="added_word">Saved:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Remove\?</string>
-    <string name="removed_word">Removed:\u0020
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+    <string name="removed_word">Removed:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
 
