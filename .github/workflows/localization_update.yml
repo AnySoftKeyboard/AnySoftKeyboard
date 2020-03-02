@@ -43,5 +43,5 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: ''
-          team-reviewers: infra, maintainers, add-on-maintainers
+          team-reviewers: maintainers, add-on-maintainers
           branch: 'bot-pr/localization-update'
