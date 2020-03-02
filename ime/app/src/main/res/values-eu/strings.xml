@@ -7,21 +7,15 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
     <string name="menu_about_item">Honi buruz</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Ongi etorri AnySoftKeyboard teklatura</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020<xliff:g id="name">%s</xliff:g> bertsioaren azken aldaketak\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">
         %s</xliff:g>\u0020\u0020
     </string>
     <string name="change_log_url">Gehiago:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Hau beta bertsio bat da, kontuz ibili!</string>
     <string name="testers_version">Probetarako konpilazioa!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Hizkuntza</string>
     <string name="language_keyboards_settings_tile">Gaitu teklatuak eta hizkuntzak.</string>
     <string name="language_grammar_settings_tile">Konfiguratu zuzenketaren portaera eta beste hiztegiak.</string>
