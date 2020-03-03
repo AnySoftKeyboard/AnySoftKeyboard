@@ -43,7 +43,7 @@
     <Key android:codes="99" android:keyLabel="c" android:popupCharacters="\u003e8γΓ"/>
     <Key android:codes="108" android:keyLabel="l" android:popupCharacters="=9φΦ"/>
     <Key android:codes="106" android:keyLabel="j" android:popupCharacters="\u0026+ϕℚ"/>
-    <Key android:codes="102" android:keyLabel="f" ask:shiftedCodes="7838" android:popupCharacters="ſ−ς∘"/>
+    <Key android:codes="102" android:keyLabel="f" android:popupCharacters="ſ−ς∘"/>
     <Key android:codes="769" android:keyLabel="´" ask:shiftedCodes="771" android:keyEdgeFlags="right" android:popupCharacters="\u0300\u0302\u0303\u0327\u030C\u0337\u030A\u030B\u0308\u0307\u0314\u0313\u02DE\u0306\u0304\u0323"/>
 </Row>
 <Row>
@@ -68,8 +68,8 @@
     <Key android:codes="113" android:keyLabel="q" android:popupCharacters="`ζℤ"/>
     <Key android:codes="98" android:keyLabel="b" android:popupCharacters="+:β⇐"/>
     <Key android:codes="112" android:keyLabel="p" android:popupCharacters="%1μ⇔"/>
-    <Key android:codes="119" android:keyLabel="w" ask:shiftedCodes="8211" android:popupCharacters="–\u00222ϱ⇒"/>
-    <Key android:codes="109" android:keyLabel="m" ask:shiftedCodes="8226" android:popupCharacters="•\'3ϑ↦"/>
+    <Key android:codes="119" android:keyLabel="w" android:popupCharacters="–\u00222ϱ⇒"/>
+    <Key android:codes="109" android:keyLabel="m"  android:popupCharacters="•\'3ϑ↦"/>
     <Key android:codes="122" android:keyLabel="z" android:popupCharacters=";θΘ"/>
     <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="right" android:keyWidth="8%p"/>
 </Row>
