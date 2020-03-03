@@ -47,6 +47,7 @@ include ':addons:languages:norwegian:pack', ':addons:languages:norwegian:apk'
 include ':addons:languages:polish:pack', ':addons:languages:polish:apk'
 include ':addons:languages:rusyn:pack', ':addons:languages:rusyn:apk'
 include ':addons:languages:sinhala:pack', ':addons:languages:sinhala:apk'
+include ':addons:languages:hindi:pack', ':addons:languages:hindi:apk'
 
 //list of themes should be alphabetized-ordered
 include ':themes'
