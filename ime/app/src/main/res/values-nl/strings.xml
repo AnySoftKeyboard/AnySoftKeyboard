@@ -6,19 +6,13 @@
     <string name="debug_tracing_finished">Tracering is klaar!\nTraceerbestand is 
 <xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Over</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Welkom bij AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Laatste wijzigingen voor v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Meer:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BÈTA</string>
     <string name="notification_text_testers">Dit is een bètaversie. Wees voorzichtig!</string>
     <string name="testers_version">Gebouwd voor testers!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Taal</string>
     <string name="language_keyboards_settings_tile">Toetsenborden en talen inschakelen.</string>
     <string name="language_grammar_settings_tile">Configureer correctiegedrag en andere woordenboeken.</string>
