@@ -3,21 +3,15 @@
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">¡Registro iniciado!\nAsegúrate de detenerlo en algún momento</string>
     <string name="debug_tracing_starting_failed">¡Error al iniciar el registro! Revisa la captura de registro para más detalles.</string>
-    <string name="debug_tracing_finished">¡Registro finalizado!\nEl archivo es <xliff:g id="trace_file">%s</xliff:g></string>
+    <string name="debug_tracing_finished">¡Registro finalizado!\nEl archivo es \u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Acerca de</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Bienvenido a AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Últimos cambios para v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Más: \u0020<xliff:g id="url">%s</xliff:g></string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Esta es la versión beta. ¡Utilízala con precaución!</string>
     <string name="testers_version">¡Versión de prueba!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Idioma</string>
     <string name="language_keyboards_settings_tile">Habilitar teclados e idiomas.</string>
     <string name="language_grammar_settings_tile">Configurar comportamiento de corrección y otros diccionarios.</string>
@@ -32,7 +26,7 @@
     <string name="search_market_for_addons">Búsqueda de complementos</string>
     <string name="search_market_for_keyboard_addons">Obtenga más teclados en la <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obtenga más complementos de <i>texto rápido</i> en la <i>Play Store</i>…</string>
-    <string name="no_market_store_available">No se pudo encontrar la Play Store en su dispositivo.\n¡Incapaz de buscar complementos!</string>
+    <string name="no_market_store_available">No se pudo encontrar la Play Store en tu dispositivo.\n¡Incapaz de buscar complementos!</string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Cerrar</string>
     <!-- Indicates that a word has been added to the dictionary -->
@@ -46,7 +40,7 @@
     <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo.\nEso se puede corregir fácilmente: instálelo ahora desde la Play Store.</string>
     <string name="voice_input_not_installed_action_install">Instalar</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
-    <string name="voice_input_not_voice_pack_in_market">No se pudo encontrar la entrada de voz de Google (com.google.android.voicesearch) en la Play Store. Lo siento, no funciona la entrada de voz en su dispositivo.</string>
+    <string name="voice_input_not_voice_pack_in_market">No se pudo encontrar la entrada de voz de Google (com.google.android.voicesearch) en la Play Store. Lo siento, no funciona la entrada de voz en tu dispositivo.</string>
     <!-- Options menu -->
     <string name="change_ime">Cambiar el método de entrada</string>
     <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
@@ -478,11 +472,11 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">No tienes palabras en el diccionario del usuario. Puede añadir una palabra a través del menú.</string>
     <string name="user_dict_backup_success_title">¡Respaldado correctamente!</string>
-    <string name="user_dict_backup_success_text">Sus palabras se han almacenado correctamente en \u0020/Android/data/com.menny.android.anysoftkeyboard/files/</string>
+    <string name="user_dict_backup_success_text">Tus palabras se han almacenado correctamente en \u0020/Android/data/com.menny.android.anysoftkeyboard/files/</string>
     <string name="user_dict_backup_fail_title">¡Respaldado fallido!</string>
     <string name="user_dict_backup_fail_text_with_error">Error al almacenar palabras debido a: \u0020<xliff:g id="error">%s</xliff:g></string>
     <string name="user_dict_restore_success_title">¡Restaurado correctamente!</string>
-    <string name="user_dict_restore_success_text">Se restauraron correctamente sus palabras.</string>
+    <string name="user_dict_restore_success_text">Se restauraron correctamente tus palabras.</string>
     <string name="user_dict_restore_fail_title">¡Restauración fallida!</string>
     <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras debido a: \u0020<xliff:g id="error">%s</xliff:g></string>
     <string name="should_swap_punctuation_and_space_title">Intercambiar espacio y puntuación</string>
@@ -521,18 +515,18 @@
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
     <string name="setup_wizard_step_one_title">Habilitar AnySoftKeyboard</string>
-    <string name="setup_wizard_step_one_details">En este paso, deberá habilitar <i>AnySoftKeyboard</i>. Compruebe <i>\'AnySoftKeyboard \'</i> en su <i>Idioma&amp;Ajustes de entrada</i>. Esto nos permitirá funcionar en su dispositivo.</string>
-    <string name="setup_wizard_step_one_action">Ir a <i>Idioma&amp;Ajustes de entrada</i>…</string>
-    <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Su dispositivo no admite teclados de terceros. ¡AnySoftKeyboard no puede ser activado!</string>
+    <string name="setup_wizard_step_one_details">En este paso, deberá habilitar <i>AnySoftKeyboard</i>. Compruebe <i>\'AnySoftKeyboard \'</i> en <i>Idioma - Ajustes de entrada</i>. Esto nos permitirá funcionar en tu dispositivo.</string>
+    <string name="setup_wizard_step_one_action">Ir a <i>Idioma - Ajustes de entrada</i>…</string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Tu dispositivo no admite teclados de terceros. ¡AnySoftKeyboard no puede ser activado!</string>
     <string name="setup_wizard_step_permissions_title">Habilitar permisos</string>
-    <string name="setup_wizard_step_permissions_details">En este paso, puede aprobar <i>AnySoftKeyboard</i> para leer los contactos almacenados en su dispositivo. Si desea bloquear este acceso, puede deshabilitar el diccionario de contactos.</string>
+    <string name="setup_wizard_step_permissions_details">En este paso, puede aprobar <i>AnySoftKeyboard</i> para leer los contactos almacenados en tu dispositivo. Si desea bloquear este acceso, puede deshabilitar el diccionario de contactos.</string>
     <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
-    <string name="setup_wizard_step_two_details">Su sistema puede usar <i>AnySoftKeyboard</i>, pero no está establecido como teclado activo.\n¡Al cambiarlo, <i>AnySoftKeyboard</i> se convertirá en su nuevo teclado en pantalla y podrá disfrutar de todas sus características!</string>
+    <string name="setup_wizard_step_two_details">Su sistema puede usar <i>AnySoftKeyboard</i>, pero no está establecido como teclado activo.\n¡Al cambiarlo, <i>AnySoftKeyboard</i> se convertirá en tu nuevo teclado en pantalla y podrá disfrutar de todas sus características!</string>
     <string name="setup_wizard_step_two_action">Cambiar los teclados activos</string>
     <string name="setup_wizard_step_three_title">¿Qué sigue?</string>
     <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Está listo 🎉\nVe a tu aplicación favorita para probarlo.</b></string>
-    <string name="setup_wizard_step_three_details_actions">O bien, puede personalizar el teclado según sus gustos:</string>
+    <string name="setup_wizard_step_three_details_actions">O bien, puedes personalizar el teclado según tus gustos:</string>
     <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
     <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
     <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
@@ -556,11 +550,11 @@
     <string name="clipboard_copy_done_toast">Texto seleccionado copiado al portapapeles.</string>
     <string name="clipboard_paste_entries_title">Elegir qué texto pegar</string>
     <string name="next_word_prefs_clear_data">Borrar datos de palabras sugeridas</string>
-    <string name="next_word_prefs_clear_data_summary">Esto es irreversible. Se borrará todo su historial de escritura.</string>
-    <string name="notification_read_contacts_title">¿Puede leer sus contactos?</string>
-    <string name="notification_read_contacts_text">Necesitamos poder leer sus contactos, para brindarle una mejor experiencia de auto-completar.</string>
+    <string name="next_word_prefs_clear_data_summary">Esto es irreversible. Se borrará todo tu historial de escritura.</string>
+    <string name="notification_read_contacts_title">¿Puede leer tus contactos?</string>
+    <string name="notification_read_contacts_text">Necesitamos poder leer tus contactos, para brindarte una mejor experiencia de auto-completar.</string>
     <string name="notification_read_contacts_ticker">Necesita permiso para contactos</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard utiliza los nombres de sus contactos para proporcionarle sugerencias de palabras: a medida que escribe una palabra, buscamos palabras similares para auto-completar y auto-corregir su escritura.</string>
+    <string name="contacts_permissions_dialog_message">AnySoftKeyboard utiliza los nombres de tus contactos para proporcionarte sugerencias de palabras: a medida que escribe una palabra, buscamos palabras similares para auto-completar y auto-corregir tu escritura.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugerencias de escritura basadas en contactos</string>
     <string name="allow_permission">Permitir</string>
     <string name="navigate_to_app_permissions">Ir a permisos de la aplicación</string>
@@ -591,7 +585,7 @@
     <string name="bottom_nav_home">Hola</string>
     <string name="setup_wizard_welcome_title">¡Bienvenido!</string>
     <string name="setup_wizard_welcome_sub_title">¡Gracias por utilizar AnySoftKeyboard!</string>
-    <string name="setup_wizard_welcome_info">Al igual que con cualquier otro teclado Android, debe habilitar AnySoftKeyboard en la configuración de Android. Esto es requerido por Android para garantizar que sus datos de escritura no sean robados por teclados maliciosos*.</string>
+    <string name="setup_wizard_welcome_info">Al igual que con cualquier otro teclado en Android, debe habilitar AnySoftKeyboard en la configuración de Android. Esto es requerido por Android para garantizar que tus datos de escritura no sean robados por teclados maliciosos*.</string>
     <string name="setup_wizard_welcome_info_2">¿Preparado y listo? clic abajo para comenzar, lo guiaré.</string>
     <string name="setup_wizard_welcome_start_action">Iniciar configuración…</string>
     <string name="setup_wizard_welcome_info_footnote">* Por supuesto, AnySoftKeyboard no es malvado. Le recomendamos que mire nuestro código fuente y lo verifique. Además, no tenemos permisos de <i>RED</i>, por lo que no podemos enviar ningún dato desde el dispositivo.</string>
@@ -613,9 +607,9 @@
     <string name="pick_prefs_providers_to_restore">¿Qué te gustaría restaurar?</string>
     <string name="prefs_providers_operation_success">Correcto</string>
     <string name="prefs_providers_operation_failed">¡Error!</string>
-    <string name="prefs_providers_failed_backup_due_to">Error al hacer el respaldo de sus datos debido a %s</string>
+    <string name="prefs_providers_failed_backup_due_to">Error al respaldar tus datos debido a %s</string>
     <string name="prefs_providers_backed_up_to">Sus datos fueron respaldados correctamente para %s</string>
-    <string name="prefs_providers_failed_restore_due_to">Error al restaurar sus datos debido a %s</string>
+    <string name="prefs_providers_failed_restore_due_to">Error al restaurar tus datos debido a %s</string>
     <string name="prefs_providers_restored_to">Sus datos fueron restaurados correctamente desde %s</string>
     <string name="allow_layouts_to_provide_generic_rows">Los teclados pueden proporcionar filas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Siempre utilizar las filas genéricas seleccionadas.</string>

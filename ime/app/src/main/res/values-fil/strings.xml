@@ -5,19 +5,13 @@
     <string name="debug_tracing_starting_failed">Pagsunod sa nasimulan ay bigo! Tingnan ang logcat para sa mga detalye.</string>
     <string name="debug_tracing_finished">Pagsunod ay natapos!\nAng trace file ay <xliff:g id="trace_file">%s</xliff:g>    </string>
     <string name="menu_about_item">Tungol ito</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Magligayang padating sa AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Bagong mga pagbabgo para sa v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Marami::\u0020<xliff:g id="url">%s</xliff:g></string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard nasa BETA</string>
     <string name="notification_text_testers">Ito ay isang beta bersyon. Gumamit pero mag-ingat!</string>
     <string name="testers_version">Tagapagtingin buid!</string>
-    <!-- Language root menu -->
     <string name="language_root_tile">Wika</string>
     <string name="language_keyboards_settings_tile">Paganahin ang keyboard at ang wika.</string>
     <string name="language_grammar_settings_tile">I-configure ang mga pagwawasto galaw at mga diksyunaryo.</string>

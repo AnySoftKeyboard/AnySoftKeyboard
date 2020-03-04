@@ -7,18 +7,12 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
     <string name="menu_about_item">O programu</string>
-    <!-- main form -->
-    <!-- welcome tab -->
     <string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
-    <!-- links tab -->
     <string name="change_log_card_version_title_template">\u0020\u0020Zadnje spremembe za v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
-    <!-- credits tab -->
-    <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">To je različica beta. Bodite previdni pri uporabi!</string>
     <string name="testers_version">Izgradnja za preizkuševalce!</string>
-    <!-- Language root menu -->
     <!-- UI root menu -->
     <!-- welcome -->
     <!-- changelog -->

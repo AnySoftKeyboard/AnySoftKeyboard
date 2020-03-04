@@ -18,7 +18,7 @@ function deployment_request() {
                     --arg jsonRef "${SHA_TO_DEPLOY}" \
                     --arg jsonDeployTarget "${1}" \
                     --arg jsonDescription "${2}" \
-                    '{ ref: $jsonRef, task: "deploy", auto_merge: false, environment: $jsonDeployTarget, description: $jsonDescription, required_contexts: [ "push-ready" ] }' )
+                    '{ ref: $jsonRef, task: "deploy", auto_merge: false, environment: $jsonDeployTarget, description: $jsonDescription, required_contexts: [ "master-green-requirement" ] }' )
 
   local JSON_FILENAME="${OUTPUT}/deployment_request_${1}.json"
   echo "${JSON_TEXT}" > "${JSON_FILENAME}"
