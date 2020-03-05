@@ -476,21 +476,11 @@ class PointerTracker {
                     } else if (mKeyDetector.isKeyShifted(key)) {
                         text = key.shiftedText;
                     }
+                    int[] nearByKeyCodes = mKeyDetector.newCodeArray();
+                    mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
+                    mTapCount = 0;
                     for (int i = 0; i < text.length(); i++) {
                         int code = text.charAt(i);
-                        int[] nearByKeyCodes = mKeyDetector.newCodeArray();
-                        mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
-                        boolean multiTapStarted = false;
-                        // Multi-tap
-                        if (mInMultiTap) {
-                            if (mTapCount != -1) {
-                                multiTapStarted = true;
-                                mListener.onMultiTapStarted();
-                            } else {
-                                mTapCount = 0;
-                            }
-                            code = key.getMultiTapCode(mTapCount);
-                        }
                         /*
                          * Swap the first and second values in the mCodes array if the primary code is not
                          * the first value but the second value in the array. This happens when key
@@ -511,10 +501,6 @@ class PointerTracker {
                             }
                             mKeyCodesInPathLength = -1;
                             listener.onRelease(code);
-
-                            if (multiTapStarted) {
-                                mListener.onMultiTapEnded();
-                            }
                         }
                     }
                 }
