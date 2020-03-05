@@ -6,8 +6,8 @@
     <Key android:codes="ⲣ" android:popupCharacters="ⳁ"/>
     <Key android:codes="ⲧ" android:popupCharacters="ϯ"/>
     <Key android:codes="ⲯ"/>
-    <Key android:codes="ⲩ"/>
-    <Key android:codes="ⲓ"/>
+    <Key android:codes="ⲩ" android:popupCharacters="ÿ"/>
+    <Key android:codes="ⲓ" android:popupCharacters="ϊ"/>
     <Key android:codes="ⲟ"/>
     <Key android:keyEdgeFlags="right" android:codes="ⲡ"/>
   </Row>
@@ -18,7 +18,7 @@
     <Key android:codes="ϥ" android:popupCharacters="ⲫ"/>
     <Key android:codes="ⲅ"/>
     <Key android:codes="ⲏ" android:popupCharacters="ϩ"/>
-    <Key android:codes="ⲓ" android:popupCharacters="ϭ"/>
+    <Key android:codes="ϫ" android:popupCharacters="ϭ"/>
     <Key android:codes="ⲕ" android:popupCharacters="ϧⳉ"/>
     <Key android:codes="ⲗ"/>
     <Key android:keyEdgeFlags="right" android:codes="768,772" android:keyLabel="◌"/>
