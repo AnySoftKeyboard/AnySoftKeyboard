@@ -462,18 +462,19 @@ class PointerTracker {
     private void detectAndSendKey(int index, int x, int y, long eventTime) {
         final OnKeyboardActionListener listener = mListener;
         final Key key = getKey(index);
+        boolean isShifted = mKeyDetector.isKeyShifted(key);
 
         if (key == null) {
             if (listener != null) {
                 listener.onCancel();
             }
         } else {
-            if (key.text != null || (key.shiftedText != null && mKeyDetector.isKeyShifted(key))) {
+            if ((key.text != null && !isShifted) || (key.shiftedText != null && isShifted)) {
                 if (listener != null) {
                     CharSequence text = null;
-                    if (!mKeyDetector.isKeyShifted(key)) {
+                    if (!isShifted) {
                         text = key.text;
-                    } else if (mKeyDetector.isKeyShifted(key)) {
+                    } else if (isShifted) {
                         text = key.shiftedText;
                     }
                     int[] nearByKeyCodes = mKeyDetector.newCodeArray();
