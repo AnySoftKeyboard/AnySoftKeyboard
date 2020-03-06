@@ -205,6 +205,7 @@
     <string name="special_dictionaries_group_summary">In AnySoftKeyboard verwendete Vorschlagswörterbücher</string>
     <string name="use_user_dictionary">Benutzerwörterbuch</string>
     <string name="use_user_dictionary_on_summary">Schlägt vom Benutzer hinzugefügte Wörter vor (Doppelklick auf ein eingetipptes Wort zum Hinzufügen)</string>
+    <string name="always_use_fallback_user_dictionary">Benutze privaten Benutzerwörterbuchspeicher</string>
     <string name="use_auto_dictionary">Automatisches Wörterbuch</string>
     <string name="use_auto_dictionary_dialog_title">Lernmethode wählen</string>
     <string name="use_auto_dictionary_summary">Neue Wörter automatisch lernen. Lernmethode: %s</string>
@@ -617,6 +618,14 @@
     <string name="gesture_typing_alert_title">BETA Funktion!</string>
     <string name="gesture_typing_alert_message">Die Funktion Gestentippen ➿ ist im <b>Beta</b>-Status. Es hat einige Fehler, ist nicht so schnell und nicht vollständig.\nKurz gesagt, du solltest es ausprobieren.</string>
     <string name="gesture_typing_alert_button">Verstanden</string>
+    <string name="apply_remote_app_colors_to_theme">Ändere die Designfarben entsprechend der genutzten App</string>
+    <string name="apply_overlay_summary_on">Tastaturfarben werden zur aktiven App passen (nach unserem besten Bemühen)</string>
+    <string name="apply_overlay_summary_off">Benutze immer die Farben vom Design.</string>
+    <string name="media_insertion_pending_message">Klicke die Textbox, um das Bild einzufügen</string>
     <string name="aosp_dark_theme_name">Dunkles AOSP Design</string>
+    <string name="aosp_dark_theme_description">AOSP-inspiriertes dunkles Tastaturfarbendesign</string>
     <string name="aosp_light_theme_name">Helles AOSP Design</string>
+    <string name="aosp_light_theme_description">AOSP-inspiriertes helles Tastaturfarbendesign</string>
+    <string name="app_share_title">Hallo von AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
 </resources>
