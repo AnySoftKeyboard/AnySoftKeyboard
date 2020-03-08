@@ -621,6 +621,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     cursorPosition = -1;
                 }
 
+                /* mGlobalCursorPosition is updated when onUpdateSelection is called,
+                 * but that doesn't happen if several keys are pressed simultaneously */
+                mGlobalCursorPosition = cursorPosition;
+
                 ic.setComposingText(mWord.getTypedWord(), 1);
                 if (cursorPosition > 0) {
                     ic.setSelection(cursorPosition, cursorPosition);
