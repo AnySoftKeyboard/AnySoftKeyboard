@@ -22,7 +22,6 @@ jobs:
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
-    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -51,11 +50,10 @@ jobs:
           title: 'Automated Gradle Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: ''
+          body: 'Latest version found at https://github.com/gradle/gradle/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
   robolectric-update:
-    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -86,11 +84,10 @@ jobs:
           title: 'Automated Robolectric Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: ''
+          body: 'Latest version found at https://github.com/robolectric/robolectric/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/robolectric-update'
   build-tools-update:
-    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -120,11 +117,10 @@ jobs:
           title: 'Automated Build-Tools Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: ''
+          body: 'Latest version found in `sdkmanager --list` call.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/build-tools-update'
   error-prone-update:
-    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -162,11 +158,10 @@ jobs:
           title: 'Automated Error-Prone Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: ''
+          body: 'Latest version found at https://github.com/tbroyer/gradle-errorprone-plugin/releases and https://github.com/google/error-prone/releases.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
   google-format-update:
-    if: github.event_name == 'schedule'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -201,6 +196,6 @@ jobs:
           title: 'Automated Google-Format Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: ''
+          body: 'Latest version found at https://github.com/sherter/google-java-format-gradle-plugin/releases and https://github.com/google/google-java-format/releases.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/google-format-update'

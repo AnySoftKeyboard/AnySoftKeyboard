@@ -34,6 +34,6 @@ jobs:
           title: 'Automated Packs List Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: ''
+          body: 'Generated from latest _master_ addons packages.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/packs-list-update'
