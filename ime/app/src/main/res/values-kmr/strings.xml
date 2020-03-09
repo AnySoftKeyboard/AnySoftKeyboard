@@ -128,10 +128,26 @@
         <item>Bin</item>
     </string-array>
     <string name="show_settings_app_in_launcher">Ikona bername</string>
+    <string name="show_crash_notification">Raport li ser qeyranê</string>
+    <string name="show_crash_notification_on_summary">Gava ku hûn ASK hilweşînin, danûstendina raporkirina pevçûnê vekin
+    </string>
+    <string name="key_preview_position_override_above_keyboard">Li jorê klavyeyê</string>
+    <string name="tweak_animations_level_types_full">Tije</string>
+    <string name="tweak_animations_level_types_some">Hin</string>
+    <string name="tweak_animations_level_types_none">Netû</string>
+    <string name="grammar_group">Rêziman</string>
+    <string name="keyboard_behavior_group">Behsa Keyboard</string>
+    <string name="candidates_on">Pêşniyaran nîşan bikin</string>
     <!-- settings - keyboard group -->
+    <string name="symbols_phone_keyboard">têlefonê</string>
+    <string name="symbols_numbers_keyboard">123</string>
+    <string name="symbols_time_keyboard">dem</string>
+    <string name="keyboard_change_locked">n/a</string>
     <!-- settings - quick text keys -->
+    <string name="quick_text_keys_group">Mifteyên nivîsê yên bilez</string>
     <!-- settings - top generic row -->
     <!-- settings - bottom generic row -->
+    <string name="keyboard_theme_list_title">Dirêj hilbijêrin</string>
     <!-- extension keyboard type -->
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
