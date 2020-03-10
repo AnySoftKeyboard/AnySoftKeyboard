@@ -6,10 +6,14 @@ shift
 echo "Will retry '$*' for ${retries} times:"
 
 function needsRetry() {
-  local contents
-  contents=$(cat "$(ls -t build-logging/*.log | head -1)")
+  if [[ -d "build-logging" ]]; then
+    local contents
+    contents=$(cat "$(ls -t build-logging/*.log | head -1)")
 
-  [[ "$contents" =~ .*"finished with non-zero exit value 134".* ]] && echo "RETRY"
+    [[ "$contents" =~ .*"finished with non-zero exit value 134".* ]] && echo "RETRY"
+  else
+    echo "RETRY-NO-LOGGING-FOLDER"
+  fi
 }
 
 set +e

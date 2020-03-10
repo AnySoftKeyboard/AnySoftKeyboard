@@ -161,7 +161,6 @@ jobs:
           path: build-logging
 
   deploy-dry-run:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
     steps:
@@ -174,9 +173,12 @@ jobs:
             dry-run-deploy-gradle-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - uses: ./.github/actions/deploy
-        with:
-          deploy_target: dry-run
+      - name: dry-run-release-build
+        run: |
+          mkdir -p /root/.android/ || true
+          cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
+          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
+          chmod -R a+rwx .
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: fdroid-metadata-dry-run
@@ -186,19 +188,17 @@ jobs:
     needs: [checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - name: ready
+        run: echo "DONE"
 
   deploy-request:
     if: github.event_name == 'push'
     needs: [master-green-requirement]
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/android_base:1.13.6
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/deploy-request
-        with:
-          ref: ${{ github.ref }}
-          sha: ${{ github.sha }}
-          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          reports_folder: build/deploy-reports
+      - name: request-new-deploys
+        run: |
+          ./gradlew :deployment:imeOnMasterPush :deployment:addOnsOnMasterPush \
+              -PrequestDeploy.sha=${{ github.sha }} -PrequestDeploy.api_user_name=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} -PrequestDeploy.api_user_token=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
