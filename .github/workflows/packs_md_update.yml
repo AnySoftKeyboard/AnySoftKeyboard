@@ -37,3 +37,4 @@ jobs:
           body: 'Generated from latest _master_ addons packages.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/packs-list-update'
+          labels: automerge
