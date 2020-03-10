@@ -81,6 +81,7 @@
     <string name="ime_settings">ڕێکخستنەکانی تەختەکلیل</string>
     <string name="switch_incognito">شێوازی نادیار</string>
     <string name="vibrate_on_key_press_title">لەرزین لەکاتی نووسین</string>
+    <string name="vibrate_on_key_press_value_template">%d میلی چرکە</string>
     <string name="night_mode_screen">ڕێکخستنەکانی دۆخی تاریک</string>
     <string name="night_mode_description">تایبەتمەندی دۆخی تاریک ئەم بەشانە ئەگرێتەوە:</string>
     <string name="night_mode_state_summary">دۆخی تاریک چالاک ئەبێ لە:\u0020%s</string>
@@ -133,6 +134,9 @@
         بۆشایی
     </string>
     <string name="switch_keyboard_on_space_off_summary">نەگۆڕین لە هێما/ژمارەکانەوە بۆ پیتەکان لەکاتی پەنجەنان بە دوگمەی بۆشاییدا</string>
+    <string name="colorize_nav_bar_title">گۆڕینی ڕەنگی بەشی خوارەوە</string>
+    <string name="colorize_nav_bar_summary_on">ڕەنگی خوارەوە بەپێی ڕەنگی ڕووکارەکە ئەگۆڕێت، ئەم تایبەتمەندیە لە هەموو ئامێرەکاندا پشتگیری کراو نیە.</string>
+    <string name="colorize_nav_bar_summary_off">ناچالاککردنی گۆڕینی ڕەنگی خوارەوە.</string>
     <string name="persistent_layout_per_package_id_title">بەکارهێنانی شێوازی ئەلفوبێ لەهەر بەرنامەیەکدا</string>
     <string name="persistent_layout_per_package_id_off_summary">بەکارهێنانی هەمان تەختەکلیل بۆ هەموو بەرنامەکان.
     </string>
@@ -262,6 +266,9 @@
     <string name="use_user_dictionary">فەرهەنگی بەکارهێنەر</string>
     <string name="use_user_dictionary_on_summary">پێشنیارکردنی ووشەکانی بەکارهێنەر (دووجار دەستی پێدابنێ بۆ زیادکردن)
     </string>
+    <string name="always_use_fallback_user_dictionary">بیرگەی فەرهەنگی بەکارهێنەر</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">بەکارهێنانی بیرگەی تایبەتی بەرنامەکە.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">بەکارهێنانی فەرهەنگی مۆبایل.</string>
     <string name="use_auto_dictionary">فەرهەنگی خۆکاری</string>
     <string name="use_auto_dictionary_dialog_title">شێوازی پاشەکەوتکردنی ووشەی نووێ هەڵبژێرە</string>
     <string name="use_auto_dictionary_summary">پاشەکەوتکردنی ووشە نوێیەکان بە خۆکاری، شێوازی پاشەکەوتکردن: %s    </string>
@@ -751,4 +758,12 @@
     <string name="apply_remote_app_colors_to_theme">گۆڕینی ڕەنگی ڕووکار بەپێی جۆری بەرنامە</string>
     <string name="apply_overlay_summary_on">گۆڕینی ڕەنگی تەختەکلیل بەپێی ڕەنگی بەرنامەکان.</string>
     <string name="apply_overlay_summary_off">بەکارهێنانی ڕەنگی تایبەتی تەختەکلیل.</string>
+    <string name="media_insertion_pending_message">پەنجەبنێ بە ئایکۆنەکەدا بۆ زیادکردنی وێنە</string>
+    <string name="aosp_dark_theme_name">ڕووکاری تاریک</string>
+    <string name="aosp_dark_theme_description">ڕووکاری تاریک</string>
+    <string name="aosp_light_theme_name">ڕووکاری سپی</string>
+    <string name="aosp_light_theme_description">ڕووکاری سپی</string>
+    <string name="app_share_title">باشترین تەختەکلیلی سیستەمی ئەندرۆید</string>
+    <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
+    <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
 </resources>
