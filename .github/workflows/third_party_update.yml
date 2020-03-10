@@ -53,6 +53,7 @@ jobs:
           body: 'Latest version found at https://github.com/gradle/gradle/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
+          labels: automerge
   robolectric-update:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
@@ -87,6 +88,7 @@ jobs:
           body: 'Latest version found at https://github.com/robolectric/robolectric/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/robolectric-update'
+          labels: automerge
   build-tools-update:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
@@ -120,6 +122,7 @@ jobs:
           body: 'Latest version found in `sdkmanager --list` call.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/build-tools-update'
+          labels: automerge
   error-prone-update:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
@@ -161,6 +164,7 @@ jobs:
           body: 'Latest version found at https://github.com/tbroyer/gradle-errorprone-plugin/releases and https://github.com/google/error-prone/releases.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
+          labels: automerge
   google-format-update:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.6
@@ -199,3 +203,4 @@ jobs:
           body: 'Latest version found at https://github.com/sherter/google-java-format-gradle-plugin/releases and https://github.com/google/google-java-format/releases.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/google-format-update'
+          labels: automerge

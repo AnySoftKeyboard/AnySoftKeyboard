@@ -37,3 +37,4 @@ jobs:
           body: 'Generated from latest _master_ strings and crowdin data.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/localization-update'
+          labels: automerge
