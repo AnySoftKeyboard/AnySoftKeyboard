@@ -1,0 +1,21 @@
+name: deployment
+
+#always run on the default branch: master
+on:
+  schedule:
+    - cron: '04 04 * * *'
+
+env:
+  TERM: dumb
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
+
+jobs:
+  promote-alpha:
+    runs-on: ubuntu-18.04
+    container: menny/android_base:1.13.6
+    steps:
+      - uses: actions/checkout@v2
+      - name: requets-pre-release-promote
+        run: |
+          ./gradlew :deployment:imePromoteMaster :deployment:addOnsPromoteMaster \
+              -PrequestDeploy.sha=${{ github.sha }} -PrequestDeploy.api_user_name=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} -PrequestDeploy.api_user_token=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}

@@ -1,0 +1,47 @@
+import java.time.DayOfWeek
+import java.time.Instant
+
+apply plugin: 'anysoftkeyboard-deployment'
+
+deployments {
+    imeMaster {
+        environmentSteps = ['alpha_100', 'beta_100']
+    }
+    imeProduction {
+        environmentSteps = ['production_010', 'production_020', 'production_030', 'production_040', 'production_050', 'production_075', 'production_100']
+    }
+    addOns {
+        environmentSteps = ['beta_100', 'production_050', 'production_100']
+    }
+}
+
+// start - IME
+tasks.register("imeOnMasterPush").configure {
+    it.group "Publishing"
+    it.description "Deployment request on master push for IME"
+    it.dependsOn tasks.named("deploymentRequest_imeMaster_alpha_100")
+}
+
+tasks.register("imePromoteMaster").configure {
+    it.group "Publishing"
+    it.description "Deployment promoting request on master for IME"
+    //promoting ime only on Wednesday
+    it.enabled Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
+    it.dependsOn tasks.named("deploymentRequest_imeMaster_beta_100")
+}
+//TODO: release branch flows
+// end - IME
+
+// start - addons
+tasks.register("addOnsOnMasterPush").configure {
+    it.group "Publishing"
+    it.description "Deployment request on master push for all addons"
+    it.dependsOn tasks.named("deploymentRequest_addOns_beta_100")
+}
+tasks.register("addOnsPromoteMaster").configure {
+    it.group "Publishing"
+    it.description "NO-OP: Deployment request on master push for all addons"
+    //it.dependsOn tasks.named("deploymentRequest_addOns_beta_100")
+}
+//TODO: release branch flows
+// end - addons
