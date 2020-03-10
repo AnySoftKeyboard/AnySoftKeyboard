@@ -18,6 +18,7 @@
 1. <img src='german/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;German: [Source](german) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.german)
 1. <img src='greek/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Greek: [Source](greek) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.greek)
 1. <img src='hebrew/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hebrew: [Source](hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
+1. <img src='hindi/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hindi: [Source](hindi)
 1. <img src='hungarian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hungarian: [Source](hungarian)
 1. <img src='indonesian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Indonesian: [Source](indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
 1. <img src='italian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Italian: [Source](italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
