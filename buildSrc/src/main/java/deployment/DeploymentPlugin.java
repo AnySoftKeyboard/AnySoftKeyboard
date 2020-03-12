@@ -19,6 +19,30 @@ public class DeploymentPlugin implements Plugin<Project> {
         project.getExtensions().add("deployments", configs);
 
         project.afterEvaluate(this::createDeployTasks);
+        createStatusTasks(project);
+    }
+
+    private void createStatusTasks(Project project) {
+        project.getTasks()
+                .register(
+                        "updateDeploymentState",
+                        DeploymentStatusRequestTask.class,
+                        task -> {
+                            task.setDescription("Ad-hoc update deployment state request.");
+
+                            task.setEnvironmentName(
+                                    project.getProperties()
+                                            .get("requestStatus.environment")
+                                            .toString());
+                            task.setDeploymentId(
+                                    project.getProperties()
+                                            .get("requestStatus.deployment_id")
+                                            .toString());
+                            task.setDeploymentState(
+                                    project.getProperties()
+                                            .get("requestStatus.deployment_state")
+                                            .toString());
+                        });
     }
 
     private void createDeployTasks(Project project) {

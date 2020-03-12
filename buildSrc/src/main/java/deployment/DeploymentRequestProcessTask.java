@@ -13,6 +13,16 @@ import org.gradle.api.tasks.TaskAction;
 
 public class DeploymentRequestProcessTask extends DefaultTask {
 
+    static class DeploymentCommandLineArgs extends RequestCommandLineArgs {
+        static final String PROP_KEY_SHA = "Request.sha";
+        final String sha;
+
+        DeploymentCommandLineArgs(Map<String, ?> properties) {
+            super(properties);
+            this.sha = properties.get(PROP_KEY_SHA).toString();
+        }
+    }
+
     private final DeploymentProcessConfiguration mConfiguration;
     private final int mStepIndex;
 
@@ -33,20 +43,20 @@ public class DeploymentRequestProcessTask extends DefaultTask {
     @TaskAction
     public void deploymentRequestAction() {
         try {
-            deploymentRequest(getProject().getProperties(), mConfiguration, mStepIndex);
+            deploymentRequest(
+                    new DeploymentCommandLineArgs(getProject().getProperties()),
+                    mConfiguration,
+                    mStepIndex);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     private static void deploymentRequest(
-            Map<String, ?> properties, DeploymentProcessConfiguration configuration, int stepIndex)
+            DeploymentCommandLineArgs data,
+            DeploymentProcessConfiguration configuration,
+            int stepIndex)
             throws Exception {
-        final DeploymentCommandLineArgs data =
-                new DeploymentCommandLineArgs(
-                        properties.get("requestDeploy.sha").toString(),
-                        properties.get("requestDeploy.api_user_name").toString(),
-                        properties.get("requestDeploy.api_user_token").toString());
 
         Deployment deployment = new Deployment(data.apiUsername, data.apiUserToken);
         if (stepIndex == 0) {
