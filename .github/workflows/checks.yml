@@ -201,4 +201,4 @@ jobs:
       - name: request-new-deploys
         run: |
           ./gradlew :deployment:imeOnMasterPush :deployment:addOnsOnMasterPush \
-              -PrequestDeploy.sha=${{ github.sha }} -PrequestDeploy.api_user_name=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} -PrequestDeploy.api_user_token=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+              -PRequest.sha=${{ github.sha }} -PRequest.apiUsername=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} -PRequest.apiUserToken=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
