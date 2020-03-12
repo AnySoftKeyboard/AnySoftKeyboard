@@ -43,7 +43,7 @@ jobs:
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: status-failure
         if: failure()
-        run: ./.github/actions/deploy/status-request.sh "${{ github.event.deployment.id }}" "${{ github.event.deployment.environment }}" "failure" "${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" "${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}"
+        run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:

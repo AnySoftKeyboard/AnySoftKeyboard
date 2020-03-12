@@ -50,7 +50,7 @@ echo "for ${DEPLOYMENT_ENVIRONMENT}: will deploy process ${PROCESS_NAME} to ${DE
 export BUILD_COUNT_FOR_VERSION=${GITHUB_RUN_NUMBER}
 
 ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${API_USER}" -PRequest.apiUserToken="${API_TOKEN}" \
-          -PrequestStatus.environment="${DEPLOYMENT_ENVIRONMENT}" -PrequestStatus.deployment_id="${DEPLOYMET_ID}" -PrequestStatus.deployment_state="in-progress"
+          -PrequestStatus.environment="${DEPLOYMENT_ENVIRONMENT}" -PrequestStatus.deployment_id="${DEPLOYMET_ID}" -PrequestStatus.deployment_state="in_progress"
 
 echo "Downloading signature files..."
 if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
