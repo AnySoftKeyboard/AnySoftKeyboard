@@ -99,7 +99,7 @@ if (project.ext.shouldBePublished) {
             //channel
             Files.copy(
                     project.file('src/main/play/release-notes/en-US/alpha.txt').toPath(),
-                    project.file("/src/main/play/release-notes/en-US/${System.getProperty('deployChannel', 'alpha')}.txt").toPath(),
+                    project.file("src/main/play/release-notes/en-US/${System.getProperty('deployChannel', 'alpha')}.txt").toPath(),
                     StandardCopyOption.REPLACE_EXISTING)
         }
     }
