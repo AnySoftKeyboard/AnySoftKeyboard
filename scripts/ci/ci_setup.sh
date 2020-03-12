@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #accepting licenses - creating a folder to store the license CRC
-rm -f "${ANDROID_HOME}/licenses" || true
+rm -rf "${ANDROID_HOME}/licenses" || true
 mkdir -p "${ANDROID_HOME}/licenses"
 #this value was taken from my local machine, after I accepted it locally.
 echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee\c" > "${ANDROID_HOME}/licenses/android-sdk-license"

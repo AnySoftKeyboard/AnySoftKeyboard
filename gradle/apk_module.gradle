@@ -96,7 +96,7 @@ if (project.ext.shouldBePublished) {
         println("Locale " + Locale.getDefault())
         println("file encoding " + CharsetToolkit.defaultSystemCharset)
         println("File contents:")
-        println("***" +  playStoreWhatsNewFile.text + "***")
+        println("***" + playStoreWhatsNewFile.text + "***")
         throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
     }
 } else {

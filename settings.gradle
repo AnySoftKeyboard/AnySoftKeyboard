@@ -1,4 +1,5 @@
 rootProject.name = 'AnySoftKeyboard'
+include ':deployment'
 
 include ':api'
 
