@@ -49,7 +49,8 @@ FRACTION=$(deployFractionFromEnvironmentName "${DEPLOYMENT_ENVIRONMENT}")
 echo "for ${DEPLOYMENT_ENVIRONMENT}: will deploy process ${PROCESS_NAME} to ${DEPLOY_CHANNEL} with ${FRACTION} fraction."
 export BUILD_COUNT_FOR_VERSION=${GITHUB_RUN_NUMBER}
 
-./.github/actions/deploy/status-request.sh "${DEPLOYMET_ID}" "${DEPLOYMENT_ENVIRONMENT}" "in-progress" "${API_USER}" "${API_TOKEN}"
+./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${API_USER}" -PRequest.apiUserToken="${API_TOKEN}" \
+          -PrequestStatus.environment="${DEPLOYMENT_ENVIRONMENT}" -PrequestStatus.deployment_id="${DEPLOYMET_ID}" -PrequestStatus.deployment_state="in-progress"
 
 echo "Downloading signature files..."
 if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
@@ -111,7 +112,8 @@ echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRAS
 
 ./gradlew "${DEPLOY_TASKS[@]}"
 
-./.github/actions/deploy/status-request.sh "${DEPLOYMET_ID}" "${DEPLOY_TARGET}" "success" "${API_USER}" "${API_TOKEN}"
+./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${API_USER}" -PRequest.apiUserToken="${API_TOKEN}" \
+          -PrequestStatus.environment="${DEPLOYMENT_ENVIRONMENT}" -PrequestStatus.deployment_id="${DEPLOYMET_ID}" -PrequestStatus.deployment_state="success"
 
 ## TODO: kill previous enabled environments
 
