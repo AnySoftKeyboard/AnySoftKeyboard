@@ -22,13 +22,6 @@ jobs:
         with:
           name: github_object
           path: build/github_object
-      - uses: ./.github/actions/deploy-status
-        with:
-          deployment_id: ${{ github.event.deployment.id }}
-          state: in_progress
-          environment: ${{ github.event.deployment.environment }}
-          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: |
           ./scripts/ci/ci_setup.sh
@@ -37,29 +30,25 @@ jobs:
           mkdir -p ime/app/build/outputs/mapping || true
       - uses: ./.github/actions/deploy
         with:
-          deploy_target: ${{ github.event.deployment.environment }}
+          deployment_id: ${{ github.event.deployment.id }}
+          deployment_environment: ${{ github.event.deployment.environment }}
+          deployment_task: ${{ github.event.deployment.task }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
           publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
-      - uses: ./.github/actions/deploy-status
-        if: success()
-        with:
-          deployment_id: ${{ github.event.deployment.id }}
-          state: success
-          environment: ${{ github.event.deployment.environment }}
-          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: ./.github/actions/deploy-status
+          api_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: status-failure
         if: failure()
+        run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
         with:
-          deployment_id: ${{ github.event.deployment.id }}
-          state: failure
-          environment: ${{ github.event.deployment.environment }}
-          api_user_name: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_user_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          name: deploy-logging
+          path: build-logging
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: apks
