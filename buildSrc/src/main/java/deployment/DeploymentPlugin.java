@@ -7,7 +7,6 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
 public class DeploymentPlugin implements Plugin<Project> {
-
     @Override
     public void apply(Project project) {
         final NamedDomainObjectContainer<DeploymentProcessConfiguration> configs =
@@ -22,6 +21,12 @@ public class DeploymentPlugin implements Plugin<Project> {
         createStatusTasks(project);
     }
 
+    private String propertyOrDefault(Project project, String key, String defaultValue) {
+        Object value = project.findProperty(key);
+        if (value == null) return defaultValue;
+        else return value.toString();
+    }
+
     private void createStatusTasks(Project project) {
         project.getTasks()
                 .register(
@@ -31,17 +36,12 @@ public class DeploymentPlugin implements Plugin<Project> {
                             task.setDescription("Ad-hoc update deployment state request.");
 
                             task.setEnvironmentName(
-                                    project.getProperties()
-                                            .get("requestStatus.environment")
-                                            .toString());
+                                    propertyOrDefault(project, "requestStatus.environment", ""));
                             task.setDeploymentId(
-                                    project.getProperties()
-                                            .get("requestStatus.deployment_id")
-                                            .toString());
+                                    propertyOrDefault(project, "requestStatus.deployment_id", ""));
                             task.setDeploymentState(
-                                    project.getProperties()
-                                            .get("requestStatus.deployment_state")
-                                            .toString());
+                                    propertyOrDefault(
+                                            project, "requestStatus.deployment_state", ""));
                         });
     }
 
