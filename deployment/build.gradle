@@ -26,7 +26,9 @@ tasks.register("imePromoteMaster").configure {
     it.group "Publishing"
     it.description "Deployment promoting request on master for IME"
     //promoting ime only on Wednesday
-    it.enabled Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
+    it.onlyIf {
+        Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
+    }
     it.dependsOn tasks.named("deploymentRequest_imeMaster_beta_100")
 }
 //TODO: release branch flows
