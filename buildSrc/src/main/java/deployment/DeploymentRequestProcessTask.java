@@ -59,20 +59,16 @@ public class DeploymentRequestProcessTask extends DefaultTask {
             throws Exception {
 
         Deployment deployment = new Deployment(data.apiUsername, data.apiUserToken);
-        if (stepIndex == 0) {
-            requestNewDeploy(deployment, data, configuration);
-        } else {
-            throw new UnsupportedOperationException(
-                    "step " + stepIndex + " for " + configuration.name + " is not implemented!");
-        }
+        requestDeploymentAction(deployment, data, configuration, stepIndex);
     }
 
-    private static void requestNewDeploy(
+    private static void requestDeploymentAction(
             Deployment deployment,
             DeploymentCommandLineArgs data,
-            DeploymentProcessConfiguration environment)
+            DeploymentProcessConfiguration environment,
+            int stepIndex)
             throws Exception {
-        final String environmentToDeploy = getEnvironmentName(environment, 0);
+        final String environmentToDeploy = getEnvironmentName(environment, stepIndex);
         final List<String> environmentsToKill =
                 environment.environmentSteps.stream()
                         .map(name -> getEnvironmentName(environment.name, name))
@@ -83,7 +79,7 @@ public class DeploymentRequestProcessTask extends DefaultTask {
                 deployment.requestDeployment(
                         new Deployment.Request(
                                 data.sha,
-                                "deploy",
+                                stepIndex == 0 ? "deploy" : "deploy:migration",
                                 false,
                                 environmentToDeploy,
                                 String.format(

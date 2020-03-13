@@ -38,6 +38,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -388,14 +389,76 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
                         new ViewTestUtils.Finger(hPoint, ePoint),
                         new ViewTestUtils.Finger(kPoint, ePoint)),
                 100,
-                true,
-                true);
+                Arrays.asList(true, true),
+                Arrays.asList(true, true));
 
-        Mockito.verify(mMockKeyboardListener, Mockito.never())
+        Mockito.verify(mMockKeyboardListener)
                 .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
         Mockito.verify(mMockKeyboardListener, Mockito.never())
                 .onGestureTypingInput(anyInt(), anyInt(), anyLong());
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onGestureTypingInputDone();
+    }
+
+    @Test
+    @Ignore
+    public void testReportPressesInOrder() {
+        sleep(1225);
+        final Point hPoint = getKeyCenterPoint(findKey('h'));
+        final Point ePoint = getKeyCenterPoint(findKey('e'));
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, hPoint, hPoint, 50, true, false);
+
+        Mockito.verify(mMockKeyboardListener).onPress('h');
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onPress('e');
+        Mockito.verify(mMockKeyboardListener, Mockito.never())
+                .onKey(anyInt(), any(), anyInt(), any(), anyBoolean());
+        Mockito.reset(mMockKeyboardListener);
+
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest,
+                Arrays.asList(
+                        new ViewTestUtils.Finger(hPoint, hPoint),
+                        new ViewTestUtils.Finger(ePoint, ePoint)),
+                50,
+                Arrays.asList(false, true),
+                Arrays.asList(false, false));
+
+        Mockito.verify(mMockKeyboardListener).onPress('e');
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onPress('h');
+        Mockito.verify(mMockKeyboardListener, Mockito.never())
+                .onKey(anyInt(), any(), anyInt(), any(), anyBoolean());
+        Mockito.reset(mMockKeyboardListener);
+
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest,
+                Arrays.asList(
+                        new ViewTestUtils.Finger(hPoint, hPoint),
+                        new ViewTestUtils.Finger(ePoint, ePoint)),
+                50,
+                Arrays.asList(false, false),
+                Arrays.asList(false, true));
+        Mockito.verify(mMockKeyboardListener)
+                .onKey(eq((int) 'e'), any(), anyInt(), any(), anyBoolean());
+        Mockito.verify(mMockKeyboardListener).onRelease('e');
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onRelease('h');
+        Mockito.verify(mMockKeyboardListener, Mockito.never())
+                .onKey(eq((int) 'h'), any(), anyInt(), any(), anyBoolean());
+        Mockito.reset(mMockKeyboardListener);
+
+        ViewTestUtils.navigateFromTo(
+                mViewUnderTest,
+                Arrays.asList(
+                        new ViewTestUtils.Finger(hPoint, hPoint),
+                        new ViewTestUtils.Finger(ePoint, ePoint)),
+                50,
+                Arrays.asList(false, false),
+                Arrays.asList(true, false));
+        Mockito.verify(mMockKeyboardListener)
+                .onKey(eq((int) 'h'), any(), anyInt(), any(), anyBoolean());
+        Mockito.verify(mMockKeyboardListener).onRelease('h');
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onRelease('e');
+        Mockito.verify(mMockKeyboardListener, Mockito.never())
+                .onKey(eq((int) 'e'), any(), anyInt(), any(), anyBoolean());
     }
 
     @Test

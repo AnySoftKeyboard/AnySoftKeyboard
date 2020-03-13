@@ -72,19 +72,19 @@ public class ViewTestUtils {
                 view,
                 Collections.singletonList(new Finger(startX, startY, endX, endY)),
                 duration,
-                alsoDown,
-                alsoUp);
+                Collections.singletonList(alsoDown),
+                Collections.singletonList(alsoUp));
     }
 
     public static int navigateFromTo(
             final View view,
             final List<Finger> fingers,
             final int duration,
-            final boolean alsoDown,
-            final boolean alsoUp) {
+            final List<Boolean> alsoDown,
+            final List<Boolean> alsoUp) {
         final long startTime = SystemClock.uptimeMillis();
-        if (alsoDown) {
-            for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
+        for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
+            if (alsoDown.get(fingerIndex).equals(Boolean.TRUE)) {
                 final MotionEventBuilder eventBuilder =
                         MotionEventBuilder.newBuilder()
                                 .setAction(MotionEvent.ACTION_DOWN)
@@ -93,8 +93,18 @@ public class ViewTestUtils {
                                 .setEventTime(startTime)
                                 .setMetaState(0);
 
-                for (Finger finger : fingers) {
+                for (int initialFingers = 0; initialFingers <= fingerIndex; initialFingers++) {
+                    final Finger finger = fingers.get(initialFingers);
                     eventBuilder.setPointer(finger.mStartX, finger.mStartY);
+                }
+                // also adding any after pointers that are already pressed (alsoDown != true)
+                for (int initialFingers = fingerIndex + 1;
+                        initialFingers < fingers.size();
+                        initialFingers++) {
+                    if (alsoDown.get(initialFingers).equals(Boolean.FALSE)) {
+                        final Finger finger = fingers.get(initialFingers);
+                        eventBuilder.setPointer(finger.mStartX, finger.mStartY);
+                    }
                 }
 
                 final MotionEvent motionEvent = eventBuilder.build();
@@ -130,23 +140,33 @@ public class ViewTestUtils {
             callsDone++;
         }
 
-        if (alsoUp) {
-            for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
+        int removedFingers = 0;
+        for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
+            if (alsoUp.get(fingerIndex).equals(Boolean.TRUE)) {
                 final MotionEventBuilder eventBuilder =
                         MotionEventBuilder.newBuilder()
                                 .setAction(MotionEvent.ACTION_UP)
-                                .setActionIndex(fingerIndex)
+                                .setActionIndex(fingerIndex - removedFingers)
                                 .setDownTime(startTime)
                                 .setEventTime(startTime + duration)
                                 .setMetaState(0);
 
-                for (Finger finger : fingers) {
+                // also adding any after pointers that are kept pressed (alsoUp != true)
+                for (int initialFingers = 0; initialFingers < fingerIndex; initialFingers++) {
+                    if (alsoUp.get(initialFingers).equals(Boolean.FALSE)) {
+                        final Finger finger = fingers.get(initialFingers);
+                        eventBuilder.setPointer(finger.mEndX, finger.mEndY);
+                    }
+                }
+                for (int fingersLeft = fingerIndex; fingersLeft < fingers.size(); fingersLeft++) {
+                    final Finger finger = fingers.get(fingersLeft);
                     eventBuilder.setPointer(finger.mEndX, finger.mEndY);
                 }
 
                 final MotionEvent motionEvent = eventBuilder.build();
                 view.onTouchEvent(motionEvent);
                 motionEvent.recycle();
+                removedFingers++;
             }
         }
 

@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+
 apply plugin: 'com.android.application'
 
 static <T> T getExtValue(Project proj, String key, T defaultValue) {
@@ -80,14 +83,29 @@ if (project.ext.shouldBePublished) {
 
     play {
         // you can promote from command-line by specifying the track to promote to:
-        // ./gradlew promoteReleaseArtifact -DdeployChannel=beta
+        // ./gradlew promoteReleaseArtifact -DdeployChannel=beta -DdeployFraction=1.00
         track = System.getProperty('deployChannel', 'alpha')
+        userFraction = Double.parseDouble(System.getProperty('deployFraction', '1.0')).doubleValue()
+        if (userFraction < 1.0) {
+            releaseStatus = 'inProgress'
+        } else {
+            releaseStatus = 'completed'
+        }
         serviceAccountEmail = System.getenv().getOrDefault('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL', 'dummy@example.com')
         serviceAccountCredentials = file('/tmp/apk_upload_key.p12')
+
+        if ('alpha' != track) {
+            //to keep things simple, we will only specify release-notes in the alpha
+            //channel
+            Files.copy(
+                    project.file('src/main/play/release-notes/en-US/alpha.txt').toPath(),
+                    project.file("src/main/play/release-notes/en-US/${System.getProperty('deployChannel', 'alpha')}.txt").toPath(),
+                    StandardCopyOption.REPLACE_EXISTING)
+        }
     }
 
     //verifying release-notes file
-    File playStoreWhatsNewFile = file("${project.projectDir}/src/main/play/release-notes/en-US/${System.getProperty('deployChannel', 'alpha')}.txt")
+    File playStoreWhatsNewFile = file("${project.projectDir}/src/main/play/release-notes/en-US/alpha.txt")
     if (!playStoreWhatsNewFile.exists()) {
         throw new FileNotFoundException("Can not find whatsnew file for Play-Store upload at ${playStoreWhatsNewFile}!")
     }
