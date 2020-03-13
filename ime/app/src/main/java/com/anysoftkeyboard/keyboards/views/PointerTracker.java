@@ -280,7 +280,9 @@ class PointerTracker {
     }
 
     void onMoveEvent(int x, int y, long eventTime) {
-        if (canDoGestureTyping()) {
+        if (mProxy.isAtTwoFingersState()) {
+            mKeyCodesInPathLength = -1;
+        } else if (canDoGestureTyping()) {
             mListener.onGestureTypingInput(x, y, eventTime);
         }
 
