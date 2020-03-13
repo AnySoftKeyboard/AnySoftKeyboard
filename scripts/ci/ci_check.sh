@@ -14,6 +14,12 @@ fi
     echo "run './gradlew googleJavaFormat' to fix."
     exit 1
 }
+
+# ensures we can configure all tasks
+./gradlew --stacktrace tasks
+
+# actual static-analysis
 ./gradlew --stacktrace lintDebug checkstyleMain --continue
+
 #see https://github.com/actions/cache/issues/133
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

@@ -49,9 +49,6 @@ FRACTION=$(deployFractionFromEnvironmentName "${DEPLOYMENT_ENVIRONMENT}")
 echo "for ${DEPLOYMENT_ENVIRONMENT}: will deploy process ${PROCESS_NAME} to ${DEPLOY_CHANNEL} with ${FRACTION} fraction."
 export BUILD_COUNT_FOR_VERSION=${GITHUB_RUN_NUMBER}
 
-./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${API_USER}" -PRequest.apiUserToken="${API_TOKEN}" \
-          -PrequestStatus.environment="${DEPLOYMENT_ENVIRONMENT}" -PrequestStatus.deployment_id="${DEPLOYMET_ID}" -PrequestStatus.deployment_state="in_progress"
-
 echo "Downloading signature files..."
 if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
     echo "Could not find secure env variable KEYSTORE_FILE_URL. Can not deploy."
@@ -68,7 +65,7 @@ stat /tmp/anysoftkeyboard.keystore
 wget --tries=5 --waitretry=5 "${PUBLISH_CERT_FILE_URL}" -q -O /tmp/apk_upload_key.p12
 stat /tmp/apk_upload_key.p12
 
-DEPLOY_TASKS=( "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "--user-fraction" "${FRACTION}" )
+DEPLOY_TASKS=( "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
@@ -111,9 +108,6 @@ fi
 echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}"
 
 ./gradlew "${DEPLOY_TASKS[@]}"
-
-./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${API_USER}" -PRequest.apiUserToken="${API_TOKEN}" \
-          -PrequestStatus.environment="${DEPLOYMENT_ENVIRONMENT}" -PrequestStatus.deployment_id="${DEPLOYMET_ID}" -PrequestStatus.deployment_state="success"
 
 ## TODO: kill previous enabled environments
 

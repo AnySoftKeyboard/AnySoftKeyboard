@@ -28,6 +28,9 @@ jobs:
           mkdir -p outputs/apks || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
+      - name: status-in-progress
+        if: failure()
+        run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="in_progress"
       - uses: ./.github/actions/deploy
         with:
           deployment_id: ${{ github.event.deployment.id }}
@@ -41,6 +44,8 @@ jobs:
           publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
           api_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: status-success
+        run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="success"
       - name: status-failure
         if: failure()
         run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
