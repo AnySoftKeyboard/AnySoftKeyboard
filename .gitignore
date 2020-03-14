@@ -33,3 +33,7 @@ add_ons_apks/
 
 #gradle build loggin
 build-logging/
+
+#changelogs are only included alpha.txt
+**/src/*/play/release-notes/*/beta.txt
+**/src/*/play/release-notes/*/production.txt
