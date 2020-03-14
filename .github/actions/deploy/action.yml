@@ -3,20 +3,11 @@ description: "Deploys the AnySoftKeyboard artifacts to Play Store"
 author: "menny"
 
 inputs:
-  deployment_id:
-    description: "ID given by github"
-    required: true
   deployment_environment:
     description: "Deploy to which environment"
     required: true
   deployment_task:
     description: "Deployment task"
-    required: true
-  api_user:
-    description: "github API user"
-    required: true
-  api_token:
-    description: "github API user token"
     required: true
   crash_report_email:
     default: "none@example.com"
@@ -34,12 +25,8 @@ inputs:
     default: ""
     description: "APK signing keystore default key password"
     required: true
-  publish_service_account_creds_url:
-    description: "direct download URL to Play-Store credentials file"
-    default: ""
-    required: true
-  publish_service_account:
-    description: "account for Play-Store API"
+  publish_service_account_creds_json_file:
+    description: "path to the json certs file"
     default: ""
     required: true
 runs:
@@ -53,17 +40,13 @@ runs:
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy/deploy.sh
-    - ${{ inputs.deployment_id }}
     - ${{ inputs.deployment_environment }}
     - ${{ inputs.deployment_task }}
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.keystore_url }}
     - ${{ inputs.keystore_password }}
     - ${{ inputs.keystore_key_password }}
-    - ${{ inputs.publish_service_account_creds_url }}
-    - ${{ inputs.publish_service_account }}
-    - ${{ inputs.api_user }}
-    - ${{ inputs.api_token }}
+    - ${{ inputs.publish_service_account_creds_json_file }}
 
 branding:
   icon: 'upload-cloud'
