@@ -28,8 +28,8 @@ jobs:
           mkdir -p outputs/apks || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
+          echo "${{ secrets.PUBLISH_CERT_JSON_STRING }}" > /tmp/apk_upload_key.json
       - name: status-in-progress
-        if: failure()
         run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="in_progress"
       - uses: ./.github/actions/deploy
         with:
@@ -40,8 +40,7 @@ jobs:
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
-          publish_service_account_creds_url: ${{ secrets.PUBLISH_CERT_FILE_URL }}
-          publish_service_account: ${{ secrets.PUBLISH_APK_SERVICE_ACCOUNT_EMAIL }}
+          publish_service_account_creds_json_file: /tmp/apk_upload_key.json
           api_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: status-success
