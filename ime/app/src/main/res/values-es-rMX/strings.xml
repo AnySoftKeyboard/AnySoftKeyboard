@@ -213,6 +213,9 @@ Instalarla ahora desde Play Store.    </string>
     <string name="special_dictionaries_group_summary">Diccionarios de sugerencias usados en AnySoftKeyboard</string>
     <string name="use_user_dictionary">Diccionario de usuario</string>
     <string name="use_user_dictionary_on_summary">Sugerir palabras agregadas por el usuario (pulsar dos veces para agregarla)</string>
+    <string name="always_use_fallback_user_dictionary">Usar almacenamiento privado para el diccionario del usuario</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Usar el mecanismo de almacenamiento privado para el diccionario del usuario integrado en AnySoftKeyboard</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Intentar usar el diccionario del usuario integrado en Android.</string>
     <string name="use_auto_dictionary">Diccionario automático</string>
     <string name="use_auto_dictionary_dialog_title">Elegir método de aprendizaje</string>
     <string name="use_auto_dictionary_summary">Método para aprender nuevas palabras automáticamente: %s</string>
@@ -626,4 +629,12 @@ Instalarla ahora desde Play Store.    </string>
     <string name="apply_remote_app_colors_to_theme">Cambiar color del teclado según la aplicación</string>
     <string name="apply_overlay_summary_on">Cambiar los colores para que se ajusten lo mejor posible a los de la aplicación activa.</string>
     <string name="apply_overlay_summary_off">Preferir colores de la apariencia.</string>
+    <string name="media_insertion_pending_message">Clic en el cuadro de texto para insertar la imagen</string>
+    <string name="aosp_dark_theme_name">Tema oscuro AOSP</string>
+    <string name="aosp_dark_theme_description">Tema de teclado con colores oscuros inspirado en AOSP</string>
+    <string name="aosp_light_theme_name">Tema claro AOSP</string>
+    <string name="aosp_light_theme_description">Tema de teclado con colores claros inspirado en AOSP</string>
+    <string name="app_share_title">Bienvenid@ a AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Compartir AnySoftKeyboard con</string>
+    <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
 </resources>
