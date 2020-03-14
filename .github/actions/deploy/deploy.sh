@@ -12,7 +12,7 @@ export KEY_STORE_FILE_PASSWORD="${1}"
 shift
 export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
-PUBLISH_CERT_JSON_FILE="${1}"
+echo "${1}" > /tmp/apk_upload_key.json
 shift
 
 function deployProcessFromEnvironmentName() {
@@ -49,7 +49,7 @@ fi
 
 wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -q -O /tmp/anysoftkeyboard.keystore
 stat /tmp/anysoftkeyboard.keystore
-stat "${PUBLISH_CERT_JSON_FILE}"
+stat /tmp/apk_upload_key.json
 
 DEPLOY_TASKS=( "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then

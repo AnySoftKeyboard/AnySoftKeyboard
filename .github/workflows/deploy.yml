@@ -17,15 +17,12 @@ jobs:
       - name: setup
         env:
           GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
-          PUBLISH_CERT_JSON_STRING: ${{ secrets.PUBLISH_CERT_JSON_STRING }}
         run: |
           ./scripts/ci/ci_setup.sh
           mkdir -p outputs/apks || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
           mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
-          echo "${PUBLISH_CERT_JSON_STRING}" > /tmp/apk_upload_key.json
-          stat /tmp/apk_upload_key.json
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: github_object
@@ -41,7 +38,7 @@ jobs:
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
-          publish_service_account_creds_json_file: /tmp/apk_upload_key.json
+          publish_service_account_creds_json: ${{ secrets.PUBLISH_CERT_JSON_STRING }}
           api_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: status-success
