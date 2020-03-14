@@ -18,7 +18,7 @@ public class VersionChangeLogs {
                         "r4",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92"),
-                        "Upgrading may result in a Coronavirus exposure.\n",
+                        "A few bugs fixes.",
                         "YABTU.",
                         "Updated translations."));
         log.add(
