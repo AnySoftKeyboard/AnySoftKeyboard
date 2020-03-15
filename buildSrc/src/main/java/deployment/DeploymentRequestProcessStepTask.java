@@ -11,7 +11,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
 
-public class DeploymentRequestProcessTask extends DefaultTask {
+public class DeploymentRequestProcessStepTask extends DefaultTask {
 
     static class DeploymentCommandLineArgs extends RequestCommandLineArgs {
         static final String PROP_KEY_SHA = "Request.sha";
@@ -32,7 +32,7 @@ public class DeploymentRequestProcessTask extends DefaultTask {
     }
 
     @Inject
-    public DeploymentRequestProcessTask(
+    public DeploymentRequestProcessStepTask(
             DeploymentProcessConfiguration configuration, int stepIndex) {
         mConfiguration = configuration;
         mStepIndex = stepIndex;

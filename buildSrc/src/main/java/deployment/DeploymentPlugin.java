@@ -71,7 +71,7 @@ public class DeploymentPlugin implements Plugin<Project> {
                                                 "deploymentRequest_%s_%s",
                                                 config.name,
                                                 stepName),
-                                        DeploymentRequestProcessTask.class,
+                                        DeploymentRequestProcessStepTask.class,
                                         config,
                                         stepIndex);
                     }
