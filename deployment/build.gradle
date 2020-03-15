@@ -3,6 +3,22 @@ import java.time.Instant
 
 apply plugin: 'anysoftkeyboard-deployment'
 
+// If halting deployments is needed, create a file named 'halt_deployment_marker' in this module
+// and write the reason for halting in the file
+File haltDeploymentFile = project.file('halt_deployment_marker')
+
+String skipDeploymentReason = ""
+if (haltDeploymentFile.exists()) {
+    if (haltDeploymentFile.length() == 0 || haltDeploymentFile.readLines()
+            .stream()
+            .map { l -> l.trim() }
+            .allMatch { l -> l.empty }) {
+        throw new IllegalStateException("${haltDeploymentFile.name} marker file must contain a reason.")
+    }
+    skipDeploymentReason = "****** NOTE: Marker file '${haltDeploymentFile.name}' found. Skipping. Reason: '${haltDeploymentFile.text.trim()}'"
+    println(skipDeploymentReason);
+}
+
 deployments {
     imeMaster {
         environmentSteps = ['alpha_100', 'beta_100']
@@ -59,8 +75,8 @@ tasks.register('deploymentRequestProcess').configure {
     String ref = project.findProperty('Request.ref')
     String newDeploy = project.findProperty('Request.new_deploy')
 
-    if (project.file('halt_deployment_marker').exists()) {
-        println('Marker file halt_deployment_marker found. Skipping.')
+    if (!skipDeploymentReason.empty) {
+        println(skipDeploymentReason);
     } else {
         if (ref != null && newDeploy != null) {
             def imeDeploy
