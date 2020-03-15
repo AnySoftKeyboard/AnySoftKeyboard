@@ -23,7 +23,7 @@ class HttpClientCreator {
                 .build();
     }
 
-    public static HttpClientContext createContext(String username, String password) {
+    static HttpClientContext createContext(String username, String password) {
         BasicCredentialsProvider creds = new BasicCredentialsProvider();
         creds.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
 
