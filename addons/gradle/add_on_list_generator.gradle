@@ -21,6 +21,9 @@ tasks.register("generatePacksMarkDown") {
 
                     if (it.ext.shouldBePublished) {
                         packReadMeDetails += " • [Play Store](https://play.google.com/store/apps/details?id=${it.android.defaultConfig.applicationId})"
+                        packReadMeDetails += " • [Beta Channel](https://play.google.com/apps/testing/${it.android.defaultConfig.applicationId})"
+                    } else if (it.ext.notPublishingReason) {
+                        packReadMeDetails += " (not published reason: '${it.ext.notPublishingReason}')"
                     }
 
                     writer.writeLine(packReadMeDetails)
