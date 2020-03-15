@@ -2,20 +2,12 @@ package deployment;
 
 import github.DeploymentStatus;
 import java.util.Locale;
-import java.util.Map;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
 
 public abstract class DeploymentStatusRequestTask extends DefaultTask {
-    static class StatusCommandLineArgs extends RequestCommandLineArgs {
-
-        StatusCommandLineArgs(Map<String, ?> properties) {
-            super(properties);
-        }
-    }
-
     private String mEnvironmentName;
     private String mDeploymentId;
     private String mDeploymentState;
@@ -57,7 +49,7 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
     public void statusAction() {
         try {
             statusRequest(
-                    new StatusCommandLineArgs(getProject().getProperties()),
+                    new RequestCommandLineArgs(getProject().getProperties()),
                     mEnvironmentName,
                     mDeploymentId,
                     mDeploymentState);
@@ -66,14 +58,13 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
         }
     }
 
-    private static void statusRequest(
-            StatusCommandLineArgs data, String environment, String deploymentId, String newStatus)
+    static void statusRequest(
+            RequestCommandLineArgs data, String environment, String deploymentId, String newStatus)
             throws Exception {
 
         DeploymentStatus status = new DeploymentStatus(data.apiUsername, data.apiUserToken);
         final DeploymentStatus.Response response =
-                status.requestDeploymentStatus(
-                        deploymentId, new DeploymentStatus.Request(environment, newStatus));
+                status.request(new DeploymentStatus.Request(deploymentId, environment, newStatus));
 
         System.out.println(
                 String.format(
