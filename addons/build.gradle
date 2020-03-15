@@ -14,33 +14,3 @@ autoVersioning {
 afterEvaluate {
     file('.generated_pack_version').write(autoVersioning.versionData.versionName)
 }
-
-tasks.register("generateMarkDownOfLanguagePacks") {
-    group "AnySoftKeyboard"
-    description 'Printing a MarkDown-friendly list of languages'
-
-    doLast {
-        println("## Languages in this repo")
-        println()
-
-        subprojects.each {
-            if (it.path.contains('languages') && it.plugins.hasPlugin('com.android.application')) {
-                def image = "<img src='languages/${it.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
-                if (it.file("flag/flag.png").exists()) {
-                    image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
-                } else if (it.file("flag/flag.svg").exists()) {
-                    image = image.replace("{{IMAGE_FILENAME}}", "flag.svg?sanitize=1")
-                } else {
-                    image = ""
-                }
-                def packReadMeDetails = "1. ${image}${it.parent.name.capitalize()}: [Source](languages/${it.parent.name})"
-
-                if (it.ext.shouldBePublished) {
-                    packReadMeDetails += " • [Play Store](https://play.google.com/store/apps/details?id=${it.android.defaultConfig.applicationId})"
-                }
-
-                println(packReadMeDetails)
-            }
-        }
-    }
-}
