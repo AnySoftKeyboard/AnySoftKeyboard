@@ -1,5 +1,5 @@
-//owner unknown (may have not been published yet)
 ext.shouldBePublished = false
+ext.notPublishingReason = 'owner unknown (may have not been published yet).'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
