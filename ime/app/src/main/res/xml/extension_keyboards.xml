@@ -139,6 +139,14 @@
         description=""
         index="9"
         />
+    <ExtensionKeyboard
+        id="16bbcd88-5532-4fd6-92ff-db57977dd815"
+        nameResId="@string/extension_kbd_top_text_editing"
+        extensionKeyboardResId="@xml/ext_kbd_top_row_text_editing"
+        extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+        description=""
+        index="9"
+        />
 
     <!-- top extension keyboards -->
     <ExtensionKeyboard
