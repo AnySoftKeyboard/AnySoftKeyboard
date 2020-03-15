@@ -198,7 +198,11 @@ jobs:
     container: menny/android_base:1.13.6
     steps:
       - uses: actions/checkout@v2
-      - name: request-new-deploys
-        run: |
-          ./gradlew :deployment:imeOnMasterPush :deployment:addOnsOnMasterPush \
-              -PRequest.sha=${{ github.sha }} -PRequest.apiUsername=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} -PRequest.apiUserToken=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: ./.github/actions/deploy-request
+        name: request-new-deploys
+        with:
+          sha: ${{ github.sha }}
+          ref: ${{ github.ref }}
+          new_deploy: true
+          api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}

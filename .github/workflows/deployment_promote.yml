@@ -15,7 +15,11 @@ jobs:
     container: menny/android_base:1.13.6
     steps:
       - uses: actions/checkout@v2
-      - name: requets-pre-release-promote
-        run: |
-          ./gradlew :deployment:imePromoteMaster :deployment:addOnsPromoteMaster \
-              -PRequest.sha=${{ github.sha }} -PRequest.apiUsername=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} -PRequest.apiUserToken=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: request-scheduled-promote
+        uses: ./.github/actions/deploy-request
+        with:
+          sha: ${{ github.sha }}
+          ref: ${{ github.ref }}
+          new_deploy: false
+          api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
