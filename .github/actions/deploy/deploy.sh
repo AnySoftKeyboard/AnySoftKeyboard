@@ -95,6 +95,4 @@ echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRAS
 
 ./gradlew "${DEPLOY_TASKS[@]}"
 
-## TODO: kill previous enabled environments
-
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
