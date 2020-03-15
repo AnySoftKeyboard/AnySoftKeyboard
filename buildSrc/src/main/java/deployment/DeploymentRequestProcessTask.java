@@ -1,6 +1,6 @@
 package deployment;
 
-import github.Deployment;
+import github.DeploymentCreate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -58,12 +58,13 @@ public class DeploymentRequestProcessTask extends DefaultTask {
             int stepIndex)
             throws Exception {
 
-        Deployment deployment = new Deployment(data.apiUsername, data.apiUserToken);
-        requestDeploymentAction(deployment, data, configuration, stepIndex);
+        DeploymentCreate deploymentCreate =
+                new DeploymentCreate(data.apiUsername, data.apiUserToken);
+        requestDeploymentAction(deploymentCreate, data, configuration, stepIndex);
     }
 
     private static void requestDeploymentAction(
-            Deployment deployment,
+            DeploymentCreate deploymentCreate,
             DeploymentCommandLineArgs data,
             DeploymentProcessConfiguration environment,
             int stepIndex)
@@ -75,9 +76,9 @@ public class DeploymentRequestProcessTask extends DefaultTask {
                         .filter(env -> !env.equals(environmentToDeploy))
                         .collect(Collectors.toList());
 
-        final Deployment.Response response =
-                deployment.requestDeployment(
-                        new Deployment.Request(
+        final DeploymentCreate.Response response =
+                deploymentCreate.request(
+                        new DeploymentCreate.Request(
                                 data.sha,
                                 stepIndex == 0 ? "deploy" : "deploy:migration",
                                 false,
@@ -88,7 +89,7 @@ public class DeploymentRequestProcessTask extends DefaultTask {
                                         environmentToDeploy,
                                         data.apiUsername),
                                 Collections.singletonList("master-green-requirement"),
-                                new Deployment.RequestPayloadField(environmentsToKill)));
+                                new DeploymentCreate.RequestPayloadField(environmentsToKill)));
 
         System.out.println(
                 String.format(

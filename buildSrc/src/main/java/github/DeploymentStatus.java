@@ -1,69 +1,38 @@
 package github;
 
-import com.google.gson.Gson;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import java.util.Scanner;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 
-public class DeploymentStatus {
-
-    private final Gson mGson;
-
-    private final String username;
-    private final String password;
+public class DeploymentStatus
+        extends RestRequestPerformer<DeploymentStatus.Request, DeploymentStatus.Response> {
 
     public DeploymentStatus(String username, String password) {
-        this.username = username;
-        this.password = password;
-        mGson = GsonCreator.create();
+        super(username, password, Response.class);
     }
 
-    public Response requestDeploymentStatus(String deploymentId, Request request) throws Exception {
-        final String requestJson = mGson.toJson(request);
-        System.out.println("Request: " + requestJson);
-
-        try (CloseableHttpClient client = HttpClientCreator.create(username, password)) {
-            HttpPost httpPost =
-                    new HttpPost(
-                            "https://api.github.com/repos/AnySoftKeyboard/AnySoftKeyboard/deployments/"
-                                    + deploymentId
-                                    + "/statuses");
-            httpPost.setEntity(new StringEntity(requestJson, StandardCharsets.UTF_8));
-            httpPost.addHeader("Accept", "application/vnd.github.flash-preview+json");
-            httpPost.addHeader("Accept", "application/vnd.github.ant-man-preview+json");
-            try (CloseableHttpResponse httpResponse =
-                    client.execute(httpPost, HttpClientCreator.createContext(username, password))) {
-                System.out.println("Response status: " + httpResponse.getStatusLine());
-                final Scanner scanner =
-                        new Scanner(httpResponse.getEntity().getContent(), StandardCharsets.UTF_8)
-                                .useDelimiter("\\A");
-                final String responseString = scanner.hasNext() ? scanner.next() : "";
-                System.out.println("Response content: " + responseString);
-                if (httpResponse.getStatusLine().getStatusCode() > 299
-                        || httpResponse.getStatusLine().getStatusCode() < 200) {
-                    throw new IOException(
-                            String.format(
-                                    Locale.ROOT,
-                                    "Got non-OK response status '%s' with content: %s",
-                                    httpResponse.getStatusLine(),
-                                    responseString));
-                }
-                return mGson.fromJson(responseString, Response.class);
-            }
-        }
+    @Override
+    protected HttpUriRequest createHttpRequest(Request request, String requestJsonAsString) {
+        final HttpPost httpPost =
+                new HttpPost(
+                        "https://api.github.com/repos/AnySoftKeyboard/AnySoftKeyboard/deployments/"
+                                + request.id
+                                + "/statuses");
+        httpPost.setEntity(new StringEntity(requestJsonAsString, StandardCharsets.UTF_8));
+        httpPost.addHeader("Accept", "application/vnd.github.flash-preview+json");
+        httpPost.addHeader("Accept", "application/vnd.github.ant-man-preview+json");
+        return httpPost;
     }
 
     public static class Request {
+        public final String id;
         public final String environment;
         public final String state;
         public final boolean auto_inactive;
 
-        public Request(String environment, String state) {
+        public Request(String id, String environment, String state) {
+            this.id = id;
             this.environment = environment;
             this.state = state;
             this.auto_inactive = "success".equals(state);
