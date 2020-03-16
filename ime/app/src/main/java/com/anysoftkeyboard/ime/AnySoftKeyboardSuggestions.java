@@ -49,6 +49,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
 
+    private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private static final long NEVER_TIME_STAMP =
             -1L * 365L * 24L * 60L * 60L * 1000L; // a year ago.
 
@@ -121,7 +122,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     @NonNull private CharSequence mCommittedWord = "";
 
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
-
+    private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private boolean mLastCharacterWasShifted = false;
     private boolean mFrenchSpacePunctuationBehavior;
 
@@ -456,6 +457,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mUndoCommitCursorPosition = newSelStart;
         }
 
+        final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
+        mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
+
+        if (isExpectedEvent) {
+            Logger.v(TAG, "onUpdateSelection: Expected event. Discarding.");
+            return;
+        }
+
         if (TextEntryState.willUndoCommitOnBackspace()
                 && mUndoCommitCursorPosition == oldSelStart
                 && mUndoCommitCursorPosition != newSelStart) {
@@ -579,6 +588,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     TextEntryState.isPredicting());
         }
 
+        mExpectingSelectionUpdateBy =
+                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
+
         if (TextEntryState.isReadyToPredict()
                 && isAlphabet(primaryCode)
                 && !isCursorTouchingWord()) {
@@ -625,6 +637,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 if (cursorPosition > 0) {
                     ic.setSelection(cursorPosition, cursorPosition);
                     ic.endBatchEdit();
+                    mGlobalCursorPosition = cursorPosition;
                 }
             }
             // this should be done ONLY if the key is a letter, and not a inner
@@ -658,6 +671,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 primaryCode = (int) ')';
             }
         }
+        mExpectingSelectionUpdateBy =
+                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         // will not show next-word suggestion in case of a new line or if the separator is a
         // sentence separator.
         boolean newLine = primaryCode == KeyCodes.ENTER;
