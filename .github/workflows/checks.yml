@@ -24,9 +24,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: checks-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: |
-            checks-gradle-
+          key: checks-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: checks-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -60,9 +59,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-shards-gradle-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: |
-            tests-shards-gradle-
+          key: tests-shards-gradle-v2-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: tests-shards-gradle-v2-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -96,9 +94,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-all-sdks-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: |
-            tests-all-sdks-gradle-
+          key: tests-all-sdks-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: tests-all-sdks-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -132,9 +129,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-app-less-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: |
-            tests-app-less-gradle-
+          key: tests-app-less-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: tests-app-less-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -168,9 +164,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: dry-run-deploy-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: |
-            dry-run-deploy-gradle-
+          key: dry-run-deploy-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: dry-run-deploy-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build
