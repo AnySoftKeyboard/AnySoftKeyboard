@@ -15,12 +15,16 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestInputConnection extends BaseInputConnection {
 
     @NonNull private final AnySoftKeyboard mIme;
     @NonNull private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
     private boolean mSendUpdates = true;
+    private boolean mCongested = false;
+    private final List<Runnable> mCongestedActions = new ArrayList<>();
     private boolean mInEditMode = false;
     private boolean mChangesWhileInEdit = false;
     private int mCursorPosition = 0;
@@ -112,6 +116,21 @@ public class TestInputConnection extends BaseInputConnection {
         mSendUpdates = sendUpdates;
     }
 
+    public void setCongested(boolean congested) {
+        mCongested = congested;
+        if (!mCongested) {
+            while (!mCongestedActions.isEmpty()) mCongestedActions.remove(0).run();
+        }
+    }
+
+    public void popCongestedAction() {
+        if (mCongested) {
+            mCongestedActions.remove(0).run();
+        } else {
+            throw new IllegalStateException("called popCongestedAction when not congested");
+        }
+    }
+
     public void sendUpdateNow() {
         final boolean originalSendState = mSendUpdates;
         mSendUpdates = true;
@@ -127,6 +146,17 @@ public class TestInputConnection extends BaseInputConnection {
 
     private void commitTextAs(
             final CharSequence text, final boolean asComposing, final int newCursorPosition) {
+        if (mCongested) {
+            final String queuedText = text.toString();
+            mCongestedActions.add(
+                    () -> internalCommitTextAs(queuedText, asComposing, newCursorPosition));
+        } else {
+            internalCommitTextAs(text, asComposing, newCursorPosition);
+        }
+    }
+
+    private void internalCommitTextAs(
+            CharSequence text, boolean asComposing, int newCursorPosition) {
         int[] composedTextRange;
         if (mCursorPosition != mSelectionEndPosition) {
             composedTextRange = new int[] {mCursorPosition, mSelectionEndPosition};
@@ -201,18 +231,25 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean setSelection(int start, int end) {
-        if (start == end && start == mCursorPosition) return true;
+        if (mCongested) {
+            mCongestedActions.add(() -> internalSetSelection(start, end));
+        } else {
+            internalSetSelection(start, end);
+        }
+        return true;
+    }
+
+    private void internalSetSelection(int start, int end) {
+        if (start == end && start == mCursorPosition) return;
 
         final int len = mInputText.length();
-        if (start < 0 || end < 0 || start > len || end > len) return true; // ignoring
+        if (start < 0 || end < 0 || start > len || end > len) return; // ignoring
 
         int oldStart = mCursorPosition;
         int oldEnd = mSelectionEndPosition;
         mCursorPosition = start;
         mSelectionEndPosition = Math.min(end, mInputText.length());
         notifyTextChanged(oldStart, oldEnd, mCursorPosition, mSelectionEndPosition);
-
-        return true;
     }
 
     @Override
@@ -246,14 +283,24 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean sendKeyEvent(KeyEvent event) {
-        /*
-        ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
-                KeyEvent.ACTION_DOWN, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
-        ic.sendKeyEvent(new KeyEvent(eventTime, SystemClock.uptimeMillis(),
-                KeyEvent.ACTION_UP, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
-         */
+        if (mCongested) {
+            final KeyEvent queuedEvent = new KeyEvent(event);
+            mCongestedActions.add(() -> internalSendKeyEvent(queuedEvent));
+        } else {
+            /*
+            ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
+                    KeyEvent.ACTION_DOWN, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                    KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
+            ic.sendKeyEvent(new KeyEvent(eventTime, SystemClock.uptimeMillis(),
+                    KeyEvent.ACTION_UP, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                    KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
+             */
+            internalSendKeyEvent(event);
+        }
+        return true;
+    }
+
+    private void internalSendKeyEvent(KeyEvent event) {
         boolean handled = false;
         if (event.getAction() == KeyEvent.ACTION_UP) {
             // only handling UP events
@@ -299,7 +346,6 @@ public class TestInputConnection extends BaseInputConnection {
                 mIme.onKeyUp(event.getKeyCode(), event);
             }
         }
-        return true;
     }
 
     @Override

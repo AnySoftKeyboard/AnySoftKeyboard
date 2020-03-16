@@ -1163,7 +1163,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                                         mKeyDetector.isKeyShifted(key))));
             }
             // remembering for next time
-            key.shiftedKeyLabel = label;
+            if (key.isShiftCodesAlways()) key.shiftedKeyLabel = label;
         }
         return label;
     }
