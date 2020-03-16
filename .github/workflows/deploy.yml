@@ -38,7 +38,7 @@ jobs:
           keystore_url: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_URL }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
-          publish_service_account_creds_json: ${{ secrets.PUBLISH_CERT_JSON_STRING }}
+          publish_service_account_creds_json_url: ${{ secrets.PUBLISH_CERT_JSON_URL }}
           api_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: status-success

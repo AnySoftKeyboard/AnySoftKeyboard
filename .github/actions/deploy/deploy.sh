@@ -12,7 +12,7 @@ export KEY_STORE_FILE_PASSWORD="${1}"
 shift
 export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
-echo "${1}" > /tmp/apk_upload_key.json
+PUBLISH_JSON_URL="${1}"
 shift
 
 function deployProcessFromEnvironmentName() {
@@ -48,6 +48,7 @@ if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
 fi
 
 wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -q -O /tmp/anysoftkeyboard.keystore
+wget --tries=5 --waitretry=5 "${PUBLISH_JSON_URL}" -q -O /tmp/apk_upload_key.json
 stat /tmp/anysoftkeyboard.keystore
 stat /tmp/apk_upload_key.json
 

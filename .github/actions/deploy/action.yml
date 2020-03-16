@@ -25,8 +25,8 @@ inputs:
     default: ""
     description: "APK signing keystore default key password"
     required: true
-  publish_service_account_creds_json:
-    description: "contents of the json certs file"
+  publish_service_account_creds_json_url:
+    description: "url to the json certs file"
     default: ""
     required: true
 runs:
