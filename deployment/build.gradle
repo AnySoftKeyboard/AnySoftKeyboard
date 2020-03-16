@@ -78,10 +78,10 @@ tasks.register('deploymentRequestProcess').configure {
     if (!skipDeploymentReason.empty) {
         println(skipDeploymentReason);
     } else {
-        if (imeOnMasterPush == nulll) throw new NullPointerException("imeOnMasterPush")
-        if (addOnsOnMasterPush == nulll) throw new NullPointerException("addOnsOnMasterPush")
-        if (imePromoteMaster == nulll) throw new NullPointerException("imePromoteMaster")
-        if (addOnsPromoteMaster == nulll) throw new NullPointerException("addOnsPromoteMaster")
+        if (imeOnMasterPush == null) throw new NullPointerException("imeOnMasterPush")
+        if (addOnsOnMasterPush == null) throw new NullPointerException("addOnsOnMasterPush")
+        if (imePromoteMaster == null) throw new NullPointerException("imePromoteMaster")
+        if (addOnsPromoteMaster == null) throw new NullPointerException("addOnsPromoteMaster")
 
         if (ref != null && newDeploy != null) {
             def imeDeploy
