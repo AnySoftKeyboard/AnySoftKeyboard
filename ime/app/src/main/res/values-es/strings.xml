@@ -383,6 +383,7 @@
     <string name="extension_kbd_top_nav">Teclas de navegación</string>
     <string name="extension_kbd_top_numbers_simple">Solo números</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Edición de texto rápido</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
     <string name="extension_kbd_bottom_regular">Clásico (sin micrófono)</string>
     <string name="extension_kbd_bottom_iphone">Estilo iPhone (sin micrófono)</string>
