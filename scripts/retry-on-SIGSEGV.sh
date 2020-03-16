@@ -34,3 +34,5 @@ while needsRetry; do
     exit ${EXIT_CODE}
   fi
 done
+
+exit ${EXIT_CODE}
