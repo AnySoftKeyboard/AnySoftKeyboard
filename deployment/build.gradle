@@ -81,7 +81,7 @@ tasks.register('deploymentRequestProcess').configure {
         if (ref != null && newDeploy != null) {
             def imeDeploy
             def addOnsDeploy
-            if (ref == 'master') {
+            if (ref == 'master' || ref == 'refs/heads/master') {
                 if (newDeploy == 'true') {
                     imeDeploy = imeOnMasterPush
                     addOnsDeploy = addOnsOnMasterPush
