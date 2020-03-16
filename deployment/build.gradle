@@ -36,13 +36,13 @@ deployments {
 }
 
 // start - IME
-def imeOnMasterPush = tasks.register("imeOnMasterPush").configure {
+def imeOnMasterPush = tasks.register("imeOnMasterPush") {
     it.group "Publishing"
     it.description "Deployment request on master push for IME"
     it.dependsOn tasks.named("deploymentRequest_imeMaster_alpha_100")
 }
 
-def imePromoteMaster = tasks.register("imePromoteMaster").configure {
+def imePromoteMaster = tasks.register("imePromoteMaster") {
     it.group "Publishing"
     it.description "Deployment promoting request on master for IME"
     //promoting ime only on Wednesday
@@ -56,13 +56,13 @@ def imePromoteMaster = tasks.register("imePromoteMaster").configure {
 // end - IME
 
 // start - addons
-def addOnsOnMasterPush = tasks.register("addOnsOnMasterPush").configure {
+def addOnsOnMasterPush = tasks.register("addOnsOnMasterPush") {
     it.group "Publishing"
     it.description "Deployment request on master push for all addons"
     it.dependsOn tasks.named("deploymentRequest_addOnsMaster_beta_100")
 }
 
-def addOnsPromoteMaster = tasks.register("addOnsPromoteMaster").configure {
+def addOnsPromoteMaster = tasks.register("addOnsPromoteMaster") {
     it.group 'Publishing'
     it.description 'NO-OP: Deployment request on master push for all addons'
 }
@@ -78,10 +78,10 @@ tasks.register('deploymentRequestProcess').configure {
     if (!skipDeploymentReason.empty) {
         println(skipDeploymentReason);
     } else {
-        if (imeOnMasterPush == nulll) throw new NullPointerException("imeOnMasterPush")
-        if (addOnsOnMasterPush == nulll) throw new NullPointerException("addOnsOnMasterPush")
-        if (imePromoteMaster == nulll) throw new NullPointerException("imePromoteMaster")
-        if (addOnsPromoteMaster == nulll) throw new NullPointerException("addOnsPromoteMaster")
+        if (imeOnMasterPush == null) throw new NullPointerException("imeOnMasterPush")
+        if (addOnsOnMasterPush == null) throw new NullPointerException("addOnsOnMasterPush")
+        if (imePromoteMaster == null) throw new NullPointerException("imePromoteMaster")
+        if (addOnsPromoteMaster == null) throw new NullPointerException("addOnsPromoteMaster")
 
         if (ref != null && newDeploy != null) {
             def imeDeploy

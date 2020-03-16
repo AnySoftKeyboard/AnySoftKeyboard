@@ -251,4 +251,97 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.mWord.getTypedWord().toString());
     }
+
+    @Test
+    public void testCorrectlyOutputCharactersWhenCongestedCursorUpdates() {
+        Assert.assertEquals(0, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        Assert.assertEquals("g", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('o');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setCongested(true);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('i');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('n');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().popCongestedAction();
+        Assert.assertEquals(
+                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().popCongestedAction();
+        Assert.assertEquals(
+                "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        getCurrentTestInputConnection().setCongested(false);
+        Assert.assertEquals(
+                "going", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
+
+    @Test
+    public void testCorrectlyOutputCharactersWhenExtremelyCongestedCursorUpdates() {
+        Assert.assertEquals(0, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        Assert.assertEquals("g", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('o');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setCongested(true);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('i');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('n');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().popCongestedAction();
+        Assert.assertEquals(
+                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        getCurrentTestInputConnection().setCongested(false);
+        Assert.assertEquals(
+                "going", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
+
+    @Test
+    public void testCorrectlyOutputCharactersWhenDelayedCursorUpdates() {
+        Assert.assertEquals(0, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        Assert.assertEquals("g", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setSendUpdates(false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('o');
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('i');
+        Assert.assertEquals(
+                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setSendUpdates(true);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('n');
+        Assert.assertEquals(
+                "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        Assert.assertEquals(
+                "going", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setSendUpdates(false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('g');
+        Assert.assertEquals(
+                "goingg", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(6, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
 }
