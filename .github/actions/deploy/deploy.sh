@@ -63,7 +63,7 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
       DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishRelease" )
       ;;
 
-    addOns)
+    addOns*)
       DEPLOY_TASKS+=( "assembleRelease" "publishRelease" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishRelease" )
       ;;
 
@@ -76,15 +76,11 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
 elif [[ "${DEPLOYMENT_TASK}" == "deploy:migration" ]]; then
   case "${PROCESS_NAME}" in
 
-    imeMaster)
+    ime*)
       DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
       ;;
 
-    imeProduction)
-      DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
-      ;;
-
-    addOns)
+    addOns*)
       DEPLOY_TASKS+=( "promoteReleaseArtifact" "-x" "ime:app:promoteReleaseArtifact" )
       ;;
 
