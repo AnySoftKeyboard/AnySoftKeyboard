@@ -1,0 +1,1 @@
+Pacchetto per la lingua sarda per AnySoftKeyboard
