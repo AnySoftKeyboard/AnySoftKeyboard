@@ -42,9 +42,9 @@ echo "for ${DEPLOYMENT_ENVIRONMENT}: will deploy process ${PROCESS_NAME} to ${DE
 export BUILD_COUNT_FOR_VERSION=${GITHUB_RUN_NUMBER}
 
 echo "Downloading secret files..."
-wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -O /tmp/anysoftkeyboard.keystore
+wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -q -O /tmp/anysoftkeyboard.keystore
 stat /tmp/anysoftkeyboard.keystore
-wget --tries=5 --waitretry=5 "${PUBLISH_JSON_URL}" -O /tmp/apk_upload_key.json
+wget --tries=5 --waitretry=5 "${PUBLISH_JSON_URL}" -q -O /tmp/apk_upload_key.json
 stat /tmp/apk_upload_key.json
 
 DEPLOY_TASKS=( "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )

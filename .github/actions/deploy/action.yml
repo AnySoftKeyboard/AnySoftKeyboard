@@ -46,7 +46,7 @@ runs:
     - ${{ inputs.keystore_url }}
     - ${{ inputs.keystore_password }}
     - ${{ inputs.keystore_key_password }}
-    - ${{ inputs.publish_service_account_creds_json }}
+    - ${{ inputs.publish_service_account_creds_json_url }}
 
 branding:
   icon: 'upload-cloud'
