@@ -1,0 +1,9 @@
+Pachet d'la lenga piemontèisa/Pacchetto per la lingua piemontese
+
+Caraterìstiche/Caratteristiche:
+
+Dissionari d'la lenga piemontèisa con pì che 50'000 parole.
+Instala [[com.menny.android.anysoftkeyboard]] prima, e dòp selession-a la tastadura ën piemonteis drinta le impostassion d'l'applicassion.
+
+Dizionario per la lingua piemontese con più di 50'000 parole.
+Installa prima [[com.menny.android.anysoftkeyboard]], e dopo seleziona la tastiera in piemontese dalle impostazioni dell'applicazione.
