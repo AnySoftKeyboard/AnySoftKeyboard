@@ -1,3 +1,0 @@
-ext.shouldBePublished = false
-
-apply from: "$rootDir/addons/gradle/theme_pack_lib.gradle"

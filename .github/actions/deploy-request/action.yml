@@ -1,0 +1,40 @@
+name: "deploy-request"
+description: "Request a deployment"
+author: "menny"
+
+inputs:
+  sha:
+    description: "SHA to deploy"
+    required: true
+  ref:
+    description: "branch to deploy"
+    required: true
+  new_deploy:
+    description: "whether this is a new deploy"
+    required: true
+  api_username:
+    description: "username for github api"
+    required: true
+  api_token:
+    description: "token for github api"
+    required: true
+runs:
+  using: "docker"
+  image: "docker://menny/ndk_ask:1.13.6"
+  env:
+    TERM: dumb
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
+    GRADLE_USER_HOME: ".github_cache_gradle/"
+
+  entrypoint: /bin/bash
+  args:
+    - .github/actions/deploy-request/deployment_request.sh
+    - ${{ inputs.sha }}
+    - ${{ inputs.ref }}
+    - ${{ inputs.new_deploy }}
+    - ${{ inputs.api_username }}
+    - ${{ inputs.api_token }}
+
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'

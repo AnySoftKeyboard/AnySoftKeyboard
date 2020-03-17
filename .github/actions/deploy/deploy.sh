@@ -12,7 +12,7 @@ export KEY_STORE_FILE_PASSWORD="${1}"
 shift
 export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
-echo "${1}" > /tmp/apk_upload_key.json
+PUBLISH_JSON_URL="${1}"
 shift
 
 function deployProcessFromEnvironmentName() {
@@ -41,14 +41,10 @@ FRACTION=$(deployFractionFromEnvironmentName "${DEPLOYMENT_ENVIRONMENT}")
 echo "for ${DEPLOYMENT_ENVIRONMENT}: will deploy process ${PROCESS_NAME} to ${DEPLOY_CHANNEL} with ${FRACTION} fraction."
 export BUILD_COUNT_FOR_VERSION=${GITHUB_RUN_NUMBER}
 
-echo "Downloading signature files..."
-if [[ -z "${KEYSTORE_FILE_URL}" ]]; then
-    echo "Could not find secure env variable KEYSTORE_FILE_URL. Can not deploy."
-    exit 1
-fi
-
+echo "Downloading secret files..."
 wget --tries=5 --waitretry=5 "${KEYSTORE_FILE_URL}" -q -O /tmp/anysoftkeyboard.keystore
 stat /tmp/anysoftkeyboard.keystore
+wget --tries=5 --waitretry=5 "${PUBLISH_JSON_URL}" -q -O /tmp/apk_upload_key.json
 stat /tmp/apk_upload_key.json
 
 DEPLOY_TASKS=( "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )
@@ -63,7 +59,7 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
       DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishRelease" )
       ;;
 
-    addOns)
+    addOns*)
       DEPLOY_TASKS+=( "assembleRelease" "publishRelease" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishRelease" )
       ;;
 
@@ -76,15 +72,11 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
 elif [[ "${DEPLOYMENT_TASK}" == "deploy:migration" ]]; then
   case "${PROCESS_NAME}" in
 
-    imeMaster)
+    ime*)
       DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
       ;;
 
-    imeProduction)
-      DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
-      ;;
-
-    addOns)
+    addOns*)
       DEPLOY_TASKS+=( "promoteReleaseArtifact" "-x" "ime:app:promoteReleaseArtifact" )
       ;;
 
@@ -94,7 +86,5 @@ fi
 echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}"
 
 ./gradlew "${DEPLOY_TASKS[@]}"
-
-## TODO: kill previous enabled environments
 
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

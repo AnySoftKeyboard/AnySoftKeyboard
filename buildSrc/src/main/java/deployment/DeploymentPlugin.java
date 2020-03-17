@@ -43,6 +43,15 @@ public class DeploymentPlugin implements Plugin<Project> {
                                     propertyOrDefault(
                                             project, "requestStatus.deployment_state", ""));
                         });
+        project.getTasks()
+                .register(
+                        "updateDeploymentSuccess",
+                        DeploymentSuccessRequestTask.class,
+                        task -> {
+                            task.setEnvironmentName(
+                                    propertyOrDefault(project, "requestStatus.environment", ""));
+                            task.setSha(propertyOrDefault(project, "requestStatus.sha", ""));
+                        });
     }
 
     private void createDeployTasks(Project project) {
@@ -62,7 +71,7 @@ public class DeploymentPlugin implements Plugin<Project> {
                                                 "deploymentRequest_%s_%s",
                                                 config.name,
                                                 stepName),
-                                        DeploymentRequestProcessTask.class,
+                                        DeploymentRequestProcessStepTask.class,
                                         config,
                                         stepIndex);
                     }
