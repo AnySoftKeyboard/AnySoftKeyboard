@@ -23,7 +23,7 @@ public abstract class PublicNotices extends AnySoftKeyboard {
 
     protected List<PublicNotice> generatePublicNotices() {
         List<PublicNotice> all = new ArrayList<>(EasterEggs.create());
-        all.addAll(Notices.create());
+        all.addAll(Notices.create(getApplicationContext()));
         return all;
     }
 
