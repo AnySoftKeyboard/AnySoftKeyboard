@@ -14,16 +14,17 @@ public abstract class PublicNotices extends AnySoftKeyboard {
     @Override
     public void onCreate() {
         super.onCreate();
-        for (PublicNotice publicNotice : EasterEggs.create()) {
+        for (PublicNotice publicNotice : generatePublicNotices()) {
             if (publicNotice instanceof OnKey) mOnKeyListeners.add((OnKey) publicNotice);
             if (publicNotice instanceof OnVisible)
                 mOnVisibleListeners.add((OnVisible) publicNotice);
         }
-        for (PublicNotice publicNotice : Notices.create()) {
-            if (publicNotice instanceof OnKey) mOnKeyListeners.add((OnKey) publicNotice);
-            if (publicNotice instanceof OnVisible)
-                mOnVisibleListeners.add((OnVisible) publicNotice);
-        }
+    }
+
+    protected List<PublicNotice> generatePublicNotices() {
+        List<PublicNotice> all = new ArrayList<>(EasterEggs.create());
+        all.addAll(Notices.create());
+        return all;
     }
 
     @Override
