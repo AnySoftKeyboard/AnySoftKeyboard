@@ -39,6 +39,7 @@ import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.remote.RemoteInsertion;
+import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import java.util.ArrayList;
@@ -85,6 +86,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         editorInfo.inputType = inputType;
 
         return editorInfo;
+    }
+
+    @Override
+    protected List<PublicNotice> generatePublicNotices() {
+        return Collections.emptyList();
     }
 
     @Override

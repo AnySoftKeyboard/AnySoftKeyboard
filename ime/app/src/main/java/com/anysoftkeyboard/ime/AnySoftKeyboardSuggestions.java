@@ -33,7 +33,6 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
 import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -611,7 +610,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final InputConnection ic = getCurrentInputConnection();
         if (TextEntryState.isPredicting()) {
             mWord.add(primaryCode, nearByKeyCodes);
-            ChewbaccaOnTheDrums.onKeyTyped(mWord, getApplicationContext());
 
             if (ic != null) {
                 final int cursorPosition;

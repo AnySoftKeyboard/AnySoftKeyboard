@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ime;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.saywhat.PublicNotices;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import java.io.File;
 import java.net.URL;
@@ -54,6 +55,7 @@ public class AnySoftKeyboardExtendingTest extends AnySoftKeyboardBaseTest {
                                 })
                         .collect(Collectors.toSet());
 
+        allPossibleClasses.add(PublicNotices.class);
         allPossibleClasses.add(AnySoftKeyboard.class);
 
         Class<?> superclass = SoftKeyboard.class.getSuperclass();

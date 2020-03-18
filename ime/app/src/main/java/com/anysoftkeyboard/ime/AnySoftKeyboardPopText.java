@@ -89,9 +89,10 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
             return; // could be because of manually picked word
         }
 
-        if (getInputView() instanceof AnyKeyboardViewWithExtraDraw) {
+        final InputViewBinder inputView = getInputView();
+        if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
             final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw =
-                    (AnyKeyboardViewWithExtraDraw) getInputView();
+                    (AnyKeyboardViewWithExtraDraw) inputView;
             mLastTextPop =
                     new PopTextExtraDraw.PopOut(
                             textToPop,

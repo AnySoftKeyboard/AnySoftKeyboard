@@ -18,6 +18,7 @@ public class VersionChangeLogs {
                         "r4",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92"),
+                        "Keep safe! #covid19",
                         "A few bugs fixes.",
                         "YABTU.",
                         "Updated translations."));
