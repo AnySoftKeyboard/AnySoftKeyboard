@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Notices {
-    public static List<PublicNotice> create() {
-        return Collections.singletonList(new CoronaVirusDetails());
+    public static List<PublicNotice> create(Context context) {
+        return Collections.singletonList(new CoronaVirusDetails(context));
     }
 
     private static class CoronaVirusDetails implements OnKey, OnVisible {
@@ -25,9 +25,14 @@ public class Notices {
         static final char[] CORONAVIRUS = "coronavirus".toCharArray();
         // two days
         static final long MIN_TIME_BETWEEN_SHOWING = 2 * 24 * 60 * 60 * 1000;
+
+        private final KeyboardViewContainerView.StripActionProvider mVirusInfo;
         private int mWaitingForIndex = 0;
         private long mLastTimeInfoWasShown = -MIN_TIME_BETWEEN_SHOWING;
-        private KeyboardViewContainerView.StripActionProvider mVirusInfo = new CovidInfo();
+
+        private CoronaVirusDetails(Context context) {
+            mVirusInfo = new CovidInfo(context);
+        }
 
         @Override
         public void onKey(PublicNotices ime, int primaryCode, Keyboard.Key key) {
@@ -82,12 +87,11 @@ public class Notices {
                     () -> mRootView.findViewById(R.id.covid_info_text).setVisibility(View.GONE);
             private final Intent mCoronaVirusInfoWebPage;
 
-            private CovidInfo() {
+            private CovidInfo(Context context) {
                 mCoronaVirusInfoWebPage =
                         new Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(
-                                        "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public"));
+                                Uri.parse(context.getString(R.string.codvid_info_url)));
                 mCoronaVirusInfoWebPage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
