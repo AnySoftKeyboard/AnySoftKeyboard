@@ -1,6 +1,5 @@
-name: deployment
+name: deployment-promote
 
-#always run on the default branch: master
 on:
   schedule:
     - cron: '04 04 * * *'
@@ -10,7 +9,7 @@ env:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
 
 jobs:
-  promote-alpha:
+  promote:
     runs-on: ubuntu-18.04
     container: menny/android_base:1.13.6
     steps:
