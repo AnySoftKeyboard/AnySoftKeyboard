@@ -9,4 +9,6 @@
      -->
 	<Keyboard nameResId="@string/spanish_keyboard_name" iconResId="@drawable/ic_status_spain" layoutResId="@xml/es_qwerty" id="72e14a07-6ab1-4d33-b226-288a16fe3308" index="131" defaultDictionaryLocale="es" description="Created with Jorge Jiménez"/>
 	<Keyboard nameResId="@string/spanish_keyboard_name_dvorak" iconResId="@drawable/ic_status_spain" layoutResId="@xml/es_dvorak" id="85cafeb0-2146-11e7-9598-0800200c9a66" index="133" defaultDictionaryLocale="es" description="Dvorak spanish variant"/>
+	<Keyboard nameResId="@string/spanish_keyboard_with_symbols_name" iconResId="@drawable/ic_status_spain" layoutResId="@xml/es_qwerty_with_symbols" id="7c75a557-b515-4e5c-a5a2-53b7eb78652d" index="134" defaultDictionaryLocale="es" description="Spanish Querty with Symbols"/>
+
 </Keyboards>
