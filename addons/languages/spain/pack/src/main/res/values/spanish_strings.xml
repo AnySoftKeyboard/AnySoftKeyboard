@@ -2,5 +2,6 @@
 <resources>
     <string name="spanish_keyboard_name">Español</string>
     <string name="spanish_dictionary_name">Español</string>
+    <string name="spanish_keyboard_with_symbols_name">Español</string>
     <string name="spanish_keyboard_name_dvorak">Dvorak</string>
 </resources>
