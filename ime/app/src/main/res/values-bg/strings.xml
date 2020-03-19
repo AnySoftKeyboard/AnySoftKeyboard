@@ -250,4 +250,5 @@
     <string name="abbreviation_dict_prefs_provider">Абревиатури</string>
     <string name="prefs_providers_operation_success">Успех</string>
     <string name="prefs_providers_operation_failed">Пропадна!</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

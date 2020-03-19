@@ -637,4 +637,5 @@ Instalarla ahora desde Play Store.    </string>
     <string name="app_share_title">Bienvenid@ a AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartir AnySoftKeyboard con</string>
     <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

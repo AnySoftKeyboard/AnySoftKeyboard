@@ -399,4 +399,5 @@
     <string name="no_internet_fields_specific_layout">Semmi</string>
     <string name="bottom_nav_home">Helló</string>
     <string name="setup_wizard_welcome_title">Üdvözlöm!</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

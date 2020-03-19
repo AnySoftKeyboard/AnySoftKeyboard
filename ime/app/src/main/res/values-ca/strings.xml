@@ -550,4 +550,5 @@
     <string name="pick_prefs_providers_to_restore">Què voleu recuperar?</string>
     <string name="prefs_providers_operation_success">Finalitzat</string>
     <string name="prefs_providers_operation_failed">Ha fallat!</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
