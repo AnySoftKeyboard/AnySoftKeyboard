@@ -621,4 +621,5 @@
     <string name="apply_overlay_summary_off">Всегда используйте цвета темы.</string>
     <string name="aosp_dark_theme_name">Темная тема AOSP</string>
     <string name="aosp_light_theme_name">Светлая тема AOSP</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

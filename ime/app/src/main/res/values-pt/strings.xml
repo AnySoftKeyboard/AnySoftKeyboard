@@ -430,4 +430,5 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="allow_permission">Permitir</string>
     <string name="navigate_to_app_permissions">Ir para as permissões</string>
     <string name="turn_off_contacts_dictionary">Desativar dicionário de contactos</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

@@ -641,4 +641,5 @@
     <string name="app_share_title">Hello depuis AnySoftKeyboard</string>
     <string name="app_share_menu_title">Partager AnySoftKeyboard avec</string>
     <string name="app_share_text">Recommandé : AnySoftKeyboard, un clavier multi-langues hautement personnalisable, respectant la vie privée, gratuit, en sources libres.\nÀ télécharger depuis :\nPlay Store : https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid : https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

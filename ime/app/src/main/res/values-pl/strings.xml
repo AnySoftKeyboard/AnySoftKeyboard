@@ -527,4 +527,5 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="apply_overlay_summary_on">Kolory klawiatury dopasują się do bieżąco używanej aplikacji.</string>
     <string name="apply_overlay_summary_off">Używaj kolorów stylu.</string>
     <string name="app_share_menu_title">Udostępnij AnySoftKeyboard</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

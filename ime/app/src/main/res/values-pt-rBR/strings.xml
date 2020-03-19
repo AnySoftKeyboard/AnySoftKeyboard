@@ -637,4 +637,5 @@ simplistas    </string>
     <string name="aosp_dark_theme_description">Baseado no AOSP, tema com cores escuras</string>
     <string name="aosp_light_theme_name">AOSP Light theme</string>
     <string name="aosp_light_theme_description">Baseado no AOSP, tema com cores claras</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

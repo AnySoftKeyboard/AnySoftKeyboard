@@ -416,6 +416,7 @@
     <string name="extension_kbd_top_nav">Tasti di navigazione</string>
     <string name="extension_kbd_top_numbers_simple">Semplice, solo numeri</string>
     <string name="extension_kbd_top_terminal">Terminale</string>
+    <string name="extension_kbd_top_text_editing">Modifica testo rapida</string>
     <string name="extension_kbd_bottom_regular_with_voice">Regolare</string>
     <string name="extension_kbd_bottom_regular">Classico (no mic)</string>
     <string name="extension_kbd_bottom_iphone">Stile iPhone (no mic)</string>
@@ -691,4 +692,7 @@
     <string name="app_share_title">Ciao da AnySoftKeyboard</string>
     <string name="app_share_menu_title">Condividi AnySoftKeyboard usando</string>
     <string name="app_share_text">Lascia che ti consigli l\'app tastiera per Android opensource, privata, gratuita, altamente personalizzabile, multilingua, chiamata AnySoftKeyboard.\nScaricala da:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Resta al sicuro! Clicca per info sul CoronaVirus.</string>
+    <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
