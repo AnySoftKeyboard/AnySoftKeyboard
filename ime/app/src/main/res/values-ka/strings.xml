@@ -558,4 +558,5 @@
     <string name="aosp_dark_theme_description">კლავიატურის იერსახე, AOSP-ის მუქი ფერებით</string>
     <string name="aosp_light_theme_name">AOSP-ის ნათელი იერსახე</string>
     <string name="aosp_light_theme_description">კლავიატურის იერსახე, AOSP-ის ნათელი ფერებით</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

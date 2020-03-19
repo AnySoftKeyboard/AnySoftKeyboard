@@ -650,4 +650,5 @@
     <string name="app_share_title">Вітанні ад AnySoftKeyboard</string>
     <string name="app_share_menu_title">Парайце AnySoftKeyboard іншым</string>
     <string name="app_share_text">Я хачу параіць вам экранную клавіятуру для Android адметнымі рысамі якой з\'яўляюцца: адкрытасць зыходнага кода, бясплатнае распаўсюджанне, падтрымка ўводу амаль на ўсіх мовах свету, клопат пра прыватнасць вашых даных, тонкая настройка пад вашы задачы. \nАтрымаць па спасылцы ў Play Store:\nhttps://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
