@@ -265,4 +265,5 @@
     <string name="app_shortcut_gestures_short_label">Eleet</string>
     <string name="app_shortcut_quick_keys_long_label">Hallitse emojeita</string>
     <string name="app_shortcut_quick_keys_short_label">Hallitse emojeita</string>
+    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
