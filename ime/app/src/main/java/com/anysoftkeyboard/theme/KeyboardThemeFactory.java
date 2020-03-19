@@ -23,6 +23,7 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.annotations.CheckReturnValue;
@@ -49,7 +50,8 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
                 PREF_ID_PREFIX,
                 R.xml.keyboard_themes,
                 R.string.settings_default_keyboard_theme_key,
-                true);
+                true,
+                BuildConfig.TESTING_BUILD);
         mFallbackThemeId = mContext.getText(R.string.fallback_keyboard_theme_id);
     }
 

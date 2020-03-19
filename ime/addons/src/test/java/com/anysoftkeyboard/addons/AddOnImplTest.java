@@ -5,7 +5,6 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.content.Context;
 import android.content.res.Resources;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

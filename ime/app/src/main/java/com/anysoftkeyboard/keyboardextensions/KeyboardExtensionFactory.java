@@ -27,6 +27,7 @@ import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;
 
@@ -58,7 +59,8 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
                 prefIdPrefix,
                 R.xml.extension_keyboards,
                 defaultAddOnId,
-                true);
+                true,
+                BuildConfig.TESTING_BUILD);
         mExtensionType = extensionType;
     }
 
