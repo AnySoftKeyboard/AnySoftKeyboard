@@ -325,7 +325,7 @@ public class AnyApplication extends Application {
     public void onPackageChanged(final Intent eventIntent, final AnySoftKeyboard ask) {
         AddOnsFactory.onExternalPackChanged(
                 eventIntent,
-                ask,
+                ask::onAddOnsCriticalChange,
                 mTopRowFactory,
                 mBottomRowFactory,
                 mExtensionKeyboardFactory,

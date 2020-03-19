@@ -7,10 +7,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -378,9 +378,9 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardSwitchesLayoutOnAltSpace() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
@@ -416,9 +416,9 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
     public void testKeyboardNoLayoutSwitchOnAltSpace() {
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_enable_alt_space_language_shortcut, false);
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
@@ -452,9 +452,9 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardSwitchesLayoutOnShiftSpace() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
@@ -493,9 +493,9 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
     public void testKeyboardNoLayoutSwitchOnShiftSpace() {
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_enable_shift_space_language_shortcut, false);
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",

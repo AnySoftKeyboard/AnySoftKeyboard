@@ -19,7 +19,9 @@ import org.mockito.Mockito;
 public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTest {
 
     private static final String[] DICTIONATY_WORDS =
-            new String[] {"high", "hello", "menny", "AnySoftKeyboard", "keyboard", "com/google", "low"};
+            new String[] {
+                "high", "hello", "menny", "AnySoftKeyboard", "keyboard", "com/google", "low"
+            };
 
     @Before
     public void setUp() throws Exception {

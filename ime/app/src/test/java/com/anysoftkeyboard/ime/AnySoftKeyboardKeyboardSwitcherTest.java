@@ -9,10 +9,10 @@ import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
 import android.content.res.Configuration;
 import android.view.inputmethod.EditorInfo;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -30,9 +30,9 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testOnLowMemoryAlphabet() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         simulateOnStartInputFlow();
 
@@ -165,9 +165,9 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testOnLowMemorySymbols() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         simulateOnStartInputFlow();
 
@@ -544,7 +544,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testForceMakeKeyboardsOnAddOnsPrefChange() {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewSet();
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());

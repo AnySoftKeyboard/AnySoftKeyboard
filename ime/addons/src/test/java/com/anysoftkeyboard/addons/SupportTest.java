@@ -1,14 +1,11 @@
 package com.anysoftkeyboard.addons;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static com.menny.android.anysoftkeyboard.R.styleable.KeyboardLayout;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.SparseIntArray;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +19,7 @@ public class SupportTest {
         SparseIntArray sparseIntArray = new SparseIntArray();
         int[] backwardCompatibleStyleable =
                 Support.createBackwardCompatibleStyleable(
-                        KeyboardLayout,
+                        R.styleable.KeyboardLayout,
                         getApplicationContext(),
                         getApplicationContext(),
                         sparseIntArray);
@@ -67,7 +64,10 @@ public class SupportTest {
         SparseIntArray sparseIntArray = new SparseIntArray();
         int[] backwardCompatibleStyleable =
                 Support.createBackwardCompatibleStyleable(
-                        KeyboardLayout, getApplicationContext(), remoteContext, sparseIntArray);
+                        R.styleable.KeyboardLayout,
+                        getApplicationContext(),
+                        remoteContext,
+                        sparseIntArray);
 
         Mockito.verify(remoteRes).getIdentifier("showPreview", "attr", "com.some.other.package");
         Mockito.verify(remoteRes).getIdentifier("autoCap", "attr", "com.some.other.package");
@@ -102,7 +102,10 @@ public class SupportTest {
         SparseIntArray sparseIntArray = new SparseIntArray();
         int[] backwardCompatibleStyleable =
                 Support.createBackwardCompatibleStyleable(
-                        KeyboardLayout, getApplicationContext(), remoteContext, sparseIntArray);
+                        R.styleable.KeyboardLayout,
+                        getApplicationContext(),
+                        remoteContext,
+                        sparseIntArray);
 
         Mockito.verify(remoteRes).getIdentifier("showPreview", "attr", "com.some.other.package");
         Mockito.verify(remoteRes).getIdentifier("autoCap", "attr", "com.some.other.package");
@@ -115,16 +118,5 @@ public class SupportTest {
         for (int attrId : backwardCompatibleStyleable) {
             Assert.assertEquals(attrId, sparseIntArray.get(attrId));
         }
-    }
-
-    public static void ensureKeyboardAtIndexEnabled(int keyboardIndex, boolean enabled) {
-        ensureAddOnAtIndexEnabled(
-                AnyApplication.getKeyboardFactory(getApplicationContext()), keyboardIndex, enabled);
-    }
-
-    public static void ensureAddOnAtIndexEnabled(
-            AddOnsFactory<? extends AddOn> factory, int index, boolean enabled) {
-        final AddOn addOn = factory.getAllAddOns().get(index);
-        factory.setAddOnEnabled(addOn.getId(), enabled);
     }
 }

@@ -24,12 +24,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-
 import java.util.ArrayList;
 
-/**
- * Helper activity used for triggering the Intent recognition, and for collecting the results.
- */
+/** Helper activity used for triggering the Intent recognition, and for collecting the results. */
 public class ActivityHelper extends Activity {
 
     @SuppressWarnings("unused")
