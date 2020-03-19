@@ -60,6 +60,7 @@ dependencies {
     implementation project(':ime:overlay')
     implementation project(':ime:pixel')
     implementation project(':ime:remote')
+    implementation project(':ime:voiceime')
 
     implementation "com.android.support:support-fragment:$supportLibVersion"
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
