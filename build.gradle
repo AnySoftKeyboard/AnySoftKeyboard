@@ -1,3 +1,6 @@
+import java.util.stream.Stream
+import java.nio.file.Files
+
 System.setProperty("file.encoding", "UTF-8")
 
 def logFile = rootProject.file("build-logging/build-log-${System.currentTimeMillis()}.log")
@@ -53,4 +56,12 @@ tasks.register("clean", Delete) {
             delete it
         }
     }
+
+    //deleting all beta/production change-logs
+    Stream<Path> files = Files.walk(rootDir.toPath())
+    files.sorted(Comparator.reverseOrder())
+            .map { it.toFile() }
+            .filter { it.name == 'beta.txt' || it.name == 'production.txt' }
+            .forEach { it.deleteOnExit() }
+    files.close()
 }
