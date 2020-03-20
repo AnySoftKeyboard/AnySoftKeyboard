@@ -920,6 +920,9 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             case R.attr.iconKeyClipboardFineSelect:
                 keyCode = KeyCodes.CLIPBOARD_SELECT;
                 break;
+            case R.attr.iconKeyQuickTextPopup:
+                keyCode = KeyCodes.QUICK_TEXT_POPUP;
+                break;
             case R.attr.iconKeyQuickText:
                 keyCode = KeyCodes.QUICK_TEXT;
                 break;
