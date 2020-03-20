@@ -29,6 +29,7 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
                 "dictionary_",
                 0,
                 0,
-                true);
+                true,
+                BuildConfig.TESTING_BUILD);
     }
 
     public static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {

@@ -1,0 +1,8 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/android_general.gradle"
+
+dependencies {
+
+    implementation project(path: ':ime:base')
+}

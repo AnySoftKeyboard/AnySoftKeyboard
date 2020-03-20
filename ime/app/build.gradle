@@ -53,6 +53,7 @@ dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
     implementation project(':ime:nextword')
+    implementation project(':ime:addons')
     implementation project(':ime:dictionaries')
     implementation project(':ime:dictionaries:jnidictionaryv1')
     implementation project(':ime:dictionaries:jnidictionaryv2')
@@ -60,6 +61,7 @@ dependencies {
     implementation project(':ime:overlay')
     implementation project(':ime:pixel')
     implementation project(':ime:remote')
+    implementation project(':ime:voiceime')
 
     implementation "com.android.support:support-fragment:$supportLibVersion"
     implementation "com.android.support:appcompat-v7:$supportLibVersion"

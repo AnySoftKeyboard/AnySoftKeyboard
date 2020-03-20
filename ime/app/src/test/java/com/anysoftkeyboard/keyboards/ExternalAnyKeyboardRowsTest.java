@@ -6,10 +6,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.XmlRes;
 import android.support.v4.util.SparseArrayCompat;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.addons.DefaultAddOn;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -354,7 +354,7 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardWithMultiLayoutsEnabledAndKeyIsWhenApplicable() throws Exception {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
 
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithBottomRowIndex(
@@ -416,7 +416,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardWithMultiLayoutsEnabledButPrefsDisabled() throws Exception {
         // asserting default settings
         Assert.assertFalse(KeyboardPrefs.alwaysHideLanguageKey(getApplicationContext()));
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_always_hide_language_key, true);
 
         // asserting change
@@ -503,7 +503,7 @@ public class ExternalAnyKeyboardRowsTest {
     @Test
     public void testKeyboardWithMultiLayoutsEnabledTopRowPositionsAndGapsAreValid()
             throws Exception {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
 
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithBottomRowIndex(

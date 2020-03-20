@@ -7,9 +7,9 @@ import android.content.ComponentName;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodSubtype;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -146,7 +146,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                                 .getAllAddOns()
                                 .size();
                 i++) {
-            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
+            AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         final KeyboardAddOnAndBuilder keyboardBuilder =
@@ -189,7 +189,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                                 .getAllAddOns()
                                 .size();
                 i++) {
-            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
+            AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
         }
         simulateOnStartInputFlow();
 
@@ -227,7 +227,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                                 .getAllAddOns()
                                 .size();
                 i++) {
-            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
+            AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
@@ -276,7 +276,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                                 .getAllAddOns()
                                 .size();
                 i++) {
-            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
+            AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
@@ -336,7 +336,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                                 .getAllAddOns()
                                 .size();
                 i++) {
-            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
+            AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
@@ -395,7 +395,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                                 .getAllAddOns()
                                 .size();
                 i++) {
-            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
+            AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();

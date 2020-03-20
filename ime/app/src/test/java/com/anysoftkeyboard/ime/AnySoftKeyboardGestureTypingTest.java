@@ -3,10 +3,10 @@ package com.anysoftkeyboard.ime;
 import static org.mockito.ArgumentMatchers.any;
 
 import android.os.SystemClock;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
@@ -263,7 +263,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     public void testClearAllDetectorsWhenCriticalAddOnChange() {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size() > 0);
 
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
 
         Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
 
@@ -274,7 +274,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testClearDetectorsOnLowMemory() {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         simulateOnStartInputFlow();
         final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -294,7 +294,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoesNotCrashIfOnLowMemoryCalledBeforeLoaded() {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         simulateOnStartInputFlow();
         final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
         Assert.assertNotNull(detector1);
@@ -319,7 +319,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testCreatesDetectorOnNewKeyboard() {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
 
         Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
 

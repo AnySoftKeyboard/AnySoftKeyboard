@@ -9,10 +9,10 @@ import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.view.inputmethod.EditorInfo;
 import androidx.test.core.app.ApplicationProvider;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -320,9 +320,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
                 resources.getString(R.string.settings_default_keyboard_id),
                 keyboardFactory.getEnabledIds().get(0));
 
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         EditorInfo editorInfo =
                 TestableAnySoftKeyboard.createEditorInfo(
@@ -386,9 +386,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         final KeyboardFactory keyboardFactory =
                 AnyApplication.getKeyboardFactory(getApplicationContext());
 
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         EditorInfo editorInfo =
                 TestableAnySoftKeyboard.createEditorInfo(
@@ -441,9 +441,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         Assert.assertSame(
                 GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
 
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
@@ -469,9 +469,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testLanguageDialogSwitchLanguage() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
@@ -489,9 +489,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testLanguageDialogGoToSettings() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(2, true);
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
