@@ -18,7 +18,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
@@ -37,11 +36,6 @@ public class DeviceSpecificV11 extends DeviceSpecificLowest {
         CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
 
         ic.commitCorrection(correctionInfo);
-    }
-
-    @Override
-    public boolean isHardwareAcceleratedCanvas(Canvas canvas) {
-        return canvas != null && canvas.isHardwareAccelerated();
     }
 
     @Override

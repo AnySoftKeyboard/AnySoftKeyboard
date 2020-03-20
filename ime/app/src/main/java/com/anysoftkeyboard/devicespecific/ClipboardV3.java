@@ -20,7 +20,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.text.ClipboardManager;
 
-@SuppressWarnings("deprecation")
 @TargetApi(3)
 public class ClipboardV3 implements Clipboard {
     private final ClipboardManager mClipboardManager;
