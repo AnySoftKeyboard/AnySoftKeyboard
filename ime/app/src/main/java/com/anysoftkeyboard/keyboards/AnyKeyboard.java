@@ -216,7 +216,7 @@ public abstract class AnyKeyboard extends Keyboard {
                                         .hasMultipleAlphabets()) {
                             // need to hide this key
                             foundLanguageKeyIndices.add(keyIndex);
-                            Logger.d(TAG, "Found an redundant language key at index %d", keyIndex);
+                            Logger.d(TAG, "Found a redundant language key at index %d", keyIndex);
                         }
                         break;
                     default:
