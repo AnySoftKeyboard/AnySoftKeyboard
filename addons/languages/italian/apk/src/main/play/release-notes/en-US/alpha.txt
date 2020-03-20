@@ -1,1 +1,5 @@
-* Initial release
+* Added italian qwerty layout with symbols.
+* Added € as first currency symbol for the "it" locale
+* Added domains popup to the "it" locale
+* Replaced word "po" by "po'" in the dictionary. The word "po'" will be suggested correctly now.
+
