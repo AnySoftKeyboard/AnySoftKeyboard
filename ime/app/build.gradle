@@ -34,6 +34,15 @@ android {
     buildTypes {
         release {
             buildConfigField("boolean", "TESTING_BUILD", "false")
+
+            packagingOptions {
+                //since dictionary jni so files are coming from
+                //another module, they are stripped there and should
+                //not be stripped again.
+                //double-stripping causes crash stacktraces to look weird
+                //in play-store.
+                doNotStrip '**/anysoftkey*_jni.so'
+            }
         }
 
         debug {
@@ -42,6 +51,15 @@ android {
 
         canary {
             buildConfigField("boolean", "TESTING_BUILD", "true")
+
+            packagingOptions {
+                //since dictionary jni so files are coming from
+                //another module, they are stripped there and should
+                //not be stripped again.
+                //double-stripping causes crash stacktraces to look weird
+                //in play-store.
+                doNotStrip '**/anysoftkey*_jni.so'
+            }
         }
     }
 }
