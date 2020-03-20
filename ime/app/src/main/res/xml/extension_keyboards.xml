@@ -171,7 +171,15 @@
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
         index="11"
-    />
+        />
+    <ExtensionKeyboard
+        id="f50fee17-ad7a-4068-aff4-07e34ac68c52"
+        nameResId="@string/extension_kbd_bottom_minimal_no_emoji"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_minimal_no_emoji"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="12"
+        />
 
 
     <!-- top extension keyboards -->
