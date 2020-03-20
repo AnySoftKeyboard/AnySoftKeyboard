@@ -44,4 +44,21 @@
         <Key android:codes="m" android:popupCharacters="&gt;»µ" ask:hintLabel="&gt;"/>
         <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
+
+    <!-- the terminal stuff -->
+    <Row>
+        <Key android:keyWidth="15%p" android:codes="@integer/key_code_ctrl" android:isModifier="true" android:keyEdgeFlags="left"/>
+
+		<Key android:codes="9"/>
+
+        <Key android:codes="124" android:keyLabel="|"/>
+        <Key android:codes="47" android:keyLabel="/" />
+
+        <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_up" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true"/>
+
+        <Key android:keyWidth="15%p" android:codes="27" android:keyLabel="ESC" android:keyEdgeFlags="right"/>
+    </Row>
 </Keyboard>
