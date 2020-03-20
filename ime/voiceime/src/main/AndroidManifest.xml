@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.google.android.voiceime">
+
+    <application>
+        <!-- for voice -->
+        <service android:name="com.google.android.voiceime.ServiceHelper" />
+
+        <activity
+            android:name="com.google.android.voiceime.ActivityHelper"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+    </application>
+</manifest>

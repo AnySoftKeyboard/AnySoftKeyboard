@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;
 
@@ -47,7 +48,8 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
                 PREF_ID_PREFIX,
                 R.xml.quick_text_keys,
                 R.string.settings_default_quick_text_key_id,
-                true);
+                true,
+                BuildConfig.TESTING_BUILD);
     }
 
     @Override

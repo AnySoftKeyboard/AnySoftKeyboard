@@ -12,9 +12,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.R;
@@ -57,8 +57,8 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     @Test
     @Ignore
     public void testDemoKeyboardShowsLastUsedKeyboardAlphabet() {
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
 
         TestableAnySoftKeyboard service = Robolectric.setupService(TestableAnySoftKeyboard.class);
         service.getKeyboardSwitcherForTests()

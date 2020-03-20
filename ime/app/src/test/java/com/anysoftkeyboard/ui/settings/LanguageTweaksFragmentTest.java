@@ -4,9 +4,9 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.support.annotation.NonNull;
 import android.support.v7.preference.ListPreference;
+import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -35,8 +35,8 @@ public class LanguageTweaksFragmentTest
         final KeyboardFactory keyboardFactory =
                 AnyApplication.getKeyboardFactory(getApplicationContext());
 
-        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
 
         LanguageTweaksFragment fragment = startFragment();
         ListPreference listPreference =

@@ -32,15 +32,12 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.annotation.VisibleForTesting;
 import android.support.annotation.XmlRes;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.menny.android.anysoftkeyboard.BuildConfig;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,6 +52,9 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class AddOnsFactory<E extends AddOn> {
+    public interface OnCriticalAddOnChangeListener {
+        void onAddOnsCriticalChange();
+    }
 
     private static final String XML_PREF_ID_ATTRIBUTE = "id";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
@@ -96,32 +96,6 @@ public abstract class AddOnsFactory<E extends AddOn> {
             String receiverMetaData,
             String rootNodeTag,
             String addonNodeTag,
-            String prefIdPrefix,
-            @XmlRes int buildInAddonResId,
-            @StringRes int defaultAddOnStringId,
-            boolean readExternalPacksToo) {
-        this(
-                context,
-                tag,
-                receiverInterface,
-                receiverMetaData,
-                rootNodeTag,
-                addonNodeTag,
-                prefIdPrefix,
-                buildInAddonResId,
-                defaultAddOnStringId,
-                readExternalPacksToo,
-                BuildConfig.TESTING_BUILD);
-    }
-
-    @VisibleForTesting
-    AddOnsFactory(
-            @NonNull Context context,
-            String tag,
-            String receiverInterface,
-            String receiverMetaData,
-            String rootNodeTag,
-            String addonNodeTag,
             @NonNull String prefIdPrefix,
             @XmlRes int buildInAddonResId,
             @StringRes int defaultAddOnStringId,
@@ -157,7 +131,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     public static void onExternalPackChanged(
-            Intent eventIntent, AnySoftKeyboard ime, AddOnsFactory<?>... factories) {
+            Intent eventIntent, OnCriticalAddOnChangeListener ime, AddOnsFactory<?>... factories) {
         boolean cleared = false;
         for (AddOnsFactory<?> factory : factories) {
             try {
@@ -373,7 +347,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         // sorting the keyboards according to the requested
         // sort order (from minimum to maximum)
-        Collections.sort(mAddOns, new AddOnsComparator());
+        Collections.sort(mAddOns, new AddOnsComparator(mContext.getPackageName()));
         Logger.d(mTag, "Have %d add on for %s (after sort)", mAddOns.size(), getClass().getName());
     }
 
@@ -401,8 +375,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
             }
 
             if (!mReadExternalPacksToo
-                    && !BuildConfig.APPLICATION_ID.equalsIgnoreCase(
-                            receiver.activityInfo.packageName)) {
+                    && !mContext.getPackageName()
+                            .equalsIgnoreCase(receiver.activityInfo.packageName)) {
                 // Skipping external packages
                 continue;
             }
@@ -553,8 +527,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         private final String mAskPackageName;
 
-        private AddOnsComparator() {
-            mAskPackageName = BuildConfig.APPLICATION_ID;
+        private AddOnsComparator(String askPackageName) {
+            mAskPackageName = askPackageName;
         }
 
         @Override
@@ -587,7 +561,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 String prefIdPrefix,
                 @XmlRes int buildInAddonResId,
                 @StringRes int defaultAddOnStringId,
-                boolean readExternalPacksToo) {
+                boolean readExternalPacksToo,
+                boolean isTestingBuild) {
             super(
                     context,
                     tag,
@@ -598,7 +573,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                     prefIdPrefix,
                     buildInAddonResId,
                     defaultAddOnStringId,
-                    readExternalPacksToo);
+                    readExternalPacksToo,
+                    isTestingBuild);
         }
 
         @Override
@@ -637,7 +613,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 String prefIdPrefix,
                 @XmlRes int buildInAddonResId,
                 @StringRes int defaultAddOnStringId,
-                boolean readExternalPacksToo) {
+                boolean readExternalPacksToo,
+                boolean isTestingBuild) {
             super(
                     context,
                     tag,
@@ -648,7 +625,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                     prefIdPrefix,
                     buildInAddonResId,
                     defaultAddOnStringId,
-                    readExternalPacksToo);
+                    readExternalPacksToo,
+                    isTestingBuild);
 
             mSortedIdsPrefId = prefIdPrefix + "AddOnsFactory_order_key";
         }

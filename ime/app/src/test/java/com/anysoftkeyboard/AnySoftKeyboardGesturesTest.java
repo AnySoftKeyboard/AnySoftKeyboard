@@ -2,7 +2,6 @@ package com.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -18,7 +17,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     @Before
     @Override
     public void setUpForAnySoftKeyboardBase() throws Exception {
-        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         super.setUpForAnySoftKeyboardBase();
     }
 

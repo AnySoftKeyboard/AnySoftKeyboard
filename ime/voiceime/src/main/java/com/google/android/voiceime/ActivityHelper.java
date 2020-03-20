@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import com.menny.android.anysoftkeyboard.BuildConfig;
 import java.util.ArrayList;
 
 /** Helper activity used for triggering the Intent recognition, and for collecting the results. */
@@ -46,7 +45,7 @@ public class ActivityHelper extends Activity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(
                 "calling_package" /*RecognizerIntent.EXTRA_CALLING_PACKAGE*/,
-                BuildConfig.APPLICATION_ID);
+                getApplicationContext().getPackageName());
         intent.putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
