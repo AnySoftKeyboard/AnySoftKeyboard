@@ -18,7 +18,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.content.Context;
 import android.database.ContentObserver;
-import android.graphics.Canvas;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,8 +36,6 @@ public interface DeviceSpecific {
 
     void commitCorrectionToInputConnection(
             InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);
-
-    boolean isHardwareAcceleratedCanvas(Canvas canvas);
 
     void reportInputMethodSubtypes(
             @NonNull InputMethodManager inputMethodManager,

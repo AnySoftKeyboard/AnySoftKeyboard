@@ -19,7 +19,6 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -51,11 +50,6 @@ public class DeviceSpecificLowest implements DeviceSpecific {
     public void commitCorrectionToInputConnection(
             InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
         ic.commitText(newWord, 1);
-    }
-
-    @Override
-    public boolean isHardwareAcceleratedCanvas(Canvas canvas) {
-        return false;
     }
 
     @Override
