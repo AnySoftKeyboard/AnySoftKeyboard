@@ -157,9 +157,9 @@
         index="9"
         />
     <ExtensionKeyboard
-        id="4bd88cea-f31e-4500-b20d-f51757350d8d"
-        nameResId="@string/extension_kbd_bottom_row_aosp"
-        extensionKeyboardResId="@xml/ext_kbd_bottom_row_aosp"
+        id="a81483fe-8914-4a5a-9e5f-2e79265ff252"
+        nameResId="@string/extension_kbd_bottom_simple_alt"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_simple_alt"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
         index="10"
@@ -179,6 +179,15 @@
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
         index="12"
+        />
+
+    <ExtensionKeyboard
+        id="4bd88cea-f31e-4500-b20d-f51757350d8d"
+        nameResId="@string/extension_kbd_bottom_row_aosp"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_aosp"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="13"
         />
 
 

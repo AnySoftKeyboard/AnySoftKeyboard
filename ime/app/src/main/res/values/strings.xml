@@ -536,6 +536,7 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
     <string name="extension_kbd_bottom_old">Old School</string>
     <string name="extension_kbd_bottom_simple">Simple</string>
+    <string name="extension_kbd_bottom_simple_alt">Simple Alternative</string>
     <string name="extension_kbd_bottom_row_aosp">AOSP styled</string>
 
     <string name="extension_kbd_bottom_ng">New Generation - Testing</string>
