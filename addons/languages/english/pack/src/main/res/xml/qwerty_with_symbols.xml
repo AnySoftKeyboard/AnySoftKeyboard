@@ -4,6 +4,7 @@
           xmlns:ask="http://schemas.android.com/apk/res-auto"
           android:keyWidth="10%p"
           android:keyHeight="@integer/key_normal_height">
+
     <Row>
         <Key android:codes="q" android:popupCharacters="1¹₁" ask:hintLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="w" android:popupCharacters="2²₂ŵ" ask:hintLabel="2"/>
@@ -23,11 +24,11 @@
         <Key android:codes="d" android:popupCharacters="#%đďḏ" ask:hintLabel="# %"/>
         <Key android:codes="f" android:popupCharacters="^\u0026" ask:hintLabel="^ \u0026"/>
         <Key android:codes="g" android:popupCharacters="`°ĝ" ask:hintLabel="` °"/>
-        <Key android:codes="h" android:popupCharacters="_~ĥḥḫẖ" ask:hintLabel="_ ~"/>
+        <Key android:codes="h" android:popupKeyboard="@xml/popup_querty_with_symbols_h" ask:hintLabel="_ ~"/>
         <Key android:codes="j" android:popupCharacters="\\|ĵ" ask:hintLabel="\\ |"/>
         <Key android:codes="k" android:popupCharacters="([{⸢" ask:hintLabel="("/>
         <Key android:codes="l" android:popupCharacters=")]}⸣ľĺł£" ask:hintLabel=")"/>
-        <Key ask:isFunctional="true" android:codes="\u0027" android:popupCharacters="ʾʿʻ\u0022"
+        <Key ask:isFunctional="true" android:codes="\u0027" android:popupCharacters="\u0022ʾʿʻ"
              android:keyEdgeFlags="right"/>
     </Row>
 
