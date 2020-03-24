@@ -4,10 +4,10 @@
     xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p">
     
-    <Row android:keyWidth="10%p">
+    <Row android:keyWidth="9.09%p">
         <Key android:codes="113" android:keyLabel="q" android:popupCharacters="\@1" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w" android:popupCharacters="2"/>
-        <Key android:codes="e"   android:keyLabel="e" android:popupKeyboard="@xml/popup_e" ask:hintLabel="€3"/>
+        <Key android:codes="e"   android:keyLabel="e" android:popupKeyboard="@xml/de_popup_e" ask:hintLabel="€3"/>
         <Key android:codes="114" android:keyLabel="r" android:popupCharacters="4"/>
         <Key android:codes="116" android:keyLabel="t" android:popupCharacters="5"/>
         <Key android:codes="121" android:keyLabel="y" android:popupCharacters="ýÿ"/>
@@ -20,7 +20,7 @@
     
     <Row android:keyWidth="9.09%p">
         <Key android:codes="97" android:keyLabel="a" android:popupCharacters="äàáâãåæą" android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="ßẞśŝš"/>
+        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="§ßẞśŝš"/>
         <Key android:codes="100" android:keyLabel="d" android:popupCharacters="đ"/>
         <Key android:codes="102" android:keyLabel="f" android:popupCharacters=""/>
         <Key android:codes="103" android:keyLabel="g" android:popupCharacters="ĝ"/>
