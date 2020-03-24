@@ -32,10 +32,30 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
  * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/).
 
 ## Releases
+
+### from _master_
+
+#### IME - AnySoftKeyboard
 * Every commit to _master_ branch will [deploy](.github/workflows/checks.yml) a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google Groups](https://groups.google.com/d/forum/anysoftkeyboard-alpha-testers) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Every Wednesday the latest _ALPHA_ will be [promoted](.github/workflows/deployment_promote.yml) to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Note about pre-release channels: every few months we will remove all the users in the groups. When that happens, you are required to re-subscribe to the group. This is done to ensure that the members in the groups are active.
-* Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
+* Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-ime-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
+
+#### AddOns
+* Every commit to _master_ branch will [deploy](.github/workflows/checks.yml) all addons to _BETA_ channel in Google Play-Store. You can subscribe to this release channel by joining the _BETA_ channel for each [addon](addons/languages/PACKS.md).
+* Note about pre-release channels: every few months we will remove all the users in the groups. When that happens, you are required to re-subscribe to the group. This is done to ensure that the members in the groups are active.
+* Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-addons-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
+
+### from _release-branch_
+
+#### IME - AnySoftKeyboard
+* Each new commit to the release-branch will be published to 10% of the users.
+* Each day - if no new commit was pushed to the release-branch - we will increase the roll-out.
+* When roll-out reaches 100%, an fdroid release will be made.
+
+#### AddOns
+* Each new commit to the release-branch will be published to 10% of the users.
+* Each day - if no new commit was pushed to the release-branch - we will increase the roll-out.
 
 ## Read more
 * Our fancy [web-site](http://anysoftkeyboard.github.io/)
