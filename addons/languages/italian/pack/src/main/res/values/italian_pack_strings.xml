@@ -1,4 +1,4 @@
 <resources>
-
-
+   <string name="italian_qwerty_description">QWERTY Italian keyboard</string>
+   <string name="italian_keyboard_symbols_description">QWERTY Italian keyboard with symbols</string>
 </resources>

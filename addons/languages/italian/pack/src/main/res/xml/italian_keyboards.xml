@@ -9,5 +9,9 @@
      -->
 	<Keyboard nameResId="@string/italian_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwerty"
 			landscapeResId="@xml/italian_qwerty"
-			id="e9d5ece2-48b4-48e0-8e14-41dcdfac093d" defaultDictionaryLocale="it" description="Italian QWERTY" index="1" />
+			id="e9d5ece2-48b4-48e0-8e14-41dcdfac093d" defaultDictionaryLocale="it" description="@string/italian_qwerty_description" index="1" />
+	<Keyboard nameResId="@string/italian_qwerty_with_symbols_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwerty_with_symbols"
+			landscapeResId="@xml/italian_qwerty_with_symbols"
+			id="e545b020-d98d-4701-ab2f-eb26ecd9be76" defaultDictionaryLocale="it" description="@string/italian_keyboard_symbols_description" index="2" />
+
 </Keyboards>
