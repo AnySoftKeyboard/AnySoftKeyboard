@@ -342,8 +342,19 @@ public class Suggest {
                 mHaveCorrection = true;
                 if (mSuggestions.size() == 0) {
                     mSuggestions.add(mOriginalWord);
+                }           
+                //If the first character of the typed word is capitalized, 
+                //then also the suggestion will be
+                String autoTextString = autoText.toString();
+                if (mIsFirstCharCapitalized) {
+                    // capitalize the autotext string   
+                    mSuggestions.add(1,
+                        (autoTextString.substring(0, 1).toUpperCase() + autoTextString.substring(1)));
                 }
-                mSuggestions.add(1, autoText);
+                else {
+                    //no need to capitalize. Add as it is
+                    mSuggestions.add(1, autoText); 
+                }                
             }
         }
 
