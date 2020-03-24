@@ -1,4 +1,5 @@
 import java.time.DayOfWeek
+import java.time.Duration
 import java.time.Instant
 
 apply plugin: 'anysoftkeyboard-deployment'
@@ -35,11 +36,31 @@ deployments {
     }
 }
 
-// start - IME
+long getDaysFromLastCommitFromGit() {
+    def epochOfLastCommit = "git show -s --format=%ct HEAD".execute().text.toLong() * 1000L
+    println("epochOfLastCommit is ${epochOfLastCommit}")
+    Instant now = Instant.now()
+    Instant timeOfLastCommit = Instant.ofEpochMilli(epochOfLastCommit)
+    println("now: ${now}, timeOfLastCommit: ${timeOfLastCommit}")
+    Duration diff = Duration.between(now, timeOfLastCommit)
+    println("diff is ${diff}")
+    return diff.toDays()
+}
+
+String getTaskNameByStepFor(String processName, long step) {
+    def processSteps = deployments.named(processName).get().environmentSteps
+    if (step >= processSteps.size()) {
+        step = processSteps.size() - 1
+    }
+    return "deploymentRequest_${processName}_${processSteps[step]}"
+}
+
+//////// start - IME
+//master
 def imeOnMasterPush = tasks.register("imeOnMasterPush") {
     it.group "Publishing"
     it.description "Deployment request on master push for IME"
-    it.dependsOn tasks.named("deploymentRequest_imeMaster_alpha_100")
+    it.dependsOn tasks.named(getTaskNameByStepFor("imeMaster", 0))
 }
 
 def imePromoteMaster = tasks.register("imePromoteMaster") {
@@ -49,25 +70,62 @@ def imePromoteMaster = tasks.register("imePromoteMaster") {
     def shouldPromote = Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
     it.onlyIf { shouldPromote }
     if (shouldPromote) {
-        it.dependsOn tasks.named("deploymentRequest_imeMaster_beta_100")
+        it.dependsOn tasks.named(getTaskNameByStepFor("imeMaster", 1))
     }
 }
-//TODO: release branch flows
-// end - IME
 
-// start - addons
+//release-branch
+def imeOnReleasePush = tasks.register("imeOnReleasePush") {
+    it.group "Publishing"
+    it.description "Deployment request on release-branch push for IME"
+    it.dependsOn tasks.named(getTaskNameByStepFor("imeProduction", 0))
+}
+
+def imePromoteRelease = tasks.register("imePromoteRelease") {
+    it.group "Publishing"
+    it.description "Deployment promoting request on release-branch for IME"
+    //promoting one step every day
+    def days = getDaysFromLastCommitFromGit()
+    it.onlyIf { days > 0 }
+    if (days > 0) {
+        it.dependsOn tasks.named(getTaskNameByStepFor("imeProduction", days))
+    }
+}
+//////// end - IME
+def noOpTask = tasks.register("noOpDeployTask")
+
+//////// start - addons
+// master
 def addOnsOnMasterPush = tasks.register("addOnsOnMasterPush") {
     it.group "Publishing"
     it.description "Deployment request on master push for all addons"
-    it.dependsOn tasks.named("deploymentRequest_addOnsMaster_beta_100")
+    it.dependsOn tasks.named(getTaskNameByStepFor("addOnsMaster", 0))
 }
 
 def addOnsPromoteMaster = tasks.register("addOnsPromoteMaster") {
     it.group 'Publishing'
     it.description 'NO-OP: Deployment request on master push for all addons'
 }
-//TODO: release branch flows
-// end - addons
+
+
+//release-branch
+def addOnsOnReleasePush = tasks.register("addOnsOnReleasePush") {
+    it.group "Publishing"
+    it.description "Deployment request on release-branch push for addons"
+    it.dependsOn tasks.named(getTaskNameByStepFor("addOnsProduction", 0))
+}
+
+def addOnsPromoteRelease = tasks.register("addOnsPromoteRelease") {
+    it.group "Publishing"
+    it.description "Deployment promoting request on release-branch for addons"
+    //promoting one step every day
+    def days = getDaysFromLastCommitFromGit()
+    it.onlyIf { days > 0 }
+    if (days > 0) {
+        it.dependsOn tasks.named(getTaskNameByStepFor("addOnsProduction", days))
+    }
+}
+//////// end - addons
 
 tasks.register('deploymentRequestProcess').configure {
     it.group = 'Publishing'
@@ -86,7 +144,8 @@ tasks.register('deploymentRequestProcess').configure {
         if (ref != null && newDeploy != null) {
             def imeDeploy
             def addOnsDeploy
-            if (ref == 'master' || ref == 'refs/heads/master') {
+            ref = ref.replace('refs/heads/', '')
+            if (ref == 'master') {
                 println('deploy-request from master branch')
                 if (newDeploy == 'true') {
                     println('deploy-request for a new deploy')
@@ -96,6 +155,28 @@ tasks.register('deploymentRequestProcess').configure {
                     println('deploy-request for a promote')
                     imeDeploy = imePromoteMaster
                     addOnsDeploy = addOnsPromoteMaster
+                }
+            } else if (ref.matches('release-branch-ime-v.+')) {
+                println('deploy-request from ime release branch')
+                if (newDeploy == 'true') {
+                    println('deploy-request for a new deploy')
+                    imeDeploy = imeOnReleasePush
+                    addOnsDeploy = noOpTask
+                } else if (newDeploy == 'false') {
+                    println('deploy-request for a promote')
+                    imeDeploy = imePromoteRelease
+                    addOnsDeploy = noOpTask
+                }
+            } else if (ref.matches('release-branch-addons-v.+')) {
+                println('deploy-request from addons release branch')
+                if (newDeploy == 'true') {
+                    println('deploy-request for a new deploy')
+                    imeDeploy = noOpTask
+                    addOnsDeploy = addOnsOnReleasePush
+                } else if (newDeploy == 'false') {
+                    println('deploy-request for a promote')
+                    imeDeploy = noOpTask
+                    addOnsDeploy = addOnsPromoteRelease
                 }
             }
 
