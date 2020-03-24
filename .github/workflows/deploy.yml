@@ -11,7 +11,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/ndk_ask:1.13.7
     steps:
       - uses: actions/checkout@v2
       - name: setup

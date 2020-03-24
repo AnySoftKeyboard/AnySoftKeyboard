@@ -18,7 +18,7 @@ env:
 jobs:
   checks:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/ndk_ask:1.13.7
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
@@ -48,7 +48,7 @@ jobs:
 
   app-tests-shards:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/ndk_ask:1.13.7
     strategy:
       matrix:
         index: [0, 1]
@@ -88,7 +88,7 @@ jobs:
 
   app-all-sdks-tests:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/ndk_ask:1.13.7
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
@@ -123,7 +123,7 @@ jobs:
 
   app-less-tests:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/ndk_ask:1.13.7
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
@@ -158,7 +158,7 @@ jobs:
 
   deploy-dry-run:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.13.6
+    container: menny/ndk_ask:1.13.7
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
@@ -190,7 +190,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [master-green-requirement]
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.13.6
+    container: menny/android_base:1.13.7
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/deploy-request
