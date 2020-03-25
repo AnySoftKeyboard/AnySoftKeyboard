@@ -381,6 +381,7 @@
     <string name="extension_kbd_top_small_numbers">Teclas numéricas</string>
     <string name="extension_kbd_top_numbers_alt">Alternar teclas numéricas</string>
     <string name="extension_kbd_top_nav">Teclas de navegación</string>
+    <string name="extension_kbd_top_nav_alt">Teclas de navegación alternativo</string>
     <string name="extension_kbd_top_numbers_simple">Solo números</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_top_text_editing">Edición de texto rápido</string>
@@ -392,9 +393,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternar (con micrófono)</string>
     <string name="extension_kbd_bottom_old">Convencional</string>
     <string name="extension_kbd_bottom_simple">Simple</string>
+    <string name="extension_kbd_bottom_simple_alt">Simple alternativo</string>
     <string name="extension_kbd_bottom_row_aosp">Estilo AOSP</string>
     <string name="extension_kbd_bottom_ng">Nueva generación (prueba)</string>
     <string name="extension_kbd_extension_numbers_symbols">Números y símbolos</string>
+    <string name="extension_kbd_bottom_minimal">Mínimo</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sin emojis)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
