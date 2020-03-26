@@ -81,6 +81,9 @@ public class SuggestionsProvider {
     @NonNull private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
     @NonNull private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
     private boolean mQuickFixesEnabled;
+    // if true secondary languages will not have autotext on. For primary language is intended the
+    // current keyboard layout language
+    private boolean mQuickFixesSecondDisabled;
     @NonNull private final List<AutoText> mQuickFixesAutoText = new ArrayList<>();
 
     private boolean mNextWordEnabled;
@@ -131,6 +134,18 @@ public class SuggestionsProvider {
                                     mQuickFixesEnabled = value;
                                 },
                                 GenericOnError.onError("settings_key_quick_fix")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getBoolean(
+                                R.string.settings_key_quick_fix_second_disabled,
+                                R.bool.settings_default_key_quick_fix_second_disabled)
+                        .asObservable()
+                        .subscribe(
+                                value -> {
+                                    mCurrentSetupHashCode = 0;
+                                    mQuickFixesSecondDisabled = value;
+                                },
+                                GenericOnError.onError("settings_key_quick_fix_second_disable")));
         mPrefsDisposables.add(
                 rxSharedPrefs
                         .getBoolean(
@@ -264,7 +279,7 @@ public class SuggestionsProvider {
         mCurrentSetupHashCode = newSetupHashCode;
         final CompositeDisposable disposablesHolder = mDictionaryDisposables;
 
-        for (int i=0; i< dictionaryBuilders.size(); i++) {
+        for (int i = 0; i < dictionaryBuilders.size(); i++) {
             try {
                 Logger.d(
                         TAG,
@@ -281,7 +296,11 @@ public class SuggestionsProvider {
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
             } catch (Exception e) {
-                Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilders.get(i).getId());
+                Logger.e(
+                        TAG,
+                        e,
+                        "Failed to create dictionary %s",
+                        dictionaryBuilders.get(i).getId());
             }
 
             if (mUserDictionaryEnabled) {
@@ -289,25 +308,31 @@ public class SuggestionsProvider {
                         createUserDictionaryForLocale(dictionaryBuilders.get(i).getLanguage());
                 mUserDictionary.add(userDictionary);
                 Logger.d(
-                        TAG, " Loading user dictionary for %s...", dictionaryBuilders.get(i).getLanguage());
+                        TAG,
+                        " Loading user dictionary for %s...",
+                        dictionaryBuilders.get(i).getLanguage());
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
                 mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
             } else {
                 Logger.d(TAG, " User does not want user dictionary, skipping...");
             }
+            // if mQuickFixesEnabled and mQuickFixesSecondDisabled are true
             // it  activates autotext only to the current keyboard layout language
-            // and if mQuickFixesEnabled is enabled in the settings
-            if (mQuickFixesEnabled && i==0) {
+            if ((mQuickFixesEnabled && mQuickFixesSecondDisabled && i == 0)
+                    || (!mQuickFixesSecondDisabled && mQuickFixesEnabled)) {
                 final AutoText autoText = dictionaryBuilders.get(i).createAutoText();
                 if (autoText != null) {
                     mQuickFixesAutoText.add(autoText);
                 }
                 final AbbreviationsDictionary abbreviationsDictionary =
-                        new AbbreviationsDictionary(mContext, dictionaryBuilders.get(i).getLanguage());
+                        new AbbreviationsDictionary(
+                                mContext, dictionaryBuilders.get(i).getLanguage());
                 mAbbreviationDictionary.add(abbreviationsDictionary);
                 Logger.d(
-                        TAG, " Loading abbr dictionary for %s...", dictionaryBuilders.get(i).getLanguage());
+                        TAG,
+                        " Loading abbr dictionary for %s...",
+                        dictionaryBuilders.get(i).getLanguage());
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(
                                 abbreviationsDictionary));
@@ -318,7 +343,10 @@ public class SuggestionsProvider {
             // only one auto-dictionary. There is no way to know to which language the typed word
             // belongs.
             mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilders.get(i).getLanguage());
-            Logger.d(TAG, " Loading auto dictionary for %s...", dictionaryBuilders.get(i).getLanguage());
+            Logger.d(
+                    TAG,
+                    " Loading auto dictionary for %s...",
+                    dictionaryBuilders.get(i).getLanguage());
             disposablesHolder.add(
                     DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
         }
