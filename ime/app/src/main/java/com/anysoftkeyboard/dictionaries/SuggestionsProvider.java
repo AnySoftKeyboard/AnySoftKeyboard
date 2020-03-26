@@ -264,60 +264,61 @@ public class SuggestionsProvider {
         mCurrentSetupHashCode = newSetupHashCode;
         final CompositeDisposable disposablesHolder = mDictionaryDisposables;
 
-        for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
+        for (int i=0; i< dictionaryBuilders.size(); i++) {
             try {
                 Logger.d(
                         TAG,
                         " Creating dictionary %s (%s)...",
-                        dictionaryBuilder.getId(),
-                        dictionaryBuilder.getLanguage());
-                final Dictionary dictionary = dictionaryBuilder.createDictionary();
+                        dictionaryBuilders.get(i).getId(),
+                        dictionaryBuilders.get(i).getLanguage());
+                final Dictionary dictionary = dictionaryBuilders.get(i).createDictionary();
                 mMainDictionary.add(dictionary);
                 Logger.d(
                         TAG,
                         " Loading dictionary %s (%s)...",
-                        dictionaryBuilder.getId(),
-                        dictionaryBuilder.getLanguage());
+                        dictionaryBuilders.get(i).getId(),
+                        dictionaryBuilders.get(i).getLanguage());
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
             } catch (Exception e) {
-                Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
+                Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilders.get(i).getId());
             }
 
             if (mUserDictionaryEnabled) {
                 final UserDictionary userDictionary =
-                        createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
+                        createUserDictionaryForLocale(dictionaryBuilders.get(i).getLanguage());
                 mUserDictionary.add(userDictionary);
                 Logger.d(
-                        TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
+                        TAG, " Loading user dictionary for %s...", dictionaryBuilders.get(i).getLanguage());
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
                 mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
             } else {
                 Logger.d(TAG, " User does not want user dictionary, skipping...");
             }
-
-            if (mQuickFixesEnabled) {
-                final AutoText autoText = dictionaryBuilder.createAutoText();
+            // it  activates autotext only to the current keyboard layout language
+            // and if mQuickFixesEnabled is enabled in the settings
+            if (mQuickFixesEnabled && i==0) {
+                final AutoText autoText = dictionaryBuilders.get(i).createAutoText();
                 if (autoText != null) {
                     mQuickFixesAutoText.add(autoText);
                 }
                 final AbbreviationsDictionary abbreviationsDictionary =
-                        new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
+                        new AbbreviationsDictionary(mContext, dictionaryBuilders.get(i).getLanguage());
                 mAbbreviationDictionary.add(abbreviationsDictionary);
                 Logger.d(
-                        TAG, " Loading abbr dictionary for %s...", dictionaryBuilder.getLanguage());
+                        TAG, " Loading abbr dictionary for %s...", dictionaryBuilders.get(i).getLanguage());
                 disposablesHolder.add(
                         DictionaryBackgroundLoader.loadDictionaryInBackground(
                                 abbreviationsDictionary));
             }
 
-            mInitialSuggestionsList.addAll(dictionaryBuilder.createInitialSuggestions());
+            mInitialSuggestionsList.addAll(dictionaryBuilders.get(i).createInitialSuggestions());
 
             // only one auto-dictionary. There is no way to know to which language the typed word
             // belongs.
-            mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
-            Logger.d(TAG, " Loading auto dictionary for %s...", dictionaryBuilder.getLanguage());
+            mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilders.get(i).getLanguage());
+            Logger.d(TAG, " Loading auto dictionary for %s...", dictionaryBuilders.get(i).getLanguage());
             disposablesHolder.add(
                     DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
         }
