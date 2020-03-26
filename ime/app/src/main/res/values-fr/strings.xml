@@ -384,6 +384,7 @@
     <string name="extension_kbd_top_small_numbers">Touches des chiffres</string>
     <string name="extension_kbd_top_numbers_alt">Touches chiffres alternatives</string>
     <string name="extension_kbd_top_nav">Touches de navigation</string>
+    <string name="extension_kbd_top_nav_alt">Touches de navigation alternatives</string>
     <string name="extension_kbd_top_numbers_simple">Simple, nombres seulement</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_top_text_editing">Édition textes rapides</string>
@@ -395,9 +396,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternatif (avec micro)</string>
     <string name="extension_kbd_bottom_old">Vieille école</string>
     <string name="extension_kbd_bottom_simple">Simple</string>
+    <string name="extension_kbd_bottom_simple_alt">Alternative simple</string>
     <string name="extension_kbd_bottom_row_aosp">Avec style AOSP</string>
     <string name="extension_kbd_bottom_ng">Nouvelle génération - En test</string>
     <string name="extension_kbd_extension_numbers_symbols">Chiffres et symboles</string>
+    <string name="extension_kbd_bottom_minimal">Minimal</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (sans émoticône)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Aller</string>
