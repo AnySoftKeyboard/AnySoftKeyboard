@@ -24,7 +24,7 @@ jobs:
         uses: ./.github/actions/deploy-request
         with:
           sha: ${{ github.sha }}
-          ref: ${{ github.ref }}
+          ref: ${{ matrix.refname }}
           new_deploy: false
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
