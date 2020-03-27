@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Locale;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
-import org.gradle.api.Project;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
@@ -20,12 +19,19 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
     private String mDeploymentId;
     private String mDeploymentState;
 
-    static void makeBuildDir(Project project) throws IOException {
-        File buildDir = project.getBuildDir();
+    static void createEmptyOutputFile(File outputFile) throws IOException {
+        File buildDir = outputFile.getParentFile();
         if (!buildDir.isDirectory() && !buildDir.mkdirs()) {
             throw new IOException(
                     "Failed to create build output folder: " + buildDir.getAbsolutePath());
         }
+
+        if (outputFile.isFile() && !outputFile.delete()) {
+            throw new IOException(
+                    "Failed to delete existing output file : " + outputFile.getAbsolutePath());
+        }
+
+        Files.createFile(outputFile.toPath());
     }
 
     @Inject
@@ -70,7 +76,7 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
     @TaskAction
     public void statusAction() {
         try {
-            makeBuildDir(getProject());
+            createEmptyOutputFile(getStatueFile());
             final DeploymentStatus.Response response =
                     statusRequest(
                             new RequestCommandLineArgs(getProject().getProperties()),
