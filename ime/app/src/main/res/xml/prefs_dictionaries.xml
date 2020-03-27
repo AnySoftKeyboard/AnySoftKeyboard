@@ -51,6 +51,14 @@
             android:summaryOff=""
             android:summaryOn="@string/quick_fix_summary"
             android:title="@string/quick_fix"/>
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="@string/settings_key_quick_fix"
+            android:key="@string/settings_key_quick_fix_second_disabled"
+            android:persistent="true"
+            android:summaryOff="@string/quick_fix_secon_disabled_summ_off"
+            android:summaryOn="@string/quick_fix_secon_disabled_summ_on"
+            android:title="@string/quick_fix_secon_disabled"/>
 
         <android.support.v7.preference.ListPreference
             android:key="@string/settings_key_auto_pick_suggestion_aggressiveness"

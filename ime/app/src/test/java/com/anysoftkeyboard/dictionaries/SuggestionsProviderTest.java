@@ -298,6 +298,50 @@ public class SuggestionsProviderTest {
     }
 
     @Test
+    public void testDoesNotCreateAutoTextForSecondaries() throws Exception {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, true);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix_second_disabled, true);
+
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("hell", "hello", "say", "said", "drink")));
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("salt", "helll")));
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("ciao", "come")));
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("hola", "como")));
+
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+
+        for (int i = 0; i < mFakeBuilders.size(); i++) {
+            DictionaryAddOnAndBuilder fakeB = mFakeBuilders.get(i);
+            if (i != 0) {
+                Mockito.verify(fakeB).createDictionary();
+                Mockito.verify(fakeB, Mockito.never()).createAutoText();
+                Mockito.verify(fakeB).createInitialSuggestions();
+                Mockito.verify(fakeB, Mockito.atLeastOnce()).getLanguage();
+            }
+        }
+    }
+
+    @Test
+    public void testDoesCreateAutoTextForSecondaries() throws Exception {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, true);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix_second_disabled, false);
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("hell", "hello", "say", "said", "drink")));
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("salt", "helll")));
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("ciao", "come")));
+        mFakeBuilders.add(Mockito.spy(new FakeBuilder("hola", "como")));
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+
+        for (int i = 0; i < mFakeBuilders.size(); i++) {
+            DictionaryAddOnAndBuilder fakeB = mFakeBuilders.get(i);
+            if (i == 0) {
+                Mockito.verify(fakeB).createDictionary();
+                Mockito.verify(fakeB).createAutoText();
+                Mockito.verify(fakeB).createInitialSuggestions();
+                Mockito.verify(fakeB, Mockito.atLeastOnce()).getLanguage();
+            }
+        }
+    }
+
+    @Test
     public void testIsValid() throws Exception {
         Assert.assertFalse(mSuggestionsProvider.isValidWord("hello"));
 
