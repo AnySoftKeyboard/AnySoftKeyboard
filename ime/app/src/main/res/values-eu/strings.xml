@@ -388,6 +388,7 @@
     <string name="extension_kbd_top_small_numbers">Zenbaki-teklak</string>
     <string name="extension_kbd_top_numbers_alt">Bestelako zenbaki-teklak</string>
     <string name="extension_kbd_top_nav">Nabigazio-teklak</string>
+    <string name="extension_kbd_top_nav_alt">Nabigazio teklen ordezkoa</string>
     <string name="extension_kbd_top_numbers_simple">Sinplea, zenbakiak besterik ez</string>
     <string name="extension_kbd_top_terminal">Terminala</string>
     <string name="extension_kbd_top_text_editing">Testu edizio azkarra</string>
@@ -399,8 +400,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">Bestelakoa mikrofonoarekin</string>
     <string name="extension_kbd_bottom_old">Eskola zaharra</string>
     <string name="extension_kbd_bottom_simple">Sinplea</string>
+    <string name="extension_kbd_bottom_simple_alt">Ordezko sinplea</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP estilokoa</string>
     <string name="extension_kbd_bottom_ng">Belaunaldi berria - Probetan</string>
     <string name="extension_kbd_extension_numbers_symbols">Zenbakiak eta ikurrak</string>
+    <string name="extension_kbd_bottom_minimal">Minimoa</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimoa (emojirik ez)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Joan</string>
