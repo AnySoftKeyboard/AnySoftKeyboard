@@ -204,7 +204,7 @@ jobs:
 
 
   merge-to-master:
-    if: github.event_name == 'push' && startsWith(github.ref, 'release-branch-')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [master-green-requirement]
     runs-on: ubuntu-18.04
     container: menny/android_base:1.13.7
@@ -213,9 +213,7 @@ jobs:
         with:
           ref: master
       - name: create-merge-commit
-        run: |
-          git fetch ${{ github.ref }}
-          git merge  ${{ github.ref }}  
+        run: ./scripts/ci/ci_merge_to_master.sh ${{ github.ref }}
       - name: Create pull request
         uses: peter-evans/create-pull-request@v2.4.4
         with:
@@ -227,4 +225,5 @@ jobs:
           body: 'Generated from commit ${{ github.sha }} on ${{ github.ref }}.'
           team-reviewers: maintainers
           branch: 'bot-pr/merge-to-master-from-${{ github.ref }}'
+          base: master
           labels: automerge
