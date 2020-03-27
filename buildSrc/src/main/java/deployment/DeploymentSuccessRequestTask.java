@@ -1,6 +1,6 @@
 package deployment;
 
-import static deployment.DeploymentStatusRequestTask.makeBuildDir;
+import static deployment.DeploymentStatusRequestTask.createEmptyOutputFile;
 
 import github.DeploymentStatus;
 import github.DeploymentsList;
@@ -61,7 +61,7 @@ public abstract class DeploymentSuccessRequestTask extends DefaultTask {
     public void statusAction() {
         final String processName = mEnvironmentName.substring(0, mEnvironmentName.indexOf('_') + 1);
         try {
-            makeBuildDir(getProject());
+            createEmptyOutputFile(getStatueFile());
             final RequestCommandLineArgs data =
                     new RequestCommandLineArgs(getProject().getProperties());
             final DeploymentsList.Response[] responses = listRequest(data, mEnvironmentSha);
