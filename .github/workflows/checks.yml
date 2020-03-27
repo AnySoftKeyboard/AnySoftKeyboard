@@ -201,3 +201,30 @@ jobs:
           new_deploy: true
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+
+
+  merge-to-master:
+    if: github.event_name == 'push' && startsWith(github.ref, 'release-branch-')
+    needs: [master-green-requirement]
+    runs-on: ubuntu-18.04
+    container: menny/android_base:1.13.7
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: create-merge-commit
+        run: |
+          git fetch ${{ github.ref }}
+          git merge  ${{ github.ref }}  
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v2.4.4
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Merge to master from ${{ github.ref }}.'
+          title: 'Automated Merge to master from ${{ github.ref }}'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: 'Generated from commit ${{ github.sha }} on ${{ github.ref }}.'
+          team-reviewers: maintainers
+          branch: 'bot-pr/merge-to-master-from-${{ github.ref }}'
+          labels: automerge
