@@ -1,6 +1,11 @@
 package deployment;
 
 import github.DeploymentCreate;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -9,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 public class DeploymentRequestProcessStepTask extends DefaultTask {
@@ -31,6 +37,12 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
         return getEnvironmentName(mConfiguration, mStepIndex);
     }
 
+    @OutputFile
+    public File getStatueFile() {
+        return new File(
+                getProject().getBuildDir(), String.format(Locale.ROOT, "%s_result.log", getName()));
+    }
+
     @Inject
     public DeploymentRequestProcessStepTask(
             DeploymentProcessConfiguration configuration, int stepIndex) {
@@ -43,16 +55,28 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
     @TaskAction
     public void deploymentRequestAction() {
         try {
-            deploymentRequest(
-                    new DeploymentCommandLineArgs(getProject().getProperties()),
-                    mConfiguration,
-                    mStepIndex);
+            final DeploymentCreate.Response response =
+                    deploymentRequest(
+                            new DeploymentCommandLineArgs(getProject().getProperties()),
+                            mConfiguration,
+                            mStepIndex);
+            Files.write(
+                    getStatueFile().toPath(),
+                    Arrays.asList(
+                            response.id,
+                            response.environment,
+                            response.sha,
+                            response.ref,
+                            response.task,
+                            String.join(",", response.payload.environments_to_kill)),
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.TRUNCATE_EXISTING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void deploymentRequest(
+    private static DeploymentCreate.Response deploymentRequest(
             DeploymentCommandLineArgs data,
             DeploymentProcessConfiguration configuration,
             int stepIndex)
@@ -60,10 +84,10 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
 
         DeploymentCreate deploymentCreate =
                 new DeploymentCreate(data.apiUsername, data.apiUserToken);
-        requestDeploymentAction(deploymentCreate, data, configuration, stepIndex);
+        return requestDeploymentAction(deploymentCreate, data, configuration, stepIndex);
     }
 
-    private static void requestDeploymentAction(
+    private static DeploymentCreate.Response requestDeploymentAction(
             DeploymentCreate deploymentCreate,
             DeploymentCommandLineArgs data,
             DeploymentProcessConfiguration environment,
@@ -99,6 +123,8 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
                         response.sha,
                         response.environment,
                         response.task));
+
+        return response;
     }
 
     private static String getEnvironmentName(String environmentName, String stepName) {
