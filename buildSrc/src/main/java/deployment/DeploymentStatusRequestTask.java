@@ -1,10 +1,16 @@
 package deployment;
 
 import github.DeploymentStatus;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Locale;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 public abstract class DeploymentStatusRequestTask extends DefaultTask {
@@ -45,20 +51,36 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
         this.mDeploymentState = mState;
     }
 
+    @OutputFile
+    public File getStatueFile() {
+        return new File(
+                getProject().getBuildDir(), String.format(Locale.ROOT, "%s_result.log", getName()));
+    }
+
     @TaskAction
     public void statusAction() {
         try {
-            statusRequest(
-                    new RequestCommandLineArgs(getProject().getProperties()),
-                    mEnvironmentName,
-                    mDeploymentId,
-                    mDeploymentState);
+            final DeploymentStatus.Response response =
+                    statusRequest(
+                            new RequestCommandLineArgs(getProject().getProperties()),
+                            mEnvironmentName,
+                            mDeploymentId,
+                            mDeploymentState);
+            Files.write(
+                    getStatueFile().toPath(),
+                    Arrays.asList(
+                            response.id,
+                            response.description,
+                            response.environment,
+                            response.state),
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.TRUNCATE_EXISTING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    static void statusRequest(
+    static DeploymentStatus.Response statusRequest(
             RequestCommandLineArgs data, String environment, String deploymentId, String newStatus)
             throws Exception {
 
@@ -74,5 +96,7 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
                         response.state,
                         response.environment,
                         response.description));
+
+        return response;
     }
 }
