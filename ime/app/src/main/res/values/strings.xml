@@ -445,8 +445,12 @@
     </string>
     <string name="candidates_off_summary">No suggestions will be shown</string>
     <string name="quick_fix">Quick fixes and abbreviations</string>
-    <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations
-    </string>
+    <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations</string>
+    <string name="quick_fix_secon_disabled">&#8230;on first language only</string>
+    <string name="quick_fix_secon_disabled_summ_on">Quick fixes and abbreviations will work only on current layout language</string> 
+    <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
+                  checked in override default dictionary</string>
+
     <string name="allow_suggestions_restart">Suggestions restart</string>
     <string name="allow_suggestions_restart_summary">Restart word suggestion upon cursor movement
     </string>

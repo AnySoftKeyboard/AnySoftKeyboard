@@ -81,6 +81,9 @@ public class SuggestionsProvider {
     @NonNull private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
     @NonNull private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
     private boolean mQuickFixesEnabled;
+    // if true secondary languages will not have autotext on. For primary language is intended the
+    // current keyboard layout language
+    private boolean mQuickFixesSecondDisabled;
     @NonNull private final List<AutoText> mQuickFixesAutoText = new ArrayList<>();
 
     private boolean mNextWordEnabled;
@@ -131,6 +134,18 @@ public class SuggestionsProvider {
                                     mQuickFixesEnabled = value;
                                 },
                                 GenericOnError.onError("settings_key_quick_fix")));
+        mPrefsDisposables.add(
+                rxSharedPrefs
+                        .getBoolean(
+                                R.string.settings_key_quick_fix_second_disabled,
+                                R.bool.settings_default_key_quick_fix_second_disabled)
+                        .asObservable()
+                        .subscribe(
+                                value -> {
+                                    mCurrentSetupHashCode = 0;
+                                    mQuickFixesSecondDisabled = value;
+                                },
+                                GenericOnError.onError("settings_key_quick_fix_second_disable")));
         mPrefsDisposables.add(
                 rxSharedPrefs
                         .getBoolean(
@@ -264,7 +279,8 @@ public class SuggestionsProvider {
         mCurrentSetupHashCode = newSetupHashCode;
         final CompositeDisposable disposablesHolder = mDictionaryDisposables;
 
-        for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
+        for (int i = 0; i < dictionaryBuilders.size(); i++) {
+            DictionaryAddOnAndBuilder dictionaryBuilder = dictionaryBuilders.get(i);
             try {
                 Logger.d(
                         TAG,
@@ -296,8 +312,9 @@ public class SuggestionsProvider {
             } else {
                 Logger.d(TAG, " User does not want user dictionary, skipping...");
             }
-
-            if (mQuickFixesEnabled) {
+            // if mQuickFixesEnabled and mQuickFixesSecondDisabled are true
+            // it  activates autotext only to the current keyboard layout language
+            if (mQuickFixesEnabled && (i == 0 || !mQuickFixesSecondDisabled)) {
                 final AutoText autoText = dictionaryBuilder.createAutoText();
                 if (autoText != null) {
                     mQuickFixesAutoText.add(autoText);

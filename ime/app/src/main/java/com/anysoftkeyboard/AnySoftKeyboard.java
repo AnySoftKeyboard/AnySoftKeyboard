@@ -1164,14 +1164,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         final List<DictionaryAddOnAndBuilder> buildersForKeyboard =
                 AnyApplication.getExternalDictionaryFactory(this)
                         .getBuildersForKeyboard(getCurrentAlphabetKeyboard());
-        final List<DictionaryAddOnAndBuilder> allBuilders =
+        final List<DictionaryAddOnAndBuilder> allBuildersUnsorted =
                 AnyApplication.getExternalDictionaryFactory(this).getAllAddOns();
-
-        final CharSequence[] items = new CharSequence[allBuilders.size()];
+        final CharSequence[] items = new CharSequence[allBuildersUnsorted.size()];
         final boolean[] checked = new boolean[items.length];
-
-        for (int dictionaryIndex = 0; dictionaryIndex < allBuilders.size(); dictionaryIndex++) {
-            DictionaryAddOnAndBuilder dictionaryBuilder = allBuilders.get(dictionaryIndex);
+        final List<DictionaryAddOnAndBuilder> sortedAllBuilders =
+                new ArrayList<>(allBuildersUnsorted.size());
+        // put first in the list the current AlphabetKeyboard builders
+        sortedAllBuilders.addAll(buildersForKeyboard);
+        // and then add the remaining builders
+        for (int builderIndex = 0; builderIndex < allBuildersUnsorted.size(); builderIndex++) {
+            if (!sortedAllBuilders.contains(allBuildersUnsorted.get(builderIndex))) {
+                sortedAllBuilders.add(allBuildersUnsorted.get(builderIndex));
+            }
+        }
+        for (int dictionaryIndex = 0;
+                dictionaryIndex < sortedAllBuilders.size();
+                dictionaryIndex++) {
+            DictionaryAddOnAndBuilder dictionaryBuilder = sortedAllBuilders.get(dictionaryIndex);
             String description = dictionaryBuilder.getName();
             if (!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
                 description += " (" + dictionaryBuilder.getDescription() + ")";
@@ -1211,13 +1221,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                                     List<DictionaryAddOnAndBuilder> newBuildersForKeyboard =
                                             new ArrayList<>(buildersForKeyboard.size());
                                     for (int itemIndex = 0;
-                                            itemIndex < allBuilders.size();
+                                            itemIndex < sortedAllBuilders.size();
                                             itemIndex++) {
                                         if (checked[itemIndex]) {
-                                            newBuildersForKeyboard.add(allBuilders.get(itemIndex));
+
+                                            newBuildersForKeyboard.add(
+                                                    sortedAllBuilders.get(itemIndex));
                                         }
                                     }
-
                                     AnyApplication.getExternalDictionaryFactory(
                                                     AnySoftKeyboard.this)
                                             .setBuildersForKeyboard(
