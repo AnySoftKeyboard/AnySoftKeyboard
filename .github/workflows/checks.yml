@@ -213,9 +213,7 @@ jobs:
         with:
           ref: master
       - name: create-merge-commit
-        run: |
-          git fetch origin ${{ github.ref }}
-          git merge ${{ github.ref }}
+        run: ./scripts/ci/ci_merge_to_master.sh ${{ github.ref }}
       - name: Create pull request
         uses: peter-evans/create-pull-request@v2.4.4
         with:
