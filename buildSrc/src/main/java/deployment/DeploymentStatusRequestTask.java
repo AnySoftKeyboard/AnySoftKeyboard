@@ -1,16 +1,38 @@
 package deployment;
 
 import github.DeploymentStatus;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Locale;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 public abstract class DeploymentStatusRequestTask extends DefaultTask {
     private String mEnvironmentName;
     private String mDeploymentId;
     private String mDeploymentState;
+
+    static void createEmptyOutputFile(File outputFile) throws IOException {
+        File buildDir = outputFile.getParentFile();
+        if (!buildDir.isDirectory() && !buildDir.mkdirs()) {
+            throw new IOException(
+                    "Failed to create build output folder: " + buildDir.getAbsolutePath());
+        }
+
+        if (outputFile.isFile() && !outputFile.delete()) {
+            throw new IOException(
+                    "Failed to delete existing output file : " + outputFile.getAbsolutePath());
+        }
+
+        Files.createFile(outputFile.toPath());
+    }
 
     @Inject
     public DeploymentStatusRequestTask() {
@@ -45,20 +67,37 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
         this.mDeploymentState = mState;
     }
 
+    @OutputFile
+    public File getStatueFile() {
+        return new File(
+                getProject().getBuildDir(), String.format(Locale.ROOT, "%s_result.log", getName()));
+    }
+
     @TaskAction
     public void statusAction() {
         try {
-            statusRequest(
-                    new RequestCommandLineArgs(getProject().getProperties()),
-                    mEnvironmentName,
-                    mDeploymentId,
-                    mDeploymentState);
+            createEmptyOutputFile(getStatueFile());
+            final DeploymentStatus.Response response =
+                    statusRequest(
+                            new RequestCommandLineArgs(getProject().getProperties()),
+                            mEnvironmentName,
+                            mDeploymentId,
+                            mDeploymentState);
+            Files.write(
+                    getStatueFile().toPath(),
+                    Arrays.asList(
+                            response.id,
+                            response.description,
+                            response.environment,
+                            response.state),
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.TRUNCATE_EXISTING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    static void statusRequest(
+    static DeploymentStatus.Response statusRequest(
             RequestCommandLineArgs data, String environment, String deploymentId, String newStatus)
             throws Exception {
 
@@ -74,5 +113,7 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
                         response.state,
                         response.environment,
                         response.description));
+
+        return response;
     }
 }
