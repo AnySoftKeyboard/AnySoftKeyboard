@@ -214,8 +214,8 @@ jobs:
           ref: master
       - name: create-merge-commit
         run: |
-          git fetch ${{ github.ref }}
-          git merge  ${{ github.ref }}  
+          git fetch origin ${{ github.ref }}
+          git merge ${{ github.ref }}
       - name: Create pull request
         uses: peter-evans/create-pull-request@v2.4.4
         with:
@@ -227,4 +227,5 @@ jobs:
           body: 'Generated from commit ${{ github.sha }} on ${{ github.ref }}.'
           team-reviewers: maintainers
           branch: 'bot-pr/merge-to-master-from-${{ github.ref }}'
+          base: master
           labels: automerge
