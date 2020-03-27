@@ -1,5 +1,7 @@
 package deployment;
 
+import static deployment.DeploymentStatusRequestTask.makeBuildDir;
+
 import github.DeploymentStatus;
 import github.DeploymentsList;
 import java.io.File;
@@ -59,6 +61,7 @@ public abstract class DeploymentSuccessRequestTask extends DefaultTask {
     public void statusAction() {
         final String processName = mEnvironmentName.substring(0, mEnvironmentName.indexOf('_') + 1);
         try {
+            makeBuildDir(getProject());
             final RequestCommandLineArgs data =
                     new RequestCommandLineArgs(getProject().getProperties());
             final DeploymentsList.Response[] responses = listRequest(data, mEnvironmentSha);
