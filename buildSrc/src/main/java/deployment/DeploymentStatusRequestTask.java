@@ -2,6 +2,7 @@ package deployment;
 
 import github.DeploymentStatus;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import javax.inject.Inject;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.Project;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
@@ -17,6 +19,14 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
     private String mEnvironmentName;
     private String mDeploymentId;
     private String mDeploymentState;
+
+    static void makeBuildDir(Project project) throws IOException {
+        File buildDir = project.getBuildDir();
+        if (!buildDir.isDirectory() && !buildDir.mkdirs()) {
+            throw new IOException(
+                    "Failed to create build output folder: " + buildDir.getAbsolutePath());
+        }
+    }
 
     @Inject
     public DeploymentStatusRequestTask() {
@@ -60,6 +70,7 @@ public abstract class DeploymentStatusRequestTask extends DefaultTask {
     @TaskAction
     public void statusAction() {
         try {
+            makeBuildDir(getProject());
             final DeploymentStatus.Response response =
                     statusRequest(
                             new RequestCommandLineArgs(getProject().getProperties()),

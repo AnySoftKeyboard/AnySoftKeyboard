@@ -1,5 +1,7 @@
 package deployment;
 
+import static deployment.DeploymentStatusRequestTask.makeBuildDir;
+
 import github.DeploymentCreate;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -55,11 +57,13 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
     @TaskAction
     public void deploymentRequestAction() {
         try {
+            makeBuildDir(getProject());
             final DeploymentCreate.Response response =
                     deploymentRequest(
                             new DeploymentCommandLineArgs(getProject().getProperties()),
                             mConfiguration,
                             mStepIndex);
+
             Files.write(
                     getStatueFile().toPath(),
                     Arrays.asList(
