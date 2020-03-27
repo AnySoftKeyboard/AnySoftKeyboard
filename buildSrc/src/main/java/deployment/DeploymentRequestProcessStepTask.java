@@ -1,6 +1,6 @@
 package deployment;
 
-import static deployment.DeploymentStatusRequestTask.makeBuildDir;
+import static deployment.DeploymentStatusRequestTask.createEmptyOutputFile;
 
 import github.DeploymentCreate;
 import java.io.File;
@@ -57,7 +57,7 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
     @TaskAction
     public void deploymentRequestAction() {
         try {
-            makeBuildDir(getProject());
+            createEmptyOutputFile(getStatueFile());
             final DeploymentCreate.Response response =
                     deploymentRequest(
                             new DeploymentCommandLineArgs(getProject().getProperties()),
