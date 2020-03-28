@@ -332,7 +332,7 @@ public class SuggestionsProviderTest {
 
         for (int i = 0; i < mFakeBuilders.size(); i++) {
             DictionaryAddOnAndBuilder fakeB = mFakeBuilders.get(i);
-            if (i == 0) {
+            if (i != 0) {
                 Mockito.verify(fakeB).createDictionary();
                 Mockito.verify(fakeB).createAutoText();
                 Mockito.verify(fakeB).createInitialSuggestions();
