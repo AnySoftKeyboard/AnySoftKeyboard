@@ -26,6 +26,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
+import com.anysoftkeyboard.ext.jni.telex;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
@@ -570,6 +571,29 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             final Keyboard.Key key,
             final int multiTapIndex,
             int[] nearByKeyCodes) {
+        String word;
+        if (!TextEntryState.isPredicting()) word = "";
+        else word = mWord.getTypedWord().toString();
+        char code = (char) primaryCode;
+        String temp = "";
+        try {
+            temp = telex.doTheThing(word, code);
+            Logger.d(TAG, "Word: %s, Input: %c, Result: %s", word, code, temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.e("MATTHEW", "exception", e);
+        }
+        final InputConnection ic = getCurrentInputConnection();
+        if (!"".equals(temp) && ic != null) {
+            ic.beginBatchEdit();
+            ic.deleteSurroundingText(word.length(), 0);
+            ic.endBatchEdit();
+            ic.beginBatchEdit();
+            for (int i = 0; i < temp.length(); i++) {
+                sendKeyChar(temp.charAt(i));
+            }
+            ic.endBatchEdit();
+        }
         if (BuildConfig.DEBUG) {
             Logger.d(
                     TAG,
@@ -596,7 +620,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
 
-        final InputConnection ic = getCurrentInputConnection();
         if (TextEntryState.isPredicting()) {
             mWord.add(primaryCode, nearByKeyCodes);
             ChewbaccaOnTheDrums.onKeyTyped(mWord, getApplicationContext());

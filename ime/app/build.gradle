@@ -56,6 +56,7 @@ dependencies {
     implementation project(':ime:dictionaries')
     implementation project(':ime:dictionaries:jnidictionaryv1')
     implementation project(':ime:dictionaries:jnidictionaryv2')
+    implementation project(':ime:ext:viet')
     implementation project(':ime:prefs')
     implementation project(':ime:overlay')
     implementation project(':ime:pixel')

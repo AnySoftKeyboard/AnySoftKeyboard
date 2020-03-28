@@ -64,6 +64,6 @@ include ':ime'
 include ':ime:base', ':ime:base-rx', ':ime:base-test', ':ime:prefs'
 include ':ime:remote', ':ime:fileprovider'
 include ':ime:dictionaries', ':ime:dictionaries:jnidictionaryv1', ':ime:dictionaries:jnidictionaryv2', ':ime:nextword'
+include ':ime:ext', ':ime:ext:viet'
 include ':ime:pixel', ':ime:overlay'
 include ':ime:app'
-
