@@ -356,6 +356,9 @@
     <string name="candidates_off_summary">Nessun suggerimento verrà mostrato</string>
     <string name="quick_fix">Correzioni rapide e abbreviazioni</string>
     <string name="quick_fix_summary">Corregge gli errori più comuni ed espande le abbreviazioni</string>
+    <string name="quick_fix_secon_disabled">solo per la prima lingua</string>
+    <string name="quick_fix_secon_disabled_summ_on">Correzioni e abbreviazioni saranno applicate solo per la lingua primaria, cioè quella associata alla tastiera in uso</string>
+    <string name="quick_fix_secon_disabled_summ_off">Correzioni e abbreviazioni saranno applicate su tutte le lingue selezionate in "Esegui l\'override del dizionario predefinito"</string>
     <string name="allow_suggestions_restart">Riavvia suggerimenti</string>
     <string name="allow_suggestions_restart_summary">Riavvia il suggerimento delle parole quando il cursore si sposta</string>
     <!-- settings - keyboard group -->
@@ -414,6 +417,7 @@
     <string name="extension_kbd_top_small_numbers">Tasti numerici</string>
     <string name="extension_kbd_top_numbers_alt">Tasti numerici alternativi  </string>
     <string name="extension_kbd_top_nav">Tasti di navigazione</string>
+    <string name="extension_kbd_top_nav_alt">Tasti di navigazione alternativo</string>
     <string name="extension_kbd_top_numbers_simple">Semplice, solo numeri</string>
     <string name="extension_kbd_top_terminal">Terminale</string>
     <string name="extension_kbd_top_text_editing">Modifica testo rapida</string>
@@ -425,8 +429,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternativo con microfono</string>
     <string name="extension_kbd_bottom_old">Vecchia scuola</string>
     <string name="extension_kbd_bottom_simple">Semplice</string>
+    <string name="extension_kbd_bottom_simple_alt">Semplice Alternativo</string>
+    <string name="extension_kbd_bottom_row_aosp">Stile AOSP</string>
     <string name="extension_kbd_bottom_ng">New Generation - Test</string>
     <string name="extension_kbd_extension_numbers_symbols">Numeri e simboli</string>
+    <string name="extension_kbd_bottom_minimal">Minimale</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (senza emoji)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
@@ -695,4 +703,5 @@
     <string name="covid_19_click_for_info">Resta al sicuro! Clicca per info sul CoronaVirus.</string>
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">http://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&amp;id=228</string>
 </resources>
