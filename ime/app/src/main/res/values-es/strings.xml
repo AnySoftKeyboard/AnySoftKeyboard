@@ -328,7 +328,7 @@
     <string name="quick_fix">Correcciones rápidas y abreviaturas</string>
     <string name="quick_fix_summary">Corrige errores de escritura comunes y amplía las abreviaturas</string>
     <string name="quick_fix_secon_disabled">…solo en el primer idioma</string>
-    <string name="quick_fix_secon_disabled_summ_on">Las correcciones rápidas y abreviaturas solo funcionará en el idioma de distribución actual.</string>
+    <string name="quick_fix_secon_disabled_summ_on">Las correcciones rápidas y abreviaturas solo funcionarán en el idioma de distribución actual.</string>
     <string name="quick_fix_secon_disabled_summ_off">Las correcciones rápidas y abreviaturas funcionarán en todos los idiomas marcados en el diccionario predeterminado.</string>
     <string name="allow_suggestions_restart">Reiniciar sugerencias</string>
     <string name="allow_suggestions_restart_summary">Al mover el cursor, reiniciar la sugerencia de la palabra</string>
