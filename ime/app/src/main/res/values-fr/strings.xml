@@ -330,6 +330,10 @@
     <string name="candidates_off_summary">Aucune suggestion ne sera affichée.</string>
     <string name="quick_fix">Solutions rapides et abréviations</string>
     <string name="quick_fix_summary">Corriger les erreurs courantes de saisie et développer les abréviations</string>
+    <string name="quick_fix_secon_disabled">… seulement sur la première langue</string>
+    <string name="quick_fix_secon_disabled_summ_on">Les solutions rapides et abréviations fonctionneront seulement sur la langue actuelle.</string>
+    <string name="quick_fix_secon_disabled_summ_off">Les solutions rapides et abréviations fonctionneront pour chaque langue 
+                  cochée en substitution du dictionnaire par défaut.</string>
     <string name="allow_suggestions_restart">Relancer les suggestions</string>
     <string name="allow_suggestions_restart_summary">Relancer la suggestion de mots à chaque mouvement du curseur</string>
     <!-- settings - keyboard group -->
@@ -647,5 +651,6 @@
     <string name="app_share_title">Hello depuis AnySoftKeyboard</string>
     <string name="app_share_menu_title">Partager AnySoftKeyboard avec</string>
     <string name="app_share_text">Recommandé : AnySoftKeyboard, un clavier multi-langues hautement personnalisable, respectant la vie privée, gratuit, en sources libres.\nÀ télécharger depuis :\nPlay Store : https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid : https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
