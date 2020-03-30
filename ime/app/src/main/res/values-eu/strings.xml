@@ -334,6 +334,10 @@
     <string name="candidates_off_summary">Ez da proposamenik erakutsiko</string>
     <string name="quick_fix">Zuzenketa azkarrak eta laburdurak</string>
     <string name="quick_fix_summary">Idaztean ohikoak diren akatsak zuzentzen ditu, eta laburdurak luzatu</string>
+    <string name="quick_fix_secon_disabled">…lehen hizkuntzan soilik</string>
+    <string name="quick_fix_secon_disabled_summ_on">Zuzenketa azkar eta laburdurak oraingo hizkuntzan funtzionatuko dute soilik</string>
+    <string name="quick_fix_secon_disabled_summ_off">Zuzenketa azkar eta laburdurak oraingo hizkuntzan guztietan funtzionatuko dute
+                  lehenetsitako hiztegia gainidaztea markatuta</string>
     <string name="allow_suggestions_restart">Berrasi proposamenak mugitzean</string>
     <string name="allow_suggestions_restart_summary">Berrasi hitzen proposamena kurtsorea mugitzean</string>
     <!-- settings - keyboard group -->
