@@ -20,6 +20,7 @@ public class telex {
     static {
         System.loadLibrary("anysoftkey_telex");
     }
+
     private static native String getTelex(String word, String c);
 
     public static String doTheThing(String word, char c) {
