@@ -23,7 +23,7 @@ jobs:
       - name: request-scheduled-promote
         uses: ./.github/actions/deploy-request
         with:
-          sha: ${{ github.sha }}
+          sha: HEAD
           ref: ${{ matrix.refname }}
           new_deploy: false
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
