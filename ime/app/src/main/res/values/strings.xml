@@ -679,7 +679,6 @@
     <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:\u0020
         <xliff:g id="error">%s</xliff:g>
     </string>
-
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and
         punctuation.

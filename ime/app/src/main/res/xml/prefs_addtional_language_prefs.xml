@@ -74,3 +74,4 @@
         android:title="@string/tweaks_group"/>
 
 </android.support.v7.preference.PreferenceScreen>
+
