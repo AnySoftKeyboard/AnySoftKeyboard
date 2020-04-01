@@ -4,7 +4,7 @@ author: "menny"
 
 inputs:
   sha:
-    description: "SHA to deploy"
+    description: "SHA to deploy. Either a specific commit, or HEAD."
     required: true
   ref:
     description: "branch to deploy"
