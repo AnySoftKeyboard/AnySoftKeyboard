@@ -336,6 +336,10 @@
     <string name="candidates_off_summary">Прапановы не будуць адлюстроўвацца</string>
     <string name="quick_fix">Хуткія выпраўленні і абрэвіятуры</string>
     <string name="quick_fix_summary">Выпраўляць найбольш частыя памылкі друкаваных слоў і тлумачыць абрэвіятуры</string>
+    <string name="quick_fix_secon_disabled">…толькі на першую мову</string>
+    <string name="quick_fix_secon_disabled_summ_on">Хуткія выпраўленні абрэвіятуры будуць працаваць толькі на бягучай моўнай раскладцы</string>
+    <string name="quick_fix_secon_disabled_summ_off">Хуткія выпраўленні і абрэвіятуры будуць працаваць на кожнай мове  
+                  праверце перавызначэнне ў слоўніку па змаўчанні</string>
     <string name="allow_suggestions_restart">Прапанова змянення</string>
     <string name="allow_suggestions_restart_summary">Змяніць на прапанаванае слова рухам курсора</string>
     <!-- settings - keyboard group -->
@@ -390,8 +394,10 @@
     <string name="extension_kbd_top_small_numbers">Лічбавыя клавішы</string>
     <string name="extension_kbd_top_numbers_alt">Альтэрнатыўныя лічбавыя клавішы</string>
     <string name="extension_kbd_top_nav">Навігацыйныя клавішы</string>
+    <string name="extension_kbd_top_nav_alt">Альтэрнатыўныя навігацыйныя клавішы</string>
     <string name="extension_kbd_top_numbers_simple">Просты, толькі лічбы</string>
     <string name="extension_kbd_top_terminal">Тэрмінал</string>
+    <string name="extension_kbd_top_text_editing">Хуткае выпраўленне тэксту</string>
     <string name="extension_kbd_bottom_regular_with_voice">Звычайны</string>
     <string name="extension_kbd_bottom_regular">Класічны (без мікрафона)</string>
     <string name="extension_kbd_bottom_iphone">Стыль iPhone (без мікрафона)</string>
@@ -400,8 +406,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">Альтэрнатыўны з мікрафонам</string>
     <string name="extension_kbd_bottom_old">Старамодная</string>
     <string name="extension_kbd_bottom_simple">Просты</string>
+    <string name="extension_kbd_bottom_simple_alt">Простая альтэрнатыва</string>
+    <string name="extension_kbd_bottom_row_aosp">Стыль AOSP</string>
     <string name="extension_kbd_bottom_ng">Новая генерацыя - тэставанне</string>
     <string name="extension_kbd_extension_numbers_symbols">Лічбы і сімвалы</string>
+    <string name="extension_kbd_bottom_minimal">Мінімалістычны</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Мінімалістычны (без эмодзі)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Пачаць</string>
@@ -650,5 +660,8 @@
     <string name="app_share_title">Вітанні ад AnySoftKeyboard</string>
     <string name="app_share_menu_title">Парайце AnySoftKeyboard іншым</string>
     <string name="app_share_text">Я хачу параіць вам экранную клавіятуру для Android адметнымі рысамі якой з\'яўляюцца: адкрытасць зыходнага кода, бясплатнае распаўсюджанне, падтрымка ўводу амаль на ўсіх мовах свету, клопат пра прыватнасць вашых даных, тонкая настройка пад вашы задачы. \nАтрымаць па спасылцы ў Play Store:\nhttps://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Беражыце сябе! Націсніце, каб даведацца больш пра каронавірус</string>
+    <string name="click_me_for_easter_egg_info">націсні на мяне для сюрпрызу</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
