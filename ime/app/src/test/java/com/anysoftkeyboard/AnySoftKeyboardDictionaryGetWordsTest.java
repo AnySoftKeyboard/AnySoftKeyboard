@@ -195,6 +195,30 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
         Assert.assertEquals("hell", inputConnection.getLastCommitCorrection());
         // we should also see the question mark
+        Assert.assertEquals("hell? ", inputConnection.getCurrentTextInInputConnection());
+        // now, if we press DELETE, the word should be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testAutoPickWordWhenCursorAtTheEndOfTheWordWithWordSeparatorSwapPunctuationOFF() {
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_bool_should_swap_punctuation_and_space, false);
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals("hell", inputConnection.getLastCommitCorrection());
+        // we should also see the question mark
         Assert.assertEquals("hell?", inputConnection.getCurrentTextInInputConnection());
         // now, if we press DELETE, the word should be reverted
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);

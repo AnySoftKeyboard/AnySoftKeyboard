@@ -518,9 +518,22 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('!');
-        Assert.assertEquals("hell!", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals("hell! ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        // typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('(');
+        Assert.assertEquals("hell! hell (", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        // typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress(')');
+        Assert.assertEquals(
+                "hell! hell (hell) ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -532,10 +545,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        Assert.assertEquals("hell.h", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell. h", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -547,11 +560,11 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hell..", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hell..  ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -1065,9 +1078,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('!');
-        Assert.assertEquals("hell !", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ! ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
@@ -1075,9 +1086,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hell ! hell ", inputConnection.getCurrentTextInInputConnection());
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
-        Assert.assertEquals("hell ! hell ?", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ! hell ? ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
@@ -1087,9 +1096,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
         Assert.assertEquals(
-                "hell ! hell ? hell :", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+                "hell ! hell ? hell : ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
@@ -1099,7 +1106,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(';');
         Assert.assertEquals(
-                "hell ! hell ? hell : hell ;", inputConnection.getCurrentTextInInputConnection());
+                "hell ! hell ? hell : hell ; ", inputConnection.getCurrentTextInInputConnection());
     }
 
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
