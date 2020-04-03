@@ -62,20 +62,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         loadKeyboard(keyboardDimens);
 
         final int rowsCount = getPopupRowsCount(popupCharacters);
-        final int popupCharactersLength =
-                Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        final int keysPerRow = (int) Math.ceil((float) popupCharactersLength / (float) rowsCount);
 
         List<Key> keys = getKeys();
         for (int rowIndex = rowsCount - 1; rowIndex >= 0; rowIndex--) {
             int baseKeyIndex = keys.size() - rowIndex - 1;
-            addPopupKeysToList(
-                    baseKeyIndex,
-                    keyboardDimens,
-                    keys,
-                    popupCharacters,
-                    rowIndex * keysPerRow,
-                    keysPerRow);
+            addPopupKeysToList(baseKeyIndex, keyboardDimens, keys, popupCharacters, rowIndex);
         }
     }
 
@@ -84,8 +75,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             KeyboardDimens keyboardDimens,
             List<Key> keys,
             CharSequence popupCharacters,
-            int characterOffset,
-            int keysPerRow) {
+            int characterOffset) {
+        final int rowsCount = getPopupRowsCount(popupCharacters);
         int rowWidth = 0;
         AnyKey baseKey = (AnyKey) keys.get(baseKeyIndex);
         Row row = baseKey.row;
@@ -104,10 +95,9 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         AnyKey aKey = null;
         final int popupCharactersLength =
                 Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        for (int popupCharIndex = characterOffset + 1;
-                popupCharIndex < characterOffset + keysPerRow
-                        && popupCharIndex < popupCharactersLength;
-                popupCharIndex++) {
+        for (int popupCharIndex = characterOffset + rowsCount;
+                popupCharIndex < popupCharactersLength;
+                popupCharIndex += rowsCount) {
             x += (keyHorizontalGap / 2);
 
             aKey = new AnyKey(row, keyboardDimens);
@@ -157,12 +147,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     private static int getPopupRowsCount(CharSequence popupCharacters) {
         final int count = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        if (count <= 8) return 1;
-        if (count <= 16) {
-            return 2;
-        } else {
-            return 3;
-        }
+
+        if (count <= 3) return 1;
+        if (count <= 12) return 2;
+        return 3;
     }
 
     @Override
