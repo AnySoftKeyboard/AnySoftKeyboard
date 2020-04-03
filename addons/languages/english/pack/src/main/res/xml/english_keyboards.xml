@@ -19,7 +19,7 @@
               physicalKeyboardMappingResId="@xml/english_physical" />
     <Keyboard nameResId="@string/english_keyboard_no_apostrophe" iconResId="@drawable/ic_status_english"
               layoutResId="@xml/qwerty_no_apostrophe" landscapeResId="@xml/qwerty_no_apostrophe"
-              id="34CC76A3-91B3-4204-BB1B-421BA8FC8430"
+              id="7ddbb891-c967-4566-94bb-25357864837e"
               defaultDictionaryLocale="en" description="@string/english_keyboard_no_apostrophe_description"
               index="3" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/english_physical" />
