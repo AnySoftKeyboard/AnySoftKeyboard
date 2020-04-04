@@ -47,5 +47,10 @@
               layoutResId="@xml/halmak" id="546b29d0-2563-11e9-b56e-0800200c9a66"
               description="@string/halmak_keyboard_description"
               index="10"/>
-
+    <Keyboard nameResId="@string/english_keyboard_no_apostrophe" iconResId="@drawable/ic_status_english"
+              layoutResId="@xml/qwerty_no_apostrophe" landscapeResId="@xml/qwerty_no_apostrophe"
+              id="7ddbb891-c967-4566-94bb-25357864837e"
+              defaultDictionaryLocale="en" description="@string/english_keyboard_no_apostrophe_description"
+              index="11" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/english_physical" />
 </Keyboards>
