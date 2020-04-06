@@ -16,6 +16,7 @@
     <string name="keyboard_theme_tweak_group">Още настройки</string>
     <string name="close_button">Затваряне</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="revert_added_word_question">Премахвате ли\?</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Въвеждането с помощта на глас не е инсталирано</string>
     <string name="voice_input_not_installed_action_install">Инсталиране</string>
@@ -31,6 +32,12 @@
     <string name="ime_settings">Настройки на клавиатурата</string>
     <string name="switch_incognito">Режим инкогнито</string>
     <string name="vibrate_on_key_press_title">Вибрация</string>
+    <string name="vibrate_on_key_press_value_template">%d милисекунди</string>
+    <string name="night_mode_type_never">Никога</string>
+    <string name="night_mode_type_always">Винаги</string>
+    <string name="power_save_mode_types_never">Никога</string>
+    <string name="power_save_mode_types_lower_battery">Когато батерията е слаба</string>
+    <string name="power_save_mode_types_always">Винаги</string>
     <string name="pop_text_type_never">Никога</string>
     <string name="sound_on">Звук при натискане на клавиш</string>
     <string name="sound_on_summary">Звукови ефекти при натискане на клавиш.</string>
