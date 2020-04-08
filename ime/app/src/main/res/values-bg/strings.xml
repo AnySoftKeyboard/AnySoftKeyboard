@@ -238,8 +238,12 @@
     <string name="setup_wizard_step_three_title">Какво следва</string>
     <string name="setup_wizard_step_three_action_languages">Настройте езиците…</string>
     <string name="setup_wizard_step_three_action_themes">Изберете тема…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Конфигуриране на всичко останало…</string>
+    <string name="setup_wizard_step_download_title">Изтегляне на езикови пакети</string>
     <string name="setup_wizard_step_download_action">Изтегляне на езиков пакет</string>
     <string name="setup_wizard_step_download_skip_action">Прескачане</string>
+    <string name="ime_crashed_sub_text">Опа, не видях, че това идва...</string>
+    <string name="ime_crashed_send_button">Изпращане</string>
     <string name="ime_crashed_cancel_button">Отказ</string>
     <string name="next_word_settings_group">Настройки</string>
     <string name="app_shortcut_keyboards_short_label">Клавиатури</string>
@@ -251,11 +255,14 @@
     <string name="visit_our_web_site">Посетете уебсайта ни…</string>
     <string name="bottom_nav_home">Здравейте</string>
     <string name="setup_wizard_welcome_title">Добре дошли!</string>
+    <string name="setup_wizard_welcome_start_action">Започване на конфигурирането…</string>
     <string name="shared_prefs_provider_name">Настройки на приложението</string>
     <string name="user_dict_prefs_provider">Потребителски думи</string>
     <string name="next_word_dict_prefs_provider">Следващи думи</string>
     <string name="abbreviation_dict_prefs_provider">Абревиатури</string>
     <string name="prefs_providers_operation_success">Успех</string>
     <string name="prefs_providers_operation_failed">Пропадна!</string>
+    <string name="gesture_typing_alert_button">Разбрах</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.synevo.bg/koronavirus/</string>
 </resources>
