@@ -58,12 +58,20 @@
             index="7"
     />
     <ExtensionKeyboard
+            id="6187a431-f737-49b2-baa6-78cc49ec8214"
+            nameResId="@string/extension_kbd_top_nav_alt_no_numb"
+            extensionKeyboardResId="@xml/ext_kbd_top_row_nav_alt_no_numb"
+            extensionKeyboardType="2"
+            description=""
+            index="8"
+    />
+    <ExtensionKeyboard
             id="d9d6f590-db8b-11e7-8f1a-0800200c9a66"
             nameResId="@string/extension_kbd_top_numbers_simple"
             extensionKeyboardResId="@xml/ext_kbd_top_row_numbers_simple"
             extensionKeyboardType="@integer/extension_keyboard_type_top_row"
             description=""
-            index="8"
+            index="9"
             />
     <ExtensionKeyboard
             id="49c8c4b0-b3bc-11e8-933e-975e4dcf2c13"
@@ -71,7 +79,7 @@
             extensionKeyboardResId="@xml/ext_kbd_top_row_terminal"
             extensionKeyboardType="2"
             description=""
-            index="9"
+            index="10"
             />
     <ExtensionKeyboard
             id="16bbcd88-5532-4fd6-92ff-db57977dd815"
@@ -79,7 +87,7 @@
             extensionKeyboardResId="@xml/ext_kbd_top_row_text_editing"
             extensionKeyboardType="@integer/extension_keyboard_type_top_row"
             description=""
-            index="10"
+            index="11"
             />
 
 
