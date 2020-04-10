@@ -413,6 +413,10 @@
     <string name="candidates_off_summary">ووشەی پێشنیارکراو پیشان نادرێت</string>
     <string name="quick_fix">ڕاستکردنەوەی خێرا و کورتکراوەکان</string>
     <string name="quick_fix_summary">ڕاستکردنەوەی دەق و ووشە هەڵەکان بە پشتبەستن بە پێشنیارەکان    </string>
+    <string name="quick_fix_secon_disabled">…تەنها لە زمانی یەکەمدا</string>
+    <string name="quick_fix_secon_disabled_summ_on">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری تەنها بۆ ئەم زمانە چالاک دەبێت</string>
+    <string name="quick_fix_secon_disabled_summ_off">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری بۆ هەموو زمانەکان چالاک دەبێت 
+                  دیاریکراوە بۆ گۆڕینی فەرهەنگی سەرەکی</string>
     <string name="allow_suggestions_restart">ڕیستارتکردنی پێشنیار</string>
     <string name="allow_suggestions_restart_summary">ڕیستارکردنی ووشەکان لەدوای هەڵبژاردن   </string>
     <!-- settings - keyboard group -->
@@ -467,8 +471,10 @@
     <string name="extension_kbd_top_small_numbers">ژمارەکان (کوردی)</string>
     <string name="extension_kbd_top_numbers_alt">ژمارەکان (ئینگلیزی)</string>
     <string name="extension_kbd_top_nav">دەنگ و ئاڕاستەکان</string>
+    <string name="extension_kbd_top_nav_alt">شێوازی تایبەتی دوگمەکان</string>
     <string name="extension_kbd_top_numbers_simple">هێما و نیشانەکان</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">دەستکاریکردنی خێرای دەق</string>
     <string name="extension_kbd_bottom_regular_with_voice">دەنگ و خەندە</string>
     <string name="extension_kbd_bottom_regular">بنەڕەتی</string>
     <string name="extension_kbd_bottom_iphone">زمان و ژمارە</string>
@@ -477,8 +483,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">خەندە و زمان و دەنگ</string>
     <string name="extension_kbd_bottom_old">‌هێما و زمان</string>
     <string name="extension_kbd_bottom_simple">زمان و هێما و فاریزە</string>
+    <string name="extension_kbd_bottom_simple_alt">دوگمە سادەکان</string>
+    <string name="extension_kbd_bottom_row_aosp">شێوازی AOSP</string>
     <string name="extension_kbd_bottom_ng">هێما زمان خەندە نیشانە</string>
     <string name="extension_kbd_extension_numbers_symbols">ژمارەکان و هێماکان</string>
+    <string name="extension_kbd_bottom_minimal">بچووک</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">بچووک (بێ ئیمۆجی)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">بڕۆ</string>
@@ -766,5 +776,8 @@
     <string name="app_share_title">باشترین تەختەکلیلی سیستەمی ئەندرۆید</string>
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">بەهیوای لەش ساغی! پەنجەبنێ بێرەدا بۆ زانیاری لەسەر ڤایرۆسی کۆرۆنا</string>
+    <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
