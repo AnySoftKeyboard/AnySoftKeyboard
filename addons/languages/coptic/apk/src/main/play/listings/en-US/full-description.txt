@@ -1,10 +1,9 @@
 Coptic Language pack
 
-Features:
-
-Keyboard layout for entering text in Coptic, the last surviving
-descendent of the Ancient Egyptian Language and a liturgical
-language of the Christian religious tradition in Egypt.
+This is a keyboard layout expansion pack for entering text
+in Coptic, the last surviving descendent of the Ancient Egyptian
+Language and a liturgical language of the Christian religious
+tradition in Egypt.
 
 The layout is based on the one from coptic-dictionary.org,
 but condensed to fit all the letters on a phone keyboard.
