@@ -22,7 +22,7 @@
     <string name="language_tweaks_settings_tile">Doikuntzak eta gehiago.</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">Interfazea</string>
-    <string name="ui_theme_settings_tile">Hautatu eta konfiguratu teklatuaren itxurak.</string>
+    <string name="ui_theme_settings_tile">Hautatu eta konfiguratu teklatuaren azalak.</string>
     <string name="ui_effects_settings_tile">Teklatuaren efektuak eta esperientzia.</string>
     <!-- welcome -->
     <!-- changelog -->
@@ -69,7 +69,7 @@
     <string name="night_mode_type_follow_system">Jarraitu sistema</string>
     <string name="night_mode_type_always">Beti</string>
     <string name="night_mode_app_night_theme">Ilundu aplikazioaren interfazearen ezarpenak</string>
-    <string name="night_mode_darken_keyboard_theme">Ilundu teklatuaren itzura</string>
+    <string name="night_mode_darken_keyboard_theme">Ilundu teklatuaren azala</string>
     <string name="night_mode_sound_control">Desgaitu teklak zapaltzearen soinua</string>
     <string name="night_mode_vibration_control">Desgaitu teklak sakatzearen bibrazioa</string>
     <string name="power_save_mode_screen">Bateria aurrezteko ezarpenak</string>
@@ -79,14 +79,14 @@
     <string name="power_save_mode_types_never">Inoiz ez</string>
     <string name="power_save_mode_types_lower_battery">Bateria baxu dagoenean</string>
     <string name="power_save_mode_types_always">Beti</string>
-    <string name="power_saving_keyboard_theme_name">Energia aurrezteko moduaren itxura</string>
+    <string name="power_saving_keyboard_theme_name">Energia aurrezteko moduaren azala</string>
     <string name="power_saving_keyboard_theme_description">Kolore ilunak, energia gutxiago behar dezakeen diseinu sinplea.</string>
     <string name="power_save_mode_animation_control">Desgaitu animazioak eta teklen aurrebistak</string>
     <string name="power_save_mode_sound_control">Desgaitu teklak zapaltzearen soinua</string>
     <string name="power_save_mode_vibration_control">Desgaitu teklak sakatzearen bibrazioa</string>
     <string name="power_save_mode_suggestions_control">Desgaitu hitz proposamenak</string>
     <string name="power_save_mode_gesture_typing_control">Desaktibatu keinu bidezko idazketa</string>
-    <string name="power_save_mode_theme_control">Aldatu itxura ilun sinplera</string>
+    <string name="power_save_mode_theme_control">Aldatu azal ilun sinplera</string>
     <string name="pop_text_type_title">Nabarmendu idatzitako testua tekletatik</string>
     <string name="pop_text_type_summary">Noiz nabarmendu testua zapaldutako tekletatik. Orain: %s</string>
     <string name="pop_text_type_dialog_title">Hautatu testua nabarmentzeko modua</string>
@@ -255,11 +255,11 @@
     <string name="show_keyboard_name_on_summary">Erakutsi teklatuaren izena zuriune-barran</string>
     <string name="show_keyboard_name_off_summary">Ez erakutsi inoiz teklatuaren izena</string>
     <string name="show_hint_text">Erakutsi argibide-testuak</string>
-    <string name="show_hint_text_on_summary">Erakutsi argibideak tekletan, itxurak onartzen baditu</string>
+    <string name="show_hint_text_on_summary">Erakutsi argibideak tekletan, azalak onartzen baditu</string>
     <string name="show_hint_text_off_summary">Ez erakutsi argibideak tekletan</string>
     <string name="use_custom_hint_align">Proposamenaren posizioa aldatu</string>
     <string name="use_custom_hint_align_on_summary">Erabili argibide-testuaren posizio pertsonalizatua</string>
-    <string name="use_custom_hint_align_off_summary">Erabili itxuraren posizio argibide-testuarentzat</string>
+    <string name="use_custom_hint_align_off_summary">Erabili azalaren posizio argibide-testuarentzat</string>
     <string name="custom_hint_align">Argibidearen lerrokatze horizontal pertsonalizatua</string>
     <string name="custom_hint_align_summary">Lerrokatu argibide-testua teklaren ezkerrean, erdian edo eskuman</string>
     <string name="settings_custom_hint_align_dialog_title">Aukeratu argibide-testuaren lerrokatze horizontala</string>
@@ -360,31 +360,31 @@
     <string name="bottom_generic_row_group">Beheko errenkada orokorra</string>
     <string name="bottom_generic_row_dialog_title">Aukeratu errenkada mota</string>
     <string name="bottom_generic_row_summary">Aukeratu beheko errenkada: %s</string>
-    <string name="keyboard_theme_list_title">Aukeratu itxura</string>
-    <string name="dark_plain_keyboard_theme_name">Itxura soil iluna</string>
+    <string name="keyboard_theme_list_title">Aukeratu azala</string>
+    <string name="dark_plain_keyboard_theme_name">Azal soil iluna</string>
     <string name="dark_plain_keyboard_theme_description">Kolore ilunak, grafiko sinpleak</string>
-    <string name="light_plain_keyboard_theme_name">Itxura soil argia</string>
+    <string name="light_plain_keyboard_theme_name">Azal soil argia</string>
     <string name="light_plain_keyboard_theme_description">Kolore argiak, grafiko sinpleak</string>
     <string name="blacktheme_keyboard_theme_name">Distira beltz sinplea</string>
-    <string name="blacktheme_keyboard_theme_description">Itxura beltz sinplea kolorezko nabarmentzeekin</string>
+    <string name="blacktheme_keyboard_theme_description">Azal beltz sinplea kolorezko nabarmentzeekin</string>
     <string name="lean_dark_keyboard_theme_name">Ilun garbia</string>
-    <string name="lean_dark_keyboard_theme_description">Itxura iluna, gutxieneko interfaze elementuekin</string>
+    <string name="lean_dark_keyboard_theme_description">Azal iluna, gutxieneko interfaze elementuekin</string>
     <string name="lean_dark_2_keyboard_theme_name">Ilun garbia- 2. aukera</string>
     <string name="lean_dark_big_keyboard_theme_name">Ilun garbia - Tekla handiak</string>
-    <string name="lean_dark_big_keyboard_theme_description">Itxura ilun bera, tekla handiagoekin</string>
+    <string name="lean_dark_big_keyboard_theme_description">Azal ilun bera, tekla handiagoekin</string>
     <string name="lean_light_keyboard_theme_name">Argi garbia</string>
-    <string name="lean_light_keyboard_theme_description">Itxura argia, gutxieneko interfaze elementuekin</string>
+    <string name="lean_light_keyboard_theme_description">Azal argia, gutxieneko interfaze elementuekin</string>
     <string name="lean_light_2_keyboard_theme_name">Argi garbia - 2. aukera</string>
     <string name="lean_light_big_keyboard_theme_name">Argi garbia - Tekla handiak</string>
-    <string name="lean_light_big_keyboard_theme_description">Itxura argi bera, tekla handiagoekin</string>
+    <string name="lean_light_big_keyboard_theme_description">Azal argi bera, tekla handiagoekin</string>
     <string name="lean_dark_gray_keyboard_theme_name">Gris ilun garbia</string>
-    <string name="lean_dark_gray_keyboard_theme_description">Itxura gris iluna, gutxieneko interfaze elementuekin</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Azal gris iluna, gutxieneko interfaze elementuekin</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees iluna</string>
-    <string name="yochees_dark_keyboard_theme_description">Algimantas Itxura iluna.</string>
+    <string name="yochees_dark_keyboard_theme_description">Algimantas azal iluna.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees iluna - 2. aukera</string>
     <string name="yochees_light_keyboard_theme_name">Yochees argia</string>
-    <string name="yochees_light_keyboard_theme_description">Algimantas Itxura argia.</string>
-    <string name="yochees_dark_keyboard_theme_upper_description">Itxura argia maiuskulekin, Algimantas-ek egina.</string>
+    <string name="yochees_light_keyboard_theme_description">Algimantas azal argia.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Azal argia maiuskulekin, Algimantas-ek egina.</string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">Goiko errenkadarik ez</string>
     <string name="extension_kbd_top_small">Tekla txikiak</string>
@@ -551,7 +551,7 @@
     <string name="setup_wizard_step_three_details_done"><b>Bukatu duzu 🎉\nZoaz nahiago duzun aplikaziora eta han frogatu.</b></string>
     <string name="setup_wizard_step_three_details_actions">Edo, pertsonalizatu teklatua:</string>
     <string name="setup_wizard_step_three_action_languages">Ezarri hizkuntzak…</string>
-    <string name="setup_wizard_step_three_action_themes">Aukeratu itxura…</string>
+    <string name="setup_wizard_step_three_action_themes">Aukeratu azala…</string>
     <string name="setup_wizard_step_three_action_all_settings">Konfiguratu beste guztia…</string>
     <string name="setup_wizard_step_download_title">Deskargatu hizkuntza fitxategiak</string>
     <string name="setup_wizard_step_download_details"><i>AnySoftKeiboard</i> teklatuak hamaika hizkuntza onartzen dituela jakieak poztuko zaitu. Besterik gabe deskargatu nahi duzun hizkuntza-paketea eta gozatu edozin hizkuntzatan idazten.</string>
@@ -588,9 +588,9 @@
     <string name="app_shortcut_keyboards_disabled">Teklatuen nabigazioa desgaituta</string>
     <string name="app_shortcut_keyboards_long_label">Aukeratu erabiliko diten teklatu disposizioak</string>
     <string name="app_shortcut_keyboards_short_label">Teklatuak</string>
-    <string name="app_shortcut_themes_disabled">Itxuren nabigazioa desgaituta</string>
-    <string name="app_shortcut_themes_long_label">Aukeratu erabiliko den itxura</string>
-    <string name="app_shortcut_themes_short_label">Itxurak</string>
+    <string name="app_shortcut_themes_disabled">Azalen nabigazioa desgaituta</string>
+    <string name="app_shortcut_themes_long_label">Aukeratu erabiliko den azala</string>
+    <string name="app_shortcut_themes_short_label">Azalak</string>
     <string name="app_shortcut_gestures_disabled">Keinuen bidezko nabigazioa desgaituta</string>
     <string name="app_shortcut_gestures_long_label">Ezarri teklatuaren keinuak</string>
     <string name="app_shortcut_gestures_short_label">Keinuak</string>
@@ -615,7 +615,7 @@
     <string name="setup_wizard_welcome_privacy_action">Joan pribatutasun politikara…</string>
     <string name="clear_all_dictionary_override">Garbitu gainidazketak</string>
     <string name="theme_case_type_override_dialog_title">Hautatu maiuskula/minuskulen gainidaztea</string>
-    <string name="theme_case_type_override_theme">Erabili itxuraren kasua</string>
+    <string name="theme_case_type_override_theme">Erabili azalaren kasua</string>
     <string name="theme_case_type_override_os">Android-ek erabaki dezala (Automatikoa)</string>
     <string name="theme_case_type_override_lower">Beti minuskula</string>
     <string name="theme_case_type_override_upper">Beti maiuskula</string>
@@ -643,14 +643,14 @@
     <string name="gesture_typing_alert_title">BETA ezaugarria!</string>
     <string name="gesture_typing_alert_message">Keinu bidezko idazketa ➿ <b>beta</b> egoeran dagoen ezaugarri bat da. Akatsak ditu, ez da nahi bezain azkarra, eta ez dago nahi bezain osatuta.\nHau esanda, probatu beharko zenuke.</string>
     <string name="gesture_typing_alert_button">Ulertuta</string>
-    <string name="apply_remote_app_colors_to_theme">Aldatu itxuraren koloreak erabilitako aplikazioaren arabera</string>
+    <string name="apply_remote_app_colors_to_theme">Aldatu azalaren koloreak erabilitako aplikazioaren arabera</string>
     <string name="apply_overlay_summary_on">Teklatuaren koloreak aplikazio aktiboarekin bat egingo dute (ahal den neurrian).</string>
-    <string name="apply_overlay_summary_off">Erabili beti itxuraren koloreak.</string>
+    <string name="apply_overlay_summary_off">Erabili beti azalaren koloreak.</string>
     <string name="media_insertion_pending_message">Sakatu testu-kutxa irudia txertatzeko</string>
-    <string name="aosp_dark_theme_name">AOSP itxura iluna</string>
-    <string name="aosp_dark_theme_description">AOSP-n inspiratutako kolore ilunetako teklatu itxura</string>
-    <string name="aosp_light_theme_name">AOSP itxura argia</string>
-    <string name="aosp_light_theme_description">AOSP-n inspiratutako kolore argietako teklatu itxura</string>
+    <string name="aosp_dark_theme_name">AOSP azal iluna</string>
+    <string name="aosp_dark_theme_description">AOSP-n inspiratutako kolore ilunetako teklatu azala</string>
+    <string name="aosp_light_theme_name">AOSP azal argia</string>
+    <string name="aosp_light_theme_description">AOSP-n inspiratutako kolore argietako teklatu azala</string>
     <string name="app_share_title">Kaixo AnySoftKeyboard-etik</string>
     <string name="app_share_menu_title">Partekatu anySoftKeyboard honen bidez</string>
     <string name="app_share_text">Pribatutasuna aintzat duen hizkuntza askotarako Android teklatu aplikazio libre doako eta pertsonalizagarri hau aholkatzen dizut.\nEskuratu hemen:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>

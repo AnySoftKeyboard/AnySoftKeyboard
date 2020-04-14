@@ -334,6 +334,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="candidates_off_summary">Hiçbir öneri gösterilmeyecek</string>
     <string name="quick_fix">Hızlı düzeltmeler ve kısaltmalar</string>
     <string name="quick_fix_summary">Sık yazılan hataları düzeltir ve kısaltmaların açılımını yazar</string>
+    <string name="quick_fix_secon_disabled">…sadece ilk dilde</string>
     <string name="quick_fix_secon_disabled_summ_on">Hızlı düzeltmeler ve kısaltmalar yalnızca geçerli düzen dilinde çalışır</string>
     <string name="allow_suggestions_restart">Öneri sıfırlama</string>
     <string name="allow_suggestions_restart_summary">Imleç hareketinden sonra kelime önermeyi yeniden başlat</string>
