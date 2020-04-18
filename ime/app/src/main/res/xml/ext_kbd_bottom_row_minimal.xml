@@ -6,11 +6,13 @@
           android:keyHeight="@integer/key_normal_height">
 
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" 
+             ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
              android:popupCharacters="!/@\u0026\u00bf\u00a1&#11822;&#8253;"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters=";"/>
-        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
+        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" 
+             android:isRepeatable="true" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
              android:popupCharacters=":;-\u2014_\u00b7\u2026"/>
         <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter"
@@ -31,7 +33,8 @@
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_password" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
         android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" 
+             ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" android:popupCharacters="!@#$%^\u0026*"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
         <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" ask:hintLabel=" "/>
@@ -57,11 +60,13 @@
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
          android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" 
+             ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
              android:popupCharacters="!/@\u0026\u00bf\u00a1&#11822;&#8253;"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
-        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
+        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" android:isRepeatable="true" 
+             ask:longPressCode="@integer/key_code_quick_text_popup" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
              android:popupCharacters=":;-\u2014_\u00b7\u2026"/>
         <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter"
