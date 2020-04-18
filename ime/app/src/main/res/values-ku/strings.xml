@@ -10,7 +10,7 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
     <string name="menu_about_item">دەربارە</string>
-    <string name="how_to_pointer_title">وەرگێڕی (کوردی): گۆران غەریب</string>
+    <string name="how_to_pointer_title">AnySoftKeyboard بەخێربێیت بۆ تەختەکلیلی</string>
     <string name="change_log_card_version_title_template"> \u0020\u0020 نوێکارییەکانی <xliff:g id="name">%s</xliff:g> \u0020\u0020
     </string>
     <string name="change_log_entry_header_template_without_name"> \u0020\u0020v<xliff:g id="code">
@@ -21,11 +21,9 @@
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">ئەمە وەشانی تاقیکارییە، بە ووریاییەوە بەکاری بهێنە!</string>
     <string name="testers_version">وەشانی تاقیکاری!</string>
-    <string name="language_root_tile">زمان</string>
-    <string name="language_keyboards_settings_tile">ڕێکخستن و چالاککردنی زمانەکان</string>
-    <string name="language_grammar_settings_tile">ڕێکخستنی ڕاستکردنەوە و فەرهەنگەکان
-
-    </string>
+    <string name="language_root_tile">تەختەکلیل</string>
+    <string name="language_keyboards_settings_tile">تەختەکلیەکان و شێوازی نووسین</string>
+    <string name="language_grammar_settings_tile">ڕێکخستنی فەرهەنگ و پێشنیارکردن</string>
     <string name="language_tweaks_settings_tile">ڕێکخستنی زیاتر</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">ڕووکار</string>
@@ -46,7 +44,7 @@
     <string name="keyboard_theme_tweak_group">ڕێکخستنی زیاتر</string>
     <string name="close_button">داخستن</string>
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">پارێزرا:\u0020
+    <string name="added_word">پاشەکەوتکرا:\u0020
         <xliff:g id="word">%s</xliff:g>
     </string>
     <string name="revert_added_word_question">لابردن\؟</string>
