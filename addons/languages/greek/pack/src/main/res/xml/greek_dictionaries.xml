@@ -7,7 +7,7 @@
      "dictionaryResourceId" : a reference to the raw resource of the words dictionary
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
-	<Dictionary nameResId="@string/greek_dictionary_name" locale="el" id="40bd9055-eaf2-44ff-8f95-a188dc4d1aaa" type="binary_resource"
-	dictionaryResourceId="@array/greek_words_dict_array" autoTextResourceId="@xml/greek_autotext"
-	description="AOSP dictionary"/>
+    <Dictionary nameResId="@string/greek_dictionary_name" locale="el" id="40bd9055-eaf2-44ff-8f95-a188dc4d1aaa" type="binary_resource"
+    dictionaryResourceId="@array/greek_words_dict_array" autoTextResourceId="@xml/greek_autotext"
+    description="AOSP dictionary"/>
 </Dictionaries>

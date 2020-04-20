@@ -7,7 +7,7 @@
      "dictionaryResourceId" : a reference to the raw resource of the words dictionary
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
-	<Dictionary nameResId="@string/spanish_dictionary_name" locale="es" id="39bd9067-eaf2-44ff-8f95-3d88dc4d1dc8" type="binary_resource"
-	dictionaryResourceId="@array/spain_words_dict_array" autoTextResourceId="@xml/spanish_autotext"
-	description="Dictionary from AOSP"/>
+    <Dictionary nameResId="@string/spanish_dictionary_name" locale="es" id="39bd9067-eaf2-44ff-8f95-3d88dc4d1dc8" type="binary_resource"
+    dictionaryResourceId="@array/spain_words_dict_array" autoTextResourceId="@xml/spanish_autotext"
+    description="Dictionary from AOSP"/>
 </Dictionaries>

@@ -8,28 +8,28 @@
         <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
         <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
         <Key android:codes="-5"
-        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+            android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_im">
         <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
         <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
         <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
         <Key android:codes="-5"
-        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+            android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_url">
         <Key android:codes="46,47,64,63,33,95" android:keyLabel="./\@?!_" android:keyEdgeFlags="left"/>
         <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
         <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
         <Key android:codes="-5"
-        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+            android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_email">
         <Key android:codes="64,46,63,33,95,47" android:keyLabel="\@.?!_/" android:keyEdgeFlags="left"/>
         <Key android:codes="1491,1492,1493" android:keyLabel="דהו"/>
         <Key android:codes="1488,1489,1490" android:keyLabel="אבג"/>
         <Key android:codes="-5"
-        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+            android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <Row>

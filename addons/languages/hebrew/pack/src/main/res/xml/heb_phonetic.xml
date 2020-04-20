@@ -6,7 +6,7 @@
     >
     
     <Row>
-    	<Key android:codes="1511" android:keyEdgeFlags="left"/>
+        <Key android:codes="1511" android:keyEdgeFlags="left"/>
         <Key android:codes="1496" />
         <Key android:codes="1506" />
         <Key android:codes="1512" />

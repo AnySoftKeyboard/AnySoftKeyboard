@@ -49,7 +49,7 @@
     <Row>
         <Key android:keyWidth="15%p" android:codes="@integer/key_code_ctrl" android:isModifier="true" android:keyEdgeFlags="left"/>
 
-		<Key android:codes="9"/>
+        <Key android:codes="9"/>
 
         <Key android:codes="124" android:keyLabel="|"/>
         <Key android:codes="47" android:keyLabel="/" />

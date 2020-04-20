@@ -15,7 +15,7 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res-auto">
+    xmlns:ask="http://schemas.android.com/apk/res-auto">
 
     <!-- Functional keys. -->
 

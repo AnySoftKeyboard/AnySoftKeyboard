@@ -37,7 +37,7 @@
     
     <Row android:keyWidth="9.09%p">
     <!-- &#1103;&#1095;&#1089;&#1084;&#1080;&#1090;&#1100;&#1073;&#1102; -->
-    	<Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="1103" android:keyLabel=""/>
         <Key android:codes="1095" android:keyLabel=""/>
         <Key android:codes="1089" android:keyLabel=""/>

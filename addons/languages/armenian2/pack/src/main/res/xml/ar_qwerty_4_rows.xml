@@ -13,7 +13,7 @@
   <Key android:codes="1400" android:keyLabel=""  android:popupCharacters="օ"/>
   <Key android:codes="1402" android:keyLabel=""  android:popupCharacters="փ"/>
   <Key android:codes="1393" android:keyLabel=""/>
- 	<Key android:codes="1397" android:keyLabel="" android:keyEdgeFlags="right"/>
+    <Key android:codes="1397" android:keyLabel="" android:keyEdgeFlags="right"/>
 </Row>    
 
 <Row>
