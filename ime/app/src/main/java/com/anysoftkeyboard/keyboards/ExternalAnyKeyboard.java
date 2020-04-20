@@ -71,10 +71,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private static final int EXPECTED_CAPACITY_SYMBOLS = 4;
     private static final int EXPECTED_CAPACITY_LETTERS = 16;
     private static final int EXPECTED_CAPACITY_NUMBERS = 4;
-    private static final char ADD_LANGUAGE_SPECIFIC_LETTERS = 'L';
-    private static final char ADD_LANGUAGE_NUMBERS = 'N';
-    private static final char ADD_LANGUAGE_SYMBOLS = 'S';
-    private static final char ADD_LANGUAGE_DEFAULT_LETTERS = 'O';
+    private static final int ADD_LANGUAGE_SPECIFIC_LETTERS = 'L';
+    private static final int ADD_LANGUAGE_NUMBERS = 'N';
+    private static final int ADD_LANGUAGE_SYMBOLS = 'S';
+    private static final int ADD_LANGUAGE_DEFAULT_LETTERS = 'O';
+    private static final int ADD_FULL_LAYOUT = 'X';
 
     private KeyboardExtension mExtensionLayout;
 
@@ -560,8 +561,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         EXPECTED_CAPACITY_LETTERS
                                 + EXPECTED_CAPACITY_NUMBERS
                                 + EXPECTED_CAPACITY_SYMBOLS);
-        for (int index = 0; index < mPopupCharactersOrder.length(); index++) {
-            switch (mPopupCharactersOrder.charAt(index)) {
+        int index = 0;
+        while (index < mPopupCharactersOrder.length()) {
+            final int codePoint = Character.codePointAt(mPopupCharactersOrder, index);
+            switch (codePoint) {
                 case ADD_LANGUAGE_SPECIFIC_LETTERS:
                     requestedSymbols.append(languageSpecificLetters);
                     break;
@@ -574,18 +577,25 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 case ADD_LANGUAGE_DEFAULT_LETTERS:
                     requestedSymbols.append(defaultLetters);
                     break;
+                case ADD_FULL_LAYOUT:
+                    requestedSymbols.append(key.popupCharacters);
+                    break;
                 default:
-                    Logger.d(
-                            TAG,
-                            "Unrecognized tag at position %d in mPopupCharactersOrder (%s); discarding.",
-                            index,
-                            mPopupCharactersOrder);
+                    // Symbol with no special meaning are set to a higher priority;
+                    // if defined at all in current layout, insert into requestedSymbols:
+                    String codePointChars = new String(new int[] {codePoint}, 0, 1);
+                    if (languageSpecificLetters.toString().contains(codePointChars)
+                            || defaultLetters.toString().contains(codePointChars)
+                            || symbols.toString().contains(codePointChars)
+                            || numbers.toString().contains(codePointChars))
+                        requestedSymbols.append(codePointChars);
                     break;
             }
+            index += Character.charCount(codePoint);
         }
         // removing repeated characters (remembering that some Unicode characters can fill up
         // two Java chars)
-        HashSet<Integer> popupKeyCodes =
+        final HashSet<Integer> popupKeyCodes =
                 new HashSet<>(
                         EXPECTED_CAPACITY_LETTERS
                                 + EXPECTED_CAPACITY_NUMBERS
@@ -595,12 +605,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         EXPECTED_CAPACITY_LETTERS
                                 + EXPECTED_CAPACITY_NUMBERS
                                 + EXPECTED_CAPACITY_SYMBOLS);
-        int index = 0;
+        index = 0;
         while (index < requestedSymbols.length()) {
             final int codePoint = Character.codePointAt(requestedSymbols, index);
-            if (popupKeyCodes.add(codePoint)) {
+            if (popupKeyCodes.add(codePoint))
                 popupCharactersBuilder.append(Character.toChars(codePoint));
-            }
             index += Character.charCount(codePoint);
         }
         if (popupCharactersBuilder.length() > 0) {
