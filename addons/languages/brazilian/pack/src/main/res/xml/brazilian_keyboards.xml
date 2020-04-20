@@ -32,6 +32,4 @@
         index="113"
         layoutResId="@xml/brazilian_qwerty"
         nameResId="@string/brazilian_keyboard_name" />
-        
-        
 </Keyboards>

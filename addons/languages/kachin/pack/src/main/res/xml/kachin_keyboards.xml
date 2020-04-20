@@ -6,7 +6,7 @@
               index="1" defaultEnabled="true"
               physicalKeyboardMappingResId="@xml/kachin_physical" />
     <Keyboard nameResId="@string/compact_keyboard_16keys"
-              iconResId="@drawable/ic_status_kachin" layoutResId="@xml/eng_16keys"
+              iconResId="@drawable/ic_status_kachin" layoutResId="@xml/kachin_16keys"
               landscapeResId="@xml/qwerty" id="64605d2c-1e2a-11ea-b6c2-1f4938cbdf79"
               defaultDictionaryLocale="kac" description="@string/compact_keyboard_16keys_description"
               index="2" defaultEnabled="false"

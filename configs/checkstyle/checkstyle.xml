@@ -233,4 +233,8 @@
         <!-- allows suppressing using the //CHECKSTYLE:ON //CHECKSTYLE:OFF -->
         <module name="SuppressionCommentFilter" />
     </module>
+
+    <module name="NewlineAtEndOfFile">
+        <property name="fileExtensions" value="java, xml, gradle, groovy, md, sh, properties"/>
+    </module>
 </module>

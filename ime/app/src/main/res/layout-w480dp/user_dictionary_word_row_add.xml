@@ -11,4 +11,3 @@
     android:text="@string/click_to_add_new_word"
     android:drawablePadding="4dp"
     android:drawableLeft="@drawable/ic_action_content_new" />
-

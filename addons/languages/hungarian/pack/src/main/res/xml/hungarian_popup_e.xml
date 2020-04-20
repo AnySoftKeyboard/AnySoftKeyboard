@@ -1,2 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"><Row><Key android:codes="é" /></Row></Keyboard>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="é" />
+    </Row>
+</Keyboard>
