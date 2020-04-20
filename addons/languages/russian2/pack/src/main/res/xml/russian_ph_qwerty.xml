@@ -35,7 +35,7 @@
     </Row>
     
     <Row>
-    	<Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="1079" android:keyLabel=""/>
         <Key android:codes="1093" android:keyLabel=""/>
         <Key android:codes="1094" android:keyLabel=""/>

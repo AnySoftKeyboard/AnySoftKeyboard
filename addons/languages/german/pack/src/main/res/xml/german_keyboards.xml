@@ -48,7 +48,7 @@
     <Keyboard nameResId="@string/de_keyboard_adnw" iconResId="@drawable/ic_status_german"
               layoutResId="@xml/de_adnw" id="e482c64e-fa24-45ab-a785-68c65fe5bf7b"
               defaultDictionaryLocale="de"
-	      description="@string/de_keyboard_adnw_description"
+          description="@string/de_keyboard_adnw_description"
               index="10" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/german_neo2_physical" />
 </Keyboards>

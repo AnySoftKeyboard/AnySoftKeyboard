@@ -8,8 +8,8 @@
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
 
-	<Dictionary nameResId="@string/sardinian_dictionary" locale="sc" id="554b8250-1118-11e9-b56e-0800200c9a66" type="binary_resource"
-	dictionaryResourceId="@array/sardinian_words_dict_array" autoTextResourceId="@xml/sardinian_autotext"
-	description="Created by TM" />
+    <Dictionary nameResId="@string/sardinian_dictionary" locale="sc" id="554b8250-1118-11e9-b56e-0800200c9a66" type="binary_resource"
+    dictionaryResourceId="@array/sardinian_words_dict_array" autoTextResourceId="@xml/sardinian_autotext"
+    description="Created by TM" />
 
 </Dictionaries>

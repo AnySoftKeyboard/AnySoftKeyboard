@@ -7,7 +7,7 @@
      "dictionaryResourceId" : a reference to the raw resource of the words dictionary
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
-	<Dictionary nameResId="@string/russian2_dictionary_name" locale="ru" id="afd228a6-3101-4998-b9c6-1e28aecc0e7a" type="binary_resource"
-	dictionaryResourceId="@array/russian2_words_dict_array" autoTextResourceId="@xml/russian2_autotext"
-	description="Dictionary from AOSP"/>
+    <Dictionary nameResId="@string/russian2_dictionary_name" locale="ru" id="afd228a6-3101-4998-b9c6-1e28aecc0e7a" type="binary_resource"
+    dictionaryResourceId="@array/russian2_words_dict_array" autoTextResourceId="@xml/russian2_autotext"
+    description="Dictionary from AOSP"/>
 </Dictionaries>

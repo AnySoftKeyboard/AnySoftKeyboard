@@ -14,10 +14,10 @@
      limitations under the License.
 -->
 <resources>
-	<style name="PCAnyKeyboardTheme">
+    <style name="PCAnyKeyboardTheme">
         <item name="android:background">@drawable/pc_background</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_pc</item>
-    	
+        
         <item name="keyTextSize">@dimen/key_text_size</item>
         <item name="keyTextStyle">bold</item>
         <item name="keyTextColor">#FF000000</item>
@@ -31,21 +31,21 @@
         <item name="backgroundDimAmount">0.7</item>
         
         <!-- key preview (feeback) - none -->
-    	<item name="keyPreviewTextSize">0px</item>
-    	
-    	<!-- key heights -->
-		<item name="keyNormalHeight">@dimen/default_key_height</item>
-    	<item name="keySmallHeight">@dimen/default_key_half_height</item>
-    	<item name="keyLargeHeight">@dimen/default_key_tall_height</item>
+        <item name="keyPreviewTextSize">0px</item>
+        
+        <!-- key heights -->
+        <item name="keyNormalHeight">@dimen/default_key_height</item>
+        <item name="keySmallHeight">@dimen/default_key_half_height</item>
+        <item name="keyLargeHeight">@dimen/default_key_tall_height</item>
 
-		<!-- key gaps -->    	
-		<item name="keyHorizontalGap">@dimen/default_key_horizontal_gap</item>
-		<item name="keyVerticalGap">@dimen/default_key_vertical_gap</item>
+        <!-- key gaps -->       
+        <item name="keyHorizontalGap">@dimen/default_key_horizontal_gap</item>
+        <item name="keyVerticalGap">@dimen/default_key_vertical_gap</item>
     </style>
     <style name="PCAnyKeyboardPopupTheme" parent="@style/PCAnyKeyboardTheme">
         <item name="android:background">@drawable/popup_background</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_popup_pc</item>
         <!-- this will say "no preview" -->
-    	<item name="keyPreviewTextSize">0px</item>
+        <item name="keyPreviewTextSize">0px</item>
     </style>
 </resources>
