@@ -8,10 +8,10 @@
  "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
  -->
     <Keyboard nameResId="@string/ar_keyboard" iconResId="@drawable/ic_status_armenian2"
-		layoutResId="@xml/ar_qwerty" landscapeResId="@xml/ar_qwerty"
-		id="75221b32-e09d-4273-9322-a65c5b45597f" description="Created with herrlado"
-		index="1"
-		defaultDictionaryLocale="hy" />
+        layoutResId="@xml/ar_qwerty" landscapeResId="@xml/ar_qwerty"
+        id="75221b32-e09d-4273-9322-a65c5b45597f" description="Created with herrlado"
+        index="1"
+        defaultDictionaryLocale="hy" />
 
     <Keyboard
         defaultDictionaryLocale="hy"

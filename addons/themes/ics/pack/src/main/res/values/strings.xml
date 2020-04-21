@@ -2,6 +2,6 @@
 <resources>
 
     <string name="ics_keyboard_theme_name">ICS (Android 4.0) Theme</string>
-	<string name="ics_keyboard_theme_description">AnySoftKeyboard theme similar to Ice Cream Sandwich keyboard look</string>
-	
+    <string name="ics_keyboard_theme_description">AnySoftKeyboard theme similar to Ice Cream Sandwich keyboard look</string>
+    
 </resources>

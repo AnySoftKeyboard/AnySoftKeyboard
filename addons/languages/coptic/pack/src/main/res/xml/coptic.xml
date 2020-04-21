@@ -25,7 +25,7 @@
         <Key android:codes="772" android:keyEdgeFlags="right"/>
     </Row>
 
-    <Row>
+    <Row android:keyWidth="9.09%p">
         <Key android:codes="11393" android:keyEdgeFlags="left"/>
         <Key android:codes="11429"/>
         <Key android:codes="11399"/>

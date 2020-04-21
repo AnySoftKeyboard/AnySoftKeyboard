@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KeyboardThemes>
-	<KeyboardTheme
+    <KeyboardTheme
         id="f96e55d0-11eb-11e1-be50-0800200c9a66"
         nameResId="@string/ics_keyboard_theme_name"
         themeRes="@style/ICSAnyKeyboardTheme"

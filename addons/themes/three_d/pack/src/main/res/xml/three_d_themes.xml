@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KeyboardThemes>
-	<KeyboardTheme
+    <KeyboardTheme
         id="37816fd0-9854-11e1-a8b0-0800200c9a66"
         nameResId="@string/keyboard_theme_name"
         themeRes="@style/ThreeDeeAnyKeyboardTheme"

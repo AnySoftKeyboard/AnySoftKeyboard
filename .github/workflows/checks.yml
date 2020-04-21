@@ -160,6 +160,39 @@ jobs:
           name: app-less-tests-build-logging
           path: build-logging
 
+  verify-all-addons:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.13.7
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1.1.2
+        with:
+          path: .github_cache_gradle/
+          key: verify-all-addons-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: verify-all-addons-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: verify-add-ons
+        run: |
+          ./scripts/download_robolectric_jars_to_machine.sh
+          ./gradlew :ime:app:testAllAddOnsUnitTestCoverage :ime:app:testAllAddOnsUnitTest --tests="*LoadedKeyboardsVerificationTest*"
+          chmod -R a+rwx .
+      - uses: ./.github/actions/codecov
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: "**/build/reports/tests/**"
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: verify-all-addons
+          path: collected_reports
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: verify-all-addons-build-logging
+          path: build-logging
+
   deploy-dry-run:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.13.7
@@ -184,7 +217,7 @@ jobs:
           path: outputs/fdroid
 
   master-green-requirement:
-    needs: [checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run]
+    needs: [checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
     runs-on: ubuntu-18.04
     steps:
       - name: ready
