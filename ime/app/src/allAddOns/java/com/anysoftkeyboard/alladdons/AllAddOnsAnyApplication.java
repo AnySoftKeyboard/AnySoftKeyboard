@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.canary;
+package com.anysoftkeyboard.alladdons;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -22,12 +22,12 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
 
-public class CanaryAnyApplication extends AnyApplication {
+public class AllAddOnsAnyApplication extends AnyApplication {
 
     @Override
     public List<Drawable> getInitialWatermarksList() {
         List<Drawable> watermarks = super.getInitialWatermarksList();
-        watermarks.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_beta_build));
+        watermarks.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_all_add_ons_build));
 
         return watermarks;
     }

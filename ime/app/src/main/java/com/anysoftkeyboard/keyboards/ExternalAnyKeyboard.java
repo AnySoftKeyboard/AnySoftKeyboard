@@ -37,6 +37,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
@@ -188,10 +189,22 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         final String targetCharCode =
                                 attrs.getAttributeValue(null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
                         final int target;
-                        if (targetCharCode == null) {
-                            target = (int) targetChar.charAt(0);
+                        if (!TextUtils.isEmpty(targetCharCode)) {
+                            target = Integer.parseInt(targetCharCode);
+                        } else if (!TextUtils.isEmpty(targetChar)) {
+                            target = targetChar.charAt(0);
                         } else {
-                            target = Integer.valueOf(targetCharCode);
+                            throw new IllegalArgumentException(
+                                    "both "
+                                            + XML_TARGET_CHAR_CODE_ATTRIBUTE
+                                            + " and "
+                                            + XML_TARGET_ATTRIBUTE
+                                            + "for key-codes "
+                                            + Arrays.toString(keyCodes)
+                                            + " are empty in "
+                                            + XML_SEQUENCE_TAG
+                                            + " for keyboard "
+                                            + getKeyboardId());
                         }
 
                         // asserting
