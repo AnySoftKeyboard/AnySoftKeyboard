@@ -385,6 +385,7 @@
     <string name="extension_kbd_top_numbers_alt">Alternar teclas numéricas</string>
     <string name="extension_kbd_top_nav">Teclas de navegación</string>
     <string name="extension_kbd_top_nav_alt">Teclas de navegación alternativo</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Teclas de navegación alternativo. No hay fila de números en modo contraseña</string>
     <string name="extension_kbd_top_numbers_simple">Solo números</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_top_text_editing">Edición de texto rápido</string>
