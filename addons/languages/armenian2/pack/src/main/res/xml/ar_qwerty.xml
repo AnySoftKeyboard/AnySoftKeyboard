@@ -4,14 +4,14 @@
     android:keyWidth="10%p"
     >
     <Row>
-		<Key android:codes="1389" android:popupCharacters="" android:keyLabel="" android:keyEdgeFlags="left"/>
-		<Key android:codes="1410" android:popupCharacters="" android:keyLabel=""/>
-		<Key android:codes="1383" android:popupCharacters="" android:keyLabel=""/>
-		<Key android:codes="1408" android:popupCharacters="" android:keyLabel=""/>
-		<Key android:codes="1407" android:popupCharacters="" android:keyLabel=""/>
-		<Key android:codes="1381" android:popupCharacters="" android:keyLabel=""/>
-		<Key android:codes="1384" android:popupCharacters="" android:keyLabel=""/>
-		<Key android:codes="1387" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1389" android:popupCharacters="" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1410" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1383" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1408" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1407" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1381" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1384" android:popupCharacters="" android:keyLabel=""/>
+        <Key android:codes="1387" android:popupCharacters="" android:keyLabel=""/>
         <Key android:codes="1400" android:popupCharacters="" android:keyLabel=""/>
         <Key android:codes="1402" android:popupCharacters="" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>

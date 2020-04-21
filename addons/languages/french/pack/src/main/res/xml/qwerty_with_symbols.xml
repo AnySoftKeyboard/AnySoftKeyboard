@@ -3,7 +3,7 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:ask="http://schemas.android.com/apk/res-auto"
           android:keyWidth="10%p"
-	  >
+      >
     <Row>
         <!-- Key attributes:
          "android:codes" : a comma separated unicode values of the keys. If you specify more than one code, then the other codes are accessible via multi-tap.

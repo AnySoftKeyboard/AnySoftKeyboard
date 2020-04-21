@@ -71,7 +71,9 @@ public class HardKeyboardSequenceHandler {
                         "'targetCharacters' should be the same length as the latin QWERTY keys strings. QWERTY is "
                                 + msQwerty.length
                                 + ", while targetCharacters is "
-                                + targetCharacters.length());
+                                + targetCharacters.length()
+                                + " targetCharacters are "
+                                + targetCharacters);
             } else {
                 Logger.w(
                         "HardKeyboardSequenceHandler",

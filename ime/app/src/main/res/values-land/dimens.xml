@@ -16,7 +16,8 @@
 ** See the License for the specific language governing permissions and 
 ** limitations under the License.
 */
---><resources>
+-->
+<resources>
     <dimen name="default_key_height">35dip</dimen>
     <dimen name="default_key_half_height">27dip</dimen>
     <dimen name="default_key_tall_height">44dip</dimen>

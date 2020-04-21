@@ -3,8 +3,8 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:ask="http://schemas.android.com/apk/res-auto"
           android:keyWidth="16.6%p"
-	  >
-	<!-- "android:keyWidth" specify the default width of a key. In this example, 10% of parent (the whole keyboard) -->
+      >
+    <!-- "android:keyWidth" specify the default width of a key. In this example, 10% of parent (the whole keyboard) -->
 
     <Row>
         <!-- Key attributes:
@@ -36,7 +36,7 @@
 
     <Row>
         <Key android:codes="1776,1785" android:keyLabel="۱۲۳" android:popupCharacters="&#1776;&#1777;&#1778;&#1779;&#1780;&#1781;&#1782;&#1783;&#1784;&#1785;" android:keyEdgeFlags="left"/>
-    	  <Key android:codes="1591,1592" android:keyLabel="ط‌ظ"/>
+          <Key android:codes="1591,1592" android:keyLabel="ط‌ظ"/>
         <Key android:codes="1585,1586" android:keyLabel="رز"/>
         <Key android:codes="1583,1584" android:keyLabel="دذ"/>
         <Key android:codes="1662,1688" android:keyLabel="پ‌ژ"/>
