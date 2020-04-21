@@ -44,7 +44,7 @@
     <!-- Shift+keycode_backslash - / -->
     <SequenceMapping keySequence="73" shiftModifier="true" targetChar="/"/>
     <!-- Shift+2 - " -->
-    <SequenceMapping keySequence="9" shiftModifier="true" targetChar="&quot;"/>
+    <SequenceMapping keySequence="9" shiftModifier="true" targetCharCode="34"/>
     <!-- Shift+3 - № -->
     <SequenceMapping keySequence="10" shiftModifier="true" targetChar="№"/>
     <!-- Shift+4 - ; -->

@@ -26,6 +26,12 @@ android {
 
             matchingFallbacks = ['release', 'debug']
         }
+
+        allAddOns {
+            initWith buildTypes.debug
+
+            matchingFallbacks = ['debug']
+        }
     }
 }
 
@@ -61,6 +67,17 @@ android {
                 doNotStrip '**/anysoftkey*_jni.so'
             }
         }
+
+        allAddOns {
+            buildConfigField("boolean", "TESTING_BUILD", "true")
+        }
+    }
+}
+
+android {
+    sourceSets.getByName('allAddOns') {
+        it.java.srcDirs += 'src/debug/java'
+        it.res.srcDirs += 'src/debug/res'
     }
 }
 
@@ -98,4 +115,11 @@ dependencies {
 
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
+
+    //allAddOns have all the add-ons packs as dependencies
+    rootProject.findProject(":addons").subprojects.forEach {
+        if (it.name == 'pack') {
+            allAddOnsImplementation it
+        }
+    }
 }
