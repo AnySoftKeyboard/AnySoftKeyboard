@@ -41,7 +41,7 @@
     <string name="hint_double_tap_to_close">Ismételjük a javaslatokat</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Nincs telepítve a hangfelismerő alkalmazás</string>
-    <string name="voice_input_not_installed_text">A hangbemenet nincs telepítve a készüléken.\nEz könnyen rögzíthető: telepítse most az alkalmazásraktárból.</string>
+    <string name="voice_input_not_installed_text">A hangbemenet nincs telepítve a készüléken.\nEz könnyen orvosolható: telepítse most az alkalmazásraktárból.</string>
     <string name="voice_input_not_installed_action_install">Telepítsd</string>
     <string name="voice_input_not_installed_action_do_not_install">Ne</string>
     <string name="voice_input_not_voice_pack_in_market">Nem találok hangbevitelt (com.google.android.voicesearch) az alkalmazásboltban. Sajnáljuk, a hangbevitel nem fog működni a készüléken.</string>
