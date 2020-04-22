@@ -53,7 +53,7 @@
             id="f926cc04-c8ba-4392-8000-e52b8abb7093"
             nameResId="@string/extension_kbd_top_nav_alt"
             extensionKeyboardResId="@xml/ext_kbd_top_row_nav_alt"
-            extensionKeyboardType="2"
+            extensionKeyboardType="@integer/extension_keyboard_type_top_row"
             description=""
             index="7"
     />
@@ -61,7 +61,7 @@
             id="6187a431-f737-49b2-baa6-78cc49ec8214"
             nameResId="@string/extension_kbd_top_nav_alt_no_numb"
             extensionKeyboardResId="@xml/ext_kbd_top_row_nav_alt_no_numb"
-            extensionKeyboardType="2"
+            extensionKeyboardType="@integer/extension_keyboard_type_top_row"
             description=""
             index="8"
     />
@@ -77,7 +77,7 @@
             id="49c8c4b0-b3bc-11e8-933e-975e4dcf2c13"
             nameResId="@string/extension_kbd_top_terminal"
             extensionKeyboardResId="@xml/ext_kbd_top_row_terminal"
-            extensionKeyboardType="2"
+            extensionKeyboardType="@integer/extension_keyboard_type_top_row"
             description=""
             index="10"
             />
