@@ -562,4 +562,16 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 KeyCodes.UTILITY_KEYBOARD, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
+
+    @Test
+    public void testSwipeForActionSpaceConfigurable() {
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_space));
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
 }
