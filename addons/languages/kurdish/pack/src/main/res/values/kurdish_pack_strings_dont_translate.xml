@@ -6,11 +6,14 @@
     <string name="kurdish_dictionary">Kurdish</string>
 
     <string name="kurdish_qwerty_keyboard">کوردی</string>
-    <string name="kurdish_qwerty_keyboard_description">کوردی ناوەندی قوەرتی</string>
+    <string name="kurdish_qwerty_keyboard_description">قوەرتی</string>
 
-    <string name="kurmanji_qwerty_keyboard">Kurdi</string>
-    <string name="kurmanji_qwerty_keyboard_description">Kurdi Qwerty</string>
+    <string name="kurmanji_qwerty_keyboard">Kurdî</string>
+    <string name="kurmanji_qwerty_keyboard_description">Klavye Kurdî</string>
 
     <string name="kurdish_full_keyboard">کوردی</string>
-    <string name="kurdish_full_keyboard_description">کوردی ناوەندی چپقڤفغ</string>
+    <string name="kurdish_full_keyboard_description">قوەرتی فوول</string>
+
+    <string name="kurdish_pc_keyboard">کوردی</string>
+    <string name="kurdish_pc_keyboard_description">شێوازی کۆمپیوتەر</string>
 </resources>

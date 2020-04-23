@@ -5,14 +5,22 @@
               defaultDictionaryLocale="ku" description="@string/kurdish_qwerty_keyboard_description"
               index="1" defaultEnabled="true"
               physicalKeyboardMappingResId="@xml/kurdish_physical" />
-    <Keyboard nameResId="@string/kurmanji_qwerty_keyboard" iconResId="@drawable/ic_status_kurdish"
-              layoutResId="@xml/kurmanji_qwerty" id="fdde6d48-f5e3-48ea-942d-886b35609e34"
-              defaultDictionaryLocale="ku" description="@string/kurmanji_qwerty_keyboard_description"
-              index="2" defaultEnabled="false"
+
+    <Keyboard nameResId="@string/kurdish_pc_keyboard" iconResId="@drawable/ic_status_kurdish"
+              layoutResId="@xml/kurdish_pc" id="f5234d85-b2d6-4cea-a9fe-418531d7d8f0"
+              defaultDictionaryLocale="ku" description="@string/kurdish_pc_keyboard_description"
+              index="2" defaultEnabled="true"
               physicalKeyboardMappingResId="@xml/kurdish_physical" />
+
     <Keyboard nameResId="@string/kurdish_full_keyboard" iconResId="@drawable/ic_status_kurdish"
               layoutResId="@xml/kurdish_full_keyboard" id="94cdd2d1-b125-4ce4-957f-c41c0ac5a3bf"
               defaultDictionaryLocale="ku" description="@string/kurdish_full_keyboard_description"
               index="3" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/kurdish_physical" />
+
+    <Keyboard nameResId="@string/kurmanji_qwerty_keyboard" iconResId="@drawable/ic_status_kurdish"
+              layoutResId="@xml/kurmanji_qwerty" id="fdde6d48-f5e3-48ea-942d-886b35609e34"
+              defaultDictionaryLocale="ku" description="@string/kurmanji_qwerty_keyboard_description"
+              index="4" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/kurdish_physical" />
 </Keyboards>

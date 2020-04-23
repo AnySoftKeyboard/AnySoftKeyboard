@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" xmlns:ask="http://schemas.android.com/apk/res-auto">
+    <Row>
+        <Key android:codes="ق" android:popupCharacters="١" android:keyEdgeFlags="left" />
+        <Key android:codes="ڤ" android:popupCharacters="٢"/>
+        <Key android:codes="ف" android:popupCharacters="٣"/>
+        <Key android:codes="غ" android:popupCharacters="٤"/>
+        <Key android:codes="ع" android:popupCharacters="٥"/>
+        <Key android:codes="ه" android:popupCharacters="٦" android:keyLabel="ھ" />
+        <Key android:codes="ە" android:popupCharacters="٧ة" android:keyLabel="ﻪ" />
+        <Key android:codes="ت" android:popupCharacters="ط٨" />
+        <Key android:codes="ح" android:popupCharacters="٩"/>
+        <Key android:codes="خ" android:popupCharacters="٠" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:codes="ش" android:popupCharacters="ض" android:keyEdgeFlags="left" />
+        <Key android:codes="س" android:popupCharacters="ص" />
+        <Key android:codes="ی" android:popupCharacters="ۍىي" />
+        <Key android:codes="ێ" android:popupCharacters="ؽ" />
+        <Key android:codes="ل"  android:popupCharacters="﷽ﷲﷻ" />
+        <Key android:codes="ڵ" />
+        <Key android:codes="ا" android:popupCharacters="آإأ" />
+        <Key android:codes="ن" android:popupCharacters="ﷴﷺ" />
+        <Key android:codes="ج" />
+        <Key android:codes="چ" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:codes="ب" />
+        <Key android:codes="ز"  android:popupCharacters="ظ" />
+        <Key android:codes="ر" />
+        <Key android:codes="ڕ" android:popupCharacters="ڒ" />
+        <Key android:codes="د" android:popupCharacters="ذ" />
+        <Key android:keyOutputText="وو" android:keyLabel="وو" />
+        <Key android:codes="و" android:popupCharacters="ؤ" />
+        <Key android:codes="ۆ" android:popupCharacters="ۋۉۊ" />
+        <Key android:codes="ک" android:popupCharacters="ڪك" />
+        <Key android:codes="گ" />
+    </Row>
+    <Row>
+        <Key android:keyWidth="13.999998%p" android:codes="1600" android:isRepeatable="true" android:keyIcon="@drawable/drezh" ask:isFunctional="true" />
+        <Key android:codes="ئ" android:popupCharacters="ء" android:keyLabel="ﺋ" />
+        <Key android:codes="پ" android:popupCharacters="ث" />
+        <Key android:codes="ژ" />
+        <Key android:codes="م" />
+        <Key android:codes="1567" android:popupCharacters="\?❔❕!" android:keyLabel="؟" />
+        <Key android:codes="1548" android:popupCharacters="," android:keyLabel="،" />
+        <Key android:codes="46" android:keyLabel="." />
+        <Key android:keyWidth="15.999996%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true" />
+    </Row>
+</Keyboard>
