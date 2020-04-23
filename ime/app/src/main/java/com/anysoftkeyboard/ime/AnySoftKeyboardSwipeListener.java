@@ -218,6 +218,8 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
                 return KeyCodes.KEYBOARD_REVERSE_CYCLE;
             case "shift":
                 return KeyCodes.SHIFT;
+            case "space":
+                return KeyCodes.SPACE;
             case "hide":
                 return KeyCodes.CANCEL;
             case "backspace":
