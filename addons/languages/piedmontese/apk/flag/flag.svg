@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Author ("riccio at inmail sk") -->
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="599.99988"
+   id="Piemonte"
+   sodipodi:author="Luigi_Maselli_metnik_at_tiscali_it"
+   sodipodi:docname="Piemonte.svg"
+   sodipodi:version="0.32"
+   width="900.00024"
+   inkscape:version="0.44+devel"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docbase="C:\Documents and Settings\Flanker\Desktop"
+   sodipodi:modified="true"
+   version="1.0">
+  <metadata
+     id="metadata3">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Piemonte</dc:title>
+        <dc:description />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li />
+            <rdf:li>region</rdf:li>
+            <rdf:li>flag</rdf:li>
+            <rdf:li>piedmont</rdf:li>
+            <rdf:li>italia</rdf:li>
+            <rdf:li>italy</rdf:li>
+            <rdf:li>europe</rdf:li>
+            <rdf:li>piemonte</rdf:li>
+            <rdf:li>sign</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://www.openclipart.org">
+            <dc:title>Luigi Maselli</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Luigi Maselli</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Luigi Maselli</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:date />
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://web.resource.org/cc/PublicDomain" />
+        <dc:language>en</dc:language>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://web.resource.org/cc/PublicDomain">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     inkscape:zoom="0.66388871"
+     inkscape:cx="687.79353"
+     inkscape:cy="164.80783"
+     inkscape:window-width="1280"
+     inkscape:window-height="1003"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:current-layer="Piemonte" />
+  <g
+     id="g1882">
+    <rect
+       height="599.99988"
+       id="rect565"
+       style="font-size:12px;fill:#0c3c7c;fill-opacity:1;fill-rule:evenodd;stroke-width:1"
+       width="900.00024"
+       x="0"
+       y="-3.9599834e-013" />
+    <rect
+       height="520"
+       id="rect566"
+       style="font-size:12px;fill:red;fill-rule:evenodd;stroke-width:1"
+       width="820"
+       x="40.000122"
+       y="39.999939" />
+    <rect
+       height="120"
+       id="rect581"
+       style="font-size:12px;fill:white;fill-rule:evenodd;stroke-width:1"
+       width="820"
+       x="40.000122"
+       y="239.99994" />
+    <rect
+       height="520.00006"
+       id="rect582"
+       style="font-size:12px;fill:white;fill-rule:evenodd;stroke-width:1"
+       width="128.57144"
+       x="385.71442"
+       y="39.999908" />
+    <path
+       d="M 246.42862,149.72704 L 270.21468,79.985051 L 629.27891,79.985051 L 653.57163,149.9896 L 582.87233,149.72704 L 606.07562,105.01744 L 470.41029,105.61472 L 489.38186,149.59832 L 411.57908,149.99992 L 433.96336,105.14352 L 295.15574,105.01744 L 320.67966,149.72704 L 246.42862,149.72704 z "
+       id="path560"
+       sodipodi:nodetypes="ccccccccccccc"
+       style="font-size:12px;fill:#0c3c7c;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:0" />
+  </g>
+</svg>
