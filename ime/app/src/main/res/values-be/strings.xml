@@ -395,6 +395,7 @@
     <string name="extension_kbd_top_numbers_alt">Альтэрнатыўныя лічбавыя клавішы</string>
     <string name="extension_kbd_top_nav">Навігацыйныя клавішы</string>
     <string name="extension_kbd_top_nav_alt">Альтэрнатыўныя навігацыйныя клавішы</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Альтэрнатыўныя навігацыйныя клавішы. Без лічбавых клавішаў у рэжыме пароля</string>
     <string name="extension_kbd_top_numbers_simple">Просты, толькі лічбы</string>
     <string name="extension_kbd_top_terminal">Тэрмінал</string>
     <string name="extension_kbd_top_text_editing">Хуткае выпраўленне тэксту</string>
