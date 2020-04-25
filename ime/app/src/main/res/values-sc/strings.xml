@@ -57,6 +57,7 @@
     <string name="ime_settings">Impostatziones tastiera</string>
     <string name="switch_incognito">Modalidade anònima</string>
     <string name="vibrate_on_key_press_title">Vibratzione in sa tecla incarcada</string>
+    <string name="vibrate_on_key_press_value_template">%d millisegundos</string>
     <string name="night_mode_screen">Impostatziones pro sa modalidade pro sa note</string>
     <string name="night_mode_description">Sa modalideade pro sa note at a mudare custas funtzionalidades:</string>
     <string name="night_mode_state_summary">In custu momentu, s\'innescu pro sa modalidade pro sa note: \u0020%s</string>
@@ -106,6 +107,9 @@
     <string name="switch_keyboard_on_space">S\'ispàtziu mudat sas tastieras</string>
     <string name="switch_keyboard_on_space_on_summary">Cola dae sos sìmbulos/nùmeros a s\'alfabetu incarchende s\'ispàtziu</string>
     <string name="switch_keyboard_on_space_off_summary">Non colare dae sos sìmbulos/nùmeros a s\'alfabetu incarchende s\'ispàtziu</string>
+    <string name="colorize_nav_bar_title">Disinna in palas de sa barra de navigatzione</string>
+    <string name="colorize_nav_bar_summary_on">At a disinnare s\'isfundu de sa tastiera in palas de sa barra de navigatzione. Custu no est suportadu dae totu sos dispositivos.</string>
+    <string name="colorize_nav_bar_summary_off">Non disinnes in palas de sa barra de navigatzione.</string>
     <string name="persistent_layout_per_package_id_title">Ammenta sa dispositzione de s\'alfabetu pro s\'aplicatzione</string>
     <string name="persistent_layout_per_package_id_off_summary">Imprea sa matessi dispositzione pro totu sas aplicatziones.</string>
     <string name="persistent_layout_per_package_id_on_summary">Cola automaticamente a sa dispositzione impreada in antis in s\'aplicatzione.</string>
@@ -210,6 +214,9 @@
     <string name="special_dictionaries_group_summary">Ditzionàrios de impòsitu impreados in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Ditzionàriu impreadore</string>
     <string name="use_user_dictionary_on_summary">Cussigia sas paràulas annantas dae s\'impreadore (incarca duas bortas in un\'impòsitu pro l\'annànghere)</string>
+    <string name="always_use_fallback_user_dictionary">Imprea sa memòria privada de su ditzionàriu de s\'impreadore</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Imprea su meccanismu de sarvatàgiu privadu de su ditzionàriu de s\'impreadore integradu in AnySoftKeyboard.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Proa a impreare su ditzionàriu de s\'impreadore globale integradu de Android.</string>
     <string name="use_auto_dictionary">Ditzionàriu automàticu</string>
     <string name="use_auto_dictionary_dialog_title">Ischerta sa manera de aprendimentu</string>
     <string name="use_auto_dictionary_summary">Impara automaticamente paràulas noas. Manera de aprendimentu: %s</string>
@@ -328,6 +335,10 @@
     <string name="candidates_off_summary">Perunu impòsitu at a èssere ammustradu</string>
     <string name="quick_fix">Acontzos lestros e abbreviatziones</string>
     <string name="quick_fix_summary">Acontza sos errores prus comunes, e ismànnia sas abbreviatziones</string>
+    <string name="quick_fix_secon_disabled">…pro sa prima limba ebbia</string>
+    <string name="quick_fix_secon_disabled_summ_on">Sos acontzos lestros e sas incurtzaduras a ant a funtzionare petzi in sa limba atuale</string>
+    <string name="quick_fix_secon_disabled_summ_off">Sos acontzos lestros ant a funtzionare in totu sas limbas 
+                  isseberadas in "Remplasa su ditzionàriu predefinidu"</string>
     <string name="allow_suggestions_restart">Torra a aviare sos impòsitos</string>
     <string name="allow_suggestions_restart_summary">Torra a aviare sos impòsitos pro sas paràulas cando su cursore si moet</string>
     <!-- settings - keyboard group -->
@@ -382,8 +393,11 @@
     <string name="extension_kbd_top_small_numbers">Teclas numèricas</string>
     <string name="extension_kbd_top_numbers_alt">Teclas numèricas alternativas</string>
     <string name="extension_kbd_top_nav">Teclas de nàvigu</string>
+    <string name="extension_kbd_top_nav_alt">Teclas de navigatzione alternativas</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Teclas de navigatzione alternativa. Peruna riga de nùmeros in sa modalidade pro sas craes de intrada</string>
     <string name="extension_kbd_top_numbers_simple">Sèmplitze, nùmeros ebbia</string>
     <string name="extension_kbd_top_terminal">Terminale</string>
+    <string name="extension_kbd_top_text_editing">Modìfica lestra de su testu</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normale</string>
     <string name="extension_kbd_bottom_regular">Clàssicu (chene micròfonu)</string>
     <string name="extension_kbd_bottom_iphone">Istile iPhone (chene micròfonu)</string>
@@ -392,8 +406,12 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternativu cun micròfonu</string>
     <string name="extension_kbd_bottom_old">A s\'antiga</string>
     <string name="extension_kbd_bottom_simple">Sèmplitze</string>
+    <string name="extension_kbd_bottom_simple_alt">Sèmplitze alternativu</string>
+    <string name="extension_kbd_bottom_row_aosp">Istile de AOSP</string>
     <string name="extension_kbd_bottom_ng">Generatzione noa - In proa</string>
     <string name="extension_kbd_extension_numbers_symbols">Nùmeros e sìmbulos</string>
+    <string name="extension_kbd_bottom_minimal">Minimale</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (chene emoji)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Bae</string>
@@ -639,5 +657,11 @@
     <string name="aosp_dark_theme_description">Tema de sa tastiera cun colores iscuros ispiradu a s\'AOSP</string>
     <string name="aosp_light_theme_name">Tema craru AOSP</string>
     <string name="aosp_light_theme_description">Tema de sa tastiera cun colores craros ispiradu a s\'AOSP</string>
+    <string name="app_share_title">Salude dae AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Cumpartzi AnySoftKeyboard impreende</string>
+    <string name="app_share_text">Lassa chi ti cunsìgies s\'aplicatzione pro sa tastiera de Android a mitza aberta, chi rispetat sa ridervadesa tua, de badas, personalizabile meda e in prus limbas: AnySoftKeyboard.\nIscàrriga·la dae su:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Abarra a su seguru! Incarca inoghe pro informatziones in subra de su CoronaVirus.</string>
+    <string name="click_me_for_easter_egg_info">incarca·mi pro una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
