@@ -587,6 +587,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         final Keyboard.Key key = findKey('w');
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
         ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         Mockito.verify(mMockKeyboardListener, Mockito.never())
@@ -597,6 +598,11 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                         Mockito.any(int[].class),
                         Mockito.anyBoolean());
 
+        final Point origin = mViewUnderTest.getOrigin();
+        Assert.assertEquals(0, origin.x);
+        Assert.assertEquals(-66, origin.y);
+
+        keyPoint = mViewUnderTest.getAbsoluteCoordinates(keyPoint);
         mViewUnderTest.onTouchEvent(
                 MotionEvent.obtain(
                         SystemClock.uptimeMillis(),
@@ -607,11 +613,9 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                         0));
 
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        // not sure about this. Maybe the output should be the first key in the popup
-        // FIXME: suppose to be '2' and not code 962 (final sigma)
         Mockito.verify(mMockKeyboardListener)
                 .onKey(
-                        eq(962),
+                        eq((int) '2'),
                         Mockito.any(Keyboard.Key.class),
                         eq(0),
                         Mockito.any(int[].class),
@@ -623,6 +627,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                         Mockito.anyInt(),
                         Mockito.any(int[].class),
                         Mockito.anyBoolean());
+        Assert.assertEquals("2ŵως", key.popupCharacters);
     }
 
     @Test
