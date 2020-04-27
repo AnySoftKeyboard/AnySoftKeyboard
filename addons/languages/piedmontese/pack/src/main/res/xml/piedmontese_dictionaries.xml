@@ -8,8 +8,8 @@
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
 
-	<Dictionary nameResId="@string/piedmontese_dictionary" locale="pms" id="77f33290-5bd5-11ea-aaef-0800200c9a66" type="binary_resource"
-	dictionaryResourceId="@array/piedmontese_words_dict_array" autoTextResourceId="@xml/piedmontese_autotext"
-	description="Created by GM" />
+    <Dictionary nameResId="@string/piedmontese_dictionary" locale="pms" id="77f33290-5bd5-11ea-aaef-0800200c9a66" type="binary_resource"
+    dictionaryResourceId="@array/piedmontese_words_dict_array" autoTextResourceId="@xml/piedmontese_autotext"
+    description="Created by GM" />
 
 </Dictionaries>
