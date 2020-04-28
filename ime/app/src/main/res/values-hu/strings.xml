@@ -10,7 +10,7 @@
     <string name="how_to_pointer_title">Üdvözöljük az AnySoftKeyboard programban</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Változási jegyzék v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
-    <string name="change_log_url">Több:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="change_log_url">Verziótörténet:\u0020<xliff:g id="url">%s</xliff:g>\u0020</string>
     <string name="ime_name_beta">AnySoftKeyboard Béta</string>
     <string name="notification_text_testers">Ez egy béta verzió. Csak óvatosan!</string>
     <string name="testers_version">Tesztelői változat!</string>
@@ -38,9 +38,9 @@
     <string name="removed_word">Törölve:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
     <string name="hint_add_to_dictionary">\u2190 A mentéshez érintse meg újra</string>
-    <string name="hint_double_tap_to_close">Ismételje a javaslatok eltávolításához</string>
+    <string name="hint_double_tap_to_close">Nyomd meg újra a javaslatok eltávolításához</string>
     <!-- voice -->
-    <string name="voice_input_not_installed_title">Nincs telepítve a hangfelismerő alkalmazás</string>
+    <string name="voice_input_not_installed_title">Nincs telepítve hangfelismerő alkalmazás</string>
     <string name="voice_input_not_installed_text">Hangfelismerő nincs telepítve a készüléken.\nEz könnyen orvosolható: telepítse most az alkalmazásboltból.</string>
     <string name="voice_input_not_installed_action_install">Telepítés</string>
     <string name="voice_input_not_installed_action_do_not_install">Nem</string>
@@ -90,7 +90,7 @@
     <string name="pop_text_type_never">Soha</string>
     <string name="pop_text_type_on_correction">Szó korrekcióval</string>
     <string name="pop_text_type_on_word">Bármilyen szóval</string>
-    <string name="pop_text_type_any_key">Bármelyik kulcson</string>
+    <string name="pop_text_type_any_key">Bármelyik gombbal</string>
     <string name="input_field_type_password">Jelszó beviteli mező</string>
     <string name="input_field_type_email">E-mail beviteli mező</string>
     <string name="input_field_type_url">URL beviteli mező</string>
@@ -101,7 +101,7 @@
     <string name="use_custom_sound_volume_on_summary">A hanghatások hangereje egyedi.</string>
     <string name="use_custom_sound_volume_off_summary">A hanghatások hangereje jelenleg a rendszer által meghatározott hangerő.
     </string>
-    <string name="custom_sound_volume">Gombnyomások egyedi hangereje</string>
+    <string name="custom_sound_volume">Egyedi gombnyomások hangerő</string>
     <string name="vibrate_on_long_press_title">Hosszú gombnyomásra rezgés</string>
     <string name="vibrate_on_long_press_summary_on">Enyhe rezgés hosszú lenyomás érzékelésekor</string>
     <string name="switch_keyboard_on_space">Szóközzel billentyűzet váltás</string>
@@ -121,8 +121,8 @@
         kezdődik
     </string>
     <string name="hide_soft_when_physical">Billentyűzet elrejtése</string>
-    <string name="hide_soft_when_physical_on_summary">Billentyűzet rejtve, amikor a fizikai billentyűzet használva van</string>
-    <string name="hide_soft_when_physical_off_summary">Billentyűzet megjelenítve, amikor a fizikai billentyűzet használva van</string>
+    <string name="hide_soft_when_physical_on_summary">Billentyűzet rejtve, amikor fizikai billentyűzet van használatban</string>
+    <string name="hide_soft_when_physical_off_summary">Billentyűzet megjelenítve, amikor a fizikai billentyűzet van használatban</string>
     <string name="enable_alt_space_language_shortcut">Nyelvváltás Alt + Szóközzel.</string>
     <string name="enable_alt_space_language_shortcut_on_summary">Hardveres Alt+Szóköz a következő elrendezésre vált.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">Hardveres Alt+Szóköz szóközt ír be</string>
@@ -135,9 +135,9 @@
     <string name="fullscreen_portrait_input_connection_supported">Teljes beviteli mező álló módban</string>
     <string name="fullscreen_portrait_input_connection_supported_on_summary">Kinagyítja a beviteli mezőt álló módban</string>
     <string name="fullscreen_portrait_input_connection_supported_off_summary">Jelenleg nincs beállítva</string>
-    <string name="backword_support">Teljes szó törlés támogatása</string>
-    <string name="backword_support_on_summary">Shift+Visszatörlés törli az utolsó szót</string>
-    <string name="backword_support_off_summary">Shift+Vissza az utolsó karaktert törli</string>
+    <string name="backword_support">Teljes szó törlésének támogatása</string>
+    <string name="backword_support_on_summary">Shift+Backspace törli az utolsó szót</string>
+    <string name="backword_support_off_summary">Shift+Backspace az utolsó karaktert törli</string>
     <string name="swipe_up_action">Felfele húzás</string>
     <string name="swipe_up_action_summary">Határozza meg a felfelé húzás funkcióját. Jelenleg: %s</string>
     <string name="swipe_up_action_title">Válassza ki a felfelé csúsztatás funkcióját</string>
@@ -178,7 +178,7 @@
     <string name="swipe_action_name_reverse_cycle_keyboards">Visszafelé váltás a billentyűzetek között</string>
     <string name="swipe_action_name_shift">Nagy betűk</string>
     <string name="swipe_action_name_hide">Billentyűzet elrejtése</string>
-    <string name="swipe_action_name_backspace">Visszatörlés</string>
+    <string name="swipe_action_name_backspace">Backspace</string>
     <string name="swipe_action_name_backword">Vissza egy szóval</string>
     <string name="swipe_action_name_clear_input">A teljes szöveg törlése</string>
     <string name="swipe_action_name_cursor_up">Kurzor fel</string>
@@ -266,20 +266,20 @@
     <string name="show_hint_text">Alternatív karakterek</string>
     <string name="show_hint_text_on_summary">Alternatív karakterek a gombokon, ha a téma támogatja</string>
     <string name="show_hint_text_off_summary">Nincsenek alternatív karakterek a gombokon</string>
-    <string name="use_custom_hint_align">Tippek helyének felülbírálása</string>
-    <string name="use_custom_hint_align_on_summary">Saját pozíció beállítása a tippekhez</string>
+    <string name="use_custom_hint_align">A pozíció felülbírálása</string>
+    <string name="use_custom_hint_align_on_summary">Saját pozíció beállítása</string>
     <string name="use_custom_hint_align_off_summary">A téma szerinti pozíció megtartása</string>
-    <string name="custom_hint_align">Egyedi vízszintes tipp igazítás</string>
-    <string name="custom_hint_align_summary">Billentyű tippjének balra, középre vagy jobbra igazítása</string>
-    <string name="settings_custom_hint_align_dialog_title">Tippek vízszintes igazításának beállítása</string>
+    <string name="custom_hint_align">Egyedi vízszintes igazítás</string>
+    <string name="custom_hint_align_summary">Balra, középre vagy jobbra igazítása</string>
+    <string name="settings_custom_hint_align_dialog_title">Vízszintes igazításának beállítása</string>
     <string-array name="custom_hint_align_types">
         <item>Balra</item>
         <item>Középre</item>
         <item>Jobbra</item>
     </string-array>
-    <string name="custom_hint_valign">Saját függőleges tipp igazítás</string>
-    <string name="custom_hint_valign_summary">Tippek alulra vagy felülre igazítása</string>
-    <string name="settings_custom_hint_valign_dialog_title">Tippek függőleges igazításának beállítása</string>
+    <string name="custom_hint_valign">Egyéni függőleges igazítás</string>
+    <string name="custom_hint_valign_summary">Alulra vagy felülre igazítás</string>
+    <string name="settings_custom_hint_valign_dialog_title">Függőleges igazításá beállítása</string>
     <string-array name="custom_hint_valign_types">
         <item>Felülre</item>
         <item>Alulra</item>
@@ -331,7 +331,7 @@
     <string name="insert_space_after_word_suggestion_selection_on_summary">Szóköz a javasolt szó
         kiválasztása után
     </string>
-    <string name="double_space_to_period">Dupla szóköz pontot ír ki</string>
+    <string name="double_space_to_period">Dupla szóköz mondatvég</string>
     <string name="double_space_to_period_summary">Dupla szóköz: pont + szóköz</string>
     <string name="tweak_animations_level_title">Animációk</string>
     <string name="tweak_animations_level_summary">Mennyi animációt jelenítsen meg. Jelenleg:
@@ -348,7 +348,7 @@
     <string name="lang_key_shows_popup_off_summary">A nyelvválasztó gomb léptet a nyelvek közt</string>
     <string name="settings_os_clipboard_sync">Vágólap szinkronizálása a rendszerből</string>
     <string name="settings_os_clipboard_sync_summary_on">Jelenleg a rendszer vágólapját szinkronizálja az AnySoftKeyboarddal.</string>
-    <string name="settings_os_clipboard_sync_summary_off">Jelenleg nem figyeli a rendszer vágólapját az AnySoftKeyboardon kívül.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Jelenleg nem figyeli a rendszer vágólapját.</string>
     <string name="auto_caps">Automatikus nagybetűsítés</string>
     <string name="grammar_group">Nyelvtan</string>
     <string name="keyboard_behavior_group">Billentyűzet viselkedése</string>
@@ -364,7 +364,7 @@
     <string name="quick_fix_secon_disabled_summ_off">A korrekciók és a kiegészítések minden nyelven működnek 
                   az alapértelmezett szótár felülbírálása bejelölve</string>
     <string name="allow_suggestions_restart">Javaslatok újraindítása</string>
-    <string name="allow_suggestions_restart_summary">Szó javaslatok újraindítás kurzor mozgatáskor</string>
+    <string name="allow_suggestions_restart_summary">Szó javaslatok újraindítása kurzor mozgatáskor</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Billentyűzet</string>
     <string name="symbols_keyboard">123!#()</string>
@@ -431,9 +431,9 @@
     <string name="extension_kbd_bottom_regular_with_voice">Hangyományos</string>
     <string name="extension_kbd_bottom_regular">Klasszikus, no mic</string>
     <string name="extension_kbd_bottom_iphone">iPhone, nincs mikrofon</string>
-    <string name="extension_kbd_bottom_iphone_with_voice">iPhone mikrofonnal</string>
+    <string name="extension_kbd_bottom_iphone_with_voice">iPhone +🎙️</string>
     <string name="extension_kbd_bottom_alt">Alternatív, no mic</string>
-    <string name="extension_kbd_bottom_alt_with_mic">Alternatív+mic</string>
+    <string name="extension_kbd_bottom_alt_with_mic">Alternatív +🎙️</string>
     <string name="extension_kbd_bottom_old">Régimódi</string>
     <string name="extension_kbd_bottom_simple">Egyszerű</string>
     <string name="extension_kbd_bottom_simple_alt">Egyszerű v2</string>
@@ -488,23 +488,23 @@
     <string name="settings_multitap_timeout_never">Örökké vár</string>
     <string name="long_press_timeout_title">Hosszú érintés ideje</string>
     <string name="long_press_timeout_summary">Hosszú érintés ideje</string>
-    <string name="settings_long_press_timeout_faster">Nagyon kevés</string>
-    <string name="settings_long_press_timeout_fast">Kevés</string>
+    <string name="settings_long_press_timeout_faster">Nagyon rövid</string>
+    <string name="settings_long_press_timeout_fast">Rövid</string>
     <string name="settings_long_press_timeout_normal">Közepes</string>
-    <string name="settings_long_press_timeout_slow">Sok</string>
-    <string name="settings_long_press_timeout_slower">nagyon sok</string>
+    <string name="settings_long_press_timeout_slow">Hosszú</string>
+    <string name="settings_long_press_timeout_slower">Nagyon hosszú</string>
     <string name="settings_long_press_timeout_never">Soha</string>
     <string name="settings_force_locale_title">Nyelv kényszerítése</string>
     <string name="settings_force_locale_summary">Az AnySoftKeyboard-ban használt nyelv kikényszerítése (egy
         idő után lesz hatásos). Jelenleg: %s.
     </string>
     <string name="tweak_workarounds_group">Megoldások</string>
-    <string name="workaround_disable_rtl_fix">Balkezes mód beállítása</string>
-    <string name="workaround_disable_rtl_fix_summary_on">A rendszer balkezes módja alapján. Az újabb készülékekhez
-        megfelelő.
+    <string name="workaround_disable_rtl_fix">Az Android balkezes mód használata</string>
+    <string name="workaround_disable_rtl_fix_summary_on">A rendszer balkezes módját használja. Újabb készülékekhez
+        alkalmas.
     
     </string>
-    <string name="workaround_disable_rtl_fix_summary_off">Az AnySoftKeyboard balkezes módja alapján. Csak 
+    <string name="workaround_disable_rtl_fix_summary_off">Az AnySoftKeyboard balkezes módját használja. Csak 
         ha a rendszeré nem működik jól.</string>
     <string name="settings_split_state_title_portrait">Szétválasztás álló módban</string>
     <string name="settings_split_state_title_landscape">Szétválasztás fekvő módban</string>
@@ -527,7 +527,7 @@
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_settings_empty_text">A felhasználói szótárban nincs egyetlen szó sem..
+    <string name="user_dict_settings_empty_text">A felhasználói szótárban nincs egyetlen szó sem.
         Most hozzáadhatja az első szót.
     </string>
     <string name="user_dict_backup_success_title">Archiválás kész!</string>
@@ -543,7 +543,7 @@
     <string name="user_dict_restore_fail_title">A visszaállítás sikertelen!</string>
     <string name="user_dict_restore_fail_text_with_error">Sikertelen szólista betöltés:\u0020 miatt
         <xliff:g id="error">%s</xliff:g></string>
-    <string name="should_swap_punctuation_and_space_title">Írásjelekre és szóköz cseréje</string>
+    <string name="should_swap_punctuation_and_space_title">Írásjelek és szóköz cseréje</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne cserélje meg a szóközt és az 
         írásjeleket.
     </string>
@@ -560,7 +560,7 @@
     <string name="emoji_default_skin_tone_value_type_3">Világos</string>
     <string name="emoji_default_skin_tone_value_type_4">Világosbarna</string>
     <string name="emoji_default_skin_tone_value_type_5">Sötétbarna</string>
-    <string name="emoji_default_skin_tone_value_type_6">Sötét bőrszín</string>
+    <string name="emoji_default_skin_tone_value_type_6">Fekete</string>
     <string name="emoji_default_skin_tone_value_random_type">Véletlenszerű</string>
     <string name="developer_tools">Fejlesztői eszközök</string>
     <string name="click_for_developer_features">Fejlesztői eszközök</string>
@@ -599,17 +599,17 @@
         nem támogatja 3.fél billentyűzeteit. Az AnySoftKeyboard nem engedélyezhető!
     </string>
     <string name="setup_wizard_step_permissions_title">Engedélyek megadása</string>
-    <string name="setup_wizard_step_permissions_details">Most engedélyzeheti, hogy az <i>
+    <string name="setup_wizard_step_permissions_details">Most engedélyezheti, hogy az <i>
         AnySoftKeyboard
     </i> elérje a Névjegyeit. Ha később blokkolni akarja, letiltható a 
         Névjegy Szótárban.
     </string>
     <string name="setup_wizard_step_two_title">Váltás az AnySoftKeyboard-ra</string>
     <string name="setup_wizard_step_two_details">A rendszer mostantól használni tudja az <i>AnySoftKeyboard</i> -ot, de
-        még nincs aktívvá téve.\nBy Bekapcsolva az <i>AnySoftKeyboard</i> lesz az aktív képernyő-billentyűzet, minden előnyével !
+        még nincs aktívvá téve.\nBekapcsolva az <i>AnySoftKeyboard</i> lesz az aktív képernyő-billentyűzet, minden hasznos funkciójával !
     </string>
     <string name="setup_wizard_step_two_action">Billentyűzet bekapcsolása</string>
-    <string name="setup_wizard_step_three_title">Mi a következő</string>
+    <string name="setup_wizard_step_three_title">Mi a következő?</string>
     <string name="setup_wizard_step_three_details">Köszönjük, hogy az <i>AnySoftKeyboard</i>-ot választotta.
     </string>
     <string name="setup_wizard_step_three_details_done">        <b>Készen van 🎉\nAkár ki is próbálhatja az új kedvencét.</b>
@@ -618,7 +618,7 @@
         a billentyűzetet igényei szerint:
     </string>
     <string name="setup_wizard_step_three_action_languages">Billentyűzetkiosztás…</string>
-    <string name="setup_wizard_step_three_action_themes">Téma választása…</string>
+    <string name="setup_wizard_step_three_action_themes">Témaválasztás…</string>
     <string name="setup_wizard_step_three_action_all_settings">További beállítások…</string>
     <string name="setup_wizard_step_download_title">Nyelvi csomag letöltése</string>
     <string name="setup_wizard_step_download_details">Jó hírünk, hogy az <i>AnySoftKeyboard</i> több tucat nyelvet támogat. Csak töltse le a megfelelő nyelvi csomagot és használja örömmel
@@ -717,15 +717,18 @@
     <string name="prefs_providers_backed_up_to">Az adatok sikeresen archiválva ide: %s </string>
     <string name="prefs_providers_failed_restore_due_to">Sikertelen visszaállítás a(z) %s miatt</string>
     <string name="prefs_providers_restored_to">Az adatok sikeresen visszaállítva innen: %s </string>
+    <string name="allow_layouts_to_provide_generic_rows">A billentyűzet gombsort tehet hozzá</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Mindig a választott sorok használata.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">A különböző elrendezések felülírhatják a sorokat.</string>
     <string name="gesture_typing_settings">Gesztus gépelés</string>
     <string name="gesture_typing_summary">Szó beviteléhez a szót alkotó betűket kell ujjal összekötni.</string>
     <string name="gesture_typing_action">Gesztus gépelés engedélyezése (béta)</string>
     <string name="gesture_typing_alert_title">Béta funkció!</string>
-    <string name="gesture_typing_alert_message">A gesztus gépelés ➿ funkció <b>béta</b> állapotú. Van néhány hibája, nem olyan gyors, és nem annyira teljes.\nKipróbálni viszont már most is érdemes.</string>
+    <string name="gesture_typing_alert_message">A gesztus gépelés ➿ funkció <b>béta</b> állapotú. Van néhány hibája, nem túl gyors, és még nem végleges.\nKipróbálni viszont már most is érdemes.</string>
     <string name="gesture_typing_alert_button">Gyerünk</string>
     <string name="apply_remote_app_colors_to_theme">A témaszín a használt apphoz igazodik</string>
     <string name="apply_overlay_summary_on">A billentyűzet színei idomulnak az aktív alkalmazáshoz (amennyire lehet).</string>
-    <string name="apply_overlay_summary_off">Mindig a téma saját színének használata</string>
+    <string name="apply_overlay_summary_off">Mindig a témaszín használata.</string>
     <string name="media_insertion_pending_message">Kattintson a szövegmezőbe kép beszúráshoz</string>
     <string name="aosp_dark_theme_name">AOSP Sötét téma</string>
     <string name="aosp_dark_theme_description">Az AOSP által inspirált sötét színű téma</string>
@@ -733,7 +736,7 @@
     <string name="aosp_light_theme_description">AOSP-inspirált, világos színvilágú téma</string>
     <string name="app_share_title">Üdvözli az AnySoftKeyboard</string>
     <string name="app_share_menu_title">AnySoftKeyboard megosztása ezzel</string>
-    <string name="app_share_text">Hadd javasoljuk a nyílt forráskódú, ingyenes, jól testreszabható, többnyelvű Android billentyűzetalkalmazást, az AnySoftKeyboard-ot.\nLetöltés:\nPlay Store-ban: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="app_share_text">Hadd javasoljuk a nyílt forráskódú, ingyenes, jól testreszabható, többnyelvű Android billentyűzetalkalmazást, az AnySoftKeyboard-ot.\nLetöltés:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="covid_19_click_for_info">Fő a biztonság! Kattintson koronavírus infókért.</string>
     <string name="click_me_for_easter_egg_info">Kattintson egy meglepetéshez</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
