@@ -68,6 +68,7 @@
         <item>@string/swipe_action_value_cycle_keyboards</item>
         <item>@string/swipe_action_value_reverse_cycle_keyboards</item>
         <item>@string/swipe_action_value_shift</item>
+        <item>@string/swipe_action_value_space</item>
         <item>@string/swipe_action_value_hide</item>
         <item>@string/swipe_action_value_backspace</item>
         <item>@string/swipe_action_value_backword</item>
@@ -92,6 +93,7 @@
         <item>@string/swipe_action_name_cycle_keyboards</item>
         <item>@string/swipe_action_name_reverse_cycle_keyboards</item>
         <item>@string/swipe_action_name_shift</item>
+        <item>@string/swipe_action_name_space</item>
         <item>@string/swipe_action_name_hide</item>
         <item>@string/swipe_action_name_backspace</item>
         <item>@string/swipe_action_name_backword</item>
