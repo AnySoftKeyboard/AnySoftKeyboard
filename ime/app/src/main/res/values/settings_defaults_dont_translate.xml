@@ -93,6 +93,7 @@
     <bool name="settings_default_persistent_layout_per_package_id">true</bool>
 
     <string name="swipe_action_value_shift">shift</string>
+    <string name="swipe_action_value_space">space</string>
     <string name="swipe_action_value_none">none</string>
     <string name="swipe_action_value_next_alphabet">next_alphabet</string>
     <string name="swipe_action_value_next_symbols">next_symbols</string>
