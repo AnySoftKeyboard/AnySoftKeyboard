@@ -10,6 +10,7 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -189,6 +190,7 @@ public class ExternalAnyKeyboardTest {
                 Assert.assertEquals(R.xml.popup_one_row, key3.popupResId);
                 Assert.assertTrue(key3.isFunctional());
         */
+
         final AnyKeyboard.AnyKey keyMinus4 = (AnyKeyboard.AnyKey) keyboard.getKeys().get(3);
         Assert.assertNotNull(keyMinus4);
         Assert.assertEquals(-4, keyMinus4.getPrimaryCode());
@@ -221,7 +223,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertFalse(keyP.isFunctional());
 
         final AnyKeyboard.AnyKey key99 = (AnyKeyboard.AnyKey) keyboard.getKeys().get(6);
-        Assert.assertNotNull(keyP);
+        Assert.assertNotNull(key99);
         Assert.assertEquals(99, key99.getPrimaryCode());
         Assert.assertEquals('c', key99.getCodeAtIndex(0, false));
         Assert.assertEquals('C', key99.getCodeAtIndex(0, true));
@@ -232,6 +234,45 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals("ĥçćĉčψ", key99.popupCharacters.toString());
         Assert.assertEquals(R.xml.popup_one_row, key99.popupResId);
         Assert.assertFalse(key99.isFunctional());
+    }
+
+    @Test
+    public void testReorderPopupCharacters() throws Exception {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_popup_characters_order, "NLO");
+        AnyKeyboard keyboard =
+                AnyApplication.getKeyboardFactory(getApplicationContext())
+                        .getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
+        Assert.assertNotNull(keyboard);
+        Keyboard.Key keyR = keyboard.getKeys().get(7);
+        Assert.assertNotNull(keyR);
+        Assert.assertEquals((int) 'r', keyR.getPrimaryCode());
+        Assert.assertEquals("4řŕρ", keyR.popupCharacters.toString());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_popup_characters_order, "LN");
+        keyboard =
+                AnyApplication.getKeyboardFactory(getApplicationContext())
+                        .getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
+        Assert.assertNotNull(keyboard);
+        keyR = keyboard.getKeys().get(7);
+        Assert.assertNotNull(keyR);
+        Assert.assertEquals((int) 'r', keyR.getPrimaryCode());
+        Assert.assertEquals("řŕρ4", keyR.popupCharacters.toString());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_popup_characters_order, "ρLN");
+        keyboard =
+                AnyApplication.getKeyboardFactory(getApplicationContext())
+                        .getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
+        Assert.assertNotNull(keyboard);
+        keyR = keyboard.getKeys().get(7);
+        Assert.assertNotNull(keyR);
+        Assert.assertEquals((int) 'r', keyR.getPrimaryCode());
+        Assert.assertEquals("ρřŕ4", keyR.popupCharacters.toString());
     }
 
     @Test

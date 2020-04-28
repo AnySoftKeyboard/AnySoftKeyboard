@@ -133,8 +133,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         .getString(
                                 R.string.settings_key_popup_characters_order,
                                 R.string.settings_key_popup_characters_order_default)
-                        .get()
-                        .toUpperCase();
+                        .get();
         Logger.v(TAG, "Popup characters order preference: %s", mPopupCharactersOrder);
         mExtensionLayout = extKbd;
 
