@@ -227,6 +227,7 @@
     <string name="swipe_action_name_cycle_keyboards">Cycle through all keyboards</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Reverse cycle through all keyboards</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Space</string>
     <string name="swipe_action_name_hide">Hide keyboard</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Back-word</string>
