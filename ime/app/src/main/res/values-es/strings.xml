@@ -170,6 +170,7 @@
     <string name="swipe_action_name_cycle_keyboards">Recorrer todos los teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Invertir el recorrido a través de todos los teclados</string>
     <string name="swipe_action_name_shift">Mayús</string>
+    <string name="swipe_action_name_space">Espacio</string>
     <string name="swipe_action_name_hide">Ocultar teclado</string>
     <string name="swipe_action_name_backspace">Retroceso</string>
     <string name="swipe_action_name_backword">Palabra anterior</string>

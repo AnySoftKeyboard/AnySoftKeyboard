@@ -177,6 +177,7 @@
     <string name="swipe_action_name_cycle_keyboards">Váltás a billentyűzetek között</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Visszafelé váltás a billentyűzetek között</string>
     <string name="swipe_action_name_shift">Nagy betűk</string>
+    <string name="swipe_action_name_space">Szóköz</string>
     <string name="swipe_action_name_hide">Billentyűzet elrejtése</string>
     <string name="swipe_action_name_backspace">Backspace</string>
     <string name="swipe_action_name_backword">Vissza egy szóval</string>
