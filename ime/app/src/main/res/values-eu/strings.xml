@@ -177,6 +177,7 @@
     <string name="swipe_action_name_cycle_keyboards">Txandakatu teklatu guztietan zehar</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Txandakatu atzerantz teklatu guztietan zehar</string>
     <string name="swipe_action_name_shift">Maiuskula</string>
+    <string name="swipe_action_name_space">Zuriunea</string>
     <string name="swipe_action_name_hide">Ezkutatu teklatua</string>
     <string name="swipe_action_name_backspace">Ezabatu</string>
     <string name="swipe_action_name_backword">Ezabatu hitza</string>
@@ -393,6 +394,7 @@
     <string name="extension_kbd_top_numbers_alt">Bestelako zenbaki-teklak</string>
     <string name="extension_kbd_top_nav">Nabigazio-teklak</string>
     <string name="extension_kbd_top_nav_alt">Nabigazio teklen ordezkoa</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Nabigazio teklen alternatiba. Zenbakien errenkadarik ez pwd moduan</string>
     <string name="extension_kbd_top_numbers_simple">Sinplea, zenbakiak besterik ez</string>
     <string name="extension_kbd_top_terminal">Terminala</string>
     <string name="extension_kbd_top_text_editing">Testu edizio azkarra</string>
