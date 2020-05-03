@@ -175,6 +175,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="swipe_action_name_cycle_keyboards">Tüm klavyeler arası geçiş yap</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Tüm klavyeler arası terse doğru geçiş yap</string>
     <string name="swipe_action_name_shift">Üst karakter</string>
+    <string name="swipe_action_name_space">Boşluk</string>
     <string name="swipe_action_name_hide">Klavyeyi gizle</string>
     <string name="swipe_action_name_backspace">Back-space (geri alma) tuşu</string>
     <string name="swipe_action_name_backword">Kelime silme</string>
@@ -336,6 +337,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="quick_fix_summary">Sık yazılan hataları düzeltir ve kısaltmaların açılımını yazar</string>
     <string name="quick_fix_secon_disabled">…sadece ilk dilde</string>
     <string name="quick_fix_secon_disabled_summ_on">Hızlı düzeltmeler ve kısaltmalar yalnızca geçerli düzen dilinde çalışır</string>
+    <string name="quick_fix_secon_disabled_summ_off">Kontrol edilmiş öntanımlı sözlükleri geçersiz kıl                  Hızlı düzeltmeler ve kısaltmalar her dilde çalışacak          </string>
     <string name="allow_suggestions_restart">Öneri sıfırlama</string>
     <string name="allow_suggestions_restart_summary">Imleç hareketinden sonra kelime önermeyi yeniden başlat</string>
     <!-- settings - keyboard group -->
@@ -391,6 +393,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="extension_kbd_top_numbers_alt">Alternatif sayı tuşları</string>
     <string name="extension_kbd_top_nav">Gezinti tuşları</string>
     <string name="extension_kbd_top_nav_alt">Gezinme tuşları seçeneği</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Gezinme tuşlarına farklı seçenek. pwd kipinde sayı sırası yok</string>
     <string name="extension_kbd_top_numbers_simple">Basit, sadece sayılar</string>
     <string name="extension_kbd_top_terminal">Uçbirim</string>
     <string name="extension_kbd_top_text_editing">Hızlı metin düzenleme</string>
