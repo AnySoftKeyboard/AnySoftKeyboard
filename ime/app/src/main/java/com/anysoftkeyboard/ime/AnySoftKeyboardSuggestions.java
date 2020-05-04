@@ -862,14 +862,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
         ic.beginBatchEdit();
 
-        abortCorrectionAndResetPredictionState(false);
-        ic.commitText(text, 1);
-
-        mAdditionalCharacterForReverting = false;
-        mCommittedWord = text;
-        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
-
-        TextEntryState.acceptedDefault(text);
+        // simulating multiple keys
+        for (int pointCodeIndex = 0; pointCodeIndex < text.length(); ) {
+            int pointCode = Character.codePointAt(text, pointCodeIndex);
+            pointCodeIndex += Character.charCount(pointCode);
+            onKey(pointCode, key, 0, new int[] {pointCode}, true);
+        }
         ic.endBatchEdit();
 
         setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, false), false, false, false);

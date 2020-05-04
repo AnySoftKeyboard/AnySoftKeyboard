@@ -471,42 +471,23 @@ class PointerTracker {
         } else {
             if ((key.text != null && !isShifted) || (key.shiftedText != null && isShifted)) {
                 if (listener != null) {
-                    CharSequence text = null;
-                    if (!isShifted) {
-                        text = key.text;
-                    } else if (isShifted) {
-                        text = key.shiftedText;
+                    if (isInGestureTyping()) {
+                        listener.onGestureTypingInputDone();
                     }
-                    int[] nearByKeyCodes = mKeyDetector.newCodeArray();
-                    mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
+                    mKeyCodesInPathLength = -1;
                     mTapCount = 0;
-                    for (int i = 0; i < text.length(); i++) {
-                        int code = text.charAt(i);
-                        /*
-                         * Swap the first and second values in the mCodes array if the primary code is not
-                         * the first value but the second value in the array. This happens when key
-                         * debouncing is in effect.
-                         */
-                        if (nearByKeyCodes.length >= 2
-                                && nearByKeyCodes[0] != code
-                                && nearByKeyCodes[1] == code) {
-                            nearByKeyCodes[1] = nearByKeyCodes[0];
-                            nearByKeyCodes[0] = code;
-                        }
-                        if (listener != null) {
-                            if (isInGestureTyping()) {
-                                listener.onGestureTypingInputDone();
-                            } else {
-                                listener.onKey(
-                                        code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
-                            }
-                            mKeyCodesInPathLength = -1;
-                            listener.onRelease(code);
-                        }
+
+                    final CharSequence text;
+                    if (isShifted) {
+                        text = key.shiftedText;
+                    } else {
+                        text = key.text;
                     }
+                    listener.onText(key, text);
+                    listener.onRelease(key.getPrimaryCode());
                 }
             } else {
-                int code = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
+                final int code;
                 int[] nearByKeyCodes = mKeyDetector.newCodeArray();
                 mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
                 boolean multiTapStarted = false;
@@ -519,6 +500,8 @@ class PointerTracker {
                         mTapCount = 0;
                     }
                     code = key.getMultiTapCode(mTapCount);
+                } else {
+                    code = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
                 }
                 /*
                  * Swap the first and second values in the mCodes array if the primary code is not
