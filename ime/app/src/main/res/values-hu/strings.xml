@@ -19,7 +19,7 @@
     <string name="language_grammar_settings_tile">Korrekciós viselkedés, szótárak konfigurálása.</string>
     <string name="language_tweaks_settings_tile">Finomhangolás, egyéb.</string>
     <!-- UI root menu -->
-    <string name="ui_root_tile">A billentyűzet</string>
+    <string name="ui_root_tile">Billentyűzet</string>
     <string name="ui_theme_settings_tile">Billentyűzet témák kiválasztása és konfigurálása.</string>
     <string name="ui_effects_settings_tile">A billentyűzet viselkedése</string>
     <!-- welcome -->
