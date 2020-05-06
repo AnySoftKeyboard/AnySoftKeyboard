@@ -172,6 +172,7 @@
     <string name="swipe_action_name_cycle_keyboards">Parcourir tous les claviers</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Parcourir tous les claviers en sens inverse</string>
     <string name="swipe_action_name_shift">Maj. (Shift)</string>
+    <string name="swipe_action_name_space">Espace</string>
     <string name="swipe_action_name_hide">Masquer le clavier</string>
     <string name="swipe_action_name_backspace">Retour arrière</string>
     <string name="swipe_action_name_backword">Retour arrière mot</string>
