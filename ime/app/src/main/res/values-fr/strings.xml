@@ -390,7 +390,8 @@
     <string name="extension_kbd_top_numbers_alt">Touches chiffres alternatives</string>
     <string name="extension_kbd_top_nav">Touches de navigation</string>
     <string name="extension_kbd_top_nav_alt">Touches de navigation alternatives</string>
-    <string name="extension_kbd_top_numbers_simple">Simple, nombres seulement</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Idem, sans de rangée de chiffres</string>
+    <string name="extension_kbd_top_numbers_simple">Simple, chiffres seulement</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_top_text_editing">Édition textes rapides</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normales</string>
