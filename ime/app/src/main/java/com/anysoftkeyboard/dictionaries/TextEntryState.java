@@ -48,6 +48,10 @@ public class TextEntryState {
     public static void newSession(boolean withPrediction) {
         restartSession();
         sPredictionOn = withPrediction;
+        System.out.println("newSession " + withPrediction);
+        if (withPrediction) {
+            Thread.dumpStack();
+        }
     }
 
     public static void acceptedDefault(CharSequence typedWord) {
@@ -61,8 +65,8 @@ public class TextEntryState {
         displayState();
     }
 
-    public static void acceptedSuggestion(CharSequence typedWord, CharSequence actualWord) {
-        if (TextUtils.equals(typedWord, actualWord.toString())) {
+    public static void acceptedSuggestion(boolean isTyped, CharSequence actualWord) {
+        if (isTyped) {
             acceptedTyped();
         } else {
             sState = State.PICKED_SUGGESTION;
@@ -74,6 +78,7 @@ public class TextEntryState {
         final boolean isSpace = c == (int) ' ';
         final boolean isEnter = c == (int) '\n';
 
+        System.out.println("TESTING typedCharacter " + c +" " + isSeparator + " " + getState());
         // CHECKSTYLE:OFF: missingswitchdefault
         switch (sState) {
             case IN_WORD:
@@ -128,10 +133,6 @@ public class TextEntryState {
         }
         // CHECKSTYLE:ON: missingswitchdefault
         displayState();
-    }
-
-    public static boolean willUndoCommitOnBackspace() {
-        return getNextStateOnBackSpace(sState).equals(State.UNDO_COMMIT);
     }
 
     private static State getNextStateOnBackSpace(State currentState) {
@@ -199,9 +200,5 @@ public class TextEntryState {
 
     public static boolean isPredicting() {
         return sPredictionOn && (sState == State.IN_WORD || sState == State.PERFORMED_GESTURE);
-    }
-
-    public static boolean isReadyToPredict() {
-        return sPredictionOn && !isPredicting();
     }
 }
