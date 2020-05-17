@@ -58,8 +58,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     protected final ModifierKeyState mControlKeyState =
             new ModifierKeyState(false /*does not support locked state*/);
 
-    protected final WordComposer mWord = new WordComposer();
-
     protected int mGlobalCursorPosition = 0;
     protected int mGlobalSelectionStartPosition = 0;
 

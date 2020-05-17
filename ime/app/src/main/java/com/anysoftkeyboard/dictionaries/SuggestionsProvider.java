@@ -486,11 +486,11 @@ public class SuggestionsProvider {
         }
     }
 
-    public boolean tryToLearnNewWord(String newWord, int frequencyDelta) {
+    public boolean tryToLearnNewWord(CharSequence newWord, int frequencyDelta) {
         if (mIncognitoMode || !mNextWordEnabled) return false;
 
         if (!isValidWord(newWord)) {
-            return mAutoDictionary.addWord(newWord, frequencyDelta);
+            return mAutoDictionary.addWord(newWord.toString(), frequencyDelta);
         }
 
         return false;

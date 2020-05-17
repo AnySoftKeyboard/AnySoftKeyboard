@@ -19,6 +19,8 @@ package com.anysoftkeyboard.ime;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
@@ -117,9 +119,9 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     }
 
     @Override
-    protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
-        super.commitWordToInput(wordToCommit, correcting);
-        final boolean toPopText = (mPopTextOnCorrection && correcting) || mPopTextOnWord;
+    protected void commitWordToInput(@NonNull CharSequence wordToCommit, @NonNull CharSequence typedWord) {
+        super.commitWordToInput(wordToCommit, typedWord);
+        final boolean toPopText = (mPopTextOnCorrection && !TextUtils.equals(wordToCommit, typedWord)) || mPopTextOnWord;
         if (toPopText) {
             popText(wordToCommit.toString());
         }

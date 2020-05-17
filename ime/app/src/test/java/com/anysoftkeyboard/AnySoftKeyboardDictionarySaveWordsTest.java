@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import com.anysoftkeyboard.api.KeyCodes;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +52,7 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
 
     @Test
     public void
-            testAsksToAddToDictionaryWhenTouchingTypedUnknownWordAndDoesNotAddIfContinuingTyping() {
+    testAsksToAddToDictionaryWhenTouchingTypedUnknownWordAndDoesNotAddIfContinuingTyping() {
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
@@ -75,43 +76,38 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
                 .notifyAboutWordAdded(Mockito.anyString());
 
         Mockito.verify(
-                        getMockCandidateView(),
-                        Mockito.times(2 /*once for 'h', and the other time for 'e'*/))
+                getMockCandidateView(),
+                Mockito.times(2 /*once for 'h', and the other time for 'e'*/))
                 .setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
     @Test
-    public void testAutoAddUnknownWordIfTypedFrequently() {
+    public void testAutoAddUnknownWordIfPickedFrequently() {
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-        // first time
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
-        Mockito.verify(getMockCandidateView(), Mockito.times(1)).showAddToDictionaryHint("hel");
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
 
-        // second time
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
-        Mockito.verify(getMockCandidateView(), Mockito.times(2)).showAddToDictionaryHint("hel");
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hel hel ", inputConnection.getCurrentTextInInputConnection());
-
-        // third time will auto-add
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
-        Mockito.verify(getMockCandidateView(), Mockito.times(2 /*still 2 times*/))
-                .showAddToDictionaryHint("hel");
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
-        Mockito.verify(getMockCandidateView()).notifyAboutWordAdded("hel");
-        Assert.assertEquals("hel hel hel ", inputConnection.getCurrentTextInInputConnection());
+        StringBuilder expectedOutput = new StringBuilder();
+        //it takes 3 picks to learn a new word
+        for (int pickIndex = 0; pickIndex < 3; pickIndex++) {
+            mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+            mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
+            expectedOutput.append("hel ");
+            if (pickIndex != 2) {
+                Mockito.verify(getMockCandidateView(), Mockito.times(1 + pickIndex)).showAddToDictionaryHint("hel");
+                Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+                        .addWordToUserDictionary(Mockito.anyString());
+                Mockito.verify(getMockCandidateView(), Mockito.never())
+                        .notifyAboutWordAdded(Mockito.anyString());
+                Assert.assertEquals(expectedOutput.toString(), inputConnection.getCurrentTextInInputConnection());
+            } else {
+                // third time will auto-add
+                Mockito.verify(getMockCandidateView(), Mockito.times(pickIndex /*still 2 times*/))
+                        .showAddToDictionaryHint("hel");
+                Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
+                Mockito.verify(getMockCandidateView()).notifyAboutWordAdded("hel");
+                Assert.assertEquals(expectedOutput.toString(), inputConnection.getCurrentTextInInputConnection());
+            }
+        }
     }
 
     @Test
@@ -120,53 +116,33 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
-        // first time
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
+        StringBuilder expectedOutput = new StringBuilder();
+        //it takes 5 tries to lean from typing
+        for (int pickIndex = 0; pickIndex < 5; pickIndex++) {
+            mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+            mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+            Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+                    .addWordToUserDictionary(Mockito.anyString());
+            Mockito.verify(getMockCandidateView(), Mockito.never())
+                    .notifyAboutWordAdded(Mockito.anyString());
+            expectedOutput.append("hell ");
+            Assert.assertEquals(expectedOutput.toString(), inputConnection.getCurrentTextInInputConnection());
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+            expectedOutput.setLength(expectedOutput.length() - 2);//undo commit
+            Assert.assertEquals(expectedOutput.toString(), inputConnection.getCurrentTextInInputConnection());
+            mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+            expectedOutput.append(" ");
+            Assert.assertEquals(expectedOutput.toString(), inputConnection.getCurrentTextInInputConnection());
 
-        // second time
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hel hell ", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel hel", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hel hel ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-
-        // third time will auto-add
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertEquals("hel hel hell ", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel hel hel", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hel hel hel ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
-        Mockito.verify(getMockCandidateView()).notifyAboutWordAdded("hel");
+            if (pickIndex != 4) {
+                Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+                        .addWordToUserDictionary(Mockito.anyString());
+                Mockito.verify(getMockCandidateView(), Mockito.never())
+                        .notifyAboutWordAdded(Mockito.anyString());
+            } else {
+                Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
+                Mockito.verify(getMockCandidateView()).notifyAboutWordAdded("hel");
+            }
+        }
     }
 }

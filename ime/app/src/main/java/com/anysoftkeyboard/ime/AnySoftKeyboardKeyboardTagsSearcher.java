@@ -157,12 +157,12 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     @Override
     public void pickSuggestionManually(
             int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
-        if (mWord.isAtTagsSearchState()) {
+        if (getCurrentComposedWord().isAtTagsSearchState()) {
             if (index == 0) {
                 // this is a special case for tags-searcher
                 // since we append a magnifying glass to the suggestions, the "suggestion"
                 // value is not a valid output suggestion
-                suggestion = mWord.getTypedWord().toString();
+                suggestion = getCurrentComposedWord().getTypedWord().toString();
             } else {
                 // regular emoji. Storing in history.
                 getQuickKeyHistoryRecords().store(suggestion.toString(), suggestion.toString());
