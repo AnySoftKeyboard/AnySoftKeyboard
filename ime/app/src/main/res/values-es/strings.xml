@@ -123,10 +123,10 @@
     <string name="enable_shift_space_language_shortcut_on_summary">Mayús + Espacio físicos cambia a la siguiente distribución disponible.</string>
     <string name="enable_shift_space_language_shortcut_off_summary">Mayús + Espacio añade un espacio.</string>
     <string name="fullscreen_input_connection_supported">Usar pantalla completa en modo horizontal</string>
-    <string name="fullscreen_input_connection_supported_on_summary">Tomar control de la pantalla cuando ingrese texto en modo horizontal</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Tomar control de la pantalla al ingresar texto en modo horizontal</string>
     <string name="fullscreen_input_connection_supported_off_summary">No utilizar pantalla completa en modo horizontal</string>
     <string name="fullscreen_portrait_input_connection_supported">Usar pantalla completa en modo vertical</string>
-    <string name="fullscreen_portrait_input_connection_supported_on_summary">Tomar control de la pantalla cuando ingrese texto en modo vertical</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Tomar control de la pantalla al ingresar texto en modo vertical</string>
     <string name="fullscreen_portrait_input_connection_supported_off_summary">No utilizar pantalla completa en modo vertical</string>
     <string name="backword_support">Soporte de palabra anterior</string>
     <string name="backword_support_on_summary">Retroceso + Mayús borrará la última palabra</string>
@@ -521,7 +521,7 @@
     <string name="word_editor_action_backup_words">Respaldar</string>
     <string name="word_editor_action_restore_words">Restaurar</string>
     <string name="click_to_add_new_word">Clic para añadir una nueva palabra</string>
-    <string name="enter_word_hint">Escriba aquí la nueva palabra</string>
+    <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
