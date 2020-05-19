@@ -79,7 +79,10 @@ Copyright (C) 2013 Menny Even-Danan
         <attr name="shiftedKeyLabel" format="reference|string"/>
 
         <!-- The string of characters to output when this key is pressed and shifted. -->
-        <attr name="shiftedKeyOutputText"/>
+        <attr name="shiftedKeyOutputText" format="string"/>
+
+        <attr name="keyOutputTyping" format="string"/>
+        <attr name="shiftedKeyOutputTyping" format="string"/>
 
         <!-- Whether should show preview. -->
         <attr name="showPreview"/>

@@ -874,7 +874,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         ic.endBatchEdit();
     }
 
-    // TODO: add api call for onTyping
+    @Override
     public void onTyping(Keyboard.Key key, CharSequence text) {
         Logger.d(TAG, "onTyping: '%s'", text);
         InputConnection ic = getCurrentInputConnection();
@@ -886,6 +886,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // simulating multiple keys
         final WordComposer initialWordComposer = new WordComposer();
         mWord.cloneInto(initialWordComposer);
+        final boolean originalAutoCorrect = mAutoCorrectOn;
         mAutoCorrectOn = false;
         for (int pointCodeIndex = 0; pointCodeIndex < text.length(); ) {
             int pointCode = Character.codePointAt(text, pointCodeIndex);
@@ -895,6 +896,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             // simulating key press
             onKey(pointCode, key, 0, new int[] {pointCode}, true);
         }
+        mAutoCorrectOn = originalAutoCorrect;
         // this will be the revert
         mWordRevertLength = initialWordComposer.charCount() + text.length();
         mPreviousWord = initialWordComposer;

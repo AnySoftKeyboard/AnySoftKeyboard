@@ -469,7 +469,25 @@ class PointerTracker {
                 listener.onCancel();
             }
         } else {
-            if ((key.text != null && !isShifted) || (key.shiftedText != null && isShifted)) {
+            if ((key.typedText != null && !isShifted)
+                    || (key.shiftedTypedText != null && isShifted)) {
+                if (listener != null) {
+                    if (isInGestureTyping()) {
+                        listener.onGestureTypingInputDone();
+                    }
+                    mKeyCodesInPathLength = -1;
+                    mTapCount = 0;
+
+                    final CharSequence text;
+                    if (isShifted) {
+                        text = key.shiftedTypedText;
+                    } else {
+                        text = key.typedText;
+                    }
+                    listener.onText(key, text);
+                    listener.onRelease(key.getPrimaryCode());
+                }
+            } else if ((key.text != null && !isShifted) || (key.shiftedText != null && isShifted)) {
                 if (listener != null) {
                     if (isInGestureTyping()) {
                         listener.onGestureTypingInputDone();
