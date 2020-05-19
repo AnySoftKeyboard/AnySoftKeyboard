@@ -41,7 +41,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
-import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.AnySoftKeyboardColorizeNavBar;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -853,7 +852,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                                     currentComposedWord.charCount());
             currentComposedWord.reset();
             getSuggest().resetNextWordSentence();
-            TextEntryState.newSession(isPredictionOn());
             ic.setComposingText(textAfterCursor, 0);
             postUpdateSuggestions();
             return;
@@ -927,11 +925,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 isPredictionOn()
                         && currentComposedWord.cursorPosition() > 0
                         && !currentComposedWord.isEmpty();
-        TextEntryState.backspace();
 
-        System.out.println("TESTING handleDeleteLastCharacter");
         if (shouldRevertOnDelete()) {
-            System.out.println("TESTING revertLastWord");
             revertLastWord();
         } else if (wordManipulation) {
             final int charsToDelete = currentComposedWord.deleteCodePointAtCurrentPosition();
@@ -947,9 +942,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             }
 
             ic.setComposingText(currentComposedWord.getTypedWord(), 1);
-            if (currentComposedWord.codePointCount() == 0) {
-                TextEntryState.newSession(isPredictionOn());
-            } else if (cursorPosition >= 0) {
+            if (cursorPosition >= 0 && !currentComposedWord.isEmpty()) {
                 ic.setSelection(cursorPosition - charsToDelete, cursorPosition - charsToDelete);
             }
 
@@ -986,7 +979,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private void handleForwardDelete(InputConnection ic) {
         final WordComposer currentComposedWord = getCurrentComposedWord();
         final boolean wordManipulation =
-                TextEntryState.isPredicting()
+                isPredictionOn()
                         && currentComposedWord.cursorPosition() < currentComposedWord.charCount()
                         && !currentComposedWord.isEmpty();
 
@@ -1004,9 +997,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             }
 
             ic.setComposingText(currentComposedWord.getTypedWord(), 1);
-            if (currentComposedWord.isEmpty()) {
-                TextEntryState.newSession(isPredictionOn());
-            } else if (cursorPosition >= 0) {
+            if (cursorPosition >= 0 && !currentComposedWord.isEmpty()) {
                 ic.setSelection(cursorPosition, cursorPosition);
             }
 

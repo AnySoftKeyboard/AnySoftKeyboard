@@ -68,7 +68,6 @@ public class WordComposer implements KeyCodesProvider {
 
     /** Clear out the keys registered so far. */
     public void reset() {
-        System.out.println("TESTING reset");
         Thread.dumpStack();
         // moving arrays back to re-use list
         mArraysToReuse.addAll(mCodes);
@@ -155,7 +154,6 @@ public class WordComposer implements KeyCodesProvider {
     private static final int[] PRIMARY_CODE_CREATE = new int[1];
 
     public void add(int primaryCode, int[] codes) {
-        System.out.println("TESTING add " + primaryCode);
         PRIMARY_CODE_CREATE[0] = primaryCode;
         mTypedWord.insert(mCursorPosition, new String(PRIMARY_CODE_CREATE, 0, 1));
 
@@ -235,8 +233,6 @@ public class WordComposer implements KeyCodesProvider {
 
     public void deleteTextAtCurrentPositionTillEnd(CharSequence typedTextToDeleteAtEnd) {
         final String suffixToDelete = typedTextToDeleteAtEnd.toString();
-        System.out.println("deleteTextAtCurrentPositionTillEnd " + typedTextToDeleteAtEnd);
-        System.out.println("deleteTextAtCurrentPositionTillEnd start " + mTypedWord.toString());
         if (mTypedWord.toString().endsWith(suffixToDelete)) {
             mTypedWord.setLength(mTypedWord.length() - suffixToDelete.length());
             int codePointsToDelete =
@@ -246,7 +242,6 @@ public class WordComposer implements KeyCodesProvider {
                 mArraysToReuse.add(mCodes.remove(mCodes.size() - 1));
                 codePointsToDelete--;
             }
-            System.out.println("deleteTextAtCurrentPositionTillEnd end " + mTypedWord.toString());
         } else if (BuildConfig.DEBUG) {
             throw new IllegalStateException(
                     "mTypedWord is '"

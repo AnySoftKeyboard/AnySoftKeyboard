@@ -62,19 +62,8 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hl");
         // moving one character back, and fixing the word to 'hel'
-        System.out.println("repositioning");
         mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(1, 1);
-        System.out.println(
-                "repositioning done "
-                        + mAnySoftKeyboardUnderTest
-                                .getTestInputConnection()
-                                .getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        System.out.println(
-                "position after "
-                        + mAnySoftKeyboardUnderTest
-                                .getTestInputConnection()
-                                .getCurrentStartPosition());
         verifySuggestions(true, "hel", "hell", "hello");
     }
 
