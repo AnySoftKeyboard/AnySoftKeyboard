@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -344,10 +345,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (super.isAlphabet(code)) return true;
         // inner letters have more options: ' in English. " in Hebrew, and spacing and non-spacing
         // combining characters.
-        if (TextEntryState.isPredicting()) {
-            return getCurrentAlphabetKeyboard().isInnerWordLetter(code);
+        final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
+        if (currentAlphabetKeyboard == null) return false;
+
+        if (getCurrentComposedWord().isEmpty()) {
+            return currentAlphabetKeyboard.isStartOfWordLetter(code);
         } else {
-            return getCurrentAlphabetKeyboard().isStartOfWordLetter(code);
+            return currentAlphabetKeyboard.isInnerWordLetter(code);
         }
     }
 
@@ -842,7 +846,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             // length == 5
             // textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
             final CharSequence textAfterCursor =
-                    currentComposedWord.getTypedWord().subSequence(currentComposedWord.cursorPosition(), currentComposedWord.charCount());
+                    currentComposedWord
+                            .getTypedWord()
+                            .subSequence(
+                                    currentComposedWord.cursorPosition(),
+                                    currentComposedWord.charCount());
             currentComposedWord.reset();
             getSuggest().resetNextWordSentence();
             TextEntryState.newSession(isPredictionOn());
@@ -906,6 +914,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
+        if (isSelectionUpdateDelayed() || ic == null) {
+            Log.d(
+                    TAG,
+                    "handleDeleteLastCharacter will just sendDownUpKeyEvents. Delayed selection update?");
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+            return;
+        }
+
         final WordComposer currentComposedWord = getCurrentComposedWord();
         final boolean wordManipulation =
                 isPredictionOn()
@@ -943,7 +959,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
             postUpdateSuggestions();
         } else {
-            if (!forMultiTap || ic == null) {
+            if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
                 // this code tries to delete the text in a different way,

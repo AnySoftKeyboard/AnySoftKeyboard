@@ -8,7 +8,6 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -27,9 +26,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
         Assert.assertEquals("\uD83D\uDE03", inputConnection.getCurrentTextInInputConnection());
-        //not predicting after non-character
-        Assert.assertFalse(TextEntryState.isPredicting());
-
         Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
         Assert.assertSame(
@@ -54,7 +50,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
-        Assert.assertTrue(TextEntryState.isPredicting());
     }
 
     @Test
@@ -70,7 +65,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
-        Assert.assertTrue(TextEntryState.isPredicting());
     }
 
     @Test
@@ -88,7 +82,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
-        Assert.assertTrue(TextEntryState.isPredicting());
     }
 
     @Test
@@ -107,7 +100,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
-        Assert.assertTrue(TextEntryState.isPredicting());
     }
 
     @Test
@@ -123,10 +115,9 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        //deletes all the output text
+        // deletes all the output text
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
-        Assert.assertTrue(TextEntryState.isPredicting());
     }
 
     @Test
@@ -156,7 +147,6 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
-        Assert.assertEquals(TextEntryState.State.SPACE_AFTER_ACCEPTED, TextEntryState.getState());
 
         Assert.assertEquals(
                 initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
@@ -247,8 +237,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         final String initialText = "hello ";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
-        Assert.assertEquals(
-                initialText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 

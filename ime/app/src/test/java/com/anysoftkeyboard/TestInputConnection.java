@@ -15,9 +15,7 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.TextView;
-
 import com.google.common.base.Preconditions;
-
 import java.util.ArrayList;
 import java.util.List;
 

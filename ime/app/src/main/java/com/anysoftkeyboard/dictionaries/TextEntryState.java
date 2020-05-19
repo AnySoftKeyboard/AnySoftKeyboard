@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import android.text.TextUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -78,7 +77,7 @@ public class TextEntryState {
         final boolean isSpace = c == (int) ' ';
         final boolean isEnter = c == (int) '\n';
 
-        System.out.println("TESTING typedCharacter " + c +" " + isSeparator + " " + getState());
+        System.out.println("TESTING typedCharacter " + c + " " + isSeparator + " " + getState());
         // CHECKSTYLE:OFF: missingswitchdefault
         switch (sState) {
             case IN_WORD:
