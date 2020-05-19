@@ -27,6 +27,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("\uD83D\uDE03", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
@@ -50,6 +51,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -65,6 +67,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -82,6 +85,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -100,6 +104,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -118,6 +123,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         // deletes all the output text
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -132,6 +138,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
         Assert.assertEquals(overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -150,10 +157,12 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(
                 initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
@@ -169,6 +178,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
 
         Assert.assertEquals(
                 initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
@@ -610,5 +620,58 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         // we switched to the main-keyboard view
         Assert.assertEquals(
                 View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+    }
+
+    @Test
+    public void testOutputAsTypingKeyOutput() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.typedText = "this";
+        aKey.shiftedTypedText = "THiS";
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        mAnySoftKeyboardUnderTest.onTyping(aKey, aKey.typedText);
+
+        Assert.assertEquals("this", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputAsTypingKeyOutputShifted() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.typedText = "this";
+        aKey.shiftedTypedText = "THiS";
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        mAnySoftKeyboardUnderTest.onTyping(aKey, aKey.shiftedTypedText);
+
+        Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextKeyOutputTypingAndThenBackspace() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.typedText = "thisis";
+        aKey.shiftedTypedText = "THiS";
+        mAnySoftKeyboardUnderTest.onTyping(aKey, aKey.typedText);
+
+        Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        // deletes all the output text
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 }
