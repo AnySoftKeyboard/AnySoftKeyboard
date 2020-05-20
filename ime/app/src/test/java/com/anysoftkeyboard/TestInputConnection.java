@@ -15,6 +15,7 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.TextView;
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,11 +158,12 @@ public class TestInputConnection extends BaseInputConnection {
 
     private void internalCommitTextAs(
             CharSequence text, boolean asComposing, int newCursorPosition) {
+        Preconditions.checkNotNull(text);
         int[] composedTextRange;
         if (mCursorPosition != mSelectionEndPosition) {
             composedTextRange = new int[] {mCursorPosition, mSelectionEndPosition};
         } else {
-            composedTextRange = findComposedText();
+            composedTextRange = Preconditions.checkNotNull(findComposedText());
         }
 
         final int cursorPositionAfterText;

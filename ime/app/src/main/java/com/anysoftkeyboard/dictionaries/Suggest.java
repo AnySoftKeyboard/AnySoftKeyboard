@@ -409,7 +409,7 @@ public class Suggest {
         mTagsSearcher = extractor;
     }
 
-    public boolean tryToLearnNewWord(String newWord, AdditionType additionType) {
+    public boolean tryToLearnNewWord(CharSequence newWord, AdditionType additionType) {
         return mSuggestionsProvider.tryToLearnNewWord(newWord, additionType.getFrequencyDelta());
     }
 
@@ -428,7 +428,7 @@ public class Suggest {
 
     public enum AdditionType {
         Picked(3),
-        Typed(1);
+        Typed(2);
 
         private final int mFrequencyDelta;
 

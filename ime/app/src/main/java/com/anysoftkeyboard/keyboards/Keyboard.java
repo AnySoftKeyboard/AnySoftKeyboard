@@ -336,6 +336,10 @@ public abstract class Keyboard {
         public CharSequence text;
         /** Text to output when pressed and shifted. This can be multiple characters, like ".com" */
         public CharSequence shiftedText;
+        /** Text to output (as typed) when pressed. */
+        public CharSequence typedText;
+        /** Text to output (as typed) when pressed. and shifted. */
+        public CharSequence shiftedTypedText;
         /** Popup characters */
         public CharSequence popupCharacters;
 
@@ -461,6 +465,13 @@ public abstract class Keyboard {
 
             centerX = x + width / 2;
             centerY = y + height / 2;
+
+            if (shiftedText == null) {
+                shiftedText = text;
+            }
+            if (shiftedTypedText == null) {
+                shiftedTypedText = typedText;
+            }
         }
 
         public int getMultiTapCode(int tapCount) {
@@ -539,6 +550,12 @@ public abstract class Keyboard {
                     break;
                 case R.attr.shiftedKeyOutputText:
                     shiftedText = a.getText(remoteIndex);
+                    break;
+                case R.attr.keyOutputTyping:
+                    typedText = a.getText(remoteIndex);
+                    break;
+                case R.attr.shiftedKeyOutputTyping:
+                    shiftedTypedText = a.getText(remoteIndex);
                     break;
             }
             // CHECKSTYLE:ON: missingswitchdefault

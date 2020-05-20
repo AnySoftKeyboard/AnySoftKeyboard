@@ -24,7 +24,6 @@ import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.Suggest;
-import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -52,8 +51,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private static final long NEVER_TIME_STAMP =
             -1L * 365L * 24L * 60L * 60L * 1000L; // a year ago.
 
-    private static final int UNDO_COMMIT_NONE = -1;
-    private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
+    private WordComposer mWord = new WordComposer();
+    private WordComposer mPreviousWord = new WordComposer();
 
     private static final DictionaryBackgroundLoader.Listener NO_OP_DICTIONARY_LOADER_LISTENER =
             new DictionaryBackgroundLoader.Listener() {
@@ -118,18 +117,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
     @NonNull private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
-    @NonNull private CharSequence mCommittedWord = "";
+    //    @NonNull
+    //    protected CharSequence mCommittedWord = "";
 
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private boolean mLastCharacterWasShifted = false;
     private boolean mFrenchSpacePunctuationBehavior;
-
-    /*
-     * This will help us find out if UNDO_COMMIT is still possible to be done
-     */
-    private int mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
-
     /*
      * is prediction needed for the current input connection
      */
@@ -144,7 +138,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
-    protected boolean mAdditionalCharacterForReverting;
+    protected int mWordRevertLength = 0;
 
     private boolean mJustAutoAddedWord = false;
     /*
@@ -245,7 +239,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                             calculatedCommonalityMaxDistance,
                                             triple.getThird());
                                     // starting over
-                                    TextEntryState.newSession(mShowSuggestions && mPredictionOn);
                                     if (showSuggestionsChanged) {
                                         if (mShowSuggestions) {
                                             setDictionariesForCurrentKeyboard();
@@ -406,10 +399,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         .setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
         }
 
-        mAdditionalCharacterForReverting = false;
-
         mPredictionOn = mPredictionOn && mShowSuggestions;
-        TextEntryState.newSession(mPredictionOn);
 
         if (mPredictionOn) {
             getInputViewContainer().setActionsStripVisibility(true);
@@ -449,13 +439,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         super.onUpdateSelection(
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
-        if (mUndoCommitCursorPosition == UNDO_COMMIT_WAITING_TO_RECORD_POSITION) {
-            Logger.d(
-                    TAG,
-                    "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
-            mUndoCommitCursorPosition = newSelStart;
-        }
-
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
 
@@ -464,13 +447,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             return;
         }
 
-        if (TextEntryState.willUndoCommitOnBackspace()
-                && mUndoCommitCursorPosition == oldSelStart
-                && mUndoCommitCursorPosition != newSelStart) {
+        if (shouldRevertOnDelete() && (oldSelStart != newSelStart || oldSelEnd != newSelEnd)) {
             Logger.d(
                     TAG,
-                    "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
-            abortCorrectionAndResetPredictionState(false);
+                    "onUpdateSelection: user moved cursor from a undo-commit sensitive position. Will not be able to undo-commit.");
+            mWordRevertLength = 0;
         }
 
         if (!isPredictionOn()) {
@@ -501,15 +482,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             // so, 1 and 2 requires that predicting is currently done, and the
             // cursor moved
-            if (TextEntryState.isPredicting()) {
+            if (isCurrentlyPredicting()) {
                 if (newSelStart >= candidatesStart && newSelStart <= candidatesEnd) {
                     // 1) predicting and moved inside the word - just update the
                     // cursor position and shift state
                     // inside the currently selected word
-                    if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE
-                            && newSelStart != candidatesEnd) {
-                        TextEntryState.inWord();
-                    }
                     int cursorPosition = newSelEnd - candidatesStart;
                     if (mWord.setCursorPosition(cursorPosition)) {
                         Logger.d(
@@ -520,7 +497,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                             TAG,
                             "onUpdateSelection: cursor moving outside the currently predicting word");
                     abortCorrectionAndResetPredictionState(false);
-                    // ask user whether to restart
                     postRestartWordSuggestion();
                 }
             } else {
@@ -540,6 +516,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return view;
     }
 
+    protected WordComposer getCurrentComposedWord() {
+        return mWord;
+    }
+
     @Override
     @CallSuper
     public void onKey(
@@ -548,13 +528,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        if (primaryCode != KeyCodes.DELETE) {
+            mWordRevertLength = 0;
+        }
         mCandidateView.dismissAddToDictionaryHint();
     }
 
     @Override
     public void onRelease(int primaryCode) {
         // not allowing undo on-text in clipboard paste operations.
-        if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mCommittedWord = "";
+        if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mWordRevertLength = 0;
         setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
     }
 
@@ -573,6 +556,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
+    protected boolean isSelectionUpdateDelayed() {
+        return mExpectingSelectionUpdateBy > 0;
+    }
+
+    protected boolean shouldRevertOnDelete() {
+        return mWordRevertLength > 0;
+    }
+
     protected void handleCharacter(
             final int primaryCode,
             final Keyboard.Key key,
@@ -581,36 +572,26 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (BuildConfig.DEBUG) {
             Logger.d(
                     TAG,
-                    "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s",
+                    "handleCharacter: %d, isPredictionOn: %s, isCurrentlyPredicting: %s",
                     primaryCode,
                     isPredictionOn(),
-                    TextEntryState.isPredicting());
+                    isCurrentlyPredicting());
         }
 
-        mExpectingSelectionUpdateBy =
-                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
-
-        if (TextEntryState.isReadyToPredict()
-                && isAlphabet(primaryCode)
-                && !isCursorTouchingWord()) {
-            TextEntryState.newSession(isPredictionOn());
-            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
+        if (mWord.charCount() == 0 && isAlphabet(primaryCode)) {
+            mWordRevertLength = 0;
             mWord.reset();
-            mAutoCorrectOn = mAutoComplete && mInputFieldSupportsAutoPick;
-            TextEntryState.typedCharacter(primaryCode, false);
+            mAutoCorrectOn = isPredictionOn() && mAutoComplete && mInputFieldSupportsAutoPick;
             if (mShiftKeyState.isActive()) {
                 mWord.setFirstCharCapitalized(true);
             }
-        } else if (TextEntryState.isPredicting()) {
-            TextEntryState.typedCharacter(primaryCode, false);
         }
 
         mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
 
         final InputConnection ic = getCurrentInputConnection();
-        if (TextEntryState.isPredicting()) {
-            mWord.add(primaryCode, nearByKeyCodes);
-
+        mWord.add(primaryCode, nearByKeyCodes);
+        if (isPredictionOn()) {
             if (ic != null) {
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.charCount()) {
@@ -631,11 +612,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     cursorPosition = -1;
                 }
 
+                markExpectingSelectionUpdate();
                 ic.setComposingText(mWord.getTypedWord(), 1);
                 if (cursorPosition > 0) {
                     ic.setSelection(cursorPosition, cursorPosition);
-                    ic.endBatchEdit();
                     mGlobalCursorPosition = cursorPosition;
+                    ic.endBatchEdit();
                 }
             }
             // this should be done ONLY if the key is a letter, and not a inner
@@ -653,11 +635,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             for (char c : Character.toChars(primaryCode)) {
                 sendKeyChar(c);
             }
+            markExpectingSelectionUpdate();
             if (ic != null) {
                 ic.endBatchEdit();
             }
         }
         mJustAutoAddedWord = false;
+    }
+
+    private void markExpectingSelectionUpdate() {
+        mExpectingSelectionUpdateBy =
+                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
     }
 
     protected void handleSeparator(int primaryCode) {
@@ -669,13 +657,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 primaryCode = (int) ')';
             }
         }
-        mExpectingSelectionUpdateBy =
-                SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         // will not show next-word suggestion in case of a new line or if the separator is a
         // sentence separator.
-        boolean newLine = primaryCode == KeyCodes.ENTER;
+        final boolean wasPredicting = isCurrentlyPredicting();
+        final boolean newLine = primaryCode == KeyCodes.ENTER;
         boolean isEndOfSentence = newLine || isSentenceSeparator(primaryCode);
-        boolean isSpace = primaryCode == KeyCodes.SPACE;
+        final boolean isSpace = primaryCode == KeyCodes.SPACE;
 
         // Should dismiss the "Touch again to save" message when handling
         // separator
@@ -688,17 +675,24 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (ic != null) {
             ic.beginBatchEdit();
         }
+        final WordComposer typedWord = prepareWordComposerForNextWord();
+        CharSequence wordToOutput = typedWord.getTypedWord();
+        if (isAutoCorrect() && !newLine /*we do not auto-pick on ENTER.*/) {
+            if (!TextUtils.equals(wordToOutput, typedWord.getPreferredWord())) {
+                wordToOutput = typedWord.getPreferredWord();
+            }
+        }
         // this is a special case, when the user presses a separator WHILE
         // inside the predicted word.
         // in this case, I will want to just dump the separator.
-        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.charCount());
-        if (TextEntryState.isPredicting() && !separatorInsideWord) {
+        final boolean separatorInsideWord = (typedWord.cursorPosition() < typedWord.charCount());
+        if (wasPredicting && !separatorInsideWord) {
             // ACTION does not invoke default picking. See
             // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            pickDefaultSuggestion(isAutoCorrect() && !newLine);
+            pickDefaultSuggestion(typedWord.getTypedWord(), wordToOutput);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
-            mAdditionalCharacterForReverting = !newLine;
+            mWordRevertLength = wordToOutput.length() + 1;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
@@ -717,12 +711,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     // into "word "->"word. "
                     ic.deleteSurroundingText(1, 0);
                     ic.commitText(". ", 1);
-                    mAdditionalCharacterForReverting = true;
                     isEndOfSentence = true;
                     handledOutputToInputConnection = true;
                 }
-            } else if (mAdditionalCharacterForReverting
-                    && mLastSpaceTimeStamp != NEVER_TIME_STAMP /*meaning last key was SPACE*/
+            } else if (mLastSpaceTimeStamp
+                            != NEVER_TIME_STAMP /*meaning the previous key was SPACE*/
                     && (mSwapPunctuationAndSpace || newLine)
                     && isSpaceSwapCharacter(primaryCode)) {
                 // current text in the input-box should be something like "word "
@@ -731,7 +724,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // into "word "->"word, "
                 ic.deleteSurroundingText(1, 0);
                 ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
-                mAdditionalCharacterForReverting = !newLine;
                 handledOutputToInputConnection = true;
             }
         }
@@ -741,7 +733,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 sendKeyChar(c);
             }
         }
-        TextEntryState.typedCharacter(primaryCode, true);
+
+        markExpectingSelectionUpdate();
 
         if (ic != null) {
             ic.endBatchEdit();
@@ -750,14 +743,22 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (isEndOfSentence) {
             mSuggest.resetNextWordSentence();
             clearSuggestions();
-        } else if (!TextUtils.isEmpty(mCommittedWord)) {
+        } else {
             setSuggestions(
-                    mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()),
-                    false,
+                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()),
                     false,
                     false);
-            mWord.setFirstCharCapitalized(false);
         }
+    }
+
+    private WordComposer prepareWordComposerForNextWord() {
+        if (mWord.isEmpty()) return mWord;
+
+        final WordComposer typedWord = mWord;
+        mWord = mPreviousWord;
+        mPreviousWord = typedWord;
+        mWord.reset(); // re-using
+        return typedWord;
     }
 
     private boolean isSpaceSwapCharacter(int primaryCode) {
@@ -824,7 +825,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             }
             CharSequence word = toLeft.toString() + toRight.toString();
             Logger.d(TAG, "Starting new prediction on word '%s'.", word);
-            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
 
             final int[] tempNearByKeys = new int[1];
@@ -838,7 +838,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 tempNearByKeys[0] = c;
                 mWord.add(c, tempNearByKeys);
 
-                TextEntryState.typedCharacter(c, false);
                 index += Character.charCount(c);
             }
             mWord.setCursorPosition(toLeft.length());
@@ -847,7 +846,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     mGlobalCursorPosition + toRight.length());
 
             ic.endBatchEdit();
-            postUpdateSuggestions();
+            performUpdateSuggestions();
         } else {
             Logger.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
@@ -862,17 +861,47 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
         ic.beginBatchEdit();
 
+        // simulating multiple keys
+        final WordComposer initialWordComposer = new WordComposer();
+        mWord.cloneInto(initialWordComposer);
         abortCorrectionAndResetPredictionState(false);
         ic.commitText(text, 1);
 
-        mAdditionalCharacterForReverting = false;
-        mCommittedWord = text;
-        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
-
-        TextEntryState.acceptedDefault(text);
+        // this will be the revert
+        mWordRevertLength = initialWordComposer.charCount() + text.length();
+        mPreviousWord = initialWordComposer;
+        markExpectingSelectionUpdate();
         ic.endBatchEdit();
+    }
 
-        setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, false), false, false, false);
+    @Override
+    public void onTyping(Keyboard.Key key, CharSequence text) {
+        Logger.d(TAG, "onTyping: '%s'", text);
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) {
+            return;
+        }
+        ic.beginBatchEdit();
+
+        // simulating multiple keys
+        final WordComposer initialWordComposer = new WordComposer();
+        mWord.cloneInto(initialWordComposer);
+        final boolean originalAutoCorrect = mAutoCorrectOn;
+        mAutoCorrectOn = false;
+        for (int pointCodeIndex = 0; pointCodeIndex < text.length(); ) {
+            int pointCode = Character.codePointAt(text, pointCodeIndex);
+            pointCodeIndex += Character.charCount(pointCode);
+            // this will ensure that double-spaces will not count.
+            mLastSpaceTimeStamp = NEVER_TIME_STAMP;
+            // simulating key press
+            onKey(pointCode, key, 0, new int[] {pointCode}, true);
+        }
+        mAutoCorrectOn = originalAutoCorrect;
+        // this will be the revert
+        mWordRevertLength = initialWordComposer.charCount() + text.length();
+        mPreviousWord = initialWordComposer;
+
+        ic.endBatchEdit();
     }
 
     protected void setDictionariesForCurrentKeyboard() {
@@ -940,10 +969,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         clearSuggestions();
 
-        mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
-        mCommittedWord = "";
         mWord.reset();
-        mAdditionalCharacterForReverting = false;
+        mWordRevertLength = 0;
         mJustAutoAddedWord = false;
         if (disabledUntilNextInputStart) {
             Logger.d(TAG, "abortCorrection will abort correct forever");
@@ -953,13 +980,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             }
             mPredictionOn = false;
         }
-        TextEntryState.newSession(mPredictionOn);
     }
 
     protected boolean canRestartWordSuggestion() {
         final InputViewBinder inputView = getInputView();
-        if (TextEntryState.isPredicting()
-                || !isPredictionOn()
+        if (!isPredictionOn()
                 || !mAllowSuggestionsRestart
                 || !mCurrentlyAllowSuggestionRestart
                 || inputView == null
@@ -974,13 +999,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             // mInputView == null - obvious, no?
             Logger.d(
                     TAG,
-                    "performRestartWordSuggestion: no need to restart: mPredicting=%s, isPredictionOn=%s, mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s",
-                    TextEntryState.isPredicting(),
+                    "performRestartWordSuggestion: no need to restart: isPredictionOn=%s, mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s",
                     isPredictionOn(),
                     mAllowSuggestionsRestart,
                     mCurrentlyAllowSuggestionRestart);
             return false;
-        } else if (!isCursorTouchingWord()) {
+        } else if (isCursorNotTouchingWord()) {
             Logger.d(TAG, "User moved cursor to no-man land. Bye bye.");
             return false;
         }
@@ -990,12 +1014,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected void clearSuggestions() {
         mKeyboardHandler.removeAllSuggestionMessages();
-        setSuggestions(Collections.emptyList(), false, false, false);
+        setSuggestions(Collections.emptyList(), false, false);
     }
 
     protected void setSuggestions(
             @NonNull List<? extends CharSequence> suggestions,
-            boolean completions,
             boolean typedWordValid,
             boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
@@ -1074,12 +1097,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return mPredictionOn;
     }
 
+    protected boolean isCurrentlyPredicting() {
+        return isPredictionOn() && !mWord.isEmpty();
+    }
+
     protected boolean isAutoCorrect() {
         return mAutoCorrectOn && mInputFieldSupportsAutoPick && mPredictionOn;
     }
 
     public void performUpdateSuggestions() {
-        if (!TextEntryState.isPredicting() || !mShowSuggestions) {
+        if (!isPredictionOn() || !mShowSuggestions) {
             clearSuggestions();
             return;
         }
@@ -1098,7 +1125,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // Don't auto-correct words with multiple capital letter
         correctionAvailable &= !mWord.isMostlyCaps();
 
-        setSuggestions(suggestionsList, false, typedWordValid, correctionAvailable);
+        setSuggestions(suggestionsList, typedWordValid, correctionAvailable);
         if (suggestionsList.size() > 0) {
             if (correctionAvailable && !typedWordValid && suggestionsList.size() > 1) {
                 mWord.setPreferredWord(suggestionsList.get(1));
@@ -1110,31 +1137,21 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
-    private boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
+    private void pickDefaultSuggestion(CharSequence typedWord, CharSequence wordToOutput) {
         // Complete any pending candidate query first
         if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
             performUpdateSuggestions();
         }
 
-        final CharSequence typedWord = mWord.getTypedWord();
-        final CharSequence actualWordToOutput =
-                autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
-
-        if (!TextUtils.isEmpty(actualWordToOutput)) {
-            TextEntryState.acceptedDefault(typedWord);
-            final boolean fixed = !TextUtils.equals(typedWord, actualWordToOutput);
-            commitWordToInput(actualWordToOutput, fixed);
-            if (!fixed) { // if the word typed was auto-replaced, we should not learn it.
-                // Add the word to the auto dictionary if it's not a known word
-                // this is "typed" if the auto-correction is off, or "picked" if it is on or
-                // momentarily off.
-                checkAddToDictionaryWithAutoDictionary(
-                        mWord,
-                        mAutoComplete ? Suggest.AdditionType.Picked : Suggest.AdditionType.Typed);
-            }
-            return true;
+        commitWordToInput(wordToOutput, typedWord);
+        if (TextUtils.equals(
+                typedWord,
+                wordToOutput)) { // if the word typed was auto-replaced, we should not learn it.
+            // Add the word to the auto dictionary if it's not a known word
+            // this is "typed" if the auto-correction is off, or "picked" if it is on or
+            // momentarily off.
+            checkAddToDictionaryWithAutoDictionary(wordToOutput, Suggest.AdditionType.Typed);
         }
-        return false;
     }
 
     public void pickSuggestionManually(int index, CharSequence suggestion) {
@@ -1144,14 +1161,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     @CallSuper
     public void pickSuggestionManually(
             int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
-        final String typedWord = mWord.getTypedWord().toString();
 
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             ic.beginBatchEdit();
         }
 
-        TextEntryState.acceptedSuggestion(typedWord, suggestion);
+        final WordComposer typedWord = prepareWordComposerForNextWord();
 
         try {
             if (mCompletionOn && index >= 0 && index < mCompletions.length) {
@@ -1159,7 +1175,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 if (ic != null) {
                     ic.commitCompletion(ci);
                 }
-                mCommittedWord = suggestion;
+
                 if (mCandidateView != null) {
                     mCandidateView.clear();
                 }
@@ -1167,22 +1183,20 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             }
             commitWordToInput(
                     suggestion,
-                    false /*user physically picked a word from the suggestions strip. this is not a fix*/);
+                    suggestion /*user physically picked a word from the suggestions strip. this is not a fix*/);
 
-            TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
             // Follow it with a space
-            if (withAutoSpaceEnabled && (index == 0 || !mWord.isAtTagsSearchState())) {
+            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
                 sendKeyChar((char) KeyCodes.SPACE);
-                mAdditionalCharacterForReverting = true;
                 setSpaceTimeStamp(true);
-                TextEntryState.typedCharacter((int) ' ', true);
             }
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
 
-            if (!mWord.isAtTagsSearchState()) {
+            if (!typedWord.isAtTagsSearchState()) {
                 if (index == 0) {
-                    checkAddToDictionaryWithAutoDictionary(mWord, Suggest.AdditionType.Picked);
+                    checkAddToDictionaryWithAutoDictionary(
+                            typedWord.getTypedWord(), Suggest.AdditionType.Picked);
                 }
 
                 final boolean showingAddToDictionaryHint =
@@ -1200,18 +1214,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
                 if (showingAddToDictionaryHint) {
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
-                } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
-                    // showing next-words if:
-                    // showingAddToDictionaryHint == false, we most likely do not have a next-word
-                    // suggestion! The committed word is not in the dictionary
-                    // mJustAutoAddedWord == false, we most likely do not have a next-word
-                    // suggestion for a newly added word.
+                } else {
                     setSuggestions(
-                            mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()),
-                            false,
+                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()),
                             false,
                             false);
-                    mWord.setFirstCharCapitalized(false);
                 }
             }
         } finally {
@@ -1225,34 +1232,32 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
      * Commits the chosen word to the text field and saves it for later retrieval.
      *
      * @param wordToCommit the suggestion picked by the user to be committed to the text field
-     * @param correcting this is a correction commit
+     * @param typedWord the word the user typed.
      */
     @CallSuper
-    protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
-        mWord.setPreferredWord(wordToCommit);
+    protected void commitWordToInput(
+            @NonNull CharSequence wordToCommit, @NonNull CharSequence typedWord) {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
-            if (correcting) {
+            if (!TextUtils.equals(wordToCommit, typedWord)) {
                 AnyApplication.getDeviceSpecific()
                         .commitCorrectionToInputConnection(
                                 ic,
-                                mGlobalCursorPosition - mWord.getTypedWord().length(),
-                                mWord.getTypedWord(),
-                                mWord.getPreferredWord());
+                                mGlobalCursorPosition - typedWord.length(),
+                                typedWord,
+                                wordToCommit);
             } else {
                 ic.commitText(wordToCommit, 1);
             }
         }
-        mCommittedWord = wordToCommit;
-        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
 
         clearSuggestions();
     }
 
-    private boolean isCursorTouchingWord() {
+    private boolean isCursorNotTouchingWord() {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) {
-            return false;
+            return true;
         }
 
         CharSequence toLeft = ic.getTextBeforeCursor(1, 0);
@@ -1263,13 +1268,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (!TextUtils.isEmpty(toLeft)
                 && toLeft.length() == 1
                 && !isWordSeparator(toLeft.charAt(0))) {
-            return true;
+            return false;
         }
 
         CharSequence toRight = ic.getTextAfterCursor(1, 0);
-        return !TextUtils.isEmpty(toRight)
-                && toRight.length() == 1
-                && !isWordSeparator(toRight.charAt(0));
+        return TextUtils.isEmpty(toRight)
+                || toRight.length() != 1
+                || isWordSeparator(toRight.charAt(0));
     }
 
     private void setSpaceTimeStamp(boolean isSpace) {
@@ -1292,22 +1297,24 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     public void revertLastWord() {
-        final int length = mCommittedWord.length() + (mAdditionalCharacterForReverting ? 1 : 0);
-        if (length > 0) {
+        if (mWordRevertLength == 0) {
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+        } else {
+            final int length = mWordRevertLength;
             mAutoCorrectOn = false;
             // note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
-            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             ic.setComposingRegion(mGlobalCursorPosition - length, mGlobalCursorPosition);
+            WordComposer temp = mWord;
+            mWord = mPreviousWord;
+            mPreviousWord = temp;
+            mWordRevertLength = 0;
             final CharSequence typedWord = mWord.getTypedWord();
             ic.setComposingText(typedWord /* mComposing */, 1);
-            TextEntryState.backspace();
             performUpdateSuggestions();
             if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
             }
-        } else {
-            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
         }
     }
 
@@ -1349,7 +1356,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (ci != null) stringList.add(ci.getText());
                 }
                 // CharSequence typedWord = mWord.getTypedWord();
-                setSuggestions(stringList, true, true, true);
+                setSuggestions(stringList, true, true);
                 mWord.setPreferredWord(null);
             }
         }
@@ -1366,13 +1373,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     private void checkAddToDictionaryWithAutoDictionary(
-            WordComposer suggestion, Suggest.AdditionType type) {
+            CharSequence newWord, Suggest.AdditionType type) {
         mJustAutoAddedWord = false;
-        if (suggestion == null || suggestion.codePointCount() < 1 || !mShowSuggestions) {
-            return;
-        }
-
-        final String newWord = suggestion.getTypedWord().toString();
 
         mInputSessionDisposables.add(
                 Observable.just(Pair.create(newWord, type))
@@ -1386,8 +1388,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         .observeOn(RxSchedulers.mainThread())
                         .subscribe(
                                 pair -> {
-                                    addWordToDictionary(pair.second);
-                                    TextEntryState.acceptedSuggestionAddedToDictionary();
+                                    addWordToDictionary(pair.second.toString());
                                     mJustAutoAddedWord = true;
                                 },
                                 e -> Logger.w(TAG, e, "Failed to try-lean word '%s'!", newWord)));

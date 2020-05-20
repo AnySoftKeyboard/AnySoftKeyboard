@@ -59,6 +59,11 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     }
 
     @Override
+    public void onTyping(Keyboard.Key key, CharSequence text) {
+        mKeyboardActionListener.onTyping(key, text);
+    }
+
+    @Override
     public void onCancel() {
         mKeyboardActionListener.onCancel();
     }

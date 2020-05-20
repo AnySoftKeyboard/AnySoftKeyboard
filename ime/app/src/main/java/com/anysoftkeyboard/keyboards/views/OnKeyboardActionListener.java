@@ -57,11 +57,19 @@ public interface OnKeyboardActionListener {
     void onMultiTapEnded();
 
     /**
-     * Sends a sequence of characters to the listener.
+     * Sends a sequence of characters to the listener as a complete text. Does not support
+     * suggestions
      *
      * @param text the sequence of characters to be displayed.
      */
     void onText(Key key, CharSequence text);
+
+    /**
+     * Sends a sequence of characters to the listener as if they were typed.
+     *
+     * @param text the key sequence to type. Should not include sentence separators.
+     */
+    void onTyping(Key key, CharSequence text);
 
     /** Called when user released a finger outside any key. */
     void onCancel();

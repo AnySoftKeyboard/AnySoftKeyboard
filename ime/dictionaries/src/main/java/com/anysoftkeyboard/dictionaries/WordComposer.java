@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.dictionaries;
 
+import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,10 +51,27 @@ public class WordComposer implements KeyCodesProvider {
 
     public WordComposer() {}
 
+    public void cloneInto(WordComposer newWord) {
+        newWord.reset();
+        for (int[] codes : mCodes) {
+            int[] newCodes = new int[codes.length];
+            System.arraycopy(codes, 0, newCodes, 0, codes.length);
+            newWord.mCodes.add(newCodes);
+        }
+        newWord.mTypedWord.append(mTypedWord);
+        newWord.mPreferredWord = mPreferredWord;
+        newWord.mAutoCapitalized = mAutoCapitalized;
+        newWord.mCapsCount = mCapsCount;
+        newWord.mCursorPosition = mCursorPosition;
+        newWord.mIsFirstCharCapitalized = mIsFirstCharCapitalized;
+    }
+
     /** Clear out the keys registered so far. */
     public void reset() {
+        Thread.dumpStack();
         // moving arrays back to re-use list
         mArraysToReuse.addAll(mCodes);
+        if (mArraysToReuse.size() > 1024) mArraysToReuse.clear();
         mCodes.clear();
         mIsFirstCharCapitalized = false;
         mPreferredWord = null;
@@ -133,9 +151,11 @@ public class WordComposer implements KeyCodesProvider {
      *
      * @param codes the array of unicode values
      */
-    public void add(int primaryCode, int[] codes) {
+    private static final int[] PRIMARY_CODE_CREATE = new int[1];
 
-        mTypedWord.insert(mCursorPosition, new String(new int[] {primaryCode}, 0, 1));
+    public void add(int primaryCode, int[] codes) {
+        PRIMARY_CODE_CREATE[0] = primaryCode;
+        mTypedWord.insert(mCursorPosition, new String(PRIMARY_CODE_CREATE, 0, 1));
 
         correctPrimaryJuxtapos(primaryCode, codes);
         // this will return a copy of the codes array, stored in an array with sufficent storage
@@ -211,6 +231,29 @@ public class WordComposer implements KeyCodesProvider {
         }
     }
 
+    public void deleteTextAtCurrentPositionTillEnd(CharSequence typedTextToDeleteAtEnd) {
+        final String suffixToDelete = typedTextToDeleteAtEnd.toString();
+        if (mTypedWord.toString().endsWith(suffixToDelete)) {
+            mTypedWord.setLength(mTypedWord.length() - suffixToDelete.length());
+            int codePointsToDelete =
+                    Character.codePointCount(suffixToDelete, 0, suffixToDelete.length());
+            mCursorPosition -= codePointsToDelete;
+            while (codePointsToDelete > 0) {
+                mArraysToReuse.add(mCodes.remove(mCodes.size() - 1));
+                codePointsToDelete--;
+            }
+        } else if (BuildConfig.DEBUG) {
+            throw new IllegalStateException(
+                    "mTypedWord is '"
+                            + mTypedWord.toString()
+                            + "' while asking to delete '"
+                            + typedTextToDeleteAtEnd
+                            + "'.");
+        } else {
+            reset();
+        }
+    }
+
     /**
      * Delete the last keystroke (codepoint) as a result of hitting backspace.
      *
@@ -256,7 +299,7 @@ public class WordComposer implements KeyCodesProvider {
      */
     @Override
     public CharSequence getTypedWord() {
-        return mCodes.size() == 0 ? "" : mTypedWord;
+        return mCodes.size() == 0 ? "" : mTypedWord.toString();
     }
 
     public boolean isAtTagsSearchState() {
@@ -291,7 +334,7 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     public CharSequence getPreferredWord() {
-        return mPreferredWord;
+        return TextUtils.isEmpty(mPreferredWord) ? getTypedWord() : mPreferredWord.toString();
     }
 
     /** Returns true if more than one character is upper case, otherwise returns false. */
@@ -334,5 +377,9 @@ public class WordComposer implements KeyCodesProvider {
             }
         }
         return stringBuilder.toString();
+    }
+
+    public boolean isEmpty() {
+        return mCodes.isEmpty();
     }
 }
