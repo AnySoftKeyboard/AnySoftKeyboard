@@ -31,7 +31,6 @@ jobs:
         run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="in_progress"
       - uses: ./.github/actions/deploy
         with:
-          deployment_id: ${{ github.event.deployment.id }}
           deployment_environment: ${{ github.event.deployment.environment }}
           deployment_task: ${{ github.event.deployment.task }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
@@ -39,8 +38,6 @@ jobs:
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
           publish_service_account_creds_json_url: ${{ secrets.PUBLISH_CERT_JSON_URL }}
-          api_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: status-success
         run: ./gradlew --stacktrace :deployment:updateDeploymentSuccess -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.sha="${{ github.event.deployment.sha }}"
       - name: status-failure
