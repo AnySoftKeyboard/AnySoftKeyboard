@@ -87,4 +87,21 @@ echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRAS
 
 ./gradlew "${DEPLOY_TASKS[@]}"
 
+#Making sure no future deployments will happen on this branch.
+if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; then
+  echo "A succesfull full deploy to production has finished."
+  MARKER_FILE="deployment/halt_deployment_marker"
+  if [[ -f "${MARKER_FILE}" ]]; then
+    echo "${MARKER_FILE} exits. No need to create another."
+  else
+    echo "Full deployment to production '${DEPLOYMENT_ENVIRONMENT}' was done succesfully" > "${MARKER_FILE}"
+    git config --global user.email "ask@evendanan.net"
+    git config --global user.name "Polyglot"
+    git add "${MARKER_FILE})"
+    git commit -m "Halting deploy to ${DEPLOYMENT_ENVIRONMENT}"
+    #cleaning repo
+    git clean -f -d && git reset --hard HEAD
+  fi
+fi
+
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
