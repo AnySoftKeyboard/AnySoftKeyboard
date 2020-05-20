@@ -8,6 +8,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -25,8 +26,8 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
         Assert.assertEquals("\uD83D\uDE03", inputConnection.getCurrentTextInInputConnection());
-
         Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
@@ -37,21 +38,163 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOutputTextKeyOutputShiftedTextWhenShifted() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.text = "this";
+        aKey.shiftedText = "THiS";
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        mAnySoftKeyboardUnderTest.onText(aKey, aKey.shiftedText);
+
+        Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextKeyOutputTextWhenNotShifted() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.text = "thisis";
+        aKey.shiftedText = "THiS";
+        mAnySoftKeyboardUnderTest.onText(aKey, aKey.text);
+
+        Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextKeyOutputTextWhenShiftedButHasNoShiftedText() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.text = "thisis";
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        mAnySoftKeyboardUnderTest.onText(aKey, aKey.text);
+
+        Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextKeyOutputTextWhenShiftLocked() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.text = "thisis";
+        aKey.shiftedText = "THiS";
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mShiftKeyState.isLocked());
+        mAnySoftKeyboardUnderTest.onText(aKey, aKey.shiftedText);
+
+        Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextKeyOutputTextAndThenBackspace() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.text = "thisis";
+        aKey.shiftedText = "THiS";
+        mAnySoftKeyboardUnderTest.onText(aKey, aKey.text);
+
+        Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        // deletes all the output text
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
     public void testOutputTextKeyOverrideOutputText() {
+        simulateFinishInputFlow();
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        simulateOnStartInputFlow();
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
         Assert.assertEquals(overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 
     @Test
     public void testOutputTextDeletesOnBackspace() {
+        simulateFinishInputFlow();
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        simulateOnStartInputFlow();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextDoesNotAutoCorrect() {
+        simulateFinishInputFlow();
+        final String overrideText = ".";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        simulateOnStartInputFlow();
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hel";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testOutputTextDeletesOnBackspaceWhenSuggestionsOff() {
+        simulateFinishInputFlow();
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        SharedPrefsHelper.setPrefsValue("candidates_on", false);
+        simulateOnStartInputFlow();
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
@@ -69,15 +212,42 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    public void testOutputTextDeletesOnBackspaceWhenSuggestionsOff() {
-        final String overrideText = "TEST ";
+    public void testOutputTextDeletesOnBackspaceWithoutSpace() {
+        simulateFinishInputFlow();
+        final String overrideText = "TEST";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
-        SharedPrefsHelper.setPrefsValue("candidates_on", false);
+        simulateOnStartInputFlow();
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         final String initialText = "hello ";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testOutputTextDeletesOnBackspaceWhenSuggestionsOffWithoutSpace() {
+        simulateFinishInputFlow();
+        final String overrideText = "TEST";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_suggestions, false);
+        simulateOnStartInputFlow();
+
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
@@ -91,8 +261,10 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testOutputTextDoesNotDeletesOnBackspaceIfCursorMoves() {
+        simulateFinishInputFlow();
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        simulateOnStartInputFlow();
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
@@ -105,9 +277,11 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
                 initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         inputConnection.setSelection(7, 7);
+        Assert.assertEquals(7, inputConnection.getCurrentStartPosition());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
+        Assert.assertSame(mAnySoftKeyboardUnderTest.getCurrentInputConnection(), inputConnection);
         Assert.assertEquals(
                 (initialText + overrideText).replace("X", ""),
                 inputConnection.getCurrentTextInInputConnection());
@@ -115,9 +289,11 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testOutputTextDoesNotDeletesOnBackspaceIfCursorMovesWhenSuggestionsOff() {
+        simulateFinishInputFlow();
         final String overrideText = "TEST ";
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
         SharedPrefsHelper.setPrefsValue("candidates_on", false);
+        simulateOnStartInputFlow();
 
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
@@ -140,9 +316,38 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOutputTextDoesNotDeletesOnCharacterIfCursorMoves() {
+        simulateFinishInputFlow();
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        simulateOnStartInputFlow();
+
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello Xello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(
+                initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        inputConnection.setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('a');
+
+        Assert.assertEquals(
+                (initialText + overrideText).replace("X", "Xa"),
+                inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testOutputTextKeySwitchKeyboardWhenFlipped() {
+        simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_do_not_flip_quick_key_codes_functionality, false);
+        simulateOnStartInputFlow();
 
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
@@ -415,5 +620,58 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         // we switched to the main-keyboard view
         Assert.assertEquals(
                 View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+    }
+
+    @Test
+    public void testOutputAsTypingKeyOutput() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.typedText = "this";
+        aKey.shiftedTypedText = "THiS";
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        mAnySoftKeyboardUnderTest.onTyping(aKey, aKey.typedText);
+
+        Assert.assertEquals("this", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputAsTypingKeyOutputShifted() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.typedText = "this";
+        aKey.shiftedTypedText = "THiS";
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mShiftKeyState.isActive());
+        mAnySoftKeyboardUnderTest.onTyping(aKey, aKey.shiftedTypedText);
+
+        Assert.assertEquals("THiS", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testOutputTextKeyOutputTypingAndThenBackspace() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final Keyboard.Key aKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode('a');
+        aKey.typedText = "thisis";
+        aKey.shiftedTypedText = "THiS";
+        mAnySoftKeyboardUnderTest.onTyping(aKey, aKey.typedText);
+
+        Assert.assertEquals("thisis", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(6, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        // deletes all the output text
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGlobalCursorPosition);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
     }
 }

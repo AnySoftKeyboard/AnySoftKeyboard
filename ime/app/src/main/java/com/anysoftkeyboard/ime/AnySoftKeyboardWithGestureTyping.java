@@ -10,7 +10,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
-import com.anysoftkeyboard.dictionaries.TextEntryState;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -33,6 +33,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
     @Nullable private GestureTypingDetector mCurrentGestureDetector;
     private boolean mDetectorReady = false;
+    private boolean mJustPerformedGesture = false;
 
     @NonNull private Disposable mDetectorStateSubscription = Disposables.disposed();
 
@@ -361,17 +362,19 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             int[] nearByKeyCodes,
             boolean fromUI) {
         if (mGestureTypingEnabled
-                && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE
+                && mJustPerformedGesture
                 && primaryCode > 0 /*printable character*/) {
             confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
         }
+        mJustPerformedGesture = false;
 
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
 
     private void confirmLastGesture(boolean withAutoSpace) {
-        if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            pickSuggestionManually(0, mWord.getTypedWord(), withAutoSpace);
+        if (mJustPerformedGesture) {
+            pickSuggestionManually(0, getCurrentComposedWord().getTypedWord(), withAutoSpace);
+            mJustPerformedGesture = false;
         }
     }
 
@@ -413,11 +416,12 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 CharSequence word = gestureTypingPossibilities.get(0);
 
                 // This is used when correcting
-                mWord.reset();
-                mWord.setAutoCapitalized(isShifted || isCapsLocked);
-                mWord.simulateTypedWord(word);
+                final WordComposer currentComposedWord = getCurrentComposedWord();
+                currentComposedWord.reset();
+                currentComposedWord.setAutoCapitalized(isShifted || isCapsLocked);
+                currentComposedWord.simulateTypedWord(word);
 
-                mWord.setPreferredWord(mWord.getTypedWord());
+                currentComposedWord.setPreferredWord(currentComposedWord.getTypedWord());
                 // If there's any non-separator before the cursor, add a space:
                 // TODO: Improve the detection of mid-word separations (not hardcode a hyphen and an
                 // apostrophe),
@@ -433,19 +437,18 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         Logger.v(TAG, "Separator found, not adding a space.");
                     } else {
                         ic.commitText(new String(new int[] {KeyCodes.SPACE}, 0, 1), 1);
-                        TextEntryState.typedCharacter(KeyCodes.SPACE, true);
                         Logger.v(TAG, "Non-separator found, adding a space.");
                     }
                 }
-                ic.setComposingText(mWord.getTypedWord(), 1);
+                ic.setComposingText(currentComposedWord.getTypedWord(), 1);
 
-                TextEntryState.performedGesture();
+                mJustPerformedGesture = true;
 
                 if (gestureTypingPossibilities.size() > 1) {
-                    setSuggestions(gestureTypingPossibilities, false, true, true);
+                    setSuggestions(gestureTypingPossibilities, true, true);
                 } else {
                     // clearing any suggestion shown
-                    setSuggestions(Collections.emptyList(), false, false, false);
+                    setSuggestions(Collections.emptyList(), false, false);
                 }
 
                 ic.endBatchEdit();

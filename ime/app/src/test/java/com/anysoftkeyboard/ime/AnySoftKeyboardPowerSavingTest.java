@@ -27,11 +27,11 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
     public void testDoesNotAskForSuggestionsIfInLowBattery() {
         PowerSavingTest.sendBatteryState(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
 
         PowerSavingTest.sendBatteryState(false);
@@ -74,20 +74,20 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
 
         PowerSavingTest.sendBatteryState(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
     }
 
     @Test

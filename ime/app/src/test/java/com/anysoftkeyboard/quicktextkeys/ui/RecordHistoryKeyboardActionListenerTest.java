@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -73,6 +74,9 @@ public class RecordHistoryKeyboardActionListenerTest {
 
         mUnderTest.onLongPressDone(key);
         Mockito.verify(mKeyboardListener).onLongPressDone(same(key));
+
+        mUnderTest.onTyping(key, "text");
+        Mockito.verify(mKeyboardListener).onTyping(same(key), eq("text"));
     }
 
     @Test

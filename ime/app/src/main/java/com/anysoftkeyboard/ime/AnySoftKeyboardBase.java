@@ -32,7 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -57,8 +56,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
             new ModifierKeyState(true /*supports locked state*/);
     protected final ModifierKeyState mControlKeyState =
             new ModifierKeyState(false /*does not support locked state*/);
-
-    protected final WordComposer mWord = new WordComposer();
 
     protected int mGlobalCursorPosition = 0;
     protected int mGlobalSelectionStartPosition = 0;
