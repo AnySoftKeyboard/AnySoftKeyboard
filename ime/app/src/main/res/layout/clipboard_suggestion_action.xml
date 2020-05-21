@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clipboard_suggestion_text"
+    style="@style/Ask.Text.SuggestionsAction"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:drawableStart="@drawable/ic_clipboard_paste_action"
+    android:drawableLeft="@drawable/ic_clipboard_paste_action"
+    android:padding="6dp"
+    android:drawablePadding="2dp"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxWidth="150dp"
+    android:maxLines="1" />

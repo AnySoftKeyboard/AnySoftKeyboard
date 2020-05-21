@@ -25,6 +25,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.WordComposer;
+import com.anysoftkeyboard.ime.AnySoftKeyboardClipboard;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -130,6 +131,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         mSpiedOverlayCreator = Mockito.spy(new OverlayCreatorForSpy(mOriginalOverlayDataCreator));
 
         return mSpiedOverlayCreator;
+    }
+
+    public AnySoftKeyboardClipboard.ClipboardActionOwner getClipboardActionOwnerImpl() {
+        return mClipboardActionOwnerImpl;
+    }
+
+    public AnySoftKeyboardClipboard.ClipboardStripActionProvider getClipboardStripActionProvider() {
+        return mSuggestionClipboardEntry;
     }
 
     // Needs this since we want to use Mockito.spy, which gets the class at runtime
