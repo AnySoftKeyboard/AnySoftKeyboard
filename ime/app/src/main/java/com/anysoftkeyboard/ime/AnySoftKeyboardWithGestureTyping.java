@@ -426,7 +426,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 // TODO: Improve the detection of mid-word separations (not hardcode a hyphen and an
                 // apostrophe),
                 // and disable this check on URL tex fields.
-                CharSequence toLeft = ic.getTextBeforeCursor(MAX_CHARS_PER_CODEPOINT, 0);
+                CharSequence toLeft = ic.getTextBeforeCursor(MAX_CHARS_PER_CODE_POINT, 0);
                 if (toLeft.length() == 0) {
                     Logger.v(TAG, "Beginning of text found, not adding a space.");
                 } else {
