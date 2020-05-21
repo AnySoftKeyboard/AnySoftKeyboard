@@ -82,4 +82,14 @@
         layoutResId="@xml/cyrillic_qwerty"
         nameResId="@string/russian2_cyrillic_name"
         physicalKeyboardMappingResId="@xml/cyrillic_physical" />
+
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Русский с English"
+        iconResId="@drawable/ic_status_russian2"
+        id="dd633d01-64fe-4eb2-b0db-8075c17ade7d"
+        index="8"
+        layoutResId="@xml/russian_english_qwerty"
+        nameResId="РусEng"
+        physicalKeyboardMappingResId="@xml/cyrillic_physical" />
 </Keyboards>
