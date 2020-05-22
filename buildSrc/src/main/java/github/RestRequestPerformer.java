@@ -34,7 +34,7 @@ public abstract class RestRequestPerformer<R, A> {
                             httpRequest, HttpClientCreator.createContext(username, password))) {
                 System.out.println("Response status: " + httpResponse.getStatusLine());
                 final Scanner scanner =
-                        new Scanner(httpResponse.getEntity().getContent(), StandardCharsets.UTF_8)
+                        new Scanner(httpResponse.getEntity().getContent(), StandardCharsets.UTF_8.toString())
                                 .useDelimiter("\\A");
                 final String responseString = scanner.hasNext() ? scanner.next() : "";
                 System.out.println("Response content: " + responseString);
