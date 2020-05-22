@@ -20,9 +20,7 @@ import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import com.anysoftkeyboard.prefs.RxSharedPrefs;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
+import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,17 +29,26 @@ public class ClipboardV11 implements Clipboard {
     private static final int MAX_ENTRIES_INDEX = 15;
 
     private final List<CharSequence> mEntries = new ArrayList<>(16);
-
     private final ClipboardManager mClipboardManager;
-    private final RxSharedPrefs mPrefs;
+    @Nullable private ClipboardUpdatedListener mClipboardEntryAddedListener;
+    private final ClipboardManager.OnPrimaryClipChangedListener mOsClipboardChangedListener =
+            this::onPrimaryClipChanged;
 
-    public ClipboardV11(Context context) {
-        mPrefs = AnyApplication.prefs(context);
+    ClipboardV11(Context context) {
         mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    }
 
-        mClipboardManager.addPrimaryClipChangedListener(this::onPrimaryClipChanged);
-
-        onPrimaryClipChanged();
+    @Override
+    public void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener) {
+        if (mClipboardEntryAddedListener != listener) {
+            mEntries.clear();
+        }
+        mClipboardEntryAddedListener = listener;
+        if (listener == null) {
+            mClipboardManager.removePrimaryClipChangedListener(mOsClipboardChangedListener);
+        } else {
+            mClipboardManager.addPrimaryClipChangedListener(mOsClipboardChangedListener);
+        }
     }
 
     @Override
@@ -60,19 +67,20 @@ public class ClipboardV11 implements Clipboard {
     }
 
     private void onPrimaryClipChanged() {
-        if (!mPrefs.getBoolean(
-                        R.string.settings_key_os_clipboard_sync,
-                        R.bool.settings_default_os_clipboard_sync)
-                .get()) return;
+        final ClipboardUpdatedListener addedListener = mClipboardEntryAddedListener;
+        if (addedListener != null) {
+            ClipData cp = mClipboardManager.getPrimaryClip();
+            if (cp != null) {
+                for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
+                    final CharSequence text = cp.getItemAt(entryIndex).getText();
+                    mEntries.add(0, text);
 
-        ClipData cp = mClipboardManager.getPrimaryClip();
-        if (cp != null) {
-            for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
-                while (mEntries.size() > MAX_ENTRIES_INDEX) {
-                    mEntries.remove(MAX_ENTRIES_INDEX);
+                    while (mEntries.size() > MAX_ENTRIES_INDEX) {
+                        mEntries.remove(MAX_ENTRIES_INDEX);
+                    }
+
+                    addedListener.onClipboardEntryAdded(text);
                 }
-
-                mEntries.add(0, cp.getItemAt(entryIndex).getText());
             }
         }
     }

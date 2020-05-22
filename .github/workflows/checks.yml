@@ -239,7 +239,6 @@ jobs:
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
 
-
   merge-to-master:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [master-green-requirement]

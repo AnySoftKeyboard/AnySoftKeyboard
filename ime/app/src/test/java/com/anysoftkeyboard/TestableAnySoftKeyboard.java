@@ -25,6 +25,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.WordComposer;
+import com.anysoftkeyboard.ime.AnySoftKeyboardClipboard;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -130,6 +131,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         mSpiedOverlayCreator = Mockito.spy(new OverlayCreatorForSpy(mOriginalOverlayDataCreator));
 
         return mSpiedOverlayCreator;
+    }
+
+    public AnySoftKeyboardClipboard.ClipboardActionOwner getClipboardActionOwnerImpl() {
+        return mClipboardActionOwnerImpl;
+    }
+
+    public AnySoftKeyboardClipboard.ClipboardStripActionProvider getClipboardStripActionProvider() {
+        return mSuggestionClipboardEntry;
     }
 
     // Needs this since we want to use Mockito.spy, which gets the class at runtime
@@ -342,7 +351,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             }
         } else {
             onText(null, text);
-            Robolectric.flushForegroundThreadScheduler();
+            if (advanceTime) Robolectric.flushForegroundThreadScheduler();
             if (advanceTime) SystemClock.sleep(25);
         }
     }
@@ -364,7 +373,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void simulateKeyPress(final Keyboard.Key key, final boolean advanceTime) {
         final int primaryCode = key.getPrimaryCode();
         onPress(primaryCode);
-        Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);
         if (key instanceof AnyKeyboard.AnyKey /*this will ensure this instance is not a mock*/) {
@@ -383,10 +392,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         } else {
             onKey(primaryCode, null, 0, new int[0], true);
         }
-        Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
         if (advanceTime) SystemClock.sleep(25);
         onRelease(primaryCode);
-        Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
     }
 
     @Nullable

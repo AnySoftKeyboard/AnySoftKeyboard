@@ -649,6 +649,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     protected void handleSeparator(int primaryCode) {
+        performUpdateSuggestions();
         // Issue 146: Right to left languages require reversed parenthesis
         if (!getCurrentAlphabetKeyboard().isLeftToRightLanguage()) {
             if (primaryCode == (int) ')') {
@@ -664,12 +665,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         boolean isEndOfSentence = newLine || isSentenceSeparator(primaryCode);
         final boolean isSpace = primaryCode == KeyCodes.SPACE;
 
-        // Should dismiss the "Touch again to save" message when handling
-        // separator
-        if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
-            postUpdateSuggestions();
-        }
-
         // Handle separator
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
@@ -677,6 +672,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
         final WordComposer typedWord = prepareWordComposerForNextWord();
         CharSequence wordToOutput = typedWord.getTypedWord();
+        // ACTION does not invoke default picking. See
+        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
         if (isAutoCorrect() && !newLine /*we do not auto-pick on ENTER.*/) {
             if (!TextUtils.equals(wordToOutput, typedWord.getPreferredWord())) {
                 wordToOutput = typedWord.getPreferredWord();
@@ -687,9 +684,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // in this case, I will want to just dump the separator.
         final boolean separatorInsideWord = (typedWord.cursorPosition() < typedWord.charCount());
         if (wasPredicting && !separatorInsideWord) {
-            // ACTION does not invoke default picking. See
-            // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            pickDefaultSuggestion(typedWord.getTypedWord(), wordToOutput);
+            commitWordToInput(wordToOutput, typedWord.getTypedWord());
+            if (TextUtils.equals(typedWord.getTypedWord(), wordToOutput)) {
+                // if the word typed was auto-replaced, we should not learn it.
+                // Add the word to the auto dictionary if it's not a known word
+                // this is "typed" if the auto-correction is off, or "picked" if it is on or
+                // momentarily off.
+                checkAddToDictionaryWithAutoDictionary(wordToOutput, Suggest.AdditionType.Typed);
+            }
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
             mWordRevertLength = wordToOutput.length() + 1;
@@ -1134,23 +1136,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             }
         } else {
             mWord.setPreferredWord(null);
-        }
-    }
-
-    private void pickDefaultSuggestion(CharSequence typedWord, CharSequence wordToOutput) {
-        // Complete any pending candidate query first
-        if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
-            performUpdateSuggestions();
-        }
-
-        commitWordToInput(wordToOutput, typedWord);
-        if (TextUtils.equals(
-                typedWord,
-                wordToOutput)) { // if the word typed was auto-replaced, we should not learn it.
-            // Add the word to the auto dictionary if it's not a known word
-            // this is "typed" if the auto-correction is off, or "picked" if it is on or
-            // momentarily off.
-            checkAddToDictionaryWithAutoDictionary(wordToOutput, Suggest.AdditionType.Typed);
         }
     }
 
