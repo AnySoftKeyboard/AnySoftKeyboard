@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.Robolectric;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTest {
@@ -21,6 +22,22 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         verifySuggestions(true, "he", "he'll", "hell", "hello");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "hell", "hello");
+    }
+
+    @Test
+    public void testPerformUpdateSuggestionsOnSeparatorQuickly() {
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        Robolectric.getForegroundThreadScheduler().pause();
+        Robolectric.getBackgroundThreadScheduler().pause();
+        mAnySoftKeyboardUnderTest.simulateKeyPress('l', false);
+        Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ', false);
+        // correctly auto-picked
+        Assert.assertEquals("hell ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test

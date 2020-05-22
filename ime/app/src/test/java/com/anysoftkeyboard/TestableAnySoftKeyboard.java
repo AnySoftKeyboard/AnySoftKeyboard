@@ -351,7 +351,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             }
         } else {
             onText(null, text);
-            Robolectric.flushForegroundThreadScheduler();
+            if (advanceTime) Robolectric.flushForegroundThreadScheduler();
             if (advanceTime) SystemClock.sleep(25);
         }
     }
@@ -373,7 +373,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void simulateKeyPress(final Keyboard.Key key, final boolean advanceTime) {
         final int primaryCode = key.getPrimaryCode();
         onPress(primaryCode);
-        Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);
         if (key instanceof AnyKeyboard.AnyKey /*this will ensure this instance is not a mock*/) {
@@ -392,10 +392,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         } else {
             onKey(primaryCode, null, 0, new int[0], true);
         }
-        Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
         if (advanceTime) SystemClock.sleep(25);
         onRelease(primaryCode);
-        Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
     }
 
     @Nullable
