@@ -18,15 +18,21 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.ClipboardManager;
 
 @TargetApi(3)
 public class ClipboardV3 implements Clipboard {
     private final ClipboardManager mClipboardManager;
 
-    public ClipboardV3(Context context) {
+    ClipboardV3(Context context) {
         mClipboardManager =
                 (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    }
+
+    @Override
+    public void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener) {
+        /*nothing. This API level does not support this*/
     }
 
     @Override
