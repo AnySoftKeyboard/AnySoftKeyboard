@@ -109,7 +109,7 @@ public abstract class KeyDetector {
      * @param allKeys All nearby key indices are returned in this array
      * @return The nearest key index
      */
-    public abstract int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys);
+    public abstract int getKeyIndexAndNearbyCodes(int x, int y, @Nullable int[] allKeys);
 
     public boolean isKeyShifted(@NonNull Key key) {
         if (mKeyboard == null) return false;
