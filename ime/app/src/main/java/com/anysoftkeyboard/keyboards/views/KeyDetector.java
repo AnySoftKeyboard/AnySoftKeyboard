@@ -47,7 +47,7 @@ public abstract class KeyDetector {
         mKeyboard = keyboard;
 
         if (keyboard == null) return mKeys = new Key[0];
-        return mKeys = mKeyboard.getKeys().toArray(new Key[mKeyboard.getKeys().size()]);
+        return mKeys = mKeyboard.getKeys().toArray(new Key[0]);
     }
 
     public void setCorrection(float correctionX, float correctionY) {
@@ -111,7 +111,7 @@ public abstract class KeyDetector {
      */
     public abstract int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys);
 
-    public boolean isKeyShifted(Key key) {
+    public boolean isKeyShifted(@NonNull Key key) {
         if (mKeyboard == null) return false;
         AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
         return mKeyboard.keyboardSupportShift()
