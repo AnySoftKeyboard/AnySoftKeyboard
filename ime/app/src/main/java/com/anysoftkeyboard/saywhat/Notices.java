@@ -63,8 +63,8 @@ public class Notices {
             return MIN_TIME_BETWEEN_SHOWING
                             < (SystemClock.elapsedRealtime() - mLastTimeInfoWasShown)
                     &&
-                    // only till April 1st
-                    System.currentTimeMillis() < 1585782000000L
+                    // only till June 22nd
+                    System.currentTimeMillis() < 1592789573000L
                     && ime.getInputViewContainer().getCandidateView() != null
                     && ime.getInputViewContainer().getCandidateView().getVisibility()
                             == View.VISIBLE;
