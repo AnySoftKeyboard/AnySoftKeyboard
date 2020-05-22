@@ -188,6 +188,7 @@
     <string name="swipe_action_name_cycle_keyboards">Scorri fra tutte le tastiere</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Inverti il ciclo di scorrimento fra tutte le tastiere</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Spazio</string>
     <string name="swipe_action_name_hide">Nascondi tastiera</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Cancella parola</string>
@@ -418,6 +419,7 @@
     <string name="extension_kbd_top_numbers_alt">Tasti numerici alternativi  </string>
     <string name="extension_kbd_top_nav">Tasti di navigazione</string>
     <string name="extension_kbd_top_nav_alt">Tasti di navigazione alternativo</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Alternativa a tasti di navigazione. No riga numeri in modalità pwd</string>
     <string name="extension_kbd_top_numbers_simple">Semplice, solo numeri</string>
     <string name="extension_kbd_top_terminal">Terminale</string>
     <string name="extension_kbd_top_text_editing">Modifica testo rapida</string>
