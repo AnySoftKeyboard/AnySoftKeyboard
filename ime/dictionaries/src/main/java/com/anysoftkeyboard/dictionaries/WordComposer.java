@@ -68,7 +68,6 @@ public class WordComposer implements KeyCodesProvider {
 
     /** Clear out the keys registered so far. */
     public void reset() {
-        Thread.dumpStack();
         // moving arrays back to re-use list
         mArraysToReuse.addAll(mCodes);
         if (mArraysToReuse.size() > 1024) mArraysToReuse.clear();
