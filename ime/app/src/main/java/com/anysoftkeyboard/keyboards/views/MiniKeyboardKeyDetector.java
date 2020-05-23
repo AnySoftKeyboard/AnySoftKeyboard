@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 class MiniKeyboardKeyDetector extends KeyDetector {
@@ -37,7 +39,7 @@ class MiniKeyboardKeyDetector extends KeyDetector {
     }
 
     @Override
-    public int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys) {
+    public int getKeyIndexAndNearbyCodes(int x, int y, @Nullable int[] allKeys) {
         final Key[] keys = getKeys();
         final int touchX = getTouchX(x);
         final int touchY = getTouchY(y);
@@ -60,7 +62,7 @@ class MiniKeyboardKeyDetector extends KeyDetector {
     }
 
     @Override
-    public boolean isKeyShifted(Key key) {
+    public boolean isKeyShifted(@NonNull Key key) {
         // in the mini-keyboard we want to shift the keys depending on the state of the mParent
         // keyboard.
         return mKeyboard != null && mKeyboard.isShifted();
