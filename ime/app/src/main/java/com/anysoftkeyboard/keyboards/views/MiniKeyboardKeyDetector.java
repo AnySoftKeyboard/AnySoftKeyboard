@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 class MiniKeyboardKeyDetector extends KeyDetector {
