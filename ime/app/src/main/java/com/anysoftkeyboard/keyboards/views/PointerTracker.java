@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -177,6 +178,7 @@ class PointerTracker {
         return keyIndex >= 0 && keyIndex < mKeys.length;
     }
 
+    @Nullable
     public Key getKey(int keyIndex) {
         return isValidKeyIndex(keyIndex) ? mKeys[keyIndex] : null;
     }
@@ -462,13 +464,13 @@ class PointerTracker {
     private void detectAndSendKey(int index, int x, int y, long eventTime) {
         final OnKeyboardActionListener listener = mListener;
         final Key key = getKey(index);
-        boolean isShifted = mKeyDetector.isKeyShifted(key);
 
         if (key == null) {
             if (listener != null) {
                 listener.onCancel();
             }
         } else {
+            boolean isShifted = mKeyDetector.isKeyShifted(key);
             if ((key.typedText != null && !isShifted)
                     || (key.shiftedTypedText != null && isShifted)) {
                 if (listener != null) {
