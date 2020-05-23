@@ -128,6 +128,12 @@
         </module>
 
         <module name="RegexpSinglelineJava">
+            <property name="id" value="DoNotUseThreadDump" />
+            <property name="format" value="Thread\.dumpStack" />
+            <property name="message" value="Do not use dumpStack method, is looks like debug code." />
+        </module>
+
+        <module name="RegexpSinglelineJava">
             <property name="id" value="ObserveOnMainThread" />
             <property name="format" value="\.observeOn\(RxSchedulers\.background\(\)\)" />
             <property name="message" value="Did you mean to observe on main-thread" />
