@@ -40,18 +40,6 @@ jobs:
           publish_service_account_creds_json_url: ${{ secrets.PUBLISH_CERT_JSON_URL }}
       - name: status-success
         run: ./gradlew --stacktrace :deployment:updateDeploymentSuccess -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.sha="${{ github.event.deployment.sha }}"
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.4
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Deployment Halt'
-          title: 'Automated Deployment Halt'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          body: ''
-          team-reviewers: add-on-maintainers
-          branch: 'bot-pr/halt-deployment-marker'
-          labels: automerge
       - name: status-failure
         if: failure()
         run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
