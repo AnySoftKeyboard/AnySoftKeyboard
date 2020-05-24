@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
-    <Keyboard nameResId="@string/nias_keyboard"
-        description="@string/nias_keyboard_description"
-        layoutResId="@xml/nias_keyboard"
+    <Keyboard nameResId="@string/nias_qwerty"
+        description="@string/nias_qwerty_description"
+        layoutResId="@xml/nias_qwerty"
         iconResId="@drawable/ic_status_nias"
         id="05706826-370f-4178-bb48-56f1043bc35a"
         defaultDictionaryLocale="nia"
