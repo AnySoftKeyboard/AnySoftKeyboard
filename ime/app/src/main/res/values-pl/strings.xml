@@ -136,6 +136,7 @@
     <string name="fullscreen_input_connection_supported">Pełny ekran w poziomie</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nie używaj pełnoekranowego wprowadzania w pozycji poziomej</string>
     <string name="fullscreen_portrait_input_connection_supported">Pełny ekran w pionie</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Nie uzupełniaj ekranu w trybie portretowym</string>
     <string name="backword_support">Obsługa cofnij-słowo</string>
     <string name="backword_support_on_summary">Backspace z shiftem usunie ostatni wyraz</string>
     <string name="backword_support_off_summary">Backspace z shiftem usunie ostatni znak</string>
@@ -168,6 +169,7 @@
     <string name="swipe_action_name_cycle_keyboards">Kolejno po wszystkich klawiaturach</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Odwrotnie kolejno po klawiaturach</string>
     <string name="swipe_action_name_shift">Klawisz shift</string>
+    <string name="swipe_action_name_space">Spacja</string>
     <string name="swipe_action_name_hide">Ukryj klawiaturę</string>
     <string name="swipe_action_name_backspace">Klawisz backspace</string>
     <string name="swipe_action_name_backword">Cofnij słowo</string>
@@ -369,6 +371,7 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="extension_kbd_top_nav">Klawisze nawigacyjne</string>
     <string name="extension_kbd_top_numbers_simple">Uproszczone klawisze numeryczne</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Tryb szybkiej edycji tekstu</string>
     <string name="extension_kbd_bottom_regular_with_voice">Zwykły</string>
     <string name="extension_kbd_bottom_regular">Klasyczny (bez mikrofonu)</string>
     <string name="extension_kbd_bottom_iphone">styl iPhone (bez mikrofonu)</string>
@@ -377,6 +380,7 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternatywny z mikrofonem</string>
     <string name="extension_kbd_bottom_ng">Nowa Generacja - Test</string>
     <string name="extension_kbd_extension_numbers_symbols">Cyfry i znaki</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimalny (bez emotek)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Przejdź</string>
@@ -393,6 +397,7 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="select_keyboard_popup_title">Wybierz klawiaturę</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Klawisz buźki</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Historia</string>
     <string name="default_quick_text_key_name">Proste Emotikony</string>
     <string name="unicode_quick_text_key_name">Emotikony</string>
@@ -442,6 +447,14 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Edytor skrótów</string>
     <string name="abbreviation_dict_editor">Edytor skrótów</string>
+    <string name="abbreviation_dict_word_template">        <i>
+            <xliff:g id="abbreviation">%s</xliff:g>
+        </i>
+        \u0020\u2192\u0020
+        <i>
+            <xliff:g id="target">%s</xliff:g>
+        </i>
+    </string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
@@ -504,7 +517,9 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="setup_wizard_step_three_action_languages">Instaluj języki…</string>
     <string name="setup_wizard_step_three_action_themes">Wybierz motyw…</string>
     <string name="setup_wizard_step_three_action_all_settings">Konfiguruj całą resztę…</string>
+    <string name="setup_wizard_step_download_title">Pobierz pakiety językowe</string>
     <string name="setup_wizard_step_download_action">Pobierz pliki języka</string>
+    <string name="setup_wizard_step_download_skip_action">Pomiń</string>
     <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>
     <string name="ime_crashed_sub_text">Ups, nie przewidziałem tego…</string>
     <string name="ime_crashed_ticker">Ups, AnySoftKeyboard napotkał błąd, którego nie przewidziałem…</string>
@@ -519,6 +534,14 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="next_words_statistics_no_usage">Brak użycia. Napisz nieco więcej.</string>
     <string name="clipboard_is_empty_toast">Nie ma co wkleić - schowek jest pusty.</string>
     <string name="clipboard_copy_done_toast">Skopiowano zaznaczony tekst do schowka.</string>
+    <string name="allow_permission">Zezwól</string>
+    <string name="app_shortcut_keyboards_short_label">Klawiatury</string>
+    <string name="app_shortcut_themes_short_label">Motywy</string>
+    <string name="app_shortcut_gestures_short_label">Gesty</string>
+    <string name="read_our_privacy_policy">Przeczytaj naszą Politykę Prywatności…</string>
+    <string name="visit_our_web_site">Odwiedź naszą stronę…</string>
+    <string name="no_internet_fields_specific_layout">Brak</string>
+    <string name="bottom_nav_home">Witaj</string>
     <string name="abbreviation_dict_prefs_provider">Skróty</string>
     <string name="gesture_typing_action">Włącz pisanie gestami [BETA]</string>
     <string name="gesture_typing_alert_title">Funkcja w wersji BETA!</string>
