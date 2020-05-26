@@ -223,6 +223,7 @@
     <string name="swipe_action_name_reverse_cycle_keyboards">پێچەوانەی دووبارەکردنەوەی تەختەکلیلەکان
     </string>
     <string name="swipe_action_name_shift">گەورەکردن (شێفت)</string>
+    <string name="swipe_action_name_space">بۆشایی</string>
     <string name="swipe_action_name_hide">شاردنەوەی تەختەکلیل</string>
     <string name="swipe_action_name_backspace">سڕینەوەی نووسین</string>
     <string name="swipe_action_name_backword">سڕینەوەی ووشە</string>
@@ -470,6 +471,7 @@
     <string name="extension_kbd_top_numbers_alt">ژمارەکان (ئینگلیزی)</string>
     <string name="extension_kbd_top_nav">دەنگ و ئاڕاستەکان</string>
     <string name="extension_kbd_top_nav_alt">شێوازی تایبەتی دوگمەکان</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">دوگمەی ئاڕاستەکان، بەبێ ژمارە</string>
     <string name="extension_kbd_top_numbers_simple">هێما و نیشانەکان</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_top_text_editing">دەستکاریکردنی خێرای دەق</string>
