@@ -4,7 +4,7 @@
         description="@string/nias_qwerty_description"
         layoutResId="@xml/nias_qwerty"
         iconResId="@drawable/ic_status_nias"
-        id="05706826-370f-4178-bb48-56f1043bc35a"
+        id="da2f8fc4-cc9c-4990-8f8d-57ef1e97cf0d"
         defaultDictionaryLocale="nia"
         index="1" />
     <Keyboard nameResId="@string/nias_compact"
@@ -14,5 +14,12 @@
         id="3587e42e-389f-4240-a754-f37231f5912e"
         defaultDictionaryLocale="nia"
         index="2" />
+    <Keyboard nameResId="@string/nias_keyboard"
+        description="@string/nias_keyboard_description"
+        layoutResId="@xml/nias_keyboard"
+        iconResId="@drawable/ic_status_nias"
+        id="05706826-370f-4178-bb48-56f1043bc35a"
+        defaultDictionaryLocale="nia"
+        index="3" />
 </Keyboards>
 
