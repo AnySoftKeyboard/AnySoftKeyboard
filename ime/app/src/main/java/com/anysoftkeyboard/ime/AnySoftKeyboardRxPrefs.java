@@ -54,7 +54,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                                         LocaleTools.applyLocaleToContext(
                                                 getApplicationContext(), forceLocaleValue),
                                 GenericOnError.onError("settings_key_force_locale")));
-        
+
         addDisposable(
                 mRxPrefs.getBoolean(
                                 R.string.settings_key_auto_space,
@@ -63,7 +63,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                         .subscribe(
                                 value -> mPrefsAutoSpace = value,
                                 GenericOnError.onError("settings_key_auto_space")));
-                                
+
         addDisposable(
                 mRxPrefs.getBoolean(
                                 R.string.settings_key_auto_space_after_comma,
