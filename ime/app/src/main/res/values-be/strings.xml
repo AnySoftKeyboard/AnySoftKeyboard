@@ -174,6 +174,7 @@
     <string name="swipe_action_name_cycle_keyboards">Цыкл праз усе клавіятуры</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Цыкл праз усе клавіятуры ў зваротным парадку</string>
     <string name="swipe_action_name_shift">Верхні рэгістр</string>
+    <string name="swipe_action_name_space">Прабел</string>
     <string name="swipe_action_name_hide">Cхаваць клавіятуру</string>
     <string name="swipe_action_name_backspace">Вярнуць</string>
     <string name="swipe_action_name_backword">Выдаліць апошняе слова</string>
