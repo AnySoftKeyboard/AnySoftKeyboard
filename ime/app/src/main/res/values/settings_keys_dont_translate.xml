@@ -61,7 +61,7 @@
     <string name="settings_key_quick_text_history">HistoryQuickTextKey_encoded_history_key</string>
 
     <string name="settings_key_auto_space">insert_space_after_word_suggestion_selection</string>
-
+    <string name="settings_key_auto_space_after_comma">insert_space_after_comma</string>
     <string name="settings_key_emoticon_default_text">settings_key_emoticon_default_text</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
 

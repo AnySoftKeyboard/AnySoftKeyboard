@@ -415,6 +415,9 @@
         suggestion select
     </string>
     <string name="insert_space_after_word_suggestion_selection_off_summary"/>
+    <string name="insert_space_after_comma">Space after comma</string>
+    <string name="insert_space_after_comma_on_summary">Insert space after comma</string>
+    <string name="insert_space_after_comma_off_summary">Do not insert space after comma</string>
     <string name="double_space_to_period">Double space to period</string>
     <string name="double_space_to_period_summary">Double space tap will become period+space</string>
     <string name="tweak_animations_level_title">Animations</string>

@@ -76,6 +76,14 @@
             android:title="@string/insert_space_after_word_suggestion_selection"/>
 
         <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="insert_space_after_comma"
+            android:persistent="true"
+            android:summaryOff="@string/insert_space_after_comma_off_summary"
+            android:summaryOn="@string/insert_space_after_comma_on_summary"
+            android:title="@string/insert_space_after_comma"/>
+        
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_cycle_all_symbols"
             android:key="@string/settings_key_cycle_all_symbols"
             android:persistent="true"

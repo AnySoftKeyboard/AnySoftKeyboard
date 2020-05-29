@@ -309,6 +309,9 @@
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insérer une espace après le mot suggéré sélectionné</string>
     <string name="double_space_to_period">Appui double sur Espace devient point+espace</string>
     <string name="double_space_to_period_summary">Appui double sur Espace pour afficher point+espace</string>
+    <string name="insert_space_after_comma">Espace après une virgule</string>
+    <string name="insert_space_after_comma_on_summary">Insérer une espace après une virgule</string>
+    <string name="insert_space_after_comma_off_summary">Ne pas insérer d\'espace après une virgule</string>
     <string name="tweak_animations_level_title">Animations</string>
     <string name="tweak_animations_level_summary">Combien d\'animations doivent être utilisées. Actuellement : %s</string>
     <string name="tweak_animations_level_types_full">Toutes</string>

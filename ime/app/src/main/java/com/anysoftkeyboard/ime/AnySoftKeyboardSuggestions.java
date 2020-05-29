@@ -736,6 +736,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             }
         }
 
+        if (ic != null) {
+            if (mPrefsAutoSpaceAfterComma && primaryCode == KeyCodes.COMMA) {
+                    // current text in the input-box should be something like "you,"
+                    // into "you,"->"you, "
+                    sendKeyChar(' ');
+            }
+        }
+        
         markExpectingSelectionUpdate();
 
         if (ic != null) {

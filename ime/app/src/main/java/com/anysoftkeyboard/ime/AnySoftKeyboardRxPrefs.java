@@ -24,6 +24,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                     (sharedPreferences, key) -> onSharedPreferenceChange(key);
 
     protected boolean mPrefsAutoSpace;
+    protected boolean mPrefsAutoSpaceAfterComma;
     protected boolean mHideKeyboardWhenPhysicalKeyboardUsed;
     protected boolean mUseFullScreenInputInLandscape;
     protected boolean mUseFullScreenInputInPortrait;
@@ -53,6 +54,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                                         LocaleTools.applyLocaleToContext(
                                                 getApplicationContext(), forceLocaleValue),
                                 GenericOnError.onError("settings_key_force_locale")));
+        
         addDisposable(
                 mRxPrefs.getBoolean(
                                 R.string.settings_key_auto_space,
@@ -61,6 +63,16 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                         .subscribe(
                                 value -> mPrefsAutoSpace = value,
                                 GenericOnError.onError("settings_key_auto_space")));
+                                
+        addDisposable(
+                mRxPrefs.getBoolean(
+                                R.string.settings_key_auto_space_after_comma,
+                                R.bool.settings_default_auto_space)
+                        .asObservable()
+                        .subscribe(
+                                value -> mPrefsAutoSpaceAfterComma = value,
+                                GenericOnError.onError("settings_key_auto_space_after_comma")));
+
         addDisposable(
                 mRxPrefs.getBoolean(
                                 R.string.settings_key_hide_soft_when_physical,

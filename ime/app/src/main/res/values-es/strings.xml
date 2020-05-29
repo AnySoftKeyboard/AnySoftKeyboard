@@ -308,6 +308,9 @@
     <string name="double_space_to_period_summary">Pulsación doble de espacio se convertirá en punto+espacio</string>
     <string name="tweak_animations_level_title">Animaciones</string>
     <string name="tweak_animations_level_summary">Cuántas animaciones se deben utilizar. Actualmente: %s</string>
+    <string name="insert_space_after_comma">Espacio después de una coma</string>
+    <string name="insert_space_after_comma_on_summary">Inserte un espacio después de una coma</string>
+    <string name="insert_space_after_comma_off_summary">No inserte un espacio después de una coma</string>
     <string name="tweak_animations_level_types_full">Todas</string>
     <string name="tweak_animations_level_types_some">Algunas</string>
     <string name="tweak_animations_level_types_none">Ninguna</string>
