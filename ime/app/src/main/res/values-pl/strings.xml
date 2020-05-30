@@ -134,15 +134,19 @@
     <string name="enable_shift_space_language_shortcut_on_summary">Zmień layout po wciśnięciu Shift + Spacja na klawiaturze sprzętowej.</string>
     <string name="enable_shift_space_language_shortcut_off_summary">Wstaw spację po wciśnięciu Shift + Spacja na klawiaturze sprzętowej.</string>
     <string name="fullscreen_input_connection_supported">Pełny ekran w poziomie</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Pełnoekranowy edytor podczas pisania w orientacji poziomej</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nie używaj pełnoekranowego wprowadzania w pozycji poziomej</string>
     <string name="fullscreen_portrait_input_connection_supported">Pełny ekran w pionie</string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Nie uzupełniaj ekranu w trybie portretowym</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Pełnoekranowy edytor podczas pisania w orientacji pionowej</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Nie wypełniaj ekranu w trybie portretowym</string>
     <string name="backword_support">Obsługa cofnij-słowo</string>
     <string name="backword_support_on_summary">Backspace z shiftem usunie ostatni wyraz</string>
     <string name="backword_support_off_summary">Backspace z shiftem usunie ostatni znak</string>
     <string name="swipe_up_action">Przesuń w górę</string>
+    <string name="swipe_up_action_summary">Wybierz czynność po geście przesunięcia w górę. Bieżąco, %s</string>
     <string name="swipe_up_action_title">Wybierz akcję w górę</string>
     <string name="swipe_up_from_spacebar_action">Przesuń spację w górę</string>
+    <string name="swipe_up_from_spacebar_action_summary">Wybierz czynność po geście przesunięcia w górę od klawisza spacji. Bieżąco, %s</string>
     <string name="swipe_up_from_spacebar_action_title">Wybierz akcję w górę od spacji</string>
     <string name="swipe_down_action">Przesuń w dół</string>
     <string name="swipe_down_action_summary">Wybierz czynność po geście przesunięcia w dół. Bieżąco, %s</string>
@@ -380,6 +384,7 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternatywny z mikrofonem</string>
     <string name="extension_kbd_bottom_ng">Nowa Generacja - Test</string>
     <string name="extension_kbd_extension_numbers_symbols">Cyfry i znaki</string>
+    <string name="extension_kbd_bottom_minimal">Minimalistyczny</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalny (bez emotek)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
@@ -479,6 +484,15 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="initial_quick_text_tab_always_first_tab">Zawsze zaczynaj od pierwszej</string>
     <string name="initial_quick_text_tab_last_used_tab">Zacznij ostatnio używaną grupą</string>
     <string name="initial_quick_text_tab_history_tab">Zacznij grupą Historia</string>
+    <string name="emoji_default_skin_tone_title">Domyślny kolor skóry dla Emoji</string>
+    <string name="emoji_default_skin_tone_summary">Domyślny kolor skóry dla emoji: %s</string>
+    <string name="emoji_default_skin_tone_value_generic">Domyślny</string>
+    <string name="emoji_default_skin_tone_value_type_2">Jasny</string>
+    <string name="emoji_default_skin_tone_value_type_3">Średnio-jasny</string>
+    <string name="emoji_default_skin_tone_value_type_4">Średni</string>
+    <string name="emoji_default_skin_tone_value_type_5">Średnio-ciemny</string>
+    <string name="emoji_default_skin_tone_value_type_6">Ciemny</string>
+    <string name="emoji_default_skin_tone_value_random_type">Losowy</string>
     <string name="developer_tools">Narzędzia dla deweloperów</string>
     <string name="click_for_developer_features">Narzędzia dla deweloperów</string>
     <string name="click_for_developer_features_summary">Różne narzędzia dla deweloperów AnySoftKeyboard</string>
@@ -535,9 +549,13 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     <string name="clipboard_is_empty_toast">Nie ma co wkleić - schowek jest pusty.</string>
     <string name="clipboard_copy_done_toast">Skopiowano zaznaczony tekst do schowka.</string>
     <string name="allow_permission">Zezwól</string>
+    <string name="app_shortcut_keyboards_long_label">Wybierz układy klawiatury, których chcesz używać</string>
     <string name="app_shortcut_keyboards_short_label">Klawiatury</string>
+    <string name="app_shortcut_themes_long_label">Wybierz motyw</string>
     <string name="app_shortcut_themes_short_label">Motywy</string>
     <string name="app_shortcut_gestures_short_label">Gesty</string>
+    <string name="app_shortcut_quick_keys_long_label">Dostosuj Emoji</string>
+    <string name="app_shortcut_quick_keys_short_label">Dostosuj Emoji</string>
     <string name="read_our_privacy_policy">Przeczytaj naszą Politykę Prywatności…</string>
     <string name="visit_our_web_site">Odwiedź naszą stronę…</string>
     <string name="no_internet_fields_specific_layout">Brak</string>
