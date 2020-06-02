@@ -1,10 +1,10 @@
 <resources>
     <string name="nias_dictionary">Nias</string>
-    <string name="nias_dictionary_description">Kamus Nias koleksi Sirus Laia</string>
-    <string name="nias_qwerty">Nias Standar</string>
-    <string name="nias_qwerty_description">Standar</string>
-    <string name="nias_keyboard">Nias Ekstra</string>
-    <string name="nias_keyboard_description">Ekstra</string>
-    <string name="nias_compact">Nias Kompak</string>
-    <string name="nias_compact_description">Kompak</string>
+    <string name="nias_dictionary_description">Bahasa Nias</string>
+    <string name="nias_qwerty">Nias Standard</string>
+    <string name="nias_qwerty_description">Keyboard standar</string>
+    <string name="nias_ekstra">Nias Extra</string>
+    <string name="nias_ekstra_description">Dengan huruf ŵ dan ö</string>
+    <string name="nias_compact">Nias Compact</string>
+    <string name="nias_compact_description">Untuk layar kecil</string>
 </resources>
