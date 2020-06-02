@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="20%p">
-    
     <Row>
         <Key android:codes="113,119" android:keyLabel="qw" android:popupCharacters="q" android:keyEdgeFlags="left"/>
         <Key android:codes="101,114" android:keyLabel="er"/>
@@ -25,5 +23,4 @@
         <Key android:keyWidth="15%p" android:codes="109,373" android:keyLabel="mŵ"/>
         <Key android:horizontalGap="5%p" android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
-
 </Keyboard>
