@@ -114,7 +114,7 @@ public class EditorWordsAdapter
     /*package*/ abstract class EditorWordViewHolder extends RecyclerView.ViewHolder {
         private UserDictionaryEditorFragment.LoadedWord mWord;
 
-        public EditorWordViewHolder(View itemView) {
+        protected EditorWordViewHolder(View itemView) {
             super(itemView);
         }
 

@@ -48,7 +48,7 @@ import java.util.Set;
 
 public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fragment {
 
-    private final Set<CharSequence> mEnabledAddOnsIds = new HashSet<>();
+    private final Set<String> mEnabledAddOnsIds = new HashSet<>();
     @NonNull private final String mLogTag;
     @StringRes private final int mFragmentTitleResId;
     private final boolean mIsSingleSelection;

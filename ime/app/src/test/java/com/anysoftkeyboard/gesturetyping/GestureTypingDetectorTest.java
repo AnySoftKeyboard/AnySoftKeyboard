@@ -111,7 +111,7 @@ public class GestureTypingDetectorTest {
 
         generatePointsStreamOfKeysString("helo")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
-        final ArrayList<CharSequence> candidates = mDetectorUnderTest.getCandidates();
+        final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
         // "harp" is removed due to MAX_SUGGESTIONS limit
@@ -134,7 +134,7 @@ public class GestureTypingDetectorTest {
 
         generatePointsStreamOfKeysString("help")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
-        final ArrayList<CharSequence> candidates = mDetectorUnderTest.getCandidates();
+        final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
         Assert.assertEquals("help", candidates.get(0));
@@ -145,7 +145,6 @@ public class GestureTypingDetectorTest {
 
     @Test
     public void testFilterOutWordsThatDoNotStartsWithFirstPress() {
-        final ArrayList<CharSequence> candidates = new ArrayList<>();
         Robolectric.flushBackgroundThreadScheduler();
         Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
 
@@ -153,7 +152,7 @@ public class GestureTypingDetectorTest {
 
         generatePointsStreamOfKeysString("to")
                 .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
-        candidates.addAll(mDetectorUnderTest.getCandidates());
+        final ArrayList<String> candidates = new ArrayList<>(mDetectorUnderTest.getCandidates());
 
         Assert.assertEquals(0, candidates.size());
 

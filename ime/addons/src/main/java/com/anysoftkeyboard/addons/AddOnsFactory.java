@@ -77,12 +77,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private final String mReceiverMetaData;
 
     final ArrayList<E> mAddOns = new ArrayList<>();
-    final HashMap<CharSequence, E> mAddOnsById = new HashMap<>();
+    final HashMap<String, E> mAddOnsById = new HashMap<>();
     private final boolean mReadExternalPacksToo;
     private final String mRootNodeTag;
     private final String mAddonNodeTag;
     @XmlRes private final int mBuildInAddOnsResId;
-    final CharSequence mDefaultAddOnId;
+    final String mDefaultAddOnId;
     private final boolean mDevAddOnsIncluded;
 
     // NOTE: this should only be used when interacting with shared-prefs!
@@ -114,7 +114,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
         mBuildInAddOnsResId = buildInAddonResId;
         mReadExternalPacksToo = readExternalPacksToo;
         mDevAddOnsIncluded = isDebugBuild;
-        mDefaultAddOnId = defaultAddOnStringId == 0 ? null : context.getText(defaultAddOnStringId);
+        mDefaultAddOnId =
+                defaultAddOnStringId == 0 ? null : context.getString(defaultAddOnStringId);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
@@ -155,9 +156,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     public final List<E> getEnabledAddOns() {
-        List<CharSequence> enabledIds = getEnabledIds();
+        List<String> enabledIds = getEnabledIds();
         List<E> addOns = new ArrayList<>(enabledIds.size());
-        for (CharSequence enabledId : enabledIds) {
+        for (String enabledId : enabledIds) {
             E addOn = getAddOnById(enabledId);
             if (addOn != null) addOns.add(addOn);
         }
@@ -165,19 +166,19 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return Collections.unmodifiableList(addOns);
     }
 
-    public boolean isAddOnEnabled(CharSequence addOnId) {
+    public boolean isAddOnEnabled(String addOnId) {
         return mSharedPreferences.getBoolean(
                 mPrefIdPrefix + addOnId, isAddOnEnabledByDefault(addOnId));
     }
 
     final void setAddOnEnableValueInPrefs(
-            SharedPreferences.Editor editor, CharSequence addOnId, boolean enabled) {
+            SharedPreferences.Editor editor, String addOnId, boolean enabled) {
         editor.putBoolean(mPrefIdPrefix + addOnId, enabled);
     }
 
-    public abstract void setAddOnEnabled(CharSequence addOnId, boolean enabled);
+    public abstract void setAddOnEnabled(String addOnId, boolean enabled);
 
-    protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+    protected boolean isAddOnEnabledByDefault(@NonNull String addOnId) {
         return false;
     }
 
@@ -185,10 +186,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return getEnabledAddOns().get(0);
     }
 
-    public final synchronized List<CharSequence> getEnabledIds() {
-        ArrayList<CharSequence> enabledIds = new ArrayList<>();
+    public final synchronized List<String> getEnabledIds() {
+        ArrayList<String> enabledIds = new ArrayList<>();
         for (E addOn : getAllAddOns()) {
-            final CharSequence addOnId = addOn.getId();
+            final String addOnId = addOn.getId();
             if (isAddOnEnabled(addOnId)) enabledIds.add(addOnId);
         }
 
@@ -297,7 +298,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         mAddOnsById.clear();
     }
 
-    public synchronized E getAddOnById(CharSequence id) {
+    public synchronized E getAddOnById(String id) {
         if (mAddOnsById.size() == 0) {
             loadAddOns();
         }
@@ -578,13 +579,13 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
 
         @Override
-        public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {
+        public void setAddOnEnabled(String addOnId, boolean enabled) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             if (enabled) {
                 // ensuring addons are loaded.
                 getAllAddOns();
                 // disable any other addon
-                for (CharSequence otherAddOnId : mAddOnsById.keySet()) {
+                for (String otherAddOnId : mAddOnsById.keySet()) {
                     setAddOnEnableValueInPrefs(
                             editor, otherAddOnId, TextUtils.equals(otherAddOnId, addOnId));
                 }
@@ -632,7 +633,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
 
         public final void setAddOnsOrder(Collection<E> addOnsOr) {
-            List<CharSequence> ids = new ArrayList<>(addOnsOr.size());
+            List<String> ids = new ArrayList<>(addOnsOr.size());
             for (E addOn : addOnsOr) {
                 ids.add(addOn.getId());
             }
@@ -640,11 +641,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
             setAddOnIdsOrder(ids);
         }
 
-        public final void setAddOnIdsOrder(Collection<CharSequence> enabledAddOnIds) {
-            Set<CharSequence> storedKeys = new HashSet<>();
+        public final void setAddOnIdsOrder(Collection<String> enabledAddOnIds) {
+            Set<String> storedKeys = new HashSet<>();
             StringBuilder orderValue = new StringBuilder();
             int currentOrderIndex = 0;
-            for (CharSequence id : enabledAddOnIds) {
+            for (String id : enabledAddOnIds) {
                 // adding each once.
                 if (!storedKeys.contains(id)) {
                     storedKeys.add(id);
@@ -686,16 +687,16 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
 
         @Override
-        public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {
+        public void setAddOnEnabled(String addOnId, boolean enabled) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             setAddOnEnableValueInPrefs(editor, addOnId, enabled);
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
 
         @Override
-        protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+        protected boolean isAddOnEnabledByDefault(@NonNull String addOnId) {
             return super.isAddOnEnabledByDefault(addOnId)
-                    || TextUtils.equals(mDefaultAddOnId, addOnId.toString());
+                    || TextUtils.equals(mDefaultAddOnId, addOnId);
         }
     }
 }

@@ -139,7 +139,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     }
 
     @Override
-    protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+    protected boolean isAddOnEnabledByDefault(@NonNull String addOnId) {
         final KeyboardAddOnAndBuilder addOnById = getAddOnById(addOnId);
         return super.isAddOnEnabledByDefault(addOnId)
                 || (addOnById != null && addOnById.getKeyboardDefaultEnabled());

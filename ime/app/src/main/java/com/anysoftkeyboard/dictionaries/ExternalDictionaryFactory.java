@@ -100,17 +100,17 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
 
     @Override
-    protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+    protected boolean isAddOnEnabledByDefault(@NonNull String addOnId) {
         return true;
     }
 
     @Override
-    public boolean isAddOnEnabled(CharSequence addOnId) {
+    public boolean isAddOnEnabled(String addOnId) {
         return true;
     }
 
     @Override
-    public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {
+    public void setAddOnEnabled(String addOnId, boolean enabled) {
         throw new UnsupportedOperationException("This is not supported for dictionaries.");
     }
 

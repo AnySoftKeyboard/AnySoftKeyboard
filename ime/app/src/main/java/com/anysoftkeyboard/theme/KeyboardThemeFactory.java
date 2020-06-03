@@ -37,7 +37,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
     private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE =
             "popupIconsThemeRes";
     public static final String PREF_ID_PREFIX = "theme_";
-    private final CharSequence mFallbackThemeId;
+    private final String mFallbackThemeId;
 
     public KeyboardThemeFactory(@NonNull Context context) {
         super(
@@ -52,7 +52,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
                 R.string.settings_default_keyboard_theme_key,
                 true,
                 BuildConfig.TESTING_BUILD);
-        mFallbackThemeId = mContext.getText(R.string.fallback_keyboard_theme_id);
+        mFallbackThemeId = mContext.getString(R.string.fallback_keyboard_theme_id);
     }
 
     public KeyboardTheme getFallbackTheme() {
