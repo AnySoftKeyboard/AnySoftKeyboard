@@ -55,9 +55,8 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
     private static final int INDEX_NAME = 1;
     private static final int INDEX_STARRED = 2;
     private static final int INDEX_TIMES = 3;
-    private final Map<CharSequence, String[]> mNextNameParts = new ArrayMap<>();
-    private final Map<CharSequence, Map<CharSequence, NextWord>> mLoadingPhaseNextNames =
-            new ArrayMap<>();
+    private final Map<String, String[]> mNextNameParts = new ArrayMap<>();
+    private final Map<String, Map<String, NextWord>> mLoadingPhaseNextNames = new ArrayMap<>();
 
     public ContactsDictionary(Context context) {
         super("ContactsDictionary", context);
@@ -75,9 +74,8 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
         super.loadAllResources();
         mNextNameParts.clear();
         // converting the loaded NextWord into a simple, static array
-        for (Map.Entry<CharSequence, Map<CharSequence, NextWord>> entry :
-                mLoadingPhaseNextNames.entrySet()) {
-            final CharSequence firstWord = entry.getKey();
+        for (Map.Entry<String, Map<String, NextWord>> entry : mLoadingPhaseNextNames.entrySet()) {
+            final String firstWord = entry.getKey();
             List<NextWord> nextWordList = new ArrayList<>(entry.getValue().values());
             Collections.sort(nextWordList, new NextWord.NextWordComparator());
             String[] nextParts = new String[nextWordList.size()];
@@ -185,7 +183,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
                 if (namePartLength < MAX_WORD_LENGTH && namePartLength > 1) {
                     // adding to next-namePart dictionary
                     if (previousNamePart != null) {
-                        Map<CharSequence, NextWord> nextWords;
+                        Map<String, NextWord> nextWords;
                         if (mLoadingPhaseNextNames.containsKey(previousNamePart)) {
                             nextWords = mLoadingPhaseNextNames.get(previousNamePart);
                         } else {
@@ -225,14 +223,14 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
     }
 
     @Override
-    public void notifyNextTypedWord(@NonNull CharSequence currentWord) {
+    public void notifyNextTypedWord(@NonNull String currentWord) {
         /*not learning in this dictionary*/
     }
 
     @Override
     @NonNull
     public Iterable<String> getNextWords(
-            @NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
+            @NonNull String currentWord, int maxResults, int minWordUsage) {
         if (mNextNameParts.containsKey(currentWord)) {
             return Arrays.asList(mNextNameParts.get(currentWord));
         } else {

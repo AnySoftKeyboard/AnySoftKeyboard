@@ -30,7 +30,7 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     private static final int ABBR_MAX_WORD_LENGTH = 2048;
     public static final String ABBREVIATIONS_DB = "abbreviations.db";
 
-    private final Map<CharSequence, List<String>> mAbbreviationsMap = new HashMap<>();
+    private final Map<String, List<String>> mAbbreviationsMap = new HashMap<>();
 
     public AbbreviationsDictionary(Context context, String locale) {
         super("AbbreviationsDictionary", context, locale);

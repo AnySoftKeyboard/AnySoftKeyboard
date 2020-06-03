@@ -45,7 +45,7 @@ public class KeyboardAddOnTest {
         List<KeyboardAddOnAndBuilder> allAvailableKeyboards =
                 AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
 
-        Map<CharSequence, Boolean> keyboardsEnabled = new HashMap<>();
+        Map<String, Boolean> keyboardsEnabled = new HashMap<>();
         for (KeyboardAddOnAndBuilder addOnAndBuilder : allAvailableKeyboards) {
             keyboardsEnabled.put(
                     addOnAndBuilder.getId(), addOnAndBuilder.getKeyboardDefaultEnabled());

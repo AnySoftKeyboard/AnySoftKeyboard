@@ -260,7 +260,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertTrue(
                 originalOverlayDataCreator
-                        instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
+                        instanceof AnySoftKeyboardThemeOverlay.ToggleOverlayCreator);
 
         final OverlayData normal =
                 originalOverlayDataCreator.createOverlayData(
@@ -330,7 +330,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertTrue(
                 originalOverlayDataCreator
-                        instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
+                        instanceof AnySoftKeyboardThemeOverlay.ToggleOverlayCreator);
 
         final OverlayData normal =
                 originalOverlayDataCreator.createOverlayData(

@@ -29,7 +29,7 @@ public class GestureTypingDetector {
     // How far away do two points of the gesture have to be (distance squared)?
     private final int mMinPointDistanceSquared;
 
-    private final ArrayList<CharSequence> mCandidates;
+    private final ArrayList<String> mCandidates;
     private final double mFrequencyFactor;
 
     private final ArrayList<Double> mCandidateWeights;
@@ -274,7 +274,7 @@ public class GestureTypingDetector {
         return radianValue <= CURVATURE_THRESHOLD;
     }
 
-    public ArrayList<CharSequence> getCandidates() {
+    public ArrayList<String> getCandidates() {
         mCandidates.clear();
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) {
             return mCandidates;

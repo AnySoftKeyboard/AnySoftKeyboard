@@ -128,7 +128,7 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
     }
 
     @Override
-    protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+    protected boolean isAddOnEnabledByDefault(@NonNull String addOnId) {
         return true; // all quick-text addons are enabled by default.
     }
 }

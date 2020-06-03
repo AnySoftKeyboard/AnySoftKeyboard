@@ -4,10 +4,9 @@ import android.support.annotation.NonNull;
 
 public interface NextWordSuggestions {
     @NonNull
-    Iterable<String> getNextWords(
-            @NonNull CharSequence currentWord, int maxResults, int minWordUsage);
+    Iterable<String> getNextWords(@NonNull String currentWord, int maxResults, int minWordUsage);
 
-    void notifyNextTypedWord(@NonNull CharSequence currentWord);
+    void notifyNextTypedWord(@NonNull String currentWord);
 
     void resetSentence();
 }

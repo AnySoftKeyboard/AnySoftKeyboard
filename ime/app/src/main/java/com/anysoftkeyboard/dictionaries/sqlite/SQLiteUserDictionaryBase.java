@@ -51,14 +51,16 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
             try {
                 mStorage.close();
             } catch (SQLiteException swallow) {
+                Logger.w(
+                        TAG,
+                        "Caught an SQL exception while closing database (message: '%s').",
+                        swallow.getMessage());
             }
             Logger.w(
                     TAG,
-                    "Caught an SQL exception while read database (message: '"
-                            + e.getMessage()
-                            + "'). I'll delete the database '"
-                            + dbFile
-                            + "'...");
+                    "Caught an SQL exception while read database (message: '%s'). I'll delete the database '%s'...",
+                    e.getMessage(),
+                    dbFile);
             try {
                 mContext.deleteDatabase(dbFile);
             } catch (Exception okToFailEx) {

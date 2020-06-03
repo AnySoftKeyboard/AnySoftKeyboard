@@ -30,11 +30,7 @@ public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMi
 
     private AnimationsLevel mCurrentAnimationLevel;
 
-    public AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs, int defStyle) {
+    protected AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mDisposables.add(mAnimationLevelSubject.subscribe(value -> mCurrentAnimationLevel = value));
     }

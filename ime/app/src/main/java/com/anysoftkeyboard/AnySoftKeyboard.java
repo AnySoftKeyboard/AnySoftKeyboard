@@ -46,7 +46,7 @@ import com.anysoftkeyboard.ime.AnySoftKeyboardColorizeNavBar;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
@@ -90,7 +90,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
-    public AnySoftKeyboard() {
+    protected AnySoftKeyboard() {
         super();
     }
 
@@ -373,7 +373,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         updateShiftStateNow();
     }
 
-    private void onFunctionKey(final int primaryCode, final Key key, final boolean fromUI) {
+    private void onFunctionKey(
+            final int primaryCode, final Keyboard.Key key, final boolean fromUI) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -609,7 +610,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void onNonFunctionKey(
             final int primaryCode,
-            final Key key,
+            final Keyboard.Key key,
             final int multiTapIndex,
             final int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onNonFunctionKey %d", primaryCode);
@@ -690,7 +691,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     @Override
     public void onKey(
-            int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
         if (primaryCode > 0) {

@@ -21,7 +21,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase.KeyPressTimingHandler;
 import java.util.Locale;
 
@@ -37,7 +37,7 @@ class PointerTracker {
     interface UIProxy {
         boolean isAtTwoFingersState();
 
-        void invalidateKey(Key key);
+        void invalidateKey(Keyboard.Key key);
 
         void showPreview(int keyIndex, PointerTracker tracker);
 
@@ -54,7 +54,7 @@ class PointerTracker {
     private final KeyDetector mKeyDetector;
     private OnKeyboardActionListener mListener;
 
-    private Key[] mKeys;
+    private Keyboard.Key[] mKeys;
     private int mKeyHysteresisDistanceSquared = -1;
 
     private final KeyState mKeyState;
@@ -165,7 +165,7 @@ class PointerTracker {
         mListener = listener;
     }
 
-    public void setKeyboard(Key[] keys, float keyHysteresisDistance) {
+    public void setKeyboard(Keyboard.Key[] keys, float keyHysteresisDistance) {
         if (keys == null || keyHysteresisDistance < 0) throw new IllegalArgumentException();
 
         mKeys = keys;
@@ -179,12 +179,12 @@ class PointerTracker {
     }
 
     @Nullable
-    public Key getKey(int keyIndex) {
+    public Keyboard.Key getKey(int keyIndex) {
         return isValidKeyIndex(keyIndex) ? mKeys[keyIndex] : null;
     }
 
     private boolean isModifierInternal(int keyIndex) {
-        Key key = getKey(keyIndex);
+        Keyboard.Key key = getKey(keyIndex);
         return key != null && key.modifier;
     }
 
@@ -294,14 +294,14 @@ class PointerTracker {
         final KeyState keyState = mKeyState;
         final int oldKeyIndex = keyState.getKeyIndex();
         int keyIndex = keyState.onMoveKey(x, y);
-        final Key oldKey = getKey(oldKeyIndex);
+        final Keyboard.Key oldKey = getKey(oldKeyIndex);
 
         if (isValidKeyIndex(keyIndex)) {
             if (oldKey == null) {
                 // The pointer has been slid in to the new key, but the finger was not on any keys.
                 // In this case, we must call onPress() to notify that the new key is being pressed.
                 if (mListener != null) {
-                    Key key = getKey(keyIndex);
+                    Keyboard.Key key = getKey(keyIndex);
                     mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     // This onPress call may have changed keyboard layout. Those cases are detected
                     // at {@link #setKeyboard}. In those cases, we should update keyIndex according
@@ -323,7 +323,7 @@ class PointerTracker {
                 }
                 resetMultiTap();
                 if (mListener != null) {
-                    Key key = getKey(keyIndex);
+                    Keyboard.Key key = getKey(keyIndex);
                     if (canDoGestureTyping()) {
                         mKeyCodesInPathLength++;
                     } else {
@@ -396,7 +396,7 @@ class PointerTracker {
     }
 
     void repeatKey(int keyIndex) {
-        Key key = getKey(keyIndex);
+        Keyboard.Key key = getKey(keyIndex);
         if (key != null) {
             // While key is repeating, because there is no need to handle multi-tap key, we can
             // pass -1 as eventTime argument.
@@ -426,7 +426,7 @@ class PointerTracker {
         }
     }
 
-    private static int getSquareDistanceToKeyEdge(int x, int y, Key key) {
+    private static int getSquareDistanceToKeyEdge(int x, int y, Keyboard.Key key) {
         final int left = key.x;
         final int right = key.x + key.width;
         final int top = key.y;
@@ -448,7 +448,7 @@ class PointerTracker {
         if (isInGestureTyping()) {
             mHandler.cancelLongPressTimer();
         } else {
-            Key key = mKeys[keyIndex];
+            Keyboard.Key key = mKeys[keyIndex];
             final int delay =
                     shouldLongPressQuickly(key)
                             ? 1
@@ -457,13 +457,13 @@ class PointerTracker {
         }
     }
 
-    private boolean shouldLongPressQuickly(Key key) {
+    private boolean shouldLongPressQuickly(Keyboard.Key key) {
         return key.getCodesCount() == 0 && key.popupResId != 0 && TextUtils.isEmpty(key.text);
     }
 
     private void detectAndSendKey(int index, int x, int y, long eventTime) {
         final OnKeyboardActionListener listener = mListener;
-        final Key key = getKey(index);
+        final Keyboard.Key key = getKey(index);
 
         if (key == null) {
             if (listener != null) {
@@ -554,7 +554,7 @@ class PointerTracker {
     }
 
     /** Handle multi-tap keys by producing the key label for the current multi-tap state. */
-    CharSequence getPreviewText(Key key) {
+    CharSequence getPreviewText(Keyboard.Key key) {
         boolean isShifted = mKeyDetector.isKeyShifted(key);
         AnyKey anyKey = (AnyKey) key;
         if (isShifted && !TextUtils.isEmpty(anyKey.shiftedKeyLabel)) {
@@ -582,7 +582,7 @@ class PointerTracker {
     }
 
     private void checkMultiTap(long eventTime, int keyIndex) {
-        Key key = getKey(keyIndex);
+        Keyboard.Key key = getKey(keyIndex);
         if (key == null) {
             return;
         }

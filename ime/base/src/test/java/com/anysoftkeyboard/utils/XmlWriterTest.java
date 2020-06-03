@@ -30,7 +30,7 @@ public class XmlWriterTest {
                         + "    <phone>4254343</phone>\n"
                         + "    <bob/>\n"
                         + "</person>\n",
-                writer.getBuffer().toString());
+                writer.toString());
     }
 
     @Test
@@ -53,6 +53,6 @@ public class XmlWriterTest {
                         + "        <phone>4254343</phone>\n"
                         + "        <bob/>\n"
                         + "    </person>\n",
-                writer.getBuffer().toString());
+                writer.toString());
     }
 }

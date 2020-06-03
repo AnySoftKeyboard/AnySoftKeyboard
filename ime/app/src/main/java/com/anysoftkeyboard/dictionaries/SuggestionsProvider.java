@@ -59,12 +59,12 @@ public class SuggestionsProvider {
                 @Override
                 @NonNull
                 public Iterable<String> getNextWords(
-                        @NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
+                        @NonNull String currentWord, int maxResults, int minWordUsage) {
                     return Collections.emptyList();
                 }
 
                 @Override
-                public void notifyNextTypedWord(@NonNull CharSequence currentWord) {}
+                public void notifyNextTypedWord(@NonNull String currentWord) {}
 
                 @Override
                 public void resetSentence() {}
