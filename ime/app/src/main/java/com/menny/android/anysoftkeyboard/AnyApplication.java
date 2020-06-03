@@ -50,6 +50,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -118,6 +119,10 @@ public class AnyApplication extends Application {
 
     public static QuickTextKeyFactory getQuickTextKeyFactory(Context context) {
         return ((AnyApplication) context.getApplicationContext()).mQuickTextKeyFactory;
+    }
+
+    public List<PublicNotice> createAppPublicNotices() {
+        return new ArrayList<>();
     }
 
     @NonNull

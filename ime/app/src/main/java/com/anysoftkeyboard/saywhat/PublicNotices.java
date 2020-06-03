@@ -1,8 +1,10 @@
 package com.anysoftkeyboard.saywhat;
 
+import android.content.Context;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,11 @@ public abstract class PublicNotices extends AnySoftKeyboard {
     protected List<PublicNotice> generatePublicNotices() {
         List<PublicNotice> all = new ArrayList<>(EasterEggs.create());
         all.addAll(Notices.create(getApplicationContext()));
+        final Context askAppContext = getApplicationContext();
+        if (askAppContext instanceof AnyApplication) {
+            all.addAll(((AnyApplication) askAppContext).createAppPublicNotices());
+        }
+
         return all;
     }
 
