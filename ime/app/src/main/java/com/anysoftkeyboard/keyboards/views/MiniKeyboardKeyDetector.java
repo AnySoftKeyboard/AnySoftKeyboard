@@ -18,7 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
 
 class MiniKeyboardKeyDetector extends KeyDetector {
     private static final int MAX_NEARBY_KEYS = 1;
@@ -40,14 +40,14 @@ class MiniKeyboardKeyDetector extends KeyDetector {
 
     @Override
     public int getKeyIndexAndNearbyCodes(int x, int y, @Nullable int[] allKeys) {
-        final Key[] keys = getKeys();
+        final Keyboard.Key[] keys = getKeys();
         final int touchX = getTouchX(x);
         final int touchY = getTouchY(y);
         int closestKeyIndex = AnyKeyboardViewBase.NOT_A_KEY;
         int closestKeyDist = (y < 0) ? mSlideAllowanceSquareTop : mSlideAllowanceSquare;
         final int keyCount = keys.length;
         for (int i = 0; i < keyCount; i++) {
-            final Key key = keys[i];
+            final Keyboard.Key key = keys[i];
             int dist = key.squaredDistanceFrom(touchX, touchY);
             if (dist < closestKeyDist) {
                 closestKeyIndex = i;
@@ -55,14 +55,14 @@ class MiniKeyboardKeyDetector extends KeyDetector {
             }
         }
         if (allKeys != null && closestKeyIndex != AnyKeyboardViewBase.NOT_A_KEY) {
-            final Key key = keys[closestKeyIndex];
+            final Keyboard.Key key = keys[closestKeyIndex];
             allKeys[0] = key.getCodeAtIndex(0, isKeyShifted(key));
         }
         return closestKeyIndex;
     }
 
     @Override
-    public boolean isKeyShifted(@NonNull Key key) {
+    public boolean isKeyShifted(@NonNull Keyboard.Key key) {
         // in the mini-keyboard we want to shift the keys depending on the state of the mParent
         // keyboard.
         return mKeyboard != null && mKeyboard.isShifted();

@@ -46,11 +46,7 @@ public class XmlWriter {
     private boolean mJustWroteText;
     private boolean mClosed; // is the current node mClosed...
 
-    /**
-     * Create an XmlWriter on top of an existing java.io.Writer.
-     *
-     * @throws IOException
-     */
+    /** Create an XmlWriter on top of an existing java.io.Writer. */
     public XmlWriter(
             Writer writer, boolean takeOwnership, int indentingOffset, boolean addXmlPrefix)
             throws IOException {
@@ -126,8 +122,6 @@ public class XmlWriter {
     /**
      * End the current entity. This will throw an exception if it is called when there is not a
      * currently open entity.
-     *
-     * @throws IOException
      */
     public XmlWriter endEntity() throws IOException {
         if (mStack.size() == 0) {
@@ -155,8 +149,6 @@ public class XmlWriter {
     /**
      * Close this mWriter. It does not close the underlying mWriter, but does throw an exception if
      * there are as yet unclosed tags.
-     *
-     * @throws IOException
      */
     public void close() throws IOException {
         if (mThisIsWriterOwner) {

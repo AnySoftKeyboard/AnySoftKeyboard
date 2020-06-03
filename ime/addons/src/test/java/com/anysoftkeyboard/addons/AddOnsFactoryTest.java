@@ -36,7 +36,7 @@ public class AddOnsFactoryTest {
                 true) {
 
             @Override
-            public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {}
+            public void setAddOnEnabled(String addOnId, boolean enabled) {}
 
             @Override
             protected TestAddOn createConcreteAddOn(
@@ -60,7 +60,7 @@ public class AddOnsFactoryTest {
         List<TestAddOn> list = factory.getAllAddOns();
         Assert.assertTrue(list.size() > 0);
 
-        HashSet<CharSequence> seenIds = new HashSet<>();
+        HashSet<String> seenIds = new HashSet<>();
         for (AddOn addOn : list) {
             Assert.assertNotNull(addOn);
             Assert.assertFalse(seenIds.contains(addOn.getId()));
@@ -221,7 +221,7 @@ public class AddOnsFactoryTest {
         }
 
         @Override
-        public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {
+        public void setAddOnEnabled(String addOnId, boolean enabled) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             setAddOnEnableValueInPrefs(editor, addOnId, enabled);
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);

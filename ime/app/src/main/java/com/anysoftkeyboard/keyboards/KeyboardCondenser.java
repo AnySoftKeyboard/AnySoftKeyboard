@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class KeyboardCondenser {
 
         final int halfHorizontalGap = (int) (keyboardDimens.getKeyHorizontalGap() / 2);
 
-        List<Key> keys = mKeyboard.getKeys();
+        List<Keyboard.Key> keys = mKeyboard.getKeys();
 
         if (mKeySizesMap == null) {
             mKeySizesMap = new ArrayList<>(keys.size());
@@ -95,7 +94,7 @@ public class KeyboardCondenser {
                         "The size of the stashed keys and the actual keyboard keys is not the same!");
             }
             for (int i = 0; i < stashedKeySizes.size(); i++) {
-                Key k = keys.get(i);
+                Keyboard.Key k = keys.get(i);
                 KeySize originalSize = mKeySizesMap.get(i);
                 k.width = originalSize.width;
                 k.height = originalSize.height;
@@ -140,10 +139,10 @@ public class KeyboardCondenser {
         int currentLeftX = 0;
         int currentRightX = keyboardWidth;
         int currentY = 0;
-        Deque<Key> rightKeys = new ArrayDeque<>();
+        Deque<Keyboard.Key> rightKeys = new ArrayDeque<>();
         boolean flipSideLeft = true;
-        Key spaceKey = null;
-        for (Key k : mKeyboard.getKeys()) {
+        Keyboard.Key spaceKey = null;
+        for (Keyboard.Key k : mKeyboard.getKeys()) {
             // first, store the original values
             mKeySizesMap.add(new KeySize(k.width, k.height, k.x, k.y));
 
@@ -203,14 +202,15 @@ public class KeyboardCondenser {
                 spaceKey);
     }
 
-    private int stackRightSideKeyForLater(Deque<Key> rightKeys, Key k, int targetWidth) {
+    private int stackRightSideKeyForLater(
+            Deque<Keyboard.Key> rightKeys, Keyboard.Key k, int targetWidth) {
         final int currentRightX = k.x + k.width;
         rightKeys.push(k);
         k.width = targetWidth;
         return currentRightX;
     }
 
-    private int condenseLeftSide(int currentLeftX, Key k, int targetWidth) {
+    private int condenseLeftSide(int currentLeftX, Keyboard.Key k, int targetWidth) {
         k.x = currentLeftX;
         k.width = targetWidth;
         k.centerX = k.x + k.width / 2;
@@ -223,13 +223,13 @@ public class KeyboardCondenser {
             final int halfHorizontalGap,
             final int keyboardWidth,
             int currentRightX,
-            Deque<Key> rightKeys,
-            Key spaceKey) {
+            Deque<Keyboard.Key> rightKeys,
+            Keyboard.Key spaceKey) {
         // currentRightX holds the rightest x+width point. condensing a bit
         currentRightX =
                 (int) (keyboardWidth - ((keyboardWidth - currentRightX) * condensingFactor));
         while (!rightKeys.isEmpty()) {
-            Key rightKey = rightKeys.pop();
+            Keyboard.Key rightKey = rightKeys.pop();
 
             currentRightX -= halfHorizontalGap;
             currentRightX -= rightKey.width; // already holds the new width

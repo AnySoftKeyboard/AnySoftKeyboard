@@ -39,7 +39,6 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
@@ -63,9 +62,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     private int mExtensionKeyboardYActivationPoint;
     private final int mExtensionKeyboardPopupOffset;
     private int mExtensionKeyboardYDismissPoint;
-    private Key mExtensionKey;
-    private Key mUtilityKey;
-    private Key mSpaceBarKey = null;
+    private Keyboard.Key mExtensionKey;
+    private Keyboard.Key mUtilityKey;
+    private Keyboard.Key mSpaceBarKey = null;
     private Point mFirstTouchPoint = new Point(0, 0);
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
@@ -183,7 +182,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     @Override
     protected boolean onLongPress(
-            AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
+            AddOn keyboardAddOn,
+            Keyboard.Key key,
+            boolean isSticky,
+            @NonNull PointerTracker tracker) {
         if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible
@@ -214,14 +216,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
         // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
         mSpaceBarKey = null;
-        for (Key aKey : newKeyboard.getKeys()) {
+        for (Keyboard.Key aKey : newKeyboard.getKeys()) {
             if (aKey.getPrimaryCode() == KeyCodes.SPACE) {
                 mSpaceBarKey = aKey;
                 break;
             }
         }
 
-        final Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
+        final Keyboard.Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
         mWatermarkEdgeX = lastKey.x + lastKey.width;
     }
 

@@ -372,7 +372,7 @@ public abstract class Keyboard {
         public int dynamicEmblem;
 
         /** Create an empty key with no attributes. */
-        public Key(Row parent, KeyboardDimens keyboardDimens) {
+        protected Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
             mKeyboard = parent.mParent;
             height =
@@ -396,7 +396,7 @@ public abstract class Keyboard {
          * @param initialY the y coordinate of the top-left
          * @param parser the XML parser containing the attributes for this key
          */
-        public Key(
+        protected Key(
                 @NonNull AddOn.AddOnResourceMapping resourceMapping,
                 Context keyboardContext,
                 Row parent,
@@ -657,7 +657,8 @@ public abstract class Keyboard {
      *
      * @param xmlLayoutResId the resource file that contains the mKeyboard layout and keys.
      */
-    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, int xmlLayoutResId) {
+    protected Keyboard(
+            @NonNull AddOn keyboardAddOn, @NonNull Context askContext, int xmlLayoutResId) {
         this(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
     }
 
@@ -688,7 +689,7 @@ public abstract class Keyboard {
      * @param xmlLayoutResId the resource file that contains the mKeyboard layout and keys.
      * @param modeId mKeyboard mode identifier
      */
-    public Keyboard(
+    protected Keyboard(
             @NonNull AddOn keyboardAddOn,
             @NonNull Context askContext,
             int xmlLayoutResId,

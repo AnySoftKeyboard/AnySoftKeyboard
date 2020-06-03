@@ -63,7 +63,6 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
@@ -170,11 +169,11 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private CharSequence mKeyboardName;
 
     // Drawing
-    private Key[] mKeys;
+    private Keyboard.Key[] mKeys;
     private KeyPreviewsController mKeyPreviewsManager;
     private long mLastTimeHadTwoFingers = 0;
 
-    private Key mInvalidatedKey;
+    private Keyboard.Key mInvalidatedKey;
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
     private int mTextCaseForceOverrideType;
     private int mTextCaseType;
@@ -1195,13 +1194,13 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         if (keyboard == null) {
             return;
         }
-        final Key[] keys = mKeys;
+        final Keyboard.Key[] keys = mKeys;
         if (keys == null) {
             return;
         }
         int length = keys.length;
         int dimensionSum = 0;
-        for (Key key : keys) {
+        for (Keyboard.Key key : keys) {
             dimensionSum += Math.min(key.width, key.height) + key.gap;
         }
         if (dimensionSum < 0 || length == 0) {
@@ -1248,8 +1247,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         final Rect clipRegion = mClipRegion;
         final int kbdPaddingLeft = getPaddingLeft();
         final int kbdPaddingTop = getPaddingTop();
-        final Key[] keys = mKeys;
-        final Key invalidKey = mInvalidatedKey;
+        final Keyboard.Key[] keys = mKeys;
+        final Keyboard.Key invalidKey = mInvalidatedKey;
 
         boolean drawSingleKey = false;
         // TODO we should use Rect.inset and Rect.contains here.
@@ -1263,7 +1262,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             drawSingleKey = true;
         }
 
-        for (Key keyBase : keys) {
+        for (Keyboard.Key keyBase : keys) {
             final AnyKey key = (AnyKey) keyBase;
             final boolean keyIsSpace = isSpaceKey(key);
 
@@ -1591,7 +1590,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     }
 
     private void setSpecialKeysIconsAndLabels() {
-        Key enterKey = findKeyByPrimaryKeyCode(KeyCodes.ENTER);
+        Keyboard.Key enterKey = findKeyByPrimaryKeyCode(KeyCodes.ENTER);
         if (enterKey != null) {
             enterKey.icon = null;
             enterKey.iconPreview = null;
@@ -1633,7 +1632,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     }
 
     private void setSpecialKeyIconOrLabel(int keyCode) {
-        Key key = findKeyByPrimaryKeyCode(keyCode);
+        Keyboard.Key key = findKeyByPrimaryKeyCode(keyCode);
         if (key != null && TextUtils.isEmpty(key.label)) {
             if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
                 key.label = guessLabelForKey(keyCode);
@@ -1692,7 +1691,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         }
     }
 
-    private Drawable getIconToDrawForKey(Key key, boolean feedback) {
+    private Drawable getIconToDrawForKey(Keyboard.Key key, boolean feedback) {
         if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
             return null;
         }
@@ -1791,7 +1790,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
     @Override
     public void hidePreview(int keyIndex, PointerTracker tracker) {
-        final Key key = tracker.getKey(keyIndex);
+        final Keyboard.Key key = tracker.getKey(keyIndex);
         if (keyIndex != NOT_A_KEY && key != null) {
             mKeyPreviewsManager.hidePreviewForKey(key);
         }
@@ -1807,7 +1806,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null);
         // If key changed and preview is on or the key is space (language switch
         // is enabled)
-        final Key key = hidePreviewOrShowSpaceKeyPreview ? null : tracker.getKey(keyIndex);
+        final Keyboard.Key key = hidePreviewOrShowSpaceKeyPreview ? null : tracker.getKey(keyIndex);
         // this will ensure that in case the key is marked as NO preview, we will just dismiss the
         // previous popup.
         if (keyIndex != NOT_A_KEY && key != null) {
@@ -1832,7 +1831,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
      * because the keyboard renders the keys to an off-screen buffer and an invalidate() only draws
      * the cached buffer.
      *
-     * @see #invalidateKey(Key)
+     * @see #invalidateKey(Keyboard.Key)
      */
     public void invalidateAllKeys() {
         mDirtyRect.union(0, 0, getWidth(), getHeight());
@@ -1848,7 +1847,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
      * @see #invalidateAllKeys
      */
     @Override
-    public void invalidateKey(Key key) {
+    public void invalidateKey(Keyboard.Key key) {
         if (key == null) {
             return;
         }
@@ -1896,7 +1895,10 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
      *     on the base class if the subclass doesn't wish to handle the call.
      */
     protected boolean onLongPress(
-            AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
+            AddOn keyboardAddOn,
+            Keyboard.Key key,
+            boolean isSticky,
+            @NonNull PointerTracker tracker) {
         if (key instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) key;
             if (anyKey.getKeyTags().size() > 0) {
@@ -1939,7 +1941,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     }
 
     protected PointerTracker getPointerTracker(final int id) {
-        final Key[] keys = mKeys;
+        final Keyboard.Key[] keys = mKeys;
         final OnKeyboardActionListener listener = mKeyboardActionListener;
 
         if (mPointerTrackers.get(id) == null) {
@@ -2100,12 +2102,12 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     }
 
     @Nullable
-    protected Key findKeyByPrimaryKeyCode(int keyCode) {
+    protected Keyboard.Key findKeyByPrimaryKeyCode(int keyCode) {
         if (getKeyboard() == null) {
             return null;
         }
 
-        for (Key key : getKeyboard().getKeys()) {
+        for (Keyboard.Key key : getKeyboard().getKeys()) {
             if (key.getPrimaryCode() == keyCode) return key;
         }
         return null;
@@ -2181,11 +2183,10 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 return;
             }
             final PointerTracker tracker = (PointerTracker) msg.obj;
-            Key keyForLongPress = tracker.getKey(msg.arg1);
+            Keyboard.Key keyForLongPress = tracker.getKey(msg.arg1);
             switch (msg.what) {
                 case MSG_REPEAT_KEY:
-                    if (keyForLongPress != null
-                            && keyForLongPress instanceof AnyKey
+                    if (keyForLongPress instanceof AnyKey
                             && ((AnyKey) keyForLongPress).longPressCode != 0) {
                         keyboard.onLongPress(
                                 keyboard.getKeyboard().getKeyboardAddOn(),
@@ -2340,13 +2341,13 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
     private static class NullKeyPreviewsManager implements KeyPreviewsController {
         @Override
-        public void hidePreviewForKey(Key key) {}
+        public void hidePreviewForKey(Keyboard.Key key) {}
 
         @Override
-        public void showPreviewForKey(Key key, Drawable icon) {}
+        public void showPreviewForKey(Keyboard.Key key, Drawable icon) {}
 
         @Override
-        public void showPreviewForKey(Key key, CharSequence label) {}
+        public void showPreviewForKey(Keyboard.Key key, CharSequence label) {}
 
         @Override
         public void cancelAllPreviews() {}
