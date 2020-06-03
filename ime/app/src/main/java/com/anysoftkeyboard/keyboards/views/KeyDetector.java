@@ -19,7 +19,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 
@@ -27,7 +27,7 @@ public abstract class KeyDetector {
     @Nullable protected AnyKeyboard mKeyboard;
 
     private final int[] mNearByCodes;
-    @NonNull private Key[] mKeys = new Key[0];
+    @NonNull private Keyboard.Key[] mKeys = new Keyboard.Key[0];
 
     private int mCorrectionX;
 
@@ -36,18 +36,18 @@ public abstract class KeyDetector {
     protected boolean mProximityCorrectOn;
 
     protected int mProximityThresholdSquare;
-    @Nullable private Key mShiftKey;
+    @Nullable private Keyboard.Key mShiftKey;
 
     protected KeyDetector() {
         mNearByCodes = new int[getMaxNearbyKeys()];
     }
 
-    public Key[] setKeyboard(AnyKeyboard keyboard, @Nullable Key shiftKey) {
+    public Keyboard.Key[] setKeyboard(AnyKeyboard keyboard, @Nullable Keyboard.Key shiftKey) {
         mShiftKey = shiftKey;
         mKeyboard = keyboard;
 
-        if (keyboard == null) return mKeys = new Key[0];
-        return mKeys = mKeyboard.getKeys().toArray(new Key[0]);
+        if (keyboard == null) return mKeys = new Keyboard.Key[0];
+        return mKeys = mKeyboard.getKeys().toArray(new Keyboard.Key[0]);
     }
 
     public void setCorrection(float correctionX, float correctionY) {
@@ -63,7 +63,7 @@ public abstract class KeyDetector {
         return y + mCorrectionY;
     }
 
-    protected Key[] getKeys() {
+    protected Keyboard.Key[] getKeys() {
         return mKeys;
     }
 
@@ -111,7 +111,7 @@ public abstract class KeyDetector {
      */
     public abstract int getKeyIndexAndNearbyCodes(int x, int y, @Nullable int[] allKeys);
 
-    public boolean isKeyShifted(@NonNull Key key) {
+    public boolean isKeyShifted(@NonNull Keyboard.Key key) {
         if (mKeyboard == null) return false;
         AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
         return mKeyboard.keyboardSupportShift()

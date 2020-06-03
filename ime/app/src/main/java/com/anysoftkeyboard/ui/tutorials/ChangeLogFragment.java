@@ -39,7 +39,7 @@ public abstract class ChangeLogFragment extends Fragment {
     private final List<VersionChangeLogs.VersionChangeLog> mChangeLog;
     private final StringBuilder mBulletsBuilder = new StringBuilder();
 
-    public ChangeLogFragment() {
+    protected ChangeLogFragment() {
         mChangeLog = VersionChangeLogs.createChangeLog();
     }
 

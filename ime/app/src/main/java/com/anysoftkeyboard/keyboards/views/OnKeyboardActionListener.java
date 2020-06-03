@@ -18,7 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.support.annotation.NonNull;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
 
 public interface OnKeyboardActionListener {
 
@@ -50,7 +50,12 @@ public interface OnKeyboardActionListener {
      *     adjacent to the intended key.
      * @param fromUI true, if the user initiated this onKey from the view
      */
-    void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI);
+    void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI);
 
     void onMultiTapStarted();
 
@@ -62,14 +67,14 @@ public interface OnKeyboardActionListener {
      *
      * @param text the sequence of characters to be displayed.
      */
-    void onText(Key key, CharSequence text);
+    void onText(Keyboard.Key key, CharSequence text);
 
     /**
      * Sends a sequence of characters to the listener as if they were typed.
      *
      * @param text the key sequence to type. Should not include sentence separators.
      */
-    void onTyping(Key key, CharSequence text);
+    void onTyping(Keyboard.Key key, CharSequence text);
 
     /** Called when user released a finger outside any key. */
     void onCancel();
@@ -110,5 +115,5 @@ public interface OnKeyboardActionListener {
 
     void onGestureTypingInputDone();
 
-    void onLongPressDone(@NonNull Key key);
+    void onLongPressDone(@NonNull Keyboard.Key key);
 }

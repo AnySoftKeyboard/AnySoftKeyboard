@@ -78,6 +78,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
 
         String appName = DeveloperUtils.getAppDetails(mApp);
 
+        @SuppressWarnings("JdkObsolete")
         final CharSequence utcTimeDate = DateFormat.format("kk:mm:ss dd.MM.yyyy", new Date());
         final String newline = DeveloperUtils.NEW_LINE;
         String logText =

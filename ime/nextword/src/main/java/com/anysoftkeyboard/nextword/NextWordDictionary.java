@@ -19,9 +19,9 @@ public class NextWordDictionary implements NextWordSuggestions {
 
     private final NextWordsStorage mStorage;
 
-    private CharSequence mPreviousWord = null;
+    private String mPreviousWord = null;
 
-    private final ArrayMap<CharSequence, NextWordsContainer> mNextWordMap = new ArrayMap<>();
+    private final ArrayMap<String, NextWordsContainer> mNextWordMap = new ArrayMap<>();
 
     private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
     private final SimpleIterable mReusableNextWordsIterable;
@@ -32,12 +32,12 @@ public class NextWordDictionary implements NextWordSuggestions {
     }
 
     @Override
-    public void notifyNextTypedWord(@NonNull CharSequence currentWord) {
+    public void notifyNextTypedWord(@NonNull String currentWord) {
         if (mPreviousWord != null) {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
             if (previousSet == null) {
                 if (mNextWordMap.size() > MAX_NEXT_WORD_CONTAINERS) {
-                    CharSequence randomWordToDelete =
+                    String randomWordToDelete =
                             mNextWordMap.keyAt(msRandom.nextInt(mNextWordMap.size()));
                     mNextWordMap.remove(randomWordToDelete);
                 }
@@ -54,7 +54,7 @@ public class NextWordDictionary implements NextWordSuggestions {
     @Override
     @NonNull
     public Iterable<String> getNextWords(
-            @NonNull CharSequence currentWord, int maxResults, final int minWordUsage) {
+            @NonNull String currentWord, int maxResults, final int minWordUsage) {
         maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
 
         // secondly, get a list of suggestions
@@ -94,7 +94,7 @@ public class NextWordDictionary implements NextWordSuggestions {
         int firstWordCount = 0;
         int secondWordCount = 0;
 
-        for (Map.Entry<CharSequence, NextWordsContainer> entry : mNextWordMap.entrySet()) {
+        for (Map.Entry<String, NextWordsContainer> entry : mNextWordMap.entrySet()) {
             firstWordCount++;
             secondWordCount += entry.getValue().getNextWordSuggestions().size();
         }

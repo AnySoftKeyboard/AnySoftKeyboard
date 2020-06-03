@@ -144,14 +144,14 @@ public class WordComposer implements KeyCodesProvider {
         return mCodes.get(index);
     }
 
+    private static final int[] PRIMARY_CODE_CREATE = new int[1];
+
     /**
      * Add a new keystroke, with codes[0] containing the pressed key's unicode and the rest of the
      * array containing unicode for adjacent keys, sorted by reducing probability/proximity.
      *
      * @param codes the array of unicode values
      */
-    private static final int[] PRIMARY_CODE_CREATE = new int[1];
-
     public void add(int primaryCode, int[] codes) {
         PRIMARY_CODE_CREATE[0] = primaryCode;
         mTypedWord.insert(mCursorPosition, new String(PRIMARY_CODE_CREATE, 0, 1));

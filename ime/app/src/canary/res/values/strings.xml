@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ime_name">AnySoftKeyboard Canary</string>
+    <string name="beta_pre_purge_action_text">Tester Unsubscribe Approaching</string>
+    <string name="beta_post_purge_action_text">Tester Unsubscribe Done</string>
+    <string name="beta_purge_web_page_url">http://anysoftkeyboard.github.io/pre-release-info/</string>
 </resources>

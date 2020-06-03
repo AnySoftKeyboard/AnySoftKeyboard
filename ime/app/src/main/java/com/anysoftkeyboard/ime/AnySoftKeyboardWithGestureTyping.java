@@ -386,8 +386,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (ic != null && currentGestureDetector != null) {
-            ArrayList<CharSequence> gestureTypingPossibilities =
-                    currentGestureDetector.getCandidates();
+            ArrayList<String> gestureTypingPossibilities = currentGestureDetector.getCandidates();
 
             if (!gestureTypingPossibilities.isEmpty()) {
                 final boolean isShifted = mShiftKeyState.isActive();

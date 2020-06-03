@@ -80,7 +80,7 @@ public class AnySoftKeyboardNightModeTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertTrue(
                 originalOverlayDataCreator
-                        instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
+                        instanceof AnySoftKeyboardThemeOverlay.ToggleOverlayCreator);
 
         final OverlayData normal =
                 originalOverlayDataCreator.createOverlayData(
