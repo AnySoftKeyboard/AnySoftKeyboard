@@ -50,37 +50,6 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
     }
 
     @Test
-    public void
-            testAsksToAddToDictionaryWhenTouchingTypedUnknownWordAndDoesNotAddIfContinuingTyping() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-
-        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
-        // at this point, the candidates view will show a hint
-        Mockito.verify(getMockCandidateView()).showAddToDictionaryHint("hel");
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-
-        Mockito.reset(getMockCandidateView());
-        mAnySoftKeyboardUnderTest.simulateTextTyping("he");
-
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .addWordToUserDictionary(Mockito.anyString());
-        Mockito.verify(getMockCandidateView(), Mockito.never())
-                .notifyAboutWordAdded(Mockito.anyString());
-
-        Mockito.verify(
-                        getMockCandidateView(),
-                        Mockito.times(2 /*once for 'h', and the other time for 'e'*/))
-                .setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
-    }
-
-    @Test
     public void testAutoAddUnknownWordIfPickedFrequently() {
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
