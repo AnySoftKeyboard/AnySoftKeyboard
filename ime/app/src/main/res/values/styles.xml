@@ -96,6 +96,13 @@
         <item name="android:padding">4dp</item>
     </style>
 
+    <style name="Ask.Text.SuggestionsAction.Simple"
+        parent="Ask.Text.SuggestionsAction">
+        <item name="android:shadowRadius">0</item>
+        <item name="android:textColor">#CCC</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
     <style name="Ask.Text.Title"
            parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_title</item>
