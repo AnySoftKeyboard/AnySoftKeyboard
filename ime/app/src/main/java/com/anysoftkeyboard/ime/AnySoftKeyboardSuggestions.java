@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ime;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
@@ -12,8 +13,11 @@ import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -74,51 +78,116 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private CandidateView mCandidateView;
 
     @VisibleForTesting
-    final KeyboardViewContainerView.StripActionProvider mCancelSuggestionsAction =
-            new KeyboardViewContainerView.StripActionProvider() {
-                private View mRootView;
-                private View mCloseText;
+    static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
+        private final Runnable mCancelPrediction;
+        private Animation mCancelToGoneAnimation;
+        private Animation mCancelToVisibleAnimation;
+        private Animation mCloseTextToGoneAnimation;
+        private Animation mCloseTextToVisibleAnimation;
+        private View mRootView;
+        private View mCloseText;
 
-                private final Runnable mReHideTextAction =
-                        () -> mCloseText.setVisibility(View.GONE);
-                // two seconds is enough.
-                private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
+        private final Runnable mReHideTextAction =
+                () -> {
+                    mCloseTextToGoneAnimation.reset();
+                    mCloseText.startAnimation(mCloseTextToGoneAnimation);
+                };
+        // two seconds is enough.
+        private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
 
-                @Override
-                public View inflateActionView(ViewGroup parent) {
-                    mRootView =
-                            getLayoutInflater()
-                                    .inflate(R.layout.cancel_suggestions_action, parent, false);
+        CancelSuggestionsAction(Runnable cancelPrediction) {
+            mCancelPrediction = cancelPrediction;
+        }
 
-                    mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
+        @Override
+        public View inflateActionView(ViewGroup parent) {
+            final Context context = parent.getContext();
+            mCancelToGoneAnimation =
+                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_gone);
+            mCancelToGoneAnimation.setAnimationListener(
+                    new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {}
 
-                    mRootView.setOnClickListener(
-                            view -> {
-                                mRootView.removeCallbacks(mReHideTextAction);
-                                if (mCloseText.getVisibility() == View.VISIBLE) {
-                                    // already shown, so just cancel suggestions.
-                                    abortCorrectionAndResetPredictionState(true);
-                                } else {
-                                    mCloseText.setVisibility(View.VISIBLE);
-                                    mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
-                                }
-                            });
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            mRootView.setVisibility(View.GONE);
+                        }
 
-                    return mRootView;
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {}
+                    });
+            mCancelToVisibleAnimation =
+                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_visible);
+            mCloseTextToGoneAnimation =
+                    AnimationUtils.loadAnimation(context, R.anim.suggestions_double_cancel_to_gone);
+            mCloseTextToGoneAnimation.setAnimationListener(
+                    new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {}
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            mCloseText.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {}
+                    });
+            mCloseTextToVisibleAnimation =
+                    AnimationUtils.loadAnimation(
+                            context, R.anim.suggestions_double_cancel_to_visible);
+
+            mRootView =
+                    LayoutInflater.from(context)
+                            .inflate(R.layout.cancel_suggestions_action, parent, false);
+
+            mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
+
+            mRootView.setOnClickListener(
+                    view -> {
+                        mRootView.removeCallbacks(mReHideTextAction);
+                        if (mCloseText.getVisibility() == View.VISIBLE) {
+                            // already shown, so just cancel suggestions.
+                            mCancelPrediction.run();
+                        } else {
+                            mCloseText.setVisibility(View.VISIBLE);
+                            mCloseTextToVisibleAnimation.reset();
+                            mCloseText.startAnimation(mCloseTextToVisibleAnimation);
+                            mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+                        }
+                    });
+
+            return mRootView;
+        }
+
+        @Override
+        public void onRemoved() {
+            mRootView.removeCallbacks(mReHideTextAction);
+        }
+
+        void setCancelIconVisible(boolean visible) {
+            if (mRootView != null) {
+                final int visibility = visible ? View.VISIBLE : View.GONE;
+                if (mRootView.getVisibility() != visibility) {
+                    mRootView.setVisibility(View.VISIBLE);
+                    mCancelToVisibleAnimation.reset();
+                    mCancelToGoneAnimation.reset();
+                    mRootView.startAnimation(
+                            visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation);
                 }
+            }
+        }
+    }
 
-                @Override
-                public void onRemoved() {
-                    mRootView.removeCallbacks(mReHideTextAction);
-                }
-            };
+    @VisibleForTesting
+    final CancelSuggestionsAction mCancelSuggestionsAction =
+            new CancelSuggestionsAction(() -> abortCorrectionAndResetPredictionState(true));
 
     @NonNull private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
 
     private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
     @NonNull private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
-    //    @NonNull
-    //    protected CharSequence mCommittedWord = "";
 
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
@@ -401,7 +470,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
 
-        if (mPredictionOn) {
+        if (isPredictionOn()) {
             getInputViewContainer().setActionsStripVisibility(true);
             getInputViewContainer().addStripAction(mCancelSuggestionsAction);
         } else {
@@ -1023,6 +1092,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             @NonNull List<? extends CharSequence> suggestions,
             boolean typedWordValid,
             boolean haveMinimalSuggestion) {
+        mCancelSuggestionsAction.setCancelIconVisible(!suggestions.isEmpty());
         if (mCandidateView != null) {
             mCandidateView.setSuggestions(
                     suggestions, typedWordValid, haveMinimalSuggestion && isAutoCorrect());
