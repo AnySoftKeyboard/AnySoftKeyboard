@@ -10,7 +10,7 @@
          <Key android:codes="121" android:keyLabel="y" android:popupCharacters="6^"/>
          <Key android:codes="117" android:keyLabel="u" android:popupCharacters="7&amp;ü"/>
          <Key android:codes="105" android:keyLabel="i" android:popupCharacters="8*"/>
-         <Key android:codes="111,246" android:keyLabel="o" android:popupCharacters="9("/>
+         <Key android:codes="111,246" android:keyLabel="o" android:popupCharacters="9(ö"/>
          <Key android:codes="112" android:keyLabel="p" android:popupCharacters="0)" android:keyEdgeFlags="right"/>
      </Row>
      <Row>
@@ -23,7 +23,7 @@
          <Key android:codes="106" android:keyLabel="j"/>
          <Key android:codes="107" android:keyLabel="k"/>
          <Key android:codes="108" android:keyLabel="l"/>
-         <Key android:codes="246,373" android:keyLabel="ö" android:popupCharacters="õŵ" android:keyEdgeFlags="right"/>
+         <Key android:codes="246,373" android:keyLabel="ö" android:popupCharacters="õ" android:keyEdgeFlags="right"/>
      </Row>
      <Row>
          <Key android:codes="-1" android:keyWidth="15%p" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
