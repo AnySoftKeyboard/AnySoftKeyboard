@@ -75,6 +75,7 @@ import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.EmojiUtils;
+import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -156,6 +157,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFontMetrics;
     private float mHintTextSize;
+    private Preference<String> mHintTextSizeOldOption;
+    private float mHintTextSizeNormal;
     private FontMetrics mHintTextFontMetrics;
     private int mThemeHintLabelAlign;
     private int mThemeHintLabelVAlign;
@@ -223,7 +226,13 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
 
+
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
+        //Get current option for hint size
+        mHintTextSizeOldOption = rxSharedPrefs.getString(
+                R.string.settings_key_hint_size,
+                R.string.settings_key_hint_size_default);
+
         mDisposables.add(
                 rxSharedPrefs
                         .getBoolean(
@@ -331,6 +340,17 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                     invalidateAllKeys();
                                 },
                                 GenericOnError.onError("Failed to getKeyboardHeightFactor")));
+
+        mDisposables.add(
+                rxSharedPrefs
+                        .getString(
+                                R.string.settings_key_hint_size,
+                                R.string.settings_key_hint_size_default)
+                        .asObservable()
+                        .subscribe(
+                                this::updatePrefSettings_hint_size,
+                                GenericOnError.onError(
+                                        "failed to get settings_key_hint_size")));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
@@ -816,6 +836,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mHintTextSize == -1) return false;
                 mHintTextSize *= mKeysHeightFactor;
+                mHintTextSizeNormal = mHintTextSize;
                 break;
             case R.attr.hintTextColor:
                 mThemeOverlayCombiner.setThemeHintTextColor(
@@ -2161,6 +2182,30 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             default:
                 mTextCaseForceOverrideType = -1;
                 break;
+        }
+    }
+
+    private void updatePrefSettings_hint_size(final String overrideValue) {
+        if (!overrideValue.equals(mHintTextSizeOldOption.toString()))
+        {
+            Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize " + overrideValue);
+            switch (overrideValue) {
+                case "small":
+                    mHintTextSize = mHintTextSizeNormal * 0.5f;
+                    Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize small " + mHintTextSize);
+                    break;
+                case "normal":
+                    mHintTextSize = mHintTextSizeNormal;
+                    Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize normal " + mHintTextSize);
+                    break;
+                case "big":
+                    mHintTextSize = mHintTextSizeNormal * 1.3f;
+                    Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize big " + mHintTextSize);
+                    break;
+                default:
+                    mHintTextSize = -1;
+                    break;
+            }
         }
     }
 

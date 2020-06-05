@@ -77,6 +77,19 @@
         android:summaryOn="@string/show_keyboard_name_on_summary"
         android:title="@string/show_keyboard_name_text" />
 
+    <android.support.v7.preference.ListPreference
+        android:autoText="false"
+        android:capitalize="none"
+        android:title="@string/settings_hint_size"
+        android:entries="@array/settings_key_hint_size_names"
+        android:entryValues="@array/settings_key_hint_size_values"
+        android:defaultValue="@string/settings_key_hint_size_default"
+        android:dialogTitle="@string/settings_hint_size"
+        android:key="@string/settings_key_hint_size"
+        android:summary="@string/settings_key_hint_size_summary"
+        android:persistent="true"
+        android:singleLine="true"/>
+
     <EditTextPreference
         android:autoText="false"
         android:capitalize="none"
@@ -100,4 +113,5 @@
         android:persistent="true"
         android:singleLine="true"
         android:title="@string/zoom_factor_keys_in_landscape" />
+
 </android.support.v7.preference.PreferenceScreen>

@@ -362,6 +362,8 @@
 
     <string name="settings_key_theme_case_type_override">settings_key_theme_case_type_override</string>
 
+    <string name="settings_key_hint_size">settings_key_hint_size</string>
+
     <string name="settings_key_landscape_keyboard_height_factor">zoom_factor_keys_in_landscape</string>
     <string name="settings_key_portrait_keyboard_height_factor">zoom_factor_keys_in_portrait</string>
 
