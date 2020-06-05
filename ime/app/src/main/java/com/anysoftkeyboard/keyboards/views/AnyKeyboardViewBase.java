@@ -2188,19 +2188,15 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private void updatePrefSettings_hint_size(final String overrideValue) {
         if (!overrideValue.equals(mHintTextSizeOldOption.toString()))
         {
-            Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize " + overrideValue);
             switch (overrideValue) {
                 case "small":
-                    mHintTextSize = mHintTextSizeNormal * 0.5f;
-                    Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize small " + mHintTextSize);
+                    mHintTextSize = mHintTextSizeNormal * 0.7f;
                     break;
                 case "normal":
                     mHintTextSize = mHintTextSizeNormal;
-                    Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize normal " + mHintTextSize);
                     break;
                 case "big":
                     mHintTextSize = mHintTextSizeNormal * 1.3f;
-                    Logger.d(TAG, "AnySoftKeyboardTheme_new_hintSize big " + mHintTextSize);
                     break;
                 default:
                     mHintTextSize = -1;
