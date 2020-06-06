@@ -224,7 +224,6 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
 
-
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
 
         mDisposables.add(
@@ -343,8 +342,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                         .asObservable()
                         .subscribe(
                                 this::updatePrefSettings_hint_size,
-                                GenericOnError.onError(
-                                        "failed to get settings_key_hint_size")));
+                                GenericOnError.onError("failed to get settings_key_hint_size")));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
