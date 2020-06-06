@@ -75,7 +75,6 @@ import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.EmojiUtils;
-import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -157,8 +156,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFontMetrics;
     private float mHintTextSize;
-    private Preference<String> mHintTextSizeOldOption;
-    private float mHintTextSizeNormal;
+    private float mHintTextSizeMultiplier;
     private FontMetrics mHintTextFontMetrics;
     private int mThemeHintLabelAlign;
     private int mThemeHintLabelVAlign;
@@ -228,10 +226,6 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
 
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
-        //Get current option for hint size
-        mHintTextSizeOldOption = rxSharedPrefs.getString(
-                R.string.settings_key_hint_size,
-                R.string.settings_key_hint_size_default);
 
         mDisposables.add(
                 rxSharedPrefs
@@ -836,7 +830,6 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mHintTextSize == -1) return false;
                 mHintTextSize *= mKeysHeightFactor;
-                mHintTextSizeNormal = mHintTextSize;
                 break;
             case R.attr.hintTextColor:
                 mThemeOverlayCombiner.setThemeHintTextColor(
@@ -1487,7 +1480,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 // now draw hint
                 paint.setTypeface(Typeface.DEFAULT);
                 paint.setColor(themeResourcesHolder.getHintTextColor());
-                paint.setTextSize(mHintTextSize);
+                paint.setTextSize(mHintTextSize * mHintTextSizeMultiplier);
                 // get the hint text font metrics so that we know the size
                 // of the hint when
                 // we try to position the main label (to try to make sure
@@ -2186,22 +2179,16 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     }
 
     private void updatePrefSettings_hint_size(final String overrideValue) {
-        if (!overrideValue.equals(mHintTextSizeOldOption.toString()))
-        {
-            switch (overrideValue) {
-                case "small":
-                    mHintTextSize = mHintTextSizeNormal * 0.7f;
-                    break;
-                case "normal":
-                    mHintTextSize = mHintTextSizeNormal;
-                    break;
-                case "big":
-                    mHintTextSize = mHintTextSizeNormal * 1.3f;
-                    break;
-                default:
-                    mHintTextSize = -1;
-                    break;
-            }
+        switch (overrideValue) {
+            case "small":
+                mHintTextSizeMultiplier = 0.7f;
+                break;
+            case "big":
+                mHintTextSizeMultiplier = 1.3f;
+                break;
+            default:
+                mHintTextSizeMultiplier = 1;
+                break;
         }
     }
 
