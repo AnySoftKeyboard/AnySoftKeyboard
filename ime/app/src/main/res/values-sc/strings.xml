@@ -118,6 +118,7 @@
     <string name="one_shot_quick_text_popup_off_summary">Mantene sa ventana de Testu Lestru aberta finas a s\'incarcadura de sa tecla Serra</string>
     <string name="quick_text_tags_search">Cussìgia emojis pro etichetas</string>
     <string name="quick_text_tags_search_on_summary">Chirca emojis pro eticheta, cando su testu incumintzat cun duos puntos (:)</string>
+    <string name="quick_text_tags_search_off_summary"></string>
     <string name="hide_soft_when_physical">Cua sa tastiera a s\'incarcu de una tecla fìsica</string>
     <string name="hide_soft_when_physical_on_summary">Cua sa tastiera virtuale cando benit impreada sa tastiera fìsica</string>
     <string name="hide_soft_when_physical_off_summary">Ammustra sa tastiera virtuale cando benit impreada sa tastiera fìsica</string>
@@ -175,6 +176,7 @@
     <string name="swipe_action_name_cycle_keyboards">Iscurre intre totu sas tastieras</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Iscurre a s\'imbesse intre totu sas tastieras</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Space</string>
     <string name="swipe_action_name_hide">Cua sa tastiera</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Paràula anteposta</string>
@@ -214,6 +216,7 @@
     <string name="special_dictionaries_group_summary">Ditzionàrios de impòsitu impreados in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Ditzionàriu impreadore</string>
     <string name="use_user_dictionary_on_summary">Cussigia sas paràulas annantas dae s\'impreadore (incarca duas bortas in un\'impòsitu pro l\'annànghere)</string>
+    <string name="use_user_dictionary_off_summary"></string>
     <string name="always_use_fallback_user_dictionary">Imprea sa memòria privada de su ditzionàriu de s\'impreadore</string>
     <string name="always_use_fallback_user_dictionary_on_summary">Imprea su meccanismu de sarvatàgiu privadu de su ditzionàriu de s\'impreadore integradu in AnySoftKeyboard.</string>
     <string name="always_use_fallback_user_dictionary_off_summary">Proa a impreare su ditzionàriu de s\'impreadore globale integradu de Android.</string>
@@ -242,6 +245,7 @@
     <string name="auto_pick_suggestion_aggressiveness_summary">Livellu de agressividade: %s</string>
     <string name="use_contacts_dictionary">Ditzionàriu cuntatos</string>
     <string name="use_contacts_dictionary_on_summary">Cunsigia nùmenes dae sa lista de sos cuntatos</string>
+    <string name="use_contacts_dictionary_off_summary"></string>
     <string name="tweaks_group">Megiorias avantzadas</string>
     <string name="tweak_sound_group">Megiorias pro su sonu</string>
     <string name="tweak_physical_keyboard_group">Megiorias pro sa tastiera fìsica</string>
@@ -311,6 +315,7 @@
     <string name="insert_space_after_word_suggestion_selection">Ispàtziu a pustis de s\'issèbera de su candidatu</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Inserta un\'ispàtziu a pustis de s\'issèbera de sa paràula cunsigiada
     </string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Ispàtziu dòpiu pro unu puntu</string>
     <string name="double_space_to_period_summary">Incarcare duas bortas ispàtziu at a iscrìere puntu+ispàtziu</string>
     <string name="tweak_animations_level_title">Animatziones</string>
@@ -478,6 +483,7 @@
     <string name="settings_split_state_compact_right_always">Avia cumpatadu a destra</string>
     <string name="settings_split_state_compact_left_always">Avia cumpatadu a manca</string>
     <!-- User dictionary settings -->
+    <skip></skip>
     <string name="user_dictionary_select_locale">Limba:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Ditzionàriu impreadore</string>

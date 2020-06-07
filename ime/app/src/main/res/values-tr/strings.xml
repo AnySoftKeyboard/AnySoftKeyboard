@@ -118,6 +118,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="one_shot_quick_text_popup_off_summary">Hızlı-Metin açılır penceresini Kapat tuşu basılana kadar açık tut</string>
     <string name="quick_text_tags_search">Etiket yazarak duygu simgeleri öner</string>
     <string name="quick_text_tags_search_on_summary">Yazı iki nokta (:) ile başladığında duygu simgelerini etikete göre ara</string>
+    <string name="quick_text_tags_search_off_summary"></string>
     <string name="hide_soft_when_physical">Fiziksel tuş bulunduğunda klavyeyi gizle</string>
     <string name="hide_soft_when_physical_on_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi gizle</string>
     <string name="hide_soft_when_physical_off_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi göster</string>
@@ -213,6 +214,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="special_dictionaries_group_summary">AnySoftKeyboard için kullanılan öneri sözlükleri</string>
     <string name="use_user_dictionary">Kullanıcı-sözlüğü</string>
     <string name="use_user_dictionary_on_summary">Kullanıcının tanımladığı kelime önerileri (eklemek için öneriye çift dokunun)</string>
+    <string name="use_user_dictionary_off_summary"></string>
     <string name="always_use_fallback_user_dictionary">Özel Kullanıcı-Sözlüğü depolama alanını kullan</string>
     <string name="always_use_fallback_user_dictionary_on_summary">AnySoftKeyboard\'un yerleşik Kullanıcı-sözlüğü mekanizması özel depolama alanını kullan.</string>
     <string name="always_use_fallback_user_dictionary_off_summary">Android\'in global yerleşik Kullanıcı-sözlüğünü kullanmaya çalış.</string>
@@ -241,6 +243,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="auto_pick_suggestion_aggressiveness_summary">Agresiflik derecesi: %s</string>
     <string name="use_contacts_dictionary">Kişiler sözlüğü</string>
     <string name="use_contacts_dictionary_on_summary">Kişiler listesinden isimleri öner</string>
+    <string name="use_contacts_dictionary_off_summary"></string>
     <string name="tweaks_group">İnce ayar</string>
     <string name="tweak_sound_group">Ses ince ayarları</string>
     <string name="tweak_physical_keyboard_group">Fiziki klavye ince ayarları</string>
@@ -311,6 +314,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="zoom_factor_keys_in_landscape">Yatay modda tuşların yükseklik faktörü</string>
     <string name="insert_space_after_word_suggestion_selection">Aday seçme sonrasında boşluk</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Kelime önerisi seçimi sonrasına boşluk ekle    </string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Nokta koymak için iki kere boşluğa basma</string>
     <string name="double_space_to_period_summary">İki kez boşluğa tıklama nokta+boşluk olacaktır</string>
     <string name="tweak_animations_level_title">Animasyonlar</string>
@@ -477,6 +481,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="settings_split_state_compact_right_always">Sağa sıkıştırılmış olarak başlat</string>
     <string name="settings_split_state_compact_left_always">Sola sıkıştırılmış olarak başlat</string>
     <!-- User dictionary settings -->
+    <skip></skip>
     <string name="user_dictionary_select_locale">Dil:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Kullanıcı sözlüğü</string>

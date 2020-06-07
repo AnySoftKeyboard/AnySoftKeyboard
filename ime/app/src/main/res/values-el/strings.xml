@@ -7,15 +7,27 @@
     </string>
     <string name="menu_about_item">Σχετικά</string>
     <string name="how_to_pointer_title">Καλώς ήλθατε στο AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">More:\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Αυτή είναι μια δοκιμαστική έκδοση. Χρησιμοποιήστε τη με προσοχή!</string>
     <string name="testers_version">Έκδοση για δοκιμαστές!</string>
+    <string name="language_root_tile">Language</string>
+    <string name="language_keyboards_settings_tile">Enable keyboards and languages.</string>
+    <string name="language_grammar_settings_tile">Configure correction behavior and other dictionaries.</string>
+    <string name="language_tweaks_settings_tile">Tweaks and more.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">UI</string>
+    <string name="ui_theme_settings_tile">Pick and configure keyboard themes.</string>
+    <string name="ui_effects_settings_tile">Keyboard effects and experience.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Αρχείο αλλαγών</string>
     <string name="search_market_for_addons">Αναζήτηση για πρόσθετα</string>
     <string name="search_market_for_keyboard_addons">Αποκτήστε περισσότερα πληκτρολόγια στο <i>Play Store</i>…</string>
+    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
+    <string name="no_market_store_available">Could not find an app store on your device.\nUnable to search for add-ons!</string>
     <string name="keyboard_theme_tweak_group">Τροποποιήσεις</string>
     <string name="close_button">Κλείσιμο</string>
     <!-- Indicates that a word has been added to the dictionary -->
@@ -30,8 +42,15 @@
     <string name="hint_double_tap_to_close">Επαναλάβετε για αφαίρεση υποδείξεων</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Η φωνητική εισαγωγή δεν είναι εγκατεστημένη</string>
+    <string name="voice_input_not_installed_text">Voice Input is not installed on your device.\nThat
+        can be easily fixed: install it now from the app store.
+    </string>
     <string name="voice_input_not_installed_action_install">Εγκατάσταση</string>
     <string name="voice_input_not_installed_action_do_not_install">Όχι</string>
+    <string name="voice_input_not_voice_pack_in_market">I can not find voice input
+        (com.google.android.voicesearch) in the app store. Sorry, voice input will not work on your
+        device.
+    </string>
     <!-- Options menu -->
     <string name="change_ime">Αλλαγή μεθόδου εισαγωγής</string>
     <string name="override_dictionary">Παράκαμψη προεπιλεγμένου λεξικού</string>
@@ -45,7 +64,46 @@
     <string name="gesture_settings">Χειρονομίες</string>
     <string name="effects_group">Επιδράσεις</string>
     <string name="ime_settings">Ρυθμίσεις πληκτρολογίου</string>
+    <string name="switch_incognito">Incognito Mode</string>
     <string name="vibrate_on_key_press_title">Δόνηση στο πάτημα των πλήκτρων</string>
+    <string name="vibrate_on_key_press_value_template">%d milliseconds</string>
+    <string name="night_mode_screen">Night-Mode settings</string>
+    <string name="night_mode_description">Night-Mode will change these features:</string>
+    <string name="night_mode_state_summary">Currently, Night-Mode trigger:\u0020%s</string>
+    <string name="night_mode_dialog_title">Enable Night-Mode</string>
+    <string name="night_mode_type_never">Never</string>
+    <string name="night_mode_type_follow_system">Follow system</string>
+    <string name="night_mode_type_always">Always</string>
+    <string name="night_mode_app_night_theme">Darken Settings App UI</string>
+    <string name="night_mode_darken_keyboard_theme">Darken keyboard theme</string>
+    <string name="night_mode_sound_control">Disable key-press sounds</string>
+    <string name="night_mode_vibration_control">Disable key-press vibrations</string>
+    <string name="power_save_mode_screen">Power-Saving settings</string>
+    <string name="power_save_mode_description">Power-Saving mode will reduce the energy consumption of AnySoftKeyboard by disabling features:</string>
+    <string name="power_save_mode_state_summary">Currently, Power-Saving trigger:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Enable Power-Saving mode</string>
+    <string name="power_save_mode_types_never">Never</string>
+    <string name="power_save_mode_types_lower_battery">When low-battery</string>
+    <string name="power_save_mode_types_always">Always</string>
+    <string name="power_saving_keyboard_theme_name">Power-Saving mode theme</string>
+    <string name="power_saving_keyboard_theme_description">Dark colors, simple layout which may require less power from the device.</string>
+    <string name="power_save_mode_animation_control">Disable animations and key-previews</string>
+    <string name="power_save_mode_sound_control">Disable key-press sounds</string>
+    <string name="power_save_mode_vibration_control">Disable key-press vibrations</string>
+    <string name="power_save_mode_suggestions_control">Disable word suggestions</string>
+    <string name="power_save_mode_gesture_typing_control">Disable Gesture-Typing</string>
+    <string name="power_save_mode_theme_control">Switch to dark, simple theme</string>
+    <string name="pop_text_type_title">Pop typed text from keys</string>
+    <string name="pop_text_type_summary">When to pop text out of pressed keys. Currently:\u0020%s</string>
+    <string name="pop_text_type_dialog_title">Select pop-text type</string>
+    <string name="pop_text_type_never">Never</string>
+    <string name="pop_text_type_on_correction">On word correction</string>
+    <string name="pop_text_type_on_word">On any word</string>
+    <string name="pop_text_type_any_key">On any key</string>
+    <string name="input_field_type_password">Password input field</string>
+    <string name="input_field_type_email">Email input field</string>
+    <string name="input_field_type_url">URL input field</string>
+    <string name="input_field_type_im">Messaging input field</string>
     <string name="sound_on">Ήχος κατά την πληκτρολόγηση</string>
     <string name="sound_on_summary">Ηχητικά εφέ στο πάτημα των πλήκτρων.</string>
     <string name="use_custom_sound_volume">Ορισμός προσαρμοσμένης έντασης</string>
@@ -53,36 +111,81 @@
     <string name="use_custom_sound_volume_off_summary">Η ένταση ηχητικών εφέ είναι η ένταση των ειδοποιήσεων συστήματος.
     </string>
     <string name="custom_sound_volume">Προσαρμοσμένη ένταση πίεσης πλήκτρου</string>
+    <string name="vibrate_on_long_press_title">Vibrate on long-press</string>
+    <string name="vibrate_on_long_press_summary_on">A soft vibration when long-press action is invoked.</string>
     <string name="switch_keyboard_on_space">Το πλήκτρο διαστήματος αλλάζει πληκτρολόγια</string>
     <string name="switch_keyboard_on_space_on_summary">Αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα
     </string>
     <string name="switch_keyboard_on_space_off_summary">Να μην γίνεται αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα
     </string>
+    <string name="colorize_nav_bar_title">Draw behind the navigation-bar</string>
+    <string name="colorize_nav_bar_summary_on">Will draw the keyboard background behind the navigation-bar. This is not supported by all devices.</string>
+    <string name="colorize_nav_bar_summary_off">Do not draw behind the navigation-bar.</string>
+    <string name="persistent_layout_per_package_id_title">Remember alphabet layout per App</string>
+    <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous layout used in the App.</string>
+    <string name="one_shot_quick_text_popup">Auto close after key-press</string>
+    <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed.</string>
+    <string name="quick_text_tags_search">Suggest Emojis by tag typing</string>
+    <string name="quick_text_tags_search_on_summary">Search emojis by tag, when typing starts with
+        colon (:)
+    </string>
+    <string name="quick_text_tags_search_off_summary"></string>
     <string name="hide_soft_when_physical">Απόκρυψη πληκτρολογίου σε φυσικό πλήκτρο</string>
     <string name="hide_soft_when_physical_on_summary">Απόκρυψη εικονικού πληκτρολογίου όταν χρησιμοποιείται το φυσικό</string>
     <string name="hide_soft_when_physical_off_summary">Εμφάνιση εικονικού πληκτρολογίου όταν χρησιμοποιείται το φυσικό</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space switches languages</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt + Space switches to the next available layout.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt + Space enters a space.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space switches languages</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + Space switches to the next available layout.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Space enters a space.</string>
     <string name="fullscreen_input_connection_supported">Χρήση οριζόντιου πλήρους οθόνης</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Take over the screen when
+        entering text in landscape
+    </string>
     <string name="fullscreen_input_connection_supported_off_summary">Να μη χρησιμοποιείτε εισαγωγή πλήρους οθόνης σε οριζόντιο</string>
     <string name="fullscreen_portrait_input_connection_supported">Χρήση πλήρους οθόνης σε κατακόρυφο</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Take over the screen when entering text in portrait</string>
     <string name="fullscreen_portrait_input_connection_supported_off_summary">Να μην γίνεται χρήση εισαγωγής πλήρους οθόνης σε κατακόρυφο
     </string>
     <string name="backword_support">Υποστήριξη Back-word</string>
     <string name="backword_support_on_summary">Το μετακινούμενο Backspace θα διαγράψει την τελευταία λέξη</string>
     <string name="backword_support_off_summary">Το μετακινούμενο Backspace θα διαγράψει τον τελευταίο χαρακτήρα</string>
     <string name="swipe_up_action">Σύρσιμο προς τα πάνω</string>
+    <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s
+    </string>
     <string name="swipe_up_action_title">Επιλογή ενέργειας συρσίματος προς τα πάνω</string>
     <string name="swipe_up_from_spacebar_action">Σύρσιμο πλήκτρου διαστήματος προς τα πάνω</string>
+    <string name="swipe_up_from_spacebar_action_summary">Define the swipe up from spacebar gesture action. Currently, %s</string>
     <string name="swipe_up_from_spacebar_action_title">Επιλογή ενέργειας συρσίματος του πλήκτρου διαστήματος προς τα πάνω</string>
     <string name="swipe_down_action">Σύρσιμο προς τα κάτω</string>
+    <string name="swipe_down_action_summary">Define the swipe down gesture action. Currently, %s</string>
     <string name="swipe_down_action_title">Επιλογή ενέργειας συρσίματος προς τα κάτω</string>
     <string name="swipe_left_action">Σύρσιμο προς τα αριστερά</string>
+    <string name="swipe_left_action_summary">Define the swipe left gesture action. Currently, %s</string>
     <string name="swipe_left_action_title">Επιλογή ενέργειας συρσίματος προς τα αριστερά</string>
     <string name="swipe_right_action">Σύρσιμο προς τα δεξιά</string>
+    <string name="swipe_right_action_summary">Define the swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_action_title">Επιλογή ενέργειας συρσίματος προς τα δεξιά</string>
+    <string name="swipe_right_space_bar_action">Space bar swipe right</string>
+    <string name="swipe_right_space_bar_action_summary">Define the swipe right from space bar gesture action. Currently, %s</string>
+    <string name="swipe_right_space_bar_action_title">Select swipe right action</string>
+    <string name="swipe_left_space_bar_action">Space bar swipe left</string>
+    <string name="swipe_left_space_bar_action_summary">Define the swipe left from space bar gesture action. Currently, %s</string>
+    <string name="swipe_left_space_bar_action_title">Select swipe left action</string>
+    <string name="swipe_left_two_fingers_action">Two fingers swipe left</string>
+    <string name="swipe_left_two_fingers_action_summary">Define the two-fingers swipe left gesture action. Currently, %s</string>
+    <string name="swipe_right_two_fingers_action">Two fingers swipe right</string>
+    <string name="swipe_right_two_fingers_action_summary">Define the two-fingers swipe right gesture action. Currently, %s</string>
+    <string name="swipe_right_two_fingers_action_title">Select swipe right action</string>
     <string name="pinch_gesture_action">Τσίμπημα</string>
     <string name="pinch_gesture_action_title">Επιλέξτε ενέργεια για τσίμπημα</string>
+    <string name="pinch_gesture_action_summary">Define the pinch gesture action. Currently, %s</string>
     <string name="separate_gesture_action">Έκταση χειρονομίας</string>
     <string name="separate_gesture_action_title">Επιλέξτε έκταση ενέργειας χειρονομίας</string>
+    <string name="separate_gesture_action_summary">Define the stretch gesture action. Currently, %s</string>
     <string name="swipe_action_name_none">Καμία ενέργεια</string>
     <string name="swipe_action_name_next_alphabet">Επόμενο αλφαβητικό πληκτρολόγιο</string>
     <string name="swipe_action_name_next_symbols">Επόμενο πληκτρολόγιο συμβόλων</string>
@@ -90,6 +193,7 @@
     <string name="swipe_action_name_cycle_keyboards">Κυκλική εναλλαγή όλων των πληκτρολογίων</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Αντίστροφη κυκλική εναλλαγή όλων των πληκτρολογίων</string>
     <string name="swipe_action_name_shift">Μετατόπιση</string>
+    <string name="swipe_action_name_space">Space</string>
     <string name="swipe_action_name_hide">Απόκρυψη πληκτρολογίου</string>
     <string name="swipe_action_name_backspace">Βήμα πίσω</string>
     <string name="swipe_action_name_backword">Back-word</string>
@@ -101,14 +205,18 @@
     <string name="swipe_action_name_other_keyboards_mode">Αλλαγή διάταξης λειτουργίας</string>
     <string name="swipe_action_name_split_layout">Διάταξη διαιρεμένου</string>
     <string name="swipe_action_name_merge_layout">Ενιαία διάταξη</string>
+    <string name="swipe_action_name_compact_layout_to_right">Compact layout to right</string>
+    <string name="swipe_action_name_compact_layout_to_left">Compact layout to left</string>
     <string name="swipe_action_name_utility_keyboard">Εμφάνιση βοηθητικού προγράμματος πληκτρολογίου</string>
     <string name="settings_swipe_velocity_threshold_title">Όριο ταχύτητας σάρωσης</string>
+    <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed. Currently, %s</string>
     <string name="settings_swipe_velocity_very_slow">Πολύ αργή</string>
     <string name="settings_swipe_velocity_slow">Αργή</string>
     <string name="settings_swipe_velocity_normal">Κανονική</string>
     <string name="settings_swipe_velocity_fast">Γρήγορη</string>
     <string name="settings_swipe_velocity_very_fast">Πολύ γρήγορη</string>
     <string name="settings_swipe_distance_threshold_title">Όριο απόστασης σάρωσης</string>
+    <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance. Currently, %s</string>
     <string name="settings_swipe_distance_very_short">Πολύ μικρή</string>
     <string name="settings_swipe_distance_short">Μικρή</string>
     <string name="settings_swipe_distance_normal">Κανονική</string>
@@ -123,19 +231,46 @@
     <string name="special_dictionaries_group">Ειδικά λεξικά</string>
     <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>
     <string name="use_user_dictionary">Λεξικό-χρήστη</string>
+    <string name="use_user_dictionary_on_summary">Suggest user added words (double-click a typed-suggestion to add)</string>
+    <string name="use_user_dictionary_off_summary"></string>
+    <string name="always_use_fallback_user_dictionary">Use private User-Dictionary storage</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Use private-storage AnySoftKeyboard\'s built-in User-dictionary mechanism.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Try to use Android\'s global built-in User-dictionary.</string>
     <string name="use_auto_dictionary">Αυτόματο λεξικό</string>
     <string name="use_auto_dictionary_dialog_title">Επιλέξτε μέθοδο εκμάθησης</string>
     <string name="use_auto_dictionary_summary">Αυτόματη εκμάθηση νέων λέξεων. Μέθοδος εκμάθησης: %s</string>
     <string name="auto_dictionary_threshold_type_after_a_while">Μετά από κάποια χρήση</string>
     <string name="auto_dictionary_threshold_type_immediately">Αμέσως μετά αφού το πληκτρολογήσω</string>
     <string name="auto_dictionary_threshold_type_off">Μη εκμάθηση νέων λέξεων</string>
+    <string name="use_next_words_dictionary">Next word suggestions</string>
+    <string name="next_words_dictionary_off">Do not suggest next word</string>
+    <string name="next_words_dictionary_words_only">Suggest next words</string>
+    <string name="next_words_dictionary_words_punctuations">Suggest next words and punctuations</string>
+    <string name="next_words_dictionary_summary">Use the previous word to make suggestions: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness">Next word aggressiveness</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Minimal suggestions</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Medium aggressiveness</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Show many suggestions</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Next word suggestion aggressiveness: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Auto-select suggestion aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Off</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Minimal aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Medium aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">High aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Extreme aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Aggressiveness level: %s</string>
     <string name="use_contacts_dictionary">Λεξικό επαφών</string>
     <string name="use_contacts_dictionary_on_summary">Πρόταση ονομάτων από τη λίστα επαφών</string>
+    <string name="use_contacts_dictionary_off_summary"></string>
     <string name="tweaks_group">Τροποποιήσεις</string>
     <string name="tweak_sound_group">Ήχος σχετικός με προηγμένες ρυθμίσεις</string>
     <string name="tweak_physical_keyboard_group">Προηγμένες ρυθμίσεις φυσικού πληκτρολογίου</string>
     <string name="tweak_ui_group">Γραφικό περιβάλλον προηγμένων ρυθμίσεων</string>
     <string name="tweak_ux_group">Συμπεριφορά προηγμένων ρυθμίσεων</string>
+    <string name="supported_keyboard_row_modes_title">Enabled specialized input-field modes</string>
+    <string name="supported_keyboard_row_modes_summary">Pick specialized input-field (such as
+        password, URL, etc.) rows to use.
+    </string>
     <string name="tweak_dictionary_group">Τροποποιήσεις λεξικού</string>
     <string name="settings_min_length_for_word_correction">Ελάχιστο μήκος λέξης για διόρθωση</string>
     <string name="show_keyboard_name_text">Εμφάνιση του ονόματος πληκτρολογίου</string>
@@ -165,9 +300,24 @@
     <string name="is_sticky_extesion_keyboard">Μόνιμη επέκταση του πληκτρολογίου</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Παραμένει ορατό μέχρι το οριστικό κλείσιμο</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Κλείσιμο μετά από πίεση πλήκτρου</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Show keyboard icon in status-bar</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Shows the keyboard icon in the device
+        status bar.
+    </string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">No status-bar icon.</string>
     <string name="is_extesion_keyboard_above_keyboard">Πάνω επέκταση πληκτρολογίου</string>
     <string name="show_settings_app_in_launcher">Ρυθμίσεις εφαρμογής</string>
+    <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the
+        launcher (may require reboot)
+    </string>
     <string name="settings_key_show_settings_app_off_summary">Απόκρυψη ρυθμίσεων εφαρμογής (μπορεί να χρειαστεί επανεκκίνηση)</string>
+    <string name="always_hide_language_key">Always hide language-key</string>
+    <string name="always_hide_language_key_on_summary">Will never show the language-key. Gestures
+        will still support layout switching.
+    </string>
+    <string name="always_hide_language_key_off_summary">Will show language-key only if multiple
+        layouts are enabled.
+    </string>
     <string name="show_crash_notification">Αναφορά διακοπής λειτουργίας</string>
     <string name="show_crash_notification_on_summary">Κατά την διακοπή λειτουργίας ASK, άνοιγμα παραθύρου διαλόγου αναφοράς διακοπής λειτουργίας</string>
     <string name="show_crash_notification_off_summary">Σιωπηλή απορρόφηση διακοπής λειτουργίας</string>
@@ -189,9 +339,16 @@
     <string name="zoom_factor_keys_in_portrait">Ύψος πλήκτρων σε κατακόρυφη λειτουργία</string>
     <string name="zoom_factor_keys_in_landscape">Ύψος πλήκτρων σε οριζόντια λειτουργία</string>
     <string name="insert_space_after_word_suggestion_selection">Διάστημα μετά την επιλογή υποψηφίου</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word
+        suggestion select
+    </string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Διπλό διάστημα στην τελεία</string>
     <string name="double_space_to_period_summary">Το χτύπημα διπλού διαστήματος θα γίνεται τελεία+διάστημα</string>
     <string name="tweak_animations_level_title">Κινούμενες εικόνες</string>
+    <string name="tweak_animations_level_summary">How much animations should be used. Currently:
+        %s
+    </string>
     <string name="tweak_animations_level_types_full">Πλήρης</string>
     <string name="tweak_animations_level_types_some">Μερικές</string>
     <string name="tweak_animations_level_types_none">Καμία</string>
@@ -201,9 +358,23 @@
     <string name="lang_key_shows_popup">Αλλαγή γλώσσας με αναδυόμενη επιλογή</string>
     <string name="lang_key_shows_popup_on_summary">Το πλήκτρο γλώσσας θα εμφανίσει έναν αναδυόμενο διάλογο επιλογής</string>
     <string name="lang_key_shows_popup_off_summary">Το πλήκτρο γλώσσας θα εναλλάσσει τις γλώσσες</string>
+    <string name="settings_os_clipboard_sync">Sync clipboard with OS</string>
+    <string name="settings_os_clipboard_sync_summary_on">Detect clipboard changes and sync with AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Do not listen to clipboard operations outside of AnySoftKeyboard.</string>
     <string name="auto_caps">Αυτόματα πεζά και κεφαλαία γράμματα</string>
+    <string name="grammar_group">Grammar</string>
     <string name="keyboard_behavior_group">Συμπεριφορά πληκτρολογίου</string>
     <string name="candidates_on">Εμφάνιση υποδείξεων</string>
+    <string name="candidates_on_summary">A list of suggested words will be displayed above the
+        keyboard
+    </string>
+    <string name="candidates_off_summary">No suggestions will be shown</string>
+    <string name="quick_fix">Quick fixes and abbreviations</string>
+    <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations</string>
+    <string name="quick_fix_secon_disabled">…on first language only</string>
+    <string name="quick_fix_secon_disabled_summ_on">Quick fixes and abbreviations will work only on current layout language</string>
+    <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
+                  checked in override default dictionary</string>
     <string name="allow_suggestions_restart">Επανεκκίνηση υποδείξεων</string>
     <string name="allow_suggestions_restart_summary">Επανεκκίνηση υποδείξεων λέξεων κατά την κίνηση του δρομέα</string>
     <!-- settings - keyboard group -->
@@ -217,6 +388,7 @@
     <string name="keyboard_change_locked">μ/δ</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Πλήκτρο ταχείας γραφής κειμένου</string>
+    <string name="quick_text_keys_order">Quick Text groups and order</string>
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Κοινή πάνω γενική σειρά</string>
     <string name="top_generic_row_dialog_title">Επιλογή τύπου σειράς</string>
@@ -235,6 +407,29 @@
     <string name="lean_dark_keyboard_theme_name">Ελαφρώς σκούρο</string>
     <string name="lean_dark_keyboard_theme_description">Σκούρο θέμα, με ελάχιστα στοιχεία UI</string>
     <string name="lean_dark_2_keyboard_theme_name">Ελαφρώς σκούρο - Επιλογή 2</string>
+    <string name="lean_dark_big_keyboard_theme_name">Lean Dark - Large Keys</string>
+    <string name="lean_dark_big_keyboard_theme_description">Same Dark theme, but with larger keys
+    </string>
+    <string name="lean_light_keyboard_theme_name">Lean Light</string>
+    <string name="lean_light_keyboard_theme_description">Light theme, with minimal UI elements
+    </string>
+    <string name="lean_light_2_keyboard_theme_name">Lean Light - Option 2</string>
+    <string name="lean_light_big_keyboard_theme_name">Lean Light - Large Keys</string>
+    <string name="lean_light_big_keyboard_theme_description">Same Light theme, but with larger
+        keys
+    </string>
+    <string name="lean_dark_gray_keyboard_theme_name">Lean Dark Gray</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Dark Gray theme, with minimal UI
+        elements
+    </string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees Dark</string>
+    <string name="yochees_dark_keyboard_theme_description">Dark theme by Algimantas.</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - Option 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
+    <string name="yochees_light_keyboard_theme_description">Light theme by Algimantas.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Light theme by Algimantas with
+        uppercase keys.
+    </string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">Χωρίς πάνω σειρά</string>
     <string name="extension_kbd_top_small">Μικρά πλήκτρα</string>
@@ -242,14 +437,25 @@
     <string name="extension_kbd_top_small_numbers">Αριθμητικό πληκτρολόγιο</string>
     <string name="extension_kbd_top_numbers_alt">Εναλλακτικά πλήκτρα αριθμών</string>
     <string name="extension_kbd_top_nav">Πλήκτρα μετακίνησης</string>
+    <string name="extension_kbd_top_nav_alt">Navigation keys alternative</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Navigation keys alternative. No numbers row in pwd mode</string>
+    <string name="extension_kbd_top_numbers_simple">Simple, numbers only</string>
+    <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Quick text editing</string>
     <string name="extension_kbd_bottom_regular_with_voice">Κανονικό</string>
     <string name="extension_kbd_bottom_regular">Κλασικό (χωρίς μικρόφωνο)</string>
     <string name="extension_kbd_bottom_iphone">Στυλ iPhone (χωρίς μικρόφωνο)</string>
     <string name="extension_kbd_bottom_iphone_with_voice">Στυλ iPhone με μικρόφωνο</string>
     <string name="extension_kbd_bottom_alt">Εναλλακτικό (χωρίς μικρόφωνο)</string>
     <string name="extension_kbd_bottom_alt_with_mic">Εναλλακτικό με μικρόφωνο</string>
+    <string name="extension_kbd_bottom_old">Old School</string>
+    <string name="extension_kbd_bottom_simple">Simple</string>
+    <string name="extension_kbd_bottom_simple_alt">Simple Alternative</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP styled</string>
     <string name="extension_kbd_bottom_ng">Νέα γενιά - Δοκιμή</string>
     <string name="extension_kbd_extension_numbers_symbols">Αριθμοί και σύμβολα</string>
+    <string name="extension_kbd_bottom_minimal">Minimal</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (no emoji)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Συνεχίστε</string>
@@ -266,7 +472,25 @@
     <string name="select_keyboard_popup_title">Επιλέξτε πληκτρολόγιο</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Πλήκτρο φατσούλας</string>
+    <string name="short_smiley_key_name">Shorter Smiley key</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="history_quick_text_key_name">History</string>
     <string name="default_quick_text_key_name">Απλό εικονίδιο</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
+    <string name="unicode_people_quick_text_key_name">People</string>
+    <string name="unicode_gestures_quick_text_key_name">Gestures</string>
+    <string name="unicode_accessories_quick_text_key_name">Accessories</string>
+    <string name="unicode_animals_quick_text_key_name">Animals</string>
+    <string name="unicode_food_quick_text_key_name">Food</string>
+    <string name="unicode_nature_quick_text_key_name">Nature</string>
+    <string name="unicode_transport_quick_text_key_name">Transport</string>
+    <string name="unicode_signs_quick_text_key_name">Signs</string>
+    <string name="unicode_city_quick_text_key_name">City</string>
+    <string name="unicode_scape_quick_text_key_name">Scape</string>
+    <string name="unicode_activity_quick_text_key_name">Activity</string>
+    <string name="unicode_office_quick_text_key_name">Office</string>
+    <string name="unicode_occasions_quick_text_key_name">Occasions</string>
+    <string name="unicode_flags_quick_text_key_name">Flags</string>
     <string name="multitap_timeout_title">Χρονικό όριο για πολλαπλό πάτημα</string>
     <string name="multitap_timeout_summary">Χρονικό όριο μεταξύ πατημάτων πλήκτρων</string>
     <string name="settings_multitap_timeout_disabled">Απενεργοποιημένο</string>
@@ -284,28 +508,78 @@
     <string name="settings_long_press_timeout_slow">Αργά</string>
     <string name="settings_long_press_timeout_slower">Πολύ αργά</string>
     <string name="settings_long_press_timeout_never">Ποτέ</string>
+    <string name="settings_force_locale_title">Force Locale</string>
+    <string name="settings_force_locale_summary">Force locale used inside AnySoftKeyboard (takes
+        awhile to take affect). Currently: %s.
+    </string>
     <string name="tweak_workarounds_group">Εναλλακτικές λύσεις</string>
     <string name="workaround_disable_rtl_fix">Απενεργοποίηση γραφής δεξιά προς αριστερά</string>
     <string name="workaround_disable_rtl_fix_summary_on">Χρήση γραφής RTL του λειτουργικού (για τηλέφωνα SE)</string>
     <string name="workaround_disable_rtl_fix_summary_off">Χρήση γραφής RTL του AnySoftKeyboard</string>
+    <string name="settings_split_state_title_portrait">Portrait Split/Merge initial state</string>
+    <string name="settings_split_state_title_landscape">Landscape Split/Merge initial state</string>
     <string name="settings_split_state_summary">Ορίστε αν το πληκτρολόγιο είναι διαιρεμένο ως προεπιλογή. Τώρα: %s</string>
     <string name="settings_split_state_merged_always">Έναρξη κανονικού</string>
     <string name="settings_split_state_split_always">Έναρξη διαιρεμένου</string>
+    <string name="settings_split_state_compact_right_always">Start compacted to right</string>
+    <string name="settings_split_state_compact_left_always">Start compacted to left</string>
     <!-- User dictionary settings -->
+    <skip></skip>
     <string name="user_dictionary_select_locale">Γλώσσα:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Λεξικό χρήστη</string>
     <string name="user_dict_editor">Πρόγραμμα επεξεργασίας λέξεων</string>
     <!-- abbreviations editor -->
+    <string name="abbreviation_dict_settings_titlebar">Abbreviation editor</string>
+    <string name="abbreviation_dict_editor">Abbreviation editor</string>
+    <string name="abbreviation_dict_word_template">        <i>
+            <xliff:g id="abbreviation">%s</xliff:g>
+        </i>
+        \u0020\u2192\u0020
+        <i>
+            <xliff:g id="target">%s</xliff:g>
+        </i>
+    </string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary.
+        You can add your first word now.
+    </string>
     <string name="user_dict_backup_success_title">Το αντίγραφο ασφαλείας έγινε!</string>
+    <string name="user_dict_backup_success_text">Successfully stored your words on device storage
+        at\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
     <string name="user_dict_backup_fail_title">Το αντίγραφο ασφαλείας απέτυχε!</string>
+    <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:\u0020
+        <xliff:g id="error">%s</xliff:g>
+    </string>
     <string name="user_dict_restore_success_title">Η επαναφορά έγινε!</string>
     <string name="user_dict_restore_success_text">Επιτυχής επαναφορά των λέξεών σας.</string>
     <string name="user_dict_restore_fail_title">Η επαναφορά απέτυχε!</string>
+    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:\u0020
+        <xliff:g id="error">%s</xliff:g>
+    </string>
     <string name="should_swap_punctuation_and_space_title">Εναλλαγή σημείων στίξης και διαστήματος</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and
+        punctuation.
+    </string>
+    <string name="should_swap_punctuation_and_space_on_summary">Swap auto-space and punctuation.
+    </string>
+    <string name="initial_quick_text_tab_title">Initial group</string>
+    <string name="initial_quick_text_tab_summary">Quick-Text group to start with: %s</string>
+    <string name="initial_quick_text_tab_always_first_tab">Always start with first</string>
+    <string name="initial_quick_text_tab_last_used_tab">Start with the last used group</string>
+    <string name="initial_quick_text_tab_history_tab">Start with History group</string>
+    <string name="emoji_default_skin_tone_title">Emoji default skin-tone</string>
+    <string name="emoji_default_skin_tone_summary">Default Fitzpatrick skin-tone to use: %s</string>
+    <string name="emoji_default_skin_tone_value_generic">Generic</string>
+    <string name="emoji_default_skin_tone_value_type_2">Light Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_3">Medium-Light Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_4">Medium Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_5">Medium-Dark Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_6">Dark Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_random_type">Random Skin Tone</string>
     <string name="developer_tools">Εργαλεία προγραμματιστών</string>
     <string name="click_for_developer_features">Εργαλεία προγραμματιστών</string>
     <string name="click_for_developer_features_summary">Διάφορα εργαλεία για προγραμματιστές του AnySoftKeyboard</string>
@@ -321,15 +595,159 @@
     <string name="word_editor_action_restore_words">Επαναφορά</string>
     <string name="click_to_add_new_word">Κάντε κλικ για να προσθέσετε μια νέα λέξη</string>
     <string name="enter_word_hint">Πληκτρολογήστε τη νέα λέξη εδώ</string>
+    <string name="enter_abbreviation_hint">Abbreviation</string>
+    <string name="enter_abbreviation_target_hint">Full sentence</string>
     <string name="about_additional_software_licenses">Επιπλέον άδειες λογισμικού</string>
     <string name="setup_wizard_step_one_title">Ενεργοποίηση AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Σε αυτό το βήμα, θα πρέπει να ενεργοποιήσετε το <i>AnySoftKeyboard</i>. Παρακαλώ επιλέξτε το <i>\'AnySoftKeyboard\'</i> στη δική σας <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>. Αυτό θα επιτρέψει την λειτουργία μας στη συσκευή σας.</string>
     <string name="setup_wizard_step_one_action">Πηγαίνετε στο <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>...</string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does
+        not support 3rd-party keyboards. AnySoftKeyboard can not be activated!
+    </string>
+    <string name="setup_wizard_step_permissions_title">Enable Permissions</string>
+    <string name="setup_wizard_step_permissions_details">In this step, you can approve <i>
+        AnySoftKeyboard
+    </i> to read contacts stored on your device. If you wish to block this access, you may disable
+        Contacts Dictionary.
+    </string>
     <string name="setup_wizard_step_two_title">Μεταβείτε σε AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Το σύστημά σας μπορεί να χρησιμοποιήσει το <i>AnySoftKeyboard</i> τώρα, αλλά δεν έχει οριστεί ως ενεργό πληκτρολόγιο.\nΜε την εναλλαγή, το <i>AnySoftKeyboard</i> θα είναι το νέο πληκτρολόγιο οθόνης, μαζί με όλα τα χαρακτηριστικά του!</string>
     <string name="setup_wizard_step_two_action">Εναλλαγή ενεργών πληκτρολογίων</string>
+    <string name="setup_wizard_step_three_title">What\'s next</string>
+    <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.
+    </string>
+    <string name="setup_wizard_step_three_details_done">        <b>You are done 🎉\nGo to you favorite app to try it out.</b>
+    </string>
+    <string name="setup_wizard_step_three_details_actions">Or, you can customize and personalize the
+        keyboard to your likings:
+    </string>
     <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών...</string>
     <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος...</string>
     <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων...</string>
+    <string name="setup_wizard_step_download_title">Download Language Packs</string>
+    <string name="setup_wizard_step_download_details">You\'ll be happy to know that <i>AnySoftKeyboard</i> supports dozens of languages. Just download the desired language-pack and enjoy typing in
+        any language on your device.</string>
+    <string name="setup_wizard_step_download_action">Download language pack</string>
+    <string name="setup_wizard_step_download_skip_action">Skip</string>
+    <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>
+    <string name="ime_crashed_sub_text">Oops, didn\'t see that coming…</string>
+    <string name="ime_crashed_ticker">Oops, AnySoftKeyboard crashed, didn\'t see that coming…
+    </string>
+    <string name="ime_crashed_text">Unfortunately, there is a problem with <i>AnySoftKeyboard</i>.
+        Do not panic, there is something <b>you</b> can do to help resolve this: send us the crash
+        report, and we\'ll do our best to solve this crash and get you back with an awesome keyboard
+        experience!\n\nWith sincere apology, the Dev team.
+    </string>
+    <string name="ime_crashed_send_button">Send</string>
+    <string name="ime_crashed_cancel_button">Cancel</string>
+    <string name="ime_crashed_intent_selector_title">Send crash report via</string>
+    <string name="next_word_dict_settings">Next Word settings</string>
+    <string name="next_word_settings_group">Settings</string>
+    <string name="next_word_stats_group">Next Word Usage Statistics</string>
+    <string name="next_words_statistics_count">Initial word count:\u0020<xliff:g id="first_word">%d</xliff:g>\nAverage next word count:\u0020<xliff:g id="second_word">%d</xliff:g></string>
+    <string name="next_words_statistics_no_usage">No usage yet. Type a bit more.</string>
+    <string name="clipboard_is_empty_toast">Clipboard is empty, there is nothing to paste.</string>
+    <string name="clipboard_copy_done_toast">Selected text copied to clipboard.</string>
+    <string name="clipboard_paste_entries_title">Pick text to paste</string>
+    <string name="next_word_prefs_clear_data">Clear next-word data</string>
+    <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
+    <string name="notification_read_contacts_title">Can I read your contacts?</string>
+    <string name="notification_read_contacts_text">We need to read your contacts to give you a better auto-complete experience.</string>
+    <string name="notification_read_contacts_ticker">Contacts permission needed</string>
+    <string name="contacts_permissions_dialog_message">AnySoftKeyboard is using your contacts\'
+        names to provide you with a personalized word suggestion: as you type a word, we look for
+        similar words to auto-complete and auto-correct your typing.
+    </string>
+    <string name="wizard_allow_contacts_permission">Allow contacts-based typing suggestions</string>
+    <string name="allow_permission">Allow</string>
+    <string name="navigate_to_app_permissions">Go to App permissions</string>
+    <string name="turn_off_contacts_dictionary">Turn off Contacts Dictionary</string>
+    <string name="read_more_about_permissions">Read more about permissions…</string>
+    <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then
+        you\'re in luck! <i>BETA</i> channel is now available for <b>YOU</b>!\nJust sign up at the
+        link below, and update through <i>Google Play</i> app store!\n\n
+        https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAnd thanks for
+        helping out to kill bugs before the reach the public.
+    </string>
+    <string name="clipboard_fine_select_enabled_toast">Fine-text-selection enabled. Use left/right arrows.</string>
+    <string name="app_shortcut_keyboards_disabled">Keyboards navigation disabled</string>
+    <string name="app_shortcut_keyboards_long_label">Pick keyboard layouts to use</string>
+    <string name="app_shortcut_keyboards_short_label">Keyboards</string>
+    <string name="app_shortcut_themes_disabled">Themes navigation disabled</string>
+    <string name="app_shortcut_themes_long_label">Pick layout theme to use</string>
+    <string name="app_shortcut_themes_short_label">Themes</string>
+    <string name="app_shortcut_gestures_disabled">Gestures navigation disabled</string>
+    <string name="app_shortcut_gestures_long_label">Setup keyboard gestures</string>
+    <string name="app_shortcut_gestures_short_label">Gestures</string>
+    <string name="app_shortcut_quick_keys_disabled">Emoji setup navigation disabled</string>
+    <string name="app_shortcut_quick_keys_long_label">Setup Emojis</string>
+    <string name="app_shortcut_quick_keys_short_label">Setup Emojis</string>
+    <string name="extension_keyboard_enabled_off_summary">Extension keyboard disabled.</string>
+    <string name="extension_keyboard_enabled_on_summary">Extension keyboard will be shown when swiping up above the keyboard.</string>
+    <string name="read_our_privacy_policy">Read our Privacy Policy…</string>
+    <string name="visit_our_web_site">Visit our web-site…</string>
+    <string name="keyboard_for_url_fields">Layout for URL fields</string>
+    <string name="keyboard_for_url_fields_summary">When in URL/Email fields, this layout will be used. Currently, %s</string>
+    <string name="keyboard_for_url_fields_title">Select layout for URL input</string>
+    <string name="no_internet_fields_specific_layout">None</string>
+    <string name="bottom_nav_home">Hello</string>
+    <string name="setup_wizard_welcome_title">Welcome!</string>
+    <string name="setup_wizard_welcome_sub_title">Thank you for giving AnySoftKeyboard a try!
+    </string>
+    <string name="setup_wizard_welcome_info">As with any other Android keyboard, you are required to
+        enable AnySoftKeyboard in Android Settings pages. This is required by Android to ensure that
+        your typing data is not stolen by evil keyboards*.
+    </string>
+    <string name="setup_wizard_welcome_info_2">Okay, ready? click below to start, I\'ll guide you through this.</string>
+    <string name="setup_wizard_welcome_start_action">Start setup…</string>
+    <string name="setup_wizard_welcome_info_footnote">* Of course, AnySoftKeyboard is not evil. You
+        are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK
+        </i> permissions, so we can not send any data off the device.
+    </string>
+    <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
+    <string name="clear_all_dictionary_override">Clear overrides</string>
+    <string name="theme_case_type_override_dialog_title">Pick letter-case override</string>
+    <string name="theme_case_type_override_theme">Use theme case</string>
+    <string name="theme_case_type_override_os">Let Android decide (Auto)</string>
+    <string name="theme_case_type_override_lower">Always lowercase</string>
+    <string name="theme_case_type_override_upper">Always uppercase</string>
+    <string name="theme_case_type_override_title">Keyboard letter-case override</string>
+    <string name="theme_case_type_override_summary">How to determine letters-case in the keyboard view. Currently, %s</string>
+    <string name="take_a_while_progress_message">This might take a while…</string>
+    <string name="shared_prefs_provider_name">App Settings</string>
+    <string name="user_dict_prefs_provider">User words</string>
+    <string name="next_word_dict_prefs_provider">Next words</string>
+    <string name="abbreviation_dict_prefs_provider">Abbreviations</string>
+    <string name="pick_prefs_providers_to_backup">What would you like to backup?</string>
+    <string name="pick_prefs_providers_to_restore">What would you like to restore?</string>
+    <string name="prefs_providers_operation_success">Success</string>
+    <string name="prefs_providers_operation_failed">Failed!</string>
+    <string name="prefs_providers_failed_backup_due_to">Failed to backup your data due to %s</string>
+    <string name="prefs_providers_backed_up_to">You data was successfully backed-up to %s</string>
+    <string name="prefs_providers_failed_restore_due_to">Failed to restore your data due to %s</string>
+    <string name="prefs_providers_restored_to">You data was successfully restored from %s</string>
+    <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Allow layouts to override generic rows.</string>
+    <string name="gesture_typing_settings">Gesture-Typing ➿</string>
+    <string name="gesture_typing_summary">Input a word by sliding your finger through its letters.</string>
+    <string name="gesture_typing_action">Enable gesture-typing [BETA]</string>
+    <string name="gesture_typing_alert_title">BETA Feature!</string>
+    <string name="gesture_typing_alert_message">The gesture-typing ➿ feature is at <b>beta</b> maturity. It has some bugs, not that fast, and not that complete.\nSaying that, you should try it out.</string>
+    <string name="gesture_typing_alert_button">Got it</string>
+    <string name="apply_remote_app_colors_to_theme">Change theme colors based on used app</string>
+    <string name="apply_overlay_summary_on">Keyboard\'s colors will match active app (to the best of our ability).</string>
+    <string name="apply_overlay_summary_off">Always use theme\'s colors.</string>
+    <string name="media_insertion_pending_message">Click text-box to insert image</string>
+    <string name="aosp_dark_theme_name">AOSP Dark theme</string>
+    <string name="aosp_dark_theme_description">AOSP-Inspired dark colors keyboard theme</string>
+    <string name="aosp_light_theme_name">AOSP Light theme</string>
+    <string name="aosp_light_theme_description">AOSP-Inspired light colors keyboard theme</string>
+    <string name="app_share_title">Hello from AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Share AnySoftKeyboard using</string>
+    <string name="app_share_text">Let me recommend the open-source, privacy-focus, free, highly customizable, multi-language Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Keep safe! Click for info on CoronaVirus.</string>
+    <string name="click_me_for_easter_egg_info">click me for a surprise</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
