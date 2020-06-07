@@ -156,7 +156,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFontMetrics;
     private float mHintTextSize;
-    private float mHintTextSizeMultiplier;
+    float mHintTextSizeMultiplier;
     private FontMetrics mHintTextFontMetrics;
     private int mThemeHintLabelAlign;
     private int mThemeHintLabelVAlign;
