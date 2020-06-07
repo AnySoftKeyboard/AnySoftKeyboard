@@ -477,7 +477,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(clipboardView);
         Assert.assertEquals("text 1", clipboardView.getText().toString());
         Assert.assertEquals(InputType.TYPE_CLASS_TEXT, clipboardView.getInputType());
-        clipboardView.performClick();
+        ((View) clipboardView.getParent()).performClick();
         Assert.assertEquals("text 1", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertNull(
                 mAnySoftKeyboardUnderTest

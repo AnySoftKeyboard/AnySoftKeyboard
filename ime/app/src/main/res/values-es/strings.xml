@@ -113,6 +113,7 @@
     <string name="one_shot_quick_text_popup_off_summary">Mantener cuadro emergente de texto rápido abierto, hasta pulsar la tecla Cerrar.</string>
     <string name="quick_text_tags_search">Sugerir emojis por etiqueta al escribir</string>
     <string name="quick_text_tags_search_on_summary">Buscar emojis por etiqueta, al escribir comience con dos puntos (:)</string>
+    <string name="quick_text_tags_search_off_summary"></string>
     <string name="hide_soft_when_physical">Ocultar el teclado al pulsar una tecla física</string>
     <string name="hide_soft_when_physical_on_summary">Ocultar teclado virtual cuando el teclado físico sea utilizado</string>
     <string name="hide_soft_when_physical_off_summary">Mostrar teclado virtual cuando el teclado físico sea utilizado</string>
@@ -208,6 +209,7 @@
     <string name="special_dictionaries_group_summary">Diccionarios de sugerencias utilizados en AnySoftKeyboard</string>
     <string name="use_user_dictionary">Diccionario del usuario</string>
     <string name="use_user_dictionary_on_summary">Sugerir palabras añadidas por el usuario (doble clic en una sugerencia para añadirla)</string>
+    <string name="use_user_dictionary_off_summary"></string>
     <string name="always_use_fallback_user_dictionary">Usar almacenamiento privado en el diccionario del usuario</string>
     <string name="always_use_fallback_user_dictionary_on_summary">Usar el mecanismo de almacenamiento privado en el diccionario del usuario integrado en AnySoftKeyboard.</string>
     <string name="always_use_fallback_user_dictionary_off_summary">Intentar usar el diccionario del usuario integrado en Android.</string>
@@ -236,6 +238,7 @@
     <string name="auto_pick_suggestion_aggressiveness_summary">Nivel de agresividad: %s</string>
     <string name="use_contacts_dictionary">Diccionario de contactos</string>
     <string name="use_contacts_dictionary_on_summary">Sugerir nombres de la lista de contactos</string>
+    <string name="use_contacts_dictionary_off_summary"></string>
     <string name="tweaks_group">Ajustes</string>
     <string name="tweak_sound_group">Ajustes relacionados con el sonido</string>
     <string name="tweak_physical_keyboard_group">Ajustes del teclado físico</string>
@@ -304,6 +307,7 @@
     <string name="zoom_factor_keys_in_landscape">Factor de altura de teclas en modo horizontal</string>
     <string name="insert_space_after_word_suggestion_selection">Espacio luego de elegir la palabra</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insertar un espacio después de seleccionar la palabra sugerida</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Doble espacio pone un punto</string>
     <string name="double_space_to_period_summary">Pulsación doble de espacio se convertirá en punto+espacio</string>
     <string name="tweak_animations_level_title">Animaciones</string>
@@ -470,6 +474,7 @@
     <string name="settings_split_state_compact_right_always">Inicio compactado a la derecha</string>
     <string name="settings_split_state_compact_left_always">Inicio compactado a la izquierda</string>
     <!-- User dictionary settings -->
+    <skip></skip>
     <string name="user_dictionary_select_locale">Idioma:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Diccionario del usuario</string>
