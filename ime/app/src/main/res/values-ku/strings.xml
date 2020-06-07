@@ -149,6 +149,7 @@
     <string name="quick_text_tags_search_on_summary">گەڕان بۆ خەندەکان بەهۆی هێماکەیەوە، کاتێ نووسین دەستیپێکرد بە هێمای
          (:)
   </string>
+    <string name="quick_text_tags_search_off_summary"></string>
     <string name="hide_soft_when_physical">تەختەکیلی فیزیکی</string>
     <string name="hide_soft_when_physical_on_summary">شاردنەوەی تەختەکلیل لەکاتی بەکارهێنانی تەختەکیلی فیزیکی        (بەرجەستەیی)
  </string>
@@ -265,6 +266,7 @@
     <string name="use_user_dictionary">فەرهەنگی بەکارهێنەر</string>
     <string name="use_user_dictionary_on_summary">پێشنیارکردنی ووشەکانی بەکارهێنەر (دووجار دەستی پێدابنێ بۆ زیادکردن)
     </string>
+    <string name="use_user_dictionary_off_summary"></string>
     <string name="always_use_fallback_user_dictionary">بیرگەی فەرهەنگی بەکارهێنەر</string>
     <string name="always_use_fallback_user_dictionary_on_summary">بەکارهێنانی بیرگەی تایبەتی بەرنامەکە.</string>
     <string name="always_use_fallback_user_dictionary_off_summary">بەکارهێنانی فەرهەنگی مۆبایل.</string>
@@ -298,6 +300,7 @@
     <string name="auto_pick_suggestion_aggressiveness_summary">ئاست: %s</string>
     <string name="use_contacts_dictionary">پێشنیارکردنی لیستی ناوەکان</string>
     <string name="use_contacts_dictionary_on_summary">پێشنیارکردنی لیستی ناوەکانی ناو مۆبایل</string>
+    <string name="use_contacts_dictionary_off_summary"></string>
     <string name="tweaks_group">ڕێکخستنی زیاتر</string>
     <string name="tweak_sound_group">ڕێکخستنی تایبەتی دەنگ</string>
     <string name="tweak_physical_keyboard_group">ڕێکخستنی تەختەکلیلی فیزیکی</string>
@@ -383,6 +386,7 @@
     <string name="insert_space_after_word_suggestion_selection">بۆشایی دوای ووشە</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">دانانی بۆشایی کاتێ ووشەی پێشنیارکراو هەڵبژێردا
     </string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">بۆشایی بۆ زیادکردنی ماوە</string>
     <string name="double_space_to_period_summary">دووجار کرتەکردن لە دوگمەی بۆشایی ماوەی نێوان نووسین زیادەکات</string>
     <string name="tweak_animations_level_title">کاریگەری جوڵان</string>
@@ -561,6 +565,7 @@
     <string name="settings_split_state_compact_right_always">بردن بۆلای ڕاست</string>
     <string name="settings_split_state_compact_left_always">بردن بۆلای چەپ</string>
     <!-- User dictionary settings -->
+    <skip></skip>
     <string name="user_dictionary_select_locale">زمان:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">فەرهەنگی بەکارهێنەر</string>
