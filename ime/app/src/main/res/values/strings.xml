@@ -880,6 +880,7 @@
 
     <string name="settings_hint_size">Hint label size</string>
     <string name="settings_key_hint_size_summary">Set hint size in the keyboard. Currently, %s</string>
+    <string name="settings_key_hint_size_none">None</string>
     <string name="settings_key_hint_size_small">Small</string>
     <string name="settings_key_hint_size_normal">Normal</string>
     <string name="settings_key_hint_size_big">Big</string>

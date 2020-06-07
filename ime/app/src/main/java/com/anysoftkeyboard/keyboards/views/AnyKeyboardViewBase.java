@@ -341,7 +341,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                 R.string.settings_key_hint_size_default)
                         .asObservable()
                         .subscribe(
-                                this::updatePrefSettings_hint_size,
+                                this::updatePrefSettingsHintTextSizeFactor,
                                 GenericOnError.onError("failed to get settings_key_hint_size")));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
@@ -1442,6 +1442,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             }
 
             if (drawHintText
+                    && (mHintTextSizeMultiplier > 0)
                     && ((key.popupCharacters != null && key.popupCharacters.length() > 0)
                             || (key.popupResId != 0)
                             || (key.longPressCode != 0))) {
@@ -2176,8 +2177,11 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         }
     }
 
-    private void updatePrefSettings_hint_size(final String overrideValue) {
+    private void updatePrefSettingsHintTextSizeFactor(final String overrideValue) {
         switch (overrideValue) {
+            case "none":
+                mHintTextSizeMultiplier = 0f;
+                break;
             case "small":
                 mHintTextSizeMultiplier = 0.7f;
                 break;
