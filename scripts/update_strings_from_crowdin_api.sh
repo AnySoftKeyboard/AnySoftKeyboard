@@ -52,10 +52,16 @@ mv "${APP_RES_FOLDER}/values-pt-PT/strings.xml" "${APP_RES_FOLDER}/values-pt/"
 rm -rf "${APP_RES_FOLDER}/values-pt-PT/" || true
 mv "${APP_RES_FOLDER}/values-pt-BR/strings.xml" "${APP_RES_FOLDER}/values-pt-rBR/"
 rm -rf "${APP_RES_FOLDER}/values-pt-BR/" || true
+mv "${APP_RES_FOLDER}/values-zh-CN/strings.xml" "${APP_RES_FOLDER}/values-zh-rCN/"
+rm -rf "${APP_RES_FOLDER}/values-zh-CN/" || true
 mv "${APP_RES_FOLDER}/values-tlh-AA/strings.xml" "${APP_RES_FOLDER}/values-tlh/"
 rm -rf "${APP_RES_FOLDER}/values-tlh-AA" || true
 mv "${APP_RES_FOLDER}/values-es-MX/strings.xml" "${APP_RES_FOLDER}/values-es-rMX/"
 rm -rf "${APP_RES_FOLDER}/values-es-MX/" || true
+mv "${APP_RES_FOLDER}/values-ml-IN/strings.xml" "${APP_RES_FOLDER}/values-ml-rIN/"
+rm -rf "${APP_RES_FOLDER}/values-ml-IN/" || true
+mv "${APP_RES_FOLDER}/values-bn-IN/strings.xml" "${APP_RES_FOLDER}/values-bn-rIN/"
+rm -rf "${APP_RES_FOLDER}/values-bn-IN/" || true
 #copying generic strings to en
 cp "${APP_RES_FOLDER}/values/strings.xml" "${APP_RES_FOLDER}/values-en/strings.xml"
 
