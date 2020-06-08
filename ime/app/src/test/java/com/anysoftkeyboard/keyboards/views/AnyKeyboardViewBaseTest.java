@@ -344,6 +344,18 @@ public class AnyKeyboardViewBaseTest {
         Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
     }
 
+    @Test
+    public void testHintSizeOption() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_hint_size, "big");
+        Assert.assertEquals(1.3, mUnderTest.mHintTextSizeMultiplier, 0.1);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_hint_size, "small");
+        Assert.assertEquals(0.7, mUnderTest.mHintTextSizeMultiplier, 0.1);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_hint_size, "none");
+        Assert.assertEquals(0, mUnderTest.mHintTextSizeMultiplier, 0);
+    }
+
     @Nullable
     protected AnyKeyboard.AnyKey findKey(int codeToFind) {
         final int index = findKeyIndex(codeToFind);
