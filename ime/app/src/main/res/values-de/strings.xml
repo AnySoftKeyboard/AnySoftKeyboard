@@ -617,6 +617,12 @@
     <string name="theme_case_type_override_os">Lass Android entscheiden (Auto)</string>
     <string name="theme_case_type_override_lower">Immer Kleinbuchstaben</string>
     <string name="theme_case_type_override_upper">Immer Großbuchstaben</string>
+    <string name="settings_hint_size">Hint label size</string>
+    <string name="settings_key_hint_size_summary">Set hint size in the keyboard. Currently, %s</string>
+    <string name="settings_key_hint_size_none">None</string>
+    <string name="settings_key_hint_size_small">Small</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Big</string>
     <string name="theme_case_type_override_title">Tastatur Groß-/ Kleinschreibung überschreiben</string>
     <string name="theme_case_type_override_summary">Wie Groß-/ Kleinschreibung in der Tastaturansicht ermitterlt wird. Derzeit %s</string>
     <string name="take_a_while_progress_message">Das könnte eine Weile dauern…</string>
