@@ -59,6 +59,20 @@
         <item>upper</item>
     </string-array>
 
+    <string-array name="settings_key_hint_size_names">
+        <item>@string/settings_key_hint_size_none</item>
+        <item>@string/settings_key_hint_size_small</item>
+        <item>@string/settings_key_hint_size_normal</item>
+        <item>@string/settings_key_hint_size_big</item>
+    </string-array>
+
+    <string-array name="settings_key_hint_size_values">
+        <item>none</item>
+        <item>small</item>
+        <item>normal</item>
+        <item>big</item>
+    </string-array>
+
     <string-array name="swipe_action_types_values">
         <item>@string/swipe_action_value_none</item>
         <item>@string/swipe_action_value_next_alphabet</item>

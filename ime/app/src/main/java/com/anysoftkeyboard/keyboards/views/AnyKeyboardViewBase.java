@@ -156,6 +156,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFontMetrics;
     private float mHintTextSize;
+    float mHintTextSizeMultiplier;
     private FontMetrics mHintTextFontMetrics;
     private int mThemeHintLabelAlign;
     private int mThemeHintLabelVAlign;
@@ -224,6 +225,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
 
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
+
         mDisposables.add(
                 rxSharedPrefs
                         .getBoolean(
@@ -331,6 +333,16 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                     invalidateAllKeys();
                                 },
                                 GenericOnError.onError("Failed to getKeyboardHeightFactor")));
+
+        mDisposables.add(
+                rxSharedPrefs
+                        .getString(
+                                R.string.settings_key_hint_size,
+                                R.string.settings_key_hint_size_default)
+                        .asObservable()
+                        .subscribe(
+                                this::updatePrefSettingsHintTextSizeFactor,
+                                GenericOnError.onError("failed to get settings_key_hint_size")));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
@@ -1430,6 +1442,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             }
 
             if (drawHintText
+                    && (mHintTextSizeMultiplier > 0)
                     && ((key.popupCharacters != null && key.popupCharacters.length() > 0)
                             || (key.popupResId != 0)
                             || (key.longPressCode != 0))) {
@@ -1466,7 +1479,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 // now draw hint
                 paint.setTypeface(Typeface.DEFAULT);
                 paint.setColor(themeResourcesHolder.getHintTextColor());
-                paint.setTextSize(mHintTextSize);
+                paint.setTextSize(mHintTextSize * mHintTextSizeMultiplier);
                 // get the hint text font metrics so that we know the size
                 // of the hint when
                 // we try to position the main label (to try to make sure
@@ -2160,6 +2173,23 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 break;
             default:
                 mTextCaseForceOverrideType = -1;
+                break;
+        }
+    }
+
+    private void updatePrefSettingsHintTextSizeFactor(final String overrideValue) {
+        switch (overrideValue) {
+            case "none":
+                mHintTextSizeMultiplier = 0f;
+                break;
+            case "small":
+                mHintTextSizeMultiplier = 0.7f;
+                break;
+            case "big":
+                mHintTextSizeMultiplier = 1.3f;
+                break;
+            default:
+                mHintTextSizeMultiplier = 1;
                 break;
         }
     }
