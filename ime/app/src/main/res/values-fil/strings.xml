@@ -615,6 +615,12 @@
     <string name="theme_case_type_override_os">Let Android decide (Auto)</string>
     <string name="theme_case_type_override_lower">Always lowercase</string>
     <string name="theme_case_type_override_upper">Always uppercase</string>
+    <string name="settings_hint_size">Hint label size</string>
+    <string name="settings_key_hint_size_summary">Set hint size in the keyboard. Currently, %s</string>
+    <string name="settings_key_hint_size_none">None</string>
+    <string name="settings_key_hint_size_small">Small</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Big</string>
     <string name="theme_case_type_override_title">Keyboard letter-case override</string>
     <string name="theme_case_type_override_summary">How to determine letters-case in the keyboard view. Currently, %s</string>
     <string name="take_a_while_progress_message">This might take a while…</string>
