@@ -177,7 +177,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="swipe_action_name_cycle_keyboards">Recorrer todos los teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Recorrer en orden inverso todos los teclados</string>
     <string name="swipe_action_name_shift">Mayús</string>
-    <string name="swipe_action_name_space">Space</string>
+    <string name="swipe_action_name_space">Espacio</string>
     <string name="swipe_action_name_hide">Ocultar teclado</string>
     <string name="swipe_action_name_backspace">Retroceso</string>
     <string name="swipe_action_name_backword">Borrar palabra anterior</string>
@@ -338,10 +338,9 @@ Instalarla ahora desde Play Store.    </string>
     <string name="candidates_off_summary">No mostrar sugerencias</string>
     <string name="quick_fix">Correcciones rápidas y abreviaturas</string>
     <string name="quick_fix_summary">Corregir errores comunes y ampliar abreviaturas    </string>
-    <string name="quick_fix_secon_disabled">…on first language only</string>
-    <string name="quick_fix_secon_disabled_summ_on">Quick fixes and abbreviations will work only on current layout language</string>
-    <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
-                  checked in override default dictionary</string>
+    <string name="quick_fix_secon_disabled">…solo en el primer idioma</string>
+    <string name="quick_fix_secon_disabled_summ_on">Las correcciones rápidas y abreviaturas solo funcionarán en el idioma de distribución actual.</string>
+    <string name="quick_fix_secon_disabled_summ_off">Las correcciones rápidas y abreviaturas funcionarán en todos los idiomas marcados en el diccionario predeterminado.</string>
     <string name="allow_suggestions_restart">Restaurar sugerencias</string>
     <string name="allow_suggestions_restart_summary">Restaurar sugerencias al mover el puntero    </string>
     <!-- settings - keyboard group -->
@@ -396,11 +395,11 @@ Instalarla ahora desde Play Store.    </string>
     <string name="extension_kbd_top_small_numbers">Teclas de números</string>
     <string name="extension_kbd_top_numbers_alt">Teclas de números alternativas</string>
     <string name="extension_kbd_top_nav">Teclas de navegación</string>
-    <string name="extension_kbd_top_nav_alt">Navigation keys alternative</string>
-    <string name="extension_kbd_top_nav_alt_no_numb">Navigation keys alternative. No numbers row in pwd mode</string>
+    <string name="extension_kbd_top_nav_alt">Teclas de navegación alternativo</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Teclas de navegación alternativo. No hay fila de números en modo contraseña</string>
     <string name="extension_kbd_top_numbers_simple">Solo números</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
-    <string name="extension_kbd_top_text_editing">Quick text editing</string>
+    <string name="extension_kbd_top_text_editing">Edición de texto rápido</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
     <string name="extension_kbd_bottom_regular">Clásico (sin micrófono)</string>
     <string name="extension_kbd_bottom_iphone">Estilo iPhone (sin micrófono)</string>
@@ -409,12 +408,12 @@ Instalarla ahora desde Play Store.    </string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternativo (con micrófono)</string>
     <string name="extension_kbd_bottom_old">Tradicional</string>
     <string name="extension_kbd_bottom_simple">Simple</string>
-    <string name="extension_kbd_bottom_simple_alt">Simple Alternative</string>
-    <string name="extension_kbd_bottom_row_aosp">AOSP styled</string>
+    <string name="extension_kbd_bottom_simple_alt">Simple alternativo</string>
+    <string name="extension_kbd_bottom_row_aosp">Estilo AOSP</string>
     <string name="extension_kbd_bottom_ng">Nueva generación (en pruebas)</string>
     <string name="extension_kbd_extension_numbers_symbols">Números y símbolos</string>
-    <string name="extension_kbd_bottom_minimal">Minimal</string>
-    <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (no emoji)</string>
+    <string name="extension_kbd_bottom_minimal">Mínimo</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sin emojis)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -619,12 +618,12 @@ Instalarla ahora desde Play Store.    </string>
     <string name="theme_case_type_override_os">Definido por Android (automático)</string>
     <string name="theme_case_type_override_lower">Siempre mayúsculas</string>
     <string name="theme_case_type_override_upper">Siempre minúsculas</string>
-    <string name="settings_hint_size">Hint label size</string>
-    <string name="settings_key_hint_size_summary">Set hint size in the keyboard. Currently, %s</string>
-    <string name="settings_key_hint_size_none">None</string>
-    <string name="settings_key_hint_size_small">Small</string>
+    <string name="settings_hint_size">Tamaño de etiqueta de la sugerencia</string>
+    <string name="settings_key_hint_size_summary">Establecer tamaño de la sugerencia en el teclado. Actualmente: %s</string>
+    <string name="settings_key_hint_size_none">Ninguno</string>
+    <string name="settings_key_hint_size_small">Pequeño</string>
     <string name="settings_key_hint_size_normal">Normal</string>
-    <string name="settings_key_hint_size_big">Big</string>
+    <string name="settings_key_hint_size_big">Grande</string>
     <string name="theme_case_type_override_title">Modo de mayúsculas en el teclado</string>
     <string name="theme_case_type_override_summary">Determinar el modo de mayúsculas en el teclado: %s</string>
     <string name="take_a_while_progress_message">Esto puede tardar un poco…</string>
@@ -660,8 +659,8 @@ Instalarla ahora desde Play Store.    </string>
     <string name="app_share_title">Bienvenid@ a AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartir AnySoftKeyboard con</string>
     <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Keep safe! Click for info on CoronaVirus.</string>
-    <string name="click_me_for_easter_egg_info">click me for a surprise</string>
+    <string name="covid_19_click_for_info">¡Mantente a salvo! Haz clic para información sobre Coronavirus.</string>
+    <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
+    <string name="codvid_info_url">https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
