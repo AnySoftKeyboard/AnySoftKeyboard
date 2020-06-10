@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         style="@style/Ask.Text.Title"
         android:layout_centerHorizontal="true"
+        android:ellipsize="marquee"
         android:layout_below="@id/item_keyboard_view_background"
-        android:maxLines="1"
+        android:singleLine="true"
         android:id="@+id/title"/>
 
     <TextView

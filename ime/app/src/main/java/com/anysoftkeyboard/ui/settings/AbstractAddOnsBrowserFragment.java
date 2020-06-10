@@ -288,6 +288,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             mAddOnEnabledView = itemView.findViewById(R.id.enabled_image);
             mAddOnTitle = itemView.findViewById(R.id.title);
             mAddOnDescription = itemView.findViewById(R.id.subtitle);
+            mAddOnTitle.setSelected(true);
         }
 
         private void bindToAddOn(@NonNull E addOn) {
@@ -316,7 +317,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 if (mSelectedKeyboardView != null) {
                     applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
                 }
-
                 mRecyclerView.getAdapter().notifyItemChanged(previouslyEnabledIndex);
                 mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             } else {
