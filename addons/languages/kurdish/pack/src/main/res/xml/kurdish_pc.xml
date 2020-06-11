@@ -37,7 +37,7 @@
         <Key android:codes="گ" />
     </Row>
     <Row>
-        <Key android:keyWidth="13.999998%p" android:codes="1600" android:isRepeatable="true" android:keyIcon="@drawable/drezh" ask:isFunctional="true" />
+        <Key android:keyWidth="13.999998%p" android:codes="1600" android:isRepeatable="true" android:keyLabel="@string/drezh"  ask:isFunctional="true" />
         <Key android:codes="ئ" android:popupCharacters="ء" android:keyLabel="ﺋ" />
         <Key android:codes="پ" android:popupCharacters="ث" />
         <Key android:codes="ژ" />

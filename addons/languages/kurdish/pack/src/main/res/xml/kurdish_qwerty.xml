@@ -27,7 +27,7 @@
     </Row>
 
     <Row>
-        <Key android:keyWidth="13.999998%p" android:codes="1600" android:keyEdgeFlags="left" android:isRepeatable="true" android:keyIcon="@drawable/drezh" ask:isFunctional="true" />
+        <Key android:keyWidth="13.999998%p" android:codes="1600" android:keyEdgeFlags="left" android:isRepeatable="true" android:keyLabel="@string/drezh" ask:isFunctional="true" />
         <Key android:codes="1586" android:keyLabel="ز" />
         <Key android:codes="1582" android:keyLabel="خ"  />
         <Key android:codes="1580" android:keyLabel="ج" ask:shiftedCodes="1670" ask:shiftedKeyLabel="چ" android:popupCharacters="چ"/>

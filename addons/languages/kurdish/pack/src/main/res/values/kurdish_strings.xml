@@ -3,7 +3,8 @@
            xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
            tools:ignore="MissingTranslation,TypographyDashes">
 
-    <string name="kurdish_dictionary">Kurdish</string>
+    <string name="kurdish_dictionary">کوردی</string>
+    <string name="kurdish_dictionary_description">کوردی</string>
 
     <string name="kurdish_qwerty_keyboard">کوردی</string>
     <string name="kurdish_qwerty_keyboard_description">قوەرتی</string>
@@ -16,4 +17,6 @@
 
     <string name="kurdish_pc_keyboard">کوردی</string>
     <string name="kurdish_pc_keyboard_description">شێوازی کۆمپیوتەر</string>
+
+    <string name="drezh">▬</string>
 </resources>
