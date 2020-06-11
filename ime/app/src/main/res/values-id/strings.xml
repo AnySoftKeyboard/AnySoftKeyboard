@@ -7,18 +7,18 @@
         details.
     </string>
     <string name="debug_tracing_finished">Tracing finished!\nTrace file is\u0020<xliff:g id="trace_file">%s</xliff:g></string>
-    <string name="menu_about_item">About</string>
-    <string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+    <string name="menu_about_item">Tentang</string>
+    <string name="how_to_pointer_title">Selamat datang di AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">More:\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
-    <string name="notification_text_testers">This is a beta version. Use with caution!</string>
+    <string name="notification_text_testers">Ini masih versi beta. Gunakan dengan waspada.</string>
     <string name="testers_version">Testers build!</string>
-    <string name="language_root_tile">Language</string>
+    <string name="language_root_tile">Bahasa</string>
     <string name="language_keyboards_settings_tile">Enable keyboards and languages.</string>
     <string name="language_grammar_settings_tile">Configure correction behavior and other dictionaries.</string>
-    <string name="language_tweaks_settings_tile">Tweaks and more.</string>
+    <string name="language_tweaks_settings_tile">Setelan lebih lanjut</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">UI</string>
     <string name="ui_theme_settings_tile">Pick and configure keyboard themes.</string>
@@ -30,8 +30,8 @@
     <string name="search_market_for_keyboard_addons">Get more keyboards at the app store</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
     <string name="no_market_store_available">Could not find an app store on your device.\nUnable to search for add-ons!</string>
-    <string name="keyboard_theme_tweak_group">Tweaks</string>
-    <string name="close_button">Close</string>
+    <string name="keyboard_theme_tweak_group">Setelan lebih lanjut</string>
+    <string name="close_button">Tutup</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Saved:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Remove\?</string>
@@ -43,8 +43,8 @@
     <string name="voice_input_not_installed_text">Voice Input is not installed on your device.\nThat
         can be easily fixed: install it now from the app store.
     </string>
-    <string name="voice_input_not_installed_action_install">Install</string>
-    <string name="voice_input_not_installed_action_do_not_install">No</string>
+    <string name="voice_input_not_installed_action_install">Instal</string>
+    <string name="voice_input_not_installed_action_do_not_install">Tidak</string>
     <string name="voice_input_not_voice_pack_in_market">I can not find voice input
         (com.google.android.voicesearch) in the app store. Sorry, voice input will not work on your
         device.
@@ -57,16 +57,16 @@
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
     <string name="gesture_settings">Gestures</string>
-    <string name="effects_group">Effects</string>
-    <string name="ime_settings">Keyboard settings</string>
-    <string name="switch_incognito">Incognito Mode</string>
-    <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
+    <string name="effects_group">Efek</string>
+    <string name="ime_settings">Setelan keyboard</string>
+    <string name="switch_incognito">Mode penyamaran</string>
+    <string name="vibrate_on_key_press_title">Bergetar kala ditekan</string>
     <string name="vibrate_on_key_press_value_template">%d milliseconds</string>
-    <string name="night_mode_screen">Night-Mode settings</string>
+    <string name="night_mode_screen">Setelan Mode-Malam</string>
     <string name="night_mode_description">Night-Mode will change these features:</string>
     <string name="night_mode_state_summary">Currently, Night-Mode trigger:\u0020%s</string>
-    <string name="night_mode_dialog_title">Enable Night-Mode</string>
-    <string name="night_mode_type_never">Never</string>
+    <string name="night_mode_dialog_title">Aktifkan Mode-Malam</string>
+    <string name="night_mode_type_never">Tak pernah</string>
     <string name="night_mode_type_follow_system">Follow system</string>
     <string name="night_mode_type_always">Always</string>
     <string name="night_mode_app_night_theme">Darken Settings App UI</string>
@@ -83,21 +83,21 @@
     <string name="power_saving_keyboard_theme_name">Power-Saving mode theme</string>
     <string name="power_saving_keyboard_theme_description">Dark colors, simple layout which may require less power from the device.</string>
     <string name="power_save_mode_animation_control">Disable animations and key-previews</string>
-    <string name="power_save_mode_sound_control">Disable key-press sounds</string>
-    <string name="power_save_mode_vibration_control">Disable key-press vibrations</string>
-    <string name="power_save_mode_suggestions_control">Disable word suggestions</string>
-    <string name="power_save_mode_gesture_typing_control">Disable Gesture-Typing</string>
-    <string name="power_save_mode_theme_control">Switch to dark, simple theme</string>
+    <string name="power_save_mode_sound_control">Nonaktifkan suara tekan tombol</string>
+    <string name="power_save_mode_vibration_control">Nonaktifkan getaran tekan tombol</string>
+    <string name="power_save_mode_suggestions_control">Nonkatifkan usulan kata </string>
+    <string name="power_save_mode_gesture_typing_control">Nonaktifkan Pengetikan-Gestur</string>
+    <string name="power_save_mode_theme_control">Ubah ke tema gelap sederhana</string>
     <string name="pop_text_type_title">Pop typed text from keys</string>
     <string name="pop_text_type_summary">When to pop text out of pressed keys. Currently:\u0020%s</string>
     <string name="pop_text_type_dialog_title">Select pop-text type</string>
-    <string name="pop_text_type_never">Never</string>
-    <string name="pop_text_type_on_correction">On word correction</string>
-    <string name="pop_text_type_on_word">On any word</string>
-    <string name="pop_text_type_any_key">On any key</string>
-    <string name="input_field_type_password">Password input field</string>
-    <string name="input_field_type_email">Email input field</string>
-    <string name="input_field_type_url">URL input field</string>
+    <string name="pop_text_type_never">Tak pernah</string>
+    <string name="pop_text_type_on_correction">Kala koreksi kata</string>
+    <string name="pop_text_type_on_word">Atas setiap kata</string>
+    <string name="pop_text_type_any_key">Atas setiap tombol</string>
+    <string name="input_field_type_password">Bidang masukan kata sandi</string>
+    <string name="input_field_type_email">Bidang masukkan  surel</string>
+    <string name="input_field_type_url">Bidang masukan URL</string>
     <string name="input_field_type_im">Messaging input field</string>
     <string name="sound_on">Sound on key-press</string>
     <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
@@ -105,18 +105,18 @@
     <string name="use_custom_sound_volume_on_summary">Sounds effects volume is custom.</string>
     <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
     <string name="custom_sound_volume">Custom key-press volume</string>
-    <string name="vibrate_on_long_press_title">Vibrate on long-press</string>
-    <string name="vibrate_on_long_press_summary_on">A soft vibration when long-press action is invoked.</string>
-    <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space.</string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space.</string>
-    <string name="colorize_nav_bar_title">Draw behind the navigation-bar</string>
+    <string name="vibrate_on_long_press_title">Bergetar kala ditekan lama</string>
+    <string name="vibrate_on_long_press_summary_on">Getaran halus terpicu kala menekan lama</string>
+    <string name="switch_keyboard_on_space">Tombol spasi menukar keyboard</string>
+    <string name="switch_keyboard_on_space_on_summary">Tukar mode angka ke huruf kala menekan spasi</string>
+    <string name="switch_keyboard_on_space_off_summary">Jangan menukar mode angka ke huruf kala menekan spasi</string>
+    <string name="colorize_nav_bar_title">Tampak di belakang baris navigasi</string>
     <string name="colorize_nav_bar_summary_on">Will draw the keyboard background behind the navigation-bar. This is not supported by all devices.</string>
     <string name="colorize_nav_bar_summary_off">Do not draw behind the navigation-bar.</string>
     <string name="persistent_layout_per_package_id_title">Remember alphabet layout per App</string>
     <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous layout used in the App.</string>
-    <string name="one_shot_quick_text_popup">Auto close after key-press</string>
+    <string name="one_shot_quick_text_popup">Tutup setelah tekan tombol</string>
     <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key.</string>
     <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed.</string>
     <string name="quick_text_tags_search">Suggest Emojis by tag typing</string>
@@ -124,17 +124,13 @@
         colon (:)
     </string>
     <string name="quick_text_tags_search_off_summary"></string>
-    <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
-    <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is
-        used
-    </string>
-    <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is
-        used
-    </string>
-    <string name="enable_alt_space_language_shortcut">Alt + Space switches languages</string>
+    <string name="hide_soft_when_physical">Sembunyikan keyboard kala ada papan ketik </string>
+    <string name="hide_soft_when_physical_on_summary">Sembunyikan keyboard bila pakai papan ketik eksternal</string>
+    <string name="hide_soft_when_physical_off_summary">Tampilkan keyboard bila pakai papan ketik eksternal</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Spasi menukar bahasa</string>
     <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt + Space switches to the next available layout.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt + Space enters a space.</string>
-    <string name="enable_shift_space_language_shortcut">Shift + Space switches languages</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Spasi menukar bahasa</string>
     <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + Space switches to the next available layout.</string>
     <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Space enters a space.</string>
     <string name="fullscreen_input_connection_supported">Use full-screen editor in landscape
@@ -193,11 +189,11 @@
     <string name="swipe_action_name_cycle_keyboards">Cycle through all keyboards</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Reverse cycle through all keyboards</string>
     <string name="swipe_action_name_shift">Shift</string>
-    <string name="swipe_action_name_space">Space</string>
-    <string name="swipe_action_name_hide">Hide keyboard</string>
+    <string name="swipe_action_name_space">Spasi</string>
+    <string name="swipe_action_name_hide">Sembunyikan keyboard</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Back-word</string>
-    <string name="swipe_action_name_clear_input">Clear entire text</string>
+    <string name="swipe_action_name_clear_input">Hapus seluruh teks</string>
     <string name="swipe_action_name_cursor_up">Move cursor up</string>
     <string name="swipe_action_name_cursor_down">Move cursor down</string>
     <string name="swipe_action_name_cursor_left">Move cursor left</string>
@@ -210,18 +206,18 @@
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
     <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed. Currently, %s</string>
-    <string name="settings_swipe_velocity_very_slow">Very slow</string>
-    <string name="settings_swipe_velocity_slow">Slow</string>
+    <string name="settings_swipe_velocity_very_slow">Sangat lambat</string>
+    <string name="settings_swipe_velocity_slow">Lambat</string>
     <string name="settings_swipe_velocity_normal">Normal</string>
-    <string name="settings_swipe_velocity_fast">Fast</string>
-    <string name="settings_swipe_velocity_very_fast">Very fast</string>
+    <string name="settings_swipe_velocity_fast">Cepat</string>
+    <string name="settings_swipe_velocity_very_fast">Sangat cepat</string>
     <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
     <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance. Currently, %s</string>
-    <string name="settings_swipe_distance_very_short">Very short</string>
-    <string name="settings_swipe_distance_short">Short</string>
+    <string name="settings_swipe_distance_very_short">Sangat singkat</string>
+    <string name="settings_swipe_distance_short">Singkat</string>
     <string name="settings_swipe_distance_normal">Normal</string>
-    <string name="settings_swipe_distance_long">Long</string>
-    <string name="settings_swipe_distance_very_long">Very long</string>
+    <string name="settings_swipe_distance_long">Panjang</string>
+    <string name="settings_swipe_distance_very_long">Sangat panjang</string>
     <string name="hardware_keys_group">Hardware keys mapping</string>
     <string name="volume_key_for_left_right_support">Volume key for left/right</string>
     <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
