@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.prefs;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
@@ -46,6 +47,12 @@ public class GlobalPrefsBackup {
                         new WordsSQLiteConnectionPrefsProvider(
                                 context, AbbreviationsDictionary.ABBREVIATIONS_DB),
                         R.string.abbreviation_dict_prefs_provider));
+    }
+
+    public static File returnCustomBackupPath(String basepath) {
+        final File externalFolder = Environment.getExternalStorageDirectory();
+        return (new File(
+                new File(externalFolder, basepath), GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME));
     }
 
     private static Boolean backupProvider(PrefsProvider provider, PrefsRoot prefsRoot) {
