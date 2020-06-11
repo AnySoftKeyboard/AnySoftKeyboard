@@ -1,8 +1,10 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -47,6 +49,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -63,6 +66,7 @@ public class MainFragment extends Fragment {
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
     static final int DIALOG_LOAD_FAILED = 21;
+    private File pathFileBackup;
 
     private final boolean mTestingBuild;
     private AnimationDrawable mNotConfiguredAnimation = null;
@@ -138,6 +142,8 @@ public class MainFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        pathFileBackup = GlobalPrefsBackup.getBackupFile();
     }
 
     @Override
@@ -350,6 +356,7 @@ public class MainFragment extends Fragment {
 
     private void onBackupRestoreDialogRequired(AlertDialog.Builder builder, int optionId) {
         final int actionString;
+        final int choosePathString;
         final Function<
                         Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
                         ObservableSource<GlobalPrefsBackup.ProviderDetails>>
@@ -361,12 +368,14 @@ public class MainFragment extends Fragment {
                 action = GlobalPrefsBackup::backup;
                 actionString = R.string.word_editor_action_backup_words;
                 builder.setTitle(R.string.pick_prefs_providers_to_backup);
+                choosePathString = R.string.word_editor_action_choose_path;
                 successDialog = DIALOG_SAVE_SUCCESS;
                 failedDialog = DIALOG_SAVE_FAILED;
                 break;
             case R.id.restore_prefs:
                 action = GlobalPrefsBackup::restore;
                 actionString = R.string.word_editor_action_restore_words;
+                choosePathString = R.string.word_editor_action_choose_path;
                 builder.setTitle(R.string.pick_prefs_providers_to_restore);
                 successDialog = DIALOG_LOAD_SUCCESS;
                 failedDialog = DIALOG_LOAD_FAILED;
@@ -426,9 +435,30 @@ public class MainFragment extends Fragment {
                                             () ->
                                                     mDialogController.showDialog(
                                                             successDialog,
-                                                            GlobalPrefsBackup.getBackupFile()
-                                                                    .getAbsolutePath())));
+                                                            pathFileBackup.getAbsolutePath())));
                 });
+        builder.setNeutralButton(
+                choosePathString,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent dataToFileChooser = new Intent(Intent.ACTION_PICK);
+                        dataToFileChooser.setType("text/xml/*");
+                        startActivityForResult(dataToFileChooser, 1);
+                    }
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1
+                && resultCode == Activity.RESULT_OK
+                && data != null
+                && data.getDataString() != null) {
+            pathFileBackup = GlobalPrefsBackup.returnCustomBackupPath(data.getDataString());
+        }
     }
 
     private static class StoragePermissionRequest
