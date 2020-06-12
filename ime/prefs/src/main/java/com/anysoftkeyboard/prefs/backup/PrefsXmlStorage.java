@@ -5,6 +5,7 @@ import com.anysoftkeyboard.utils.XmlWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
@@ -18,9 +19,14 @@ import org.xml.sax.helpers.DefaultHandler;
 public class PrefsXmlStorage {
 
     private final File mStorageFile;
+    private static InputStream mStorageFileStream;
 
     public PrefsXmlStorage(File storageFile) {
         mStorageFile = storageFile;
+    }
+
+    public static void PrefsXmlStorageCustomPath(InputStream is) {
+        mStorageFileStream = is;
     }
 
     public void store(PrefsRoot prefsRoot) throws Exception {
@@ -77,8 +83,15 @@ public class PrefsXmlStorage {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
         final PrefsXmlParser prefsXmlParser = new PrefsXmlParser();
-        try (FileInputStream fileInputStream = new FileInputStream(mStorageFile)) {
-            parser.parse(fileInputStream, prefsXmlParser);
+        if (mStorageFileStream == null) {
+            try (FileInputStream fileInputStream = new FileInputStream(mStorageFile)) {
+                parser.parse(fileInputStream, prefsXmlParser);
+            }
+        }
+        else
+        {
+            Logger.d("PrefsXmlStorage", "Loaded settings from custom file path");
+            parser.parse(mStorageFileStream, prefsXmlParser);
         }
         return prefsXmlParser.getParsedRoot();
     }

@@ -733,6 +733,8 @@
     <string name="enter_word_hint">Type the new word here</string>
     <string name="enter_abbreviation_hint">Abbreviation</string>
     <string name="enter_abbreviation_target_hint">Full sentence</string>
+    <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
+    <string name="toast_info_custom_path_backup">The new backup folder is : </string>
 
 
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
