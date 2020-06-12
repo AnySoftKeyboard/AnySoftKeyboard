@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -53,7 +52,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
-
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -146,7 +144,6 @@ public class MainFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
@@ -438,35 +435,35 @@ public class MainFragment extends Fragment {
                                                             successDialog,
                                                             GlobalPrefsBackup.getBackupFile())));
                 });
-        builder.setNeutralButton(
-                choosePathString,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent dataToFileChooser = new Intent();
-                        dataToFileChooser.setType("text/xml");
-                        dataToFileChooser.setAction(Intent.ACTION_GET_CONTENT);
-                        try {
-                            startActivityForResult(dataToFileChooser, 1);
+        if (successDialog == DIALOG_LOAD_SUCCESS) {
+            builder.setNeutralButton(
+                    choosePathString,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent dataToFileChooser = new Intent();
+                            dataToFileChooser.setType("text/xml");
+                            dataToFileChooser.setAction(Intent.ACTION_GET_CONTENT);
+                            try {
+                                startActivityForResult(dataToFileChooser, 1);
+                            } catch (ActivityNotFoundException e) {
+                                Logger.e(TAG, "Could not launch the custom path activity");
+                                Toast.makeText(
+                                                getActivity().getApplicationContext(),
+                                                R.string.toast_error_custom_path_backup,
+                                                Toast.LENGTH_LONG)
+                                        .show();
+                            }
                         }
-                        catch (ActivityNotFoundException e) {
-                            Logger.e(TAG, "Could not launch the custom path activity");
-                            Toast.makeText(
-                                    getActivity().getApplicationContext(),
-                                    R.string
-                                            .toast_error_custom_path_backup,
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    }
-                });
+                    });
+        }
     }
 
     public void launchRestoreCustomFileData(InputStream inputStream) {
         PrefsXmlStorage.PrefsXmlStorageCustomPath(inputStream);
     }
 
-    //This function is if launched when selecting neutral button of the main Fragment
+    // This function is if launched when selecting neutral button of the main Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -481,8 +478,9 @@ public class MainFragment extends Fragment {
             try {
                 InputStream inputStream = resolver.openInputStream(data.getData());
 
-                //Actually, it is not a good idea to convert URI into filepath.
-                //For more informations, see: https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
+                // Actually, it is not a good idea to convert URI into filepath.
+                // For more informations, see:
+                // https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
                 launchRestoreCustomFileData(inputStream);
 
             } catch (Exception e) {

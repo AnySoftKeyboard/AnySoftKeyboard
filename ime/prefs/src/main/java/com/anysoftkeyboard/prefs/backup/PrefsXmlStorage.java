@@ -87,9 +87,7 @@ public class PrefsXmlStorage {
             try (FileInputStream fileInputStream = new FileInputStream(mStorageFile)) {
                 parser.parse(fileInputStream, prefsXmlParser);
             }
-        }
-        else
-        {
+        } else {
             Logger.d("PrefsXmlStorage", "Loaded settings from custom file path");
             parser.parse(mStorageFileStream, prefsXmlParser);
         }
