@@ -176,7 +176,7 @@
     <string name="swipe_action_name_cycle_keyboards">Iscurre intre totu sas tastieras</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Iscurre a s\'imbesse intre totu sas tastieras</string>
     <string name="swipe_action_name_shift">Shift</string>
-    <string name="swipe_action_name_space">Space</string>
+    <string name="swipe_action_name_space">Ispàtziu</string>
     <string name="swipe_action_name_hide">Cua sa tastiera</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Paràula anteposta</string>
@@ -631,12 +631,12 @@
     <string name="theme_case_type_override_os">Lassa isseberare a Android (Automàticu)</string>
     <string name="theme_case_type_override_lower">Semper minùscolas</string>
     <string name="theme_case_type_override_upper">Semper maiùscolas</string>
-    <string name="settings_hint_size">Hint label size</string>
-    <string name="settings_key_hint_size_summary">Set hint size in the keyboard. Currently, %s</string>
-    <string name="settings_key_hint_size_none">None</string>
-    <string name="settings_key_hint_size_small">Small</string>
-    <string name="settings_key_hint_size_normal">Normal</string>
-    <string name="settings_key_hint_size_big">Big</string>
+    <string name="settings_hint_size">Mannària de s\'eticheta de impòsitu</string>
+    <string name="settings_key_hint_size_summary">Imposta sa mannària de s\'impòsitu in sa tastiera. In custu momentu, est %s</string>
+    <string name="settings_key_hint_size_none">Perunu</string>
+    <string name="settings_key_hint_size_small">Minore</string>
+    <string name="settings_key_hint_size_normal">Normale</string>
+    <string name="settings_key_hint_size_big">Mannu</string>
     <string name="theme_case_type_override_title">Sostitutzione de sa mannària de sas lìteras de sa tastiera</string>
     <string name="theme_case_type_override_summary">Comente determinare sa mannària (minùscolas/maiùscolas) de sas lìteras in sa vista de sa tastiera. In custu momentu, %s</string>
     <string name="take_a_while_progress_message">Bi diat pòdere chèrrere unu pagu…</string>
