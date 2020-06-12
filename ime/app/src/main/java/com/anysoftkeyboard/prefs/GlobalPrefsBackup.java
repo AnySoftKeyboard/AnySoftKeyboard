@@ -16,6 +16,7 @@ import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
+import com.anysoftkeyboard.ui.settings.MainFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
