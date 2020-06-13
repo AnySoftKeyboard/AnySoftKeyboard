@@ -14,7 +14,7 @@
         android:drawableStart="@drawable/ic_clipboard_paste_action"
         android:drawableLeft="@drawable/ic_clipboard_paste_action"
         android:drawablePadding="2dp"
-        android:ellipsize="end"
+        android:ellipsize="marquee"
         android:gravity="center"
         android:maxWidth="150dp"
         android:padding="4dp"
