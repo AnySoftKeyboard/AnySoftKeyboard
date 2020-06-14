@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InvalidObjectException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayDeque;
@@ -59,9 +60,13 @@ public class XmlWriter {
         if (addXmlPrefix) this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
     }
 
-    public XmlWriter(File outputFile) throws IOException {
+    public XmlWriter(File outputFile, OutputStream outputFileStream) throws IOException {
         this(
-                new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8),
+                new OutputStreamWriter(
+                        (outputFileStream == null)
+                                ? new FileOutputStream(outputFile, false)
+                                : outputFileStream,
+                        Charsets.UTF8),
                 true,
                 0,
                 true);

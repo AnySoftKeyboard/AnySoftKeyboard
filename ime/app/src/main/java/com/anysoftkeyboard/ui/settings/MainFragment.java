@@ -53,6 +53,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -69,12 +70,21 @@ public class MainFragment extends Fragment {
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
     static final int DIALOG_LOAD_FAILED = 21;;
+    static int successDialog;
+    static int failedDialog;
+    static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
+    static Boolean[] checked;
+    static Function<
+                    Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
+                    ObservableSource<GlobalPrefsBackup.ProviderDetails>>
+            action;
 
     private final boolean mTestingBuild;
     private AnimationDrawable mNotConfiguredAnimation = null;
     @NonNull private Disposable mPaletteDisposable = Disposables.empty();
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
+    public int modeBackupRestore;
     private GeneralDialogController mDialogController;
     @NonNull private CompositeDisposable mDisposable = new CompositeDisposable();
 
@@ -357,16 +367,14 @@ public class MainFragment extends Fragment {
     private void onBackupRestoreDialogRequired(AlertDialog.Builder builder, int optionId) {
         final int actionString;
         final int choosePathString = R.string.word_editor_action_choose_path;
-        final Function<
-                        Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
-                        ObservableSource<GlobalPrefsBackup.ProviderDetails>>
-                action;
-        final int successDialog;
-        final int failedDialog;
+
+        final String actionCustomPath;
+        modeBackupRestore = optionId;
         switch (optionId) {
             case R.id.backup_prefs:
                 action = GlobalPrefsBackup::backup;
                 actionString = R.string.word_editor_action_backup_words;
+                actionCustomPath = Intent.ACTION_CREATE_DOCUMENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_backup);
                 successDialog = DIALOG_SAVE_SUCCESS;
                 failedDialog = DIALOG_SAVE_FAILED;
@@ -374,6 +382,7 @@ public class MainFragment extends Fragment {
             case R.id.restore_prefs:
                 action = GlobalPrefsBackup::restore;
                 actionString = R.string.word_editor_action_restore_words;
+                actionCustomPath = Intent.ACTION_GET_CONTENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_restore);
                 successDialog = DIALOG_LOAD_SUCCESS;
                 failedDialog = DIALOG_LOAD_FAILED;
@@ -383,11 +392,10 @@ public class MainFragment extends Fragment {
                         "The option-id " + optionId + " is not supported here.");
         }
 
-        final List<GlobalPrefsBackup.ProviderDetails> supportedProviders =
-                GlobalPrefsBackup.getAllPrefsProviders(getContext());
+        supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(getContext());
         final CharSequence[] providersTitles = new CharSequence[supportedProviders.size()];
         final boolean[] initialChecked = new boolean[supportedProviders.size()];
-        final Boolean[] checked = new Boolean[supportedProviders.size()];
+        checked = new Boolean[supportedProviders.size()];
 
         for (int providerIndex = 0; providerIndex < supportedProviders.size(); providerIndex++) {
             // starting with everything checked
@@ -406,61 +414,65 @@ public class MainFragment extends Fragment {
                     mDisposable.dispose();
                     mDisposable = new CompositeDisposable();
 
-                    mDisposable.add(
-                            RxProgressDialog.create(
-                                            new Pair<>(supportedProviders, checked),
-                                            getActivity(),
-                                            getText(R.string.take_a_while_progress_message),
-                                            R.layout.progress_window)
-                                    .subscribeOn(RxSchedulers.background())
-                                    .flatMap(action)
-                                    .observeOn(RxSchedulers.mainThread())
-                                    .subscribe(
-                                            providerDetails ->
-                                                    Logger.i(
-                                                            "MainFragment",
-                                                            "Finished backing up %s",
-                                                            providerDetails.provider.providerId()),
-                                            e -> {
-                                                Logger.w(
-                                                        "MainFragment",
-                                                        e,
-                                                        "Failed to do operation due to %s",
-                                                        e.getMessage());
-                                                mDialogController.showDialog(
-                                                        failedDialog, e.getMessage());
-                                            },
-                                            () ->
-                                                    mDialogController.showDialog(
-                                                            successDialog,
-                                                            GlobalPrefsBackup.getBackupFile())));
+                    mDisposable.add(launchBackupRestore());
                 });
-        if (successDialog == DIALOG_LOAD_SUCCESS) {
-            builder.setNeutralButton(
-                    choosePathString,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent dataToFileChooser = new Intent();
-                            dataToFileChooser.setType("text/xml");
-                            dataToFileChooser.setAction(Intent.ACTION_GET_CONTENT);
-                            try {
-                                startActivityForResult(dataToFileChooser, 1);
-                            } catch (ActivityNotFoundException e) {
-                                Logger.e(TAG, "Could not launch the custom path activity");
-                                Toast.makeText(
-                                                getActivity().getApplicationContext(),
-                                                R.string.toast_error_custom_path_backup,
-                                                Toast.LENGTH_LONG)
-                                        .show();
-                            }
+        builder.setNeutralButton(
+                choosePathString,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent dataToFileChooser = new Intent();
+                        dataToFileChooser.setType("text/xml");
+                        dataToFileChooser.setAction(actionCustomPath);
+                        dataToFileChooser.putExtra("checked", checked);
+                        try {
+                            startActivityForResult(dataToFileChooser, 1);
+                        } catch (ActivityNotFoundException e) {
+                            Logger.e(TAG, "Could not launch the custom path activity");
+                            Toast.makeText(
+                                            getActivity().getApplicationContext(),
+                                            R.string.toast_error_custom_path_backup,
+                                            Toast.LENGTH_LONG)
+                                    .show();
                         }
-                    });
-        }
+                    }
+                });
+    }
+
+    private Disposable launchBackupRestore() {
+        return RxProgressDialog.create(
+                        new Pair<>(supportedProviders, checked),
+                        getActivity(),
+                        getText(R.string.take_a_while_progress_message),
+                        R.layout.progress_window)
+                .subscribeOn(RxSchedulers.background())
+                .flatMap(action)
+                .observeOn(RxSchedulers.mainThread())
+                .subscribe(
+                        providerDetails ->
+                                Logger.i(
+                                        "MainFragment",
+                                        "Finished backing up %s",
+                                        providerDetails.provider.providerId()),
+                        e -> {
+                            Logger.w(
+                                    "MainFragment",
+                                    e,
+                                    "Failed to do operation due to %s",
+                                    e.getMessage());
+                            mDialogController.showDialog(failedDialog, e.getMessage());
+                        },
+                        () ->
+                                mDialogController.showDialog(
+                                        successDialog, GlobalPrefsBackup.getBackupFile()));
     }
 
     public void launchRestoreCustomFileData(InputStream inputStream) {
         PrefsXmlStorage.PrefsXmlStorageCustomPath(inputStream);
+    }
+
+    public void launchBackupCustomFileData(OutputStream outputStream) {
+        PrefsXmlStorage.PrefsXmlBackupCustomPath(outputStream);
     }
 
     // This function is if launched when selecting neutral button of the main Fragment
@@ -476,13 +488,17 @@ public class MainFragment extends Fragment {
             ContentResolver resolver = getContext().getContentResolver();
             Logger.d(TAG, "Resolver " + resolver.getType(data.getData()));
             try {
-                InputStream inputStream = resolver.openInputStream(data.getData());
-
                 // Actually, it is not a good idea to convert URI into filepath.
                 // For more informations, see:
                 // https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
-                launchRestoreCustomFileData(inputStream);
-
+                if (modeBackupRestore == R.id.restore_prefs) {
+                    Logger.d(TAG, "Launching Restore");
+                    launchRestoreCustomFileData(resolver.openInputStream(data.getData()));
+                } else if (modeBackupRestore == R.id.backup_prefs) {
+                    Logger.d(TAG, "Launching Backup");
+                    launchBackupCustomFileData(resolver.openOutputStream(data.getData()));
+                }
+                launchBackupRestore();
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger.d(TAG, "Error when getting inputStream on onActivityResult");
