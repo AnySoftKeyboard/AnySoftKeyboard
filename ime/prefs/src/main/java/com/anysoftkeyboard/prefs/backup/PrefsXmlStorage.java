@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
@@ -20,6 +21,7 @@ public class PrefsXmlStorage {
 
     private final File mStorageFile;
     private static InputStream mStorageFileStream;
+    private static OutputStream mBackupFileStream;
 
     public PrefsXmlStorage(File storageFile) {
         mStorageFile = storageFile;
@@ -27,6 +29,10 @@ public class PrefsXmlStorage {
 
     public static void PrefsXmlStorageCustomPath(InputStream is) {
         mStorageFileStream = is;
+    }
+
+    public static void PrefsXmlBackupCustomPath(OutputStream is) {
+        mBackupFileStream = is;
     }
 
     public void store(PrefsRoot prefsRoot) throws Exception {
@@ -37,7 +43,7 @@ public class PrefsXmlStorage {
         }
 
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
-        final XmlWriter output = new XmlWriter(mStorageFile);
+        final XmlWriter output = new XmlWriter(mStorageFile, mBackupFileStream);
         try {
             output.writeEntity("AnySoftKeyboardPrefs")
                     .writeAttribute("version", Integer.toString(prefsRoot.getVersion()));
