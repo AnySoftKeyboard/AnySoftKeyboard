@@ -149,12 +149,20 @@
         index="7"
         />
     <ExtensionKeyboard
-        id="d8657c90-d910-11e2-a28f-0800200c9a99"
+        id="66e1c3a5-42d7-48be-8f97-d2a3a9e38be9"
+        nameResId="@string/extension_kbd_bottom_ng_no_apo"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_ng_no_apo"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="8"
+        />
+    <ExtensionKeyboard
+        id="d8657c90-d910-11e-2ae28f-0800200c9a99"
         nameResId="@string/extension_kbd_bottom_old"
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_old"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="8"
+        index="9"
         />
     <ExtensionKeyboard
         id="c4abded0-db89-11e7-8f1a-0800200c9a66"
@@ -162,7 +170,7 @@
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_simple"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="9"
+        index="10"
         />
     <ExtensionKeyboard
         id="a81483fe-8914-4a5a-9e5f-2e79265ff252"
@@ -170,7 +178,7 @@
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_simple_alt"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="10"
+        index="11"
         />
     <ExtensionKeyboard
         id="f5326050-2471-42e0-a470-c5d52d08dc9d"
@@ -178,7 +186,7 @@
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_minimal"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="11"
+        index="12"
         />
     <ExtensionKeyboard
         id="f50fee17-ad7a-4068-aff4-07e34ac68c52"
@@ -186,7 +194,7 @@
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_minimal_no_emoji"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="12"
+        index="13"
         />
 
     <ExtensionKeyboard
@@ -195,7 +203,7 @@
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_aosp"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="13"
+        index="14"
         />
 
 
