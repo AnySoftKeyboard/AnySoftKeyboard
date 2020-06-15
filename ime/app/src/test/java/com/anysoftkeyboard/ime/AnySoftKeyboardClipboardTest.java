@@ -476,7 +476,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
                         .findViewById(R.id.clipboard_suggestion_text);
         Assert.assertNotNull(clipboardView);
         Assert.assertEquals("text 1", clipboardView.getText().toString());
-        Assert.assertEquals(InputType.TYPE_CLASS_TEXT, clipboardView.getInputType());
         ((View) clipboardView.getParent()).performClick();
         Assert.assertEquals("text 1", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertNull(
@@ -536,11 +535,8 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
                             .getInputViewContainer()
                             .findViewById(R.id.clipboard_suggestion_text);
             Assert.assertNotNull("for " + variation, clipboardView);
-            Assert.assertEquals("for " + variation, "text 1", clipboardView.getText().toString());
             Assert.assertEquals(
-                    "for " + variation,
-                    InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD,
-                    clipboardView.getInputType());
+                    "for " + variation, "**********", clipboardView.getText().toString());
 
             simulateFinishInputFlow();
         }

@@ -61,7 +61,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             };
 
     @VisibleForTesting
-    protected static class ClipboardStripActionProvider
+    protected class ClipboardStripActionProvider
             implements KeyboardViewContainerView.StripActionProvider {
         private final ClipboardActionOwner mOwner;
         @Nullable private TextView mClipboardText;
@@ -76,12 +76,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     LayoutInflater.from(mOwner.getContext())
                             .inflate(R.layout.clipboard_suggestion_action, parent, false);
             mClipboardText = rootView.findViewById(R.id.clipboard_suggestion_text);
-            mClipboardText.setSelected(true);
             rootView.setOnClickListener(
                     view -> {
                         final TextView clipboardText = mClipboardText;
                         if (clipboardText != null) {
-                            mOwner.outputClipboardText(clipboardText.getText());
+                            mOwner.outputClipboardText(mLastSyncedClipboardEntry);
                         }
                     });
 
@@ -98,13 +97,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
 
         void setClipboardText(CharSequence text, boolean isSecured) {
+            mClipboardText.setSelected(true);
             mClipboardText.setText(text);
-            // Adding a setInput type seems to break the ellipsize
-            /*mClipboardText.setInputType(
-            InputType.TYPE_CLASS_TEXT
-                    | (isSecured
-                            ? InputType.TYPE_TEXT_VARIATION_PASSWORD
-                            : InputType.TYPE_TEXT_VARIATION_NORMAL));*/
+            if (isSecured) mClipboardText.setText("**********");
         }
     }
 
