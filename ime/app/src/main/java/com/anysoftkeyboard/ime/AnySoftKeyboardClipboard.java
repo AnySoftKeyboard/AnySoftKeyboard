@@ -61,9 +61,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             };
 
     @VisibleForTesting
-    protected class ClipboardStripActionProvider
+    protected static class ClipboardStripActionProvider
             implements KeyboardViewContainerView.StripActionProvider {
         private final ClipboardActionOwner mOwner;
+        @Nullable private CharSequence mEntryText;
         @Nullable private TextView mClipboardText;
 
         ClipboardStripActionProvider(@NonNull ClipboardActionOwner owner) {
@@ -80,7 +81,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     view -> {
                         final TextView clipboardText = mClipboardText;
                         if (clipboardText != null) {
-                            mOwner.outputClipboardText(mLastSyncedClipboardEntry);
+                            mOwner.outputClipboardText(mEntryText);
                         }
                     });
 
@@ -97,9 +98,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
 
         void setClipboardText(CharSequence text, boolean isSecured) {
+            mEntryText = text;
             mClipboardText.setSelected(true);
-            mClipboardText.setText(text);
             if (isSecured) mClipboardText.setText("**********");
+            else mClipboardText.setText(text);
         }
     }
 
