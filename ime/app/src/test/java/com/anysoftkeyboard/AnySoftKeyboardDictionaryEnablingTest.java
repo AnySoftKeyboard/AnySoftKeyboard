@@ -18,7 +18,7 @@ import org.mockito.Mockito;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTest {
 
-    private static final String[] DICTIONATY_WORDS =
+    private static final String[] DICTIONARY_WORDS =
             new String[] {
                 "high", "hello", "menny", "AnySoftKeyboard", "keyboard", "com/google", "low"
             };
@@ -27,9 +27,9 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     public void setUp() throws Exception {
         UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
         userDictionary.loadDictionary();
-        for (int wordIndex = 0; wordIndex < DICTIONATY_WORDS.length; wordIndex++) {
+        for (int wordIndex = 0; wordIndex < DICTIONARY_WORDS.length; wordIndex++) {
             userDictionary.addWord(
-                    DICTIONATY_WORDS[wordIndex], DICTIONATY_WORDS.length - wordIndex);
+                    DICTIONARY_WORDS[wordIndex], DICTIONARY_WORDS.length - wordIndex);
         }
         userDictionary.close();
     }
@@ -159,15 +159,15 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     }
 
     @Test
-    public void testDictionariesNotCreatedForAutoComplete() {
+    public void testDictionariesCreatedForAutoComplete() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         editorInfo.inputType += EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE;
         simulateFinishInputFlow();
         simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test

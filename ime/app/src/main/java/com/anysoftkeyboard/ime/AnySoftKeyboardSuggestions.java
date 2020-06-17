@@ -415,12 +415,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
                 final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
                 if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-                                == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-                        || (textFlag & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE)
-                                == EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) {
-                    Logger.d(
-                            TAG,
-                            "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
+                        == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) {
+                    Logger.d(TAG, "Input requested NO_SUGGESTIONS.");
                     mPredictionOn = false;
                 }
 
