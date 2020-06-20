@@ -297,7 +297,8 @@ public class BTreeDictionaryTest {
                     protected void readWordsFromActualStorage(WordReadListener listener) {
                         Random r = new Random();
                         while (listener.onWordRead(
-                                "w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200))) ;
+                                "w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200)))
+                            ;
                     }
 
                     @Override
