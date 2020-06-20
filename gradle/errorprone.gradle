@@ -17,11 +17,6 @@ dependencies {
 
     //taken from https://github.com/google/error-prone/releases
     errorprone 'com.google.errorprone:error_prone_core:2.4.0'
-
-    if (!JavaVersion.current().java9Compatible) {
-        //this is required for Java8, so error-prone can run.
-        errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
-    }
 }
 
 afterEvaluate {
