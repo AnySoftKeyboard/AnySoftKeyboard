@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.net.Uri;
 import android.text.TextUtils;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -578,7 +577,6 @@ public class VersionChangeLogs {
         return log;
     }
 
-    @SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
     public static class VersionChangeLog {
         public final String versionName;
         public final String[] changes;

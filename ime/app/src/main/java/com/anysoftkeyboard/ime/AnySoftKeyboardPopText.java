@@ -25,7 +25,6 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving {
 
@@ -50,7 +49,6 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
                                 GenericOnError.onError("settings_key_pop_text_option")));
     }
 
-    @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
     @SuppressWarnings("fallthrough")
     private void updatePopTextPrefs(String newValue) {
         mPopTextOnCorrection = false;

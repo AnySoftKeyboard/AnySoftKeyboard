@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.R;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,7 +33,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 public class BTreeDictionaryTest {
 
     private TestableBTreeDictionary mDictionaryUnderTest;
