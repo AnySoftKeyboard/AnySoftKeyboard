@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.f2prateek.rx.preferences2.Preference;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.After;
@@ -18,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 public class RxSharedPrefsTest {
 
     private CompositeDisposable mCompositeDisposable;

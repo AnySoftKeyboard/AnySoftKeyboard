@@ -78,7 +78,6 @@ import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
@@ -1941,7 +1940,6 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         return false;
     }
 
-    @SuppressFBWarnings("EI_EXPOSE_REP")
     public int[] getLocationInWindow() {
         getLocationInWindow(mThisWindowOffset);
         return mThisWindowOffset;
