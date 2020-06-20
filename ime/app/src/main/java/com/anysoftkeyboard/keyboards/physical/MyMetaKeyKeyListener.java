@@ -162,10 +162,12 @@ public abstract class MyMetaKeyKeyListener {
     }
 
     private static long press(long state, int what, long mask) {
-        if ((state & (((long) what) << PRESSED_SHIFT)) != 0) ; // repeat before release
+        if ((state & (((long) what) << PRESSED_SHIFT)) != 0)
+            ; // repeat before release
         else if ((state & (((long) what) << RELEASED_SHIFT)) != 0)
             state = (state & ~mask) | what | (((long) what) << LOCKED_SHIFT);
-        else if ((state & (((long) what) << USED_SHIFT)) != 0) ; // repeat after use
+        else if ((state & (((long) what) << USED_SHIFT)) != 0)
+            ; // repeat after use
         else if ((state & (((long) what) << LOCKED_SHIFT)) != 0) state = state & ~mask;
         else
             state =

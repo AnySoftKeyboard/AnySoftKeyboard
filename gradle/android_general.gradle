@@ -24,7 +24,7 @@ android {
     }
 
     lintOptions {
-        lintConfig file("${rootDir}/configs/lint.xml")
+        lintConfig file("${rootDir}/config/lint.xml")
     }
 
     aaptOptions {

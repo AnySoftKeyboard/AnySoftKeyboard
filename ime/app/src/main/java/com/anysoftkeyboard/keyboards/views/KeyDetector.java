@@ -20,7 +20,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 
 public abstract class KeyDetector {
@@ -83,7 +82,6 @@ public abstract class KeyDetector {
      *     #getKeyIndexAndNearbyCodes} method. All elements in the returned array are initialized by
      *     {@link AnyKeyboardViewBase#NOT_A_KEY} value.
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP")
     int[] newCodeArray() {
         Arrays.fill(mNearByCodes, AnyKeyboardViewBase.NOT_A_KEY);
         return mNearByCodes;

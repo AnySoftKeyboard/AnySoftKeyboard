@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +15,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 public class AboveKeyPositionCalculatorTest {
     private AboveKeyPositionCalculator mUnderTest;
     private Keyboard.Key mTestKey;

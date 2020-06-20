@@ -20,10 +20,10 @@ inputs:
     required: true
 runs:
   using: "docker"
-  image: "docker://menny/ndk_ask:1.13.7"
+  image: "docker://menny/ndk_ask:1.14.0"
   env:
     TERM: dumb
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
     GRADLE_USER_HOME: ".github_cache_gradle/"
 
   entrypoint: /bin/bash

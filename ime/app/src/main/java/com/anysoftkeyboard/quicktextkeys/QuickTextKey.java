@@ -21,7 +21,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import com.anysoftkeyboard.addons.AddOnImpl;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,15 +34,9 @@ public class QuickTextKey extends AddOnImpl {
 
     private CharSequence mKeyLabel;
 
-    @SuppressFBWarnings(
-            value = "URF_UNREAD_FIELD",
-            justification = "At some point, we might want to do that")
     @SuppressWarnings("UnusedVariable")
     private int mKeyIconResId;
 
-    @SuppressFBWarnings(
-            value = "URF_UNREAD_FIELD",
-            justification = "At some point, we might want to do that")
     @SuppressWarnings("UnusedVariable")
     private int mIconPreviewResId;
 
