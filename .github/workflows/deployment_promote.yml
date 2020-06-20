@@ -6,12 +6,12 @@ on:
 
 env:
   TERM: dumb
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false --stacktrace"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 jobs:
   promote:
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.13.7
+    container: menny/android_base:1.14.0
     strategy:
       matrix:
         refname: [master, release-branch-ime-v1.10-r4, release-branch-addons-v4.0-r1.1]
