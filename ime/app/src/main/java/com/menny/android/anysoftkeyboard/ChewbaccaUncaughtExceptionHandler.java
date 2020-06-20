@@ -31,7 +31,6 @@ import android.text.format.DateFormat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.functions.Consumer;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -238,7 +237,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
         }
     }
 
-    @SuppressFBWarnings("REC_CATCH_EXCEPTION")
     private String getMemory() {
         String mem =
                 "Total: "

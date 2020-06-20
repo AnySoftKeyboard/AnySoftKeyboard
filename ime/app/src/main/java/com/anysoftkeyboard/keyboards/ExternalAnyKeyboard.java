@@ -34,7 +34,6 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -418,7 +417,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     @Override
-    @SuppressFBWarnings("EI_EXPOSE_REP")
     public char[] getSentenceSeparators() {
         return mSentenceSeparators;
     }
