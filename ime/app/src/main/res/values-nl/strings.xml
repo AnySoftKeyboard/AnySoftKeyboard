@@ -60,7 +60,6 @@ woordenlijst
     <string name="ime_settings">Toetsenbordinstellingen</string>
     <string name="switch_incognito">Incognitomodus</string>
     <string name="vibrate_on_key_press_title">Trillen bij toetsaanslag</string>
-    <string name="vibrate_on_key_press_value_template">%d milliseconds</string>
     <string name="night_mode_screen">Nachtmodusinstellingen</string>
     <string name="night_mode_description">Nachtmodus wijzigt deze eigenschappen:</string>
     <string name="night_mode_state_summary">Huidige nachtmodusdrempel:\u0020%s</string>
@@ -85,7 +84,6 @@ woordenlijst
     <string name="power_save_mode_sound_control">Schakel geluid bij indrukken toets uit</string>
     <string name="power_save_mode_vibration_control">Schakel vibreren bij indrukken toetst uit</string>
     <string name="power_save_mode_suggestions_control">Schakel woordsuggesties uit</string>
-    <string name="power_save_mode_gesture_typing_control">Disable Gesture-Typing</string>
     <string name="power_save_mode_theme_control">Schakel over op eenvoudig Dark-theme</string>
     <string name="pop_text_type_title">Getypte tekst uit toetsen laten verschijnen</string>
     <string name="pop_text_type_summary">Wanneer tekst uit ingedrukte toetsen laten verschijnen. Huidig: %s</string>
@@ -110,9 +108,6 @@ woordenlijst
     <string name="switch_keyboard_on_space">Spatiebalk wisselt toetsenborden</string>
     <string name="switch_keyboard_on_space_on_summary">Wissel van symbolen/nummers naar alfabet bij indrukken van spatiebalk</string>
     <string name="switch_keyboard_on_space_off_summary">Wissel niet van symbolen/nummers naar alfabet bij indrukken van spatiebalk</string>
-    <string name="colorize_nav_bar_title">Draw behind the navigation-bar</string>
-    <string name="colorize_nav_bar_summary_on">Will draw the keyboard background behind the navigation-bar. This is not supported by all devices.</string>
-    <string name="colorize_nav_bar_summary_off">Do not draw behind the navigation-bar.</string>
     <string name="persistent_layout_per_package_id_title">Onthoud alfabetindeling per app</string>
     <string name="persistent_layout_per_package_id_off_summary">Gebruik dezelfde indeling voor alle apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatisch wisselen naar vorige indeling gebruikt in de app.</string>
@@ -121,7 +116,6 @@ woordenlijst
     <string name="one_shot_quick_text_popup_off_summary">Sneltekstpopup blijft open totdat sluitentoets is ingedrukt</string>
     <string name="quick_text_tags_search">Suggesteer emojisuggesties door typen van hun tag</string>
     <string name="quick_text_tags_search_on_summary">Zoek emoji\'s op hun tag na het typen van een dubbele punt (:)</string>
-    <string name="quick_text_tags_search_off_summary"></string>
     <string name="hide_soft_when_physical">Verberg toetsenbord met fysieke toets</string>
     <string name="hide_soft_when_physical_on_summary">Verberg schermtoetsenbord als fysiek toetsenbord wordt gebruikt</string>
     <string name="hide_soft_when_physical_off_summary">Toon schermtoetsenbord als fysiek toetsenbord wordt gebruikt</string>
@@ -129,8 +123,6 @@ woordenlijst
     <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt+Spatie wisselt naar volgende layout.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt+Spatie voert een spatie in.</string>
     <string name="enable_shift_space_language_shortcut">Shift+Spatie wisselt van taal</string>
-    <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + Space switches to the next available layout.</string>
-    <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Space enters a space.</string>
     <string name="fullscreen_input_connection_supported">Gebruik volledig scherm in landschapsmodus</string>
     <string name="fullscreen_input_connection_supported_on_summary">Neem scherm over bij tekstinvoer in landschapsmodus</string>
     <string name="fullscreen_input_connection_supported_off_summary">Gebruik geen volledig scherm in landschapsmodus</string>
@@ -179,7 +171,6 @@ woordenlijst
     <string name="swipe_action_name_cycle_keyboards">Toon alle toetsenborden</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Toon toetsenborden in omgekeerde volgorde</string>
     <string name="swipe_action_name_shift">Shift</string>
-    <string name="swipe_action_name_space">Space</string>
     <string name="swipe_action_name_hide">Verberg toetsenbord</string>
     <string name="swipe_action_name_backspace">Backspace</string>
     <string name="swipe_action_name_backword">Back-word</string>
@@ -218,10 +209,6 @@ woordenlijst
     <string name="special_dictionaries_group_summary">Woordenlijsten met voorstellen gebruikt in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Gebruikerswoordenlijst</string>
     <string name="use_user_dictionary_on_summary">Stel woorden voor die door gebruiker zijn toegevoegd (dubbelklik een voorstel om toe te voegen)</string>
-    <string name="use_user_dictionary_off_summary"></string>
-    <string name="always_use_fallback_user_dictionary">Use private User-Dictionary storage</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Use private-storage AnySoftKeyboard\'s built-in User-dictionary mechanism.</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Try to use Android\'s global built-in User-dictionary.</string>
     <string name="use_auto_dictionary">Automatische woordenlijst</string>
     <string name="use_auto_dictionary_dialog_title">Kies leermethode</string>
     <string name="use_auto_dictionary_summary">Leer automatisch nieuwe woorden. Leermethode: %s</string>
@@ -247,7 +234,6 @@ woordenlijst
     <string name="auto_pick_suggestion_aggressiveness_summary">Agressiviteitsniveau: %s</string>
     <string name="use_contacts_dictionary">Woordenlijst van contacten</string>
     <string name="use_contacts_dictionary_on_summary">Stel namen van contacten voor</string>
-    <string name="use_contacts_dictionary_off_summary"></string>
     <string name="tweaks_group">Aanpassingen</string>
     <string name="tweak_sound_group">Geluid gerelateerde aanpassingen</string>
     <string name="tweak_physical_keyboard_group">Fysieke toetsenbord aanpassingen</string>
@@ -319,7 +305,6 @@ woordenlijst
     <string name="zoom_factor_keys_in_landscape">Toetshoogtefactor in landschapsmodus</string>
     <string name="insert_space_after_word_suggestion_selection">Spatie na kandidaatselectie</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Spatie invoegen na selecteren suggestie</string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Dubbele spatie wordt punt</string>
     <string name="double_space_to_period_summary">Dubbele spatie wordt punt+spatie</string>
     <string name="tweak_animations_level_title">Animaties</string>
@@ -344,10 +329,6 @@ woordenlijst
     <string name="candidates_off_summary">Er worden geen suggesties weergegeven</string>
     <string name="quick_fix">Snel herstel en afkortingen</string>
     <string name="quick_fix_summary">Corrigeert algemeen getypte fouten en breidt afkortingen uit</string>
-    <string name="quick_fix_secon_disabled">…on first language only</string>
-    <string name="quick_fix_secon_disabled_summ_on">Quick fixes and abbreviations will work only on current layout language</string>
-    <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
-                  checked in override default dictionary</string>
     <string name="allow_suggestions_restart">Herstart suggesties</string>
     <string name="allow_suggestions_restart_summary">Herstart woordsuggesties bij cursorverplaatsing</string>
     <!-- settings - keyboard group -->
@@ -404,11 +385,8 @@ woordenlijst
     <string name="extension_kbd_top_small_numbers">Numerieke toetsen</string>
     <string name="extension_kbd_top_numbers_alt">Alternatieve cijfertoetsen</string>
     <string name="extension_kbd_top_nav">Navigatietoetsen</string>
-    <string name="extension_kbd_top_nav_alt">Navigation keys alternative</string>
-    <string name="extension_kbd_top_nav_alt_no_numb">Navigation keys alternative. No numbers row in pwd mode</string>
     <string name="extension_kbd_top_numbers_simple">Eenvoudig, enkel nummers</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
-    <string name="extension_kbd_top_text_editing">Quick text editing</string>
     <string name="extension_kbd_bottom_regular_with_voice">Gewoon</string>
     <string name="extension_kbd_bottom_regular">Klassiek (geen microfoon)</string>
     <string name="extension_kbd_bottom_iphone">iPhone stijl (geen microfoon)</string>
@@ -417,12 +395,8 @@ woordenlijst
     <string name="extension_kbd_bottom_alt_with_mic">Alternatief met microfoon</string>
     <string name="extension_kbd_bottom_old">Old School</string>
     <string name="extension_kbd_bottom_simple">Eenvoudig</string>
-    <string name="extension_kbd_bottom_simple_alt">Simple Alternative</string>
-    <string name="extension_kbd_bottom_row_aosp">AOSP styled</string>
     <string name="extension_kbd_bottom_ng">Nieuwe generatie - testen</string>
     <string name="extension_kbd_extension_numbers_symbols">Cijfers en symbolen</string>
-    <string name="extension_kbd_bottom_minimal">Minimal</string>
-    <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (no emoji)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ga</string>
@@ -489,7 +463,6 @@ woordenlijst
     <string name="settings_split_state_compact_right_always">Start gecomprimeerd naar rechts</string>
     <string name="settings_split_state_compact_left_always">Start gecomprimeerd naar links</string>
     <!-- User dictionary settings -->
-    <skip></skip>
     <string name="user_dictionary_select_locale">Taal:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Eigen woordenlijst</string>
@@ -635,12 +608,6 @@ woordenlijst
     <string name="theme_case_type_override_os">Laat Android beslissen (Automatisch)</string>
     <string name="theme_case_type_override_lower">Altijd in kleine letters</string>
     <string name="theme_case_type_override_upper">Altijd in hoofdletters</string>
-    <string name="settings_hint_size">Hint label size</string>
-    <string name="settings_key_hint_size_summary">Set hint size in the keyboard. Currently, %s</string>
-    <string name="settings_key_hint_size_none">None</string>
-    <string name="settings_key_hint_size_small">Small</string>
-    <string name="settings_key_hint_size_normal">Normal</string>
-    <string name="settings_key_hint_size_big">Big</string>
     <string name="theme_case_type_override_title">Omzeil toetsenbordhoofdletters</string>
     <string name="theme_case_type_override_summary">Hoe hoofdletters op toetsenbord te tonen. Momenteel, %s</string>
     <string name="take_a_while_progress_message">Dit kan even duren…</string>
@@ -659,25 +626,12 @@ woordenlijst
     <string name="allow_layouts_to_provide_generic_rows">Toetsenborden kunnen algemene rijen bieden</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Gebruik altijd geselecteerde algemene rijen.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Sta layouts toe algemene rijen te overschrijven.</string>
-    <string name="gesture_typing_settings">Gesture-Typing ➿</string>
-    <string name="gesture_typing_summary">Input a word by sliding your finger through its letters.</string>
-    <string name="gesture_typing_action">Enable gesture-typing [BETA]</string>
     <string name="gesture_typing_alert_title">Bètafeature!</string>
-    <string name="gesture_typing_alert_message">The gesture-typing ➿ feature is at <b>beta</b> maturity. It has some bugs, not that fast, and not that complete.\nSaying that, you should try it out.</string>
     <string name="gesture_typing_alert_button">Begrepen</string>
     <string name="apply_remote_app_colors_to_theme">Pas themakleuren aan naar gebruikte app</string>
-    <string name="apply_overlay_summary_on">Keyboard\'s colors will match active app (to the best of our ability).</string>
     <string name="apply_overlay_summary_off">Gebruik altijd themakleuren.</string>
     <string name="media_insertion_pending_message">Klik tekstbox om afbeelding in te voegen</string>
     <string name="aosp_dark_theme_name">AOSP-donkerthema</string>
-    <string name="aosp_dark_theme_description">AOSP-Inspired dark colors keyboard theme</string>
     <string name="aosp_light_theme_name">AOSP-lichtthema</string>
-    <string name="aosp_light_theme_description">AOSP-Inspired light colors keyboard theme</string>
-    <string name="app_share_title">Hello from AnySoftKeyboard</string>
-    <string name="app_share_menu_title">Share AnySoftKeyboard using</string>
-    <string name="app_share_text">Let me recommend the open-source, privacy-focus, free, highly customizable, multi-language Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Keep safe! Click for info on CoronaVirus.</string>
-    <string name="click_me_for_easter_egg_info">click me for a surprise</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
