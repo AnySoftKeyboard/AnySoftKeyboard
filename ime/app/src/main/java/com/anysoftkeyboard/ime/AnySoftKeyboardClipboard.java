@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -139,17 +138,21 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 && !TextUtils.isEmpty(mLastSyncedClipboardEntry)) {
             getInputViewContainer().addStripAction(mSuggestionClipboardEntry);
             getInputViewContainer().setActionsStripVisibility(true);
-            final int variation = (info.inputType & InputType.TYPE_MASK_VARIATION);
 
             mSuggestionClipboardEntry.setClipboardText(
-                    mLastSyncedClipboardEntry,
-                    (variation & InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                                    == InputType.TYPE_TEXT_VARIATION_PASSWORD
-                            || (variation & InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
-                                    == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                            ||
-                            // InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD
-                            (variation & 0x000000e0) == 0x000000e0);
+                    mLastSyncedClipboardEntry, isTextPassword(info));
+        }
+    }
+
+    protected static boolean isTextPassword(EditorInfo info) {
+        if ((info.inputType & EditorInfo.TYPE_CLASS_TEXT) == 0) return false;
+        switch (info.inputType & EditorInfo.TYPE_MASK_VARIATION) {
+            case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
+            case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
+            case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+                return true;
+            default:
+                return false;
         }
     }
 
