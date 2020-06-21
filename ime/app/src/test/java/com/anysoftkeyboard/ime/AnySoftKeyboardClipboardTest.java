@@ -543,6 +543,48 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testShowStripActionAsNonPasswordIfClipboardIsNotEmptyInNonPasswordField() {
+        simulateFinishInputFlow();
+        ClipboardManager clipboardManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(
+                new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+
+        int[] variations =
+                new int[] {
+                    InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT,
+                    InputType.TYPE_TEXT_VARIATION_FILTER,
+                    InputType.TYPE_TEXT_VARIATION_PHONETIC,
+                    InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS,
+                    InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS,
+                    InputType.TYPE_TEXT_VARIATION_PERSON_NAME,
+                    InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE,
+                    InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE,
+                    InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT,
+                    InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+                    InputType.TYPE_TEXT_VARIATION_URI,
+                    InputType.TYPE_TEXT_VARIATION_NORMAL,
+                };
+
+        for (int variation : variations) {
+            simulateOnStartInputFlow(
+                    false,
+                    createEditorInfo(
+                            EditorInfo.IME_ACTION_NONE, InputType.TYPE_CLASS_TEXT | variation));
+
+            final TextView clipboardView =
+                    mAnySoftKeyboardUnderTest
+                            .getInputViewContainer()
+                            .findViewById(R.id.clipboard_suggestion_text);
+            Assert.assertNotNull("for " + variation, clipboardView);
+            Assert.assertEquals("for " + variation, "text 1", clipboardView.getText().toString());
+
+            simulateFinishInputFlow();
+        }
+    }
+
+    @Test
     public void testDoesNotShowStripActionIfClipboardEntryIsOld() {
         simulateFinishInputFlow();
         ClipboardManager clipboardManager =
