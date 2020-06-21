@@ -22,18 +22,6 @@ public abstract class AnySoftKeyboardIncognito extends AnySoftKeyboardWithGestur
         }
     }
 
-    private static boolean isTextPassword(EditorInfo info) {
-        if ((info.inputType & EditorInfo.TYPE_CLASS_TEXT) == 0) return false;
-        switch (info.inputType & EditorInfo.TYPE_MASK_VARIATION) {
-            case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
-            case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
-            case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     private static boolean isNumberPassword(EditorInfo info) {
         return (info.inputType & NUMBER_INCOGNITO_TYPE) == NUMBER_INCOGNITO_TYPE;
     }
