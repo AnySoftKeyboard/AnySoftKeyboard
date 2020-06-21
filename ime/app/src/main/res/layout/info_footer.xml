@@ -11,6 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:drawableStart="@drawable/ic_not_configured_gray"
+            android:drawableLeft="@drawable/ic_not_configured_gray"
             android:drawablePadding="8dp"
             android:padding="8dp"
             android:gravity="top"
