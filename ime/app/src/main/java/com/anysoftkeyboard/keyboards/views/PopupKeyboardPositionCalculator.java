@@ -50,6 +50,18 @@ public class PopupKeyboardPositionCalculator {
 
         if (shouldMirrorKeys) ((AnyPopupKeyboard) popupKeyboardView.getKeyboard()).mirrorKeys();
 
+        // If the popup would fall outside of the screen, and it's moved,
+        // readjust the reported point so that the cursor will be aligned
+        // with the finger.
+        if (point.x < 0) point.offset(-point.x, 0);
+        else {
+            final int adjustInX =
+                    point.x
+                            + popupKeyboardView.getMeasuredWidth()
+                            - keyboardView.getMeasuredWidth();
+            if (adjustInX > 0) point.offset(-adjustInX, 0);
+        }
+
         return point;
     }
 }
