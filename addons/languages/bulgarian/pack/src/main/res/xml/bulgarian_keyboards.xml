@@ -10,4 +10,9 @@
               defaultDictionaryLocale="bg" description="@string/bulgarian_keyboard_bds_description"
               index="2" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/bulgarian_physical" />
+    <Keyboard nameResId="@string/bulgarian_keyboard_bekl" iconResId="@drawable/ic_status_bulgarian"
+              layoutResId="@xml/bekl" id="498c9088-bde5-4e67-b318-5a247505ff27"
+              defaultDictionaryLocale="bg" description="@string/bulgarian_keyboard_bekl_description"
+              index="3" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/bulgarian_physical" />
 </Keyboards>
