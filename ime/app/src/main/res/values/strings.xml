@@ -736,6 +736,10 @@
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
     <string name="toast_info_custom_path_backup">The new backup folder is : </string>
 
+    <string name="file_explorer_menu_add_folder">Create folder</string>
+    <string name="file_explorer_menu_refresh">Refresh</string>
+    <string name="file_explorer_filename">Backup filename...</string>
+    <string name="file_explorer_filename_empty">Filename cannot be empty...</string>
 
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
 

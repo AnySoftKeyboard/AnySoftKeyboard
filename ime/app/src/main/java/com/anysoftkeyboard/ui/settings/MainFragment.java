@@ -40,6 +40,7 @@ import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.ui.FileExplorerCreate;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
@@ -72,10 +73,9 @@ public class MainFragment extends Fragment {
     static final int DIALOG_LOAD_FAILED = 21;;
     static int successDialog;
     static int failedDialog;
-    static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
-    static Boolean[] checked;
-    static Function<
-                    Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
+    public static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
+    public static Boolean[] checked;
+    static Function<Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
                     ObservableSource<GlobalPrefsBackup.ProviderDetails>>
             action;
 
@@ -421,25 +421,33 @@ public class MainFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent dataToFileChooser = new Intent();
-                        dataToFileChooser.setType("text/xml");
-                        dataToFileChooser.setAction(actionCustomPath);
-                        dataToFileChooser.putExtra("checked", checked);
-                        try {
-                            startActivityForResult(dataToFileChooser, 1);
-                        } catch (ActivityNotFoundException e) {
-                            Logger.e(TAG, "Could not launch the custom path activity");
-                            Toast.makeText(
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                        {
+                            Intent dataToFileChooser = new Intent();
+                            dataToFileChooser.setType("text/xml");
+                            dataToFileChooser.setAction(actionCustomPath);
+                            dataToFileChooser.putExtra("checked", checked);
+                            try {
+                                startActivityForResult(dataToFileChooser, 1);
+                            } catch (ActivityNotFoundException e) {
+                                Logger.e(TAG, "Could not launch the custom path activity");
+                                Toast.makeText(
                                             getActivity().getApplicationContext(),
                                             R.string.toast_error_custom_path_backup,
                                             Toast.LENGTH_LONG)
                                     .show();
+                            }
+
+                        } else {
+                            Intent intent;
+                            intent = new Intent(getContext(), FileExplorerCreate.class);
+                            startActivity(intent);
                         }
                     }
                 });
     }
 
-    private Disposable launchBackupRestore() {
+    public Disposable launchBackupRestore() {
         return RxProgressDialog.create(
                         new Pair<>(supportedProviders, checked),
                         getActivity(),
