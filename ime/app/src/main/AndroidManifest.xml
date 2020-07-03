@@ -119,6 +119,14 @@
             android:label="@string/ime_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- File explorer only when android version < 4.4 -->
+        <activity
+            android:name="com.anysoftkeyboard.ui.FileExplorerCreate"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/ime_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:theme="@style/Theme.AskTest" />
     </application>
 
 </manifest>

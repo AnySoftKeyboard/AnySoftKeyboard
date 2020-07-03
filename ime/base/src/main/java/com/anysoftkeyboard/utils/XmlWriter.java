@@ -60,13 +60,17 @@ public class XmlWriter {
         if (addXmlPrefix) this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
     }
 
-    public XmlWriter(File outputFile, OutputStream outputFileStream) throws IOException {
+    public XmlWriter(File outputFile) throws IOException {
         this(
-                new OutputStreamWriter(
-                        (outputFileStream == null)
-                                ? new FileOutputStream(outputFile, false)
-                                : outputFileStream,
-                        Charsets.UTF8),
+                new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8),
+                true,
+                0,
+                true);
+    }
+
+    public XmlWriter(OutputStream outputFileStream) throws IOException {
+        this(
+                new OutputStreamWriter(outputFileStream, Charsets.UTF8),
                 true,
                 0,
                 true);

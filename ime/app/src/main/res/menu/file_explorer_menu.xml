@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/create_folder" android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/file_explorer_menu_add_folder" app:showAsAction="never|withText" />
+
+    <item android:id="@+id/refresh_folder" android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/file_explorer_menu_refresh"
+        app:showAsAction="never|withText" />
+
+</menu>

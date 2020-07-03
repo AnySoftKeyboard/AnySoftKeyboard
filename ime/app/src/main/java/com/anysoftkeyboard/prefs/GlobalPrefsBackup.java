@@ -1,12 +1,13 @@
 package com.anysoftkeyboard.prefs;
 
 import android.content.Context;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 import android.support.v7.preference.PreferenceManager;
+
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvider;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
@@ -29,6 +30,8 @@ import java.util.Map;
 public class GlobalPrefsBackup {
     @VisibleForTesting static final String GLOBAL_BACKUP_FILENAME = "AnySoftKeyboardPrefs.xml";
 
+    private static File customFilename = null;
+
     public static List<ProviderDetails> getAllPrefsProviders(@NonNull Context context) {
         return Arrays.asList(
                 new ProviderDetails(
@@ -49,13 +52,8 @@ public class GlobalPrefsBackup {
                         R.string.abbreviation_dict_prefs_provider));
     }
 
-    public static File returnCustomBackupPath(String basepath) {
-        final File externalFolder = Environment.getExternalStorageDirectory();
-        return (new File(
-                new File(externalFolder, basepath), GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME));
-    }
-
     private static Boolean backupProvider(PrefsProvider provider, PrefsRoot prefsRoot) {
+        Logger.d("backupProvider", "BackupProvider is called");
         final PrefsRoot providerRoot = provider.getPrefsRoot();
         prefsRoot
                 .createChild()
@@ -113,7 +111,7 @@ public class GlobalPrefsBackup {
     }
 
     @NonNull
-    private static Observable<ProviderDetails> doIt(
+    public static Observable<ProviderDetails> doIt(
             Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
             Function<PrefsXmlStorage, PrefsRoot> prefsRootFactory,
             BiConsumer<PrefsProvider, PrefsRoot> providerAction,
@@ -140,8 +138,22 @@ public class GlobalPrefsBackup {
                 prefsRoot -> prefsRootFinalizer.accept(storage, prefsRoot));
     }
 
+    public static void updateCustomFilename(File filename)
+    {
+        customFilename = filename;
+    }
+
     public static File getBackupFile() {
-        return AnyApplication.getBackupFile(GLOBAL_BACKUP_FILENAME);
+        File tempFilename;
+
+        if (customFilename == null)
+            return AnyApplication.getBackupFile(GLOBAL_BACKUP_FILENAME);
+        else {
+            //We reset the customFilename
+            tempFilename = customFilename;
+            customFilename = null;
+            return tempFilename;
+        }
     }
 
     public static class ProviderDetails {

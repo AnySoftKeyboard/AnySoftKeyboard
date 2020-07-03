@@ -42,8 +42,13 @@ public class PrefsXmlStorage {
             throw new IOException("Failed to of storage folder " + targetFolder.getAbsolutePath());
         }
 
+        final XmlWriter output;
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
-        final XmlWriter output = new XmlWriter(mStorageFile, mBackupFileStream);
+        if (mBackupFileStream == null)
+            output = new XmlWriter(mStorageFile);
+        else
+            output = new XmlWriter(mBackupFileStream);
+
         try {
             output.writeEntity("AnySoftKeyboardPrefs")
                     .writeAttribute("version", Integer.toString(prefsRoot.getVersion()));
@@ -67,8 +72,9 @@ public class PrefsXmlStorage {
         }
     }
 
-    private static void writePrefItems(XmlWriter output, Iterable<PrefItem> items, boolean atRoot)
+    public static void writePrefItems(XmlWriter output, Iterable<PrefItem> items, boolean atRoot)
             throws IOException {
+        Logger.d("PrefsXmlStorage", "Currently writing into output");
         for (PrefItem item : items) {
             if (!atRoot) output.writeEntity("pref");
 
