@@ -35,8 +35,11 @@ jobs:
           LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/gradle/gradle/releases | jq -c -r '.[] | select(.prerelease == false) | .name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
           ./gradlew wrapper --gradle-version="${LATEST_VERSION}"
+          ./gradlew wrapper --gradle-version="${LATEST_VERSION}"
       - name: Sanity verification
-        run: ./gradlew :api:assembleDebug :api:lintDebug
+        run: |
+          ./gradlew :api:assembleDebug :api:lintDebug
+          ./gradlew :api:assembleDebug :api:lintDebug
       - name: Add changed gradle files
         run: |
           git add -f gradlew*
