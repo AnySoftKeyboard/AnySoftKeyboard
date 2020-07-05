@@ -44,10 +44,8 @@ public class PrefsXmlStorage {
 
         final XmlWriter output;
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
-        if (mBackupFileStream == null)
-            output = new XmlWriter(mStorageFile);
-        else
-            output = new XmlWriter(mBackupFileStream);
+        if (mBackupFileStream == null) output = new XmlWriter(mStorageFile);
+        else output = new XmlWriter(mBackupFileStream);
 
         try {
             output.writeEntity("AnySoftKeyboardPrefs")

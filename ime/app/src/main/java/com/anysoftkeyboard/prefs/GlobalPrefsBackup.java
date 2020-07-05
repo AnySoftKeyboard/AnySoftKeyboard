@@ -6,7 +6,6 @@ import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 import android.support.v7.preference.PreferenceManager;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvider;
@@ -138,18 +137,16 @@ public class GlobalPrefsBackup {
                 prefsRoot -> prefsRootFinalizer.accept(storage, prefsRoot));
     }
 
-    public static void updateCustomFilename(File filename)
-    {
+    public static void updateCustomFilename(File filename) {
         customFilename = filename;
     }
 
     public static File getBackupFile() {
         File tempFilename;
 
-        if (customFilename == null)
-            return AnyApplication.getBackupFile(GLOBAL_BACKUP_FILENAME);
+        if (customFilename == null) return AnyApplication.getBackupFile(GLOBAL_BACKUP_FILENAME);
         else {
-            //We reset the customFilename
+            // We reset the customFilename
             tempFilename = customFilename;
             customFilename = null;
             return tempFilename;
