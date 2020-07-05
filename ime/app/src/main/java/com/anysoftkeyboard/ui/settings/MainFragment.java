@@ -41,6 +41,7 @@ import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.FileExplorerCreate;
+import com.anysoftkeyboard.ui.FileExplorerRestore;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
@@ -439,15 +440,20 @@ public class MainFragment extends Fragment {
                             }
 
                         } else {
-                            Intent intent;
-                            intent = new Intent(getContext(), FileExplorerCreate.class);
+                            Intent intent = null;
+                            if (optionId == R.id.backup_prefs){
+                                intent = new Intent(getContext(), FileExplorerCreate.class);
+                            }
+                            else if (optionId == R.id.restore_prefs){
+                                intent = new Intent(getContext(), FileExplorerRestore.class);
+                            }
                             startActivity(intent);
                         }
                     }
                 });
     }
 
-    public Disposable launchBackupRestore() {
+    private Disposable launchBackupRestore() {
         return RxProgressDialog.create(
                         new Pair<>(supportedProviders, checked),
                         getActivity(),
