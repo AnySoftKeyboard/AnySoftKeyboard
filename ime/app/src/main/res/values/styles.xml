@@ -60,7 +60,7 @@
         <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>
     </style>
 
-    <style name="Theme.AskTest"
+    <style name="Theme.AskFileExplorer"
         parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:textColorLink">@color/text_color_link</item>
         <item name="colorAccent">@color/app_accent</item>

@@ -72,9 +72,8 @@ public class PrefsXmlStorage {
         }
     }
 
-    public static void writePrefItems(XmlWriter output, Iterable<PrefItem> items, boolean atRoot)
+    private static void writePrefItems(XmlWriter output, Iterable<PrefItem> items, boolean atRoot)
             throws IOException {
-        Logger.d("PrefsXmlStorage", "Currently writing into output");
         for (PrefItem item : items) {
             if (!atRoot) output.writeEntity("pref");
 

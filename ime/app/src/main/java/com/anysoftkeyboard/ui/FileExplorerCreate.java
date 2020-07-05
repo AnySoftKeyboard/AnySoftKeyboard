@@ -1,8 +1,5 @@
 package com.anysoftkeyboard.ui;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.util.Pair;
@@ -105,7 +102,7 @@ public class FileExplorerCreate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.file_explorer_main_ui);
+        setContentView(R.layout.file_explorer_create_main_ui);
 
         TextView filenameTextView = (TextView) findViewById(R.id.file_explorer_filename);
         ImageButton filenameButton = (ImageButton) findViewById(R.id.file_explorer_filename_button);
@@ -120,7 +117,6 @@ public class FileExplorerCreate extends AppCompatActivity {
         listFile(basePath);
 
         filenameButton.setOnClickListener(new View.OnClickListener() {
-                    @SuppressLint("CheckResult")
                     @Override
                     public void onClick(View v) {
                         if (filenameTextView.length() > 0)
