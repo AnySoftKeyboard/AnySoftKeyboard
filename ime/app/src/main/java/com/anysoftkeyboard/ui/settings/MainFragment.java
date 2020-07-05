@@ -54,6 +54,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
@@ -76,7 +77,8 @@ public class MainFragment extends Fragment {
     static int failedDialog;
     public static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
     public static Boolean[] checked;
-    static Function<Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
+    static Function<
+                    Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
                     ObservableSource<GlobalPrefsBackup.ProviderDetails>>
             action;
 
@@ -415,15 +417,14 @@ public class MainFragment extends Fragment {
                     mDisposable.dispose();
                     mDisposable = new CompositeDisposable();
 
-                    mDisposable.add(launchBackupRestore());
+                    mDisposable.add(launchBackupRestore(0, null));
                 });
         builder.setNeutralButton(
                 choosePathString,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-                        {
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             Intent dataToFileChooser = new Intent();
                             dataToFileChooser.setType("text/xml");
                             dataToFileChooser.setAction(actionCustomPath);
@@ -433,18 +434,17 @@ public class MainFragment extends Fragment {
                             } catch (ActivityNotFoundException e) {
                                 Logger.e(TAG, "Could not launch the custom path activity");
                                 Toast.makeText(
-                                            getActivity().getApplicationContext(),
-                                            R.string.toast_error_custom_path_backup,
-                                            Toast.LENGTH_LONG)
-                                    .show();
+                                                getActivity().getApplicationContext(),
+                                                R.string.toast_error_custom_path_backup,
+                                                Toast.LENGTH_LONG)
+                                        .show();
                             }
 
                         } else {
                             Intent intent = null;
-                            if (optionId == R.id.backup_prefs){
+                            if (optionId == R.id.backup_prefs) {
                                 intent = new Intent(getContext(), FileExplorerCreate.class);
-                            }
-                            else if (optionId == R.id.restore_prefs){
+                            } else if (optionId == R.id.restore_prefs) {
                                 intent = new Intent(getContext(), FileExplorerRestore.class);
                             }
                             startActivity(intent);
@@ -453,7 +453,11 @@ public class MainFragment extends Fragment {
                 });
     }
 
-    private Disposable launchBackupRestore() {
+    private Disposable launchBackupRestore(int custom, Uri customUri) {
+        File filePath;
+        if (custom == 1) filePath = new File(customUri.getPath());
+        else filePath = GlobalPrefsBackup.getBackupFile();
+
         return RxProgressDialog.create(
                         new Pair<>(supportedProviders, checked),
                         getActivity(),
@@ -476,9 +480,7 @@ public class MainFragment extends Fragment {
                                     e.getMessage());
                             mDialogController.showDialog(failedDialog, e.getMessage());
                         },
-                        () ->
-                                mDialogController.showDialog(
-                                        successDialog, GlobalPrefsBackup.getBackupFile()));
+                        () -> mDialogController.showDialog(successDialog, filePath));
     }
 
     public void launchRestoreCustomFileData(InputStream inputStream) {
@@ -512,7 +514,7 @@ public class MainFragment extends Fragment {
                     Logger.d(TAG, "Launching Backup");
                     launchBackupCustomFileData(resolver.openOutputStream(data.getData()));
                 }
-                launchBackupRestore();
+                launchBackupRestore(1, data.getData());
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger.d(TAG, "Error when getting inputStream on onActivityResult");

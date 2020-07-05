@@ -69,11 +69,7 @@ public class XmlWriter {
     }
 
     public XmlWriter(OutputStream outputFileStream) throws IOException {
-        this(
-                new OutputStreamWriter(outputFileStream, Charsets.UTF8),
-                true,
-                0,
-                true);
+        this(new OutputStreamWriter(outputFileStream, Charsets.UTF8), true, 0, true);
     }
 
     /**

@@ -740,9 +740,16 @@
     <string name="file_explorer_menu_refresh">Refresh</string>
     <string name="file_explorer_filename">Backup filename...</string>
     <string name="file_explorer_filename_empty">Filename cannot be empty...</string>
+    <string name="file_explorer_alert_title">Select this file ?</string>
+    <string name="file_explorer_restore_alert_message">Do you want to restore this file ?</string>
+    <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
+
+    <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
+    <string name="file_explorer_backup_failed">Your data have failed to ba saved.</string>
+    <string name="file_explorer_restore_success">Your data have been restored from\u0020</string>
+    <string name="file_explorer_restore_failed">Your data have failed to be restored.</string>
 
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
-
 
     <string name="setup_wizard_step_one_title">Enable AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>
