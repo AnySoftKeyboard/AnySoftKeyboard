@@ -483,11 +483,11 @@ public class MainFragment extends Fragment {
                         () -> mDialogController.showDialog(successDialog, filePath));
     }
 
-    public void launchRestoreCustomFileData(InputStream inputStream) {
+    public static void launchRestoreCustomFileData(InputStream inputStream) {
         PrefsXmlStorage.PrefsXmlStorageCustomPath(inputStream);
     }
 
-    public void launchBackupCustomFileData(OutputStream outputStream) {
+    public static void launchBackupCustomFileData(OutputStream outputStream) {
         PrefsXmlStorage.PrefsXmlBackupCustomPath(outputStream);
     }
 
@@ -508,10 +508,10 @@ public class MainFragment extends Fragment {
                 // For more informations, see:
                 // https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
                 if (modeBackupRestore == R.id.restore_prefs) {
-                    Logger.d(TAG, "Launching Restore");
+                    Logger.d(TAG, "Launching Restore at uri " + data.getData());
                     launchRestoreCustomFileData(resolver.openInputStream(data.getData()));
                 } else if (modeBackupRestore == R.id.backup_prefs) {
-                    Logger.d(TAG, "Launching Backup");
+                    Logger.d(TAG, "Launching Backup at uri " + data.getData());
                     launchBackupCustomFileData(resolver.openOutputStream(data.getData()));
                 }
                 launchBackupRestore(1, data.getData());

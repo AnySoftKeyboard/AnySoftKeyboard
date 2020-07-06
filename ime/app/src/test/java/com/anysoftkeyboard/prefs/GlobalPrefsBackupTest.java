@@ -2,6 +2,7 @@ package com.anysoftkeyboard.prefs;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -11,6 +12,7 @@ import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.test.TestUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,6 +52,43 @@ public class GlobalPrefsBackupTest {
         public void storePrefsRoot(PrefsRoot prefsRoot) {
             storedPrefsRoot = prefsRoot;
         }
+    }
+
+    @Test
+    public void testBackupRestoreCustomPath() throws Exception {
+        File customFile = new File(Environment.getExternalStorageDirectory() + "/testBackup.xml");
+        final FakePrefsProvider fakePrefsProvider = new FakePrefsProvider("id1");
+        List<GlobalPrefsBackup.ProviderDetails> fakeDetails =
+                Collections.singletonList(
+                        new GlobalPrefsBackup.ProviderDetails(
+                                fakePrefsProvider, R.string.pop_text_type_title));
+
+        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
+                new AtomicReference<>(new ArrayList<>());
+
+        GlobalPrefsBackup.updateCustomFilename(customFile);
+
+        GlobalPrefsBackup.backup(Pair.create(fakeDetails, new Boolean[] {true}))
+                .blockingSubscribe(p -> hits.get().add(p));
+
+        Assert.assertEquals(1, hits.get().size());
+        Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
+
+        hits.get().clear();
+
+        Assert.assertTrue(customFile.exists());
+        Assert.assertTrue(customFile.length() > 0);
+
+        Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
+
+        GlobalPrefsBackup.updateCustomFilename(customFile);
+
+        GlobalPrefsBackup.restore(Pair.create(fakeDetails, new Boolean[] {true}))
+                .blockingSubscribe(p -> hits.get().add(p));
+
+        Assert.assertEquals(1, hits.get().size());
+        Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
+        Assert.assertNotNull(fakePrefsProvider.storedPrefsRoot);
     }
 
     @Test
