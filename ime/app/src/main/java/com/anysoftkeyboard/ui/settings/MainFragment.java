@@ -72,7 +72,7 @@ public class MainFragment extends Fragment {
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
-    static final int DIALOG_LOAD_FAILED = 21;;
+    static final int DIALOG_LOAD_FAILED = 21;
     static int successDialog;
     static int failedDialog;
     public static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
