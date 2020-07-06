@@ -27,11 +27,11 @@ public class PrefsXmlStorage {
         mStorageFile = storageFile;
     }
 
-    public static void PrefsXmlStorageCustomPath(InputStream is) {
+    public static void prefsXmlStorageCustomPath(InputStream is) {
         mStorageFileStream = is;
     }
 
-    public static void PrefsXmlBackupCustomPath(OutputStream is) {
+    public static void prefsXmlBackupCustomPath(OutputStream is) {
         mBackupFileStream = is;
     }
 
