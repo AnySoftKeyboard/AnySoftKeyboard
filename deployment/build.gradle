@@ -25,14 +25,14 @@ deployments {
         environmentSteps = ['alpha_100', 'beta_100']
     }
     imeProduction {
-        environmentSteps = ['production_010', 'production_020', 'production_030', 'production_040', 'production_050', 'production_075', 'production_100']
+        environmentSteps = ['production_010', '', 'production_020', '', '', 'production_030', 'production_040', 'production_050', '', '', '', 'production_075', '', 'production_100']
     }
 
     addOnsMaster {
         environmentSteps = ['beta_100']
     }
     addOnsProduction {
-        environmentSteps = ['production_010', 'production_050', 'production_100']
+        environmentSteps = ['production_010', '', 'production_050', '', 'production_100']
     }
 }
 
@@ -50,9 +50,13 @@ long getDaysFromLastCommitFromGit() {
 static String getTaskNameByStepFor(Project project, String processName, long step) {
     def processSteps = project.deployments.named(processName).get().environmentSteps
     if (step >= processSteps.size()) {
-        step = processSteps.size() - 1
+        return 'noOpDeployTask'
     }
-    return "deploymentRequest_${processName}_${processSteps[step]}"
+    def targetEnvironment = processSteps[step]
+    if (targetEnvironment == '') {
+        return 'noOpDeployTask'
+    }
+    return "deploymentRequest_${processName}_${targetEnvironment}"
 }
 
 //////// start - IME

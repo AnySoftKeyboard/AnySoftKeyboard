@@ -64,6 +64,7 @@ public class DeploymentPlugin implements Plugin<Project> {
                             stepIndex < config.environmentSteps.size();
                             stepIndex++) {
                         final String stepName = config.environmentSteps.get(stepIndex);
+                        if (stepName.isEmpty()) continue;
                         project.getTasks()
                                 .register(
                                         String.format(
