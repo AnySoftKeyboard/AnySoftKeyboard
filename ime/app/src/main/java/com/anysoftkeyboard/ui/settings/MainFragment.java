@@ -484,11 +484,11 @@ public class MainFragment extends Fragment {
     }
 
     public static void launchRestoreCustomFileData(InputStream inputStream) {
-        PrefsXmlStorage.PrefsXmlStorageCustomPath(inputStream);
+        PrefsXmlStorage.prefsXmlStorageCustomPath(inputStream);
     }
 
     public static void launchBackupCustomFileData(OutputStream outputStream) {
-        PrefsXmlStorage.PrefsXmlBackupCustomPath(outputStream);
+        PrefsXmlStorage.prefsXmlBackupCustomPath(outputStream);
     }
 
     // This function is if launched when selecting neutral button of the main Fragment

@@ -21,9 +21,9 @@ import java.io.File;
 import net.evendanan.pixel.RxProgressDialog;
 
 public class FileExplorerRestore extends AppCompatActivity {
-    private ListView listViewFiles;
-    private File basePath;
-    private File currentFolder;
+    private ListView mListViewFiles;
+    private File mBasePath;
+    private File mCurrentFolder;
 
     private Disposable launch_restore(String fileName) {
         return RxProgressDialog.create(
@@ -86,19 +86,19 @@ public class FileExplorerRestore extends AppCompatActivity {
         File[] files = basePath.listFiles();
         ArrayAdapter<File> adapter =
                 new ArrayAdapter<File>(this, R.layout.file_explorer_single_item, files);
-        listViewFiles.setAdapter(adapter);
+        mListViewFiles.setAdapter(adapter);
 
         // Set onclickListener for all element of listView
-        listViewFiles.setOnItemClickListener(
+        mListViewFiles.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(
                             AdapterView<?> parent, View view, int position, long id) {
-                        Object o = listViewFiles.getItemAtPosition(position);
+                        Object o = mListViewFiles.getItemAtPosition(position);
                         if (new File(o.toString()).isDirectory()) {
-                            currentFolder = new File(o.toString());
+                            mCurrentFolder = new File(o.toString());
                             setTitle(o.toString());
-                            listFile(currentFolder);
+                            listFile(mCurrentFolder);
                         } else if (new File(o.toString()).isFile())
                             create_builder(new File(o.toString()));
                     }
@@ -107,11 +107,11 @@ public class FileExplorerRestore extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!currentFolder.equals(basePath)) {
-            int sep = currentFolder.toString().lastIndexOf("/");
-            setTitle(currentFolder.toString().substring(0, sep));
-            currentFolder = new File(currentFolder.toString().substring(0, sep));
-            listFile(currentFolder);
+        if (!mCurrentFolder.equals(mBasePath)) {
+            int sep = mCurrentFolder.toString().lastIndexOf("/");
+            setTitle(mCurrentFolder.toString().substring(0, sep));
+            mCurrentFolder = new File(mCurrentFolder.toString().substring(0, sep));
+            listFile(mCurrentFolder);
         } else finish();
     }
 
@@ -120,14 +120,14 @@ public class FileExplorerRestore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_explorer_restore_main_ui);
 
-        listViewFiles = (ListView) findViewById(R.id.file_explorer_list_view);
+        mListViewFiles = (ListView) findViewById(R.id.file_explorer_list_view);
 
-        basePath = Environment.getExternalStorageDirectory();
+        mBasePath = Environment.getExternalStorageDirectory();
 
-        currentFolder = basePath;
+        mCurrentFolder = mBasePath;
 
-        setTitle(basePath.toString());
+        setTitle(mBasePath.toString());
 
-        listFile(basePath);
+        listFile(mBasePath);
     }
 }

@@ -734,12 +734,10 @@
     <string name="enter_abbreviation_hint">Abbreviation</string>
     <string name="enter_abbreviation_target_hint">Full sentence</string>
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
-    <string name="toast_info_custom_path_backup">The new backup folder is : </string>
 
     <string name="file_explorer_menu_add_folder">Create folder</string>
-    <string name="file_explorer_menu_refresh">Refresh</string>
-    <string name="file_explorer_filename">Backup filename...</string>
-    <string name="file_explorer_filename_empty">Filename cannot be empty...</string>
+    <string name="file_explorer_filename">Backup filename&#8230;</string>
+    <string name="file_explorer_filename_empty">Filename cannot be empty&#8230;</string>
     <string name="file_explorer_alert_title">Select this file ?</string>
     <string name="file_explorer_restore_alert_message">Do you want to restore this file ?</string>
     <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
