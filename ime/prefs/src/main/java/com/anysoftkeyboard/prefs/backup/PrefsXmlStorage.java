@@ -38,7 +38,10 @@ public class PrefsXmlStorage {
     public void store(PrefsRoot prefsRoot) throws Exception {
         final File targetFolder = mStorageFile.getParentFile();
         // parent folder may be null in case the file is on the root folder.
-        if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
+        if (mBackupFileStream == null
+                && targetFolder != null
+                && !targetFolder.exists()
+                && !targetFolder.mkdirs()) {
             throw new IOException("Failed to of storage folder " + targetFolder.getAbsolutePath());
         }
 
