@@ -5,6 +5,8 @@ import com.anysoftkeyboard.utils.XmlWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
@@ -18,20 +20,36 @@ import org.xml.sax.helpers.DefaultHandler;
 public class PrefsXmlStorage {
 
     private final File mStorageFile;
+    private static InputStream mStorageFileStream;
+    private static OutputStream mBackupFileStream;
 
     public PrefsXmlStorage(File storageFile) {
         mStorageFile = storageFile;
     }
 
+    public static void prefsXmlStorageCustomPath(InputStream is) {
+        mStorageFileStream = is;
+    }
+
+    public static void prefsXmlBackupCustomPath(OutputStream is) {
+        mBackupFileStream = is;
+    }
+
     public void store(PrefsRoot prefsRoot) throws Exception {
         final File targetFolder = mStorageFile.getParentFile();
         // parent folder may be null in case the file is on the root folder.
-        if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
+        if (mBackupFileStream == null
+                && targetFolder != null
+                && !targetFolder.exists()
+                && !targetFolder.mkdirs()) {
             throw new IOException("Failed to of storage folder " + targetFolder.getAbsolutePath());
         }
 
+        final XmlWriter output;
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
-        final XmlWriter output = new XmlWriter(mStorageFile);
+        if (mBackupFileStream == null) output = new XmlWriter(mStorageFile);
+        else output = new XmlWriter(mBackupFileStream);
+
         try {
             output.writeEntity("AnySoftKeyboardPrefs")
                     .writeAttribute("version", Integer.toString(prefsRoot.getVersion()));
@@ -77,8 +95,13 @@ public class PrefsXmlStorage {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
         final PrefsXmlParser prefsXmlParser = new PrefsXmlParser();
-        try (FileInputStream fileInputStream = new FileInputStream(mStorageFile)) {
-            parser.parse(fileInputStream, prefsXmlParser);
+        if (mStorageFileStream == null) {
+            try (FileInputStream fileInputStream = new FileInputStream(mStorageFile)) {
+                parser.parse(fileInputStream, prefsXmlParser);
+            }
+        } else {
+            Logger.d("PrefsXmlStorage", "Loaded settings from custom file path");
+            parser.parse(mStorageFileStream, prefsXmlParser);
         }
         return prefsXmlParser.getParsedRoot();
     }
