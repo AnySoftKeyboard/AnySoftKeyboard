@@ -73,6 +73,9 @@ Copyright (C) 2013 Menny Even-Danan
         <attr name="longPressCode" format="reference|integer"/>
 
         <attr name="isFunctional" format="reference|boolean"/>
+        
+        <!-- Should the shift code be outputted even if the shift is only active because of sticky? -->
+        <attr name="isShiftAlways" format="reference|boolean"/>
 
         <attr name="shiftedCodes" format="reference|integer|string"/>
 
