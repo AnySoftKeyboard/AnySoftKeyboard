@@ -18,10 +18,11 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92"),
                         "Keep safe! #covid19",
-                        "Suggesting recent clipboard entry.",
-                        "A few bugs fixes.",
+                        "So, you just copied some text? Let me suggest pasting it.",
+                        "Finally, you can decide where the settings backup file should be.",
+                        "People spotted bugs. We slayed them!",
                         "YABTU.",
-                        "Updated translations."));
+                        "Updated translations from the community."));
         log.add(
                 new VersionChangeLog(
                         1,
@@ -472,107 +473,6 @@ public class VersionChangeLogs {
                         "I keep finding crashes, but then they magically go away.",
                         "YABTU (Yet another build tools update).",
                         "Localization update: TR, PL, DE."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        5,
-                        "r4",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r4"),
-                        "Linguistics say 'Help' and 'help' are the same word. Completion will take care of that now. #TheCustomerAlwaysRight",
-                        "People complained about crashes. I fixed them. #TheCustomerAlwaysRight2",
-                        "Updating build tools - yes, it's that boring."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        5,
-                        "r3",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r3"),
-                        "...and then pressing SHIFT changed symbols on the bottom row.",
-                        "Heard of some crashes hanging around in the keyboard. Crushed them!",
-                        "Not going the extra mile anymore - no longer suggesting words if the App said not to."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        5,
-                        "r2",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r2"),
-                        "A few crashes gone missing with this release.",
-                        "An annoying bug went looking for the crashes and never seen again."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        5,
-                        "r1",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r1"),
-                        "A few UI improvements.",
-                        "A few crashes evasions.",
-                        "Localization update: BE, MY, DE."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        5,
-                        "",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.5"),
-                        "New and improved key preview, with tasty animations and stuff.",
-                        "Emoji History tab: your recently used emojis are closer than ever.",
-                        "Support for List-Quick-Text has been re-enabled.",
-                        "A few bug fixes.",
-                        "Localization update: CA, DE, ES, NL, RU."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        4,
-                        "r2",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.4_r2"),
-                        "Even more crash fixes.",
-                        "Build system update.",
-                        "Localization update: RU, UK, DE."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        4,
-                        "r1",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.4_r1"),
-                        "Various crash fixes."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        4,
-                        "",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.4"),
-                        "Crash fixes.",
-                        "Reduced APK size.",
-                        "More closely following http://semver.org/.",
-                        "Localization update: TH, RU."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        3,
-                        "20150402",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v140"),
-                        "Lots of additional Emojis. Enable them in Settings.",
-                        "Small UI fix for Emoji settings.",
-                        "Reduced APK size.",
-                        "Removed Tips popup.",
-                        "Localization update: RU, AR, ES, CA, NO, TR."));
 
         return log;
     }
