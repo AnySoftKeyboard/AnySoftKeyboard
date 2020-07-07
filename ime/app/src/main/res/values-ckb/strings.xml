@@ -10,7 +10,7 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
     <string name="menu_about_item">دەربارە</string>
-    <string name="how_to_pointer_title">وەرگێڕی (کوردی): گۆران غەریب</string>
+    <string name="how_to_pointer_title">AnySoftKeyboard بەخێربێیت بۆ تەختەکلیلی</string>
     <string name="change_log_card_version_title_template"> \u0020\u0020 نوێکارییەکانی <xliff:g id="name">%s</xliff:g> \u0020\u0020
     </string>
     <string name="change_log_entry_header_template_without_name"> \u0020\u0020v<xliff:g id="code">
@@ -21,14 +21,12 @@
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">ئەمە وەشانی تاقیکارییە، بە ووریاییەوە بەکاری بهێنە!</string>
     <string name="testers_version">وەشانی تاقیکاری!</string>
-    <string name="language_root_tile">زمان</string>
-    <string name="language_keyboards_settings_tile">ڕێکخستن و چالاککردنی زمانەکان</string>
-    <string name="language_grammar_settings_tile">ڕێکخستنی ڕاستکردنەوە و فەرهەنگەکان
-
-    </string>
+    <string name="language_root_tile">تەختەکلیل</string>
+    <string name="language_keyboards_settings_tile">تەختەکلیەکان و شێوازی نووسین</string>
+    <string name="language_grammar_settings_tile">ڕێکخستنی فەرهەنگ و پێشنیارکردن</string>
     <string name="language_tweaks_settings_tile">ڕێکخستنی زیاتر</string>
     <!-- UI root menu -->
-    <string name="ui_root_tile">ڕووکەش</string>
+    <string name="ui_root_tile">ڕووکار</string>
     <string name="ui_theme_settings_tile">ڕێکخستنی ڕووکار</string>
     <string name="ui_effects_settings_tile">ڕێکخستنی دەنگ و لەرزین</string>
     <!-- welcome -->
@@ -46,7 +44,7 @@
     <string name="keyboard_theme_tweak_group">ڕێکخستنی زیاتر</string>
     <string name="close_button">داخستن</string>
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">پارێزرا:\u0020
+    <string name="added_word">پاشەکەوتکرا:\u0020
         <xliff:g id="word">%s</xliff:g>
     </string>
     <string name="revert_added_word_question">لابردن\؟</string>
@@ -136,7 +134,7 @@
     <string name="switch_keyboard_on_space_off_summary">نەگۆڕین لە هێما/ژمارەکانەوە بۆ پیتەکان لەکاتی پەنجەنان بە دوگمەی بۆشاییدا</string>
     <string name="colorize_nav_bar_title">گۆڕینی ڕەنگی بەشی خوارەوە</string>
     <string name="colorize_nav_bar_summary_on">ڕەنگی خوارەوە بەپێی ڕەنگی ڕووکارەکە ئەگۆڕێت، ئەم تایبەتمەندیە لە هەموو ئامێرەکاندا پشتگیری کراو نیە.</string>
-    <string name="colorize_nav_bar_summary_off">ناچالاککردنی گۆڕینی ڕەنگی خوارەوە.</string>
+    <string name="colorize_nav_bar_summary_off">ناچلاککردنی گۆڕینی ڕەنگی خوارەوە.</string>
     <string name="persistent_layout_per_package_id_title">بەکارهێنانی شێوازی ئەلفوبێ لەهەر بەرنامەیەکدا</string>
     <string name="persistent_layout_per_package_id_off_summary">بەکارهێنانی هەمان تەختەکلیل بۆ هەموو بەرنامەکان.
     </string>
@@ -225,6 +223,7 @@
     <string name="swipe_action_name_reverse_cycle_keyboards">پێچەوانەی دووبارەکردنەوەی تەختەکلیلەکان
     </string>
     <string name="swipe_action_name_shift">گەورەکردن (شێفت)</string>
+    <string name="swipe_action_name_space">بۆشایی</string>
     <string name="swipe_action_name_hide">شاردنەوەی تەختەکلیل</string>
     <string name="swipe_action_name_backspace">سڕینەوەی نووسین</string>
     <string name="swipe_action_name_backword">سڕینەوەی ووشە</string>
@@ -413,15 +412,19 @@
     <string name="candidates_off_summary">ووشەی پێشنیارکراو پیشان نادرێت</string>
     <string name="quick_fix">ڕاستکردنەوەی خێرا و کورتکراوەکان</string>
     <string name="quick_fix_summary">ڕاستکردنەوەی دەق و ووشە هەڵەکان بە پشتبەستن بە پێشنیارەکان    </string>
+    <string name="quick_fix_secon_disabled">…تەنها لە زمانی یەکەمدا</string>
+    <string name="quick_fix_secon_disabled_summ_on">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری تەنها بۆ ئەم زمانە چالاک دەبێت</string>
+    <string name="quick_fix_secon_disabled_summ_off">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری بۆ هەموو زمانەکان چالاک دەبێت 
+                  دیاریکراوە بۆ گۆڕینی فەرهەنگی سەرەکی</string>
     <string name="allow_suggestions_restart">ڕیستارتکردنی پێشنیار</string>
     <string name="allow_suggestions_restart_summary">ڕیستارکردنی ووشەکان لەدوای هەڵبژاردن   </string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">تەختەکلیلەکان</string>
     <string name="symbols_keyboard">123</string>
     <string name="symbols_alt_keyboard">{}\_</string>
-    <string name="symbols_alt_num_keyboard">١٢٣</string>
+    <string name="symbols_alt_num_keyboard">123</string>
     <string name="symbols_phone_keyboard">مۆبایل</string>
-    <string name="symbols_numbers_keyboard">١٢٣</string>
+    <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">کات</string>
     <string name="keyboard_change_locked">n/a</string>
     <!-- settings - quick text keys -->
@@ -467,8 +470,11 @@
     <string name="extension_kbd_top_small_numbers">ژمارەکان (کوردی)</string>
     <string name="extension_kbd_top_numbers_alt">ژمارەکان (ئینگلیزی)</string>
     <string name="extension_kbd_top_nav">دەنگ و ئاڕاستەکان</string>
+    <string name="extension_kbd_top_nav_alt">شێوازی تایبەتی دوگمەکان</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">دوگمەی ئاڕاستەکان، بەبێ ژمارە</string>
     <string name="extension_kbd_top_numbers_simple">هێما و نیشانەکان</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">دەستکاریکردنی خێرای دەق</string>
     <string name="extension_kbd_bottom_regular_with_voice">دەنگ و خەندە</string>
     <string name="extension_kbd_bottom_regular">بنەڕەتی</string>
     <string name="extension_kbd_bottom_iphone">زمان و ژمارە</string>
@@ -477,8 +483,13 @@
     <string name="extension_kbd_bottom_alt_with_mic">خەندە و زمان و دەنگ</string>
     <string name="extension_kbd_bottom_old">‌هێما و زمان</string>
     <string name="extension_kbd_bottom_simple">زمان و هێما و فاریزە</string>
+    <string name="extension_kbd_bottom_simple_alt">دوگمە سادەکان</string>
+    <string name="extension_kbd_bottom_row_aosp">شێوازی AOSP</string>
     <string name="extension_kbd_bottom_ng">هێما زمان خەندە نیشانە</string>
+    <string name="extension_kbd_bottom_ng_no_apo">شێوازی نوێ (بەبێ بۆر) - تاقیکردنەوە</string>
     <string name="extension_kbd_extension_numbers_symbols">ژمارەکان و هێماکان</string>
+    <string name="extension_kbd_bottom_minimal">بچووک</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">بچووک (بێ ئیمۆجی)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">بڕۆ</string>
@@ -731,6 +742,12 @@
     <string name="theme_case_type_override_os">شێوازی سیستەم (خۆکاری)</string>
     <string name="theme_case_type_override_lower">پیتەکان بە بچووکی</string>
     <string name="theme_case_type_override_upper">پیتەکان بە گەورەیی</string>
+    <string name="settings_hint_size">قەبارەی ووشەکانی خانەی دووەم</string>
+    <string name="settings_key_hint_size_summary">ڕێکخستنی قەبارەی وشەکانی خانەی دووەم، دیاریکراو %s</string>
+    <string name="settings_key_hint_size_none">نا چالاک</string>
+    <string name="settings_key_hint_size_small">بچووک</string>
+    <string name="settings_key_hint_size_normal">ئاسایی</string>
+    <string name="settings_key_hint_size_big">گه‌وره‌</string>
     <string name="theme_case_type_override_title">شێوازی پیتەکان(ئینگلیزی)</string>
     <string name="theme_case_type_override_summary">شێوازی پیتەکان(تەنیا بۆ زمانی ئینگلیزی)، لەکاتی نووسیندا ئێستا: %s</string>
     <string name="take_a_while_progress_message">لەوانەیە ماوەیەکی پێ بچێت</string>
@@ -766,5 +783,8 @@
     <string name="app_share_title">باشترین تەختەکلیلی سیستەمی ئەندرۆید</string>
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">بەهیوای لەش ساغی! پەنجەبنێ بێرەدا بۆ زانیاری لەسەر ڤایرۆسی کۆرۆنا</string>
+    <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

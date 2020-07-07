@@ -486,6 +486,7 @@
     <string name="extension_kbd_bottom_simple_alt">دوگمە سادەکان</string>
     <string name="extension_kbd_bottom_row_aosp">شێوازی AOSP</string>
     <string name="extension_kbd_bottom_ng">هێما زمان خەندە نیشانە</string>
+    <string name="extension_kbd_bottom_ng_no_apo">شێوازی نوێ (بەبێ بۆر) - تاقیکردنەوە</string>
     <string name="extension_kbd_extension_numbers_symbols">ژمارەکان و هێماکان</string>
     <string name="extension_kbd_bottom_minimal">بچووک</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">بچووک (بێ ئیمۆجی)</string>
@@ -741,6 +742,12 @@
     <string name="theme_case_type_override_os">شێوازی سیستەم (خۆکاری)</string>
     <string name="theme_case_type_override_lower">پیتەکان بە بچووکی</string>
     <string name="theme_case_type_override_upper">پیتەکان بە گەورەیی</string>
+    <string name="settings_hint_size">قەبارەی ووشەکانی خانەی دووەم</string>
+    <string name="settings_key_hint_size_summary">ڕێکخستنی قەبارەی وشەکانی خانەی دووەم، دیاریکراو %s</string>
+    <string name="settings_key_hint_size_none">نا چالاک</string>
+    <string name="settings_key_hint_size_small">بچووک</string>
+    <string name="settings_key_hint_size_normal">ئاسایی</string>
+    <string name="settings_key_hint_size_big">گه‌وره‌</string>
     <string name="theme_case_type_override_title">شێوازی پیتەکان(ئینگلیزی)</string>
     <string name="theme_case_type_override_summary">شێوازی پیتەکان(تەنیا بۆ زمانی ئینگلیزی)، لەکاتی نووسیندا ئێستا: %s</string>
     <string name="take_a_while_progress_message">لەوانەیە ماوەیەکی پێ بچێت</string>

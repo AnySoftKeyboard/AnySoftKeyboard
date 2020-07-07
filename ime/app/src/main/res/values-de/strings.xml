@@ -63,6 +63,7 @@
     <string name="night_mode_type_never">Nie</string>
     <string name="night_mode_type_follow_system">System befolgen</string>
     <string name="night_mode_type_always">Immer</string>
+    <string name="night_mode_app_night_theme">App Einstellungen abdunkeln</string>
     <string name="night_mode_darken_keyboard_theme">Tastaturdesign verdunkeln</string>
     <string name="night_mode_sound_control">Eingabetöne deaktivieren</string>
     <string name="night_mode_vibration_control">Deaktiviere Tastendruckvibrationen</string>
@@ -168,6 +169,7 @@
     <string name="swipe_action_name_cycle_keyboards">Durchlauf aller Tastaturen</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts alle Tastaturen durchblättern</string>
     <string name="swipe_action_name_shift">Umschalttaste</string>
+    <string name="swipe_action_name_space">Leerzeichen</string>
     <string name="swipe_action_name_hide">Tastatur ausblenden</string>
     <string name="swipe_action_name_backspace">Rücktaste</string>
     <string name="swipe_action_name_backword">Wort zurück</string>
@@ -389,6 +391,8 @@
     <string name="extension_kbd_bottom_simple">Einfach</string>
     <string name="extension_kbd_bottom_ng">Neue Generation - wird getestet</string>
     <string name="extension_kbd_extension_numbers_symbols">Zahlen und Symbole</string>
+    <string name="extension_kbd_bottom_minimal">Minimal</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (keine Emoji)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Los</string>
@@ -594,6 +598,10 @@
     <string name="theme_case_type_override_os">Lass Android entscheiden (Auto)</string>
     <string name="theme_case_type_override_lower">Immer Kleinbuchstaben</string>
     <string name="theme_case_type_override_upper">Immer Großbuchstaben</string>
+    <string name="settings_key_hint_size_none">Keine</string>
+    <string name="settings_key_hint_size_small">Klein</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Groß</string>
     <string name="theme_case_type_override_title">Tastatur Groß-/ Kleinschreibung überschreiben</string>
     <string name="theme_case_type_override_summary">Wie Groß-/ Kleinschreibung in der Tastaturansicht ermitterlt wird. Derzeit %s</string>
     <string name="take_a_while_progress_message">Das könnte eine Weile dauern…</string>
@@ -628,5 +636,9 @@
     <string name="aosp_light_theme_description">AOSP-inspiriertes helles Tastaturfarbendesign</string>
     <string name="app_share_title">Hallo von AnySoftKeyboard</string>
     <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
+    <string name="app_share_text">Lass mich dir die Open-Source, Privatsphäre-fokussierte, kostenlose, höchst anpassbare, mehrsprachige Android Tastatur-App AnySoftKeyboard empfehlen.\nHole sie dir vom:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Bleib sicher! Klicke für mehr Informationen über das Coronavirus.</string>
+    <string name="click_me_for_easter_egg_info">für eine Überraschung klicken</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
