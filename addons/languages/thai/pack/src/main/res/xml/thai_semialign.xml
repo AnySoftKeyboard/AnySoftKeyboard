@@ -2,7 +2,7 @@
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ask="http://schemas.android.com/apk/res-auto"
-    android:keyWidth="8.333325%p"
+    android:keyWidth="7.692307%p"
     android:keyHeight="@integer/key_normal_height"
     ask:showPreview="false"
     ask:autoCap="false">
@@ -36,7 +36,7 @@
 		<Key android:codes="3621" android:keyLabel="ล" ask:keyOutputTyping="ล" ask:isShiftAlways="true" ask:shiftedCodes="0044" ask:shiftedKeyLabel="," ask:shiftedKeyOutputTyping="," android:keyEdgeFlags="right" />
     </Row>
     <Row>
-        <Key android:horizontalGap="3.9999962%p" android:codes="3615" android:keyLabel="ฟ" ask:keyOutputTyping="ฟ" ask:isShiftAlways="true" ask:shiftedCodes="3620" ask:shiftedKeyLabel="ฤ" ask:shiftedKeyOutputTyping="ฤ" android:keyEdgeFlags="left" />
+        <Key android:horizontalGap="3.846154%p" android:codes="3615" android:keyLabel="ฟ" ask:keyOutputTyping="ฟ" ask:isShiftAlways="true" ask:shiftedCodes="3620" ask:shiftedKeyLabel="ฤ" ask:shiftedKeyOutputTyping="ฤ" android:keyEdgeFlags="left" />
 		<Key android:codes="3627" android:keyLabel="ห" ask:keyOutputTyping="ห" ask:isShiftAlways="true" ask:shiftedCodes="3590" ask:shiftedKeyLabel="ฆ" ask:shiftedKeyOutputTyping="ฆ" />
 		<Key android:codes="3585" android:keyLabel="ก" ask:keyOutputTyping="ก" ask:isShiftAlways="true" ask:shiftedCodes="3599" ask:shiftedKeyLabel="ฏ" ask:shiftedKeyOutputTyping="ฏ" />
 		<Key android:codes="3604" android:keyLabel="ด" ask:keyOutputTyping="ด" ask:isShiftAlways="true" ask:shiftedCodes="3650" ask:shiftedKeyLabel="โ" ask:shiftedKeyOutputTyping="โ" />
@@ -46,7 +46,8 @@
 		<Key android:codes="3634" android:keyLabel="า" ask:keyOutputTyping="า" ask:isShiftAlways="true" ask:shiftedCodes="3625" ask:shiftedKeyLabel="ษ" ask:shiftedKeyOutputTyping="ษ" />
 		<Key android:codes="3626" android:keyLabel="ส" ask:keyOutputTyping="ส" ask:isShiftAlways="true" ask:shiftedCodes="3624" ask:shiftedKeyLabel="ศ" ask:shiftedKeyOutputTyping="ศ" />
 		<Key android:codes="3623" android:keyLabel="ว" ask:keyOutputTyping="ว" ask:isShiftAlways="true" ask:shiftedCodes="3595" ask:shiftedKeyLabel="ซ" ask:shiftedKeyOutputTyping="ซ" />
-		<Key android:codes="3591" android:keyLabel="ง" ask:keyOutputTyping="ง" ask:isShiftAlways="true" ask:shiftedCodes="0046" ask:shiftedKeyLabel="." ask:shiftedKeyOutputTyping="." android:keyEdgeFlags="right" />
+		<Key android:codes="3591" android:keyLabel="ง" ask:keyOutputTyping="ง" ask:isShiftAlways="true" ask:shiftedCodes="0046" ask:shiftedKeyLabel="." ask:shiftedKeyOutputTyping="." />
+		<Key android:codes="3587" android:keyLabel="ฃ" ask:keyOutputTyping="ฃ" ask:isShiftAlways="true" ask:shiftedCodes="3589" ask:shiftedKeyLabel="ฅ" ask:shiftedKeyOutputTyping="ฅ" android:keyEdgeFlags="right" />
 		
     </Row>
     <Row>
