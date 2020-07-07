@@ -6,8 +6,8 @@
               index="1" defaultEnabled="true"
               physicalKeyboardMappingResId="@xml/thai_physical" />
     <Keyboard nameResId="@string/thai_keyboard_semialign" iconResId="@drawable/ic_status_thai"
-		      layoutResId="@xml/thai_semialign" id="6025c55b-dfd0-47d9-a9a4-595ed1475697"
-		      defaultDictionaryLocale="th" description="@string/thai_keyboard_semialign_description"
-		      index="2" defaultEnabled="false"
-		      physicalKeyboardMappingResId="@xml/thai_physical" />
+              layoutResId="@xml/thai_semialign" id="6025c55b-dfd0-47d9-a9a4-595ed1475697"
+              defaultDictionaryLocale="th" description="@string/thai_keyboard_semialign_description"
+              index="2" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/thai_physical" />
 </Keyboards>
