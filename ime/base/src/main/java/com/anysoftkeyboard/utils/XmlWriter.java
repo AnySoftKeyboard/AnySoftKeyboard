@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InvalidObjectException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayDeque;
@@ -65,6 +66,10 @@ public class XmlWriter {
                 true,
                 0,
                 true);
+    }
+
+    public XmlWriter(OutputStream outputFileStream) throws IOException {
+        this(new OutputStreamWriter(outputFileStream, Charsets.UTF8), true, 0, true);
     }
 
     /**
