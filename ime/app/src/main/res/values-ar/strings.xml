@@ -42,6 +42,10 @@
     <string name="voice_input_not_installed_text">آلية الإدخال الصوتي غير مثبة على جهازك. يمكنك تصليح ذلك : قم بتنصيبها من خلال متجر التطبيقات.</string>
     <string name="voice_input_not_installed_action_install">تثبيت</string>
     <string name="voice_input_not_installed_action_do_not_install">لا</string>
+    <string name="voice_input_not_voice_pack_in_market">لا يمكنني العثور على الإدخال الصوتي
+        (com.google.android.voicesearch) في متجر التطبيقات. عذراً، الإدخال الصوتي لن يعمل على جهازك
+
+    </string>
     <!-- Options menu -->
     <string name="change_ime">تغيير طريقة الإدخال</string>
     <string name="override_dictionary">تجاهل القاموس الإفتراضي</string>
@@ -62,6 +66,8 @@
     <string name="night_mode_type_never">أبدًا</string>
     <string name="night_mode_type_follow_system">بحسب النظام</string>
     <string name="night_mode_type_always">دائماً</string>
+    <string name="night_mode_app_night_theme">واجهة تطبيقات الإعدادات المظلمة</string>
+    <string name="night_mode_darken_keyboard_theme">موضوع لوحة المفاتيح المظلمة</string>
     <string name="night_mode_sound_control">تعطيل صوت النقر على المفاتيح</string>
     <string name="night_mode_vibration_control">تعطيل الاهتزاز عند النقر على المفاتيح</string>
     <string name="power_save_mode_screen">إعدادات حفظ الطاقة</string>
@@ -72,10 +78,12 @@
     <string name="power_save_mode_types_lower_battery">عند انخفاض مستوى البطارية</string>
     <string name="power_save_mode_types_always">دائماً</string>
     <string name="power_saving_keyboard_theme_name">سمة وضع حفظ الطاقة</string>
+    <string name="power_saving_keyboard_theme_description">ألوان مظلمة، تخطيط بسيط قد يتطلب طاقة أقل من الجهاز.</string>
     <string name="power_save_mode_animation_control">تعطيل الحركة ومعاينات أزرار المفاتيح</string>
     <string name="power_save_mode_sound_control">تعطيل صوت النقر على المفاتيح</string>
     <string name="power_save_mode_vibration_control">تعطيل الاهتزاز عند النقر على المفاتيح</string>
     <string name="power_save_mode_suggestions_control">تعطيل اقتراح الكلمات</string>
+    <string name="power_save_mode_gesture_typing_control">تعطيل الكتابة بالإيماءات Gestu-Type</string>
     <string name="power_save_mode_theme_control">الإنتقال إلى سمة داكنة بسيطة</string>
     <string name="pop_text_type_title">إنبثاق النص المكتوب من المفاتيح</string>
     <string name="pop_text_type_summary">متى ينبثق النص مِن المفاتيح المنقورة. حاليا : %s</string>
@@ -95,9 +103,13 @@
     <string name="use_custom_sound_volume_off_summary">حجم التأثيرات الصوتيه هو نفسه حجم صوت إخطارات النظام.    </string>
     <string name="custom_sound_volume">مقدار النقر على المفاتيح المخصصة</string>
     <string name="vibrate_on_long_press_title">الاهتزاز عند الضغط المطوّل</string>
+    <string name="vibrate_on_long_press_summary_on">اهتزاز ناعم عند الاستناد إلى إجراء الضغط المطول.</string>
     <string name="switch_keyboard_on_space">مفتاح المسافة لتبديل لوحات المفاتيح</string>
     <string name="switch_keyboard_on_space_on_summary">الإنتقال من الرموز و الأرقام إلى الحروف الأبجدية عند النقر على مفتاح المسافة</string>
     <string name="switch_keyboard_on_space_off_summary">لا تنتقل من الرموز و الأرقام إلى الحروف الأبجدية عند النقر على مفتاح المسافة</string>
+    <string name="colorize_nav_bar_title">أرسم خلف شريط التنقل</string>
+    <string name="colorize_nav_bar_summary_on">سوف ترسم خلفية لوحة المفاتيح خلف شريط التصفح. هذا غير مدعوم من قبل جميع الأجهزة.</string>
+    <string name="colorize_nav_bar_summary_off">لا ترسم خلف شريط التصفح.</string>
     <string name="persistent_layout_per_package_id_title">تذكر نسق الحروف الأبجدية حسب التطبيق</string>
     <string name="persistent_layout_per_package_id_off_summary">إستخدم نفس النسق على كافة التطبيقات.</string>
     <string name="persistent_layout_per_package_id_on_summary">الإنتقال التلقائي إلى النسق السابق المستخدَم في التطبيق.</string>
@@ -112,10 +124,15 @@
     <string name="hide_soft_when_physical_on_summary">إخفاء لوحة المفاتيح المرنة عند استخدام لوحة المفاتيح الفعلية</string>
     <string name="hide_soft_when_physical_off_summary">إظهار لوحة المفاتيح المرنة عند استخدام لوحة المفاتيح الفعلية</string>
     <string name="enable_alt_space_language_shortcut">مفاتيح ALT + زر المسافة البيضاء لتبديل اللغات</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">مفاتيح التشغيل Alt + المسافة لتبديل الى التخطيط التالي المتاح.</string>
     <string name="enable_shift_space_language_shortcut">مفاتيح Shift + زر المسافة البيضاء لتبديل اللغات</string>
     <string name="fullscreen_input_connection_supported">استخدم الشكل العرضي عند ملء الشاشة </string>
+    <string name="fullscreen_input_connection_supported_on_summary">التسلل فوق الشاشة عند
+        إدخال النص في الوضع الأفقي
+    </string>
     <string name="fullscreen_input_connection_supported_off_summary">لا تستخدم ملء الشاشة عند العرض</string>
     <string name="fullscreen_portrait_input_connection_supported">استخدم الشكل الطولي عند ملء الشاشة</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">التسلل فوق الشاشة عند إدخال النص في صورة عمودية</string>
     <string name="fullscreen_portrait_input_connection_supported_off_summary">لا تستخدم الشاشة كاملة في الوضع الطولي</string>
     <string name="backword_support">العودة</string>
     <string name="backword_support_on_summary">تغيير المسافة سيحذف آخر كلمة</string>
@@ -136,14 +153,19 @@
     <string name="swipe_right_action_summary">تحديد وظيفة السحب الحركي إلى اليمين. حاليا، %s</string>
     <string name="swipe_right_action_title">اختيار أداء السحب إلى اليمين</string>
     <string name="swipe_right_space_bar_action">سحب زر المسافة يمينا</string>
+    <string name="swipe_right_space_bar_action_summary">حدد التمرير إلى اليمين من إجراء إيماءة شريط المساحة. حاليا، %s</string>
     <string name="swipe_right_space_bar_action_title">اختيار أداء السحب إلى اليمين</string>
     <string name="swipe_left_space_bar_action">سحب زر المسافة يسارا</string>
+    <string name="swipe_left_space_bar_action_summary">حدد التمرير إلى اليسار من إجراء إيماءة شريط المساحة. حاليا، %s</string>
     <string name="swipe_left_space_bar_action_title">اختيار أداء السحب إلى اليسار</string>
     <string name="swipe_left_two_fingers_action">السحب بأصبعين إلى اليسار</string>
+    <string name="swipe_left_two_fingers_action_summary">حدد إجراء الإيماءة اليسرى من إصبعين. حاليا، %s</string>
     <string name="swipe_right_two_fingers_action">السحب بأصبعين إلى اليمين</string>
+    <string name="swipe_right_two_fingers_action_summary">حدد إجراء التمرير للإيماءات اليمنى من إصبعين. حاليا، %s</string>
     <string name="swipe_right_two_fingers_action_title">اختيار أداء السحب إلى اليمين</string>
     <string name="pinch_gesture_action">تلميح عند النقر</string>
     <string name="pinch_gesture_action_title">اختر عمل التلميح عند النقر</string>
+    <string name="pinch_gesture_action_summary">حدد إجراء الإيماءة القرصة. حاليا، %s</string>
     <string name="separate_gesture_action">حركة التوسيع</string>
     <string name="separate_gesture_action_title">اختر وظيفة الضغط المطوّل على زر</string>
     <string name="separate_gesture_action_summary">تحديد وظيفة حركة التوسيع. حاليا، %s</string>
@@ -154,6 +176,7 @@
     <string name="swipe_action_name_cycle_keyboards">دوران حول جميع لوحات المفاتيح</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">دوران عكسي حول جميع لوحات المفاتيح</string>
     <string name="swipe_action_name_shift">إزاحة</string>
+    <string name="swipe_action_name_space">المساحة</string>
     <string name="swipe_action_name_hide">إخفاء لوحة المفاتيح</string>
     <string name="swipe_action_name_backspace">ارجاع المسافة</string>
     <string name="swipe_action_name_backword">الكلمة السابقة</string>
@@ -185,11 +208,15 @@
     <string name="hardware_keys_group">مفاتيح أجهزة رسم الخرائط</string>
     <string name="volume_key_for_left_right_support">مفتاح الصوت لليسار/اليمين</string>
     <string name="volume_key_for_left_right_support_on_summary">تعطيل يمين/ يسار عن طريق حجم الصوت أعلى/أسفل</string>
+    <string name="volume_key_for_left_right_support_off_summary">مستوى الصوت لأعلى يستدير المؤشر لليسار ، مستوى الصوت لأسفل يدير المؤشر لليمين</string>
     <string name="more_ui_settings_group">واجهة المستخدم</string>
     <string name="special_dictionaries_group">القواميس الخاصة</string>
     <string name="special_dictionaries_group_summary">قواميس الإقتراحات المتوفرة على AnySoftKeyboard</string>
     <string name="use_user_dictionary">قاموس المستخدِم</string>
     <string name="use_user_dictionary_on_summary">إقتراح الكلمات المُضافَة من طرف المستخدِم (النقر مرتين لإضافة كلمة)</string>
+    <string name="always_use_fallback_user_dictionary">استخدام وحدة تخزين القاموس للمستخدم الخاص</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">استخدم آلية قاموس المستخدم الخاصة الخاصة AnySoftKeyboard\.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">حاول استخدام قاموس المستخدم العالمي المدمج في Android\.</string>
     <string name="use_auto_dictionary">قاموس تلقائي</string>
     <string name="use_auto_dictionary_dialog_title">تحديد أسلوب التعلّم</string>
     <string name="use_auto_dictionary_summary">تعلّم الكلمات الجديدة تلقائياً. طريقة التعلّم : %s</string>
@@ -206,6 +233,7 @@
     <string name="use_next_words_dictionary_aggressiveness_medium">حد متوسط للإقتراحات</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">الكثير من الإقتراحات</string>
     <string name="use_next_words_dictionary_aggressiveness_summary">طريق الإلحاح عند اقتراح الكلمة الموالية : %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">اختيار تلقائي لاقتراح عدواني</string>
     <string name="auto_pick_suggestion_aggressiveness_none">معطّل</string>
     <string name="auto_pick_suggestion_aggressiveness_minimal">إلحاح بسيط</string>
     <string name="auto_pick_suggestion_aggressiveness_medium">إلحاح متوسط</string>
@@ -220,6 +248,9 @@
     <string name="tweak_ui_group">التحسينات الرسومية</string>
     <string name="tweak_ux_group">سلوك التحسينات</string>
     <string name="supported_keyboard_row_modes_title">أنواع حقول الإدخال المخصصة المفعّلة</string>
+    <string name="supported_keyboard_row_modes_summary">اختر حقل الإدخال المتخصص (مثل
+        كلمة المرور، URL، إلخ.) صفوف لاستخدامها
+    </string>
     <string name="tweak_dictionary_group">تحسينات القاموس</string>
     <string name="settings_min_length_for_word_correction">الحد الادنى لطول كلمة قبل التصحيح</string>
     <string name="show_keyboard_name_text">إظهر إسم لوحة المفاتيح</string>
@@ -259,6 +290,9 @@
     </string>
     <string name="settings_key_show_settings_app_off_summary">إخفاء إعدادات التطبيق (قد يحتاج إلى إعادة تشغيل)</string>
     <string name="always_hide_language_key">إخفاء مفتاح اللغة دائماً</string>
+    <string name="always_hide_language_key_on_summary">لن تظهر مفتاح اللغة أبداً. الإيماءات
+        ستظل تدعم تبديل التخطيط.
+    </string>
     <string name="always_hide_language_key_off_summary">يقوم بإظهار مفتاح اللغة إن تم تفعيل عدة نسق للوحات المفاتيح.</string>
     <string name="show_crash_notification">إنشاء تقرير عند تحطم التطبيق</string>
     <string name="show_crash_notification_on_summary">عندما يتحطم ASK، قم بفتح مربع حوار فيه تقرير</string>
@@ -285,6 +319,9 @@
     <string name="double_space_to_period">النقر مرتين على مفتاح المسافة يتحول إلى فاصلة</string>
     <string name="double_space_to_period_summary">النقر مرتين على مفتاح المسافة يتحول إلى فاصلة+مسافة بيضاء</string>
     <string name="tweak_animations_level_title">حركات لوحة المفاتيح</string>
+    <string name="tweak_animations_level_summary">كم يجب استخدام الرسوم المتحركة. حاليا:
+        %s
+    </string>
     <string name="tweak_animations_level_types_full">كلها</string>
     <string name="tweak_animations_level_types_some">بعضها</string>
     <string name="tweak_animations_level_types_none">بدون حركة</string>
@@ -295,6 +332,7 @@
     <string name="lang_key_shows_popup_on_summary">مفتاح اللغة سوف يُظهر إطارا لاختيار اللغة</string>
     <string name="lang_key_shows_popup_off_summary">مفتاح اللغة سيقوم بتبديل دوري للإنتقال بين اللغات</string>
     <string name="settings_os_clipboard_sync">مزامنة الحافظة مع نظام التشغيل</string>
+    <string name="settings_os_clipboard_sync_summary_on">كشف التغييرات في الحافظة والمزامنة مع AnySoftKeyboard.</string>
     <string name="auto_caps">أحرف كبيرة تلقائيا</string>
     <string name="grammar_group">القواعد النحوية</string>
     <string name="keyboard_behavior_group">سلوك لوحة المفاتيح</string>

@@ -525,6 +525,17 @@
     <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
+    <string name="toast_error_custom_path_backup">Error: Cualquier aplicación contextual podría estar abierta</string>
+    <string name="file_explorer_menu_add_folder">Crear carpeta</string>
+    <string name="file_explorer_filename">Nombre del archivo de respaldo…</string>
+    <string name="file_explorer_filename_empty">El nombre del archivo no puede estar vacío…</string>
+    <string name="file_explorer_alert_title">¿Seleccionar este archivo?</string>
+    <string name="file_explorer_restore_alert_message">¿Deseas restaurar este archivo?</string>
+    <string name="file_explorer_backup_alert_message">Este archivo se sobrescribirá.</string>
+    <string name="file_explorer_backup_success">Tus datos han sido guardados en \u0020</string>
+    <string name="file_explorer_backup_failed">Tus datos no se pudieron guardar.</string>
+    <string name="file_explorer_restore_success">Tus datos han sido restaurados desde \u0020</string>
+    <string name="file_explorer_restore_failed">Tus datos no se pudieron restaurar.</string>
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
     <string name="setup_wizard_step_one_title">Habilitar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En este paso, deberás habilitar <i>AnySoftKeyboard</i>. Comprueba <i>\'AnySoftKeyboard \'</i> en <i>Idioma - Ajustes de entrada</i>. Esto nos permitirá funcionar en tu dispositivo.</string>
@@ -629,6 +640,7 @@
     <string name="prefs_providers_backed_up_to">Tus datos fueron respaldados correctamente para %s</string>
     <string name="prefs_providers_failed_restore_due_to">Error al restaurar tus datos debido a %s</string>
     <string name="prefs_providers_restored_to">Tus datos fueron restaurados correctamente desde %s</string>
+    <string name="word_editor_action_choose_path">Elegir ruta personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Los teclados pueden proporcionar filas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Siempre utilizar las filas genéricas seleccionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir distribución para anular filas genéricas.</string>
