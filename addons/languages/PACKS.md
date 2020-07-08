@@ -41,3 +41,4 @@
 1. <img src='sinhala/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Sinhala: [Source](sinhala) (not published reason: 'Pending app creation.')
 1. <img src='spain/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Spain: [Source](spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain) • [Beta Channel](https://play.google.com/apps/testing/com.anysoftkeyboard.languagepack.spain)
 1. <img src='tamazight/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Tamazight: [Source](tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight) • [Beta Channel](https://play.google.com/apps/testing/com.anysoftkeyboard.languagepack.tamazight)
+1. <img src='thai/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Thai: [Source](thai) (not published reason: 'Pending app creation.')
