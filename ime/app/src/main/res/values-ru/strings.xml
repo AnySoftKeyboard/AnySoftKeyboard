@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
-    <string name="debug_tracing_starting">Трассировка начата! \nВы можете остановить его в любой момент</string>
-    <string name="debug_tracing_starting_failed">Запуск трассировки не удалась! Проверьте logcat для деталей.</string>
-    <string name="debug_tracing_finished">Трассировка завершена! файл \nTrace-<xliff:g id="trace_file">%s </xliff:g></string>
+    <string name="debug_tracing_starting">Отслеживание начато! \nВы можете остановить его в любой момент</string>
+    <string name="debug_tracing_starting_failed">Запуск отслеживания не удался! Проверьте каталог логов для подробностей.</string>
+    <string name="debug_tracing_finished">Отслеживание завершено! \nВот файл отслеживания\u0020<xliff:g id="trace_file">%s </xliff:g></string>
     <string name="menu_about_item">О нас</string>
     <string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
-    <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для v<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для версии<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Ещё:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard бета</string>
+    <string name="ime_name_beta">AnySoftKeyboard Бета-версия</string>
     <string name="notification_text_testers">Это бета-версия. Следует использовать с осторожностью!</string>
     <string name="testers_version">Сборка для тестеров!</string>
     <string name="language_root_tile">Язык</string>
@@ -24,10 +24,10 @@
     <!-- changelog -->
     <string name="changelog">Список изменений</string>
     <string name="search_market_for_addons">Поиск дополнений</string>
-    <string name="search_market_for_keyboard_addons">Найти ещё клавиатуры в <i>Play Store</i>…</string>
-    <string name="search_market_for_quick_key_addons">Найдите больше <i>Quick-Text</i> дополнения в <i>Play Store</i>…</string>
+    <string name="search_market_for_keyboard_addons">Получите больше языков и раскладок в <i>Play Store</i>…</string>
+    <string name="search_market_for_quick_key_addons">Найдите больше <i>Quick-Text</i> дополнений в <i>Play Store</i>…</string>
     <string name="no_market_store_available"><b>* Не удалось найти Google Play Store на вашем устройстве. Нет возможности искать дополнения!</b></string>
-    <string name="keyboard_theme_tweak_group">Детали</string>
+    <string name="keyboard_theme_tweak_group">Твики</string>
     <string name="close_button">Закрыть</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Сохранено:\u0020<xliff:g id="word">%s </xliff:g></string>
@@ -37,7 +37,7 @@
     <string name="hint_double_tap_to_close">Еще раз, чтобы не предлагать слова</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Программа воспр. голоса не установлена</string>
-    <string name="voice_input_not_installed_text">Голосовой ввод Google не установлен на вашем устройства. \nЭто может быть легко исправлено: установить его сейчас из Play Store.</string>
+    <string name="voice_input_not_installed_text">Голосовой ввод Google не установлен на вашем устройстве. \nЭто может быть легко исправлено: установить его сейчас из Play Store.</string>
     <string name="voice_input_not_installed_action_install">Установить</string>
     <string name="voice_input_not_installed_action_do_not_install">Нет</string>
     <string name="voice_input_not_voice_pack_in_market">Я не могу найти голосовой ввод (com.google.android.voicesearch) в Market. К сожалению, голосовой ввод не будет работать на вашем устройстве.
@@ -54,39 +54,40 @@
     <string name="ime_settings">Настройки Клавиатуры</string>
     <string name="switch_incognito">Режим инкогнито</string>
     <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
+    <string name="vibrate_on_key_press_value_template">%d миллисекунд</string>
     <string name="night_mode_screen">Настройки ночного режима</string>
     <string name="night_mode_description">Ночной режим изменит эти функции:</string>
     <string name="night_mode_state_summary">В настоящее время триггер ночного режима:\u0020%s</string>
     <string name="night_mode_dialog_title">Включить ночной режим</string>
     <string name="night_mode_type_never">Никогда</string>
-    <string name="night_mode_type_follow_system">Следуйте системе</string>
+    <string name="night_mode_type_follow_system">Использовать системные настройки</string>
     <string name="night_mode_type_always">Всегда</string>
-    <string name="night_mode_app_night_theme">Пользовательский интерфейс приложения темной настройки</string>
+    <string name="night_mode_app_night_theme">Затемнить интерфейс приложения</string>
     <string name="night_mode_darken_keyboard_theme">Темная тема клавиатуры</string>
     <string name="night_mode_sound_control">Отключить звуки нажатия клавиш</string>
     <string name="night_mode_vibration_control">Отключить вибрацию нажатия клавиш</string>
     <string name="power_save_mode_screen">Настройки энергосбережения</string>
     <string name="power_save_mode_description">Режим экономии энергии снизит потребление энергии AnySoftKeyboard путем отключения функций:</string>
     <string name="power_save_mode_state_summary">В настоящее время триггер энергосбережения:\u0020%s</string>
-    <string name="power_save_mode_dialog_title">Включите режим экономии энергии</string>
+    <string name="power_save_mode_dialog_title">Включить режим экономии энергии</string>
     <string name="power_save_mode_types_never">Никогда</string>
     <string name="power_save_mode_types_lower_battery">При низком заряде батареи</string>
     <string name="power_save_mode_types_always">Всегда</string>
     <string name="power_saving_keyboard_theme_name">Энергосберегающая тема</string>
     <string name="power_saving_keyboard_theme_description">Темные цвета, простой макет, который может требовать меньше энергии от устройства.</string>
-    <string name="power_save_mode_animation_control">Отключить анимацию и просмотр ключей</string>
+    <string name="power_save_mode_animation_control">Отключить анимацию и предпросмотр клавиш</string>
     <string name="power_save_mode_sound_control">Отключить звук клавиш</string>
     <string name="power_save_mode_vibration_control">Отключить вибрацию клавиш</string>
-    <string name="power_save_mode_suggestions_control">Отключить предложения слов</string>
-    <string name="power_save_mode_gesture_typing_control">Отключить набор жестов</string>
+    <string name="power_save_mode_suggestions_control">Отключить предложение слов</string>
+    <string name="power_save_mode_gesture_typing_control">Отключить ввод жестами </string>
     <string name="power_save_mode_theme_control">Переключиться на темную, простую тему</string>
-    <string name="pop_text_type_title">Поп-текст с клавиатуры</string>
-    <string name="pop_text_type_summary">Когда выкладывать текст из нажатых клавиш. В настоящее время: %s</string>
-    <string name="pop_text_type_dialog_title">Выберите тип поп-текста</string>
+    <string name="pop_text_type_title">Показывать набираемые символы при наборе</string>
+    <string name="pop_text_type_summary">Выберите, через сколько набираемые символы будут отображаться. В настоящее время: %s</string>
+    <string name="pop_text_type_dialog_title">Выберите тип выведения символов</string>
     <string name="pop_text_type_never">Никогда</string>
-    <string name="pop_text_type_on_correction">При коррекции слова</string>
-    <string name="pop_text_type_on_word">На любое слово</string>
-    <string name="pop_text_type_any_key">На любую клавишу</string>
+    <string name="pop_text_type_on_correction">При коррекции слов</string>
+    <string name="pop_text_type_on_word">При любом слове</string>
+    <string name="pop_text_type_any_key">При любой клавише</string>
     <string name="input_field_type_password">Поле для ввода пароля</string>
     <string name="input_field_type_email">поле ввода E-mail</string>
     <string name="input_field_type_url">Поле ввода URL-адреса</string>
@@ -99,10 +100,13 @@
     <string name="custom_sound_volume">Громкость при нажатии</string>
     <string name="vibrate_on_long_press_title">Вибрация при длительном нажатии</string>
     <string name="vibrate_on_long_press_summary_on">Мягкая вибрация, когда вызывается действие с длинным нажатием.</string>
-    <string name="switch_keyboard_on_space">Пробел Переключает Раскладку</string>
-    <string name="switch_keyboard_on_space_on_summary">Переключение с символы/цифры алфавит при нажатии ПРОБЕЛ
+    <string name="switch_keyboard_on_space">Пробел переключает раскладку</string>
+    <string name="switch_keyboard_on_space_on_summary">Переключение с символов/цифр на алфавит при нажатии ПРОБЕЛ
     </string>
-    <string name="switch_keyboard_on_space_off_summary">Не перейти от символы/цифры алфавита при нажатии ПРОБЕЛ    </string>
+    <string name="switch_keyboard_on_space_off_summary">Не переходить с символов/цифр на алфавит при нажатии ПРОБЕЛ    </string>
+    <string name="colorize_nav_bar_title">Отрисовка позади панели навигации</string>
+    <string name="colorize_nav_bar_summary_on">Отрисовка заднего фона клавиатуры позади панели навигации. Поддерживается не на всех устройствах.</string>
+    <string name="colorize_nav_bar_summary_off">Не отрисовывать позади панели навигации. </string>
     <string name="persistent_layout_per_package_id_title">Запомнить алфавит раскладку для каждого приложения</string>
     <string name="persistent_layout_per_package_id_off_summary">Используйте ту же раскладку для всех приложений.</string>
     <string name="persistent_layout_per_package_id_on_summary">Автоматическое переключение на предыдущую раскладку, используемой в приложении.</string>
@@ -168,6 +172,7 @@
     <string name="swipe_action_name_cycle_keyboards">Цикл через все клавиатуры</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Цикл через все клавиатуры в обратном порядке</string>
     <string name="swipe_action_name_shift">Верхний регистр</string>
+    <string name="swipe_action_name_space">Пробел</string>
     <string name="swipe_action_name_hide">Скрыть клавиатуру</string>
     <string name="swipe_action_name_backspace">Возврат</string>
     <string name="swipe_action_name_backword">Удалить последнее слово</string>
@@ -205,6 +210,9 @@
     <string name="special_dictionaries_group_summary">Словари, используемые в AnySoftKeyboard</string>
     <string name="use_user_dictionary">Словарь пользователя</string>
     <string name="use_user_dictionary_on_summary">Предлагать пользователю добавлять слова (двойное нажатие на слово для добавления)</string>
+    <string name="always_use_fallback_user_dictionary">Использовать личные пользовательские словари</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Использовать встроенный в AnySoftKeyboard приватный пользовательский словарь.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Использовать приватный словарь, встроенный в Android.</string>
     <string name="use_auto_dictionary">Автоматический словарь</string>
     <string name="use_auto_dictionary_dialog_title">Выберите метод запоминания</string>
     <string name="use_auto_dictionary_summary">Автоматически запоминать новые слова. Метод запоминания: %s</string>
@@ -322,6 +330,10 @@
     <string name="candidates_off_summary">Предложения не будут показываться</string>
     <string name="quick_fix">Быстрые исправления и аббревиатуры</string>
     <string name="quick_fix_summary">Исправлять часто вводимые ошибки и расшифровывать аббревиатуры, сокращения</string>
+    <string name="quick_fix_secon_disabled">…только на первом языке</string>
+    <string name="quick_fix_secon_disabled_summ_on">Быстрые исправления и сокращения будут работать только на текущей раскладке языка</string>
+    <string name="quick_fix_secon_disabled_summ_off">Быстрые исправления и аббревиатуры будут работать на каждом языке 
+                  отмеченном в переопределение стандартного словаря</string>
     <string name="allow_suggestions_restart">Предложение перезагрузить</string>
     <string name="allow_suggestions_restart_summary">Перезапуск предложенного слова при движении курсора</string>
     <!-- settings - keyboard group -->
@@ -376,8 +388,11 @@
     <string name="extension_kbd_top_small_numbers">Цифры</string>
     <string name="extension_kbd_top_numbers_alt">Альтернативные цифровые кнопки</string>
     <string name="extension_kbd_top_nav">Клавиши навигации</string>
+    <string name="extension_kbd_top_nav_alt">Альтернатива клавишам навигации</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Альтернатва клавишам навигации. Никаких числовых линий в режиме pwd</string>
     <string name="extension_kbd_top_numbers_simple">Простой, только цифры</string>
     <string name="extension_kbd_top_terminal">Терминал</string>
+    <string name="extension_kbd_top_text_editing">Быстрое редактирование текста</string>
     <string name="extension_kbd_bottom_regular_with_voice">Обычные</string>
     <string name="extension_kbd_bottom_regular">Классический (без микрофона)</string>
     <string name="extension_kbd_bottom_iphone">iPhone стиль (без микрофона)</string>
@@ -386,8 +401,13 @@
     <string name="extension_kbd_bottom_alt_with_mic">Альтернативный с микрофоном</string>
     <string name="extension_kbd_bottom_old">Старомодная</string>
     <string name="extension_kbd_bottom_simple">Простой</string>
+    <string name="extension_kbd_bottom_simple_alt">Простая альтернатива</string>
+    <string name="extension_kbd_bottom_row_aosp">Стиль AOSP</string>
     <string name="extension_kbd_bottom_ng">Новая генерация - тестирование</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Новое поколение (без апострофов) - Тестируется</string>
     <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
+    <string name="extension_kbd_bottom_minimal">Минимальный</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Минимальный (без эмодзи)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Пуск</string>
@@ -592,6 +612,12 @@
     <string name="theme_case_type_override_os">Пусть Android решит (Авто)</string>
     <string name="theme_case_type_override_lower">Всегда в нижнем регистре</string>
     <string name="theme_case_type_override_upper">Всегда прописными буквами</string>
+    <string name="settings_hint_size">Размер ярлыка подсказки</string>
+    <string name="settings_key_hint_size_summary">Установить размер подсказки на клавиатуре. В настоящее время - %s</string>
+    <string name="settings_key_hint_size_none">Нет</string>
+    <string name="settings_key_hint_size_small">Маленький</string>
+    <string name="settings_key_hint_size_normal">Средний</string>
+    <string name="settings_key_hint_size_big">Большой</string>
     <string name="theme_case_type_override_title">Клавиатура-регистр переопределения</string>
     <string name="theme_case_type_override_summary">Как определить буквенный регистр на клавиатуре. В данный момент, %s</string>
     <string name="take_a_while_progress_message">Пожалуйста, подождите…</string>
@@ -619,7 +645,16 @@
     <string name="apply_remote_app_colors_to_theme">Изменить цвета темы в зависимости от используемого приложения</string>
     <string name="apply_overlay_summary_on">Цвета клавиатуры будут соответствовать активному приложению (в меру наших возможностей).</string>
     <string name="apply_overlay_summary_off">Всегда используйте цвета темы.</string>
+    <string name="media_insertion_pending_message">Нажмите на текстовое поле для вставки изображения</string>
     <string name="aosp_dark_theme_name">Темная тема AOSP</string>
+    <string name="aosp_dark_theme_description">Вдохновленная AOSP тёмная тема для клавиатуры</string>
     <string name="aosp_light_theme_name">Светлая тема AOSP</string>
+    <string name="aosp_light_theme_description">Вдохновленная AOSP светлая тема для клавиатуры</string>
+    <string name="app_share_title">Привет из AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Поделился использованием AnySoftKeyboard</string>
+    <string name="app_share_text">Позвольте мне порекомендовать вам приватно-ориентированное, бесплатное, легконастраиваемое, многоязычное приложение с открытым исходным кодом для Android AnySoftKeyboard.\nЗагрузите его из:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Будьте в безопасности! Нажмите для поручения информации о Covid-19. </string>
+    <string name="click_me_for_easter_egg_info">нажмите сюда, чтобы увидеть сюрприз</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
