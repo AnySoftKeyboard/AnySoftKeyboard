@@ -737,7 +737,6 @@ public abstract class AnyKeyboard extends Keyboard {
         @ShowKeyInLayoutType public int showKeyInLayout;
         @NonNull int[] mShiftedCodes = EMPTY_INT_ARRAY;
         private boolean mShiftCodesAlways;
-        private boolean mShiftCodesAlwaysOverride;
         private boolean mFunctionalKey;
         private boolean mEnabled;
         @NonNull private List<String> mKeyTags = Collections.emptyList();
@@ -761,7 +760,7 @@ public abstract class AnyKeyboard extends Keyboard {
             longPressCode = 0;
             shiftedKeyLabel = null;
             hintLabel = null;
-            mShiftCodesAlwaysOverride = false;
+            boolean mShiftCodesAlwaysOverride = false;
 
             final int[] remoteStyleableArrayFromLocal =
                     resourceMapping.getRemoteStyleableArrayFromLocal(
