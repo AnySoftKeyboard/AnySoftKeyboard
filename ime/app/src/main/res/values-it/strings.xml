@@ -564,6 +564,17 @@
     <string name="enter_word_hint">Digitare la nuova parola qui</string>
     <string name="enter_abbreviation_hint">Abbreviazione</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
+    <string name="toast_error_custom_path_backup">Errore: qualsiasi app contestuale potrebbe essere aperta</string>
+    <string name="file_explorer_menu_add_folder">Crea cartella</string>
+    <string name="file_explorer_filename">Nome file di backup…</string>
+    <string name="file_explorer_filename_empty">Il nome non può essere vuoto…</string>
+    <string name="file_explorer_alert_title">Selezionare questo file?</string>
+    <string name="file_explorer_restore_alert_message">Vuoi ripristinare questo file?</string>
+    <string name="file_explorer_backup_alert_message">Questo file verrà sovrascritto.</string>
+    <string name="file_explorer_backup_success">I tuoi dati sono stati salvati in\u0020</string>
+    <string name="file_explorer_backup_failed">Salvataggio dei tuoi dati fallito.</string>
+    <string name="file_explorer_restore_success">I tuoi dati sono stati ripristinati da\u0020</string>
+    <string name="file_explorer_restore_failed">Ripristino dei tuoi dati fallito.</string>
     <string name="about_additional_software_licenses">Licenze Software aggiuntive</string>
     <string name="setup_wizard_step_one_title">Abilita AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In questo passaggio dovrai abilitare <i>AnySoftKeyboard</i>. Seleziona <i>\'AnySoftKeyboard\'</i> nel menu impostazioni <i>Lingua e immissione</i>. Questo ci permetterà di eseguirla sul tuo dispositivo.</string>
@@ -689,6 +700,7 @@
     <string name="prefs_providers_backed_up_to">Backup dei tuoi dati completato in %s</string>
     <string name="prefs_providers_failed_restore_due_to">Ripristino dei dati fallito a causa di %s</string>
     <string name="prefs_providers_restored_to">Ripristino dei dati completato da %s</string>
+    <string name="word_editor_action_choose_path">Scegli percorso personalizzato</string>
     <string name="allow_layouts_to_provide_generic_rows">Le tastiere possono fornire righe generiche</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usa sempre righe generiche selezionate.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permetti ai layout di sovrascrivere righe generiche.</string>
