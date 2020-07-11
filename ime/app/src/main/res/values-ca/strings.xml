@@ -92,6 +92,8 @@
     <string name="power_save_mode_gesture_typing_control">Desactiva la Escriptura Gestual</string>
     <string name="power_save_mode_theme_control">Canvia a un tema obscur simple</string>
     <string name="pop_text_type_title">Fa apareixer el text escrit de les tecles</string>
+    <string name="pop_text_type_summary">Quan resaltar text de les tecles premudes. Actualment:\u0020%s</string>
+    <string name="pop_text_type_dialog_title">Selecciona el tipus de resalt</string>
     <string name="pop_text_type_never">Mai</string>
     <string name="pop_text_type_on_correction">En corregir una paraula</string>
     <string name="pop_text_type_on_word">En qualsevol paraula</string>
@@ -107,11 +109,16 @@
     <string name="use_custom_sound_volume_off_summary">El volum dels efectes és el mateix que les notificacions del sistema.
     </string>
     <string name="custom_sound_volume">Volum de pulsació de tecles personalitzat</string>
+    <string name="vibrate_on_long_press_title">Vibració a fer una premsa llarga</string>
+    <string name="vibrate_on_long_press_summary_on">Vibració suau quan una acció de premsa llarga ha sigut invocada. </string>
     <string name="switch_keyboard_on_space">Canvi de teclat amb l\'espai</string>
     <string name="switch_keyboard_on_space_on_summary">Canvia del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»
     </string>
     <string name="switch_keyboard_on_space_off_summary">No canviïs del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»
     </string>
+    <string name="colorize_nav_bar_title">Dibuixa darrere de la barra de navegació</string>
+    <string name="colorize_nav_bar_summary_on">Dibuixarà el fons del teclat darrere de la barra de navegació. Açò no està suportat per tots els dispositius. </string>
+    <string name="colorize_nav_bar_summary_off">No dibuixes darrere de la barra de navegació. </string>
     <string name="persistent_layout_per_package_id_title">Recorda la disposició de l\'alfabet</string>
     <string name="persistent_layout_per_package_id_off_summary">Utilitza la mateixa disposició per a totes les aplicacions.</string>
     <string name="persistent_layout_per_package_id_on_summary">Canvia automàticament a la disposició prèvia utilitzada a l\'aplicació.</string>
@@ -123,6 +130,12 @@
     <string name="hide_soft_when_physical">Amaga el teclat</string>
     <string name="hide_soft_when_physical_on_summary">No mostris l\'AnySoftKeyboard en emprar el teclat físic</string>
     <string name="hide_soft_when_physical_off_summary">Mostra l\'AnySoftKeyboard en emprar el teclat físic</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Espai canvia idiomes </string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Alt + Space desde hardware canvia a la següent distribució disponible. </string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Alt + Espai de hardware introdueix un espai. </string>
+    <string name="enable_shift_space_language_shortcut">Majús + Espai canvia idiomes</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Majús + Space desde hardware canvia a la següent distribució disponible. </string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Majús + Espai de hardware introdueix un espai. </string>
     <string name="fullscreen_input_connection_supported">Mode apaïsat</string>
     <string name="fullscreen_input_connection_supported_on_summary">Superposar a la pantalla en escriure en mode apaïsat</string>
     <string name="fullscreen_input_connection_supported_off_summary">No facis servir el mode pantalla completa en posició apaïsada</string>
@@ -172,6 +185,7 @@
     <string name="swipe_action_name_cycle_keyboards">Rotació entre teclats</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Rotació inversa entre teclats</string>
     <string name="swipe_action_name_shift">Activa les Majúscules</string>
+    <string name="swipe_action_name_space">Espai</string>
     <string name="swipe_action_name_hide">Amaga el teclat</string>
     <string name="swipe_action_name_backspace">Activa el retorn</string>
     <string name="swipe_action_name_backword">Paraula anterior</string>
@@ -210,6 +224,7 @@
     <string name="special_dictionaries_group_summary">Suggeriments utilitzats als diccionaris de l\'AnySoftKeyboard</string>
     <string name="use_user_dictionary">Diccionari de l\'usuari</string>
     <string name="use_user_dictionary_on_summary">Suggereix paraules afegides per l\'usuari (toqueu 2 vegades al suggeriment per afegir-ho)</string>
+    <string name="always_use_fallback_user_dictionary">Utilitza un emmagatzematge privat de diccionari d\'usuari.  </string>
     <string name="use_auto_dictionary">Diccionari automàtic</string>
     <string name="use_auto_dictionary_dialog_title">Seleccioneu el mètode d\'aprenentatge</string>
     <string name="use_auto_dictionary_summary">Aprèn paraules automàticament. Mètode triat: %s</string>
