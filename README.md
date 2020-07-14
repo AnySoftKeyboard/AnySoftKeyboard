@@ -13,12 +13,14 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 
 ## Features
  * All kinds of keyboards:
-     * supporting lots of languages via external packages. E.g., English (QWERTY, Dvorak, AZERTY, Colemak, and Workman), Hebrew, Russian, Arabic, Lao, Bulgarian, Swiss, German, Swedish, Spanish, Catalan, Belarusian, Portuguese, Ukrainian and [many more](addons/languages/PACKS.md).
+     * Supporting lots of languages via external packages. E.g., English (QWERTY, Dvorak, AZERTY, Colemak, and Workman), Hebrew, Russian, Arabic, Lao, Bulgarian, Swiss, German, Swedish, Spanish, Catalan, Belarusian, Portuguese, Ukrainian and [many more](addons/languages/PACKS.md).
      * Special keyboard for text fields which require only numbers.
      * Special keyboard for text fields which require email or URI addresses.
  * Physical keyboard is supported as-well.
- * Auto capitalization.
+ * Auto-capitalization.
  * Word suggestions, and Next-Word suggestions.
+     * Automatic correction can be customized, or turned off entirely.
+     * External packages include word lists that can be freely mixed. You can use a French layout and get suggestions for German and Russian!
  * Gesture typing.
  * Dark mode, automatic (based on system) and manual.
  * Power saving mode, disables various features to save battery.
