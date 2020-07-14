@@ -221,7 +221,7 @@ public class Suggest {
 
         // only adding VALID words
         if (isValidWord(previousWord)) {
-            final String currentWord = previousWord.toString().toLowerCase(mLocale);
+            final String currentWord = previousWord.toString();
             mSuggestionsProvider.getNextWords(currentWord, mNextSuggestions, mPrefMaxSuggestions);
             if (BuildConfig.DEBUG) {
                 Logger.d(
