@@ -67,7 +67,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
     private final Set<Integer> mAdditionalIsLetterExceptions;
     private final char[] mSentenceSeparators;
-    private String mPopupCharactersOrder;
+    private final String mPopupCharactersOrder;
     private static final int EXPECTED_CAPACITY_SYMBOLS = 4;
     private static final int EXPECTED_CAPACITY_LETTERS = 16;
     private static final int EXPECTED_CAPACITY_NUMBERS = 4;
