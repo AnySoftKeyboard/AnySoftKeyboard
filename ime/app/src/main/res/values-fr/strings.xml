@@ -390,7 +390,7 @@
     <string name="extension_kbd_top_numbers_alt">Touches chiffres alternatives</string>
     <string name="extension_kbd_top_nav">Touches de navigation</string>
     <string name="extension_kbd_top_nav_alt">Touches de navigation alternatives</string>
-    <string name="extension_kbd_top_nav_alt_no_numb">Idem, sans de rangée de chiffres</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Touches de navigation alternatives. Pas de rangée de chiffres</string>
     <string name="extension_kbd_top_numbers_simple">Simple, chiffres seulement</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_top_text_editing">Édition textes rapides</string>
@@ -535,6 +535,17 @@
     <string name="enter_word_hint">Saisir le nouveau mot ici</string>
     <string name="enter_abbreviation_hint">Abréviation</string>
     <string name="enter_abbreviation_target_hint">Phrase complète</string>
+    <string name="toast_error_custom_path_backup">Erreur : n\'importe quelle application contextuelle pourrait être ouverte</string>
+    <string name="file_explorer_menu_add_folder">Créer un dossier</string>
+    <string name="file_explorer_filename">Nom du fichier de sauvegarde…</string>
+    <string name="file_explorer_filename_empty">Impossible d\'utiliser un nom de fichier vide</string>
+    <string name="file_explorer_alert_title">Sélectionner ce fichier ?</string>
+    <string name="file_explorer_restore_alert_message">Faut-il restaurer ce fichier ?</string>
+    <string name="file_explorer_backup_alert_message">Ce fichier sera écrasé.</string>
+    <string name="file_explorer_backup_success">Vos données ont été enregistrées dans\u0020</string>
+    <string name="file_explorer_backup_failed">Vos données n\'ont pas pu être enregistrées.</string>
+    <string name="file_explorer_restore_success">Vos données ont été restaurées depuis\u0020</string>
+    <string name="file_explorer_restore_failed">Vos données n\'ont pas pu être restaurées.</string>
     <string name="about_additional_software_licenses">Licences additionnelles de logiciels</string>
     <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>
@@ -620,11 +631,11 @@
     <string name="theme_case_type_override_lower">Toujours en minuscules</string>
     <string name="theme_case_type_override_upper">Toujours en majuscules</string>
     <string name="settings_hint_size">Taille des textes d\'indication</string>
-    <string name="settings_key_hint_size_summary">Définir la taille des textes d\'indication dans le clavier. Actuellement, %s</string>
+    <string name="settings_key_hint_size_summary">Définir la taille des textes d\'indication du clavier. Actuellement : %s</string>
     <string name="settings_key_hint_size_none">Ne pas afficher</string>
-    <string name="settings_key_hint_size_small">Petit</string>
-    <string name="settings_key_hint_size_normal">Normal</string>
-    <string name="settings_key_hint_size_big">Grand</string>
+    <string name="settings_key_hint_size_small">Petite</string>
+    <string name="settings_key_hint_size_normal">Normale</string>
+    <string name="settings_key_hint_size_big">Grande</string>
     <string name="theme_case_type_override_title">Remplacement de casse clavier</string>
     <string name="theme_case_type_override_summary">Comment déterminer la casse en vue clavier. Actuellement : %s</string>
     <string name="take_a_while_progress_message">Cela peut prendre du temps…</string>
@@ -640,6 +651,7 @@
     <string name="prefs_providers_backed_up_to">Les données ont été correctement sauvegardées vers %s</string>
     <string name="prefs_providers_failed_restore_due_to">Impossible de restaurer les données : %s</string>
     <string name="prefs_providers_restored_to">Les données ont été correctement restaurées depuis %s</string>
+    <string name="word_editor_action_choose_path">Choisir  un chemin personnalisé</string>
     <string name="allow_layouts_to_provide_generic_rows">Claviers susceptibles de fournir des rangées génériques</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Toujours utiliser les rangées génériques sélectionnées</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Autoriser les dispositions à remplacer les rangées génériques</string>
@@ -660,7 +672,7 @@
     <string name="app_share_title">Hello depuis AnySoftKeyboard</string>
     <string name="app_share_menu_title">Partager AnySoftKeyboard avec</string>
     <string name="app_share_text">Recommandé : AnySoftKeyboard, un clavier multi-langues hautement personnalisable, respectant la vie privée, gratuit, en sources libres.\nÀ télécharger depuis :\nPlay Store : https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid : https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Restez en sécurité ! Cliquez pour plus d\'informations sur CoronaVirus.</string>
+    <string name="covid_19_click_for_info">Restez en sécurité ! Cliquer pour plus d\'informations sur le CoronaVirus.</string>
     <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/fr/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
