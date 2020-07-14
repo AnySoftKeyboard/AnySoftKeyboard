@@ -38,10 +38,14 @@ else
             exit 1
         fi
     done
-    tags=`grep -R 'TAG = ".*"' app/src/main/java/com/* jnidictionaryv1/src/main/java/com/* jnidictionaryv2/src/main/java/com/*`
+    tags=`grep -R 'TAG = ".*"' ime/app/src/main/java/com/* ime/jnidictionaryv1/src/main/java/com/* ime/jnidictionaryv2/src/main/java/com/*`
     # We can go back to our original folder now:
     cd "$oldpath"
     tags="$(echo $tags | sed -E 's![a-z/A-Z12]*\.java: (protected |private )?(static )?(final )?String [A-Z_]* = "([^\"]*)";!\4!g')"
+    if [ -z $tags ]; then
+        echo -e "${error}Aborting.${nocolor} No tags found."
+        exit 2
+    fi
     tags="$tags dalvikvm System.err AndroidRuntime "
     comm="adb logcat $(echo "$tags" | sed "s/ /:$1 /g")*:S"
     echo -e "${color}Running: $nocolor$comm"
