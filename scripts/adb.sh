@@ -2,21 +2,33 @@
 
 # Default flags
 clearlogcat=0;
-if [ "$1" == "-c" ]; then
-    clearlogcat=1
+flags="";
+filters="";
+choice="";
+
+# Parse filters and flags separately because default filters go in the middle.
+# Both $flags and $filters will begin with a space, or will be empty.
+while (( $# > 1 )); do
+    if [ "$1" == "-c" ]; then
+        clearlogcat=1
+    else
+        if [[ "$1" =~ ^[^\ ]+:[SFEWIDV]$ ]]; then
+            filters="$filters $1"
+        else
+            flags="$flags $1"
+        fi
+    fi
     shift
-fi
-if [ $# != 1 ]; then
-    echo "Syntax: adb.sh [-c] {F|E|W|I|D|V}
+done
 
-    adb.sh outputs the logcat to standard output and filters out lines not related with this project.
-    \`dalvikvm\`, \`System.err\`, \`AndroidRuntime\`, and \`DEBUG\` are included, as those are used
-    to debug fatal crashes. \`StrictMode\` is also included for convenience.
-
-    The only argument is the initial of your log priority. (Fatal/Error/Warning/Info/Debug/Verbose)
-
-    You can optionally add the \`-c\` flag to clear the logcat prior to printing new logcat lines."
+if [ $# == 0 ]; then
+    choice="--help"
 else
+    choice=$1
+fi
+
+case $choice in
+    [FEWIDV])
     # These variables are just to higlight text:
     color="\033[0;36m"
     nocolor="\033[0m"
@@ -48,10 +60,31 @@ else
         exit 2
     fi
     tags="$tags dalvikvm System.err AndroidRuntime StrictMode DEBUG "
-    comm="adb logcat $(echo "$tags" | sed "s/ /:$1 /g")*:S"
+    if [ -z "$filters" ]; then
+    comm="adb logcat$flags $(echo "$tags" | sed "s/ /:$1 /g")*:S"
+    else
+    comm="adb logcat$flags $(echo "$tags" | sed "s/ /:$1 /g")${filters:1}"
+    fi
     echo -e "${color}Running: $nocolor$comm"
     # Run command:
     echo -e "${color}Logcat:$nocolor"
     $comm
-fi
+    ;;
+    --help)
+    echo "Syntax: adb.sh […flags and filters…] {F|E|W|I|D|V}
+
+    adb.sh outputs the logcat to standard output and filters out lines not related with this project.
+    \`dalvikvm\`, \`System.err\`, \`AndroidRuntime\`, and \`DEBUG\` are included, as those are used
+    to debug fatal crashes. \`StrictMode\` is also included for convenience.
+
+    You can add extra filters; if you do not, a \`*:S\` filter is appended by default.
+
+    The last argument is the initial of your log priority. (Fatal/Error/Warning/Info/Debug/Verbose)"
+    ;;
+    *)
+    echo "Error: last argument must be the initial of your log priority. (F/E/W/I/D/V)
+
+    Run this command with no arguments or with \`--help\` to get help."
+    ;;
+esac
 
