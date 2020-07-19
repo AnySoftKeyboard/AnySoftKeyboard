@@ -944,6 +944,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
+        super.disableSamePunctuation();
+
         InputConnection ic = getCurrentInputConnection();
         if (isSelectionUpdateDelayed() || ic == null) {
             Log.d(

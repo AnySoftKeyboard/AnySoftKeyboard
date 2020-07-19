@@ -431,7 +431,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         Assert.assertEquals("hel\n", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(
                 4, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
+
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
         Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(
                 3, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());

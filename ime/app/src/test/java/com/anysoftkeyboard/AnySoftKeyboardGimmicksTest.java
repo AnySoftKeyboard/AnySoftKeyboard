@@ -1096,17 +1096,17 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
         Assert.assertEquals(
-                "hell ! hell ? hell : ", inputConnection.getCurrentTextInInputConnection());
+                "hell ! hell ? hell: ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals(
-                "hell ! hell ? hell : hell ", inputConnection.getCurrentTextInInputConnection());
+                "hell ! hell ? hell: hell ", inputConnection.getCurrentTextInInputConnection());
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(';');
         Assert.assertEquals(
-                "hell ! hell ? hell : hell ; ", inputConnection.getCurrentTextInInputConnection());
+                "hell ! hell ? hell: hell; ", inputConnection.getCurrentTextInInputConnection());
     }
 
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
