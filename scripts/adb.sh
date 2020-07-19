@@ -7,12 +7,13 @@ if [ "$1" == "-c" ]; then
     shift
 fi
 if [ $# != 1 ]; then
-    echo "Syntax: adb.sh [-c] {E|W|I|D|V}
+    echo "Syntax: adb.sh [-c] {F|E|W|I|D|V}
 
     adb.sh outputs the logcat to standard output and filters out lines not related with this project.
-    \`dalvikvm\`, \`System.err\` and \`AndroidRuntime\` are included, as those are used to debug fatal crashes.
+    \`dalvikvm\`, \`System.err\`, \`AndroidRuntime\`, and \`DEBUG\` are included, as those are used
+    to debug fatal crashes. \`StrictMode\` is also included for convenience.
 
-    The only argument is the initial of your log priority. (Error/Warning/Info/Debug/Verbose)
+    The only argument is the initial of your log priority. (Fatal/Error/Warning/Info/Debug/Verbose)
 
     You can optionally add the \`-c\` flag to clear the logcat prior to printing new logcat lines."
 else
@@ -38,15 +39,15 @@ else
             exit 1
         fi
     done
-    tags=`grep -R 'TAG = ".*"' ime/app/src/main/java/com/* ime/jnidictionaryv1/src/main/java/com/* ime/jnidictionaryv2/src/main/java/com/*`
+    tags=`grep -R 'TAG = ".*"' ime/app/src/main/java/com/* ime/dictionaries/jnidictionaryv1/src/main/java/com/* ime/dictionaries/jnidictionaryv2/src/main/java/com/*`
     # We can go back to our original folder now:
     cd "$oldpath"
     tags="$(echo $tags | sed -E 's![a-z/A-Z12]*\.java: (protected |private )?(static )?(final )?String [A-Z_]* = "([^\"]*)";!\4!g')"
-    if [ -z $tags ]; then
+    if [ -z "$tags" ]; then
         echo -e "${error}Aborting.${nocolor} No tags found."
         exit 2
     fi
-    tags="$tags dalvikvm System.err AndroidRuntime "
+    tags="$tags dalvikvm System.err AndroidRuntime StrictMode DEBUG "
     comm="adb logcat $(echo "$tags" | sed "s/ /:$1 /g")*:S"
     echo -e "${color}Running: $nocolor$comm"
     # Run command:
