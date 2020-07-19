@@ -1022,6 +1022,33 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testMultipleSamePunctuation() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hell... ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("How are you");
+        Assert.assertEquals(
+                "hell... How are you", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals(
+                "hell... How are you? ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals(
+                "hell... How are you?? ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testSwapDoublePunctuationsWhenNotInFrLocale() {
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 

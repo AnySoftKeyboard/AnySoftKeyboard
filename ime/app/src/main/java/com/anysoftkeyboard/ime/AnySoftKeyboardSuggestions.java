@@ -11,7 +11,6 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -219,7 +218,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mShowSuggestions = false;
     private boolean mAutoComplete;
     private int mOrientation;
-
 
     private boolean enableSamePunctuation = false;
     private int isLastPunctuationSame = 0;
@@ -720,8 +718,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
     }
 
-    public void disableSamePunctuation()
-    {
+    public void disableSamePunctuation() {
         enableSamePunctuation = false;
         isLastPunctuationSame = 0;
     }
@@ -800,7 +797,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mHowManyCharactersForReverting++;
                 isEndOfSentence = true;
                 handledOutputToInputConnection = true;
-            } else if ((mSwapPunctuationAndSpace || newLine)) {
+            } else if (mAdditionalCharacterForReverting && (mSwapPunctuationAndSpace || newLine)) {
                 // Even if 'auto select suggestion aggressiveness' is disabled, we still want
                 // punctuation correction.
                 // If not, you can add '&& isAutoCorrect()' to the condition above.
@@ -810,17 +807,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // into "word ," -> "word, "
                 // or   "word,"  -> "word, "
                 if (isSpaceSwapCharacter(primaryCode)) {
-
-                    /*if (!mAdditionalCharacterForReverting)
-                    {
-                        ic.deleteSurroundingText(1, 0);
-                        ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
-                    }
-                    else {*/
-                        //Check if the punctuation is the same and remove pre space if so
-                        if (!enableSamePunctuation && isLastPunctuationSame == primaryCode)
-                            enableSamePunctuation = true;
-                        else if (!enableSamePunctuation) isLastPunctuationSame = primaryCode;
+                    if (enableSamePunctuation && primaryCode != isLastPunctuationSame)
+                        disableSamePunctuation();
+                    // Check if the punctuation is the same and remove pre space if so
+                    if (!enableSamePunctuation && isLastPunctuationSame == primaryCode)
+                        enableSamePunctuation = true;
+                    else if (!enableSamePunctuation) isLastPunctuationSame = primaryCode;
 
                     // last character was a space
                     if (mLastSpaceTimeStamp != NEVER_TIME_STAMP || enableSamePunctuation) {
@@ -829,40 +821,45 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         mHowManyCharactersForReverting--;
                     }
 
-                    if (enableSamePunctuation && primaryCode != isLastPunctuationSame)
-                        disableSamePunctuation();
-
-                    // Detect if french ponctuation is active, because of special rules of grammar in fr
-                    isFrenchPonctuation = (mFrenchSpacePunctuationBehavior && requiresDifferentSpacing(primaryCode, 3));
+                    // Detect if french ponctuation is active, because of special rules of grammar
+                    // in fr
+                    isFrenchPonctuation =
+                            (mFrenchSpacePunctuationBehavior
+                                    && requiresDifferentSpacing(primaryCode, 3));
 
                     if (requiresDifferentSpacing(primaryCode, 1))
                         ic.commitText(
                                 (isFrenchPonctuation ? " " : "")
-                                        + new String(new int[]{primaryCode}, 0, 1)
+                                        + new String(new int[] {primaryCode}, 0, 1)
                                         + (newLine ? "" : " "),
                                 1);
                     else
                         ic.commitText(
-                                new String(new int[]{primaryCode}, 0, 1) + (newLine ? "" : " "),
+                                new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "),
                                 1);
 
                     mHowManyCharactersForReverting++;
                     mAdditionalCharacterForReverting = !newLine;
-                        // meaning this is a end of sentence
-                    if (requiresDifferentSpacing(primaryCode, 3))
-                        isEndOfSentence = true;
+                    // meaning this is a end of sentence
+                    if (requiresDifferentSpacing(primaryCode, 3)) isEndOfSentence = true;
 
-                    //}
                     handledOutputToInputConnection = true;
                 } else if (requiresDifferentSpacing(primaryCode, 2)) {
                     // Open brackets, insert space before but not after
                     // If the last character is not a space, insert one
                     if (mLastSpaceTimeStamp == NEVER_TIME_STAMP)
                         ic.commitText(
-                                " ",
-                                1); // No need to insert anything more than a space to make
-                                                  // 'test(' -> 'test ('
+                                " ", 1); // No need to insert anything more than a space to make
+                    // 'test(' -> 'test ('
                 }
+            } else if (!mAdditionalCharacterForReverting
+                    && mLastSpaceTimeStamp
+                            != NEVER_TIME_STAMP /*meaning the previous key was SPACE*/
+                    && (mSwapPunctuationAndSpace || newLine)
+                    && isSpaceSwapCharacter(primaryCode)) {
+                ic.deleteSurroundingText(1, 0);
+                ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
+                handledOutputToInputConnection = true;
             }
         }
 
@@ -1448,7 +1445,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (mWordRevertLength == 0) {
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
         } else {
-            final int length = mWordRevertLength + (mAdditionalCharacterForReverting ? mHowManyCharactersForReverting : 0);
+            final int length =
+                    mWordRevertLength
+                            + (mAdditionalCharacterForReverting
+                                    ? mHowManyCharactersForReverting
+                                    : 0);
             mAutoCorrectOn = false;
             // note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
