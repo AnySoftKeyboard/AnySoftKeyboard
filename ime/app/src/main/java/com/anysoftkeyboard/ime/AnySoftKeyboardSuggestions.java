@@ -222,6 +222,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mEnableSamePunctuation = false;
     private int mIsLastPunctuationSame = 0;
 
+    private boolean mWasLastPuncClosedBrackets = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -648,6 +650,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     isCurrentlyPredicting());
         }
 
+        disableSamePunctuation();
+
         if (mWord.charCount() == 0 && isAlphabet(primaryCode)) {
             mWordRevertLength = 0;
             mWord.reset();
@@ -827,6 +831,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                             (mFrenchSpacePunctuationBehavior
                                     && requiresDifferentSpacing(primaryCode, 3));
 
+                    if (mWasLastPuncClosedBrackets) {
+                        ic.deleteSurroundingText(1, 0);
+                        mHowManyCharactersForReverting--;
+                    }
+
+                    if (requiresDifferentSpacing(primaryCode, 4)) mWasLastPuncClosedBrackets = true;
+                    else mWasLastPuncClosedBrackets = false;
+
                     if (requiresDifferentSpacing(primaryCode, 1))
                         ic.commitText(
                                 (isFrenchPonctuation ? " " : "")
@@ -920,6 +932,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         || primaryCode == ';'
                         || primaryCode == '!');
         boolean openParenthesis = (primaryCode == '(' || primaryCode == '[' || primaryCode == '{');
+        boolean closeParenthesis = (primaryCode == ')' || primaryCode == ']' || primaryCode == '}');
         boolean endOfSentence = (primaryCode == '!' || primaryCode == '?');
         switch (variant) {
             case 1:
@@ -930,6 +943,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 break;
             case 3:
                 if (endOfSentence) return true;
+                break;
+            case 4:
+                if (closeParenthesis) return true;
                 break;
             default:
                 return false;

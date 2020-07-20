@@ -1049,6 +1049,54 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testMultipleClosingBracketsAndPunctuation() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Hey (you");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(')');
+        Assert.assertEquals("Hey (you) ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping(",");
+        Assert.assertEquals("Hey (you), ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testMultipleSamePunctuationBetweenWords() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Hey");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("Hey! ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Hey");
+        Assert.assertEquals("Hey! Hey", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("Hey! Hey! ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testMultipleSamePunctuationBetweenWordsWithDigit() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("It is only 33");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("It is only 33! ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("It is only 33");
+        Assert.assertEquals(
+                "It is only 33! It is only 33", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals(
+                "It is only 33! It is only 33! ",
+                inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testSwapDoublePunctuationsWhenNotInFrLocale() {
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
