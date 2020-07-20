@@ -219,8 +219,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mAutoComplete;
     private int mOrientation;
 
-    private boolean enableSamePunctuation = false;
-    private int isLastPunctuationSame = 0;
+    private boolean mEnableSamePunctuation = false;
+    private int mIsLastPunctuationSame = 0;
 
     @Override
     public void onCreate() {
@@ -719,8 +719,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     public void disableSamePunctuation() {
-        enableSamePunctuation = false;
-        isLastPunctuationSame = 0;
+        mEnableSamePunctuation = false;
+        mIsLastPunctuationSame = 0;
     }
 
     protected void handleSeparator(int primaryCode) {
@@ -807,15 +807,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // into "word ," -> "word, "
                 // or   "word,"  -> "word, "
                 if (isSpaceSwapCharacter(primaryCode)) {
-                    if (enableSamePunctuation && primaryCode != isLastPunctuationSame)
+                    if (mEnableSamePunctuation && primaryCode != mIsLastPunctuationSame)
                         disableSamePunctuation();
                     // Check if the punctuation is the same and remove pre space if so
-                    if (!enableSamePunctuation && isLastPunctuationSame == primaryCode)
-                        enableSamePunctuation = true;
-                    else if (!enableSamePunctuation) isLastPunctuationSame = primaryCode;
+                    if (!mEnableSamePunctuation && mIsLastPunctuationSame == primaryCode)
+                        mEnableSamePunctuation = true;
+                    else if (!mEnableSamePunctuation) mIsLastPunctuationSame = primaryCode;
 
                     // last character was a space
-                    if (mLastSpaceTimeStamp != NEVER_TIME_STAMP || enableSamePunctuation) {
+                    if (mLastSpaceTimeStamp != NEVER_TIME_STAMP || mEnableSamePunctuation) {
                         // delete the space to get ready for punctuation
                         ic.deleteSurroundingText(1, 0);
                         mHowManyCharactersForReverting--;
