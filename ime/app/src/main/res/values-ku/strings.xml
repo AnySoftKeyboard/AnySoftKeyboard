@@ -629,6 +629,13 @@
     <string name="enter_word_hint">ووشە نوێیەکە لێرە بنووسە</string>
     <string name="enter_abbreviation_hint">کورتکراوە</string>
     <string name="enter_abbreviation_target_hint">تەواوی ڕستەکە</string>
+    <string name="file_explorer_menu_add_folder">دروستکردنی فۆڵدەر</string>
+    <string name="file_explorer_filename">ناوی فایلی پاشەکەوتکردن…</string>
+    <string name="file_explorer_filename_empty">ناوی فایل نابێ بەتاڵ بێت…</string>
+    <string name="file_explorer_alert_title">دیاریکردنی ئەم فایلە؟</string>
+    <string name="file_explorer_restore_alert_message">ئەتەوێ ئەم فایلە بگەڕێنیتەوە؟</string>
+    <string name="file_explorer_backup_alert_message">ئەم فایلە ئاڵوگۆڕ دەکرێت</string>
+    <string name="file_explorer_backup_success">زانیاریەکانت پاشەکەوتکران لە\u0020</string>
     <string name="about_additional_software_licenses">Open Source License</string>
     <string name="setup_wizard_step_one_title">چالاککردنی تەختەکلیلی کوردی</string>
     <string name="setup_wizard_step_one_details">لەم هەنگاوەدا پێویستە <b>
