@@ -684,8 +684,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             default:
                 if (isWordSeparator(primaryCode)) {
+                    // A DIGIT is considered as WordSeparator
                     handleSeparator(primaryCode);
                 } else if (mControlKeyState.isActive()) {
+                    disableSamePunctuation();
+                    disableLastDigit();
                     int keyCode = getKeyCode(primaryCode);
                     if (Build.VERSION.SDK_INT >= 11 && keyCode != 0) {
                         // TextView (and hence its subclasses) can handle ^A, ^Z, ^X, ^C and ^V

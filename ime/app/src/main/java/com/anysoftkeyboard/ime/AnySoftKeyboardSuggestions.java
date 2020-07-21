@@ -223,6 +223,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private int mIsLastPunctuationSame = 0;
 
     private boolean mWasLastPuncClosedBrackets = false;
+    private boolean mWasLastCharDigit = false;
+    private boolean mWasLastDigitSeparator = false;
 
     @Override
     public void onCreate() {
@@ -628,6 +630,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
+    public void disableLastDigit() {
+        mWasLastCharDigit = false;
+        mWasLastDigitSeparator = false;
+    }
+
     protected boolean isSelectionUpdateDelayed() {
         return mExpectingSelectionUpdateBy > 0;
     }
@@ -649,8 +656,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     isPredictionOn(),
                     isCurrentlyPredicting());
         }
-
-        disableSamePunctuation();
 
         if (mWord.charCount() == 0 && isAlphabet(primaryCode)) {
             mWordRevertLength = 0;
@@ -745,7 +750,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final boolean newLine = primaryCode == KeyCodes.ENTER;
         boolean isEndOfSentence = newLine || isSentenceSeparator(primaryCode);
         final boolean isSpace = primaryCode == KeyCodes.SPACE;
-        boolean isFrenchPonctuation = false;
+        final boolean isDigit = primaryCode >= '0' && primaryCode <= '9';
+        final boolean isDigitSeparator =
+                primaryCode == ':' || primaryCode == ',' || primaryCode == '.';
+        boolean isFrenchPonctuation;
 
         // Handle separator
         InputConnection ic = getCurrentInputConnection();
@@ -786,6 +794,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             abortCorrectionAndResetPredictionState(false);
         }
 
+        if (mWasLastCharDigit && isDigitSeparator) mWasLastDigitSeparator = true;
+        if (isDigit && !mWasLastCharDigit) mWasLastCharDigit = true;
+
+        if (isDigit) disableSamePunctuation();
+
         boolean handledOutputToInputConnection = false;
         if (ic != null) {
             if (isSpace
@@ -818,8 +831,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         mEnableSamePunctuation = true;
                     else if (!mEnableSamePunctuation) mIsLastPunctuationSame = primaryCode;
 
-                    // last character was a space
-                    if (mLastSpaceTimeStamp != NEVER_TIME_STAMP || mEnableSamePunctuation) {
+                    // last character was a space OR this is the same punctuation twice OR last
+                    // punctuation was closing brackets
+                    if (mLastSpaceTimeStamp != NEVER_TIME_STAMP
+                            || mEnableSamePunctuation
+                            || mWasLastPuncClosedBrackets) {
                         // delete the space to get ready for punctuation
                         ic.deleteSurroundingText(1, 0);
                         mHowManyCharactersForReverting--;
@@ -830,11 +846,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     isFrenchPonctuation =
                             (mFrenchSpacePunctuationBehavior
                                     && requiresDifferentSpacing(primaryCode, 3));
-
-                    if (mWasLastPuncClosedBrackets) {
-                        ic.deleteSurroundingText(1, 0);
-                        mHowManyCharactersForReverting--;
-                    }
 
                     if (requiresDifferentSpacing(primaryCode, 4)) mWasLastPuncClosedBrackets = true;
                     else mWasLastPuncClosedBrackets = false;
@@ -859,10 +870,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 } else if (requiresDifferentSpacing(primaryCode, 2)) {
                     // Open brackets, insert space before but not after
                     // If the last character is not a space, insert one
-                    if (mLastSpaceTimeStamp == NEVER_TIME_STAMP)
-                        ic.commitText(
-                                " ", 1); // No need to insert anything more than a space to make
-                    // 'test(' -> 'test ('
+                    if (mLastSpaceTimeStamp == NEVER_TIME_STAMP && mIsLastPunctuationSame == 0) {
+                        ic.commitText(" ", 1);
+                        mHowManyCharactersForReverting++;
+                    }
+                    // No need to insert anything more than a space to make 'test(' -> 'test ('
                 }
             } else if (!mAdditionalCharacterForReverting
                     && mLastSpaceTimeStamp
@@ -876,6 +888,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
 
         if (!handledOutputToInputConnection) {
+            // Digit go there
+            if (mWasLastDigitSeparator && isDigit) {
+                ic.deleteSurroundingText(1, 0);
+                mHowManyCharactersForReverting--;
+                disableLastDigit();
+            }
             sendKeyChars(primaryCode);
         }
 
