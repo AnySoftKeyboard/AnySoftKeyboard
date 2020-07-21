@@ -74,8 +74,8 @@
     <color name="app_card_background">#FFF</color>
 
 
-    <color name="aosp_dark_background">#222</color>
-    <color name="aosp_dark_suggestions_background">#444</color>
+    <color name="aosp_dark_background">#32373A</color>
+    <color name="aosp_dark_suggestions_background">#222</color>
 
     <color name="aosp_light_background">#DDD</color>
     <color name="aosp_light_suggestions_background">#AAA</color>
