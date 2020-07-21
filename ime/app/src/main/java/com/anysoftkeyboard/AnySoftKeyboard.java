@@ -1163,10 +1163,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (primaryCode == KeyCodes.CTRL) {
             sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
             mControlKeyState.onRelease(mMultiTapTimeout, mLongPressTimeout);
-            handleControl();
         } else {
             mControlKeyState.onOtherKeyReleased();
         }
+        handleControl();
     }
 
     private void launchSettings() {
