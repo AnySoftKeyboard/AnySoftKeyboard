@@ -90,6 +90,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
+    private static int mLastCharTyped = 0;
+
     protected AnySoftKeyboard() {
         super();
     }
@@ -109,6 +111,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private static boolean isBackWordDeleteCodePoint(int c) {
         return Character.isLetterOrDigit(c);
     }
+
+    //This method return the last key typed by the user
+    public static int getLastCharTyped() { return mLastCharTyped; }
 
     @Override
     public void onCreate() {
@@ -718,6 +723,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 }
                 break;
         }
+        mLastCharTyped = primaryCode;
     }
 
     @Override

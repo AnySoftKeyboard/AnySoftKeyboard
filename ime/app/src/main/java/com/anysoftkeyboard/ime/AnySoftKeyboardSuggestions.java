@@ -10,7 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,6 +23,8 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -224,7 +228,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private boolean mWasLastPuncClosedBrackets = false;
     private boolean mWasLastCharDigit = false;
-    private boolean mWasLastDigitSeparator = false;
+    private boolean mWasLastCharDigitSeparator = false;
 
     @Override
     public void onCreate() {
@@ -632,7 +636,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     public void disableLastDigit() {
         mWasLastCharDigit = false;
-        mWasLastDigitSeparator = false;
+        mWasLastCharDigitSeparator = false;
     }
 
     protected boolean isSelectionUpdateDelayed() {
@@ -755,6 +759,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 primaryCode == ':' || primaryCode == ',' || primaryCode == '.';
         boolean isFrenchPonctuation;
 
+        Logger.d("nicoursi", "PrimaryCode is " + primaryCode + " aka " + (char)primaryCode);
+        if (primaryCode == 10)
+            Logger.d("nicoursi", "THIS CODE IS ENTER");
+
+        Logger.d("nicoursi", "Last Char wrote is " + (char)AnySoftKeyboard.getLastCharTyped());
+
         // Handle separator
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
@@ -794,12 +804,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             abortCorrectionAndResetPredictionState(false);
         }
 
-        if (mWasLastCharDigit && isDigitSeparator) mWasLastDigitSeparator = true;
+        if (mWasLastCharDigit && isDigitSeparator) mWasLastCharDigitSeparator = true;
         if (isDigit && !mWasLastCharDigit) mWasLastCharDigit = true;
+
+        Logger.d("nicoursi", "mWasLastCharDigit = " + mWasLastCharDigit + " mWasLastDigitSeparator = " + mWasLastCharDigitSeparator);
 
         if (isDigit) disableSamePunctuation();
 
         boolean handledOutputToInputConnection = false;
+        //Logger.d("nicoursi", "isEnteringSameCondition " + (mAdditionalCharacterForReverting && (mSwapPunctuationAndSpace || newLine) && isAutoCorrect()));
+        Logger.d("nicoursi", "isEnteringSameCondition " + mAdditionalCharacterForReverting + " " + (mSwapPunctuationAndSpace || newLine) + " " + isAutoCorrect());
         if (ic != null) {
             if (isSpace
                     && mIsDoubleSpaceChangesToPeriod
@@ -815,6 +829,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 isEndOfSentence = true;
                 handledOutputToInputConnection = true;
             } else if (mAdditionalCharacterForReverting && (mSwapPunctuationAndSpace || newLine)) {
+                if (primaryCode == 10)
+                    Logger.d("nicoursi", "I go there if it is newline");
                 // Even if 'auto select suggestion aggressiveness' is disabled, we still want
                 // punctuation correction.
                 // If not, you can add '&& isAutoCorrect()' to the condition above.
@@ -824,12 +840,20 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // into "word ," -> "word, "
                 // or   "word,"  -> "word, "
                 if (isSpaceSwapCharacter(primaryCode)) {
+                    if (primaryCode == 10)
+                        Logger.d("nicoursi", "I go there too if it is newline");
                     if (mEnableSamePunctuation && primaryCode != mIsLastPunctuationSame)
                         disableSamePunctuation();
                     // Check if the punctuation is the same and remove pre space if so
                     if (!mEnableSamePunctuation && mIsLastPunctuationSame == primaryCode)
                         mEnableSamePunctuation = true;
                     else if (!mEnableSamePunctuation) mIsLastPunctuationSame = primaryCode;
+
+                    // Detect if french ponctuation is active, because of special rules of grammar
+                    // in fr
+                    isFrenchPonctuation =
+                            (mFrenchSpacePunctuationBehavior
+                                    && requiresDifferentSpacing(primaryCode, 3));
 
                     // last character was a space OR this is the same punctuation twice OR last
                     // punctuation was closing brackets
@@ -841,25 +865,20 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         mHowManyCharactersForReverting--;
                     }
 
-                    // Detect if french ponctuation is active, because of special rules of grammar
-                    // in fr
-                    isFrenchPonctuation =
-                            (mFrenchSpacePunctuationBehavior
-                                    && requiresDifferentSpacing(primaryCode, 3));
+                    mWasLastPuncClosedBrackets = requiresDifferentSpacing(primaryCode, 4) ? true : false;
 
-                    if (requiresDifferentSpacing(primaryCode, 4)) mWasLastPuncClosedBrackets = true;
-                    else mWasLastPuncClosedBrackets = false;
+                    Logger.d("nicoursi", "mEnableSamePunctuation = " + mEnableSamePunctuation);
 
                     if (requiresDifferentSpacing(primaryCode, 1))
                         ic.commitText(
-                                (isFrenchPonctuation ? " " : "")
+                                ((isFrenchPonctuation && !mEnableSamePunctuation)? " " : "")
                                         + new String(new int[] {primaryCode}, 0, 1)
                                         + (newLine ? "" : " "),
                                 1);
-                    else
+                    else {
                         ic.commitText(
-                                new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "),
-                                1);
+                                new String(new int[] {primaryCode}, 0, 1) + (newLine || !mAutoSpace ? "" : " "),
+                                1);}
 
                     mHowManyCharactersForReverting++;
                     mAdditionalCharacterForReverting = !newLine;
@@ -882,6 +901,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     && (mSwapPunctuationAndSpace || newLine)
                     && isSpaceSwapCharacter(primaryCode)) {
                 ic.deleteSurroundingText(1, 0);
+                mHowManyCharactersForReverting--;
                 ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
                 handledOutputToInputConnection = true;
             }
@@ -889,11 +909,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         if (!handledOutputToInputConnection) {
             // Digit go there
-            if (mWasLastDigitSeparator && isDigit) {
+            int lastTypedChar = AnySoftKeyboard.getLastCharTyped();
+            Logger.d("nicoursi", "mWasLastDigitSeperator is " + mWasLastCharDigitSeparator + " isDigit = " + isDigit);
+            if (mWasLastCharDigitSeparator && isDigit && (lastTypedChar == ':' || lastTypedChar == ',' || lastTypedChar == '.')) {
+                //Logger.d("nicoursi", "Is this shit a digit ?");
                 ic.deleteSurroundingText(1, 0);
                 mHowManyCharactersForReverting--;
-                disableLastDigit();
             }
+            mAdditionalCharacterForReverting = !newLine;
             sendKeyChars(primaryCode);
         }
 

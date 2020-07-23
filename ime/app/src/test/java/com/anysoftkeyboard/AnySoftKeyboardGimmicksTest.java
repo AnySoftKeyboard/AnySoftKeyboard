@@ -1111,6 +1111,42 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress('!');
         Assert.assertEquals(
                 "It is only 33! 33! ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("My favorite num is:");
+        Assert.assertEquals("It is only 33! 33! My favorite num is: ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('6');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6, ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('6');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6, ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('6');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6, ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('6');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6, ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('4');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6,4", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('2');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6,42", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('0');
+        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6,420", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
