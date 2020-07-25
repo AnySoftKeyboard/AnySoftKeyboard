@@ -206,6 +206,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
      */
     private boolean mCompletionOn;
     private boolean mAutoSpace;
+    private boolean mAutoSpaceForPunctuation;
     private boolean mInputFieldSupportsAutoPick;
     private boolean mAutoCorrectOn;
 
@@ -421,9 +422,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     case EditorInfo.TYPE_TEXT_VARIATION_URI:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
                         mAutoSpace = false;
+                        mAutoSpaceForPunctuation = false;
                         break;
                     default:
                         mAutoSpace = mPrefsAutoSpace;
+                        mAutoSpaceForPunctuation = mSwapPunctuationAndSpace;
                 }
 
                 final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
@@ -828,7 +831,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mHowManyCharactersForReverting++;
                 isEndOfSentence = true;
                 handledOutputToInputConnection = true;
-            } else if (mAdditionalCharacterForReverting && (mSwapPunctuationAndSpace || newLine)) {
+            } else if (mAdditionalCharacterForReverting && mAutoSpaceForPunctuation && (mSwapPunctuationAndSpace || newLine)) {
                 if (primaryCode == 10)
                     Logger.d("nicoursi", "I go there if it is newline");
                 // Even if 'auto select suggestion aggressiveness' is disabled, we still want
@@ -869,15 +872,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
                     Logger.d("nicoursi", "mEnableSamePunctuation = " + mEnableSamePunctuation);
 
-                    if (requiresDifferentSpacing(primaryCode, 1))
+                    if (requiresDifferentSpacing(primaryCode, 1)) {
                         ic.commitText(
-                                ((isFrenchPonctuation && !mEnableSamePunctuation)? " " : "")
-                                        + new String(new int[] {primaryCode}, 0, 1)
+                                ((isFrenchPonctuation && !mEnableSamePunctuation) ? " " : "")
+                                        + new String(new int[]{primaryCode}, 0, 1)
                                         + (newLine ? "" : " "),
                                 1);
-                    else {
+                        if (isFrenchPonctuation && !mEnableSamePunctuation) mHowManyCharactersForReverting++;
+                    } else {
                         ic.commitText(
-                                new String(new int[] {primaryCode}, 0, 1) + (newLine || !mAutoSpace ? "" : " "),
+                                new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "),
                                 1);}
 
                     mHowManyCharactersForReverting++;
@@ -899,6 +903,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     && mLastSpaceTimeStamp
                             != NEVER_TIME_STAMP /*meaning the previous key was SPACE*/
                     && (mSwapPunctuationAndSpace || newLine)
+                    && mAutoSpaceForPunctuation
                     && isSpaceSwapCharacter(primaryCode)) {
                 ic.deleteSurroundingText(1, 0);
                 mHowManyCharactersForReverting--;
