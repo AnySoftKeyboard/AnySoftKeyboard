@@ -569,16 +569,18 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testPrintsParenthesisAsIsWithLTRKeyboard() {
+        // This test is testing parenthesis for LTR (Left To Right) keyboard
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('(');
         Assert.assertEquals("(", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(')');
-        Assert.assertEquals("()", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("() ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
     public void testPrintsParenthesisReversedWithRTLKeyboard() {
+        // This test is testing parenthesis for RTL (Right To Left) keyboard
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         AnyKeyboard fakeRtlKeyboard =
@@ -589,7 +591,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress('(');
         Assert.assertEquals(")", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(')');
-        Assert.assertEquals(")(", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(") (", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -1097,6 +1099,22 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDigitCommaAndDeleting() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("33");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("33, ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("33,", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('4');
+        Assert.assertEquals("33,4", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testMultipleSamePunctuationBetweenWordsWithOnlyDigit() {
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -1113,40 +1131,64 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
                 "It is only 33! 33! ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("My favorite num is:");
-        Assert.assertEquals("It is only 33! 33! My favorite num is: ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: ",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('6');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6, ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6, ",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('6');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6, ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6, ",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('6');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6, ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6, ",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('6');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6,6",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6, ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6,6, ",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('4');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6,4", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6,6,4",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('2');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6,42", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6,6,42",
+                inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('0');
-        Assert.assertEquals("It is only 33! 33! My favorite num is: 6,6,6,6,420", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "It is only 33! 33! My favorite num is: 6,6,6,6,420",
+                inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test

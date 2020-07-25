@@ -112,8 +112,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         return Character.isLetterOrDigit(c);
     }
 
-    //This method return the last key typed by the user
-    public static int getLastCharTyped() { return mLastCharTyped; }
+    // This method return the last key typed by the user
+    public static int getLastCharTyped() {
+        return mLastCharTyped;
+    }
 
     @Override
     public void onCreate() {
@@ -387,6 +389,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
+                    mLastCharTyped = KeyCodes.DELETE;
                     // we do backword if the shift is pressed while pressing
                     // backspace (like in a PC)
                     if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
