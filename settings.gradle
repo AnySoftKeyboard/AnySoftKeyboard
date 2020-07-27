@@ -55,11 +55,12 @@ include ':addons:languages:sardinian:pack', ':addons:languages:sardinian:apk'
 include ':addons:languages:serbian:pack', ':addons:languages:serbian:apk'
 include ':addons:languages:sinhala:pack', ':addons:languages:sinhala:apk'
 include ':addons:languages:slovak:pack', ':addons:languages:slovak:apk'
+include ":addons:languages:slovene:pack", ":addons:languages:slovene:apk"
 include ':addons:languages:songhay:pack', ':addons:languages:songhay:apk'
 include ':addons:languages:spain:pack', ':addons:languages:spain:apk'
 include ':addons:languages:tamazight:pack', ':addons:languages:tamazight:apk'
 include ':addons:languages:thai:pack', ':addons:languages:thai:apk'
-include ":addons:languages:slovene:pack", ":addons:languages:slovene:apk"
+include ':addons:languages:urdu:pack', ':addons:languages:urdu:apk'
 
 //list of themes should be alphabetized-ordered
 include ':addons:themes'
