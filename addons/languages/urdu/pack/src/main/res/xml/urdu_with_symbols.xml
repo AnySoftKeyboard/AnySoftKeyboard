@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height"
+    ask:autoCap="false">
+
+    <!-- Top row -->
+    <Row android:rowEdgeFlags="top">
+        <Key
+            android:codes="@integer/key_code_esc"
+            android:keyEdgeFlags="left"
+            android:keyLabel="Esc"
+            ask:isFunctional="true" />
+        <Key android:codes="@integer/key_code_tab" />
+        <Key
+            android:codes="@integer/key_code_ctrl"
+            android:isModifier="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_left"
+            android:horizontalGap="5%p"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_up"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_down"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_right"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_end"
+            android:horizontalGap="5%p"
+            android:keyLabel="Hom"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_home"
+            android:keyEdgeFlags="right"
+            android:keyLabel="End"
+            ask:isFunctional="true" />
+    </Row>
+
+    <Row>
+        <!-- Q -->
+        <Key
+            android:codes="\u0642"
+            android:keyEdgeFlags="left"
+            android:popupCharacters="\u0661\1\u0652"
+            ask:hintLabel="\u0661"
+            ask:shiftedCodes="\u0652" />
+        <!-- W -->
+        <Key
+            android:codes="\u0648"
+            android:popupCharacters="\u0662\2\u0624"
+            ask:hintLabel="\u0662"
+            ask:shiftedCodes="\u0624" />
+        <!-- E -->
+        <Key
+            android:codes="\u0639"
+            android:popupCharacters="\u0663\3\u0611"
+            ask:hintLabel="\u0663"
+            ask:shiftedCodes="\u0611" />
+        <!-- R -->
+        <Key
+            android:codes="\u0631"
+            android:popupKeyboard="@xml/urdu_with_symbols_r"
+            ask:hintLabel="\u06F4"
+            ask:shiftedCodes="\u0691" />
+        <!-- T -->
+        <Key
+            android:codes="\u062A"
+            android:popupKeyboard="@xml/urdu_with_symbols_t"
+            ask:hintLabel="\u06F5"
+            ask:shiftedCodes="\u0679" />
+        <!-- Y -->
+        <Key
+            android:codes="\u06D2"
+            android:popupKeyboard="@xml/urdu_with_symbols_y"
+            ask:hintLabel="\u0666"
+            ask:shiftedCodes="\u064E" />
+        <!-- U -->
+        <Key
+            android:codes="\u0621"
+            android:popupCharacters="\u0667\7\u0654\u0655"
+            ask:hintLabel="\u0667"
+            ask:shiftedCodes="\u0654" />
+        <!-- I -->
+        <Key
+            android:codes="\u06CC"
+            android:popupKeyboard="@xml/urdu_with_symbols_i"
+            ask:hintLabel="\u0668"
+            ask:shiftedCodes="\u0650" />
+        <!-- O -->
+        <Key
+            android:codes="\u06C1"
+            android:popupCharacters="\u0669\9\u06BE\u0647"
+            ask:hintLabel="\u0669"
+            ask:shiftedCodes="\u06BE" />
+        <!-- P -->
+        <Key
+            android:codes="\u067E"
+            android:keyEdgeFlags="right"
+            android:popupCharacters="\u0660\0\u064F\u064C\u0657"
+            ask:hintLabel="\u0660"
+            ask:shiftedCodes="\u064F" />
+    </Row>
+
+    <Row>
+        <!-- A -->
+        <Key
+            android:codes="\u0627"
+            android:horizontalGap="5%p"
+            android:keyEdgeFlags="left"
+            android:popupCharacters="\@\u0622\u0670\u0656\u0653"
+            ask:hintLabel="\@"
+            ask:shiftedCodes="\u0622" />
+        <!-- S -->
+        <Key
+            android:codes="\u0633"
+            android:popupCharacters="$\u0635\u0601\u0603\u0610"
+            ask:hintLabel="$"
+            ask:shiftedCodes="\u0635" />
+        <!-- D -->
+        <Key
+            android:codes="\u062F"
+            android:popupCharacters="#\u0688"
+            ask:hintLabel="#"
+            ask:shiftedCodes="\u0688" />
+        <!-- F -->
+        <Key
+            android:codes="\u0641"
+            android:popupCharacters="\u066A%^"
+            ask:hintLabel="\u066A"
+            ask:shiftedCodes="\uFDFA" />
+        <!-- G -->
+        <Key
+            android:codes="\u06AF"
+            android:popupCharacters="&amp;\u063A"
+            ask:hintLabel="&amp;"
+            ask:shiftedCodes="\u063A" />
+        <!-- H -->
+        <Key
+            android:codes="\u062D"
+            android:popupCharacters="`~"
+            ask:hintLabel="`"
+            ask:shiftedCodes="\uFDFB" />
+        <!-- J -->
+        <Key
+            android:codes="\u062C"
+            android:popupKeyboard="@xml/urdu_with_symbols_j"
+            ask:hintLabel="("
+            ask:shiftedCodes="\u0636" />
+        <!-- K -->
+        <Key
+            android:codes="\u06A9"
+            android:popupKeyboard="@xml/urdu_with_symbols_k"
+            ask:hintLabel=")"
+            ask:shiftedCodes="\u062E" />
+        <!-- L -->
+        <Key
+            android:codes="\u0644"
+            android:keyEdgeFlags="right"
+            android:popupCharacters="_"
+            ask:hintLabel="_"
+            ask:shiftedCodes="\uFDF2" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@integer/key_code_shift"
+            android:isModifier="true"
+            android:isSticky="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="left" />
+        <!-- Z -->
+        <Key
+            android:codes="\u0630"
+            android:popupCharacters="/÷\u0632"
+            ask:hintLabel="/"
+            ask:shiftedCodes="\u0632" />
+        <!-- X -->
+        <Key
+            android:codes="\u0634"
+            android:popupKeyboard="@xml/urdu_with_symbols_x"
+            ask:hintLabel="*"
+            ask:shiftedCodes="\u0698" />
+        <!-- C -->
+        <Key
+            android:codes="\u0686"
+            android:popupKeyboard="@xml/urdu_with_symbols_c"
+            ask:hintLabel="-"
+            ask:shiftedCodes="\u062B" />
+        <!-- V -->
+        <Key
+            android:codes="\u0637"
+            android:popupKeyboard="@xml/urdu_with_symbols_v"
+            ask:hintLabel="+"
+            ask:shiftedCodes="\u0638" />
+        <!-- B -->
+        <Key
+            android:codes="\u0628"
+            android:popupCharacters="\\|"
+            ask:hintLabel="\\"
+            ask:isShiftAlways="true"
+            ask:shiftedCodes="\uFDFD" />
+        <!-- N -->
+        <Key
+            android:codes="\u0646"
+            android:popupCharacters="\u061B:\u06BA"
+            ask:hintLabel="\u061B"
+            ask:shiftedCodes="\u06BA" />
+        <!-- M -->
+        <Key
+            android:codes="\u0645"
+            android:popupCharacters="\u061F!"
+            ask:hintLabel="\u061F"
+            ask:shiftedCodes="\uFDF4" />
+        <Key
+            android:codes="@integer/key_code_delete"
+            android:isRepeatable="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <!-- Bottom row -->
+    <Row android:rowEdgeFlags="bottom">
+
+        <Key
+            android:codes="@integer/key_code_keyboard_mode_change"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="left"
+            ask:isFunctional="true"
+            ask:keyDynamicEmblem="icon"
+            ask:longPressCode="@integer/key_code_mode_alphabet_popup" />
+
+        <!-- comma -->
+        <Key
+            android:codes="\u060C"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_quick_text_popup"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_quick_text" />
+
+        <Key
+            android:codes="@integer/key_code_space"
+            android:keyWidth="35%p"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="&quot;"
+            android:popupCharacters="\'"
+            ask:hintLabel=" "
+            ask:isFunctional="true" />
+
+        <!-- full stop -->
+        <Key
+            android:codes="\u06D4"
+            android:popupKeyboard="@xml/urdu_with_symbols_full_stop"
+            ask:hintLabel=" "
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_enter"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="right"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_settings" />
+    </Row>
+</Keyboard>
+
+    <!--
+    0627 ا Alef
+    0670 ٰ Superscript Alef
+    0656 ٖ Subscript Alef
+    0622 آ Alef With Madda Above
+    0623 أ Alef With Hamza Above
+    0625 إ Alef With Hamza Below
+    0628 ب Beh
+    067E پ Peh
+    062A ت Teh
+    0629 ة Teh Marbuta
+    06C3 ۃ Teh Marbuta Goal
+    0679 ٹ Tteh
+    062B ث Theh
+    062C ج Jeem
+    0686 چ Tcheh
+    062D ح Hah
+    062E خ Khah
+    062F د Dal
+    0630 ذ Thal
+    0688 ڈ Ddal
+    0631 ر Reh
+    0691 ڑ Rreh
+    0632 ز Zain
+    0698 ژ Jeh
+    0633 س Seen
+    0634 ش Sheen
+    0635 ص Sad
+    0636 ض Dad
+    0637 ط Tah
+    0638 ظ Zah
+    0639 ع Ain
+    063A غ Ghain
+    0641 ف Feh
+    0642 ق Qaf
+    06A9 ک Keheh
+    0643 ك Kaf
+    06AA ڪ Swash Kaf
+    06AF گ Gaf
+    0644 ل Lam
+    0645 م Meem
+    0646 ن Noon
+    06BA ں Noon Ghunna
+    0648 و Waw
+    0624 ؤ Waw With Hamza Above
+    0676 ٶ High Hamza Waw
+    0647 ه Heh
+    06BE ھ Heh Doachashmee
+    06C0 ۀ Heh With Yeh Above
+    06C1 ہ Heh Goal
+    06C2 ۂ Heh Goal With Hamza Above
+    0621 ء Hamza
+    0674 ٴ High Hamza
+    0654 ٔ  Hamza Above
+    0655 ٕ  Hamza Below
+    0649 ى Alef Maksura
+    064A ي Yeh
+    0678 ٸ High Hamza Yeh
+    0626 ئ Yeh With Hamza Above
+    06CC ی Farsi Yeh
+    06CD ۍ Yeh With Tail
+    06D2 ے Yeh Barree
+    06D3 ۓ Yeh Barree With Hamza Above
+
+    064E َ  Fatha (Zabar)
+    0618 ؘ  Small Fatha
+    064B ً  Fathatan
+
+    0650 ِ  Kasra (Zer)
+    061A ؚ  Small Kasra
+    064D ٍ  Kasratan
+
+    064F ُ  Damma (Pesh)
+    0619 ؙ  Small Damma
+    064C ٌ  Dammatan
+    0657 ٗ  Inverted Damma
+
+    0651 ّ  Shadda
+    0652 ْ  Sukun
+    0653 ٓ  Maddah Above
+    06E4 ۤ Small High Madda
+
+    FD3E ﴾ Left Parenthesis
+    FD3F ﴿ Right Parenthesis
+    061F ؟ Question Mark
+    066A ٪ Percent Sign
+    061B ؛ Semicolon
+    060C ، Comma
+    06D4 ۔ Full Stop
+    0640 ـ Tatweel
+
+    0600 ؀ Number Sign
+    0601 ؁ Sanah
+    0602 ؂ Footnote
+    0603 ؃ Safha
+    060E ؎ Poetic Verse
+    060F ؏ Poetic Misra
+    0614 ؔ  Takhallus
+
+    0610 ؐ  Sall Allah o Alaihe Wa Sallam
+    0611 ؑ  Alayhe Salam
+    0612 ؒ  Rahmatullah Alayhe
+    0613 ؓ  Radhi Allah Hou Anhu
+
+    FDF2 ﷲ Allah
+    FDFB ﷻ Jalla Jalal o Hou
+    FDF4 ﷴ MOHAMMAD
+    FDFA ﷺ Sall Allah o Alaihe Wa Sallam
+    FDFD ﷽ Bismillahe Ar-Rahmane Ar-Raheem
+
+    066D ٭ Star
+    06DD ۝ End of Ayah
+    06DE ۞ Start of Rub El Hizb
+    06E9 ۩ Quranic Sajdah
+
+    0660 ٠ Zero
+    0661 ١ One
+    0662 ٢ Two
+    0663 ٣ Three
+    0664 ٤ Four
+    0665 ٥ Five
+    0666 ٦ Six
+    0667 ٧ Seven
+    0668 ٨ Eight
+    0669 ٩ Nine
+
+    06F0 ۰ Extended Zero
+    06F1 ۱ Extended One
+    06F2 ۲ Extended Two
+    06F3 ۳ Extended Three
+    06F4 ۴ Extended Four
+    06F5 ۵ Extended Five
+    06F6 ۶ Extended Six
+    06F7 ۷ Extended Seven
+    06F8 ۸ Extended Eight
+    06F9 ۹ Extended Nine
+    -->

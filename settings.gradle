@@ -54,6 +54,7 @@ include ':addons:languages:sinhala:pack', ':addons:languages:sinhala:apk'
 include ':addons:languages:hindi:pack', ':addons:languages:hindi:apk'
 include ':addons:languages:thai:pack', ':addons:languages:thai:apk'
 include ':addons:languages:portuguese:pack', ':addons:languages:portuguese:apk'
+include ':addons:languages:urdu:pack', ':addons:languages:urdu:apk'
 
 //list of themes should be alphabetized-ordered
 include ':addons:themes'

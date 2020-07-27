@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary
+        description="@string/urdu_dictionary_description"
+        dictionaryResourceId="@array/urdu_words_dict_array"
+        id="7E7A55C7-F7AD-44BB-924A-802293675040"
+        initialSuggestions="@array/urdu_initial_suggestions"
+        locale="ur"
+        nameResId="@string/urdu_dictionary"
+        type="binary_resource" />
+</Dictionaries>
