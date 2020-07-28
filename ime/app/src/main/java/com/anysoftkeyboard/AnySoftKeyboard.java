@@ -645,6 +645,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
         switch (primaryCode) {
             case KeyCodes.ENTER:
+                if (mLastCharTyped == '.'
+                        || mLastCharTyped == ','
+                        || requiresDifferentSpacing(mLastCharTyped, 1)
+                        || requiresDifferentSpacing(mLastCharTyped, 4))
+                    ic.deleteSurroundingText(1, 0);
+
                 if (mShiftKeyState.isPressed() && ic != null) {
                     // power-users feature ahead: Shift+Enter
                     // getting away from firing the default editor action, by forcing newline

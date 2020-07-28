@@ -738,15 +738,15 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getShiftKey().onPressed();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
-        Assert.assertEquals("''''''\"", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("'''''' \"", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
-        Assert.assertEquals("''''''\"\"", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("'''''' \"\" ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getShiftKey().onReleased();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
-        Assert.assertEquals("''''''\"\"'", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("'''''' \"\" '", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -1099,6 +1099,42 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testPunctuationAndNewLine() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("It is only 33");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("It is only 33! ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        Assert.assertEquals("It is only 33!\n", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testQuotesSpace() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Do you have the");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('"');
+        Assert.assertEquals(
+                "Do you have the \"", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("thing");
+        Assert.assertEquals(
+                "Do you have the \"thing", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('"');
+        Assert.assertEquals(
+                "Do you have the \"thing\" ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals(
+                "Do you have the \"thing\" ? ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testDigitCommaAndDeleting() {
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -1302,17 +1338,27 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         // typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
         Assert.assertEquals(
-                "hell ! hell ? hell: ", inputConnection.getCurrentTextInInputConnection());
+                "hell ! hell ? hell : ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals(
-                "hell ! hell ? hell: hell ", inputConnection.getCurrentTextInInputConnection());
-        // typing punctuation
+                "hell ! hell ? hell : hell ", inputConnection.getCurrentTextInInputConnection());
+
         mAnySoftKeyboardUnderTest.simulateKeyPress(';');
         Assert.assertEquals(
-                "hell ! hell ? hell: hell; ", inputConnection.getCurrentTextInInputConnection());
+                "hell ! hell ? hell : hell ; ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+        Assert.assertEquals(
+                "hell ! hell ? hell : hell ; hell",
+                inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(':');
+        Assert.assertEquals(
+                "hell ! hell ? hell : hell ; hell : ",
+                inputConnection.getCurrentTextInInputConnection());
     }
 
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
