@@ -389,6 +389,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
+                    if (mLastCharTyped == KeyCodes.ENTER)
+                        super.updateAdditionalCharForReverting(true);
                     mLastCharTyped = KeyCodes.DELETE;
                     // we do backword if the shift is pressed while pressing
                     // backspace (like in a PC)
