@@ -1166,8 +1166,32 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     suggestion,
                     suggestion /*user physically picked a word from the suggestions strip. this is not a fix*/);
 
-            // Follow it with a space
-            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
+            // Follow it with a space if there is not already one or if it is not a punctuation mark
+            // that goes attached to the word being manually picked
+            boolean isNextCharSpaceOrPunctuation = false;
+            if (ic != null) {
+                String strNextChar = ic.getTextAfterCursor(1, 0).toString();
+                if (strNextChar.length() == 1) {
+                    char nextCharAfterCursor = strNextChar.charAt(0);
+                    isNextCharSpaceOrPunctuation =
+                            nextCharAfterCursor == ' '
+                                    || nextCharAfterCursor == ','
+                                    || nextCharAfterCursor == '?'
+                                    || nextCharAfterCursor == '!'
+                                    || nextCharAfterCursor == ';'
+                                    || nextCharAfterCursor == ':'
+                                    || nextCharAfterCursor == '.'
+                                    || nextCharAfterCursor == ')'
+                                    || nextCharAfterCursor == ']'
+                                    || nextCharAfterCursor == '}'
+                                    || nextCharAfterCursor == '"'
+                                    || nextCharAfterCursor == '`';
+                }
+            }
+
+            if (withAutoSpaceEnabled
+                    && (index == 0 || !typedWord.isAtTagsSearchState())
+                    && !isNextCharSpaceOrPunctuation) {
                 sendKeyChar((char) KeyCodes.SPACE);
                 setSpaceTimeStamp(true);
             }
