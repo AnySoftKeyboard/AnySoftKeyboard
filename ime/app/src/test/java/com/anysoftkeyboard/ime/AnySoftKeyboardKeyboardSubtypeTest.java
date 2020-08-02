@@ -80,8 +80,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                     -517805346,
                     -1601329810,
                     -1835196376,
-                    5161825555
-                    
+                    1618259555                    
                 };
         Assert.assertEquals(reportedSubtypes.length, expectedSubtypeId.length);
         int reportedIndex = 0;
