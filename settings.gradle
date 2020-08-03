@@ -10,6 +10,7 @@ include ':addons:languages:english', ':addons:languages:english:pack'
 //list of packs should be alphabetized-ordered
 include ':addons:languages:afrikaans_oss:pack', ':addons:languages:afrikaans_oss:apk'
 include ':addons:languages:armenian2:pack', ':addons:languages:armenian2:apk'
+include ":addons:languages:belarusian:pack", ":addons:languages:belarusian:apk"
 include ':addons:languages:brazilian:pack', ':addons:languages:brazilian:apk'
 include ':addons:languages:catalan:pack', ':addons:languages:catalan:apk'
 include ':addons:languages:coptic:pack', ':addons:languages:coptic:apk'
