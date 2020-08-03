@@ -16,7 +16,7 @@
 
     <Row>
         <Key android:codes="a" android:popupCharacters="\u0040ąäāâàá" android:horizontalGap="5%p" android:keyEdgeFlags="left"/> <!-- @ -->
-        <Key android:codes="s" android:popupCharacters="śš↑↓←→↔↕"/>
+        <Key android:codes="s" android:popupCharacters="śš$↑↓←→↔↕"/>
         <Key android:codes="d" android:popupCharacters="()[]{}"/>
         <Key android:codes="f" android:popupCharacters=""/>
         <Key android:codes="g" android:popupCharacters="ģ"/>
