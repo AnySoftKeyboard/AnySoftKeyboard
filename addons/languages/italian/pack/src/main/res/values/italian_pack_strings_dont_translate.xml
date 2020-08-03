@@ -7,4 +7,5 @@
     <string name="italian_keyboard">Italian</string>
     <string name="italian_qwerty_with_symbols_keyboard">Italian</string>
     <string name="italian_qwerty_with_symbols_number_row_keyboard">Italian</string>
+    <string name="english_qwerty_with_numbers_row_keyboard">English</string>
 </resources>
