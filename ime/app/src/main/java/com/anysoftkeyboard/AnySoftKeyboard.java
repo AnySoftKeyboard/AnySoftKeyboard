@@ -608,6 +608,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         }
     }
 
+    // convert ASCII codes to Android KeyEvent codes
+    // ASCII Codes Table: https://ascii.cl
+    private int getKeyCode(int ascii) {
+        // A to Z
+        if (ascii >= 65 && ascii <= 90) return (KeyEvent.KEYCODE_A + ascii - 65);
+        // a to z
+        if (ascii >= 97 && ascii <= 122) return (KeyEvent.KEYCODE_A + ascii - 97);
+
+        return 0;
+    }
+
+    // send key events
+    private void sendKeyEvent(InputConnection ic, int action, int keyCode, int meta) {
+        if (ic == null) return;
+        long now = System.currentTimeMillis();
+        ic.sendKeyEvent(new KeyEvent(now, now, action, keyCode, 0, meta));
+    }
+
     private void onNonFunctionKey(
             final int primaryCode,
             final Keyboard.Key key,
@@ -667,8 +685,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             default:
                 if (isWordSeparator(primaryCode)) {
                     handleSeparator(primaryCode);
-                } else {
-                    if (mControlKeyState.isActive() && primaryCode >= 32 && primaryCode < 127) {
+                } else if (mControlKeyState.isActive()) {
+                    int keyCode = getKeyCode(primaryCode);
+                    if (Build.VERSION.SDK_INT >= 11 && keyCode != 0) {
+                        // TextView (and hence its subclasses) can handle ^A, ^Z, ^X, ^C and ^V
+                        // https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-10.0.0_r1/core/java/android/widget/TextView.java#11136
+                        // simulate physical keyboard behavior i.e. press and release a key while
+                        // keeping Ctrl pressed
+                        sendKeyEvent(ic, KeyEvent.ACTION_DOWN, keyCode, KeyEvent.META_CTRL_MASK);
+                        sendKeyEvent(ic, KeyEvent.ACTION_UP, keyCode, KeyEvent.META_CTRL_MASK);
+                    } else if (primaryCode >= 32 && primaryCode < 127) {
                         // http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
                         int controlCode = primaryCode & 31;
                         Logger.d(
@@ -684,6 +710,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     } else {
                         handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                     }
+                } else {
+                    handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                 }
                 break;
         }
