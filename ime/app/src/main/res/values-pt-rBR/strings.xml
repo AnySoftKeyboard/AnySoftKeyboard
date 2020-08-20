@@ -107,6 +107,9 @@
     <string name="switch_keyboard_on_space">Espaço alterna teclados</string>
     <string name="switch_keyboard_on_space_on_summary">Voltar para letras ao pressionar "espaço"</string>
     <string name="switch_keyboard_on_space_off_summary">Não retornar ao pressionar "espaço"</string>
+    <string name="colorize_nav_bar_title">Desenhar atrás da barra de navegação</string>
+    <string name="colorize_nav_bar_summary_on">Desenha o fundo do teclado atrás da barra de navegação. Isto não é suportado por todos os dispositivos.</string>
+    <string name="colorize_nav_bar_summary_off">Não desenhe atrás da barra de navegação.</string>
     <string name="persistent_layout_per_package_id_title">Lembrar do layout do teclado para cara app</string>
     <string name="persistent_layout_per_package_id_off_summary">Use o mesmo layout para todos os Apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Voltar automaticamente para o layout usado anteriormente do App.</string>
@@ -172,6 +175,7 @@
     <string name="swipe_action_name_cycle_keyboards">Ciclar pelos teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Ciclo reverso através de todos os teclados</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Espaço</string>
     <string name="swipe_action_name_hide">Esconder o teclado</string>
     <string name="swipe_action_name_backspace">Backspace</string>
     <string name="swipe_action_name_backword">Backword</string>
@@ -209,6 +213,9 @@
     <string name="special_dictionaries_group_summary">Dicionários de sugestão usados em AnySoftKeyboard</string>
     <string name="use_user_dictionary">Dicionário do usuário</string>
     <string name="use_user_dictionary_on_summary">Adicionar palavra sugerida (clique duas vezes na palavra para adicionar)</string>
+    <string name="always_use_fallback_user_dictionary">Usar o armazenamento privado do Dicionário do Usuário</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Usar o armazenamento privado do mecanismo de Dicionário de Usuário integrado no AnySoftKeyboard.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Tente usar o dicionário de usuário integrado no Android.</string>
     <string name="use_auto_dictionary">Dicionário automático</string>
     <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
     <string name="use_auto_dictionary_summary">Aprender automaticamente novas palavras. Método de aprendizado: %s</string>
@@ -329,6 +336,10 @@
     <string name="candidates_off_summary">Não serão mostradas sugestões</string>
     <string name="quick_fix">Correções rápidas e abreviaturas</string>
     <string name="quick_fix_summary">Corrige erros comuns e expande as abreviaturas</string>
+    <string name="quick_fix_secon_disabled">...somente no primeiro idioma</string>
+    <string name="quick_fix_secon_disabled_summ_on">Correções rápidas e abreviações funcionarão apenas no Layout do idioma atual</string>
+    <string name="quick_fix_secon_disabled_summ_off">Correções rápidas e abreviações funcionarão em todos os idiomas 
+                  selecionado substituir o dicionário padrão</string>
     <string name="allow_suggestions_restart">Restaurar as sugestões</string>
     <string name="allow_suggestions_restart_summary">Restaura a sugestão de palavras</string>
     <!-- settings - keyboard group -->
@@ -386,8 +397,11 @@ simplistas    </string>
     <string name="extension_kbd_top_small_numbers">Teclas numéricas</string>
     <string name="extension_kbd_top_numbers_alt">Teclas numéricas alternativa</string>
     <string name="extension_kbd_top_nav">Teclas de navegação</string>
+    <string name="extension_kbd_top_nav_alt">Alternativa para teclas de navegação</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Alternativa de teclas de navegação. Sem linha de números no modo pwd</string>
     <string name="extension_kbd_top_numbers_simple">Simples, apenas números</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Edição rápida de texto</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
     <string name="extension_kbd_bottom_regular">Clássico (sem microfone)</string>
     <string name="extension_kbd_bottom_iphone">Estilo iPhone (sem microfone)</string>
@@ -396,8 +410,13 @@ simplistas    </string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternativo com microfone</string>
     <string name="extension_kbd_bottom_old">À moda antiga</string>
     <string name="extension_kbd_bottom_simple">Simples</string>
+    <string name="extension_kbd_bottom_simple_alt">Alternativa Simples</string>
+    <string name="extension_kbd_bottom_row_aosp">Estilo AOSP</string>
     <string name="extension_kbd_bottom_ng">Nova geração - Testando</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Nova Geração (sem apóstrofe) - Teste</string>
     <string name="extension_kbd_extension_numbers_symbols">Números e símbolos</string>
+    <string name="extension_kbd_bottom_minimal">Minimalista</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sem emoji)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -522,6 +541,17 @@ simplistas    </string>
     <string name="enter_word_hint">Digite a palavra nova aqui</string>
     <string name="enter_abbreviation_hint">Abreviação</string>
     <string name="enter_abbreviation_target_hint">Texto completo</string>
+    <string name="toast_error_custom_path_backup">Erro: Qualquer aplicativo contextual pode ser aberto</string>
+    <string name="file_explorer_menu_add_folder">Criar pasta</string>
+    <string name="file_explorer_filename">Backup do arquivo…</string>
+    <string name="file_explorer_filename_empty">O nome do arquivo não pode ficar em branco...</string>
+    <string name="file_explorer_alert_title">Selecionar este arquivo ?</string>
+    <string name="file_explorer_restore_alert_message">Você quer restaurar este arquivo ?</string>
+    <string name="file_explorer_backup_alert_message">O arquivo existente será substituído</string>
+    <string name="file_explorer_backup_success">Seus dados foram salvos em\u0020</string>
+    <string name="file_explorer_backup_failed">Não foi possível salvar seus dados.</string>
+    <string name="file_explorer_restore_success">Seus dados foram restaurados de\u0020</string>
+    <string name="file_explorer_restore_failed">Não foi possível restaurar seus dados.</string>
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Nesta etapa, você vai precisar ativar o <i>AnySoftKeyboard</i>. Por favor procure por <i>\'AnySoftKeyboard\'</i> nas suas configurações de <i>Idioma e Teclado</i>. Isso vai permitir que eu funcione no seu aparelho.    </string>
@@ -605,6 +635,12 @@ simplistas    </string>
     <string name="theme_case_type_override_os">Deixar o Android decidir (Auto)</string>
     <string name="theme_case_type_override_lower">Sempre minúscula</string>
     <string name="theme_case_type_override_upper">Sempre maiúscula</string>
+    <string name="settings_hint_size">Tamanho do rótulo</string>
+    <string name="settings_key_hint_size_summary">Definir o tamanho de rótulo no teclado. Atualmente, %s</string>
+    <string name="settings_key_hint_size_none">Nenhuma</string>
+    <string name="settings_key_hint_size_small">Pequeno</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Grande</string>
     <string name="theme_case_type_override_title">Substitui o formato maiúscula-minúscula do teclado</string>
     <string name="theme_case_type_override_summary">Como determinar minúscula-maiúscula na visualição do teclado. Atual, %s</string>
     <string name="take_a_while_progress_message">Isso levar algum tempo…</string>
@@ -620,6 +656,7 @@ simplistas    </string>
     <string name="prefs_providers_backed_up_to">Seus dados foram salvos com sucesso em %s</string>
     <string name="prefs_providers_failed_restore_due_to">Falha na restauração dos dados devido %s</string>
     <string name="prefs_providers_restored_to">Seus dados foram restaurados com êxito a partir de %s</string>
+    <string name="word_editor_action_choose_path">Escolha localização personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Teclados podem fornecer linhas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre use linhas genéricas selecionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir que o layout altere a linha genérica.</string>
@@ -637,5 +674,11 @@ simplistas    </string>
     <string name="aosp_dark_theme_description">Baseado no AOSP, tema com cores escuras</string>
     <string name="aosp_light_theme_name">AOSP Light theme</string>
     <string name="aosp_light_theme_description">Baseado no AOSP, tema com cores claras</string>
+    <string name="app_share_title">Bem-vindo ao AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
+    <string name="app_share_text">Dê-me a oportunidade de apresentá-lo ao aplicativo de software livre, focado na privacidade, altamente personalizável e multilingue.\nBaixe em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="covid_19_click_for_info">Fique seguro! Clique para informações sobre CoronaVirus.</string>
+    <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
