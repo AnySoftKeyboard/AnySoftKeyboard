@@ -1,0 +1,9 @@
+ext.shouldBePublished = false
+ext.notPublishingReason = 'Pending application creation.'
+
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':addons:languages:belarusian:pack')
+}
+
