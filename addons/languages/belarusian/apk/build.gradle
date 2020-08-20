@@ -1,5 +1,4 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'Pending application creation.'
+ext.shouldBePublished = true
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
