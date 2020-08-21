@@ -47,7 +47,7 @@ stat /tmp/anysoftkeyboard.keystore
 wget --tries=5 --waitretry=5 "${PUBLISH_JSON_URL}" -q -O /tmp/apk_upload_key.json
 stat /tmp/apk_upload_key.json
 
-DEPLOY_TASKS=( "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )
+DEPLOY_TASKS=( "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
