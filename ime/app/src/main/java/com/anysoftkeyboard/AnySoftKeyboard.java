@@ -19,10 +19,12 @@ package com.anysoftkeyboard;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -43,6 +45,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.AnySoftKeyboardColorizeNavBar;
+import com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -386,6 +389,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
         final InputConnection ic = getCurrentInputConnection();
 
+        final List<Drawable> watermark;
+        final InputViewBinder inputView = getInputView();
+
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
@@ -606,6 +612,22 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             case KeyCodes.DISABLED:
                 Logger.d(TAG, "Disabled key was pressed.");
                 break;
+            case KeyCodes.DISABLE_PUNCTUATION:
+                AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(true);
+                watermark = super.generateWatermark();
+                watermark.add(
+                        ContextCompat.getDrawable(this, R.drawable.ic_toggle_auto_space_disabled));
+                inputView.setWatermark(watermark);
+                Logger.d(TAG, "Space and punctuation has been temporally disabled by user");
+                break;
+            case KeyCodes.ENABLE_PUNCTUATION:
+                AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(false);
+                watermark = super.generateWatermark();
+                watermark.add(
+                        ContextCompat.getDrawable(this, R.drawable.ic_toggle_auto_space_enabled));
+                inputView.setWatermark(watermark);
+                Logger.d(TAG, "Space and punctuation has been temporally enabled by user");
+                break;
             default:
                 if (BuildConfig.DEBUG) {
                     // this should not happen! We should handle ALL function keys.
@@ -730,6 +752,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                         handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                     }
                 } else {
+                    disableSamePunctuation();
+                    disableLastDigit();
                     handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                 }
                 break;

@@ -229,6 +229,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mWasLastCharDigit = false;
     private boolean mWasLastCharDigitSeparator = false;
 
+    private static boolean isPuncDisabledByGesture = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -635,6 +637,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
+    public static void changeIsPuncDisabledByGesture(boolean newStatus) {
+        isPuncDisabledByGesture = newStatus;
+    }
+
     public void disableLastDigit() {
         mWasLastCharDigit = false;
         mWasLastCharDigitSeparator = false;
@@ -789,7 +795,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 primaryCode == ':' || primaryCode == ',' || primaryCode == '.';
         boolean isFrenchPonctuation;
         boolean isFrenchPuncMarks = false;
-        String charBeforeCursor;
+        String charAfterCursor = null;
+        String charBeforeCursor = null;
 
         int lastTypedChar = AnySoftKeyboard.getLastCharTyped();
 
@@ -849,6 +856,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         isFrenchPonctuation =
                 (mFrenchSpacePunctuationBehavior && requiresDifferentSpacing(primaryCode, 1));
 
+        if (ic != null) {
+            charAfterCursor = ic.getTextAfterCursor(1, 0).toString();
+            charBeforeCursor = ic.getTextBeforeCursor(2, 0).toString();
+        }
+
+        Logger.d("nicoursi", "charAfterCursor is '" + charAfterCursor + "'");
+        boolean isThereASpaceAfterCursor = charAfterCursor.equals(" ");
+        Logger.d(
+                "nicoursi", "charAfter isThereASpaceAfterCursos " + isThereASpaceAfterCursor + "'");
+
         Logger.d("nicoursi", "isFrenchPunctuation is " + isFrenchPonctuation);
 
         Logger.d(
@@ -858,6 +875,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         + "\nmWasLastCharDigit = "
                         + mWasLastCharDigit);
 
+        Logger.d(
+                "nicoursi",
+                "Variables: "
+                        + mAdditionalCharacterForReverting
+                        + " "
+                        + mAutoSpaceForPunctuation
+                        + " "
+                        + (mSwapPunctuationAndSpace || newLine));
+        Logger.d("nicoursi", "isPuncDisabledByGesture = " + isPuncDisabledByGesture);
         if (ic != null) {
             if (isSpace
                     && mIsDoubleSpaceChangesToPeriod
@@ -875,7 +901,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 Logger.d("nicoursi", "this should not enter there");
             } else if (mAdditionalCharacterForReverting
                     && mAutoSpaceForPunctuation
-                    && (mSwapPunctuationAndSpace || newLine)) {
+                    && (mSwapPunctuationAndSpace || newLine)
+                    && !isPuncDisabledByGesture) {
                 // Even if 'auto select suggestion aggressiveness' is disabled, we still want
                 // punctuation correction.
                 // If not, you can add '&& isAutoCorrect()' to the condition above.
@@ -885,15 +912,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // input-box
                 // into "word ," -> "word, "
                 // or   "word,"  -> "word, "
+                Logger.d("nicoursi", "entering this condition");
                 if (isSpaceSwapCharacter(primaryCode)) {
-                    charBeforeCursor = ic.getTextBeforeCursor(2, 0).toString();
 
+                    Logger.d("nicoursi", "is " + (char) primaryCode + " a swapCharacter ?");
                     if (!charBeforeCursor.equals("")) {
-                        if (isAlphabet(charBeforeCursor.charAt(0))) disableSamePunctuation();
                         if (charBeforeCursor.length() == 2
                                 && charBeforeCursor.charAt(1) == KeyCodes.SPACE
                                 && charBeforeCursor.charAt(0) == primaryCode)
                             mIsLastPunctuationSame = primaryCode;
+                        if (isAlphabet(charBeforeCursor.charAt(0))) disableSamePunctuation();
                     }
 
                     if (mEnableSamePunctuation && primaryCode != mIsLastPunctuationSame) {
@@ -928,7 +956,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                             || (lastTypedChar != KeyCodes.ENTER && mEnableSamePunctuation)
                             || (!newLine && requiresDifferentSpacing(lastTypedChar, 4))
                             || (lastTypedChar == '?' && primaryCode == '!')
-                            || (lastTypedChar == '!' && primaryCode == '?')) {
+                            || (lastTypedChar == '!' && primaryCode == '?')
+                            || (mEnableSamePunctuation
+                                    && !charBeforeCursor.equals("")
+                                    && charBeforeCursor.charAt(0) == primaryCode)) {
                         // delete the space to get ready for punctuation
                         Logger.d(
                                 "nicoursi",
@@ -951,13 +982,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                                 ? " "
                                                 : "")
                                         + new String(new int[] {primaryCode}, 0, 1)
-                                        + (newLine ? "" : " "),
+                                        + (newLine || isThereASpaceAfterCursor ? "" : " "),
                                 1);
                         if (isFrenchPonctuation && !mEnableSamePunctuation)
                             mHowManyCharactersForReverting++;
                     } else {
                         ic.commitText(
-                                new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "),
+                                new String(new int[] {primaryCode}, 0, 1)
+                                        + (newLine || isThereASpaceAfterCursor ? "" : " "),
                                 1);
                     }
 
@@ -975,6 +1007,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                             && lastTypedChar != KeyCodes.ENTER
                             && !ic.getTextBeforeCursor(1, 0).toString().equals("")) {
                         ic.commitText(" ", 1);
+                        Logger.d("nicoursi", "I am freaking inserting a space here");
                         mHowManyCharactersForReverting++;
                     }
                 }
@@ -985,7 +1018,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     && isSpaceSwapCharacter(primaryCode)) {
                 ic.deleteSurroundingText(1, 0);
                 mHowManyCharactersForReverting--;
-                ic.commitText(new String(new int[] {primaryCode}, 0, 1) + (newLine ? "" : " "), 1);
+                ic.commitText(
+                        new String(new int[] {primaryCode}, 0, 1)
+                                + (newLine || isThereASpaceAfterCursor ? "" : " "),
+                        1);
                 handledOutputToInputConnection = true;
                 Logger.d("nicoursi", "If key is space or isSwapCharacter");
             }
@@ -1010,13 +1046,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         + lastTypedChar
                         + "\n ic = "
                         + ic);
+
         if (!handledOutputToInputConnection) {
             // Digit go there
             if (mWasLastCharDigitSeparator
                     && (isDigit || isSpace)
                     && (lastTypedChar == ':' || lastTypedChar == ',' || lastTypedChar == '.')
                     && lastTypedChar != -5 /* -5 is Keycodes.DELETE */
-                    && ic != null) {
+                    && ic != null
+                    && charBeforeCursor.charAt(0) == lastTypedChar) {
                 Logger.d(
                         "nicoursi",
                         "The HIGHLY suspected code, if this log is printed, we got it! ");
@@ -1033,6 +1071,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mHowManyCharactersForReverting++;
             }
 
+            Logger.d("nicoursi", "Is it going there ? for " + (char) primaryCode);
             sendKeyChars(primaryCode);
 
             // 171 = << , 187 = >>

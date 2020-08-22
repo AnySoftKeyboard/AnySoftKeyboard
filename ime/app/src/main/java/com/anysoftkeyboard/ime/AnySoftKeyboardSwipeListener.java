@@ -250,6 +250,10 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
                 return KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
             case "utility_keyboard":
                 return KeyCodes.UTILITY_KEYBOARD;
+            case "disable_punctuation":
+                return KeyCodes.DISABLE_PUNCTUATION;
+            case "enable_punctuation":
+                return KeyCodes.ENABLE_PUNCTUATION;
             default:
                 return 0; // 0 means no action
         }
