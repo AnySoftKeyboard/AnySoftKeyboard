@@ -1168,32 +1168,32 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             // Follow it with a space if there is not already one or if it is not a punctuation mark
             // that goes attached to the word being manually picked
-            boolean isNextCharSpaceOrPunctuation = false;
-            if (ic != null) {
-                String strNextChar = ic.getTextAfterCursor(1, 0).toString();
-                if (strNextChar.length() == 1) {
-                    char nextCharAfterCursor = strNextChar.charAt(0);
-                    isNextCharSpaceOrPunctuation =
-                            nextCharAfterCursor == ' '
-                                    || nextCharAfterCursor == ','
-                                    || nextCharAfterCursor == '?'
-                                    || nextCharAfterCursor == '!'
-                                    || nextCharAfterCursor == ';'
-                                    || nextCharAfterCursor == ':'
-                                    || nextCharAfterCursor == '.'
-                                    || nextCharAfterCursor == ')'
-                                    || nextCharAfterCursor == ']'
-                                    || nextCharAfterCursor == '}'
-                                    || nextCharAfterCursor == '"'
-                                    || nextCharAfterCursor == '`';
+            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
+                boolean isNextCharSpaceOrPunctuation = false;
+                if (ic != null) {
+                    String strNextChar = ic.getTextAfterCursor(1, 0).toString();
+                    if (strNextChar.length() == 1) {
+                        char nextCharAfterCursor = strNextChar.charAt(0);
+                        isNextCharSpaceOrPunctuation =
+                                nextCharAfterCursor == ' '
+                                        || nextCharAfterCursor == ','
+                                        || nextCharAfterCursor == '?'
+                                        || nextCharAfterCursor == '!'
+                                        || nextCharAfterCursor == ';'
+                                        || nextCharAfterCursor == ':'
+                                        || nextCharAfterCursor == '.'
+                                        || nextCharAfterCursor == ')'
+                                        || nextCharAfterCursor == ']'
+                                        || nextCharAfterCursor == '}'
+                                        || nextCharAfterCursor == '"'
+                                        || nextCharAfterCursor == '`';
+                    }
                 }
-            }
+                if (!isNextCharSpaceOrPunctuation) {
 
-            if (withAutoSpaceEnabled
-                    && (index == 0 || !typedWord.isAtTagsSearchState())
-                    && !isNextCharSpaceOrPunctuation) {
-                sendKeyChar((char) KeyCodes.SPACE);
-                setSpaceTimeStamp(true);
+                    sendKeyChar((char) KeyCodes.SPACE);
+                    setSpaceTimeStamp(true);
+                }
             }
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
