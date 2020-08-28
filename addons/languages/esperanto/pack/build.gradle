@@ -1,0 +1,12 @@
+ext.status_icon_text = "eo"
+
+ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
+
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"
+//apply from: "$rootDir/gradle/publish_maven.gradle"
+//
+//publish {
+//    artifactId = 'esperanto'
+//    desc = "Esperanto pack for AnySoftKeyboard"
+//}

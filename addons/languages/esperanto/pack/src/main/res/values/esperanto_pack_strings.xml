@@ -1,0 +1,8 @@
+<resources>
+    <string name="esperanto_dictionary_description">Esperanto</string>
+    <string name="eo_qwerty_description">QWERTY latin keyboard, AOSP style.</string>
+    <string name="eo_qwertz_description">QWERTZ latin keyboard</string>
+    <string name="eo_dvorak_description">Dvorak style</string>
+    <string name="eo_azerty_description">AZERTY latin keyboard</string>
+    <string name="eo_bepo_description">BÉPO style</string>
+</resources>

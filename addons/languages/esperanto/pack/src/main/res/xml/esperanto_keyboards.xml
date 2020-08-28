@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <Keyboard nameResId="@string/eo_qwerty_keyboard"
+              iconResId="@drawable/ic_status_esperanto"
+              layoutResId="@xml/eo_qwerty"
+              id="646ba9fd-8b22-48f9-a709-1af95d076e2b"
+              defaultDictionaryLocale="eo"
+              description="@string/eo_qwerty_description"
+              index="1"
+              defaultEnabled="true"
+              physicalKeyboardMappingResId="@xml/esperanto_physical" />
+    <Keyboard nameResId="@string/eo_qwertz_keyboard"
+              iconResId="@drawable/ic_status_esperanto"
+              layoutResId="@xml/eo_qwertz"
+              id="0fde5947-4b89-4227-8427-811e8c995714"
+              defaultDictionaryLocale="eo"
+              description="@string/eo_qwertz_description"
+              index="2"
+              physicalKeyboardMappingResId="@xml/esperanto_physical" />
+    <Keyboard nameResId="@string/eo_dvorak_keyboard"
+              iconResId="@drawable/ic_status_esperanto"
+              layoutResId="@xml/eo_dvorak"
+              id="2fc70db0-4204-4793-9a04-8fb0412f7260"
+              defaultDictionaryLocale="eo"
+              description="@string/eo_dvorak_description"
+              index="3"
+              physicalKeyboardMappingResId="@xml/esperanto_physical" />
+    <Keyboard nameResId="@string/eo_azerty_keyboard"
+              iconResId="@drawable/ic_status_esperanto"
+              layoutResId="@xml/eo_azerty"
+              id="80a8bb60-eae0-4bcb-ad3c-70960a809638"
+              defaultDictionaryLocale="eo"
+              description="@string/eo_azerty_description"
+              index="4"
+              physicalKeyboardMappingResId="@xml/esperanto_physical" />
+    <Keyboard nameResId="@string/eo_bepo_keyboard"
+              iconResId="@drawable/ic_status_esperanto"
+              layoutResId="@xml/eo_bepo"
+              id="3895c4a6-c6b2-4d55-88a3-f16adab18718"
+              defaultDictionaryLocale="eo"
+              description="@string/eo_bepo_description"
+              index="5"
+              physicalKeyboardMappingResId="@xml/esperanto_physical" />
+
+
+</Keyboards>
