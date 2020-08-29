@@ -637,6 +637,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
+    public static boolean getIsPuncDisabledByGesture() {
+        return isPuncDisabledByGesture;
+    }
+
     public static void changeIsPuncDisabledByGesture(boolean newStatus) {
         isPuncDisabledByGesture = newStatus;
     }

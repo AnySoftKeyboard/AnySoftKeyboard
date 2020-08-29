@@ -612,21 +612,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             case KeyCodes.DISABLED:
                 Logger.d(TAG, "Disabled key was pressed.");
                 break;
-            case KeyCodes.DISABLE_PUNCTUATION:
-                AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(true);
-                watermark = super.generateWatermark();
-                watermark.add(
-                        ContextCompat.getDrawable(this, R.drawable.ic_toggle_auto_space_disabled));
-                inputView.setWatermark(watermark);
-                Logger.d(TAG, "Space and punctuation has been temporally disabled by user");
-                break;
-            case KeyCodes.ENABLE_PUNCTUATION:
-                AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(false);
-                watermark = super.generateWatermark();
-                watermark.add(
-                        ContextCompat.getDrawable(this, R.drawable.ic_toggle_auto_space_enabled));
-                inputView.setWatermark(watermark);
-                Logger.d(TAG, "Space and punctuation has been temporally enabled by user");
+            case KeyCodes.ENABLE_DISABLE_PUNCTUATION:
+                if (AnySoftKeyboardSuggestions.getIsPuncDisabledByGesture()) {
+                    AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(false);
+                    watermark = super.generateWatermark();
+                    watermark.add(
+                            ContextCompat.getDrawable(
+                                    this, R.drawable.ic_toggle_auto_space_enabled));
+                    inputView.setWatermark(watermark);
+                    Logger.d(TAG, "Space and punctuation has been temporally enabled by user");
+                } else {
+                    AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(true);
+                    watermark = super.generateWatermark();
+                    watermark.add(
+                            ContextCompat.getDrawable(
+                                    this, R.drawable.ic_toggle_auto_space_disabled));
+                    inputView.setWatermark(watermark);
+                    Logger.d(TAG, "Space and punctuation has been temporally disabled by user");
+                }
                 break;
             default:
                 if (BuildConfig.DEBUG) {
