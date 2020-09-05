@@ -643,6 +643,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         }
     }
 
+    @NonNull
+    @Override
+    protected List<Drawable> generateWatermark() {
+        final List<Drawable> watermark = super.generateWatermark();
+        final InputViewBinder inputView = getInputView();
+        if (AnySoftKeyboardSuggestions.getIsPuncDisabledByGesture()) {
+            watermark.add(
+                    ContextCompat.getDrawable(this, R.drawable.ic_toggle_auto_space_disabled));
+            inputView.setWatermark(watermark);
+        }
+        return watermark;
+    }
+
     // convert ASCII codes to Android KeyEvent codes
     // ASCII Codes Table: https://ascii.cl
     private int getKeyCode(int ascii) {
