@@ -1,4 +1,6 @@
 <resources>
    <string name="italian_qwerty_description">QWERTY Italian keyboard</string>
    <string name="italian_keyboard_symbols_description">QWERTY Italian keyboard with symbols</string>
+   <string name="italian_keyboard_symbols_number_row_description">QWERTY Italian keyboard with symbols and numbers row</string>
+   <string name="english_qwerty_with_numbers_row_description">QWERTY English keyboard with symbols and numbers row</string>
 </resources>
