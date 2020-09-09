@@ -35,9 +35,14 @@
         <item name="keyPreviewBackground">@drawable/aosp_dark_popup_background</item>
         <item name="suggestionBackgroundImage">@color/aosp_dark_suggestions_background</item>
 
-        <item name="keyTextColor">#AAA</item>
-        <item name="keyPreviewTextColor">#AAA</item>
+        <item name="keyTextColor">#FFF</item>
+        <item name="keyPreviewTextColor">#FFF</item>
         <item name="keyboardNameTextColor">#F666</item>
+
+        <item name="keyVerticalGap">7.5dp</item>
+        <item name="keyHorizontalGap">5dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="keyTextSize">28sp</item>
     </style>
 
     <style name="AospDarkPopup"
