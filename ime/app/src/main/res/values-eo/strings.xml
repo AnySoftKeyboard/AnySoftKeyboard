@@ -9,6 +9,7 @@
     <string name="language_root_tile">Lingvo</string>
     <string name="language_keyboards_settings_tile">Ŝalti klavarojn kaj lingvojn.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">Fasado</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="search_market_for_addons">Serĉi kromprogramojn</string>
@@ -31,7 +32,13 @@
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">Gestoj</string>
+    <string name="effects_group">Efektoj</string>
     <string name="ime_settings">Klavaraj agordoj</string>
+    <string name="night_mode_type_never">Neniam</string>
+    <string name="night_mode_type_always">Ĉiam</string>
+    <string name="power_save_mode_types_never">Neniam</string>
+    <string name="power_save_mode_types_always">Ĉiam</string>
     <string name="swipe_action_name_hide">Kaŝi klavaron</string>
     <string name="swipe_action_name_backspace">Retropaŝo</string>
     <string name="settings_swipe_velocity_very_slow">Tre malrapida</string>
