@@ -58,6 +58,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 import java.util.List;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
@@ -427,6 +428,11 @@ public class MainFragment extends Fragment {
                         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             Intent dataToFileChooser = new Intent();
                             dataToFileChooser.setType("text/xml");
+                            if (modeBackupRestore == R.id.backup_prefs) {
+                                // create backup file in selected directory
+                                dataToFileChooser.putExtra(
+                                        Intent.EXTRA_TITLE, GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
+                            }
                             dataToFileChooser.setAction(actionCustomPath);
                             dataToFileChooser.putExtra("checked", checked);
                             try {
@@ -455,7 +461,15 @@ public class MainFragment extends Fragment {
 
     private Disposable launchBackupRestore(int custom, Uri customUri) {
         File filePath;
-        if (custom == 1) filePath = new File(customUri.getPath());
+        if (custom == 1) {
+            if (customUri.getPath() != null) {
+                // Uri won't show an absolute path, so better show only file name
+                List<String> path = Arrays.asList(customUri.getPath().split("/"));
+                filePath = new File(path.get(path.size() - 1));
+            } else {
+                filePath = new File(customUri.getPath());
+            }
+        }
         else filePath = GlobalPrefsBackup.getBackupFile();
 
         return RxProgressDialog.create(
