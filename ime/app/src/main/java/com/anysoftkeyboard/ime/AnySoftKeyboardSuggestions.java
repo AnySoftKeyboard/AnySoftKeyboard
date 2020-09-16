@@ -954,9 +954,21 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     + !newLine
                                     + " differentSpacing = "
                                     + requiresDifferentSpacing(lastTypedChar, 4));
+                    Logger.d("nicoursi", charBeforeCursor);
+
+                    System.out.println("CharbeforeCursor = '" + charBeforeCursor + "'");
+
+                    /*Logger.d(
+                    "nicoursi",
+                    "Is it true ? "
+                            + (charBeforeCursor.charAt(charBeforeCursor.length() - 1)
+                                    == KeyCodes.SPACE));*/
+
                     // last character was a space OR this is the same punctuation twice OR last
                     // punctuation was closing brackets
-                    if (mLastSpaceTimeStamp != NEVER_TIME_STAMP
+                    if ((charBeforeCursor.length() > 0
+                                    && charBeforeCursor.charAt(charBeforeCursor.length() - 1)
+                                            == KeyCodes.SPACE)
                             || (lastTypedChar != KeyCodes.ENTER && mEnableSamePunctuation)
                             || (!newLine && requiresDifferentSpacing(lastTypedChar, 4))
                             || (lastTypedChar == '?' && primaryCode == '!')

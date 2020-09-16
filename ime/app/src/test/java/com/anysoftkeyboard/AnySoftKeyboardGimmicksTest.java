@@ -1284,6 +1284,36 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testPunctuationWithMovingCursor() {
+        // This test has been made to see if mLastSpaceTimeStamp was reliable in some cases.
+        // mLastSpaceTimeStamp does not seems to support cursor position changes
+
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+
+        // We move the cursor between the 'h' and 'e' letter
+        inputConnection.setSelection(1, 1);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("h el", inputConnection.getCurrentTextInInputConnection());
+
+        // We move the cursor at the end of the text, after the 'l'
+        inputConnection.setSelection(4, 4);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("h el. ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("This is finally working");
+        Assert.assertEquals(
+                "h el. This is finally working", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals(
+                "h el. This is finally working? ",
+                inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testDoNotSwapDoublePunctuationsWhenInFrLocale() {
         final AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         ExternalAnyKeyboard keyboard =
