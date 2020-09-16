@@ -956,8 +956,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     + requiresDifferentSpacing(lastTypedChar, 4));
                     Logger.d("nicoursi", charBeforeCursor);
 
-                    System.out.println("CharbeforeCursor = '" + charBeforeCursor + "'");
-
                     /*Logger.d(
                     "nicoursi",
                     "Is it true ? "
