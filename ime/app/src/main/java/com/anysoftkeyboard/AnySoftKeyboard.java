@@ -937,16 +937,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             lastCodePoint = Character.codePointBefore(cs, idx);
         }
         if (idx > 0) {
+            final int remainingLength = idx;
+
             // This while-loop also isn't guaranteed to run even once...
             while (isBackWordDeleteCodePoint(lastCodePoint)) {
                 idx -= Character.charCount(lastCodePoint);
                 if (idx == 0) break;
                 lastCodePoint = Character.codePointBefore(cs, idx);
             }
-        }
-        // but we're supposed to delete at least one Unicode codepoint.
-        if (idx == inputLength) {
-            idx -= Character.charCount(lastCodePoint);
+
+            // but we're supposed to delete at least one Unicode codepoint.
+            if (idx == remainingLength) {
+                idx -= Character.charCount(lastCodePoint);
+            }
         }
         ic.deleteSurroundingText(inputLength - idx, 0); // it is always > 0 !
     }
