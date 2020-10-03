@@ -913,12 +913,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // then when the user press backspace (for some reason),
         // the entire previous word deletes.
 
-        // 2) Or we delete all the characters till we encounter a separator, but
-        // delete at least one character.
+        // 2) Or we delete all whitespaces and then all the characters
+        // till we encounter a separator, but delete at least one character.
         /*
-         * What to do: We delete until we find a separator (the function
-         * isBackWordDeleteCodePoint). Note that we MUST delete a delete at least one
-         * character "test this, " -> "test this," -> "test this" -> "test "
+         * What to do: We first delete all whitespaces, and then we delete until we find
+         * a separator (the function isBackWordDeleteCodePoint).
+         * Note that we MUST delete at least one character "test this, " -> "test this" -> "test "
          */
         // Pro: Supports auto-caps, and mostly similar to desktop OSes
         // Con: Not all desktop use-cases are here.
@@ -931,10 +931,18 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         int idx = inputLength;
         int lastCodePoint = Character.codePointBefore(cs, idx);
         // This while-loop isn't guaranteed to run even once...
-        while (isBackWordDeleteCodePoint(lastCodePoint)) {
+        while (Character.isWhitespace(lastCodePoint)) {
             idx -= Character.charCount(lastCodePoint);
             if (idx == 0) break;
             lastCodePoint = Character.codePointBefore(cs, idx);
+        }
+        if (idx > 0) {
+            // This while-loop also isn't guaranteed to run even once...
+            while (isBackWordDeleteCodePoint(lastCodePoint)) {
+                idx -= Character.charCount(lastCodePoint);
+                if (idx == 0) break;
+                lastCodePoint = Character.codePointBefore(cs, idx);
+            }
         }
         // but we're supposed to delete at least one Unicode codepoint.
         if (idx == inputLength) {
