@@ -930,16 +930,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         final int inputLength = cs.length();
         int idx = inputLength;
         int lastCodePoint = Character.codePointBefore(cs, idx);
-        // This while-loop isn't guaranteed to run even once...
+        // First delete all trailing whitespaces, if there are any...
         while (Character.isWhitespace(lastCodePoint)) {
             idx -= Character.charCount(lastCodePoint);
             if (idx == 0) break;
             lastCodePoint = Character.codePointBefore(cs, idx);
         }
+        // If there is still something left to delete...
         if (idx > 0) {
             final int remainingLength = idx;
 
-            // This while-loop also isn't guaranteed to run even once...
+            // This while-loop isn't guaranteed to run even once...
             while (isBackWordDeleteCodePoint(lastCodePoint)) {
                 idx -= Character.charCount(lastCodePoint);
                 if (idx == 0) break;
