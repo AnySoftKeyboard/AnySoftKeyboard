@@ -431,7 +431,8 @@ public class MainFragment extends Fragment {
                             if (modeBackupRestore == R.id.backup_prefs) {
                                 // create backup file in selected directory
                                 dataToFileChooser.putExtra(
-                                        Intent.EXTRA_TITLE, GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
+                                        Intent.EXTRA_TITLE,
+                                        GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
                             }
                             dataToFileChooser.setAction(actionCustomPath);
                             dataToFileChooser.putExtra("checked", checked);
@@ -469,8 +470,7 @@ public class MainFragment extends Fragment {
             } else {
                 filePath = new File(customUri.getPath());
             }
-        }
-        else filePath = GlobalPrefsBackup.getBackupFile();
+        } else filePath = GlobalPrefsBackup.getBackupFile();
 
         return RxProgressDialog.create(
                         new Pair<>(supportedProviders, checked),
