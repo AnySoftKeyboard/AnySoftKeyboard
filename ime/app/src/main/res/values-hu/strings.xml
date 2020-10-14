@@ -606,7 +606,7 @@
         AnySoftKeyboard</i>-ot. Ellenőrizze az <i>\'AnySoftKeyboard\'</i>-ot a készüléke  <i>Nyelv&amp;Bevitel menüpontja
         alattl</i>. Ez lehetővé teszi a futását.
     </string>
-    <string name="setup_wizard_step_one_action">Ugrás a <i>Nyelv&amp;bevitel beállításaihoz</i>…
+    <string name="setup_wizard_step_one_action">Tovább a <i>Nyelv&amp;bevitel beállításaihoz</i>…
     </string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Hiba: Az eszköz nem
         nem támogatja 3.fél billentyűzeteit. Az AnySoftKeyboard nem engedélyezhető!
