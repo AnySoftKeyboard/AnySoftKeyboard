@@ -375,11 +375,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
-        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -396,11 +391,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         Assert.assertEquals("Auto ", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-
-        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
