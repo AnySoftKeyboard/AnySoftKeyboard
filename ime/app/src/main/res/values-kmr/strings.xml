@@ -101,7 +101,9 @@
     <string name="swipe_left_action_title">Çalakiya dişeqitîni çepê bijêre</string>
     <string name="swipe_right_action">Bişeqitînin rastê</string>
     <string name="swipe_action_name_shift">Dor</string>
+    <string name="swipe_action_name_space">Meydan</string>
     <string name="swipe_action_name_hide">Klavyeyê veşêre</string>
+    <string name="swipe_action_name_clear_input">Paqij kirina tevahiya nivîsê </string>
     <string name="settings_swipe_velocity_very_slow">Pirr hêdî</string>
     <string name="settings_swipe_velocity_slow">Hêdî</string>
     <string name="settings_swipe_velocity_normal">Normal</string>
@@ -112,9 +114,16 @@
     <string name="settings_swipe_distance_normal">Normal</string>
     <string name="settings_swipe_distance_long">Dirêj</string>
     <string name="settings_swipe_distance_very_long">Pirr dirêj</string>
+    <string name="more_ui_settings_group">Navrûya Bikarhêner</string>
+    <string name="special_dictionaries_group">Ferhengên taybetî</string>
+    <string name="special_dictionaries_group_summary">Ferhengên pêşniyarê yên ku têne bikar anîn</string>
     <string name="use_user_dictionary">Ferhenga bikarnîvan</string>
+    <string name="always_use_fallback_user_dictionary">Hilanîna taybet-Bikarhêner-Bikaranîn bikar bînin</string>
     <string name="use_auto_dictionary">Ferhenga Otomatîkî</string>
     <string name="auto_dictionary_threshold_type_after_a_while">Piştî hendik bikaranîn</string>
+    <string name="use_next_words_dictionary">Pêşniyarên peyva paşîn</string>
+    <string name="next_words_dictionary_off">Gotina din pêşniyar nekin</string>
+    <string name="next_words_dictionary_words_only">Gotina din pêşniyar bikin</string>
     <string name="auto_pick_suggestion_aggressiveness_none">Girtî</string>
     <string name="tweaks_group">Rastbune</string>
     <string name="show_hint_text">Nivîsê nîşan bide</string>
@@ -132,6 +141,7 @@
     <string name="show_crash_notification_on_summary">Gava ku hûn ASK hilweşînin, danûstendina raporkirina pevçûnê vekin
     </string>
     <string name="key_preview_position_override_above_keyboard">Li jorê klavyeyê</string>
+    <string name="tweak_animations_level_title">Jayandarî</string>
     <string name="tweak_animations_level_types_full">Tije</string>
     <string name="tweak_animations_level_types_some">Hin</string>
     <string name="tweak_animations_level_types_none">Netû</string>
@@ -139,6 +149,10 @@
     <string name="keyboard_behavior_group">Behsa Keyboard</string>
     <string name="candidates_on">Pêşniyaran nîşan bikin</string>
     <!-- settings - keyboard group -->
+    <string name="keyboards_group">Klavyeya</string>
+    <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">123</string>
     <string name="symbols_phone_keyboard">têlefonê</string>
     <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">dem</string>
@@ -149,9 +163,19 @@
     <!-- settings - bottom generic row -->
     <string name="keyboard_theme_list_title">Dirêj hilbijêrin</string>
     <!-- extension keyboard type -->
+    <string name="extension_kbd_bottom_regular_with_voice">Rêzbirêz</string>
+    <string name="extension_kbd_bottom_regular">Klasîk</string>
+    <string name="extension_kbd_bottom_simple">Sade</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Çûyin</string>
+    <string name="label_next_key">Piştî</string>
+    <string name="label_previous_key">Berê</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_regular">123</string>
     <!-- dictionaries -->
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="history_quick_text_key_name">Dîrok</string>
     <!-- User dictionary settings -->
     <string name="user_dictionary_select_locale">Ziman:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
