@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GlobalPrefsBackup {
-    @VisibleForTesting static final String GLOBAL_BACKUP_FILENAME = "AnySoftKeyboardPrefs.xml";
+    public static final String GLOBAL_BACKUP_FILENAME = "AnySoftKeyboardPrefs.xml";
 
     private static File customFilename = null;
 
