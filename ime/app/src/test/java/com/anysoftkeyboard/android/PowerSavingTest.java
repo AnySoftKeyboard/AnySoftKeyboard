@@ -149,12 +149,29 @@ public class PowerSavingTest {
         sendBatteryState(false);
         Assert.assertEquals(Boolean.FALSE, state.get());
 
+        sendBatteryState(true);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+
+        sendChargingState(false);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+        sendBatteryState(true);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+        sendChargingState(true);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+        sendChargingState(false);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+
         disposable.dispose();
 
         sendBatteryState(true);
-        Assert.assertEquals(Boolean.FALSE, state.get());
+        Assert.assertEquals(Boolean.TRUE, state.get());
         sendBatteryState(false);
-        Assert.assertEquals(Boolean.FALSE, state.get());
+        Assert.assertEquals(Boolean.TRUE, state.get());
+
+        sendChargingState(true);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+        sendChargingState(false);
+        Assert.assertEquals(Boolean.TRUE, state.get());
     }
 
     @Test
@@ -276,6 +293,15 @@ public class PowerSavingTest {
                 .sendBroadcast(
                         new Intent(
                                 lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
+    }
+
+    public static void sendChargingState(boolean connected) {
+        ApplicationProvider.getApplicationContext()
+                .sendBroadcast(
+                        new Intent(
+                                connected
+                                        ? Intent.ACTION_POWER_CONNECTED
+                                        : Intent.ACTION_POWER_DISCONNECTED));
     }
 
     public static void sendPowerSavingState(
