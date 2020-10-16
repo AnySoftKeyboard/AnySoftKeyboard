@@ -67,7 +67,7 @@ private void createJacocoReportTask(testTaskName, name) {
 
         task.reports {
             xml.enabled = true
-            xml.destination = file("${project.buildDir}/jacoco/report/${testTaskName}Coverage.xml")
+            xml.destination = file("${rootProject.buildDir}/jacoco/jacoco${task.path.replace(':', '-')}Coverage.xml")
             html.enabled = true
             html.destination = file("${project.buildDir}/jacoco/report/html/${testTaskName}")
         }
