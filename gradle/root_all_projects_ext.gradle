@@ -4,8 +4,8 @@ allprojects {
         supportLibVersion = '25.4.0'
         robolectricVersion = '4.3.1'
 
-        sdkTargetVersion = 28
-        sdkCompileVersion = 28
+        sdkTargetVersion = 29
+        sdkCompileVersion = 29
         sdkMinimumVersion = 9
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")
