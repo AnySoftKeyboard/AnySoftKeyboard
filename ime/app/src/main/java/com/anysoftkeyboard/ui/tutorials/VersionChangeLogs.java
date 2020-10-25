@@ -17,7 +17,8 @@ public class VersionChangeLogs {
                         "r4",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92"),
-                        "Keep safe! #covid19",
+                        "Keep safe! #covid19 \uD83D\uDE37",
+                        "Updated emoji to version 13.1 - Android 8.1+",
                         "So, you just copied some text? Let me suggest pasting it.",
                         "Finally, you can decide where the settings backup file should be.",
                         "People spotted bugs. We slayed them!",
