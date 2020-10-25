@@ -62,9 +62,6 @@ public class Notices {
         private boolean theRightTimeToShow(PublicNotices ime) {
             return MIN_TIME_BETWEEN_SHOWING
                             < (SystemClock.elapsedRealtime() - mLastTimeInfoWasShown)
-                    &&
-                    // only till June 22nd
-                    System.currentTimeMillis() < 1592789573000L
                     && ime.getInputViewContainer().getCandidateView() != null
                     && ime.getInputViewContainer().getCandidateView().getVisibility()
                             == View.VISIBLE;
