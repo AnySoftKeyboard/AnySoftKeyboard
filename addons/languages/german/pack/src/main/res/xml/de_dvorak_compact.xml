@@ -18,7 +18,7 @@
         <Key android:codes="100,109" android:keyLabel="dm"/>
         <Key android:codes="114,119" android:keyLabel="rw"/>
         <Key android:codes="110,118" android:keyLabel="nv"/>
-        <Key android:codes="115,122" android:keyLabel="sz" android:popupCharacters="ß" android:keyEdgeFlags="right"/>
+        <Key android:codes="115,122" android:keyLabel="sz" android:popupCharacters="ßſ" android:keyEdgeFlags="right"/>
     </Row>
 
     <!-- Top-row of the Dvorak layout. -->
