@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 /** Driver for a Fragment unit-tests */
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
