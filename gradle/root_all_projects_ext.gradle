@@ -6,7 +6,7 @@ allprojects {
 
         sdkTargetVersion = 29
         sdkCompileVersion = 29
-        sdkMinimumVersion = 9
+        sdkMinimumVersion = 14
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")
         isGithubAction = 'true' == System.getenv("GITHUB_ACTIONS")
