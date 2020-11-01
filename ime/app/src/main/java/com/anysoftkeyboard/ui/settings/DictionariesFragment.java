@@ -17,11 +17,11 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
+import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import android.view.View;
 import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment;
 import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;

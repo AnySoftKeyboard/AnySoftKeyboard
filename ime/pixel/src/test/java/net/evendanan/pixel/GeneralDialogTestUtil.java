@@ -1,9 +1,9 @@
 package net.evendanan.pixel;
 
 import android.app.Dialog;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import android.widget.TextView;
 import io.reactivex.Observable;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;

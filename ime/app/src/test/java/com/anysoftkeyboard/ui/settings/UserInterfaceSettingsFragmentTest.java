@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import android.view.View;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.menny.android.anysoftkeyboard.R;

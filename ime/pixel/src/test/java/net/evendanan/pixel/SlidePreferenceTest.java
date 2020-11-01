@@ -4,11 +4,11 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
 import org.junit.Before;

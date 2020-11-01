@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;

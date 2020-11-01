@@ -18,13 +18,13 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Xml;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.XmlRes;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.util.Xml;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;

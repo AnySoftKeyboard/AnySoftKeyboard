@@ -17,10 +17,10 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
+import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.preference.ListPreference;
 import androidx.preference.PreferenceFragmentCompat;
-import android.view.View;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;

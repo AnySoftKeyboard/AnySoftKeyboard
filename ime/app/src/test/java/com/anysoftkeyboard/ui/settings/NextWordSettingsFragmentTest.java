@@ -4,9 +4,9 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
 import android.app.Application;
+import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import android.view.MenuItem;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;

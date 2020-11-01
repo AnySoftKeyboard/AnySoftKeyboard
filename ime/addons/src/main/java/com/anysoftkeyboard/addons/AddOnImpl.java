@@ -18,11 +18,11 @@ package com.anysoftkeyboard.addons;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.text.TextUtils;
+import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.SparseArrayCompat;
-import android.text.TextUtils;
-import android.util.SparseIntArray;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;

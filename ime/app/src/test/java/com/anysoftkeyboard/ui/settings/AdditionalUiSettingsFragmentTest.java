@@ -2,8 +2,8 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.content.DialogInterface;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;

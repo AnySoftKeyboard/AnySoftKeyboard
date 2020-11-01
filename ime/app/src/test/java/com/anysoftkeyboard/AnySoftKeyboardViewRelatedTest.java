@@ -1,11 +1,11 @@
 package com.anysoftkeyboard;
 
-import androidx.appcompat.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;

@@ -21,9 +21,9 @@ import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_EXTE
 import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_TOP;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;

@@ -25,13 +25,13 @@ package net.evendanan.pixel;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import androidx.annotation.VisibleForTesting;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceViewHolder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import androidx.annotation.VisibleForTesting;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceViewHolder;
 import java.util.Locale;
 
 public class SlidePreference extends Preference implements SeekBar.OnSeekBarChangeListener {

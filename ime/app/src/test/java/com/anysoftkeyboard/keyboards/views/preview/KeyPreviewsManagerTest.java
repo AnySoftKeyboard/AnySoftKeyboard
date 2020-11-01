@@ -4,8 +4,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.menny.android.anysoftkeyboard.R.drawable.blacktheme_preview_background;
 
 import android.app.Application;
-import androidx.core.content.ContextCompat;
 import android.widget.PopupWindow;
+import androidx.core.content.ContextCompat;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;

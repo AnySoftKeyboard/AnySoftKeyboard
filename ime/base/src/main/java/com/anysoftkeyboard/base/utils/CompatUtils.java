@@ -20,9 +20,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.PopupWindow;
+import androidx.annotation.NonNull;
 import com.getkeepsafe.relinker.ReLinker;
 
 public class CompatUtils {

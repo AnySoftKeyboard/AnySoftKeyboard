@@ -18,8 +18,8 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.text.ClipboardManager;
+import androidx.annotation.Nullable;
 
 @TargetApi(3)
 public class ClipboardV3 implements Clipboard {

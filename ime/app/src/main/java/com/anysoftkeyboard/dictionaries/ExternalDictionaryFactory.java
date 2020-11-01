@@ -18,11 +18,11 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.core.content.SharedPreferencesCompat;
-import androidx.collection.ArrayMap;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import androidx.annotation.NonNull;
+import androidx.collection.ArrayMap;
+import androidx.core.content.SharedPreferencesCompat;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
