@@ -17,7 +17,7 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardThemeTweaksFragment extends PreferenceFragmentCompat {

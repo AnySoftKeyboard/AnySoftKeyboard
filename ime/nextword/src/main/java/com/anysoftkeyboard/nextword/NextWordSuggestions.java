@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.nextword;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface NextWordSuggestions {
     @NonNull

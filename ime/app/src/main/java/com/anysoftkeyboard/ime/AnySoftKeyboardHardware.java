@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.ime;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;

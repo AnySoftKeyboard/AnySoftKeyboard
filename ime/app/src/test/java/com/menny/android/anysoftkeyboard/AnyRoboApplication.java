@@ -1,6 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;

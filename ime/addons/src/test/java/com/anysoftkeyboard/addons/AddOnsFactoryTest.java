@@ -4,8 +4,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.StringRes;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.annotation.StringRes;
+import androidx.core.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.HashSet;

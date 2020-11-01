@@ -18,10 +18,10 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import android.view.MenuItem;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.menny.android.anysoftkeyboard.R;

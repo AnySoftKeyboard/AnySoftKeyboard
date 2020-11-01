@@ -4,7 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.test.core.app.ApplicationProvider;

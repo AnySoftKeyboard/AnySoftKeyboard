@@ -4,8 +4,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
 import android.app.Application;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.Preference;
+import androidx.annotation.NonNull;
+import androidx.preference.Preference;
 import android.view.MenuItem;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;

@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 
 /** Interface used from JNI to javaland. Must never be removed or renamed with R8. */
 @Keep

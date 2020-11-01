@@ -2,7 +2,7 @@ package net.evendanan.pixel;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;

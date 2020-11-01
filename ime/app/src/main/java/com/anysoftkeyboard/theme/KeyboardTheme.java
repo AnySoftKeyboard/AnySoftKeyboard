@@ -17,7 +17,7 @@
 package com.anysoftkeyboard.theme;
 
 import android.content.Context;
-import android.support.annotation.StyleRes;
+import androidx.annotation.StyleRes;
 import com.anysoftkeyboard.addons.AddOnImpl;
 
 public class KeyboardTheme extends AddOnImpl {

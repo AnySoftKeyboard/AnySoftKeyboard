@@ -18,10 +18,10 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.XmlRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.XmlRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;

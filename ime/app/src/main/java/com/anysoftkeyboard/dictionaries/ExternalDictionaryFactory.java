@@ -18,9 +18,9 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.NonNull;
+import androidx.core.content.SharedPreferencesCompat;
+import androidx.collection.ArrayMap;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;

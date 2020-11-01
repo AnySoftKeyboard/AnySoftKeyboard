@@ -17,8 +17,8 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import androidx.annotation.Nullable;
+import androidx.preference.PreferenceFragmentCompat;
 import android.view.View;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;

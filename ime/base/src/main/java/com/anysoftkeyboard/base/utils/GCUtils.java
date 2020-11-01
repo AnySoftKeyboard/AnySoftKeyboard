@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.base.utils;
 
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import android.text.format.DateUtils;
 import android.util.Log;
 

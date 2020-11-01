@@ -4,7 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.text.TextUtils;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.Locale;

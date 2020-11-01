@@ -8,7 +8,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.test.core.app.ApplicationProvider;

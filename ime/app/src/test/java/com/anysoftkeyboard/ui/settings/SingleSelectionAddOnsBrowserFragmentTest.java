@@ -5,8 +5,8 @@ import static com.anysoftkeyboard.keyboards.KeyboardSwitcher.INPUT_MODE_TEXT;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;

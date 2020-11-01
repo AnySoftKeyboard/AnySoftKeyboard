@@ -3,7 +3,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;

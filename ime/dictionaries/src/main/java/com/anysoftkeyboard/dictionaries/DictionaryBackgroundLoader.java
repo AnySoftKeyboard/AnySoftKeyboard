@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import io.reactivex.Observable;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.TypedValue;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;

@@ -19,7 +19,7 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.addons.AddOnImpl;
 import java.util.Arrays;
 import java.util.List;

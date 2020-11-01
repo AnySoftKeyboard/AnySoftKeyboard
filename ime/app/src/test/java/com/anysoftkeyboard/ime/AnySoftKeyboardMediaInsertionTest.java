@@ -2,8 +2,8 @@ package com.anysoftkeyboard.ime;
 
 import android.content.ClipDescription;
 import android.net.Uri;
-import android.support.v13.view.inputmethod.EditorInfoCompat;
-import android.support.v13.view.inputmethod.InputContentInfoCompat;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;

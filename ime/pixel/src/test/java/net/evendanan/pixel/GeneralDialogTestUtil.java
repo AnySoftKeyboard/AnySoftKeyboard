@@ -1,8 +1,8 @@
 package net.evendanan.pixel;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.widget.TextView;
 import io.reactivex.Observable;
 import org.mockito.Mockito;

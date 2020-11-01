@@ -3,7 +3,7 @@ package com.anysoftkeyboard;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.text.TextUtils;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;

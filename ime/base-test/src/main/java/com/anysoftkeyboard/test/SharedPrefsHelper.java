@@ -4,8 +4,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.StringRes;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.annotation.StringRes;
+import androidx.core.content.SharedPreferencesCompat;
 
 public class SharedPrefsHelper {
     public static SharedPreferences setPrefsValue(@StringRes int keyRes, String value) {

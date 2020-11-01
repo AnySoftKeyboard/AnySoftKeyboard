@@ -18,9 +18,9 @@ package com.anysoftkeyboard.addons;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.collection.SparseArrayCompat;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
 import com.anysoftkeyboard.base.utils.Logger;

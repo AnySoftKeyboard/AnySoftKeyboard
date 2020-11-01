@@ -8,9 +8,9 @@ dependencies {
     implementation project(':ime:base-rx')
     implementation project(':ime:pixel')
     implementation project(':ime:fileprovider')
-    implementation "com.android.support:support-v13:$supportLibVersion"
-    implementation "com.android.support:support-fragment:$supportLibVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "androidx.legacy:legacy-support-v13:1.0.0"
+    implementation "androidx.fragment:fragment:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.0.0"
 
     testImplementation project(':ime:base-test')
 }

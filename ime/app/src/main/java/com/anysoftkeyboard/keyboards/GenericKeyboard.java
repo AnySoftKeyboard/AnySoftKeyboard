@@ -17,7 +17,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 
 public class GenericKeyboard extends ExternalAnyKeyboard {

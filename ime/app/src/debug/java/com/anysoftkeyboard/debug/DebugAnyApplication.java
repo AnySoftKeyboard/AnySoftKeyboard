@@ -20,7 +20,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.StrictMode;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;

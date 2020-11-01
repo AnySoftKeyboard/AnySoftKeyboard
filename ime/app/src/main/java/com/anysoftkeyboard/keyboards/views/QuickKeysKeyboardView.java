@@ -2,7 +2,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 

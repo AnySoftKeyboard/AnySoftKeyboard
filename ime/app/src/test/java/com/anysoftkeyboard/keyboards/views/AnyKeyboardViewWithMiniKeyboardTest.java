@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.same;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;

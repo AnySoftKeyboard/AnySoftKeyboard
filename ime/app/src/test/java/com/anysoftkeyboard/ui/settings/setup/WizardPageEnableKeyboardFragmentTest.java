@@ -4,7 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.ComponentName;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;

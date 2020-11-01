@@ -8,9 +8,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.AttrRes;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.AttrRes;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import android.util.TypedValue;
 import com.anysoftkeyboard.base.utils.Logger;
 

@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.Preference;
+import androidx.annotation.NonNull;
+import androidx.preference.Preference;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import org.junit.Assert;

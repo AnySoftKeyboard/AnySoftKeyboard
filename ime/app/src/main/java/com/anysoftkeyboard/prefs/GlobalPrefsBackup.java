@@ -1,11 +1,11 @@
 package com.anysoftkeyboard.prefs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.util.Pair;
-import android.support.v7.preference.PreferenceManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Pair;
+import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvider;

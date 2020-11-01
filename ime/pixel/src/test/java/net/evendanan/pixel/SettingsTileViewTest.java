@@ -3,7 +3,7 @@ package net.evendanan.pixel;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.res.Configuration;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

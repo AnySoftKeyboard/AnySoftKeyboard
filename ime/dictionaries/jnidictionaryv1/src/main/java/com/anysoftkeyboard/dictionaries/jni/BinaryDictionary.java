@@ -19,7 +19,7 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.Dictionary;

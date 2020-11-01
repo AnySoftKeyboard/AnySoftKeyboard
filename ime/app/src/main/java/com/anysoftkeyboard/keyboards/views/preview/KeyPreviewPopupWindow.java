@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.StyleRes;
+import androidx.annotation.StyleRes;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;

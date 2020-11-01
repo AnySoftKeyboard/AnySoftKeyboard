@@ -3,7 +3,7 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static java.util.Arrays.asList;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;

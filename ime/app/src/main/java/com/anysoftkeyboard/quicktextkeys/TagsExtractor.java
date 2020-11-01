@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import java.util.List;
 

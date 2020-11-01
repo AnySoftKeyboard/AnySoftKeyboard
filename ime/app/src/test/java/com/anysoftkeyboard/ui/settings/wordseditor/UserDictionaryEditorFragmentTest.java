@@ -4,8 +4,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
 import android.app.Application;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;

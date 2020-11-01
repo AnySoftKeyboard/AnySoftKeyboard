@@ -3,7 +3,7 @@ package com.anysoftkeyboard.remote;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.api.MediaInsertion;
 import java.util.Random;
 
