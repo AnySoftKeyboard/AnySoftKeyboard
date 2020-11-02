@@ -32,6 +32,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     private static final long MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY = 15 * 1000;
     private long mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
     @Nullable private CharSequence mLastSyncedClipboardEntry;
+    private boolean mLastSyncedClipboardEntryInSecureInput;
 
     @VisibleForTesting
     protected interface ClipboardActionOwner {
@@ -127,6 +128,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
     private void onClipboardEntryAdded(CharSequence clipboardEntry) {
         mLastSyncedClipboardEntry = clipboardEntry;
+        EditorInfo currentInputEditorInfo = getCurrentInputEditorInfo();
+        mLastSyncedClipboardEntryInSecureInput = currentInputEditorInfo != null && isTextPassword(currentInputEditorInfo);
         mLastSyncedClipboardEntryTime = SystemClock.uptimeMillis();
     }
 
@@ -140,7 +143,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             getInputViewContainer().setActionsStripVisibility(true);
 
             mSuggestionClipboardEntry.setClipboardText(
-                    mLastSyncedClipboardEntry, isTextPassword(info));
+                    mLastSyncedClipboardEntry, mLastSyncedClipboardEntryInSecureInput || isTextPassword(info));
         }
     }
 
