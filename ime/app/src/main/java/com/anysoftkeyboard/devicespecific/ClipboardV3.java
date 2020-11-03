@@ -50,4 +50,9 @@ public class ClipboardV3 implements Clipboard {
     public int getClipboardEntriesCount() {
         return mClipboardManager.hasText() ? 0 : 1;
     }
+
+    @Override
+    public void deleteEntry(int entryIndex) {
+        mClipboardManager.setText(null);
+    }
 }

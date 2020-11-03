@@ -16,21 +16,22 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.support.annotation.Nullable;
+import android.annotation.TargetApi;
+import android.content.Context;
 
-public interface Clipboard {
+@TargetApi(28)
+public class ClipboardV28 extends ClipboardV11 {
 
-    interface ClipboardUpdatedListener {
-        void onClipboardEntryAdded(CharSequence text);
+    ClipboardV28(Context context) {
+        super(context);
     }
 
-    CharSequence getText(int entryIndex);
-
-    int getClipboardEntriesCount();
-
-    void setText(CharSequence text);
-
-    void deleteEntry(int entryIndex);
-
-    void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener);
+    @Override
+    public void deleteEntry(int entryIndex) {
+        mEntries.remove(entryIndex);
+        if (entryIndex == 0) {
+            // actually removing from clipboard
+            mClipboardManager.clearPrimaryClip();
+        }
+    }
 }

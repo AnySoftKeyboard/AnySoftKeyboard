@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.shadows.ShadowToast;
 
@@ -274,6 +275,142 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "something very",
                 latestAlertDialog.getListView().getAdapter().getItem(1).toString());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testDeleteFirstEntry() {
+        ClipboardManager shadowManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        final String expectedText = "testing something very long";
+        inputConnection.commitText(expectedText, 1);
+        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotNull(latestAlertDialog);
+        Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
+        latestAlertDialog
+                .getListView()
+                .getAdapter()
+                .getView(0, null, latestAlertDialog.getListView())
+                .findViewById(R.id.clipboard_entry_delete)
+                .performClick();
+
+        Assert.assertFalse(latestAlertDialog.isShowing());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+        latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertEquals(1, latestAlertDialog.getListView().getAdapter().getCount());
+        Assert.assertEquals(
+                "something very",
+                latestAlertDialog.getListView().getAdapter().getItem(0).toString());
+
+        latestAlertDialog.dismiss();
+
+        // also, pasting should paste the previous entry
+        Assert.assertEquals(
+                "testing something very long",
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
+        Assert.assertEquals(
+                "something verysomething very long",
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        Assert.assertEquals("", shadowManager.getPrimaryClip().getItemAt(0).getText());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.P)
+    @Config(sdk = Build.VERSION_CODES.P)
+    public void testDeleteFirstEntryForApi28() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        final String expectedText = "testing something very long";
+        inputConnection.commitText(expectedText, 1);
+        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotNull(latestAlertDialog);
+        Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
+        latestAlertDialog
+                .getListView()
+                .getAdapter()
+                .getView(0, null, latestAlertDialog.getListView())
+                .findViewById(R.id.clipboard_entry_delete)
+                .performClick();
+
+        Assert.assertFalse(latestAlertDialog.isShowing());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+        latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertEquals(1, latestAlertDialog.getListView().getAdapter().getCount());
+        Assert.assertEquals(
+                "something very",
+                latestAlertDialog.getListView().getAdapter().getItem(0).toString());
+
+        latestAlertDialog.dismiss();
+
+        // also, pasting should paste nothing (we deleted the primary clip)
+        Assert.assertEquals(
+                "testing something very long",
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
+        Assert.assertEquals(
+                "something verysomething very long",
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        // actually deletes the primary clip
+        // TODO: I think this is broken with Robolectric 4.3.1
+        // Assert.assertFalse(shadowManager.hasPrimaryClip());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testDeleteNotFirstEntry() {
+        ClipboardManager shadowManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        final String expectedText = "testing something very long";
+        inputConnection.commitText(expectedText, 1);
+        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotNull(latestAlertDialog);
+        Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
+        latestAlertDialog
+                .getListView()
+                .getAdapter()
+                .getView(1, null, latestAlertDialog.getListView())
+                .findViewById(R.id.clipboard_entry_delete)
+                .performClick();
+
+        Assert.assertFalse(latestAlertDialog.isShowing());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+        latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertEquals(1, latestAlertDialog.getListView().getAdapter().getCount());
+        Assert.assertEquals(
+                "testing ", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
+
+        Assert.assertEquals(
+                "testing ", shadowManager.getPrimaryClip().getItemAt(0).getText().toString());
     }
 
     @Test
@@ -549,7 +686,8 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         simulateOnStartInputFlow(
                 false,
                 createEditorInfo(
-                        EditorInfo.IME_ACTION_NONE, InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+                        EditorInfo.IME_ACTION_NONE,
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
 
         ClipboardManager clipboardManager =
                 (ClipboardManager)
