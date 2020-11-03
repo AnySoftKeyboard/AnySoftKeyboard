@@ -21,6 +21,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +29,8 @@ import java.util.List;
 public class ClipboardV11 implements Clipboard {
     private static final int MAX_ENTRIES_INDEX = 15;
 
-    private final List<CharSequence> mEntries = new ArrayList<>(16);
-    private final ClipboardManager mClipboardManager;
+    protected final List<CharSequence> mEntries = new ArrayList<>(16);
+    protected final ClipboardManager mClipboardManager;
     @Nullable private ClipboardUpdatedListener mClipboardEntryAddedListener;
     private final ClipboardManager.OnPrimaryClipChangedListener mOsClipboardChangedListener =
             this::onPrimaryClipChanged;
@@ -66,6 +67,15 @@ public class ClipboardV11 implements Clipboard {
         return mEntries.size();
     }
 
+    @Override
+    public void deleteEntry(int entryIndex) {
+        mEntries.remove(entryIndex);
+        if (entryIndex == 0) {
+            // also remove from clipboard
+            setText("");
+        }
+    }
+
     private void onPrimaryClipChanged() {
         final ClipboardUpdatedListener addedListener = mClipboardEntryAddedListener;
         if (addedListener != null) {
@@ -73,6 +83,7 @@ public class ClipboardV11 implements Clipboard {
             if (cp != null) {
                 for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
                     final CharSequence text = cp.getItemAt(entryIndex).getText();
+                    if (TextUtils.isEmpty(text)) continue;
                     mEntries.add(0, text);
 
                     while (mEntries.size() > MAX_ENTRIES_INDEX) {
