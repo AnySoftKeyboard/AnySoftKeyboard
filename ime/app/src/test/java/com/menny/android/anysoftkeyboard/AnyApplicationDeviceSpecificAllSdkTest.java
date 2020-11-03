@@ -14,6 +14,7 @@ import com.anysoftkeyboard.devicespecific.AskV19GestureDetector;
 import com.anysoftkeyboard.devicespecific.AskV8GestureDetector;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.devicespecific.ClipboardV11;
+import com.anysoftkeyboard.devicespecific.ClipboardV28;
 import com.anysoftkeyboard.devicespecific.ClipboardV3;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificLowest;
@@ -22,6 +23,7 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV28;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
@@ -66,7 +68,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     DeviceSpecificV24.class,
                     DeviceSpecificV24.class,
                     DeviceSpecificV24.class,
-                    DeviceSpecificV24.class);
+                    DeviceSpecificV28.class);
 
     private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
             Arrays.asList(
@@ -98,7 +100,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
-                    ClipboardV11.class);
+                    ClipboardV28.class);
 
     private final List<Class<? extends DictionaryContentObserver>>
             mExpectedDictionaryObserverClass =

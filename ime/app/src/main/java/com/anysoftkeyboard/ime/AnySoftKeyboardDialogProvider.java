@@ -34,13 +34,11 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
 
     private static final int OPTIONS_DIALOG = 123123;
     private GeneralDialogController mGeneralDialogController;
-    private GeneralDialogController.DialogPresenter mDialogPresenter;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mDialogPresenter = new ImeDialogPresenter();
-        mGeneralDialogController = new GeneralDialogController(this, mDialogPresenter);
+        mGeneralDialogController = new GeneralDialogController(this, new ImeDialogPresenter());
     }
 
     protected void showToastMessage(@StringRes int resId, boolean forShortTime) {
@@ -69,6 +67,15 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     }
 
     protected void showOptionsDialogWithData(
+            @StringRes int title,
+            @DrawableRes int iconRedId,
+            final CharSequence[] entries,
+            final DialogInterface.OnClickListener listener,
+            @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
+        showOptionsDialogWithData(getText(title), iconRedId, entries, listener, extraPresenter);
+    }
+
+    protected void showOptionsDialogWithData(
             CharSequence title,
             @DrawableRes int iconRedId,
             final CharSequence[] entries,
@@ -90,11 +97,15 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     @CallSuper
     @Override
     protected boolean handleCloseRequest() {
-        if (mGeneralDialogController.dismiss()) {
+        if (closeGeneralOptionsDialog()) {
             return true;
         } else {
             return super.handleCloseRequest();
         }
+    }
+
+    protected boolean closeGeneralOptionsDialog() {
+        return mGeneralDialogController.dismiss();
     }
 
     protected class OptionsDialogData {
