@@ -31,6 +31,7 @@
     <string name="no_market_store_available">Не атрымалася знайсці <i>Google Play </i> на вашай прыладзе.\nПошук дапаўненняў немагчымы!</string>
     <string name="keyboard_theme_tweak_group">Дадатковыя налады</string>
     <string name="close_button">Закрыць</string>
+    <string name="delete_button">Выдаліць</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Захавана:\u0020<xliff:g id="word">%s</xliff:g>
     </string>

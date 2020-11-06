@@ -43,6 +43,7 @@
     </string>
     <string name="keyboard_theme_tweak_group">ڕێکخستنی زیاتر</string>
     <string name="close_button">داخستن</string>
+    <string name="delete_button">سڕینەوە</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">پاشەکەوتکرا:\u0020
         <xliff:g id="word">%s</xliff:g>
