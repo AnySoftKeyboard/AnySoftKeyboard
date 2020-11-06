@@ -29,11 +29,12 @@
     <string name="no_market_store_available">No se pudo encontrar la Play Store en tu dispositivo.\n¡Incapaz de buscar complementos!</string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Cerrar</string>
+    <string name="delete_button">Borrar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Guardado: \u0020<xliff:g id="word">%s</xliff:g></string>
-    <string name="revert_added_word_question">¿Eliminar?</string>
-    <string name="removed_word">Eliminado: \u0020<xliff:g id="word">%s</xliff:g></string>
-    <string name="hint_add_to_dictionary">\u2190 Toque otra vez para guardar</string>
+    <string name="revert_added_word_question">¿Quitar?</string>
+    <string name="removed_word">Quitado: \u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Toca otra vez para guardar</string>
     <string name="hint_double_tap_to_close">Otra vez para quitar sugerencias</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
