@@ -103,16 +103,10 @@ public class WordComposer implements KeyCodesProvider {
         return mCursorPosition;
     }
 
-    public boolean setCursorPosition(int position /*, int candidatesStartPosition*/) {
-        if (position < 0 || position > codePointCount()) {
-            // note: the cursor can be AFTER the word, so it can be equal to charCount()
-            return false;
-        }
-        final boolean changed = mCursorPosition != position;
+    public void setCursorPosition(int position) {
         mCursorPosition = position;
-        return changed;
-        // mCandidatesStartPosition = candidatesStartPosition;
     }
+
     /*
     public boolean hasUserMovedCursor(int cursorPosition)
     {

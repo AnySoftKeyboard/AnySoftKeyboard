@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
-import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -65,12 +64,11 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import net.evendanan.pixel.GeneralDialogController;
 
 /** Input method implementation for QWERTY-ish keyboard. */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
-
-    private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
     private final PackagesChangedReceiver mPackagesChangedReceiver =
             new PackagesChangedReceiver(this);
@@ -94,20 +92,21 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         super();
     }
 
-    // TODO SHOULD NOT USE THIS METHOD AT ALL!
-    private static int getCursorPosition(@Nullable InputConnection connection) {
-        if (connection == null) {
-            return 0;
-        }
-        ExtractedText extracted = connection.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
-        if (extracted == null) {
-            return 0;
-        }
-        return extracted.startOffset + extracted.selectionStart;
-    }
-
     private static boolean isBackWordDeleteCodePoint(int c) {
         return Character.isLetterOrDigit(c);
+    }
+
+    private static CondenseType parseCondenseType(String prefCondenseType) {
+        switch (prefCondenseType) {
+            case "split":
+                return CondenseType.Split;
+            case "compact_right":
+                return CondenseType.CompactToRight;
+            case "compact_left":
+                return CondenseType.CompactToLeft;
+            default:
+                return CondenseType.None;
+        }
     }
 
     @Override
@@ -220,19 +219,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                                         "settings_key_keyboard_icon_in_status_bar")));
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
-    }
-
-    private static CondenseType parseCondenseType(String prefCondenseType) {
-        switch (prefCondenseType) {
-            case "split":
-                return CondenseType.Split;
-            case "compact_right":
-                return CondenseType.CompactToRight;
-            case "compact_left":
-                return CondenseType.CompactToLeft;
-            default:
-                return CondenseType.None;
-        }
     }
 
     @Override
@@ -441,11 +427,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                         primaryCode == KeyCodes.ARROW_LEFT
                                 ? KeyEvent.KEYCODE_DPAD_LEFT
                                 : KeyEvent.KEYCODE_DPAD_RIGHT;
-                if (!handleSelectionExpending(
-                        keyEventKeyCode,
-                        ic,
-                        mGlobalSelectionStartPosition,
-                        mGlobalCursorPosition)) {
+                if (!handleSelectionExpending(keyEventKeyCode, ic)) {
                     sendDownUpKeyEvents(keyEventKeyCode);
                 }
                 break;
@@ -869,6 +851,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             return;
         }
 
+        markExpectingSelectionUpdate();
         final WordComposer currentComposedWord = getCurrentComposedWord();
         if (isPredictionOn()
                 && currentComposedWord.cursorPosition() > 0
@@ -958,6 +941,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
         if (isSelectionUpdateDelayed() || ic == null) {
+            markExpectingSelectionUpdate();
             Log.d(
                     TAG,
                     "handleDeleteLastCharacter will just sendDownUpKeyEvents. Delayed selection update?");
@@ -965,6 +949,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             return;
         }
 
+        markExpectingSelectionUpdate();
         final WordComposer currentComposedWord = getCurrentComposedWord();
         final boolean wordManipulation =
                 isPredictionOn()
@@ -974,10 +959,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (shouldRevertOnDelete()) {
             revertLastWord();
         } else if (wordManipulation) {
+            // NOTE: we can not use ic.deleteSurroundingText here because
+            // it does not work well with composing text.
             final int charsToDelete = currentComposedWord.deleteCodePointAtCurrentPosition();
             final int cursorPosition;
             if (currentComposedWord.cursorPosition() != currentComposedWord.charCount()) {
-                cursorPosition = getCursorPosition(ic);
+                cursorPosition = getCursorPosition();
             } else {
                 cursorPosition = -1;
             }
@@ -986,6 +973,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 ic.beginBatchEdit();
             }
 
+            markExpectingSelectionUpdate();
             ic.setComposingText(currentComposedWord.getTypedWord(), 1);
             if (cursorPosition >= 0 && !currentComposedWord.isEmpty()) {
                 ic.setSelection(cursorPosition - charsToDelete, cursorPosition - charsToDelete);
@@ -997,6 +985,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
             postUpdateSuggestions();
         } else {
+            markExpectingSelectionUpdate();
             if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
@@ -1029,10 +1018,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                         && !currentComposedWord.isEmpty();
 
         if (wordManipulation) {
+            // NOTE: we can not use ic.deleteSurroundingText here because
+            // it does not work well with composing text.
             currentComposedWord.deleteForward();
             final int cursorPosition;
             if (currentComposedWord.cursorPosition() != currentComposedWord.charCount()) {
-                cursorPosition = getCursorPosition(ic);
+                cursorPosition = getCursorPosition();
             } else {
                 cursorPosition = -1;
             }
@@ -1041,6 +1032,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 ic.beginBatchEdit();
             }
 
+            markExpectingSelectionUpdate();
             ic.setComposingText(currentComposedWord.getTypedWord(), 1);
             if (cursorPosition >= 0 && !currentComposedWord.isEmpty()) {
                 ic.setSelection(cursorPosition, cursorPosition);
@@ -1087,31 +1079,26 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;
 
-        ExtractedText et = ic.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
+        ExtractedText et = getExtractedText();
         if (et == null) return;
         int selectionStart = et.selectionStart;
         int selectionEnd = et.selectionEnd;
 
         if (et.text == null) return;
         CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
-        if (selectedText == null) return;
 
         if (selectedText.length() > 0) {
             ic.beginBatchEdit();
             String selectedTextString = selectedText.toString();
-            if (selectedTextString.compareTo(
-                            selectedTextString.toUpperCase(
-                                    getCurrentAlphabetKeyboard().getLocale()))
-                    == 0) {
+            AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
+            Locale locale =
+                    currentAlphabetKeyboard != null ? currentAlphabetKeyboard.getLocale() : null;
+            if (selectedTextString.compareTo(selectedTextString.toUpperCase(locale)) == 0) {
                 // Convert to lower case
-                ic.setComposingText(
-                        selectedTextString.toLowerCase(getCurrentAlphabetKeyboard().getLocale()),
-                        0);
+                ic.setComposingText(selectedTextString.toLowerCase(locale), 0);
             } else {
                 // Convert to upper case
-                ic.setComposingText(
-                        selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale()),
-                        0);
+                ic.setComposingText(selectedTextString.toUpperCase(locale), 0);
             }
             ic.endBatchEdit();
             ic.setSelection(selectionStart, selectionEnd);

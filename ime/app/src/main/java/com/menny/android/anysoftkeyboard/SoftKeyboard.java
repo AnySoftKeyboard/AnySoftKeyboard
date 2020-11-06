@@ -17,6 +17,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.content.ComponentName;
+import android.os.Handler;
 import com.anysoftkeyboard.saywhat.PublicNotices;
 
 /*
@@ -25,6 +26,47 @@ import com.anysoftkeyboard.saywhat.PublicNotices;
  * and still support upgrade... so SoftKeyboard inherits from the actual class
  */
 public class SoftKeyboard extends PublicNotices {
+
+    /* DEVELOPERS NOTICE:
+    This TURNED-OFF code is used to simulate
+    a very slow InputConnection updates:
+    On some devices and apps, the onUpdateSelection callback will be
+    very delayed, and may get com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions.mGlobalCursorPosition
+    out-of-sync.
+     */
+    private static final boolean DELAY_SELECTION_UPDATES = false;
+    private Handler mDelayer = null;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (DELAY_SELECTION_UPDATES) mDelayer = new Handler();
+    }
+
+    @Override
+    public void onUpdateSelection(
+            int oldSelStart,
+            int oldSelEnd,
+            int newSelStart,
+            int newSelEnd,
+            int candidatesStart,
+            int candidatesEnd) {
+        if (DELAY_SELECTION_UPDATES) {
+            mDelayer.postDelayed(
+                    () ->
+                            SoftKeyboard.super.onUpdateSelection(
+                                    oldSelStart,
+                                    oldSelEnd,
+                                    newSelStart,
+                                    newSelEnd,
+                                    candidatesStart,
+                                    candidatesEnd),
+                    1025);
+        } else {
+            super.onUpdateSelection(
+                    oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+        }
+    }
 
     @Override
     protected String getSettingsInputMethodId() {
