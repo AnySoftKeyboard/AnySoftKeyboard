@@ -190,7 +190,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("te", inputConnection.getSelectedText(0).toString());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('k');
-        // selection was replaced with space
+        // selection ('te') was replaced with the letter 'k'
         Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
         Assert.assertEquals(
                 "some kxt in the input connection",
@@ -204,8 +204,8 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testSelectionExpendingWithAlreadySelectedText() {
         TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-        inputConnection.commitText("some text in the input connection", 1);
+                mAnySoftKeyboardUnderTest.getCurrentTestInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
         inputConnection.setSelection("some ".length(), "some text".length());
         // we already have selection set
         Assert.assertEquals("text", inputConnection.getSelectedText(0).toString());
