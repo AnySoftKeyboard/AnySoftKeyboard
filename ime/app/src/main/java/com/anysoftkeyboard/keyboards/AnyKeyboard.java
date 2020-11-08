@@ -473,8 +473,9 @@ public abstract class AnyKeyboard extends Keyboard {
 
     public abstract String getDefaultDictionaryLocale();
 
+    @NonNull
     public Locale getLocale() {
-        return Locale.getDefault();
+        return Locale.ROOT;
     }
 
     // this function is called from within the super constructor.

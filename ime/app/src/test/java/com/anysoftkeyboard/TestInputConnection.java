@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
 
 public class TestInputConnection extends BaseInputConnection {
 
@@ -90,13 +91,26 @@ public class TestInputConnection extends BaseInputConnection {
     }
 
     private void notifyTextChange(int cursorDelta) {
-        final int oldPosition = mCursorPosition;
-        mCursorPosition += cursorDelta;
-        notifyTextChanged(oldPosition, mSelectionEndPosition, mCursorPosition, mCursorPosition);
-        mSelectionEndPosition = mCursorPosition;
+        if (cursorDelta == 0) {
+            notifyTextChanged(
+                    mCursorPosition, mSelectionEndPosition, mCursorPosition, mSelectionEndPosition);
+        } else {
+            final int oldPosition = mCursorPosition;
+            final int oldEndSelection = mSelectionEndPosition;
+            mCursorPosition += cursorDelta;
+            // cursor moved, so selection is cleared
+            mSelectionEndPosition = mCursorPosition;
+            notifyTextChanged(oldPosition, oldEndSelection, mCursorPosition, mSelectionEndPosition);
+        }
     }
 
     private void notifyTextChanged(int oldStart, int oldEnd, int newStart, int newEnd) {
+        Assert.assertTrue(oldStart >= 0);
+        Assert.assertTrue(oldEnd >= 0);
+        Assert.assertTrue(oldEnd >= oldStart);
+        Assert.assertTrue(newStart >= 0);
+        Assert.assertTrue(newEnd >= 0);
+        Assert.assertTrue(newEnd >= newStart);
         if (mInEditMode) {
             mChangesWhileInEdit = true;
         } else {
@@ -200,12 +214,14 @@ public class TestInputConnection extends BaseInputConnection {
     public boolean setComposingRegion(int start, int end) {
         mInputText.clearSpans();
         mInputText.setSpan(mCurrentComposingSpan, start, end, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        notifyTextChange(0);
         return true;
     }
 
     @Override
     public boolean finishComposingText() {
         mInputText.clearSpans();
+        notifyTextChange(0);
         return true;
     }
 
