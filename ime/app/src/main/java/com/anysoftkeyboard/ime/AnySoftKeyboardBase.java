@@ -26,6 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -48,17 +51,21 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
 
     protected static final long ONE_FRAME_DELAY = 1000L / 60L;
 
+    private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
+
     private KeyboardViewContainerView mInputViewContainer;
     private InputViewBinder mInputView;
     private InputMethodManager mInputMethodManager;
+
+    // NOTE: These two are dangerous to use, as they may point to
+    // an inaccurate position (in cases where onSelectionUpdate is delayed).
+    private int mGlobalCursorPositionDangerous = 0;
+    protected int mGlobalSelectionStartPositionDangerous = 0;
 
     protected final ModifierKeyState mShiftKeyState =
             new ModifierKeyState(true /*supports locked state*/);
     protected final ModifierKeyState mControlKeyState =
             new ModifierKeyState(false /*does not support locked state*/);
-
-    protected int mGlobalCursorPosition = 0;
-    protected int mGlobalSelectionStartPosition = 0;
 
     @NonNull
     protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
@@ -93,38 +100,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         }
 
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-    }
-
-    /*
-     * this function is called EVERY TIME them selection is changed. This also
-     * includes the underlined suggestions.
-     */
-    @Override
-    @CallSuper
-    public void onUpdateSelection(
-            int oldSelStart,
-            int oldSelEnd,
-            int newSelStart,
-            int newSelEnd,
-            int candidatesStart,
-            int candidatesEnd) {
-        super.onUpdateSelection(
-                oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
-
-        if (BuildConfig.DEBUG) {
-            Logger.d(
-                    TAG,
-                    "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
-                    oldSelStart,
-                    oldSelEnd,
-                    newSelStart,
-                    newSelEnd,
-                    candidatesStart,
-                    candidatesEnd);
-        }
-
-        mGlobalCursorPosition = newSelEnd;
-        mGlobalSelectionStartPosition = newSelStart;
     }
 
     @Nullable
@@ -297,6 +272,56 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     public void onFinishInput() {
         super.onFinishInput();
         mInputSessionDisposables.clear();
+        mGlobalCursorPositionDangerous = 0;
+        mGlobalSelectionStartPositionDangerous = 0;
+    }
+
+    protected abstract boolean isSelectionUpdateDelayed();
+
+    @Nullable
+    protected ExtractedText getExtractedText() {
+        final InputConnection connection = getCurrentInputConnection();
+        if (connection == null) {
+            return null;
+        }
+        return connection.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
+    }
+
+    // TODO SHOULD NOT USE THIS METHOD AT ALL!
+    protected int getCursorPosition() {
+        if (isSelectionUpdateDelayed()) {
+            ExtractedText extracted = getExtractedText();
+            if (extracted == null) {
+                return 0;
+            }
+            mGlobalCursorPositionDangerous = extracted.startOffset + extracted.selectionEnd;
+            mGlobalSelectionStartPositionDangerous =
+                    extracted.startOffset + extracted.selectionStart;
+        }
+        return mGlobalCursorPositionDangerous;
+    }
+
+    @Override
+    public void onUpdateSelection(
+            int oldSelStart,
+            int oldSelEnd,
+            int newSelStart,
+            int newSelEnd,
+            int candidatesStart,
+            int candidatesEnd) {
+        if (BuildConfig.DEBUG) {
+            Logger.d(
+                    TAG,
+                    "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
+                    oldSelStart,
+                    oldSelEnd,
+                    newSelStart,
+                    newSelEnd,
+                    candidatesStart,
+                    candidatesEnd);
+        }
+        mGlobalCursorPositionDangerous = newSelEnd;
+        mGlobalSelectionStartPositionDangerous = newSelStart;
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -303,6 +304,27 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testCorrectlyOutputCharactersWhenVeryCongestedCursorUpdates() {
+        Assert.assertEquals(0, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateTextTyping("go");
+        Assert.assertEquals(
+                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setCongested(true);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("ing to work");
+        getCurrentTestInputConnection().popCongestedAction();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("ing");
+        getCurrentTestInputConnection().setCongested(false);
+        Assert.assertEquals(
+                "going to working",
+                getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                "going to working".length(),
+                getCurrentTestInputConnection().getCurrentStartPosition());
+    }
+
+    @Test
     public void testCorrectlyOutputCharactersWhenExtremelyCongestedCursorUpdates() {
         Assert.assertEquals(0, getCurrentTestInputConnection().getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress('g');
@@ -362,5 +384,46 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "goingg", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(6, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
+
+    private void testDelayedOnSelectionUpdate(long delay) {
+        final String testText =
+                "typing 1 2 3 working hel kjasldkjalskdjasd hel fac ksdjflksd smile fac fac hel hel aklsjdas gggggg hello fac hel face hel";
+        final String expectedText =
+                "typing 1 2 3 working hell kjasldkjalskdjasd hell face ksdjflksd smile face face hell hell aklsjdas gggggg hello face hell face hel";
+        mAnySoftKeyboardUnderTest.setUpdateSelectionDelay(delay + 1);
+        mAnySoftKeyboardUnderTest.simulateTextTyping(testText);
+        Robolectric.flushForegroundThreadScheduler();
+        // the first two hel are corrected
+        Assert.assertEquals(
+                expectedText, getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText.length(), getCurrentTestInputConnection().getCurrentStartPosition());
+    }
+
+    @Test
+    public void testSmallDelayedOnSelectionUpdate() {
+        testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.DELAY_BETWEEN_TYPING);
+    }
+
+    @Test
+    public void testAnnoyingDelayedOnSelectionUpdate() {
+        testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.DELAY_BETWEEN_TYPING * 3);
+    }
+
+    @Test
+    public void testCrazyDelayedOnSelectionUpdate() {
+        testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.DELAY_BETWEEN_TYPING * 6);
+    }
+
+    @Test
+    public void testOverExpectedDelayedOnSelectionUpdate() {
+        testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.MAX_TIME_TO_EXPECT_SELECTION_UPDATE);
+    }
+
+    @Test
+    public void testWayOverExpectedDelayedOnSelectionUpdate() {
+        testDelayedOnSelectionUpdate(
+                TestableAnySoftKeyboard.MAX_TIME_TO_EXPECT_SELECTION_UPDATE * 2);
     }
 }

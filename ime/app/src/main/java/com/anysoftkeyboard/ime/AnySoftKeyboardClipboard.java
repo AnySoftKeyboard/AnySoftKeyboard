@@ -224,6 +224,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
     protected void handleClipboardOperation(
             final Keyboard.Key key, final int primaryCode, InputConnection ic) {
+        abortCorrectionAndResetPredictionState(false);
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
                 CharSequence clipboardText =
@@ -290,12 +291,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
     }
 
-    protected boolean handleSelectionExpending(
-            int keyEventKeyCode,
-            InputConnection ic,
-            int globalSelectionStartPosition,
-            int globalCursorPosition) {
+    protected boolean handleSelectionExpending(int keyEventKeyCode, InputConnection ic) {
         if (mArrowSelectionState && ic != null) {
+            final int selectionEnd = getCursorPosition();
+            final int selectionStart = mGlobalSelectionStartPositionDangerous;
+            markExpectingSelectionUpdate();
             switch (keyEventKeyCode) {
                 case KeyEvent.KEYCODE_DPAD_LEFT:
                     // A Unicode code-point can be made up of two Java chars.
@@ -303,24 +303,24 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     final String toLeft =
                             ic.getTextBeforeCursor(MAX_CHARS_PER_CODE_POINT, 0).toString();
                     if (toLeft.length() == 0) {
-                        ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
+                        ic.setSelection(selectionStart, selectionEnd);
                     } else {
                         ic.setSelection(
-                                globalSelectionStartPosition
+                                selectionStart
                                         - Character.charCount(
                                                 toLeft.codePointBefore(toLeft.length())),
-                                globalCursorPosition);
+                                selectionEnd);
                     }
                     return true;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
                     final String toRight =
                             ic.getTextAfterCursor(MAX_CHARS_PER_CODE_POINT, 0).toString();
                     if (toRight.length() == 0) {
-                        ic.setSelection(globalSelectionStartPosition, globalCursorPosition);
+                        ic.setSelection(selectionStart, selectionEnd);
                     } else {
                         ic.setSelection(
-                                globalSelectionStartPosition,
-                                globalCursorPosition + Character.charCount(toRight.codePointAt(0)));
+                                selectionStart,
+                                selectionEnd + Character.charCount(toRight.codePointAt(0)));
                     }
                     return true;
                 default:
