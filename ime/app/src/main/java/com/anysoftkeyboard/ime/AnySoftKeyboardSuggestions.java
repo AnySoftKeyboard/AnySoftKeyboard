@@ -415,11 +415,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             return;
         }
 
-        if (shouldRevertOnDelete() && (oldSelStart != newSelStart || oldSelEnd != newSelEnd)) {
-            Logger.d(
-                    TAG,
-                    "onUpdateSelection: user moved cursor from a undo-commit sensitive position. Will not be able to undo-commit.");
-            mWordRevertLength = 0;
+        final boolean cursorMovedUnexpectedly =
+                (oldSelStart != newSelStart || oldSelEnd != newSelEnd);
+        if (cursorMovedUnexpectedly) {
+            mLastSpaceTimeStamp = NEVER_TIME_STAMP;
+            if (shouldRevertOnDelete()) {
+                Logger.d(
+                        TAG,
+                        "onUpdateSelection: user moved cursor from a undo-commit sensitive position. Will not be able to undo-commit.");
+                mWordRevertLength = 0;
+            }
         }
 
         if (!isPredictionOn()) {
@@ -437,7 +442,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             // text selection. can't predict in this mode
             Logger.d(TAG, "onUpdateSelection: text selection.");
             abortCorrectionAndResetPredictionState(false);
-        } else {
+        } else if (cursorMovedUnexpectedly) {
             // we have the following options (we are in an input which requires
             // predicting (mPredictionOn == true):
             // 1) predicting and moved inside the word
@@ -929,6 +934,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     protected void abortCorrectionAndResetPredictionState(boolean disabledUntilNextInputStart) {
         mSuggest.resetNextWordSentence();
 
+        mLastSpaceTimeStamp = NEVER_TIME_STAMP;
         mJustAutoAddedWord = false;
         mKeyboardHandler.removeAllSuggestionMessages();
 
