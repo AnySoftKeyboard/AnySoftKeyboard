@@ -1,10 +1,19 @@
 #!/bin/bash
 
 FILENAME=$1
+COLOR=$2
+SIZE="${3}x${3}"
 
-if [ -z "${FILENAME}" ]; then
-    echo "First argument should be the PNG file to add border to."
+function help() {
+    echo "Missing arguments"
+    echo "add_border_to_png.sh [path-to-png-image] [color] [border size]"
+    echo "Examples:"
+    echo "add_border_to_png.sh cancel.png blue 1"
+    echo "add_border_to_png.sh cancel.png #aaa 2"
     exit 1
+}
+if [ -z "${FILENAME}" ] || [ -z "${COLOR}" ] || [ -z "${SIZE}" ]; then
+    help
 fi
 
-convert ${FILENAME} -bordercolor none -border 1x1 -background white -alpha background -channel A -blur 1x1 -level 0,0% ${FILENAME}
+convert ${FILENAME} -bordercolor none -border ${SIZE} -background ${COLOR} -alpha background -channel A -blur ${SIZE} -level 0,0% ${FILENAME}
