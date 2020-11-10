@@ -56,7 +56,7 @@
     <Key android:codes="116" android:keyLabel="t" android:popupCharacters="(4νℕ"/>
     <Key android:codes="114" android:keyLabel="r" android:popupCharacters=")5ρℝ"/>
     <Key android:codes="110" android:keyLabel="n" android:popupCharacters="-6τ∂"/>
-    <Key android:codes="115" android:keyLabel="s" android:popupCharacters=":,δΔ"/>
+    <Key android:codes="115" android:keyLabel="s" android:popupCharacters=":,δΔſ"/>
     <Key android:codes="223" android:keyLabel="ß" android:keyEdgeFlags="right" android:popupCharacters="\@.υ∇"/>
 </Row>
 <Row>
