@@ -115,7 +115,7 @@
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_default_split_state"
-            android:dialogTitle="@string/settings_split_state_title_landscape"
+            android:dialogTitle="@string/settings_split_state_title_portrait"
             android:entries="@array/settings_key_default_split_state_names"
             android:entryValues="@array/settings_key_default_split_state_values"
             android:key="@string/settings_key_default_split_state_portrait"
