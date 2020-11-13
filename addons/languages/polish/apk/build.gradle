@@ -1,5 +1,4 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'App was suspended by Google.'
+ext.shouldBePublished = true
 ext.override_app_id = 'com.anysoftkeyboard.languagepack.osspolish'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
