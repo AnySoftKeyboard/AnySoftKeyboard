@@ -214,6 +214,15 @@
         index="15"
         />
 
+    <ExtensionKeyboard
+        id="2e918f5f-b62f-48d0-a695-13719cb2c0ee"
+        nameResId="@string/extension_kbd_bottom_swiftkey"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_swiftkey"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="15"
+        />
+
 
     <!-- top extension keyboards -->
     <ExtensionKeyboard
