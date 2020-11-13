@@ -17,6 +17,7 @@
     <string name="changelog">ಬದಲಾವಣೆಗಳ ದಾಖಲೆಗಳು</string>
     <string name="search_market_for_addons">ಆಡ್-ಆನ್‌ಗಳನ್ನು ಹುಡುಕಿ</string>
     <string name="close_button">ಮುಚ್ಚು</string>
+    <string name="delete_button">ಅಳಿಸು</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
     <string name="voice_input_not_installed_action_install">ಅನುಸ್ಥಾಪಿಸು</string>
@@ -27,6 +28,10 @@
     <!-- settings - effects-->
     <string name="effects_group">ಪರಿಣಾಮಗಳು</string>
     <string name="ime_settings">ಕೀಲಿಮಣೆಯ ಸಂಯೋಜನೆಗಳು</string>
+    <string name="night_mode_type_always">ಯಾವಾಗಲೂ</string>
+    <string name="power_save_mode_types_never">ಇಲ್ಲವೇ ಇಲ್ಲ</string>
+    <string name="power_save_mode_types_lower_battery">ಕಡಿಮೆ ಬ್ಯಾಟರಿ ಇದ್ದಗ</string>
+    <string name="power_save_mode_types_always">ಯಾವಾಗಲೂ</string>
     <string name="settings_swipe_velocity_very_slow">ತುಂಬಾ ನಿಧಾನ</string>
     <string name="settings_swipe_velocity_slow">ನಿಧಾನ</string>
     <string-array name="custom_hint_align_types">

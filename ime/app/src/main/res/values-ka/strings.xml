@@ -39,6 +39,7 @@
     </string>
     <string name="keyboard_theme_tweak_group">მორგება</string>
     <string name="close_button">დახურვა</string>
+    <string name="delete_button">წაშლა</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">შენახულია:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">წაშლა\?</string>
