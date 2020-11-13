@@ -1078,14 +1078,21 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private void toggleCaseOfSelectedCharacters() {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;
-
-        ExtractedText et = getExtractedText();
+        // we have not received notification that something is selected.
+        // no need to make a costly getExtractedText call.
+        if (mGlobalSelectionStartPositionDangerous == mGlobalCursorPositionDangerous) return;
+        final ExtractedText et = getExtractedText();
         if (et == null) return;
-        int selectionStart = et.selectionStart;
-        int selectionEnd = et.selectionEnd;
+        final int selectionStart = et.selectionStart;
+        final int selectionEnd = et.selectionEnd;
 
-        if (et.text == null) return;
-        CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
+        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2481
+        // the host app may report -1 as indexes (when nothing is selected)
+        if (et.text == null
+                || selectionStart == selectionEnd
+                || selectionEnd == -1
+                || selectionStart == -1) return;
+        final CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
 
         if (selectedText.length() > 0) {
             ic.beginBatchEdit();
