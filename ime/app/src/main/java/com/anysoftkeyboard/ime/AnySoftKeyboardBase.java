@@ -59,7 +59,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
 
     // NOTE: These two are dangerous to use, as they may point to
     // an inaccurate position (in cases where onSelectionUpdate is delayed).
-    private int mGlobalCursorPositionDangerous = 0;
+    protected int mGlobalCursorPositionDangerous = 0;
     protected int mGlobalSelectionStartPositionDangerous = 0;
 
     protected final ModifierKeyState mShiftKeyState =
