@@ -27,6 +27,16 @@ public class AnySoftKeyboardCapitalizeSelectionWhenShiftPressedTest
     }
 
     @Test
+    public void testNoChangeIfNotSelected() {
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        final String expectedText = "this is not selected";
+        inputConnection.commitText(expectedText, 1);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testCapitalizeSingleWord() {
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
