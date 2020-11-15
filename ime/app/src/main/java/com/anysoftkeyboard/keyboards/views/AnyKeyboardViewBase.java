@@ -183,7 +183,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private boolean mShowKeyboardNameOnKeyboard;
     private boolean mShowHintsOnKeyboard;
     private int mCustomHintGravity;
-    private float mDisplayDensity;
+    private final float mDisplayDensity;
     protected final Subject<AnimationsLevel> mAnimationLevelSubject =
             BehaviorSubject.createDefault(AnimationsLevel.Some);
     private float mKeysHeightFactor = 1f;
@@ -343,7 +343,11 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                 this::updatePrefSettingsHintTextSizeFactor,
                                 GenericOnError.onError("failed to get settings_key_hint_size")));
 
-        AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
+        mDisposables.add(
+                AnimationsLevel.createPrefsObservable(context)
+                        .subscribe(
+                                mAnimationLevelSubject::onNext,
+                                GenericOnError.onError("mAnimationLevelSubject")));
 
         mDisposables.add(
                 rxSharedPrefs
