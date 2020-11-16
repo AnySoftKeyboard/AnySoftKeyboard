@@ -1,12 +1,15 @@
 package com.anysoftkeyboard.saywhat;
 
 import android.view.View;
+import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+@RunWith(AnySoftKeyboardPlainTestRunner.class)
 public class CandidateViewShowingHelperTest {
 
     @Test
