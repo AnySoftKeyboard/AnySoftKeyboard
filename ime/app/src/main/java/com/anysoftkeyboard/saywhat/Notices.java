@@ -21,17 +21,15 @@ public class Notices {
 
     private static class CoronaVirusDetails implements OnKey, OnVisible {
 
-        static final char[] CORONAVIRUS = "coronavirus".toCharArray();
-
+        private final OnKeyWordHelper mTypedWordHelper;
         private final TimedNoticeHelper mTimeHelper;
         private final CandidateViewShowingHelper mCandidateVisibleHelper =
                 new CandidateViewShowingHelper();
-
         private final KeyboardViewContainerView.StripActionProvider mVirusInfo;
-        private int mWaitingForIndex = 0;
 
         private CoronaVirusDetails(Context context) {
             mVirusInfo = new CovidInfo(context);
+            mTypedWordHelper = new OnKeyWordHelper("coronavirus");
             mTimeHelper =
                     new TimedNoticeHelper(
                             context,
@@ -42,14 +40,8 @@ public class Notices {
 
         @Override
         public void onKey(PublicNotices ime, int primaryCode, Keyboard.Key key) {
-            if (key != null && key.getPrimaryCode() == CORONAVIRUS[mWaitingForIndex]) {
-                mWaitingForIndex++;
-                if (mWaitingForIndex == CORONAVIRUS.length) {
-                    mWaitingForIndex = 0;
-                    showInfo(ime);
-                }
-            } else {
-                mWaitingForIndex = 0;
+            if (mTypedWordHelper.shouldShow(primaryCode)) {
+                showInfo(ime);
             }
         }
 

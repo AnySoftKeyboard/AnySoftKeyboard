@@ -20,6 +20,7 @@ public class VersionChangeLogs {
                         "Keep safe! #covid19 \uD83D\uDE37",
                         "Updated emoji to version 13.1 - Android 8.1+",
                         "So, you just copied some text? Let me suggest pasting it.",
+                        "Wrapping selected text with \"'<>(){}[]*-_`~.",
                         "Finally, you can decide where the settings backup file should be.",
                         "People spotted bugs. We slayed them!",
                         "YABTU.",

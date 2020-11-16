@@ -19,16 +19,13 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.extradraw.TypingExtraDraw;
 import com.menny.android.anysoftkeyboard.R;
+import java.util.Locale;
 
 class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
-    interface StringSupplier {
-        String giveMeSomeString();
-    }
-
-    private final char[] mWord;
+    private final OnKeyWordHelper mWordTypedHelper;
     private final StringSupplier mExtraDrawText;
     private final EasterEggAction mSuggestionAction;
-    private int mWaitingForIndex = 0;
+    private final String mEggName;
 
     protected OnKeyEasterEggBaseImpl(
             String word, String suggestion, String extraDrawText, @DrawableRes int image) {
@@ -37,34 +34,29 @@ class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
 
     protected OnKeyEasterEggBaseImpl(
             String word, String suggestion, StringSupplier extraDrawText, @DrawableRes int image) {
-        mWord = word.toCharArray();
+        mWordTypedHelper = new OnKeyWordHelper(word);
         mSuggestionAction = new EasterEggAction(suggestion, image);
         mExtraDrawText = extraDrawText;
+        mEggName = String.format(Locale.ROOT, "EasterEgg%s", word);
     }
 
     @Override
     public void onKey(PublicNotices ime, int primaryCode, Keyboard.Key key) {
-        if (key != null && key.getPrimaryCode() == mWord[mWaitingForIndex]) {
-            mWaitingForIndex++;
-            if (mWaitingForIndex == mWord.length) {
-                mWaitingForIndex = 0;
-                final InputViewBinder inputView = ime.getInputView();
-                if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
-                    final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw =
-                            (AnyKeyboardViewWithExtraDraw) inputView;
-                    anyKeyboardViewWithExtraDraw.addExtraDraw(
-                            new TypingExtraDraw(
-                                    mExtraDrawText.giveMeSomeString(),
-                                    new Point(
-                                            anyKeyboardViewWithExtraDraw.getWidth() / 2,
-                                            anyKeyboardViewWithExtraDraw.getHeight() / 2),
-                                    120,
-                                    this::adjustPaint));
-                    ime.getInputViewContainer().addStripAction(mSuggestionAction);
-                }
+        if (mWordTypedHelper.shouldShow(primaryCode)) {
+            final InputViewBinder inputView = ime.getInputView();
+            if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
+                final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw =
+                        (AnyKeyboardViewWithExtraDraw) inputView;
+                anyKeyboardViewWithExtraDraw.addExtraDraw(
+                        new TypingExtraDraw(
+                                mExtraDrawText.giveMeSomeString(),
+                                new Point(
+                                        anyKeyboardViewWithExtraDraw.getWidth() / 2,
+                                        anyKeyboardViewWithExtraDraw.getHeight() / 2),
+                                120,
+                                this::adjustPaint));
+                ime.getInputViewContainer().addStripAction(mSuggestionAction);
             }
-        } else {
-            mWaitingForIndex = 0;
         }
     }
 
@@ -89,7 +81,11 @@ class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
 
     @Override
     public String getName() {
-        return "EasterEgg" + new String(mWord);
+        return mEggName;
+    }
+
+    interface StringSupplier {
+        String giveMeSomeString();
     }
 
     private static class EasterEggAction implements KeyboardViewContainerView.StripActionProvider {
