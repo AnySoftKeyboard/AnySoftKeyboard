@@ -131,4 +131,6 @@
   
     <bool name="settings_default_allow_layouts_to_provide_generic_rows">true</bool>
     <bool name="settings_default_apply_remote_app_colors">false</bool>
+
+    <string name="settings_default_notice_never_before_seen_value">0</string>
 </resources>
