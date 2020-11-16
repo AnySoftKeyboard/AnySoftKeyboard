@@ -66,7 +66,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {}
             };
     private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
-    private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
+
+    @VisibleForTesting
+    final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
+
     @NonNull private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
     protected int mWordRevertLength = 0;
     private WordComposer mWord = new WordComposer();
@@ -512,6 +515,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // not allowing undo on-text in clipboard paste operations.
         if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mWordRevertLength = 0;
         setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+        if (!isCurrentlyPredicting()
+                && (primaryCode == KeyCodes.DELETE
+                        || primaryCode == KeyCodes.DELETE_WORD
+                        || primaryCode == KeyCodes.FORWARD_DELETE)) {
+            postRestartWordSuggestion();
+        }
     }
 
     private void postRestartWordSuggestion() {
