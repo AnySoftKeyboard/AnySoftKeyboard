@@ -3,7 +3,6 @@ package com.anysoftkeyboard.saywhat;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +22,22 @@ public class Notices {
     private static class CoronaVirusDetails implements OnKey, OnVisible {
 
         static final char[] CORONAVIRUS = "coronavirus".toCharArray();
-        // two days
-        static final long MIN_TIME_BETWEEN_SHOWING = 2 * 24 * 60 * 60 * 1000;
+
+        private final TimedNoticeHelper mTimeHelper;
+        private final CandidateViewShowingHelper mCandidateVisibleHelper =
+                new CandidateViewShowingHelper();
 
         private final KeyboardViewContainerView.StripActionProvider mVirusInfo;
         private int mWaitingForIndex = 0;
-        private long mLastTimeInfoWasShown = -MIN_TIME_BETWEEN_SHOWING;
 
         private CoronaVirusDetails(Context context) {
             mVirusInfo = new CovidInfo(context);
+            mTimeHelper =
+                    new TimedNoticeHelper(
+                            context,
+                            R.string.settings_key_public_notice_timed_covid,
+                            // 7 days
+                            7 * 24 * 60 * 60 * 1000);
         }
 
         @Override
@@ -48,23 +54,17 @@ public class Notices {
         }
 
         private void showInfo(PublicNotices ime) {
-            mLastTimeInfoWasShown = SystemClock.elapsedRealtime();
-            ime.getInputViewContainer().addStripAction(mVirusInfo);
+            if (mCandidateVisibleHelper.shouldShow(ime)) {
+                mTimeHelper.markAsShown();
+                ime.getInputViewContainer().addStripAction(mVirusInfo);
+            }
         }
 
         @Override
         public void onVisible(PublicNotices ime, AnyKeyboard keyboard, EditorInfo editorInfo) {
-            if (theRightTimeToShow(ime)) {
+            if (mTimeHelper.shouldShow()) {
                 showInfo(ime);
             }
-        }
-
-        private boolean theRightTimeToShow(PublicNotices ime) {
-            return MIN_TIME_BETWEEN_SHOWING
-                            < (SystemClock.elapsedRealtime() - mLastTimeInfoWasShown)
-                    && ime.getInputViewContainer().getCandidateView() != null
-                    && ime.getInputViewContainer().getCandidateView().getVisibility()
-                            == View.VISIBLE;
         }
 
         @Override
@@ -79,10 +79,10 @@ public class Notices {
 
         private static class CovidInfo implements KeyboardViewContainerView.StripActionProvider {
 
+            private final Intent mCoronaVirusInfoWebPage;
             private View mRootView;
             private final Runnable mHideTextAction =
                     () -> mRootView.findViewById(R.id.covid_info_text).setVisibility(View.GONE);
-            private final Intent mCoronaVirusInfoWebPage;
 
             private CovidInfo(Context context) {
                 mCoronaVirusInfoWebPage =
