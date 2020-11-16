@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -75,6 +76,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private boolean mShowKeyboardIconInStatusBar;
 
+    @NonNull private final SparseArrayCompat<int[]> mSpecialWrapCharacters;
+
     private CondenseType mPrefKeyboardInCondensedLandscapeMode = CondenseType.None;
     private CondenseType mPrefKeyboardInCondensedPortraitMode = CondenseType.None;
     private CondenseType mKeyboardInCondensedMode = CondenseType.None;
@@ -87,10 +90,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private boolean mKeyboardAutoCap;
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
-
-    protected AnySoftKeyboard() {
-        super();
-    }
 
     private static boolean isBackWordDeleteCodePoint(int c) {
         return Character.isLetterOrDigit(c);
@@ -106,6 +105,27 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 return CondenseType.CompactToLeft;
             default:
                 return CondenseType.None;
+        }
+    }
+
+    protected AnySoftKeyboard() {
+        super();
+        mSpecialWrapCharacters = new SparseArrayCompat<>();
+        char[] inputArray = "\"'-_*`~()[]{}<>".toCharArray();
+        char[] outputArray = "\"\"''--__**``~~()()[][]{}{}<><>".toCharArray();
+        if (inputArray.length * 2 != outputArray.length) {
+            throw new IllegalArgumentException(
+                    "outputArray should be twice as large as inputArray");
+        }
+        for (int wrapCharacterIndex = 0;
+                wrapCharacterIndex < inputArray.length;
+                wrapCharacterIndex++) {
+            char wrapCharacter = inputArray[wrapCharacterIndex];
+            int[] outputWrapCharacters =
+                    new int[] {
+                        outputArray[wrapCharacterIndex * 2], outputArray[1 + wrapCharacterIndex * 2]
+                    };
+            mSpecialWrapCharacters.put(wrapCharacter, outputWrapCharacters);
         }
     }
 
@@ -665,7 +685,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 sendEscape();
                 break;
             default:
-                if (isWordSeparator(primaryCode)) {
+                if (mGlobalSelectionStartPositionDangerous != mGlobalCursorPositionDangerous
+                        && mSpecialWrapCharacters.get(primaryCode) != null) {
+                    int[] wrapCharacters = mSpecialWrapCharacters.get(primaryCode);
+                    wrapSelectionWithCharacters(wrapCharacters[0], wrapCharacters[1]);
+                } else if (isWordSeparator(primaryCode)) {
                     handleSeparator(primaryCode);
                 } else if (mControlKeyState.isActive()) {
                     int keyCode = getKeyCode(primaryCode);
@@ -1109,6 +1133,33 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             }
             ic.endBatchEdit();
             ic.setSelection(selectionStart, selectionEnd);
+        }
+    }
+
+    private void wrapSelectionWithCharacters(int prefix, int postfix) {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
+        final ExtractedText et = getExtractedText();
+        if (et == null) return;
+        final int selectionStart = et.selectionStart;
+        final int selectionEnd = et.selectionEnd;
+
+        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2481
+        // the host app may report -1 as indexes (when nothing is selected)
+        if (et.text == null
+                || selectionStart == selectionEnd
+                || selectionEnd == -1
+                || selectionStart == -1) return;
+        final CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
+
+        if (selectedText.length() > 0) {
+            StringBuilder outputText = new StringBuilder();
+            char[] prefixChars = Character.toChars(prefix);
+            outputText.append(prefixChars).append(selectedText).append(Character.toChars(postfix));
+            ic.beginBatchEdit();
+            ic.commitText(outputText.toString(), 0);
+            ic.endBatchEdit();
+            ic.setSelection(selectionStart + prefixChars.length, selectionEnd + prefixChars.length);
         }
     }
 

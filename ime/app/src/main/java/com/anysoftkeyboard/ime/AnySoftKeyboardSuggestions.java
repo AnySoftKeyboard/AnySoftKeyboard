@@ -71,6 +71,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
 
     @NonNull private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
+
     protected int mWordRevertLength = 0;
     private WordComposer mWord = new WordComposer();
     private WordComposer mPreviousWord = new WordComposer();
