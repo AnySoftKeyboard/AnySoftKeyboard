@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.ime;
 
 import static com.anysoftkeyboard.TestableAnySoftKeyboard.createEditorInfo;
+import static com.anysoftkeyboard.ime.KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS;
 
+import android.os.SystemClock;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
@@ -192,17 +194,42 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDoesNotPostRestartOnBackspaceWhilePredicting() {
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        Assert.assertFalse(
+                ((AnySoftKeyboardSuggestions) mAnySoftKeyboardUnderTest)
+                        .mKeyboardHandler.hasMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS));
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertFalse(
+                ((AnySoftKeyboardSuggestions) mAnySoftKeyboardUnderTest)
+                        .mKeyboardHandler.hasMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS));
+        SystemClock.sleep(5);
+        Assert.assertFalse(
+                ((AnySoftKeyboardSuggestions) mAnySoftKeyboardUnderTest)
+                        .mKeyboardHandler.hasMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS));
+    }
+
+    @Test
     public void testSuggestionsRestartWhenBackSpace() {
         simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
         simulateOnStartInputFlow();
 
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hell ");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell face ");
         Assert.assertEquals(
-                "hell ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+                "hell face ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        for (int deleteKeyPress = 6; deleteKeyPress > 0; deleteKeyPress--) {
+            // really quickly
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+            SystemClock.sleep(5);
+        }
         Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
         verifySuggestions(true, "hell", "hell", "hello");

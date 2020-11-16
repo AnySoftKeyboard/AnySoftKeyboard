@@ -368,7 +368,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
-                    // we do backword if the shift is pressed while pressing
+                    // we do back-word if the shift is pressed while pressing
                     // backspace (like in a PC)
                     if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
                         handleBackWord(ic);
