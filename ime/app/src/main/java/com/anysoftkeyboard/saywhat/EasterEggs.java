@@ -21,8 +21,8 @@ public class EasterEggs {
     }
 
     private static class DavidBowieEasterEgg extends OnKeyEasterEggBaseImpl {
-        private static Random RANDOM = new Random();
-        private static String[] LYRICS =
+        private static final Random RANDOM = new Random();
+        private static final String[] LYRICS =
                 new String[] {
                     "For here am I sitting in a tin can\nFar above the world\nPlanet Earth is blue\nAnd there's nothing I can do.",
                     "Put on your red shoes\nAnd dance the blues.",
