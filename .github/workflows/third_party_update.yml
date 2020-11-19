@@ -46,7 +46,7 @@ jobs:
           git add -f gradle/wrapper
           git add -f gradle/wrapper/gradle-wrapper.jar
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.4
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Gradle Update'
@@ -81,7 +81,7 @@ jobs:
         run: |
           git add gradle/root_all_projects_ext.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.4
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Robolectric Update'
@@ -115,7 +115,7 @@ jobs:
         run: |
           git add gradle/root_all_projects_ext.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.4
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Build-Tools Update'
@@ -157,7 +157,7 @@ jobs:
       - name: Add changed gradle files
         run: git add gradle/errorprone.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.4
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Error-Prone Update'
@@ -196,7 +196,7 @@ jobs:
       - name: Add changed formated files
         run: git add .
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v2.4.4
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Google-Format Update'
