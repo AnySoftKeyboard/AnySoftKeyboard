@@ -33,6 +33,7 @@
     <string name="no_market_store_available">Ezin izan da <i>Google Play Store</i> aurkitu zure gailuan.\nEzin dira gehigarriak bilatu!</string>
     <string name="keyboard_theme_tweak_group">Doikuntzak</string>
     <string name="close_button">Itxi</string>
+    <string name="delete_button">Ezabatu</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gordeta:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
