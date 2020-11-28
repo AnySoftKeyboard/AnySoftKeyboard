@@ -464,11 +464,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     // 1) predicting and moved inside the word - just update the
                     // cursor position and shift state
                     // inside the currently selected word
-                    if (newSelStart < candidatesEnd) {
-                        Logger.d(
-                                TAG, "onUpdateSelection: cursor moving inside the predicting word");
-                        mWord.setCursorPosition(newSelEnd - candidatesStart);
-                    }
+                    mWord.setCursorPosition(newSelEnd - candidatesStart);
                 } else {
                     Logger.d(
                             TAG,
