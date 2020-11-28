@@ -592,4 +592,45 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 "heu all", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
     }
+
+    @Test
+    public void testTypeWordFixInnerMoveToEndAndDelete() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hllo");
+        Assert.assertEquals(
+                "hllo", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().setSelection(1, 1);
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('e');
+        Assert.assertEquals(
+                "hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setSelection(5, 5);
+        Assert.assertEquals(
+                "hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals(
+                "hell", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals(
+                "hel", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals(
+                "he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("h", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(0, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('d');
+        Assert.assertEquals("d", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
 }
