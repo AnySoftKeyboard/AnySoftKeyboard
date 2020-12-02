@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.saywhat;
 
-import android.content.Context;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -16,22 +15,11 @@ public abstract class PublicNotices extends AnySoftKeyboard {
     @Override
     public void onCreate() {
         super.onCreate();
-        for (PublicNotice publicNotice : generatePublicNotices()) {
+        for (PublicNotice publicNotice : ((AnyApplication) getApplication()).getPublicNotices()) {
             if (publicNotice instanceof OnKey) mOnKeyListeners.add((OnKey) publicNotice);
             if (publicNotice instanceof OnVisible)
                 mOnVisibleListeners.add((OnVisible) publicNotice);
         }
-    }
-
-    protected List<PublicNotice> generatePublicNotices() {
-        List<PublicNotice> all = new ArrayList<>(EasterEggs.create());
-        all.addAll(Notices.create(getApplicationContext()));
-        final Context askAppContext = getApplicationContext();
-        if (askAppContext instanceof AnyApplication) {
-            all.addAll(((AnyApplication) askAppContext).createAppPublicNotices());
-        }
-
-        return all;
     }
 
     @Override

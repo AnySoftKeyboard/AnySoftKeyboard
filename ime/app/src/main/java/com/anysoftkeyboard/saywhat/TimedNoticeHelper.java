@@ -9,13 +9,24 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TimedNoticeHelper {
+    public interface NextTimeProvider {
+        long getNextTimeOffset();
+    }
+
     private final Preference<String> mDataHolder;
-    private final long mTimeBetweenShows;
+    private final NextTimeProvider mNextTimeInMilliSecondsProvider;
     private long mNextTimeToShow;
 
     public TimedNoticeHelper(
             @NonNull Context context, @StringRes int prefKey, long timeBetweenShows) {
-        mTimeBetweenShows = timeBetweenShows;
+        this(context, prefKey, () -> timeBetweenShows);
+    }
+
+    public TimedNoticeHelper(
+            @NonNull Context context,
+            @StringRes int prefKey,
+            @NonNull NextTimeProvider timeProvider) {
+        mNextTimeInMilliSecondsProvider = timeProvider;
         mDataHolder =
                 AnyApplication.prefs(context)
                         .getString(
@@ -28,7 +39,8 @@ public class TimedNoticeHelper {
     }
 
     public void markAsShown() {
-        mNextTimeToShow = SystemClock.elapsedRealtime() + mTimeBetweenShows;
+        mNextTimeToShow =
+                SystemClock.elapsedRealtime() + mNextTimeInMilliSecondsProvider.getNextTimeOffset();
         mDataHolder.set(Long.toString(mNextTimeToShow));
     }
 }
