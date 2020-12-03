@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
     }
 
     @Override
+    @NonNull
     public String getName() {
         return mEggName;
     }
