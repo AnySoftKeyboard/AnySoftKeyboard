@@ -6,5 +6,7 @@
     <string name="danish_dictionary">Danish</string>
 
     <string name="danish_keyboard">Danish</string>
-    <string name="danish_keyboard_description">Danish keyboard</string>
+    <string name="danish_keyboard_description">QWERTY layout</string>
+    <string name="danish_keyboard_dvorak">Danish</string>
+    <string name="danish_keyboard_dvorak_description">Dvorak layout, implemented by snkfxx</string>
 </resources>

@@ -31,7 +31,7 @@
     </Row>
 
     <Row android:keyWidth="10%p">
-        <Key android:codes="-1" android:keyWidth="15%p"
+        <Key android:codes="@integer/key_code_shift" android:keyWidth="15%p"
              android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="122"/>
         <Key android:codes="120" />
@@ -40,6 +40,6 @@
         <Key android:codes="98" />
         <Key android:codes="110" />
         <Key android:codes="109"/>
-        <Key android:codes="-5" android:keyWidth="15%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_delete" android:keyWidth="15%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>
