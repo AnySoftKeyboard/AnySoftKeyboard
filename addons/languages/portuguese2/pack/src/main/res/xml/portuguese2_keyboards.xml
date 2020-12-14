@@ -14,4 +14,12 @@
         description="Portuguese QWERTY"
         index="1"
         />
+    <Keyboard nameResId="@string/portuguese_keyboard_name" iconResId="@drawable/ic_status_portuguese2"
+        layoutResId="@xml/qwerty_with_symbols" landscapeResId="@xml/qwerty_with_symbols"
+        id="6D567615-4ABC-46C7-97C5-B87730AC6BDA"
+        defaultDictionaryLocale="pt-PT"
+        description="Portuguese QWERTY with symbols (on long press)"
+        index="2"
+        defaultEnabled="false"
+        />
 </Keyboards>

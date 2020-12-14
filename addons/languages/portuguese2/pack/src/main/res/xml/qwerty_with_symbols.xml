@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:ask="http://schemas.android.com/apk/res-auto"
+          android:keyWidth="10%p"
+          android:keyHeight="@integer/key_normal_height">
+
+    <!-- Based on addons/languages/english/pack/src/main/res/xml/qwerty_with_symbols.xml -->
+    <!-- Based on addons/languages/german/pack/src/main/res/xml/de_adnw.xml -->
+    <!-- This has some tweaks due to lack of space. Designed to be combined with the number toprow -->
+    <!-- It also ignores the accent combination keys -->
+    <Row android:rowEdgeFlags="top">
+        <!-- "\|" would be a separate key on the number row -->
+        <Key android:codes="49" android:keyLabel="1" ask:shiftedCodes="!" android:popupCharacters="!|\\¹₁" android:keyEdgeFlags="left"/>
+        <Key android:codes="50" android:keyLabel="2" ask:shiftedCodes="\u0022" android:popupCharacters="\u0022\@²₂"/>
+        <Key android:codes="51" android:keyLabel="3" ask:shiftedCodes="#" android:popupCharacters="#£³₃"/>
+        <Key android:codes="52" android:keyLabel="4" ask:shiftedCodes="$" android:popupCharacters="$§⁴₄"/>
+        <Key android:codes="53" android:keyLabel="5" ask:shiftedCodes="%" android:popupCharacters="%"/>
+        <Key android:codes="54" android:keyLabel="6" ask:shiftedCodes="\u0026" android:popupCharacters="\u0026"/>
+        <Key android:codes="55" android:keyLabel="7" ask:shiftedCodes="/" android:popupCharacters="{"/>
+        <Key android:codes="56" android:keyLabel="8" ask:shiftedCodes="(" android:popupCharacters="(["/>
+        <Key android:codes="57" android:keyLabel="9" ask:shiftedCodes=")" android:popupCharacters=")]"/>
+        <Key android:codes="48" android:keyLabel="0" ask:shiftedCodes="=" android:popupCharacters="=}?\u0027«»" android:keyEdgeFlags="right"/>
+        <!-- "?'" would be a separate key on the number row -->
+        <!-- "«»" would be a separate key on the number row -->
+    </Row>
+    <Row>
+        <Key android:codes="q" android:popupCharacters="Ω" android:keyEdgeFlags="left"/>
+        <Key android:codes="w" android:popupCharacters="ŵ"/>
+        <Key android:codes="e" android:popupCharacters="èéêëęē€" ask:hintLabel="€"/>
+        <Key android:codes="r" android:popupCharacters="řŕ"/>
+        <Key android:codes="t" android:popupCharacters="ťṭṯ"/>
+        <Key android:codes="y" android:popupCharacters="ýÿ"/>
+        <Key android:codes="u" android:popupCharacters="ùúûüŭűūµ"/>
+        <Key android:codes="i" android:popupCharacters="ìíîïłīι*"/>
+        <Key android:codes="o" android:popupCharacters="òóôõöøőœō"/>
+        <Key android:codes="p" android:popupCharacters="+*`¶þ·×±ʾʿ" ask:hintLabel="+*`" android:keyEdgeFlags="right"/>
+        <!-- "+*" would be a separate key on the first row -->
+        <!-- "`'" would be a separate key on the first row -->
+    </Row>
+
+    <Row>
+        <Key android:codes="a" android:popupCharacters="àáâãāäåæą" android:keyEdgeFlags="left"/>
+        <Key android:codes="s" android:popupCharacters="ßśŝšṣ"/>
+        <Key android:codes="d" android:popupCharacters="đďḏ"/>
+        <Key android:codes="f"/>
+        <Key android:codes="g" android:popupCharacters="ĝ"/>
+        <Key android:codes="h" android:popupCharacters="ħ"/>
+        <Key android:codes="j" android:popupCharacters="ĵ̉"/>
+        <Key android:codes="k" android:popupCharacters="⸢ĸ"/>
+        <Key android:codes="l" android:popupCharacters="⸣ľĺł"/>
+        <Key android:codes="ç" android:popupCharacters="ºª~^" ask:hintLabel="ºª~^" android:keyEdgeFlags="right"/>
+        <!-- "ºª" would be a separate key on the second row -->
+        <!-- "~^" would be a separate key on the second row -->
+    </Row>
+
+    <Row>
+        <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="&lt;" ask:shiftedCodes="&gt;" android:popupCharacters="&lt;&gt;" ask:hintLabel="&lt;&gt;"/>
+        <Key android:codes="z" android:popupCharacters="żžź" ask:hintLabel=""/>
+        <Key android:codes="x" android:popupCharacters="" ask:hintLabel=""/>
+        <Key android:codes="c" android:popupCharacters="ćĉč" ask:hintLabel=""/>
+        <Key android:codes="v" android:popupCharacters="" ask:hintLabel=""/>
+        <Key android:codes="b" android:popupCharacters=""/>
+        <Key android:codes="n" android:popupCharacters="ńňñ" ask:hintLabel=""/>
+        <Key android:codes="m" android:popupCharacters="µ" ask:hintLabel=""/>
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>
