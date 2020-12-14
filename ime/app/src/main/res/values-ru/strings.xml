@@ -29,6 +29,7 @@
     <string name="no_market_store_available"><b>* Не удалось найти Google Play Store на вашем устройстве. Нет возможности искать дополнения!</b></string>
     <string name="keyboard_theme_tweak_group">Твики</string>
     <string name="close_button">Закрыть</string>
+    <string name="delete_button">Удалить</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Сохранено:\u0020<xliff:g id="word">%s </xliff:g></string>
     <string name="revert_added_word_question">Удалить\?</string>
@@ -669,4 +670,6 @@
     <string name="click_me_for_easter_egg_info">нажмите сюда, чтобы увидеть сюрприз</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
+    <string name="beta_pre_purge_action_text">Выполняется отмена подписки тестирования</string>
+    <string name="beta_post_purge_action_text">Отмена подписки тестирования завершена</string>
 </resources>
