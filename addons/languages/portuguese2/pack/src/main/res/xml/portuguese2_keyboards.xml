@@ -9,7 +9,7 @@
     -->
     <Keyboard nameResId="@string/portuguese_keyboard_name" iconResId="@drawable/ic_status_portuguese2"
         layoutResId="@xml/qwerty" landscapeResId="@xml/qwerty"
-        id="c2e7dbe0-5bd8-11ea-aaef-0800200c9a66"
+        id="4fb29150-71fa-4e58-aa35-1cbc0adfd937"
         defaultDictionaryLocale="pt-PT"
         description="Portuguese QWERTY"
         index="1"
