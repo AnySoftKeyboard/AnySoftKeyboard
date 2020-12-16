@@ -649,18 +649,25 @@ public class KeyboardSwitcher {
 
     private AnyKeyboard nextAlphabetKeyboard(
             EditorInfo currentEditorInfo, boolean supportsPhysical) {
+        return scrollAlphabetKeyboard(currentEditorInfo, supportsPhysical, 1);
+    }
+
+    private AnyKeyboard scrollAlphabetKeyboard(
+            EditorInfo currentEditorInfo, boolean supportsPhysical, int scroll) {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
 
         if (current == null) {
             final int keyboardsCount = getAlphabetKeyboards().length;
             if (isAlphabetMode()) {
-                mLastSelectedKeyboardIndex++;
+                mLastSelectedKeyboardIndex += scroll;
             }
 
             mAlphabetMode = true;
 
             if (mLastSelectedKeyboardIndex >= keyboardsCount) {
                 mLastSelectedKeyboardIndex = 0;
+            } else if (mLastSelectedKeyboardIndex < 0) {
+                mLastSelectedKeyboardIndex = keyboardsCount - 1;
             }
 
             current = getAlphabetKeyboard(mLastSelectedKeyboardIndex, currentEditorInfo);
@@ -670,9 +677,11 @@ public class KeyboardSwitcher {
             if (supportsPhysical) {
                 int testsLeft = keyboardsCount;
                 while (!(current instanceof HardKeyboardTranslator) && (testsLeft > 0)) {
-                    mLastSelectedKeyboardIndex++;
+                    mLastSelectedKeyboardIndex += scroll;
                     if (mLastSelectedKeyboardIndex >= keyboardsCount) {
                         mLastSelectedKeyboardIndex = 0;
+                    } else if (mLastSelectedKeyboardIndex < 0) {
+                        mLastSelectedKeyboardIndex = keyboardsCount - 1;
                     }
                     current = getAlphabetKeyboard(mLastSelectedKeyboardIndex, currentEditorInfo);
                     testsLeft--;
@@ -694,12 +703,16 @@ public class KeyboardSwitcher {
         }
     }
 
-    @NonNull
     private AnyKeyboard nextSymbolsKeyboard(EditorInfo currentEditorInfo) {
+        return scrollSymbolsKeyboard(currentEditorInfo, 1);
+    }
+
+    @NonNull
+    private AnyKeyboard scrollSymbolsKeyboard(EditorInfo currentEditorInfo, int scroll) {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
         if (locked != null) return locked;
 
-        mLastSelectedSymbolsKeyboard = getNextSymbolsKeyboardIndex();
+        mLastSelectedSymbolsKeyboard = scrollSymbolsKeyboardIndex(scroll);
         mAlphabetMode = false;
         AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
@@ -708,19 +721,25 @@ public class KeyboardSwitcher {
     }
 
     private int getNextSymbolsKeyboardIndex() {
+        return scrollSymbolsKeyboardIndex(1);
+    }
+
+    private int scrollSymbolsKeyboardIndex(int scroll) {
         int nextKeyboardIndex = mLastSelectedSymbolsKeyboard;
-        if (mCycleOverAllSymbols) {
-            if (!isAlphabetMode()) {
-                if (nextKeyboardIndex >= SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX) {
-                    nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
-                } else {
-                    nextKeyboardIndex++;
-                }
-            } else {
+        if (!mCycleOverAllSymbols) {
+            nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+        } else if (!isAlphabetMode()) {
+            nextKeyboardIndex += scroll;
+            if (nextKeyboardIndex > SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX) {
                 nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+            } else if (nextKeyboardIndex < SYMBOLS_KEYBOARD_REGULAR_INDEX) {
+                nextKeyboardIndex = SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX;
             }
         } else {
-            nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+            nextKeyboardIndex =
+                    (scroll > 0)
+                            ? SYMBOLS_KEYBOARD_REGULAR_INDEX
+                            : SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX;
         }
         return nextKeyboardIndex;
     }
@@ -787,6 +806,7 @@ public class KeyboardSwitcher {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
         if (locked != null) return locked;
 
+        final int alphabetKeyboardsCount = getAlphabetKeyboards().length;
         switch (type) {
             case Alphabet:
             case AlphabetSupportsPhysical:
@@ -795,10 +815,6 @@ public class KeyboardSwitcher {
             case Symbols:
                 return nextSymbolsKeyboard(currentEditorInfo);
             case Any:
-            case PreviousAny:
-                // currently we'll support only one direction cycling through the alphabet, and at
-                // the end, going to the symbols.
-                final int alphabetKeyboardsCount = getAlphabetKeyboards().length;
                 if (mAlphabetMode) {
                     if (mLastSelectedKeyboardIndex >= (alphabetKeyboardsCount - 1)) {
                         // we are at the last alphabet keyboard
@@ -810,10 +826,32 @@ public class KeyboardSwitcher {
                 } else {
                     if (mLastSelectedSymbolsKeyboard >= SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX) {
                         // we are at the last symbols keyboard
-                        mLastSelectedSymbolsKeyboard = 0;
+                        mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
                         return nextAlphabetKeyboard(currentEditorInfo, false);
                     } else {
                         return nextSymbolsKeyboard(currentEditorInfo);
+                    }
+                }
+            case PreviousAny:
+                if (mAlphabetMode) {
+                    if (mLastSelectedKeyboardIndex <= 0) {
+                        // we are at the first alphabet keyboard
+                        // return to the regular alphabet keyboard, no matter what
+                        mLastSelectedKeyboardIndex = 0;
+                        return scrollSymbolsKeyboard(currentEditorInfo, -1);
+                    } else {
+                        return scrollAlphabetKeyboard(currentEditorInfo, false, -1);
+                    }
+                } else {
+                    if (mLastSelectedSymbolsKeyboard <= SYMBOLS_KEYBOARD_REGULAR_INDEX) {
+                        // we are at the first symbols keyboard
+                        // return to the regular symbols keyboard, no matter what
+                        mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+                        // ensure we select the correct alphabet keyboard
+                        mLastSelectedKeyboardIndex = alphabetKeyboardsCount - 1;
+                        return scrollAlphabetKeyboard(currentEditorInfo, false, 1);
+                    } else {
+                        return scrollSymbolsKeyboard(currentEditorInfo, -1);
                     }
                 }
             case AnyInsideMode:
