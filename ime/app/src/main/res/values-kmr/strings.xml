@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
+    
     <string name="debug_tracing_starting">Veguhestina transîteye!\n Bawer bıkın ku hûn li ser hineke dosten</string>
     <string name="debug_tracing_starting_failed">Veguhestina transîteye nikani! Hun dikanin nawxheyi logcat meskin.</string>
     <string name="debug_tracing_finished">Transîteye tavo bu!\nTransîte voyâ
@@ -11,7 +11,7 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Guherandinê yen ji bo v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Coko dı:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+    
     <string name="notification_text_testers">Vo versîyonê beta. Hişyariyê bikar binin!</string>
     <string name="testers_version">îmtîhanan avakîrîn!</string>
     <string name="language_root_tile">Ziman</string>
