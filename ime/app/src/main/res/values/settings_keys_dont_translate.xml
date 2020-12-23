@@ -376,7 +376,4 @@
     <string name="settings_key_apply_remote_app_colors">settings_key_apply_remote_app_colors</string>
 
     <string name="settings_key_public_notice_timed_covid">settings_key_public_notice_timed_covid</string>
-
-    <string name="settings_key_public_notice_pre_purge_beta_channel">settings_key_public_notice_pre_purge_beta_channel</string>
-    <string name="settings_key_public_notice_post_purge_beta_channel">settings_key_public_notice_post_purge_beta_channel</string>
 </resources>

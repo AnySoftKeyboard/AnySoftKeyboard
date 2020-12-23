@@ -945,6 +945,6 @@
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 
-    <string name="beta_pre_purge_action_text">Tester Unsubscribe Approaching</string>
-    <string name="beta_post_purge_action_text">Tester Unsubscribe Done</string>
+    
+    
 </resources>
