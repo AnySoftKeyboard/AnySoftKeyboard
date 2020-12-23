@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
+    
     <string name="debug_tracing_starting">Отслеживание начато! \nВы можете остановить его в любой момент</string>
     <string name="debug_tracing_starting_failed">Запуск отслеживания не удался! Проверьте каталог логов для подробностей.</string>
     <string name="debug_tracing_finished">Отслеживание завершено! \nВот файл отслеживания\u0020<xliff:g id="trace_file">%s </xliff:g></string>

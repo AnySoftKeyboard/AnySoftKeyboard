@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">ဘာသာစုံလက်ကွက်</string>
+    
     <string name="debug_tracing_starting">တိုင်ဆိုင်စစ်ဆေးမှု စတင်ပါပြီ။ \n တချို့ရပ်ရန်နေရာများတွင် သေချာစွာရပ်ပါ။</string>
     <string name="debug_tracing_starting_failed">တိုက်ဆိုင် စစ်ဆေးရန် စတင်းခြင်း မအောင်မြင်ပါ။ logcat မှာ အသေးစိတ်ကြည့်ပါ။</string>
     <string name="debug_tracing_finished">တိုက်ဆိုင်စစ်ဆေးခြင်း ပြီးမြောက်ပါပြီ။\nစစ်ဆေးမှုဖိုင်မှာ
