@@ -18,7 +18,7 @@
     </string>
     <string name="change_log_url">        <xliff:g id="url">%s</xliff:g>
     </string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+    
     <string name="notification_text_testers">ئەمە وەشانی تاقیکارییە، بە ووریاییەوە بەکاری بهێنە!</string>
     <string name="testers_version">وەشانی تاقیکاری!</string>
     <string name="language_root_tile">تەختەکلیل</string>

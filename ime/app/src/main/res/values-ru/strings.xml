@@ -9,7 +9,7 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для версии<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Ещё:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard Бета-версия</string>
+    
     <string name="notification_text_testers">Это бета-версия. Следует использовать с осторожностью!</string>
     <string name="testers_version">Сборка для тестеров!</string>
     <string name="language_root_tile">Язык</string>
