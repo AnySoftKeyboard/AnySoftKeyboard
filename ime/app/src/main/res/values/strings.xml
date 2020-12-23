@@ -449,7 +449,7 @@
     <string name="candidates_off_summary">No suggestions will be shown</string>
     <string name="quick_fix">Quick fixes and abbreviations</string>
     <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations</string>
-    <string name="quick_fix_secon_disabled">&#8230;on first language only</string>
+    <string name="quick_fix_secon_disabled">…on first language only</string>
     <string name="quick_fix_secon_disabled_summ_on">Quick fixes and abbreviations will work only on current layout language</string> 
     <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
                   checked in override default dictionary</string>
@@ -739,8 +739,8 @@
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
 
     <string name="file_explorer_menu_add_folder">Create folder</string>
-    <string name="file_explorer_filename">Backup filename&#8230;</string>
-    <string name="file_explorer_filename_empty">Filename cannot be empty&#8230;</string>
+    <string name="file_explorer_filename">Backup filename…</string>
+    <string name="file_explorer_filename_empty">Filename cannot be empty…</string>
     <string name="file_explorer_alert_title">Select this file ?</string>
     <string name="file_explorer_restore_alert_message">Do you want to restore this file ?</string>
     <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
