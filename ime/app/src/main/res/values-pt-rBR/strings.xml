@@ -11,7 +11,7 @@
     <string name="change_log_url">Mais:\u0020
          <xliff:g id="url">%s</xliff:g>
     </string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+    
     <string name="notification_text_testers">Esta é uma versão beta. Use com cuidado!</string>
     <string name="testers_version">Edição de testes!</string>
     <string name="language_root_tile">Idioma</string>

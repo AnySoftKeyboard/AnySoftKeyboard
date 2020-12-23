@@ -13,7 +13,7 @@
         %s</xliff:g>\u0020\u0020
     </string>
     <string name="change_log_url">Gehiago:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+    
     <string name="notification_text_testers">Hau beta bertsio bat da, kontuz ibili!</string>
     <string name="testers_version">Probetarako konpilazioa!</string>
     <string name="language_root_tile">Hizkuntza</string>

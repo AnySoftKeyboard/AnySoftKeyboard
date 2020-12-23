@@ -11,7 +11,7 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Változási jegyzék v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Verziótörténet:\u0020<xliff:g id="url">%s</xliff:g>\u0020</string>
-    <string name="ime_name_beta">AnySoftKeyboard Béta</string>
+    
     <string name="notification_text_testers">Ez egy béta verzió. Csak óvatosan!</string>
     <string name="testers_version">Tesztelői változat!</string>
     <string name="language_root_tile">Nyelv</string>
