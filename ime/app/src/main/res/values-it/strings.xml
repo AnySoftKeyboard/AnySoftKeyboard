@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    
     <string name="debug_tracing_starting">Tracciatura avviata!\nAssicurati di fermarla ad un certo punto</string>
     <string name="debug_tracing_starting_failed">Avvio della tracciatura non riuscito! Controlla il logcat per i dettagli.</string>
     <string name="debug_tracing_finished">Tracciatura completata!!\nIl file traccia è
@@ -13,7 +12,6 @@
     <string name="change_log_url">Altro:\u0020
         <xliff:g id="url">%s</xliff:g>
     </string>
-    
     <string name="notification_text_testers">Questa è una versione beta. Utilizzare con cautela!</string>
     <string name="testers_version">Tester build!</string>
     <string name="language_root_tile">Lingua</string>
