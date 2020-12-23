@@ -666,6 +666,6 @@
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
-    <string name="beta_pre_purge_action_text">Cancelar suscripción de probador casi listo</string>
-    <string name="beta_post_purge_action_text">Cancelar suscripción de probador listo</string>
+    
+    
 </resources>
