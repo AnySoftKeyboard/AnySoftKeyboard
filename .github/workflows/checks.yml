@@ -20,7 +20,7 @@ env:
   TMPDIR: "/tmp"
 
 jobs:
-  checks:
+  static-checks:
     runs-on: ubuntu-18.04
     container: menny/ndk_ask:1.14.0
     steps:
@@ -39,6 +39,26 @@ jobs:
         with:
           file_pattern: checkstyle*.html
           output_folder: collected_reports/checkstyle
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: checks-reports
+          path: collected_reports
+
+  linters:
+    runs-on: ubuntu-18.04
+    container: menny/ndk_ask:1.14.0
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1.1.2
+        with:
+          path: .github_cache_gradle/
+          key: linters-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
+          restore-keys: linters-gradle-v2-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: check
+        run: ./scripts/ci/ci_check_lint.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -47,7 +67,7 @@ jobs:
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
-          name: checks-reports
+          name: linters-reports
           path: collected_reports
 
   app-tests-shards:
@@ -217,7 +237,7 @@ jobs:
           path: outputs/fdroid
 
   master-green-requirement:
-    needs: [checks, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
+    needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
     runs-on: ubuntu-18.04
     steps:
       - name: ready
