@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.languagepack.portuguese2;
+package com.anysoftkeyboard.languagepack.portuguese;
 
 import com.anysoftkeyboard.addon.PackBroadcastReceiverBase;
 

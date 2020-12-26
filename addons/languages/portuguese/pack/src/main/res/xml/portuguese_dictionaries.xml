@@ -9,7 +9,7 @@
     -->
 
     <Dictionary nameResId="@string/portuguese_dictionary_name" locale="pt-PT" id="25e3a292-9342-4c15-9aec-22eda1191fd8" type="binary_resource"
-        dictionaryResourceId="@array/portuguese2_words_dict_array" autoTextResourceId="@xml/portuguese2_autotext"
+        dictionaryResourceId="@array/portuguese_words_dict_array" autoTextResourceId="@xml/portuguese_autotext"
         description="AOSP+LOS Dictionary"/>
 
 </Dictionaries>
