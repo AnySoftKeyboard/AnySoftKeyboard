@@ -33,6 +33,7 @@
     <string name="no_market_store_available">Impossibile trovare <i>Google Play Store</i> sul tuo dispositivo.\nImpossibile cercare componenti aggiuntivi!</string>
     <string name="keyboard_theme_tweak_group">Miglioramenti</string>
     <string name="close_button">Chiudi</string>
+    <string name="delete_button">Elimina</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Salvato:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
