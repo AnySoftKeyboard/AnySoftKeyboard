@@ -22,7 +22,9 @@
     <string name="de_keyboard_neo2">German neo2</string>
     <string name="de_keyboard_neo2_simple">German neo2 simple</string>
     <string name="de_keyboard_adnw">German adnw</string>
+    <string name="de_keyboard_adnw_koy">German adnw KOY</string>
     <string name="de_keyboard_adnw_description">Aus der Neo Welt (Christoph Bauer)</string>
+    <string name="de_keyboard_adnw_koy_description">Aus der Neo Welt (KOY-Variante)</string>
     <string name="de_keyboard_dvorak_compact">DE Dv Compact</string>
     <string name="de_keyboard_dvorak_compact_description">German version of Dvorak compact, two letters per button, for Wurstfinger</string>
            
