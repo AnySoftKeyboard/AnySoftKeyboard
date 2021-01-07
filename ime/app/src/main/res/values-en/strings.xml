@@ -483,8 +483,6 @@
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
 
-    <string name="popup_characters_order_title">Popup characters order</string>
-    <string name="popup_characters_order_summary">Keys will display extra characters upon long press. Default order is NLOS, where N = Numbers, S = Symbols, L = Letters specific to current layout, O = Other letters.</string>
 
     <string name="keyboard_theme_list_title">Select theme</string>
 
