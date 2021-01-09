@@ -1,6 +1,6 @@
 <resources>
     <string name="nias_dictionary">Nias</string>
     <string name="nias_dictionary_description">Bahasa Nias</string>
-    <string name="nias_qwerty">Nias Standard</string>
+    <string name="nias_qwerty">Nias</string>
     <string name="nias_qwerty_description">Dengan tombol huruf ŵ dan ö</string>
 </resources>
