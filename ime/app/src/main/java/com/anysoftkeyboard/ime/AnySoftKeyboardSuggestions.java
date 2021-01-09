@@ -650,7 +650,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     ic.setSelection(newCursorPosition, newCursorPosition);
                     ic.endBatchEdit();
                 }
-
             }
             // this should be done ONLY if the key is a letter, and not a inner
             // character (like ').

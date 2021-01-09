@@ -55,8 +55,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hello".length(), inputConnection.getCurrentStartPosition());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(',');
-        Assert.assertEquals("hello,. ", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals("hello,".length(), inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("hello, . ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hello, ".length(), inputConnection.getCurrentStartPosition());
     }
 
     @Test
