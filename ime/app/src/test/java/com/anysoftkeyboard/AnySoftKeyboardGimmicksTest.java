@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -37,6 +38,25 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         // double space
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + ". ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2526
+    @Test
+    public void testDoubleSpaceMoveCommaDoesNotDeletePreviousCharacter() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("  ");
+        // this will produce double-space->dot
+        Assert.assertEquals("hello. ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hello. ".length(), inputConnection.getCurrentStartPosition());
+        // moving to the beginning of the word
+        inputConnection.setSelection("hello".length(), "hello".length());
+        Robolectric.flushForegroundThreadScheduler();
+        Assert.assertEquals("hello".length(), inputConnection.getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("hello,. ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hello,".length(), inputConnection.getCurrentStartPosition());
     }
 
     @Test
@@ -375,11 +395,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
-        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
     }
 
@@ -396,11 +411,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         Assert.assertEquals("Auto ", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-
-        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);

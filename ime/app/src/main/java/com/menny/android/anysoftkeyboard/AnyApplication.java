@@ -44,12 +44,15 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV28;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.saywhat.EasterEggs;
+import com.anysoftkeyboard.saywhat.Notices;
 import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
@@ -61,6 +64,7 @@ import io.reactivex.subjects.ReplaySubject;
 import io.reactivex.subjects.Subject;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AnyApplication extends Application {
@@ -86,7 +90,8 @@ public class AnyApplication extends Application {
     private KeyboardThemeFactory mKeyboardThemeFactory;
     private QuickTextKeyFactory mQuickTextKeyFactory;
     private RxSharedPrefs mRxSharedPrefs;
-    private Subject<Boolean> mNightModeSubject = ReplaySubject.createWithSize(1);
+    private final Subject<Boolean> mNightModeSubject = ReplaySubject.createWithSize(1);
+    private ArrayList<PublicNotice> mPublicNotices;
 
     public static DeviceSpecific getDeviceSpecific() {
         return msDeviceSpecific;
@@ -118,10 +123,6 @@ public class AnyApplication extends Application {
 
     public static QuickTextKeyFactory getQuickTextKeyFactory(Context context) {
         return ((AnyApplication) context.getApplicationContext()).mQuickTextKeyFactory;
-    }
-
-    public List<PublicNotice> createAppPublicNotices() {
-        return new ArrayList<>();
     }
 
     @NonNull
@@ -200,6 +201,13 @@ public class AnyApplication extends Application {
         mNightModeSubject.onNext(
                 (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                         == Configuration.UI_MODE_NIGHT_YES);
+
+        mPublicNotices = new ArrayList<>(EasterEggs.create());
+        mPublicNotices.addAll(Notices.create(this));
+    }
+
+    public List<PublicNotice> getPublicNotices() {
+        return Collections.unmodifiableList(mPublicNotices);
     }
 
     @Override
@@ -304,7 +312,8 @@ public class AnyApplication extends Application {
         if (apiLevel < 16) return new DeviceSpecificV14();
         if (apiLevel < 19) return new DeviceSpecificV16();
         if (apiLevel < 24) return new DeviceSpecificV19();
-        return new DeviceSpecificV24();
+        if (apiLevel < 28) return new DeviceSpecificV24();
+        return new DeviceSpecificV28();
     }
 
     @CallSuper

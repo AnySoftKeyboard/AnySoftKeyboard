@@ -30,5 +30,7 @@ public interface Clipboard {
 
     void setText(CharSequence text);
 
+    void deleteEntry(int entryIndex);
+
     void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener);
 }

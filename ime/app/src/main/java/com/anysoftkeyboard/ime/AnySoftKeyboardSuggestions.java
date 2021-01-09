@@ -50,15 +50,10 @@ import java.util.Locale;
 
 public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboardSwitchedListener {
 
+    @VisibleForTesting public static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
-
-    private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private static final long NEVER_TIME_STAMP =
             -1L * 365L * 24L * 60L * 60L * 1000L; // a year ago.
-
-    private WordComposer mWord = new WordComposer();
-    private WordComposer mPreviousWord = new WordComposer();
-
     private static final DictionaryBackgroundLoader.Listener NO_OP_DICTIONARY_LOADER_LISTENER =
             new DictionaryBackgroundLoader.Listener() {
 
@@ -71,127 +66,21 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 @Override
                 public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {}
             };
-
-    private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
-
-    private Suggest mSuggest;
-
-    private CandidateView mCandidateView;
+    private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
 
     @VisibleForTesting
-    static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
-        private final Runnable mCancelPrediction;
-        private Animation mCancelToGoneAnimation;
-        private Animation mCancelToVisibleAnimation;
-        private Animation mCloseTextToGoneAnimation;
-        private Animation mCloseTextToVisibleAnimation;
-        private View mRootView;
-        private View mCloseText;
-
-        private final Runnable mReHideTextAction =
-                () -> {
-                    mCloseTextToGoneAnimation.reset();
-                    mCloseText.startAnimation(mCloseTextToGoneAnimation);
-                };
-        // two seconds is enough.
-        private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
-
-        CancelSuggestionsAction(Runnable cancelPrediction) {
-            mCancelPrediction = cancelPrediction;
-        }
-
-        @Override
-        public View inflateActionView(ViewGroup parent) {
-            final Context context = parent.getContext();
-            mCancelToGoneAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_gone);
-            mCancelToGoneAnimation.setAnimationListener(
-                    new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            mRootView.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {}
-                    });
-            mCancelToVisibleAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_visible);
-            mCloseTextToGoneAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_double_cancel_to_gone);
-            mCloseTextToGoneAnimation.setAnimationListener(
-                    new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            mCloseText.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {}
-                    });
-            mCloseTextToVisibleAnimation =
-                    AnimationUtils.loadAnimation(
-                            context, R.anim.suggestions_double_cancel_to_visible);
-
-            mRootView =
-                    LayoutInflater.from(context)
-                            .inflate(R.layout.cancel_suggestions_action, parent, false);
-
-            mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
-
-            mRootView.setOnClickListener(
-                    view -> {
-                        mRootView.removeCallbacks(mReHideTextAction);
-                        if (mCloseText.getVisibility() == View.VISIBLE) {
-                            // already shown, so just cancel suggestions.
-                            mCancelPrediction.run();
-                        } else {
-                            mCloseText.setVisibility(View.VISIBLE);
-                            mCloseTextToVisibleAnimation.reset();
-                            mCloseText.startAnimation(mCloseTextToVisibleAnimation);
-                            mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
-                        }
-                    });
-
-            return mRootView;
-        }
-
-        @Override
-        public void onRemoved() {
-            mRootView.removeCallbacks(mReHideTextAction);
-        }
-
-        void setCancelIconVisible(boolean visible) {
-            if (mRootView != null) {
-                final int visibility = visible ? View.VISIBLE : View.GONE;
-                if (mRootView.getVisibility() != visibility) {
-                    mRootView.setVisibility(View.VISIBLE);
-                    mCancelToVisibleAnimation.reset();
-                    mCancelToGoneAnimation.reset();
-                    mRootView.startAnimation(
-                            visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation);
-                }
-            }
-        }
-    }
-
-    @VisibleForTesting
-    final CancelSuggestionsAction mCancelSuggestionsAction =
-            new CancelSuggestionsAction(() -> abortCorrectionAndResetPredictionState(true));
+    final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
 
     @NonNull private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
 
-    private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
+    protected int mWordRevertLength = 0;
+    private WordComposer mWord = new WordComposer();
+    private WordComposer mPreviousWord = new WordComposer();
+    private Suggest mSuggest;
+    private CandidateView mCandidateView;
     @NonNull private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
-
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
-    private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
+    private long mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
     private boolean mLastCharacterWasShifted = false;
     private boolean mFrenchSpacePunctuationBehavior;
     /*
@@ -206,16 +95,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mAutoSpaceForPunctuation;
     private boolean mInputFieldSupportsAutoPick;
     private boolean mAutoCorrectOn;
-
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
-
-    protected int mWordRevertLength = 0;
 
     protected boolean mAdditionalCharacterForReverting;
     private int mHowManyCharactersForReverting = 0;
 
     private boolean mJustAutoAddedWord = false;
+
+    @VisibleForTesting
+    final CancelSuggestionsAction mCancelSuggestionsAction =
+            new CancelSuggestionsAction(() -> abortCorrectionAndResetPredictionState(true));
     /*
      * Configuration flag. Should we support dictionary suggestions
      */
@@ -230,6 +120,22 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mWasLastCharDigitSeparator = false;
 
     private static boolean isPuncDisabledByGesture = false;
+
+    private static void fillSeparatorsSparseArray(
+            SparseBooleanArray sparseBooleanArray, char[] chars) {
+        sparseBooleanArray.clear();
+        for (char separator : chars) sparseBooleanArray.put(separator, true);
+    }
+
+    @NonNull
+    private static CompletionInfo[] copyCompletionsFromAndroid(
+            @Nullable CompletionInfo[] completions) {
+        if (completions == null) {
+            return new CompletionInfo[0];
+        } else {
+            return Arrays.copyOf(completions, completions.length);
+        }
+    }
 
     @Override
     public void onCreate() {
@@ -497,6 +403,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mPredictionOn = false;
         mKeyboardHandler.sendEmptyMessageDelayed(
                 KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
+        mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
     }
 
     @Override
@@ -528,11 +435,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             return;
         }
 
-        if (shouldRevertOnDelete() && (oldSelStart != newSelStart || oldSelEnd != newSelEnd)) {
-            Logger.d(
-                    TAG,
-                    "onUpdateSelection: user moved cursor from a undo-commit sensitive position. Will not be able to undo-commit.");
-            mWordRevertLength = 0;
+        final boolean cursorMovedUnexpectedly =
+                (oldSelStart != newSelStart || oldSelEnd != newSelEnd);
+        if (cursorMovedUnexpectedly) {
+            mLastSpaceTimeStamp = NEVER_TIME_STAMP;
+            if (shouldRevertOnDelete()) {
+                Logger.d(
+                        TAG,
+                        "onUpdateSelection: user moved cursor from a undo-commit sensitive position. Will not be able to undo-commit.");
+                mWordRevertLength = 0;
+            }
         }
 
         if (!isPredictionOn()) {
@@ -550,7 +462,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             // text selection. can't predict in this mode
             Logger.d(TAG, "onUpdateSelection: text selection.");
             abortCorrectionAndResetPredictionState(false);
-        } else {
+        } else if (cursorMovedUnexpectedly) {
             // we have the following options (we are in an input which requires
             // predicting (mPredictionOn == true):
             // 1) predicting and moved inside the word
@@ -568,11 +480,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     // 1) predicting and moved inside the word - just update the
                     // cursor position and shift state
                     // inside the currently selected word
-                    int cursorPosition = newSelEnd - candidatesStart;
-                    if (mWord.setCursorPosition(cursorPosition)) {
-                        Logger.d(
-                                TAG, "onUpdateSelection: cursor moving inside the predicting word");
-                    }
+                    mWord.setCursorPosition(newSelEnd - candidatesStart);
                 } else {
                     Logger.d(
                             TAG,
@@ -620,6 +528,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // not allowing undo on-text in clipboard paste operations.
         if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mWordRevertLength = 0;
         setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+        if (!isCurrentlyPredicting()
+                && (primaryCode == KeyCodes.DELETE
+                        || primaryCode == KeyCodes.DELETE_WORD
+                        || primaryCode == KeyCodes.FORWARD_DELETE)) {
+            postRestartWordSuggestion();
+        }
     }
 
     private void postRestartWordSuggestion() {
@@ -650,6 +564,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mWasLastCharDigitSeparator = false;
     }
 
+    @Override
     protected boolean isSelectionUpdateDelayed() {
         return mExpectingSelectionUpdateBy > 0;
     }
@@ -697,23 +612,23 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         if (isPredictionOn()) {
             if (ic != null) {
-                final int cursorPosition;
+                int newCursorPosition;
                 if (mWord.cursorPosition() != mWord.charCount()) {
                     /* Cursor is not at the end of the word. I'll need to reposition.
                     The code for tracking the current position is split among several files and difficult to debug.
                     This has been proven to work in every case: */
                     if (multiTapIndex > 0) {
                         final int previousKeyCode = key.getMultiTapCode(multiTapIndex - 1);
-                        cursorPosition =
-                                mGlobalCursorPosition
-                                        + Character.charCount(primaryCode)
+                        newCursorPosition =
+                                Character.charCount(primaryCode)
                                         - Character.charCount(previousKeyCode);
                     } else {
-                        cursorPosition = mGlobalCursorPosition + Character.charCount(primaryCode);
+                        newCursorPosition = Character.charCount(primaryCode);
                     }
+                    newCursorPosition += getCursorPosition();
                     ic.beginBatchEdit();
                 } else {
-                    cursorPosition = -1;
+                    newCursorPosition = -1;
                 }
 
                 markExpectingSelectionUpdate();
@@ -731,11 +646,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     mWord.add(':', nearByKeyCodes);
                 }
 
-                if (cursorPosition > 0) {
-                    ic.setSelection(cursorPosition, cursorPosition);
-                    mGlobalCursorPosition = cursorPosition;
+                if (newCursorPosition > 0) {
+                    ic.setSelection(newCursorPosition, newCursorPosition);
                     ic.endBatchEdit();
                 }
+
             }
             // this should be done ONLY if the key is a letter, and not a inner
             // character (like ').
@@ -749,10 +664,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             if (ic != null) {
                 ic.beginBatchEdit();
             }
+            markExpectingSelectionUpdate();
             for (char c : Character.toChars(primaryCode)) {
                 sendKeyChar(c);
             }
-            markExpectingSelectionUpdate();
             if (ic != null) {
                 ic.endBatchEdit();
             }
@@ -760,7 +675,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mJustAutoAddedWord = false;
     }
 
-    private void markExpectingSelectionUpdate() {
+    // Make sure to call this BEFORE actually making changes, and not after.
+    // the event might arrive immediately as changes occur.
+    protected void markExpectingSelectionUpdate() {
         mExpectingSelectionUpdateBy =
                 SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
     }
@@ -1232,10 +1149,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 index += Character.charCount(c);
             }
             mWord.setCursorPosition(toLeft.length());
+            final int globalCursorPosition = getCursorPosition();
             ic.setComposingRegion(
-                    mGlobalCursorPosition - toLeft.length(),
-                    mGlobalCursorPosition + toRight.length());
+                    globalCursorPosition - toLeft.length(),
+                    globalCursorPosition + toRight.length());
 
+            markExpectingSelectionUpdate();
             ic.endBatchEdit();
             performUpdateSuggestions();
         } else {
@@ -1342,20 +1261,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
-    private static void fillSeparatorsSparseArray(
-            SparseBooleanArray sparseBooleanArray, char[] chars) {
-        sparseBooleanArray.clear();
-        for (char separator : chars) sparseBooleanArray.put(separator, true);
-    }
-
     @CallSuper
     protected void abortCorrectionAndResetPredictionState(boolean disabledUntilNextInputStart) {
         mSuggest.resetNextWordSentence();
 
+        mLastSpaceTimeStamp = NEVER_TIME_STAMP;
         mJustAutoAddedWord = false;
         mKeyboardHandler.removeAllSuggestionMessages();
 
         final InputConnection ic = getCurrentInputConnection();
+        markExpectingSelectionUpdate();
         if (ic != null) ic.finishComposingText();
 
         clearSuggestions();
@@ -1620,15 +1535,19 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             @NonNull CharSequence wordToCommit, @NonNull CharSequence typedWord) {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
-            if (!TextUtils.equals(wordToCommit, typedWord)) {
+            final boolean delayedUpdates = isSelectionUpdateDelayed();
+            markExpectingSelectionUpdate();
+            // we DO NOT want to use commitCorrection if we do not know
+            // the exact position in the text-box.
+            if (TextUtils.equals(wordToCommit, typedWord) || delayedUpdates) {
+                ic.commitText(wordToCommit, 1);
+            } else {
                 AnyApplication.getDeviceSpecific()
                         .commitCorrectionToInputConnection(
                                 ic,
-                                mGlobalCursorPosition - typedWord.length(),
+                                getCursorPosition() - typedWord.length(),
                                 typedWord,
                                 wordToCommit);
-            } else {
-                ic.commitText(wordToCommit, 1);
             }
         }
 
@@ -1689,7 +1608,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mAutoCorrectOn = false;
             // note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
-            ic.setComposingRegion(mGlobalCursorPosition - length, mGlobalCursorPosition);
+            final int globalCursorPosition = getCursorPosition();
+            ic.setComposingRegion(globalCursorPosition - length, globalCursorPosition);
             WordComposer temp = mWord;
             mWord = mPreviousWord;
             mPreviousWord = temp;
@@ -1747,16 +1667,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
-    @NonNull
-    private static CompletionInfo[] copyCompletionsFromAndroid(
-            @Nullable CompletionInfo[] completions) {
-        if (completions == null) {
-            return new CompletionInfo[0];
-        } else {
-            return Arrays.copyOf(completions, completions.length);
-        }
-    }
-
     private void checkAddToDictionaryWithAutoDictionary(
             CharSequence newWord, Suggest.AdditionType type) {
         mJustAutoAddedWord = false;
@@ -1808,5 +1718,107 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                                 wordToRemove)));
         mJustAutoAddedWord = false;
         abortCorrectionAndResetPredictionState(false);
+    }
+
+    @VisibleForTesting
+    static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
+        // two seconds is enough.
+        private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
+        private final Runnable mCancelPrediction;
+        private Animation mCancelToGoneAnimation;
+        private Animation mCancelToVisibleAnimation;
+        private Animation mCloseTextToGoneAnimation;
+        private Animation mCloseTextToVisibleAnimation;
+        private View mRootView;
+        private View mCloseText;
+        private final Runnable mReHideTextAction =
+                () -> {
+                    mCloseTextToGoneAnimation.reset();
+                    mCloseText.startAnimation(mCloseTextToGoneAnimation);
+                };
+
+        CancelSuggestionsAction(Runnable cancelPrediction) {
+            mCancelPrediction = cancelPrediction;
+        }
+
+        @Override
+        public View inflateActionView(ViewGroup parent) {
+            final Context context = parent.getContext();
+            mCancelToGoneAnimation =
+                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_gone);
+            mCancelToGoneAnimation.setAnimationListener(
+                    new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {}
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            mRootView.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {}
+                    });
+            mCancelToVisibleAnimation =
+                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_visible);
+            mCloseTextToGoneAnimation =
+                    AnimationUtils.loadAnimation(context, R.anim.suggestions_double_cancel_to_gone);
+            mCloseTextToGoneAnimation.setAnimationListener(
+                    new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {}
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            mCloseText.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {}
+                    });
+            mCloseTextToVisibleAnimation =
+                    AnimationUtils.loadAnimation(
+                            context, R.anim.suggestions_double_cancel_to_visible);
+
+            mRootView =
+                    LayoutInflater.from(context)
+                            .inflate(R.layout.cancel_suggestions_action, parent, false);
+
+            mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
+
+            mRootView.setOnClickListener(
+                    view -> {
+                        mRootView.removeCallbacks(mReHideTextAction);
+                        if (mCloseText.getVisibility() == View.VISIBLE) {
+                            // already shown, so just cancel suggestions.
+                            mCancelPrediction.run();
+                        } else {
+                            mCloseText.setVisibility(View.VISIBLE);
+                            mCloseTextToVisibleAnimation.reset();
+                            mCloseText.startAnimation(mCloseTextToVisibleAnimation);
+                            mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+                        }
+                    });
+
+            return mRootView;
+        }
+
+        @Override
+        public void onRemoved() {
+            mRootView.removeCallbacks(mReHideTextAction);
+        }
+
+        void setCancelIconVisible(boolean visible) {
+            if (mRootView != null) {
+                final int visibility = visible ? View.VISIBLE : View.GONE;
+                if (mRootView.getVisibility() != visibility) {
+                    mRootView.setVisibility(View.VISIBLE);
+                    mCancelToVisibleAnimation.reset();
+                    mCancelToGoneAnimation.reset();
+                    mRootView.startAnimation(
+                            visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation);
+                }
+            }
+        }
     }
 }

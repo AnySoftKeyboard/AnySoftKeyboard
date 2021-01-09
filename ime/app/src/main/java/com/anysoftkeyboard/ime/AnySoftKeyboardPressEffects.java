@@ -197,6 +197,14 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     }
 
     @Override
+    public void onText(Keyboard.Key key, CharSequence text) {
+        super.onText(key, text);
+
+        performKeySound(KeyCodes.QUICK_TEXT);
+        performKeyVibration(KeyCodes.QUICK_TEXT, false);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mAudioManager.unloadSoundEffects();

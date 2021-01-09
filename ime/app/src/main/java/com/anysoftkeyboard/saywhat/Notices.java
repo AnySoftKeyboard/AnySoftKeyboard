@@ -3,7 +3,7 @@ package com.anysoftkeyboard.saywhat;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,52 +22,42 @@ public class Notices {
 
     private static class CoronaVirusDetails implements OnKey, OnVisible {
 
-        static final char[] CORONAVIRUS = "coronavirus".toCharArray();
-        // two days
-        static final long MIN_TIME_BETWEEN_SHOWING = 2 * 24 * 60 * 60 * 1000;
-
+        private final OnKeyWordHelper mTypedWordHelper;
+        private final TimedNoticeHelper mTimeHelper;
+        private final CandidateViewShowingHelper mCandidateVisibleHelper =
+                new CandidateViewShowingHelper();
         private final KeyboardViewContainerView.StripActionProvider mVirusInfo;
-        private int mWaitingForIndex = 0;
-        private long mLastTimeInfoWasShown = -MIN_TIME_BETWEEN_SHOWING;
 
         private CoronaVirusDetails(Context context) {
             mVirusInfo = new CovidInfo(context);
+            mTypedWordHelper = new OnKeyWordHelper("coronavirus");
+            mTimeHelper =
+                    new TimedNoticeHelper(
+                            context,
+                            R.string.settings_key_public_notice_timed_covid,
+                            // 7 days
+                            7 * 24 * 60 * 60 * 1000);
         }
 
         @Override
         public void onKey(PublicNotices ime, int primaryCode, Keyboard.Key key) {
-            if (key != null && key.getPrimaryCode() == CORONAVIRUS[mWaitingForIndex]) {
-                mWaitingForIndex++;
-                if (mWaitingForIndex == CORONAVIRUS.length) {
-                    mWaitingForIndex = 0;
-                    showInfo(ime);
-                }
-            } else {
-                mWaitingForIndex = 0;
-            }
-        }
-
-        private void showInfo(PublicNotices ime) {
-            mLastTimeInfoWasShown = SystemClock.elapsedRealtime();
-            ime.getInputViewContainer().addStripAction(mVirusInfo);
-        }
-
-        @Override
-        public void onVisible(PublicNotices ime, AnyKeyboard keyboard, EditorInfo editorInfo) {
-            if (theRightTimeToShow(ime)) {
+            if (mTypedWordHelper.shouldShow(primaryCode)) {
                 showInfo(ime);
             }
         }
 
-        private boolean theRightTimeToShow(PublicNotices ime) {
-            return MIN_TIME_BETWEEN_SHOWING
-                            < (SystemClock.elapsedRealtime() - mLastTimeInfoWasShown)
-                    &&
-                    // only till June 22nd
-                    System.currentTimeMillis() < 1592789573000L
-                    && ime.getInputViewContainer().getCandidateView() != null
-                    && ime.getInputViewContainer().getCandidateView().getVisibility()
-                            == View.VISIBLE;
+        private void showInfo(PublicNotices ime) {
+            if (mCandidateVisibleHelper.shouldShow(ime)) {
+                mTimeHelper.markAsShown();
+                ime.getInputViewContainer().addStripAction(mVirusInfo);
+            }
+        }
+
+        @Override
+        public void onVisible(PublicNotices ime, AnyKeyboard keyboard, EditorInfo editorInfo) {
+            if (mTimeHelper.shouldShow()) {
+                showInfo(ime);
+            }
         }
 
         @Override
@@ -76,16 +66,17 @@ public class Notices {
         }
 
         @Override
+        @NonNull
         public String getName() {
             return "covid-19";
         }
 
         private static class CovidInfo implements KeyboardViewContainerView.StripActionProvider {
 
+            private final Intent mCoronaVirusInfoWebPage;
             private View mRootView;
             private final Runnable mHideTextAction =
                     () -> mRootView.findViewById(R.id.covid_info_text).setVisibility(View.GONE);
-            private final Intent mCoronaVirusInfoWebPage;
 
             private CovidInfo(Context context) {
                 mCoronaVirusInfoWebPage =

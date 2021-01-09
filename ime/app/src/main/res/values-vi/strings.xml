@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point
     </string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for
@@ -19,7 +18,6 @@
     <string name="change_log_url">More:\u0020
         <xliff:g id="url">%s</xliff:g>
     </string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
     <string name="testers_version">Testers build!</string>
     <string name="language_root_tile">Language</string>

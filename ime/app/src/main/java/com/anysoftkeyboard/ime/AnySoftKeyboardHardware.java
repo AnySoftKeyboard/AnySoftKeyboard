@@ -114,9 +114,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     @SuppressWarnings("fallthrough")
     public boolean onKeyDown(final int keyEventKeyCode, @NonNull KeyEvent event) {
         InputConnection ic = getCurrentInputConnection();
-        if (handleSelectionExpending(
-                keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition))
-            return true;
+        if (handleSelectionExpending(keyEventKeyCode, ic)) return true;
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
         // greater than zero means it is a physical keyboard.

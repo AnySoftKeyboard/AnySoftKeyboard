@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Arrastamentu incumintzadu!\n Assegura·ti de lu firmare, a unu tzertu puntu</string>
     <string name="debug_tracing_starting_failed">Incumintzu de s\'arrastamentu fallidu! Verìfica su registru pro àteras informatziones.</string>
     <string name="debug_tracing_finished">Arrastamentu acabadu!\nSu documentu rasta est
@@ -11,7 +10,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Ùrtimas modìficas pro v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Àteru:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Custa est una versione beta. Impreare cun atentzione!</string>
     <string name="testers_version">Versione de proa!</string>
     <string name="language_root_tile">Limba</string>
@@ -31,6 +29,7 @@
     <string name="no_market_store_available">Impossìbile agatare una butega de sas aplicatziones in sos dispositivos. \nImpossìbile chircare estensiones!</string>
     <string name="keyboard_theme_tweak_group">Acontzos</string>
     <string name="close_button">Serra</string>
+    <string name="delete_button">Iscantzella</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Sarvadu:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -410,6 +409,7 @@
     <string name="extension_kbd_bottom_simple_alt">Sèmplitze alternativu</string>
     <string name="extension_kbd_bottom_row_aosp">Istile de AOSP</string>
     <string name="extension_kbd_bottom_ng">Generatzione noa - In proa</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Generatzione noa (chene apòstrofos)</string>
     <string name="extension_kbd_extension_numbers_symbols">Nùmeros e sìmbulos</string>
     <string name="extension_kbd_bottom_minimal">Minimale</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (chene emoji)</string>
@@ -543,6 +543,17 @@
     <string name="enter_word_hint">Iscrie sa paràula noa inoghe</string>
     <string name="enter_abbreviation_hint">Abbreviatzione</string>
     <string name="enter_abbreviation_target_hint">Fràsia intrea</string>
+    <string name="toast_error_custom_path_backup">Errore: cale si siat aplicatzione de cuntestu diat pòdere èssere aberta</string>
+    <string name="file_explorer_menu_add_folder">Crea una cartella</string>
+    <string name="file_explorer_filename">Nùmene de sa còpia de seguresa…</string>
+    <string name="file_explorer_filename_empty">Su nùmene de su documentu non podet èssere bòidu…</string>
+    <string name="file_explorer_alert_title">Ischertare custu documentu?</string>
+    <string name="file_explorer_restore_alert_message">Cheres ripristinare custu documentu?</string>
+    <string name="file_explorer_backup_alert_message">As a subraiscrìere custu documentu.</string>
+    <string name="file_explorer_backup_success">Sos datos tuos sunt istados sarvados in\u0020</string>
+    <string name="file_explorer_backup_failed">Su sarvamentu de sos datos tuos est fallidu.</string>
+    <string name="file_explorer_restore_success">Sos datos tuos sunt istados ripristinados dae\u0020</string>
+    <string name="file_explorer_restore_failed">Su riprìstinu de sos datos tuos est fallidu.</string>
     <string name="about_additional_software_licenses">Litzèntzias agiuntivas de sos programmas</string>
     <string name="setup_wizard_step_one_title">Abìlita AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In custu passàgiu as a dèpere abilitare <i>AnySoftKeyboard</i>. Pro praghere ischerta <i>\'AnySoftKeyboard\'</i> in sas impostatziones <i>Limba e insertadura</i>. Custu at a permìtere a s\'aplicatzione de funtzionare in su dispositivu.</string>
@@ -647,6 +658,7 @@
     <string name="prefs_providers_backed_up_to">Sos datos tuos sunt istados sarvados in %s</string>
     <string name="prefs_providers_failed_restore_due_to">Riprìstinu de sos datos fallidu pro more de %s</string>
     <string name="prefs_providers_restored_to">Sos datos tuos sunt istados ripristinados dae %s</string>
+    <string name="word_editor_action_choose_path">Issèbera un\'àndala personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Sas tastieras podent frunire rigas genèricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Imprea semper sas rigas genèricas ischertadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permiti a sa dispositzione de subraiscrìere sas rigas genèricas.</string>

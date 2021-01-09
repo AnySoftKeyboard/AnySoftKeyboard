@@ -88,6 +88,22 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         Assert.assertEquals(
                 "12335055-4aa6-49dc-8456-c7d38a1a5123",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_REVERSE_CYCLE);
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_CYCLE);
+        Assert.assertEquals(
+                "12335055-4aa6-49dc-8456-c7d38a1a5123",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_CYCLE);
+        Assert.assertEquals(
+                "DEFAULT_ADD_ON",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_REVERSE_CYCLE);
+        Assert.assertEquals(
+                "12335055-4aa6-49dc-8456-c7d38a1a5123",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
     }
 
     @Test

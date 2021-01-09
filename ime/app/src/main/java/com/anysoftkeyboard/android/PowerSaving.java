@@ -39,8 +39,16 @@ public class PowerSaving {
                                         context.getApplicationContext(),
                                         getBatteryStateIntentFilter())
                                 .startWith(new Intent(Intent.ACTION_BATTERY_OKAY)),
+                        RxBroadcastReceivers.fromIntentFilter(
+                                        context.getApplicationContext(),
+                                        getChargerStateIntentFilter())
+                                .startWith(new Intent(Intent.ACTION_POWER_DISCONNECTED)),
                         getOsPowerSavingStateObservable(context),
-                        (powerSavingPref, enabledPref, batteryIntent, osPowerSavingState) -> {
+                        (powerSavingPref,
+                                enabledPref,
+                                batteryIntent,
+                                chargerIntent,
+                                osPowerSavingState) -> {
                             if (!enabledPref) return false;
 
                             switch (powerSavingPref) {
@@ -50,8 +58,10 @@ public class PowerSaving {
                                     return true;
                                 default:
                                     return osPowerSavingState
-                                            || Intent.ACTION_BATTERY_LOW.equals(
-                                                    batteryIntent.getAction());
+                                            || (Intent.ACTION_BATTERY_LOW.equals(
+                                                            batteryIntent.getAction())
+                                                    && Intent.ACTION_POWER_DISCONNECTED.equals(
+                                                            chargerIntent.getAction()));
                             }
                         })
                 .distinctUntilChanged();
@@ -88,6 +98,14 @@ public class PowerSaving {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_BATTERY_LOW);
         filter.addAction(Intent.ACTION_BATTERY_OKAY);
+
+        return filter;
+    }
+
+    private static IntentFilter getChargerStateIntentFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_POWER_CONNECTED);
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
 
         return filter;
     }
