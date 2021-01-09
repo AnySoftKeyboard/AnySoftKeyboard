@@ -693,8 +693,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     protected void handleSeparator(int primaryCode) {
         performUpdateSuggestions();
 
-        Logger.d("nicoursi", "Soooo, this is really a case of handleSeparator()");
-
         mHowManyCharactersForReverting = 0;
         // Issue 146: Right to left languages require reversed parenthesis
         if (!getCurrentAlphabetKeyboard().isLeftToRightLanguage()) {
@@ -719,9 +717,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         String charBeforeCursor = null;
 
         int lastTypedChar = AnySoftKeyboard.getLastCharTyped();
-
-        Logger.d("nicoursi", "primaryCode is " + primaryCode + " aka " + (char) primaryCode);
-        Logger.d("nicoursi", "lastTypedChar is " + lastTypedChar + " aka " + (char) lastTypedChar);
 
         // Handle separator
         InputConnection ic = getCurrentInputConnection();
@@ -781,29 +776,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             charBeforeCursor = ic.getTextBeforeCursor(2, 0).toString();
         }
 
-        Logger.d("nicoursi", "charAfterCursor is '" + charAfterCursor + "'");
         boolean isThereASpaceAfterCursor = charAfterCursor.equals(" ");
-        Logger.d(
-                "nicoursi", "charAfter isThereASpaceAfterCursos " + isThereASpaceAfterCursor + "'");
 
-        Logger.d("nicoursi", "isFrenchPunctuation is " + isFrenchPonctuation);
-
-        Logger.d(
-                "nicoursi",
-                "Before entering the huge conditions, small check on status variable:\nmWasLastCharDigitSeparator = "
-                        + mWasLastCharDigitSeparator
-                        + "\nmWasLastCharDigit = "
-                        + mWasLastCharDigit);
-
-        Logger.d(
-                "nicoursi",
-                "Variables: "
-                        + mAdditionalCharacterForReverting
-                        + " "
-                        + mAutoSpaceForPunctuation
-                        + " "
-                        + (mSwapPunctuationAndSpace || newLine));
-        Logger.d("nicoursi", "isPuncDisabledByGesture = " + isPuncDisabledByGesture);
         if (ic != null) {
             if (isSpace
                     && mIsDoubleSpaceChangesToPeriod
@@ -818,7 +792,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mHowManyCharactersForReverting++;
                 isEndOfSentence = true;
                 handledOutputToInputConnection = true;
-                Logger.d("nicoursi", "this should not enter there");
             } else if (mAdditionalCharacterForReverting
                     && mAutoSpaceForPunctuation
                     && (mSwapPunctuationAndSpace || newLine)
@@ -832,10 +805,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // input-box
                 // into "word ," -> "word, "
                 // or   "word,"  -> "word, "
-                Logger.d("nicoursi", "entering this condition");
                 if (isSpaceSwapCharacter(primaryCode)) {
 
-                    Logger.d("nicoursi", "is " + (char) primaryCode + " a swapCharacter ?");
                     if (!charBeforeCursor.equals("")) {
                         if (charBeforeCursor.length() == 2
                                 && charBeforeCursor.charAt(1) == KeyCodes.SPACE
@@ -846,37 +817,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
                     if (mEnableSamePunctuation && primaryCode != mIsLastPunctuationSame) {
                         disableSamePunctuation();
-                        Logger.d("nicoursi", "Disabled same punctuation");
                     }
                     // Check if the punctuation is the same and remove pre space if so
                     if (!mEnableSamePunctuation && mIsLastPunctuationSame == primaryCode) {
                         mEnableSamePunctuation = true;
-                        Logger.d("nicoursi", "set mEnableSamePunctuation = true;");
                     } else if (!mEnableSamePunctuation) {
                         mIsLastPunctuationSame = primaryCode;
-                        Logger.d("nicoursi", "set mIsLastPunctuationSame = primaryCode");
                     }
-
-                    Logger.d(
-                            "nicoursi",
-                            "mLastSpaceTimeStamp = "
-                                    + mLastSpaceTimeStamp
-                                    + " / "
-                                    + NEVER_TIME_STAMP);
-                    Logger.d("nicoursi", "mEnableSamePunctuation = " + mEnableSamePunctuation);
-                    Logger.d(
-                            "nicoursi",
-                            "newline is "
-                                    + !newLine
-                                    + " differentSpacing = "
-                                    + requiresDifferentSpacing(lastTypedChar, 4));
-                    Logger.d("nicoursi", charBeforeCursor);
-
-                    /*Logger.d(
-                    "nicoursi",
-                    "Is it true ? "
-                            + (charBeforeCursor.charAt(charBeforeCursor.length() - 1)
-                                    == KeyCodes.SPACE));*/
 
                     // last character was a space OR this is the same punctuation twice OR last
                     // punctuation was closing brackets
@@ -891,9 +838,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     && !charBeforeCursor.equals("")
                                     && charBeforeCursor.charAt(0) == primaryCode)) {
                         // delete the space to get ready for punctuation
-                        Logger.d(
-                                "nicoursi",
-                                "Closing brackets OR space OR same punctuation twice ?");
                         ic.deleteSurroundingText(1, 0);
                         mHowManyCharactersForReverting--;
                     }
@@ -937,7 +881,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                             && lastTypedChar != KeyCodes.ENTER
                             && !ic.getTextBeforeCursor(1, 0).toString().equals("")) {
                         ic.commitText(" ", 1);
-                        Logger.d("nicoursi", "I am freaking inserting a space here");
                         mHowManyCharactersForReverting++;
                     }
                 }
@@ -953,29 +896,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                 + (newLine || isThereASpaceAfterCursor ? "" : " "),
                         1);
                 handledOutputToInputConnection = true;
-                Logger.d("nicoursi", "If key is space or isSwapCharacter");
             }
         }
-
-        Logger.d(
-                "nicoursi",
-                "After the huge conditions, small check on status variable:"
-                        + "\nmWasLastCharDigitSeparator = "
-                        + mWasLastCharDigitSeparator
-                        + "\nmWasLastCharDigit = "
-                        + mWasLastCharDigit);
-
-        Logger.d(
-                "nicoursi",
-                "Before the hightly suspected code, here are stats about the variable for this condition:"
-                        + "\n isDigit = "
-                        + isDigit
-                        + " isSpace = "
-                        + isSpace
-                        + "\n lastCharTyped = "
-                        + lastTypedChar
-                        + "\n ic = "
-                        + ic);
 
         if (!handledOutputToInputConnection) {
             // Digit go there
@@ -985,9 +907,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     && lastTypedChar != -5 /* -5 is Keycodes.DELETE */
                     && ic != null
                     && charBeforeCursor.charAt(0) == lastTypedChar) {
-                Logger.d(
-                        "nicoursi",
-                        "The HIGHLY suspected code, if this log is printed, we got it! ");
                 ic.deleteSurroundingText(1, 0);
                 mHowManyCharactersForReverting--;
             }
@@ -1001,7 +920,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 mHowManyCharactersForReverting++;
             }
 
-            Logger.d("nicoursi", "Is it going there ? for " + (char) primaryCode);
             sendKeyChars(primaryCode);
 
             // 171 = << , 187 = >>
