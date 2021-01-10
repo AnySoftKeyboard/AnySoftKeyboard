@@ -91,6 +91,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
+    private int mShiftBackspaceLenghtRemaining = -1;
+
     private static boolean isBackWordDeleteCodePoint(int c) {
         return Character.isLetterOrDigit(c);
     }
@@ -893,6 +895,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             currentComposedWord.reset();
             getSuggest().resetNextWordSentence();
             ic.setComposingText(textAfterCursor, 0);
+
+            // I do not know if we can avoid call ic because it is a heavy call.
+            // TextAfterCursor is only the last typed word
+            mShiftBackspaceLenghtRemaining = ic.getTextBeforeCursor(128, 0).length();
+
             postUpdateSuggestions();
             return;
         }
@@ -901,6 +908,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         // Which is always good. This is a part of issue 951.
         CharSequence cs = ic.getTextBeforeCursor(128, 0);
         if (TextUtils.isEmpty(cs)) {
+            // We handle the case where there is nothing to delete anymore
+            mShiftBackspaceLenghtRemaining = 0;
             return; // nothing to delete
         }
         // TWO OPTIONS
@@ -959,7 +968,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 idx -= Character.charCount(lastCodePoint);
             }
         }
-        ic.deleteSurroundingText(inputLength - idx, 0); // it is always > 0 !
+        ic.deleteSurroundingText(inputLength - idx, 0);
+        mShiftBackspaceLenghtRemaining = ic.getTextBeforeCursor(128, 0).length();
     }
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
@@ -1094,6 +1104,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     "shift Setting UI active:%s, locked: %s",
                     mShiftKeyState.isActive(),
                     mShiftKeyState.isLocked());
+
+            if (mShiftBackspaceLenghtRemaining == 0) {
+                mShiftKeyState.setActiveState(true);
+            }
+
             getInputView().setShifted(mShiftKeyState.isActive());
             getInputView().setShiftLocked(mShiftKeyState.isLocked());
         }
@@ -1239,6 +1254,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (primaryCode == KeyCodes.SHIFT) {
             mShiftKeyState.onRelease(mMultiTapTimeout, mLongPressTimeout);
             handleShift();
+            mShiftBackspaceLenghtRemaining = -1;
         } else {
             if (mShiftKeyState.onOtherKeyReleased()) {
                 updateShiftStateNow();
