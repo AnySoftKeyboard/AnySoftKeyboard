@@ -675,8 +675,8 @@ public abstract class AnyKeyboard extends Keyboard {
             return true;
         }
 
-        // if only popupCharacters are specified, call super nevertheless --
-        // we might want to add more characters.
+        // if there is no popup specified, call super.
+        // we'll mix key.popupCharacters with super's defaults
 
         return false;
     }
