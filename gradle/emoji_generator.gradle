@@ -2,6 +2,8 @@ import emoji.EmojiCollector
 import emoji.EmojiKeyboardsExtractor
 
 tasks.register("makeEmojiKeyboards") { task ->
+    task.description "Update emoji keyboards"
+    task.group "AnySoftKeyboard"
     task.doLast {
         //https://unicode.org/Public/emoji/13.1/emoji-test.txt
         EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(

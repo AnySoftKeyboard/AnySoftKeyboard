@@ -54,12 +54,16 @@ class EmojiKeyboardCreator {
         <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
             android:keyHeight="@integer/key_normal_height"
             android:keyWidth="20%p"
+            xmlns:ask="http://schemas.android.com/apk/res-auto"
+            ask:reverse="never"
             android:popupCharacters="asdasdas" >
         */
         keyboardElement.setAttributeNS(
                 "http://schemas.android.com/apk/res/android",
                 "android:keyHeight",
                 "@integer/key_normal_height");
+        keyboardElement.setAttributeNS(
+                "http://schemas.android.com/apk/res-auto", "ask:reverse", "never");
         keyboardElement.setAttributeNS(
                 "http://schemas.android.com/apk/res/android", "android:keyWidth", keyWidth);
         doc.appendChild(keyboardElement);
