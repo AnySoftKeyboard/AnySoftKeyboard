@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright 2016, kertase, 2020, chrbauer, 2020 duchampdev
 
-    This file is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:ask="http://schemas.android.com/apk/res-auto"
           android:keyWidth="9%p" android:keyHeight="50dip"
           android:horizontalGap="0px" android:verticalGap="0px">
 <Row android:rowEdgeFlags="top" android:keyWidth="8%p" >
-    <!-- key codes: http://r12a.github.io/apps/conversion/ -->
     <Key android:codes="49" android:keyLabel="1" ask:shiftedCodes="176" android:keyEdgeFlags="left" android:popupCharacters="°¹ª₁¬"/>
     <Key android:codes="50" android:keyLabel="2" ask:shiftedCodes="167" android:popupCharacters="§²º₂∨"/>
     <Key android:codes="51" android:keyLabel="3" ask:shiftedCodes="8467" android:popupCharacters="ℓ³№₃∧"/>
@@ -72,7 +58,6 @@
     <Key android:codes="769" android:keyLabel="´" ask:shiftedCodes="771" android:keyEdgeFlags="right" android:popupCharacters="\u0300\u0302\u0303\u0327\u030C\u0337\u030A\u030B\u0308\u0307\u0314\u0313\u02DE\u0306\u0304\u0323"/>
 </Row>
 <Row android:rowEdgeFlags="bottom">
-    <!-- key codes:http://r12a.github.io/apps/conversion/ -->
     <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left" android:keyWidth="12%p"/>
     <Key android:isModifier="true" android:codes="-10" ask:longPressCode="-102" ask:isFunctional="true" android:keyWidth="8%p"/>
     <Key android:codes="-20" android:keyLabel="←" ask:isFunctional="true" ask:shiftedKeyLabel="←" android:isRepeatable="true" android:keyWidth="8%p"/>
