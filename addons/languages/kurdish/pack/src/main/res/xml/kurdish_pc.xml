@@ -42,9 +42,9 @@
         <Key android:codes="پ" android:popupCharacters="ث" />
         <Key android:codes="ژ" />
         <Key android:codes="م" />
-        <Key android:codes="1567" android:popupCharacters="\?❔❕!" android:keyLabel="؟" />
-        <Key android:codes="1548" android:popupCharacters="," android:keyLabel="،" />
-        <Key android:codes="46" android:keyLabel="." />
+        <Key android:codes="1567" android:popupCharacters="\?!¿¡‽❔❕" android:keyLabel="؟" />
+        <Key android:codes="1548" android:popupCharacters="٫؍,❛❜❝❞" android:keyLabel="،" />
+        <Key android:codes="46"  android:popupCharacters="•〝〞“”»«^>&lt;" android:keyLabel="." />
         <Key android:keyWidth="15.999996%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true" />
     </Row>
 </Keyboard>
