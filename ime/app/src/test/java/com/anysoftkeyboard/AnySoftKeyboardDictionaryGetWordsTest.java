@@ -633,4 +633,22 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         Assert.assertEquals("d", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
     }
+
+    @Test
+    public void testJumpToMiddleAndThenBackToEnd() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+        Assert.assertEquals(
+                "hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().setSelection(1, 1);
+        Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
+        getCurrentTestInputConnection().setSelection(5, 5);
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals(
+                "hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('d');
+        Assert.assertEquals(
+                "hellod", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(6, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
 }
