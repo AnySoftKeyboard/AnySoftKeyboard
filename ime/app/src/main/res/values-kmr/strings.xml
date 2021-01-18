@@ -29,6 +29,7 @@
     <string name="no_market_store_available">Li ser cîhaza app store nehatiye dîtin.\nNa Ji bilî legerin!</string>
     <string name="keyboard_theme_tweak_group">Rastbune</string>
     <string name="close_button">Girtin</string>
+    <string name="delete_button">Jêbirin</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Rizgarkirin:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -119,9 +120,13 @@
     <string name="always_use_fallback_user_dictionary">Hilanîna taybet-Bikarhêner-Bikaranîn bikar bînin</string>
     <string name="use_auto_dictionary">Ferhenga Otomatîkî</string>
     <string name="auto_dictionary_threshold_type_after_a_while">Piştî hendik bikaranîn</string>
+    <string name="auto_dictionary_threshold_type_off">Peyvên nû fêr nebûn</string>
     <string name="use_next_words_dictionary">Pêşniyarên peyva paşîn</string>
     <string name="next_words_dictionary_off">Gotina din pêşniyar nekin</string>
     <string name="next_words_dictionary_words_only">Gotina din pêşniyar bikin</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Pêşniyarên kêmtirîn</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Pêşniyarên navîn</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">gelek pêşinyarê nîşan bide</string>
     <string name="auto_pick_suggestion_aggressiveness_none">Girtî</string>
     <string name="tweaks_group">Rastbune</string>
     <string name="show_hint_text">Nivîsê nîşan bide</string>
