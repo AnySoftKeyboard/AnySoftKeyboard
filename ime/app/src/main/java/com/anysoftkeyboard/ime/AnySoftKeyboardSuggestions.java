@@ -410,7 +410,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int candidatesEnd) {
         super.onUpdateSelection(
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
-
+        Logger.v(
+                TAG,
+                "onUpdateSelection: word '%s', position %d.",
+                mWord.getTypedWord(),
+                mWord.cursorPosition());
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
 
@@ -463,7 +467,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 if (newSelStart >= candidatesStart && newSelStart <= candidatesEnd) {
                     // 1) predicting and moved inside the word - just update the
                     // cursor position and shift state
-                    // inside the currently selected word
+                    // inside the currently typed word
+                    Logger.d(
+                            TAG,
+                            "onUpdateSelection: inside the currently typed word to location %d.",
+                            newSelEnd - candidatesStart);
                     mWord.setCursorPosition(newSelEnd - candidatesStart);
                 } else {
                     Logger.d(
@@ -478,6 +486,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                         "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
                 postRestartWordSuggestion();
             }
+        } else {
+            Logger.v(TAG, "onUpdateSelection: cursor moved expectedly");
         }
     }
 
@@ -985,7 +995,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     mAllowSuggestionsRestart,
                     mCurrentlyAllowSuggestionRestart);
             return false;
-        } else if (isCursorNotTouchingWord()) {
+        } else if (!isCursorTouchingWord()) {
             Logger.d(TAG, "User moved cursor to no-man land. Bye bye.");
             return false;
         }
@@ -1223,27 +1233,25 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         clearSuggestions();
     }
 
-    private boolean isCursorNotTouchingWord() {
+    private boolean isCursorTouchingWord() {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) {
-            return true;
+            return false;
         }
 
         CharSequence toLeft = ic.getTextBeforeCursor(1, 0);
         // It is not exactly clear to me why, but sometimes, although I request
-        // 1 character, I get
-        // the entire text. This causes me to incorrectly detect restart
-        // suggestions...
-        if (!TextUtils.isEmpty(toLeft)
-                && toLeft.length() == 1
-                && !isWordSeparator(toLeft.charAt(0))) {
-            return false;
+        // 1 character, I get the entire text
+        if (!TextUtils.isEmpty(toLeft) && !isWordSeparator(toLeft.charAt(0))) {
+            return true;
         }
 
         CharSequence toRight = ic.getTextAfterCursor(1, 0);
-        return TextUtils.isEmpty(toRight)
-                || toRight.length() != 1
-                || isWordSeparator(toRight.charAt(0));
+        if (!TextUtils.isEmpty(toRight) && !isWordSeparator(toRight.charAt(0))) {
+            return true;
+        }
+
+        return false;
     }
 
     private void setSpaceTimeStamp(boolean isSpace) {
