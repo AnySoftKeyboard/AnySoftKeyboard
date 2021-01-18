@@ -36,7 +36,6 @@ import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,8 +76,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
 
         String appName = DeveloperUtils.getAppDetails(mApp);
 
-        @SuppressWarnings("JdkObsolete")
-        final CharSequence utcTimeDate = DateFormat.format("kk:mm:ss dd.MM.yyyy", new Date());
+        final CharSequence utcTimeDate =
+                DateFormat.format("kk:mm:ss dd.MM.yyyy", System.currentTimeMillis());
         final String newline = DeveloperUtils.NEW_LINE;
         String logText =
                 "Hi. It seems that we have crashed.... Here are some details:"
