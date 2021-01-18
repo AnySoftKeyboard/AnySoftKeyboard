@@ -103,10 +103,20 @@
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
+        description="@string/de_keyboard_adnw_koy_description"
+        iconResId="@drawable/ic_status_german"
+        id="638f65ba-4b64-11eb-9610-002b67b6309a"
+        index="11"
+        layoutResId="@xml/de_adnw_koy"
+        nameResId="@string/de_keyboard_adnw_koy"
+        physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+    <Keyboard
+        defaultDictionaryLocale="de"
+        defaultEnabled="false"
         description="@string/de_keyboard_dvorak_compact_description"
         iconResId="@drawable/ic_status_german"
         id="7132bd21-0932-49c7-9306-c06cfec89dda"
-        index="11"
+        index="12"
         layoutResId="@xml/de_dvorak_compact"
         nameResId="@string/de_keyboard_dvorak_compact"
         physicalKeyboardMappingResId="@xml/german_physical" />
