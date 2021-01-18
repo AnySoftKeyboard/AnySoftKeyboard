@@ -1,0 +1,5 @@
+ext.status_icon_text = 'pt-PT'
+ext.dictionaryInputPossibleCharacters = null//.toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = null//.toCharArray()
+
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"
