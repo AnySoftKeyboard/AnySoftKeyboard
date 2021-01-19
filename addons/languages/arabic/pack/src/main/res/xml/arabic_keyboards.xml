@@ -8,7 +8,7 @@
     <Keyboard nameResId="@string/aosp_keyboard" iconResId="@drawable/ic_status_arabic"
               layoutResId="@xml/aosp" id="a4402e61-ebc4-4e82-8a7f-9d9b9d3e5f4b"
               defaultDictionaryLocale="ar" description="@string/aosp_keyboard_description"
-              index="2" 
+              index="2"
               physicalKeyboardMappingResId="@xml/arabic_physical" />
     <Keyboard nameResId="@string/linux_keyboard" iconResId="@drawable/ic_status_arabic"
               layoutResId="@xml/linux" id="26418916-e961-4d30-bc4b-8b704414f0ff"
@@ -20,4 +20,8 @@
               defaultDictionaryLocale="ar" description="@string/lulua_keyboard_description"
               index="4"
               physicalKeyboardMappingResId="@xml/arabic_physical" />
+    <Keyboard nameResId="@string/swiftkey_keyboard" iconResId="@drawable/ic_status_arabic"
+             layoutResId="@xml/swiftkey" id="3abcd88e-6611-4757-8e63-529cb83055ea"
+             defaultDictionaryLocale="ar" description="@string/swiftkey_keyboard_description"
+             index="5"/>
 </Keyboards>
