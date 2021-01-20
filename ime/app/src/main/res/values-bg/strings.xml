@@ -14,6 +14,7 @@
     <string name="search_market_for_addons">Търсене на добавки</string>
     <string name="keyboard_theme_tweak_group">Още настройки</string>
     <string name="close_button">Затваряне</string>
+    <string name="delete_button">Изтриване</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="revert_added_word_question">Премахвате ли\?</string>
     <!-- voice -->
@@ -63,6 +64,7 @@
     <string name="swipe_right_action">Плъзгане надясно</string>
     <string name="swipe_right_action_title">Изберете действие за плъзгане надясно</string>
     <string name="swipe_action_name_none">Няма действие</string>
+    <string name="swipe_action_name_space">Шпация</string>
     <string name="swipe_action_name_hide">Скриване на клавиатурата</string>
     <string name="swipe_action_name_backspace">Клавиш Backspace</string>
     <string name="settings_swipe_velocity_very_slow">Много бавно</string>
@@ -107,6 +109,7 @@
         <item>Отгоре</item>
         <item>Отдолу</item>
     </string-array>
+    <string name="show_settings_app_in_launcher">Настройки на приложението</string>
     <string name="use_keyrepeat">Използвай повторение на клавиши</string>
     <string name="use_keyrepeat_on_summary">Повторение на клавиши е включено</string>
     <string name="use_keyrepeat_off_summary">Повторение на клавиши е изключено</string>
@@ -148,6 +151,7 @@
     <string name="symbols_phone_keyboard">телефон</string>
     <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">време</string>
+    <string name="keyboard_change_locked">недостъпно</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Клавиш бърз текст</string>
     <!-- settings - top generic row -->
@@ -179,6 +183,7 @@
     <string name="extension_kbd_bottom_old">Старомодно</string>
     <string name="extension_kbd_bottom_simple">Просто</string>
     <string name="extension_kbd_bottom_ng">Следващо поколение - тестване</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Ново поколение (без апостроф) - тестово</string>
     <string name="extension_kbd_extension_numbers_symbols">Цифри и символи</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
@@ -193,6 +198,7 @@
     <string name="select_keyboard_popup_title">Избор на клавиатура</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Клавиш усмивчо</string>
+    <string name="quick_text_kaomoji">Каомоджи</string>
     <string name="history_quick_text_key_name">История</string>
     <string name="default_quick_text_key_name">Прости емотикони</string>
     <string name="unicode_quick_text_key_name">Емотикони</string>
@@ -205,6 +211,8 @@
     <string name="unicode_transport_quick_text_key_name">Транспорт</string>
     <string name="unicode_signs_quick_text_key_name">Знаци</string>
     <string name="unicode_city_quick_text_key_name">Град</string>
+    <string name="unicode_scape_quick_text_key_name">Ландшафт</string>
+    <string name="unicode_activity_quick_text_key_name">Дейност</string>
     <string name="unicode_office_quick_text_key_name">Офис</string>
     <string name="unicode_flags_quick_text_key_name">Знамена</string>
     <string name="settings_multitap_timeout_faster">По-бързо</string>
@@ -232,13 +240,21 @@
     <string name="user_dict_restore_success_title">Успешно възстановяване!</string>
     <string name="user_dict_restore_success_text">Успешно възстановяване на думите ви.</string>
     <string name="user_dict_restore_fail_title">Неуспешно възстановяване!</string>
+    <string name="developer_tools">Инструменти за разработчици</string>
+    <string name="click_for_developer_features">Инструменти за разработчици</string>
     <string name="click_for_more">повече…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Добавяне на дума</string>
+    <string name="word_editor_action_backup_words">Резервно копиране</string>
     <string name="word_editor_action_restore_words">Възстановяване</string>
     <string name="enter_abbreviation_hint">Абревиатура</string>
     <string name="enter_abbreviation_target_hint">Пълно изречение</string>
+    <string name="file_explorer_menu_add_folder">Създаване на папка</string>
+    <string name="file_explorer_filename">Име на файла за резервното копие…</string>
+    <string name="file_explorer_filename_empty">Името на файла не може да бъде празно…</string>
+    <string name="file_explorer_backup_alert_message">Този файл ще бъде презаписан.</string>
+    <string name="about_additional_software_licenses">Допълнителни лицензи за софтуера</string>
     <string name="setup_wizard_step_three_title">Какво следва</string>
     <string name="setup_wizard_step_three_action_languages">Настройте езиците…</string>
     <string name="setup_wizard_step_three_action_themes">Изберете тема…</string>
@@ -250,6 +266,8 @@
     <string name="ime_crashed_send_button">Изпращане</string>
     <string name="ime_crashed_cancel_button">Отказ</string>
     <string name="next_word_settings_group">Настройки</string>
+    <string name="allow_permission">Позволяване</string>
+    <string name="navigate_to_app_permissions">Към разрешенията на приложението</string>
     <string name="app_shortcut_keyboards_short_label">Клавиатури</string>
     <string name="app_shortcut_themes_short_label">Теми</string>
     <string name="app_shortcut_gestures_short_label">Жестове</string>
@@ -260,6 +278,7 @@
     <string name="bottom_nav_home">Здравейте</string>
     <string name="setup_wizard_welcome_title">Добре дошли!</string>
     <string name="setup_wizard_welcome_start_action">Започване на конфигурирането…</string>
+    <string name="setup_wizard_welcome_privacy_action">Към политиката за поверителност…</string>
     <string name="shared_prefs_provider_name">Настройки на приложението</string>
     <string name="user_dict_prefs_provider">Потребителски думи</string>
     <string name="next_word_dict_prefs_provider">Следващи думи</string>
