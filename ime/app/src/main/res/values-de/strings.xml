@@ -513,6 +513,9 @@
     <string name="enter_word_hint">Gibt das neue Wort hier ein</string>
     <string name="enter_abbreviation_hint">Abkürzung</string>
     <string name="enter_abbreviation_target_hint">Ganzer Satz</string>
+    <string name="file_explorer_menu_add_folder">Ordner erstellen</string>
+    <string name="file_explorer_filename">Backup Dateiname...</string>
+    <string name="file_explorer_filename_empty">Dateiname darf nicht leer sein</string>
     <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
     <string name="setup_wizard_step_one_details">In diesem Schritt musst du <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>Sprache- und Eingabeeinstellungen</i>. Das ermöglicht der App, auf deinem Gerät zu laufen.</string>
@@ -596,6 +599,8 @@
     <string name="theme_case_type_override_os">Lass Android entscheiden (Auto)</string>
     <string name="theme_case_type_override_lower">Immer Kleinbuchstaben</string>
     <string name="theme_case_type_override_upper">Immer Großbuchstaben</string>
+    <string name="settings_hint_size">Hinweisgröße</string>
+    <string name="settings_key_hint_size_summary">Hinweisgröße in der Tastatur festlegen. Aktuell, %s</string>
     <string name="settings_key_hint_size_none">Keine</string>
     <string name="settings_key_hint_size_small">Klein</string>
     <string name="settings_key_hint_size_normal">Normal</string>
@@ -615,6 +620,7 @@
     <string name="prefs_providers_backed_up_to">Deine Daten wurden erfolgreich in %s gesichert</string>
     <string name="prefs_providers_failed_restore_due_to">Fehler beim Wiederherstellen deiner Daten aufgrund von %s</string>
     <string name="prefs_providers_restored_to">Deine Daten wurden erfolgreich von %s wiederhergestellt</string>
+    <string name="word_editor_action_choose_path">Eigenen Pfad wählen</string>
     <string name="allow_layouts_to_provide_generic_rows">Tastaturen können generische Zeilen bereitstellen</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Verwende immer ausgewählte generische Zeilen.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Layouts dürfen generische Zeilen überschreiben.</string>
