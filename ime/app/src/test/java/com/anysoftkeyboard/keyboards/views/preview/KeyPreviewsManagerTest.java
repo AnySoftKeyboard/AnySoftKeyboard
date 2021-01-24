@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.PopupWindow;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
@@ -27,6 +28,11 @@ public class KeyPreviewsManagerTest {
     private Keyboard.Key mTestKey;
     private PreviewPopupTheme mTheme;
     private AnyKeyboardViewBase mKeyboardView;
+
+    private static PopupWindow getLatestPopupWindow() {
+        return Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                .getLatestPopupWindow();
+    }
 
     @Before
     public void setup() {
@@ -51,17 +57,13 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        PopupWindow createdPopupWindow = getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
 
         Mockito.doReturn(KeyCodes.ENTER).when(mTestKey).getPrimaryCode();
         underTest.showPreviewForKey(mTestKey, "");
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        createdPopupWindow = getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
     }
 
@@ -70,17 +72,13 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        PopupWindow createdPopupWindow = getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
 
         mTestKey.showPreview = false;
         underTest.showPreviewForKey(mTestKey, "y");
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        createdPopupWindow = getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
     }
 
@@ -89,17 +87,13 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        PopupWindow createdPopupWindow = getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
 
         mTestKey.modifier = true;
         underTest.showPreviewForKey(mTestKey, "y");
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        createdPopupWindow = getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
     }
 
@@ -109,44 +103,50 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNull(getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNull(getLatestPopupWindow());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_shows_preview_popup, true);
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNull(getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        final PopupWindow popupAfterEnabling =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        final PopupWindow popupAfterEnabling = getLatestPopupWindow();
         Assert.assertNotNull(popupAfterEnabling);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_shows_preview_popup, false);
 
-        Assert.assertEquals(
-                popupAfterEnabling,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertEquals(popupAfterEnabling, getLatestPopupWindow());
         Assert.assertFalse(popupAfterEnabling.isShowing());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertEquals(
-                popupAfterEnabling,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertEquals(popupAfterEnabling, getLatestPopupWindow());
         Assert.assertFalse(popupAfterEnabling.isShowing());
+    }
+
+    @Test
+    public void testNoPopUpOnLowPower() {
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
+
+        Assert.assertNull(getLatestPopupWindow());
+
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertTrue(getLatestPopupWindow().isShowing());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertFalse(getLatestPopupWindow().isShowing());
+
+        PowerSavingTest.sendBatteryState(false);
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertTrue(getLatestPopupWindow().isShowing());
     }
 
     @Test
@@ -155,43 +155,29 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNull(getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNull(getLatestPopupWindow());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "some");
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNull(getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        final PopupWindow popupWindowBeforeDisable =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        final PopupWindow popupWindowBeforeDisable = getLatestPopupWindow();
         Assert.assertNotNull(popupWindowBeforeDisable);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
 
-        Assert.assertSame(
-                popupWindowBeforeDisable,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertSame(popupWindowBeforeDisable, getLatestPopupWindow());
         Assert.assertFalse(popupWindowBeforeDisable.isShowing());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertSame(
-                popupWindowBeforeDisable,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertSame(popupWindowBeforeDisable, getLatestPopupWindow());
         Assert.assertFalse(popupWindowBeforeDisable.isShowing());
     }
 
@@ -221,17 +207,11 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+        Assert.assertNull(getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNotNull(createdPopupWindow);
+        Assert.assertNotNull(getLatestPopupWindow());
     }
 
     @Test
@@ -240,17 +220,11 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+        Assert.assertNull(getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+        Assert.assertNull(getLatestPopupWindow());
     }
 
     @Test
@@ -259,18 +233,13 @@ public class KeyPreviewsManagerTest {
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
         underTest.showPreviewForKey(mTestKey, "y");
 
-        final PopupWindow firstPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        final PopupWindow firstPopupWindow = getLatestPopupWindow();
         Assert.assertNotNull(firstPopupWindow);
 
         Robolectric.flushForegroundThreadScheduler();
 
         underTest.showPreviewForKey(mTestKey, "y");
-        Assert.assertSame(
-                firstPopupWindow,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertSame(firstPopupWindow, getLatestPopupWindow());
 
         Robolectric.flushForegroundThreadScheduler();
 
@@ -279,10 +248,7 @@ public class KeyPreviewsManagerTest {
         Robolectric.flushForegroundThreadScheduler();
 
         underTest.showPreviewForKey(mTestKey, "y");
-        Assert.assertNotSame(
-                firstPopupWindow,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertNotSame(firstPopupWindow, getLatestPopupWindow());
     }
 
     @Test
@@ -291,18 +257,13 @@ public class KeyPreviewsManagerTest {
                 new KeyPreviewsManager(getApplicationContext(), mKeyboardView, mTheme);
         underTest.showPreviewForKey(mTestKey, "y");
 
-        final PopupWindow firstPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
+        final PopupWindow firstPopupWindow = getLatestPopupWindow();
         Assert.assertNotNull(firstPopupWindow);
 
         Robolectric.flushForegroundThreadScheduler();
 
         underTest.showPreviewForKey(mTestKey, "y");
-        Assert.assertSame(
-                firstPopupWindow,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertSame(firstPopupWindow, getLatestPopupWindow());
 
         Robolectric.flushForegroundThreadScheduler();
 
@@ -311,9 +272,6 @@ public class KeyPreviewsManagerTest {
         Robolectric.flushForegroundThreadScheduler();
 
         underTest.showPreviewForKey(mTestKey, "y");
-        Assert.assertSame(
-                firstPopupWindow,
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow());
+        Assert.assertSame(firstPopupWindow, getLatestPopupWindow());
     }
 }
