@@ -47,5 +47,11 @@
               layoutResId="@xml/halmak" id="546b29d0-2563-11e9-b56e-0800200c9a66"
               description="@string/halmak_keyboard_description"
               index="10"/>
+    <Keyboard nameResId="@string/english_keyboard_qwertz_symbols" iconResId="@drawable/ic_status_english"
+              layoutResId="@xml/qwertz_symbols" landscapeResId="@xml/qwertz_symbols"
+              id="5403a53a-6369-4dee-bf6e-32901634ae08"
+              defaultDictionaryLocale="en" description="@string/english_keyboard_qwertz_symbols_description"
+              index="11" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/english_physical" />
 
 </Keyboards>
