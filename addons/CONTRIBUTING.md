@@ -2,6 +2,7 @@
 
 Each language is a set of two modules, `pack` and `apk`. `pack` is an Android library that holds all the information about the language pack (keyboards, dictionaries, receivers, etc.),
 while `apk` bundles that into an installable (and publishable) APK.
+General information about how to create a fork and pull-request could be found here: https://www.dataschool.io/how-to-contribute-on-github/
 
 ## How to create a Language-Pack
 
@@ -23,6 +24,7 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
 1. Generate the dictionary: `./gradlew :addons:languages:klingon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
     * raw resources under `klingon/pack/src/main/res/raw/klingon_words_?.dict`
     * IDs resource array under `klingon/pack/src/main/res/values/klingon_words_dict_array.xml`
+    * If you have problems with the windows encoding, create the Environment Variable `JAVA_TOOL_OPTIONS` with the value `-Dfile.encoding=UTF8`.
 1. Edit `klingon_dictionaries.xml`:
     * to point to the new array resource `@array/klingon_words_dict_array`
     * replace the `id` with a new [GUID](https://www.guidgenerator.com/).
@@ -36,7 +38,7 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
     * `klingon/apk/src/main/res/mipmap-*/ic_launcher.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/feature-graphic/pack_store_feature_graphics.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/icon/pack_store_icon.png`
-1. Edit the keyboard layouts to your language, remove what's not needed, and add new ones if you need. Make sure the names of the layouts include you pack-name (klingon).
+1. Edit the keyboard layouts to your language, remove what's not needed, and add new ones if you need. Make sure the names of the layouts include your pack-name (klingon).
 1. Edit `klingon_keyboards.xml`. For each of the layouts you want in your pack (the layouts you created in the previous step):
     * Generate a new [GUID](https://www.guidgenerator.com/).
     * Set the locale value at `defaultDictionaryLocale` to match the value you used in `klingon_dictionaries.xml`.
@@ -47,6 +49,7 @@ At this point, you should be able to build an APK that can be installed on your 
 ```
 ./gradlew :addons:languages:klingon:apk:assembleDebug
 ```
+on successful build the apk could be found at `outputs\apks\debug`
 or directly install it on your connected device:
 ```
 ./gradlew :addons:languages:klingon:apk:installDebug
