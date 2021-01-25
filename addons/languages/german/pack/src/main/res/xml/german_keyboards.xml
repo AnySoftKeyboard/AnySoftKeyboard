@@ -33,10 +33,20 @@
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
+        description="@string/de_keyboard_symbols_description"
+        iconResId="@drawable/ic_status_german"
+        id="bbafdfbe-a151-496b-b838-3ef7812587ff"
+        index="4"
+        layoutResId="@xml/de_qwertz_symbols"
+        nameResId="@string/de_keyboard_symbols"
+        physicalKeyboardMappingResId="@xml/german_physical" />
+    <Keyboard
+        defaultDictionaryLocale="de"
+        defaultEnabled="false"
         description="@string/de_keyboard_qwerty_description"
         iconResId="@drawable/ic_status_german"
         id="797fbddf-346b-4216-b67c-80834638d7ce"
-        index="4"
+        index="5"
         layoutResId="@xml/de_qwerty"
         nameResId="@string/de_keyboard_qwerty"
         physicalKeyboardMappingResId="@xml/german_physical" />
@@ -46,7 +56,7 @@
         description="@string/de_keyboard_qwerty_broad_description"
         iconResId="@drawable/ic_status_german"
         id="9f5e0409-849b-423c-8d5f-46acbfe4e934"
-        index="5"
+        index="6"
         layoutResId="@xml/de_qwerty_broad"
         nameResId="@string/de_keyboard_qwerty_broad"
         physicalKeyboardMappingResId="@xml/german_physical" />
@@ -56,7 +66,7 @@
         description="@string/de_keyboard_qwerty_extra_description"
         iconResId="@drawable/ic_status_german"
         id="6755ccc0-1015-4364-bd87-2b755bf9ab4b"
-        index="6"
+        index="7"
         layoutResId="@xml/de_qwerty_extra"
         nameResId="@string/de_keyboard_qwerty_extra"
         physicalKeyboardMappingResId="@xml/german_physical" />
@@ -66,7 +76,7 @@
         description="@string/de_keyboard_qwerty_slim_description"
         iconResId="@drawable/ic_status_german"
         id="33421de8-0d71-456c-90f1-3935fcb4e30f"
-        index="7"
+        index="8"
         layoutResId="@xml/de_qwerty_slim"
         nameResId="@string/de_keyboard_qwerty_slim"
         physicalKeyboardMappingResId="@xml/german_physical" />
@@ -76,7 +86,7 @@
         description="German NEO2 layout"
         iconResId="@drawable/ic_status_german"
         id="ad1b5ffa-15cc-4ba4-abb7-68df2c0874e7"
-        index="8"
+        index="9"
         layoutResId="@xml/de_neo2"
         nameResId="@string/de_keyboard_neo2"
         physicalKeyboardMappingResId="@xml/german_neo2_physical" />
@@ -85,7 +95,7 @@
         defaultEnabled="false"
         iconResId="@drawable/ic_status_german"
         id="37606729-66c1-4e04-9968-b32314c7094a"
-        index="9"
+        index="10"
         layoutResId="@xml/de_neo2_simple"
         nameResId="@string/de_keyboard_neo2_simple"
         description="German NEO2 Simple layout with neo2 physical layout"
@@ -96,7 +106,7 @@
         description="@string/de_keyboard_adnw_description"
         iconResId="@drawable/ic_status_german"
         id="e482c64e-fa24-45ab-a785-68c65fe5bf7b"
-        index="10"
+        index="11"
         layoutResId="@xml/de_adnw"
         nameResId="@string/de_keyboard_adnw"
         physicalKeyboardMappingResId="@xml/german_neo2_physical" />
@@ -106,7 +116,7 @@
         description="@string/de_keyboard_adnw_koy_description"
         iconResId="@drawable/ic_status_german"
         id="638f65ba-4b64-11eb-9610-002b67b6309a"
-        index="11"
+        index="12"
         layoutResId="@xml/de_adnw_koy"
         nameResId="@string/de_keyboard_adnw_koy"
         physicalKeyboardMappingResId="@xml/german_neo2_physical" />
@@ -116,7 +126,7 @@
         description="@string/de_keyboard_dvorak_compact_description"
         iconResId="@drawable/ic_status_german"
         id="7132bd21-0932-49c7-9306-c06cfec89dda"
-        index="12"
+        index="13"
         layoutResId="@xml/de_dvorak_compact"
         nameResId="@string/de_keyboard_dvorak_compact"
         physicalKeyboardMappingResId="@xml/german_physical" />

@@ -11,6 +11,8 @@
     <string name="de_keyboard_broad_description">Slightly broader layout with umlauts as popups (saving keys)</string>
     <string name="de_keyboard_extra">German broad+</string>
     <string name="de_keyboard_extra_description">Slightly broader layout with umlauts as popups (saving keys), also additional characters</string>
+    <string name="de_keyboard_symbols">German</string>
+    <string name="de_keyboard_symbols_description">QWERTZ layout with umlauts, symbols and numbers as popups (by LuKe)</string>
     <string name="de_keyboard_qwerty">German QWERTY</string>
     <string name="de_keyboard_qwerty_description">Created by Thomas Eizinger</string>
     <string name="de_keyboard_qwerty_broad">German QWERTY broad</string>
