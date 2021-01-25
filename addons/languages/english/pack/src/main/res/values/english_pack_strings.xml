@@ -10,4 +10,5 @@
     <string name="colemak_keyboard_description">Colemak layout. Created with Hugo Lopes</string>
     <string name="workman_keyboard_description">Layout by OJ Bucao</string>
     <string name="halmak_keyboard_description">Nikolay Nemshilov\'s Halmak layout, implemented by Zorkedon</string>
+    <string name="english_keyboard_qwertz_symbols_description">QWERTZ Latin keyboard with symbols, by LuKe</string>
 </resources>
