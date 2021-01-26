@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ime;
 
+import static com.anysoftkeyboard.ime.AnySoftKeyboardIncognito.isNumberPassword;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,6 +11,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -42,6 +45,9 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
 
     @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
+
+    @NonNull
+    private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
 
     @Override
     public void onCreate() {
@@ -161,11 +167,20 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                                                         .settings_default_key_press_preview_popup_position)
                                         .asObservable(),
                                 mKeyPreviewSubject.startWith(0L),
+                                mKeyPreviewForPasswordSubject
+                                        .startWith(false)
+                                        .distinctUntilChanged(),
                                 this::createKeyPreviewController)
                         .subscribe(
                                 controller ->
                                         onNewControllerOrInputView(controller, getInputView()),
                                 GenericOnError.onError("key-preview-controller-setup")));
+    }
+
+    @Override
+    public void onStartInputView(EditorInfo info, boolean restarting) {
+        super.onStartInputView(info, restarting);
+        mKeyPreviewForPasswordSubject.onNext(isTextPassword(info) || isNumberPassword(info));
     }
 
     @VisibleForTesting
@@ -195,8 +210,14 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
     @NonNull
     private KeyPreviewsController createKeyPreviewController(
-            Boolean enabled, AnimationsLevel animationsLevel, String position, Long random) {
-        if (enabled && animationsLevel != AnimationsLevel.None) {
+            Boolean enabled,
+            AnimationsLevel animationsLevel,
+            String position,
+            Long random /*ignoring this one*/,
+            Boolean isPasswordField) {
+        if (enabled
+                && animationsLevel != AnimationsLevel.None
+                && Boolean.FALSE.equals(isPasswordField)) {
             final PositionCalculator positionCalculator;
             final int maxPopups;
             if ("above_key".equals(position)) {
@@ -288,7 +309,8 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mKeyPreviewController.cancelAllPreviews();
+        mKeyPreviewSubject.onComplete();
+        mKeyPreviewController.destroy();
         mAudioManager.unloadSoundEffects();
     }
 

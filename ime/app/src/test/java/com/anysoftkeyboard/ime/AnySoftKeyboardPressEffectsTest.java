@@ -455,7 +455,14 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
         simulateFinishInputFlow();
         simulateOnStartInputFlow(
                 false, createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(2))
+                .setKeyPreviewController(Mockito.isA(KeyPreviewsManager.class));
+
+        // does not re-create
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(
+                false, createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(2))
                 .setKeyPreviewController(Mockito.isA(KeyPreviewsManager.class));
 
         simulateFinishInputFlow();
@@ -465,13 +472,24 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
                         EditorInfo.IME_ACTION_NONE,
                         EditorInfo.TYPE_CLASS_TEXT
                                 | EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(2))
+                .setKeyPreviewController(Mockito.isA(NullKeyPreviewsManager.class));
+
+        // does not re-create
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(
+                false,
+                createEditorInfo(
+                        EditorInfo.IME_ACTION_NONE,
+                        EditorInfo.TYPE_CLASS_TEXT
+                                | EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(2))
                 .setKeyPreviewController(Mockito.isA(NullKeyPreviewsManager.class));
 
         simulateFinishInputFlow();
         simulateOnStartInputFlow(
                 false, createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(3))
                 .setKeyPreviewController(Mockito.isA(KeyPreviewsManager.class));
 
         simulateFinishInputFlow();
@@ -480,13 +498,13 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
                 createEditorInfo(
                         EditorInfo.IME_ACTION_NONE,
                         EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(3))
                 .setKeyPreviewController(Mockito.isA(NullKeyPreviewsManager.class));
 
         simulateFinishInputFlow();
         simulateOnStartInputFlow(
                 false, createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(4))
                 .setKeyPreviewController(Mockito.isA(KeyPreviewsManager.class));
 
         simulateFinishInputFlow();
@@ -495,13 +513,13 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
                 createEditorInfo(
                         EditorInfo.IME_ACTION_NONE,
                         EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(4))
                 .setKeyPreviewController(Mockito.isA(NullKeyPreviewsManager.class));
 
         simulateFinishInputFlow();
         simulateOnStartInputFlow(
                 false, createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_NUMBER));
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardView(), Mockito.times(5))
                 .setKeyPreviewController(Mockito.isA(KeyPreviewsManager.class));
     }
 
