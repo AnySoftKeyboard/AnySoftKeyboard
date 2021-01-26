@@ -5,7 +5,10 @@ import static com.menny.android.anysoftkeyboard.R.drawable.blacktheme_preview_ba
 
 import android.app.Application;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.test.core.app.ApplicationProvider;
@@ -239,5 +242,34 @@ public class KeyPreviewsManagerTest {
 
         underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
         Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());
+    }
+
+    @Test
+    public void testSetupPopupLayoutForKeyLabel() {
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
+        underTest.showPreviewForKey(mTestKeys[0], mTestKeys[0].label, mKeyboardView, mTheme);
+
+        final PopupWindow window = getLatestCreatedPopupWindow();
+        final TextView textView = window.getContentView().findViewById(R.id.key_preview_text);
+        Assert.assertEquals(textView.getText().toString(), mTestKeys[0].label);
+        Assert.assertEquals(View.VISIBLE, textView.getVisibility());
+        final ImageView imageView = window.getContentView().findViewById(R.id.key_preview_icon);
+        Assert.assertEquals(View.GONE, imageView.getVisibility());
+    }
+
+    @Test
+    public void testSetupPopupLayoutForKeyDrawable() {
+        final Drawable drawable = getApplicationContext().getDrawable(R.drawable.ic_accept);
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
+        underTest.showPreviewForKey(mTestKeys[0], drawable, mKeyboardView, mTheme);
+
+        final PopupWindow window = getLatestCreatedPopupWindow();
+        final TextView textView = window.getContentView().findViewById(R.id.key_preview_text);
+        Assert.assertEquals(View.GONE, textView.getVisibility());
+        final ImageView imageView = window.getContentView().findViewById(R.id.key_preview_icon);
+        Assert.assertEquals(View.VISIBLE, imageView.getVisibility());
+        Assert.assertSame(drawable, imageView.getDrawable());
     }
 }
