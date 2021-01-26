@@ -216,7 +216,8 @@ public class KeyPreviewsManager implements KeyPreviewsController {
 
     private void internalDismissPopupForKey(Keyboard.Key key) {
         if (shouldNotShowPreview(key) || !mActivePopupByKeyMap.containsKey(key)) return;
-        KeyPreview popup = mActivePopupByKeyMap.get(key);
+        KeyPreview popup = mActivePopupByKeyMap.remove(key);
+        mFreeKeyPreviews.add(popup);
         try {
             popup.dismiss();
         } catch (IllegalArgumentException e) {
