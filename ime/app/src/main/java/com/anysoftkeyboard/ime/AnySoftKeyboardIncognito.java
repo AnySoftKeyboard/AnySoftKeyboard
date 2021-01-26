@@ -22,7 +22,7 @@ public abstract class AnySoftKeyboardIncognito extends AnySoftKeyboardWithGestur
         }
     }
 
-    private static boolean isNumberPassword(EditorInfo info) {
+    protected static boolean isNumberPassword(EditorInfo info) {
         return (info.inputType & NUMBER_INCOGNITO_TYPE) == NUMBER_INCOGNITO_TYPE;
     }
 
