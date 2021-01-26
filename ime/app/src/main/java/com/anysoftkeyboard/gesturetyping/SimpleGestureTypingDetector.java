@@ -243,8 +243,8 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
         /**
          * Finds a chosen number of keys closest to a given point on the keyboard.
          *
-         * @param x
-         * @param y
+         * @param x X coordinate of the point.
+         * @param y Y coordinate of the point.
          * @param n The number of keys to return.
          * @param keys The keys of the keyboard.
          * @return A list of the n closest keys.

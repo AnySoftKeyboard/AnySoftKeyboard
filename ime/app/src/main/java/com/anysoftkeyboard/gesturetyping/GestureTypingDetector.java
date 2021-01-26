@@ -6,7 +6,6 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.util.SparseArray;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
@@ -85,8 +84,8 @@ public abstract class GestureTypingDetector {
     /**
      * Sets the list of detectable words and their frequencies.
      *
-     * @param words
-     * @param wordFrequencies
+     * @param words The list of words that will compared to the user gestures.
+     * @param wordFrequencies The frequencies for each word in the word list.
      */
     public void setWords(@NonNull List<char[][]> words, @NonNull List<int[]> wordFrequencies) {
         mGeneratingDisposable.dispose();
@@ -116,12 +115,7 @@ public abstract class GestureTypingDetector {
      */
     public abstract ArrayList<String> getCandidates();
 
-    /**
-     * Adds a point to the user's gesture as long as it's not too far from the previous point.
-     *
-     * @param x
-     * @param y
-     */
+    /** Adds a point to the user's gesture as long as it's not too far from the previous point. */
     public void addPoint(double x, double y) {
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) return;
 
@@ -143,10 +137,6 @@ public abstract class GestureTypingDetector {
     /**
      * Calculates the euclidean distance between two 2D points.
      *
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
      * @return The distance.
      */
     protected static double euclideanDistance(double x1, double y1, double x2, double y2) {
@@ -164,12 +154,7 @@ public abstract class GestureTypingDetector {
             mCurrentLength = 0;
         }
 
-        /**
-         * Adds a point to the gesture's path.
-         *
-         * @param x
-         * @param y
-         */
+        /** Adds a point to the gesture's path. */
         void addPoint(double x, double y) {
             if (MAX_LENGTH == mCurrentLength) {
                 if (BuildConfig.TESTING_BUILD) {

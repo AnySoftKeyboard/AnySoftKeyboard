@@ -271,6 +271,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     /**
      * Sets the wordlist and corresponding frequencies for the current gesture detector.
+     *
      * @param keyboard The current keyboard.
      * @param newWords The words from the loaded dictionary.
      * @param wordFrequencies The frequencies from the loaded dictionary.
@@ -304,11 +305,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
-    /**
-     * Disables gesture typing for symbols keyboard.
-     *
-     * @param keyboard
-     */
+    /** Disables gesture typing for symbols keyboard. */
     @Override
     public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onSymbolsKeyboardSet(keyboard);
@@ -324,7 +321,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
      * @param x X coordinate of the first touch.
      * @param y Y coordinate of the first touch.
      * @param key The first key touched.
-     * @param eventTime
      * @return Whether the new gesture was started successfully.
      */
     @Override
@@ -371,13 +367,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
-    /**
-     * Adds a point to the current gesture detector.
-     *
-     * @param x
-     * @param y
-     * @param eventTime
-     */
+    /** Adds a point to the current gesture detector. */
     @Override
     public void onGestureTypingInput(int x, int y, long eventTime) {
         if (!mGestureTypingEnabled) return;
@@ -451,7 +441,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (ic != null && currentGestureDetector != null) {
-            //Logger.d(TAG, "Completed gesture: %s.", currentGestureDetector.getWorkspaceToString());
+            // Logger.d(TAG, "Completed gesture: %s.",
+            // currentGestureDetector.getWorkspaceToString());
             ArrayList<String> gestureTypingPossibilities = currentGestureDetector.getCandidates();
 
             if (!gestureTypingPossibilities.isEmpty()) {
