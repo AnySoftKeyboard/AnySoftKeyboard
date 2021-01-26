@@ -40,9 +40,6 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
-import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
-import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
-import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -65,7 +62,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     private Keyboard.Key mExtensionKey;
     private Keyboard.Key mUtilityKey;
     private Keyboard.Key mSpaceBarKey = null;
-    private Point mFirstTouchPoint = new Point(0, 0);
+    private final Point mFirstTouchPoint = new Point(0, 0);
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
@@ -196,12 +193,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
             mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
         }
         return super.onLongPress(keyboardAddOn, key, isSticky, tracker);
-    }
-
-    @Override
-    protected KeyPreviewsController createKeyPreviewManager(
-            Context context, PreviewPopupTheme previewPopupTheme) {
-        return new KeyPreviewsManager(context, this, mPreviewPopupTheme);
     }
 
     @Override
