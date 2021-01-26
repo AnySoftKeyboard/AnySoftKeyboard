@@ -3,7 +3,6 @@ package com.anysoftkeyboard.keyboards.views.preview;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import org.junit.Assert;
@@ -11,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AboveKeyboardPositionCalculatorTest {
@@ -39,9 +36,7 @@ public class AboveKeyboardPositionCalculatorTest {
 
         int[] offsets = new int[] {50, 60};
 
-        Point result =
-                mUnderTest.calculatePositionForPreview(
-                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result = mUnderTest.calculatePositionForPreview(mTestKey, mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(offsets[1], result.y);
@@ -53,9 +48,7 @@ public class AboveKeyboardPositionCalculatorTest {
 
         int[] offsets = new int[] {50, 60};
 
-        Point result =
-                mUnderTest.calculatePositionForPreview(
-                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result = mUnderTest.calculatePositionForPreview(mTestKey, mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(offsets[1], result.y);
@@ -65,22 +58,17 @@ public class AboveKeyboardPositionCalculatorTest {
     public void testCalculatePositionForPreviewWithBackgroundPadding() throws Exception {
         mTheme.setPreviewAnimationType(PreviewPopupTheme.ANIMATION_STYLE_APPEAR);
         Mockito.doAnswer(
-                        new Answer() {
-                            @Override
-                            public Object answer(InvocationOnMock invocation) throws Throwable {
-                                Rect padding = (Rect) invocation.getArguments()[0];
-                                padding.bottom = 13;
-                                return true;
-                            }
+                        invocation -> {
+                            Rect padding = (Rect) invocation.getArguments()[0];
+                            padding.bottom = 13;
+                            return true;
                         })
                 .when(mTheme.getPreviewKeyBackground())
                 .getPadding(Mockito.any(Rect.class));
 
         int[] offsets = new int[] {50, 60};
 
-        Point result =
-                mUnderTest.calculatePositionForPreview(
-                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result = mUnderTest.calculatePositionForPreview(mTestKey, mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(offsets[1] + 13 /*padding*/, result.y);

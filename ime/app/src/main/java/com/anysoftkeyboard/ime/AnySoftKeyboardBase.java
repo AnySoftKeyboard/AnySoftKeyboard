@@ -103,11 +103,11 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     }
 
     @Nullable
-    public InputViewBinder getInputView() {
+    public final InputViewBinder getInputView() {
         return mInputView;
     }
 
-    public KeyboardViewContainerView getInputViewContainer() {
+    public final KeyboardViewContainerView getInputViewContainer() {
         return mInputViewContainer;
     }
 
@@ -134,7 +134,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
 
     @Override
     public View onCreateInputView() {
-        if (getInputView() != null) getInputView().onViewNotRequired();
+        if (mInputView != null) mInputView.onViewNotRequired();
         mInputView = null;
 
         GCUtils.getInstance()

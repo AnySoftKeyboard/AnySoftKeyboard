@@ -242,7 +242,8 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
     protected void showMiniKeyboardForPopupKey(
             @NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
-        int[] windowOffset = getLocationInWindow();
+        final int[] windowOffset = new int[2];
+        getLocationInWindow(windowOffset);
 
         ensureMiniKeyboardInitialized();
 
