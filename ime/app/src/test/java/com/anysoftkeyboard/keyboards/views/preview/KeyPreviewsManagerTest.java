@@ -7,11 +7,15 @@ import android.app.Application;
 import android.graphics.Point;
 import android.support.v4.content.ContextCompat;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
+import com.menny.android.anysoftkeyboard.R;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,12 +27,12 @@ import org.robolectric.Shadows;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyPreviewsManagerTest {
 
-    private Keyboard.Key mTestKey;
+    private Keyboard.Key[] mTestKeys;
     private PreviewPopupTheme mTheme;
     private AnyKeyboardViewBase mKeyboardView;
     private PositionCalculator mPositionCalculator;
 
-    private static PopupWindow getLatestPopupWindow() {
+    private static PopupWindow getLatestCreatedPopupWindow() {
         return Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
                 .getLatestPopupWindow();
     }
@@ -51,14 +55,20 @@ public class KeyPreviewsManagerTest {
                 .when(mKeyboardView)
                 .getLocationInWindow(Mockito.any());
 
-        mTestKey = Mockito.mock(Keyboard.Key.class);
-        mTestKey.x = 12;
-        mTestKey.y = 11;
-        mTestKey.width = 10;
-        mTestKey.showPreview = true;
-        mTestKey.height = 20;
-        Mockito.doReturn((int) 'y').when(mTestKey).getPrimaryCode();
-        Mockito.doReturn(1).when(mTestKey).getCodesCount();
+        mTestKeys = new Keyboard.Key[10];
+        for (int keyIndex = 0; keyIndex < 10; keyIndex++) {
+            Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
+            key.x = 1 + keyIndex * 10;
+            key.y = 11;
+            key.width = 10;
+            key.showPreview = true;
+            key.height = 20;
+            key.label = "" + ((char) ('a' + keyIndex));
+            Mockito.doReturn((int) 'a' + keyIndex).when(key).getPrimaryCode();
+            Mockito.doReturn(1).when(key).getCodesCount();
+            mTestKeys[keyIndex] = key;
+        }
+
         mTheme = new PreviewPopupTheme();
         mTheme.setPreviewKeyBackground(
                 ContextCompat.getDrawable(getApplicationContext(), blacktheme_preview_background));
@@ -70,13 +80,13 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
 
-        PopupWindow createdPopupWindow = getLatestPopupWindow();
+        PopupWindow createdPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNull(createdPopupWindow);
 
-        Mockito.doReturn(KeyCodes.ENTER).when(mTestKey).getPrimaryCode();
-        underTest.showPreviewForKey(mTestKey, "", mKeyboardView, mTheme);
+        Mockito.doReturn(KeyCodes.ENTER).when(mTestKeys[0]).getPrimaryCode();
+        underTest.showPreviewForKey(mTestKeys[0], "", mKeyboardView, mTheme);
 
-        createdPopupWindow = getLatestPopupWindow();
+        createdPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNull(createdPopupWindow);
     }
 
@@ -85,13 +95,13 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
 
-        PopupWindow createdPopupWindow = getLatestPopupWindow();
+        PopupWindow createdPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNull(createdPopupWindow);
 
-        mTestKey.showPreview = false;
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
+        mTestKeys[0].showPreview = false;
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
 
-        createdPopupWindow = getLatestPopupWindow();
+        createdPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNull(createdPopupWindow);
     }
 
@@ -100,13 +110,13 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
 
-        PopupWindow createdPopupWindow = getLatestPopupWindow();
+        PopupWindow createdPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNull(createdPopupWindow);
 
-        mTestKey.modifier = true;
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
+        mTestKeys[0].modifier = true;
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
 
-        createdPopupWindow = getLatestPopupWindow();
+        createdPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNull(createdPopupWindow);
     }
 
@@ -115,11 +125,11 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
 
-        Assert.assertNull(getLatestPopupWindow());
+        Assert.assertNull(getLatestCreatedPopupWindow());
 
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
 
-        Assert.assertNotNull(getLatestPopupWindow());
+        Assert.assertNotNull(getLatestCreatedPopupWindow());
     }
 
     @Test
@@ -128,26 +138,98 @@ public class KeyPreviewsManagerTest {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
 
-        Assert.assertNull(getLatestPopupWindow());
+        Assert.assertNull(getLatestCreatedPopupWindow());
 
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
 
-        Assert.assertNull(getLatestPopupWindow());
+        Assert.assertNull(getLatestCreatedPopupWindow());
+    }
+
+    @Test
+    public void testReuseForTheSameKey() {
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
+
+        final PopupWindow firstPopupWindow = getLatestCreatedPopupWindow();
+        Assert.assertNotNull(firstPopupWindow);
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
+        Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());
+    }
+
+    @Test
+    public void testDoNotReuseForTheOtherKey() {
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
+
+        final PopupWindow firstPopupWindow = getLatestCreatedPopupWindow();
+        Assert.assertNotNull(firstPopupWindow);
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKeys[1], "t", mKeyboardView, mTheme);
+        Assert.assertNotSame(firstPopupWindow, getLatestCreatedPopupWindow());
+    }
+
+    @Test
+    public void testCycleThroughPopupQueueWhenAllAreActive() {
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
+
+        final int[] reuseIndex = new int[] {0, 1, 2, 0, 1, 2, 0};
+        final List<TextView> usedWindows = new ArrayList<>();
+
+        for (int index = 0; index < reuseIndex.length; index++) {
+            underTest.showPreviewForKey(
+                    mTestKeys[index], mTestKeys[index].label, mKeyboardView, mTheme);
+
+            usedWindows.add(
+                    getLatestCreatedPopupWindow()
+                            .getContentView()
+                            .findViewById(R.id.key_preview_text));
+            final TextView textView = usedWindows.get(reuseIndex[index]);
+            Assert.assertEquals(textView.getText().toString(), mTestKeys[index].label);
+        }
+    }
+
+    @Test
+    public void testTakeLatestDeactivated() {
+        KeyPreviewsManager underTest =
+                new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
+
+        underTest.showPreviewForKey(mTestKeys[0], mTestKeys[0].label, mKeyboardView, mTheme);
+        final PopupWindow first = getLatestCreatedPopupWindow();
+        underTest.showPreviewForKey(mTestKeys[1], mTestKeys[1].label, mKeyboardView, mTheme);
+        final PopupWindow second = getLatestCreatedPopupWindow();
+
+        underTest.hidePreviewForKey(mTestKeys[0]);
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKeys[2], mTestKeys[2].label, mKeyboardView, mTheme);
+        final PopupWindow third = getLatestCreatedPopupWindow();
+
+        Assert.assertNotSame(first, second);
+        Assert.assertNotSame(third, second);
+        Assert.assertSame(third, first);
     }
 
     @Test
     public void testCancelAllPreviewsStillReusePreviews() {
         KeyPreviewsManager underTest =
                 new KeyPreviewsManager(getApplicationContext(), mPositionCalculator, 3);
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
 
-        final PopupWindow firstPopupWindow = getLatestPopupWindow();
+        final PopupWindow firstPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNotNull(firstPopupWindow);
 
         Robolectric.flushForegroundThreadScheduler();
 
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
-        Assert.assertSame(firstPopupWindow, getLatestPopupWindow());
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
+        Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());
 
         Robolectric.flushForegroundThreadScheduler();
 
@@ -155,7 +237,7 @@ public class KeyPreviewsManagerTest {
 
         Robolectric.flushForegroundThreadScheduler();
 
-        underTest.showPreviewForKey(mTestKey, "y", mKeyboardView, mTheme);
-        Assert.assertSame(firstPopupWindow, getLatestPopupWindow());
+        underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
+        Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());
     }
 }
