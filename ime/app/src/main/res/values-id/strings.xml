@@ -6,10 +6,12 @@
     <string name="language_root_tile">Bahasa</string>
     <string name="language_tweaks_settings_tile">Setelan lebih lanjut</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">UI</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="keyboard_theme_tweak_group">Setelan lebih lanjut</string>
     <string name="close_button">Tutup</string>
+    <string name="delete_button">Hapus</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
     <string name="voice_input_not_installed_action_install">Instal</string>
@@ -25,6 +27,12 @@
     <string name="night_mode_screen">Setelan Mode-Malam</string>
     <string name="night_mode_dialog_title">Aktifkan Mode-Malam</string>
     <string name="night_mode_type_never">Tak pernah</string>
+    <string name="night_mode_type_always">Selalu</string>
+    <string name="power_save_mode_types_never">Jangan pernah</string>
+    <string name="power_save_mode_types_lower_battery">Saat baterai rendah</string>
+    <string name="power_save_mode_types_always">Selalu</string>
+    <string name="power_saving_keyboard_theme_name">Tema - mode daya rendah</string>
+    <string name="power_saving_keyboard_theme_description">Warna gelap, susunan sederhana yang membutuhkan daya yang lebih sedikit dari perangkat.</string>
     <string name="power_save_mode_sound_control">Nonaktifkan suara tekan tombol</string>
     <string name="power_save_mode_vibration_control">Nonaktifkan getaran tekan tombol</string>
     <string name="power_save_mode_suggestions_control">Nonkatifkan usulan kata </string>
