@@ -62,6 +62,8 @@ mv "${APP_RES_FOLDER}/values-ml-IN/strings.xml" "${APP_RES_FOLDER}/values-ml-rIN
 rm -rf "${APP_RES_FOLDER}/values-ml-IN/" || true
 mv "${APP_RES_FOLDER}/values-bn-IN/strings.xml" "${APP_RES_FOLDER}/values-bn-rIN/"
 rm -rf "${APP_RES_FOLDER}/values-bn-IN/" || true
+mv "${APP_RES_FOLDER}/values-si-LK/strings.xml" "${APP_RES_FOLDER}/values-si-rLK/"
+rm -rf "${APP_RES_FOLDER}/values-si-LK/" || true
 #copying generic strings to en
 cp "${APP_RES_FOLDER}/values/strings.xml" "${APP_RES_FOLDER}/values-en/strings.xml"
 
