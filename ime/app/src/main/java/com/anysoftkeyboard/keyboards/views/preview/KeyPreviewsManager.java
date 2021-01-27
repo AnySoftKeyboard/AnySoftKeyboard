@@ -7,15 +7,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.view.View;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
-import com.anysoftkeyboard.prefs.AnimationsLevel;
-import com.anysoftkeyboard.rx.GenericOnError;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import io.reactivex.disposables.CompositeDisposable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -38,122 +34,69 @@ public class KeyPreviewsManager implements KeyPreviewsController {
                 @Override
                 public void dismiss() {}
             };
-    private final CompositeDisposable mDisposables = new CompositeDisposable();
-    private int mMaxPopupInstances;
-    private final PreviewPopupTheme mPreviewPopupTheme;
+
+    private final int[] mThisWindowOffset = new int[2];
+
+    private final int mMaxPopupInstances;
 
     private final Queue<KeyPreview> mFreeKeyPreviews = new ArrayDeque<>();
     private final Queue<KeyPreview> mActiveKeyPreviews = new ArrayDeque<>();
     private final Map<Keyboard.Key, KeyPreview> mActivePopupByKeyMap = new HashMap<>();
     private final Context mContext;
-    private final AnyKeyboardViewBase mKeyboardView;
     private final UIHandler mUiHandler;
-
-    private boolean mAnimationsEnabled;
-    private boolean mShowPreview;
-    private PositionCalculator mPositionCalculator;
+    private final PositionCalculator mPositionCalculator;
 
     public KeyPreviewsManager(
             @NonNull Context context,
-            @NonNull AnyKeyboardViewBase keyboardView,
-            @NonNull PreviewPopupTheme previewPopupTheme) {
-        mPreviewPopupTheme = previewPopupTheme;
+            @NonNull PositionCalculator positionCalculator,
+            int maxPopupInstances) {
         mContext = context;
-        mKeyboardView = keyboardView;
+        mPositionCalculator = positionCalculator;
         mUiHandler =
                 new UIHandler(
                         this, context.getResources().getInteger(R.integer.preview_dismiss_delay));
-
-        mDisposables.add(
-                AnyApplication.prefs(context)
-                        .getString(
-                                R.string.settings_key_key_press_preview_popup_position,
-                                R.string.settings_default_key_press_preview_popup_position)
-                        .asObservable()
-                        .map("above_key"::equals)
-                        .subscribe(
-                                value -> {
-                                    cancelAllPreviews();
-                                    mMaxPopupInstances =
-                                            value
-                                                    ? context.getResources()
-                                                            .getInteger(
-                                                                    R.integer
-                                                                            .maximum_instances_of_preview_popups)
-                                                    : 1;
-                                    mPositionCalculator =
-                                            value
-                                                    ? new AboveKeyPositionCalculator()
-                                                    : new AboveKeyboardPositionCalculator();
-                                },
-                                GenericOnError.onError(
-                                        "settings_key_key_press_preview_popup_position")));
-
-        mDisposables.add(
-                AnyApplication.prefs(context)
-                        .getBoolean(
-                                R.string.settings_key_key_press_shows_preview_popup,
-                                R.bool.settings_default_key_press_shows_preview_popup)
-                        .asObservable()
-                        .subscribe(
-                                value -> {
-                                    cancelAllPreviews();
-                                    mShowPreview = value;
-                                },
-                                GenericOnError.onError(
-                                        "settings_key_key_press_shows_preview_popup")));
-
-        mDisposables.add(
-                AnimationsLevel.createPrefsObservable(context)
-                        .subscribe(
-                                value -> {
-                                    cancelAllPreviews();
-                                    mAnimationsEnabled = AnimationsLevel.None != value;
-                                },
-                                GenericOnError.onError("AnimationsLevel.createPrefsObservable")));
+        mMaxPopupInstances = maxPopupInstances;
     }
 
     @Override
     public void hidePreviewForKey(Keyboard.Key key) {
-        if (isEnabled()) mUiHandler.dismissPreview(key);
-    }
-
-    private boolean isEnabled() {
-        return mShowPreview && mAnimationsEnabled;
+        mUiHandler.dismissPreview(key);
     }
 
     @Override
-    public void showPreviewForKey(Keyboard.Key key, Drawable icon) {
-        if (isEnabled()) {
-            KeyPreview popup = getPopupForKey(key);
-            Point previewPosition =
-                    mPositionCalculator.calculatePositionForPreview(
-                            key,
-                            mKeyboardView,
-                            mPreviewPopupTheme,
-                            mKeyboardView.getLocationInWindow());
-            popup.showPreviewForKey(key, icon, previewPosition);
-        }
+    public void showPreviewForKey(
+            Keyboard.Key key, Drawable icon, View parentView, PreviewPopupTheme previewPopupTheme) {
+        KeyPreview popup = getPopupForKey(key, parentView, previewPopupTheme);
+        Point previewPosition =
+                mPositionCalculator.calculatePositionForPreview(
+                        key, previewPopupTheme, getLocationInWindow(parentView));
+        popup.showPreviewForKey(key, icon, previewPosition);
+    }
+
+    private int[] getLocationInWindow(View parentView) {
+        parentView.getLocationInWindow(mThisWindowOffset);
+        return mThisWindowOffset;
     }
 
     @Override
-    public void showPreviewForKey(Keyboard.Key key, CharSequence label) {
-        if (isEnabled()) {
-            KeyPreview popup = getPopupForKey(key);
-            Point previewPosition =
-                    mPositionCalculator.calculatePositionForPreview(
-                            key,
-                            mKeyboardView,
-                            mPreviewPopupTheme,
-                            mKeyboardView.getLocationInWindow());
-            popup.showPreviewForKey(key, label, previewPosition);
-        }
+    public void showPreviewForKey(
+            Keyboard.Key key,
+            CharSequence label,
+            View parentView,
+            PreviewPopupTheme previewPopupTheme) {
+        KeyPreview popup = getPopupForKey(key, parentView, previewPopupTheme);
+        Point previewPosition =
+                mPositionCalculator.calculatePositionForPreview(
+                        key, previewPopupTheme, getLocationInWindow(parentView));
+        popup.showPreviewForKey(key, label, previewPosition);
     }
 
     @NonNull
-    private KeyPreview getPopupForKey(Keyboard.Key key) {
+    private KeyPreview getPopupForKey(
+            Keyboard.Key key, View parentView, PreviewPopupTheme previewPopupTheme) {
         mUiHandler.cancelDismissForKey(key);
-        if (shouldNotShowPreview(key)) return NULL_KEY_PREVIEW;
+        if (shouldNotShowPreview(key) || previewPopupTheme.getPreviewKeyTextSize() <= 0)
+            return NULL_KEY_PREVIEW;
 
         if (!mActivePopupByKeyMap.containsKey(key)) {
             // the key is not active.
@@ -169,7 +112,7 @@ public class KeyPreviewsManager implements KeyPreviewsController {
                 // 2) if queue size is not the maximum, then create a new one
                 if (mActiveKeyPreviews.size() < mMaxPopupInstances) {
                     KeyPreview keyPreview =
-                            new KeyPreviewPopupWindow(mContext, mKeyboardView, mPreviewPopupTheme);
+                            new KeyPreviewPopupWindow(mContext, parentView, previewPopupTheme);
                     mActivePopupByKeyMap.put(key, keyPreview);
                     mActiveKeyPreviews.add(keyPreview);
                 } else {
@@ -203,8 +146,7 @@ public class KeyPreviewsManager implements KeyPreviewsController {
                 || // maybe the layout author doesn't want us to preview
                 key.getCodesCount() == 0
                 || // no key output, no preview
-                (key.getCodesCount() == 1 && isKeyCodeShouldNotBeShown(key.getPrimaryCode()))
-                || mPreviewPopupTheme.getPreviewKeyTextSize() <= 0;
+                (key.getCodesCount() == 1 && isKeyCodeShouldNotBeShown(key.getPrimaryCode()));
     }
 
     private boolean isKeyCodeShouldNotBeShown(int code) {
@@ -223,20 +165,13 @@ public class KeyPreviewsManager implements KeyPreviewsController {
     }
 
     @Override
-    public void resetTheme() {
+    public void destroy() {
         cancelAllPreviews();
         mFreeKeyPreviews.clear();
     }
 
-    @Override
-    public void destroy() {
-        mDisposables.dispose();
-        resetTheme();
-        mShowPreview = false;
-    }
-
     @VisibleForTesting
-    PositionCalculator getPositionCalculator() {
+    public PositionCalculator getPositionCalculator() {
         return mPositionCalculator;
     }
 
@@ -255,15 +190,12 @@ public class KeyPreviewsManager implements KeyPreviewsController {
 
         @Override
         public void handleMessage(Message msg) {
-            KeyPreviewsManager popupManager = mPopupManagerWeakReference.get();
-            if (popupManager != null && popupManager.isEnabled()) {
-                switch (msg.what) {
-                    case MSG_DISMISS_PREVIEW:
-                        popupManager.internalDismissPopupForKey((Keyboard.Key) msg.obj);
-                        break;
-                    default:
-                        super.handleMessage(msg);
-                        break;
+            final KeyPreviewsManager popupManager = mPopupManagerWeakReference.get();
+            if (popupManager != null) {
+                if (msg.what == MSG_DISMISS_PREVIEW) {
+                    popupManager.internalDismissPopupForKey((Keyboard.Key) msg.obj);
+                } else {
+                    super.handleMessage(msg);
                 }
             }
         }
@@ -284,7 +216,8 @@ public class KeyPreviewsManager implements KeyPreviewsController {
 
     private void internalDismissPopupForKey(Keyboard.Key key) {
         if (shouldNotShowPreview(key) || !mActivePopupByKeyMap.containsKey(key)) return;
-        KeyPreview popup = mActivePopupByKeyMap.get(key);
+        KeyPreview popup = mActivePopupByKeyMap.remove(key);
+        mFreeKeyPreviews.add(popup);
         try {
             popup.dismiss();
         } catch (IllegalArgumentException e) {
