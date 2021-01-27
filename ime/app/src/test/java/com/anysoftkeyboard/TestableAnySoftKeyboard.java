@@ -344,6 +344,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return originalInputContainer;
     }
 
+    public AnyKeyboardView getSpiedKeyboardView() {
+        return mSpiedKeyboardView;
+    }
+
     @Override
     public PackageManager getPackageManager() {
         return mSpiedPackageManager;
