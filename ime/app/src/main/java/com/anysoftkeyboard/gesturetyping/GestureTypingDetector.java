@@ -334,7 +334,6 @@ public abstract class GestureTypingDetector {
             // Add points for each key
             for (char c : word) {
                 c = Character.toLowerCase(c);
-                if (previousLetter == c) continue; // Avoid duplicate letters
 
                 Keyboard.Key key = keysByCharacter.get(c);
 
@@ -348,8 +347,26 @@ public abstract class GestureTypingDetector {
                     }
                 }
 
+                // We adda little loop on  the key for duplicate letters
+                // so that we can differentiate words like pool and poll, lull and lul, etc...
+                if (previousLetter == c) {
+                    // bottom right
+                    idealGesture.addPoint(
+                            key.centerX + key.width / 4., key.centerY + key.height / 4.);
+                    // top right
+                    idealGesture.addPoint(
+                            key.centerX + key.width / 4., key.centerY - key.height / 4.);
+                    // top left
+                    idealGesture.addPoint(
+                            key.centerX - key.width / 4., key.centerY - key.height / 4.);
+                    // bottom left
+                    idealGesture.addPoint(
+                            key.centerX - key.width / 4., key.centerY + key.height / 4.);
+                } else {
+                    idealGesture.addPoint(key.centerX, key.centerY);
+                }
+
                 previousLetter = c;
-                idealGesture.addPoint(key.centerX, key.centerY);
             }
 
             return idealGesture;
