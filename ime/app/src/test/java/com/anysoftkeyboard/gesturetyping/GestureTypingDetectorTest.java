@@ -28,7 +28,7 @@ import org.robolectric.Robolectric;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GestureTypingDetectorTest {
     private static final int MAX_SUGGESTIONS = 4;
-    private static final int PRUNING_DISTANCE = 7;
+    private static final double PRUNING_DISTANCE = 7;
     private List<Keyboard.Key> mKeys;
     private SimpleGestureTypingDetector mDetectorUnderTest;
     private AtomicReference<SimpleGestureTypingDetector.LoadingState> mCurrentState;

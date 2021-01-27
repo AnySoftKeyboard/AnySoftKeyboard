@@ -2,6 +2,7 @@ package com.anysoftkeyboard.gesturetyping;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.exp;
+import static java.lang.Math.min;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
@@ -20,16 +21,32 @@ import java.util.concurrent.Callable;
 
 public class SimpleGestureTypingDetector extends GestureTypingDetector {
     private ArrayList<Pruner> mPruners = new ArrayList<>();
-    private final int mGestureLengthPruningThreshold;
+    /**
+     * This is the maximum absolute difference in length between two gestures for them to be
+     * considered to possibly represent the same word. It is expressed as a factor of a key radius.
+     */
+    private final double mGestureLengthPruningThreshold;
+
     private static final int SAMPLING_POINTS = 300;
+    /**
+     * Standard deviation of the distribution of distances between the shapes of two gestures
+     * representing the same word. It's expressed for normalized gestures and is therefore
+     * independent of the keyboard or key size.
+     */
     private static final double SHAPE_STD = 22.08;
-    private static final double LOCATION_STD = 48.54; // 0.525;
+    /**
+     * Standard deviation of the distribution of distances between the locations of two gestures
+     * representing the same word. It's expressed as a factor of key radius as it's applied to
+     * un-normalized gestures and is therefore dependent on the size of the keys/keyboard.
+     */
+    private static final double LOCATION_STD = 0.5109;
+
     private List<HashMap<String, Integer>> mWordFrequenciesMap;
 
     public SimpleGestureTypingDetector(
             int maxSuggestions,
             int minPointDistance,
-            int gestureLengthPruningThreshold,
+            double gestureLengthPruningThreshold,
             @NonNull Iterable<Keyboard.Key> keys) {
         super(maxSuggestions, minPointDistance, keys);
         mGestureLengthPruningThreshold = gestureLengthPruningThreshold;
@@ -138,6 +155,11 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
             return mCandidates;
         }
 
+        // 'h' just because it's in the middle of the keyboard and has a typical size unlike some
+        // special keys.
+        Keyboard.Key key = mKeysByCharacter.get('h');
+        int radius = min(key.height, key.width);
+
         Gesture userGesture = mUserGesture.resample(SAMPLING_POINTS);
         Gesture normalizedUserGesture = userGesture.normalizeByBoxSide();
 
@@ -168,7 +190,8 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
                 locationDistance = calcLocationDistance(wordGesture, userGesture);
 
                 shapeProbability = calcGaussianProbability(shapeDistance, 0, SHAPE_STD);
-                locationProbability = calcGaussianProbability(locationDistance, 0, LOCATION_STD);
+                locationProbability =
+                        calcGaussianProbability(locationDistance, 0, LOCATION_STD * radius);
 
                 frequency = wordFrequencies.get(new String(word));
 
@@ -208,9 +231,9 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
          * The length difference between a user gesture and a word gesture above which a word will
          * be pruned.
          */
-        private final int mLengthThreshold;
+        private final double mLengthThreshold;
 
-        Pruner(int lengthThreshold, char[][] words, SparseArray<Keyboard.Key> keysByCharacter) {
+        Pruner(double lengthThreshold, char[][] words, SparseArray<Keyboard.Key> keysByCharacter) {
             mLengthThreshold = lengthThreshold;
             mWordTree = new HashMap<>();
 
@@ -323,13 +346,19 @@ public class SimpleGestureTypingDetector extends GestureTypingDetector {
                 SparseArray<Keyboard.Key> keysByCharacter) {
             ArrayList<char[]> remainingWords = new ArrayList<>();
 
+            // 'h' just because it's in the middle of the keyboard and has a typical size unlike
+            // some
+            // special keys.
+            Keyboard.Key key = keysByCharacter.get('h');
+            int radius = min(key.height, key.width);
+
             double userLength = userGesture.getLength();
             Gesture idealGesture;
             double wordIdealLength;
             for (char[] word : words) {
                 idealGesture = Gesture.generateIdealGesture(word, keysByCharacter);
                 wordIdealLength = idealGesture.getLength();
-                if (Math.abs(userLength - wordIdealLength) < mLengthThreshold) {
+                if (Math.abs(userLength - wordIdealLength) < mLengthThreshold * radius) {
                     remainingWords.add(word);
                 }
             }
