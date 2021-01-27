@@ -1,6 +1,5 @@
-ext.shouldBePublished = false
+ext.shouldBePublished = true
 ext.override_app_id = 'com.anysoftkeyboard.languagepack.dutch_oss'
-ext.notPublishingReason = 'Pending application creation.'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
