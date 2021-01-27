@@ -32,6 +32,7 @@
     </string>
     <string name="keyboard_theme_tweak_group">Opciones</string>
     <string name="close_button">Cerrar</string>
+    <string name="delete_button">Eliminar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Guardada:\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="revert_added_word_question">¿Eliminar\?</string>
@@ -174,6 +175,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="swipe_action_name_cycle_keyboards">Recorrer todos los teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Recorrer en orden inverso todos los teclados</string>
     <string name="swipe_action_name_shift">Mayús</string>
+    <string name="swipe_action_name_space">Espacio</string>
     <string name="swipe_action_name_hide">Ocultar teclado</string>
     <string name="swipe_action_name_backspace">Retroceso</string>
     <string name="swipe_action_name_backword">Borrar palabra anterior</string>
@@ -331,6 +333,8 @@ Instalarla ahora desde Play Store.    </string>
     <string name="candidates_off_summary">No mostrar sugerencias</string>
     <string name="quick_fix">Correcciones rápidas y abreviaturas</string>
     <string name="quick_fix_summary">Corregir errores comunes y ampliar abreviaturas    </string>
+    <string name="quick_fix_secon_disabled">…solo en el primer idioma</string>
+    <string name="quick_fix_secon_disabled_summ_on">Las correcciones rápidas y abreviaturas solo funcionarán en el idioma mostrado actual.</string>
     <string name="allow_suggestions_restart">Restaurar sugerencias</string>
     <string name="allow_suggestions_restart_summary">Restaurar sugerencias al mover el puntero    </string>
     <!-- settings - keyboard group -->
