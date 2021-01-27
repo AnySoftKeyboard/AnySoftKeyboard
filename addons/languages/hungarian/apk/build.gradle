@@ -1,5 +1,4 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'Pending application creation.'
+ext.shouldBePublished = true
 ext.override_app_id = 'com.anysoftkeyboard.languagepack.hungarian_oss'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
