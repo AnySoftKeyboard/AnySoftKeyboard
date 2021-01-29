@@ -533,9 +533,9 @@
     <string name="file_explorer_restore_alert_message">Si vuole ripristinare questo file?</string>
     <string name="file_explorer_backup_alert_message">Questo file verrà sovrascritto.</string>
     <string name="file_explorer_backup_success">I tuoi dati sono stati salvati in\u0020</string>
-    <string name="file_explorer_backup_failed">Salvataggio dei dati non riuscito.</string>
+    <string name="file_explorer_backup_failed">Salvataggio dati fallito.</string>
     <string name="file_explorer_restore_success">I tuoi dati sono stati ripristinati da\u0020</string>
-    <string name="file_explorer_restore_failed">Ripristino dei dati non riuscito.</string>
+    <string name="file_explorer_restore_failed">Ripristino dati fallito.</string>
     <string name="about_additional_software_licenses">Licenze Software Aggiuntive</string>
     <string name="setup_wizard_step_one_title">Abilita AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In questo passaggio dovrai abilitare <i>AnySoftKeyboard</i>. Seleziona <i>\'AnySoftKeyboard\'</i> nel menù delle impostazioni <i>Lingua e immissione</i>. Questo ci permetterà di funzionare sul tuo dispositivo.</string>
@@ -636,9 +636,9 @@
     <string name="pick_prefs_providers_to_restore">Cosa si desidera ripristinare?</string>
     <string name="prefs_providers_operation_success">Operazione riuscita</string>
     <string name="prefs_providers_operation_failed">Operazione fallita!</string>
-    <string name="prefs_providers_failed_backup_due_to">Backup dati non riuscito a causa di %s</string>
+    <string name="prefs_providers_failed_backup_due_to">Backup dei dati non riuscito a causa di %s</string>
     <string name="prefs_providers_backed_up_to">I tuoi dati sono stati salvati con successo in %s</string>
-    <string name="prefs_providers_failed_restore_due_to">Ripristino dati non riuscito a causa di %s</string>
+    <string name="prefs_providers_failed_restore_due_to">Ripristino dei dati non riuscito a causa di %s</string>
     <string name="prefs_providers_restored_to">I tuoi dati sono stati ripristinati con successo da %s</string>
     <string name="word_editor_action_choose_path">Scegliere percorso personalizzato</string>
     <string name="allow_layouts_to_provide_generic_rows">Le tastiere possono fornire righe generiche</string>
@@ -660,7 +660,7 @@
     <string name="aosp_light_theme_description">Tema tastiera con colori chiari ispirato ad AOSP</string>
     <string name="app_share_title">Saluti da AnySoftKeyboard</string>
     <string name="app_share_menu_title">Condividi l\'utilizzo di AnySoftKeyboard</string>
-    <string name="app_share_text">Permettetemi di consigliare la tastiera Android open source, privata, gratuita, altamente personalizzabile e multilingua AnySoftKeyboard.\nScaricala da:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard</string>
+    <string name="app_share_text">Permettetemi di consigliare la tastiera Android open source, riservata, gratuita, altamente personalizzabile e multilingua AnySoftKeyboard.\nScaricala da:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard</string>
     <string name="covid_19_click_for_info">Resta al sicuro! Clicca per informazioni sul COVID-19.</string>
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
