@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+
+    <Keyboard
+        defaultDictionaryLocale="eo"
+        defaultEnabled="true"
+        description="Created with Aaron Irvine"
+        id="8f8036da-e788-4b8c-a78c-a45969c73ece"
+        index="1"
+        layoutResId="@xml/esperanto"
+        nameResId="@string/esperanto_keyboard" />
+
+</Keyboards>
