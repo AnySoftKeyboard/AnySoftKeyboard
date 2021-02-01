@@ -27,7 +27,7 @@
     <string name="delete_button">Изтриване</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Запазено:\u0020<xliff:g id="word">%s</xliff:g></string>
-    <string name="revert_added_word_question">Премахвате ли\?</string>
+    <string name="revert_added_word_question">Премахване\?</string>
     <string name="removed_word">Премахнато:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Докоснете отново, за да запазите</string>
     <string name="hint_double_tap_to_close">Отново за премахване на предложения</string>
@@ -88,7 +88,7 @@
     <string name="input_field_type_url">Поле за въвеждане на URL</string>
     <string name="input_field_type_im">Поле за въвеждане на съобщения</string>
     <string name="sound_on">Звук при натискане на клавиш</string>
-    <string name="sound_on_summary">Звукови ефекти при натискане на клавиш.</string>
+    <string name="sound_on_summary">Звукови ефекти при натискане на клавиш от виртуалната клавиатура.</string>
     <string name="use_custom_sound_volume">Настройване на персонализирана сила на звука</string>
     <string name="use_custom_sound_volume_on_summary">Силата на звуковите ефекти е персонализирана.</string>
     <string name="use_custom_sound_volume_off_summary">Силата на звуковите ефекти е системния звук за известия</string>
@@ -219,7 +219,7 @@
     <string name="settings_min_length_for_word_correction">Минимална дължина на думата за корекция
     </string>
     <string name="show_keyboard_name_text">Показване на името на клавиатурата</string>
-    <string name="show_keyboard_name_on_summary">Показва името на клавиатурата върху клавиша за интервал</string>
+    <string name="show_keyboard_name_on_summary">Показване на името на клавиатурата върху клавиша за интервал</string>
     <string name="show_keyboard_name_off_summary">Без показване на името на клавиатурата</string>
     <string name="show_hint_text">Показване на подсказващ текст</string>
     <string name="show_hint_text_on_summary">Показване на подсказки върху клавишите, ако темата го поддържа</string>
@@ -343,7 +343,7 @@
     <string name="symbols_time_keyboard">време</string>
     <string name="keyboard_change_locked">недостъпно</string>
     <!-- settings - quick text keys -->
-    <string name="quick_text_keys_group">Клавиш бърз текст</string>
+    <string name="quick_text_keys_group">Клавиши за бърз текст</string>
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Избран вид на горния ред</string>
     <string name="top_generic_row_dialog_title">Избор на тип ред</string>
@@ -413,7 +413,7 @@
     <string name="label_go_key">Напред</string>
     <string name="label_next_key">Слдв</string>
     <string name="label_previous_key">Предишен.</string>
-    <string name="label_send_key">Изпрати</string>
+    <string name="label_send_key">Изпращане</string>
     <string name="label_search_key">Търсене</string>
     <string name="label_done_key">Готово</string>
     <string name="label_tab_key">Tab</string>
@@ -423,7 +423,7 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Избор на клавиатура</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Клавиш усмивчо</string>
+    <string name="simley_key_name">Смайли клавиш</string>
     <string name="quick_text_kaomoji">Каомоджи</string>
     <string name="history_quick_text_key_name">История</string>
     <string name="default_quick_text_key_name">Опростени емотикони</string>
