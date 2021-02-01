@@ -3,12 +3,16 @@
     <!-- UI root menu -->
     <!-- welcome -->
     <!-- changelog -->
+    <string name="close_button">වසන්න</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
+    <string name="voice_input_not_installed_action_install">ස්ථාපනය කරන්න</string>
+    <string name="voice_input_not_installed_action_do_not_install">නැහැ</string>
     <!-- Options menu -->
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="ime_settings">යතුරු පුවරුවේ සැකසුම්</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
