@@ -31,7 +31,7 @@ public class GestureTypingDetectorTest {
     private static final double PRUNING_DISTANCE = 7;
     private List<Keyboard.Key> mKeys;
     private SimpleGestureTypingDetector mDetectorUnderTest;
-    private AtomicReference<SimpleGestureTypingDetector.LoadingState> mCurrentState;
+    private AtomicReference<GestureTypingDetector.LoadingState> mCurrentState;
     private Disposable mSubscribeState;
 
     @Before
