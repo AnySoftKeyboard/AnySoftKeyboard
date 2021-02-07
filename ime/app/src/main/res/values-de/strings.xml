@@ -28,6 +28,7 @@
     <string name="no_market_store_available">Konnte keinen Appstore auf deinem Gerät finden.\nEs ist nicht möglich, nach Erweiterungen suchen!</string>
     <string name="keyboard_theme_tweak_group">Optimierungen</string>
     <string name="close_button">Schließen</string>
+    <string name="delete_button">Löschen</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gespeichert:\u0020 <xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Entfernen\?</string>
@@ -102,6 +103,9 @@
     <string name="switch_keyboard_on_space">Leerzeichen wechselt die Tastaturen</string>
     <string name="switch_keyboard_on_space_on_summary">Wechsel von Zahlen/Symbolen zum Alphabet beim Drücken der Leertaste.</string>
     <string name="switch_keyboard_on_space_off_summary">Wechsel nicht von Symbolen/Zahlen zu Buchstaben beim Drücken der Leertaste.</string>
+    <string name="colorize_nav_bar_title">Anzeige hinter der Navigationsleiste</string>
+    <string name="colorize_nav_bar_summary_on">Zeichne den Tastaturhintergrund hinter der Navigationsleiste. Dies wird nicht von allen Geräten unterstützt.</string>
+    <string name="colorize_nav_bar_summary_off">Keine Anzeige hinter der Navigationsleiste.</string>
     <string name="persistent_layout_per_package_id_title">Merke Tastaturlayout je App</string>
     <string name="persistent_layout_per_package_id_off_summary">Verwende das gleiche Layout für alle Apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatischer Wechsel zum vorherigen Layout, das in der App genutzt wurde.</string>
@@ -206,6 +210,8 @@
     <string name="use_user_dictionary">Benutzerwörterbuch</string>
     <string name="use_user_dictionary_on_summary">Schlägt vom Benutzer hinzugefügte Wörter vor (Doppelklick auf ein eingetipptes Wort zum Hinzufügen)</string>
     <string name="always_use_fallback_user_dictionary">Benutze privaten Benutzerwörterbuchspeicher</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Verwenden den privaten Speicher für AnySoftKeyboard\'s eingebauten Benutzerwörterbuch-Mechanismus.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Versuchen Android\'s global eingebautes Benutzerwörterbuch zu verwenden.</string>
     <string name="use_auto_dictionary">Automatisches Wörterbuch</string>
     <string name="use_auto_dictionary_dialog_title">Lernmethode wählen</string>
     <string name="use_auto_dictionary_summary">Neue Wörter automatisch lernen. Lernmethode: %s</string>
@@ -323,6 +329,10 @@
     <string name="candidates_off_summary">Es werden keine Vorschläge angezeigt</string>
     <string name="quick_fix">Wortkorrekturen und Abkürzungen</string>
     <string name="quick_fix_summary">Korrigiert typische Schreibfehler und zeigt bei Eingabe der festgelegten Abkürzung den individuellen Text als Wortvorschlag an</string>
+    <string name="quick_fix_secon_disabled">…nur für die erste Sprache</string>
+    <string name="quick_fix_secon_disabled_summ_on">Schnelle Korrekturen und Abkürzungen funktionieren nur in der aktuellen Layoutsprache</string>
+    <string name="quick_fix_secon_disabled_summ_off">Schnelle Korrekturen und Abkürzungen funktionieren in jeder Sprache 
+                   überschreibt das Standardwörterbuch</string>
     <string name="allow_suggestions_restart">Vorschläge neustarten</string>
     <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
     <!-- settings - keyboard group -->
@@ -377,8 +387,11 @@
     <string name="extension_kbd_top_small_numbers">Nummerntasten</string>
     <string name="extension_kbd_top_numbers_alt">Alternative Nummerntasten</string>
     <string name="extension_kbd_top_nav">Navigationstasten</string>
+    <string name="extension_kbd_top_nav_alt">Alternative Navigationstasten</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Alternative Navigationstasten. Keine Nummernzeile im Passwortmodus</string>
     <string name="extension_kbd_top_numbers_simple">Einfach, nur Zahlen</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Schnelltext-Bearbeitung</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
     <string name="extension_kbd_bottom_regular">Klassisch (ohne Mikrofon)</string>
     <string name="extension_kbd_bottom_iphone">iPhone Stil (ohne Mikrofon)</string>
@@ -387,7 +400,10 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternativ mit Mikrofon</string>
     <string name="extension_kbd_bottom_old">Old School</string>
     <string name="extension_kbd_bottom_simple">Einfach</string>
+    <string name="extension_kbd_bottom_simple_alt">Einfach Alternativ</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP Stil</string>
     <string name="extension_kbd_bottom_ng">Neue Generation - wird getestet</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Neue Generation (ohne Apostroph) - wird getestet</string>
     <string name="extension_kbd_extension_numbers_symbols">Zahlen und Symbole</string>
     <string name="extension_kbd_bottom_minimal">Minimal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (keine Emoji)</string>
@@ -513,6 +529,17 @@
     <string name="enter_word_hint">Gibt das neue Wort hier ein</string>
     <string name="enter_abbreviation_hint">Abkürzung</string>
     <string name="enter_abbreviation_target_hint">Ganzer Satz</string>
+    <string name="toast_error_custom_path_backup">Fehler: Eine abhängige App könnte geöffnet sein</string>
+    <string name="file_explorer_menu_add_folder">Ordner erstellen</string>
+    <string name="file_explorer_filename">Backup Dateiname...</string>
+    <string name="file_explorer_filename_empty">Dateiname darf nicht leer sein</string>
+    <string name="file_explorer_alert_title">Diese Datei auswählen?</string>
+    <string name="file_explorer_restore_alert_message">Willst du diese Datei wiederherstellen?</string>
+    <string name="file_explorer_backup_alert_message">Diese Datei wird überschrieben.</string>
+    <string name="file_explorer_backup_success">Ihre Daten wurden hier gespeichert: \u0020</string>
+    <string name="file_explorer_backup_failed">Die Daten konnten nicht gespeichert werden.</string>
+    <string name="file_explorer_restore_success">Deine Daten wurden wiederhergestellt von: \u0020</string>
+    <string name="file_explorer_restore_failed">Deine Daten konnten nicht wiederhergestellt werden</string>
     <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
     <string name="setup_wizard_step_one_details">In diesem Schritt musst du <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>Sprache- und Eingabeeinstellungen</i>. Das ermöglicht der App, auf deinem Gerät zu laufen.</string>
@@ -596,6 +623,8 @@
     <string name="theme_case_type_override_os">Lass Android entscheiden (Auto)</string>
     <string name="theme_case_type_override_lower">Immer Kleinbuchstaben</string>
     <string name="theme_case_type_override_upper">Immer Großbuchstaben</string>
+    <string name="settings_hint_size">Hinweisgröße</string>
+    <string name="settings_key_hint_size_summary">Hinweisgröße in der Tastatur festlegen. Aktuell, %s</string>
     <string name="settings_key_hint_size_none">Keine</string>
     <string name="settings_key_hint_size_small">Klein</string>
     <string name="settings_key_hint_size_normal">Normal</string>
@@ -615,6 +644,7 @@
     <string name="prefs_providers_backed_up_to">Deine Daten wurden erfolgreich in %s gesichert</string>
     <string name="prefs_providers_failed_restore_due_to">Fehler beim Wiederherstellen deiner Daten aufgrund von %s</string>
     <string name="prefs_providers_restored_to">Deine Daten wurden erfolgreich von %s wiederhergestellt</string>
+    <string name="word_editor_action_choose_path">Eigenen Pfad wählen</string>
     <string name="allow_layouts_to_provide_generic_rows">Tastaturen können generische Zeilen bereitstellen</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Verwende immer ausgewählte generische Zeilen.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Layouts dürfen generische Zeilen überschreiben.</string>

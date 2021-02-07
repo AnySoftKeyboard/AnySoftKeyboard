@@ -746,7 +746,7 @@
     <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
 
     <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
-    <string name="file_explorer_backup_failed">Your data have failed to ba saved.</string>
+    <string name="file_explorer_backup_failed">Your data have failed to be saved.</string>
     <string name="file_explorer_restore_success">Your data have been restored from\u0020</string>
     <string name="file_explorer_restore_failed">Your data have failed to be restored.</string>
 
@@ -781,7 +781,7 @@
     <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.
     </string>
     <string name="setup_wizard_step_three_details_done">
-        <b>You are done 🎉\nGo to you favorite app to try it out.</b>
+        <b>You are done 🎉\nGo to your favorite app to try it out.</b>
     </string>
     <string name="setup_wizard_step_three_details_actions">Or, you can customize and personalize the
         keyboard to your likings:
@@ -837,7 +837,7 @@
         you\'re in luck! <i>BETA</i> channel is now available for <b>YOU</b>!\nJust sign up at the
         link below, and update through <i>Google Play</i> app store!\n\n
         https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAnd thanks for
-        helping out to kill bugs before the reach the public.
+        helping out to kill bugs before they reach the public.
     </string>
     <string name="clipboard_fine_select_enabled_toast">Fine-text-selection enabled. Use left/right arrows.</string>
 

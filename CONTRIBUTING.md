@@ -18,6 +18,7 @@ Each PR is verified by multiple tasks:
 
 ## Components
 * Main app (AnySoftKeyboard) is located under `ime/`.
+    * to build the APK use following command: `gradlew :ime:app:assembleDebug`
 * All add-ons are under `addons/`.
     * Language-packs are under `addons/languages/`.
     * Themes are under `addons/themes/`.
