@@ -747,7 +747,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // in this case, I will want to just dump the separator.
         final boolean separatorInsideWord = (typedWord.cursorPosition() < typedWord.charCount());
         if (wasPredicting && !separatorInsideWord) {
-            commitWordToInput(wordToOutput, typedWord.getTypedWord());
+            // Fix a bug where typing space after ':' would result into ':: ' instead of one space
+            // The bug only seemed to appear in with FR behavior and smiley search activated
+            if (!(mFrenchSpacePunctuationBehavior
+                    && wordToOutput.toString().equals(":")
+                    && primaryCode == KeyCodes.SPACE))
+                commitWordToInput(wordToOutput, typedWord.getTypedWord());
             if (TextUtils.equals(typedWord.getTypedWord(), wordToOutput)) {
                 // if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word

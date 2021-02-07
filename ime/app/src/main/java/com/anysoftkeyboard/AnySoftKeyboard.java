@@ -782,7 +782,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
         }
         mLastCharTyped = primaryCode;
-        Logger.d("nicoursi", "mLastTypedChar is '" + (char) mLastCharTyped + "'");
     }
 
     @Override
