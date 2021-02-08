@@ -1,32 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="menu_about_item">เกียวกับ</string>
+    <string name="menu_about_item">เกี่ยวกับ</string>
     <string name="how_to_pointer_title">ยินดีต้อนรับสู่ AnySoftKeyboard</string>
+    <string name="language_root_tile">ภาษา</string>
+    <string name="language_keyboards_settings_tile">เปิดใช้งานแป้นพิมพ์และภาษา</string>
+    <string name="language_grammar_settings_tile">ตั้งค่าพฤติกรรมการแก้ไขคำ และพจนานุกรมอื่น ๆ </string>
+    <string name="language_tweaks_settings_tile">ปรับแต่งและอื่น ๆ</string>
     <!-- UI root menu -->
+    <string name="ui_theme_settings_tile">เลือกและกำหนดค่าธีมแป้นพิมพ์</string>
+    <string name="ui_effects_settings_tile">เอฟเฟกต์แป้นพิมพ์ และประสบการณ์</string>
     <!-- welcome -->
     <!-- changelog -->
+    <string name="search_market_for_addons">ค้นหาส่วนเสริม</string>
+    <string name="search_market_for_keyboard_addons">รับแป้นพิมพ์เพิ่มเติมที่ร้านค้าแอป</string>
+    <string name="search_market_for_quick_key_addons">รับส่วนเสริม  <i>Quick-Text</i>  เพิ่มเติมที่ร้านค้าแอป... </string>
+    <string name="no_market_store_available">ไม่พบร้านค้าแอปบนอุปกรณ์ของคุณ \nไม่สามารถค้นหาส่วนเสริมได้!</string>
+    <string name="keyboard_theme_tweak_group">ปรับแต่ง</string>
+    <string name="close_button">ปิด</string>
+    <string name="delete_button">ลบ</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">บันทึกแล้ว:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">ลบ\?</string>
+    <string name="removed_word">ลบแล้ว:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 แตะอีกครั้งเพื่อบันทึก</string>
+    <string name="hint_double_tap_to_close">อีกครั้งเพื่อลบคำแนะนำ</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">เสียงไม่ได้ถูกติดตั้ง</string>
+    <string name="voice_input_not_installed_text">การป้อนข้อมูลด้วยเสียงในอุปกรณ์ของคุณ ไม่ได้ถูกติดตั้ง \n
+        สามารถแก้ไขง่าย ๆ : ติดตั้งทันทีจากร้านค้าแอป
+    </string>
+    <string name="voice_input_not_installed_action_install">ติดตั้ง</string>
+    <string name="voice_input_not_installed_action_do_not_install">ไม่</string>
+    <string name="voice_input_not_voice_pack_in_market">ไม่พบการป้อนข้อมูลด้วยเสียง
+         (com.google.android.voicesearch) ในร้านค้าแอป
+         ขออภัย การป้อนข้อมูลด้วยเสียงจะไม่ทำงานในอุปกรณ์ของคุณ
+    </string>
     <!-- Options menu -->
+    <string name="change_ime">เปลี่ยนวิธีการป้อนข้อมูล</string>
+    <string name="override_dictionary">แทนที่พจนานุกรมเริ่มต้น</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">แทนที่พจนานุกรม \u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">ท่าทางสัมผัส</string>
+    <string name="effects_group">เอฟเฟกต์</string>
+    <string name="ime_settings">ตั้งค่าแป้นพิมพ์</string>
+    <string name="switch_incognito">โหมดไม่ระบุตัวตน</string>
+    <string name="vibrate_on_key_press_title">สั่นเมื่อกดปุ่ม</string>
+    <string name="vibrate_on_key_press_value_template">%d มิลลิวินาที</string>
+    <string name="night_mode_screen">โหมดกลางคืน</string>
+    <string name="night_mode_description">โหมดกลางคืนจะเปลี่ยนคุณสมบัติเหล่านี้:</string>
+    <string name="night_mode_state_summary">ปัจจุบัน ทริกเกอร์โหมดกลางคืน:\u0020%s</string>
+    <string name="night_mode_dialog_title">เปิดใช้งานโหมดกลางคืน</string>
+    <string name="night_mode_type_never">ไม่เลย</string>
+    <string name="night_mode_type_follow_system">ตามระบบ</string>
+    <string name="night_mode_type_always">เสมอ</string>
+    <string name="power_save_mode_screen">ตั้งค่าการประหยัดพลังงาน</string>
+    <string name="power_save_mode_description">โหมดประหยัดพลังงานจะลดการใช้พลังงานของ AnySoftKeyboard โดยการปิดคุณสมบัติ:</string>
+    <string name="power_save_mode_state_summary">ปัจจุบัน ทริกเกอร์โหมดประหยัดพลังงาน:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">เปิดใช้งานโหมดประหยัดพลังงาน</string>
+    <string name="power_save_mode_types_never">ไม่เลย</string>
+    <string name="power_save_mode_types_lower_battery">เมื่อแบตเตอรี่ต่ำ</string>
+    <string name="power_save_mode_types_always">เสมอ</string>
+    <string name="power_saving_keyboard_theme_name">ธีมโหมดประหยัดพลังงาน</string>
+    <string name="power_saving_keyboard_theme_description">สีมืด แป้นแปปเรียบง่าย ซึ่งอาจใช้พลังงานจากอุปกรณ์น้อยลง</string>
+    <string name="power_save_mode_animation_control">ปิดการใช้งานภาพเคลื่อนไหวและการแสดงตัวอย่างปุ่ม</string>
+    <string name="power_save_mode_sound_control">ปิดเสียงเมื่อกดปุ่ม</string>
+    <string name="power_save_mode_vibration_control">ปิดการสั่นเมื่อกดปุ่น</string>
+    <string name="power_save_mode_suggestions_control">ปิดการใช้งานการแนะนำคำ</string>
+    <string name="power_save_mode_gesture_typing_control">ปิดใช้งานการป้อนข้อมูลด้วยท่าทาง</string>
+    <string name="power_save_mode_theme_control">เปลี่ยนเป็นธีมมืด เรียบง่าย</string>
+    <string name="pop_text_type_never">ไม่เลย</string>
+    <string name="sound_on">เสียงเมื่อกดปุ่ม</string>
     <string name="use_custom_sound_volume">ตั้งค่าระดับเสียง</string>
+    <string name="vibrate_on_long_press_title">สั่นเมื่อกดปุ่มค้าง</string>
+    <string name="colorize_nav_bar_title">วาดไว้ด้านหลังแถบนำทาง</string>
+    <string name="colorize_nav_bar_summary_on">จะวาดแป้นพิมพ์ไว้ด้านหลังแถบนำทาง อุปกรณ์บางรุ่นอาจไม่รองรับ</string>
+    <string name="colorize_nav_bar_summary_off">ไม่วาดไว้ด้านหลังแถบนำทาง.</string>
+    <string name="persistent_layout_per_package_id_title">จำแป้นแยกเป็นแอป</string>
+    <string name="persistent_layout_per_package_id_off_summary">ใช้เค้าแป้นเดียวกันทุกแอป</string>
+    <string name="persistent_layout_per_package_id_on_summary">สลับไปยังแป้นก่อนหน้าที่เคยใช้ในแอปนั้น โดยอัตโนมัติ</string>
+    <string name="one_shot_quick_text_popup">ปิดอัตโนมัติหลังจากกดปุ่ม</string>
+    <string name="one_shot_quick_text_popup_on_summary">ปิดป๊อปอัป Quick-Text หลังจากกดปุ่ม</string>
+    <string name="one_shot_quick_text_popup_off_summary">เปิดป๊อปอัป Quick-Text ไว้จนกว่าจะกดปุ่มปิด</string>
+    <string name="quick_text_tags_search">แนะนำเอโมจิโดยการพิมพ์แท็ก</string>
+    <string name="quick_text_tags_search_on_summary">ค้นหาเอโมจิตามแท็กเมื่อพิมพ์ขึ้นต้นด้วย
+        colon (:)
+    </string>
+    <string name="hide_soft_when_physical">ซ่อนแป้นพิมพ์เมื่อมีแป้นพิมพ์กายภาพ</string>
+    <string name="hide_soft_when_physical_on_summary">ซ่อนแป้นพิมพ์ซอฟต์แวร์
+         เมื่อแป้นพิมพ์กายภาพกำลังใช้งาน
+    </string>
+    <string name="hide_soft_when_physical_off_summary">แสดงแป้นพิมพ์ซอฟต์แวร์
+         แม้แป้นพิมพ์กายภาพกำลังใช้งาน
+    </string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space สลับภาษา</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">ฮาร์ดแวร์ Alt + Space จะสลับไปยังแป้นถัดไปที่พร้อมใช้งาน</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space สลับภาษา</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">ฮาร์ดแวร์ Shift + Space จะสลับไปยังแป้นถัดไปที่พร้อมใช้งาน</string>
+    <string name="fullscreen_input_connection_supported">ใช้โปรแกรมแก้ไขแบบเต็มหน้าจอ เมื่อเป็นแนวนอน
+    </string>
+    <string name="fullscreen_input_connection_supported_on_summary">เข้าครอบครองหน้าจอ
+        เมื่อป้อนข้อความในแนวนอน
+    </string>
+    <string name="fullscreen_input_connection_supported_off_summary">ไม่ใช้โปรแกรมแก้ไขแบบเต็มหน้าจอ แม้เมื่อเป็นแนวนอน
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported">ใช้โปรแกรมแก้ไขแบบเต็มหน้าจอ เมื่อเป็นแนวตั้ง
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">เข้าครอบครองหน้าจอ เมื่อป้อนข้อความในแนวตั้ง</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">ไม่ใช้โปรแกรมแก้ไขแบบเต็มหน้าจอ แม้เมื่อเป็นแนวตั้ง</string>
+    <string name="backword_support">การรองรับลบทั้งคำ</string>
+    <string name="backword_support_on_summary">Shifted Backspace จะลบคำสุดท้าย</string>
+    <string name="backword_support_off_summary">Shifted Backspace จะลบอักขระตัวสุดท้าย</string>
+    <string name="swipe_up_action">ปัดขึ้น</string>
+    <string name="swipe_up_action_summary">ค่ากำหนดท่าทางปัดขึ้น ปัจจุบัน %s
+    </string>
+    <string name="swipe_up_action_title">เลือกพฤติกรรมเมื่อปัดขึ้น</string>
+    <string name="swipe_up_from_spacebar_action">ปัด Spacebar ขึ้น</string>
+    <string name="swipe_up_from_spacebar_action_summary">ค่ากำหนดท่าทางปัด Spacebar ขึ้น ปัจจุบัน %s</string>
+    <string name="swipe_up_from_spacebar_action_title">เลือกพฤติกรรมเมื่อปัด Spacebar ขึ้น</string>
+    <string name="swipe_down_action">ปัดลง</string>
+    <string name="swipe_down_action_summary">ค่ากำหนดท่าทางปัดลง ปัจจุบัน %s</string>
+    <string name="swipe_down_action_title">เลือกพฤติกรรมเมื่อปัดลง</string>
+    <string name="swipe_left_action">ปัดไปทางซ้าย</string>
+    <string name="swipe_left_action_summary">ค่ากำหนดท่าทางปัดไปทางซ้าย ปัจจุบัน %s</string>
+    <string name="swipe_left_action_title">เลือกพฤติกรรมเมื่อปัดไปทางซ้าย</string>
+    <string name="swipe_right_action">ปัดไปทางขวา</string>
+    <string name="swipe_right_action_summary">ค่ากำหนดท่าทางปัดไปทางขวา ปัจจุบัน %s</string>
+    <string name="swipe_right_action_title">เลือกพฤติกรรมเมื่อปัดไปทางขวา</string>
+    <string name="swipe_right_space_bar_action">ปัด Spacebar ไปทางขวา</string>
+    <string name="swipe_right_space_bar_action_summary">ค่ากำหนดท่าทางปัด Spacebar ไปทางขวา ปัจจุบัน %s</string>
+    <string name="swipe_right_space_bar_action_title">เลือกพฤติกรรมเมื่อปัดไปทางขวา</string>
+    <string name="swipe_left_space_bar_action">ปัด Spacebar ไปทางซ้าย</string>
+    <string name="swipe_left_space_bar_action_summary">ค่ากำหนดท่าทางปัด Spacebar ไปทางซ้าย ปัจจุบัน %s</string>
+    <string name="swipe_left_space_bar_action_title">เลือกพฤติกรรมเมื่อปัดไปทางซ้าย</string>
+    <string name="swipe_action_name_hide">ซ่อนแป้นพิมพ์</string>
+    <string name="swipe_action_name_backword">ลบทั้งคำ</string>
+    <string name="swipe_action_name_cursor_up">เลื่อนเคอร์เซอร์ขึ้น</string>
+    <string name="swipe_action_name_cursor_down">เลื่อนเคอร์เซอร์ลง</string>
+    <string name="swipe_action_name_cursor_left">เลื่อนเคอร์เซอร์ไปทางซ้าย</string>
+    <string name="swipe_action_name_cursor_right">เลื่อนเคอร์เซอร์ไปทางขวา</string>
+    <string name="swipe_action_name_other_keyboards_mode">สลับโหมดแป้น</string>
+    <string name="swipe_action_name_split_layout">แยกแป้น</string>
+    <string name="swipe_action_name_merge_layout">รวมแป้น</string>
+    <string name="swipe_action_name_compact_layout_to_right">กะทัดรัดชิดขวา</string>
+    <string name="swipe_action_name_compact_layout_to_left">กะทัดรัดชิดซ้าย</string>
+    <string name="settings_swipe_velocity_very_slow">ช้ามาก</string>
+    <string name="settings_swipe_velocity_slow">ช้า</string>
+    <string name="settings_swipe_velocity_normal">ปกติ</string>
+    <string name="settings_swipe_velocity_fast">เร็ว</string>
+    <string name="settings_swipe_velocity_very_fast">เร็วมาก</string>
+    <string name="settings_swipe_distance_very_short">สั้นมาก</string>
+    <string name="settings_swipe_distance_short">สั้น</string>
+    <string name="settings_swipe_distance_normal">ปกติ</string>
+    <string name="settings_swipe_distance_long">ยาว</string>
+    <string name="settings_swipe_distance_very_long">ยาวมาก</string>
+    <string name="volume_key_for_left_right_support">ปุ่มปรับระดับเสียงสำหรับซ้าย / ขวา</string>
+    <string name="volume_key_for_left_right_support_on_summary">ปิดการใช้งานซ้าย / ขวา โดยการปรับระดับเสียงขึ้น / ลง</string>
+    <string name="volume_key_for_left_right_support_off_summary">เพิ่มระดับเสียงจะขยับเคอร์เซอร์ไปทางซ้าย ลดระดับเสียงจะขยับเคอร์เซอร์ไปทางขวา</string>
+    <string name="more_ui_settings_group">ส่วนติดต่อผู้ใช้</string>
+    <string name="special_dictionaries_group">พจนานุกรมพิเศษ</string>
+    <string name="special_dictionaries_group_summary">พจนานุกรมแนะนำคำที่ใช้ใน AnySoftKeyboard</string>
+    <string name="use_user_dictionary">พจนานุกรมของผู้ใช้</string>
+    <string name="use_user_dictionary_on_summary">เพิ่มแนะนำคำของผู้ใช้ (ดับเบิลคลิกที่คำแนะนำที่พิมพ์เพื่อเพิ่ม)</string>
+    <string name="always_use_fallback_user_dictionary">ใช้พื้นที่จัดเก็บพจนานุกรมผู้ใช้ส่วนตัว</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">ใช้ Private-storage AnySoftKeyboard\'s built-in User-dictionary mechanism.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">พยายามใช้ Android\'s global built-in User-dictionary.</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">ปิด</string>
+    <string name="tweaks_group">ปรับแต่ง</string>
+    <string name="tweak_sound_group">การปรับแต่งเสียง</string>
+    <string name="tweak_physical_keyboard_group">การปรับแต่งแป้นพิมพ์กายภาพ</string>
+    <string name="tweak_ui_group">การปรับแต่งกราฟิก</string>
+    <string name="tweak_ux_group">การปรับแต่งพฤติกรรม</string>
+    <string name="show_keyboard_name_text">แสดงชื่อแป้นพิมพ์</string>
+    <string name="show_keyboard_name_on_summary">แสดงชื่อแป้นพิมพ์บน Spacebar</string>
+    <string name="show_keyboard_name_off_summary">ไม่ต้องแสดงชื่อแป้นพิมพ์</string>
+    <string-array name="custom_hint_align_types">
+        <item>Left</item>
+        <item>Center</item>
+        <item>ขวา</item>
+    </string-array>
+    <string-array name="custom_hint_valign_types">
+        <item>บน</item>
+        <item>ล่าง</item>
+    </string-array>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">ไม่มีไอคอนแถบสถานะ</string>
+    <string name="show_settings_app_in_launcher">ตั้งแอป</string>
+    <string name="settings_key_show_settings_app_on_summary">แอปการตั้งค่าจะปรากฏใน
+         Launcher (อาจต้องรีบูต)
+    </string>
+    <string name="settings_key_show_settings_app_off_summary">ซ่อนแอปการตั้งค่า (อาจต้อง
+         รีบูต)
+    </string>
+    <string name="always_hide_language_key">ซ่อนปุ่มเปลี่ยนภาษาเสมอ</string>
+    <string name="always_hide_language_key_on_summary">จะไม่แสดงปุ่มเปลี่ยนภาษา
+         การใช้ท่าทางยังรองรับการสลับแป้นอยู่
+    </string>
+    <string name="always_hide_language_key_off_summary">จะแสดงปุ่มเปลี่อนภาษา
+         เฉพาะในกรณีที่มีหลายแป้น
+    </string>
+    <string name="tweak_animations_level_title">ภาพเคลื่อนไหว</string>
+    <string name="tweak_animations_level_types_full">เต็มรูปแบบ</string>
+    <string name="tweak_animations_level_types_some">บางส่วน</string>
+    <string name="tweak_animations_level_types_none">ไม่ต้อง</string>
     <!-- settings - keyboard group -->
+    <string name="keyboards_group">แป้นพิมพ์</string>
+    <string name="symbols_phone_keyboard">โทรศัพท์</string>
+    <string name="symbols_time_keyboard">เวลา</string>
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
+    <string name="top_generic_row_dialog_title">เลือกประเภทแถว</string>
+    <string name="top_generic_row_summary">เลือกประเภทแถวบน : %s</string>
     <!-- settings - bottom generic row -->
+    <string name="bottom_generic_row_group">แถวทั่วไปด้านล่างทั่วไป</string>
+    <string name="bottom_generic_row_dialog_title">เลือกประเภทแถว</string>
+    <string name="bottom_generic_row_summary">เลือกประเภทแถวล่าง : %s</string>
+    <string name="keyboard_theme_list_title">เลือกธีม</string>
+    <string name="dark_plain_keyboard_theme_name">ธีมมืดธรรมดา</string>
+    <string name="dark_plain_keyboard_theme_description">สีมืด กราฟิกเรียบง่าย</string>
+    <string name="light_plain_keyboard_theme_name">ธีมสว่างธรรมดา</string>
+    <string name="light_plain_keyboard_theme_description">สีสว่าง กราฟิกเรียบง่าย</string>
+    <string name="blacktheme_keyboard_theme_name">เรืองแสงสีดำเรียบง่าย</string>
+    <string name="blacktheme_keyboard_theme_description">ธีมสีดำ มี ไฮไลท์สี</string>
+    <string name="lean_dark_keyboard_theme_name">มืดมาก</string>
+    <string name="lean_dark_keyboard_theme_description">ธีมมืด พร้อมองค์ประกอบ UI น้อย ๆ</string>
+    <string name="lean_dark_2_keyboard_theme_name">มืดมาก 2</string>
+    <string name="lean_dark_big_keyboard_theme_name">มืดมาก ปุ่มใหญ่</string>
+    <string name="lean_dark_big_keyboard_theme_description">มืดมาก ปุ่มใหญ่กว่า</string>
+    <string name="lean_light_keyboard_theme_name">สว่างมาก</string>
+    <string name="lean_light_keyboard_theme_description">ธีมสว่าง พร้อมองค์ประกอบ UI น้อย ๆ</string>
+    <string name="lean_light_2_keyboard_theme_name">สว่างมาก 2</string>
+    <string name="lean_light_big_keyboard_theme_name">สว่างมาก ปุ่มใหญ่</string>
+    <string name="lean_light_big_keyboard_theme_description">สว่างมาก ปุ่มใหญ่กว่า</string>
+    <string name="lean_dark_gray_keyboard_theme_name">เทาเข้มมาก</string>
+    <string name="lean_dark_gray_keyboard_theme_description">ธีมเทาเข้ม พร้อมองค์ประกอบ UI น้อย ๆ</string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees มืด</string>
+    <string name="yochees_dark_keyboard_theme_description">ธีมมืด โดย Algimantas</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees มืด 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees สว่าง</string>
+    <string name="yochees_light_keyboard_theme_description">ธีมสว่าง โดย Algimantas</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">ธีมสว่าง โดย Algimantas
+      แต่ตัวพิมพ์ใหญ่
+    </string>
     <!-- extension keyboard type -->
+    <string name="extension_kbd_top_small">ปุ่มเล็ก</string>
+    <string name="extension_kbd_top_regular">ปุ่มขนาดปกติ</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <!-- dictionaries -->
+    <string name="simley_key_name">ปุ่มยิ้ม</string>
+    <string name="short_smiley_key_name">ปุ่มยิ้มที่สั้นกว่า</string>
+    <string name="history_quick_text_key_name">ประวัติ</string>
+    <string name="unicode_people_quick_text_key_name">ผู้คน</string>
+    <string name="unicode_gestures_quick_text_key_name">ท่าทาง</string>
+    <string name="unicode_accessories_quick_text_key_name">อุปกรณ์เสริม</string>
+    <string name="unicode_animals_quick_text_key_name">สัตว์</string>
+    <string name="unicode_food_quick_text_key_name">อาหาร</string>
+    <string name="unicode_nature_quick_text_key_name">ธรรมชาติ</string>
+    <string name="unicode_transport_quick_text_key_name">คมนาคม</string>
+    <string name="unicode_signs_quick_text_key_name">ป้าย</string>
+    <string name="unicode_city_quick_text_key_name">เมือง</string>
+    <string name="unicode_scape_quick_text_key_name">ทิวทัศน์</string>
+    <string name="unicode_activity_quick_text_key_name">กิจกรรม</string>
+    <string name="unicode_office_quick_text_key_name">สำนักงาน</string>
+    <string name="unicode_flags_quick_text_key_name">ธง</string>
+    <string name="settings_multitap_timeout_disabled">ปิดใช้งาน</string>
+    <string name="settings_multitap_timeout_faster">เร็วมาก</string>
+    <string name="settings_multitap_timeout_fast">เร็ว</string>
+    <string name="settings_multitap_timeout_normal">ปกติ</string>
+    <string name="settings_multitap_timeout_slow">ช้า</string>
+    <string name="settings_multitap_timeout_slower">ช้ามาก</string>
+    <string name="settings_multitap_timeout_never">รอตลอดไป</string>
+    <string name="long_press_timeout_title">เวลากดค้าง</string>
+    <string name="long_press_timeout_summary">เวลาในการกดปุ่มเพื่อบอกว่าเป็นการกดค้าง</string>
+    <string name="settings_long_press_timeout_faster">เร็วมาก</string>
+    <string name="settings_long_press_timeout_fast">เร็ว</string>
+    <string name="settings_long_press_timeout_normal">ปกติ</string>
+    <string name="settings_long_press_timeout_slow">ช้า</string>
+    <string name="settings_long_press_timeout_slower">ช้ามาก</string>
+    <string name="settings_long_press_timeout_never">ไม่เลย</string>
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <!-- abbreviations editor -->
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="click_for_more">เพิ่มเติม...</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_add_word">เพิ่มคำ</string>
+    <string name="word_editor_action_backup_words">สำรองข้อมูล</string>
+    <string name="word_editor_action_restore_words">กู้คืน</string>
+    <string name="setup_wizard_step_three_action_languages">ตั้งค่าภาษา...</string>
+    <string name="setup_wizard_step_three_action_themes">เลือกธีม...</string>
+    <string name="setup_wizard_step_three_action_all_settings">ตั้งค่าที่เหลือ...</string>
+    <string name="setup_wizard_step_download_title">ดาวน์โหลดชุดภาษา</string>
+    <string name="setup_wizard_step_download_details">คุณยินดีที่ทราบว่า <i>AnySoftKeyboard</i> รองรับหลายสิบภาษา เพียงดาวน์โหลดชุดภาษาที่ต้องการและสนุกกับการพิมพ์ภาษาใดก็ได้บนอุปกรณ์ของคุณ</string>
+    <string name="setup_wizard_step_download_action">ดาวน์โหลดชุดภาษา</string>
+    <string name="setup_wizard_step_download_skip_action">ข้าม​</string>
+    <string name="ime_crashed_sub_text">อ๊ะ ไม่เห็นว่าจะมา ...</string>
+    <string name="clipboard_paste_entries_title">เลือกข้อความที่จะวาง</string>
+    <string name="allow_permission">อนุญาต</string>
+    <string name="app_shortcut_keyboards_long_label">เลือกรูปแบบแป้นพิมพ์ที่จะใช้</string>
+    <string name="app_shortcut_keyboards_short_label">แป้นพิมพ์</string>
+    <string name="app_shortcut_themes_long_label">เลือกธีมแป้นที่จะใช้</string>
+    <string name="app_shortcut_themes_short_label">ธีม</string>
+    <string name="app_shortcut_gestures_short_label">ท่าทาง</string>
+    <string name="no_internet_fields_specific_layout">ไม่มี</string>
+    <string name="bottom_nav_home">สวัสดี</string>
+    <string name="setup_wizard_welcome_title">ยินดีต้อนรับ!</string>
+    <string name="setup_wizard_welcome_sub_title">ขอบคุณที่ทดลองใช้ AnySoftKeyboard!
+    </string>
+    <string name="pick_prefs_providers_to_backup">ต้องการสำรองข้อมูลอะไร ?</string>
+    <string name="pick_prefs_providers_to_restore">ต้องการกู้ข้อมูลอะไร</string>
+    <string name="prefs_providers_operation_success">สำเร็จ</string>
+    <string name="prefs_providers_operation_failed">ล้มเหลว!</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
