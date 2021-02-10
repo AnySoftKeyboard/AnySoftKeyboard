@@ -30,6 +30,7 @@
     <string name="no_market_store_available"><i>Google Play Store</i> uygulaması cihazınızda bulunamadı.\nEklentilerde arama yapılamıyor!</string>
     <string name="keyboard_theme_tweak_group">ince ayar</string>
     <string name="close_button">Kapat</string>
+    <string name="delete_button">Delete</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Kaydedildi:\u0020<xliff:g id="kelime">%s</xliff:g>    </string>
     <string name="revert_added_word_question">Sil\?</string>
@@ -406,6 +407,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="extension_kbd_bottom_simple_alt">Basit Seçenek</string>
     <string name="extension_kbd_bottom_row_aosp">AOSP biçiminde</string>
     <string name="extension_kbd_bottom_ng">Yeni nesil - test aşamasında</string>
+    <string name="extension_kbd_bottom_ng_no_apo">New Generation (without apostroph) - Testing</string>
     <string name="extension_kbd_extension_numbers_symbols">Sayılar ve semboller</string>
     <string name="extension_kbd_bottom_minimal">En küçük</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">En küçük (duygu simgesi yok)</string>
@@ -534,6 +536,14 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="enter_word_hint">Yeni kelimeyi buraya yazın</string>
     <string name="enter_abbreviation_hint">Kısaltma</string>
     <string name="enter_abbreviation_target_hint">Tam cümle</string>
+    <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
+    <string name="file_explorer_menu_add_folder">Create folder</string>
+    <string name="file_explorer_filename">Backup filename…</string>
+    <string name="file_explorer_filename_empty">Filename cannot be empty…omnn</string>
+    <string name="file_explorer_alert_title">Select this file ?</string>
+    <string name="file_explorer_restore_alert_message">Bu dosyayı indirmek ister misin?</string>
+    <string name="file_explorer_backup_alert_message">Tu</string>
+    <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
     <string name="about_additional_software_licenses">Diğer Yazılım Lisanları</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard etkinleştir</string>
     <string name="setup_wizard_step_one_details">Bu adımda <i>AnySoftKeyboard</i>\'u etkinleştirmeniz gerekecek. Lütfen <i>Dil&amp;giriş ayarlarınızda</i> <i>\'AnySoftKeyboard\'</i>u kontrol ediniz. Bu sizin cihazınızda çalışmamıza izin verir.</string>

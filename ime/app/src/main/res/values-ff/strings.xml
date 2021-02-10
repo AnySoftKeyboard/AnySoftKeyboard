@@ -11,6 +11,8 @@
     <!-- changelog -->
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
+    <string name="voice_input_not_installed_action_install">Aaf</string>
+    <string name="voice_input_not_installed_action_do_not_install">Ala</string>
     <!-- Options menu -->
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
