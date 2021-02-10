@@ -13,9 +13,9 @@ inputs:
     default: "none@example.com"
     description: "email address for crash reporting "
     required: true
-  keystore_url:
+  secrets_repo_folder:
     default: ""
-    description: "direct download URL to APK signing keystore"
+    description: "AnySoftKeyboard secrets folder"
     required: true
   keystore_password:
     default: ""
@@ -24,10 +24,6 @@ inputs:
   keystore_key_password:
     default: ""
     description: "APK signing keystore default key password"
-    required: true
-  publish_service_account_creds_json_url:
-    description: "url to the json certs file"
-    default: ""
     required: true
 runs:
   using: "docker"
@@ -43,10 +39,9 @@ runs:
     - ${{ inputs.deployment_environment }}
     - ${{ inputs.deployment_task }}
     - ${{ inputs.crash_report_email }}
-    - ${{ inputs.keystore_url }}
+    - ${{ inputs.secrets_repo_folder }}
     - ${{ inputs.keystore_password }}
     - ${{ inputs.keystore_key_password }}
-    - ${{ inputs.publish_service_account_creds_json_url }}
 
 branding:
   icon: 'upload-cloud'
