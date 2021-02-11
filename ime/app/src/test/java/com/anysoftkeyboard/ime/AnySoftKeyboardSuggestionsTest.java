@@ -215,6 +215,35 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDeletesCorrectlyIfPredictingButDelayedPositionUpdate() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping("abcd efgh");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        mAnySoftKeyboardUnderTest.setUpdateSelectionDelay(500);
+        Assert.assertEquals("abcd efgh", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("abcd efg", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("abcd ef", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("abcd e", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("abcd ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("abcd", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("abc", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("ab", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("a", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        // extra
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testSuggestionsRestartWhenBackSpace() {
         simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
@@ -242,8 +271,6 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
         verifySuggestions(true, "hel", "hell", "hello");
         Assert.assertEquals(
                 "hel", getCurrentTestInputConnection().getCurrentTextInInputConnection());
@@ -274,8 +301,6 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
 
         mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(2, 2);
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
         verifySuggestions(true);
         Assert.assertEquals(
                 "", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());

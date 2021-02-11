@@ -53,7 +53,6 @@ import java.util.Map;
 import org.junit.Assert;
 import org.mockito.MockingDetails;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 
 public class TestableAnySoftKeyboard extends SoftKeyboard {
     public static final long DELAY_BETWEEN_TYPING = 25L; // 25ms between typing
@@ -403,7 +402,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             }
         } else {
             onText(null, text);
-            if (advanceTime) Robolectric.flushForegroundThreadScheduler();
             if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
         }
     }
@@ -425,7 +423,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void simulateKeyPress(final Keyboard.Key key, final boolean advanceTime) {
         final int primaryCode = key.getPrimaryCode();
         onPress(primaryCode);
-        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);
         if (key instanceof AnyKeyboard.AnyKey /*this will ensure this instance is not a mock*/) {
@@ -444,10 +441,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         } else {
             onKey(primaryCode, null, 0, new int[0], true);
         }
-        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
-        if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
         onRelease(primaryCode);
-        if (advanceTime) Robolectric.flushForegroundThreadScheduler();
+        if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
     }
 
     @Nullable
