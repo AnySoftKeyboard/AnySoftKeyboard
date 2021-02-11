@@ -140,6 +140,9 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected final void verifySuggestions(
             boolean resetCandidateView, CharSequence... expectedSuggestions) {
+        // ensuring suggestions computed
+        Robolectric.flushForegroundThreadScheduler();
+
         List actualSuggestions = verifyAndCaptureSuggestion(resetCandidateView);
         Assert.assertEquals(
                 "Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()),
