@@ -964,21 +964,20 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
-        if (isSelectionUpdateDelayed() || ic == null) {
-            markExpectingSelectionUpdate();
-            Log.d(
-                    TAG,
-                    "handleDeleteLastCharacter will just sendDownUpKeyEvents. Delayed selection update?");
-            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-            return;
-        }
-
-        markExpectingSelectionUpdate();
         final WordComposer currentComposedWord = getCurrentComposedWord();
         final boolean wordManipulation =
                 isPredictionOn()
                         && currentComposedWord.cursorPosition() > 0
                         && !currentComposedWord.isEmpty();
+        if (isSelectionUpdateDelayed() || ic == null) {
+            markExpectingSelectionUpdate();
+            Log.d(TAG, "handleDeleteLastCharacter will just sendDownUpKeyEvents.");
+            if (wordManipulation) currentComposedWord.deleteCodePointAtCurrentPosition();
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+            return;
+        }
+
+        markExpectingSelectionUpdate();
 
         if (shouldRevertOnDelete()) {
             revertLastWord();
@@ -997,7 +996,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 ic.beginBatchEdit();
             }
 
-            markExpectingSelectionUpdate();
             ic.setComposingText(currentComposedWord.getTypedWord(), 1);
             if (cursorPosition >= 0 && !currentComposedWord.isEmpty()) {
                 ic.setSelection(cursorPosition - charsToDelete, cursorPosition - charsToDelete);
@@ -1009,7 +1007,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
             postUpdateSuggestions();
         } else {
-            markExpectingSelectionUpdate();
             if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {

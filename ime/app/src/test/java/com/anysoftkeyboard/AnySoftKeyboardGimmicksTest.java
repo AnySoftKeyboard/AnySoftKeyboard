@@ -28,16 +28,18 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpace() {
-        TestInputConnection inputConnection = getCurrentTestInputConnection();
         final String expectedText = "testing";
-        inputConnection.commitText(expectedText, 1);
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
 
-        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + " ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText + " ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // double space
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + ". ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText + ". ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2526
@@ -50,7 +52,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hello. ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals("hello. ".length(), inputConnection.getCurrentStartPosition());
         // moving to the beginning of the word
-        inputConnection.setSelection("hello".length(), "hello".length());
+        mAnySoftKeyboardUnderTest.moveCursorToPosition("hello".length(), true);
         Robolectric.flushForegroundThreadScheduler();
         Assert.assertEquals("hello".length(), inputConnection.getCurrentStartPosition());
 
@@ -97,21 +99,23 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpaceReDotOnAdditionalSpace() {
-        TestInputConnection inputConnection = getCurrentTestInputConnection();
         final String expectedText = "testing";
-        inputConnection.commitText(expectedText, 1);
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
 
-        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + " ", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals(expectedText + ". ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(
-                expectedText + ".. ", inputConnection.getCurrentTextInInputConnection());
+                expectedText + " ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(
-                expectedText + "... ", inputConnection.getCurrentTextInInputConnection());
+                expectedText + ". ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals(
+                expectedText + ".. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals(
+                expectedText + "... ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -120,17 +124,19 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
                 (TestableAnySoftKeyboard.TestableSuggest)
                         mAnySoftKeyboardUnderTest.getSpiedSuggest();
         spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
-        TestInputConnection inputConnection = getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hell");
+        Robolectric.flushForegroundThreadScheduler();
         // should have the picked word with an auto-added space
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // another space should add a dot
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell.. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell... ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -327,7 +333,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("space");
         Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
 
-        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(7, 7);
+        mAnySoftKeyboardUnderTest.moveCursorToPosition(7, true);
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
@@ -357,7 +363,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("space");
         Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
 
-        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(7, 7);
+        mAnySoftKeyboardUnderTest.moveCursorToPosition(7, true);
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
