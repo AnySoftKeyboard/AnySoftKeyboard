@@ -3,7 +3,10 @@ package com.anysoftkeyboard;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -16,28 +19,61 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.TextView;
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Assert;
+import org.robolectric.Shadows;
 
 public class TestInputConnection extends BaseInputConnection {
+    private static final int DELAYED_SELECTION_UPDATE_MSG_ID = 88;
 
     @NonNull private final AnySoftKeyboard mIme;
     @NonNull private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
-    private boolean mSendUpdates = true;
-    private boolean mCongested = false;
-    private final List<Runnable> mCongestedActions = new ArrayList<>();
-    private boolean mInEditMode = false;
-    private boolean mChangesWhileInEdit = false;
+    @Nullable private SelectionUpdateData mEditModeInitialState = null;
+    @Nullable private SelectionUpdateData mEditModeLatestState = null;
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
     private int mLastEditorAction = 0;
     private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
     private String mLastCommitCorrection = "";
 
+    private long mDelayedSelectionUpdate = 1L;
+    private final Handler mDelayer;
+
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
         super(new TextView(ime.getApplicationContext()), false);
         mIme = ime;
+        mDelayer =
+                new Handler() {
+                    @Override
+                    public void handleMessage(@NonNull Message msg) {
+                        if (msg.what == DELAYED_SELECTION_UPDATE_MSG_ID) {
+                            final SelectionUpdateData data = (SelectionUpdateData) msg.obj;
+                            mIme.onUpdateSelection(
+                                    data.oldSelStart,
+                                    data.oldSelEnd,
+                                    data.newSelStart,
+                                    data.newSelEnd,
+                                    data.candidatesStart,
+                                    data.candidatesEnd);
+                        } else {
+                            super.handleMessage(msg);
+                        }
+                    }
+                };
+    }
+
+    /**
+     * Sets the delay of the onUpdateSelection notifications. To simulate actual device behavior, we
+     * perform onUpdateSelection events in a MessageHandler.
+     *
+     * @param delay milliseconds. Must be 1 or larger value.
+     */
+    public void setUpdateSelectionDelay(long delay) {
+        if (delay < 1L) throw new IllegalArgumentException("Delay must be larger than zero.");
+        mDelayedSelectionUpdate = delay;
+    }
+
+    public void executeOnSelectionUpdateEvent() {
+        Shadows.shadowOf(mDelayer.getLooper()).runOneTask();
     }
 
     @Override
@@ -91,17 +127,12 @@ public class TestInputConnection extends BaseInputConnection {
     }
 
     private void notifyTextChange(int cursorDelta) {
-        if (cursorDelta == 0) {
-            notifyTextChanged(
-                    mCursorPosition, mSelectionEndPosition, mCursorPosition, mSelectionEndPosition);
-        } else {
-            final int oldPosition = mCursorPosition;
-            final int oldEndSelection = mSelectionEndPosition;
-            mCursorPosition += cursorDelta;
-            // cursor moved, so selection is cleared
-            mSelectionEndPosition = mCursorPosition;
-            notifyTextChanged(oldPosition, oldEndSelection, mCursorPosition, mSelectionEndPosition);
-        }
+        final int oldPosition = mCursorPosition;
+        final int oldEndSelection = mSelectionEndPosition;
+        mCursorPosition += cursorDelta;
+        // cursor moved? so selection is cleared
+        mSelectionEndPosition = cursorDelta == 0 ? mSelectionEndPosition : mCursorPosition;
+        notifyTextChanged(oldPosition, oldEndSelection, mCursorPosition, mSelectionEndPosition);
     }
 
     private void notifyTextChanged(int oldStart, int oldEnd, int newStart, int newEnd) {
@@ -111,46 +142,22 @@ public class TestInputConnection extends BaseInputConnection {
         Assert.assertTrue(newStart >= 0);
         Assert.assertTrue(newEnd >= 0);
         Assert.assertTrue(newEnd >= newStart);
-        if (mInEditMode) {
-            mChangesWhileInEdit = true;
-        } else {
-            int[] composedTextRange = findComposedText();
-            if (mSendUpdates) {
-                mIme.onUpdateSelection(
+        int[] composedTextRange = findComposedText();
+        final SelectionUpdateData data =
+                new SelectionUpdateData(
                         oldStart,
                         oldEnd,
                         newStart,
                         newEnd,
                         composedTextRange[0],
                         composedTextRange[1]);
-            }
-        }
-    }
-
-    public void setSendUpdates(boolean sendUpdates) {
-        mSendUpdates = sendUpdates;
-    }
-
-    public void setCongested(boolean congested) {
-        mCongested = congested;
-        if (!mCongested) {
-            while (!mCongestedActions.isEmpty()) mCongestedActions.remove(0).run();
-        }
-    }
-
-    public void popCongestedAction() {
-        if (mCongested) {
-            mCongestedActions.remove(0).run();
+        if (mEditModeInitialState != null) {
+            mEditModeLatestState = data;
         } else {
-            throw new IllegalStateException("called popCongestedAction when not congested");
+            mDelayer.sendMessageDelayed(
+                    mDelayer.obtainMessage(DELAYED_SELECTION_UPDATE_MSG_ID, data),
+                    mDelayedSelectionUpdate);
         }
-    }
-
-    public void sendUpdateNow() {
-        final boolean originalSendState = mSendUpdates;
-        mSendUpdates = true;
-        notifyTextChange(0);
-        mSendUpdates = originalSendState;
     }
 
     @Override
@@ -161,17 +168,6 @@ public class TestInputConnection extends BaseInputConnection {
 
     private void commitTextAs(
             final CharSequence text, final boolean asComposing, final int newCursorPosition) {
-        if (mCongested) {
-            final String queuedText = text.toString();
-            mCongestedActions.add(
-                    () -> internalCommitTextAs(queuedText, asComposing, newCursorPosition));
-        } else {
-            internalCommitTextAs(text, asComposing, newCursorPosition);
-        }
-    }
-
-    private void internalCommitTextAs(
-            CharSequence text, boolean asComposing, int newCursorPosition) {
         Preconditions.checkNotNull(text);
         int[] composedTextRange;
         if (mCursorPosition != mSelectionEndPosition) {
@@ -249,25 +245,17 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean setSelection(int start, int end) {
-        if (mCongested) {
-            mCongestedActions.add(() -> internalSetSelection(start, end));
-        } else {
-            internalSetSelection(start, end);
-        }
-        return true;
-    }
-
-    private void internalSetSelection(int start, int end) {
-        if (start == end && start == mCursorPosition) return;
+        if (start == end && start == mCursorPosition) return true;
 
         final int len = mInputText.length();
-        if (start < 0 || end < 0 || start > len || end > len) return; // ignoring
+        if (start < 0 || end < 0 || start > len || end > len) return true;
 
         int oldStart = mCursorPosition;
         int oldEnd = mSelectionEndPosition;
         mCursorPosition = start;
         mSelectionEndPosition = Math.min(end, mInputText.length());
         notifyTextChanged(oldStart, oldEnd, mCursorPosition, mSelectionEndPosition);
+        return true;
     }
 
     @Override
@@ -287,38 +275,49 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean beginBatchEdit() {
-        mInEditMode = true;
+        if (mEditModeInitialState == null) {
+            int[] composedTextRange = findComposedText();
+            mEditModeInitialState =
+                    new SelectionUpdateData(
+                            mCursorPosition,
+                            mSelectionEndPosition,
+                            mCursorPosition,
+                            mSelectionEndPosition,
+                            composedTextRange[0],
+                            composedTextRange[1]);
+            mEditModeLatestState = mEditModeInitialState;
+        }
         return true;
     }
 
     @Override
     public boolean endBatchEdit() {
-        mInEditMode = false;
-        if (mChangesWhileInEdit) sendUpdateNow();
-        mChangesWhileInEdit = false;
+        final SelectionUpdateData initialState = mEditModeInitialState;
+        final SelectionUpdateData finalState = mEditModeLatestState;
+        mEditModeInitialState = null;
+        mEditModeLatestState = null;
+        if (initialState != null) {
+            if (!initialState.equals(finalState)) {
+                notifyTextChanged(
+                        initialState.oldSelStart,
+                        initialState.oldSelEnd,
+                        finalState.newSelStart,
+                        finalState.newSelEnd);
+            }
+        }
         return true;
     }
 
     @Override
     public boolean sendKeyEvent(KeyEvent event) {
-        if (mCongested) {
-            final KeyEvent queuedEvent = new KeyEvent(event);
-            mCongestedActions.add(() -> internalSendKeyEvent(queuedEvent));
-        } else {
-            /*
-            ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
-                    KeyEvent.ACTION_DOWN, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                    KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
-            ic.sendKeyEvent(new KeyEvent(eventTime, SystemClock.uptimeMillis(),
-                    KeyEvent.ACTION_UP, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                    KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
-             */
-            internalSendKeyEvent(event);
-        }
-        return true;
-    }
-
-    private void internalSendKeyEvent(KeyEvent event) {
+        /*
+        ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
+                KeyEvent.ACTION_DOWN, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
+        ic.sendKeyEvent(new KeyEvent(eventTime, SystemClock.uptimeMillis(),
+                KeyEvent.ACTION_UP, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
+         */
         boolean handled = false;
         if (event.getAction() == KeyEvent.ACTION_UP) {
             // only handling UP events
@@ -364,6 +363,7 @@ public class TestInputConnection extends BaseInputConnection {
                 mIme.onKeyUp(event.getKeyCode(), event);
             }
         }
+        return true;
     }
 
     @Override
@@ -393,5 +393,55 @@ public class TestInputConnection extends BaseInputConnection {
 
     public int getCurrentStartPosition() {
         return mCursorPosition;
+    }
+
+    private static class SelectionUpdateData {
+        final int oldSelStart;
+        final int oldSelEnd;
+        final int newSelStart;
+        final int newSelEnd;
+        final int candidatesStart;
+        final int candidatesEnd;
+
+        private SelectionUpdateData(
+                int oldSelStart,
+                int oldSelEnd,
+                int newSelStart,
+                int newSelEnd,
+                int candidatesStart,
+                int candidatesEnd) {
+            this.oldSelStart = oldSelStart;
+            this.oldSelEnd = oldSelEnd;
+            this.newSelStart = newSelStart;
+            this.newSelEnd = newSelEnd;
+            this.candidatesStart = candidatesStart;
+            this.candidatesEnd = candidatesEnd;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof SelectionUpdateData)) return false;
+
+            SelectionUpdateData that = (SelectionUpdateData) o;
+
+            if (oldSelStart != that.oldSelStart) return false;
+            if (oldSelEnd != that.oldSelEnd) return false;
+            if (newSelStart != that.newSelStart) return false;
+            if (newSelEnd != that.newSelEnd) return false;
+            if (candidatesStart != that.candidatesStart) return false;
+            return candidatesEnd == that.candidatesEnd;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = oldSelStart;
+            result = 31 * result + oldSelEnd;
+            result = 31 * result + newSelStart;
+            result = 31 * result + newSelEnd;
+            result = 31 * result + candidatesStart;
+            result = 31 * result + candidatesEnd;
+            return result;
+        }
     }
 }
