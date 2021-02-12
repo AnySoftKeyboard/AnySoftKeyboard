@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
@@ -40,36 +39,35 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSelectsAllText() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
 
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT_ALL);
-        Assert.assertEquals(expectedText, inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals(expectedText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardCopy() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something".length());
-        Assert.assertEquals("something", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something".length(), true);
+        Assert.assertEquals("something", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         ClipboardManager clipboardManager =
                 (ClipboardManager)
                         getApplicationContext().getSystemService(Service.CLIPBOARD_SERVICE);
         Assert.assertNull(clipboardManager.getPrimaryClip());
 
-        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
         // text stays the same
-        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // and clipboard has the copied text
         Assert.assertEquals(1, clipboardManager.getPrimaryClip().getItemCount());
         Assert.assertEquals(
@@ -79,14 +77,13 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardCut() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String originalText = "testing something very long";
         final String textToCut = "something";
         final String expectedText = "testing  very long";
-        inputConnection.commitText(originalText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something".length());
-        Assert.assertEquals(textToCut, inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(originalText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something".length(), true);
+        Assert.assertEquals(textToCut, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         ClipboardManager clipboardManager =
                 (ClipboardManager)
@@ -95,7 +92,8 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_CUT);
 
         // text without "something"
-        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // and clipboard has the copied text
         Assert.assertEquals(1, clipboardManager.getPrimaryClip().getItemCount());
         Assert.assertEquals(
@@ -105,9 +103,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardPaste() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
         ClipboardManager clipboardManager =
                 (ClipboardManager)
                         getApplicationContext().getSystemService(Service.CLIPBOARD_SERVICE);
@@ -115,25 +110,23 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         clipboardManager.setPrimaryClip(
                 new ClipData("ask", new String[] {"text"}, new ClipData.Item(expectedText)));
 
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
-        Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // and backspace DOES NOT deletes the pasted text
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         Assert.assertEquals(
                 expectedText.substring(0, expectedText.length() - 1),
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardPasteWhenEmptyClipboard() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
-        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(
                 mAnySoftKeyboardUnderTest.getText(R.string.clipboard_is_empty_toast),
                 ShadowToast.getTextOfLatestToast());
@@ -141,94 +134,89 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSelectionExpending_AtEndOfInput() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-        inputConnection.commitText("some text in the input connection", 1);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-        Assert.assertEquals("n", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("n", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-        Assert.assertEquals("on", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("on", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("on", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("on", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     public void testSelectionExpending_AtMiddleOfInput() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-        inputConnection.commitText("some text in the input connection", 1);
-        inputConnection.setSelection("some ".length(), "some ".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
+        mAnySoftKeyboardUnderTest.moveCursorToPosition("some ".length(), true);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("t", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("t", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("te", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("te", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-        Assert.assertEquals(" te", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals(" te", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     public void testSelectionExpendingCancel() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-        inputConnection.commitText("some text in the input connection", 1);
-        inputConnection.setSelection("some ".length(), "some ".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
+        mAnySoftKeyboardUnderTest.moveCursorToPosition("some ".length(), true);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("t", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("t", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("te", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("te", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('k');
         // selection ('te') was replaced with the letter 'k'
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "some kxt in the input connection",
-                inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals("some k".length(), inputConnection.getCurrentStartPosition());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(
+                "some k".length(),
+                mAnySoftKeyboardUnderTest
+                        .getCurrentTestInputConnection()
+                        .getCurrentStartPosition());
         // and we are no longer is select state
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     public void testSelectionExpendingWithAlreadySelectedText() {
-        TestInputConnection inputConnection =
-                mAnySoftKeyboardUnderTest.getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
-        inputConnection.setSelection("some ".length(), "some text".length());
+        mAnySoftKeyboardUnderTest.setSelectedText("some ".length(), "some text".length(), true);
         // we already have selection set
-        Assert.assertEquals("text", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("text", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
-        Assert.assertEquals("text", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("text", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("text ", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("text ", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-        Assert.assertEquals("text i", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("text i", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-        Assert.assertEquals(" text i", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals(" text i", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardFineSelectToast() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something".length(), true);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
         Assert.assertEquals(
@@ -253,13 +241,12 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardShowsOptionsToCopy() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something very".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.setSelectedText(0, "testing ".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
         // now, we'll do long-press
@@ -283,13 +270,12 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         ClipboardManager shadowManager =
                 (ClipboardManager)
                         getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something very".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.setSelectedText(0, "testing ".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
@@ -331,13 +317,12 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @TargetApi(Build.VERSION_CODES.P)
     @Config(sdk = Build.VERSION_CODES.P)
     public void testDeleteFirstEntryForApi28() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something very".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.setSelectedText(0, "testing ".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
@@ -381,13 +366,12 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         ClipboardManager shadowManager =
                 (ClipboardManager)
                         getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something very".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "testing ".length(), "testing something very".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-        inputConnection.setSelection(0, "testing ".length());
+        mAnySoftKeyboardUnderTest.setSelectedText(0, "testing ".length(), true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
@@ -437,7 +421,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         latestAlertDialog.cancel();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("text 3");
-        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(1, 4);
+        mAnySoftKeyboardUnderTest.setSelectedText(1, 4, true);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
@@ -515,11 +499,9 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testUndo() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.UNDO);
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
-        Mockito.verify(inputConnection, Mockito.times(2))
+        Mockito.verify(mAnySoftKeyboardUnderTest.getCurrentTestInputConnection(), Mockito.times(2))
                 .sendKeyEvent(keyEventArgumentCaptor.capture());
 
         Assert.assertEquals(
@@ -540,11 +522,9 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testRedo() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.REDO);
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
-        Mockito.verify(inputConnection, Mockito.times(2))
+        Mockito.verify(mAnySoftKeyboardUnderTest.getCurrentTestInputConnection(), Mockito.times(2))
                 .sendKeyEvent(keyEventArgumentCaptor.capture());
 
         Assert.assertEquals(

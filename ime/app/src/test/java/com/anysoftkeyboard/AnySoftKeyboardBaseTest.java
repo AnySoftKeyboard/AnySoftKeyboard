@@ -141,7 +141,8 @@ public abstract class AnySoftKeyboardBaseTest {
     protected final void verifySuggestions(
             boolean resetCandidateView, CharSequence... expectedSuggestions) {
         // ensuring suggestions computed
-        Robolectric.flushForegroundThreadScheduler();
+        while (Robolectric.getForegroundThreadScheduler().size() > 0)
+            Robolectric.flushForegroundThreadScheduler();
 
         List actualSuggestions = verifyAndCaptureSuggestion(resetCandidateView);
         Assert.assertEquals(
