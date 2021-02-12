@@ -45,6 +45,7 @@
     <string name="change_ime">Промяна на метода за въвеждане</string>
     <string name="override_dictionary">Замяна на речника по подразбиране</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Замяна на\u0020<xliff:g id="word">%s</xliff:g>\u0020речника</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
     <string name="gesture_settings">Жестове</string>
@@ -55,10 +56,12 @@
     <string name="vibrate_on_key_press_value_template">%d милисекунди</string>
     <string name="night_mode_screen">Настройки за Нощен режим</string>
     <string name="night_mode_description">Нощният режим ще промени тези функции:</string>
+    <string name="night_mode_state_summary">Настоящ спусък за нощен режим:\u0020%s</string>
     <string name="night_mode_dialog_title">Активиране на Нощен режим</string>
     <string name="night_mode_type_never">Никога</string>
     <string name="night_mode_type_follow_system">Използвай системните</string>
     <string name="night_mode_type_always">Винаги</string>
+    <string name="night_mode_app_night_theme">Потъмняване на потребителския интерфейс за настройки</string>
     <string name="night_mode_darken_keyboard_theme">Потъмняване на клавиатурната тема</string>
     <string name="night_mode_sound_control">Деактивиране на звуците при натискане на клавиш</string>
     <string name="night_mode_vibration_control">Деактивиране на вибрациите при натискане на клавиши</string>
