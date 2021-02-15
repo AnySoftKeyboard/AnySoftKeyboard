@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">لوحة مفاتيح AnySoft</string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point
     </string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for
@@ -11,7 +10,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020آخر التعديلات في الإصدار v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">المزيد :\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard تجريبي</string>
     <string name="notification_text_testers">هذه نسخة تجريبية. إستخدِمها بحذر !</string>
     <string name="testers_version">نسخة للمُجَرِّبين !</string>
     <string name="language_root_tile">اللغة</string>

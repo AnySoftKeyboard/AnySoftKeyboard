@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Отслеживание начато! \nВы можете остановить его в любой момент</string>
     <string name="debug_tracing_starting_failed">Запуск отслеживания не удался! Проверьте каталог логов для подробностей.</string>
     <string name="debug_tracing_finished">Отслеживание завершено! \nВот файл отслеживания\u0020<xliff:g id="trace_file">%s </xliff:g></string>
@@ -9,7 +8,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для версии<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Ещё:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard Бета-версия</string>
     <string name="notification_text_testers">Это бета-версия. Следует использовать с осторожностью!</string>
     <string name="testers_version">Сборка для тестеров!</string>
     <string name="language_root_tile">Язык</string>
@@ -670,6 +668,4 @@
     <string name="click_me_for_easter_egg_info">нажмите сюда, чтобы увидеть сюрприз</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
-    <string name="beta_pre_purge_action_text">Выполняется отмена подписки тестирования</string>
-    <string name="beta_post_purge_action_text">Отмена подписки тестирования завершена</string>
 </resources>

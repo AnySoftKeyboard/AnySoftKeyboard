@@ -57,7 +57,7 @@ public class TutorialsProvider {
                                     ? R.drawable.notification_icon_beta_version
                                     : R.drawable.ic_notification_debug_version)
                     .setContentText(context.getText(R.string.notification_text_testers))
-                    .setContentTitle(context.getText(R.string.ime_name_beta))
+                    .setContentTitle(context.getText(R.string.ime_name))
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
                     .setColor(

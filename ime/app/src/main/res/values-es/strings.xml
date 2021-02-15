@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">¡Registro iniciado!\nAsegúrate de detenerlo en algún momento</string>
     <string name="debug_tracing_starting_failed">¡Error al iniciar el registro! Revisa la captura de registro para más detalles.</string>
     <string name="debug_tracing_finished">¡Registro finalizado!\nEl archivo es \u0020<xliff:g id="trace_file">%s</xliff:g></string>
@@ -9,7 +8,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Últimos cambios para v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Más: \u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Esta es la versión beta. ¡Utilízala con precaución!</string>
     <string name="testers_version">¡Versión de prueba!</string>
     <string name="language_root_tile">Idioma</string>
@@ -666,6 +664,4 @@
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
-    <string name="beta_pre_purge_action_text">Cancelar suscripción de probador casi listo</string>
-    <string name="beta_post_purge_action_text">Cancelar suscripción de probador listo</string>
 </resources>

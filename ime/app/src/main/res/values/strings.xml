@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
+    
 
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point
     </string>
@@ -16,7 +16,7 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">More:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+    
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
     <string name="testers_version">Testers build!</string>
 
@@ -449,7 +449,7 @@
     <string name="candidates_off_summary">No suggestions will be shown</string>
     <string name="quick_fix">Quick fixes and abbreviations</string>
     <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations</string>
-    <string name="quick_fix_secon_disabled">&#8230;on first language only</string>
+    <string name="quick_fix_secon_disabled">…on first language only</string>
     <string name="quick_fix_secon_disabled_summ_on">Quick fixes and abbreviations will work only on current layout language</string> 
     <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
                   checked in override default dictionary</string>
@@ -739,14 +739,14 @@
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
 
     <string name="file_explorer_menu_add_folder">Create folder</string>
-    <string name="file_explorer_filename">Backup filename&#8230;</string>
-    <string name="file_explorer_filename_empty">Filename cannot be empty&#8230;</string>
+    <string name="file_explorer_filename">Backup filename…</string>
+    <string name="file_explorer_filename_empty">Filename cannot be empty…</string>
     <string name="file_explorer_alert_title">Select this file ?</string>
     <string name="file_explorer_restore_alert_message">Do you want to restore this file ?</string>
     <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
 
     <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
-    <string name="file_explorer_backup_failed">Your data have failed to ba saved.</string>
+    <string name="file_explorer_backup_failed">Your data have failed to be saved.</string>
     <string name="file_explorer_restore_success">Your data have been restored from\u0020</string>
     <string name="file_explorer_restore_failed">Your data have failed to be restored.</string>
 
@@ -781,7 +781,7 @@
     <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.
     </string>
     <string name="setup_wizard_step_three_details_done">
-        <b>You are done 🎉\nGo to you favorite app to try it out.</b>
+        <b>You are done 🎉\nGo to your favorite app to try it out.</b>
     </string>
     <string name="setup_wizard_step_three_details_actions">Or, you can customize and personalize the
         keyboard to your likings:
@@ -837,7 +837,7 @@
         you\'re in luck! <i>BETA</i> channel is now available for <b>YOU</b>!\nJust sign up at the
         link below, and update through <i>Google Play</i> app store!\n\n
         https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAnd thanks for
-        helping out to kill bugs before the reach the public.
+        helping out to kill bugs before they reach the public.
     </string>
     <string name="clipboard_fine_select_enabled_toast">Fine-text-selection enabled. Use left/right arrows.</string>
 
@@ -945,6 +945,6 @@
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 
-    <string name="beta_pre_purge_action_text">Tester Unsubscribe Approaching</string>
-    <string name="beta_post_purge_action_text">Tester Unsubscribe Done</string>
+    
+    
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Tracering gestart! \nZorg dat u het uiteindelijk weer stopt</string>
     <string name="debug_tracing_starting_failed">Starten van traceren is mislukt! Bekijk logcat voor details.</string>
     <string name="debug_tracing_finished">Tracering is klaar!\nTraceerbestand is 
@@ -10,7 +9,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Laatste wijzigingen voor v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Meer:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BÈTA</string>
     <string name="notification_text_testers">Dit is een bètaversie. Wees voorzichtig!</string>
     <string name="testers_version">Gebouwd voor testers!</string>
     <string name="language_root_tile">Taal</string>
@@ -30,6 +28,7 @@
     <string name="no_market_store_available"><b>* Kan op uw apparaat geen Google Play Store vinden. Daardoor geen add-ons!</b></string>
     <string name="keyboard_theme_tweak_group">Fijnafstellingen</string>
     <string name="close_button">Sluiten</string>
+    <string name="delete_button">Verwijderen</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Opgeslagen:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -171,6 +170,7 @@ woordenlijst
     <string name="swipe_action_name_cycle_keyboards">Toon alle toetsenborden</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Toon toetsenborden in omgekeerde volgorde</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Spatie</string>
     <string name="swipe_action_name_hide">Verberg toetsenbord</string>
     <string name="swipe_action_name_backspace">Backspace</string>
     <string name="swipe_action_name_backword">Back-word</string>
@@ -329,6 +329,10 @@ woordenlijst
     <string name="candidates_off_summary">Er worden geen suggesties weergegeven</string>
     <string name="quick_fix">Snel herstel en afkortingen</string>
     <string name="quick_fix_summary">Corrigeert algemeen getypte fouten en breidt afkortingen uit</string>
+    <string name="quick_fix_secon_disabled">…alleen op de eerste taal</string>
+    <string name="quick_fix_secon_disabled_summ_on">Snelle verbeteringen en afkortingen zullen alleen werken in de huidige taal van de layout</string>
+    <string name="quick_fix_secon_disabled_summ_off">Snelle verbeteringen en afkortingen werken op elke taal 
+                  geselecteerd in het overschrijven van het standaard woordenboek</string>
     <string name="allow_suggestions_restart">Herstart suggesties</string>
     <string name="allow_suggestions_restart_summary">Herstart woordsuggesties bij cursorverplaatsing</string>
     <!-- settings - keyboard group -->
@@ -385,8 +389,11 @@ woordenlijst
     <string name="extension_kbd_top_small_numbers">Numerieke toetsen</string>
     <string name="extension_kbd_top_numbers_alt">Alternatieve cijfertoetsen</string>
     <string name="extension_kbd_top_nav">Navigatietoetsen</string>
+    <string name="extension_kbd_top_nav_alt">Navigatieknoppen alternatief</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Navigatieknoppen alternatief. Geen getallen rij in de pwd modus</string>
     <string name="extension_kbd_top_numbers_simple">Eenvoudig, enkel nummers</string>
     <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Snel tekst bewerken</string>
     <string name="extension_kbd_bottom_regular_with_voice">Gewoon</string>
     <string name="extension_kbd_bottom_regular">Klassiek (geen microfoon)</string>
     <string name="extension_kbd_bottom_iphone">iPhone stijl (geen microfoon)</string>
@@ -395,6 +402,8 @@ woordenlijst
     <string name="extension_kbd_bottom_alt_with_mic">Alternatief met microfoon</string>
     <string name="extension_kbd_bottom_old">Old School</string>
     <string name="extension_kbd_bottom_simple">Eenvoudig</string>
+    <string name="extension_kbd_bottom_simple_alt">Eenvoudig Alternatief</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP stijl</string>
     <string name="extension_kbd_bottom_ng">Nieuwe generatie - testen</string>
     <string name="extension_kbd_extension_numbers_symbols">Cijfers en symbolen</string>
     <!-- Tutorials -->

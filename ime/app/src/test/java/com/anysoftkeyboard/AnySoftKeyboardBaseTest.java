@@ -36,7 +36,7 @@ public abstract class AnySoftKeyboardBaseTest {
     protected IBinder mMockBinder;
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
-    protected ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
+    protected ServiceController<? extends TestableAnySoftKeyboard> mAnySoftKeyboardController;
     private AbstractInputMethodService.AbstractInputMethodImpl mAbstractInputMethod;
 
     protected TestInputConnection getCurrentTestInputConnection() {
@@ -45,6 +45,10 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected CandidateView getMockCandidateView() {
         return mAnySoftKeyboardUnderTest.getMockCandidateView();
+    }
+
+    protected Class<? extends TestableAnySoftKeyboard> getServiceClass() {
+        return TestableAnySoftKeyboard.class;
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -59,7 +63,7 @@ public abstract class AnySoftKeyboardBaseTest {
                                         application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
-        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardController = Robolectric.buildService(getServiceClass());
         mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
         mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
         mAnySoftKeyboardUnderTest.onCreateInputMethodSessionInterface();
@@ -136,6 +140,11 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected final void verifySuggestions(
             boolean resetCandidateView, CharSequence... expectedSuggestions) {
+        // ensuring suggestions computed
+        int maxFlushes = 5;
+        while (Robolectric.getForegroundThreadScheduler().size() > 0 && maxFlushes-- > 0)
+            Robolectric.flushForegroundThreadScheduler();
+
         List actualSuggestions = verifyAndCaptureSuggestion(resetCandidateView);
         Assert.assertEquals(
                 "Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()),

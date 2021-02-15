@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Пачалася трасіроўка!\nЯе трэба будзе спыніць у пэўны момант</string>
     <string name="debug_tracing_starting_failed">Не атрымалася пачаць трасіроўку! Праверце logcat, каб атрымаць дадатковую інфармацыю.</string>
     <string name="debug_tracing_finished">Трасіроўка скончаная!\nФайл трасіроўкі:
@@ -11,7 +10,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Апошнія змены для v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Яшчэ:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Гэта бэта-версія. Карыстайцеся з асцярожнасцю!</string>
     <string name="testers_version">Тэставая версія!</string>
     <string name="language_root_tile">Мова</string>

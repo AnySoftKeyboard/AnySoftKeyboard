@@ -19,6 +19,6 @@ if [[ "${SHA}" == "HEAD" ]]; then
 fi
 
 echo "Request deployment flow for sha ${SHA} on branch ${REF}. New deployment: ${NEW_DEPLOY}."
-./gradlew :deployment:deploymentRequestProcess -PRequest.sha="${SHA}" -PRequest.ref="${REF}" -PRequest.new_deploy="${NEW_DEPLOY}" -PRequest.apiUsername="${API_USERNAME}" -PRequest.apiUserToken="${API_TOKEN}"
+./gradlew --rerun-tasks :deployment:deploymentRequestProcess -PRequest.sha="${SHA}" -PRequest.ref="${REF}" -PRequest.new_deploy="${NEW_DEPLOY}" -PRequest.apiUsername="${API_USERNAME}" -PRequest.apiUserToken="${API_TOKEN}"
 
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

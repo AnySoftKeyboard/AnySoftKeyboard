@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Segimendua hasi da!\nZiurtatu inoiz gelditzen duzula</string>
     <string name="debug_tracing_starting_failed">Trazaren hasierak huts egin du! Begiratu logcat xehetasunetarako.    </string>
     <string name="debug_tracing_finished">Segimendua bukatu da!\nSegimendu fitxategia hau da
@@ -13,7 +12,6 @@
         %s</xliff:g>\u0020\u0020
     </string>
     <string name="change_log_url">Gehiago:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Hau beta bertsio bat da, kontuz ibili!</string>
     <string name="testers_version">Probetarako konpilazioa!</string>
     <string name="language_root_tile">Hizkuntza</string>

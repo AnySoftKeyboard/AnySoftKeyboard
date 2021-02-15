@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">¡Seguimiento iniciado!\nRecuerde detenerlo en algún momento    </string>
     <string name="debug_tracing_starting_failed">¡Error al iniciar seguimiento!\nRevise el logcat para más detalles.    </string>
     <string name="debug_tracing_finished">¡Seguimiento finalizado!\nGuardado en
@@ -11,7 +10,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Últimos cambios en la versión<xliff:g id="name">%s</xliff:g>\u0020\u0020    </string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020    </string>
     <string name="change_log_url">Más: \u0020<xliff:g id="url">%s</xliff:g>    </string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Esta es una versión beta. ¡Utilícela con precaución!</string>
     <string name="testers_version">¡Versión de prueba!</string>
     <string name="language_root_tile">Idioma</string>
@@ -34,6 +32,7 @@
     </string>
     <string name="keyboard_theme_tweak_group">Opciones</string>
     <string name="close_button">Cerrar</string>
+    <string name="delete_button">Eliminar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Guardada:\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="revert_added_word_question">¿Eliminar\?</string>
@@ -176,6 +175,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="swipe_action_name_cycle_keyboards">Recorrer todos los teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Recorrer en orden inverso todos los teclados</string>
     <string name="swipe_action_name_shift">Mayús</string>
+    <string name="swipe_action_name_space">Espacio</string>
     <string name="swipe_action_name_hide">Ocultar teclado</string>
     <string name="swipe_action_name_backspace">Retroceso</string>
     <string name="swipe_action_name_backword">Borrar palabra anterior</string>
@@ -333,6 +333,8 @@ Instalarla ahora desde Play Store.    </string>
     <string name="candidates_off_summary">No mostrar sugerencias</string>
     <string name="quick_fix">Correcciones rápidas y abreviaturas</string>
     <string name="quick_fix_summary">Corregir errores comunes y ampliar abreviaturas    </string>
+    <string name="quick_fix_secon_disabled">…solo en el primer idioma</string>
+    <string name="quick_fix_secon_disabled_summ_on">Las correcciones rápidas y abreviaturas solo funcionarán en el idioma mostrado actual.</string>
     <string name="allow_suggestions_restart">Restaurar sugerencias</string>
     <string name="allow_suggestions_restart_summary">Restaurar sugerencias al mover el puntero    </string>
     <!-- settings - keyboard group -->

@@ -11,6 +11,8 @@
     <string name="de_keyboard_broad_description">Slightly broader layout with umlauts as popups (saving keys)</string>
     <string name="de_keyboard_extra">German broad+</string>
     <string name="de_keyboard_extra_description">Slightly broader layout with umlauts as popups (saving keys), also additional characters</string>
+    <string name="de_keyboard_symbols">German</string>
+    <string name="de_keyboard_symbols_description">QWERTZ layout with umlauts, symbols and numbers as popups (by LuKe)</string>
     <string name="de_keyboard_qwerty">German QWERTY</string>
     <string name="de_keyboard_qwerty_description">Created by Thomas Eizinger</string>
     <string name="de_keyboard_qwerty_broad">German QWERTY broad</string>
@@ -22,7 +24,9 @@
     <string name="de_keyboard_neo2">German neo2</string>
     <string name="de_keyboard_neo2_simple">German neo2 simple</string>
     <string name="de_keyboard_adnw">German adnw</string>
+    <string name="de_keyboard_adnw_koy">German adnw KOY</string>
     <string name="de_keyboard_adnw_description">Aus der Neo Welt (Christoph Bauer)</string>
+    <string name="de_keyboard_adnw_koy_description">Aus der Neo Welt (KOY-Variante)</string>
     <string name="de_keyboard_dvorak_compact">DE Dv Compact</string>
     <string name="de_keyboard_dvorak_compact_description">German version of Dvorak compact, two letters per button, for Wurstfinger</string>
            

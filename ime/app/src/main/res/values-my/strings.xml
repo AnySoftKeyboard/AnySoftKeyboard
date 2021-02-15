@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">ဘာသာစုံလက်ကွက်</string>
     <string name="debug_tracing_starting">တိုင်ဆိုင်စစ်ဆေးမှု စတင်ပါပြီ။ \n တချို့ရပ်ရန်နေရာများတွင် သေချာစွာရပ်ပါ။</string>
     <string name="debug_tracing_starting_failed">တိုက်ဆိုင် စစ်ဆေးရန် စတင်းခြင်း မအောင်မြင်ပါ။ logcat မှာ အသေးစိတ်ကြည့်ပါ။</string>
     <string name="debug_tracing_finished">တိုက်ဆိုင်စစ်ဆေးခြင်း ပြီးမြောက်ပါပြီ။\nစစ်ဆေးမှုဖိုင်မှာ
@@ -10,7 +9,6 @@
     <string name="how_to_pointer_title">AnySoftKeyboard မှ ကြိုဆိုပါတယ်</string>
     <string name="change_log_card_version_title_template">ဗားရှင်း<xliff:g id="name">%s</xliff:g>\u0020\u0020အတွက် \u0020\u0020နောက်ဆုံးအပြောင်းအလဲ</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020ဗားရှင်း<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
-    <string name="ime_name_beta">ဘာသာစုံလက်ကွက်စနစ် စမ်းသပ်ဗားရှင်း</string>
     <string name="notification_text_testers">သတိထားပါ။ စမ်းသပ်ဗားရှင်းသာဖြစ်ပါသည်!</string>
     <string name="testers_version">စမ်းသပ်သူများ ပြုလုပ်ထားမှု!</string>
     <string name="language_root_tile">ဘာသာစကားများ</string>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
@@ -29,7 +30,8 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(latestAlertDialog);
 
         Assert.assertEquals(
-                "AnySoftKeyboard", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
+                ApplicationProvider.getApplicationContext().getText(R.string.ime_name),
+                GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
         Assert.assertEquals(4, latestAlertDialog.getListView().getCount());
     }
 

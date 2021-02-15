@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">அனைத்துமென்விசைப்பலகை</string>
     <string name="menu_about_item">பற்றி</string>
     <string name="how_to_pointer_title">அனைத்துமென்விசைப்பலகைக்கு நல்வரவு</string>
     <string name="notification_text_testers">இது பீட்டா பதிப்பு. எச்சரிக்கையுடன் பயன்படுத்துங்கள்!</string>

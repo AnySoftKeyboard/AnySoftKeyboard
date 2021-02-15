@@ -159,7 +159,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
-        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(2, 2);
+        mAnySoftKeyboardUnderTest.moveCursorToPosition(2, true);
         Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
@@ -215,6 +215,35 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDeletesCorrectlyIfPredictingButDelayedPositionUpdate() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping("abcd efgh");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        mAnySoftKeyboardUnderTest.setUpdateSelectionDelay(500);
+        Assert.assertEquals("abcd efgh", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("abcd efg", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("abcd ef", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("abcd e", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("abcd ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("abcd", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("abc", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("ab", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("a", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        // extra
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testSuggestionsRestartWhenBackSpace() {
         simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
@@ -230,8 +259,6 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
             mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
             SystemClock.sleep(5);
         }
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
         verifySuggestions(true, "hell", "hell", "hello");
         Assert.assertEquals(
                 "hell", getCurrentTestInputConnection().getCurrentTextInInputConnection());
@@ -242,15 +269,13 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
-        verifySuggestions(true, "hel", "hell", "hello");
         Assert.assertEquals(
                 "hel", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
         Assert.assertEquals(
                 "hel",
                 mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
+        verifySuggestions(true, "hel", "hell", "hello");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('l');
         Assert.assertEquals(
@@ -273,9 +298,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
 
-        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(2, 2);
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        mAnySoftKeyboardUnderTest.moveCursorToPosition(2, true);
         verifySuggestions(true);
         Assert.assertEquals(
                 "", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
@@ -310,21 +333,22 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        getCurrentTestInputConnection().setCongested(true);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1000L);
         mAnySoftKeyboardUnderTest.simulateKeyPress('i');
         Assert.assertEquals(
-                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress('n');
         Assert.assertEquals(
-                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-        getCurrentTestInputConnection().popCongestedAction();
+                "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().executeOnSelectionUpdateEvent();
         Assert.assertEquals(
-                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-        getCurrentTestInputConnection().popCongestedAction();
+                "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        getCurrentTestInputConnection().executeOnSelectionUpdateEvent();
         Assert.assertEquals(
                 "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress('g');
-        getCurrentTestInputConnection().setCongested(false);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1L);
+        Robolectric.flushForegroundThreadScheduler();
         Assert.assertEquals(
                 "going", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
@@ -338,11 +362,12 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        getCurrentTestInputConnection().setCongested(true);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1000L);
         mAnySoftKeyboardUnderTest.simulateTextTyping("ing to work");
-        getCurrentTestInputConnection().popCongestedAction();
+        getCurrentTestInputConnection().executeOnSelectionUpdateEvent();
         mAnySoftKeyboardUnderTest.simulateTextTyping("ing");
-        getCurrentTestInputConnection().setCongested(false);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1L);
+        Robolectric.flushForegroundThreadScheduler();
         Assert.assertEquals(
                 "going to working",
                 getCurrentTestInputConnection().getCurrentTextInInputConnection());
@@ -362,21 +387,35 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        getCurrentTestInputConnection().setCongested(true);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1000L);
         mAnySoftKeyboardUnderTest.simulateKeyPress('i');
         Assert.assertEquals(
-                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress('n');
         Assert.assertEquals(
-                "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
-        getCurrentTestInputConnection().popCongestedAction();
+                "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
         Assert.assertEquals(
-                "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+                "goin", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
+
+        getCurrentTestInputConnection().executeOnSelectionUpdateEvent();
+        Assert.assertEquals(
+                "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(4, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals(
+                "goin", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress('g');
-        getCurrentTestInputConnection().setCongested(false);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1L);
+        Robolectric.flushForegroundThreadScheduler();
         Assert.assertEquals(
                 "going", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+        Assert.assertEquals(
+                "going", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord());
+        Assert.assertEquals(5, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
     }
 
     @Test
@@ -386,7 +425,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("g", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(1, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        getCurrentTestInputConnection().setSendUpdates(false);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1000L);
         mAnySoftKeyboardUnderTest.simulateKeyPress('o');
         Assert.assertEquals(
                 "go", getCurrentTestInputConnection().getCurrentTextInInputConnection());
@@ -396,7 +435,8 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "goi", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(3, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        getCurrentTestInputConnection().setSendUpdates(true);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1L);
+        Robolectric.flushForegroundThreadScheduler();
         mAnySoftKeyboardUnderTest.simulateKeyPress('n');
         Assert.assertEquals(
                 "goin", getCurrentTestInputConnection().getCurrentTextInInputConnection());
@@ -406,7 +446,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                 "going", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        getCurrentTestInputConnection().setSendUpdates(false);
+        getCurrentTestInputConnection().setUpdateSelectionDelay(1000L);
         mAnySoftKeyboardUnderTest.simulateKeyPress('g');
         Assert.assertEquals(
                 "goingg", getCurrentTestInputConnection().getCurrentTextInInputConnection());

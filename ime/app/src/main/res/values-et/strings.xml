@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Jälitamine algas!\nVeenduge, et peatate selle mingil hetkel</string>
     <string name="debug_tracing_starting_failed">Jälitamise alustamine ebaõnnestus! Uurige logcat\'i
         detailideks.

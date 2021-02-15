@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Sekimas pradėtas!\nBūtinai sustabdykite kuriuo nors momentu</string>
     <string name="debug_tracing_starting_failed">Nepavyko pradėti sekimo! Išsamesnę informaciją rasite logcat.</string>
     <string name="debug_tracing_finished">Sekimas baigtas!\nSekimo failas yra
@@ -11,7 +10,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Paskutiniai pakeitimai versijai<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Daugiau:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Tai yra beta versija. Naudokitės apdairiai!</string>
     <string name="testers_version">Testuotojų versija!</string>
     <string name="language_root_tile">Kalba</string>

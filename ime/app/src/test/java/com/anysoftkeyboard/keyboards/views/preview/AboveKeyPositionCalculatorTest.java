@@ -3,7 +3,6 @@ package com.anysoftkeyboard.keyboards.views.preview;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import org.junit.Assert;
@@ -39,9 +38,7 @@ public class AboveKeyPositionCalculatorTest {
 
         int[] offsets = new int[] {50, 60};
 
-        Point result =
-                mUnderTest.calculatePositionForPreview(
-                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result = mUnderTest.calculatePositionForPreview(mTestKey, mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + offsets[1], result.y);
@@ -53,9 +50,7 @@ public class AboveKeyPositionCalculatorTest {
 
         int[] offsets = new int[] {50, 60};
 
-        Point result =
-                mUnderTest.calculatePositionForPreview(
-                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result = mUnderTest.calculatePositionForPreview(mTestKey, mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + mTestKey.height + offsets[1], result.y);
@@ -78,9 +73,7 @@ public class AboveKeyPositionCalculatorTest {
 
         int[] offsets = new int[] {50, 60};
 
-        Point result =
-                mUnderTest.calculatePositionForPreview(
-                        mTestKey, Mockito.mock(View.class), mTheme, offsets);
+        Point result = mUnderTest.calculatePositionForPreview(mTestKey, mTheme, offsets);
 
         Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + offsets[1] + 13 /*padding*/, result.y);

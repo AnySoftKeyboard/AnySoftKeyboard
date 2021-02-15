@@ -27,7 +27,7 @@ git reset --hard HEAD
 ./gradlew --stacktrace tasks
 
 # actual static-analysis
-./gradlew --stacktrace lintDebug checkstyleMain --continue
+./gradlew --stacktrace checkstyleMain --continue
 
 #see https://github.com/actions/cache/issues/133
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

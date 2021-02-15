@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Dewindagol fuɗɗiima!\nƳeew dartinde ɗum ɗoo e yeeso</string>
     <string name="menu_about_item">Baɗte</string>
     <string name="how_to_pointer_title">A jaɓɓaama e AnySoftKeyboard</string>
@@ -12,6 +11,8 @@
     <!-- changelog -->
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
+    <string name="voice_input_not_installed_action_install">Aaf</string>
+    <string name="voice_input_not_installed_action_do_not_install">Ala</string>
     <!-- Options menu -->
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->

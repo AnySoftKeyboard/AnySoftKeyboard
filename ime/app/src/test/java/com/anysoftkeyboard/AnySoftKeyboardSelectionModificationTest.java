@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,19 +11,23 @@ public class AnySoftKeyboardSelectionModificationTest extends AnySoftKeyboardBas
 
     @Test
     public void testCapitalizeEntireInput() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "THIS SHOULD ALL BE CAPS";
-        inputConnection.commitText(expectedText.toLowerCase(), 1);
-        inputConnection.setSelection(0, expectedText.length());
+        final String initialText = expectedText.toLowerCase(Locale.ENGLISH);
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+        Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.setSelectedText(0, expectedText.length(), true);
+        Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals(expectedText, inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals(expectedText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(
+                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals(
-                expectedText.toLowerCase(), inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
@@ -37,144 +42,136 @@ public class AnySoftKeyboardSelectionModificationTest extends AnySoftKeyboardBas
 
     @Test
     public void testCapitalizeSingleWord() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String inputText = "this SHOULD not all be caps";
-        inputConnection.commitText(inputText.toLowerCase(), 1);
-        inputConnection.setSelection("this ".length(), "this should".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
+        mAnySoftKeyboardUnderTest.setSelectedText("this ".length(), "this should".length(), true);
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("SHOULD", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("SHOULD", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("should", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     public void testCapitalizeSingleLetter() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String inputText = "this shOuld not all be caps";
-        inputConnection.commitText(inputText.toLowerCase(), 1);
-        inputConnection.setSelection("this sh".length(), "this sho".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
+        mAnySoftKeyboardUnderTest.setSelectedText("this sh".length(), "this sho".length(), true);
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("O", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("O", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("o", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("o", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     public void testCapitalizeMixedCaseWord() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String inputText = "this sHoUlD not all be caps";
-        inputConnection.commitText(inputText.toLowerCase(), 1);
-        inputConnection.setSelection("this ".length(), "this should".length());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
+        mAnySoftKeyboardUnderTest.setSelectedText("this ".length(), "this should".length(), true);
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("SHOULD", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("SHOULD", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("should", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     }
 
     @Test
     public void testWrapWithSpecials() {
-        TestInputConnection inputConnection =
-                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String inputText = "not this but this is quoted not this";
-        inputConnection.commitText(inputText.toLowerCase(), 1);
-        inputConnection.setSelection(
-                "not this but ".length(), "not this but this is quoted".length());
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
+        mAnySoftKeyboardUnderTest.setSelectedText(
+                "not this but ".length(), "not this but this is quoted".length(), true);
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('\"');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"this is quoted\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'this is quoted'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('-');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-this is quoted-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('_');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_this is quoted_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('*');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*this is quoted*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('`');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`this is quoted`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('~');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~this is quoted~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         // special case () [] {}
         mAnySoftKeyboardUnderTest.simulateKeyPress('(');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(this is quoted)~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(')');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~((this is quoted))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress('[');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(([this is quoted]))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(']');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(([[this is quoted]]))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress('{');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(([[{this is quoted}]]))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress('}');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(([[{{this is quoted}}]]))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress('<');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(([[{{<this is quoted>}}]]))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress('>');
-        Assert.assertEquals("this is quoted", inputConnection.getSelectedText(0).toString());
+        Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
                 "not this but \"'-_*`~(([[{{<<this is quoted>>}}]]))~`*_-'\" not this",
-                inputConnection.getCurrentTextInInputConnection());
+                mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 }

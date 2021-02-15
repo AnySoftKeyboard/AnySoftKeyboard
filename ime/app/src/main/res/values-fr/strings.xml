@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoft Keyboard</string>
     <string name="debug_tracing_starting">Traçage démarré !\nS\'assurer de l\'arrêter à un moment donné</string>
     <string name="debug_tracing_starting_failed">Échec de l\'initialisation du traçage ! Vérifier le journal pour les détails.</string>
     <string name="debug_tracing_finished">Traçage terminé !\nLe fichier de traces est\u0020<xliff:g id="trace_file">%s</xliff:g></string>
@@ -11,7 +10,6 @@
     <string name="change_log_url">Plus :\u0020
         <xliff:g id="url">%s</xliff:g>
     </string>
-    <string name="ime_name_beta">AnySoft Keyboard BÊTA</string>
     <string name="notification_text_testers">Ceci est une version bêta. À utiliser avec prudence !</string>
     <string name="testers_version">Version testeurs !</string>
     <string name="language_root_tile">Langue</string>
@@ -677,6 +675,4 @@
     <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     <string name="codvid_info_url">https://www.who.int/fr/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
-    <string name="beta_pre_purge_action_text">Désinscription du testeur en approche</string>
-    <string name="beta_post_purge_action_text">Désinscription du testeur terminée</string>
 </resources>

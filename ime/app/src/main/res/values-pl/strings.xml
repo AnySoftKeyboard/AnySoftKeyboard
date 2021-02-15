@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="ime_name">AnySoftKeyboard</string>
     <string name="debug_tracing_starting">Śledzenie rozpoczęte! \nZatrzymaj je po jakimś czasie</string>
     <string name="debug_tracing_starting_failed">Inicjacja śledzenia nieudana! Sprawdź szczegóły w logcat.</string>
     <string name="debug_tracing_finished">Śledzenie zakończone!\nŚledzony plik to
@@ -13,7 +12,6 @@
     <string name="change_log_url">Więcej:\u0020
         <xliff:g id="url">%s</xliff:g>
     </string>
-    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
     <string name="testers_version">Wersja dla testerów!</string>
     <string name="language_root_tile">Języki</string>
