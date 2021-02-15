@@ -36,7 +36,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     private static final String XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE =
             "additionalIsLetterExceptions";
     private static final String XML_SENTENCE_SEPARATOR_CHARACTERS_ATTRIBUTE = "sentenceSeparators";
-    private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)]:;";
+    private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)]:;'\"";
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE =
             "physicalKeyboardMappingResId";
     private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
