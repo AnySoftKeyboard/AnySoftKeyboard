@@ -270,7 +270,7 @@
     <string name="use_custom_hint_align_on_summary">Saját pozíció beállítása</string>
     <string name="use_custom_hint_align_off_summary">A téma szerinti pozíció megtartása</string>
     <string name="custom_hint_align">Egyéni vízszintes igazítás</string>
-    <string name="custom_hint_align_summary">Balra, középre vagy jobbra igazítása</string>
+    <string name="custom_hint_align_summary">Balra, középre vagy jobbra igazítás</string>
     <string name="settings_custom_hint_align_dialog_title">Vízszintes igazításának beállítása</string>
     <string-array name="custom_hint_align_types">
         <item>Balra</item>
@@ -293,11 +293,11 @@
     </string>
     <string name="show_keyboard_icon_in_status_bar_off_summary">Nincs állapotsori ikon.</string>
     <string name="is_extesion_keyboard_above_keyboard">Felső kiegészítő billentyűzet</string>
-    <string name="show_settings_app_in_launcher">Beállító alkalmazás</string>
-    <string name="settings_key_show_settings_app_on_summary">A beállító alkalmazás látható lesz az indítóalkalmazásban
+    <string name="show_settings_app_in_launcher">Alkalmazásikon</string>
+    <string name="settings_key_show_settings_app_on_summary">Az alkalmazásikon látható lesz a kezdőlapokon
         (újraindítás szükséges lehet)
     </string>
-    <string name="settings_key_show_settings_app_off_summary">Beállító alkalmazás elrejtése (újraindítás szükséges lehet)</string>
+    <string name="settings_key_show_settings_app_off_summary">Az alkalmazásikon rejtve (újraindítás szükséges lehet)</string>
     <string name="always_hide_language_key">A nyelvválasztó gomb rejtése</string>
     <string name="always_hide_language_key_on_summary">Nincs nyelvválasztó gomb. Gesztussal történő
         váltás továbbra is lehetséges.
@@ -331,7 +331,7 @@
     <string name="insert_space_after_word_suggestion_selection_on_summary">Szóköz a javasolt szó
         kiválasztása után
     </string>
-    <string name="double_space_to_period">Dupla szóköz mondatvég</string>
+    <string name="double_space_to_period">Dupla szóköz: mondatvég</string>
     <string name="double_space_to_period_summary">Dupla szóköz: pont + szóköz</string>
     <string name="tweak_animations_level_title">Animációk</string>
     <string name="tweak_animations_level_summary">Animációk mennyisége. Jelenleg:
