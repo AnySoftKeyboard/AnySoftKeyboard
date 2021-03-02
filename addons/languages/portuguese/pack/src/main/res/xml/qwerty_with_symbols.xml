@@ -33,14 +33,14 @@
         <Key android:codes="y" android:popupCharacters="ýÿ"/>
         <Key android:codes="u" android:popupCharacters="ùúûüŭűūµ"/>
         <Key android:codes="i" android:popupCharacters="ìíîïłīι*"/>
-        <Key android:codes="o" android:popupCharacters="òóôõöøőœō"/>
+        <Key android:codes="o" android:popupCharacters="ºòóôõöøőœō"/>
         <Key android:codes="p" android:popupCharacters="+*`¶þ·×±ʾʿ" ask:hintLabel="+*`" android:keyEdgeFlags="right"/>
         <!-- "+*" would be a separate key on the first row -->
         <!-- "`'" would be a separate key on the first row -->
     </Row>
 
     <Row>
-        <Key android:codes="a" android:popupCharacters="àáâãāäåæą" android:keyEdgeFlags="left"/>
+        <Key android:codes="a" android:popupCharacters="ªàáâãāäåæą" android:keyEdgeFlags="left"/>
         <Key android:codes="s" android:popupCharacters="ßśŝšṣ"/>
         <Key android:codes="d" android:popupCharacters="đďḏ"/>
         <Key android:codes="f"/>
