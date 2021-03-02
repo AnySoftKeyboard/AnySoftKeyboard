@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="menu_about_item">පිලිබඳව</string>
+    <string name="language_root_tile">භාෂාව</string>
     <!-- UI root menu -->
     <!-- welcome -->
     <!-- changelog -->
@@ -29,5 +31,13 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="app_shortcut_keyboards_short_label">යතුරු පුවරු</string>
+    <string name="app_shortcut_themes_short_label">තේමා</string>
+    <string name="bottom_nav_home">ආයුබෝවන්</string>
+    <string name="setup_wizard_welcome_title">සාදරයෙන් පිළිගනිමු!</string>
+    <string name="settings_key_hint_size_small">කුඩා</string>
+    <string name="settings_key_hint_size_normal">සාමාන්‍ය</string>
+    <string name="shared_prefs_provider_name">යෙදුමේ සැකසුම්</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
