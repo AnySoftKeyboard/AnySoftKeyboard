@@ -1,43 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="debug_tracing_starting">Mulai melacak\nPastikan kamu menhentikan ini pada poin tertentu.</string>
+    <string name="debug_tracing_starting_failed">Iniltialisasi penelusuran bermasalah! Periksa logcat untuk         detailnya.
+    </string>
+    <string name="debug_tracing_finished">Pemeriksaan selesai\nFile Trace adalah\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Tentang</string>
     <string name="how_to_pointer_title">Selamat datang di AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Perubahan terbaru untuk v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Lagi::\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="notification_text_testers">Ini masih versi beta. Gunakan dengan waspada.</string>
     <string name="language_root_tile">Bahasa</string>
+    <string name="language_keyboards_settings_tile">Aktifkan keyboard dan bahasa.</string>
+    <string name="language_grammar_settings_tile">Atur pengkoreksi dan kamus lainya.</string>
     <string name="language_tweaks_settings_tile">Setelan lebih lanjut</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">UI</string>
+    <string name="ui_theme_settings_tile">Pilih dan atur tema keyboard.</string>
+    <string name="ui_effects_settings_tile">Efek dan pengalaman keyboard.</string>
     <!-- welcome -->
     <!-- changelog -->
+    <string name="changelog">Catatan Perubahan</string>
+    <string name="search_market_for_addons">Cari add-ons</string>
+    <string name="search_market_for_keyboard_addons">Dapatkan keyboard lainnya di app store</string>
+    <string name="search_market_for_quick_key_addons">Dapatkan lebih <i>Quick-Text</i> tambahan di app store…</string>
+    <string name="no_market_store_available">Tidak dapat menemukan app store pada perangkat anda\nTidak dapat mencari add-ons!</string>
     <string name="keyboard_theme_tweak_group">Setelan lebih lanjut</string>
     <string name="close_button">Tutup</string>
     <string name="delete_button">Hapus</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Simpan:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">Hapus\?</string>
+    <string name="removed_word">Terhapus:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Sentuh lagi untuk menyimpan</string>
+    <string name="hint_double_tap_to_close">Ulang untuk menghapus  saran</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">Voice tidak terpasang</string>
+    <string name="voice_input_not_installed_text">Voice input tidak terpasang di perangkat anda\n:Sangat mudah di atasi:pasang sekarang dari app store.</string>
     <string name="voice_input_not_installed_action_install">Instal</string>
     <string name="voice_input_not_installed_action_do_not_install">Tidak</string>
+    <string name="voice_input_not_voice_pack_in_market">Aku tidak menemukan masukan suara.
+        (com.google.android.voicesearch) di app store.
+Maaf, masukan suara tidak bekerja di perangkat         anda.
+    </string>
     <!-- Options menu -->
+    <string name="change_ime">Ubah metode masukan</string>
+    <string name="override_dictionary">Timpah kamus bawaan</string>
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">Gestur</string>
     <string name="effects_group">Efek</string>
     <string name="ime_settings">Setelan keyboard</string>
     <string name="switch_incognito">Mode penyamaran</string>
     <string name="vibrate_on_key_press_title">Bergetar kala ditekan</string>
     <string name="night_mode_screen">Setelan Mode-Malam</string>
+    <string name="night_mode_description">Mode-Malam akan merubah fitur ini:</string>
     <string name="night_mode_dialog_title">Aktifkan Mode-Malam</string>
     <string name="night_mode_type_never">Tak pernah</string>
+    <string name="night_mode_type_follow_system">Ikuti sistem</string>
     <string name="night_mode_type_always">Selalu</string>
+    <string name="night_mode_sound_control">Tekan suara non-aktif</string>
+    <string name="night_mode_vibration_control">Getar ketika di tekan non-aktif</string>
+    <string name="power_save_mode_screen">Pengaturan hemat baterai </string>
+    <string name="power_save_mode_state_summary">Sekarang, Penghemat-Batrerai memicu:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Meng-aktifkan mode Penghemat-Baterai</string>
     <string name="power_save_mode_types_never">Jangan pernah</string>
     <string name="power_save_mode_types_lower_battery">Saat baterai rendah</string>
     <string name="power_save_mode_types_always">Selalu</string>
     <string name="power_saving_keyboard_theme_name">Tema - mode daya rendah</string>
     <string name="power_saving_keyboard_theme_description">Warna gelap, susunan sederhana yang membutuhkan daya yang lebih sedikit dari perangkat.</string>
+    <string name="power_save_mode_animation_control">Non-aktifkan animasi dan key-previews</string>
     <string name="power_save_mode_sound_control">Nonaktifkan suara tekan tombol</string>
     <string name="power_save_mode_vibration_control">Nonaktifkan getaran tekan tombol</string>
     <string name="power_save_mode_suggestions_control">Nonkatifkan usulan kata </string>
     <string name="power_save_mode_gesture_typing_control">Nonaktifkan Pengetikan-Gestur</string>
     <string name="power_save_mode_theme_control">Ubah ke tema gelap sederhana</string>
+    <string name="pop_text_type_title">Muncul teks yang di ketik dari tombol.</string>
     <string name="pop_text_type_never">Tak pernah</string>
     <string name="pop_text_type_on_correction">Kala koreksi kata</string>
     <string name="pop_text_type_on_word">Atas setiap kata</string>
@@ -45,6 +83,8 @@
     <string name="input_field_type_password">Bidang masukan kata sandi</string>
     <string name="input_field_type_email">Bidang masukkan  surel</string>
     <string name="input_field_type_url">Bidang masukan URL</string>
+    <string name="sound_on">Bunyi ketika di tekan</string>
+    <string name="use_custom_sound_volume">Atur volume</string>
     <string name="vibrate_on_long_press_title">Bergetar kala ditekan lama</string>
     <string name="vibrate_on_long_press_summary_on">Getaran halus terpicu kala menekan lama</string>
     <string name="switch_keyboard_on_space">Tombol spasi menukar keyboard</string>
@@ -57,6 +97,8 @@
     <string name="hide_soft_when_physical_off_summary">Tampilkan keyboard bila pakai papan ketik eksternal</string>
     <string name="enable_alt_space_language_shortcut">Alt + Spasi menukar bahasa</string>
     <string name="enable_shift_space_language_shortcut">Shift + Spasi menukar bahasa</string>
+    <string name="swipe_right_action_title">Pilih aksi geser ke kanan</string>
+    <string name="swipe_right_space_bar_action">Jarak geser kanan</string>
     <string name="swipe_action_name_shift">Shift</string>
     <string name="swipe_action_name_space">Spasi</string>
     <string name="swipe_action_name_hide">Sembunyikan keyboard</string>
