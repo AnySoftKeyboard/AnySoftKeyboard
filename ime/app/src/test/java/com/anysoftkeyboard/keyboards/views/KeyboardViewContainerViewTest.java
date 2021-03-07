@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -220,6 +221,38 @@ public class KeyboardViewContainerViewTest {
         Mockito.verify(provider, Mockito.never()).onRemoved();
         Assert.assertEquals(3, mUnderTest.getChildCount());
         Assert.assertSame(view, mUnderTest.getChildAt(2));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testFailIfViewAddedWithParent() {
+        mUnderTest.setActionsStripVisibility(false);
+        View view = new View(mUnderTest.getContext());
+        // adding parent
+        FrameLayout parent = new FrameLayout(mUnderTest.getContext());
+        parent.addView(view);
+        Assert.assertSame(parent, view.getParent());
+
+        KeyboardViewContainerView.StripActionProvider provider =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        Mockito.doReturn(view).when(provider).inflateActionView(any());
+        // this will fail
+        mUnderTest.addStripAction(provider);
+    }
+
+    @Test
+    public void testDoubleAddViewDoesNotCrash() {
+        mUnderTest.setActionsStripVisibility(false);
+        View view = new View(mUnderTest.getContext());
+        KeyboardViewContainerView.StripActionProvider provider =
+                Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        Mockito.doReturn(view).when(provider).inflateActionView(any());
+
+        mUnderTest.addStripAction(provider);
+        mUnderTest.setActionsStripVisibility(true);
+        mUnderTest.setActionsStripVisibility(true);
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
+        Assert.assertSame(mUnderTest, view.getParent());
     }
 
     @Test
