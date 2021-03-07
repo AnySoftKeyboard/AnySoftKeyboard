@@ -61,13 +61,19 @@ public class RxSharedPrefs {
     }
 
     public Preference<Integer> getInteger(@StringRes int prefKey, @IntegerRes int defaultValue) {
-        return mRxSharedPreferences.getInteger(
-                mResources.getString(prefKey), mResources.getInteger(defaultValue));
+        return getInteger(mResources.getString(prefKey), defaultValue);
+    }
+
+    public Preference<Integer> getInteger(String prefKey, @IntegerRes int defaultValue) {
+        return mRxSharedPreferences.getInteger(prefKey, mResources.getInteger(defaultValue));
     }
 
     public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
-        return mRxSharedPreferences.getString(
-                mResources.getString(prefKey), mResources.getString(defaultValue));
+        return getString(mResources.getString(prefKey), defaultValue);
+    }
+
+    public Preference<String> getString(String prefKey, @StringRes int defaultValue) {
+        return mRxSharedPreferences.getString(prefKey, mResources.getString(defaultValue));
     }
 
     public <T> Observable<T> getParsedString(

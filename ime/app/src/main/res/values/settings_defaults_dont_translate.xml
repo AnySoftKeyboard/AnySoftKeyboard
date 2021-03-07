@@ -133,4 +133,5 @@
     <bool name="settings_default_apply_remote_app_colors">false</bool>
 
     <string name="settings_default_notice_never_before_seen_value">0</string>
+    <integer name="settings_default_notice_never_before_seen_times_value">0</integer>
 </resources>
