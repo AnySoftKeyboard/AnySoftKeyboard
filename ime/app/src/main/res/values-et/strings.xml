@@ -6,15 +6,86 @@
     </string>
     <string name="debug_tracing_finished">Jälitamine õnnestus!\nJälitusfail on\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Meist</string>
+    <string name="how_to_pointer_title">Tere tulemast kasutama AnySoftKeyboard virtuaalset klaviatuuri</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Muudatused versioonis<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Rohkem infot veebis:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">Ettevaatust, kasutate programmi beeta versiooni! </string>
+    <string name="testers_version">Testkasutajate versioon. </string>
+    <string name="language_root_tile">Keel</string>
+    <string name="language_keyboards_settings_tile">Luba klaviatuurid ja keeled. </string>
+    <string name="language_grammar_settings_tile">Seadista õigekirjakontroll ja teised sõnaraamatud. </string>
+    <string name="language_tweaks_settings_tile">Rohkem seadistusi.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">Kasutajaliides</string>
+    <string name="ui_theme_settings_tile">Vali ja seadista klaviatuuri välimus. </string>
+    <string name="ui_effects_settings_tile">Klaviatuuri käitumine. </string>
     <!-- welcome -->
     <!-- changelog -->
+    <string name="changelog">Muudatuste logi</string>
+    <string name="search_market_for_addons">Otsi lisasid</string>
+    <string name="search_market_for_keyboard_addons">Hangi eri keeletoega klaviatuurid rakenduste poest</string>
+    <string name="search_market_for_quick_key_addons">Hangi <i>Quick-Text</i>-i lisad rakenduste poest…</string>
+    <string name="no_market_store_available">Teie seadmesse ei ole paigaldatud rakenduste poodi.\nLisade otsimine nurjus. </string>
+    <string name="close_button">Sulge</string>
+    <string name="delete_button">Kustuta</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Salvestatud sõna:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">Eemalda\?</string>
+    <string name="removed_word">Eemaldatud sõna:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Salvestamiseks puuduta veelkord</string>
+    <string name="hint_double_tap_to_close">Soovituste eemaldamiseks veelkord</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">Helisisend ei ole paigaldatud</string>
+    <string name="voice_input_not_installed_action_install">Paigalda</string>
+    <string name="voice_input_not_installed_action_do_not_install">Ei</string>
     <!-- Options menu -->
+    <string name="change_ime">Vaheta klaviatuuri paigutus</string>
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">Viiped</string>
+    <string name="effects_group">Efektid</string>
+    <string name="ime_settings">Klaviatuuri seaded</string>
+    <string name="vibrate_on_key_press_title">Klahvipuudutusel vibreerib</string>
+    <string name="vibrate_on_key_press_value_template">%d millisekundit</string>
+    <string name="night_mode_screen">Öörežiimi seaded</string>
+    <string name="night_mode_description">Öörežiimile lülitudes, muudetakse järgnevad seaded:</string>
+    <string name="night_mode_state_summary">Öörežiimi pani tööle:\u0020%s</string>
+    <string name="night_mode_dialog_title">Luba öörežiim</string>
+    <string name="night_mode_type_never">Mitte kunagi</string>
+    <string name="night_mode_type_follow_system">Järgi süsteemi</string>
+    <string name="night_mode_type_always">Alati</string>
+    <string name="night_mode_app_night_theme">Darken Settings App UI</string>
+    <string name="night_mode_darken_keyboard_theme">Darken keyboard theme</string>
+    <string name="night_mode_sound_control">Keela klahvipuudutuse helid</string>
+    <string name="night_mode_vibration_control">Keela klahvide vibreerimine puudutusel</string>
+    <string name="power_save_mode_screen">Energiasäästuseaded</string>
+    <string name="power_save_mode_description">AnySoftKeyboardi energiakasutamise vähendamiseks keelatakse energiasäästurežiimil lisavõimalused:</string>
+    <string name="power_save_mode_state_summary">Energiasäästu pani tööle:\u0020%s</string>
+    <string name="one_shot_quick_text_popup">Sulge peale klahvipuudutust</string>
+    <string name="one_shot_quick_text_popup_on_summary">Sulge Quick-Text\'i mull klahvi puudutusel.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Quick-Text\'i mull hoitakse avatuna, kuni vajutate sulgemise klahvi.</string>
+    <string name="hide_soft_when_physical">Füüsilisele nupule vajutades peidetakse klaviatuur</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Tühik vahetab klaviatuuri keelte vahel</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Tühik vahetab keelt</string>
+    <string name="swipe_up_action">Lohista üles</string>
+    <string name="swipe_up_action_summary">Määra tegevus alt üles lohistades. Praegu on, %s
+    </string>
+    <string name="swipe_up_action_title">Vali tegevus üles lohistades </string>
+    <string name="swipe_up_from_spacebar_action">Tühiku pealt üles lohistades</string>
+    <string name="swipe_up_from_spacebar_action_summary">Määra tegevus tühiku pealt üles lohistades. Praegu on, %s</string>
+    <string name="swipe_up_from_spacebar_action_title">Vali tegevus tühiku pealt üles lohistades</string>
+    <string name="swipe_down_action">Lohista alla</string>
+    <string name="swipe_down_action_summary">Määra tegevus alla lohistades. Praegu on, %s</string>
+    <string name="swipe_down_action_title">Vali tegevus alla lohistades</string>
+    <string name="swipe_left_action">Lohista vasakule</string>
+    <string name="swipe_left_action_summary">Määra tegevus vasakule lohistades. Praegu on, %s</string>
+    <string name="swipe_left_action_title">Vali tervitused vasakule lohistades</string>
+    <string name="swipe_right_action">Lohista paremale</string>
+    <string name="swipe_right_action_summary">Määra tegevus paremale lohistades. Praegu on, %s</string>
+    <string name="swipe_right_action_title">Vali tegevus paremale lohistades</string>
+    <string name="swipe_right_space_bar_action">Tühiku pealt paremale lohistades</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
