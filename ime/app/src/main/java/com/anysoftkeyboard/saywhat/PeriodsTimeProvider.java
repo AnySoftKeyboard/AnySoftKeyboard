@@ -40,7 +40,7 @@ class PeriodsTimeProvider implements TimedNoticeHelper.NextTimeProvider {
     }
 
     @Override
-    public long getNextTimeOffset() {
+    public long getNextTimeOffset(int timesShown) {
         final Calendar calendar = mCalendarProvider.getInstance();
         final int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
         if (dayOfYear < mFirstNoticeStart) {
