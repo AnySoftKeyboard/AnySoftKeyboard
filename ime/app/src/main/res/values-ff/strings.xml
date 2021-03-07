@@ -6,11 +6,29 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Bayle cakkitiiɗe e v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="language_root_tile">Ɗemngal</string>
+    <string name="language_keyboards_settings_tile">Hurmin tappirɗe e ɗemɗe.</string>
+    <string name="language_grammar_settings_tile">Teelto no saato yahrata e caggitorɗe goɗɗe.</string>
+    <string name="language_tweaks_settings_tile">Peewtine e geɗe goɗɗe.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">Daartorde</string>
+    <string name="ui_theme_settings_tile">Cuɓagol e teeltagol ciŋkooje tappirɗe.</string>
     <!-- welcome -->
     <!-- changelog -->
+    <string name="search_market_for_addons">Yiylo ɓeyditte</string>
+    <string name="search_market_for_keyboard_addons">Heɓ tappirɗe goɗɗe to <i>Pkay Store</i></string>
+    <string name="search_market_for_quick_key_addons">Heɓ ɓeyditte goɗɗe <i>Binndi Jaawɗi</i> to jeere jaaɓɗe tog…</string>
+    <string name="no_market_store_available">Horiima yiytude Google Play e kaɓirgol maa.\nJiylagol ɓeyditte aaɓnotaako!</string>
+    <string name="keyboard_theme_tweak_group">Peewnite</string>
+    <string name="close_button">Uddu</string>
+    <string name="delete_button">Momtu</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Danndaama:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">Momtu\?</string>
+    <string name="removed_word">Momtaama:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Tappu goɗngol ngam danndude</string>
+    <string name="hint_double_tap_to_close">Kadi ngam momtude basiye</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">Tappide hiro aafaaka</string>
     <string name="voice_input_not_installed_action_install">Aaf</string>
     <string name="voice_input_not_installed_action_do_not_install">Ala</string>
     <!-- Options menu -->
