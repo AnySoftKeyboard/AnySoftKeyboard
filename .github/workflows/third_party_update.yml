@@ -16,14 +16,14 @@ env:
 jobs:
   sanity-test:
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.14.0
+    container: menny/android_base:1.15.1
     steps:
       - uses: actions/checkout@v2
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -59,7 +59,7 @@ jobs:
           labels: automerge
   robolectric-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -94,7 +94,7 @@ jobs:
           labels: automerge
   build-tools-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -128,7 +128,7 @@ jobs:
           labels: automerge
   error-prone-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -170,7 +170,7 @@ jobs:
           labels: automerge
   google-format-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
