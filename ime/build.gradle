@@ -4,9 +4,9 @@ autoVersioning {
     enabled = rootProject.hasProperty("withAutoVersioning")
     buildCounterEnvKey = "BUILD_COUNT_FOR_VERSION"
     major = 1
-    minor = 10
+    minor = 11
     /*adding to build-counter value. Should never change (unless build-counter resets).*/
     buildCounterOffset = 6305
     /*decrementing due to minor, every minor/major bump, this should be decremented*/
-    patchOffset = -5170
+    patchOffset = -5170-1790
 }
