@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="menu_about_item">Հավելվածի մասին</string>
     <string name="how_to_pointer_title">Բարի գալուստ ԷնիՍոֆթՔիբորդ</string>
     <!-- UI root menu -->
     <!-- welcome -->
@@ -8,12 +9,19 @@
     <string name="search_market_for_addons">Որոնել հավելումներ</string>
     <string name="close_button">Փակել</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="revert_added_word_question">Ջնջե՞լ</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_action_do_not_install">Ոչ</string>
     <!-- Options menu -->
     <string name="change_ime">Փոխել գրելու եղանակը</string>
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="night_mode_type_never">Երբեք</string>
+    <string name="night_mode_type_always">Միշտ</string>
+    <string name="power_save_mode_types_always">Միշտ</string>
+    <string name="pop_text_type_never">Երբեք</string>
+    <string name="input_field_type_password">Գաղտնաբառի մուտքային դաշտ</string>
     <string name="swipe_action_name_next_alphabet">Հաջորդ այբենական ստեղնաշար</string>
     <string name="swipe_action_name_next_symbols">Հաջորդ նշանների ստեղնաշար</string>
     <string name="swipe_action_name_hide">Թաքցնել ստեղնաշարը</string>
@@ -84,5 +92,14 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="ime_crashed_send_button">Ուղարկել</string>
+    <string name="visit_our_web_site">Այցելեք մեր վեբ կայքը…</string>
+    <string name="bottom_nav_home">Բարև Ձեզ</string>
+    <string name="setup_wizard_welcome_title">Բարի գալուստ</string>
+    <string name="settings_key_hint_size_small">Փոքր</string>
+    <string name="settings_key_hint_size_normal">Սովորական</string>
+    <string name="settings_key_hint_size_big">Մեծ</string>
+    <string name="gesture_typing_alert_button">Հասկացա</string>
+    <string name="app_share_title">Բարև AnySoftKeyboard֊ից</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
