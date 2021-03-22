@@ -521,6 +521,10 @@ Instalarla ahora desde Play Store.    </string>
     <string name="enter_word_hint">Escriba la nueva palabra aquí</string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
+    <string name="file_explorer_menu_add_folder">Crear carpeta</string>
+    <string name="file_explorer_filename">Nombre de archivo de respaldo...</string>
+    <string name="file_explorer_filename_empty">El nombre de archivo no puede estar vacío...</string>
+    <string name="file_explorer_alert_title">¿Elegir este archivo?</string>
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
     <string name="setup_wizard_step_one_title">Habilitar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En este paso deberá habilitar AnySoftKeyboard. Active <i>\'AnySoftKeyboard\'</i> en la configuración de <i>Idiomas y entradas</i> para permitir que el teclado funcione en el dispositivo.    </string>
@@ -604,6 +608,11 @@ Instalarla ahora desde Play Store.    </string>
     <string name="theme_case_type_override_os">Definido por Android (automático)</string>
     <string name="theme_case_type_override_lower">Siempre mayúsculas</string>
     <string name="theme_case_type_override_upper">Siempre minúsculas</string>
+    <string name="settings_key_hint_size_summary">Tamaño de sugerencias del teclado. Actualmente: %s</string>
+    <string name="settings_key_hint_size_none">Ninguno</string>
+    <string name="settings_key_hint_size_small">Pequeño</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Grande</string>
     <string name="theme_case_type_override_title">Modo de mayúsculas en el teclado</string>
     <string name="theme_case_type_override_summary">Determinar el modo de mayúsculas en el teclado: %s</string>
     <string name="take_a_while_progress_message">Esto puede tardar un poco…</string>
@@ -619,6 +628,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="prefs_providers_backed_up_to">La información se guardó con éxito en %s</string>
     <string name="prefs_providers_failed_restore_due_to">Error al restaurar la información debido a %s</string>
     <string name="prefs_providers_restored_to">La información se restauró con éxito de %s</string>
+    <string name="word_editor_action_choose_path">Elegir ruta personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Filas genéricas establecidas por los teclados</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usar siempre filas genéricas elegidas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Dejar que las distribuciones de teclados sobrescriban las filas genéricas.</string>
