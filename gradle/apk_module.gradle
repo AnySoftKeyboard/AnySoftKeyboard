@@ -81,15 +81,22 @@ android {
 if (project.ext.shouldBePublished) {
     project.apply plugin: 'com.github.triplet.play'
 
+    // I hate Gradle!
+    Class<? extends Enum> releaseStatusEnum = play.getClass().classLoader.loadClass("com.github.triplet.gradle.androidpublisher.ReleaseStatus")
+    def releaseStatusEnumInProgress = Enum.valueOf(releaseStatusEnum, 'IN_PROGRESS')
+    def releaseStatusEnumCompleted = Enum.valueOf(releaseStatusEnum, 'COMPLETED')
+    //end-of I hate Gradle!
+
     play {
         // you can promote from command-line by specifying the track to promote to:
         // ./gradlew promoteReleaseArtifact -DdeployChannel=beta -DdeployFraction=1.00
-        track = System.getProperty('deployChannel', 'alpha')
-        userFraction = Double.parseDouble(System.getProperty('deployFraction', '1.0')).doubleValue()
-        if (userFraction < 1.0) {
-            releaseStatus = 'inProgress'
+        track.set(System.getProperty('deployChannel', 'alpha'))
+        double fraction = Double.parseDouble(System.getProperty('deployFraction', '1.0')).doubleValue()
+        userFraction.set(fraction)
+        if (fraction < 1.0) {
+            releaseStatus.set(releaseStatusEnumInProgress)
         } else {
-            releaseStatus = 'completed'
+            releaseStatus.set(releaseStatusEnumCompleted)
         }
         serviceAccountCredentials = file('/tmp/apk_upload_key.json')
 
