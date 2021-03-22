@@ -4,9 +4,11 @@ allprojects {
         supportLibVersion = '25.4.0'
         robolectricVersion = '4.3.1'
 
+        sideBySideNdkVersion = '22.0.7026061'
+
         sdkTargetVersion = 29
         sdkCompileVersion = 29
-        sdkMinimumVersion = 9
+        sdkMinimumVersion = 15
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")
         isGithubAction = 'true' == System.getenv("GITHUB_ACTIONS")
