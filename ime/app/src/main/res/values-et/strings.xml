@@ -27,6 +27,7 @@
     <string name="search_market_for_keyboard_addons">Hangi eri keeletoega klaviatuurid rakenduste poest</string>
     <string name="search_market_for_quick_key_addons">Hangi <i>Quick-Text</i>-i lisad rakenduste poest…</string>
     <string name="no_market_store_available">Teie seadmesse ei ole paigaldatud rakenduste poodi.\nLisade otsimine nurjus. </string>
+    <string name="keyboard_theme_tweak_group">Täiustused</string>
     <string name="close_button">Sulge</string>
     <string name="delete_button">Kustuta</string>
     <!-- Indicates that a word has been added to the dictionary -->
@@ -63,6 +64,18 @@
     <string name="power_save_mode_screen">Energiasäästuseaded</string>
     <string name="power_save_mode_description">AnySoftKeyboardi energiakasutamise vähendamiseks keelatakse energiasäästurežiimil lisavõimalused:</string>
     <string name="power_save_mode_state_summary">Energiasäästu pani tööle:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Luba akusäästmise režiim</string>
+    <string name="power_save_mode_types_never">Mitte kunagi</string>
+    <string name="power_save_mode_types_lower_battery">Madala akutasemega</string>
+    <string name="power_save_mode_types_always">Alati</string>
+    <string name="power_saving_keyboard_theme_name">Akusäästmise režiimi teema </string>
+    <string name="power_saving_keyboard_theme_description">Tumedad värvid ja lihtne välja nägemine võivad vähem akut kurnata.</string>
+    <string name="power_save_mode_animation_control">Keela animatsioonid ja klahvi eelvaated</string>
+    <string name="power_save_mode_sound_control">Keela klahvivajutuse helid</string>
+    <string name="power_save_mode_vibration_control">Keela klahvide vibreerimine puudutusel</string>
+    <string name="power_save_mode_suggestions_control">Keela sõnade soovitused</string>
+    <string name="power_save_mode_gesture_typing_control">Keela žestidega kirjutamine</string>
+    <string name="power_save_mode_theme_control">Vaheta teema tumeda ja lihtsa vastu</string>
     <string name="one_shot_quick_text_popup">Sulge peale klahvipuudutust</string>
     <string name="one_shot_quick_text_popup_on_summary">Sulge Quick-Text\'i mull klahvi puudutusel.</string>
     <string name="one_shot_quick_text_popup_off_summary">Quick-Text\'i mull hoitakse avatuna, kuni vajutate sulgemise klahvi.</string>
