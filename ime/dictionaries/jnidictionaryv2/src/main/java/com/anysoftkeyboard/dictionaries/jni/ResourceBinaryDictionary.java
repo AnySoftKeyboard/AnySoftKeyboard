@@ -75,10 +75,9 @@ public class ResourceBinaryDictionary extends Dictionary {
     public ResourceBinaryDictionary(
             @NonNull CharSequence dictionaryName,
             @NonNull Context originPackageContext,
-            @XmlRes int resId,
-            boolean isDebug) {
+            @XmlRes int resId) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.2", isDebug);
+        CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.2");
         mOriginPackageContext = originPackageContext;
         mDictResId = resId;
     }

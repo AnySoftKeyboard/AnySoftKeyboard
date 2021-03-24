@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- DO NOT TRANSLATE -->
-    <!-- the behavior is fine again -->
-    <bool name="settings_default_allow_suggestions_restart">true</bool>
-
-</resources>

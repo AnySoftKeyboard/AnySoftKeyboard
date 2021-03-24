@@ -35,6 +35,7 @@ allprojects {
     repositories {
         google()
         mavenLocal()
+        gradlePluginPortal()
         maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }

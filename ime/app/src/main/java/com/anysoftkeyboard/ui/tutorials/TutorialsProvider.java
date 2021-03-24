@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -52,10 +51,7 @@ public class TutorialsProvider {
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(context);
             notificationBuilder
-                    .setSmallIcon(
-                            Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-                                    ? R.drawable.notification_icon_beta_version
-                                    : R.drawable.ic_notification_debug_version)
+                    .setSmallIcon(R.drawable.ic_notification_debug_version)
                     .setContentText(context.getText(R.string.notification_text_testers))
                     .setContentTitle(context.getText(R.string.ime_name))
                     .setWhen(System.currentTimeMillis())
