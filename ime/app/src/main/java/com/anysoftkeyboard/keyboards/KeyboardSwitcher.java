@@ -169,9 +169,7 @@ public class KeyboardSwitcher {
                 };
         mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
         // loading saved package-id from prefs
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            loadKeyboardAppMapping();
-        }
+        loadKeyboardAppMapping();
 
         final RxSharedPrefs prefs = AnyApplication.prefs(mContext);
         mDisposable.add(
@@ -932,9 +930,7 @@ public class KeyboardSwitcher {
 
     public void destroy() {
         mDisposable.dispose();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            storeKeyboardByAppMapping();
-        }
+        storeKeyboardByAppMapping();
         flushKeyboardsCache();
         mAlphabetKeyboardIndexByPackageId.clear();
     }

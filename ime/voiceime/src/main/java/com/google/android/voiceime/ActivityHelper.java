@@ -19,7 +19,6 @@ package com.google.android.voiceime;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -75,42 +74,16 @@ public class ActivityHelper extends Activity {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private AlertDialog createResultDialog(final String[] recognitionResults) {
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this);
-        } else {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog_NoActionBar);
-        }
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog_NoActionBar);
 
         builder.setItems(
-                recognitionResults,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        notifyResult(recognitionResults[which]);
-                    }
-                });
+                recognitionResults, (dialog, which) -> notifyResult(recognitionResults[which]));
 
         builder.setCancelable(true);
-        builder.setOnCancelListener(
-                new DialogInterface.OnCancelListener() {
+        builder.setOnCancelListener(dialog -> notifyResult(null));
 
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        notifyResult(null);
-                    }
-                });
-
-        builder.setNeutralButton(
-                android.R.string.cancel,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        notifyResult(null);
-                    }
-                });
+        builder.setNeutralButton(android.R.string.cancel, (dialog, which) -> notifyResult(null));
 
         return builder.create();
     }

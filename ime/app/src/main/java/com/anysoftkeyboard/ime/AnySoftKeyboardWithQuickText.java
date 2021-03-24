@@ -115,7 +115,9 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
 
         if (reshowStandardKeyboard) {
             View standardKeyboardView = (View) getInputView();
-            standardKeyboardView.setVisibility(View.VISIBLE);
+            if (standardKeyboardView != null) {
+                standardKeyboardView.setVisibility(View.VISIBLE);
+            }
         }
 
         QuickTextPagerView quickTextsLayout =

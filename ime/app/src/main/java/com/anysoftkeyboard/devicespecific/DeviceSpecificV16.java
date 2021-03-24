@@ -23,7 +23,7 @@ import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-public class DeviceSpecificV16 extends DeviceSpecificV14 {
+public class DeviceSpecificV16 extends DeviceSpecificV15 {
     @Override
     public String getApiLevel() {
         return "DeviceSpecificV16";
