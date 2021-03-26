@@ -21,10 +21,14 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.PopupWindow;
+
+import com.getkeepsafe.relinker.MissingLibraryException;
 import com.getkeepsafe.relinker.ReLinker;
 
 public class CompatUtils {
+    private static String TAG = "ASK-CompatUtils";
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {
@@ -39,6 +43,38 @@ public class CompatUtils {
 
     public static void loadNativeLibrary(
             @NonNull Context context, @NonNull String library, @NonNull String libraryVersion) {
-        ReLinker.loadLibrary(context, library, libraryVersion);
+        try {
+            ReLinker.loadLibrary(context, library, libraryVersion);
+        } catch (MissingLibraryException e) {
+            Log.e(TAG, "******** Failed relink native library " + library + " ********");
+            Log.e(TAG, "******** Failed relink native library " + library + " ********", e);
+            Log.e(TAG, "******** Failed relink native library " + library + " ********");
+            fallbackLoading(library);
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            fallbackLoading(library);
+        } catch (Throwable t) {
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            Log.e(TAG, "******** Failed to load native library " + library + " ********", t);
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            fallbackLoading(library);
+        }
+    }
+
+    private static void fallbackLoading(String library) {
+        try {
+            Log.w(TAG, "Fallback loading native library " + library);
+            System.loadLibrary(library);
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+        } catch (Throwable t) {
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            Log.e(TAG, "******** Failed to load native library " + library + " ********", t);
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+        }
     }
 }

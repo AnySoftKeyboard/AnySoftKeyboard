@@ -46,7 +46,7 @@ public class BinaryDictionary extends Dictionary {
             @NonNull CharSequence dictionaryName,
             @NonNull AssetFileDescriptor afd) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0");
+        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0.1");
         mAfd = afd;
     }
 
