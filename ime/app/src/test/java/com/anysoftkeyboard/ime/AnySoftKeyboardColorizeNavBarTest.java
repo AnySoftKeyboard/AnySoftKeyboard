@@ -1,19 +1,18 @@
 package com.anysoftkeyboard.ime;
 
+import static org.robolectric.shadow.api.Shadow.directlyOn;
+
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
-
 import androidx.test.core.app.ApplicationProvider;
-
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,8 +28,6 @@ import org.robolectric.shadows.ShadowPhoneWindow;
 import org.robolectric.shadows.ShadowResources;
 import org.robolectric.util.ReflectionHelpers;
 
-import static org.robolectric.shadow.api.Shadow.directlyOn;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @Config(shadows = AnySoftKeyboardColorizeNavBarTest.TestShadowResources.class)
 public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
@@ -39,7 +36,10 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     @Before
     public void setUp() {
-        mMinimumHeight = ApplicationProvider.getApplicationContext().getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
+        mMinimumHeight =
+                ApplicationProvider.getApplicationContext()
+                        .getResources()
+                        .getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
     }
 
     @Test
@@ -83,9 +83,13 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     @Config(sdk = Build.VERSION_CODES.R, shadows = TestShadowPhoneWindow.class)
     public void testHappyPathSdk30() {
         Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
-                .setBottomOffset(0);
-
+                .setBottomOffset(48 /*starts as enabled!*/);
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, false);
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+        simulateOnStartInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+                .setBottomOffset(0);
 
         simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
@@ -149,7 +153,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
         Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
                 .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
-        //ensuring setting padding was not called because of re-starting
+        // ensuring setting padding was not called because of re-starting
         Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
                 .setBottomOffset(0);
         final Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
@@ -281,8 +285,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         static int RES_CONFIG_ID = 19263224;
         static int NAVIGATION_BAR_HEIGHT = 48;
 
-        @RealObject
-        Resources mResources;
+        @RealObject Resources mResources;
 
         @Implementation
         protected int getIdentifier(String name, String defType, String defPackage) {
@@ -395,17 +398,23 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         }
     }
 
-    @Implements(className = "com.android.internal.policy.PhoneWindow", isInAndroidSdk = false,
-            minSdk = Build.VERSION_CODES.R, looseSignatures = true)
+    @Implements(
+            className = "com.android.internal.policy.PhoneWindow",
+            isInAndroidSdk = false,
+            minSdk = Build.VERSION_CODES.R,
+            looseSignatures = true)
     public static class TestShadowPhoneWindow extends ShadowPhoneWindow {
         Boolean decorFitsSystemWindows = null;
-        @RealObject
-        Window mWindows;
+        @RealObject Window mWindows;
 
         @Implementation
         public void setDecorFitsSystemWindows(boolean decorFitsSystemWindows) {
             this.decorFitsSystemWindows = decorFitsSystemWindows;
-            directlyOn(mWindows, Window.class, "setDecorFitsSystemWindows", ReflectionHelpers.ClassParameter.from(boolean.class, decorFitsSystemWindows));
+            directlyOn(
+                    mWindows,
+                    Window.class,
+                    "setDecorFitsSystemWindows",
+                    ReflectionHelpers.ClassParameter.from(boolean.class, decorFitsSystemWindows));
         }
     }
 }

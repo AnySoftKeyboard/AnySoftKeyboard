@@ -9,6 +9,7 @@ import android.database.ContentObserver;
 import android.provider.ContactsContract;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
@@ -43,6 +44,7 @@ public class ContactsDictionaryTest {
 
         mDictionaryUnderTest = new ContactsDictionary(getApplicationContext());
         mDictionaryUnderTest.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
     }
 
     private void setAllowContactsRead(boolean enabled) {
@@ -59,6 +61,7 @@ public class ContactsDictionaryTest {
         setAllowContactsRead(false);
         ContactsDictionary dictionary = new ContactsDictionary(getApplicationContext());
         dictionary.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
     }
 
     @Test
@@ -71,6 +74,7 @@ public class ContactsDictionaryTest {
 
         // now, simulating contacts update
         mProvider.addRow(10, "Hagar Even-Danan", true, 10);
+        TestRxSchedulers.drainAllTasks();
 
         Iterator<String> nextWords = mDictionaryUnderTest.getNextWords("Hagar", 2, 1).iterator();
         Assert.assertTrue(nextWords.hasNext());
@@ -81,6 +85,7 @@ public class ContactsDictionaryTest {
     @Test
     public void testCloseUnregisterObserver() {
         mDictionaryUnderTest.close();
+        TestRxSchedulers.drainAllTasks();
         ShadowContentResolver shadowContentResolver =
                 Shadows.shadowOf(getApplicationContext().getContentResolver());
         Assert.assertEquals(
@@ -93,12 +98,14 @@ public class ContactsDictionaryTest {
     @Test
     public void testDeleteWordFromStorageDoesNotHaveEffect() throws Exception {
         mDictionaryUnderTest.deleteWordFromStorage("Menny");
+        TestRxSchedulers.drainAllTasks();
         Assert.assertTrue(mDictionaryUnderTest.isValidWord("Menny"));
     }
 
     @Test
     public void testAddWordToStorageDoesNotHaveEffect() throws Exception {
         mDictionaryUnderTest.addWordToStorage("aword", 126);
+        TestRxSchedulers.drainAllTasks();
         Assert.assertFalse(mDictionaryUnderTest.isValidWord("aword"));
     }
 
@@ -174,6 +181,7 @@ public class ContactsDictionaryTest {
 
         public void addRow(int id, String name, boolean starred, int timesContacted) {
             addRow(id, name, starred, timesContacted, true);
+            TestRxSchedulers.drainAllTasks();
         }
 
         public void addRow(
@@ -185,6 +193,7 @@ public class ContactsDictionaryTest {
             contentValues.put(Contacts.TIMES_CONTACTED, timesContacted);
             contentValues.put(Contacts.IN_VISIBLE_GROUP, visible ? 1 : 0);
             insert(ContactsContract.Contacts.CONTENT_URI, contentValues);
+            TestRxSchedulers.drainAllTasks();
         }
     }
 }

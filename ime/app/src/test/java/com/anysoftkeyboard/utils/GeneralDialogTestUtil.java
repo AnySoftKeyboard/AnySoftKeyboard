@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import io.reactivex.Observable;
 import net.evendanan.pixel.GeneralDialogController;
 import org.mockito.Mockito;
@@ -15,23 +16,27 @@ public class GeneralDialogTestUtil {
     public static final AlertDialog NO_DIALOG = Mockito.mock(AlertDialog.class);
 
     public static AlertDialog getLatestShownDialog() {
+        TestRxSchedulers.drainAllTasks();
         return (AlertDialog)
-                Observable.fromIterable(ShadowDialog.getShownDialogs())
-                        .filter(dialog -> dialog instanceof AlertDialog)
-                        .filter(Dialog::isShowing)
-                        .filter(
-                                dialog ->
-                                        GeneralDialogController.TAG_VALUE.equals(
-                                                dialog.getWindow()
-                                                        .getDecorView()
-                                                        .getTag(GeneralDialogController.TAG_ID)))
-                        .last(NO_DIALOG)
-                        .blockingGet();
+                TestRxSchedulers.blockingGet(
+                        Observable.fromIterable(ShadowDialog.getShownDialogs())
+                                .filter(dialog -> dialog instanceof AlertDialog)
+                                .filter(Dialog::isShowing)
+                                .filter(
+                                        dialog ->
+                                                GeneralDialogController.TAG_VALUE.equals(
+                                                        dialog.getWindow()
+                                                                .getDecorView()
+                                                                .getTag(
+                                                                        GeneralDialogController
+                                                                                .TAG_ID)))
+                                .last(NO_DIALOG));
     }
 
     public static CharSequence getTitleFromDialog(@NonNull Dialog dialog) {
         if (dialog instanceof AlertDialog) {
-            return ((TextView) dialog.findViewById(net.evendanan.pixel.R.id.alertTitle)).getText();
+            return ((TextView) dialog.findViewById(android.support.v7.appcompat.R.id.alertTitle))
+                    .getText();
         } else {
             return Shadows.shadowOf(dialog).getTitle();
         }

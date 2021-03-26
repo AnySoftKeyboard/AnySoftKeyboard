@@ -23,6 +23,7 @@ import android.content.pm.ResolveInfo;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.inputmethod.ExtractedText;
@@ -69,7 +70,7 @@ class IntentApiTrigger implements Trigger {
         mUpperCaseChars.add('?');
         mUpperCaseChars.add('\n');
 
-        mHandler = new Handler();
+        mHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override

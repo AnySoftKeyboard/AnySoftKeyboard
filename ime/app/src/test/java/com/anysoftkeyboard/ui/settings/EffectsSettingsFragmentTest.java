@@ -5,11 +5,11 @@ import android.support.v4.app.Fragment;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class EffectsSettingsFragmentTest
@@ -27,7 +27,7 @@ public class EffectsSettingsFragmentTest
 
         ViewTestUtils.performClick(fragment.findPreference("settings_key_power_save_mode"));
 
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         final Fragment next =
                 fragment.getActivity()
                         .getSupportFragmentManager()

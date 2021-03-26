@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,7 +43,7 @@ public class TestInputConnection extends BaseInputConnection {
         super(new TextView(ime.getApplicationContext()), false);
         mIme = ime;
         mDelayer =
-                new Handler() {
+                new Handler(Looper.getMainLooper()) {
                     @Override
                     public void handleMessage(@NonNull Message msg) {
                         if (msg.what == DELAYED_SELECTION_UPDATE_MSG_ID) {

@@ -11,6 +11,7 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
@@ -70,6 +71,7 @@ public class AnyPopupKeyboardTest {
 
     @Test
     @Config(sdk = Build.VERSION_CODES.N)
+    @Ignore("till https://github.com/robolectric/robolectric/pull/6456 is merged")
     public void testKeyboardSwitchesSkinTone() throws Exception {
         AnyPopupKeyboard keyboardWithGeneric =
                 createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
@@ -92,6 +94,7 @@ public class AnyPopupKeyboardTest {
 
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
+    @Ignore("till https://github.com/robolectric/robolectric/pull/6456 is merged")
     public void testHidesKeysWithNoGlyph() throws Exception {
         AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
 

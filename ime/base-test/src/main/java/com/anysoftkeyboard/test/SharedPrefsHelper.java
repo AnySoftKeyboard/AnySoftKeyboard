@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 
 public class SharedPrefsHelper {
     public static SharedPreferences setPrefsValue(@StringRes int keyRes, String value) {
@@ -34,6 +35,7 @@ public class SharedPrefsHelper {
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().putBoolean(key, value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        TestRxSchedulers.foregroundFlushAllJobs();
         return preferences;
     }
 

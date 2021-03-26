@@ -10,6 +10,7 @@ import android.support.v7.preference.PreferenceManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class SlidePreferenceTest {
                 .add(R.id.root_test_fragment, mTestPrefFragment, "test_fragment")
                 .commit();
 
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         mTestSlide = (SlidePreference) mTestPrefFragment.findPreference("test_slide");
         Assert.assertNotNull(mTestSlide);

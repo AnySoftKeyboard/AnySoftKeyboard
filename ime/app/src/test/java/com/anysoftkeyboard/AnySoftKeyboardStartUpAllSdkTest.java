@@ -18,7 +18,7 @@ public abstract class AnySoftKeyboardStartUpAllSdkTest extends AnySoftKeyboardBa
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         simulateFinishInputFlow();
 

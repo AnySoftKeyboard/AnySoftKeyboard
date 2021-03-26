@@ -23,7 +23,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.PopupWindow;
-
 import com.getkeepsafe.relinker.MissingLibraryException;
 import com.getkeepsafe.relinker.ReLinker;
 
@@ -71,10 +70,14 @@ public class CompatUtils {
             Log.e(TAG, "******** Could not load native library " + library + " ********");
             Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
             Log.e(TAG, "******** Could not load native library " + library + " ********");
+            // we are going to fail down the line anyway - better fail now
+            throw ule;
         } catch (Throwable t) {
             Log.e(TAG, "******** Failed to load native library " + library + " ********");
             Log.e(TAG, "******** Failed to load native library " + library + " ********", t);
             Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            // we are going to fail down the line anyway - better fail now
+            throw t;
         }
     }
 }

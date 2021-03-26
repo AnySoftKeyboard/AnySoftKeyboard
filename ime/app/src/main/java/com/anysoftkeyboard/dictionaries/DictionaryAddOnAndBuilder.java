@@ -128,7 +128,9 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
                     getPackageContext(),
                     getName(),
                     getPackageContext().getAssets().openFd(mAssetsFilename));
-        else return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId);
+        else {
+            return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId);
+        }
     }
 
     @Nullable

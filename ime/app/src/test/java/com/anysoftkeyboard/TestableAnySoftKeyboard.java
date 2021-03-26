@@ -7,7 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -21,6 +20,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
@@ -40,14 +40,12 @@ import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.remote.RemoteInsertion;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.Assert;
 import org.mockito.MockingDetails;
 import org.mockito.Mockito;
@@ -56,7 +54,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     // Same as suggestions delay, so we'll get them after typing for verification
     public static final long DELAY_BETWEEN_TYPING = GET_SUGGESTIONS_DELAY + 1;
 
-    private Suggest mSpiedSuggest;
     private TestableKeyboardSwitcher mTestableKeyboardSwitcher;
     private AnyKeyboardView mSpiedKeyboardView;
     private EditorInfo mEditorInfo;
@@ -77,6 +74,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private RemoteInsertion mRemoteInsertion;
     private InputContentInfoCompat mInputContentInfo;
 
+    private long mDelayBetweenTyping = DELAY_BETWEEN_TYPING;
+
     public static EditorInfo createEditorInfoTextWithSuggestions() {
         return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
     }
@@ -88,6 +87,17 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         editorInfo.inputType = inputType;
 
         return editorInfo;
+    }
+
+    @Nullable
+    public static Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
+        for (Keyboard.Key aKey : keyboard.getKeys()) {
+            if (aKey.getPrimaryCode() == keyCode) {
+                return aKey;
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -118,6 +128,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         mInputConnection.setUpdateSelectionDelay(delay);
     }
 
+    public void setDelayBetweenTyping(long delay) {
+        mDelayBetweenTyping = delay;
+    }
+
     @Override
     protected RemoteInsertion createRemoteInsertion() {
         return mRemoteInsertion;
@@ -139,23 +153,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public AnySoftKeyboardClipboard.ClipboardStripActionProvider getClipboardStripActionProvider() {
         return mSuggestionClipboardEntry;
-    }
-
-    // Needs this since we want to use Mockito.spy, which gets the class at runtime
-    // and creates a stub for it, which will create an additional real instance
-    // of super.createOverlayDataCreator(), and confuses everyone.
-    private static class OverlayCreatorForSpy implements OverlyDataCreator {
-
-        private final OverlyDataCreator mOriginalOverlayDataCreator;
-
-        public OverlayCreatorForSpy(OverlyDataCreator originalOverlayDataCreator) {
-            mOriginalOverlayDataCreator = originalOverlayDataCreator;
-        }
-
-        @Override
-        public OverlayData createOverlayData(ComponentName remoteApp) {
-            return mOriginalOverlayDataCreator.createOverlayData(remoteApp);
-        }
     }
 
     public OverlyDataCreator getMockOverlayDataCreator() {
@@ -181,8 +178,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mSpiedInputMethodManager;
     }
 
-    public Suggest getSpiedSuggest() {
-        return mSpiedSuggest;
+    @VisibleForTesting
+    @NonNull
+    @Override
+    public Suggest getSuggest() {
+        return super.getSuggest();
     }
 
     public CandidateView getMockCandidateView() {
@@ -196,8 +196,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @NonNull
     @Override
     protected Suggest createSuggest() {
-        Assert.assertNull(mSpiedSuggest);
-        return mSpiedSuggest = Mockito.spy(new TestableSuggest(this));
+        return Mockito.spy(new TestableSuggest(super.createSuggest()));
     }
 
     // MAGIC: now it is visible for tests
@@ -355,7 +354,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             }
         } else {
             onText(null, text);
-            if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
+            if (advanceTime) TestRxSchedulers.foregroundAdvanceBy(mDelayBetweenTyping);
         }
     }
 
@@ -395,18 +394,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             onKey(primaryCode, null, 0, new int[0], true);
         }
         onRelease(primaryCode);
-        if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
-    }
-
-    @Nullable
-    public static Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
-        for (Keyboard.Key aKey : keyboard.getKeys()) {
-            if (aKey.getPrimaryCode() == keyCode) {
-                return aKey;
-            }
+        if (advanceTime) {
+            TestRxSchedulers.foregroundAdvanceBy(mDelayBetweenTyping);
+            TestRxSchedulers.backgroundRunOneJob();
         }
-
-        return null;
     }
 
     @Nullable
@@ -451,12 +442,12 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public void setSelectedText(int begin, int end, boolean advanceTime) {
         mInputConnection.setSelection(begin, end);
-        if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
+        if (advanceTime) TestRxSchedulers.foregroundAdvanceBy(10 * ONE_FRAME_DELAY + 1);
     }
 
     public void onText(Keyboard.Key key, CharSequence text, boolean advanceTime) {
         super.onText(key, text);
-        if (advanceTime) SystemClock.sleep(DELAY_BETWEEN_TYPING);
+        if (advanceTime) TestRxSchedulers.foregroundAdvanceBy(mDelayBetweenTyping);
     }
 
     @Override
@@ -558,59 +549,71 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
     }
 
-    public static class TestableSuggest extends Suggest {
+    // Needs this since we want to use Mockito.spy, which gets the class at runtime
+    // and creates a stub for it, which will create an additional real instance
+    // of super.createOverlayDataCreator(), and confuses everyone.
+    private static class OverlayCreatorForSpy implements OverlyDataCreator {
 
-        private final Map<String, List<CharSequence>> mDefinedWords = new HashMap<>();
-        private boolean mHasMinimalCorrection;
-        private boolean mEnabledSuggestions;
+        private final OverlyDataCreator mOriginalOverlayDataCreator;
 
-        public TestableSuggest(Context context) {
-            super(context);
-        }
-
-        public void setSuggestionsForWord(String word, CharSequence... suggestions) {
-            mDefinedWords.put(word.toLowerCase(), Arrays.asList(suggestions));
+        public OverlayCreatorForSpy(OverlyDataCreator originalOverlayDataCreator) {
+            mOriginalOverlayDataCreator = originalOverlayDataCreator;
         }
 
         @Override
-        public void setCorrectionMode(
-                boolean enabledSuggestions,
-                int maxLengthDiff,
-                int maxDistance,
-                int minimumWorLength) {
-            super.setCorrectionMode(
-                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
-            mEnabledSuggestions = enabledSuggestions;
-        }
-
-        @Override
-        public List<CharSequence> getSuggestions(
-                WordComposer wordComposer, boolean includeTypedWordIfValid) {
-            if (!mEnabledSuggestions) return Collections.emptyList();
-
-            if (wordComposer.isAtTagsSearchState()) {
-                return super.getSuggestions(wordComposer, includeTypedWordIfValid);
-            }
-
-            String word = wordComposer.getTypedWord().toString().toLowerCase();
-
-            ArrayList<CharSequence> suggestions = new ArrayList<>();
-            suggestions.add(wordComposer.getTypedWord());
-            if (mDefinedWords.containsKey(word)) {
-                suggestions.addAll(mDefinedWords.get(word));
-                mHasMinimalCorrection = true;
-            } else {
-                mHasMinimalCorrection = false;
-            }
-
-            return suggestions;
-        }
-
-        @Override
-        public boolean hasMinimalCorrection() {
-            return mHasMinimalCorrection;
+        public OverlayData createOverlayData(ComponentName remoteApp) {
+            return mOriginalOverlayDataCreator.createOverlayData(remoteApp);
         }
     }
+
+    //    public static class TestableSuggest extends Suggest {
+    //
+    //        private boolean mHasMinimalCorrection;
+    //        private boolean mEnabledSuggestions;
+    //
+    //        public TestableSuggest(Context context) {
+    //            super(context);
+    //        }
+    //
+    //        @Override
+    //        public void setCorrectionMode(
+    //                boolean enabledSuggestions,
+    //                int maxLengthDiff,
+    //                int maxDistance,
+    //                int minimumWorLength) {
+    //            super.setCorrectionMode(
+    //                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
+    //            mEnabledSuggestions = enabledSuggestions;
+    //        }
+    //
+    //        @Override
+    //        public List<CharSequence> getSuggestions(
+    //                WordComposer wordComposer, boolean includeTypedWordIfValid) {
+    //            if (!mEnabledSuggestions) return Collections.emptyList();
+    //
+    //            if (wordComposer.isAtTagsSearchState()) {
+    //                return super.getSuggestions(wordComposer, includeTypedWordIfValid);
+    //            }
+    //
+    //            String word = wordComposer.getTypedWord().toString().toLowerCase();
+    //
+    //            ArrayList<CharSequence> suggestions = new ArrayList<>();
+    //            suggestions.add(wordComposer.getTypedWord());
+    //            if (mDefinedWords.containsKey(word)) {
+    //                suggestions.addAll(mDefinedWords.get(word));
+    //                mHasMinimalCorrection = true;
+    //            } else {
+    //                mHasMinimalCorrection = false;
+    //            }
+    //
+    //            return suggestions;
+    //        }
+    //
+    //        @Override
+    //        public boolean hasMinimalCorrection() {
+    //            return mHasMinimalCorrection;
+    //        }
+    //    }
 
     public static class TestableKeyboardSwitcher extends KeyboardSwitcher {
 
@@ -692,6 +695,110 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         public List<AnyKeyboard> getCachedSymbolsKeyboards() {
             return Collections.unmodifiableList(Arrays.asList(mSymbolsKeyboardsArray));
+        }
+    }
+
+    // I need this class, so the Mockito.spy will not mess with internal state of SuggestImpl
+    private static class TestableSuggest implements Suggest {
+
+        private final Suggest mDelegate;
+
+        private TestableSuggest(Suggest delegate) {
+            mDelegate = delegate;
+        }
+
+        @Override
+        public void setCorrectionMode(
+                boolean enabledSuggestions,
+                int maxLengthDiff,
+                int maxDistance,
+                int minimumWorLength) {
+            mDelegate.setCorrectionMode(
+                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
+        }
+
+        @Override
+        public boolean isSuggestionsEnabled() {
+            return mDelegate.isSuggestionsEnabled();
+        }
+
+        @Override
+        public void closeDictionaries() {
+            mDelegate.closeDictionaries();
+        }
+
+        @Override
+        public void setupSuggestionsForKeyboard(
+                @NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders,
+                @NonNull DictionaryBackgroundLoader.Listener cb) {
+            mDelegate.setupSuggestionsForKeyboard(dictionaryBuilders, cb);
+        }
+
+        @Override
+        public void setMaxSuggestions(int maxSuggestions) {
+            mDelegate.setMaxSuggestions(maxSuggestions);
+        }
+
+        @Override
+        public void resetNextWordSentence() {
+            mDelegate.resetNextWordSentence();
+        }
+
+        @Override
+        public List<CharSequence> getNextSuggestions(
+                CharSequence previousWord, boolean inAllUpperCaseState) {
+            return mDelegate.getNextSuggestions(previousWord, inAllUpperCaseState);
+        }
+
+        @Override
+        public List<CharSequence> getSuggestions(
+                WordComposer wordComposer, boolean includeTypedWordIfValid) {
+            return mDelegate.getSuggestions(wordComposer, includeTypedWordIfValid);
+        }
+
+        @Override
+        public boolean hasMinimalCorrection() {
+            return mDelegate.hasMinimalCorrection();
+        }
+
+        @Override
+        public boolean isValidWord(CharSequence word) {
+            return mDelegate.isValidWord(word);
+        }
+
+        @Override
+        public boolean addWordToUserDictionary(String word) {
+            return mDelegate.addWordToUserDictionary(word);
+        }
+
+        @Override
+        public void removeWordFromUserDictionary(String word) {
+            mDelegate.removeWordFromUserDictionary(word);
+        }
+
+        @Override
+        public void setTagsSearcher(@NonNull TagsExtractor extractor) {
+            mDelegate.setTagsSearcher(extractor);
+        }
+
+        @Override
+        public boolean tryToLearnNewWord(CharSequence newWord, AdditionType additionType) {
+            return mDelegate.tryToLearnNewWord(newWord, additionType);
+        }
+
+        @Override
+        public void setIncognitoMode(boolean incognitoMode) {
+            mDelegate.setIncognitoMode(incognitoMode);
+        }
+
+        @Override
+        public boolean isIncognitoMode() {
+            return mDelegate.isIncognitoMode();
+        }
+
+        @Override
+        public void destroy() {
+            mDelegate.destroy();
         }
     }
 }

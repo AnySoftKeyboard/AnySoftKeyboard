@@ -4,16 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 /** Driver for a Fragment unit-tests */
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+@LooperMode(LooperMode.Mode.LEGACY)
 public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
     private SupportFragmentController<T> mFragmentController;
@@ -49,14 +51,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     }
 
     protected void ensureAllScheduledJobsAreDone() {
-        int maxLoops = 20; // sometimes there is a re-added task. Animation?
-        while (maxLoops > 0
-                && (Robolectric.getForegroundThreadScheduler().size() > 0
-                        || Robolectric.getBackgroundThreadScheduler().size() > 0)) {
-            Robolectric.flushBackgroundThreadScheduler();
-            Robolectric.flushForegroundThreadScheduler();
-            maxLoops--;
-        }
+        TestRxSchedulers.drainAllTasks();
     }
     /*Ahead are some basic tests we can run regardless*/
 

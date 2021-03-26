@@ -18,6 +18,7 @@ package com.menny.android.anysoftkeyboard;
 
 import android.content.ComponentName;
 import android.os.Handler;
+import android.os.Looper;
 import com.anysoftkeyboard.saywhat.PublicNotices;
 
 /*
@@ -40,7 +41,7 @@ public class SoftKeyboard extends PublicNotices {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (DELAY_SELECTION_UPDATES) mDelayer = new Handler();
+        if (DELAY_SELECTION_UPDATES) mDelayer = new Handler(Looper.getMainLooper());
     }
 
     @Override
