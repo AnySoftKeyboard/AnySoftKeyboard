@@ -1,17 +1,12 @@
 package com.anysoftkeyboard.ime;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.saywhat.PublicNotices;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
-import java.io.File;
-import java.net.URL;
-import java.util.Collections;
-import java.util.Locale;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,42 +16,32 @@ public class AnySoftKeyboardExtendingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testAnySoftKeyboardClassHierarchy() throws Exception {
-        final String imePackage = "com.anysoftkeyboard.ime";
         final Set<Class<?>> allPossibleClasses =
-                Collections.list(
-                                SoftKeyboard.class
-                                        .getClassLoader()
-                                        .getResources(imePackage.replace('.', '/')))
-                        .stream()
-                        .map(URL::getFile)
-                        .map(File::new)
-                        .filter(File::isDirectory)
-                        .map(File::list)
-                        .flatMap(Stream::of)
-                        .filter(fileName -> fileName.endsWith(".class"))
-                        .filter(name -> !name.contains("Test"))
-                        .filter(name -> !name.contains("$"))
-                        .filter(name -> name.contains("AnySoftKeyboard"))
-                        .map(
-                                fileName ->
-                                        fileName.substring(
-                                                0, fileName.length() - ".class".length()))
-                        .map(className -> String.format(Locale.US, "%s.%s", imePackage, className))
-                        .map(
-                                fullClassName -> {
-                                    try {
-                                        return Class.forName(
-                                                fullClassName,
-                                                true,
-                                                SoftKeyboard.class.getClassLoader());
-                                    } catch (ClassNotFoundException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                })
-                        .collect(Collectors.toSet());
-
-        allPossibleClasses.add(PublicNotices.class);
-        allPossibleClasses.add(AnySoftKeyboard.class);
+                new HashSet<>(
+                        Arrays.asList(
+                                com.anysoftkeyboard.ime.AnySoftKeyboardBase.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardClipboard.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardMediaInsertion.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardNightMode.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardPowerSaving.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardPressEffects.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardColorizeNavBar.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardSwipeListener.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardThemeOverlay.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardHardware.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardIncognito.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardDialogProvider.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardPopText.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardRxPrefs.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardSwitchedListener
+                                        .class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardService.class,
+                                com.anysoftkeyboard.saywhat.PublicNotices.class,
+                                com.anysoftkeyboard.AnySoftKeyboard.class));
 
         Class<?> superclass = SoftKeyboard.class.getSuperclass();
         Assert.assertNotNull(superclass);

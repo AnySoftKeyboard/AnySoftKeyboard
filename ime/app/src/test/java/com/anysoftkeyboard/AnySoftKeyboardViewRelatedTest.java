@@ -48,16 +48,17 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
 
         AlertDialog latestShownDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        // should be 🕵
         Assert.assertEquals(
-                "\uD83D\uDD75️ Incognito Mode",
+                "\uFFFD\uFFFD️ Incognito Mode",
                 latestShownDialog.getListView().getAdapter().getItem(3));
 
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSuggest().isIncognitoMode());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
 
         Shadows.shadowOf(latestShownDialog.getListView()).performItemClick(3);
 
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSuggest().isIncognitoMode());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
         ViewTestUtils.assertCurrentWatermarkHasDrawable(
                 mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
@@ -68,7 +69,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         latestShownDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Shadows.shadowOf(latestShownDialog.getListView()).performItemClick(3);
 
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSuggest().isIncognitoMode());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
         ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
                 mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);

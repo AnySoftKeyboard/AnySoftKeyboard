@@ -6,6 +6,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
@@ -13,7 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
 @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
@@ -21,8 +21,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
     @Before
     public void setUpTagsLoad() {
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
+        TestRxSchedulers.foregroundFlushAllJobs();
     }
 
     @Test
@@ -80,7 +80,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
                 QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         List suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(134, suggestions.size());
+        Assert.assertEquals(8, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
                 suggestions.get(0));
@@ -105,7 +105,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
                 QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         List suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(134, suggestions.size());
+        Assert.assertEquals(8, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
                 suggestions.get(0));
@@ -113,7 +113,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('c');
         suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(132, suggestions.size());
+        Assert.assertEquals(6, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac",
                 suggestions.get(0));
@@ -122,7 +122,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(134, suggestions.size());
+        Assert.assertEquals(8, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
                 suggestions.get(0));
@@ -130,7 +130,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('c');
         suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(132, suggestions.size());
+        Assert.assertEquals(6, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac",
                 suggestions.get(0));
@@ -148,7 +148,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateTextTyping("face");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(131, suggestions.size());
+        Assert.assertEquals(6, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face",
                 suggestions.get(0));
@@ -171,21 +171,21 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(131, suggestions.size());
+        Assert.assertEquals(6, suggestions.size());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
 
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(131, suggestions.size());
+        Assert.assertEquals(6, suggestions.size());
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(131, suggestions.size());
+        Assert.assertEquals(6, suggestions.size());
     }
 
     @Test
@@ -228,10 +228,10 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
 
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .getNextSuggestions(Mockito.any(CharSequence.class), Mockito.anyBoolean());
     }
 
@@ -240,10 +240,10 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
 
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, ":face");
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .isValidWord(Mockito.any(CharSequence.class));
     }
 

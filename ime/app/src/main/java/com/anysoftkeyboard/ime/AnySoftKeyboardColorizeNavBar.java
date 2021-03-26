@@ -8,7 +8,6 @@ import android.support.annotation.DimenRes;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
@@ -17,10 +16,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
     private static final int NO_ID = 0;
 
-    @DimenRes
-    private int mNavigationBarHeightId = NO_ID;
-    @BoolRes
-    private int mNavigationBarShownId = NO_ID;
+    @DimenRes private int mNavigationBarHeightId = NO_ID;
+    @BoolRes private int mNavigationBarShownId = NO_ID;
     private boolean mPrefsToShow;
 
     private int mNavigationBarMinHeight;
@@ -28,7 +25,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     @Override
     public void onCreate() {
         super.onCreate();
-        mNavigationBarMinHeight = getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
+        mNavigationBarMinHeight =
+                getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mNavigationBarHeightId =
                     getResources().getIdentifier("navigation_bar_height", "dimen", "android");
@@ -43,8 +41,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
             addDisposable(
                     prefs().getBoolean(
-                            R.string.settings_key_colorize_nav_bar,
-                            R.bool.settings_default_colorize_nav_bar)
+                                    R.string.settings_key_colorize_nav_bar,
+                                    R.bool.settings_default_colorize_nav_bar)
                             .asObservable()
                             .subscribe(
                                     val -> mPrefsToShow = val,
@@ -67,7 +65,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mNavigationBarMinHeight = getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
+        mNavigationBarMinHeight =
+                getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
     }
 
     @Override
@@ -85,7 +84,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                             w.setDecorFitsSystemWindows(false);
                         }
-                        getInputViewContainer().setBottomPadding(Math.max(navBarHeight, mNavigationBarMinHeight));
+                        getInputViewContainer()
+                                .setBottomPadding(Math.max(navBarHeight, mNavigationBarMinHeight));
                     } else {
                         Logger.d(
                                 TAG,

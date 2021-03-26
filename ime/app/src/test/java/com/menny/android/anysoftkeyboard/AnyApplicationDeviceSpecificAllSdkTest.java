@@ -65,7 +65,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     DeviceSpecificV24.class,
                     DeviceSpecificV24.class,
                     DeviceSpecificV24.class,
-                    DeviceSpecificV28.class);
+                    DeviceSpecificV28.class,
+                    DeviceSpecificV28.class,
+                    DeviceSpecificV28.class); // 30
 
     private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
             Arrays.asList(
@@ -97,7 +99,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
-                    ClipboardV28.class);
+                    ClipboardV28.class,
+                    ClipboardV28.class,
+                    ClipboardV28.class); // 30
 
     private final List<Class<? extends DictionaryContentObserver>>
             mExpectedDictionaryObserverClass =
@@ -130,7 +134,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                             DictionaryContentObserverAPI16.class,
                             DictionaryContentObserverAPI16.class,
                             DictionaryContentObserverAPI16.class,
-                            DictionaryContentObserverAPI16.class);
+                            DictionaryContentObserverAPI16.class,
+                            DictionaryContentObserverAPI16.class,
+                            DictionaryContentObserverAPI16.class); // 30
 
     private final List<Class<? extends GestureDetector>> mExpectedGestureDetectorClass =
             Arrays.asList(
@@ -162,7 +168,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class,
-                    AskV19GestureDetector.class);
+                    AskV19GestureDetector.class,
+                    AskV19GestureDetector.class,
+                    AskV19GestureDetector.class); // 30
 
     void testCreateDeviceSpecificImplementationImpl() {
         if (Build.VERSION.SDK_INT > 100) return; // FUTURE?

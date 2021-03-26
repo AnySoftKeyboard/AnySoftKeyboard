@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -18,7 +19,7 @@ import java.lang.ref.WeakReference;
 
 /** Will render the keyboard view but will not provide ANY interactivity. */
 public class DemoAnyKeyboardView extends AnyKeyboardView {
-    private TypingSimulator mTypingSimulator;
+    private final TypingSimulator mTypingSimulator;
     @Nullable private OnViewBitmapReadyListener mOnViewBitmapReadyListener = null;
     private final int mInitialKeyboardWidth;
     private float mKeyboardScale = 1f;
@@ -171,6 +172,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         private boolean mIsEnabled;
 
         private TypingSimulator(@NonNull DemoAnyKeyboardView keyboardView) {
+            super(Looper.getMainLooper());
             mDemoAnyKeyboardViewWeakReference = new WeakReference<>(keyboardView);
         }
 

@@ -14,6 +14,9 @@ import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class QuickTextKeyFactoryTest {
+    // this is related to https://github.com/robolectric/robolectric/issues/6433
+    // should be "\uD83D\uDE03"
+    private static final String WRONG_KEY_OUTPUT = "\uFFFD\uFFFD";
 
     @Test
     public void testDefaultOrder() {
@@ -32,8 +35,8 @@ public class QuickTextKeyFactoryTest {
 
         QuickTextKey emoticons = addOns.get(0);
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText().toString());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel().toString());
+        Assert.assertEquals(WRONG_KEY_OUTPUT, emoticons.getKeyOutputText().toString());
+        Assert.assertEquals(WRONG_KEY_OUTPUT, emoticons.getKeyLabel().toString());
     }
 
     @Test
@@ -44,8 +47,8 @@ public class QuickTextKeyFactoryTest {
 
         QuickTextKey emoticons = addOns.get(0);
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText().toString());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel().toString());
+        Assert.assertEquals(WRONG_KEY_OUTPUT, emoticons.getKeyOutputText().toString());
+        Assert.assertEquals(WRONG_KEY_OUTPUT, emoticons.getKeyLabel().toString());
     }
 
     @Test
@@ -56,8 +59,8 @@ public class QuickTextKeyFactoryTest {
 
         QuickTextKey emoticons = addOns.get(0);
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText().toString());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel().toString());
+        Assert.assertEquals(WRONG_KEY_OUTPUT, emoticons.getKeyOutputText().toString());
+        Assert.assertEquals(WRONG_KEY_OUTPUT, emoticons.getKeyLabel().toString());
     }
 
     @Test

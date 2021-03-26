@@ -69,54 +69,52 @@ public class AutoTextImpl implements AutoText {
         // mLocale = locale;
         // init(resources);
 
-        XmlResourceParser parser = resources.getXml(resId);
+        try (final XmlResourceParser parser = resources.getXml(resId)) {
+            StringBuilder right = new StringBuilder(RIGHT);
+            mTrie = new char[DEFAULT];
+            mTrie[TRIE_ROOT] = TRIE_NULL;
+            mTrieUsed = TRIE_ROOT + 1;
 
-        StringBuilder right = new StringBuilder(RIGHT);
-        mTrie = new char[DEFAULT];
-        mTrie[TRIE_ROOT] = TRIE_NULL;
-        mTrieUsed = TRIE_ROOT + 1;
+            try {
+                XmlUtils.beginDocument(parser, "words");
+                String odest = "";
+                char ooff = 0;
 
-        try {
-            XmlUtils.beginDocument(parser, "words");
-            String odest = "";
-            char ooff = 0;
-
-            while (true) {
-                if (!XmlUtils.nextElement(parser)) {
-                    // we reached the end of the parser.
-                    break;
-                }
-
-                String element = parser.getName();
-                if (element == null || !element.equals("word")) {
-                    break;
-                }
-
-                String src = parser.getAttributeValue(null, "src");
-                if (parser.next() == XmlPullParser.TEXT) {
-                    String dest = parser.getText();
-                    char off;
-
-                    if (dest.equals(odest)) {
-                        off = ooff;
-                    } else {
-                        off = (char) right.length();
-                        right.append((char) dest.length());
-                        right.append(dest);
+                while (true) {
+                    if (!XmlUtils.nextElement(parser)) {
+                        // we reached the end of the parser.
+                        break;
                     }
 
-                    add(src, off);
-                }
-            }
-        } catch (XmlPullParserException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            parser.close();
-        }
+                    String element = parser.getName();
+                    if (element == null || !element.equals("word")) {
+                        break;
+                    }
 
-        mText = right.toString();
+                    String src = parser.getAttributeValue(null, "src");
+                    if (parser.next() == XmlPullParser.TEXT) {
+                        String dest = parser.getText();
+                        char off;
+
+                        if (dest.equals(odest)) {
+                            off = ooff;
+                        } else {
+                            off = (char) right.length();
+                            right.append((char) dest.length());
+                            right.append(dest);
+                        }
+
+                        add(src, off);
+                    }
+                }
+            } catch (XmlPullParserException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            mText = right.toString();
+        }
     }
 
     @Override

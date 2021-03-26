@@ -14,8 +14,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.util.Scheduler;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LanguageTweaksFragmentTest
@@ -29,9 +27,6 @@ public class LanguageTweaksFragmentTest
 
     @Test
     public void testShowEnabledKeyboardsPlusNoneEntries() {
-        Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.CONSTANT_IDLE);
-        Robolectric.getBackgroundThreadScheduler().setIdleState(Scheduler.IdleState.CONSTANT_IDLE);
-
         final KeyboardFactory keyboardFactory =
                 AnyApplication.getKeyboardFactory(getApplicationContext());
 

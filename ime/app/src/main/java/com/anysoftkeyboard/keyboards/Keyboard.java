@@ -870,86 +870,88 @@ public abstract class Keyboard {
             return;
         }
         Resources res = addOnContext.getResources();
-        XmlResourceParser parser = res.getXml(mLayoutResId);
-        boolean inKey = false;
-        boolean inRow = false;
-        boolean inUnknown = false;
-        float x = 0;
-        float y = rowVerticalGap; // starts with a gap
-        int rowHeight = 0;
-        Key key = null;
-        Row currentRow = null;
-        int lastVerticalGap = 0;
+        try (final XmlResourceParser parser = res.getXml(mLayoutResId)) {
+            boolean inKey = false;
+            boolean inRow = false;
+            boolean inUnknown = false;
+            float x = 0;
+            float y = rowVerticalGap; // starts with a gap
+            int rowHeight = 0;
+            Key key = null;
+            Row currentRow = null;
+            int lastVerticalGap = 0;
 
-        try {
-            int event;
-            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
-                if (event == XmlResourceParser.START_TAG) {
-                    String tag = parser.getName();
-                    if (TAG_ROW.equals(tag)) {
-                        inRow = true;
-                        x = 0;
-                        rowHeight = 0;
-                        currentRow =
-                                createRowFromXml(mKeyboardResourceMap, res, parser, mKeyboardMode);
-                        if (currentRow == null) {
-                            skipToEndOfRow(parser);
+            try {
+                int event;
+                while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                    if (event == XmlResourceParser.START_TAG) {
+                        String tag = parser.getName();
+                        if (TAG_ROW.equals(tag)) {
+                            inRow = true;
+                            x = 0;
+                            rowHeight = 0;
+                            currentRow =
+                                    createRowFromXml(
+                                            mKeyboardResourceMap, res, parser, mKeyboardMode);
+                            if (currentRow == null) {
+                                skipToEndOfRow(parser);
+                                inRow = false;
+                            }
+                        } else if (TAG_KEY.equals(tag)) {
+                            inKey = true;
+                            x += (keyHorizontalGap / 2);
+                            key =
+                                    createKeyFromXml(
+                                            mKeyboardResourceMap,
+                                            mLocalContext,
+                                            addOnContext,
+                                            currentRow,
+                                            keyboardDimens,
+                                            (int) x,
+                                            (int) y,
+                                            parser);
+                            rowHeight = Math.max(rowHeight, key.height);
+                            key.width = (int) (key.width - keyHorizontalGap); // the gap is on both
+                            // sides
+                            mKeys.add(key);
+                            if (key.getPrimaryCode() == KeyCodes.SHIFT) {
+                                mShiftKey = key;
+                                mModifierKeys.add(key);
+                            } else if (key.getPrimaryCode() == KeyCodes.ALT) {
+                                mModifierKeys.add(key);
+                            }
+                        } else if (TAG_KEYBOARD.equals(tag)) {
+                            parseKeyboardAttributes(mLocalContext, res, parser);
+                        } else {
+                            inUnknown = true;
+                            Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);
+                        }
+                    } else if (event == XmlResourceParser.END_TAG) {
+                        if (inKey) {
+                            inKey = false;
+                            x += key.gap + key.width;
+                            x += (keyHorizontalGap / 2);
+                            if (x > mTotalWidth) {
+                                mTotalWidth = (int) x;
+                            }
+                        } else if (inRow) {
                             inRow = false;
+                            lastVerticalGap = currentRow.verticalGap;
+                            y += currentRow.verticalGap;
+                            y += rowHeight;
+                            y += rowVerticalGap;
+                        } else if (inUnknown) {
+                            inUnknown = false;
                         }
-                    } else if (TAG_KEY.equals(tag)) {
-                        inKey = true;
-                        x += (keyHorizontalGap / 2);
-                        key =
-                                createKeyFromXml(
-                                        mKeyboardResourceMap,
-                                        mLocalContext,
-                                        addOnContext,
-                                        currentRow,
-                                        keyboardDimens,
-                                        (int) x,
-                                        (int) y,
-                                        parser);
-                        rowHeight = Math.max(rowHeight, key.height);
-                        key.width = (int) (key.width - keyHorizontalGap); // the gap is on both
-                        // sides
-                        mKeys.add(key);
-                        if (key.getPrimaryCode() == KeyCodes.SHIFT) {
-                            mShiftKey = key;
-                            mModifierKeys.add(key);
-                        } else if (key.getPrimaryCode() == KeyCodes.ALT) {
-                            mModifierKeys.add(key);
-                        }
-                    } else if (TAG_KEYBOARD.equals(tag)) {
-                        parseKeyboardAttributes(mLocalContext, res, parser);
-                    } else {
-                        inUnknown = true;
-                        Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);
-                    }
-                } else if (event == XmlResourceParser.END_TAG) {
-                    if (inKey) {
-                        inKey = false;
-                        x += key.gap + key.width;
-                        x += (keyHorizontalGap / 2);
-                        if (x > mTotalWidth) {
-                            mTotalWidth = (int) x;
-                        }
-                    } else if (inRow) {
-                        inRow = false;
-                        lastVerticalGap = currentRow.verticalGap;
-                        y += currentRow.verticalGap;
-                        y += rowHeight;
-                        y += rowVerticalGap;
-                    } else if (inUnknown) {
-                        inUnknown = false;
                     }
                 }
+            } catch (XmlPullParserException e) {
+                Logger.e(TAG, e, "Parse error: %s", e.getMessage());
+            } catch (IOException e) {
+                Logger.e(TAG, e, "Read error: %s", e.getMessage());
             }
-        } catch (XmlPullParserException e) {
-            Logger.e(TAG, e, "Parse error: %s", e.getMessage());
-        } catch (IOException e) {
-            Logger.e(TAG, e, "Read error: %s", e.getMessage());
+            mTotalHeight = (int) (y - lastVerticalGap);
         }
-        mTotalHeight = (int) (y - lastVerticalGap);
     }
 
     private void skipToEndOfRow(XmlResourceParser parser)

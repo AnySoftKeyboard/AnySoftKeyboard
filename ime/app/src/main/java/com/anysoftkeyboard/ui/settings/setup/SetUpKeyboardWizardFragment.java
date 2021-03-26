@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         private final WeakReference<SetUpKeyboardWizardFragment> mWeakFragment;
 
         WizardHandler(@NonNull SetUpKeyboardWizardFragment setUpKeyboardWizardFragment) {
+            super(Looper.getMainLooper());
             mWeakFragment = new WeakReference<>(setUpKeyboardWizardFragment);
         }
 
