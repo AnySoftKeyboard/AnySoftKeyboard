@@ -61,7 +61,7 @@ public class AutoTextImpl implements AutoText {
 
     private char[] mTrie;
     private char mTrieUsed;
-    private String mText;
+    private final String mText;
     // private Locale mLocale;
     // private int mSize;
 
@@ -82,7 +82,10 @@ public class AutoTextImpl implements AutoText {
             char ooff = 0;
 
             while (true) {
-                XmlUtils.nextElement(parser);
+                if (!XmlUtils.nextElement(parser)) {
+                    // we reached the end of the parser.
+                    break;
+                }
 
                 String element = parser.getName();
                 if (element == null || !element.equals("word")) {
