@@ -2,7 +2,6 @@ package github;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Scanner;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -34,7 +33,7 @@ public abstract class RestRequestPerformer<R, A> {
                             httpRequest, HttpClientCreator.createContext(username, password))) {
                 System.out.println("Response status: " + httpResponse.getStatusLine());
                 final Scanner scanner =
-                        new Scanner(httpResponse.getEntity().getContent(), StandardCharsets.UTF_8)
+                        new Scanner(httpResponse.getEntity().getContent(), "UTF_8")
                                 .useDelimiter("\\A");
                 final String responseString = scanner.hasNext() ? scanner.next() : "";
                 System.out.println("Response content: " + responseString);
