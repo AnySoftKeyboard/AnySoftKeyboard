@@ -28,7 +28,7 @@ buildscript {
 apply plugin: 'com.github.sherter.google-java-format'
 
 googleJavaFormat {
-    toolVersion = '1.9'
+    toolVersion = '1.10.0'
     options style: 'AOSP'
 }
 
