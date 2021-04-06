@@ -1,10 +1,6 @@
 <resources>
     <string name="nias_dictionary">Nias</string>
     <string name="nias_dictionary_description">Bahasa Nias</string>
-    <string name="nias_qwerty">Nias Standard</string>
-    <string name="nias_qwerty_description">Klik ganda w/o untuk ketik ŵ/ö</string>
-    <string name="nias_ekstra">Nias Extra</string>
-    <string name="nias_ekstra_description">Dengan tombol huruf ŵ dan ö</string>
-    <string name="nias_compact">Nias Compact</string>
-    <string name="nias_compact_description">Untuk layar kecil</string>
+    <string name="nias_qwerty">Nias</string>
+    <string name="nias_qwerty_description">Dengan huruf ŵ dan ö</string>
 </resources>
