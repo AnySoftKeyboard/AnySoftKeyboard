@@ -196,6 +196,14 @@
         description=""
         index="13"
         />
+    <ExtensionKeyboard
+        id="f6196797-62b7-4f98-b1fa-7fe151ec7b3d"
+        nameResId="@string/extension_kbd_bottom_minimal_less_punctuation"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_minimal_less_punctuation"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="14"
+        />
 
     <ExtensionKeyboard
         id="4bd88cea-f31e-4500-b20d-f51757350d8d"
@@ -203,7 +211,7 @@
         extensionKeyboardResId="@xml/ext_kbd_bottom_row_aosp"
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
-        index="14"
+        index="15"
         />
 
 
