@@ -3,4 +3,8 @@
     <string name="nias_dictionary_description">Bahasa Nias</string>
     <string name="nias_qwerty">Nias</string>
     <string name="nias_qwerty_description">Dengan huruf ŵ dan ö</string>
+    <string name="nias_wiki">Nias Wiki</string>
+    <string name="nias_wiki_description">Dengan ŵ, ö dan kode wiki</string>
+    <string name="nias_alt">Nias Alt</string>
+    <string name="nias_alt_description">Dengan tekan ganda w > ŵ dan o > ö dan kode wiki</string>
 </resources>

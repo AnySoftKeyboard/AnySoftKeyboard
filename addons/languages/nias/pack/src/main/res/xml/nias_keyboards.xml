@@ -9,5 +9,23 @@
         index="1"
         layoutResId="@xml/nias_qwerty"
         nameResId="@string/nias_qwerty" />
+    <Keyboard
+        defaultDictionaryLocale="nia"
+        defaultEnabled="false"
+        description="@string/nias_wiki_description"
+        iconResId="@drawable/ic_status_nias"
+        id="bedaba7b-b5c2-4c43-b677-53d82369a835"
+        index="10"
+        layoutResId="@xml/nias_wiki"
+        nameResId="@string/nias_wiki" />
+    <Keyboard
+        defaultDictionaryLocale="nia"
+        defaultEnabled="false"
+        description="@string/nias_alt_description"
+        iconResId="@drawable/ic_status_nias"
+        id="298a49c2-248b-47bd-84f9-3d94c3573a79"
+        index="11"
+        layoutResId="@xml/nias_alt"
+        nameResId="@string/nias_alt" />
 </Keyboards>
 
