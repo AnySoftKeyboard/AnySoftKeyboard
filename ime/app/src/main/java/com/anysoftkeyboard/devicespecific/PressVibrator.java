@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Menny Even-Danan
+ * Copyright (c) 2021 Daniel Parks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,14 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
-import android.content.Context;
+public interface PressVibrator {
 
-@TargetApi(28)
-public class DeviceSpecificV28 extends DeviceSpecificV26 {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV28";
-    }
+   void setDuration(int duration);
 
-    @Override
-    public Clipboard createClipboard(Context applicationContext) {
-        return new ClipboardV28(applicationContext);
-    }
+   void setLongPressDuration(int duration);
+
+   void setUseSystemVibration(boolean system);
+
+   void vibrate(boolean longPress);
+
 }

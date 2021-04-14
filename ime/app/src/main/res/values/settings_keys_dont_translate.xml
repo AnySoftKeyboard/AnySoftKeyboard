@@ -7,6 +7,7 @@
     <string name="settings_key_auto_capitalization">auto_caps</string>
     <string name="settings_key_show_suggestions">candidates_on</string>
 
+    <string name="settings_key_use_system_vibration">settings_key_use_system_vibration</string>
     <string name="settings_key_vibrate_on_key_press_duration_int">settings_key_vibrate_on_key_press_duration_int</string>
 
     <string name="settings_key_night_mode">settings_key_night_mode</string>

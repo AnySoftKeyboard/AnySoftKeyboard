@@ -21,6 +21,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -108,5 +109,10 @@ public class DeviceSpecificV15 implements DeviceSpecific {
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
         //noinspection deprecation
         return new InputMethodSubtype(0, 0, locale, "", keyboardId.toString(), false, false);
+    }
+
+    @Override
+    public PressVibrator createPressVibrator(Vibrator vibe) {
+        return new PressVibratorV1(vibe);
     }
 }

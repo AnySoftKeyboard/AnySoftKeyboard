@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Menny Even-Danan
+ * Copyright (c) 2021 Daniel Parks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,17 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
-import android.content.Context;
+import android.os.Vibrator;
 
-@TargetApi(28)
-public class DeviceSpecificV28 extends DeviceSpecificV26 {
+@TargetApi(26)
+public class DeviceSpecificV26 extends DeviceSpecificV24 {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecificV28";
+        return "DeviceSpecificV26";
     }
 
     @Override
-    public Clipboard createClipboard(Context applicationContext) {
-        return new ClipboardV28(applicationContext);
+    public PressVibrator createPressVibrator(Vibrator vibe) {
+        return new PressVibratorV26(vibe);
     }
 }
