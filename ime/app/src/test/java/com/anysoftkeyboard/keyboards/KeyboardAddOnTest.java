@@ -51,7 +51,7 @@ public class KeyboardAddOnTest {
                     addOnAndBuilder.getId(), addOnAndBuilder.getKeyboardDefaultEnabled());
         }
 
-        Assert.assertEquals(11, keyboardsEnabled.size());
+        Assert.assertEquals(12, keyboardsEnabled.size());
         Assert.assertTrue(keyboardsEnabled.containsKey(ASK_ENGLISH_1_ID));
         Assert.assertTrue(keyboardsEnabled.get(ASK_ENGLISH_1_ID));
         Assert.assertTrue(keyboardsEnabled.containsKey(ASK_ENGLISH_16_KEYS_ID));
