@@ -72,7 +72,7 @@
     <string name="vibrate_on_key_press_value_template">%d მილიწამი</string>
     <string name="night_mode_screen">ღამის რეჟიმის პარამეტრები</string>
     <string name="night_mode_description">ღამის რეჟიმის ცვლის შემდეგ შესაძლებლობებს:</string>
-    <string name="night_mode_state_summary">ამჟამად, ღამის რეჟიმს რთავს:\u0020%s</string>
+    <string name="night_mode_state_summary">ამჟამად, ღამის რეჟიმი ჩაირთვება:\u0020%s</string>
     <string name="night_mode_dialog_title">ღამის რეჟიმის ჩართვა</string>
     <string name="night_mode_type_never">არასდროს</string>
     <string name="night_mode_type_follow_system">სისტემის მიხედვით</string>
@@ -82,8 +82,8 @@
     <string name="night_mode_sound_control">ხმების გათიშვა ღილაკებზე დაჭერისას</string>
     <string name="night_mode_vibration_control">ვიბრაციის გათიშვა ღილაკებზე დაჭერისას</string>
     <string name="power_save_mode_screen">ენერგოდაზოგვის პარამეტრები</string>
-    <string name="power_save_mode_description">ენერგომზოგი რეჟიმი ამცირებს ენერგომოხმარებას, AnySoftKeyboard-ის შემდეგი შესაძლებლობების გათიშვით:</string>
-    <string name="power_save_mode_state_summary">ამჟამად, ენერგომზოგს რთავს:\u0020%s</string>
+    <string name="power_save_mode_description">ენერგომზოგი რეჟიმი ენერგომოხმარებას ამცირებს, AnySoftKeyboard-ის შემდეგი შესაძლებლობებით:</string>
+    <string name="power_save_mode_state_summary">ამჟამად, ენერგომზოგი ჩაირთვება:\u0020%s</string>
     <string name="power_save_mode_dialog_title">ენერგომზოგი რეჟიმის ჩართვა</string>
     <string name="power_save_mode_types_never">არასდროს</string>
     <string name="power_save_mode_types_lower_battery">ელემენტის მუხტის სიმცირისას</string>
@@ -94,7 +94,7 @@
     <string name="power_save_mode_sound_control">ხმების გათიშვა ღილაკებზე დაჭერისას</string>
     <string name="power_save_mode_vibration_control">ვიბრაციის გათიშვა ღილაკებზე დაჭერისას</string>
     <string name="power_save_mode_suggestions_control">სიტყვების შემოთავაზებების გათიშვა</string>
-    <string name="power_save_mode_gesture_typing_control">გათიშვა ჟესტებით აკრეფის</string>
+    <string name="power_save_mode_gesture_typing_control">ჟესტებით აკრეფის გათიშვა</string>
     <string name="power_save_mode_theme_control">მუქ, სადა თემაზე გადასვლა</string>
     <string name="pop_text_type_title">ტექსტის ამოხტომა ღილაკებზე აკრეფისას</string>
     <string name="pop_text_type_summary">როდის ამოხტეს ტექსტი ღილაკზე დაჭერისას. ამჟამად:\u0020%s</string>
@@ -115,7 +115,7 @@
     <string name="custom_sound_volume">ღილაკზე დაჭერის მითითებული ხმის დონე</string>
     <string name="vibrate_on_long_press_title">ვიბრაცია ხანგრძლივი დაჭერისას</string>
     <string name="vibrate_on_long_press_summary_on">მცირე ვიბრაცია ხანგრძლივი დაჭერისას.</string>
-    <string name="switch_keyboard_on_space">ჰარი გადართავს კლავიატურებს</string>
+    <string name="switch_keyboard_on_space">ჰარით კლავიატურების გადართვა</string>
     <string name="switch_keyboard_on_space_on_summary">სიმბოლოების/ციფრების ანბანზე გადაირთოს, ჰარიზე დაჭერისას.</string>
     <string name="switch_keyboard_on_space_off_summary">სიმბოლოების/ციფრების ანბანზე არ გადაირთოს, ჰარიზე დაჭერისას.</string>
     <string name="colorize_nav_bar_title">გამოჩნდეს გადაადგილების ზოლის უკან</string>
@@ -138,11 +138,11 @@
     <string name="hide_soft_when_physical_off_summary">ეკრანული კლავიატურის გამოჩენა, ფიზიკურის
         გამოყენებისას
     </string>
-    <string name="enable_alt_space_language_shortcut">Alt + ჰარი გადართავს ენებს</string>
-    <string name="enable_alt_space_language_shortcut_on_summary">აპარატურაზე Alt + ჰარი გადართავს მომდევნო განლაგებაზე.</string>
+    <string name="enable_alt_space_language_shortcut">Alt + ჰარით ენების გადართვა</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">აპარატურის Alt + ჰარით, მომდევნო განლაგებაზე გადართვა.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">აპარატურაზე Alt + ჰარი გამოტოვებს ადგილს.</string>
-    <string name="enable_shift_space_language_shortcut">Shift + ჰარი გადართავს ენებს</string>
-    <string name="enable_shift_space_language_shortcut_on_summary">აპარატურაზე Shift + ჰარი გადართავს მომდევნო განლაგებაზე.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + ჰარით ენების გადართვა</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">აპარატურის Shift + ჰარით, მომდევნო განლაგებაზე გადართვა.</string>
     <string name="enable_shift_space_language_shortcut_off_summary">აპარატურაზე Shift + ჰარი გამოტოვებს ადგილს.</string>
     <string name="fullscreen_input_connection_supported">სრულეკრანზე გაშლა, თარაზულზე
     </string>
@@ -161,38 +161,38 @@
     <string name="backword_support_on_summary">Shift-უკუშლა წაშლის ბოლო სიტყვას</string>
     <string name="backword_support_off_summary">Shift-უკუშლა წაშლის ბოლო სიმბოლოს</string>
     <string name="swipe_up_action">ასმა</string>
-    <string name="swipe_up_action_summary">განსაზღვრეთ მოქმედება ზემოთ ასმისას. ამჟამად, %s
+    <string name="swipe_up_action_summary">განსაზღვრეთ მოქმედება ზემოთ ასმისას. ამჟამად, მითითებულია %s
     </string>
     <string name="swipe_up_action_title">მოქმედება ზემოთ ასმის დროს</string>
     <string name="swipe_up_from_spacebar_action">ზემოთ ასმა ჰარიდან</string>
-    <string name="swipe_up_from_spacebar_action_summary">განსაზღვრეთ მოქმედება ჰარიდან ზემოთ ასმისას. ამჟამად, %s</string>
+    <string name="swipe_up_from_spacebar_action_summary">განსაზღვრეთ მოქმედება ჰარიდან ზემოთ ასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_up_from_spacebar_action_title">მოქმედება ჰარიდან ზემოთ ასმის დროს</string>
     <string name="swipe_down_action">ჩამოსმა</string>
-    <string name="swipe_down_action_summary">განსაზღვრეთ მოქმედება ქვემოთ ჩამოსმისას. ამჟამად, %s</string>
+    <string name="swipe_down_action_summary">განსაზღვრეთ მოქმედება ქვემოთ ჩამოსმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_down_action_title">მოქმედება ქვემოთ ჩამოსმის დროს</string>
     <string name="swipe_left_action">მარცხნივ გასმა</string>
-    <string name="swipe_left_action_summary">განსაზღვრეთ მოქმედება მარცხნივ გასმისას. ამჟამად, %s</string>
+    <string name="swipe_left_action_summary">განსაზღვრეთ მოქმედება მარცხნივ გასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_left_action_title">მოქმედება მარცხნივ გასმის დროს</string>
     <string name="swipe_right_action">მარჯვნივ გასმა</string>
-    <string name="swipe_right_action_summary">განსაზღვრეთ მოქმედება მარჯვნივ გასმისას. ამჟამად, %s</string>
+    <string name="swipe_right_action_summary">განსაზღვრეთ მოქმედება მარჯვნივ გასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_right_action_title">მოქმედება მარჯვნივ გასმის დროს</string>
     <string name="swipe_right_space_bar_action">ჰარიდან მარჯვნივ გასმის დროს</string>
-    <string name="swipe_right_space_bar_action_summary">განსაზღვრეთ მოქმედება ჰარიდან მარჯვნივ გასმისას. ამჟამად, %s</string>
+    <string name="swipe_right_space_bar_action_summary">განსაზღვრეთ მოქმედება ჰარიდან მარჯვნივ გასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_right_space_bar_action_title">მოქმედება მარჯვნივ გასმის დროს</string>
     <string name="swipe_left_space_bar_action">ჰარიდან მარცხნივ გასმის დროს</string>
-    <string name="swipe_left_space_bar_action_summary">განსაზღვრეთ მოქმედება ჰარიდან მარცხნივ გასმისას. ამჟამად, %s</string>
+    <string name="swipe_left_space_bar_action_summary">განსაზღვრეთ მოქმედება ჰარიდან მარცხნივ გასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_left_space_bar_action_title">მოქმედება მარცხნივ გასმის დროს</string>
     <string name="swipe_left_two_fingers_action">ორი თითის გადასმა მარცხნივ</string>
-    <string name="swipe_left_two_fingers_action_summary">განსაზღვრეთ მოქმედება ორი თითის მარცხნივ გასმისას. ამჟამად, %s</string>
+    <string name="swipe_left_two_fingers_action_summary">განსაზღვრეთ მოქმედება ორი თითის მარცხნივ გასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_right_two_fingers_action">ორი თითის გადასმა მარჯვნივ</string>
-    <string name="swipe_right_two_fingers_action_summary">განსაზღვრეთ მოქმედება ორი თითის მარჯვნივ გასმისას. ამჟამად, %s</string>
+    <string name="swipe_right_two_fingers_action_summary">განსაზღვრეთ მოქმედება ორი თითის მარჯვნივ გასმისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_right_two_fingers_action_title">მოქმედება მარჯვნივ გასმის დროს</string>
     <string name="pinch_gesture_action">მიახლოების ჟესტი</string>
     <string name="pinch_gesture_action_title">მოქმედება თითების მიახლოებისას</string>
-    <string name="pinch_gesture_action_summary">განსაზღვრეთ მოქმედება მიახლოებისას. ამჟამად, %s</string>
+    <string name="pinch_gesture_action_summary">განსაზღვრეთ მოქმედება მიახლოებისას. ამჟამად, მითითებულია %s</string>
     <string name="separate_gesture_action">დაშორების ჟესტი</string>
     <string name="separate_gesture_action_title">მოქმედება თითების დაშორებისას</string>
-    <string name="separate_gesture_action_summary">განსაზღვრეთ მოქმედება დაშორებისას. ამჟამად, %s</string>
+    <string name="separate_gesture_action_summary">განსაზღვრეთ მოქმედება დაშორებისას. ამჟამად, მითითებულია %s</string>
     <string name="swipe_action_name_none">მოქმედების გარეშე</string>
     <string name="swipe_action_name_next_alphabet">მომდევნო ანბანური კლავიატურა</string>
     <string name="swipe_action_name_next_symbols">მომდევნო სიმბოლური კლავიატურა</string>
@@ -211,7 +211,7 @@
     <string name="swipe_action_name_cursor_right">მაჩვენებლის მარჯვნივ გაწევა</string>
     <string name="swipe_action_name_other_keyboards_mode">განლაგების გადართვა</string>
     <string name="swipe_action_name_split_layout">განლაგების გაყოფა</string>
-    <string name="swipe_action_name_merge_layout">განლაგების შეერთება</string>
+    <string name="swipe_action_name_merge_layout">განლაგების გამთლიანება</string>
     <string name="swipe_action_name_compact_layout_to_right">მჭიდრო განლაგება მარჯვნივ</string>
     <string name="swipe_action_name_compact_layout_to_left">მჭიდრო განლაგება მარცხნივ</string>
     <string name="swipe_action_name_utility_keyboard">გამოყენებითი კლავიატურის ჩვენება</string>
@@ -231,16 +231,16 @@
     <string name="settings_swipe_distance_very_long">ძალიან გრძელი</string>
     <string name="hardware_keys_group">აპარატურული ღილაკების განლაგება</string>
     <string name="volume_key_for_left_right_support">ხმის ღილაკებით მარცხნივ/მარჯვნივ</string>
-    <string name="volume_key_for_left_right_support_on_summary">მარცხნივ/მარჯვნივ გათიშვა ხმის აწევა/დაწევით</string>
-    <string name="volume_key_for_left_right_support_off_summary">ხმის აწევით მაჩვენებლის მარცხნივ, დაწევით კი მარჯვნივ გადატანა</string>
+    <string name="volume_key_for_left_right_support_on_summary">ხმის ღილაკებით გადაადგილების გათიშვა</string>
+    <string name="volume_key_for_left_right_support_off_summary">ხმის აწევით სიმბოლოზე მარცხნივ, დაწევით კი მარჯვნივ გადასვლა</string>
     <string name="more_ui_settings_group">სამომხმარებლო იერსახე</string>
     <string name="special_dictionaries_group">საგანგებო ლექსიკონები</string>
     <string name="special_dictionaries_group_summary">შემოთავაზებების ლექსიკონები, რომელთაც იყენებს AnySoftKeyboard</string>
     <string name="use_user_dictionary">მომხმარებლის ლექსიკონი</string>
     <string name="use_user_dictionary_on_summary">მომხმარებლის მიერ დამატებული სიტყვების შემოთავაზება (ორმაგი წკაპი სიტყვის ჩასამატებლად)</string>
     <string name="always_use_fallback_user_dictionary">პირადი ლექსიკონის საცავის გამოყენება</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">პირადი საცავის გამოყენება, AnySoftKeyboard-ის ჩაშენებული სამომხმარებლო ლექსიკონის.</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Android-ის საერთო ჩაშენებული სამომხმარებლო ლექსიკონის გამოყენება.</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">პირადი საცავის გამოყენება, AnySoftKeyboard-ში ჩაშენებული სამომხმარებლო ლექსიკონის.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Android-ში ჩაშენებული საერთო სამომხმარებლო ლექსიკონის გამოყენება.</string>
     <string name="use_auto_dictionary">ლექსიკონი თვითშერჩევით</string>
     <string name="use_auto_dictionary_dialog_title">შესწავლის მეთოდის მითითება</string>
     <string name="use_auto_dictionary_summary">ახალი სიტყვების თვითშესწავლა. შესწავლის გზა: %s</string>
@@ -252,18 +252,18 @@
     <string name="next_words_dictionary_words_only">მომდევნო სიტყვების შემოთავაზება</string>
     <string name="next_words_dictionary_words_punctuations">მომდევნო სიტყვებისა და სასვენ ნიშანთა შემოთავაზება</string>
     <string name="next_words_dictionary_summary">წინა სიტყვის მიხედვით შემოთავაზება: %s</string>
-    <string name="use_next_words_dictionary_aggressiveness">მომდევნო სიტყვის სიძლიერე</string>
+    <string name="use_next_words_dictionary_aggressiveness">მომდევნო სიტყვის სიმძაფრე</string>
     <string name="use_next_words_dictionary_aggressiveness_minimal">ნაკლები შემოთავაზებები</string>
-    <string name="use_next_words_dictionary_aggressiveness_medium">საშუალო სიძლიერე</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">საშუალო სიმძაფრე</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">მეტი შემოთავაზებები</string>
-    <string name="use_next_words_dictionary_aggressiveness_summary">მომდევნო სიტყვის შემოთავაზების სიძლიერე: %s</string>
-    <string name="auto_pick_suggestion_aggressiveness_title">თვითშერჩევით შემოთავაზების სიძლიერე</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">მომდევნო სიტყვის შემოთავაზების სიმძაფრე: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">თვითშერჩევით შემოთავაზების სიმძაფრე</string>
     <string name="auto_pick_suggestion_aggressiveness_none">გამორთ.</string>
-    <string name="auto_pick_suggestion_aggressiveness_minimal">მცირე სიძლიერე</string>
-    <string name="auto_pick_suggestion_aggressiveness_medium">საშუალო სიძლიერე</string>
-    <string name="auto_pick_suggestion_aggressiveness_high">მაღალი სიძლიერე</string>
-    <string name="auto_pick_suggestion_aggressiveness_extreme">ზედმეტი სიძლიერე</string>
-    <string name="auto_pick_suggestion_aggressiveness_summary">სიძლიერის დონე: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">მცირე სიმძაფრე</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">საშუალო სიმძაფრე</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">მაღალი სიმძაფრე</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">გადამეტებული სიმძაფრე</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">სიმძაფრის დონე: %s</string>
     <string name="use_contacts_dictionary">ნომრების წიგნაკის ლექსიკონი</string>
     <string name="use_contacts_dictionary_on_summary">სახელის შემოთავაზება წიგნაკიდან</string>
     <string name="tweaks_group">მორგება</string>
@@ -310,7 +310,7 @@
     <string name="is_sticky_extesion_keyboard">გაფართოებული კლავიატურის მიმაგრება</string>
     <string name="is_sticky_extesion_keyboard_on_summary">დარჩება ხილული საგანგებოდ დახურვამდე
     </string>
-    <string name="is_sticky_extesion_keyboard_off_summary">დახურავს ღილაკზე დაჭერის შემდეგ</string>
+    <string name="is_sticky_extesion_keyboard_off_summary">დაიხურება ღილაკზე დაჭერის შემდეგ</string>
     <string name="show_keyboard_icon_in_status_bar_title">კლავიატურის გამოჩენა ზედა ზოლზე</string>
     <string name="show_keyboard_icon_in_status_bar_on_summary">კლავიატურის სახელი გამოჩნდება მოწყობილობის
         მდგომარეობის ზოლზე.
@@ -318,17 +318,17 @@
     <string name="show_keyboard_icon_in_status_bar_off_summary">მდგომარეობის ზოლზე არ გამოჩნდება</string>
     <string name="is_extesion_keyboard_above_keyboard">გაფართოებული კლავიატურა</string>
     <string name="show_settings_app_in_launcher">პარამეტრები</string>
-    <string name="settings_key_show_settings_app_on_summary">აპის პარამეტრების ხილული იქნება
+    <string name="settings_key_show_settings_app_on_summary">აპის პარამეტრების გამოჩენა
         გამშვებში (შესაძლოა გადატვირთვა დაჭირდეს)
     </string>
     <string name="settings_key_show_settings_app_off_summary">აპის პარამეტრების დამალვა (შესაძლოა დაჭირდეს
         გადატვირთვა)
     </string>
     <string name="always_hide_language_key">ენების ღილაკის ყოველთვის დამალვა</string>
-    <string name="always_hide_language_key_on_summary">არასდროს გამოაჩენს ენების ღილაკს. ჟესტებით
+    <string name="always_hide_language_key_on_summary">არასდროს გამოჩნდება ენის ღილაკი. ჟესტებით
         მაინც გადაირთვება განლაგებები.
     </string>
-    <string name="always_hide_language_key_off_summary">გამოაჩენს ენის ღილაკს მხოლოდ მაშინ, თუ რამდენიმე
+    <string name="always_hide_language_key_off_summary">გამოჩნდება ენის ღილაკი მაშინ, როცა რამდენიმე
         განლაგება იქნება ჩართული.
     </string>
     <string name="show_crash_notification">მოხსენება გათიშვაზე</string>
@@ -544,9 +544,9 @@
     <string name="settings_split_state_title_portrait">შვეულად გაყოფილი/ერთიანი საწყისად</string>
     <string name="settings_split_state_title_landscape">თარაზულად გაყოფილი/ერთიანი საწყისად</string>
     <string name="settings_split_state_summary">გაიყოს თუ არა კლავიატურა ნაგულისხმევად.
-        ახლა არის: %s
+        ამჟამადაა: %s
     </string>
-    <string name="settings_split_state_merged_always">გაუყოფელი</string>
+    <string name="settings_split_state_merged_always">მთლიანი</string>
     <string name="settings_split_state_split_always">გაყოფილი</string>
     <string name="settings_split_state_compact_right_always">მჭიდროდ მარჯვნივ</string>
     <string name="settings_split_state_compact_left_always">მჭიდროდ მარცხნივ</string>
@@ -608,7 +608,7 @@
     <string name="emoji_default_skin_tone_value_random_type">კანის შემთხვევითი ფერი</string>
     <string name="developer_tools">შემმუშავებლის ხელსაწყოები</string>
     <string name="click_for_developer_features">შემმუშავებლის ხელსაწყოები</string>
-    <string name="click_for_developer_features_summary">მრავალი ხელსაწყო, AnySoftKeyboard-ის
+    <string name="click_for_developer_features_summary">ხელსაწყოების ნაკრები, AnySoftKeyboard-ის
         შემმუშავებლებისთვის
     </string>
     <string name="failed_to_create_mem_dump">მეხსიერების ამონაბეჭდი ფაილი ვერ შეიქმნა, მიზეზი:
@@ -626,7 +626,7 @@
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">სიტყვის დამატება</string>
     <string name="word_editor_action_backup_words">მარქაფი</string>
-    <string name="word_editor_action_restore_words">დაბრუნება</string>
+    <string name="word_editor_action_restore_words">აღდგენა</string>
     <string name="click_to_add_new_word">დაწკაპეთ, ახალი სიტყვის დასამატებლად</string>
     <string name="enter_word_hint">აკრიფეთ ახალი სიტყვა აქ</string>
     <string name="enter_abbreviation_hint">შემოკლება</string>
@@ -770,7 +770,7 @@
     <string name="settings_key_hint_size_normal">საშუალო</string>
     <string name="settings_key_hint_size_big">დიდი</string>
     <string name="theme_case_type_override_title">კლავიატურის ასოების სიმაღლის ჩანაცვლება</string>
-    <string name="theme_case_type_override_summary">ასონიშნების სიმაღლის განსაზღვრა კლავიატურის ხედვაზე. ამჟამად, %s</string>
+    <string name="theme_case_type_override_summary">ასონიშნების სიმაღლის განსაზღვრა კლავიატურის ხედვაზე. ამჟამად, მითითებულია %s</string>
     <string name="take_a_while_progress_message">ცოტა ხანს შეიძლება გასტანოს…</string>
     <string name="shared_prefs_provider_name">აპის პარამეტრები</string>
     <string name="user_dict_prefs_provider">მომხმარებლის სიტყვები</string>
@@ -789,7 +789,7 @@
     <string name="allow_layouts_to_provide_generic_rows_off_summary">ყოველთვის შერჩეული საერთო რიგების გამოყენება.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">განლაგებებისთვის, საერთო რიგების ჩანაცვლების ნების დართვა.</string>
     <string name="gesture_typing_settings">ჟესტებით აკრეფა ➿</string>
-    <string name="gesture_typing_summary">სიტყვის შეყვანა თითის მის ასონიშნებზე გადასმით.</string>
+    <string name="gesture_typing_summary">სიტყვის შეყვანა, შემადგენელ ასონიშნებზე თითის გადასმით.</string>
     <string name="gesture_typing_action">ჩართვა ჟესტებით აკრეფის [BETA]</string>
     <string name="gesture_typing_alert_title">BETA შესაძლებლობა!</string>
     <string name="gesture_typing_alert_message">ჟესტებით აკრეფის ➿ შესაძლებლობა ჯერ <b>beta</b> დონეზეა. ხარვეზები აქვს, ნაკლებად სწრაფი და არასრულია.\nმოკლედ, თავად უნდა გამოცადოთ.</string>
