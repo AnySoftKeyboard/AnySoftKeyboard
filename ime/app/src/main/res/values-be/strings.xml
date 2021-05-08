@@ -414,6 +414,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Лічбы і сімвалы</string>
     <string name="extension_kbd_bottom_minimal">Мінімалістычны</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Мінімалістычны (без эмодзі)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Мінімальны (менш пунктуацыі)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Пачаць</string>
