@@ -407,6 +407,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Zahlen und Symbole</string>
     <string name="extension_kbd_bottom_minimal">Minimal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (keine Emoji)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (weniger Interpunktion)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Los</string>
