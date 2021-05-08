@@ -8,6 +8,7 @@ import android.support.annotation.DimenRes;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
@@ -16,14 +17,18 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
     private static final int NO_ID = 0;
 
-    @DimenRes private int mNavigationBarHeightId = NO_ID;
-    @BoolRes private int mNavigationBarShownId = NO_ID;
+    @DimenRes
+    private int mNavigationBarHeightId = NO_ID;
+    @BoolRes
+    private int mNavigationBarShownId = NO_ID;
     private boolean mPrefsToShow;
+
+    private int mNavigationBarMinHeight;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mNavigationBarMinHeight = getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mNavigationBarHeightId =
                     getResources().getIdentifier("navigation_bar_height", "dimen", "android");
@@ -38,8 +43,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
             addDisposable(
                     prefs().getBoolean(
-                                    R.string.settings_key_colorize_nav_bar,
-                                    R.bool.settings_default_colorize_nav_bar)
+                            R.string.settings_key_colorize_nav_bar,
+                            R.bool.settings_default_colorize_nav_bar)
                             .asObservable()
                             .subscribe(
                                     val -> mPrefsToShow = val,
@@ -60,6 +65,12 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mNavigationBarMinHeight = getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
+    }
+
+    @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -71,15 +82,17 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
                         Logger.d(TAG, "Showing Colorized nav-bar with height %d", navBarHeight);
                         w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                         w.setNavigationBarColor(Color.TRANSPARENT);
-                        getInputViewContainer().setBottomPadding(navBarHeight);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            w.setDecorFitsSystemWindows(false);
+                        }
+                        getInputViewContainer().setBottomPadding(Math.max(navBarHeight, mNavigationBarMinHeight));
                     } else {
                         Logger.d(
                                 TAG,
                                 "Showing Colorized nav-bar with height %d and prefs %s",
                                 navBarHeight,
                                 mPrefsToShow);
-                        w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-                        getInputViewContainer().setBottomPadding(0);
+                        clearColorizedNavBar(w);
                     }
                 }
             } else {
@@ -89,6 +102,27 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
                         isInPortrait(),
                         doesOsShowNavigationBar());
             }
+        }
+    }
+
+    @Override
+    public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
+        if (finishingInput) {
+            final Window w = getWindow().getWindow();
+            if (w != null) {
+                clearColorizedNavBar(w);
+            }
+        }
+    }
+
+    private void clearColorizedNavBar(Window w) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                w.setDecorFitsSystemWindows(true);
+            }
+            getInputViewContainer().setBottomPadding(0);
         }
     }
 
