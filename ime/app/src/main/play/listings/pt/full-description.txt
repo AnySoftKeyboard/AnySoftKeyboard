@@ -1,0 +1,17 @@
+Teclado alternativo no ecrã para vários idiomas
+
+* Apoio do teclado multilíngua através de pacotes externos (Inglês como padrão)
+* Dicionários de conclusão para vários idiomas
+* Suporte multi-toque
+* Teclado de extensão (deslize o dedo para acima a partir do teclado)
+* Apoio de gestos: deslize para a esquerda ou direita para mudar layouts; deslize para cima para deslocar; deslize para baixo para fechar o teclado
+* Suporte de tema (vem com vários temas)
+* Teclado emoji incluindo procura de emoji tag tipo ": emoji_name"
+* Editor integrado do dicionário de palavras do utilizador
+* Teclado inglês opcional com 16 teclas
+* Teclas de movimento do cursor que também podem ser mapeadas para teclas físicas
+* Suporta nativamente ARM, x86 e MIPS
+* Entrada por voz
+* Capacidade de substituir o valor de região/idioma do sistema
+
+Vamos tentar publicar pacotes de idiomas e temas que tenham XML de origem e atribuição/licença para os dicionários. Para mais informações, consulte o tópico f-Droid.org [http://f-Droid.org/forums/topic/anysoftkeyboard-Language-Packs-layouts-Plans/#post-6408 forum].

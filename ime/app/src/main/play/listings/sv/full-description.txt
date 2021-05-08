@@ -1,0 +1,17 @@
+Alternativt tangentbord med stöd för ett flertal språk.
+
+* Flerspråkigt tangentbordsstöd via externa paket (engelska som standard)
+* Kompletteringsordböcker för flera språk
+* Stöd för multitouch
+* Tilläggs tangentbord (svep ditt finger hela vägen upp utanför tangentbordet)
+* Stöd för gester: svep åt vänster eller höger för att växla layout; svep uppåt för att skifta; svep nedåt för att stänga tangentbordet
+* Temastöd (flera teman medföljer)
+* Emoji-tangentbord samt emoji-taggsökning - skriv ":emoji_namn"
+* Inbyggd redigerare för användarordbok
+* Valfritt 16-tangenters engelskt tangentbord
+* Markörförflyttning via mjukvarutangenter kan också mappas till hårdvarutangenter
+* Har stöd för ARM, x86 och MIPS
+* Röststyrning
+* Möjlighet att åsidosätta systemets lokalvärde
+
+Vi kommer att försöka att publicera språkpaket och teman som har käll-xml och erkännande/licens för ordböckerna. För vidare information se f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic].

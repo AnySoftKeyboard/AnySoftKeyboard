@@ -1,0 +1,3 @@
+Tecláu en pantalla alternativu pa múltiples llingües.
+
+Tentaremos publicar tolos paquetes d'idioma y temes que tengan códigu fonte xml y atribución / llicencia pa los diccionarios. Pa más información, ver esti [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 tema del foru] en f-droid.org.

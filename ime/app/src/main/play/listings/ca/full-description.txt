@@ -1,0 +1,17 @@
+Teclat en pantalla alternatiu per a múltiples idiomes.
+
+* Suport de teclat multi-idioma a través de paquets externs (Anglès per defecte)
+* Completa diccionaris en diversos idiomes
+* Suport multi-tàctil
+* Extensions de teclat (llisqueu el vostre dit cap a dalt del teclat)
+* Suport de gestos: llisqueu a l'esquerra o a la dreta per canviar traçats; llisqueu a dalt per intercanviar; llisqueu cap a baix per tancar el teclat
+* Suport per a temes (ve amb diversos temes)
+* Teclat emoji amb cerca per etiquetes emoji - teclegeu ":emoji_name"
+* Editor natiu de diccionari per paraules de l'usuari
+* Teclat opcional anglès de 16 tecles
+* Podeu associar tecles del teclat físic amb tecles virtuals per moure el cursor
+* Suport per ARM, x86 i MIPs de forma nativa
+* Reconeixement de comandes de veu
+* Possibilitat de sobreescriure els valors locals del sistema
+
+Procurarem publicar qualsevol paquet d'idiomes i temes que tinguin una font XML i l'atribució/llicència pels diccionaris. Per a més informació consulteu [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 el tema al fòrum] a f-droid.org.

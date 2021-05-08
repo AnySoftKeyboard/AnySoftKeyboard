@@ -1,0 +1,17 @@
+Hainbat hizkuntzetarako pantailako teklatua.
+
+* Hizkuntza anitz onartzen dituen teklatua, kanpo paketeen bidez (Ingelesa lehenetsia)
+ * Hainbat hizkuntzetarako hiztegiak
+ * Ukitze anitzarentzako euskarria
+ * Hedatutako teklatua (pasatu hatza teklatutik gora)
+ * Keinuetarako euskarria: pasatu hatza ezkerrera edo eskuinera teklatu-diseinuak aldatzeko, pasatu aldatu arte
+ * Itxura aldatzeko gaiak
+ * Emojien teklatua ": emoji_izena" motako bilatzailearekin
+ * Erabiltzailearen hiztegiko hitzen editorea
+ * Aukeran 16 tekletako teklatu ingelesa
+ * kurtsorea lekualdatzeko teklak, hardware teklak esleitu daitezke ere
+ * ARM, X86 eta MIPS natiboki onartzen ditu
+ * Ahots bidezko sarrera
+ * Sistemaren ezarpenak gainidazteko aukera
+
+Iturriaren XML-a eta hiztegien atribuzioa/lizentzia duten hizkuntza pakete guztiak argitaratzen saiatuko gara. Informazio gehiagorako ikusi f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 foroko eztabaida].

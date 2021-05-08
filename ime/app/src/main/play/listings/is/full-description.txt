@@ -1,0 +1,17 @@
+Annað skjályklaborð sem styður við mörg tungumál.
+
+* Marg-tungumála lyklaborðsstuðningur með viðbótarpökkum (enska er sjálfgefin)
+* Söfn fyrir orðaklárun í mörgum tungumálum
+* Fjölsnertistuðningur
+* Útvíkkun á lyklaborði (strjúktu fingri alla leið út af lyklaborðinu)
+* Stuðningur við bendingar: strjúktu til hægri eða vinstri til að skipta um uppsetningu; strjúktu upp til að sjá hástafi; strjúktu niður til að loka lyklaborðinu
+* Stuðningur við útlitsþemu (kemur með nokkrum skinnum)
+* Emoji-lyklaborð plús leit með emoji-merkjum - skrifaðu ":emoji_name"
+* Innbyggður ritill fyrir orðasafn notandans
+* Hægt að fá 16-lykla enskt lyklaborð
+* Hreyfingar bendils er hægt að kortleggja/varpa sem fasta lykla á lyklaborði
+* Innbyggður stuðningur við ARM, x86 og MIPS
+* Raddinntak
+* Hægt að nota annað en staðfærslu kerfisins
+
+Við reynum að gefa út alla tungumálapakka og þemu sem koma með upprunalegu XML og tileinkun/notkunarleyfi fyrir orðasöfnin. Fyrir ítarlegri upplýsingar ættirðu að skoða [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 umfjöllunina á spjallsvæði] f-droid.org.

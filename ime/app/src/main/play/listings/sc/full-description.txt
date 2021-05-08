@@ -1,0 +1,17 @@
+Unu tecladu alternativu pro limbas medas
+
+* Suportu pro limbas medas pro mèdiu de pachetes esternos (Inglesu comente istandard)
+* Ditzionàrios de cumpridura pro limbas medas
+* Suportu pro su tocu mùltiplu
+* Tecladu estèndidu (trìsina su pòddighe tuo cara a artu a foras de su tecladu)
+* Suportu pro sos gestos: trìsina a destra o a manca pro colare dae una dispositzione a s'àter; tcara a susu pro sas maiùscolas; cara a giosso pro serrare su tecladu
+* Suportu pro sos temas (cun temas medas)
+* Tecladu de sas emoji cun chirca de sas etichetas emoji - iscrie ":emoji_name"
+* Editore de su ditzionàriu de s'impreadore integradu
+* Tecladu pro s'inglesu optzionale a 16 caràteres
+* Teclas de movimentu de su cursore chi si podent mapare cun sas teclas fìsicas
+* Suportat in manera nativa ARM, x86 e MIPS
+* Reconnoschimentu vocale
+* Abilidade de subraiscrìere su valore de sa limba de sistema
+
+Amus a chircare de publicare totu sos pachetes de sas limbas chi tenent unu xml de fonte e atributzione/litzèntzia pro sos ditzionàrios. Pro àteras informatziones leghe·ti [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 sa publicatzione in su forum] in f-droid.org.

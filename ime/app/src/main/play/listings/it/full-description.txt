@@ -1,0 +1,17 @@
+Tastiera su schermo alternativa per diverse lingue.
+
+* Supporto tastiere multilingua da pacchetti esterni (Inglese come standard)
+* Dizionari di completamento per varie lingue
+* Supporto multitocco
+* Tastiera estesa (scorri il dito in alto fuori dalla tastiera)
+* Supporto gesti: scorri a destra o sinistra per cambiare layout; scorri in alto per maiuscole; scorri in basso per chiudere la tastiera
+* Supporto temi (presenti varie skin)
+* Tastiera emoji più ricerca tag emoji - tipo ":emoji_name"
+* Editor parole dizionario integrato
+* Tastiera inglese a 16 tasti opzionale
+* Tasti con movimenti del cursore possono essere mappati ai tasti fisici
+* Supporta ARM, x86 e MIPS nativamente
+* Input vocale
+* Possibilità di sovrascrivere la lingua di sistema
+
+Proveremo a pubblicare qualsiasi lingua e tema che hanno xml sorgente e attribuzione/licenza per i dizionari. Maggiori info sul forum [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 fdroid.org].

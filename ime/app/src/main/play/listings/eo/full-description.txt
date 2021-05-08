@@ -1,0 +1,29 @@
+Alternativa surekrana klavaro por multaj lingvoj.
+
+* subteno por aliaj lingvoj per eksteraj pakaĵoj (angla implicite)
+
+ * kompletig-vortaroj por pluraj lingvoj
+
+ * subteno por plurtuŝo
+
+ * etendebla klavaro (ŝovumu vian fingron supren ekster-klavaren)
+
+ * subteno por gestoj: ŝovumu (mal)dekstren por baskuli klavararanĝon, ŝovumu supren por majuskloj, ŝovumu malsupren por fermi klavaron
+
+ * subteno por etosoj (kelkaj antaŭinstalitaj)
+
+ * emoĝi-klavaro kaj serĉaado - tajpu “:emoji_name”
+
+ * redakti uzant-vortaron
+
+ * malnepra 16-klava angla klavaro
+
+ * programaj klavoj de kursor-movoj povas esti asignitaj kiel fizikaj butonoj
+
+ * indiĝena subteno por ARM, x86 kaj MIPS
+
+ * pervoĉa enigo
+
+ * eblo por ŝanĝi la lingvon
+
+Ni provos publikigi ĉiujn lingvajn pakaĵojn kaj etosojn, kiuj havas fontan xml kaj atribuon/permesilon por vortaroj.

@@ -1,0 +1,17 @@
+Clavier virtuel alternatif pour différentes langues.
+
+* Prise en charge de claviers en plusieurs langues grâce à des paquets externes (anglais par défaut)
+ * Dictionnaires de saisie en différentes langues
+ * Prise en charge du toucher multipoint
+ * Clavier étendu (glissez votre doigt vers le haut par delà le clavier)
+ * Prise en charge des gestes : Glissez à gauche ou à droite pour changer la disposition du clavier ; glissez vers le haut pour activer les majuscules ; Glissez vers le bas pour fermer le clavier
+ * Prise en charge des thèmes (comprend différents habillages)
+ * Clavier d’émojis et recherche de balises d’émoji – tapez « :nom_de_l’émoji »
+ * Éditeur intégré de mot du dictionnaire personnel
+ * Clavier anglais facultatif à 16 touches
+ * Touches virtuelles de mouvement du curseur qui peuvent aussi être mappées aux touches physiques
+ * Prise en charge de manière native d’ARM, x86 et MIPS
+ * Saisie vocale
+ * Possibilité de remplacer la valeur des paramètres linguistiques du système
+
+Nous essaierons de publier les paquets de langues et de thèmes qui ont leur code source en XML, ainsi que les dictionnaires qui ont une licence et un auteur. Pour plus d’informations, voir le [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 sujet du forum] sur f-droid.org.

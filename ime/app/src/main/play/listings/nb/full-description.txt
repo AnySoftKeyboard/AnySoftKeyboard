@@ -1,0 +1,17 @@
+Alternativt skjermbasert tastatur for mange språk.
+
+* Støtte for flere tastaturer via eksterne pakker (Engelsk er forvalg)
+* Fullføringsordbøker for flere språk
+* Multitrykkstøtte
+* Utvidelsestastatur (dra fingeren din hele veien opp og ut av tastaturet)
+* Håndvendingsstøtte: dra til venstre eller høyre for å bytte tastaturoppsett; dra opp for å bytte; dra ned for å lukke tastaturet
+* Draktstøtte (kommer med flere drakter)
+* Emoji-tastatur pluss emojitaggstøtte - skriv ":emoji_name"
+* Innebygd ordboksordbehandler
+* Valgfritt 16-tasters Engelsk tastatur
+* Falske taster for pekerflytting som også kan tilknyttes maskinvaretaster
+* Støtter ARM, x86 og MIPS uten konvertering
+* Stemmestyring
+* Mulighet til å overstyre systemets lokalitetsverdi
+
+Forsøksvist vil språkpakker og drakter som har kilde-XML og navngivinging/lisens på plass for ordbøkene. For mer info, sjekk [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forumemnet].

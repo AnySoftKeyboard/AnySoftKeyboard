@@ -1,0 +1,1 @@
+Vaihtoehtoinen virtuaalinen näppäimistö usealle kielelle.

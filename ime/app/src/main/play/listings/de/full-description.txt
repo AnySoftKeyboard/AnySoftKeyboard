@@ -1,0 +1,17 @@
+Alternative Bildschirmtastatur für viele Sprachen.
+
+* Unterstützung einer mehrsprachigen Tastatur über zusätzliche Sprachpakete (Englisch als Standard)
+* Wörterbücher zur Vervollständigung in mehreren Sprachen
+* Mehrfingerbedienung
+* Tastaturerweiterung (mit dem Finger nach oben, über den Tastaturrand hinaus wischen)
+* Gestensteuerung (Layout durch nach links oder rechts Wischen ändern; Umschalttaste durch nach oben Wischen betätigen; Tastatur durch nach unten Wischen schließen)
+* Designauswahl (enthält etliche Vorlagen)
+* Emoji-Tastatur plus Emoji-Kennzeichensuche (":emoji_name" eintippen)
+* Integrierte Benutzerwörterbuch-Bearbeitung
+* Optionale englische 16-Tasten-Tastatur
+* Cursor-Bewegung über Bildschirmtasten und auch über zugeordnete Hardware-Tasten steuern
+* Spracheingabe
+* Unterstützt ARM, x86 und MIPS nativ
+* Besitzt die Fähigkeit, die Einstellung für die Systemsprache zu überschreiben
+
+Wir werden versuchen, jedes Sprach- und Designpaket zu veröffentlichen, das eine XML-Quelldatei und - bei Wörterbüchern - die Zuordnungen/Lizenzen mitbringt. Weitere Infos dazu auf F-Droid [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic].

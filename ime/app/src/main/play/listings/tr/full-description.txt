@@ -1,0 +1,17 @@
+Birden fazla dil için alternatif ekran klavyesi
+
+* Harici paketler aracılığıyla çoklu dil klavyesi desteği (standart olarak İngilizce)
+* Birden çok dil için tamamlama sözlükleri
+* Çoklu dokunma desteği
+* Genişletme klavyesi (parmağınızı klavyenin dışına doğru kaydırın)
+* Hareket desteği: Yerleşimleri değiştirmek için sola veya sağa kaydırın ; değiştirmek için yukarı kaydırın; klavyeyi kapatmak için aşağı kaydırın
+* Tema desteği (birkaç arayüz ile birlikte gelir)
+* Emoji klavye + emoji etiketi arama - ":emoji_name" yazın
+* Dahili kullanıcı sözlüğü kelimeleri düzenleyicisi
+* İsteğe bağlı 16 tuşlu İngilizce klavye
+* Donanımsal tuşlara da atanabilecek imleç hareketi yazılım tuşları
+* ARM, x86 ve MIPS'yi doğal olarak destekler
+* Ses girişi
+* Sistem yerel ayarını değiştirebilme özelliği
+
+Sözlükleri için atfı/lisansı ve kaynak xml'i olan her dil ve tema paketini yayınlamaya çalışacağız. Daha çok bilgi için f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum konusuna] bakın.

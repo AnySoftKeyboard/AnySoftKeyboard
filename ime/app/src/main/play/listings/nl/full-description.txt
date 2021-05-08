@@ -1,0 +1,5 @@
+Alternatief toetsenbord voor meerdere talen.
+
+* Meertalige toetsenbordondersteuning via externe pakketten (Engels als standaard) * Woordenboeken voor auto-aanvullen in meerdere talen * Multitouch ondersteuning * Extensie-toetsenbord (swipe je vinger volledige omhoog vanaf het toetsenbord) * Gebarenondersteuning: swipe links of rechts om van lay-out te veranderen; swipe omhoog om te verschuiven; swipe omlaag om het toetsenbord te sluiten * Themaondersteuning (verschillende skins bijgeleverd) * Emoji-toetsenbord met emoji tag zoekfunctie - typ ":emoji_naam" * Ingebouwde bewerker voor gebruikerswoordenboek * Optioneel 16-toetsig Engels toetsenbord * Cursorbeweging soft-toetsen die ook toegewezen kunnen worden aan hardware-toetsen * Ondersteunt ARM, x86 and MIPS standaard * Spraakinvoer * Mogelijkheid om systeemtaal te overschrijven
+
+We zullen proberen alle taalpakketten en -thema's met een xml bron en attributie/licentie voor woordenboeken te publiceren. Zie f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic] voor meer informatie.

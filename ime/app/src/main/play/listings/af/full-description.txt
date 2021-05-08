@@ -1,0 +1,5 @@
+Alternatiewe sleutelbord op die skerm vir verskillende tale.
+
+* Multi taal sleutelbord ondersteuning via eksterne pakkette (Engels as standaard) * voltooiing woordeboeke vir veelvuldige tale * Multitouch ondersteuning * uitbreiding sleutelbord (vee jou vinger dwarsoor die sleutelbord) * gebaar ondersteuning: vee links of regs te verwissel uitlegte; vee tot verskuiwing; vee af te sluit van die sleutelbord * tema ondersteuning (kom met verskeie velle) * emosiekone stuur sleutelbord plus emosiekone stuur merker soektog - tipe ": emoji_name" * ingeboude gebruiker woordeboek woorde redakteur * opsioneel 16-sleutel Engelse sleutelbord * loper beweging sagte-sleutels wat ook gekarteer kan word om hardeware sleutels * ondersteun ARM, x86 en MIPS natively * stem-insette * vermoë om oorheers die stelsel lokaliteit waarde
+
+Ons sal probeer om enige taalpakke en temas wat bron xml en erkenning/lisensie vir die woordeboeke publiseer. Vir meer inligting sien die f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum onderwerp].

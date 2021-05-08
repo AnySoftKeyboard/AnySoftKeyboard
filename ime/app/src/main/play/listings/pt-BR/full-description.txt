@@ -1,0 +1,17 @@
+Teclado virtual alternativo para múltiplos idiomas
+
+* Suporte para teclado multi-idioma via pacotes externos (inglês como padrão)
+* Dicionários de completação para múltiplos idiomas
+* Suporte multitoque
+* Teclado estendido (deslize de baixo para cima do teclado)
+* Suporte a gestos: deslize à esquerda ou à direita para mudar de leiaute; deslize para cima para maiúsculas; deslize para baixo para fechar o teclado
+* Suporte a temas (vem com várias skins)
+* Teclado emoji com busca por tag - digite ":nome_emoji"
+* Editor de palavras do dicionário pessoal embutido
+* Teclado inglês de 16 teclas opcional
+* Teclas virtuais para movimentar o cursor também podem ser mapeadas para teclas físicas
+* Suporta ARM, x86 e MIPS nativamente
+* Entrada por voz
+* Habilidade de sobrescrever o idioma definido no sistema
+
+Tentaremos publicar qualquer pacote de idiomas e temas que tiverem código-fonte xml e atribuição/licença para os dicionários. Para mais informações consulte o [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 tópico do fórum] do f-droid.org.

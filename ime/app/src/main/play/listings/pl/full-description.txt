@@ -1,0 +1,17 @@
+Alternatywna klawiatura ekranowa dla wielu języków
+
+* Obsługa wielu języków klawiatury za pośrednictwem zewnętrznych pakietów (angielski domyślnie)
+* Słowniki autouzupełniania dla wielu języków
+* Obsługa dla wielodotyku
+* Rozszerzenia klawiatury (przesuń palcem w górę poza klawiaturę)
+* Obsługa gestów: przesuń palcem w lewo lub w prawo, aby zmienić układ; przesuń palcem w górę po klawisz shift; przesuń palcem w dół, aby zamknąć klawiaturę
+* Obsługa motywów (zawiera kilka skórek
+* Klawiatura Emoji z wyszukiwarką - wpisz „:emoji_name”
+* Wbudowany edytowalny słownik użytkownika
+* Opcjonalna 16-klawiszowa klawiatura angielska
+* Klawisze programowalne do poruszania kursorem, które można zmapować jako przyciski fizyczne
+* Obsługuje natywnie ARM, x86 i MIPS
+* Wprowadzanie głosem
+* Możliwość nadpisania wartości ustawień regionalnych systemu
+
+Postaramy się opublikować wszelkie pakiety językowe i tematy, które mają źródło xml i uznanie autorstwa/licencję dla słowników. Więcej informacji można znaleźć na stronie f-droid.org [temat forum http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408].
