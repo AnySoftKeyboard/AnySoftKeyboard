@@ -16,10 +16,8 @@
 
 package com.google.android.voiceime;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
@@ -27,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 /** Triggers a voice recognition using Google voice typing. */
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 class ImeTrigger implements Trigger {
 
     private static final String VOICE_IME_SUBTYPE_MODE = "voice";
@@ -94,10 +91,6 @@ class ImeTrigger implements Trigger {
 
     /** Returns true if an implementation of Voice IME is installed. */
     public static boolean isInstalled(InputMethodService inputMethodService) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return false;
-        }
-
         InputMethodInfo inputMethodInfo =
                 getVoiceImeInputMethodInfo(getInputMethodManager(inputMethodService));
 

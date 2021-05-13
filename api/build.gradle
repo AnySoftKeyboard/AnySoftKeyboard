@@ -7,4 +7,5 @@ dependencies {
     testImplementation("org.robolectric:robolectric:$robolectricVersion") {
         exclude group: 'com.google.auto.service', module: 'auto-service'
     }
+    testImplementation 'androidx.test:core:1.2.0'
 }

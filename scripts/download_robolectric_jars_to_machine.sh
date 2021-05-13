@@ -6,8 +6,9 @@ rm -rf "${TARGET_FOLDER}" || true
 mkdir -p "${TARGET_FOLDER}"
 
 DOWNLOAD_BASE_URL="https://repo1.maven.org/maven2/org/robolectric/android-all"
-#artifacts taken from: https://github.com/robolectric/robolectric/blob/robolectric-4.3.1/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java
+#artifacts taken from: https://github.com/robolectric/robolectric/blob/robolectric-4.5.1/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java
 ARTIFACTS=( \
+  "11-robolectric-6757853" \
   "10-robolectric-5803371" \
   "9-robolectric-4913185-2" \
   "8.1.0-robolectric-4611349" \

@@ -10,7 +10,7 @@ import org.junit.runners.model.InitializationError;
 import org.robolectric.DefaultTestLifecycle;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.TestLifecycle;
-import org.robolectric.android.util.concurrent.RoboExecutorService;
+import org.robolectric.android.util.concurrent.PausedExecutorService;
 
 /** Just a way to add general things on-top RobolectricTestRunner. */
 public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner {
@@ -30,8 +30,14 @@ public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner 
     public static class AnySoftKeyboardRobolectricTestLifeCycle extends DefaultTestLifecycle {
         @Override
         public void beforeTest(Method method) {
-            TestRxSchedulers.setSchedulers(Looper.getMainLooper(), new RoboExecutorService());
+            TestRxSchedulers.setSchedulers(Looper.getMainLooper(), new PausedExecutorService());
             super.beforeTest(method);
+        }
+
+        @Override
+        public void afterTest(Method method) {
+            super.afterTest(method);
+            TestRxSchedulers.destroySchedulers();
         }
     }
 }

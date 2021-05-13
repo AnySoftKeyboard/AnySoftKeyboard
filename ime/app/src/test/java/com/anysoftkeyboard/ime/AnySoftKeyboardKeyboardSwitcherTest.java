@@ -547,15 +547,15 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewSet();
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
         SharedPrefsHelper.setPrefsValue("keyboard_some-id_override_dictionary", "dictionary_id");
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest()).resetNextWordSentence();
         // no UI, no setup of suggestions dictionaries
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
         AnyApplication.getQuickTextKeyFactory(getApplicationContext())
                 .setAddOnEnabled(
                         AnyApplication.getQuickTextKeyFactory(getApplicationContext())

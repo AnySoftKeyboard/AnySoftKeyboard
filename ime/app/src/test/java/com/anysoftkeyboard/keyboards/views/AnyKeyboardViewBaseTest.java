@@ -28,9 +28,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.annotation.LooperMode;
 import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+@LooperMode(LooperMode.Mode.LEGACY)
 public class AnyKeyboardViewBaseTest {
     OnKeyboardActionListener mMockKeyboardListener;
     AnyKeyboard mEnglishKeyboard;

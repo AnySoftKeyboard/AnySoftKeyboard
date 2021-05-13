@@ -173,9 +173,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     }
 
     protected boolean shouldConsumeSubtypeChangedEvent(String newSubtypeExtraValue) {
-        // 1) device is lower than ICE_CREAM_SANDWICH
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) return true;
-        // 2) we are NOT waiting for an expected report
+        // 1) we are NOT waiting for an expected report
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/668
         // every time we change the alphabet keyboard, we want to OS to acknowledge
         // before we allow another subtype switch via event

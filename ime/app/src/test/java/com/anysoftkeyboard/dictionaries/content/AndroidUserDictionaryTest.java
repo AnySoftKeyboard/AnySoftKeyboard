@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.provider.UserDictionary;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
@@ -39,6 +40,7 @@ public class AndroidUserDictionaryTest {
     public void testLoadedWordsEN() throws Exception {
         AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         dictionary.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertFalse(dictionary.isValidWord("Dudes"));
         Assert.assertTrue(dictionary.isValidWord("Dude"));
         Assert.assertFalse(dictionary.isValidWord("catchall"));
@@ -49,6 +51,7 @@ public class AndroidUserDictionaryTest {
     public void testLoadedWordsNULL() throws Exception {
         AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), null);
         dictionary.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertTrue(dictionary.isValidWord("Dude"));
         Assert.assertFalse(dictionary.isValidWord("Dudes"));
         Assert.assertTrue(dictionary.isValidWord("catchall"));
@@ -61,12 +64,14 @@ public class AndroidUserDictionaryTest {
         AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         // this should throw an exception, since there is no system content provider
         dictionary.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
     }
 
     @Test
     public void testRegisterObserver() throws Exception {
         AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         dictionary.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
 
         Collection<ContentObserver> observerList =
                 Shadows.shadowOf(getApplicationContext().getContentResolver())
@@ -75,6 +80,8 @@ public class AndroidUserDictionaryTest {
 
         Assert.assertFalse(dictionary.isValidWord("Dudesss"));
         mProvider.addRow(15, "Dudesss", 1, "en");
+        TestRxSchedulers.drainAllTasks();
+
         Assert.assertTrue(dictionary.isValidWord("Dudesss"));
 
         dictionary.close();

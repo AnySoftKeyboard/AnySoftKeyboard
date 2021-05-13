@@ -4,6 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
 import android.app.Application;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -14,17 +15,19 @@ import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
 import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 
+@Config(sdk = Build.VERSION_CODES.M)
 public class UserDictionaryEditorFragmentTest
         extends RobolectricFragmentTestCase<UserDictionaryEditorFragment> {
 
@@ -39,8 +42,7 @@ public class UserDictionaryEditorFragmentTest
         UserDictionaryEditorFragment fragment = startFragment();
         fragment.getSpinnerItemSelectedListener()
                 .onItemSelected(fragment.getLanguagesSpinner(), null, 0, 0);
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
         return fragment;
     }
 
@@ -58,9 +60,7 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.add_user_word).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertEquals(1, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(
@@ -82,14 +82,10 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.add_user_word).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         fragment.onOptionsItemSelected(menuItem);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertEquals(1, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(
@@ -123,9 +119,7 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.add_user_word).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertEquals(3, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(
@@ -163,14 +157,10 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.add_user_word).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         fragment.onOptionsItemSelected(menuItem);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertEquals(3, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(
@@ -192,9 +182,7 @@ public class UserDictionaryEditorFragmentTest
         userDictionary.close();
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         // http://stackoverflow.com/questions/27052866/android-robolectric-click-recyclerview-item
@@ -212,9 +200,7 @@ public class UserDictionaryEditorFragmentTest
         Assert.assertEquals("hello", helloTextView.getText().toString());
         // deleting word
         Shadows.shadowOf(deleteButtonView).getOnClickListener().onClick(deleteButtonView);
-
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertEquals(2, wordsRecyclerView.getAdapter().getItemCount());
     }
@@ -299,6 +285,7 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        TestRxSchedulers.drainAllTasks();
 
         // we want a success dialog here
         Assert.assertEquals(
@@ -325,6 +312,7 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        TestRxSchedulers.drainAllTasks();
 
         // nothing happens here - the getLatestDialog is the progress-dialog
         Assert.assertFalse(ShadowDialog.getLatestDialog().isShowing());
@@ -352,10 +340,12 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        TestRxSchedulers.drainAllTasks();
         GeneralDialogTestUtil.getLatestShownDialog().dismiss();
 
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        TestRxSchedulers.drainAllTasks();
 
         // we want a success dialog here
         Assert.assertEquals(
@@ -376,6 +366,7 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        TestRxSchedulers.drainAllTasks();
 
         // we want a failure dialog here
         Assert.assertEquals(
@@ -403,6 +394,7 @@ public class UserDictionaryEditorFragmentTest
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        TestRxSchedulers.drainAllTasks();
 
         // nothing happens here
         Assert.assertSame(

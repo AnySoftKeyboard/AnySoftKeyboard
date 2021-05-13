@@ -15,11 +15,8 @@ import com.anysoftkeyboard.devicespecific.AskV8GestureDetector;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.devicespecific.ClipboardV11;
 import com.anysoftkeyboard.devicespecific.ClipboardV28;
-import com.anysoftkeyboard.devicespecific.ClipboardV3;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificLowest;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV15;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
@@ -40,22 +37,22 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
 
     private final List<Class<? extends DeviceSpecific>> mExpectedDeviceSpecificClass =
             Arrays.asList(
-                    DeviceSpecificLowest.class, // 0
-                    DeviceSpecificLowest.class, // 1
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class, // 8
-                    DeviceSpecificLowest.class,
-                    DeviceSpecificLowest.class, // 10
-                    DeviceSpecificV11.class, // 11
-                    DeviceSpecificV11.class,
-                    DeviceSpecificV11.class,
-                    DeviceSpecificV14.class, // 14
-                    DeviceSpecificV14.class,
+                    DeviceSpecificV15.class, // 0
+                    DeviceSpecificV15.class, // 1
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class, // 8
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class, // 10
+                    DeviceSpecificV15.class, // 11
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class, // 14
+                    DeviceSpecificV15.class,
                     DeviceSpecificV16.class, // 16
                     DeviceSpecificV16.class,
                     DeviceSpecificV16.class,
@@ -68,21 +65,23 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     DeviceSpecificV24.class,
                     DeviceSpecificV24.class,
                     DeviceSpecificV24.class,
-                    DeviceSpecificV28.class);
+                    DeviceSpecificV28.class,
+                    DeviceSpecificV28.class,
+                    DeviceSpecificV28.class); // 30
 
     private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
             Arrays.asList(
-                    ClipboardV3.class, // 0
-                    ClipboardV3.class, // 1
-                    ClipboardV3.class,
-                    ClipboardV3.class,
-                    ClipboardV3.class,
-                    ClipboardV3.class,
-                    ClipboardV3.class,
-                    ClipboardV3.class,
-                    ClipboardV3.class, // 8
-                    ClipboardV3.class,
-                    ClipboardV3.class, // 10
+                    ClipboardV11.class, // 0
+                    ClipboardV11.class, // 1
+                    ClipboardV11.class,
+                    ClipboardV11.class,
+                    ClipboardV11.class,
+                    ClipboardV11.class,
+                    ClipboardV11.class,
+                    ClipboardV11.class,
+                    ClipboardV11.class, // 8
+                    ClipboardV11.class,
+                    ClipboardV11.class, // 10
                     ClipboardV11.class, // 11
                     ClipboardV11.class,
                     ClipboardV11.class,
@@ -100,7 +99,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
-                    ClipboardV28.class);
+                    ClipboardV28.class,
+                    ClipboardV28.class,
+                    ClipboardV28.class); // 30
 
     private final List<Class<? extends DictionaryContentObserver>>
             mExpectedDictionaryObserverClass =
@@ -133,7 +134,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                             DictionaryContentObserverAPI16.class,
                             DictionaryContentObserverAPI16.class,
                             DictionaryContentObserverAPI16.class,
-                            DictionaryContentObserverAPI16.class);
+                            DictionaryContentObserverAPI16.class,
+                            DictionaryContentObserverAPI16.class,
+                            DictionaryContentObserverAPI16.class); // 30
 
     private final List<Class<? extends GestureDetector>> mExpectedGestureDetectorClass =
             Arrays.asList(
@@ -165,7 +168,9 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class,
-                    AskV19GestureDetector.class);
+                    AskV19GestureDetector.class,
+                    AskV19GestureDetector.class,
+                    AskV19GestureDetector.class); // 30
 
     void testCreateDeviceSpecificImplementationImpl() {
         if (Build.VERSION.SDK_INT > 100) return; // FUTURE?

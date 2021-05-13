@@ -11,8 +11,9 @@ public class AnySoftKeyboardSelectionModificationTest extends AnySoftKeyboardBas
 
     @Test
     public void testCapitalizeEntireInput() {
-        final String expectedText = "THIS SHOULD ALL BE CAPS";
-        final String initialText = expectedText.toLowerCase(Locale.ENGLISH);
+        final String expectedText =
+                "THIS SHOULD ALL HE CAPS"; /*using "he" so we will not get auto-corrected*/
+        final String initialText = expectedText.toLowerCase(Locale.ROOT);
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
         Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.setSelectedText(0, expectedText.length(), true);

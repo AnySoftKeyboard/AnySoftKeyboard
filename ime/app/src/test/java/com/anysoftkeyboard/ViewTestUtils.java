@@ -12,6 +12,7 @@ import android.view.View;
 import androidx.test.core.view.MotionEventBuilder;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -202,7 +202,7 @@ public class ViewTestUtils {
                 Shadows.shadowOf(viewById).getOnClickListener();
         Assert.assertNotNull(onClickListener);
         onClickListener.onClick(viewById);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         return rootFragment
                 .getActivity()
                 .getSupportFragmentManager()

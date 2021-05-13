@@ -23,7 +23,6 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
-import com.menny.android.anysoftkeyboard.BuildConfig;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -128,11 +127,10 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
             return new BinaryDictionary(
                     getPackageContext(),
                     getName(),
-                    getPackageContext().getAssets().openFd(mAssetsFilename),
-                    BuildConfig.DEBUG);
-        else
-            return new ResourceBinaryDictionary(
-                    getName(), getPackageContext(), mDictionaryResId, BuildConfig.DEBUG);
+                    getPackageContext().getAssets().openFd(mAssetsFilename));
+        else {
+            return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId);
+        }
     }
 
     @Nullable

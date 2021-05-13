@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -55,10 +56,8 @@ public class SetUpKeyboardWizardFragmentTest
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Test
-    @Config(
-            sdk =
-                    Build.VERSION_CODES
-                            .LOLLIPOP /*I don't want to also verify the permissions page too*/)
+    /*I don't want to also verify the permissions page too*/
+    @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testHappyPath() {
         SetUpKeyboardWizardFragment fragment = startFragment();
         // ensuring we registered for Secure settings observing
@@ -83,8 +82,9 @@ public class SetUpKeyboardWizardFragmentTest
                 .getView()
                 .findViewById(R.id.go_to_start_setup)
                 .performClick();
-        ensureAllScheduledJobsAreDone();
+        TestRxSchedulers.foregroundAdvanceBy(1000 /*after the animation*/);
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.UNPAUSED);
+        // TestRxSchedulers.foregroundFlushAllJobs();
 
         // page two - enable ASK
         Assert.assertEquals(1, pager.getCurrentItem());
@@ -104,7 +104,7 @@ public class SetUpKeyboardWizardFragmentTest
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.PAUSED);
         // notifying about the change.
         getFragmentController().start().resume();
-        ensureAllScheduledJobsAreDone();
+        TestRxSchedulers.foregroundAdvanceBy(1000 /*after the animation*/);
 
         // now at page three - activate keyboard
         Assert.assertEquals(2, pager.getCurrentItem());
@@ -122,7 +122,7 @@ public class SetUpKeyboardWizardFragmentTest
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.PAUSED);
 
         getFragmentController().resume();
-        ensureAllScheduledJobsAreDone();
+        TestRxSchedulers.foregroundAdvanceBy(1000 /*after the animation*/);
         // now at page four - more settings.
         Assert.assertEquals(3, pager.getCurrentItem());
 

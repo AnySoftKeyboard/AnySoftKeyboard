@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -21,8 +22,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     private static final int KEY_MESSAGE_RETURN_TO_APP = 446;
 
     @SuppressWarnings("HandlerLeak" /*I want this fragment to stay in memory as long as possible*/)
-    private Handler mGetBackHereHandler =
-            new Handler() {
+    private final Handler mGetBackHereHandler =
+            new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message msg) {
                     switch (msg.what) {

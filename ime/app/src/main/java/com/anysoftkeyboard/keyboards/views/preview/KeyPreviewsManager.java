@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
@@ -184,6 +185,7 @@ public class KeyPreviewsManager implements KeyPreviewsController {
         private final long mDelayBeforeDismiss;
 
         UIHandler(KeyPreviewsManager popupManager, long delayBeforeDismiss) {
+            super(Looper.getMainLooper());
             mDelayBeforeDismiss = delayBeforeDismiss;
             mPopupManagerWeakReference = new WeakReference<>(popupManager);
         }

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -310,6 +311,7 @@ public class NightModeTest {
                 .sendBroadcast(
                         new Intent(
                                 lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
+        TestRxSchedulers.foregroundFlushAllJobs();
     }
 
     public static void sendPowerSavingState(
@@ -317,5 +319,6 @@ public class NightModeTest {
         shadowPowerManager.setIsPowerSaveMode(powerSaving);
         ApplicationProvider.getApplicationContext()
                 .sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+        TestRxSchedulers.foregroundFlushAllJobs();
     }
 }

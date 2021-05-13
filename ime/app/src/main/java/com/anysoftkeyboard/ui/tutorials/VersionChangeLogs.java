@@ -13,6 +13,15 @@ public class VersionChangeLogs {
         log.add(
                 new VersionChangeLog(
                         1,
+                        11,
+                        "r1",
+                        Uri.parse(
+                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/93"),
+                        "Minimum Android version is 4.0.3 (ICS, API level 15). ",
+                        "Updated translations from the community."));
+        log.add(
+                new VersionChangeLog(
+                        1,
                         10,
                         "r4",
                         Uri.parse(
@@ -404,78 +413,6 @@ public class VersionChangeLogs {
                         "And, fixed a few bugs (probably also introduced a few...)",
                         "Localization update: PL, CA, MY, UK, DE, FR, SL.",
                         "YABTU"));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        6,
-                        "r3.1",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r3.1"),
-                        "Again, fixing a hard crash in a release. Next release will have a longer beta period."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        6,
-                        "r3",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r3"),
-                        "A few crash fixes.",
-                        "More than a few bugs (which I found on my own!) fixing",
-                        "A few more characters when long-pressing dash.",
-                        "YABTU.",
-                        "Localization update: KU, PL."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        6,
-                        "r2.1",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.1"),
-                        "Super annoying crash fixing."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        6,
-                        "r2",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2"),
-                        "More about Clipboard: long-pressing the Paste key allows pasting from the past!",
-                        "Now supporting devices with non-standard touch support.",
-                        "Crashes, crashes, crashes... Gone.",
-                        "A few UI refinements.",
-                        "YABTU."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        6,
-                        "r1",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r1"),
-                        "Clipboard actions! Checkout the utility keyboard (swipe up from the space-bar).",
-                        "Small UI changes, too small to notice. But I'm happier.",
-                        "Bug squashing.",
-                        "YABTU.",
-                        "Localization update: tlh (Klingon), IW, and complete translation for DE (thanks goes to Nick Felsch)."));
-
-        log.add(
-                new VersionChangeLog(
-                        1,
-                        6,
-                        "",
-                        Uri.parse(
-                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6"),
-                        "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
-                        "And, yes, previous line was auto-completed using Next Words prediction.",
-                        "You requested and someone did it: new Lean Light theme is here.",
-                        "I keep finding crashes, but then they magically go away.",
-                        "YABTU (Yet another build tools update).",
-                        "Localization update: TR, PL, DE."));
-
         return log;
     }
 

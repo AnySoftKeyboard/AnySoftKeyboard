@@ -6,6 +6,7 @@ import static com.anysoftkeyboard.android.NightModeTest.configurationForNightMod
 
 import android.content.res.Configuration;
 import android.media.AudioManager;
+import android.os.Looper;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -19,6 +20,7 @@ import com.anysoftkeyboard.keyboards.views.preview.AboveKeyboardPositionCalculat
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.NullKeyPreviewsManager;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -28,8 +30,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowSystemVibrator;
 import org.robolectric.shadows.ShadowVibrator;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -174,18 +176,18 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDoNotVibrateWhenNightTime() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode, "follow_system");
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_vibrate_on_key_press_duration_int, 10);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
         Assert.assertFalse(shadowVibrator.isVibrating());
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
         Assert.assertTrue(shadowVibrator.isVibrating());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
 
         AnyApplication application = getApplicationContext();
         application.onConfigurationChanged(
@@ -194,20 +196,20 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
         Assert.assertFalse(shadowVibrator.isVibrating());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
 
         application.onConfigurationChanged(
                 configurationForNightMode(Configuration.UI_MODE_NIGHT_NO));
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
         Assert.assertTrue(shadowVibrator.isVibrating());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode_vibration_control, false);
         application.onConfigurationChanged(
                 configurationForNightMode(Configuration.UI_MODE_NIGHT_YES));
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
         Assert.assertTrue(shadowVibrator.isVibrating());
@@ -246,7 +248,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoesNotVibrateDisabled() {
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration_int, 0);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
@@ -259,14 +261,14 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testVibrateWhenEnabled() {
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_vibrate_on_key_press_duration_int, 10);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
         // demo
         Assert.assertTrue(shadowVibrator.isVibrating());
         Assert.assertEquals(10, shadowVibrator.getMilliseconds());
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
         Assert.assertFalse(shadowVibrator.isVibrating());
 
         mAnySoftKeyboardUnderTest.onPress(0);
@@ -279,25 +281,25 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoNotVibrateWhenLowPower() {
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_vibrate_on_key_press_duration_int, 10);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
         Assert.assertFalse(shadowVibrator.isVibrating());
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
         Assert.assertTrue(shadowVibrator.isVibrating());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
 
         PowerSavingTest.sendBatteryState(true);
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
         Assert.assertFalse(shadowVibrator.isVibrating());
 
-        Robolectric.flushForegroundThreadScheduler();
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
 
         SharedPrefsHelper.setPrefsValue(
                 R.string.settings_key_power_save_mode_vibration_control, false);
@@ -310,9 +312,9 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     public void testDoesNotLongPressVibrateDisabled() {
         final Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
 
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_long_press, false);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
 
         Mockito.doReturn(0).when(key).getPrimaryCode();
@@ -328,10 +330,11 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     public void testVibrateLongPressWhenEnabled() {
         final Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
 
-        Robolectric.flushForegroundThreadScheduler();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_long_press, true);
-        Robolectric.flushForegroundThreadScheduler();
-        ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        ShadowSystemVibrator shadowVibrator =
+                (ShadowSystemVibrator) Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
+        Assert.assertFalse(shadowVibrator.isVibrating());
 
         Mockito.doReturn(0).when(key).getPrimaryCode();
         mAnySoftKeyboardUnderTest.onLongPressDone(key);

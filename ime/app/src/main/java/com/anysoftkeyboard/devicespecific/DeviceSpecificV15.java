@@ -17,23 +17,44 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.database.ContentObserver;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.GestureDetector;
+import android.view.inputmethod.CorrectionInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-public class DeviceSpecificV14 extends DeviceSpecificV11 {
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+public class DeviceSpecificV15 implements DeviceSpecific {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecificV14";
+        return "DeviceSpecificV15";
+    }
+
+    @Override
+    public GestureDetector createGestureDetector(
+            Context appContext, AskOnGestureListener listener) {
+        return new AskV8GestureDetector(appContext, listener);
+    }
+
+    @Override
+    public void commitCorrectionToInputConnection(
+            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+        ic.commitText(newWord, 1);
+        CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
+        ic.commitCorrection(correctionInfo);
     }
 
     @Override
@@ -72,6 +93,16 @@ public class DeviceSpecificV14 extends DeviceSpecificV11 {
         if (keyboardLocale != null)
             inputMethodManager.setInputMethodAndSubtype(
                     token, imeId, createSubtype(keyboardLocale, keyboardId));
+    }
+
+    @Override
+    public ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary) {
+        return new DictionaryContentObserver(dictionary);
+    }
+
+    @Override
+    public Clipboard createClipboard(Context applicationContext) {
+        return new ClipboardV11(applicationContext);
     }
 
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {

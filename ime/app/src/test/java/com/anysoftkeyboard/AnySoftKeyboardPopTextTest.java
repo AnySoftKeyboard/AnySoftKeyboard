@@ -21,20 +21,20 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         // pressing SPACE will auto-correct and pop the text out of the key
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        verifyPopText("hell");
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
+        verifyPopText("he'll");
 
         // regular-word
         mAnySoftKeyboardUnderTest.simulateTextTyping("gggg");
         verifySuggestions(true, "gggg");
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell gggg ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll gggg ", inputConnection.getCurrentTextInInputConnection());
         verifyNothingAddedInteractions();
     }
 
@@ -44,19 +44,19 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         // pressing SPACE will auto-correct and pop the text out of the key
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
 
         ArgumentCaptor<ExtraDraw> popTextCaptor = ArgumentCaptor.forClass(ExtraDraw.class);
         Mockito.verify(((AnyKeyboardViewWithExtraDraw) mAnySoftKeyboardUnderTest.getInputView()))
                 .addExtraDraw(popTextCaptor.capture());
         Assert.assertTrue(popTextCaptor.getValue() instanceof PopTextExtraDraw.PopOut);
         PopTextExtraDraw popTextExtraDraw = (PopTextExtraDraw) popTextCaptor.getValue();
-        Assert.assertEquals("hell", popTextExtraDraw.getPopText().toString());
+        Assert.assertEquals("he'll", popTextExtraDraw.getPopText().toString());
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
@@ -66,7 +66,7 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 .addExtraDraw(popTextCaptor.capture());
         Assert.assertTrue(popTextCaptor.getValue() instanceof PopTextExtraDraw.PopIn);
         Assert.assertEquals(
-                "hell", ((PopTextExtraDraw) popTextCaptor.getValue()).getPopText().toString());
+                "he'll", ((PopTextExtraDraw) popTextCaptor.getValue()).getPopText().toString());
     }
 
     @Test
@@ -77,9 +77,9 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
 
         ArgumentCaptor<ExtraDraw> popTextCaptor = ArgumentCaptor.forClass(ExtraDraw.class);
         Mockito.verify(
@@ -101,7 +101,7 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 "l",
                 ((PopTextExtraDraw) popTextCaptor.getAllValues().get(2)).getPopText().toString());
         Assert.assertEquals(
-                "hell",
+                "he'll",
                 ((PopTextExtraDraw) popTextCaptor.getAllValues().get(3)).getPopText().toString());
     }
 
@@ -112,19 +112,19 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         // pressing SPACE will auto-correct and pop the text out of the key
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        verifyPopText("hell");
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
+        verifyPopText("he'll");
         // regular-word
         mAnySoftKeyboardUnderTest.simulateTextTyping("gggg");
         verifySuggestions(true, "gggg");
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell gggg ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll gggg ", inputConnection.getCurrentTextInInputConnection());
 
         verifyPopText("gggg");
     }
@@ -142,19 +142,19 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         // pressing SPACE will auto-correct and pop the text out of the key
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        verifyPopText("hell");
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
+        verifyPopText("he'll");
         // regular-word
         mAnySoftKeyboardUnderTest.simulateTextTyping("gggg");
         verifySuggestions(true, "gggg");
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell gggg ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll gggg ", inputConnection.getCurrentTextInInputConnection());
 
         verifyPopText("gggg");
     }
@@ -163,7 +163,7 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
     public void testDoesNotPopTextWhenManuallyPicked() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "on_word");
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
         verifyNothingAddedInteractions();
@@ -191,9 +191,9 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
 
         verifyNothingAddedInteractions();
     }
@@ -206,9 +206,9 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
 
         verifyNothingAddedInteractions();
     }

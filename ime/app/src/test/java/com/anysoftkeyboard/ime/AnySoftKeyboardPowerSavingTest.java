@@ -38,9 +38,9 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
@@ -51,9 +51,9 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
@@ -62,9 +62,9 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
@@ -99,63 +99,61 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
 
         PowerSavingTest.sendBatteryState(false);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
 
         PowerSavingTest.sendBatteryState(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
     public void testDictionariesStateCycle() {
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isSuggestionsEnabled());
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSuggest().isSuggestionsEnabled());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
 
         PowerSavingTest.sendBatteryState(true);
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isSuggestionsEnabled());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).closeDictionaries();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSuggest().isSuggestionsEnabled());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest()).closeDictionaries();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
 
         PowerSavingTest.sendBatteryState(false);
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isSuggestionsEnabled());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .closeDictionaries();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest())
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSuggest().isSuggestionsEnabled());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never()).closeDictionaries();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
 
         SharedPrefsHelper.setPrefsValue("candidates_on", false);
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isSuggestionsEnabled());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).closeDictionaries();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSuggest().isSuggestionsEnabled());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest()).closeDictionaries();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
 
         SharedPrefsHelper.setPrefsValue("candidates_on", true);
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isSuggestionsEnabled());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
-                .closeDictionaries();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest())
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSuggest().isSuggestionsEnabled());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never()).closeDictionaries();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
     }
 
     @Test

@@ -11,10 +11,10 @@ env:
 jobs:
   promote:
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.14.0
+    container: menny/android_base:1.15.1
     strategy:
       matrix:
-        refname: [release-branch-ime-v1.10-r4]
+        refname: [master]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
