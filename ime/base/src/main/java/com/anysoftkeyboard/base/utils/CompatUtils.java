@@ -23,10 +23,11 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.PopupWindow;
+import com.getkeepsafe.relinker.MissingLibraryException;
 import com.getkeepsafe.relinker.ReLinker;
 
 public class CompatUtils {
-    private static final String TAG = "ASKCompatUtils";
+    private static String TAG = "ASK-CompatUtils";
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {
@@ -40,35 +41,43 @@ public class CompatUtils {
     }
 
     public static void loadNativeLibrary(
-            @NonNull Context context,
-            @NonNull String library,
-            @NonNull String libraryVersion,
-            final boolean isDebug) {
-        if (Build.VERSION.SDK_INT >= 9 && !isDebug) {
+            @NonNull Context context, @NonNull String library, @NonNull String libraryVersion) {
+        try {
             ReLinker.loadLibrary(context, library, libraryVersion);
-        } else {
-            try {
-                System.loadLibrary(library);
-            } catch (UnsatisfiedLinkError ule) {
-                Log.e(TAG, "******** Could not load native library " + library + " ********");
-                Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
-                Log.e(TAG, "******** Could not load native library " + library + " ********");
-            } catch (Throwable t) {
-                Log.e(
-                        TAG,
-                        "******** Failed to load native dictionary library "
-                                + library
-                                + " ********");
-                Log.e(
-                        TAG,
-                        "******** Failed to load native dictionary library " + library + " *******",
-                        t);
-                Log.e(
-                        TAG,
-                        "******** Failed to load native dictionary library "
-                                + library
-                                + " ********");
-            }
+        } catch (MissingLibraryException e) {
+            Log.e(TAG, "******** Failed relink native library " + library + " ********");
+            Log.e(TAG, "******** Failed relink native library " + library + " ********", e);
+            Log.e(TAG, "******** Failed relink native library " + library + " ********");
+            fallbackLoading(library);
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            fallbackLoading(library);
+        } catch (Throwable t) {
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            Log.e(TAG, "******** Failed to load native library " + library + " ********", t);
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            fallbackLoading(library);
+        }
+    }
+
+    private static void fallbackLoading(String library) {
+        try {
+            Log.w(TAG, "Fallback loading native library " + library);
+            System.loadLibrary(library);
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            Log.e(TAG, "******** Could not load native library " + library + " ********", ule);
+            Log.e(TAG, "******** Could not load native library " + library + " ********");
+            // we are going to fail down the line anyway - better fail now
+            throw ule;
+        } catch (Throwable t) {
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            Log.e(TAG, "******** Failed to load native library " + library + " ********", t);
+            Log.e(TAG, "******** Failed to load native library " + library + " ********");
+            // we are going to fail down the line anyway - better fail now
+            throw t;
         }
     }
 }

@@ -8,6 +8,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class TagsExtractorTest {
@@ -84,8 +84,8 @@ public class TagsExtractorTest {
                         asList(keysForTest, keysForTest2),
                         mQuickKeyHistoryRecords);
 
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         Assert.assertFalse(mUnderTest.mTagsDictionary.isClosed());
         Assert.assertTrue(mUnderTest.isEnabled());
@@ -143,6 +143,7 @@ public class TagsExtractorTest {
         Assert.assertFalse(mUnderTest.mTagsDictionary.isClosed());
 
         mUnderTest.close();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertTrue(mUnderTest.mTagsDictionary.isClosed());
     }

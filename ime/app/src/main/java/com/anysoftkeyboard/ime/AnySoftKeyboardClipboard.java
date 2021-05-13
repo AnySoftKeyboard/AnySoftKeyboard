@@ -239,7 +239,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 break;
             case KeyCodes.CLIPBOARD_CUT:
             case KeyCodes.CLIPBOARD_COPY:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD && ic != null) {
+                if (ic != null) {
                     CharSequence selectedText =
                             ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
                     if (!TextUtils.isEmpty(selectedText)) {
@@ -273,15 +273,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 }
                 break;
             case KeyCodes.UNDO:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
-                }
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCodes.REDO:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(
-                            KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
-                }
+                sendDownUpKeyEvents(
+                        KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
             default:
                 throw new IllegalArgumentException(

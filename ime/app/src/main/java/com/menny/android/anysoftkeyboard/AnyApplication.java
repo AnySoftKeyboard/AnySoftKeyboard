@@ -38,9 +38,7 @@ import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.base.utils.NullLogProvider;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificLowest;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV15;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
@@ -307,9 +305,7 @@ public class AnyApplication extends Application {
     }
 
     private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
-        if (apiLevel < 11) return new DeviceSpecificLowest();
-        if (apiLevel < 14) return new DeviceSpecificV11();
-        if (apiLevel < 16) return new DeviceSpecificV14();
+        if (apiLevel < 16) return new DeviceSpecificV15();
         if (apiLevel < 19) return new DeviceSpecificV16();
         if (apiLevel < 24) return new DeviceSpecificV19();
         if (apiLevel < 28) return new DeviceSpecificV24();

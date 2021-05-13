@@ -1,16 +1,14 @@
 package com.anysoftkeyboard.api;
 
 import android.content.res.Resources;
+import androidx.test.core.app.ApplicationProvider;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(RobolectricTestRunner.class)
 public class KeyCodesTest {
@@ -30,7 +28,7 @@ public class KeyCodesTest {
 
     private void testVerifyKeyCodesResourcesHasUniques(HashSet<Integer> seenValues)
             throws Exception {
-        Resources resources = RuntimeEnvironment.application.getResources();
+        Resources resources = ApplicationProvider.getApplicationContext().getResources();
         for (Field field : R.integer.class.getFields()) {
             if (field.getName().startsWith("key_code_")) {
                 final int idValue = (int) field.get(null /*This is a static field*/);
@@ -42,20 +40,8 @@ public class KeyCodesTest {
 
         Assert.assertEquals(
                 seenValues.stream()
-                        .map(
-                                new Function<Integer, String>() {
-                                    @Override
-                                    public String apply(Integer integer) {
-                                        return integer.toString();
-                                    }
-                                })
-                        .reduce(
-                                new BinaryOperator<String>() {
-                                    @Override
-                                    public String apply(String s, String s2) {
-                                        return s + ", " + s2;
-                                    }
-                                })
+                        .map(integer -> integer.toString())
+                        .reduce((s, s2) -> s + ", " + s2)
                         .orElse("EMPTY"),
                 0,
                 seenValues.size());

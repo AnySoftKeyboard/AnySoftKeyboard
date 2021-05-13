@@ -48,7 +48,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardCopy() {
         final String expectedText = "testing something very long";
         mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
@@ -75,7 +74,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardCut() {
         final String originalText = "testing something very long";
         final String textToCut = "something";
@@ -101,7 +99,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardPaste() {
         ClipboardManager clipboardManager =
                 (ClipboardManager)
@@ -123,7 +120,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardPasteWhenEmptyClipboard() {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());

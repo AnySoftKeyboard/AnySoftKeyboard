@@ -16,6 +16,7 @@ import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
@@ -91,24 +92,31 @@ public class MainSettingsActivityTest {
                         instanceof MainFragment);
 
         bottomNav.setSelectedItemId(R.id.bottom_nav_language_button);
+        TestRxSchedulers.drainAllTasks();
         Assert.assertTrue(
                 activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content)
                         instanceof LanguageSettingsFragment);
 
         bottomNav.setSelectedItemId(R.id.bottom_nav_ui_button);
+        TestRxSchedulers.drainAllTasks();
         Assert.assertTrue(
                 activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content)
                         instanceof UserInterfaceSettingsFragment);
 
         bottomNav.setSelectedItemId(R.id.bottom_nav_quick_text_button);
+        TestRxSchedulers.drainAllTasks();
         Assert.assertTrue(
                 activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content)
                         instanceof QuickTextKeysBrowseFragment);
 
-        /*bottomNav.setSelectedItemId(R.id.bottom_nav_gestures_button);
-        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof GesturesSettingsFragment);*/
+        bottomNav.setSelectedItemId(R.id.bottom_nav_gestures_button);
+        TestRxSchedulers.drainAllTasks();
+        Assert.assertTrue(
+                activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content)
+                        instanceof GesturesSettingsFragment);
 
         bottomNav.setSelectedItemId(R.id.bottom_nav_home_button);
+        TestRxSchedulers.drainAllTasks();
         Assert.assertTrue(
                 activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content)
                         instanceof MainFragment);

@@ -11,7 +11,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:

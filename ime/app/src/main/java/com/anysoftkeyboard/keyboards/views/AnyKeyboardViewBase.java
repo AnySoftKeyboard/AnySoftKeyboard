@@ -33,6 +33,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.CallSuper;
@@ -2195,6 +2196,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         private boolean mInKeyRepeat;
 
         KeyPressTimingHandler(AnyKeyboardViewBase keyboard) {
+            super(Looper.getMainLooper());
             mKeyboard = new WeakReference<>(keyboard);
         }
 
