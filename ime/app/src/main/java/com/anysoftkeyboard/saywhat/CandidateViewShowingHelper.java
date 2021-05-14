@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.saywhat;
 
-import android.support.annotation.NonNull;
 import android.view.View;
+import androidx.annotation.NonNull;
 
 public class CandidateViewShowingHelper {
 

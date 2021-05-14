@@ -1,10 +1,10 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;

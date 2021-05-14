@@ -3,12 +3,10 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.anysoftkeyboard.fileprovider">
 
-    <uses-sdk tools:overrideLibrary="androidx.test,androidx.test.core" />
-
     <application>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">

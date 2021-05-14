@@ -22,13 +22,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.menny.android.anysoftkeyboard.R;
@@ -59,7 +58,7 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
                         final SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(
                                 getString(R.string.settings_key_use_contacts_dictionary), false);
-                        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                        editor.apply();
                         break;
                     default:
                         throw new IllegalArgumentException(
@@ -118,7 +117,26 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
         if (requestId == PermissionsRequestCodes.CONTACTS.getRequestCode()) {
             return new ContactPermissionRequest(this);
         } else {
-            return super.createPermissionRequestFromIntentRequest(requestId, permissions, intent);
+            return new NoOpRequest(requestId, permissions);
+        }
+    }
+
+    private static class NoOpRequest extends PermissionsRequest.PermissionsRequestBase {
+        protected NoOpRequest(int requestCode, @NonNull String... permissions) {
+            super(requestCode, permissions);
+        }
+
+        @Override
+        public void onPermissionsGranted() {
+            /*no-op*/
+        }
+
+        @Override
+        public void onPermissionsDenied(
+                @NonNull String[] grantedPermissions,
+                @NonNull String[] deniedPermissions,
+                @NonNull String[] declinedPermissions) {
+            /*no-op*/
         }
     }
 

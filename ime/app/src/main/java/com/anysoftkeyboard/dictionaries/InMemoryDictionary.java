@@ -3,7 +3,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 

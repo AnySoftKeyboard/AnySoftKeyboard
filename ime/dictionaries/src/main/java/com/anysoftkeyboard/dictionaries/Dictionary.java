@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.util.concurrent.atomic.AtomicBoolean;
 

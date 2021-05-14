@@ -2,11 +2,11 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.overlay.OverlayData;

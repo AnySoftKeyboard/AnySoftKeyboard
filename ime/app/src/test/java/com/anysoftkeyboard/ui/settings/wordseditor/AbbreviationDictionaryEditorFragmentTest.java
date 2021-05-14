@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 
 public class AbbreviationDictionaryEditorFragmentTest

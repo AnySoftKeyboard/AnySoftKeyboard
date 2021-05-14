@@ -3,10 +3,9 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
@@ -84,7 +83,7 @@ import java.util.List;
                         .putString(
                                 KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID,
                                 addOnId.toString());
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        editor.apply();
     }
 
     private static int getPositionForAddOnId(

@@ -17,12 +17,12 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.preference.CheckBoxPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void setupDialog(
-            android.support.v7.app.AlertDialog.Builder builder, int optionId, Object data) {
+            androidx.appcompat.app.AlertDialog.Builder builder, int optionId, Object data) {
         builder.setTitle(R.string.gesture_typing_alert_title)
                 .setMessage(R.string.gesture_typing_alert_message)
                 .setPositiveButton(
@@ -73,6 +73,13 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
                             }
                             return true;
                         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        findPreference(getString(R.string.settings_key_gesture_typing))
+                .setOnPreferenceChangeListener(null);
     }
 
     @Override

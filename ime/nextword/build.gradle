@@ -17,7 +17,7 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-core-utils:$supportLibVersion"
+    implementation "androidx.legacy:legacy-support-core-utils:$androidxSupportLegacy"
     implementation project(':ime:base')
     implementation project(':ime:prefs')
 

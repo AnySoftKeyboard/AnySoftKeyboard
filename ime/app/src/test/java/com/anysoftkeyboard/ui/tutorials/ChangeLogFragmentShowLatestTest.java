@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.ui.tutorials;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;

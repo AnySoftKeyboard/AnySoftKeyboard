@@ -17,8 +17,8 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.BuildConfig;

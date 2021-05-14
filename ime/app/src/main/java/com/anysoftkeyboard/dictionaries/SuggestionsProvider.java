@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;

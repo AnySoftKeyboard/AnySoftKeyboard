@@ -18,6 +18,7 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/93"),
                         "Minimum Android version is 4.0.3 (ICS, API level 15). ",
+                        "Fixes around colorized nav-bar.",
                         "Updated translations from the community."));
         log.add(
                 new VersionChangeLog(

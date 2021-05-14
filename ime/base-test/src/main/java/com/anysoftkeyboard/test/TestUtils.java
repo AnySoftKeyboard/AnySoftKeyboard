@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.test;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import java.util.ArrayList;

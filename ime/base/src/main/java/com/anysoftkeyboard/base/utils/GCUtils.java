@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.base.utils;
 
-import android.support.annotation.VisibleForTesting;
 import android.text.format.DateUtils;
 import android.util.Log;
+import androidx.annotation.VisibleForTesting;
 
 public class GCUtils {
     @VisibleForTesting static final int GC_TRY_LOOP_MAX = 5;

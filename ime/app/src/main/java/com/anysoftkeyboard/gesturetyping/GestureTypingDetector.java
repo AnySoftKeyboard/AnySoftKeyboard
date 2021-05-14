@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.util.SparseArray;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;

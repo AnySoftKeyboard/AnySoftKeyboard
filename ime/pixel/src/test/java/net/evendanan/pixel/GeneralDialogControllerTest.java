@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 
 import android.app.Dialog;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
 import org.junit.Before;

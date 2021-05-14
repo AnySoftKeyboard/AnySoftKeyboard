@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.utils;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import io.reactivex.Observable;
 import net.evendanan.pixel.GeneralDialogController;
@@ -35,8 +35,7 @@ public class GeneralDialogTestUtil {
 
     public static CharSequence getTitleFromDialog(@NonNull Dialog dialog) {
         if (dialog instanceof AlertDialog) {
-            return ((TextView) dialog.findViewById(android.support.v7.appcompat.R.id.alertTitle))
-                    .getText();
+            return ((TextView) dialog.findViewById(androidx.appcompat.R.id.alertTitle)).getText();
         } else {
             return Shadows.shadowOf(dialog).getTitle();
         }

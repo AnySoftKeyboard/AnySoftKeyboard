@@ -3,9 +3,9 @@ package com.anysoftkeyboard.keyboards;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.XmlRes;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.XmlRes;
+import androidx.collection.SparseArrayCompat;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;

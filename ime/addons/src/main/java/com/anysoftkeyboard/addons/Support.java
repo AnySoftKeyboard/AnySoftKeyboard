@@ -2,8 +2,8 @@ package com.anysoftkeyboard.addons;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.util.ArrayList;
 import java.util.List;

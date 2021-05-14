@@ -16,8 +16,8 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import com.anysoftkeyboard.LayoutSwitchAnimationListener;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
