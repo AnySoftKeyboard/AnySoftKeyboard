@@ -8,18 +8,18 @@
         <Key android:codes="119" android:popupCharacters="2ŵω"/>
         <Key android:codes="101" android:popupKeyboard="@xml/romanian_popup_qwerty_e"/>
         <Key android:codes="114" android:popupCharacters="4řŕρ"/>
-        <Key android:codes="116" android:popupCharacters="5țť\u0163τ"/>
+        <Key android:codes="116" android:popupCharacters="ț5ť\u0163τ"/>
         <Key android:codes="121" android:popupCharacters="6ýÿψ"/>
         <Key android:codes="117" android:popupKeyboard="@xml/romanian_popup_qwerty_u"/>
-        <Key android:codes="105" android:popupCharacters="8ìíîïłīι*"/>
+        <Key android:codes="105" android:popupCharacters="î8ìíïłīι*"/>
         <Key android:codes="111" android:popupCharacters="9òóôǒōõöőøœo"/>
         <Key android:codes="112" android:popupCharacters="0π" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="a" android:popupCharacters="àáâãāäåæąăα"
+        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="a" android:popupCharacters="ăâàáãāäåæąα"
              android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="§ßśŝšșσ"/>
+        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="ș§ßśŝšσ"/>
         <Key android:codes="100" android:keyLabel="d" android:popupCharacters="đďδ"/>
         <Key android:codes="102" android:keyLabel="f" android:popupCharacters="ϕ"/>
         <Key android:codes="103" android:keyLabel="g" android:popupCharacters="ĝ"/>
