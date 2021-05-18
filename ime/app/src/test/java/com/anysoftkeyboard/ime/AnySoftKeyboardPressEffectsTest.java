@@ -7,6 +7,7 @@ import static com.anysoftkeyboard.android.NightModeTest.configurationForNightMod
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Looper;
+import android.os.VibrationEffect;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -26,11 +27,13 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSystemVibrator;
 import org.robolectric.shadows.ShadowVibrator;
 
@@ -174,6 +177,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(sdk = {25, 26, 29})
     public void testDoNotVibrateWhenNightTime() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode, "follow_system");
         Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
@@ -247,6 +251,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(sdk = {25, 26, 29})
     public void testDoesNotVibrateDisabled() {
         TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_vibrate_on_key_press_duration_int, 0);
@@ -260,6 +265,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(sdk = {25, 26, 29})
     public void testVibrateWhenEnabled() {
         TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(
@@ -280,6 +286,40 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Ignore("Requires roboelectric 4.4 or higher")
+    @Config(sdk = {29})
+    public void testSystemVibrateWhenEnabled() {
+        /*
+        final Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
+
+        TestRxSchedulers.foregroundFlushAllJobs();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_system_vibration, true);
+        ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
+        // demo
+        Assert.assertTrue(shadowVibrator.isVibrating());
+        Assert.assertEquals(VibrationEffect.EFFECT_CLICK, shadowVibrator.getEffectId());
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
+        Assert.assertTrue(shadowVibrator.isVibrating());
+        Assert.assertEquals(VibrationEffect.EFFECT_CLICK, shadowVibrator.getEffectId());
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        Mockito.doReturn(0).when(key).getPrimaryCode();
+        mAnySoftKeyboardUnderTest.onLongPressDone(key);
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        Mockito.doReturn(KeyCodes.SPACE).when(key).getPrimaryCode();
+        mAnySoftKeyboardUnderTest.onLongPressDone(key);
+        Assert.assertTrue(shadowVibrator.isVibrating());
+        Assert.assertEquals(VibrationEffect.EFFECT_HEAVY_CLICK, shadowVibrator.getEffectId());
+        */
+    }
+
+    @Test
+    @Config(sdk = {25, 26, 29})
     public void testDoNotVibrateWhenLowPower() {
         TestRxSchedulers.foregroundFlushAllJobs();
         SharedPrefsHelper.setPrefsValue(
@@ -309,6 +349,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(sdk = {25, 26, 29})
     public void testDoesNotLongPressVibrateDisabled() {
         final Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
 
@@ -327,6 +368,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(sdk = {25, 26, 29})
     public void testVibrateLongPressWhenEnabled() {
         final Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
 
