@@ -33,13 +33,13 @@ public class PressVibratorV29 extends PressVibratorV26 {
     @Override
     public void setDuration(int duration) {
         this.duration = duration;
-        if (!systemVibe) vibration = duration > 0 ? VibrationEffect.createOneShot(duration, AMPLITUDE) : null;
+        if (!systemVibe) vibration = this.duration > 0 ? VibrationEffect.createOneShot(this.duration, AMPLITUDE) : null;
     }
 
     @Override
     public void setLongPressDuration(int duration) {
-        this.longPressDuration = duration;
-        if (!systemVibe) longPressVibration = duration > 0 ? VibrationEffect.createOneShot(duration, AMPLITUDE) : null;
+        longPressDuration = duration;
+        if (!systemVibe) longPressVibration = longPressDuration > 0 ? VibrationEffect.createOneShot(longPressDuration, AMPLITUDE) : null;
     }
 
     @Override

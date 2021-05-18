@@ -16,14 +16,39 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-public interface PressVibrator {
+import android.os.Vibrator;
+import android.support.annotation.VisibleForTesting;
 
-   void setDuration(int duration);
+public abstract class PressVibrator {
+   private static boolean skip = false;
+   protected Vibrator vibe;
 
-   void setLongPressDuration(int duration);
+   public PressVibrator(Vibrator vibe) {
+      this.vibe = vibe;
+   }
 
-   void setUseSystemVibration(boolean system);
+   public abstract void setDuration(int duration);
 
-   void vibrate(boolean longPress);
+   public abstract void setLongPressDuration(int duration);
 
+   public void setUseSystemVibration(boolean system) {
+      // empty; not supported if not overridden
+   }
+
+   public abstract void vibrate(boolean longPress);
+
+   public static void suppressNextVibration() {
+      skip = true;
+   }
+
+   protected static boolean checkSuppressed() {
+      boolean result = skip;
+      skip = false;
+      return result;
+   }
+
+   @VisibleForTesting
+   public Vibrator getVibrator() {
+      return vibe;
+   }
 }

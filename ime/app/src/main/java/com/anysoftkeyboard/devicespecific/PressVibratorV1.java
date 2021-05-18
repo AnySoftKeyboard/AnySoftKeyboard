@@ -21,13 +21,12 @@ import android.os.Vibrator;
 import android.support.annotation.VisibleForTesting;
 
 @TargetApi(1)
-public class PressVibratorV1 implements PressVibrator {
-    protected Vibrator vibe;
+public class PressVibratorV1 extends PressVibrator {
     protected int duration;
     protected int longPressDuration;
 
     public PressVibratorV1(Vibrator vibe) {
-        this.vibe = vibe;
+        super(vibe);
     }
 
     @Override
@@ -41,20 +40,10 @@ public class PressVibratorV1 implements PressVibrator {
     }
 
     @Override
-    public void setUseSystemVibration(boolean system) {
-        // not supported
-    }
-
-    @Override
     public void vibrate(boolean longPress) {
         int dur = longPress ? longPressDuration : duration;
-        if (dur > 0) {
+        if (dur > 0 && ! checkSuppressed()) {
             vibe.vibrate(dur);
         }
-    }
-
-    @VisibleForTesting
-    public Vibrator getVibrator() {
-        return vibe;
     }
 }
