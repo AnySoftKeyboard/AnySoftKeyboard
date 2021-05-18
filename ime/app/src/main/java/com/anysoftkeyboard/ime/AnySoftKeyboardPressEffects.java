@@ -55,7 +55,9 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
         super.onCreate();
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mVibrator = AnyApplication.getDeviceSpecific().createPressVibrator((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
+        mVibrator =
+                AnyApplication.getDeviceSpecific()
+                        .createPressVibrator((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
         addDisposable(
                 Observable.combineLatest(
@@ -156,16 +158,16 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
         addDisposable(
                 prefs().getBoolean(
-                        R.string.settings_key_use_system_vibration,
-                        R.bool.settings_default_use_system_vibration)
-                .asObservable()
-                .subscribe(
-                        value -> {
-                            mVibrator.setUseSystemVibration(value);
-                            // demo
-                            performKeyVibration(KeyCodes.SPACE, false);
-                        },
-                        t -> Logger.w(TAG, t, "Failed to read system vibration pref")));
+                                R.string.settings_key_use_system_vibration,
+                                R.bool.settings_default_use_system_vibration)
+                        .asObservable()
+                        .subscribe(
+                                value -> {
+                                    mVibrator.setUseSystemVibration(value);
+                                    // demo
+                                    performKeyVibration(KeyCodes.SPACE, false);
+                                },
+                                t -> Logger.w(TAG, t, "Failed to read system vibration pref")));
 
         addDisposable(
                 Observable.combineLatest(

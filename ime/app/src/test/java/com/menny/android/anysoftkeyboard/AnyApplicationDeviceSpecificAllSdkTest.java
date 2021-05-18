@@ -249,8 +249,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                 deviceSpecific.createPressVibrator(Mockito.mock(Vibrator.class));
         Assert.assertNotNull(pressVibrator);
         Assert.assertSame(
-                mExpectedPressVibratorClass.get(Build.VERSION.SDK_INT),
-                pressVibrator.getClass());
+                mExpectedPressVibratorClass.get(Build.VERSION.SDK_INT), pressVibrator.getClass());
     }
 
     public static class AnyApplicationDeviceSpecificAllSdkTest1

@@ -20,35 +20,35 @@ import android.os.Vibrator;
 import android.support.annotation.VisibleForTesting;
 
 public abstract class PressVibrator {
-   private static boolean skip = false;
-   protected Vibrator vibe;
+    private static boolean mSkip = false;
+    protected Vibrator mVibe;
 
-   public PressVibrator(Vibrator vibe) {
-      this.vibe = vibe;
-   }
+    public PressVibrator(Vibrator vibe) {
+        this.mVibe = vibe;
+    }
 
-   public abstract void setDuration(int duration);
+    public abstract void setDuration(int duration);
 
-   public abstract void setLongPressDuration(int duration);
+    public abstract void setLongPressDuration(int duration);
 
-   public void setUseSystemVibration(boolean system) {
-      // empty; not supported if not overridden
-   }
+    public void setUseSystemVibration(boolean system) {
+        // empty; not supported if not overridden
+    }
 
-   public abstract void vibrate(boolean longPress);
+    public abstract void vibrate(boolean longPress);
 
-   public static void suppressNextVibration() {
-      skip = true;
-   }
+    public static void suppressNextVibration() {
+        mSkip = true;
+    }
 
-   protected static boolean checkSuppressed() {
-      boolean result = skip;
-      skip = false;
-      return result;
-   }
+    protected static boolean checkSuppressed() {
+        boolean result = mSkip;
+        mSkip = false;
+        return result;
+    }
 
-   @VisibleForTesting
-   public Vibrator getVibrator() {
-      return vibe;
-   }
+    @VisibleForTesting
+    public Vibrator getVibrator() {
+        return mVibe;
+    }
 }

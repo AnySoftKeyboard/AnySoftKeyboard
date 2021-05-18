@@ -22,7 +22,7 @@ import android.os.Vibrator;
 
 @TargetApi(29)
 public class PressVibratorV29 extends PressVibratorV26 {
-    private boolean systemVibe;
+    private boolean mSystemVibe;
     private static final int PRESS_PREDEFINED = VibrationEffect.EFFECT_CLICK;
     private static final int LONG_PRESS_PREDEFINED = VibrationEffect.EFFECT_HEAVY_CLICK;
 
@@ -32,25 +32,33 @@ public class PressVibratorV29 extends PressVibratorV26 {
 
     @Override
     public void setDuration(int duration) {
-        this.duration = duration;
-        if (!systemVibe) vibration = this.duration > 0 ? VibrationEffect.createOneShot(this.duration, AMPLITUDE) : null;
+        this.mDuration = duration;
+        if (!mSystemVibe)
+            mVibration =
+                    this.mDuration > 0
+                            ? VibrationEffect.createOneShot(this.mDuration, AMPLITUDE)
+                            : null;
     }
 
     @Override
     public void setLongPressDuration(int duration) {
-        longPressDuration = duration;
-        if (!systemVibe) longPressVibration = longPressDuration > 0 ? VibrationEffect.createOneShot(longPressDuration, AMPLITUDE) : null;
+        mLongPressDuration = duration;
+        if (!mSystemVibe)
+            mLongPressVibration =
+                    mLongPressDuration > 0
+                            ? VibrationEffect.createOneShot(mLongPressDuration, AMPLITUDE)
+                            : null;
     }
 
     @Override
     public void setUseSystemVibration(boolean system) {
-        systemVibe = system;
+        mSystemVibe = system;
         if (system) {
-            vibration = VibrationEffect.createPredefined(PRESS_PREDEFINED);
-            longPressVibration = VibrationEffect.createPredefined(LONG_PRESS_PREDEFINED);
+            mVibration = VibrationEffect.createPredefined(PRESS_PREDEFINED);
+            mLongPressVibration = VibrationEffect.createPredefined(LONG_PRESS_PREDEFINED);
         } else {
-            setDuration(duration);
-            setLongPressDuration(longPressDuration);
+            setDuration(mDuration);
+            setLongPressDuration(mLongPressDuration);
         }
     }
 }

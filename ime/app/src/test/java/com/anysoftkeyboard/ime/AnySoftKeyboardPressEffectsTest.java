@@ -7,7 +7,6 @@ import static com.anysoftkeyboard.android.NightModeTest.configurationForNightMod
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Looper;
-import android.os.VibrationEffect;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;

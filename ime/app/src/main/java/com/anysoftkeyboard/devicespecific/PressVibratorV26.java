@@ -22,8 +22,8 @@ import android.os.Vibrator;
 
 @TargetApi(26)
 public class PressVibratorV26 extends PressVibratorV1 {
-    protected VibrationEffect vibration;
-    protected VibrationEffect longPressVibration;
+    protected VibrationEffect mVibration;
+    protected VibrationEffect mLongPressVibration;
     protected static final int AMPLITUDE = VibrationEffect.DEFAULT_AMPLITUDE;
 
     public PressVibratorV26(Vibrator vibe) {
@@ -32,14 +32,20 @@ public class PressVibratorV26 extends PressVibratorV1 {
 
     @Override
     public void setDuration(int duration) {
-        this.duration = duration;
-        vibration = this.duration > 0 ? VibrationEffect.createOneShot(this.duration, AMPLITUDE) : null;
+        this.mDuration = duration;
+        mVibration =
+                this.mDuration > 0
+                        ? VibrationEffect.createOneShot(this.mDuration, AMPLITUDE)
+                        : null;
     }
 
     @Override
     public void setLongPressDuration(int duration) {
-        longPressDuration = duration;
-        longPressVibration = longPressDuration > 0 ? VibrationEffect.createOneShot(longPressDuration, AMPLITUDE) : null;
+        mLongPressDuration = duration;
+        mLongPressVibration =
+                mLongPressDuration > 0
+                        ? VibrationEffect.createOneShot(mLongPressDuration, AMPLITUDE)
+                        : null;
     }
 
     @Override
@@ -49,9 +55,9 @@ public class PressVibratorV26 extends PressVibratorV1 {
 
     @Override
     public void vibrate(boolean longPress) {
-        VibrationEffect ve = longPress ? longPressVibration : vibration;
-        if (ve != null && ! checkSuppressed()) {
-            vibe.vibrate(ve);
+        VibrationEffect ve = longPress ? mLongPressVibration : mVibration;
+        if (ve != null && !checkSuppressed()) {
+            mVibe.vibrate(ve);
         }
     }
 }

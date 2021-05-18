@@ -18,12 +18,11 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.os.Vibrator;
-import android.support.annotation.VisibleForTesting;
 
 @TargetApi(1)
 public class PressVibratorV1 extends PressVibrator {
-    protected int duration;
-    protected int longPressDuration;
+    protected int mDuration;
+    protected int mLongPressDuration;
 
     public PressVibratorV1(Vibrator vibe) {
         super(vibe);
@@ -31,19 +30,19 @@ public class PressVibratorV1 extends PressVibrator {
 
     @Override
     public void setDuration(int duration) {
-        this.duration = duration;
+        this.mDuration = duration;
     }
 
     @Override
     public void setLongPressDuration(int duration) {
-        longPressDuration = duration;
+        mLongPressDuration = duration;
     }
 
     @Override
     public void vibrate(boolean longPress) {
-        int dur = longPress ? longPressDuration : duration;
-        if (dur > 0 && ! checkSuppressed()) {
-            vibe.vibrate(dur);
+        int dur = longPress ? mLongPressDuration : mDuration;
+        if (dur > 0 && !checkSuppressed()) {
+            mVibe.vibrate(dur);
         }
     }
 }
