@@ -53,6 +53,11 @@ public abstract class Keyboard {
     public static final int KEYBOARD_ROW_MODE_URL = 3;
     public static final int KEYBOARD_ROW_MODE_EMAIL = 4;
     public static final int KEYBOARD_ROW_MODE_PASSWORD = 5;
+
+    public static final int REVERSE_AUTO = 0;
+    public static final int REVERSE_ALWAYS = 1;
+    public static final int REVERSE_NEVER = 2;
+
     private KeyboardDimens mKeyboardDimens;
 
     @Retention(RetentionPolicy.SOURCE)
@@ -130,6 +135,9 @@ public abstract class Keyboard {
 
     /** Default auto capitalize at the beginning of sentences and such */
     public boolean autoCap = true;
+
+    /** Whether the keyboard should be laid out right-to-left (especially useful for pop-ups) */
+    public int reverse;
 
     /** Is the mKeyboard in the shifted state */
     private boolean mShifted;
@@ -1010,6 +1018,9 @@ public abstract class Keyboard {
                         break;*/
                     case R.attr.autoCap:
                         autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
+                        break;
+                    case R.attr.reverse:
+                        reverse = a.getInt(remoteIndex, REVERSE_AUTO);
                         break;
                 }
                 // CHECKSTYLE:ON: missingswitchdefault

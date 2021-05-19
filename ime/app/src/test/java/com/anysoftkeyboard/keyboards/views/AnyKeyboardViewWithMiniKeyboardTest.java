@@ -230,7 +230,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertEquals(1, key.getCodesCount());
         Assert.assertEquals(R.xml.popup_one_row, key.popupResId);
         Assert.assertEquals("b", key.label);
-        Assert.assertEquals("abc", key.popupCharacters);
+        Assert.assertEquals("abcβ", key.popupCharacters.toString());
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
 
@@ -558,7 +558,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
-        Assert.assertEquals(3, miniKeyboard.getKeyboard().getKeys().size());
+        Assert.assertEquals(4, miniKeyboard.getKeyboard().getKeys().size());
         // always uses the default addon in this case
         Assert.assertSame(
                 mViewUnderTest.mDefaultAddOn, miniKeyboard.getKeyboard().getKeyboardAddOn());
@@ -587,6 +587,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         final Keyboard.Key key = findKey('w');
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
         ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         Mockito.verify(mMockKeyboardListener, Mockito.never())
@@ -597,6 +598,11 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                         Mockito.any(int[].class),
                         Mockito.anyBoolean());
 
+        final Point origin = mViewUnderTest.getOrigin();
+        Assert.assertEquals(0, origin.x);
+        Assert.assertEquals(-66, origin.y);
+
+        keyPoint = mViewUnderTest.getAbsoluteCoordinates(keyPoint);
         mViewUnderTest.onTouchEvent(
                 MotionEvent.obtain(
                         SystemClock.uptimeMillis(),
@@ -607,11 +613,9 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                         0));
 
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        // not sure about this. Maybe the output should be the first key in the popup
-        // FIXME: suppose to be '2' and not code 969 (omega)
         Mockito.verify(mMockKeyboardListener)
                 .onKey(
-                        eq(969),
+                        eq((int) '2'),
                         Mockito.any(Keyboard.Key.class),
                         eq(0),
                         Mockito.any(int[].class),
@@ -623,6 +627,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
                         Mockito.anyInt(),
                         Mockito.any(int[].class),
                         Mockito.anyBoolean());
+        Assert.assertEquals("2ŵως", key.popupCharacters);
     }
 
     @Test

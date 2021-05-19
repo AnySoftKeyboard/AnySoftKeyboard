@@ -147,6 +147,8 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                 || key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX)
                 || key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
             onAddOnsCriticalChange();
+        } else if (key.equals("settings_key_popup_characters_order")) {
+            onAddOnsCriticalChange();
         }
     }
 

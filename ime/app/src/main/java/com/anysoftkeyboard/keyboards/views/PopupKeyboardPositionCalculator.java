@@ -8,6 +8,8 @@ import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 
 public class PopupKeyboardPositionCalculator {
 
+    private static final String TAG = "ASKPositionCalculator";
+
     public static Point calculatePositionForPopupKeyboard(
             Keyboard.Key key,
             View keyboardView,
@@ -23,25 +25,42 @@ public class PopupKeyboardPositionCalculator {
         // moving the keyboard its height up
         point.offset(0, -popupKeyboardView.getMeasuredHeight());
 
-        boolean shouldMirrorKeys = false;
-        // now we need to see the the popup is positioned correctly:
-        // 1) if the right edge is off the screen, then we'll try to put the right edge over the
-        // popup key
-        if (point.x + popupKeyboardView.getMeasuredWidth() > keyboardView.getMeasuredWidth()) {
-            int mirroredX = key.x + windowOffset[0] - popupKeyboardView.getMeasuredWidth();
-            // adding the width of the key - now the right most popup key is above the finger
-            mirroredX += key.width;
-            mirroredX += popupKeyboardView.getPaddingRight();
-            shouldMirrorKeys = true;
-            point = new Point(mirroredX, point.y);
-        }
-        // 2) if it took too much to adjust the X, then forget about it.
-        if (point.x < 0) {
-            point.offset(-point.x, 0);
-            shouldMirrorKeys = false;
+        final boolean shouldMirrorKeys;
+        switch (popupKeyboardView.getKeyboard().reverse) {
+            case Keyboard.REVERSE_ALWAYS:
+                shouldMirrorKeys = true;
+                break;
+            case Keyboard.REVERSE_NEVER:
+                shouldMirrorKeys = false;
+                break;
+            default: // should be Keyboard.REVERSE_AUTO:
+                // the popup will be reversed if and only if it is in the right hand of the key:
+                if (key.x + key.width / 2 > keyboardView.getMeasuredWidth() / 2) {
+                    int mirroredX = key.x + windowOffset[0] - popupKeyboardView.getMeasuredWidth();
+                    // adding the width of the key - now the right most popup key is above the
+                    // finger
+                    mirroredX += key.width;
+                    mirroredX += popupKeyboardView.getPaddingRight();
+                    shouldMirrorKeys = true;
+                    point = new Point(mirroredX, point.y);
+                } else {
+                    shouldMirrorKeys = false;
+                }
         }
 
         if (shouldMirrorKeys) ((AnyPopupKeyboard) popupKeyboardView.getKeyboard()).mirrorKeys();
+
+        // If the popup would fall outside of the screen, and it's moved,
+        // readjust the reported point so that the cursor will be aligned
+        // with the finger.
+        if (point.x < 0) point.offset(-point.x, 0);
+        else {
+            final int adjustInX =
+                    point.x
+                            + popupKeyboardView.getMeasuredWidth()
+                            - keyboardView.getMeasuredWidth();
+            if (adjustInX > 0) point.offset(-adjustInX, 0);
+        }
 
         return point;
     }

@@ -71,10 +71,12 @@ public class SupportTest {
 
         Mockito.verify(remoteRes).getIdentifier("showPreview", "attr", "com.some.other.package");
         Mockito.verify(remoteRes).getIdentifier("autoCap", "attr", "com.some.other.package");
+        Mockito.verify(remoteRes).getIdentifier("reverse", "attr", "com.some.other.package");
         Mockito.verifyNoMoreInteractions(remoteRes);
 
         Assert.assertNotSame(backwardCompatibleStyleable, R.styleable.KeyboardLayout);
-        Assert.assertEquals(backwardCompatibleStyleable.length, R.styleable.KeyboardLayout.length);
+        Assert.assertEquals(
+                backwardCompatibleStyleable.length, R.styleable.KeyboardLayout.length - 1);
         Assert.assertEquals(backwardCompatibleStyleable.length, sparseIntArray.size());
         for (int attrId : backwardCompatibleStyleable) {
             if (attrId == 123) {
@@ -109,11 +111,12 @@ public class SupportTest {
 
         Mockito.verify(remoteRes).getIdentifier("showPreview", "attr", "com.some.other.package");
         Mockito.verify(remoteRes).getIdentifier("autoCap", "attr", "com.some.other.package");
+        Mockito.verify(remoteRes).getIdentifier("reverse", "attr", "com.some.other.package");
         Mockito.verifyNoMoreInteractions(remoteRes);
 
         Assert.assertNotSame(backwardCompatibleStyleable, R.styleable.KeyboardLayout);
         Assert.assertEquals(
-                backwardCompatibleStyleable.length, R.styleable.KeyboardLayout.length - 2);
+                backwardCompatibleStyleable.length, R.styleable.KeyboardLayout.length - 3);
         Assert.assertEquals(backwardCompatibleStyleable.length, sparseIntArray.size());
         for (int attrId : backwardCompatibleStyleable) {
             Assert.assertEquals(attrId, sparseIntArray.get(attrId));

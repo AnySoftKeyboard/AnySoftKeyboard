@@ -35,6 +35,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.R;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -67,6 +68,15 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
     private final Set<Integer> mAdditionalIsLetterExceptions;
     private final char[] mSentenceSeparators;
+    private final String mPopupCharactersOrder;
+    private static final int EXPECTED_CAPACITY_SYMBOLS = 4;
+    private static final int EXPECTED_CAPACITY_LETTERS = 16;
+    private static final int EXPECTED_CAPACITY_NUMBERS = 4;
+    private static final int ADD_LANGUAGE_SPECIFIC_LETTERS = 'L';
+    private static final int ADD_LANGUAGE_NUMBERS = 'N';
+    private static final int ADD_LANGUAGE_SYMBOLS = 'S';
+    private static final int ADD_LANGUAGE_DEFAULT_LETTERS = 'O';
+    private static final int ADD_FULL_LAYOUT = 'X';
 
     private final KeyboardExtension mExtensionLayout;
 
@@ -119,6 +129,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         mIconId = iconResId;
         mDefaultDictionary = defaultDictionary;
         mLocale = LocaleTools.getLocaleForLocaleString(mDefaultDictionary);
+        mPopupCharactersOrder =
+                AnyApplication.prefs(askContext)
+                        .getString(
+                                R.string.settings_key_popup_characters_order,
+                                R.string.settings_key_popup_characters_order_default)
+                        .get();
+        Logger.v(TAG, "Popup characters order preference: %s", mPopupCharactersOrder);
         mExtensionLayout = extKbd;
 
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
@@ -434,122 +451,181 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     @CallSuper
     protected boolean setupKeyAfterCreation(AnyKey key) {
         if (super.setupKeyAfterCreation(key)) return true;
-        // ABCDEFGHIJKLMNOPQRSTUVWXYZ QWERTY KEYBOARD
-        // αβξδεφγθιϊκλμνοπψρστυϋωχηζ VIM digraphs
-        // ΑΒΞΔΕΦΓΘΙΪΚΛΜΝΟΠΨΡΣΤΥΫΩΧΗΖ VIM DIGRAPHS
-        // αβψδεφγηιξκλμνοπ;ρστθωςχυζ Greek layout
-        // ΑΒΨΔΕΦΓΗΙΞΚΛΜΝΟΠ;ΡΣΤΘΩΣΧΥΖ GREEK LAYOUT
-        // αβχδεφγηι κλμνοπθρστυ ωχψζ Magicplot
-        // ΑΒΧΔΕΦΓΗΙ ΚΛΜΝΟΠΘΡΣΤΥ ΩΧΨΖ MAGICPLOT
+        /* We're assigning greek letters to latin letters
+         * by mapping the standard greek layout on a PC to a
+         * QWERTY layout.
+         * Comparison of several mappings:
+         * ABCDEFGHIJKLMNOPQRSTUVWXYZ QWERTY KEYBOARD
+         * αβξδεφγθιϊκλμνοπψρστυϋωχηζ VIM digraphs
+         * ΑΒΞΔΕΦΓΘΙΪΚΛΜΝΟΠΨΡΣΤΥΫΩΧΗΖ VIM DIGRAPHS
+         * αβψδεφγηιξκλμνοπ;ρστθωςχυζ Greek layout
+         * ΑΒΨΔΕΦΓΗΙΞΚΛΜΝΟΠ;ΡΣΤΘΩΣΧΥΖ GREEK LAYOUT
+         * αβχδεφγηι κλμνοπθρστυ ωχψζ Magicplot
+         * ΑΒΧΔΕΦΓΗΙ ΚΛΜΝΟΠΘΡΣΤΥ ΩΧΨΖ MAGICPLOT */
+        final CharSequence defaultLetters;
         if (key.mCodes.length > 0) {
             switch (key.getPrimaryCode()) {
                 case 'a':
-                    key.popupCharacters = "àáâãāäåæąăα";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "àáâãāäåæąăαª";
                     break;
                 case 'b':
-                    key.popupCharacters = "β";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "β";
                     break;
                 case 'c':
-                    key.popupCharacters = "çćĉčψ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "çćĉčψ";
                     break;
                 case 'd':
-                    key.popupCharacters = "đďδ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "đďδ";
                     break;
                 case 'e':
-                    key.popupCharacters =
-                            "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac\u0117\u03b5\u0113"; // "èéêëęėε€";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "èéêëęėěēẽẻε€";
                     break;
                 case 'f':
-                    key.popupCharacters = "φ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "φ";
                     break;
                 case 'g':
-                    key.popupCharacters = "\u011d\u011f\u03b3"; // "ĝğγ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ĝğγ";
                     break;
                 case 'h':
-                    key.popupCharacters = "ĥη";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ĥη";
                     break;
                 case 'i':
-                    key.popupCharacters = "ìíîïłīįι";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ìíîïīǐįıɨι";
                     break;
                 case 'j':
-                    key.popupCharacters = "\u0135\u03be"; // "ĵξ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ĵξ";
                     break;
                 case 'k':
-                    key.popupCharacters = "κ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "κ";
                     break;
                 case 'l':
-                    key.popupCharacters = "ľĺłλ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ľĺłλ";
                     break;
                 case 'm':
-                    key.popupCharacters = "μ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "μ";
                     break;
                 case 'n':
-                    key.popupCharacters = "ñńν";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ñńν";
                     break;
                 case 'o':
-                    key.popupCharacters = "òóôǒōõöőøœo";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "òóôǒōõöőøœoº";
                     break;
                 case 'p':
-                    key.popupCharacters = "π";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "π";
                     break;
                 case 'r':
-                    key.popupCharacters = "ρ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "řŕρ";
                     break;
                 case 's':
-                    key.popupCharacters = "§ßśŝšșσ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ßśŝšș§σ";
                     break;
                 case 't':
-                    key.popupCharacters = "τ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "țťţτ";
                     break;
                 case 'u':
-                    key.popupCharacters =
-                            "\u00f9\u00fa\u00fb\u00fc\u016d\u0171\u016B\u0173\u03b8"; // "ùúûüŭűųθ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ùúǔûüŭűūųůṷθ";
                     break;
                 case 'v':
-                    key.popupCharacters = "ω";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ω";
                     break;
                 case 'w':
-                    key.popupCharacters = "ς";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ŵς";
                     break;
                 case 'x':
-                    key.popupCharacters = "χ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "χ";
                     break;
                 case 'y':
-                    key.popupCharacters = "ýÿυ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "ýÿυ";
                     break;
                 case 'z':
-                    key.popupCharacters = "żžźζ";
-                    key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+                    defaultLetters = "żžźζ";
                     break;
                 default:
-                    super.setupKeyAfterCreation(key);
+                    defaultLetters = "";
+                    break;
             }
-            return true;
+        } else {
+            defaultLetters = "";
         }
-        return false;
+        StringBuilder languageSpecificLetters = new StringBuilder(EXPECTED_CAPACITY_LETTERS);
+        StringBuilder symbols = new StringBuilder(EXPECTED_CAPACITY_SYMBOLS);
+        StringBuilder numbers = new StringBuilder(EXPECTED_CAPACITY_NUMBERS);
+        if (key.popupCharacters != null && key.popupCharacters.length() != 0) {
+            int index = 0;
+            while (index < key.popupCharacters.length()) {
+                final int codePoint = Character.codePointAt(key.popupCharacters, index);
+                if (Character.isLetter(codePoint)) {
+                    languageSpecificLetters.append(Character.toChars(codePoint));
+                } else if (Character.isDigit(codePoint)) {
+                    numbers.append(Character.toChars(codePoint));
+                } else {
+                    symbols.append(Character.toChars(codePoint));
+                }
+                index += Character.charCount(codePoint);
+            }
+        }
+        final StringBuilder requestedSymbols =
+                new StringBuilder(
+                        EXPECTED_CAPACITY_LETTERS
+                                + EXPECTED_CAPACITY_NUMBERS
+                                + EXPECTED_CAPACITY_SYMBOLS);
+        int index = 0;
+        while (index < mPopupCharactersOrder.length()) {
+            final int codePoint = Character.codePointAt(mPopupCharactersOrder, index);
+            switch (codePoint) {
+                case ADD_LANGUAGE_SPECIFIC_LETTERS:
+                    requestedSymbols.append(languageSpecificLetters);
+                    break;
+                case ADD_LANGUAGE_NUMBERS:
+                    requestedSymbols.append(numbers);
+                    break;
+                case ADD_LANGUAGE_SYMBOLS:
+                    requestedSymbols.append(symbols);
+                    break;
+                case ADD_LANGUAGE_DEFAULT_LETTERS:
+                    requestedSymbols.append(defaultLetters);
+                    break;
+                case ADD_FULL_LAYOUT:
+                    requestedSymbols.append(key.popupCharacters);
+                    break;
+                default:
+                    // Symbol with no special meaning are set to a higher priority;
+                    // if defined at all in current layout, insert into requestedSymbols:
+                    String codePointChars = new String(new int[] {codePoint}, 0, 1);
+                    if (languageSpecificLetters.toString().contains(codePointChars)
+                            || defaultLetters.toString().contains(codePointChars)
+                            || symbols.toString().contains(codePointChars)
+                            || numbers.toString().contains(codePointChars))
+                        requestedSymbols.append(codePointChars);
+                    break;
+            }
+            index += Character.charCount(codePoint);
+        }
+        // removing repeated characters (remembering that some Unicode characters can fill up
+        // two Java chars)
+        final HashSet<Integer> popupKeyCodes =
+                new HashSet<>(
+                        EXPECTED_CAPACITY_LETTERS
+                                + EXPECTED_CAPACITY_NUMBERS
+                                + EXPECTED_CAPACITY_SYMBOLS);
+        final StringBuilder popupCharactersBuilder =
+                new StringBuilder(
+                        EXPECTED_CAPACITY_LETTERS
+                                + EXPECTED_CAPACITY_NUMBERS
+                                + EXPECTED_CAPACITY_SYMBOLS);
+        index = 0;
+        while (index < requestedSymbols.length()) {
+            final int codePoint = Character.codePointAt(requestedSymbols, index);
+            if (popupKeyCodes.add(codePoint))
+                popupCharactersBuilder.append(Character.toChars(codePoint));
+            index += Character.charCount(codePoint);
+        }
+        if (popupCharactersBuilder.length() > 0) {
+            key.popupCharacters = popupCharactersBuilder.toString();
+            key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+        } else {
+            super.setupKeyAfterCreation(key);
+        }
+        return true;
     }
 }

@@ -14,7 +14,7 @@
         android:persistent="false"
         android:summary="@string/bottom_generic_row_summary"
         android:title="@string/bottom_generic_row_group" />
-
+  
     <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_allow_layouts_to_provide_generic_rows"
         android:key="@string/settings_key_allow_layouts_to_provide_generic_rows"
@@ -29,7 +29,23 @@
         android:summary="@string/supported_keyboard_row_modes_summary"
         android:title="@string/supported_keyboard_row_modes_title" />
 
+    <EditTextPreference
+        android:autoText="false"
+        android:defaultValue="@string/settings_key_popup_characters_order_default"
+        android:dialogTitle="@string/popup_characters_order_title"
+        android:inputType="textCapCharacters"
+        android:key="@string/settings_key_popup_characters_order"
+        android:lines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="@string/popup_characters_order_title" />
+
+    <Preference
+        android:summary="@string/popup_characters_order_summary"
+        android:layout="@layout/info_footer" />
+
     <Preference
         android:key="@string/tweaks_group_key"
         android:title="@string/tweaks_group" />
+
 </android.support.v7.preference.PreferenceScreen>

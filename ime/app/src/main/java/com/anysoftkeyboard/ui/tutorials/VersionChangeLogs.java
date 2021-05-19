@@ -23,6 +23,15 @@ public class VersionChangeLogs {
                 new VersionChangeLog(
                         1,
                         10,
+                        "r5",
+                        Uri.parse(
+                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/93"),
+                        "Keep safe! #covid19",
+                        "Custom extra characters upon pressing and holding a key."));
+        log.add(
+                new VersionChangeLog(
+                        1,
+                        10,
                         "r4",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92"),

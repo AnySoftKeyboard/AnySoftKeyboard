@@ -485,6 +485,16 @@
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
 
+    <string name="popup_characters_order_title">Characters shown upon long press</string>
+    <string name="popup_characters_order_summary">Order is important. Uppercase letters represent different characters for every layout:\n
+    N = numbers;\n
+    S = symbols;\n
+    L = accented letters for current language;\n
+    O = international accented letters;\n
+    X = loads every character defined in the language pack, without reordering them.
+\n\nThe priority of specific symbols can be changed, so the finger will move less for more common symbols. For example, \"€L\" will give the € sign higher priority than any accented letter.
+\n\nLeave empty for default.
+    </string>
 
     <string name="keyboard_theme_list_title">Select theme</string>
 

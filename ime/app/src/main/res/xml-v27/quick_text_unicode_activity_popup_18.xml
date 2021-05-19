@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="15%p">
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="15%p" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:reverse="never">
   <Row>
-    <Key android:keyLabel="&#129489;&#127995;‍&#129468;" android:keyOutputText="&#129489;&#127995;‍&#129468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129489;&#127996;‍&#129468;" android:keyOutputText="&#129489;&#127996;‍&#129468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129489;&#127997;‍&#129468;" android:keyOutputText="&#129489;&#127997;‍&#129468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129489;&#127998;‍&#129468;" android:keyOutputText="&#129489;&#127998;‍&#129468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129489;&#127999;‍&#129468;" android:keyOutputText="&#129489;&#127999;‍&#129468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+    <Key android:keyLabel="&#129489;&#127995;‍&#129468;" android:keyOutputText="&#129489;&#127995;‍&#129468;" ask:tags=""/>
+    <Key android:keyLabel="&#129489;&#127996;‍&#129468;" android:keyOutputText="&#129489;&#127996;‍&#129468;" ask:tags=""/>
+    <Key android:keyLabel="&#129489;&#127997;‍&#129468;" android:keyOutputText="&#129489;&#127997;‍&#129468;" ask:tags=""/>
+    <Key android:keyLabel="&#129489;&#127998;‍&#129468;" android:keyOutputText="&#129489;&#127998;‍&#129468;" ask:tags=""/>
+    <Key android:keyLabel="&#129489;&#127999;‍&#129468;" android:keyOutputText="&#129489;&#127999;‍&#129468;" ask:tags=""/>
   </Row>
 </Keyboard>

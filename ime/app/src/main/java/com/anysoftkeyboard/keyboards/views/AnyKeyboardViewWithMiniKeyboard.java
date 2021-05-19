@@ -202,6 +202,14 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         invalidateAllKeys();
     }
 
+    protected Point getOrigin() {
+        return new Point(mMiniKeyboardOriginX, mMiniKeyboardOriginY);
+    }
+
+    protected Point getAbsoluteCoordinates(Point point) {
+        return new Point(point.x + mMiniKeyboardOriginX, point.y - mMiniKeyboardOriginY);
+    }
+
     private MotionEvent generateMiniKeyboardMotionEvent(int action, int x, int y, long eventTime) {
         return MotionEvent.obtain(
                 mMiniKeyboardPopupTime,

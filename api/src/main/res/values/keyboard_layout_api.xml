@@ -30,6 +30,12 @@ Copyright (C) 2013 Menny Even-Danan
         <attr name="showPreview"/>
         <!-- Whether to auto capitalize. -->
         <attr name="autoCap"/>
+        <!-- Whether the keyboard should be laid out right-to-left (especially useful for pop-ups) -->
+        <attr name="reverse">
+            <enum name="auto" value="0" />
+            <enum name="always" value="1" />
+            <enum name="never" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="KeyboardLayout_Row">
