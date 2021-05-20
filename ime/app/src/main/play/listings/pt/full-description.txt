@@ -14,4 +14,4 @@ Teclado alternativo no ecrã para vários idiomas
 * Entrada por voz
 * Capacidade de substituir o valor de região/idioma do sistema
 
-Vamos tentar publicar pacotes de idiomas e temas que tenham XML de origem e atribuição/licença para os dicionários. Para mais informações, consulte o tópico f-Droid.org [http://f-Droid.org/forums/topic/anysoftkeyboard-Language-Packs-layouts-Plans/#post-6408 forum].
+Vamos tentar publicar pacotes de idiomas e temas que tenham XML de origem e atribuição/licença para os dicionários.

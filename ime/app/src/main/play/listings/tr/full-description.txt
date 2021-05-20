@@ -14,4 +14,4 @@ Birden fazla dil için alternatif ekran klavyesi
 * Ses girişi
 * Sistem yerel ayarını değiştirebilme özelliği
 
-Sözlükleri için atfı/lisansı ve kaynak xml'i olan her dil ve tema paketini yayınlamaya çalışacağız. Daha çok bilgi için f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum konusuna] bakın.
+Sözlükleri için atfı/lisansı ve kaynak xml'i olan her dil ve tema paketini yayınlamaya çalışacağız.

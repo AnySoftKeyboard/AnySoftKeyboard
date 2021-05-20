@@ -14,4 +14,4 @@ Teclado en pantalla alternativo para varios idiomas.
 * Entrada de datos por voz
 * Capacidad para anular la configuración local del sistema
 
-Intentaremos publicar cualquier paquete de idioma y temas que tengan código fuente xml y atribución / licencia para los diccionarios. Para obtener más información, consulte el tema del foro f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408].
+Intentaremos publicar cualquier paquete de idioma y temas que tengan código fuente xml y atribución / licencia para los diccionarios.

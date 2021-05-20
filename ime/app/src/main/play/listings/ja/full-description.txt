@@ -14,4 +14,4 @@
  * 音声入力
  * システムロケールの値をオーバーライドする機能
 
-私たちはすべての言語パック、およびソースxmlと辞書の帰属/ライセンスを含むテーマを公開します。詳しい情報は、f-droid.org[http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic]を参照してください。
+私たちはすべての言語パック、およびソースxmlと辞書の帰属/ライセンスを含むテーマを公開します。

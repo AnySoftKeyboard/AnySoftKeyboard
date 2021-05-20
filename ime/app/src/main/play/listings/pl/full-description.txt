@@ -14,4 +14,4 @@ Alternatywna klawiatura ekranowa dla wielu języków
 * Wprowadzanie głosem
 * Możliwość nadpisania wartości ustawień regionalnych systemu
 
-Postaramy się opublikować wszelkie pakiety językowe i tematy, które mają źródło xml i uznanie autorstwa/licencję dla słowników. Więcej informacji można znaleźć na stronie f-droid.org [temat forum http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408].
+Postaramy się opublikować wszelkie pakiety językowe i tematy, które mają źródło xml i uznanie autorstwa/licencję dla słowników.

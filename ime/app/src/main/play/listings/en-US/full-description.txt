@@ -30,7 +30,4 @@ Main features:
 
 Support at: https://github.com/AnySoftKeyboard
 
-We will try to publish any language packs and themes that have source xml and
-attribution/licence for the dictionaries. For more info see the f-droid.org
-[http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408
-forum topic].
+We will try to publish any language packs and themes that have source xml and attribution/licence for the dictionaries.

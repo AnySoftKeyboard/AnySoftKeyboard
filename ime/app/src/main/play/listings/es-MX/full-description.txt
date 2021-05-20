@@ -1,5 +1,17 @@
 Teclado alternativo en pantalla para múltiples idiomas.
 
-* Soporte de teclado multilingüe a través de paquetes externos (inglés como estándar) \ n * Diccionarios de finalización para varios idiomas \ n * Soporte multitáctil \ n * Teclado de extensión (deslice el dedo hacia afuera del teclado) \ n * Soporte de gestos : deslice hacia la izquierda o hacia la derecha para cambiar los diseños; deslizar hacia arriba para cambiar; deslice hacia abajo para cerrar el teclado \ n * Soporte de temas (viene con varias máscaras) \ n * Teclado emoji más búsqueda de etiquetas emoji - escriba ": emoji_name" \ n * Editor de palabras de diccionario de usuario incorporado \ n * Inglés opcional de 16 teclas teclado \ n * Teclas programables de movimiento del cursor que también pueden asignarse a teclas de hardware \ n * Admite ARM, x86 y MIPS de forma nativa \ n * Entrada de voz \ n * Capacidad para anular el valor de configuración regional del sistema
+* Soporte de teclado multilingüe a través de paquetes externos (inglés como estándar)
+* Diccionarios de finalización para varios idiomas
+* Soporte multitáctil
+* Teclado de extensión (deslice el dedo hacia afuera del teclado)
+* Soporte de gestos : deslice hacia la izquierda o hacia la derecha para cambiar los diseños; deslizar hacia arriba para cambiar; deslice hacia abajo para cerrar el teclado
+* Soporte de temas (viene con varias máscaras)
+* Teclado emoji más búsqueda de etiquetas emoji - escriba ": emoji_name"
+* Editor de palabras de diccionario de usuario incorporado
+* Inglés opcional de 16 teclas teclado
+* Teclas programables de movimiento del cursor que también pueden asignarse a teclas de hardware
+* Admite ARM, x86 y MIPS de forma nativa
+* Entrada de voz
+* Capacidad para anular el valor de configuración regional del sistema
 
-Intentaremos publicar cualquier paquete de idioma y temas que tengan xml fuente y atribución/licencia para los diccionarios. Para obtener más información, consulta la f-droid.org [tema del foro http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408].
+Intentaremos publicar cualquier paquete de idioma y temas que tengan xml fuente y atribución/licencia para los diccionarios.

@@ -14,4 +14,4 @@ Bàn phím thay thế trên màn hình dành cho nhiều ngôn ngữ
 * Nhập bằng giọng nói
 * Khả năng ghi đè lên giá trị ngôn ngữ hệ thống
 
-Chúng tôi sẽ cố xuất bản bất kỳ gói ngôn ngữ và chủ đề nào mà có xml nguồn và có ghi nhận/giấy phép cho các từ điển. Để biết thêm thông tin hãy xem chủ đề trên diễn đàn f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408].
+Chúng tôi sẽ cố xuất bản bất kỳ gói ngôn ngữ và chủ đề nào mà có xml nguồn và có ghi nhận/giấy phép cho các từ điển.

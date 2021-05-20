@@ -14,4 +14,4 @@
  * 语音输入
  * 可替换系统区域设置
 
-我们将尽可能发布各种语言包和主题，包括字典的源 xml 和属性/许可。更多信息，请参阅 f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic]。
+我们将尽可能发布各种语言包和主题，包括字典的源 xml 和属性/许可。

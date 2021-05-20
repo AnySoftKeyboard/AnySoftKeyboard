@@ -14,4 +14,4 @@ Tastiera su schermo alternativa per diverse lingue.
 * Input vocale
 * Possibilità di sovrascrivere la lingua di sistema
 
-Proveremo a pubblicare qualsiasi lingua e tema che hanno xml sorgente e attribuzione/licenza per i dizionari. Maggiori info sul forum [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 fdroid.org].
+Proveremo a pubblicare qualsiasi lingua e tema che hanno xml sorgente e attribuzione/licenza per i dizionari.

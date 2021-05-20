@@ -14,4 +14,4 @@ Teclado virtual alternativo para múltiplos idiomas
 * Entrada por voz
 * Habilidade de sobrescrever o idioma definido no sistema
 
-Tentaremos publicar qualquer pacote de idiomas e temas que tiverem código-fonte xml e atribuição/licença para os dicionários. Para mais informações consulte o [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 tópico do fórum] do f-droid.org.
+Tentaremos publicar qualquer pacote de idiomas e temas que tiverem código-fonte xml e atribuição/licença para os dicionários.

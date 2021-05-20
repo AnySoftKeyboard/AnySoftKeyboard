@@ -14,4 +14,4 @@ Annað skjályklaborð sem styður við mörg tungumál.
 * Raddinntak
 * Hægt að nota annað en staðfærslu kerfisins
 
-Við reynum að gefa út alla tungumálapakka og þemu sem koma með upprunalegu XML og tileinkun/notkunarleyfi fyrir orðasöfnin. Fyrir ítarlegri upplýsingar ættirðu að skoða [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 umfjöllunina á spjallsvæði] f-droid.org.
+Við reynum að gefa út alla tungumálapakka og þemu sem koma með upprunalegu XML og tileinkun/notkunarleyfi fyrir orðasöfnin.

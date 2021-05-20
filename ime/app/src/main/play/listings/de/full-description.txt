@@ -14,4 +14,4 @@ Alternative Bildschirmtastatur für viele Sprachen.
 * Unterstützt ARM, x86 und MIPS nativ
 * Besitzt die Fähigkeit, die Einstellung für die Systemsprache zu überschreiben
 
-Wir werden versuchen, jedes Sprach- und Designpaket zu veröffentlichen, das eine XML-Quelldatei und - bei Wörterbüchern - die Zuordnungen/Lizenzen mitbringt. Weitere Infos dazu auf F-Droid [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic].
+Wir werden versuchen, jedes Sprach- und Designpaket zu veröffentlichen, das eine XML-Quelldatei und - bei Wörterbüchern - die Zuordnungen/Lizenzen mitbringt.

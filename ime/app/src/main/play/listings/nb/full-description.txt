@@ -14,4 +14,4 @@ Alternativt skjermbasert tastatur for mange språk.
 * Stemmestyring
 * Mulighet til å overstyre systemets lokalitetsverdi
 
-Forsøksvist vil språkpakker og drakter som har kilde-XML og navngivinging/lisens på plass for ordbøkene. For mer info, sjekk [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forumemnet].
+Forsøksvist vil språkpakker og drakter som har kilde-XML og navngivinging/lisens på plass for ordbøkene.

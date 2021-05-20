@@ -14,4 +14,4 @@ Unu tecladu alternativu pro limbas medas
 * Reconnoschimentu vocale
 * Abilidade de subraiscrìere su valore de sa limba de sistema
 
-Amus a chircare de publicare totu sos pachetes de sas limbas chi tenent unu xml de fonte e atributzione/litzèntzia pro sos ditzionàrios. Pro àteras informatziones leghe·ti [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 sa publicatzione in su forum] in f-droid.org.
+Amus a chircare de publicare totu sos pachetes de sas limbas chi tenent unu xml de fonte e atributzione/litzèntzia pro sos ditzionàrios.

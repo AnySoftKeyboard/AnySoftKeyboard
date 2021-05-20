@@ -14,4 +14,4 @@ Teclat en pantalla alternatiu per a múltiples idiomes.
 * Reconeixement de comandes de veu
 * Possibilitat de sobreescriure els valors locals del sistema
 
-Procurarem publicar qualsevol paquet d'idiomes i temes que tinguin una font XML i l'atribució/llicència pels diccionaris. Per a més informació consulteu [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 el tema al fòrum] a f-droid.org.
+Procurarem publicar qualsevol paquet d'idiomes i temes que tinguin una font XML i l'atribució/llicència pels diccionaris.

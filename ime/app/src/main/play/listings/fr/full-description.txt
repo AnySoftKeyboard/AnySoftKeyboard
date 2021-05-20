@@ -14,4 +14,4 @@ Clavier virtuel alternatif pour différentes langues.
  * Saisie vocale
  * Possibilité de remplacer la valeur des paramètres linguistiques du système
 
-Nous essaierons de publier les paquets de langues et de thèmes qui ont leur code source en XML, ainsi que les dictionnaires qui ont une licence et un auteur. Pour plus d’informations, voir le [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 sujet du forum] sur f-droid.org.
+Nous essaierons de publier les paquets de langues et de thèmes qui ont leur code source en XML, ainsi que les dictionnaires qui ont une licence et un auteur.

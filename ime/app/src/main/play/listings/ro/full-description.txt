@@ -14,4 +14,4 @@ Tastatură alternativă pe ecran pentru mai multe limbi.
 * Intrare vocală
 * Posibilitatea de a suprascrie valoarea locală a sistemului
 
-Vom încerca să publicăm toate pachetele de limbi și temele care au xml sursă și atribuirea/licența pentru dicționare. Pentru mai multe informații, consultați f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic].
+Vom încerca să publicăm toate pachetele de limbi și temele care au xml sursă și atribuirea/licența pentru dicționare.

@@ -14,4 +14,4 @@ Alternativt tangentbord med stöd för ett flertal språk.
 * Röststyrning
 * Möjlighet att åsidosätta systemets lokalvärde
 
-Vi kommer att försöka att publicera språkpaket och teman som har käll-xml och erkännande/licens för ordböckerna. För vidare information se f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 forum topic].
+Vi kommer att försöka att publicera språkpaket och teman som har käll-xml och erkännande/licens för ordböckerna.

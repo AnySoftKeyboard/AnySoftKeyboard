@@ -14,4 +14,4 @@ Alternatiivne ekraaniklaviatuur mitmele keelele
 * Häälkäsklused
 * Süsteemi lokaadi väljalülitamise võimalus
 
-Me proovime avaldada kõik keeletepaketid ja teemad, millel on XML lähtekood ja millel on sõnastike osundamine/litsents. Lisateave saidis f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 foorumi teema].
+Me proovime avaldada kõik keeletepaketid ja teemad, millel on XML lähtekood ja millel on sõnastike osundamine/litsents.

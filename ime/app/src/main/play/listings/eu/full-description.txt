@@ -14,4 +14,4 @@ Hainbat hizkuntzetarako pantailako teklatua.
  * Ahots bidezko sarrera
  * Sistemaren ezarpenak gainidazteko aukera
 
-Iturriaren XML-a eta hiztegien atribuzioa/lizentzia duten hizkuntza pakete guztiak argitaratzen saiatuko gara. Informazio gehiagorako ikusi f-droid.org [http://f-droid.org/forums/topic/anysoftkeyboard-language-packs-layouts-plans/#post-6408 foroko eztabaida].
+Iturriaren XML-a eta hiztegien atribuzioa/lizentzia duten hizkuntza pakete guztiak argitaratzen saiatuko gara.
