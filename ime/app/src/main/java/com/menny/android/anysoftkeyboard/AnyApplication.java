@@ -223,6 +223,13 @@ public class AnyApplication extends MultiDexApplication {
 
         mPublicNotices = new ArrayList<>(EasterEggs.create());
         mPublicNotices.addAll(Notices.create(this));
+        
+        // For Android 11 (maybe earlier?) we need to make sure the external application directory
+        // exists, to do so, just have the system get an empty file from it and Android will create
+        // it for us.  Likewise we have to do it here instead of in the getBackupFile function as
+        // we don't have the right context by that time.  We need this to write backups too and 
+        // with Android 11 we can no longer do this ourselves.
+        this.getExternalFilesDir("");
     }
 
     public List<PublicNotice> getPublicNotices() {
