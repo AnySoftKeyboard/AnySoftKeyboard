@@ -157,10 +157,20 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                                 t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
 
         addDisposable(
-                prefs().getBoolean(
-                                R.string.settings_key_use_system_vibration,
-                                R.bool.settings_default_use_system_vibration)
-                        .asObservable()
+                Observable.combineLatest(
+                                PowerSaving.observePowerSavingState(
+                                        getApplicationContext(),
+                                        R.string.settings_key_power_save_mode_vibration_control),
+                                NightMode.observeNightModeState(
+                                        getApplicationContext(),
+                                        R.string.settings_key_night_mode_vibration_control,
+                                        R.bool.settings_default_true),
+                                prefs().getBoolean(
+                                                R.string.settings_key_use_system_vibration,
+                                                R.bool.settings_default_use_system_vibration)
+                                        .asObservable(),
+                                (powerState, nightState, systemVibration) ->
+                                        !powerState && !nightState && systemVibration)
                         .subscribe(
                                 value -> {
                                     mVibrator.setUseSystemVibration(value);
