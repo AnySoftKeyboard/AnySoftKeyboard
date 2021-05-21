@@ -1,0 +1,1 @@
+Pacote de idioma turco para AnySoftKeyboard

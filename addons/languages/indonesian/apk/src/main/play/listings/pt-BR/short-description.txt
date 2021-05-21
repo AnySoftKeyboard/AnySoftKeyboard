@@ -1,0 +1,1 @@
+Pacote do idioma indonésio para AnySoftKeyboard

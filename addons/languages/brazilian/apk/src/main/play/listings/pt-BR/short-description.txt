@@ -1,1 +1,1 @@
-Pacote de Português Brasileiro para o AnySoftKeyboard
+Pacote do idioma português brasileiro para AnySoftKeyboard
