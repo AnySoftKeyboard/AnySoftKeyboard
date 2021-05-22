@@ -29,15 +29,14 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.preference.PreferenceManager;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.XmlRes;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.XmlRes;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.io.IOException;
 import java.io.Serializable;
@@ -601,7 +600,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 setAddOnEnableValueInPrefs(editor, addOnId, false);
                 setAddOnEnableValueInPrefs(editor, mDefaultAddOnId, true);
             }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
     }
 
@@ -668,7 +667,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putString(mSortedIdsPrefId, orderValue.toString());
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         @Override
@@ -694,7 +693,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         public void setAddOnEnabled(String addOnId, boolean enabled) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             setAddOnEnableValueInPrefs(editor, addOnId, enabled);
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         @Override

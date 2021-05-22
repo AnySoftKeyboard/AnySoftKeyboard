@@ -28,10 +28,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.android.NightMode;
@@ -253,7 +252,7 @@ public class AnyApplication extends Application {
                 editor.putInt(PREF_KEYS_LAST_INSTALLED_APP_VERSION, BuildConfig.VERSION_CODE);
                 editor.putLong(PREF_KEYS_LAST_INSTALLED_APP_TIME, installTime);
             }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
     }
 

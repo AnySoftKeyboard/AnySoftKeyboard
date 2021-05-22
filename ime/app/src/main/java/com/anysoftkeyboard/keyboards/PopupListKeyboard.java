@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;

@@ -17,10 +17,10 @@
 package com.anysoftkeyboard;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.menny.android.anysoftkeyboard.R;

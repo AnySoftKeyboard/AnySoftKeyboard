@@ -9,10 +9,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.R;
 

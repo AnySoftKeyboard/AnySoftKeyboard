@@ -2,9 +2,9 @@ package net.evendanan.pixel;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import io.reactivex.disposables.Disposable;
 import org.junit.Assert;

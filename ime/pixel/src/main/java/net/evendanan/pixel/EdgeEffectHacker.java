@@ -3,8 +3,8 @@ package net.evendanan.pixel;
 import android.app.Activity;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 
 public class EdgeEffectHacker {

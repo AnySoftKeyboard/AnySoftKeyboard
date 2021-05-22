@@ -2,9 +2,9 @@ package com.anysoftkeyboard.overlay;
 
 import android.content.ComponentName;
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntRange;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
+import androidx.annotation.VisibleForTesting;
 
 public class OverlayDataNormalizer implements OverlyDataCreator {
 

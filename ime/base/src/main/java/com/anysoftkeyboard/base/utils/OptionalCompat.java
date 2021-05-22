@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.base.utils;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class OptionalCompat<T> {
     public static <T> OptionalCompat<T> of(@Nullable T value) {

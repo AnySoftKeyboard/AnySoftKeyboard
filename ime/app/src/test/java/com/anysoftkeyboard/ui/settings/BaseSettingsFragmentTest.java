@@ -3,8 +3,8 @@ package com.anysoftkeyboard.ui.settings;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.res.Configuration;
-import android.support.v4.app.Fragment;
 import android.widget.LinearLayout;
+import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;

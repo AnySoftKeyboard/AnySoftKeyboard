@@ -9,11 +9,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
@@ -89,7 +88,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
                             PreferenceManager.getDefaultSharedPreferences(activity);
                     final SharedPreferences.Editor edit = sharedPreferences.edit();
                     edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    edit.apply();
                     activity.startPermissionsRequest(mContactsPermissionRequest);
                     refreshWizardPager();
                 }
@@ -101,7 +100,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
                     final SharedPreferences.Editor edit = sharedPreferences.edit();
                     edit.putBoolean(
                             getString(R.string.settings_key_use_contacts_dictionary), false);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    edit.apply();
                     refreshWizardPager();
                 }
                 break;

@@ -18,14 +18,16 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
+import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 
 public class MainSettingsActivity extends BasicAnyActivity {
 
@@ -45,44 +47,41 @@ public class MainSettingsActivity extends BasicAnyActivity {
 
         mTitle = getTitle();
 
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.bottom_nav_home_button:
-                                navigateToHomeRoot();
-                                break;
-                            case R.id.bottom_nav_language_button:
-                                addFragmentToUi(
-                                        new LanguageSettingsFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            case R.id.bottom_nav_ui_button:
-                                addFragmentToUi(
-                                        new UserInterfaceSettingsFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            case R.id.bottom_nav_gestures_button:
-                                addFragmentToUi(
-                                        new GesturesSettingsFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            case R.id.bottom_nav_quick_text_button:
-                                addFragmentToUi(
-                                        new QuickTextKeysBrowseFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                        "Failed to handle "
-                                                + item.getItemId()
-                                                + " in mBottomNavigationView.setOnNavigationItemSelectedListener");
-                        }
-                        return true;
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.bottom_nav_home_button:
+                            navigateToHomeRoot();
+                            break;
+                        case R.id.bottom_nav_language_button:
+                            addFragmentToUi(
+                                    new LanguageSettingsFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        case R.id.bottom_nav_ui_button:
+                            addFragmentToUi(
+                                    new UserInterfaceSettingsFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        case R.id.bottom_nav_gestures_button:
+                            addFragmentToUi(
+                                    new GesturesSettingsFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        case R.id.bottom_nav_quick_text_button:
+                            addFragmentToUi(
+                                    new QuickTextKeysBrowseFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(
+                                    "Failed to handle "
+                                            + item.getItemId()
+                                            + " in mBottomNavigationView.setOnNavigationItemSelectedListener");
                     }
+                    return true;
                 });
     }
 
@@ -156,8 +155,27 @@ public class MainSettingsActivity extends BasicAnyActivity {
      */
     public static void setActivityTitle(Fragment fragment, CharSequence title) {
         FragmentActivity activity = fragment.getActivity();
-        if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
+        if (activity.getSupportFragmentManager() == fragment.getParentFragmentManager()) {
             activity.setTitle(title);
         }
+    }
+
+    // due to https://github.com/robolectric/robolectric/pull/4736
+    private @Nullable PermissionsRequest mLastCreatedRequest;
+
+    @VisibleForTesting
+    @Nullable
+    PermissionsRequest getLastCreatedRequest() {
+        PermissionsRequest lastRequest = mLastCreatedRequest;
+        mLastCreatedRequest = null;
+        return lastRequest;
+    }
+
+    @NonNull
+    @Override
+    protected PermissionsRequest createPermissionRequestFromIntentRequest(
+            int requestId, @NonNull String[] permissions, @NonNull Intent intent) {
+        return mLastCreatedRequest =
+                super.createPermissionRequestFromIntentRequest(requestId, permissions, intent);
     }
 }

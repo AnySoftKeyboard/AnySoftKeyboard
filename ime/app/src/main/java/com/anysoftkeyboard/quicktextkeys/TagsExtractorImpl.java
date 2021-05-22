@@ -1,10 +1,10 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.util.ArrayMap;
-import android.support.v4.util.Pair;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.collection.ArrayMap;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.InMemoryDictionary;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;

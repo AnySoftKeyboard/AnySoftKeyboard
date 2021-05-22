@@ -14,7 +14,7 @@
         android:foreground="@drawable/drop_shadow_for_top"
         android:foregroundGravity="top|fill_horizontal">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

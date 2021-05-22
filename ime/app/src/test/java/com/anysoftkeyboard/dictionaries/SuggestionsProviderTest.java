@@ -7,7 +7,7 @@ import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
