@@ -100,14 +100,14 @@
         <!-- O -->
         <Key
             android:codes="\u06C1"
-            android:popupCharacters="\u0669\9\u06BE\u0647"
+            android:popupCharacters="\u0669\9\u06BE\u0647\u06C2"
             ask:hintLabel="\u0669"
             ask:shiftedCodes="\u06BE" />
         <!-- P -->
         <Key
             android:codes="\u067E"
             android:keyEdgeFlags="right"
-            android:popupCharacters="\u0660\0\u064F\u064C\u0657"
+            android:popupCharacters="\u0660\0\u064F\u064C\u08F1\u0657"
             ask:hintLabel="\u0660"
             ask:shiftedCodes="\u064F" />
     </Row>
@@ -118,7 +118,7 @@
             android:codes="\u0627"
             android:horizontalGap="5%p"
             android:keyEdgeFlags="left"
-            android:popupCharacters="\@\u0622\u0670\u0656\u0653"
+            android:popupKeyboard="@xml/urdu_with_symbols_a"
             ask:hintLabel="\@"
             ask:shiftedCodes="\u0622" />
         <!-- S -->
@@ -243,6 +243,7 @@
         <!-- comma -->
         <Key
             android:codes="\u060C"
+            android:popupKeyboard="@xml/urdu_with_symbols_comma"
             ask:isFunctional="true" />
 
         <Key
@@ -352,6 +353,7 @@
     064F ُ  Damma (Pesh)
     0619 ؙ  Small Damma
     064C ٌ  Dammatan
+    08F1  ࣱ Open Dammatan
     0657 ٗ  Inverted Damma
 
     0651 ّ  Shadda
