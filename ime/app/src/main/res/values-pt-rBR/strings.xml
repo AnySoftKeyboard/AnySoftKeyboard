@@ -596,7 +596,7 @@ simplistas    </string>
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard está usando seus nomes de contatos para fornecer-lhe com uma sugestão de palavra personalizado: conforme você digita uma palavra, vamos procurar palavras semelhantes, para auto-completar e corrigir automaticamente sua digitação.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugestão de palavras baseada no nome de seus contatos</string>
     <string name="allow_permission">Permitir</string>
-    <string name="navigate_to_app_permissions">Vá para permissões de App</string>
+    
     <string name="turn_off_contacts_dictionary">Desligue o dicionário de contatos</string>
     <string name="read_more_about_permissions">Leia mais sobre permissões...</string>
     <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a matar bugs antes do alcance do público.</string>

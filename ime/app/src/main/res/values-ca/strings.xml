@@ -563,7 +563,7 @@
     <string name="contacts_permissions_dialog_message">L\'AnySoftKeyboard pot utilitzar suggeriments per als noms de contactes; en escriure una paraula, es verifica si existeix al diccionari per ajudar-vos a corregir automàticament un nom inserit incorrectament.</string>
     <string name="wizard_allow_contacts_permission">Permet els contactes en escriure noms</string>
     <string name="allow_permission">Permet</string>
-    <string name="navigate_to_app_permissions">Vés als permisos de l\'aplicació</string>
+    
     <string name="turn_off_contacts_dictionary">Inhabilita el diccionari amb els contactes</string>
     <string name="read_more_about_permissions">Llegiu més sobre els permisos…</string>
     <string name="ask_beta_link_promo">Ep! Voleu contingut nou i més ràpid a l\'<i>AnySoftKeyboard</i>? Llavors esteu d\'enhorabona! El canal <i>BETA</i> ja està <b>DISPONIBLE</b>!\nUniu-vos mitjançant l\'enllaç de sota i actualitzeu-vos al <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nGràcies per ajudar-nos a combatre els errors abans que l\'aplicació arribi al públic general.</string>

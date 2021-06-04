@@ -146,7 +146,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
 
         PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp, "Errors");
         builder.setSmallIcon(R.drawable.ic_notification_error)
                 .setColor(ContextCompat.getColor(mApp, R.color.notification_background_error))
                 .setTicker(mApp.getText(R.string.ime_crashed_ticker))

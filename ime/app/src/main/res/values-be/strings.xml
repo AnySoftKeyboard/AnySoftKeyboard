@@ -600,7 +600,7 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard выкарыстоўвае вашы імёны кантактаў, каб даць вам персаналізаваную прапанову слова: падчас набору слова, мы шукаем падобныя словы для аўтазапаўнення і аўтавыпраўлення вашага друку.</string>
     <string name="wizard_allow_contacts_permission">Дазволіць прапановы на падставе кантактаў</string>
     <string name="allow_permission">Дазволіць</string>
-    <string name="navigate_to_app_permissions">Перайсці да дазволаў праграмы</string>
+    
     <string name="turn_off_contacts_dictionary">Выключыць слоўнік кантактаў</string>
     <string name="read_more_about_permissions">Даведацца больш пра дазволы…</string>
     <string name="ask_beta_link_promo">Вітаем! Хочаце імгненна атрымліваць доступ да новых функцый <i>AnySoftKeyboard</i>? Тады наперад! Для <b>ВАС</b> цяпер працуе <i>BETA</i> канал!\nПроста зарэгіструйцеся па спасылцы ніжэй і абнавіце праграму ў <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nШчыра ўдзячныя вам за тое, што дапамагаеце выпраўляць памылкі, перш чым яны трапяць у фінальную версію праграмы.</string>

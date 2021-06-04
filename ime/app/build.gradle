@@ -109,7 +109,8 @@ dependencies {
     implementation "com.google.android.material:material:$androidxMaterial"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
     implementation 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
-    implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation('com.github.menny.Chauffeur:lib:0.1.1') {
         exclude group: 'com.android.support'
     }
 

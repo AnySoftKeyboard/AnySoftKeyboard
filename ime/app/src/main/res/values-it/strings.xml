@@ -408,7 +408,7 @@
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
-    <string name="label_next_key">Avanti ></string>
+    <string name="label_next_key">Avanti &gt;</string>
     <string name="label_previous_key">&lt; Indietro</string>
     <string name="label_send_key">Invia</string>
     <string name="label_search_key">Cerca</string>
@@ -580,7 +580,7 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard sta usando i nomi dei tuoi Contatti per fornirti il suggerimento personalizzato di parole: mentre scrivi una parola, cerchiamo parole simili per completare automaticamente e correggere automaticamente la tua digitazione.</string>
     <string name="wizard_allow_contacts_permission">Permetti suggerimenti di digitazione basati sui Contatti</string>
     <string name="allow_permission">Permetti</string>
-    <string name="navigate_to_app_permissions">Vai alle autorizzazioni app</string>
+    
     <string name="turn_off_contacts_dictionary">Disattiva dizionario Contatti</string>
     <string name="read_more_about_permissions">Per saperne di più sulle autorizzazioni…</string>
     <string name="ask_beta_link_promo">Hey! Vuoi nuova roba <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi all\'indirizzo sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare errori prima che raggiungano il pubblico.</string>

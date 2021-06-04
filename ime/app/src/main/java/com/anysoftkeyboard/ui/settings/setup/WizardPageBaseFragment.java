@@ -11,9 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class WizardPageBaseFragment extends Fragment {
+
+    protected ImageView mStateIcon;
 
     /**
      * calculate whether the step has completed. This should check OS configuration.
@@ -21,8 +24,6 @@ public abstract class WizardPageBaseFragment extends Fragment {
      * @return true if step setup is valid in OS
      */
     protected abstract boolean isStepCompleted(@NonNull Context context);
-
-    protected ImageView mStateIcon;
 
     @LayoutRes
     protected abstract int getPageLayoutId();
@@ -67,5 +68,13 @@ public abstract class WizardPageBaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         refreshFragmentUi();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionRequestHelper.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 }
