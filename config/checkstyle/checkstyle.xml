@@ -35,6 +35,12 @@
 
         <!-- being paranoid -->
         <module name="RegexpSinglelineJava">
+            <property name="id" value="EasyPermissionOnlyUsingHelper" />
+            <property name="format" value="EasyPermissions" />
+            <property name="message" value="User PermissionRequestHelper!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
             <property name="id" value="KeyboardExtensionFactoryCreation" />
             <property name="format" value="new KeyboardExtensionFactory" />
             <property name="message" value="Only AnyApplication can do that!" />
