@@ -13,6 +13,8 @@ android {
         println 'crash report email is: ' + support_email_address
 
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -109,9 +111,12 @@ dependencies {
     implementation "com.google.android.material:material:$androidxMaterial"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
     implementation 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
-    implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation('com.github.menny.Chauffeur:lib:0.1.1') {
         exclude group: 'com.android.support'
     }
+
+    implementation "androidx.multidex:multidex:2.0.1"
 
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'

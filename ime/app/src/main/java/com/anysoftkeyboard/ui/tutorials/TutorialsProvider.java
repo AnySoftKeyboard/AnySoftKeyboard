@@ -48,7 +48,7 @@ public class TutorialsProvider {
                     ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
             NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(context);
+                    new NotificationCompat.Builder(context, "Tester");
             notificationBuilder
                     .setSmallIcon(R.drawable.ic_notification_debug_version)
                     .setContentText(context.getText(R.string.notification_text_testers))

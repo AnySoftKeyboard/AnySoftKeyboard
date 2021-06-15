@@ -1,32 +1,31 @@
 package com.anysoftkeyboard.ui.settings;
 
+import static android.Manifest.permission.LOCATION_HARDWARE;
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.content.Intent.ACTION_VIEW;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static com.anysoftkeyboard.PermissionsRequestCodes.CONTACTS;
 
 import android.Manifest;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Build;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowDialog;
+import org.robolectric.shadows.ShadowActivity;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class MainSettingsActivityTest {
@@ -37,6 +36,16 @@ public class MainSettingsActivityTest {
         intent.putExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID, shortcutId);
 
         return intent;
+    }
+
+    @NonNull
+    private static Intent getContactsIntent() {
+        Intent requestIntent =
+                new Intent(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class);
+        requestIntent.putExtra(
+                MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY, READ_CONTACTS);
+        requestIntent.setAction(MainSettingsActivity.ACTION_REQUEST_PERMISSION_ACTIVITY);
+        return requestIntent;
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -234,103 +243,34 @@ public class MainSettingsActivityTest {
         Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
                 .denyPermissions(Manifest.permission.READ_CONTACTS);
 
-        Intent requestIntent =
-                PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                        getApplicationContext(),
-                        MainSettingsActivity.class,
-                        CONTACTS.getRequestCode(),
-                        READ_CONTACTS);
-
+        Intent requestIntent = getContactsIntent();
         ActivityScenario<MainSettingsActivity> activityController =
                 ActivityScenario.launch(requestIntent);
         activityController.moveToState(Lifecycle.State.RESUMED);
 
         activityController.onActivity(
                 activity -> {
-                    final PermissionsRequest lastCreatedRequest = activity.getLastCreatedRequest();
-                    Assert.assertNotNull(lastCreatedRequest);
+                    final ShadowActivity.PermissionsRequest lastRequestedPermission =
+                            Shadows.shadowOf(activity).getLastRequestedPermission();
+                    Assert.assertNotNull(lastRequestedPermission);
                     Assert.assertEquals(
-                            PermissionsRequestCodes.CONTACTS.getRequestCode(),
-                            lastCreatedRequest.getRequestCode());
-                    Assert.assertArrayEquals(
-                            new String[] {Manifest.permission.READ_CONTACTS},
-                            lastCreatedRequest.getRequestedPermissions());
+                            PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE,
+                            lastRequestedPermission.requestCode);
                 });
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     @Config(sdk = Build.VERSION_CODES.M)
-    public void testContactsPermissionRequestedWhenNotGrantedAndUserGrants() {
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                .denyPermissions(Manifest.permission.READ_CONTACTS);
+    public void testFailsIfUnknownPermission() {
 
-        Intent requestIntent =
-                PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                        getApplicationContext(),
-                        MainSettingsActivity.class,
-                        CONTACTS.getRequestCode(),
-                        READ_CONTACTS);
-
+        Intent requestIntent = getContactsIntent();
+        requestIntent.putExtra(
+                MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY,
+                LOCATION_HARDWARE);
         ActivityScenario<MainSettingsActivity> activityController =
                 ActivityScenario.launch(requestIntent);
         activityController.moveToState(Lifecycle.State.RESUMED);
-        activityController.onActivity(
-                activity -> {
-                    PermissionsRequest lastCreatedRequest = activity.getLastCreatedRequest();
-                    Assert.assertNotNull(lastCreatedRequest);
 
-                    lastCreatedRequest.onPermissionsGranted();
-                    Assert.assertNull(activity.getLastCreatedRequest());
-                    Assert.assertNull(ShadowDialog.getLatestDialog());
-                });
-    }
-
-    @Test
-    @Config(sdk = Build.VERSION_CODES.M)
-    public void testContactsPermissionRequestedWhenNotGrantedAndUserDenies() {
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                .denyPermissions(Manifest.permission.READ_CONTACTS);
-
-        Intent requestIntent =
-                PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                        getApplicationContext(),
-                        MainSettingsActivity.class,
-                        CONTACTS.getRequestCode(),
-                        READ_CONTACTS);
-
-        ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(requestIntent);
-
-        activityController.moveToState(Lifecycle.State.RESUMED);
-
-        activityController.onActivity(
-                activity -> {
-                    PermissionsRequest lastCreatedRequest = activity.getLastCreatedRequest();
-                    Assert.assertNotNull(lastCreatedRequest);
-
-                    lastCreatedRequest.onPermissionsDenied(
-                            new String[0],
-                            new String[] {Manifest.permission.READ_CONTACTS},
-                            new String[0]);
-                    Assert.assertNull(activity.getLastCreatedRequest());
-
-                    Assert.assertNotNull(ShadowDialog.getLatestDialog());
-                });
-    }
-
-    @Test
-    @Config(sdk = Build.VERSION_CODES.M)
-    public void testContactsPermissionRequestedWhenGrantedBefore() {
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                .grantPermissions(Manifest.permission.READ_CONTACTS);
-
-        Intent requestIntent =
-                PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                        getApplicationContext(),
-                        MainSettingsActivity.class,
-                        CONTACTS.getRequestCode(),
-                        READ_CONTACTS);
-
-        Assert.assertNull(requestIntent);
+        activityController.onActivity(Assert::assertNotNull);
     }
 }

@@ -712,7 +712,7 @@
     </string>
     <string name="wizard_allow_contacts_permission">ნომრების წიგნაკიდან შემოთავაზების დაშვება</string>
     <string name="allow_permission">დაშვება</string>
-    <string name="navigate_to_app_permissions">აპის ნებართვებზე გადასვლა</string>
+    
     <string name="turn_off_contacts_dictionary">ნომრების ლექსიკონის გამორთვა</string>
     <string name="read_more_about_permissions">გაეცანით ვრცლად, ნებართვებზე…</string>
     <string name="ask_beta_link_promo">ჰეი! გსურთ ახალი <i>AnySoftKeyboard</i> მალევე მიიღოთ? მაშინ

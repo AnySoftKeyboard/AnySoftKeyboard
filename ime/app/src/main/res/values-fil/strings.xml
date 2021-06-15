@@ -492,7 +492,7 @@
     <string name="contacts_permissions_dialog_message">Ang AnySoftKeyboard ay gumagamit ng iyong contacts\' na mga pangalan para maibigay sa itong ng isang personalized na salitang mungkahi: Kun gmag type ka ng wika, uto ay parehong wika at awtomatikong mag correct sa uyong pag-type.</string>
     <string name="wizard_allow_contacts_permission">Payagan ang mga nakabaseng kontaks sa mga mungkahing nakatype</string>
     <string name="allow_permission">Payagan</string>
-    <string name="navigate_to_app_permissions">Pumunta sa pahintulot ng App</string>
+    
     <string name="turn_off_contacts_dictionary">Patayin ang mga kontak sa diksyunaryu</string>
     <string name="read_more_about_permissions">Basahin pa ang tungkol sa mga permiso…</string>
     <string name="ask_beta_link_promo">Uy! Gusto mo ng bago <i>AnySoftKeyboard</i> mas mabilis ng stuff? Ngayon ikaw ay maswerte! <i>BETA</i> na channel ay pwede na para <b>SAYO</b>!\nmag signup lang sa link sa baba, at i-update mo gamit ang <i>Google Play</i> app store!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAt salamat sa pagtulong na pagpatay sa mga bugs bago ito makarating sa publiko.</string>

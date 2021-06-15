@@ -16,7 +16,6 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +30,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.android.NightMode;
@@ -64,9 +64,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AnyApplication extends Application {
-
-    private static final String TAG = "ASKApp";
+public class AnyApplication extends MultiDexApplication {
 
     static final String PREF_KEYS_FIRST_INSTALLED_APP_VERSION =
             "settings_key_first_app_version_installed";
@@ -76,9 +74,10 @@ public class AnyApplication extends Application {
             "settings_key_last_app_version_installed";
     static final String PREF_KEYS_LAST_INSTALLED_APP_TIME =
             "settings_key_first_time_current_version_installed";
-
+    private static final String TAG = "ASKApp";
     private static DeviceSpecific msDeviceSpecific;
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final Subject<Boolean> mNightModeSubject = ReplaySubject.createWithSize(1);
     private KeyboardFactory mKeyboardFactory;
     private ExternalDictionaryFactory mExternalDictionaryFactory;
     private KeyboardExtensionFactory mBottomRowFactory;
@@ -87,7 +86,6 @@ public class AnyApplication extends Application {
     private KeyboardThemeFactory mKeyboardThemeFactory;
     private QuickTextKeyFactory mQuickTextKeyFactory;
     private RxSharedPrefs mRxSharedPrefs;
-    private final Subject<Boolean> mNightModeSubject = ReplaySubject.createWithSize(1);
     private ArrayList<PublicNotice> mPublicNotices;
 
     public static DeviceSpecific getDeviceSpecific() {
@@ -129,6 +127,36 @@ public class AnyApplication extends Application {
         return new File(
                 new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"),
                 filename);
+    }
+
+    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
+        if (apiLevel < 16) return new DeviceSpecificV15();
+        if (apiLevel < 19) return new DeviceSpecificV16();
+        if (apiLevel < 24) return new DeviceSpecificV19();
+        if (apiLevel < 28) return new DeviceSpecificV24();
+        return new DeviceSpecificV28();
+    }
+
+    public static long getCurrentVersionInstallTime(Context appContext) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
+        return sp.getLong(PREF_KEYS_LAST_INSTALLED_APP_TIME, 0);
+    }
+
+    public static int getFirstAppVersionInstalled(Context appContext) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
+        return sp.getInt(PREF_KEYS_FIRST_INSTALLED_APP_VERSION, 0);
+    }
+
+    public static RxSharedPrefs prefs(Context context) {
+        final Context applicationContext = context.getApplicationContext();
+        if (applicationContext instanceof AnyApplication) {
+            return ((AnyApplication) applicationContext).mRxSharedPrefs;
+        } else {
+            throw new IllegalStateException(
+                    "What? expected 'context.getApplicationContext()' to be AnyApplication, but was '"
+                            + applicationContext.getClass()
+                            + "'!!");
+        }
     }
 
     @Override
@@ -303,14 +331,6 @@ public class AnyApplication extends Application {
         return new KeyboardFactory(this);
     }
 
-    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
-        if (apiLevel < 16) return new DeviceSpecificV15();
-        if (apiLevel < 19) return new DeviceSpecificV16();
-        if (apiLevel < 24) return new DeviceSpecificV19();
-        if (apiLevel < 28) return new DeviceSpecificV24();
-        return new DeviceSpecificV28();
-    }
-
     @CallSuper
     protected void setupCrashHandler(SharedPreferences sp) {
         JustPrintExceptionHandler globalErrorHandler = new JustPrintExceptionHandler();
@@ -340,28 +360,6 @@ public class AnyApplication extends Application {
                 mKeyboardFactory,
                 mKeyboardThemeFactory,
                 mQuickTextKeyFactory);
-    }
-
-    public static long getCurrentVersionInstallTime(Context appContext) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-        return sp.getLong(PREF_KEYS_LAST_INSTALLED_APP_TIME, 0);
-    }
-
-    public static int getFirstAppVersionInstalled(Context appContext) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
-        return sp.getInt(PREF_KEYS_FIRST_INSTALLED_APP_VERSION, 0);
-    }
-
-    public static RxSharedPrefs prefs(Context context) {
-        final Context applicationContext = context.getApplicationContext();
-        if (applicationContext instanceof AnyApplication) {
-            return ((AnyApplication) applicationContext).mRxSharedPrefs;
-        } else {
-            throw new IllegalStateException(
-                    "What? expected 'context.getApplicationContext()' to be AnyApplication, but was '"
-                            + applicationContext.getClass()
-                            + "'!!");
-        }
     }
 
     public List<Drawable> getInitialWatermarksList() {

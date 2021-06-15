@@ -17,11 +17,11 @@
 package com.anysoftkeyboard.dictionaries.content;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
@@ -29,7 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
@@ -40,9 +40,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 
-@TargetApi(7)
 public class ContactsDictionary extends BTreeDictionary implements NextWordSuggestions {
 
     protected static final String TAG = "ASKContactsDict";
@@ -89,28 +87,40 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
     @Override
     protected void readWordsFromActualStorage(WordReadListener listener) {
         // we required Contacts permission
-        Intent contactsRequired =
-                PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                        mContext,
-                        MainSettingsActivity.class,
-                        PermissionsRequestCodes.CONTACTS.getRequestCode(),
-                        Manifest.permission.READ_CONTACTS);
-        if (contactsRequired != null) {
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(MainSettingsActivity.ACTION_REQUEST_PERMISSION_ACTIVITY);
+            intent.putExtra(
+                    MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY,
+                    Manifest.permission.READ_CONTACTS);
+            intent.setClass(mContext, MainSettingsActivity.class);
             // we are running OUTSIDE an Activity
-            contactsRequired.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // showing a notification, so the user's flow will not be interrupted.
-            showNotificationWithIntent(contactsRequired);
+            final int requestCode = 456451;
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(mContext, requestCode, intent, 0);
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(mContext, "Permissions");
+            builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));
+            builder.setSmallIcon(R.drawable.ic_notification_contacts_permission_required);
+            builder.setContentIntent(pendingIntent);
+            builder.setContentTitle(mContext.getString(R.string.notification_read_contacts_title));
+            builder.setContentText(mContext.getString(R.string.notification_read_contacts_text));
+            builder.setAutoCancel(true);
+            NotificationManagerCompat.from(mContext).notify(requestCode, builder.build());
             // and failing. So it will try to read contacts again
             throw new RuntimeException("We do not have permission to read contacts!");
-        } else {
-            Cursor cursor =
-                    mContext.getContentResolver()
-                            .query(
-                                    Contacts.CONTENT_URI,
-                                    PROJECTION,
-                                    Contacts.IN_VISIBLE_GROUP + "=?",
-                                    new String[] {"1"},
-                                    null);
+        }
+
+        try (Cursor cursor =
+                mContext.getContentResolver()
+                        .query(
+                                Contacts.CONTENT_URI,
+                                PROJECTION,
+                                Contacts.IN_VISIBLE_GROUP + "=?",
+                                new String[] {"1"},
+                                null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     final String fullname = cursor.getString(INDEX_NAME);
@@ -133,22 +143,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
                     cursor.moveToNext();
                 }
             }
-            if (cursor != null) cursor.close();
         }
-    }
-
-    private void showNotificationWithIntent(Intent contactsRequired) {
-        final int requestId = PermissionsRequestCodes.CONTACTS.getRequestCode();
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(mContext, requestId, contactsRequired, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
-        builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));
-        builder.setSmallIcon(R.drawable.ic_notification_contacts_permission_required);
-        builder.setContentIntent(pendingIntent);
-        builder.setContentTitle(mContext.getString(R.string.notification_read_contacts_title));
-        builder.setContentText(mContext.getString(R.string.notification_read_contacts_text));
-        builder.setAutoCancel(true);
-        NotificationManagerCompat.from(mContext).notify(requestId, builder.build());
     }
 
     @Override
