@@ -404,7 +404,8 @@
     <string name="extension_kbd_bottom_ng_no_apo">Nuova generazione (senza apostrofi) - Test</string>
     <string name="extension_kbd_extension_numbers_symbols">Numeri e simboli</string>
     <string name="extension_kbd_bottom_minimal">Minimale</string>
-    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (senza emoticon)</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (niente emoticon)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (meno punteggiatura)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>

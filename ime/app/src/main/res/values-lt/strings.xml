@@ -29,6 +29,7 @@
     <string name="no_market_store_available">Nerasta <i>Google Play Store</i> jūsų įrenginyje.\nNeįmanoma ieškoti priedų!</string>
     <string name="keyboard_theme_tweak_group">Patobulinimai</string>
     <string name="close_button">Uždaryti</string>
+    <string name="delete_button">Ištrinti</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Išsaugota:\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="revert_added_word_question">Panaikinti\?</string>
@@ -395,6 +396,9 @@
     <string name="extension_kbd_bottom_simple">Paprasta</string>
     <string name="extension_kbd_bottom_ng">Naujos kartos - Testavimas</string>
     <string name="extension_kbd_extension_numbers_symbols">Skaičiai ir simboliai</string>
+    <string name="extension_kbd_bottom_minimal">Minimalus</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimalus (be „Emoji“)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalus (mažiau skyrybos ženklų)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Primyn</string>
@@ -608,6 +612,12 @@
     <string name="theme_case_type_override_os">Leisti nuspręsti „Android“ (Auto)</string>
     <string name="theme_case_type_override_lower">Visada mažosiomis</string>
     <string name="theme_case_type_override_upper">Visada didžiosiomis</string>
+    <string name="settings_hint_size">Užuominos etiketės dydis</string>
+    <string name="settings_key_hint_size_summary">Nustatyti klaviatūros užuominų dydį. Dabar - %s</string>
+    <string name="settings_key_hint_size_none">Nėra</string>
+    <string name="settings_key_hint_size_small">Mažas</string>
+    <string name="settings_key_hint_size_normal">Normalus</string>
+    <string name="settings_key_hint_size_big">Didelis</string>
     <string name="theme_case_type_override_title">Klaviatūros raidžių registro nustelbimas</string>
     <string name="theme_case_type_override_summary">Kaip nustatyti raidžių registrą klaviatūros vaizde. Šiuo metu, %s</string>
     <string name="take_a_while_progress_message">Tai gali šiek tiek užtrukti…</string>
@@ -627,6 +637,7 @@
     <string name="gesture_typing_action">Įjungti rašymą gestais [BETA]</string>
     <string name="gesture_typing_alert_title">BETA funkcija!</string>
     <string name="gesture_typing_alert_message">Rašymo gestais ➿ funkcija yra <b>beta</b> stadijoje. Ji turi keletą klaidų, nėra tokia greita ir neišsami.\nTrumpai tariant, turėtumėte ją pabandyti.</string>
+    <string name="gesture_typing_alert_button">Supratau</string>
     <string name="apply_remote_app_colors_to_theme">Pakeisti temos spalvas, atsižvelgiant į naudojamą programėlę</string>
     <string name="apply_overlay_summary_on">Klaviatūros spalvos atitiks aktyviąją programėlę (kiek leis mūsų galimybės).</string>
     <string name="apply_overlay_summary_off">Visada naudokite temos spalvas.</string>
