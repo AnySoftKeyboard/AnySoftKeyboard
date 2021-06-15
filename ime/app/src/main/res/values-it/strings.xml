@@ -661,8 +661,8 @@
     <string name="app_share_title">Saluti da AnySoftKeyboard</string>
     <string name="app_share_menu_title">Condividi l\'utilizzo di AnySoftKeyboard</string>
     <string name="app_share_text">Permettetemi di consigliare la tastiera Android open-source, riservata, gratuita, altamente personalizzabile e multilingua AnySoftKeyboard.\nScaricala da:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard</string>
-    <string name="covid_19_click_for_info">Resta al sicuro! Clicca per informazioni sul COVID-19.</string>
+    
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">http://www.salute.gov.it/portale/nuovocoronavirus/dettaglioFaqNuovoCoronavirus.jsp?lingua=italiano&amp;id=228</string>
+    
 </resources>

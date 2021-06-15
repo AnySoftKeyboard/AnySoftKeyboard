@@ -684,8 +684,8 @@
     <string name="aosp_light_theme_name">AOSP Светла тема</string>
     <string name="app_share_title">Привет от AnySoftKeyboard</string>
     <string name="app_share_menu_title">Споделете AnySoftKeyboard с помощта на</string>
-    <string name="covid_19_click_for_info">Пазете се! Щракнете за информация за COVID-19.</string>
+    
     <string name="click_me_for_easter_egg_info">щракни ме за изненада</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://coronavirus.bg/</string>
+    
 </resources>
