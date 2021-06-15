@@ -588,7 +588,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard size kişiselleştirilmiş kelime önerini sağlamak için sizin kişiler\' inizin isimlerini kullanır: bir sözcük yazarken, yazdıklarınıza otomatik tamamlama ve düzeltme için benzer kelimeler ararız.</string>
     <string name="wizard_allow_contacts_permission">Kişiler\ tabanlı yazım önerilerine izin ver</string>
     <string name="allow_permission">İzin ver</string>
-    <string name="navigate_to_app_permissions">Uygulama izinlerine git</string>
+    
     <string name="turn_off_contacts_dictionary">Kişi Sözlüğünü kapat</string>
     <string name="read_more_about_permissions">Izinler hakkında daha çok bilgi…</string>
     <string name="ask_beta_link_promo">Hey! Yeni <i>AnySoftKeyboard</i> sürümüne hemen ulaşmak ister misin? O halde şanslısın! <i>BETA</i> kanalı <b>SENİN</b> için açık!\nAşağıdaki linke girip giriş yap ve <i>Google Play-Store</i> ile güncellemeni al!\n\n

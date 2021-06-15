@@ -18,6 +18,7 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.os.Vibrator;
+import androidx.annotation.NonNull;
 
 @TargetApi(29)
 public class DeviceSpecificV29 extends DeviceSpecificV28 {
@@ -27,7 +28,7 @@ public class DeviceSpecificV29 extends DeviceSpecificV28 {
     }
 
     @Override
-    public PressVibrator createPressVibrator(Vibrator vibe) {
+    public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
         return new PressVibratorV29(vibe);
     }
 }

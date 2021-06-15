@@ -544,7 +544,7 @@
     </string>
     <string name="wizard_allow_contacts_permission">Salli yhteystietopohjaiset kirjoitusehdotukset</string>
     <string name="allow_permission">Salli</string>
-    <string name="navigate_to_app_permissions">Avaa sovelluksen käyttöoikeusasetukset</string>
+    
     <string name="turn_off_contacts_dictionary">Poista yhteystietosanakirja käytöstä</string>
     <string name="read_more_about_permissions">Lue lisää käyttöoikeuksista…</string>
     <string name="ask_beta_link_promo">Hei! Haluatko uusia <i>AnySoftKeyboard</i> juttuja nopeammin? Sitten

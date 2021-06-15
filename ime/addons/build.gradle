@@ -4,7 +4,7 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 
 dependencies {
     implementation project(':ime:base')
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "androidx.appcompat:appcompat:$androidxAppCompat"
 
     testImplementation project(':ime:base-test')
 }

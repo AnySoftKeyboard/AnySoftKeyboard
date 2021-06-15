@@ -11,6 +11,7 @@ import org.robolectric.DefaultTestLifecycle;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.TestLifecycle;
 import org.robolectric.android.util.concurrent.PausedExecutorService;
+import org.robolectric.util.Logger;
 
 /** Just a way to add general things on-top RobolectricTestRunner. */
 public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner {
@@ -30,12 +31,14 @@ public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner 
     public static class AnySoftKeyboardRobolectricTestLifeCycle extends DefaultTestLifecycle {
         @Override
         public void beforeTest(Method method) {
+            Logger.info("***** Starting test '%s' *****", method);
             TestRxSchedulers.setSchedulers(Looper.getMainLooper(), new PausedExecutorService());
             super.beforeTest(method);
         }
 
         @Override
         public void afterTest(Method method) {
+            Logger.info("***** Finished test '%s' *****", method);
             super.afterTest(method);
             TestRxSchedulers.destroySchedulers();
         }

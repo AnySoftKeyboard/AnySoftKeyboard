@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.preference.Preference;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.preference.Preference;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;

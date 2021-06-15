@@ -1,9 +1,9 @@
 package net.evendanan.pixel;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import io.reactivex.Observable;
 import org.mockito.Mockito;

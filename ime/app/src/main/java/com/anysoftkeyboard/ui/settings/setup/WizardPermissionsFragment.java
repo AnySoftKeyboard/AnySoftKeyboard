@@ -9,24 +9,19 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import java.lang.ref.WeakReference;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class WizardPermissionsFragment extends WizardPageBaseFragment
         implements View.OnClickListener {
-
-    private final PermissionsRequest mContactsPermissionRequest =
-            new ContactPermissionRequest(this);
 
     @Override
     protected int getPageLayoutId() {
@@ -84,15 +79,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
         switch (v.getId()) {
             case R.id.ask_for_permissions_action:
             case R.id.step_state_icon:
-                {
-                    SharedPreferences sharedPreferences =
-                            PreferenceManager.getDefaultSharedPreferences(activity);
-                    final SharedPreferences.Editor edit = sharedPreferences.edit();
-                    edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                    activity.startPermissionsRequest(mContactsPermissionRequest);
-                    refreshWizardPager();
-                }
+                enableContactsDictionary();
                 break;
             case R.id.disable_contacts_dictionary:
                 {
@@ -101,7 +88,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
                     final SharedPreferences.Editor edit = sharedPreferences.edit();
                     edit.putBoolean(
                             getString(R.string.settings_key_use_contacts_dictionary), false);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    edit.apply();
                     refreshWizardPager();
                 }
                 break;
@@ -131,32 +118,17 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
         }
     }
 
-    private static class ContactPermissionRequest
-            extends PermissionsRequest.PermissionsRequestBase {
+    @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
+    public void enableContactsDictionary() {
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getContext());
+        final SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
+        edit.apply();
 
-        private final WeakReference<WizardPermissionsFragment> mFragmentWeakReference;
-
-        ContactPermissionRequest(WizardPermissionsFragment fragment) {
-            super(
-                    PermissionsRequestCodes.CONTACTS.getRequestCode(),
-                    Manifest.permission.READ_CONTACTS);
-            mFragmentWeakReference = new WeakReference<>(fragment);
-        }
-
-        @Override
-        public void onPermissionsGranted() {
-            WizardPermissionsFragment fragment = mFragmentWeakReference.get();
-            if (fragment == null) return;
-
-            fragment.refreshWizardPager();
-        }
-
-        @Override
-        public void onPermissionsDenied(
-                @NonNull String[] grantedPermissions,
-                @NonNull String[] deniedPermissions,
-                @NonNull String[] declinedPermissions) {
-            /*no-op - Main-Activity handles this case*/
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)) {
+            refreshWizardPager();
         }
     }
 }

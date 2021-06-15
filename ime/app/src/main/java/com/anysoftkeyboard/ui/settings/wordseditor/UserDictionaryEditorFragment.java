@@ -16,22 +16,11 @@
 
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +32,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.ActionBar;
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
@@ -60,15 +58,14 @@ import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposables;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class UserDictionaryEditorFragment extends Fragment
         implements EditorWordsAdapter.DictionaryCallbacks {
@@ -195,82 +192,91 @@ public class UserDictionaryEditorFragment extends Fragment
                 createEmptyItemForAdd();
                 return true;
             case R.id.backup_words:
-                // we required Storage permission
-                mainSettingsActivity.startPermissionsRequest(
-                        new StoragePermissionRequest(this, false));
+                backupToStorage();
                 return true;
             case R.id.restore_words:
-                mainSettingsActivity.startPermissionsRequest(
-                        new StoragePermissionRequest(this, true));
+                restoreFromStorage();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)
     protected void restoreFromStorage() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage =
-                new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
-        UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
+            PrefsXmlStorage storage =
+                    new PrefsXmlStorage(
+                            AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
+            UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
-        mDisposable.add(
-                RxProgressDialog.create(
-                                Pair.create(storage, provider),
-                                getActivity(),
-                                R.layout.progress_window)
-                        .subscribeOn(RxSchedulers.background())
-                        .map(
-                                pair -> {
-                                    final PrefsRoot prefsRoot = pair.first.load();
-                                    pair.second.storePrefsRoot(prefsRoot);
-                                    return Boolean.TRUE;
-                                })
-                        .observeOn(RxSchedulers.mainThread())
-                        .subscribe(
-                                o ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS),
-                                throwable ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_LOAD_FAILED,
-                                                throwable.getMessage()),
-                                this::fillWordsList));
+            mDisposable.add(
+                    RxProgressDialog.create(
+                                    Pair.create(storage, provider),
+                                    getActivity(),
+                                    R.layout.progress_window)
+                            .subscribeOn(RxSchedulers.background())
+                            .map(
+                                    pair -> {
+                                        final PrefsRoot prefsRoot = pair.first.load();
+                                        pair.second.storePrefsRoot(prefsRoot);
+                                        return Boolean.TRUE;
+                                    })
+                            .observeOn(RxSchedulers.mainThread())
+                            .subscribe(
+                                    o ->
+                                            mDialogController.showDialog(
+                                                    UserDictionaryEditorFragment
+                                                            .DIALOG_LOAD_SUCCESS),
+                                    throwable ->
+                                            mDialogController.showDialog(
+                                                    UserDictionaryEditorFragment.DIALOG_LOAD_FAILED,
+                                                    throwable.getMessage()),
+                                    this::fillWordsList));
+        }
     }
 
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)
     protected void backupToStorage() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage =
-                new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
-        UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
+            PrefsXmlStorage storage =
+                    new PrefsXmlStorage(
+                            AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
+            UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
-        mDisposable.add(
-                RxProgressDialog.create(
-                                Pair.create(storage, provider),
-                                getActivity(),
-                                R.layout.progress_window)
-                        .subscribeOn(RxSchedulers.background())
-                        .map(
-                                pair -> {
-                                    final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                    pair.first.store(prefsRoot);
+            mDisposable.add(
+                    RxProgressDialog.create(
+                                    Pair.create(storage, provider),
+                                    getActivity(),
+                                    R.layout.progress_window)
+                            .subscribeOn(RxSchedulers.background())
+                            .map(
+                                    pair -> {
+                                        final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
+                                        pair.first.store(prefsRoot);
 
-                                    return Boolean.TRUE;
-                                })
-                        .observeOn(RxSchedulers.mainThread())
-                        .subscribe(
-                                o ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS),
-                                throwable ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_SAVE_FAILED,
-                                                throwable.getMessage()),
-                                this::fillWordsList));
+                                        return Boolean.TRUE;
+                                    })
+                            .observeOn(RxSchedulers.mainThread())
+                            .subscribe(
+                                    o ->
+                                            mDialogController.showDialog(
+                                                    UserDictionaryEditorFragment
+                                                            .DIALOG_SAVE_SUCCESS),
+                                    throwable ->
+                                            mDialogController.showDialog(
+                                                    UserDictionaryEditorFragment.DIALOG_SAVE_FAILED,
+                                                    throwable.getMessage()),
+                                    this::fillWordsList));
+        }
     }
 
     private void createEmptyItemForAdd() {
@@ -447,51 +453,6 @@ public class UserDictionaryEditorFragment extends Fragment
         }
     }
 
-    private static class StoragePermissionRequest
-            extends PermissionsRequest.PermissionsRequestBase {
-
-        private final WeakReference<UserDictionaryEditorFragment> mFragmentWeakReference;
-        private final boolean mForRead;
-
-        StoragePermissionRequest(UserDictionaryEditorFragment fragment, boolean forRead) {
-            super(PermissionsRequestCodes.STORAGE.getRequestCode(), getPermissionsForOsVersion());
-            mForRead = forRead;
-            mFragmentWeakReference = new WeakReference<>(fragment);
-        }
-
-        @NonNull
-        private static String[] getPermissionsForOsVersion() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                return new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                };
-            } else {
-                return new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            }
-        }
-
-        @Override
-        public void onPermissionsGranted() {
-            UserDictionaryEditorFragment fragment = mFragmentWeakReference.get();
-            if (fragment == null) return;
-
-            if (mForRead) {
-                fragment.restoreFromStorage();
-            } else {
-                fragment.backupToStorage();
-            }
-        }
-
-        @Override
-        public void onPermissionsDenied(
-                @NonNull String[] grantedPermissions,
-                @NonNull String[] deniedPermissions,
-                @NonNull String[] declinedPermissions) {
-            /*no-op - Main-Activity handles this case*/
-        }
-    }
-
     private static class MyUserDictionary extends UserDictionary implements MyEditableDictionary {
 
         MyUserDictionary(Context context, String locale) {
@@ -522,7 +483,7 @@ public class UserDictionaryEditorFragment extends Fragment
     private static class MyFallbackUserDictionary extends FallbackUserDictionary
             implements MyEditableDictionary {
 
-        @NonNull private List<LoadedWord> mLoadedWords = new ArrayList<>();
+        @NonNull private final List<LoadedWord> mLoadedWords = new ArrayList<>();
 
         MyFallbackUserDictionary(Context context, String locale) {
             super(context, locale);
@@ -549,7 +510,7 @@ public class UserDictionaryEditorFragment extends Fragment
     private static class MyAndroidUserDictionary extends AndroidUserDictionary
             implements MyEditableDictionary {
 
-        @NonNull private List<LoadedWord> mLoadedWords = new ArrayList<>();
+        @NonNull private final List<LoadedWord> mLoadedWords = new ArrayList<>();
 
         MyAndroidUserDictionary(Context context, String locale) {
             super(context, locale);
@@ -571,5 +532,13 @@ public class UserDictionaryEditorFragment extends Fragment
         public List<LoadedWord> getLoadedWords() {
             return mLoadedWords;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionRequestHelper.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 }

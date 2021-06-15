@@ -826,6 +826,7 @@
     <string name="clipboard_paste_entries_title">Pick text to paste</string>
     <string name="next_word_prefs_clear_data">Clear next-word data</string>
     <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard requires your permission to read and write to storage your backup files.</string>
     <string name="notification_read_contacts_title">Can I read your contacts?</string>
     <string name="notification_read_contacts_text">We need to read your contacts to give you a better auto-complete experience.</string>
     <string name="notification_read_contacts_ticker">Contacts permission needed</string>
@@ -835,7 +836,7 @@
     </string>
     <string name="wizard_allow_contacts_permission">Allow contacts-based typing suggestions</string>
     <string name="allow_permission">Allow</string>
-    <string name="navigate_to_app_permissions">Go to App permissions</string>
+    
     <string name="turn_off_contacts_dictionary">Turn off Contacts Dictionary</string>
     <string name="read_more_about_permissions">Read more about permissions…</string>
     <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then

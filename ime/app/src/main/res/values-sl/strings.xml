@@ -490,7 +490,7 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard uporablja imena vaših stikov, da ponudi bolj poosebljene predloge za besede: med tipkanjem iščemo podobne besede za samodokončanje in samopopravilo vašega tipkanja.</string>
     <string name="wizard_allow_contacts_permission">Dovoli predloge osnovane na stikih</string>
     <string name="allow_permission">Dovoli</string>
-    <string name="navigate_to_app_permissions">Pojdite v dovoljena programa</string>
+    
     <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>
     <string name="read_more_about_permissions">Več o dovoljenjih …</string>
     <string name="ask_beta_link_promo">Pozdravljeni! Želite takojšnji dostop do novih značilnosti <i>AnySoftKeyboarda</i>? Imate srečo! Za <b>VAS</b> je sedaj na voljo kanal <i>BETA</i>!\nVpišite se na spodnji povezavi in posodobite program preko <i>Trgovine Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nHvala za pomoč pri uničevanju hroščev, preden dosežejo javnost.</string>

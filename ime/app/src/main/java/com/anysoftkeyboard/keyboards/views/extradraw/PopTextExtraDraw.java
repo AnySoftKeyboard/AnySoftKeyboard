@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 
 public abstract class PopTextExtraDraw implements ExtraDraw {

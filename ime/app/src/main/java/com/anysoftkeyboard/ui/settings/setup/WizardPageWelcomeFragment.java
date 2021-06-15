@@ -6,9 +6,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -57,7 +56,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
                 final SharedPreferences.Editor editor =
                         PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
                 editor.putBoolean(STARTED_PREF_KEY, true);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                editor.apply();
                 refreshWizardPager();
                 break;
             case R.id.setup_wizard_welcome_privacy_action:

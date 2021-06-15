@@ -4,7 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.ArrayList;
 import java.util.Collection;

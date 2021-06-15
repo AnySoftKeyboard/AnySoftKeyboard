@@ -18,6 +18,7 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import androidx.annotation.NonNull;
 
 @TargetApi(28)
 public class DeviceSpecificV28 extends DeviceSpecificV26 {
@@ -27,7 +28,7 @@ public class DeviceSpecificV28 extends DeviceSpecificV26 {
     }
 
     @Override
-    public Clipboard createClipboard(Context applicationContext) {
+    public Clipboard createClipboard(@NonNull Context applicationContext) {
         return new ClipboardV28(applicationContext);
     }
 }

@@ -17,7 +17,7 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.os.Vibrator;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 public abstract class PressVibrator {
     private static boolean mSkip = false;

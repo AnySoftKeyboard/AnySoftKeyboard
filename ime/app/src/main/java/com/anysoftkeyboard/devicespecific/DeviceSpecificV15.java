@@ -22,14 +22,14 @@ import android.database.ContentObserver;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
@@ -81,7 +81,7 @@ public class DeviceSpecificV15 implements DeviceSpecific {
             subtypes.add(subtype);
         }
         inputMethodManager.setAdditionalInputMethodSubtypes(
-                imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
+                imeId, subtypes.toArray(new InputMethodSubtype[0]));
     }
 
     @Override
@@ -97,22 +97,21 @@ public class DeviceSpecificV15 implements DeviceSpecific {
     }
 
     @Override
-    public ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary) {
+    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
         return new DictionaryContentObserver(dictionary);
     }
 
     @Override
-    public Clipboard createClipboard(Context applicationContext) {
+    public Clipboard createClipboard(@NonNull Context applicationContext) {
         return new ClipboardV11(applicationContext);
     }
 
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
-        //noinspection deprecation
         return new InputMethodSubtype(0, 0, locale, "", keyboardId.toString(), false, false);
     }
 
     @Override
-    public PressVibrator createPressVibrator(Vibrator vibe) {
+    public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
         return new PressVibratorV1(vibe);
     }
 }

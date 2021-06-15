@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.dictionaries.prefsprovider;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.UserDictionary;

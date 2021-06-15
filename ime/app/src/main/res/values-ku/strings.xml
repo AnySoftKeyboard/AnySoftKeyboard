@@ -698,7 +698,7 @@
     </string>
     <string name="wizard_allow_contacts_permission">ڕێگەدان بە پێشنیارکردنی ناوەکان</string>
     <string name="allow_permission">ڕێگەپێدان</string>
-    <string name="navigate_to_app_permissions">چوون بۆ ڕێگەپێدانەکان</string>
+    
     <string name="turn_off_contacts_dictionary">نا چالاککردنی پێشنیارکردنی ناوەکان</string>
     <string name="read_more_about_permissions">زانیاری زیاتر لەسەر رێگەپێدانەکان</string>
     <string name="ask_beta_link_promo">بۆ وەرگرتنی زانیاری زیاتر لەسەر <b>تەختەکلیلی کوردی</b> یان لەکاتی بوونی هەر کێشەکەدا، پەیوەندی بکە بە لاپەڕەی <b>کـــــوردرۆیــــــد</b>" 

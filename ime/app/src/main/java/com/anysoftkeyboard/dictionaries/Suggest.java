@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import java.util.List;
 

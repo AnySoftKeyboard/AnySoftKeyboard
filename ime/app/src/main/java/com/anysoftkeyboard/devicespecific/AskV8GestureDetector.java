@@ -19,11 +19,11 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.view.MotionEventCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import androidx.annotation.NonNull;
+import androidx.core.view.MotionEventCompat;
 
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class AskV8GestureDetector extends GestureDetector {

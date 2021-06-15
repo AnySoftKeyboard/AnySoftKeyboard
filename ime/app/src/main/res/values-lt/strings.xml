@@ -569,7 +569,7 @@
     <string name="contacts_permissions_dialog_message">„AnySoftKeyboard“ naudoja jūsų kontaktų vardus, kad pateikti suasmenintus žodžių pasiūlymus: kai vedate žodį, ieškome panašių žodžių, kad automatiškai užbaigti ar ištaisyti jūsų žodžius.</string>
     <string name="wizard_allow_contacts_permission">Leisti pasiūlymus, paremtus kontaktų informacija</string>
     <string name="allow_permission">Leisti</string>
-    <string name="navigate_to_app_permissions">Eiti į programų leidimus</string>
+    
     <string name="turn_off_contacts_dictionary">Išjungti kontaktų žodyną</string>
     <string name="read_more_about_permissions">Skaityti daugiau apie teises…</string>
     <string name="ask_beta_link_promo">Ei! Norite naujų „<i>AnySoftKeyboard</i>“ funkcijų greičiau? Tada jums pasisekė! <b>JUMS</b> jau prieinamas <i>BETA</i> kanalas!\nTiesiog užsiregistruokite per žemiau esančią nuorodą į „<i>Google Play</i>“ programų parduotuvę ir atnaujinkite duomenis!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nIr ačiū, kad padedat šalinti klaidas, iki pakeitimai tampa viešai prieinami.</string>

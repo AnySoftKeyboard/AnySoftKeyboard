@@ -5,10 +5,9 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethod;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.After;
@@ -252,7 +251,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
                                                 R.string
                                                         .settings_key_persistent_layout_per_package_id),
                                 false);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        editor.apply();
 
         startInputFromPackage("com.app1");
         Assert.assertEquals(
@@ -337,7 +336,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
                                                 R.string
                                                         .settings_key_persistent_layout_per_package_id),
                                 false);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        editor.apply();
 
         finishInput();
 

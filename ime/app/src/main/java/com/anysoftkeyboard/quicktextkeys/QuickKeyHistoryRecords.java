@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.quicktextkeys;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.R;
