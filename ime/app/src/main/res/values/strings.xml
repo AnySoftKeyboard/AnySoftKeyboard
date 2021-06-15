@@ -942,10 +942,10 @@
     <string name="app_share_title">Hello from AnySoftKeyboard</string>
     <string name="app_share_menu_title">Share AnySoftKeyboard using</string>
     <string name="app_share_text">Let me recommend the open-source, privacy-focus, free, highly customizable, multi-language Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Keep safe! Click for info on CoronaVirus.</string>
+    
     <string name="click_me_for_easter_egg_info">click me for a surprise</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
+    
 
 
 </resources>

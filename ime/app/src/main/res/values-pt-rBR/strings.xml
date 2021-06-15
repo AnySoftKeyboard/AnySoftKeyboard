@@ -677,8 +677,8 @@ simplistas    </string>
     <string name="app_share_title">Bem-vindo ao AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
     <string name="app_share_text">Dê-me a oportunidade de apresentá-lo ao aplicativo de software livre, focado na privacidade, altamente personalizável e multilingue.\nBaixe em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Fique seguro! Clique para informações sobre CoronaVirus.</string>
+    
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
+    
 </resources>

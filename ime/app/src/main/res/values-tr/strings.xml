@@ -411,6 +411,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="extension_kbd_extension_numbers_symbols">Sayılar ve semboller</string>
     <string name="extension_kbd_bottom_minimal">En küçük</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">En küçük (duygu simgesi yok)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (daha az noktalama işareti)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Git</string>
@@ -544,6 +545,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="file_explorer_restore_alert_message">Bu dosyayı indirmek ister misin?</string>
     <string name="file_explorer_backup_alert_message">Tu</string>
     <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
+    <string name="file_explorer_backup_failed">Verileriniz kaydedilemedi.</string>
+    <string name="file_explorer_restore_success">Verileriniz \u0020 konumundan geri yüklendi</string>
+    <string name="file_explorer_restore_failed">Verileriniz kaydedilemedi.</string>
     <string name="about_additional_software_licenses">Diğer Yazılım Lisanları</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard etkinleştir</string>
     <string name="setup_wizard_step_one_details">Bu adımda <i>AnySoftKeyboard</i>\'u etkinleştirmeniz gerekecek. Lütfen <i>Dil&amp;giriş ayarlarınızda</i> <i>\'AnySoftKeyboard\'</i>u kontrol ediniz. Bu sizin cihazınızda çalışmamıza izin verir.</string>
@@ -628,6 +632,12 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="theme_case_type_override_os">Android karar versin (Otomatik)</string>
     <string name="theme_case_type_override_lower">Her zaman küçük harf</string>
     <string name="theme_case_type_override_upper">Her zaman büyük harf</string>
+    <string name="settings_hint_size">İpucu etiketi boyutu</string>
+    <string name="settings_key_hint_size_summary">Klavyede ipucu boyutunu ayarlayın. Şu anda, %s</string>
+    <string name="settings_key_hint_size_none">Yok</string>
+    <string name="settings_key_hint_size_small">Küçük</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Büyük</string>
     <string name="theme_case_type_override_title">Klavye büyük/küçük harf geçersiz</string>
     <string name="theme_case_type_override_summary">Klavye görünümünde büyük/küçük harfilerin nasıl belirlendiği. Şu anda, %s</string>
     <string name="take_a_while_progress_message">Bu biraz zaman alabilir...</string>
@@ -643,6 +653,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="prefs_providers_backed_up_to">Verileriniz %s\'e başarıyla yedeklendi</string>
     <string name="prefs_providers_failed_restore_due_to">%s nedeniyle verileriniz geri yüklenemedi</string>
     <string name="prefs_providers_restored_to">Veriniz %s\'den başarıyla geri yüklendi</string>
+    <string name="word_editor_action_choose_path">Kişisel dosya yolu seç</string>
     <string name="allow_layouts_to_provide_generic_rows">Klavyeler genel satırlar sağlayabilir</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Her zaman seçili genel satırları kullan.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Yerleşimlerin jenerik satırları değiştirmesine izin ver.</string>
@@ -663,8 +674,8 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="app_share_title">AnySoftKeyboard\'dan merhaba</string>
     <string name="app_share_menu_title">AnySoftKeyboard kullanmayı paylaş</string>
     <string name="app_share_text">Açık-kaynak, mahremiyet-odaklı, özgür, fazlasıyla kişiselleştirilebilen, çok-dilli Android klavye uygulaması AnySoftKeyboard\'u tavsiye ediyorum.\nEdinebileceğiniz adresler:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&amp;hl=tr\nF-Droid: https://f-droid.org/tr/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Güvende olun! Corona Virüs hakkında bilgi için tıklayın.</string>
+    
     <string name="click_me_for_easter_egg_info">Bir şaşırtma için bana tıklayın</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
+    
 </resources>

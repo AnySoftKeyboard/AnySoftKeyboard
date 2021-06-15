@@ -577,8 +577,8 @@
     <string name="app_share_title">Hei AnySoftKeyboardilta</string>
     <string name="app_share_menu_title">Jaa AnySoftKeyboard...</string>
     <string name="app_share_text">Saanen suositella avoimen lähdekoodin yksityisyyteen keskittynyttä, ilmaista ja muokattavaa monikielistä Android-näppäimistösovellusta AnySoftKeyboardia.\nHanki täältä:\nPlay-kauppa: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Pysy turvassa! Klikkaa saadaksesi lisätietoja koronaviruksesta.</string>
+    
     <string name="click_me_for_easter_egg_info">Klikkaa minua, tiedossa yllätys</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19</string>
+    
 </resources>

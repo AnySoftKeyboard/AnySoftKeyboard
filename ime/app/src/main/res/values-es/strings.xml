@@ -660,8 +660,8 @@
     <string name="app_share_title">Hola desde AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartir uso de AnySoftKeyboard</string>
     <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">¡Mantente a salvo! Haz clic para información sobre Coronavirus.</string>
+    
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
+    
 </resources>

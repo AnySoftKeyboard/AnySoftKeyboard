@@ -375,5 +375,4 @@
     <string name="settings_key_allow_layouts_to_provide_generic_rows">settings_key_allow_layouts_to_provide_generic_rows</string>
     <string name="settings_key_apply_remote_app_colors">settings_key_apply_remote_app_colors</string>
 
-    <string name="settings_key_public_notice_timed_covid">settings_key_public_notice_timed_covid</string>
 </resources>
