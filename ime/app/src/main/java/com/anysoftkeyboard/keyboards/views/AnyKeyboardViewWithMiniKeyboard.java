@@ -33,6 +33,7 @@ import androidx.core.view.MotionEventCompat;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.devicespecific.PressVibrator;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -221,6 +222,8 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         if (super.onLongPress(keyboardAddOn, key, isSticky, tracker)) return true;
         if (key.popupResId == 0) return false;
 
+        // don't vibrate when selecting the first popup keyboard key
+        PressVibrator.suppressNextVibration();
         showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky);
         return true;
     }

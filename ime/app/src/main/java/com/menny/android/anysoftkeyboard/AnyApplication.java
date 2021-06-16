@@ -41,7 +41,9 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV15;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV26;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV28;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV29;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -127,14 +129,6 @@ public class AnyApplication extends MultiDexApplication {
         return new File(
                 new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"),
                 filename);
-    }
-
-    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
-        if (apiLevel < 16) return new DeviceSpecificV15();
-        if (apiLevel < 19) return new DeviceSpecificV16();
-        if (apiLevel < 24) return new DeviceSpecificV19();
-        if (apiLevel < 28) return new DeviceSpecificV24();
-        return new DeviceSpecificV28();
     }
 
     public static long getCurrentVersionInstallTime(Context appContext) {
@@ -329,6 +323,16 @@ public class AnyApplication extends MultiDexApplication {
     @NonNull
     protected KeyboardFactory createKeyboardFactory() {
         return new KeyboardFactory(this);
+    }
+
+    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
+        if (apiLevel < 16) return new DeviceSpecificV15();
+        if (apiLevel < 19) return new DeviceSpecificV16();
+        if (apiLevel < 24) return new DeviceSpecificV19();
+        if (apiLevel < 26) return new DeviceSpecificV24();
+        if (apiLevel < 28) return new DeviceSpecificV26();
+        if (apiLevel < 29) return new DeviceSpecificV28();
+        return new DeviceSpecificV29();
     }
 
     @CallSuper

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Menny Even-Danan
+ * Copyright (c) 2021 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,32 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
-import android.database.ContentObserver;
-import android.os.Build;
-import androidx.annotation.NonNull;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
+import android.os.Vibrator;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-public class DeviceSpecificV16 extends DeviceSpecificV15 {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV16";
+@TargetApi(1)
+public class PressVibratorV1 extends PressVibrator {
+    protected int mDuration;
+    protected int mLongPressDuration;
+
+    public PressVibratorV1(Vibrator vibe) {
+        super(vibe);
     }
 
     @Override
-    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
-        return new DictionaryContentObserverAPI16(dictionary);
+    public void setDuration(int duration) {
+        this.mDuration = duration;
+    }
+
+    @Override
+    public void setLongPressDuration(int duration) {
+        mLongPressDuration = duration;
+    }
+
+    @Override
+    public void vibrate(boolean longPress) {
+        int dur = longPress ? mLongPressDuration : mDuration;
+        if (dur > 0 && !checkSuppressed()) {
+            mVibe.vibrate(dur);
+        }
     }
 }

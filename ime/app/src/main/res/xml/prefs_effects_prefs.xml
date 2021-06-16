@@ -8,8 +8,17 @@
         android:key="effects_group"
         android:title="@string/effects_group">
 
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_use_system_vibration"
+            android:key="@string/settings_key_use_system_vibration"
+            android:persistent="true"
+            android:summaryOff="@string/use_system_vibration_off_summary"
+            android:summaryOn="@string/use_system_vibration_on_summary"
+            android:title="@string/use_system_vibration_title"
+            android:disableDependentsState="true"/>
         <net.evendanan.pixel.SlidePreference
             android:defaultValue="@integer/settings_default_vibrate_on_key_press_duration_int"
+            android:dependency="@string/settings_key_use_system_vibration"
             android:key="@string/settings_key_vibrate_on_key_press_duration_int"
             app:slideMaximum="@integer/settings_default_vibrate_on_key_press_duration_max_value"
             android:persistent="true"
@@ -41,10 +50,10 @@
             android:summary="@string/tweak_animations_level_summary"
             android:title="@string/tweak_animations_level_title"/>
 
-        <Preference android:title="@string/power_save_mode_screen"
+        <androidx.preference.Preference android:title="@string/power_save_mode_screen"
                     android:key="@string/settings_key_power_save_mode" />
 
-        <Preference android:title="@string/night_mode_screen"
+        <androidx.preference.Preference android:title="@string/night_mode_screen"
                     android:key="@string/settings_key_night_mode" />
 
         <androidx.preference.CheckBoxPreference

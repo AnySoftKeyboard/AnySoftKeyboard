@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Menny Even-Danan
+ * Copyright (c) 2021 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,18 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
-import android.database.ContentObserver;
-import android.os.Build;
+import android.os.Vibrator;
 import androidx.annotation.NonNull;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-public class DeviceSpecificV16 extends DeviceSpecificV15 {
+@TargetApi(26)
+public class DeviceSpecificV26 extends DeviceSpecificV24 {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecificV16";
+        return "DeviceSpecificV26";
     }
 
     @Override
-    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
-        return new DictionaryContentObserverAPI16(dictionary);
+    public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
+        return new PressVibratorV26(vibe);
     }
 }

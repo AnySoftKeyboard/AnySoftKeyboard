@@ -16,6 +16,8 @@ import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.devicespecific.PressVibrator;
+import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
 import com.anysoftkeyboard.keyboards.views.preview.AboveKeyPositionCalculator;
@@ -28,6 +30,7 @@ import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -39,9 +42,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     private static final float SYSTEM_VOLUME = -1.0f;
     private float mCustomSoundVolume = SILENT;
 
-    private Vibrator mVibrator;
-    private int mVibrationDuration;
-    private int mVibrationDurationForLongPress;
+    private PressVibrator mVibrator;
     @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
 
     @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
@@ -54,7 +55,9 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
         super.onCreate();
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mVibrator =
+                AnyApplication.getDeviceSpecific()
+                        .createPressVibrator((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
         addDisposable(
                 Observable.combineLatest(
@@ -134,7 +137,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                                         powerState ? 0 : nightState ? 0 : vibrationDuration)
                         .subscribe(
                                 value -> {
-                                    mVibrationDuration = value;
+                                    mVibrator.setDuration(value);
                                     // demo
                                     performKeyVibration(KeyCodes.SPACE, false);
                                 },
@@ -147,11 +150,34 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                         .asObservable()
                         .subscribe(
                                 value -> {
-                                    mVibrationDurationForLongPress = value ? 7 : 0;
+                                    mVibrator.setLongPressDuration(value ? 7 : 0);
                                     // demo
                                     performKeyVibration(KeyCodes.SPACE, true);
                                 },
                                 t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
+
+        addDisposable(
+                Observable.combineLatest(
+                                PowerSaving.observePowerSavingState(
+                                        getApplicationContext(),
+                                        R.string.settings_key_power_save_mode_vibration_control),
+                                NightMode.observeNightModeState(
+                                        getApplicationContext(),
+                                        R.string.settings_key_night_mode_vibration_control,
+                                        R.bool.settings_default_true),
+                                prefs().getBoolean(
+                                                R.string.settings_key_use_system_vibration,
+                                                R.bool.settings_default_use_system_vibration)
+                                        .asObservable(),
+                                (powerState, nightState, systemVibration) ->
+                                        !powerState && !nightState && systemVibration)
+                        .subscribe(
+                                value -> {
+                                    mVibrator.setUseSystemVibration(value);
+                                    // demo
+                                    performKeyVibration(KeyCodes.SPACE, false);
+                                },
+                                t -> Logger.w(TAG, t, "Failed to read system vibration pref")));
 
         addDisposable(
                 Observable.combineLatest(
@@ -267,16 +293,15 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     }
 
     private void performKeyVibration(int primaryCode, boolean longPress) {
-        final int vibrationDuration =
-                longPress ? mVibrationDurationForLongPress : mVibrationDuration;
-        if (vibrationDuration > 0 && primaryCode != 0) {
-            try {
-                mVibrator.vibrate(vibrationDuration);
-            } catch (Exception e) {
-                Logger.w(TAG, "Failed to interact with vibrator! Disabling for now.");
-                mVibrationDuration = 0;
-                mVibrationDurationForLongPress = 0;
+        try {
+            if (primaryCode != 0) {
+                mVibrator.vibrate(longPress);
             }
+        } catch (Exception e) {
+            Logger.w(TAG, "Failed to interact with vibrator! Disabling for now.");
+            mVibrator.setUseSystemVibration(false);
+            mVibrator.setDuration(0);
+            mVibrator.setLongPressDuration(0);
         }
     }
 
@@ -287,7 +312,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
     @VisibleForTesting
     protected Vibrator getVibrator() {
-        return mVibrator;
+        return ((PressVibratorV1) mVibrator).getVibrator();
     }
 
     @Override
