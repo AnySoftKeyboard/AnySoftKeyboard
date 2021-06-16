@@ -3,8 +3,8 @@ package com.anysoftkeyboard.prefs;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.os.Environment;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;

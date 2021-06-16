@@ -600,7 +600,6 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard выкарыстоўвае вашы імёны кантактаў, каб даць вам персаналізаваную прапанову слова: падчас набору слова, мы шукаем падобныя словы для аўтазапаўнення і аўтавыпраўлення вашага друку.</string>
     <string name="wizard_allow_contacts_permission">Дазволіць прапановы на падставе кантактаў</string>
     <string name="allow_permission">Дазволіць</string>
-    <string name="navigate_to_app_permissions">Перайсці да дазволаў праграмы</string>
     <string name="turn_off_contacts_dictionary">Выключыць слоўнік кантактаў</string>
     <string name="read_more_about_permissions">Даведацца больш пра дазволы…</string>
     <string name="ask_beta_link_promo">Вітаем! Хочаце імгненна атрымліваць доступ да новых функцый <i>AnySoftKeyboard</i>? Тады наперад! Для <b>ВАС</b> цяпер працуе <i>BETA</i> канал!\nПроста зарэгіструйцеся па спасылцы ніжэй і абнавіце праграму ў <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nШчыра ўдзячныя вам за тое, што дапамагаеце выпраўляць памылкі, перш чым яны трапяць у фінальную версію праграмы.</string>
@@ -681,8 +680,6 @@
     <string name="app_share_title">Вітанні ад AnySoftKeyboard</string>
     <string name="app_share_menu_title">Парайце AnySoftKeyboard іншым</string>
     <string name="app_share_text">Я хачу параіць вам экранную клавіятуру для Android адметнымі рысамі якой з\'яўляюцца: адкрытасць зыходнага кода, бясплатнае распаўсюджанне, падтрымка ўводу амаль на ўсіх мовах свету, клопат пра прыватнасць вашых даных, тонкая настройка пад вашы задачы. \nАтрымаць па спасылцы ў Play Store:\nhttps://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Беражыце сябе! Націсніце, каб даведацца больш пра каронавірус</string>
     <string name="click_me_for_easter_egg_info">націсні на мяне для сюрпрызу</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

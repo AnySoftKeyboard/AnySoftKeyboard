@@ -210,11 +210,7 @@ public class NightModeTest {
                                 application,
                                 R.string.settings_key_night_mode_app_theme_control,
                                 R.bool.settings_default_true)
-                        .subscribe(
-                                atomicBoolean::set,
-                                throwable -> {
-                                    throw new RuntimeException(throwable);
-                                });
+                        .subscribe(atomicBoolean::set, RuntimeException::new);
         Assert.assertFalse(atomicBoolean.get());
 
         application.onConfigurationChanged(

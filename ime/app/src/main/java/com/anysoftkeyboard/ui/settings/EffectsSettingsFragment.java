@@ -16,10 +16,12 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
+import androidx.annotation.Nullable;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
@@ -52,6 +54,12 @@ public class EffectsSettingsFragment extends PreferenceFragmentCompat {
                                             TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                             return true;
                         });
+        if (Build.VERSION.SDK_INT < 29) {
+            // Android earlier than 29 does not support predefined vibrations
+            Preference svPref = findPreference(getText(R.string.settings_key_use_system_vibration));
+            svPref.setVisible(false);
+            svPref.setSelectable(false);
+        }
     }
 
     @Override

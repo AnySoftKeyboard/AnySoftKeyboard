@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.util.ArrayMap;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.collection.ArrayMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;

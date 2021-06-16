@@ -17,7 +17,10 @@ public class VersionChangeLogs {
                         "r1",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/93"),
-                        "Minimum Android version is 4.0.3 (ICS, API level 15). ",
+                        "Minimum Android version is 4.0.3 (ICS, API level 15).",
+                        "Better vibration control for newer OS versions.",
+                        "Fixes around permission requests.",
+                        "Fixes for colorized nav-bar.",
                         "Updated translations from the community."));
         log.add(
                 new VersionChangeLog(

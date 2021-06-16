@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.menny.android.anysoftkeyboard.R;

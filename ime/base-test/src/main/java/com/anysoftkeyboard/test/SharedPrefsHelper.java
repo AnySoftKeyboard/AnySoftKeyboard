@@ -4,8 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.StringRes;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.annotation.StringRes;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 
 public class SharedPrefsHelper {
@@ -24,8 +23,8 @@ public class SharedPrefsHelper {
     public static SharedPreferences setPrefsValue(String key, String value) {
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final SharedPreferences.Editor editor = preferences.edit().putString(key, value);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        preferences.edit().putString(key, value).apply();
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         return preferences;
     }
@@ -33,8 +32,7 @@ public class SharedPrefsHelper {
     public static SharedPreferences setPrefsValue(String key, boolean value) {
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final SharedPreferences.Editor editor = preferences.edit().putBoolean(key, value);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        preferences.edit().putBoolean(key, value).apply();
         TestRxSchedulers.foregroundFlushAllJobs();
         return preferences;
     }
@@ -43,7 +41,8 @@ public class SharedPrefsHelper {
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().putInt(key, value);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        editor.apply();
+        TestRxSchedulers.foregroundFlushAllJobs();
         return preferences;
     }
 
@@ -55,7 +54,8 @@ public class SharedPrefsHelper {
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = preferences.edit().remove(key);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        editor.apply();
+        TestRxSchedulers.foregroundFlushAllJobs();
     }
 
     public static boolean getPrefValue(@StringRes int keyStringRes, boolean defaultValue) {

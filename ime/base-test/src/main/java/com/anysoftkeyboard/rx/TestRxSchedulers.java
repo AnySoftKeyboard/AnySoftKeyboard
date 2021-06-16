@@ -3,7 +3,6 @@ package com.anysoftkeyboard.rx;
 import android.annotation.SuppressLint;
 import android.os.Looper;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
@@ -18,8 +17,7 @@ public class TestRxSchedulers {
 
     public static void setSchedulers(Looper mainThreadLooper, PausedExecutorService background) {
         msBackgroundService = background;
-        RxSchedulers.msBackground = Schedulers.from(background);
-        RxSchedulers.msMainThread = AndroidSchedulers.from(mainThreadLooper);
+        RxSchedulers.setSchedulers(mainThreadLooper, Schedulers.from(background));
     }
 
     @SuppressLint("NewApi") // Duration can be used because it is part of the JVM.
@@ -118,5 +116,7 @@ public class TestRxSchedulers {
         final PausedExecutorService background = msBackgroundService;
         msBackgroundService = null;
         if (background != null) background.shutdownNow();
+        RxSchedulers.mainThread().shutdown();
+        RxSchedulers.background().shutdown();
     }
 }

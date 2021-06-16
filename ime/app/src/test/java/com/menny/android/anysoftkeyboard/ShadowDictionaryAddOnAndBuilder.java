@@ -16,7 +16,7 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;

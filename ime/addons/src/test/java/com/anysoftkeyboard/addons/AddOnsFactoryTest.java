@@ -4,9 +4,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.StringRes;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
+import androidx.annotation.StringRes;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.HashSet;
 import java.util.List;
@@ -224,7 +223,7 @@ public class AddOnsFactoryTest {
         public void setAddOnEnabled(String addOnId, boolean enabled) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             setAddOnEnableValueInPrefs(editor, addOnId, enabled);
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         @Override

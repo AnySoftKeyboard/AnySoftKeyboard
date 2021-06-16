@@ -585,7 +585,6 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard nutzt die Namen deiner Kontakte, um personalisierte Wortvorschläge anzubieten: Wenn ein Wort eingegeben wird, suchen wir ähnliche Wörter für eine automatische Vervollständigung und Autokorrektur.</string>
     <string name="wizard_allow_contacts_permission">Kontaktbasierte Tippvorschläge zulassen</string>
     <string name="allow_permission">Erlauben</string>
-    <string name="navigate_to_app_permissions">Gehe zu den App-Berechtigungen</string>
     <string name="turn_off_contacts_dictionary">Kontaktwörterbuch ausschalten</string>
     <string name="read_more_about_permissions">Lies mehr über Berechtigungen…</string>
     <string name="ask_beta_link_promo">Hey! Möchtest du <i>AnySoftKeyboard</i>-Updates schneller bekommen? Dann hast du Glück! Der <i>BETA</i>-Kanal ist jetzt für <b>DICH</b> verfügbar!\nWerde Tester durch den untenstehenden Link und update im <i>Google Play</i> Appstore!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nUnd danke, dass du dabei hilfst Fehler zu beheben bevor sie die Öffentlichkeit erreichen.</string>
@@ -666,8 +665,6 @@
     <string name="app_share_title">Hallo von AnySoftKeyboard</string>
     <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
     <string name="app_share_text">Lass mich dir die Open-Source, Privatsphäre-fokussierte, kostenlose, höchst anpassbare, mehrsprachige Android Tastatur-App AnySoftKeyboard empfehlen.\nHole sie dir vom:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Bleib sicher! Klicke für mehr Informationen über das Coronavirus.</string>
     <string name="click_me_for_easter_egg_info">für eine Überraschung klicken</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

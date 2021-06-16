@@ -19,8 +19,8 @@ package com.anysoftkeyboard.keyboards.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 
 public class DrawableBuilder {

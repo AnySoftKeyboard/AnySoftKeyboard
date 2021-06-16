@@ -593,7 +593,6 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard teklatuak zure kontaktuen izenak erabiltzen ditu hitzen proposamen pertsonalizatu bat egiteko: idatzi ahala, antzeko hitzak bilatzen ditu eta osaketa automatikoa eta zuzenketa automatikoa eskaini.</string>
     <string name="wizard_allow_contacts_permission">Baimendu kontaktuetan oinarritutako idazketa proposamenak</string>
     <string name="allow_permission">Baimendu</string>
-    <string name="navigate_to_app_permissions">Joan aplikazioaren baimenetara</string>
     <string name="turn_off_contacts_dictionary">Desgaitu kontaktuen hiztegia</string>
     <string name="read_more_about_permissions">Irakurri gehiago baimenei buruz…</string>
     <string name="ask_beta_link_promo">Adi! <i>AnySoftKeyboard</i> teklatuaren berritasunak azkarrago lortu nahi dituzu? Zorionekoa zu, <i>BETA</i> kanala eskuragarri baitago <b>ZURETZAT</b>!\nEman izena beheko loturan eta eguneratu <i>Google Play-Store</i> bidez!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nEta eskerrik asko publikora zabaldu aurretik akatsak konpontzen laguntzeagatik.    </string>
@@ -674,8 +673,6 @@
     <string name="app_share_title">Kaixo AnySoftKeyboard-etik</string>
     <string name="app_share_menu_title">Partekatu anySoftKeyboard honen bidez</string>
     <string name="app_share_text">Pribatutasuna aintzat duen hizkuntza askotarako Android teklatu aplikazio libre doako eta pertsonalizagarri hau aholkatzen dizut.\nEskuratu hemen:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Babestu zaitez! Sakatu Coronavirusaren informaziorako.</string>
     <string name="click_me_for_easter_egg_info">sakatu sorpresa baterako</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

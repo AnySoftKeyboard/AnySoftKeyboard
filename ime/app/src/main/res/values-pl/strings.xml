@@ -555,7 +555,6 @@ Zmiana języka gestem będzie nadal wspierana.    </string>
     </string>
     <string name="wizard_allow_contacts_permission">Zezwalaj na sugerowanie nazw kontaktów</string>
     <string name="allow_permission">Zezwól</string>
-    <string name="navigate_to_app_permissions">Przejdź do uprawnień aplikacji</string>
     <string name="turn_off_contacts_dictionary">Wyłącz słownik kontaktów</string>
     <string name="read_more_about_permissions">Przeczytaj więcej o uprawnieniach…</string>
     <string name="app_shortcut_keyboards_long_label">Wybierz układy klawiatury, których chcesz używać</string>

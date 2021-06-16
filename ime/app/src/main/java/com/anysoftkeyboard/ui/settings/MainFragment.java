@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -13,13 +12,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.graphics.Palette;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -32,7 +24,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.palette.graphics.Palette;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -57,40 +56,47 @@ import io.reactivex.functions.Function;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class MainFragment extends Fragment {
-
-    private static final String TAG = "MainFragment";
 
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
     static final int DIALOG_LOAD_FAILED = 21;
-    static int successDialog;
-    static int failedDialog;
+    private static final String TAG = "MainFragment";
     public static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
     public static Boolean[] checked;
+    static int successDialog;
+    static int failedDialog;
     static Function<
                     Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
                     ObservableSource<GlobalPrefsBackup.ProviderDetails>>
             action;
 
     private final boolean mTestingBuild;
+    public int modeBackupRestore;
     private AnimationDrawable mNotConfiguredAnimation = null;
     @NonNull private Disposable mPaletteDisposable = Disposables.empty();
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
-
-    public int modeBackupRestore;
     private GeneralDialogController mDialogController;
     @NonNull private CompositeDisposable mDisposable = new CompositeDisposable();
+
+    public MainFragment() {
+        this(BuildConfig.TESTING_BUILD);
+    }
+
+    @SuppressWarnings("ValidFragment")
+    @VisibleForTesting
+    MainFragment(boolean testingBuild) {
+        mTestingBuild = testingBuild;
+    }
 
     public static void setupLink(
             View root,
@@ -112,14 +118,12 @@ public class MainFragment extends Fragment {
         clickHere.setText(sb);
     }
 
-    public MainFragment() {
-        this(BuildConfig.TESTING_BUILD);
+    public static void launchRestoreCustomFileData(InputStream inputStream) {
+        PrefsXmlStorage.prefsXmlStorageCustomPath(inputStream);
     }
 
-    @SuppressWarnings("ValidFragment")
-    @VisibleForTesting
-    MainFragment(boolean testingBuild) {
-        mTestingBuild = testingBuild;
+    public static void launchBackupCustomFileData(OutputStream outputStream) {
+        PrefsXmlStorage.prefsXmlBackupCustomPath(outputStream);
     }
 
     @Override
@@ -175,10 +179,10 @@ public class MainFragment extends Fragment {
                         TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             case R.id.backup_prefs:
+                onBackupRequested();
+                return true;
             case R.id.restore_prefs:
-                ((MainSettingsActivity) getActivity())
-                        .startPermissionsRequest(
-                                new MainFragment.StoragePermissionRequest(this, item.getItemId()));
+                onRestoreRequested();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -497,14 +501,6 @@ public class MainFragment extends Fragment {
                         () -> mDialogController.showDialog(successDialog, filePath));
     }
 
-    public static void launchRestoreCustomFileData(InputStream inputStream) {
-        PrefsXmlStorage.prefsXmlStorageCustomPath(inputStream);
-    }
-
-    public static void launchBackupCustomFileData(OutputStream outputStream) {
-        PrefsXmlStorage.prefsXmlBackupCustomPath(outputStream);
-    }
-
     // This function is if launched when selecting neutral button of the main Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -536,44 +532,27 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private static class StoragePermissionRequest
-            extends PermissionsRequest.PermissionsRequestBase {
-
-        private final WeakReference<MainFragment> mFragmentWeakReference;
-        private final int mOptionId;
-
-        StoragePermissionRequest(MainFragment fragment, int optionId) {
-            super(PermissionsRequestCodes.STORAGE.getRequestCode(), getPermissionsForOsVersion());
-            mOptionId = optionId;
-            mFragmentWeakReference = new WeakReference<>(fragment);
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)
+    public void onRestoreRequested() {
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
+            mDialogController.showDialog(R.id.restore_prefs);
         }
+    }
 
-        @NonNull
-        private static String[] getPermissionsForOsVersion() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                return new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                };
-            } else {
-                return new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            }
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)
+    public void onBackupRequested() {
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
+            mDialogController.showDialog(R.id.backup_prefs);
         }
+    }
 
-        @Override
-        public void onPermissionsGranted() {
-            MainFragment fragment = mFragmentWeakReference.get();
-            if (fragment == null) return;
-
-            fragment.mDialogController.showDialog(mOptionId);
-        }
-
-        @Override
-        public void onPermissionsDenied(
-                @NonNull String[] grantedPermissions,
-                @NonNull String[] deniedPermissions,
-                @NonNull String[] declinedPermissions) {
-            /*no-op - Main-Activity handles this case*/
-        }
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionRequestHelper.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 }

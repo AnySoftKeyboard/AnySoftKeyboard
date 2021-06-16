@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="prefs_addons_screen">
 
@@ -15,7 +15,7 @@
         android:summary="@string/bottom_generic_row_summary"
         android:title="@string/bottom_generic_row_group" />
 
-    <android.support.v7.preference.CheckBoxPreference
+    <androidx.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_allow_layouts_to_provide_generic_rows"
         android:key="@string/settings_key_allow_layouts_to_provide_generic_rows"
         android:persistent="true"
@@ -32,4 +32,4 @@
     <Preference
         android:key="@string/tweaks_group_key"
         android:title="@string/tweaks_group" />
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

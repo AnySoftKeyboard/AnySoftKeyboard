@@ -3,7 +3,7 @@ package com.anysoftkeyboard.dictionaries.prefsprovider;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 
 class TappedAndroidUserDictionary extends AndroidUserDictionary {

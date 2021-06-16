@@ -3,7 +3,7 @@ package com.anysoftkeyboard.remote;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.api.MediaInsertion;
 import java.util.Random;
 
@@ -68,6 +68,7 @@ public class RemoteInsertionActivity extends FragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         final Intent intent =
                 new Intent(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_AVAILABLE_ACTION);
         intent.putExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_REQUEST_ID_KEY, mRequestId);

@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.utils;
 
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
-import android.support.v4.graphics.PaintCompat;
+import androidx.annotation.NonNull;
+import androidx.core.graphics.PaintCompat;
 
 public class EmojiUtils {
 

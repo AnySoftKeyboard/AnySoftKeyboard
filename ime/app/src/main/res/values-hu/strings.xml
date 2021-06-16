@@ -668,7 +668,6 @@
     </string>
     <string name="wizard_allow_contacts_permission">Engedélyezze a névjegy-alapú gépelési javaslatokat</string>
     <string name="allow_permission">Engedélyezés</string>
-    <string name="navigate_to_app_permissions">Tovább az app engedélyeihez</string>
     <string name="turn_off_contacts_dictionary">A névjegyszótár kikapcsolása</string>
     <string name="read_more_about_permissions">További információ az engedélyekről...</string>
     <string name="ask_beta_link_promo">Hé! Szeretné az <i>AnySoftKeyboard</i> új funkcióit hamarabb kipróbálni? Szerencséje van! <i>BETA</i> csatornánk elérhető az <b>ÖN</b> számára is!\nCsak regisztráljon a lenti linken, és frissítsen a <i>Google Play</i> -ben!\n\n
@@ -757,8 +756,6 @@
     <string name="app_share_title">Üdvözli az AnySoftKeyboard</string>
     <string name="app_share_menu_title">AnySoftKeyboard megosztása ezzel</string>
     <string name="app_share_text">Hadd javasoljuk a nyílt forráskódú, ingyenes, jól testreszabható, többnyelvű Android billentyűzetalkalmazást, az AnySoftKeyboard-ot.\nLetöltés:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Fő a biztonság! Kattintson koronavírus infókért.</string>
     <string name="click_me_for_easter_egg_info">Kattintson egy meglepetéshez</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

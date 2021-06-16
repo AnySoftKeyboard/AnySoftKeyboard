@@ -578,7 +578,6 @@ woordenlijst
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard gebruikt de namen van uw contacten om u gepersonaliseerde woordsuggesties te bieden: als u een woord typt, zoeken we naar overeenkomstige woorden voor het automatisch aanvullen en automatisch corrigeren van wat u typt.</string>
     <string name="wizard_allow_contacts_permission">Sta op contacten gebaseerde suggesties toe</string>
     <string name="allow_permission">Sta toe</string>
-    <string name="navigate_to_app_permissions">Ga naar de rechten van de app</string>
     <string name="turn_off_contacts_dictionary">Schakel woordenlijst van contact uit</string>
     <string name="read_more_about_permissions">Lees meer over rechten…</string>
     <string name="ask_beta_link_promo">Hallo! Wilt u sneller nieuwe functionaliteit van <i>AnySoftKeyboard</i>? Dan heeft u geluk! Het <i>BÉTA</i>-kanaal is nu beschikbaar voor <b>U</b>!\nMeld u aan via onderstaande link en updates komen via <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nBedankt voor het helpen om bugs op te lossen voordat die bij het grote publiek komen.</string>

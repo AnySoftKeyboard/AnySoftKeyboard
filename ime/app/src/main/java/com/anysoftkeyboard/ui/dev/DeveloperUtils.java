@@ -26,8 +26,7 @@ import android.os.Build;
 import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -60,7 +59,7 @@ public class DeveloperUtils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
         Editor e = prefs.edit();
         e.putBoolean(KEY_SDCARD_TRACING_ENABLED, enabled);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
+        e.apply();
     }
 
     private static boolean msTracingStarted = false;

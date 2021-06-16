@@ -20,9 +20,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.PopupWindow;
+import androidx.annotation.NonNull;
 import com.getkeepsafe.relinker.MissingLibraryException;
 import com.getkeepsafe.relinker.ReLinker;
 

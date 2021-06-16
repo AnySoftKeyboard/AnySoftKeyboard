@@ -3,6 +3,7 @@
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
     <string name="settings_default_default_domain_text">.com</string>
+    <bool name="settings_default_use_system_vibration">false</bool>
     <integer name="settings_default_vibrate_on_key_press_duration_int">0</integer>
     <integer name="settings_default_vibrate_on_key_press_duration_max_value">100</integer>
     <integer name="settings_default_vibrate_on_key_press_duration_min_value">0</integer>

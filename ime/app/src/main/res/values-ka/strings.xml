@@ -712,7 +712,6 @@
     </string>
     <string name="wizard_allow_contacts_permission">ნომრების წიგნაკიდან შემოთავაზების დაშვება</string>
     <string name="allow_permission">დაშვება</string>
-    <string name="navigate_to_app_permissions">აპის ნებართვებზე გადასვლა</string>
     <string name="turn_off_contacts_dictionary">ნომრების ლექსიკონის გამორთვა</string>
     <string name="read_more_about_permissions">გაეცანით ვრცლად, ნებართვებზე…</string>
     <string name="ask_beta_link_promo">ჰეი! გსურთ ახალი <i>AnySoftKeyboard</i> მალევე მიიღოთ? მაშინ
@@ -805,8 +804,6 @@
     <string name="app_share_title">მოგესალმებათ AnySoftKeyboard</string>
     <string name="app_share_menu_title">გააზიარეთ AnySoftKeyboard</string>
     <string name="app_share_text">მსურს შემოგთავაზოთ ღია წყაროს მქონე, პირადულობის უზრუნველმყოფი,  თავისუფალი, მორგების უამრავი შესაძლებლობით, მრავალენოვანი Android-კლავიატურის აპი AnySoftKeyboard.\nგადმოსაწერად იხილეთ:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">დაიცავით თავი! დაწკაპეთ კორონავირუსზე ცნობებისთვის.</string>
     <string name="click_me_for_easter_egg_info">დაწკაპკეთ სასიამოვნო მოულოდნელობისთვის</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
