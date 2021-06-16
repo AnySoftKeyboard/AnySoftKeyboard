@@ -267,7 +267,5 @@
     <string name="user_dict_restore_fail_title">השחזור נכשל!</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    
 </resources>

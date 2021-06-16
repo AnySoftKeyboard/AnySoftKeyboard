@@ -616,7 +616,6 @@
     </string>
     <string name="wizard_allow_contacts_permission">Разрешаване на предложения за писане на базата на контакти</string>
     <string name="allow_permission">Позволяване</string>
-    
     <string name="turn_off_contacts_dictionary">Изключване на речника с контакти</string>
     <string name="read_more_about_permissions">Прочетете повече за разрешенията…</string>
     <string name="app_shortcut_keyboards_disabled">Клавиатурната навигация е изключена</string>
@@ -684,8 +683,6 @@
     <string name="aosp_light_theme_name">AOSP Светла тема</string>
     <string name="app_share_title">Привет от AnySoftKeyboard</string>
     <string name="app_share_menu_title">Споделете AnySoftKeyboard с помощта на</string>
-    
     <string name="click_me_for_easter_egg_info">щракни ме за изненада</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    
 </resources>
