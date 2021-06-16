@@ -25,7 +25,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -123,12 +122,16 @@ public class AnyApplication extends MultiDexApplication {
     }
 
     @NonNull
-    public static File getBackupFile(String filename) {
-        // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
-        final File externalFolder = Environment.getExternalStorageDirectory();
-        return new File(
-                new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"),
-                filename);
+    public static File getBackupFile(@NonNull Context context, @NonNull String filename) {
+        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/pull/2864/files#r636605962
+
+        // For Android 11 (maybe earlier?) we need to make sure the external application directory
+        // exists, to do so, just have the system get an empty file from it and Android will create
+        // it for us.  Likewise we have to do it here instead of in the getBackupFile function as
+        // we don't have the right context by that time.  We need this to write backups too and
+        // with Android 11 we can no longer do this ourselves.
+        final File externalFolder = context.getExternalFilesDir(null);
+        return new File(externalFolder, filename);
     }
 
     public static long getCurrentVersionInstallTime(Context appContext) {
@@ -151,6 +154,16 @@ public class AnyApplication extends MultiDexApplication {
                             + applicationContext.getClass()
                             + "'!!");
         }
+    }
+
+    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
+        if (apiLevel < 16) return new DeviceSpecificV15();
+        if (apiLevel < 19) return new DeviceSpecificV16();
+        if (apiLevel < 24) return new DeviceSpecificV19();
+        if (apiLevel < 26) return new DeviceSpecificV24();
+        if (apiLevel < 28) return new DeviceSpecificV26();
+        if (apiLevel < 29) return new DeviceSpecificV28();
+        return new DeviceSpecificV29();
     }
 
     @Override
@@ -223,13 +236,6 @@ public class AnyApplication extends MultiDexApplication {
 
         mPublicNotices = new ArrayList<>(EasterEggs.create());
         mPublicNotices.addAll(Notices.create(this));
-        
-        // For Android 11 (maybe earlier?) we need to make sure the external application directory
-        // exists, to do so, just have the system get an empty file from it and Android will create
-        // it for us.  Likewise we have to do it here instead of in the getBackupFile function as
-        // we don't have the right context by that time.  We need this to write backups too and 
-        // with Android 11 we can no longer do this ourselves.
-        this.getExternalFilesDir("");
     }
 
     public List<PublicNotice> getPublicNotices() {
@@ -330,16 +336,6 @@ public class AnyApplication extends MultiDexApplication {
     @NonNull
     protected KeyboardFactory createKeyboardFactory() {
         return new KeyboardFactory(this);
-    }
-
-    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
-        if (apiLevel < 16) return new DeviceSpecificV15();
-        if (apiLevel < 19) return new DeviceSpecificV16();
-        if (apiLevel < 24) return new DeviceSpecificV19();
-        if (apiLevel < 26) return new DeviceSpecificV24();
-        if (apiLevel < 28) return new DeviceSpecificV26();
-        if (apiLevel < 29) return new DeviceSpecificV28();
-        return new DeviceSpecificV29();
     }
 
     @CallSuper

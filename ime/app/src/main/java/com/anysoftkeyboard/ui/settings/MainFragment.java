@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -133,7 +132,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mDialogController = new GeneralDialogController(getActivity(), this::onSetupDialogRequired);
@@ -159,14 +158,14 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) requireActivity();
         switch (item.getItemId()) {
             case R.id.about_menu_option:
                 activity.addFragmentToUi(
@@ -218,7 +217,7 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         FragmentChauffeurActivity activity =
-                                (FragmentChauffeurActivity) getActivity();
+                                (FragmentChauffeurActivity) requireActivity();
                         activity.addFragmentToUi(
                                 new SetUpKeyboardWizardFragment(),
                                 TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
@@ -261,7 +260,7 @@ public class MainFragment extends Fragment {
 
         View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here_root);
         // checking if the IME is configured
-        final Context context = getActivity().getApplicationContext();
+        final Context context = requireContext().getApplicationContext();
 
         if (SetupSupport.isThisKeyboardSetAsDefaultIME(context)) {
             notConfiguredBox.setVisibility(View.GONE);
@@ -270,7 +269,7 @@ public class MainFragment extends Fragment {
         }
 
         AnyKeyboard defaultKeyboard =
-                AnyApplication.getKeyboardFactory(getContext())
+                AnyApplication.getKeyboardFactory(requireContext())
                         .getEnabledAddOn()
                         .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
@@ -380,7 +379,7 @@ public class MainFragment extends Fragment {
         modeBackupRestore = optionId;
         switch (optionId) {
             case R.id.backup_prefs:
-                action = GlobalPrefsBackup::backup;
+                action = listPair -> GlobalPrefsBackup.backup(requireContext(), listPair);
                 actionString = R.string.word_editor_action_backup_words;
                 actionCustomPath = Intent.ACTION_CREATE_DOCUMENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_backup);
@@ -388,7 +387,7 @@ public class MainFragment extends Fragment {
                 failedDialog = DIALOG_SAVE_FAILED;
                 break;
             case R.id.restore_prefs:
-                action = GlobalPrefsBackup::restore;
+                action = listPair -> GlobalPrefsBackup.restore(requireContext(), listPair);
                 actionString = R.string.word_editor_action_restore_words;
                 actionCustomPath = Intent.ACTION_GET_CONTENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_restore);
@@ -400,7 +399,7 @@ public class MainFragment extends Fragment {
                         "The option-id " + optionId + " is not supported here.");
         }
 
-        supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(getContext());
+        supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(requireContext());
         final CharSequence[] providersTitles = new CharSequence[supportedProviders.size()];
         final boolean[] initialChecked = new boolean[supportedProviders.size()];
         checked = new Boolean[supportedProviders.size()];
@@ -426,46 +425,42 @@ public class MainFragment extends Fragment {
                 });
         builder.setNeutralButton(
                 choosePathString,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            Intent dataToFileChooser = new Intent();
-                            dataToFileChooser.setType("text/xml");
-                            if (modeBackupRestore == R.id.backup_prefs) {
-                                // create backup file in selected directory
-                                dataToFileChooser.putExtra(
-                                        Intent.EXTRA_TITLE,
-                                        GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
-                            }
-                            dataToFileChooser.setAction(actionCustomPath);
-                            dataToFileChooser.putExtra("checked", checked);
-                            try {
-                                startActivityForResult(dataToFileChooser, 1);
-                            } catch (ActivityNotFoundException e) {
-                                Logger.e(TAG, "Could not launch the custom path activity");
-                                Toast.makeText(
-                                                getActivity().getApplicationContext(),
-                                                R.string.toast_error_custom_path_backup,
-                                                Toast.LENGTH_LONG)
-                                        .show();
-                            }
-
-                        } else {
-                            Intent intent = null;
-                            if (optionId == R.id.backup_prefs) {
-                                intent = new Intent(getContext(), FileExplorerCreate.class);
-                            } else if (optionId == R.id.restore_prefs) {
-                                intent = new Intent(getContext(), FileExplorerRestore.class);
-                            }
-                            startActivity(intent);
+                (dialog, which) -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        Intent dataToFileChooser = new Intent();
+                        dataToFileChooser.setType("text/xml");
+                        if (modeBackupRestore == R.id.backup_prefs) {
+                            // create backup file in selected directory
+                            dataToFileChooser.putExtra(
+                                    Intent.EXTRA_TITLE, GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
                         }
+                        dataToFileChooser.setAction(actionCustomPath);
+                        dataToFileChooser.putExtra("checked", checked);
+                        try {
+                            startActivityForResult(dataToFileChooser, 1);
+                        } catch (ActivityNotFoundException e) {
+                            Logger.e(TAG, "Could not launch the custom path activity");
+                            Toast.makeText(
+                                            requireContext().getApplicationContext(),
+                                            R.string.toast_error_custom_path_backup,
+                                            Toast.LENGTH_LONG)
+                                    .show();
+                        }
+
+                    } else {
+                        Intent intent = null;
+                        if (optionId == R.id.backup_prefs) {
+                            intent = new Intent(getContext(), FileExplorerCreate.class);
+                        } else if (optionId == R.id.restore_prefs) {
+                            intent = new Intent(getContext(), FileExplorerRestore.class);
+                        }
+                        startActivity(intent);
                     }
                 });
     }
 
     private Disposable launchBackupRestore(int custom, Uri customUri) {
-        File filePath;
+        final File filePath;
         if (custom == 1) {
             if (customUri.getPath() != null) {
                 // Uri won't show an absolute path, so better show only file name
@@ -474,11 +469,13 @@ public class MainFragment extends Fragment {
             } else {
                 filePath = new File(customUri.getPath());
             }
-        } else filePath = GlobalPrefsBackup.getBackupFile();
+        } else {
+            filePath = GlobalPrefsBackup.getBackupFile(requireContext());
+        }
 
         return RxProgressDialog.create(
                         new Pair<>(supportedProviders, checked),
-                        getActivity(),
+                        requireActivity(),
                         getText(R.string.take_a_while_progress_message),
                         R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
@@ -511,7 +508,7 @@ public class MainFragment extends Fragment {
                 && data != null
                 && data.getDataString() != null) {
 
-            ContentResolver resolver = getContext().getContentResolver();
+            ContentResolver resolver = requireContext().getContentResolver();
             Logger.d(TAG, "Resolver " + resolver.getType(data.getData()));
             try {
                 // Actually, it is not a good idea to convert URI into filepath.
@@ -548,9 +545,10 @@ public class MainFragment extends Fragment {
         }
     }
 
+    @SuppressWarnings("deprecation") // required for permissions flow
     @Override
     public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionRequestHelper.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);

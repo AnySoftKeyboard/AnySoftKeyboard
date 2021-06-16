@@ -53,7 +53,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                                         pair -> {
                                             Context appContext =
                                                     pair.second
-                                                            .getContext()
+                                                            .requireContext()
                                                             .getApplicationContext();
 
                                             NextWordDictionary nextWordDictionary =
@@ -76,7 +76,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
     private static Observable<Pair<DictionaryAddOnAndBuilder, NextWordSettingsFragment>>
             createDictionaryAddOnFragment(NextWordSettingsFragment fragment) {
         return Observable.fromIterable(
-                        AnyApplication.getExternalDictionaryFactory(fragment.getContext())
+                        AnyApplication.getExternalDictionaryFactory(fragment.requireContext())
                                 .getAllAddOns())
                 .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))
                 .distinct(DictionaryAddOnAndBuilder::getLanguage)
@@ -129,20 +129,20 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         findPreference("clear_next_word_data").setOnPreferenceClickListener(mClearDataListener);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.next_word_menu_actions, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
         if (mainSettingsActivity == null) return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
@@ -187,7 +187,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                         .subscribe(
                                 triple -> {
                                     final FragmentActivity activity =
-                                            triple.getFirst().getActivity();
+                                            triple.getFirst().requireActivity();
                                     Preference localeData = new Preference(activity);
                                     final DictionaryAddOnAndBuilder addOn = triple.getSecond();
                                     localeData.setKey(addOn.getLanguage() + "_stats");
@@ -231,16 +231,19 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
             PrefsXmlStorage storage =
-                    new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
+                    new PrefsXmlStorage(
+                            AnyApplication.getBackupFile(
+                                    requireContext(), ASK_NEXT_WORDS_FILENAME));
             NextWordPrefsProvider provider =
                     new NextWordPrefsProvider(
                             getContext(),
-                            ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
+                            ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(
+                                    requireContext()));
 
             mDisposable.add(
                     RxProgressDialog.create(
                                     Pair.create(storage, provider),
-                                    getActivity(),
+                                    requireActivity(),
                                     getString(R.string.take_a_while_progress_message),
                                     R.layout.progress_window)
                             .subscribeOn(RxSchedulers.background())
@@ -269,16 +272,19 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
             PrefsXmlStorage storage =
-                    new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
+                    new PrefsXmlStorage(
+                            AnyApplication.getBackupFile(
+                                    requireContext(), ASK_NEXT_WORDS_FILENAME));
             NextWordPrefsProvider provider =
                     new NextWordPrefsProvider(
                             getContext(),
-                            ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
+                            ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(
+                                    requireContext()));
 
             mDisposable.add(
                     RxProgressDialog.create(
                                     Pair.create(storage, provider),
-                                    getActivity(),
+                                    requireActivity(),
                                     getString(R.string.take_a_while_progress_message),
                                     R.layout.progress_window)
                             .subscribeOn(RxSchedulers.background())
@@ -298,9 +304,10 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
+    @SuppressWarnings("deprecation") // needed for permissions flow
     @Override
     public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionRequestHelper.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);

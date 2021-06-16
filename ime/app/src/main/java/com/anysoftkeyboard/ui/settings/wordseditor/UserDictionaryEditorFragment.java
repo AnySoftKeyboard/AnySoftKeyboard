@@ -211,7 +211,8 @@ public class UserDictionaryEditorFragment extends Fragment
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
             PrefsXmlStorage storage =
                     new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
+                            AnyApplication.getBackupFile(
+                                    requireContext(), ASK_USER_WORDS_SDCARD_FILENAME));
             UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
             mDisposable.add(
@@ -249,13 +250,14 @@ public class UserDictionaryEditorFragment extends Fragment
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
             PrefsXmlStorage storage =
                     new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
+                            AnyApplication.getBackupFile(
+                                    requireContext(), ASK_USER_WORDS_SDCARD_FILENAME));
             UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
             mDisposable.add(
                     RxProgressDialog.create(
                                     Pair.create(storage, provider),
-                                    getActivity(),
+                                    requireActivity(),
                                     R.layout.progress_window)
                             .subscribeOn(RxSchedulers.background())
                             .map(
@@ -298,7 +300,7 @@ public class UserDictionaryEditorFragment extends Fragment
     public void onDestroy() {
         mDisposable.dispose();
 
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) requireActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
@@ -314,7 +316,8 @@ public class UserDictionaryEditorFragment extends Fragment
                 new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Observable.fromIterable(AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOns())
+        Observable.fromIterable(
+                        AnyApplication.getKeyboardFactory(requireContext()).getEnabledAddOns())
                 .filter(kbd -> !TextUtils.isEmpty(kbd.getKeyboardLocale()))
                 .map(kbd -> new DictionaryLocale(kbd.getKeyboardLocale(), kbd.getName()))
                 .distinct()
@@ -329,7 +332,8 @@ public class UserDictionaryEditorFragment extends Fragment
         mDisposable = new CompositeDisposable();
         final EditableDictionary editableDictionary = createEditableDictionary(mSelectedLocale);
         mDisposable.add(
-                RxProgressDialog.create(editableDictionary, getActivity(), R.layout.progress_window)
+                RxProgressDialog.create(
+                                editableDictionary, requireActivity(), R.layout.progress_window)
                         .subscribeOn(RxSchedulers.background())
                         .map(
                                 newDictionary -> {
@@ -379,13 +383,13 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     protected EditableDictionary createEditableDictionary(String locale) {
-        return new MyUserDictionary(getActivity().getApplicationContext(), locale);
+        return new MyUserDictionary(requireContext().getApplicationContext(), locale);
     }
 
     @Override
     public void onWordDeleted(final LoadedWord word) {
         mDisposable.add(
-                RxProgressDialog.create(word, getActivity(), R.layout.progress_window)
+                RxProgressDialog.create(word, requireActivity(), R.layout.progress_window)
                         .subscribeOn(RxSchedulers.background())
                         .map(
                                 loadedWord -> {
@@ -405,7 +409,7 @@ public class UserDictionaryEditorFragment extends Fragment
         mDisposable.add(
                 RxProgressDialog.create(
                                 Pair.create(oldWord, newWord),
-                                getActivity(),
+                                requireActivity(),
                                 R.layout.progress_window)
                         .subscribeOn(RxSchedulers.background())
                         .map(
@@ -448,7 +452,10 @@ public class UserDictionaryEditorFragment extends Fragment
 
         @Override
         public void getItemOffsets(
-                Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                Rect outRect,
+                @NonNull View view,
+                @NonNull RecyclerView parent,
+                @NonNull RecyclerView.State state) {
             outRect.set(mMargin, mMargin, mMargin, mMargin);
         }
     }
@@ -534,9 +541,10 @@ public class UserDictionaryEditorFragment extends Fragment
         }
     }
 
+    @SuppressWarnings("deprecation") // required for permissions flow
     @Override
     public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionRequestHelper.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);
