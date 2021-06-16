@@ -73,6 +73,10 @@
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
     <string name="switch_incognito">Incognito Mode</string>
+
+    <string name="use_system_vibration_title">Use system vibration</string>
+    <string name="use_system_vibration_off_summary">Using custom vibration setting</string>
+    <string name="use_system_vibration_on_summary">Using Android system vibration setting</string>
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
     <string name="vibrate_on_key_press_value_template">%d milliseconds</string>
 

@@ -566,7 +566,6 @@
     <string name="notification_read_contacts_ticker">الإذن للإطلاع على جهات الإتصال مطلوب</string>
     <string name="wizard_allow_contacts_permission">السماح باقتراح الكلمات استنادا إلى قائمة جهات الإتصال</string>
     <string name="allow_permission">السماح</string>
-    
     <string name="turn_off_contacts_dictionary">إلغاء إستعمال جهات الإتصال كقاموس للتصحيح</string>
     <string name="read_more_about_permissions">قراءة المزيد عن التصريحات…</string>
     <string name="app_shortcut_keyboards_disabled">الإنتقال ما بين ألواح المفاتيح معطل</string>
@@ -614,5 +613,4 @@
     <string name="gesture_typing_alert_button">حسنا</string>
     <string name="apply_overlay_summary_off">استخدم ألوان السمة دائما.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    
 </resources>

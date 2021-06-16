@@ -39,5 +39,4 @@
     <string name="settings_key_hint_size_normal">සාමාන්‍ය</string>
     <string name="shared_prefs_provider_name">යෙදුමේ සැකසුම්</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    
 </resources>

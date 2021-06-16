@@ -702,7 +702,6 @@
     </string>
     <string name="wizard_allow_contacts_permission">Destûrê bide pêşniyarên tîpkirina têkiliyan</string>
     <string name="allow_permission">Destûr bide</string>
-    
     <string name="turn_off_contacts_dictionary">Ferhenga Têkiliyan Veke</string>
     <string name="read_more_about_permissions">Li ser destûrên bêtir bixwînin…</string>
     <string name="ask_beta_link_promo">Hey! Dixwazî tiştên nû <i>AnySoftKeyboard</i> zûtir bikî? Piştre
@@ -794,8 +793,6 @@
     <string name="app_share_title">Silav ji AnySoftKeyboard</string>
     <string name="app_share_menu_title">Bikaranîna AnySoftKeyboard parve bike</string>
     <string name="app_share_text">Bila ez pêşniyara çavkaniya vekirî, nepenî-fokus, belaş, pir taybetmendî, pir zimanî Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    
     <string name="click_me_for_easter_egg_info">ji bo surprîzekê bitikîne</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    
 </resources>
