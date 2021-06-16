@@ -1,8 +1,7 @@
-* Keep safe! #covid19
-* Suggesting recent clipboard entry.
-* Ability to backup/restore settings from a location.
-* A few bug fixes.
-* Updated translations.
-* YABTU
+* Minimum Android version is 4.0.3 (ICS, API level 15).
+* Better vibration control for newer OS versions.
+* Fixes around permission requests.
+* Fixes for colorized nav-bar.
+* Updated translations from the community.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/92
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/93
