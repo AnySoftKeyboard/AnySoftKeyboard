@@ -55,6 +55,9 @@
     <string name="effects_group">Viselkedés</string>
     <string name="ime_settings">Billentyűzet beállítások</string>
     <string name="switch_incognito">Inkognitó mód</string>
+    <string name="use_system_vibration_title">Rendszer rezgés használata</string>
+    <string name="use_system_vibration_off_summary">Egyéni rezgésbeállítás használata</string>
+    <string name="use_system_vibration_on_summary">Az Android rezgésbeállítás használata</string>
     <string name="vibrate_on_key_press_title">Gombnyomásra rezgés</string>
     <string name="vibrate_on_key_press_value_template">%d ms</string>
     <string name="night_mode_screen">Éjszakai mód beállításai</string>
@@ -659,6 +662,7 @@
     <string name="clipboard_paste_entries_title">Szöveg választása a beillesztéshez</string>
     <string name="next_word_prefs_clear_data">Adatbázis törlése</string>
     <string name="next_word_prefs_clear_data_summary">Nem visszavonható! Az összes gépelési előzmény törlődik.</string>
+    <string name="storage_permission_rationale">Az AnySoftKeyboard-nak tárhely hozzáférési engedélyre van szüksége a biztonsági mentések olvasásához és írásához</string>
     <string name="notification_read_contacts_title">Hozzáférhetek a névjegyekhez?</string>
     <string name="notification_read_contacts_text">A névjegyekhez való hozzáféréssel jobb auto-kiegészítés találatokat tudnánk adni.</string>
     <string name="notification_read_contacts_ticker">Névjegyekhez való hozzáférés engedélyezése</string>
