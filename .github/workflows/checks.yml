@@ -75,7 +75,7 @@ jobs:
   app-tests-shards:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.1
-    timeout-minutes: 30
+    timeout-minutes: 15
     strategy:
       matrix:
         index: [0, 1]
@@ -222,7 +222,7 @@ jobs:
   deploy-dry-run:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.1
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
