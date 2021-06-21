@@ -53,6 +53,9 @@
     <string name="effects_group">Effekte</string>
     <string name="ime_settings">Tastatureinstellungen</string>
     <string name="switch_incognito">Inkognito Modus</string>
+    <string name="use_system_vibration_title">System-Vibration verwenden</string>
+    <string name="use_system_vibration_off_summary">Benutzerdefinierte Vibrationseinstellungen verwenden</string>
+    <string name="use_system_vibration_on_summary">Android-System-Vibrationseinstellungen verwenden</string>
     <string name="vibrate_on_key_press_title">Vibrieren bei Tastendruck</string>
     <string name="vibrate_on_key_press_value_template">%d Millisekunden</string>
     <string name="night_mode_screen">Nachtmodus Einstellungen</string>
@@ -579,6 +582,7 @@
     <string name="clipboard_paste_entries_title">Text auswählen zum Einfügen</string>
     <string name="next_word_prefs_clear_data">Wortvorhersagedaten löschen</string>
     <string name="next_word_prefs_clear_data_summary">Das ist nicht rückgängig zu machen. Dein gesamter Eingabeverlauf wird gelöscht.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard benötigt die Berechtigung zum Lesen und Schreiben deiner Backup-Dateien.</string>
     <string name="notification_read_contacts_title">Darf ich deine Kontakte lesen?</string>
     <string name="notification_read_contacts_text">Wir müssen deine Kontakte lesen können, damit die automatische Vervollständigung besser funktioniert.</string>
     <string name="notification_read_contacts_ticker">Kontaktzugriff erforderlich</string>
