@@ -78,6 +78,7 @@ public abstract class EmojiCollector implements EmojiCollection {
                     "animal-bird",
                     "animal-amphibian",
                     "animal-reptile",
+                    "food-marine", // weird, but we need those here too
                     "animal-marine",
                     "animal-bug",
                     "plant-flower",
@@ -212,7 +213,7 @@ public abstract class EmojiCollector implements EmojiCollection {
 
     boolean visitEmoji(EmojiData emojiData) {
         if (isMyEmoji(emojiData)) {
-            mOwnedEmoji.add(emojiData);
+            if (!mOwnedEmoji.contains(emojiData)) mOwnedEmoji.add(emojiData);
             return true;
         } else {
             return false;
@@ -244,8 +245,9 @@ public abstract class EmojiCollector implements EmojiCollection {
         }
 
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return emojiData.grouping.startsWith(mGroup)
-                    && mSubGroups.stream().anyMatch(emojiData.grouping::endsWith);
+            return /*emojiData.grouping.startsWith(mGroup)
+                   && */ mSubGroups.stream()
+                    .anyMatch(emojiData.grouping::endsWith);
         }
     }
 
