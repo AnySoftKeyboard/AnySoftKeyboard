@@ -141,5 +141,10 @@
     <Key android:keyLabel="&#127809;" android:keyOutputText="&#127809;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,maple,leaf"/>
     <Key android:keyLabel="&#127810;" android:keyOutputText="&#127810;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,fallen,leaf"/>
     <Key android:keyLabel="&#127811;" android:keyOutputText="&#127811;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,leaf,fluttering,in,wind"/>
+    <Key android:keyLabel="&#129408;" android:keyOutputText="&#129408;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,crab"/>
+    <Key android:keyLabel="&#129438;" android:keyOutputText="&#129438;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,lobster"/>
+    <Key android:keyLabel="&#129424;" android:keyOutputText="&#129424;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,shrimp"/>
+    <Key android:keyLabel="&#129425;" android:keyOutputText="&#129425;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,squid"/>
+    <Key android:keyLabel="&#129450;" android:keyOutputText="&#129450;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,oyster"/>
   </Row>
 </Keyboard>

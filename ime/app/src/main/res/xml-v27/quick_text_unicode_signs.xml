@@ -140,6 +140,20 @@
     <Key android:keyLabel="♀️" android:keyOutputText="♀️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,female,sign"/>
     <Key android:keyLabel="♂️" android:keyOutputText="♂️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,male,sign"/>
     <Key android:keyLabel="⚧️" android:keyOutputText="⚧️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,transgender,symbol"/>
+    <Key android:keyLabel="✖️" android:keyOutputText="✖️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,multiply"/>
+    <Key android:keyLabel="➕" android:keyOutputText="➕" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,plus"/>
+    <Key android:keyLabel="➖" android:keyOutputText="➖" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,minus"/>
+    <Key android:keyLabel="➗" android:keyOutputText="➗" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,divide"/>
+    <Key android:keyLabel="♾️" android:keyOutputText="♾️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,infinity"/>
+    <Key android:keyLabel="‼️" android:keyOutputText="‼️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,double,exclamation,mark"/>
+    <Key android:keyLabel="⁉️" android:keyOutputText="⁉️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,exclamation,question,mark"/>
+    <Key android:keyLabel="❓" android:keyOutputText="❓" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,red,question,mark"/>
+    <Key android:keyLabel="❔" android:keyOutputText="❔" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,white,question,mark"/>
+    <Key android:keyLabel="❕" android:keyOutputText="❕" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,white,exclamation,mark"/>
+    <Key android:keyLabel="❗" android:keyOutputText="❗" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,red,exclamation,mark"/>
+    <Key android:keyLabel="〰️" android:keyOutputText="〰️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,wavy,dash"/>
+    <Key android:keyLabel="&#128177;" android:keyOutputText="&#128177;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,currency,exchange"/>
+    <Key android:keyLabel="&#128178;" android:keyOutputText="&#128178;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,heavy,dollar,sign"/>
     <Key android:keyLabel="⚕️" android:keyOutputText="⚕️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="0,medical,symbol"/>
     <Key android:keyLabel="♻️" android:keyOutputText="♻️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="6,recycling,symbol"/>
     <Key android:keyLabel="⚜️" android:keyOutputText="⚜️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lis"/>
