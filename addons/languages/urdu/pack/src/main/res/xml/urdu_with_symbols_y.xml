@@ -1,0 +1,12 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="\u06D3" />
+        <Key android:codes="\u064E" />
+        <Key android:codes="\u064B" />
+    </Row>
+    <Row>
+        <Key android:codes="\u0666" />
+        <Key android:codes="\u06F6" />
+        <Key android:codes="\6" />
+    </Row>
+</Keyboard>
