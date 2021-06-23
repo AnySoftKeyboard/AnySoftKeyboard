@@ -1,0 +1,19 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="⅒" />
+        <Key android:codes="¹" />
+        <Key android:codes="₁" />
+    </Row>
+    <Row>
+        <Key android:codes="⅙" />
+        <Key android:codes="⅐" />
+        <Key android:codes="⅛" />
+        <Key android:codes="⅑" />
+    </Row>
+    <Row>
+        <Key android:codes="½" />
+        <Key android:codes="⅓" />
+        <Key android:codes="¼" />
+        <Key android:codes="⅕" />
+    </Row>
+</Keyboard>

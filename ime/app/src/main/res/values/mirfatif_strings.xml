@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyDashes">
+  <string name="mirfatif_symbols_keyboard" tools:ignore="MissingTranslation">\?123</string>
+  <string name="mirfatif_symbols_alt_keyboard" tools:ignore="MissingTranslation">Sym</string>
+
+  <!-- same in addons/languages/urdu/pack/src/main/res/values/urdu_pack_strings.xml -->
+  <string name="urdu_keyboard_with_symbols_guid" translatable="false">37F7188B-6FA1-442B-BF0F-6D8671C12808</string>
+
+  <!-- same in addons/languages/english/pack/src/main/res/values/mirfatif_strings.xml -->
+  <string name="mirfatif_qwerty_with_symbols_guid" translatable="false">9C0DF88B-5BED-4953-B988-E608F3A4F167</string>
+</resources>

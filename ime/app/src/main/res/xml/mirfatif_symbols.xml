@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height">
+
+    <!-- Top row -->
+    <Row android:rowEdgeFlags="top">
+        <Key
+            android:codes="@integer/key_code_esc"
+            android:keyEdgeFlags="left"
+            android:keyLabel="Esc"
+            ask:isFunctional="true" />
+        <Key android:codes="@integer/key_code_tab" />
+        <Key
+            android:codes="@integer/key_code_ctrl"
+            android:isModifier="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_left"
+            android:horizontalGap="5%p"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_up"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_down"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_right"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_home"
+            android:horizontalGap="5%p"
+            android:keyLabel="Hom"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_end"
+            android:keyEdgeFlags="right"
+            android:keyLabel="End"
+            ask:isFunctional="true" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="\1"
+            android:keyEdgeFlags="left"
+            android:popupKeyboard="@xml/mirfatif_symbols_one"
+            ask:hintLabel="½" />
+        <Key
+            android:codes="\2"
+            android:popupCharacters="⅔⅖²₂"
+            ask:hintLabel="⅔" />
+        <Key
+            android:codes="\3"
+            android:popupCharacters="¾⅗⅜³₃"
+            ask:hintLabel="¾" />
+        <Key
+            android:codes="\4"
+            android:popupCharacters="⅘⁴₄"
+            ask:hintLabel="⅘" />
+        <Key
+            android:codes="\5"
+            android:popupCharacters="⅚⅝⁵₅"
+            ask:hintLabel="⅚" />
+        <Key
+            android:codes="\6"
+            android:popupCharacters="⁶₆"
+            ask:hintLabel="₆" />
+        <Key
+            android:codes="\7"
+            android:popupCharacters="⅞⁷₇"
+            ask:hintLabel="⅞" />
+        <Key
+            android:codes="\8"
+            android:popupCharacters="⁸₈∞"
+            ask:hintLabel="₈" />
+        <Key
+            android:codes="\9"
+            android:popupCharacters="⁹₉"
+            ask:hintLabel="₉" />
+        <Key
+            android:codes="\0"
+            android:keyEdgeFlags="right"
+            android:popupCharacters="⁰₀°ⁿ"
+            ask:hintLabel="₀" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="\@"
+            android:horizontalGap="5%p"
+            android:keyEdgeFlags="left" />
+
+        <!-- Bitcoin sign (₿) not supported by many yet -->
+        <Key
+            android:codes="@integer/default_currency_sign_unicode"
+            android:popupCharacters="₨£€₽¥¢₹₿"
+            ask:hintLabel="₨" />
+        <Key
+            android:codes="#"
+            android:popupCharacters="№" />
+        <Key
+            android:codes="%"
+            android:popupCharacters="^‰℅"
+            ask:hintLabel="^" />
+        <Key
+            android:codes="&amp;"
+            android:popupCharacters="←↑↓→"
+            ask:hintLabel="←" />
+        <Key
+            android:codes="`"
+            android:popupCharacters="~´‴⁗"
+            ask:hintLabel="~" />
+        <Key
+            android:codes="("
+            android:popupCharacters="[{&lt;≤‹«⟨"
+            ask:hintLabel="[" />
+        <Key
+            android:codes=")"
+            android:popupCharacters="]}&gt;≥›»⟩"
+            ask:hintLabel="]" />
+        <Key
+            android:codes="_"
+            android:keyLabel="_" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="@integer/key_code_mode_symbols"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="left" />
+        <Key
+            android:codes="/"
+            android:popupCharacters="÷∕̸̷√"
+            ask:hintLabel="÷" />
+        <Key
+            android:codes="*"
+            android:popupCharacters="×·∗†‡★"
+            ask:hintLabel="×" />
+        <Key
+            android:codes="-"
+            android:popupCharacters="–—−"
+            ask:hintLabel="–" />
+        <Key
+            android:codes="+"
+            android:popupKeyboard="@xml/mirfatif_symbols_equal"
+            ask:hintLabel="=" />
+        <Key
+            android:codes="\\"
+            android:popupCharacters="|¦‖"
+            ask:hintLabel="|" />
+        <Key
+            android:codes=";"
+            android:popupCharacters=":"
+            ask:hintLabel=":" />
+        <Key
+            android:codes="\?"
+            android:popupCharacters="!‽⸮¿¡"
+            ask:hintLabel="!" />
+        <Key
+            android:codes="@integer/key_code_delete"
+            android:isRepeatable="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <!-- Bottom row -->
+    <Row android:rowEdgeFlags="bottom">
+
+        <Key
+            android:codes="@integer/key_code_keyboard_mode_change"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="left"
+            ask:isFunctional="true"
+            ask:keyDynamicEmblem="icon"
+            ask:longPressCode="@integer/key_code_mode_alphabet_popup" />
+
+        <!-- comma -->
+        <Key
+            android:codes="44"
+            android:popupCharacters="„"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_quick_text_popup"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_quick_text" />
+
+        <Key
+            android:codes="@integer/key_code_space"
+            android:keyWidth="35%p"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="&quot;"
+            android:popupCharacters="\'“”‘’"
+            ask:hintLabel="\'"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="."
+            android:popupCharacters="…⋯"
+            ask:hintLabel="…"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_enter"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="right"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_settings" />
+    </Row>
+</Keyboard>

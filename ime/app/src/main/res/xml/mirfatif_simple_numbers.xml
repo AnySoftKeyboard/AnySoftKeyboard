@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:ask="http://schemas.android.com/apk/res-auto"
+  android:keyHeight="@integer/key_normal_height"
+  android:keyWidth="25%p"
+  ask:showPreview="false">
+
+  <Row android:rowEdgeFlags="top">
+    <Key
+      android:codes="\1"
+      android:keyEdgeFlags="left" />
+    <Key android:codes="\2" />
+    <Key android:codes="\3" />
+    <Key
+      android:codes="."
+      android:keyEdgeFlags="right"
+      android:keyLabel=". )"
+      android:popupCharacters=",()"
+      ask:hintLabel=" " />
+  </Row>
+
+  <Row>
+    <Key
+      android:codes="\4"
+      android:keyEdgeFlags="left" />
+    <Key android:codes="\5" />
+    <Key android:codes="\6" />
+    <Key
+      android:codes="@integer/key_code_space"
+      android:isRepeatable="true"
+      android:keyEdgeFlags="right" />
+  </Row>
+
+  <Row>
+    <Key
+      android:codes="\7"
+      android:keyEdgeFlags="left" />
+    <Key android:codes="\8" />
+    <Key android:codes="\9" />
+    <Key
+      android:codes="@integer/key_code_delete"
+      android:isRepeatable="true"
+      android:keyEdgeFlags="right" />
+  </Row>
+
+  <Row android:rowEdgeFlags="bottom">
+    <Key
+      android:codes="42"
+      android:keyEdgeFlags="left"
+      android:keyLabel="* /"
+      ask:longPressCode="47" />
+    <Key android:codes="\0" />
+    <Key
+      android:codes="+"
+      android:keyLabel="+ -"
+      ask:longPressCode="45" />
+    <Key
+      android:codes="@integer/key_code_enter"
+      android:keyEdgeFlags="right"
+      ask:longPressCode="@integer/key_code_settings" />
+  </Row>
+
+</Keyboard>
