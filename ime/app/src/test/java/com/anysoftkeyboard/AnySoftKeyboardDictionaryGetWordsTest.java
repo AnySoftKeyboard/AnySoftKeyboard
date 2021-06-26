@@ -229,7 +229,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true,"he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
