@@ -71,6 +71,7 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
         return Collections.unmodifiableList(mInputMethodInfos);
     }
 
+    @Override
     @Implementation
     public List<InputMethodInfo> getEnabledInputMethodList() {
         List<InputMethodInfo> enabledIme = new ArrayList<>();

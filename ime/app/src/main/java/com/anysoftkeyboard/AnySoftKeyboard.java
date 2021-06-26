@@ -22,12 +22,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.util.SparseArrayCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,6 +33,12 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.collection.SparseArrayCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
@@ -475,60 +475,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
                 break;
             case KeyCodes.MOVE_HOME:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(0x0000007a /*API 11:KeyEvent.KEYCODE_MOVE_HOME*/);
-                } else {
-                    if (ic != null) {
-                        CharSequence textBefore = ic.getTextBeforeCursor(1024, 0);
-                        if (!TextUtils.isEmpty(textBefore)) {
-                            int newPosition = textBefore.length() - 1;
-                            while (newPosition > 0) {
-                                char chatAt = textBefore.charAt(newPosition - 1);
-                                if (chatAt == '\n' || chatAt == '\r') {
-                                    break;
-                                }
-                                newPosition--;
-                            }
-                            if (newPosition < 0) {
-                                newPosition = 0;
-                            }
-                            ic.setSelection(newPosition, newPosition);
-                        }
-                    }
-                }
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_MOVE_HOME);
                 break;
             case KeyCodes.MOVE_END:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    // API 11: KeyEvent.KEYCODE_MOVE_END
-                    sendDownUpKeyEvents(0x0000007b);
-                } else {
-                    if (ic != null) {
-                        CharSequence textAfter = ic.getTextAfterCursor(1024, 0);
-                        if (!TextUtils.isEmpty(textAfter)) {
-                            int newPosition = 1;
-                            while (newPosition < textAfter.length()) {
-                                char chatAt = textAfter.charAt(newPosition);
-                                if (chatAt == '\n' || chatAt == '\r') {
-                                    break;
-                                }
-                                newPosition++;
-                            }
-                            if (newPosition > textAfter.length()) {
-                                newPosition = textAfter.length();
-                            }
-                            try {
-                                CharSequence textBefore =
-                                        ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
-                                if (!TextUtils.isEmpty(textBefore)) {
-                                    newPosition = newPosition + textBefore.length();
-                                }
-                                ic.setSelection(newPosition, newPosition);
-                            } catch (Throwable e /*I'm using Integer.MAX_VALUE, it's scary.*/) {
-                                Logger.w(TAG, "Failed to getTextBeforeCursor.", e);
-                            }
-                        }
-                    }
-                }
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_MOVE_END);
                 break;
             case KeyCodes.VOICE_INPUT:
                 if (mVoiceRecognitionTrigger.isInstalled()) {
@@ -751,7 +701,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     disableSamePunctuation();
                     disableLastDigit();
                     int keyCode = getKeyCode(primaryCode);
-                    if (Build.VERSION.SDK_INT >= 11 && keyCode != 0) {
+                    if (keyCode != 0) {
                         // TextView (and hence its subclasses) can handle ^A, ^Z, ^X, ^C and ^V
                         // https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-10.0.0_r1/core/java/android/widget/TextView.java#11136
                         // simulate physical keyboard behavior i.e. press and release a key while
@@ -1027,21 +977,20 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         super.disableSamePunctuation();
 
         InputConnection ic = getCurrentInputConnection();
-        if (isSelectionUpdateDelayed() || ic == null) {
-            markExpectingSelectionUpdate();
-            Log.d(
-                    TAG,
-                    "handleDeleteLastCharacter will just sendDownUpKeyEvents. Delayed selection update?");
-            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-            return;
-        }
-
-        markExpectingSelectionUpdate();
         final WordComposer currentComposedWord = getCurrentComposedWord();
         final boolean wordManipulation =
                 isPredictionOn()
                         && currentComposedWord.cursorPosition() > 0
                         && !currentComposedWord.isEmpty();
+        if (isSelectionUpdateDelayed() || ic == null) {
+            markExpectingSelectionUpdate();
+            Log.d(TAG, "handleDeleteLastCharacter will just sendDownUpKeyEvents.");
+            if (wordManipulation) currentComposedWord.deleteCodePointAtCurrentPosition();
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+            return;
+        }
+
+        markExpectingSelectionUpdate();
 
         if (shouldRevertOnDelete()) {
             revertLastWord();
@@ -1060,7 +1009,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 ic.beginBatchEdit();
             }
 
-            markExpectingSelectionUpdate();
             ic.setComposingText(currentComposedWord.getTypedWord(), 1);
             if (cursorPosition >= 0 && !currentComposedWord.isEmpty()) {
                 ic.setSelection(cursorPosition - charsToDelete, cursorPosition - charsToDelete);
@@ -1072,7 +1020,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
             postUpdateSuggestions();
         } else {
-            markExpectingSelectionUpdate();
             if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
@@ -1131,16 +1078,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
             postUpdateSuggestions();
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                sendDownUpKeyEvents(KeyEvent.KEYCODE_FORWARD_DEL);
-            } else {
-                final CharSequence afterText = ic.getTextAfterCursor(MAX_CHARS_PER_CODE_POINT, 0);
-                final int textLengthAfterDelete =
-                        TextUtils.isEmpty(afterText)
-                                ? 0
-                                : Character.charCount(Character.codePointAt(afterText, 0));
-                ic.deleteSurroundingText(0, textLengthAfterDelete);
-            }
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_FORWARD_DEL);
         }
     }
 

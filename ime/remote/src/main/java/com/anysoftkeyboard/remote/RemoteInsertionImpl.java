@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
-import android.support.v13.view.inputmethod.InputContentInfoCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 import com.anysoftkeyboard.api.MediaInsertion;
 import com.anysoftkeyboard.fileprovider.LocalProxy;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -19,7 +17,6 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
-@RequiresApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 public class RemoteInsertionImpl implements RemoteInsertion {
     private final Context mContext;
     private final BroadcastReceiver mMediaInsertionAvailableReceiver;

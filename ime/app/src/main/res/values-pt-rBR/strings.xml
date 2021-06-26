@@ -29,6 +29,7 @@
     <string name="no_market_store_available">Não foi possível encontrar uma loja de aplicativos no seu dispositivo. \nImpossível pesquisar complementos!    </string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Fechar</string>
+    <string name="delete_button">Excluir</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Adicionado:\u0020<xliff:g id="word">%s</xliff:g>
     
@@ -163,7 +164,7 @@
     <string name="pinch_gesture_action">Gesto de pinça</string>
     <string name="pinch_gesture_action_title">Selecione ação para o gesto de pinça</string>
     <string name="pinch_gesture_action_summary">Define a ação do gesto de pinça. Atualmente, %s</string>
-    <string name="separate_gesture_action">Gesto te ampliar</string>
+    <string name="separate_gesture_action">Gesto de ampliar</string>
     <string name="separate_gesture_action_title">Selecione ação do gesto de ampliar</string>
     <string name="separate_gesture_action_summary">Define ação do gesto de ampliar. Atualmente, %s</string>
     <string name="swipe_action_name_none">Nenhuma ação</string>
@@ -415,6 +416,7 @@ simplistas    </string>
     <string name="extension_kbd_extension_numbers_symbols">Números e símbolos</string>
     <string name="extension_kbd_bottom_minimal">Minimalista</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sem emoji)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Mínimo (menos pontuação)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -594,7 +596,6 @@ simplistas    </string>
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard está usando seus nomes de contatos para fornecer-lhe com uma sugestão de palavra personalizado: conforme você digita uma palavra, vamos procurar palavras semelhantes, para auto-completar e corrigir automaticamente sua digitação.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugestão de palavras baseada no nome de seus contatos</string>
     <string name="allow_permission">Permitir</string>
-    <string name="navigate_to_app_permissions">Vá para permissões de App</string>
     <string name="turn_off_contacts_dictionary">Desligue o dicionário de contatos</string>
     <string name="read_more_about_permissions">Leia mais sobre permissões...</string>
     <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a matar bugs antes do alcance do público.</string>
@@ -675,8 +676,6 @@ simplistas    </string>
     <string name="app_share_title">Bem-vindo ao AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
     <string name="app_share_text">Dê-me a oportunidade de apresentá-lo ao aplicativo de software livre, focado na privacidade, altamente personalizável e multilingue.\nBaixe em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Fique seguro! Clique para informações sobre CoronaVirus.</string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

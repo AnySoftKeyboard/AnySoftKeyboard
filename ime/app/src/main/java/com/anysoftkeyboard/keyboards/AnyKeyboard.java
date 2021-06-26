@@ -20,14 +20,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
-import android.support.annotation.CallSuper;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
+import androidx.annotation.CallSuper;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -365,89 +365,90 @@ public abstract class AnyKeyboard extends Keyboard {
             final KeyboardDimens keyboardDimens,
             @KeyboardRowModeId int rowMode,
             boolean isTopRow) {
-        XmlResourceParser parser = context.getResources().getXml(rowResId);
-        List<Key> keys = getKeys();
-        boolean inKey = false;
-        boolean inRow = false;
+        try (final XmlResourceParser parser = context.getResources().getXml(rowResId)) {
+            List<Key> keys = getKeys();
+            boolean inKey = false;
+            boolean inRow = false;
 
-        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
-        final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
-        float x = 0;
-        float y = isTopRow ? rowVerticalGap : getHeight();
-        Key key = null;
-        Row currentRow = null;
-        float rowHeight = 0;
+            final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
+            final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
+            float x = 0;
+            float y = isTopRow ? rowVerticalGap : getHeight();
+            Key key = null;
+            Row currentRow = null;
+            float rowHeight = 0;
 
-        Resources res = context.getResources();
-        KeyboardMetadata m = new KeyboardMetadata();
+            Resources res = context.getResources();
+            KeyboardMetadata m = new KeyboardMetadata();
 
-        try {
-            int event;
-            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
-                if (event == XmlResourceParser.START_TAG) {
-                    String tag = parser.getName();
-                    if (TAG_ROW.equals(tag)) {
-                        inRow = true;
-                        rowHeight = 0;
-                        x = 0;
-                        currentRow = createRowFromXml(resourceMapping, res, parser, rowMode);
-                        if (currentRow == null) {
-                            skipToEndOfRow(parser);
+            try {
+                int event;
+                while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                    if (event == XmlResourceParser.START_TAG) {
+                        String tag = parser.getName();
+                        if (TAG_ROW.equals(tag)) {
+                            inRow = true;
+                            rowHeight = 0;
+                            x = 0;
+                            currentRow = createRowFromXml(resourceMapping, res, parser, rowMode);
+                            if (currentRow == null) {
+                                skipToEndOfRow(parser);
+                                inRow = false;
+                            } else {
+                                m.rowsCount++;
+                            }
+                        } else if (TAG_KEY.equals(tag)) {
+                            inKey = true;
+                            x += (keyHorizontalGap / 2);
+                            key =
+                                    createKeyFromXml(
+                                            resourceMapping,
+                                            mLocalContext,
+                                            context,
+                                            currentRow,
+                                            keyboardDimens,
+                                            (int) x,
+                                            (int) y,
+                                            parser);
+                            key.width = (int) (key.width - keyHorizontalGap); // the gap is on both
+                            // sides
+                            if (isTopRow) {
+                                keys.add(m.keysCount, key);
+                            } else {
+                                keys.add(key);
+                            }
+                            m.keysCount++;
+
+                            rowHeight = Math.max(key.height, rowHeight);
+                        }
+                    } else if (event == XmlResourceParser.END_TAG) {
+                        if (inKey) {
+                            inKey = false;
+                            x += (key.gap + key.width);
+                            x += (keyHorizontalGap / 2);
+                            if (x > m.rowWidth) {
+                                m.rowWidth = (int) x;
+                                // We keep generic row max width updated
+                                mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, m.rowWidth);
+                            }
+                        } else if (inRow) {
                             inRow = false;
-                        } else {
-                            m.rowsCount++;
+                            final int rowEffectiveHeight =
+                                    (int) (rowHeight + rowVerticalGap + currentRow.verticalGap);
+                            y += rowEffectiveHeight;
+                            m.totalHeight += rowEffectiveHeight;
+                            m.lastVerticalGap = currentRow.verticalGap;
                         }
-                    } else if (TAG_KEY.equals(tag)) {
-                        inKey = true;
-                        x += (keyHorizontalGap / 2);
-                        key =
-                                createKeyFromXml(
-                                        resourceMapping,
-                                        mLocalContext,
-                                        context,
-                                        currentRow,
-                                        keyboardDimens,
-                                        (int) x,
-                                        (int) y,
-                                        parser);
-                        key.width = (int) (key.width - keyHorizontalGap); // the gap is on both
-                        // sides
-                        if (isTopRow) {
-                            keys.add(m.keysCount, key);
-                        } else {
-                            keys.add(key);
-                        }
-                        m.keysCount++;
-
-                        rowHeight = Math.max(key.height, rowHeight);
-                    }
-                } else if (event == XmlResourceParser.END_TAG) {
-                    if (inKey) {
-                        inKey = false;
-                        x += (key.gap + key.width);
-                        x += (keyHorizontalGap / 2);
-                        if (x > m.rowWidth) {
-                            m.rowWidth = (int) x;
-                            // We keep generic row max width updated
-                            mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, m.rowWidth);
-                        }
-                    } else if (inRow) {
-                        inRow = false;
-                        final int rowEffectiveHeight =
-                                (int) (rowHeight + rowVerticalGap + currentRow.verticalGap);
-                        y += rowEffectiveHeight;
-                        m.totalHeight += rowEffectiveHeight;
-                        m.lastVerticalGap = currentRow.verticalGap;
                     }
                 }
+            } catch (XmlPullParserException e) {
+                Logger.e(TAG, e, "Parse error:" + e.getMessage());
+            } catch (IOException e) {
+                Logger.e(TAG, e, "Read error:" + e.getMessage());
             }
-        } catch (XmlPullParserException e) {
-            Logger.e(TAG, e, "Parse error:" + e.getMessage());
-        } catch (IOException e) {
-            Logger.e(TAG, e, "Read error:" + e.getMessage());
-        }
 
-        return m;
+            return m;
+        }
     }
 
     private void skipToEndOfRow(XmlResourceParser parser)

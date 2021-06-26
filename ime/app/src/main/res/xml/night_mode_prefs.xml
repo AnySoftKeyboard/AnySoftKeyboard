@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="prefs_night_mode_screen">
 
 
-    <android.support.v7.preference.ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="@string/settings_default_night_mode_value"
         android:dialogTitle="@string/night_mode_dialog_title"
         android:entries="@array/night_mode_types"
@@ -13,12 +13,12 @@
         android:summary="@string/night_mode_state_summary"
         android:title="@string/night_mode_dialog_title" />
 
-    <android.support.v7.preference.Preference
+    <androidx.preference.Preference
         android:key="night_mode_description"
         android:summary="@string/night_mode_description"
         android:title="" />
 
-    <android.support.v7.preference.CheckBoxPreference
+    <androidx.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_true"
         android:key="@string/settings_key_night_mode_app_theme_control"
         android:persistent="true"
@@ -26,7 +26,7 @@
         android:summaryOn=""
         android:title="@string/night_mode_app_night_theme" />
 
-    <android.support.v7.preference.CheckBoxPreference
+    <androidx.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_false"
         android:key="@string/settings_key_night_mode_theme_control"
         android:persistent="true"
@@ -34,7 +34,7 @@
         android:summaryOn=""
         android:title="@string/night_mode_darken_keyboard_theme" />
 
-    <android.support.v7.preference.CheckBoxPreference
+    <androidx.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_true"
         android:key="@string/settings_key_night_mode_sound_control"
         android:persistent="true"
@@ -42,7 +42,7 @@
         android:summaryOn=""
         android:title="@string/night_mode_sound_control" />
 
-    <android.support.v7.preference.CheckBoxPreference
+    <androidx.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_true"
         android:key="@string/settings_key_night_mode_vibration_control"
         android:persistent="true"
@@ -50,4 +50,4 @@
         android:summaryOn=""
         android:title="@string/night_mode_vibration_control" />
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

@@ -6,7 +6,7 @@ Support chat-channels can be found on&nbsp;[![Gitter chat](https://badges.gitter
 `master` latest build&nbsp;![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/checks/badge.svg?event=push&branch=master)<br/>
 `master` coverage&nbsp;[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)<br/>
 <br/>
-Android (f/w 2.1+, API level 7+) on screen keyboard for multiple languages.
+Android (f/w 4.0.3+, API level 15+) on screen keyboard for multiple languages.
 
 <a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="80pt"/></a>&nbsp;&nbsp;<a href="https://f-droid.org/repository/browse/?fdid=com.menny.android.anysoftkeyboard"><img alt="Get it on F-Droid" src="https://f-droid.org/wiki/images/5/55/F-Droid-button_get-it-on_bigger.png" height="80pt"/></a>
 
@@ -32,7 +32,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
  * Voice input. 
  * Incognito Mode - will not learn new words, will not keep history of what was typed (including emoji history).
  * Plenty of emojis - long-press the smiley key. You customize those by clicking the Settings icon in emojis window.
- * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/).
+ * More on AnySoftKeyboard can be found [here](https://anysoftkeyboard.github.io/).
 
 ## Releases
 
@@ -61,7 +61,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 * Each day - if no new commit was pushed to the release-branch - we will increase the roll-out.
 
 ## Read more
-* Our fancy [web-site](http://anysoftkeyboard.github.io/)
+* Our fancy [web-site](https://anysoftkeyboard.github.io/)
 * [Language-Pack](addons/languages/PACKS.md) add-ons in this repo.
 * [Theme](addons/themes/PACKS.md) add-ons in this repo.
 * [Quick-Text](addons/quicktexts/PACKS.md) add-ons in this repo.

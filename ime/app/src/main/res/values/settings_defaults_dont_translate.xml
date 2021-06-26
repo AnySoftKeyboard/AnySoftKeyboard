@@ -3,6 +3,7 @@
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
     <string name="settings_default_default_domain_text">.com</string>
+    <bool name="settings_default_use_system_vibration">false</bool>
     <integer name="settings_default_vibrate_on_key_press_duration_int">0</integer>
     <integer name="settings_default_vibrate_on_key_press_duration_max_value">100</integer>
     <integer name="settings_default_vibrate_on_key_press_duration_min_value">0</integer>
@@ -13,6 +14,7 @@
     <bool name="settings_default_keyboard_icon_in_status_bar">false</bool>
     <bool name="settings_default_auto_capitalization">true</bool>
     <bool name="settings_default_show_suggestions">true</bool>
+    <bool name="settings_default_allow_suggestions_restart">true</bool>
     <bool name="settings_default_lang_key_shows_popup">false</bool>
     <bool name="settings_default_show_settings_app">true</bool>
     <bool name="settings_default_show_chewbacca">true</bool>
@@ -69,7 +71,6 @@
     <string name="settings_default_ext_keyboard_key">6f1ecea0-dee2-11e0-9572-0800200c9a66</string>
     <string name="settings_default_ext_kbd_bottom_row_key">09f8f280-dee2-11e0-9572-0800200c9a66</string>
 
-    <bool name="settings_default_workaround_disable_rtl_fix">false</bool>
     <bool name="settings_default_auto_space">true</bool>
     <bool name="settings_default_use_key_repeat">true</bool>
 
@@ -84,7 +85,6 @@
 
     <string name="settings_default_initial_quick_text_tab">last_used</string>
 
-    <bool name="settings_default_allow_suggestions_restart">true</bool>
     <bool name="settings_default_switch_to_alphabet_on_space">true</bool>
     <bool name="settings_default_double_space_to_period">true</bool>
 
@@ -134,4 +134,8 @@
     <bool name="settings_default_apply_remote_app_colors">false</bool>
 
     <string name="settings_default_notice_never_before_seen_value">0</string>
+    <integer name="settings_default_notice_never_before_seen_times_value">0</integer>
+
+    <bool name="settings_default_workaround_disable_rtl_fix">true</bool>
+
 </resources>

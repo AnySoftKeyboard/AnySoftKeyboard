@@ -26,9 +26,6 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
-    <!-- used in QuickTextViewFactory -->
-    <uses-sdk tools:overrideLibrary="com.astuetz.pagerslidingtabstrip,androidx.test,androidx.test.core,android.support.v13" />
-
     <application
         android:name=".AnyApplication"
         android:hardwareAccelerated="true"

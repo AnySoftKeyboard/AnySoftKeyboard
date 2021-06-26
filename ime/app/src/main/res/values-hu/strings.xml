@@ -55,6 +55,9 @@
     <string name="effects_group">Viselkedés</string>
     <string name="ime_settings">Billentyűzet beállítások</string>
     <string name="switch_incognito">Inkognitó mód</string>
+    <string name="use_system_vibration_title">Rendszer rezgés használata</string>
+    <string name="use_system_vibration_off_summary">Egyéni rezgésbeállítás használata</string>
+    <string name="use_system_vibration_on_summary">Az Android rezgésbeállítás használata</string>
     <string name="vibrate_on_key_press_title">Gombnyomásra rezgés</string>
     <string name="vibrate_on_key_press_value_template">%d ms</string>
     <string name="night_mode_screen">Éjszakai mód beállításai</string>
@@ -270,7 +273,7 @@
     <string name="use_custom_hint_align_on_summary">Saját pozíció beállítása</string>
     <string name="use_custom_hint_align_off_summary">A téma szerinti pozíció megtartása</string>
     <string name="custom_hint_align">Egyéni vízszintes igazítás</string>
-    <string name="custom_hint_align_summary">Balra, középre vagy jobbra igazítása</string>
+    <string name="custom_hint_align_summary">Balra, középre vagy jobbra igazítás</string>
     <string name="settings_custom_hint_align_dialog_title">Vízszintes igazításának beállítása</string>
     <string-array name="custom_hint_align_types">
         <item>Balra</item>
@@ -293,11 +296,11 @@
     </string>
     <string name="show_keyboard_icon_in_status_bar_off_summary">Nincs állapotsori ikon.</string>
     <string name="is_extesion_keyboard_above_keyboard">Felső kiegészítő billentyűzet</string>
-    <string name="show_settings_app_in_launcher">Beállító alkalmazás</string>
-    <string name="settings_key_show_settings_app_on_summary">A beállító alkalmazás látható lesz az indítóalkalmazásban
+    <string name="show_settings_app_in_launcher">Alkalmazásikon</string>
+    <string name="settings_key_show_settings_app_on_summary">Az alkalmazásikon látható lesz a kezdőlapokon
         (újraindítás szükséges lehet)
     </string>
-    <string name="settings_key_show_settings_app_off_summary">Beállító alkalmazás elrejtése (újraindítás szükséges lehet)</string>
+    <string name="settings_key_show_settings_app_off_summary">Az alkalmazásikon rejtve (újraindítás szükséges lehet)</string>
     <string name="always_hide_language_key">A nyelvválasztó gomb rejtése</string>
     <string name="always_hide_language_key_on_summary">Nincs nyelvválasztó gomb. Gesztussal történő
         váltás továbbra is lehetséges.
@@ -331,7 +334,7 @@
     <string name="insert_space_after_word_suggestion_selection_on_summary">Szóköz a javasolt szó
         kiválasztása után
     </string>
-    <string name="double_space_to_period">Dupla szóköz mondatvég</string>
+    <string name="double_space_to_period">Dupla szóköz: mondatvég</string>
     <string name="double_space_to_period_summary">Dupla szóköz: pont + szóköz</string>
     <string name="tweak_animations_level_title">Animációk</string>
     <string name="tweak_animations_level_summary">Animációk mennyisége. Jelenleg:
@@ -443,6 +446,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Számok és szimbólumok</string>
     <string name="extension_kbd_bottom_minimal">Minimál</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimál (emojik nélkül)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimális (kevesebb írásjel)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Tovább</string>
@@ -658,6 +662,7 @@
     <string name="clipboard_paste_entries_title">Szöveg választása a beillesztéshez</string>
     <string name="next_word_prefs_clear_data">Adatbázis törlése</string>
     <string name="next_word_prefs_clear_data_summary">Nem visszavonható! Az összes gépelési előzmény törlődik.</string>
+    <string name="storage_permission_rationale">Az AnySoftKeyboard-nak tárhely hozzáférési engedélyre van szüksége a biztonsági mentések olvasásához és írásához</string>
     <string name="notification_read_contacts_title">Hozzáférhetek a névjegyekhez?</string>
     <string name="notification_read_contacts_text">A névjegyekhez való hozzáféréssel jobb auto-kiegészítés találatokat tudnánk adni.</string>
     <string name="notification_read_contacts_ticker">Névjegyekhez való hozzáférés engedélyezése</string>
@@ -667,7 +672,6 @@
     </string>
     <string name="wizard_allow_contacts_permission">Engedélyezze a névjegy-alapú gépelési javaslatokat</string>
     <string name="allow_permission">Engedélyezés</string>
-    <string name="navigate_to_app_permissions">Tovább az app engedélyeihez</string>
     <string name="turn_off_contacts_dictionary">A névjegyszótár kikapcsolása</string>
     <string name="read_more_about_permissions">További információ az engedélyekről...</string>
     <string name="ask_beta_link_promo">Hé! Szeretné az <i>AnySoftKeyboard</i> új funkcióit hamarabb kipróbálni? Szerencséje van! <i>BETA</i> csatornánk elérhető az <b>ÖN</b> számára is!\nCsak regisztráljon a lenti linken, és frissítsen a <i>Google Play</i> -ben!\n\n
@@ -756,8 +760,6 @@
     <string name="app_share_title">Üdvözli az AnySoftKeyboard</string>
     <string name="app_share_menu_title">AnySoftKeyboard megosztása ezzel</string>
     <string name="app_share_text">Hadd javasoljuk a nyílt forráskódú, ingyenes, jól testreszabható, többnyelvű Android billentyűzetalkalmazást, az AnySoftKeyboard-ot.\nLetöltés:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Fő a biztonság! Kattintson koronavírus infókért.</string>
     <string name="click_me_for_easter_egg_info">Kattintson egy meglepetéshez</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

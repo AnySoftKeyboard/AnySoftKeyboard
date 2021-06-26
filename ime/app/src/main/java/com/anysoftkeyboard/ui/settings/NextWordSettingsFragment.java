@@ -1,22 +1,20 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.Manifest;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.util.Pair;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceCategory;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import androidx.fragment.app.FragmentActivity;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceFragmentCompat;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
@@ -30,10 +28,9 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import java.lang.ref.WeakReference;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
@@ -56,7 +53,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                                         pair -> {
                                             Context appContext =
                                                     pair.second
-                                                            .getContext()
+                                                            .requireContext()
                                                             .getApplicationContext();
 
                                             NextWordDictionary nextWordDictionary =
@@ -79,7 +76,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
     private static Observable<Pair<DictionaryAddOnAndBuilder, NextWordSettingsFragment>>
             createDictionaryAddOnFragment(NextWordSettingsFragment fragment) {
         return Observable.fromIterable(
-                        AnyApplication.getExternalDictionaryFactory(fragment.getContext())
+                        AnyApplication.getExternalDictionaryFactory(fragment.requireContext())
                                 .getAllAddOns())
                 .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))
                 .distinct(DictionaryAddOnAndBuilder::getLanguage)
@@ -132,31 +129,28 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         findPreference("clear_next_word_data").setOnPreferenceClickListener(mClearDataListener);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.next_word_menu_actions, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
         if (mainSettingsActivity == null) return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.backup_words:
-                // we required Storage permission
-                mainSettingsActivity.startPermissionsRequest(
-                        new StoragePermissionRequest(this, false));
+                doNextWordBackup();
                 return true;
             case R.id.restore_words:
-                mainSettingsActivity.startPermissionsRequest(
-                        new StoragePermissionRequest(this, true));
+                doNextWordRestore();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -193,7 +187,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                         .subscribe(
                                 triple -> {
                                     final FragmentActivity activity =
-                                            triple.getFirst().getActivity();
+                                            triple.getFirst().requireActivity();
                                     Preference localeData = new Preference(activity);
                                     final DictionaryAddOnAndBuilder addOn = triple.getSecond();
                                     localeData.setKey(addOn.getLanguage() + "_stats");
@@ -229,114 +223,93 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         mDisposable.dispose();
     }
 
-    private static class StoragePermissionRequest
-            extends PermissionsRequest.PermissionsRequestBase {
-        private final WeakReference<NextWordSettingsFragment> mFragmentWeakReference;
-        private final boolean mForRestore;
-
-        public StoragePermissionRequest(NextWordSettingsFragment fragment, boolean forRestore) {
-            super(PermissionsRequestCodes.STORAGE.getRequestCode(), getPermissionsForOsVersion());
-            mForRestore = forRestore;
-            mFragmentWeakReference = new WeakReference<>(fragment);
-        }
-
-        @NonNull
-        private static String[] getPermissionsForOsVersion() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                return new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                };
-            } else {
-                return new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            }
-        }
-
-        @Override
-        public void onPermissionsGranted() {
-            final NextWordSettingsFragment fragment = mFragmentWeakReference.get();
-            if (fragment == null) return;
-
-            if (mForRestore) {
-                fragment.doNextWordRestore();
-            } else {
-                fragment.doNextWordBackup();
-            }
-        }
-
-        @Override
-        public void onPermissionsDenied(
-                @NonNull String[] grantedPermissions,
-                @NonNull String[] deniedPermissions,
-                @NonNull String[] declinedPermissions) {
-            /*no-op - Main-Activity handles this case*/
-        }
-    }
-
-    private void doNextWordBackup() {
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)
+    public void doNextWordBackup() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage =
-                new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
-        NextWordPrefsProvider provider =
-                new NextWordPrefsProvider(
-                        getContext(),
-                        ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
+            PrefsXmlStorage storage =
+                    new PrefsXmlStorage(
+                            AnyApplication.getBackupFile(
+                                    requireContext(), ASK_NEXT_WORDS_FILENAME));
+            NextWordPrefsProvider provider =
+                    new NextWordPrefsProvider(
+                            getContext(),
+                            ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(
+                                    requireContext()));
 
-        mDisposable.add(
-                RxProgressDialog.create(
-                                Pair.create(storage, provider),
-                                getActivity(),
-                                getString(R.string.take_a_while_progress_message),
-                                R.layout.progress_window)
-                        .subscribeOn(RxSchedulers.background())
-                        .map(
-                                pair -> {
-                                    final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                    pair.first.store(prefsRoot);
+            mDisposable.add(
+                    RxProgressDialog.create(
+                                    Pair.create(storage, provider),
+                                    requireActivity(),
+                                    getString(R.string.take_a_while_progress_message),
+                                    R.layout.progress_window)
+                            .subscribeOn(RxSchedulers.background())
+                            .map(
+                                    pair -> {
+                                        final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
+                                        pair.first.store(prefsRoot);
 
-                                    return Boolean.TRUE;
-                                })
-                        .observeOn(RxSchedulers.mainThread())
-                        .subscribe(
-                                o -> mGeneralDialogController.showDialog(DIALOG_SAVE_SUCCESS),
-                                throwable ->
-                                        mGeneralDialogController.showDialog(
-                                                DIALOG_SAVE_FAILED, throwable.getMessage()),
-                                this::loadUsageStatistics));
+                                        return Boolean.TRUE;
+                                    })
+                            .observeOn(RxSchedulers.mainThread())
+                            .subscribe(
+                                    o -> mGeneralDialogController.showDialog(DIALOG_SAVE_SUCCESS),
+                                    throwable ->
+                                            mGeneralDialogController.showDialog(
+                                                    DIALOG_SAVE_FAILED, throwable.getMessage()),
+                                    this::loadUsageStatistics));
+        }
     }
 
-    private void doNextWordRestore() {
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)
+    public void doNextWordRestore() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage =
-                new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
-        NextWordPrefsProvider provider =
-                new NextWordPrefsProvider(
-                        getContext(),
-                        ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
+            PrefsXmlStorage storage =
+                    new PrefsXmlStorage(
+                            AnyApplication.getBackupFile(
+                                    requireContext(), ASK_NEXT_WORDS_FILENAME));
+            NextWordPrefsProvider provider =
+                    new NextWordPrefsProvider(
+                            getContext(),
+                            ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(
+                                    requireContext()));
 
-        mDisposable.add(
-                RxProgressDialog.create(
-                                Pair.create(storage, provider),
-                                getActivity(),
-                                getString(R.string.take_a_while_progress_message),
-                                R.layout.progress_window)
-                        .subscribeOn(RxSchedulers.background())
-                        .map(
-                                pair -> {
-                                    final PrefsRoot prefsRoot = pair.first.load();
-                                    pair.second.storePrefsRoot(prefsRoot);
-                                    return Boolean.TRUE;
-                                })
-                        .observeOn(RxSchedulers.mainThread())
-                        .subscribe(
-                                o -> mGeneralDialogController.showDialog(DIALOG_LOAD_SUCCESS),
-                                throwable ->
-                                        mGeneralDialogController.showDialog(
-                                                DIALOG_LOAD_FAILED, throwable.getMessage()),
-                                this::loadUsageStatistics));
+            mDisposable.add(
+                    RxProgressDialog.create(
+                                    Pair.create(storage, provider),
+                                    requireActivity(),
+                                    getString(R.string.take_a_while_progress_message),
+                                    R.layout.progress_window)
+                            .subscribeOn(RxSchedulers.background())
+                            .map(
+                                    pair -> {
+                                        final PrefsRoot prefsRoot = pair.first.load();
+                                        pair.second.storePrefsRoot(prefsRoot);
+                                        return Boolean.TRUE;
+                                    })
+                            .observeOn(RxSchedulers.mainThread())
+                            .subscribe(
+                                    o -> mGeneralDialogController.showDialog(DIALOG_LOAD_SUCCESS),
+                                    throwable ->
+                                            mGeneralDialogController.showDialog(
+                                                    DIALOG_LOAD_FAILED, throwable.getMessage()),
+                                    this::loadUsageStatistics));
+        }
+    }
+
+    @SuppressWarnings("deprecation") // needed for permissions flow
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionRequestHelper.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 }

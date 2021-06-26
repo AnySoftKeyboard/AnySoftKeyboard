@@ -3,12 +3,13 @@ package net.evendanan.pixel;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.res.Configuration;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -99,7 +100,7 @@ public class SettingsTileViewTest {
                 (SettingsTileView)
                         LayoutInflater.from(controller.get())
                                 .inflate(R.layout.settings_tile_view_test_layout, null);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         return view;
     }
 }

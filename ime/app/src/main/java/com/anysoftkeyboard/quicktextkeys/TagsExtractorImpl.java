@@ -1,9 +1,10 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.collection.ArrayMap;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.InMemoryDictionary;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
@@ -12,9 +13,11 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -40,7 +43,7 @@ public class TagsExtractorImpl implements TagsExtractor {
     private final ArrayMap<String, List<CharSequence>> mTagsForOutputs = new ArrayMap<>();
 
     @NonNull
-    private AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList =
+    private final AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList =
             new AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList();
 
     @NonNull @VisibleForTesting final InMemoryDictionary mTagsDictionary;
@@ -72,9 +75,21 @@ public class TagsExtractorImpl implements TagsExtractor {
 
         mTagsDictionary =
                 new InMemoryDictionary(
-                        "quick_text_tags_dictionary", context, mTagsForOutputs.keySet(), true);
+                        "quick_text_tags_dictionary",
+                        context,
+                        createDictionaryPairs(mTagsForOutputs),
+                        true);
         mDictionaryDisposable =
                 DictionaryBackgroundLoader.loadDictionaryInBackground(mTagsDictionary);
+    }
+
+    private Collection<Pair<String, Integer>> createDictionaryPairs(
+            ArrayMap<String, List<CharSequence>> tags) {
+        ArrayList<Pair<String, Integer>> pairs = new ArrayList<>();
+        for (Map.Entry<String, List<CharSequence>> entry : tags.entrySet()) {
+            pairs.add(Pair.create(entry.getKey(), entry.getValue().size()));
+        }
+        return pairs;
     }
 
     @Override

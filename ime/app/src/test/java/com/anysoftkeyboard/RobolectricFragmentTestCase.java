@@ -1,22 +1,37 @@
 package com.anysoftkeyboard;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.menny.android.anysoftkeyboard.R;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
+import org.robolectric.annotation.LooperMode;
 
 /** Driver for a Fragment unit-tests */
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+@LooperMode(LooperMode.Mode.LEGACY)
 public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
-    private SupportFragmentController<T> mFragmentController;
+    private ActivityController<TestMainSettingsActivity> mActivityController;
+
+    @After
+    public void afterRobolectricFragmentTestCase() {
+        TestMainSettingsActivity.CREATED_FRAGMENT = null;
+        try {
+            mActivityController.destroy();
+        } catch (Throwable e) {
+            Logger.i(
+                    "RobolectricFragmentTestCase",
+                    "Failed to destroy the host activity in After. That's okay, I guess.");
+        }
+    }
 
     @NonNull
     protected abstract T createFragment();
@@ -31,9 +46,9 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         T fragment = createFragment();
         TestMainSettingsActivity.CREATED_FRAGMENT = fragment;
 
-        mFragmentController =
-                SupportFragmentController.of(fragment, TestMainSettingsActivity.class)
-                        .create(R.id.main_ui_content, state)
+        mActivityController =
+                ActivityController.of(new TestMainSettingsActivity())
+                        .create(state)
                         .start()
                         .postCreate(state)
                         .resume()
@@ -41,22 +56,15 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
         ensureAllScheduledJobsAreDone();
 
-        return mFragmentController.get();
+        return fragment;
     }
 
-    protected SupportFragmentController<T> getFragmentController() {
-        return mFragmentController;
+    protected ActivityController<TestMainSettingsActivity> getActivityController() {
+        return mActivityController;
     }
 
     protected void ensureAllScheduledJobsAreDone() {
-        int maxLoops = 20; // sometimes there is a re-added task. Animation?
-        while (maxLoops > 0
-                && (Robolectric.getForegroundThreadScheduler().size() > 0
-                        || Robolectric.getBackgroundThreadScheduler().size() > 0)) {
-            Robolectric.flushBackgroundThreadScheduler();
-            Robolectric.flushForegroundThreadScheduler();
-            maxLoops--;
-        }
+        TestRxSchedulers.drainAllTasks();
     }
     /*Ahead are some basic tests we can run regardless*/
 
@@ -64,7 +72,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
-        mFragmentController.pause().stop().destroy();
+        mActivityController.pause().stop().destroy();
         ensureAllScheduledJobsAreDone();
     }
 
@@ -73,7 +81,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
-        mFragmentController.pause().stop().destroy();
+        mActivityController.pause().stop().destroy();
 
         ensureAllScheduledJobsAreDone();
     }
@@ -82,13 +90,13 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     public void testEnsureFragmentHandlesHappyPathLifecycleWithResume() {
         startFragment();
 
-        mFragmentController.pause().stop();
+        mActivityController.pause().stop();
         ensureAllScheduledJobsAreDone();
 
-        mFragmentController.start().resume();
+        mActivityController.start().resume();
         ensureAllScheduledJobsAreDone();
 
-        mFragmentController.pause().stop().destroy();
+        mActivityController.pause().stop().destroy();
         ensureAllScheduledJobsAreDone();
     }
 
@@ -96,10 +104,10 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     public void testEnsureFragmentHandlesRecreateWithInstanceState() {
         startFragment();
 
-        mFragmentController.pause().stop();
+        mActivityController.pause().stop();
         Bundle state = new Bundle();
-        mFragmentController.get().onSaveInstanceState(state);
-        mFragmentController.destroy();
+        mActivityController.saveInstanceState(state);
+        mActivityController.destroy();
 
         ensureAllScheduledJobsAreDone();
 

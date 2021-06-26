@@ -4,6 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,18 +18,20 @@ import org.mockito.Mockito;
 public class InMemoryDictionaryTest {
 
     private InMemoryDictionary mUnderTest;
+    private InMemoryDictionary mUnderTestWithTypedWord;
 
     @Before
     public void setup() {
-        Collection<String> mWordsInDictionary = new ArrayList<>();
-        mWordsInDictionary.add("word");
-        mWordsInDictionary.add("hello");
-        mWordsInDictionary.add("hell");
-        mWordsInDictionary.add("he");
-        mWordsInDictionary.add("he'll");
-        mWordsInDictionary.add("AnySoftKeyboard");
-        mUnderTest =
-                new InMemoryDictionary("test", getApplicationContext(), mWordsInDictionary, false);
+        Collection<Pair<String, Integer>> pairs = new ArrayList<>();
+        pairs.add(new Pair<>("word", 4));
+        pairs.add(new Pair<>("hello", 5));
+        pairs.add(new Pair<>("hell", 4));
+        pairs.add(new Pair<>("he", 2));
+        pairs.add(new Pair<>("he'll", 4));
+        pairs.add(new Pair<>("AnySoftKeyboard", 15));
+        mUnderTest = new InMemoryDictionary("test", getApplicationContext(), pairs, false);
+        mUnderTestWithTypedWord =
+                new InMemoryDictionary("test", getApplicationContext(), pairs, true);
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -59,6 +62,25 @@ public class InMemoryDictionaryTest {
         Assert.assertEquals("he'll", callback.capturedWords.get(2));
 
         Assert.assertEquals(3, callback.capturedWords.size());
+    }
+
+    @Test
+    public void testGetWordWithIncluded() {
+        mUnderTestWithTypedWord.loadDictionary();
+        KeyCodesProvider word = Mockito.mock(KeyCodesProvider.class);
+        Mockito.doReturn(2).when(word).codePointCount();
+        Mockito.doReturn("he").when(word).getTypedWord();
+        Mockito.doReturn(new int[] {'h'}).when(word).getCodesAt(Mockito.eq(0));
+        Mockito.doReturn(new int[] {'e'}).when(word).getCodesAt(Mockito.eq(1));
+
+        MyWordCallback callback = new MyWordCallback();
+        mUnderTestWithTypedWord.getSuggestions(word, callback);
+
+        Assert.assertEquals(4, callback.capturedWords.size());
+        Assert.assertEquals("he", callback.capturedWords.get(0));
+        Assert.assertEquals("hell", callback.capturedWords.get(1));
+        Assert.assertEquals("hello", callback.capturedWords.get(2));
+        Assert.assertEquals("he'll", callback.capturedWords.get(3));
     }
 
     @Test

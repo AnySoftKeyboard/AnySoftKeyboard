@@ -3,8 +3,9 @@ apply plugin: 'com.android.library'
 apply from: "${rootDir}/gradle/android_general.gradle"
 
 dependencies {
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation("org.robolectric:robolectric:$robolectricVersion") {
         exclude group: 'com.google.auto.service', module: 'auto-service'
     }
+    testImplementation "androidx.test:core:$androidxTestCore"
 }

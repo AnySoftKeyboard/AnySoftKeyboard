@@ -2,11 +2,11 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -89,7 +89,10 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
                 for (View stripActionView : mStripActionViews) {
                     if (visible) {
-                        addView(stripActionView);
+                        // it might already be visible
+                        if (stripActionView.getParent() == null) {
+                            addView(stripActionView);
+                        }
                     } else {
                         removeView(stripActionView);
                     }
@@ -108,6 +111,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
 
         View actionView = provider.inflateActionView(this);
+        if (actionView.getParent() != null)
+            throw new IllegalStateException("StripActionProvider inflated a view with a parent!");
         actionView.setTag(PROVIDER_TAG_ID, provider);
         if (mShowActionStrip) {
             addView(actionView);

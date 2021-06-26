@@ -42,11 +42,13 @@ public class XmlUtils {
         }
     }
 
-    public static void nextElement(XmlPullParser parser)
+    public static boolean nextElement(XmlPullParser parser)
             throws XmlPullParserException, IOException {
-        int type;
+        int type = 0;
         while ((type = parser.next()) != XmlPullParser.START_TAG
                 && type != XmlPullParser.END_DOCUMENT)
             ;
+
+        return type != XmlPullParser.END_DOCUMENT;
     }
 }

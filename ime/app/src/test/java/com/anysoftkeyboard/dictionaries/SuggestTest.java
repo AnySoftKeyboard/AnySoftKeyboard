@@ -14,7 +14,7 @@ public class SuggestTest {
     public void setUp() throws Exception {
         mProvider = Mockito.mock(SuggestionsProvider.class);
 
-        mUnderTest = new Suggest(mProvider);
+        mUnderTest = new SuggestImpl(mProvider);
     }
 
     @Test

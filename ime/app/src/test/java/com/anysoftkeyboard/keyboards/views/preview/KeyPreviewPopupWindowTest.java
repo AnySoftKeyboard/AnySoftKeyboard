@@ -5,9 +5,9 @@ import static com.menny.android.anysoftkeyboard.R.drawable.blacktheme_preview_ba
 
 import android.app.Application;
 import android.graphics.Point;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
+import androidx.core.content.ContextCompat;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;

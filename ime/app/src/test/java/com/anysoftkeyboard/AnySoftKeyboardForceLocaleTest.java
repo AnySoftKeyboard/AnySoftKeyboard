@@ -3,8 +3,8 @@ package com.anysoftkeyboard;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;

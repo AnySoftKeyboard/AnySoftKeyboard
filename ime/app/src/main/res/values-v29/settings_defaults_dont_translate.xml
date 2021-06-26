@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,TypographyDashes">
+    <!-- Available starting with API 29 -->
+    <bool name="settings_default_use_system_vibration">true</bool>
+
+</resources>

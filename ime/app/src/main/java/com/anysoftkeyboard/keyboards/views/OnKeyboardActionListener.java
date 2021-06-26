@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 

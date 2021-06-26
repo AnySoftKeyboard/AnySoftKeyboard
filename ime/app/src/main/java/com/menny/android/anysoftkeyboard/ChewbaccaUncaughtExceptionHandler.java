@@ -22,12 +22,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Parcelable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -147,11 +146,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
 
         PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp);
-        builder.setSmallIcon(
-                        Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-                                ? R.drawable.notification_error_icon
-                                : R.drawable.ic_notification_error)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp, "Errors");
+        builder.setSmallIcon(R.drawable.ic_notification_error)
                 .setColor(ContextCompat.getColor(mApp, R.color.notification_background_error))
                 .setTicker(mApp.getText(R.string.ime_crashed_ticker))
                 .setContentTitle(mApp.getText(R.string.ime_name))

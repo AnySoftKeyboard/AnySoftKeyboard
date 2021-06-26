@@ -16,23 +16,38 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class MainSettingsActivity extends BasicAnyActivity {
 
     public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
+    public static final String ACTION_REQUEST_PERMISSION_ACTIVITY =
+            "ACTION_REQUEST_PERMISSION_ACTIVITY";
+    public static final String EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY =
+            "EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY";
 
     private CharSequence mTitle;
     private BottomNavigationView mBottomNavigationView;
+
+    /**
+     * Will set the title in the hosting Activity's title. Will only set the title if the fragment
+     * is hosted by the Activity's manager, and not inner one.
+     */
+    public static void setActivityTitle(Fragment fragment, CharSequence title) {
+        FragmentActivity activity = fragment.getActivity();
+        if (activity.getSupportFragmentManager() == fragment.getParentFragmentManager()) {
+            activity.setTitle(title);
+        }
+    }
 
     @Override
     protected int getViewLayoutResourceId() {
@@ -45,44 +60,41 @@ public class MainSettingsActivity extends BasicAnyActivity {
 
         mTitle = getTitle();
 
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.bottom_nav_home_button:
-                                navigateToHomeRoot();
-                                break;
-                            case R.id.bottom_nav_language_button:
-                                addFragmentToUi(
-                                        new LanguageSettingsFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            case R.id.bottom_nav_ui_button:
-                                addFragmentToUi(
-                                        new UserInterfaceSettingsFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            case R.id.bottom_nav_gestures_button:
-                                addFragmentToUi(
-                                        new GesturesSettingsFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            case R.id.bottom_nav_quick_text_button:
-                                addFragmentToUi(
-                                        new QuickTextKeysBrowseFragment(),
-                                        TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                        "Failed to handle "
-                                                + item.getItemId()
-                                                + " in mBottomNavigationView.setOnNavigationItemSelectedListener");
-                        }
-                        return true;
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.bottom_nav_home_button:
+                            navigateToHomeRoot();
+                            break;
+                        case R.id.bottom_nav_language_button:
+                            addFragmentToUi(
+                                    new LanguageSettingsFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        case R.id.bottom_nav_ui_button:
+                            addFragmentToUi(
+                                    new UserInterfaceSettingsFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        case R.id.bottom_nav_gestures_button:
+                            addFragmentToUi(
+                                    new GesturesSettingsFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        case R.id.bottom_nav_quick_text_button:
+                            addFragmentToUi(
+                                    new QuickTextKeysBrowseFragment(),
+                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                            break;
+                        default:
+                            throw new IllegalArgumentException(
+                                    "Failed to handle "
+                                            + item.getItemId()
+                                            + " in mBottomNavigationView.setOnNavigationItemSelectedListener");
                     }
+                    return true;
                 });
     }
 
@@ -90,6 +102,22 @@ public class MainSettingsActivity extends BasicAnyActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         handleAppShortcuts(getIntent());
+        handlePermissionRequest(getIntent());
+    }
+
+    private void handlePermissionRequest(Intent intent) {
+        if (intent != null
+                && ACTION_REQUEST_PERMISSION_ACTIVITY.equals(intent.getAction())
+                && intent.hasExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY)) {
+            final String permission =
+                    intent.getStringExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
+            intent.removeExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
+            if (permission.equals(Manifest.permission.READ_CONTACTS)) {
+                startContactsPermissionRequest();
+            } else {
+                throw new IllegalArgumentException("Unknown permission request " + permission);
+            }
+        }
     }
 
     private void handleAppShortcuts(Intent intent) {
@@ -136,28 +164,17 @@ public class MainSettingsActivity extends BasicAnyActivity {
         return new MainFragment();
     }
 
+    // side menu navigation methods
+
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
     }
 
-    // side menu navigation methods
-
     public void navigateToHomeRoot() {
         addFragmentToUi(
                 createRootFragmentInstance(),
                 TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    /**
-     * Will set the title in the hosting Activity's title. Will only set the title if the fragment
-     * is hosted by the Activity's manager, and not inner one.
-     */
-    public static void setActivityTitle(Fragment fragment, CharSequence title) {
-        FragmentActivity activity = fragment.getActivity();
-        if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
-            activity.setTitle(title);
-        }
     }
 }

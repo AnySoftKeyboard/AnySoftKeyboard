@@ -3,12 +3,12 @@ package com.anysoftkeyboard.dictionaries;
 import static org.mockito.ArgumentMatchers.same;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import io.reactivex.disposables.Disposable;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class DictionaryBackgroundLoaderTest {
@@ -21,9 +21,7 @@ public class DictionaryBackgroundLoaderTest {
 
         final Disposable disposable =
                 DictionaryBackgroundLoader.loadDictionaryInBackground(listener, dictionary);
-
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         final InOrder inOrder = Mockito.inOrder(listener, dictionary);
         inOrder.verify(dictionary).loadDictionary();
@@ -31,6 +29,7 @@ public class DictionaryBackgroundLoaderTest {
         inOrder.verifyNoMoreInteractions();
 
         disposable.dispose();
+        TestRxSchedulers.drainAllTasks();
         Mockito.verify(dictionary).close();
     }
 
@@ -45,18 +44,17 @@ public class DictionaryBackgroundLoaderTest {
         final Disposable disposable =
                 DictionaryBackgroundLoader.loadDictionaryInBackground(listener, dictionary);
 
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         final InOrder inOrder = Mockito.inOrder(listener, dictionary);
         inOrder.verify(dictionary).loadDictionary();
+        inOrder.verify(dictionary).close();
         inOrder.verify(listener)
                 .onDictionaryLoadingFailed(same(dictionary), same(runtimeException));
-        inOrder.verify(dictionary).close();
         inOrder.verifyNoMoreInteractions();
 
         disposable.dispose();
-
+        TestRxSchedulers.drainAllTasks();
         Mockito.verify(dictionary).close();
     }
 
@@ -66,8 +64,7 @@ public class DictionaryBackgroundLoaderTest {
         final Disposable disposable =
                 DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
 
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         final InOrder inOrder = Mockito.inOrder(dictionary);
         inOrder.verify(dictionary).loadDictionary();
@@ -75,7 +72,7 @@ public class DictionaryBackgroundLoaderTest {
         inOrder.verifyNoMoreInteractions();
 
         disposable.dispose();
-
+        TestRxSchedulers.drainAllTasks();
         Mockito.verify(dictionary, Mockito.never()).close();
     }
 
@@ -88,8 +85,7 @@ public class DictionaryBackgroundLoaderTest {
         final Disposable disposable =
                 DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
 
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         final InOrder inOrder = Mockito.inOrder(dictionary);
         inOrder.verify(dictionary).loadDictionary();
@@ -97,7 +93,7 @@ public class DictionaryBackgroundLoaderTest {
         inOrder.verifyNoMoreInteractions();
 
         disposable.dispose();
-
+        TestRxSchedulers.drainAllTasks();
         Mockito.verify(dictionary, Mockito.never()).close();
     }
 }

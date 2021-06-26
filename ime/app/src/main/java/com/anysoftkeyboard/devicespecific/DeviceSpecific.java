@@ -19,11 +19,12 @@ package com.anysoftkeyboard.devicespecific;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Vibrator;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.List;
@@ -49,7 +50,9 @@ public interface DeviceSpecific {
             @Nullable String keyboardLocale,
             @NonNull CharSequence keyboardId);
 
-    ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary);
+    ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary);
 
-    Clipboard createClipboard(Context applicationContext);
+    Clipboard createClipboard(@NonNull Context applicationContext);
+
+    PressVibrator createPressVibrator(@NonNull Vibrator vibe);
 }

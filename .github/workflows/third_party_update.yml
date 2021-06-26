@@ -16,14 +16,14 @@ env:
 jobs:
   sanity-test:
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.14.0
+    container: menny/android_base:1.15.1
     steps:
       - uses: actions/checkout@v2
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -59,7 +59,7 @@ jobs:
           labels: automerge
   robolectric-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -94,7 +94,7 @@ jobs:
           labels: automerge
   build-tools-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -103,12 +103,12 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-build-tools
         run: |
-          LATEST_VERSION=$("${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager" --list | grep -o "build-tools;${GREP_VERSION_CLASSES}" | grep -o "${GREP_VERSION_CLASSES}" | uniq | tail -n 1)
+          LATEST_VERSION=$("${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --list | grep -o "build-tools;${GREP_VERSION_CLASSES}" | grep -o "${GREP_VERSION_CLASSES}" | uniq | tail -n 1)
           echo "Found version '${LATEST_VERSION}'."
           sed "s/androidBuildTools[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/androidBuildTools = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
           cat gradle/root_all_projects_ext.gradle
-          yes | "${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager" "build-tools;${LATEST_VERSION}"
+          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "build-tools;${LATEST_VERSION}"
       - name: Sanity verification
         run: ./gradlew :api:assembleDebug :api:lintDebug
       - name: Add changed gradle files
@@ -128,7 +128,7 @@ jobs:
           labels: automerge
   error-prone-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -170,7 +170,7 @@ jobs:
           labels: automerge
   google-format-update:
     runs-on: ubuntu-18.04
-    container: menny/ndk_ask:1.14.0
+    container: menny/android_ndk:1.15.1
     steps:
       - uses: actions/checkout@v2
         with:

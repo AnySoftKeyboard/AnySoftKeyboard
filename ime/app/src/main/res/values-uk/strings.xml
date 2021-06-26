@@ -554,7 +554,6 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard використовує ваші імена контактів, щоб надати вам персоналізовані пропозиції: при введенні слова, ми шукаємо подібні слова до автозаповнення і автоматичної корекції вашого друку.</string>
     <string name="wizard_allow_contacts_permission">Дозволити пропозиції на основі контактів</string>
     <string name="allow_permission">Дозволити</string>
-    <string name="navigate_to_app_permissions">Перейти до дозволів програми</string>
     <string name="turn_off_contacts_dictionary">Вимкнути словник Контакти</string>
     <string name="read_more_about_permissions">Прочитати більше про дозволи…</string>
     <string name="ask_beta_link_promo">Гей! Хочеш швидше отримувати нові функції <i>AnySoftKeyboard</i>? Тоді тобі пощастило! Канал <i>BETA</i> просто створено для <b>ТЕБЕ</b>!\пПросто зареєструйся за посиланням нижче та онови через <i>Google Play Маркет</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nІ дякуємо за допомогу в усуненні помилок перед переходом нововведень в реліз.</string>

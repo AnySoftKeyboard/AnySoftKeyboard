@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row android:rowEdgeFlags="top">
+        <!-- ïłīι -->
+        <Key android:codes="ï" android:keyEdgeFlags="left"/>
+        <Key android:codes="ł" />
+        <Key android:codes="ī" />
+        <Key android:codes="ι" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <!-- *ìíî -->
+        <Key android:codes="*" android:keyEdgeFlags="left"/>
+        <Key android:codes="ì"/>
+        <Key android:codes="í"/>
+        <Key android:codes="î" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

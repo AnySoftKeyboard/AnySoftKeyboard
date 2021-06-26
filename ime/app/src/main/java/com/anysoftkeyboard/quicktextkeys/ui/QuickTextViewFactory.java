@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ public class QuickTextViewFactory {
             QuickKeyHistoryRecords quickKeyHistoryRecords,
             DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams")
         QuickTextPagerView rootView =
                 (QuickTextPagerView)
                         inflater.inflate(R.layout.quick_text_popup_root_view, parent, false);

@@ -2,10 +2,11 @@ package com.anysoftkeyboard.fileprovider;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.base.Charsets;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.google.common.io.Files;
 import io.reactivex.Single;
 import java.io.File;
@@ -49,14 +50,15 @@ public class LocalProxyTest {
     public void testHappyPath() throws IOException {
         final Single<Uri> uriSingle =
                 LocalProxy.proxy(ApplicationProvider.getApplicationContext(), mUri);
-        final Uri localUri = uriSingle.blockingGet();
+        final Uri localUri = TestRxSchedulers.blockingGet(uriSingle);
 
         Assert.assertNotNull(localUri);
         Assert.assertEquals("content", localUri.getScheme());
-        Assert.assertEquals("com.anysoftkeyboard.fileprovider", localUri.getAuthority());
+        Assert.assertEquals("com.anysoftkeyboard.fileprovider.test", localUri.getAuthority());
         Assert.assertTrue(
                 localUri.getPath()
-                        .endsWith("com.anysoftkeyboard.fileprovider-dataDir/files/media/file.png"));
+                        .endsWith(
+                                "com.anysoftkeyboard.fileprovider.test-dataDir/files/media/file.png"));
 
         File actualFile = new File(localUri.getPath());
         Assert.assertTrue(

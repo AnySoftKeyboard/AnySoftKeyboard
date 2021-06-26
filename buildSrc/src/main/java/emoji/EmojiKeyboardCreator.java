@@ -34,8 +34,17 @@ class EmojiKeyboardCreator {
         this.keyWidth = keyWidth;
     }
 
+    private void deleteAllBuiltKeyboard() {
+        if (keyboardResourceFile.exists() && !keyboardResourceFile.delete()) {
+            throw new RuntimeException(
+                    "Could not delete " + keyboardResourceFile.getAbsolutePath());
+        }
+    }
+
     void buildKeyboardFile()
             throws ParserConfigurationException, TransformerException, IOException {
+        deleteAllBuiltKeyboard();
+
         List<EmojiKeyboardCreator> additionalPopupCreators = new ArrayList<>();
 
         System.out.print(

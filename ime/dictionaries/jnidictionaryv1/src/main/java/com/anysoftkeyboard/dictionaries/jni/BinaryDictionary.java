@@ -19,8 +19,8 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
@@ -44,10 +44,9 @@ public class BinaryDictionary extends Dictionary {
     public BinaryDictionary(
             @NonNull Context context,
             @NonNull CharSequence dictionaryName,
-            @NonNull AssetFileDescriptor afd,
-            boolean isDebug) {
+            @NonNull AssetFileDescriptor afd) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0", isDebug);
+        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0.1");
         mAfd = afd;
     }
 

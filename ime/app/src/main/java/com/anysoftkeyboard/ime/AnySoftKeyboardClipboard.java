@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -19,6 +14,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -239,7 +239,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 break;
             case KeyCodes.CLIPBOARD_CUT:
             case KeyCodes.CLIPBOARD_COPY:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD && ic != null) {
+                if (ic != null) {
                     CharSequence selectedText =
                             ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
                     if (!TextUtils.isEmpty(selectedText)) {
@@ -273,15 +273,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 }
                 break;
             case KeyCodes.UNDO:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
-                }
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCodes.REDO:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    sendDownUpKeyEvents(
-                            KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
-                }
+                sendDownUpKeyEvents(
+                        KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
             default:
                 throw new IllegalArgumentException(

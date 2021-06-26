@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;

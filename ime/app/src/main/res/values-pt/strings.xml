@@ -10,10 +10,16 @@
     <string name="how_to_pointer_title">Bem-vindo ao AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Alterações da versão <xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Mais:\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="notification_text_testers">Esta é uma versão beta. Use com cuidado!</string>
     <string name="testers_version">Versão de teste!</string>
     <string name="language_root_tile">Idioma</string>
+    <string name="language_keyboards_settings_tile">Ativar teclados e idiomas.</string>
+    <string name="language_grammar_settings_tile">Configurar o comportamento de correção e outros dicionários.</string>
+    <string name="language_tweaks_settings_tile">Ajustes e mais.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">Interface do utilizador</string>
+    <string name="ui_theme_settings_tile">Escolha e configure os temas do teclado.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Alterações</string>
@@ -23,6 +29,7 @@
     <string name="no_market_store_available"><b>* A Google Play Store não foi encontrada no seu dispositivo. Não é possível procurar extras!</b></string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Fechar</string>
+    <string name="delete_button">Eliminar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gravado:\u0020<xliff:g id="word">%s</xliff:g>
     
@@ -50,7 +57,21 @@
     <string name="gesture_settings">Gestos</string>
     <string name="effects_group">Efeitos</string>
     <string name="ime_settings">Definições do teclado</string>
+    <string name="switch_incognito"> Modo anónimo</string>
     <string name="vibrate_on_key_press_title">Vibrar ao pressionar</string>
+    <string name="vibrate_on_key_press_value_template">%d milissegundos</string>
+    <string name="night_mode_screen">Definições do Modo Noturno</string>
+    <string name="night_mode_description">O Modo Noturno irá alterar estas funcionalidades:</string>
+    <string name="night_mode_dialog_title">Ativar Modo Noturno</string>
+    <string name="night_mode_type_never">Nunca</string>
+    <string name="night_mode_type_follow_system">Usar o mesmo do sistema</string>
+    <string name="night_mode_type_always">Sempre</string>
+    <string name="night_mode_sound_control">Desativar sons de tecla pressionada</string>
+    <string name="night_mode_vibration_control">Desativar vibrações de tecla pressionada</string>
+    <string name="power_save_mode_screen">Definições de poupança de energia</string>
+    <string name="power_save_mode_types_never">Nunca</string>
+    <string name="power_save_mode_types_always">Sempre</string>
+    <string name="pop_text_type_never">Nunca</string>
     <string name="sound_on">Som ao pressionar</string>
     <string name="sound_on_summary">Emitir som ao pressionar teclas.</string>
     <string name="use_custom_sound_volume">Definir volume</string>
@@ -426,7 +447,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="notification_read_contacts_text">Necessitamos de aceder aos seus contactos para disponibilizar uma melhor experiência.</string>
     <string name="notification_read_contacts_ticker">Requer acesso aos contactos</string>
     <string name="allow_permission">Permitir</string>
-    <string name="navigate_to_app_permissions">Ir para as permissões</string>
     <string name="turn_off_contacts_dictionary">Desativar dicionário de contactos</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

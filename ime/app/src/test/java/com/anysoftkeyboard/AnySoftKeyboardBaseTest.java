@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 import java.util.Arrays;
 import java.util.List;
@@ -24,8 +25,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
+import org.robolectric.shadow.api.Shadow;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressWarnings({"unchecked", "rawtypes"})
@@ -58,31 +59,13 @@ public abstract class AnySoftKeyboardBaseTest {
 
         mInputMethodManagerShadow =
                 (InputMethodManagerShadow)
-                        Shadows.shadowOf(
-                                (InputMethodManager)
-                                        application.getSystemService(Service.INPUT_METHOD_SERVICE));
+                        Shadow.extract(application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
         mAnySoftKeyboardController = Robolectric.buildService(getServiceClass());
         mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
         mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
         mAnySoftKeyboardUnderTest.onCreateInputMethodSessionInterface();
-
-        final TestableAnySoftKeyboard.TestableSuggest spiedSuggest =
-                (TestableAnySoftKeyboard.TestableSuggest)
-                        mAnySoftKeyboardUnderTest.getSpiedSuggest();
-
-        Assert.assertNotNull(spiedSuggest);
-
-        spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
-        spiedSuggest.setSuggestionsForWord("hel", "hell", "hello");
-        spiedSuggest.setSuggestionsForWord("hell", "hell", "hello");
-        spiedSuggest.setSuggestionsForWord("f", "face");
-        spiedSuggest.setSuggestionsForWord("fa", "face");
-        spiedSuggest.setSuggestionsForWord("fac", "face");
-        spiedSuggest.setSuggestionsForWord("face", "face");
-
-        Mockito.reset(spiedSuggest);
 
         final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
 
@@ -91,10 +74,8 @@ public abstract class AnySoftKeyboardBaseTest {
         mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
         mAbstractInputMethod.startInput(
                 mAnySoftKeyboardUnderTest.getTestInputConnection(), editorInfo);
+        TestRxSchedulers.drainAllTasks();
         mAnySoftKeyboardUnderTest.showWindow(true);
-
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
 
         Assert.assertNotNull(getMockCandidateView());
 
@@ -111,9 +92,6 @@ public abstract class AnySoftKeyboardBaseTest {
                             .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
                             .build());
         }
-
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
 
         // verifying that ASK was set on the candidate-view
         Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView())
@@ -140,6 +118,9 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected final void verifySuggestions(
             boolean resetCandidateView, CharSequence... expectedSuggestions) {
+        // ensuring suggestions computed
+        TestRxSchedulers.drainAllTasks();
+
         List actualSuggestions = verifyAndCaptureSuggestion(resetCandidateView);
         Assert.assertEquals(
                 "Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()),
@@ -182,11 +163,13 @@ public abstract class AnySoftKeyboardBaseTest {
                     .startInput(getCurrentTestInputConnection(), editorInfo);
         }
         mAnySoftKeyboardUnderTest.showWindow(true);
+        TestRxSchedulers.foregroundAdvanceBy(0);
     }
 
     protected void simulateFinishInputFlow() {
         mAbstractInputMethod.hideSoftInput(InputMethodManager.RESULT_HIDDEN, null);
         mAnySoftKeyboardUnderTest.getCreatedInputMethodSessionInterface().finishInput();
+        TestRxSchedulers.foregroundAdvanceBy(0);
     }
 
     protected CharSequence getResText(int stringId) {

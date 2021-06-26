@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.inputmethod.InputConnection;
 import com.menny.android.anysoftkeyboard.R;
@@ -18,6 +19,7 @@ public final class KeyboardUIStateHandler extends Handler {
     private final WeakReference<AnySoftKeyboardSuggestions> mKeyboard;
 
     public KeyboardUIStateHandler(AnySoftKeyboardSuggestions keyboard) {
+        super(Looper.getMainLooper());
         mKeyboard = new WeakReference<>(keyboard);
     }
 

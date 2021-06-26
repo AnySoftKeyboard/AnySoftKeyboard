@@ -698,7 +698,6 @@
     </string>
     <string name="wizard_allow_contacts_permission">ڕێگەدان بە پێشنیارکردنی ناوەکان</string>
     <string name="allow_permission">ڕێگەپێدان</string>
-    <string name="navigate_to_app_permissions">چوون بۆ ڕێگەپێدانەکان</string>
     <string name="turn_off_contacts_dictionary">نا چالاککردنی پێشنیارکردنی ناوەکان</string>
     <string name="read_more_about_permissions">زانیاری زیاتر لەسەر رێگەپێدانەکان</string>
     <string name="ask_beta_link_promo">بۆ وەرگرتنی زانیاری زیاتر لەسەر <b>تەختەکلیلی کوردی</b> یان لەکاتی بوونی هەر کێشەکەدا، پەیوەندی بکە بە لاپەڕەی <b>کـــــوردرۆیــــــد</b>" 
@@ -789,8 +788,6 @@
     <string name="app_share_title">باشترین تەختەکلیلی سیستەمی ئەندرۆید</string>
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">بەهیوای لەش ساغی! پەنجەبنێ بێرەدا بۆ زانیاری لەسەر ڤایرۆسی کۆرۆنا</string>
     <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>
