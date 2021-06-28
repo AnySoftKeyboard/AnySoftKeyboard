@@ -1,8 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.text.TextUtils;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
