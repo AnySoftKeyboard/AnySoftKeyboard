@@ -82,17 +82,17 @@ public class QuickKeyHistoryRecords {
     }
 
     public void clearHistory() {
-        Log.d("ASK", "Size of history before " + mLoadedKeys.size());
         mLoadedKeys.clear();
-        Log.d("ASK", "Size of history after " + mLoadedKeys.size());
+        // For a unknown reason, we cannot have 0 history emoji...
+        mLoadedKeys.add(new HistoryKey(DEFAULT_EMOJI, DEFAULT_EMOJI));
         final String encodedHistory = encodeForOldDevices(mLoadedKeys);
-
-        Log.d("ASK", "Encoded is " + encodedHistory);
-
         mRxPref.set(encodedHistory);
     }
 
     public List<HistoryKey> getCurrentHistory() {
+        if (mLoadedKeys.size() == 0)
+            // For a unknown reason, we cannot have 0 history emoji...
+            mLoadedKeys.add(new HistoryKey(DEFAULT_EMOJI, DEFAULT_EMOJI));
         return Collections.unmodifiableList(mLoadedKeys);
     }
 

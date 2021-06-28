@@ -546,7 +546,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 handleMediaInsertionKey();
                 break;
             case KeyCodes.DELETE_RECENT_USED_SMILEYS:
-                new QuickKeyHistoryRecords(prefs()).clearHistory();
+                getQuickKeyHistoryRecords().clearHistory();
                 break;
             case KeyCodes.DISABLED:
                 Logger.d(TAG, "Disabled key was pressed.");

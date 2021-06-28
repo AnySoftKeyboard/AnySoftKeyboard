@@ -28,6 +28,9 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
             case R.id.quick_keys_popup_quick_keys_insert_media:
                 mKeyboardActionListener.onKey(KeyCodes.IMAGE_MEDIA_POPUP, null, 0, null, true);
                 break;
+            case R.id.quick_keys_popup_delete_recently_used_smileys:
+                mKeyboardActionListener.onKey(KeyCodes.DELETE_RECENT_USED_SMILEYS, null, 0, null, true);
+                break;
             case R.id.quick_keys_popup_quick_keys_settings:
                 Intent startSettings =
                         FragmentChauffeurActivity.createStartActivityIntentForAddingFragmentToUi(
@@ -56,6 +59,8 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
         rootView.findViewById(R.id.quick_keys_popup_backspace).setOnClickListener(this);
         rootView.findViewById(R.id.quick_keys_popup_quick_keys_settings).setOnClickListener(this);
         rootView.findViewById(R.id.quick_keys_popup_quick_keys_insert_media)
+                .setOnClickListener(this);
+        rootView.findViewById(R.id.quick_keys_popup_delete_recently_used_smileys)
                 .setOnClickListener(this);
     }
 }
