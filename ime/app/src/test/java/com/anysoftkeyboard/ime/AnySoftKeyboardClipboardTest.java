@@ -9,7 +9,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -48,7 +48,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardCopy() {
         final String expectedText = "testing something very long";
         mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
@@ -75,7 +74,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardCut() {
         final String originalText = "testing something very long";
         final String textToCut = "something";
@@ -101,7 +99,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardPaste() {
         ClipboardManager clipboardManager =
                 (ClipboardManager)
@@ -123,7 +120,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardPasteWhenEmptyClipboard() {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());

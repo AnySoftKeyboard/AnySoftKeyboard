@@ -19,10 +19,10 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.XmlRes;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.XmlRes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -75,10 +75,9 @@ public class ResourceBinaryDictionary extends Dictionary {
     public ResourceBinaryDictionary(
             @NonNull CharSequence dictionaryName,
             @NonNull Context originPackageContext,
-            @XmlRes int resId,
-            boolean isDebug) {
+            @XmlRes int resId) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.2", isDebug);
+        CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0.3");
         mOriginPackageContext = originPackageContext;
         mDictResId = resId;
     }

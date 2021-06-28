@@ -19,15 +19,14 @@ package com.anysoftkeyboard.ui.settings;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -95,7 +94,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
                                 Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + (modeIndex + 2),
                                 enableStateForRowModes[modeIndex]);
                     }
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    edit.apply();
                 });
 
         builder.setMultiChoiceItems(

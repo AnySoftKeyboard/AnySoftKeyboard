@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

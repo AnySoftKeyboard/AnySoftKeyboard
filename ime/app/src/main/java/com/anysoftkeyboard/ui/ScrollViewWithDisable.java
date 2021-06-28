@@ -2,10 +2,10 @@ package com.anysoftkeyboard.ui;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
+import androidx.annotation.RequiresApi;
 
 public class ScrollViewWithDisable extends ScrollView {
     public ScrollViewWithDisable(Context context) {

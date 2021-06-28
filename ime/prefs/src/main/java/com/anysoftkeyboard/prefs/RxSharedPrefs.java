@@ -21,13 +21,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.BoolRes;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.annotation.BoolRes;
+import androidx.annotation.IntegerRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
@@ -61,13 +60,19 @@ public class RxSharedPrefs {
     }
 
     public Preference<Integer> getInteger(@StringRes int prefKey, @IntegerRes int defaultValue) {
-        return mRxSharedPreferences.getInteger(
-                mResources.getString(prefKey), mResources.getInteger(defaultValue));
+        return getInteger(mResources.getString(prefKey), defaultValue);
+    }
+
+    public Preference<Integer> getInteger(String prefKey, @IntegerRes int defaultValue) {
+        return mRxSharedPreferences.getInteger(prefKey, mResources.getInteger(defaultValue));
     }
 
     public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
-        return mRxSharedPreferences.getString(
-                mResources.getString(prefKey), mResources.getString(defaultValue));
+        return getString(mResources.getString(prefKey), defaultValue);
+    }
+
+    public Preference<String> getString(String prefKey, @StringRes int defaultValue) {
+        return mRxSharedPreferences.getString(prefKey, mResources.getString(defaultValue));
     }
 
     public <T> Observable<T> getParsedString(
@@ -104,7 +109,7 @@ public class RxSharedPrefs {
                 editor.putBoolean(
                         "settings_key_always_use_fallback_user_dictionary",
                         false /*the previous default*/);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                editor.apply();
             }
 
             if (allValues.containsKey("vibrate_on_key_press_duration")) {
@@ -116,7 +121,7 @@ public class RxSharedPrefs {
                             "settings_key_vibrate_on_key_press_duration_int",
                             previousVibrationValue);
                     editor.remove("vibrate_on_key_press_duration");
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                    editor.apply();
                 } catch (Exception e) {
                     Logger.w(
                             TAG,
@@ -172,13 +177,13 @@ public class RxSharedPrefs {
                 editor.putBoolean("ext_kbd_enabled_3_" + id, true);
             }
 
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         // saving config level
         Editor e = sp.edit();
         e.putInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
+        e.apply();
     }
 
     public interface StringParser<T> {

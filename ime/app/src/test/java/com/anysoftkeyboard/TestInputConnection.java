@@ -4,9 +4,8 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -18,6 +17,8 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.google.common.base.Preconditions;
 import org.junit.Assert;
 import org.robolectric.Shadows;
@@ -42,7 +43,7 @@ public class TestInputConnection extends BaseInputConnection {
         super(new TextView(ime.getApplicationContext()), false);
         mIme = ime;
         mDelayer =
-                new Handler() {
+                new Handler(Looper.getMainLooper()) {
                     @Override
                     public void handleMessage(@NonNull Message msg) {
                         if (msg.what == DELAYED_SELECTION_UPDATE_MSG_ID) {

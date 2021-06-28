@@ -31,27 +31,31 @@
               id="53baf0a3-389d-4257-815b-5820d7d219f7"
               defaultDictionaryLocale="en" description="@string/compact_dvorak_keyboard_description"
               index="6" />
+    <Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/ic_status_english"
+              layoutResId="@xml/dvorak_with_symbols" id="9a174a0b-fe10-4244-aceb-1ef73f698954"
+              defaultDictionaryLocale="en" description="@string/dvorak_keyboard_symbols_description"
+              index="7" />
     <Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/ic_status_english"
               layoutResId="@xml/colemak" id="86770389-9f38-4654-9e29-68d503410fcd"
               defaultDictionaryLocale="en" description="@string/colemak_keyboard_description"
-              index="7"/>
+              index="8"/>
     <Keyboard nameResId="@string/workman_keyboard" iconResId="@drawable/ic_status_english"
               layoutResId="@xml/workman" id="37334220-b0ca-11e8-8c82-0b99ca86e03e"
               defaultDictionaryLocale="en" description="@string/workman_keyboard_description"
-              index="8"/>
+              index="9"/>
     <Keyboard nameResId="@string/terminal_keyboard"
               layoutResId="@xml/terminal" id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318"
               description="@string/terminal_keyboard_description"
-              index="9"/>
+              index="10"/>
     <Keyboard nameResId="@string/halmak_keyboard"
               layoutResId="@xml/halmak" id="546b29d0-2563-11e9-b56e-0800200c9a66"
               description="@string/halmak_keyboard_description"
-              index="10"/>
+              index="11"/>
     <Keyboard nameResId="@string/english_keyboard_qwertz_symbols" iconResId="@drawable/ic_status_english"
               layoutResId="@xml/qwertz_symbols" landscapeResId="@xml/qwertz_symbols"
               id="5403a53a-6369-4dee-bf6e-32901634ae08"
               defaultDictionaryLocale="en" description="@string/english_keyboard_qwertz_symbols_description"
-              index="11" defaultEnabled="false"
+              index="12" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/english_physical" />
 
 </Keyboards>

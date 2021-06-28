@@ -5,16 +5,18 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.Manifest;
 import android.app.Application;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
@@ -23,10 +25,11 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 
+@Config(sdk = Build.VERSION_CODES.M /*we are testing permissions here*/)
 public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> {
 
     private AtomicReference<MainFragment> mFragment;
@@ -88,7 +91,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         Assert.assertTrue(item.isVisible());
 
         fragment.onOptionsItemSelected(item);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         Fragment aboutFragment =
                 activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
@@ -108,7 +111,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         Assert.assertTrue(item.isVisible());
 
         fragment.onOptionsItemSelected(item);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         Fragment aboutFragment =
                 activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
@@ -131,6 +134,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         Assert.assertNotNull(item);
 
         fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
@@ -151,6 +155,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         Assert.assertNotNull(item);
 
         fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
@@ -187,6 +192,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         fragment.onOptionsItemSelected(
                 Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.backup_prefs));
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         Assert.assertNotSame(
                 GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
@@ -202,14 +208,15 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                         GeneralDialogTestUtil.getLatestShownDialog()));
         // verifying that progress-dialog was shown
         Assert.assertNotNull(
-                Observable.fromIterable(ShadowDialog.getShownDialogs())
-                        .filter(dialog -> !dialog.isShowing())
-                        .filter(
-                                dialog ->
-                                        dialog.findViewById(R.id.progress_dialog_message_text_view)
-                                                != null)
-                        .lastOrError()
-                        .blockingGet());
+                TestRxSchedulers.blockingGet(
+                        Observable.fromIterable(ShadowDialog.getShownDialogs())
+                                .filter(dialog -> !dialog.isShowing())
+                                .filter(
+                                        dialog ->
+                                                dialog.findViewById(
+                                                                R.id.progress_dialog_message_text_view)
+                                                        != null)
+                                .lastOrError()));
         // closing dialog
         Assert.assertTrue(
                 GeneralDialogTestUtil.getLatestShownDialog()
@@ -224,6 +231,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         // now, restoring
         fragment.onOptionsItemSelected(
                 Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
+        TestRxSchedulers.foregroundFlushAllJobs();
         Assert.assertTrue(
                 GeneralDialogTestUtil.getLatestShownDialog()
                         .getButton(DialogInterface.BUTTON_POSITIVE)
@@ -235,14 +243,15 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                         GeneralDialogTestUtil.getLatestShownDialog()));
         // verifying that progress-dialog was shown
         Assert.assertNotNull(
-                Observable.fromIterable(ShadowDialog.getShownDialogs())
-                        .filter(dialog -> !dialog.isShowing())
-                        .filter(
-                                dialog ->
-                                        dialog.findViewById(R.id.progress_dialog_message_text_view)
-                                                != null)
-                        .lastOrError()
-                        .blockingGet());
+                TestRxSchedulers.blockingGet(
+                        Observable.fromIterable(ShadowDialog.getShownDialogs())
+                                .filter(dialog -> !dialog.isShowing())
+                                .filter(
+                                        dialog ->
+                                                dialog.findViewById(
+                                                                R.id.progress_dialog_message_text_view)
+                                                        != null)
+                                .lastOrError()));
         // closing dialog
         Assert.assertTrue(
                 GeneralDialogTestUtil.getLatestShownDialog()
@@ -267,6 +276,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         Assert.assertNotNull(item);
 
         fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(dialog);

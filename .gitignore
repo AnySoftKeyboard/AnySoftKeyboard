@@ -37,3 +37,5 @@ build-logging/
 #changelogs are only included alpha.txt
 **/src/*/play/release-notes/*/beta.txt
 **/src/*/play/release-notes/*/production.txt
+
+addons/.generated_pack_version

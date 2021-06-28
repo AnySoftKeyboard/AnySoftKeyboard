@@ -42,7 +42,8 @@ public class PrefsXmlStorage {
                 && targetFolder != null
                 && !targetFolder.exists()
                 && !targetFolder.mkdirs()) {
-            throw new IOException("Failed to of storage folder " + targetFolder.getAbsolutePath());
+            throw new IOException(
+                    "Failure to access storage folder " + targetFolder.getAbsolutePath());
         }
 
         final XmlWriter output;

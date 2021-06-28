@@ -58,7 +58,11 @@ woordenlijst
     <string name="effects_group">Effecten</string>
     <string name="ime_settings">Toetsenbordinstellingen</string>
     <string name="switch_incognito">Incognitomodus</string>
+    <string name="use_system_vibration_title">Systeemtrillingen gebruiken</string>
+    <string name="use_system_vibration_off_summary">Aangepaste trillinginstelling gebruiken</string>
+    <string name="use_system_vibration_on_summary">Android systeem trillingsinstelling gebruiken</string>
     <string name="vibrate_on_key_press_title">Trillen bij toetsaanslag</string>
+    <string name="vibrate_on_key_press_value_template">%d milliseconden</string>
     <string name="night_mode_screen">Nachtmodusinstellingen</string>
     <string name="night_mode_description">Nachtmodus wijzigt deze eigenschappen:</string>
     <string name="night_mode_state_summary">Huidige nachtmodusdrempel:\u0020%s</string>
@@ -83,6 +87,7 @@ woordenlijst
     <string name="power_save_mode_sound_control">Schakel geluid bij indrukken toets uit</string>
     <string name="power_save_mode_vibration_control">Schakel vibreren bij indrukken toetst uit</string>
     <string name="power_save_mode_suggestions_control">Schakel woordsuggesties uit</string>
+    <string name="power_save_mode_gesture_typing_control">Gebaar Typen uitschakelen</string>
     <string name="power_save_mode_theme_control">Schakel over op eenvoudig Dark-theme</string>
     <string name="pop_text_type_title">Getypte tekst uit toetsen laten verschijnen</string>
     <string name="pop_text_type_summary">Wanneer tekst uit ingedrukte toetsen laten verschijnen. Huidig: %s</string>
@@ -107,6 +112,9 @@ woordenlijst
     <string name="switch_keyboard_on_space">Spatiebalk wisselt toetsenborden</string>
     <string name="switch_keyboard_on_space_on_summary">Wissel van symbolen/nummers naar alfabet bij indrukken van spatiebalk</string>
     <string name="switch_keyboard_on_space_off_summary">Wissel niet van symbolen/nummers naar alfabet bij indrukken van spatiebalk</string>
+    <string name="colorize_nav_bar_title">Tekenen achter de navigatiebalk</string>
+    <string name="colorize_nav_bar_summary_on">Zal de toetsenbordindeling achter de navigatiebalk tekenen. Dit wordt niet door alle apparaten ondersteund.</string>
+    <string name="colorize_nav_bar_summary_off">Teken niet achter de navigatiebalk.</string>
     <string name="persistent_layout_per_package_id_title">Onthoud alfabetindeling per app</string>
     <string name="persistent_layout_per_package_id_off_summary">Gebruik dezelfde indeling voor alle apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatisch wisselen naar vorige indeling gebruikt in de app.</string>
@@ -122,6 +130,8 @@ woordenlijst
     <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt+Spatie wisselt naar volgende layout.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt+Spatie voert een spatie in.</string>
     <string name="enable_shift_space_language_shortcut">Shift+Spatie wisselt van taal</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + Spatie schakelt naar de volgende beschikbare indeling.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Spatie geeft een spatie.</string>
     <string name="fullscreen_input_connection_supported">Gebruik volledig scherm in landschapsmodus</string>
     <string name="fullscreen_input_connection_supported_on_summary">Neem scherm over bij tekstinvoer in landschapsmodus</string>
     <string name="fullscreen_input_connection_supported_off_summary">Gebruik geen volledig scherm in landschapsmodus</string>
@@ -209,6 +219,9 @@ woordenlijst
     <string name="special_dictionaries_group_summary">Woordenlijsten met voorstellen gebruikt in AnySoftKeyboard</string>
     <string name="use_user_dictionary">Gebruikerswoordenlijst</string>
     <string name="use_user_dictionary_on_summary">Stel woorden voor die door gebruiker zijn toegevoegd (dubbelklik een voorstel om toe te voegen)</string>
+    <string name="always_use_fallback_user_dictionary">Gebruik privé gebruikers-woordenboek opslag</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Gebruik het ingebouwde Gebruikerswoordenboekmechanisme voor AnySoftKeyboard.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Probeer de globale ingebouwde gebruikerswoordenlijst van Android te gebruiken.</string>
     <string name="use_auto_dictionary">Automatische woordenlijst</string>
     <string name="use_auto_dictionary_dialog_title">Kies leermethode</string>
     <string name="use_auto_dictionary_summary">Leer automatisch nieuwe woorden. Leermethode: %s</string>
@@ -405,7 +418,11 @@ woordenlijst
     <string name="extension_kbd_bottom_simple_alt">Eenvoudig Alternatief</string>
     <string name="extension_kbd_bottom_row_aosp">AOSP stijl</string>
     <string name="extension_kbd_bottom_ng">Nieuwe generatie - testen</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Nieuwe generatie (zonder apostrof) - Testen</string>
     <string name="extension_kbd_extension_numbers_symbols">Cijfers en symbolen</string>
+    <string name="extension_kbd_bottom_minimal">Minimaal</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimaal (geen emoji)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimaal (minder leestekens)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ga</string>
@@ -534,6 +551,17 @@ woordenlijst
     <string name="enter_word_hint">Typ het nieuwe woord hier</string>
     <string name="enter_abbreviation_hint">Afkorting</string>
     <string name="enter_abbreviation_target_hint">Volledige zin</string>
+    <string name="toast_error_custom_path_backup">Fout: Een willekeurige contextuele app kan geopend zijn</string>
+    <string name="file_explorer_menu_add_folder">Map maken</string>
+    <string name="file_explorer_filename">Back-up bestandsnaam…</string>
+    <string name="file_explorer_filename_empty">Bestandsnaam mag niet leeg zijn…</string>
+    <string name="file_explorer_alert_title">Dit bestand kiezen?</string>
+    <string name="file_explorer_restore_alert_message">Wilt u dit bestand herstellen?</string>
+    <string name="file_explorer_backup_alert_message">Dit bestand wordt overschreven.</string>
+    <string name="file_explorer_backup_success">Uw gegevens zijn opgeslagen in\u0020</string>
+    <string name="file_explorer_backup_failed">Uw gegevens konden niet worden opgeslagen.</string>
+    <string name="file_explorer_restore_success">Uw gegevens zijn hersteld vanuit\u0020</string>
+    <string name="file_explorer_restore_failed">Uw gegevens konden niet worden hersteld.</string>
     <string name="about_additional_software_licenses">Extra softwarelicenties</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aanzetten</string>
     <string name="setup_wizard_step_one_details">In deze stap moet u <i>AnySoftKeyboard</i> aanzetten. Vink <i>\'AnySoftKeyboard\'</i> aan in uw <i>Taal en invoer instellingen</i>. Daardoor kan <i>AnySoftKeyboard</i> werken op uw apparaat.</string>
@@ -578,7 +606,6 @@ woordenlijst
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard gebruikt de namen van uw contacten om u gepersonaliseerde woordsuggesties te bieden: als u een woord typt, zoeken we naar overeenkomstige woorden voor het automatisch aanvullen en automatisch corrigeren van wat u typt.</string>
     <string name="wizard_allow_contacts_permission">Sta op contacten gebaseerde suggesties toe</string>
     <string name="allow_permission">Sta toe</string>
-    <string name="navigate_to_app_permissions">Ga naar de rechten van de app</string>
     <string name="turn_off_contacts_dictionary">Schakel woordenlijst van contact uit</string>
     <string name="read_more_about_permissions">Lees meer over rechten…</string>
     <string name="ask_beta_link_promo">Hallo! Wilt u sneller nieuwe functionaliteit van <i>AnySoftKeyboard</i>? Dan heeft u geluk! Het <i>BÉTA</i>-kanaal is nu beschikbaar voor <b>U</b>!\nMeld u aan via onderstaande link en updates komen via <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nBedankt voor het helpen om bugs op te lossen voordat die bij het grote publiek komen.</string>

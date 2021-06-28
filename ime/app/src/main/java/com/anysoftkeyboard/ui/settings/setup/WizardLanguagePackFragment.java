@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -55,7 +54,7 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
                                         PreferenceManager.getDefaultSharedPreferences(getContext())
                                                 .edit();
                                 editor.putBoolean(SKIPPED_PREF_KEY, true);
-                                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                                editor.apply();
                                 refreshWizardPager();
                             }
                         });

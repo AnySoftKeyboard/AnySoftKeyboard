@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;

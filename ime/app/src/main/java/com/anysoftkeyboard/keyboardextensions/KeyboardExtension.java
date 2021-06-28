@@ -17,9 +17,9 @@
 package com.anysoftkeyboard.keyboardextensions;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.XmlRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.XmlRes;
 import com.anysoftkeyboard.addons.AddOnImpl;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

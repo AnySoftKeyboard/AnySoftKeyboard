@@ -1,14 +1,14 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.preference.Preference;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.preference.Preference;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
-import org.robolectric.Robolectric;
 
 public class MainTweaksFragmentTest extends RobolectricFragmentTestCase<MainTweaksFragment> {
 
@@ -26,7 +26,7 @@ public class MainTweaksFragmentTest extends RobolectricFragmentTestCase<MainTwea
                 fragment.findPreference(MainTweaksFragment.DEV_TOOLS_KEY);
         preferenceDevTools.getOnPreferenceClickListener().onPreferenceClick(preferenceDevTools);
 
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         Fragment navigatedToFragment =
                 fragment.getActivity()
                         .getSupportFragmentManager()

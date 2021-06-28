@@ -17,23 +17,45 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.database.ContentObserver;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Vibrator;
 import android.text.TextUtils;
+import android.view.GestureDetector;
+import android.view.inputmethod.CorrectionInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-public class DeviceSpecificV14 extends DeviceSpecificV11 {
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+public class DeviceSpecificV15 implements DeviceSpecific {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecificV14";
+        return "DeviceSpecificV15";
+    }
+
+    @Override
+    public GestureDetector createGestureDetector(
+            Context appContext, AskOnGestureListener listener) {
+        return new AskV8GestureDetector(appContext, listener);
+    }
+
+    @Override
+    public void commitCorrectionToInputConnection(
+            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+        ic.commitText(newWord, 1);
+        CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
+        ic.commitCorrection(correctionInfo);
     }
 
     @Override
@@ -59,7 +81,7 @@ public class DeviceSpecificV14 extends DeviceSpecificV11 {
             subtypes.add(subtype);
         }
         inputMethodManager.setAdditionalInputMethodSubtypes(
-                imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
+                imeId, subtypes.toArray(new InputMethodSubtype[0]));
     }
 
     @Override
@@ -74,8 +96,22 @@ public class DeviceSpecificV14 extends DeviceSpecificV11 {
                     token, imeId, createSubtype(keyboardLocale, keyboardId));
     }
 
+    @Override
+    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
+        return new DictionaryContentObserver(dictionary);
+    }
+
+    @Override
+    public Clipboard createClipboard(@NonNull Context applicationContext) {
+        return new ClipboardV11(applicationContext);
+    }
+
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
-        //noinspection deprecation
         return new InputMethodSubtype(0, 0, locale, "", keyboardId.toString(), false, false);
+    }
+
+    @Override
+    public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
+        return new PressVibratorV1(vibe);
     }
 }

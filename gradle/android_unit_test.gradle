@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 android {
     defaultConfig {
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     testOptions {
@@ -11,7 +11,8 @@ android {
         animationsDisabled true
 
         unitTests {
-            includeAndroidResources = true
+            includeAndroidResources true
+            returnDefaultValues true
 
             all {
                 int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', project.path == ':app' ? '4' : '1'))
@@ -39,7 +40,9 @@ android {
                 systemProperty 'java.awt.headless', true
                 systemProperty 'robolectric.logging', 'stdout'
                 //disabling since there is just too much logging happening in the Robolectric layer.
-                systemProperty 'robolectric.logging.enabled', false
+                systemProperty 'robolectric.logging.enabled', true
+
+                systemProperty 'robolectric.resourcesMode', "binary"
 
                 systemProperty 'robolectric.dependency.repo.url', 'https://repo1.maven.org/maven2'
 

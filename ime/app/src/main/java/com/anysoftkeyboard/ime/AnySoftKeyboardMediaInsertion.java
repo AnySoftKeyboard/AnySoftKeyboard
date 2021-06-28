@@ -3,14 +3,12 @@ package com.anysoftkeyboard.ime;
 import android.content.ClipDescription;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
-import android.support.v13.view.inputmethod.EditorInfoCompat;
-import android.support.v13.view.inputmethod.InputConnectionCompat;
-import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.remote.InsertionRequestCallback;
 import com.anysoftkeyboard.remote.MediaType;
@@ -38,11 +36,7 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
     public void onCreate() {
         super.onCreate();
         mKeyboardRemoteInsertion = createRemoteInsertion();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            mInsertionRequestCallback = new AskInsertionRequestCallback();
-        } else {
-            mInsertionRequestCallback = new NoOpCallback();
-        }
+        mInsertionRequestCallback = new AskInsertionRequestCallback();
     }
 
     @Override
@@ -52,11 +46,7 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
     }
 
     protected RemoteInsertion createRemoteInsertion() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            return new RemoteInsertionImpl(this);
-        } else {
-            return new NoOpInsertionImpl();
-        }
+        return new RemoteInsertionImpl(this);
     }
 
     @Override
@@ -64,19 +54,16 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
         super.onStartInputView(info, restarting);
 
         mSupportedMediaTypes.clear();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-            final String[] mimeTypes = EditorInfoCompat.getContentMimeTypes(info);
+        final String[] mimeTypes = EditorInfoCompat.getContentMimeTypes(info);
 
-            for (String mimeType : mimeTypes) {
-                if (ClipDescription.compareMimeTypes(mimeType, "image/*")) {
-                    mSupportedMediaTypes.add(MediaType.Image);
-                }
-                if (ClipDescription.compareMimeTypes(mimeType, "image/gif")) {
-                    mSupportedMediaTypes.add(MediaType.Gif);
-                }
+        for (String mimeType : mimeTypes) {
+            if (ClipDescription.compareMimeTypes(mimeType, "image/*")) {
+                mSupportedMediaTypes.add(MediaType.Image);
+            }
+            if (ClipDescription.compareMimeTypes(mimeType, "image/gif")) {
+                mSupportedMediaTypes.add(MediaType.Gif);
             }
         }
-
         if (mPendingCommit != null && mPendingRequestId == getIdForInsertionRequest(info)) {
             mInsertionRequestCallback.onMediaRequestDone(mPendingRequestId, mPendingCommit);
         }
@@ -90,9 +77,7 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
 
     protected void handleMediaInsertionKey() {
         final InputConnection inputConnection = getCurrentInputConnection();
-        if (inputConnection != null
-                && android.os.Build.VERSION.SDK_INT
-                        >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+        if (inputConnection != null) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             mPendingRequestId = 0;
             mPendingCommit = null;
@@ -114,7 +99,6 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
         return mSupportedMediaTypesUnmodifiable;
     }
 
-    @RequiresApi(android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
     private void onMediaInsertionReply(int requestId, InputContentInfoCompat inputContentInfo) {
         final InputConnection inputConnection = getCurrentInputConnection();
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
@@ -156,7 +140,6 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
     }
 
     @VisibleForTesting
-    @RequiresApi(android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
     protected boolean commitMediaToInputConnection(
             InputContentInfoCompat inputContentInfo,
             InputConnection inputConnection,
@@ -166,7 +149,6 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
                 inputConnection, editorInfo, inputContentInfo, flags, null);
     }
 
-    @RequiresApi(android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
     private class AskInsertionRequestCallback implements InsertionRequestCallback {
         @Override
         public void onMediaRequestDone(int requestId, InputContentInfoCompat contentInputInfo) {
@@ -177,25 +159,5 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
         public void onMediaRequestCancelled(int requestId) {
             onMediaInsertionReply(0, null);
         }
-    }
-
-    private static class NoOpInsertionImpl implements RemoteInsertion {
-
-        @Override
-        public void startMediaRequest(
-                @NonNull String[] mimeTypes,
-                int requestId,
-                @NonNull InsertionRequestCallback callback) {}
-
-        @Override
-        public void destroy() {}
-    }
-
-    private static class NoOpCallback implements InsertionRequestCallback {
-        @Override
-        public void onMediaRequestDone(int requestId, InputContentInfoCompat contentInputInfo) {}
-
-        @Override
-        public void onMediaRequestCancelled(int requestId) {}
     }
 }

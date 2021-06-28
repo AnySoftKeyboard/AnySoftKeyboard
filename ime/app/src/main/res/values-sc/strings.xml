@@ -598,7 +598,6 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard impreat sos nùmenes de sos cuntatos tuos pro ti frunire impòsitos personalizados: comente ses iscriende una paràula amus a chircare paràulas chi l\'asimigiant pro currègere e cumprire automaticamente su chi ses iscriende.</string>
     <string name="wizard_allow_contacts_permission">Permiti cunsìgios de paràulas basados in subra de sos cuntatos</string>
     <string name="allow_permission">Permiti</string>
-    <string name="navigate_to_app_permissions">Bae a sos permissos de s\'aplicatzione</string>
     <string name="turn_off_contacts_dictionary">Istuda su ditzionàriu de sos cuntatos</string>
     <string name="read_more_about_permissions">Àteras informatziones a pitzu de sos permissos…</string>
     <string name="ask_beta_link_promo">Salude! Cheres otènnere sas novidades de <i>AnySoftKeyboard</i> prus in presse? Tando ses fortunadu! Como est disponìbile unu canale <i>BETA</i> pro <b>TIE</b>!\nRegistra·ti dae su ligàmene inoghe in suta, e agiorna impreende sa butega de aplicatziones <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nE gràtzias meda pro s\'agiudu chi ses dende a s\'eliminatzione de sos errore in antis chi retzant su pùblicu.</string>
@@ -679,8 +678,6 @@
     <string name="app_share_title">Salude dae AnySoftKeyboard</string>
     <string name="app_share_menu_title">Cumpartzi AnySoftKeyboard impreende</string>
     <string name="app_share_text">Lassa chi ti cunsìgies s\'aplicatzione pro sa tastiera de Android a mitza aberta, chi rispetat sa ridervadesa tua, de badas, personalizabile meda e in prus limbas: AnySoftKeyboard.\nIscàrriga·la dae su:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">Abarra a su seguru! Incarca inoghe pro informatziones in subra de su CoronaVirus.</string>
     <string name="click_me_for_easter_egg_info">incarca·mi pro una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

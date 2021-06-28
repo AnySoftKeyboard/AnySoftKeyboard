@@ -7,6 +7,8 @@
 <suppressions>
     <suppress files=".*\/src\/test\/.*\.java" id="RawGetKeyboardTheme" />
 
+    <suppress files="PermissionRequestHelper\.java" id="EasyPermissionOnlyUsingHelper" />
+
     <suppress files="AnyApplication\.java" id="KeyboardExtensionFactoryCreation" />
 
     <suppress files="AnyApplication\.java" id="KeyboardFactoryCreation" />

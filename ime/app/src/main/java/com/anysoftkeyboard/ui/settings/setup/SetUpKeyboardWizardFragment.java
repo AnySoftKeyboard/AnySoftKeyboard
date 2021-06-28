@@ -4,16 +4,17 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.lang.ref.WeakReference;
@@ -31,6 +32,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         private final WeakReference<SetUpKeyboardWizardFragment> mWeakFragment;
 
         WizardHandler(@NonNull SetUpKeyboardWizardFragment setUpKeyboardWizardFragment) {
+            super(Looper.getMainLooper());
             mWeakFragment = new WeakReference<>(setUpKeyboardWizardFragment);
         }
 

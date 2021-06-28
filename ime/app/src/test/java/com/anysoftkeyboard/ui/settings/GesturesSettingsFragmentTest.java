@@ -1,12 +1,10 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Application;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.CheckBoxPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceCategory;
-import androidx.test.core.app.ApplicationProvider;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -16,7 +14,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.robolectric.Shadows;
 
 public class GesturesSettingsFragmentTest
         extends RobolectricFragmentTestCase<GesturesSettingsFragment> {
@@ -51,8 +48,7 @@ public class GesturesSettingsFragmentTest
                         "settings_key_separate_gesture_action",
                         "settings_key_swipe_velocity_threshold",
                         "settings_key_swipe_distance_threshold");
-        mGestureTypingPref =
-                (CheckBoxPreference) fragment.findPreference("settings_key_gesture_typing");
+        mGestureTypingPref = fragment.findPreference("settings_key_gesture_typing");
 
         for (int prefIndex = 0;
                 prefIndex < fragment.getPreferenceScreen().getPreferenceCount();
@@ -129,16 +125,15 @@ public class GesturesSettingsFragmentTest
 
     @Test
     public void testStartWithEnabled() {
-        getFragmentController().destroy();
+        getActivityController().destroy();
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
 
         startFragmentAndSetPrefs();
 
         Assert.assertTrue(mGestureTypingPref.isChecked());
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestAlertDialog());
+        Assert.assertSame(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
 
         for (Preference pref : mAffectedPrefs) {
             Assert.assertFalse(pref.isEnabled());

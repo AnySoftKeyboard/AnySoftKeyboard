@@ -579,7 +579,6 @@
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard utiliza los nombres de tus contactos para proporcionarte sugerencias de palabras: a medida que escribes una palabra, buscamos palabras similares para auto-completar y auto-corregir tu escritura.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugerencias de escritura basadas en contactos</string>
     <string name="allow_permission">Permitir</string>
-    <string name="navigate_to_app_permissions">Ir a permisos de la aplicación</string>
     <string name="turn_off_contacts_dictionary">Desactivar el diccionario de contactos</string>
     <string name="read_more_about_permissions">Leer más acerca de los permisos…</string>
     <string name="ask_beta_link_promo">¡Hola! ¿Quieres algo nuevo de <i>AnySoftKeyboard</i> más rápido? ¡Entonces estás de suerte! <i>BETA</i> ¡El canal <i>BETA</i> ya está disponible para <b>TI</b>!\n¡Simplemente regístrate en el enlace de abajo y actualiza a través de la <i>Play Store</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nY gracias por ayudar a matar problemas antes de llegar al público.</string>
@@ -660,8 +659,6 @@
     <string name="app_share_title">Hola desde AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartir uso de AnySoftKeyboard</string>
     <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    <string name="covid_19_click_for_info">¡Mantente a salvo! Haz clic para información sobre Coronavirus.</string>
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019/advice-for-public</string>
 </resources>

@@ -1,20 +1,17 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
@@ -51,7 +48,6 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         super(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public QuickTextPagerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -60,24 +56,6 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     public QuickTextPagerView(
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    private static void setupSupportTab(
-            float tabTitleTextSize,
-            ColorStateList tabTitleTextColor,
-            ViewPager pager,
-            PagerAdapter adapter,
-            ViewPager.OnPageChangeListener onPageChangeListener,
-            int startIndex) {
-        PagerTabStrip pagerTabStrip = pager.findViewById(R.id.pager_tabs);
-        pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
-        pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
-        pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
-        pager.setAdapter(adapter);
-        pager.setCurrentItem(startIndex);
-        //noinspection deprecation
-        pager.setOnPageChangeListener(onPageChangeListener);
     }
 
     @RequiresApi(Build.VERSION_CODES.GINGERBREAD_MR1)
@@ -167,24 +145,14 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
                     }
                 };
         int startPageIndex = quickTextUserPrefs.getStartPageIndex(list);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
-            setupSlidingTab(
-                    this,
-                    mTabTitleTextSize,
-                    mTabTitleTextColor,
-                    pager,
-                    adapter,
-                    onPageChangeListener,
-                    startPageIndex);
-        } else {
-            setupSupportTab(
-                    mTabTitleTextSize,
-                    mTabTitleTextColor,
-                    pager,
-                    adapter,
-                    onPageChangeListener,
-                    startPageIndex);
-        }
+        setupSlidingTab(
+                this,
+                mTabTitleTextSize,
+                mTabTitleTextColor,
+                pager,
+                adapter,
+                onPageChangeListener,
+                startPageIndex);
 
         // setting up icons from theme
         ((ImageView) findViewById(R.id.quick_keys_popup_close))

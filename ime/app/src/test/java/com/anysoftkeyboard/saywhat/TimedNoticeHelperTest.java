@@ -42,7 +42,7 @@ public class TimedNoticeHelperTest {
                 new TimedNoticeHelper(
                         ApplicationProvider.getApplicationContext(),
                         R.string.pref_test_key,
-                        longProvider::getAndIncrement);
+                        timesShown -> longProvider.getAndIncrement());
         // nothing is set now, so it should be shown
         Assert.assertTrue(helper.shouldShow());
         helper.markAsShown();
@@ -61,6 +61,49 @@ public class TimedNoticeHelperTest {
         helper.markAsShown();
         Assert.assertFalse(helper.shouldShow());
         Robolectric.getForegroundThreadScheduler().advanceBy(213 + 2, TimeUnit.MILLISECONDS);
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(1, TimeUnit.MILLISECONDS);
+        Assert.assertTrue(helper.shouldShow());
+        helper.markAsShown();
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(213 + 3, TimeUnit.MILLISECONDS);
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(1, TimeUnit.MILLISECONDS);
+        Assert.assertTrue(helper.shouldShow());
+    }
+
+    @Test
+    public void testHappyPathWithProviderWithInputTimesShown() {
+        final AtomicLong longProvider = new AtomicLong(213);
+        TimedNoticeHelper helper =
+                new TimedNoticeHelper(
+                        ApplicationProvider.getApplicationContext(),
+                        R.string.pref_test_key,
+                        longProvider::getAndAdd);
+        // nothing is set now, so it should be shown
+        Assert.assertTrue(helper.shouldShow());
+        helper.markAsShown();
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(212, TimeUnit.MILLISECONDS);
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(2, TimeUnit.MILLISECONDS);
+        Assert.assertTrue(helper.shouldShow());
+        helper.markAsShown();
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(213 + 1, TimeUnit.MILLISECONDS);
+        Assert.assertTrue(helper.shouldShow());
+        helper.markAsShown();
+        Robolectric.getForegroundThreadScheduler().advanceBy(2130, TimeUnit.MILLISECONDS);
+        Assert.assertTrue(helper.shouldShow());
+        helper.markAsShown();
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(213 + 2, TimeUnit.MILLISECONDS);
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(1, TimeUnit.MILLISECONDS);
+        Assert.assertTrue(helper.shouldShow());
+        helper.markAsShown();
+        Assert.assertFalse(helper.shouldShow());
+        Robolectric.getForegroundThreadScheduler().advanceBy(213 + 5, TimeUnit.MILLISECONDS);
         Assert.assertFalse(helper.shouldShow());
         Robolectric.getForegroundThreadScheduler().advanceBy(1, TimeUnit.MILLISECONDS);
         Assert.assertTrue(helper.shouldShow());

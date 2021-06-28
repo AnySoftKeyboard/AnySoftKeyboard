@@ -267,7 +267,5 @@
     <string name="user_dict_restore_fail_title">השחזור נכשל!</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    <string name="covid_19_click_for_info">שימרו על עצמכם! לחצו למידע על וירוס הקורונה.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    <string name="codvid_info_url">https://www.mdais.org/101/stopcoronavirus</string>
 </resources>

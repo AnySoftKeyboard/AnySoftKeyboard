@@ -6,8 +6,8 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.v7.app.AlertDialog;
 import android.view.inputmethod.EditorInfo;
+import androidx.appcompat.app.AlertDialog;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
@@ -216,13 +216,13 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testModeSwitchLoadsDictionary() {
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
     }
 
@@ -232,14 +232,14 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
         AnyKeyboard symbolsKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
 
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
         mAnySoftKeyboardUnderTest.onSymbolsKeyboardSet(symbolsKeyboard);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
 
         mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(alphabetKeyboard);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
     }
 

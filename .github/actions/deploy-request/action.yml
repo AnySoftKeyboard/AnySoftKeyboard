@@ -20,7 +20,7 @@ inputs:
     required: true
 runs:
   using: "docker"
-  image: "docker://menny/ndk_ask:1.14.0"
+  image: "docker://menny/android_ndk:1.15.1"
   env:
     TERM: dumb
     GRADLE_OPTS: "-Dorg.gradle.daemon=false"

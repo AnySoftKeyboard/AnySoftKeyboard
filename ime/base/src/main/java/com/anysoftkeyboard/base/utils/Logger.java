@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.base.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Locale;
 

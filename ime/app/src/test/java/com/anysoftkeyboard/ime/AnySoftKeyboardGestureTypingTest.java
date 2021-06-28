@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ime;
 
 import static org.mockito.ArgumentMatchers.any;
 
-import android.os.SystemClock;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -14,6 +13,7 @@ import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Arrays;
@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowSystemClock;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -34,8 +33,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     public void setUpForAnySoftKeyboardBase() throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
         super.setUpForAnySoftKeyboardBase();
-        Robolectric.flushBackgroundThreadScheduler();
-        Robolectric.flushForegroundThreadScheduler();
+        com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
+        TestRxSchedulers.foregroundFlushAllJobs();
     }
 
     @Test
@@ -53,7 +52,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         simulateOnStartInputFlow();
         ArgumentCaptor<DictionaryBackgroundLoader.Listener> captor =
                 ArgumentCaptor.forClass(DictionaryBackgroundLoader.Listener.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.times(2))
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.times(2))
                 .setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
         final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(1);
         Dictionary dictionary = Mockito.mock(Dictionary.class);
@@ -75,7 +74,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     public void testCallsGetWordsWhenGestureIsOn() {
         ArgumentCaptor<DictionaryBackgroundLoader.Listener> captor =
                 ArgumentCaptor.forClass(DictionaryBackgroundLoader.Listener.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
         final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(0);
         Dictionary dictionary = Mockito.mock(Dictionary.class);
@@ -97,7 +96,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     public void testNotCrashingWhenExceptionIsThrownInGetWordsAndGestureIsOn() {
         ArgumentCaptor<DictionaryBackgroundLoader.Listener> captor =
                 ArgumentCaptor.forClass(DictionaryBackgroundLoader.Listener.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest())
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
                 .setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
         final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(0);
         Dictionary dictionary = Mockito.mock(Dictionary.class);
@@ -140,7 +139,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                                 new int[] {50, 100, 250, 200},
                                 new int[] {80, 190, 220, 140, 130, 27}));
 
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         simulateGestureProcess("keyboard");
         Assert.assertEquals("keyboard", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
@@ -281,6 +280,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
         // this keeps the currently used detector2, but kills the second
         mAnySoftKeyboardUnderTest.onLowMemory();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
 
@@ -297,7 +297,6 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
         Assert.assertNotNull(detector1);
 
-        Robolectric.getBackgroundThreadScheduler().pause();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
@@ -309,8 +308,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
 
-        Robolectric.getBackgroundThreadScheduler().unPause();
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
     }
@@ -351,9 +349,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testBadgeGestureLifeCycle() {
-        Robolectric.getBackgroundThreadScheduler().pause();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
                 mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
@@ -377,7 +374,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.getInputView(),
                 R.drawable.ic_watermark_gesture_not_loaded);
 
-        Robolectric.flushBackgroundThreadScheduler();
+        TestRxSchedulers.drainAllTasks();
 
         ViewTestUtils.assertCurrentWatermarkHasDrawable(
                 mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
@@ -395,6 +392,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 R.drawable.ic_watermark_gesture_not_loaded);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
+        TestRxSchedulers.drainAllTasks();
 
         ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
                 mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
@@ -434,14 +432,16 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Keyboard.Key startKey =
                 mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(0));
         mAnySoftKeyboardUnderTest.onPress(startKey.getPrimaryCode());
+        TestRxSchedulers.drainAllTasks();
         mAnySoftKeyboardUnderTest.onGestureTypingInputStart(
                 startKey.centerX, startKey.centerY, (AnyKeyboard.AnyKey) startKey, time);
+        TestRxSchedulers.drainAllTasks();
         for (int keyIndex = 1; keyIndex < pathKeys.length(); keyIndex++) {
             final Keyboard.Key followingKey =
                     mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(keyIndex));
             // simulating gesture from startKey to followingKey
-            final float xStep = startKey.width / 3;
-            final float yStep = startKey.height / 3;
+            final float xStep = startKey.width / 3.0f;
+            final float yStep = startKey.height / 3.0f;
 
             final float xDistance = followingKey.centerX - startKey.centerX;
             final float yDistance = followingKey.centerY - startKey.centerY;
@@ -453,7 +453,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
             float currentX = startKey.centerX;
             float currentY = startKey.centerY;
 
-            SystemClock.sleep(timeStep);
+            TestRxSchedulers.foregroundAdvanceBy(timeStep);
             time = ShadowSystemClock.currentTimeMillis();
             mAnySoftKeyboardUnderTest.onGestureTypingInput(
                     startKey.centerX, startKey.centerY, time);
@@ -462,17 +462,20 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 callsToMake--;
                 currentX += xStep;
                 currentY += yStep;
-                SystemClock.sleep(timeStep);
+                TestRxSchedulers.foregroundAdvanceBy(timeStep);
                 time = ShadowSystemClock.currentTimeMillis();
                 mAnySoftKeyboardUnderTest.onGestureTypingInput(
                         (int) currentX, (int) currentY, time);
             }
 
+            TestRxSchedulers.foregroundAdvanceBy(timeStep);
+            time = ShadowSystemClock.currentTimeMillis();
             mAnySoftKeyboardUnderTest.onGestureTypingInput(
                     followingKey.centerX, followingKey.centerY, time);
 
             startKey = followingKey;
         }
         mAnySoftKeyboardUnderTest.onGestureTypingInputDone();
+        TestRxSchedulers.drainAllTasks();
     }
 }

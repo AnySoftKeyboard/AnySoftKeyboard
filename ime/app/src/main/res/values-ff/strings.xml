@@ -5,18 +5,96 @@
     <string name="how_to_pointer_title">A jaɓɓaama e AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Bayle cakkitiiɗe e v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Goɗɗi:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">Ɗum ko yamre betaa. Huutoro hakkille!</string>
+    <string name="testers_version">Mahto ƴeewdorɓe!</string>
     <string name="language_root_tile">Ɗemngal</string>
+    <string name="language_keyboards_settings_tile">Hurmin tappirɗe e ɗemɗe.</string>
+    <string name="language_grammar_settings_tile">Teelto no saato yahrata e caggitorɗe goɗɗe.</string>
+    <string name="language_tweaks_settings_tile">Peewtine e geɗe goɗɗe.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">Daartorde</string>
+    <string name="ui_theme_settings_tile">Cuɓagol e teeltagol ciŋkooje tappirɗe.</string>
     <!-- welcome -->
     <!-- changelog -->
+    <string name="search_market_for_addons">Yiylo ɓeyditte</string>
+    <string name="search_market_for_keyboard_addons">Heɓ tappirɗe goɗɗe to <i>Pkay Store</i></string>
+    <string name="search_market_for_quick_key_addons">Heɓ ɓeyditte goɗɗe <i>Binndi Jaawɗi</i> to jeere jaaɓɗe tog…</string>
+    <string name="no_market_store_available">Horiima yiytude Google Play e kaɓirgol maa.\nJiylagol ɓeyditte aaɓnotaako!</string>
+    <string name="keyboard_theme_tweak_group">Peewnite</string>
+    <string name="close_button">Uddu</string>
+    <string name="delete_button">Momtu</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Danndaama:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">Momtu\?</string>
+    <string name="removed_word">Momtaama:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Tappu goɗngol ngam danndude</string>
+    <string name="hint_double_tap_to_close">Kadi ngam momtude basiye</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">Tappide hiro aafaaka</string>
     <string name="voice_input_not_installed_action_install">Aaf</string>
     <string name="voice_input_not_installed_action_do_not_install">Ala</string>
     <!-- Options menu -->
+    <string name="override_dictionary">Lomtito saggitorde woowaande</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Lomtito saggitorde\u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="ime_settings">Teelte tappirde</string>
+    <string name="switch_incognito">Mbayka suuɗnde</string>
+    <string name="vibrate_on_key_press_title">Yerɓu e ñoƴƴunde feɗo</string>
+    <string name="vibrate_on_key_press_value_template">Majagulunɗe %d</string>
+    <string name="night_mode_screen">Teelte Mbayka-Jamma</string>
+    <string name="night_mode_description">Mbayka-Jamma maa waylu ɗii fannuuji:</string>
+    <string name="night_mode_state_summary">Oo sahaa, kurmal Mbayka-Jamma:\u0020%s</string>
+    <string name="night_mode_dialog_title">Hurmin Mbayka-Jamma</string>
+    <string name="night_mode_type_never">Hay sahaa</string>
+    <string name="night_mode_type_follow_system">Jaaɓdu e yuɓɓo</string>
+    <string name="night_mode_type_always">Sahaa kala</string>
+    <string name="night_mode_darken_keyboard_theme">Niɓɓiɗin siŋkoore tappirde</string>
+    <string name="night_mode_sound_control">Daaƴ hitooji ñoƴunde-feɗo</string>
+    <string name="night_mode_vibration_control">Daƴ jerɓule ñoƴƴunde-feɗo</string>
+    <string name="power_save_mode_screen">Teelte Danndol-Jaynge</string>
+    <string name="power_save_mode_description">Danndol-Jaynge maa ustu ñaamdu jaynge AnySoftKeyboard so daaƴde fannuuji:</string>
+    <string name="power_save_mode_state_summary">Oo sahaa, kurmal Danndol-Jaynge:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Hurmin mbayka Danndol-Jaynge</string>
+    <string name="power_save_mode_types_never">Hay sahaa</string>
+    <string name="power_save_mode_types_lower_battery">So batiri heewaani</string>
+    <string name="power_save_mode_types_always">Sahaa kala</string>
+    <string name="power_saving_keyboard_theme_name">Siŋkoore mbayka Danndol-Jaynge</string>
+    <string name="power_saving_keyboard_theme_description">Noone niɓɓe, lelngo hoyngo potɗe naamnaade kaɓirgol ngol seeɗa jaynge.</string>
+    <string name="power_save_mode_animation_control">Daaƴ jirwine e jiytinde-feɗo</string>
+    <string name="power_save_mode_sound_control">Daaƴ hitooji ñoƴƴunde-feɗo</string>
+    <string name="power_save_mode_vibration_control">Daƴ jerɓule ñoƴƴunde-feɗo</string>
+    <string name="power_save_mode_suggestions_control">Daaƴ basiye kelme</string>
+    <string name="power_save_mode_theme_control">Waɗtu siŋkoore niɓɓere, hoynde</string>
+    <string name="pop_text_type_never">Hay sahaa</string>
+    <string name="pop_text_type_on_correction">E saato helmere</string>
+    <string name="pop_text_type_on_word">E helmere kala</string>
+    <string name="pop_text_type_any_key">E feɗo kala</string>
+    <string name="input_field_type_password">Gallol naatnal finnde</string>
+    <string name="input_field_type_email">Gallol naatnal iimeel</string>
+    <string name="input_field_type_url">Gallol naatnal URL</string>
+    <string name="input_field_type_im">Gallol naatnal batakinde</string>
+    <string name="sound_on">Hito e ñoƴƴunde-feɗo</string>
+    <string name="use_custom_sound_volume">Fonndu daande feŋtornde</string>
+    <string name="vibrate_on_long_press_title">Yerɓu e tiigannde</string>
+    <string name="swipe_up_action">Fittu dow</string>
+    <string name="swipe_up_action_title">Suɓo baɗal fittu dow</string>
+    <string name="swipe_up_from_spacebar_action_title">Suɓo baɗal pittol palal boowe dow</string>
+    <string name="swipe_down_action">Fittu les</string>
+    <string name="swipe_down_action_title">Suɓo baɗal pittol les</string>
+    <string name="swipe_left_action">Fittu nano</string>
+    <string name="swipe_left_action_title">Suɓo baɗal pittol nano</string>
+    <string name="swipe_right_action">Fittu nano</string>
+    <string name="swipe_right_action_title">Suɓo baɗal pittol ñaamo</string>
+    <string name="swipe_right_space_bar_action">Pittol palal boowe nano</string>
+    <string name="swipe_right_space_bar_action_title">Suɓo baɗal pittol ñaamo</string>
+    <string name="swipe_left_space_bar_action">Pittol palal boowe ñaamo</string>
+    <string name="swipe_left_space_bar_action_title">Suɓo baɗal pittol nano</string>
+    <string name="swipe_left_two_fingers_action">Pittol peɗeeli ɗiɗi nano</string>
+    <string name="swipe_right_two_fingers_action">Pittol peɗeeli ɗiɗi ñaamo</string>
+    <string name="swipe_right_two_fingers_action_title">Suɓo baɗal pittol ñaamo</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
@@ -33,5 +111,6 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="theme_case_type_override_os">Accu Android suɓoo (Jaajol)</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

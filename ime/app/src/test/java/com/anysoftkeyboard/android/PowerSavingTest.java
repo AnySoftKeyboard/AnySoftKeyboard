@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
@@ -293,6 +294,7 @@ public class PowerSavingTest {
                 .sendBroadcast(
                         new Intent(
                                 lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
+        TestRxSchedulers.drainAllTasks();
     }
 
     public static void sendChargingState(boolean connected) {
@@ -302,6 +304,7 @@ public class PowerSavingTest {
                                 connected
                                         ? Intent.ACTION_POWER_CONNECTED
                                         : Intent.ACTION_POWER_DISCONNECTED));
+        TestRxSchedulers.drainAllTasks();
     }
 
     public static void sendPowerSavingState(
@@ -309,5 +312,6 @@ public class PowerSavingTest {
         shadowPowerManager.setIsPowerSaveMode(powerSaving);
         ApplicationProvider.getApplicationContext()
                 .sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+        TestRxSchedulers.drainAllTasks();
     }
 }

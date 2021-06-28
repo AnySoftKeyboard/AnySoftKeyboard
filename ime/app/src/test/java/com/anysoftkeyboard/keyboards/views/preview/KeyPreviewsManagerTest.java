@@ -6,16 +6,17 @@ import static com.menny.android.anysoftkeyboard.R.drawable.blacktheme_preview_ba
 import android.app.Application;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -36,6 +36,7 @@ public class KeyPreviewsManagerTest {
     private PositionCalculator mPositionCalculator;
 
     private static PopupWindow getLatestCreatedPopupWindow() {
+        TestRxSchedulers.foregroundAdvanceBy(1000);
         return Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
                 .getLatestPopupWindow();
     }
@@ -157,8 +158,6 @@ public class KeyPreviewsManagerTest {
         final PopupWindow firstPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNotNull(firstPopupWindow);
 
-        Robolectric.flushForegroundThreadScheduler();
-
         underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
         Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());
     }
@@ -171,8 +170,6 @@ public class KeyPreviewsManagerTest {
 
         final PopupWindow firstPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNotNull(firstPopupWindow);
-
-        Robolectric.flushForegroundThreadScheduler();
 
         underTest.showPreviewForKey(mTestKeys[1], "t", mKeyboardView, mTheme);
         Assert.assertNotSame(firstPopupWindow, getLatestCreatedPopupWindow());
@@ -210,7 +207,7 @@ public class KeyPreviewsManagerTest {
         final PopupWindow second = getLatestCreatedPopupWindow();
 
         underTest.hidePreviewForKey(mTestKeys[0]);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundAdvanceBy(1000);
 
         underTest.showPreviewForKey(mTestKeys[2], mTestKeys[2].label, mKeyboardView, mTheme);
         final PopupWindow third = getLatestCreatedPopupWindow();
@@ -229,16 +226,12 @@ public class KeyPreviewsManagerTest {
         final PopupWindow firstPopupWindow = getLatestCreatedPopupWindow();
         Assert.assertNotNull(firstPopupWindow);
 
-        Robolectric.flushForegroundThreadScheduler();
-
         underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
         Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());
 
-        Robolectric.flushForegroundThreadScheduler();
-
         underTest.cancelAllPreviews();
 
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundAdvanceBy(1000);
 
         underTest.showPreviewForKey(mTestKeys[0], "y", mKeyboardView, mTheme);
         Assert.assertSame(firstPopupWindow, getLatestCreatedPopupWindow());

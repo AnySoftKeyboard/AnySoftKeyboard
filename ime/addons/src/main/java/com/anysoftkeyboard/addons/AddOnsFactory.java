@@ -27,16 +27,16 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.preference.PreferenceManager;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.XmlRes;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.XmlRes;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.io.IOException;
 import java.io.Serializable;
@@ -125,7 +125,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         final int stringResId =
                 attrs.getAttributeResourceValue(null, attributeName, AddOn.INVALID_RES_ID);
         if (stringResId != AddOn.INVALID_RES_ID) {
-            return context.getResources().getText(stringResId);
+            return context.getResources().getString(stringResId);
         } else {
             return attrs.getAttributeValue(null, attributeName);
         }
@@ -281,10 +281,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
                         || !aReceiver.applicationInfo.enabled) {
                     continue;
                 }
-                final XmlPullParser xml =
-                        aReceiver.loadXmlMetaData(mContext.getPackageManager(), mReceiverMetaData);
-                if (xml != null) {
-                    return true;
+                try (final XmlResourceParser xml =
+                        aReceiver.loadXmlMetaData(
+                                mContext.getPackageManager(), mReceiverMetaData)) {
+                    if (xml != null) {
+                        return true;
+                    }
                 }
             }
         }
@@ -398,19 +400,20 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     private List<E> getAddOnsFromResId(Context packContext, int addOnsResId) {
-        final XmlPullParser xml = packContext.getResources().getXml(addOnsResId);
-
-        return parseAddOnsFromXml(packContext, xml);
+        try (final XmlResourceParser xml = packContext.getResources().getXml(addOnsResId)) {
+            return parseAddOnsFromXml(packContext, xml);
+        }
     }
 
     private List<E> getAddOnsFromActivityInfo(Context packContext, ActivityInfo ai) {
-        final XmlPullParser xml =
-                ai.loadXmlMetaData(mContext.getPackageManager(), mReceiverMetaData);
-        if (xml == null) {
-            // issue 718: maybe a bad package?
-            return Collections.emptyList();
+        try (final XmlResourceParser xml =
+                ai.loadXmlMetaData(mContext.getPackageManager(), mReceiverMetaData)) {
+            if (xml == null) {
+                // issue 718: maybe a bad package?
+                return Collections.emptyList();
+            }
+            return parseAddOnsFromXml(packContext, xml);
         }
-        return parseAddOnsFromXml(packContext, xml);
     }
 
     private ArrayList<E> parseAddOnsFromXml(Context packContext, XmlPullParser xml) {
@@ -597,7 +600,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 setAddOnEnableValueInPrefs(editor, addOnId, false);
                 setAddOnEnableValueInPrefs(editor, mDefaultAddOnId, true);
             }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
     }
 
@@ -664,7 +667,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putString(mSortedIdsPrefId, orderValue.toString());
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         @Override
@@ -690,7 +693,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         public void setAddOnEnabled(String addOnId, boolean enabled) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             setAddOnEnableValueInPrefs(editor, addOnId, enabled);
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+            editor.apply();
         }
 
         @Override

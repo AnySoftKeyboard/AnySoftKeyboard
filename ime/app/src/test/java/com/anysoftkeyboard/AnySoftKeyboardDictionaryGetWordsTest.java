@@ -2,13 +2,13 @@ package com.anysoftkeyboard;
 
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTest {
@@ -19,9 +19,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
@@ -30,14 +30,12 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
-        Robolectric.getForegroundThreadScheduler().pause();
-        Robolectric.getBackgroundThreadScheduler().pause();
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateKeyPress('l', false);
         Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ', false);
         // correctly auto-picked
-        Assert.assertEquals("hell ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals("he'll ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -46,9 +44,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateKeyPress('e');
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateKeyPress('l');
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
@@ -60,16 +58,16 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateKeyPress('e');
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         // sending a delayed event from the input-connection.
         // this can happen when the user is clicking fast (in ASK thread), but the other side (the
         // app thread)
         // is too slow, or busy with something to send out events.
         inputConnection.setUpdateSelectionDelay(1L);
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('l');
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
@@ -82,7 +80,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         // moving one character back, and fixing the word to 'hel'
         mAnySoftKeyboardUnderTest.setSelectedText(1, 1, true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
 
     @Test
@@ -93,15 +91,15 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hell", inputConnection.getLastCommitCorrection());
+        Assert.assertEquals("he'll", inputConnection.getLastCommitCorrection());
         // we should also see the space
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
         // now, if we press DELETE, the word should be reverted
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
@@ -171,6 +169,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
         // another space
@@ -187,6 +186,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
         // another space
@@ -205,15 +205,15 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
-        Assert.assertEquals("hell", inputConnection.getLastCommitCorrection());
+        Assert.assertEquals("he'll", inputConnection.getLastCommitCorrection());
         // we should also see the question mark
-        Assert.assertEquals("hell?", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll?", inputConnection.getCurrentTextInInputConnection());
         // now, if we press DELETE, the word should be reverted
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
@@ -233,7 +233,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.setSelectedText(1, 1, true);
         mAnySoftKeyboardUnderTest.simulateKeyPress('e');
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         Mockito.reset(
                 inputConnection); // clearing any previous interactions with finishComposingText
@@ -255,7 +255,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
@@ -278,7 +278,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals("", inputConnection.getLastCommitCorrection());
 
@@ -299,7 +299,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
         Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
@@ -325,7 +325,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
         Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
@@ -340,7 +340,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
         Assert.assertEquals("hello hel", inputConnection.getCurrentTextInInputConnection());
 
-        Robolectric.flushForegroundThreadScheduler();
+        TestRxSchedulers.foregroundFlushAllJobs();
         Assert.assertEquals("hello hel", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(9, inputConnection.getCurrentStartPosition());
     }
@@ -353,17 +353,17 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
         // now, navigating to to the 'e'
         mAnySoftKeyboardUnderTest.setSelectedText(2, 2, true);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(2, inputConnection.getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hll ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("h'll ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
     }
 
@@ -374,19 +374,19 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
 
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
-        Assert.assertEquals("hell\n", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("he'll\n", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(6, inputConnection.getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("he'll", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
     }
 
     @Test
@@ -454,7 +454,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
 
@@ -478,7 +478,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
 
@@ -500,7 +500,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         TestInputConnection inputConnection =
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         // backspace
@@ -562,7 +562,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 "he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        verifySuggestions(true, "he", "hello", "hell", "he'll");
 
         // should not do anything
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);

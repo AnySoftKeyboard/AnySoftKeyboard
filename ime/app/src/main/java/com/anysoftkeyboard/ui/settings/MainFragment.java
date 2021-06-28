@@ -1,11 +1,9 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,13 +11,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.graphics.Palette;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -32,7 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.anysoftkeyboard.PermissionsRequestCodes;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.palette.graphics.Palette;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -57,40 +55,47 @@ import io.reactivex.functions.Function;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class MainFragment extends Fragment {
-
-    private static final String TAG = "MainFragment";
 
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
     static final int DIALOG_LOAD_FAILED = 21;
-    static int successDialog;
-    static int failedDialog;
+    private static final String TAG = "MainFragment";
     public static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
     public static Boolean[] checked;
+    static int successDialog;
+    static int failedDialog;
     static Function<
                     Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
                     ObservableSource<GlobalPrefsBackup.ProviderDetails>>
             action;
 
     private final boolean mTestingBuild;
+    public int modeBackupRestore;
     private AnimationDrawable mNotConfiguredAnimation = null;
     @NonNull private Disposable mPaletteDisposable = Disposables.empty();
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
-
-    public int modeBackupRestore;
     private GeneralDialogController mDialogController;
     @NonNull private CompositeDisposable mDisposable = new CompositeDisposable();
+
+    public MainFragment() {
+        this(BuildConfig.TESTING_BUILD);
+    }
+
+    @SuppressWarnings("ValidFragment")
+    @VisibleForTesting
+    MainFragment(boolean testingBuild) {
+        mTestingBuild = testingBuild;
+    }
 
     public static void setupLink(
             View root,
@@ -112,14 +117,12 @@ public class MainFragment extends Fragment {
         clickHere.setText(sb);
     }
 
-    public MainFragment() {
-        this(BuildConfig.TESTING_BUILD);
+    public static void launchRestoreCustomFileData(InputStream inputStream) {
+        PrefsXmlStorage.prefsXmlStorageCustomPath(inputStream);
     }
 
-    @SuppressWarnings("ValidFragment")
-    @VisibleForTesting
-    MainFragment(boolean testingBuild) {
-        mTestingBuild = testingBuild;
+    public static void launchBackupCustomFileData(OutputStream outputStream) {
+        PrefsXmlStorage.prefsXmlBackupCustomPath(outputStream);
     }
 
     @Override
@@ -129,7 +132,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mDialogController = new GeneralDialogController(getActivity(), this::onSetupDialogRequired);
@@ -155,14 +158,14 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) requireActivity();
         switch (item.getItemId()) {
             case R.id.about_menu_option:
                 activity.addFragmentToUi(
@@ -175,10 +178,10 @@ public class MainFragment extends Fragment {
                         TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             case R.id.backup_prefs:
+                onBackupRequested();
+                return true;
             case R.id.restore_prefs:
-                ((MainSettingsActivity) getActivity())
-                        .startPermissionsRequest(
-                                new MainFragment.StoragePermissionRequest(this, item.getItemId()));
+                onRestoreRequested();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -214,7 +217,7 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         FragmentChauffeurActivity activity =
-                                (FragmentChauffeurActivity) getActivity();
+                                (FragmentChauffeurActivity) requireActivity();
                         activity.addFragmentToUi(
                                 new SetUpKeyboardWizardFragment(),
                                 TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
@@ -257,7 +260,7 @@ public class MainFragment extends Fragment {
 
         View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here_root);
         // checking if the IME is configured
-        final Context context = getActivity().getApplicationContext();
+        final Context context = requireContext().getApplicationContext();
 
         if (SetupSupport.isThisKeyboardSetAsDefaultIME(context)) {
             notConfiguredBox.setVisibility(View.GONE);
@@ -266,7 +269,7 @@ public class MainFragment extends Fragment {
         }
 
         AnyKeyboard defaultKeyboard =
-                AnyApplication.getKeyboardFactory(getContext())
+                AnyApplication.getKeyboardFactory(requireContext())
                         .getEnabledAddOn()
                         .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
@@ -376,7 +379,7 @@ public class MainFragment extends Fragment {
         modeBackupRestore = optionId;
         switch (optionId) {
             case R.id.backup_prefs:
-                action = GlobalPrefsBackup::backup;
+                action = listPair -> GlobalPrefsBackup.backup(requireContext(), listPair);
                 actionString = R.string.word_editor_action_backup_words;
                 actionCustomPath = Intent.ACTION_CREATE_DOCUMENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_backup);
@@ -384,7 +387,7 @@ public class MainFragment extends Fragment {
                 failedDialog = DIALOG_SAVE_FAILED;
                 break;
             case R.id.restore_prefs:
-                action = GlobalPrefsBackup::restore;
+                action = listPair -> GlobalPrefsBackup.restore(requireContext(), listPair);
                 actionString = R.string.word_editor_action_restore_words;
                 actionCustomPath = Intent.ACTION_GET_CONTENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_restore);
@@ -396,7 +399,7 @@ public class MainFragment extends Fragment {
                         "The option-id " + optionId + " is not supported here.");
         }
 
-        supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(getContext());
+        supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(requireContext());
         final CharSequence[] providersTitles = new CharSequence[supportedProviders.size()];
         final boolean[] initialChecked = new boolean[supportedProviders.size()];
         checked = new Boolean[supportedProviders.size()];
@@ -422,46 +425,42 @@ public class MainFragment extends Fragment {
                 });
         builder.setNeutralButton(
                 choosePathString,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            Intent dataToFileChooser = new Intent();
-                            dataToFileChooser.setType("text/xml");
-                            if (modeBackupRestore == R.id.backup_prefs) {
-                                // create backup file in selected directory
-                                dataToFileChooser.putExtra(
-                                        Intent.EXTRA_TITLE,
-                                        GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
-                            }
-                            dataToFileChooser.setAction(actionCustomPath);
-                            dataToFileChooser.putExtra("checked", checked);
-                            try {
-                                startActivityForResult(dataToFileChooser, 1);
-                            } catch (ActivityNotFoundException e) {
-                                Logger.e(TAG, "Could not launch the custom path activity");
-                                Toast.makeText(
-                                                getActivity().getApplicationContext(),
-                                                R.string.toast_error_custom_path_backup,
-                                                Toast.LENGTH_LONG)
-                                        .show();
-                            }
-
-                        } else {
-                            Intent intent = null;
-                            if (optionId == R.id.backup_prefs) {
-                                intent = new Intent(getContext(), FileExplorerCreate.class);
-                            } else if (optionId == R.id.restore_prefs) {
-                                intent = new Intent(getContext(), FileExplorerRestore.class);
-                            }
-                            startActivity(intent);
+                (dialog, which) -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        Intent dataToFileChooser = new Intent();
+                        dataToFileChooser.setType("text/xml");
+                        if (modeBackupRestore == R.id.backup_prefs) {
+                            // create backup file in selected directory
+                            dataToFileChooser.putExtra(
+                                    Intent.EXTRA_TITLE, GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
                         }
+                        dataToFileChooser.setAction(actionCustomPath);
+                        dataToFileChooser.putExtra("checked", checked);
+                        try {
+                            startActivityForResult(dataToFileChooser, 1);
+                        } catch (ActivityNotFoundException e) {
+                            Logger.e(TAG, "Could not launch the custom path activity");
+                            Toast.makeText(
+                                            requireContext().getApplicationContext(),
+                                            R.string.toast_error_custom_path_backup,
+                                            Toast.LENGTH_LONG)
+                                    .show();
+                        }
+
+                    } else {
+                        Intent intent = null;
+                        if (optionId == R.id.backup_prefs) {
+                            intent = new Intent(getContext(), FileExplorerCreate.class);
+                        } else if (optionId == R.id.restore_prefs) {
+                            intent = new Intent(getContext(), FileExplorerRestore.class);
+                        }
+                        startActivity(intent);
                     }
                 });
     }
 
     private Disposable launchBackupRestore(int custom, Uri customUri) {
-        File filePath;
+        final File filePath;
         if (custom == 1) {
             if (customUri.getPath() != null) {
                 // Uri won't show an absolute path, so better show only file name
@@ -470,11 +469,13 @@ public class MainFragment extends Fragment {
             } else {
                 filePath = new File(customUri.getPath());
             }
-        } else filePath = GlobalPrefsBackup.getBackupFile();
+        } else {
+            filePath = GlobalPrefsBackup.getBackupFile(requireContext());
+        }
 
         return RxProgressDialog.create(
                         new Pair<>(supportedProviders, checked),
-                        getActivity(),
+                        requireActivity(),
                         getText(R.string.take_a_while_progress_message),
                         R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
@@ -497,14 +498,6 @@ public class MainFragment extends Fragment {
                         () -> mDialogController.showDialog(successDialog, filePath));
     }
 
-    public static void launchRestoreCustomFileData(InputStream inputStream) {
-        PrefsXmlStorage.prefsXmlStorageCustomPath(inputStream);
-    }
-
-    public static void launchBackupCustomFileData(OutputStream outputStream) {
-        PrefsXmlStorage.prefsXmlBackupCustomPath(outputStream);
-    }
-
     // This function is if launched when selecting neutral button of the main Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -515,7 +508,7 @@ public class MainFragment extends Fragment {
                 && data != null
                 && data.getDataString() != null) {
 
-            ContentResolver resolver = getContext().getContentResolver();
+            ContentResolver resolver = requireContext().getContentResolver();
             Logger.d(TAG, "Resolver " + resolver.getType(data.getData()));
             try {
                 // Actually, it is not a good idea to convert URI into filepath.
@@ -536,44 +529,28 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private static class StoragePermissionRequest
-            extends PermissionsRequest.PermissionsRequestBase {
-
-        private final WeakReference<MainFragment> mFragmentWeakReference;
-        private final int mOptionId;
-
-        StoragePermissionRequest(MainFragment fragment, int optionId) {
-            super(PermissionsRequestCodes.STORAGE.getRequestCode(), getPermissionsForOsVersion());
-            mOptionId = optionId;
-            mFragmentWeakReference = new WeakReference<>(fragment);
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)
+    public void onRestoreRequested() {
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
+            mDialogController.showDialog(R.id.restore_prefs);
         }
+    }
 
-        @NonNull
-        private static String[] getPermissionsForOsVersion() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                return new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                };
-            } else {
-                return new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            }
+    @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)
+    public void onBackupRequested() {
+        if (PermissionRequestHelper.check(
+                this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
+            mDialogController.showDialog(R.id.backup_prefs);
         }
+    }
 
-        @Override
-        public void onPermissionsGranted() {
-            MainFragment fragment = mFragmentWeakReference.get();
-            if (fragment == null) return;
-
-            fragment.mDialogController.showDialog(mOptionId);
-        }
-
-        @Override
-        public void onPermissionsDenied(
-                @NonNull String[] grantedPermissions,
-                @NonNull String[] deniedPermissions,
-                @NonNull String[] declinedPermissions) {
-            /*no-op - Main-Activity handles this case*/
-        }
+    @SuppressWarnings("deprecation") // required for permissions flow
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionRequestHelper.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 }

@@ -22,11 +22,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -50,12 +48,9 @@ public class TutorialsProvider {
                     ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
             NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(context);
+                    new NotificationCompat.Builder(context, "Tester");
             notificationBuilder
-                    .setSmallIcon(
-                            Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-                                    ? R.drawable.notification_icon_beta_version
-                                    : R.drawable.ic_notification_debug_version)
+                    .setSmallIcon(R.drawable.ic_notification_debug_version)
                     .setContentText(context.getText(R.string.notification_text_testers))
                     .setContentTitle(context.getText(R.string.ime_name))
                     .setWhen(System.currentTimeMillis())
@@ -78,7 +73,7 @@ public class TutorialsProvider {
 
         Editor e = sp.edit();
         e.putString(KEY, currentHash);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
+        e.apply();
 
         return !currentHash.equals(lastDebugVersionHash);
     }
