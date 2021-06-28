@@ -1,0 +1,12 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="ž" />
+        <Key android:codes="ź" />
+        <Key android:codes="ζ" />
+    </Row>
+    <Row>
+        <Key android:codes="/" />
+        <Key android:codes="÷" />
+        <Key android:codes="ż" />
+    </Row>
+</Keyboard>

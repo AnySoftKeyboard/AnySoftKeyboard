@@ -1,0 +1,12 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="ń" />
+        <Key android:codes="ň" />
+        <Key android:codes="ñ" />
+    </Row>
+    <Row>
+        <Key android:codes=";" />
+        <Key android:codes=":" />
+        <Key android:codes="ν" />
+    </Row>
+</Keyboard>

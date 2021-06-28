@@ -1,0 +1,6 @@
+<resources>
+    <!-- same in ime/app/src/main/res/values/mirfatif_strings.xml -->
+    <string name="mirfatif_qwerty_with_symbols_guid">9C0DF88B-5BED-4953-B988-E608F3A4F167</string>
+
+    <string name="mirfatif_english_keyboard_symbols_description">QWERTY Latin keyboard with symbols by mirfatif</string>
+</resources>

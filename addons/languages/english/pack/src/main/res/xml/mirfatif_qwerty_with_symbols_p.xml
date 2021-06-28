@@ -1,0 +1,13 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="π" />
+        <Key android:codes="φ" />
+        <Key android:codes="ψ" />
+    </Row>
+    <Row>
+        <Key android:codes="\0" />
+        <Key android:codes="¶" />
+        <Key android:codes="₽" />
+        <Key android:codes="₱" />
+    </Row>
+</Keyboard>

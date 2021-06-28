@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height">
+
+    <!-- Top row -->
+    <Row android:rowEdgeFlags="top">
+        <Key
+            android:codes="@integer/key_code_esc"
+            android:keyEdgeFlags="left"
+            android:keyLabel="Esc"
+            ask:isFunctional="true" />
+        <Key android:codes="@integer/key_code_tab" />
+        <Key
+            android:codes="@integer/key_code_ctrl"
+            android:isModifier="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_left"
+            android:horizontalGap="5%p"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_up"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_down"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_right"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_home"
+            android:horizontalGap="5%p"
+            android:keyLabel="Hom"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_end"
+            android:keyEdgeFlags="right"
+            android:keyLabel="End"
+            ask:isFunctional="true" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="q"
+            android:keyEdgeFlags="left"
+            android:popupCharacters="1"
+            ask:hintLabel="1" />
+        <Key
+            android:codes="w"
+            android:popupCharacters="2ŵ"
+            ask:hintLabel="2" />
+        <Key
+            android:codes="e"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_e"
+            ask:hintLabel="3" />
+        <Key
+            android:codes="r"
+            android:popupCharacters="4ŕřρ"
+            ask:hintLabel="4" />
+        <Key
+            android:codes="t"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_t"
+            ask:hintLabel="5" />
+        <Key
+            android:codes="y"
+            android:popupCharacters="6ýÿ¥"
+            ask:hintLabel="6" />
+        <Key
+            android:codes="u"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_u"
+            ask:hintLabel="7" />
+        <Key
+            android:codes="i"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_i"
+            ask:hintLabel="8" />
+        <Key
+            android:codes="o"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_o"
+            ask:hintLabel="9" />
+        <Key
+            android:codes="p"
+            android:keyEdgeFlags="right"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_p"
+            ask:hintLabel="0" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="a"
+            android:horizontalGap="5%p"
+            android:keyEdgeFlags="left"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_a"
+            ask:hintLabel="\@" />
+        <Key
+            android:codes="s"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_s"
+            ask:hintLabel="$" />
+        <Key
+            android:codes="d"
+            android:popupCharacters="#đďḏδ"
+            ask:hintLabel="#" />
+        <Key
+            android:codes="f"
+            android:popupCharacters="%^ϕ"
+            ask:hintLabel="%" />
+        <Key
+            android:codes="g"
+            android:popupCharacters="&amp;ĝγ"
+            ask:hintLabel="&amp;" />
+        <Key
+            android:codes="h"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_h"
+            ask:hintLabel="`" />
+        <Key
+            android:codes="j"
+            android:popupCharacters="([{&lt;ĵ"
+            ask:hintLabel="(" />
+        <Key
+            android:codes="k"
+            android:popupCharacters=")]}&gt;κ"
+            ask:hintLabel=")" />
+        <Key
+            android:codes="l"
+            android:keyEdgeFlags="right"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_l"
+            ask:hintLabel="_" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@integer/key_code_shift"
+            android:isModifier="true"
+            android:isSticky="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="left" />
+        <Key
+            android:codes="z"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_z"
+            ask:hintLabel="/" />
+        <Key
+            android:codes="x"
+            android:popupCharacters="*·×∗ξ"
+            ask:hintLabel="*" />
+        <Key
+            android:codes="c"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_c"
+            ask:hintLabel="-" />
+        <Key
+            android:codes="v"
+            android:popupCharacters="+±\="
+            ask:hintLabel="+" />
+        <Key
+            android:codes="b"
+            android:popupCharacters="\\|ß₿β"
+            ask:hintLabel="\\" />
+        <Key
+            android:codes="n"
+            android:popupKeyboard="@xml/mirfatif_qwerty_with_symbols_n"
+            ask:hintLabel=";" />
+        <Key
+            android:codes="m"
+            android:popupCharacters="\?!µ"
+            ask:hintLabel="\?" />
+        <Key
+            android:codes="@integer/key_code_delete"
+            android:isRepeatable="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <!-- Bottom row -->
+    <Row android:rowEdgeFlags="bottom">
+
+        <Key
+            android:codes="@integer/key_code_keyboard_mode_change"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="left"
+            ask:isFunctional="true"
+            ask:keyDynamicEmblem="icon"
+            ask:longPressCode="@integer/key_code_mode_alphabet_popup" />
+
+        <!-- comma -->
+        <Key
+            android:codes="44"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_quick_text_popup"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_quick_text" />
+
+        <Key
+            android:codes="@integer/key_code_space"
+            android:keyWidth="35%p"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="&quot;"
+            android:popupCharacters="\'"
+            ask:hintLabel=" "
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="."
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_enter"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="right"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_settings" />
+    </Row>
+</Keyboard>

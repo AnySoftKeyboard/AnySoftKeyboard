@@ -57,5 +57,10 @@
               defaultDictionaryLocale="en" description="@string/english_keyboard_qwertz_symbols_description"
               index="12" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/english_physical" />
-
+    <Keyboard nameResId="@string/english_keyboard_symbols" iconResId="@drawable/ic_status_english"
+              layoutResId="@xml/mirfatif_qwerty_with_symbols" landscapeResId="@xml/mirfatif_qwerty_with_symbols"
+              id="@string/mirfatif_qwerty_with_symbols_guid"
+              defaultDictionaryLocale="en" description="@string/mirfatif_english_keyboard_symbols_description"
+              index="12" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/english_physical" />
 </Keyboards>
