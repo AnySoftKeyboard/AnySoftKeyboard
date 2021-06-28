@@ -38,6 +38,8 @@
         <item name="iconKeyMic">@drawable/ic_av_mic</item>
         <!-- should support normal, feedback -->
         <item name="iconKeySettings">@drawable/ic_action_settings</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyDeleteRecentlyUsed">@drawable/outline_delete_forever_24</item>
 
         <!-- condensing icons -->
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard</item>

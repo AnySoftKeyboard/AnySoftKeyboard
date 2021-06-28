@@ -62,6 +62,8 @@
            parent="AospBaseTheme">
         <item name="android:background">@color/aosp_light_background</item>
         <item name="keyBackground">@drawable/aosp_light_btn_key</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyDeleteRecentlyUsed">@drawable/outline_delete_forever_24</item>
         <item name="keyPreviewBackground">@drawable/aosp_light_popup_background</item>
         <item name="suggestionBackgroundImage">@color/aosp_light_suggestions_background</item>
 

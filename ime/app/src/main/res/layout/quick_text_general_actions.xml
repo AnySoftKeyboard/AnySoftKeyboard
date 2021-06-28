@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:scaleType="centerInside"
-        android:src="@drawable/outline_delete_forever_white_48" />
+        android:src="@drawable/outline_delete_forever_24" />
 
     <View
         android:layout_width="1px"
