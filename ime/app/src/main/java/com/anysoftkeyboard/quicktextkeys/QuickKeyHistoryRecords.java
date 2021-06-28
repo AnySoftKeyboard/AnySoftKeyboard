@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
@@ -77,6 +79,17 @@ public class QuickKeyHistoryRecords {
                     .append(HISTORY_TOKEN_SEPARATOR);
         }
         return stringBuilder.toString();
+    }
+
+    public void clearHistory() {
+        Log.d("ASK", "Size of history before " + mLoadedKeys.size());
+        mLoadedKeys.clear();
+        Log.d("ASK", "Size of history after " + mLoadedKeys.size());
+        final String encodedHistory = encodeForOldDevices(mLoadedKeys);
+
+        Log.d("ASK", "Encoded is " + encodedHistory);
+
+        mRxPref.set(encodedHistory);
     }
 
     public List<HistoryKey> getCurrentHistory() {

@@ -51,6 +51,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
@@ -543,6 +544,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 break;
             case KeyCodes.IMAGE_MEDIA_POPUP:
                 handleMediaInsertionKey();
+                break;
+            case KeyCodes.DELETE_RECENT_USED_SMILEYS:
+                new QuickKeyHistoryRecords(prefs()).clearHistory();
                 break;
             case KeyCodes.DISABLED:
                 Logger.d(TAG, "Disabled key was pressed.");
