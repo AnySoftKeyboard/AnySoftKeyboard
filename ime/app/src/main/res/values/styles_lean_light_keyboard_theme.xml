@@ -60,6 +60,7 @@
         <item name="iconKeyAction">@drawable/light_key_action_set</item>
         <item name="iconKeyMic">@drawable/ic_av_mic_light</item>
         <item name="iconKeySettings">@drawable/ic_action_settings_light</item>
+        <item name="iconKeyDeleteRecentlyUsed">@drawable/ic_delete_forever_light</item>
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard_light</item>
         <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard_light</item>
         <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard_light</item>
