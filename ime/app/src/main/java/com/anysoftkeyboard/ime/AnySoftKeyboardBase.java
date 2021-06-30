@@ -290,7 +290,12 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         mGlobalCursorPositionDangerous = 0;
         mGlobalSelectionStartPositionDangerous = 0;
 
-
+        if (mInputViewContainer != null) {
+            LinearLayout autofillLayout = mInputViewContainer.getInlineAutofillView();
+            if (autofillLayout != null) {
+                autofillLayout.removeAllViews();
+            }
+        }
     }
 
     protected abstract boolean isSelectionUpdateDelayed();
@@ -389,15 +394,15 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
             );
             Size autofillSize = new Size(ViewGroup.LayoutParams.WRAP_CONTENT, ((int) height));
 
-            getMainExecutor().execute(inlineAutofillLayout::removeAllViews);
-
             Executor executor = Executors.newSingleThreadExecutor();
 
+            getMainExecutor().execute(inlineAutofillLayout::removeAllViews);
+            
             for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
                 try {
                     inlineSuggestion.inflate(this, autofillSize, executor, inlineContentView -> getMainExecutor().execute(() -> inlineAutofillLayout.addView(inlineContentView)));
                 } catch (Exception e) {
-                    Log.e("apederson94", "onInlineSuggestionsResponse - error - " + e.toString());
+                    Log.e(TAG, "onInlineSuggestionsResponse - inlineSuggestion.infLate - " + e.toString());
                 }
 
             }
