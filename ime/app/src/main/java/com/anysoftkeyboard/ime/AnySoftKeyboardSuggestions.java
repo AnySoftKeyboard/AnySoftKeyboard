@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -500,7 +499,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final View view = super.onCreateInputView();
         mCandidateView = getInputViewContainer().getCandidateView();
         mCandidateView.setService(this);
-        Log.d("johnny", "onCreateInputView interface setting");
         mCandidateView.setCloseIconChangedListener(mCancelSuggestionsAction);
         mCancelSuggestionsAction.setCloseIconDrawable(mCandidateView.getCloseIcon());
         return view;
