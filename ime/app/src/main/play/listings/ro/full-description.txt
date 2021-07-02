@@ -1,0 +1,17 @@
+Tastatură alternativă pe ecran pentru mai multe limbi.
+
+* Suport pentru tastatură în mai multe limbi prin intermediul unor pachete externe (engleză ca standard)
+* Dicționare de completare pentru mai multe limbi
+* Suport multitouch
+* Tastatură extensibilă (glisați degetul până sus, în afara tastaturii)
+* Suport pentru gesturi: glisați spre stânga sau spre dreapta pentru a schimba aspectul; glisați în sus pentru a schimba; glisați în jos pentru a închide tastatura
+* Suport pentru teme (vine cu mai multe skin-uri)
+* Tastatură emoji plus căutare de etichete emoji - tastați ": emoji_name"
+* Editor de cuvinte din dicționarul utilizatorului încorporat
+* Tastatura opțională de 16 taste în limba engleză
+* Taste soft pentru mișcarea cursorului care pot fi, de asemenea, mapate pe taste hardware
+* Suportă nativ ARM, x86 și MIPS
+* Intrare vocală
+* Posibilitatea de a suprascrie valoarea locală a sistemului
+
+Vom încerca să publicăm toate pachetele de limbi și temele care au xml sursă și atribuirea/licența pentru dicționare.

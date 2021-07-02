@@ -1,0 +1,17 @@
+Teclado alternativo en pantalla para múltiples idiomas.
+
+* Soporte de teclado multilingüe a través de paquetes externos (inglés como estándar)
+* Diccionarios de finalización para varios idiomas
+* Soporte multitáctil
+* Teclado de extensión (deslice el dedo hacia afuera del teclado)
+* Soporte de gestos : deslice hacia la izquierda o hacia la derecha para cambiar los diseños; deslizar hacia arriba para cambiar; deslice hacia abajo para cerrar el teclado
+* Soporte de temas (viene con varias máscaras)
+* Teclado emoji más búsqueda de etiquetas emoji - escriba ": emoji_name"
+* Editor de palabras de diccionario de usuario incorporado
+* Inglés opcional de 16 teclas teclado
+* Teclas programables de movimiento del cursor que también pueden asignarse a teclas de hardware
+* Admite ARM, x86 y MIPS de forma nativa
+* Entrada de voz
+* Capacidad para anular el valor de configuración regional del sistema
+
+Intentaremos publicar cualquier paquete de idioma y temas que tengan xml fuente y atribución/licencia para los diccionarios.

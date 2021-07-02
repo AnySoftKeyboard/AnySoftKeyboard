@@ -1,0 +1,17 @@
+Bàn phím thay thế trên màn hình dành cho nhiều ngôn ngữ
+
+* Hỗ trợ nhiều ngôn ngữ qua các gói ngoài (tiếng Anh là tiêu chuẩn)
+* Từ điển hoàn thiện cho nhiều ngôn ngữ
+* Hỗ trợ nhiều điểm chạm
+* Bàn phím mở rộng (vuốt ngón tay từ dưới lên và ra khỏi bàn phím)
+* Hỗ trợ cử chỉ: vuốt trái hoặc phải để chuyển bố cục; vuốt lên để shift; vuốt xuống để đóng bàn phím
+* Hỗ trợ chủ đề (với vài giao diện)
+* Bàn phím emoji và tìm kiếm tag emoji - đánh vào ":emoji_name" 
+* Trình chỉnh sửa các từ trong từ điển người dùng (được tích hợp)
+* Bàn phím tiếng Anh 16 phím không bắt buộc
+* Phím mềm di chuyển con trỏ cũng có thể được gắn cho các phím cứng
+* Hỗ trợ ARM, x86 và MIPS sẵn
+* Nhập bằng giọng nói
+* Khả năng ghi đè lên giá trị ngôn ngữ hệ thống
+
+Chúng tôi sẽ cố xuất bản bất kỳ gói ngôn ngữ và chủ đề nào mà có xml nguồn và có ghi nhận/giấy phép cho các từ điển.
