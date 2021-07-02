@@ -289,12 +289,13 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         mInputSessionDisposables.clear();
         mGlobalCursorPositionDangerous = 0;
         mGlobalSelectionStartPositionDangerous = 0;
+    }
 
-        if (mInputViewContainer != null) {
-            LinearLayout autofillLayout = mInputViewContainer.getInlineAutofillView();
-            if (autofillLayout != null) {
-                autofillLayout.removeAllViews();
-            }
+    @Override
+    public void onFinishInputView(boolean finishingInput) {
+        LinearLayout autofillLayout = mInputViewContainer.getInlineAutofillView();
+        if (autofillLayout != null) {
+            autofillLayout.removeAllViews();
         }
     }
 
@@ -381,10 +382,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     public boolean onInlineSuggestionsResponse(@NonNull InlineSuggestionsResponse response) {
         List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
 
-        if (mInputViewContainer == null) {
-            getMainExecutor().execute(() -> mInputViewContainer = createInputViewContainer());
-        }
-
         if (mInputViewContainer != null) {
             LinearLayout inlineAutofillLayout = mInputViewContainer.getInlineAutofillView();
             float height = TypedValue.applyDimension(
@@ -394,13 +391,11 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
             );
             Size autofillSize = new Size(ViewGroup.LayoutParams.WRAP_CONTENT, ((int) height));
 
-            Executor executor = Executors.newSingleThreadExecutor();
-
-            getMainExecutor().execute(inlineAutofillLayout::removeAllViews);
+            inlineAutofillLayout.removeAllViews();
             
             for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
                 try {
-                    inlineSuggestion.inflate(this, autofillSize, executor, inlineContentView -> getMainExecutor().execute(() -> inlineAutofillLayout.addView(inlineContentView)));
+                    inlineSuggestion.inflate(this, autofillSize, getMainExecutor(), inlineAutofillLayout::addView);
                 } catch (Exception e) {
                     Log.e(TAG, "onInlineSuggestionsResponse - inlineSuggestion.infLate - " + e.toString());
                 }
