@@ -55,6 +55,9 @@
     <string name="effects_group">Efetos</string>
     <string name="ime_settings">Impostatziones tastiera</string>
     <string name="switch_incognito">Modalidade anònima</string>
+    <string name="use_system_vibration_title">Imprea sa vibratzione de sistema</string>
+    <string name="use_system_vibration_off_summary">Impreende impostatziones de vibratzione personalizadas</string>
+    <string name="use_system_vibration_on_summary">Impreende sas impostatziones de vibratzione de su sistema Android</string>
     <string name="vibrate_on_key_press_title">Vibratzione in sa tecla incarcada</string>
     <string name="vibrate_on_key_press_value_template">%d millisegundos</string>
     <string name="night_mode_screen">Impostatziones pro sa modalidade pro sa note</string>
@@ -413,6 +416,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Nùmeros e sìmbulos</string>
     <string name="extension_kbd_bottom_minimal">Minimale</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (chene emoji)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (prus pagu puntegiadura)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Bae</string>
@@ -592,6 +596,7 @@
     <string name="clipboard_paste_entries_title">Issèbera su testu de incollare</string>
     <string name="next_word_prefs_clear_data">Iscantzella sos datos in sas paràulas imbenientes</string>
     <string name="next_word_prefs_clear_data_summary">Custu est irreversìbile. Totu sa cronologia de digitatzione at a èssere iscantzellada.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard tenet bisòngiu de su permissu tuo pro lèghere e iscrìere pro sarvare sos documentos de sas còpias de seguresa in sa memòria.</string>
     <string name="notification_read_contacts_title">Potzo lèghere sos cuntatos tuos?</string>
     <string name="notification_read_contacts_text">Tenimus bisòngiu de atzèdere a sos cuntatos tuos pro ti dare una funtzionalidade mègius de auto-cumpridura.</string>
     <string name="notification_read_contacts_ticker">Est netzessàriu su permissu pro lèghere sos cuntatos</string>
