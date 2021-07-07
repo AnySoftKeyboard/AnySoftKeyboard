@@ -1,0 +1,37 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" xmlns:ask="http://schemas.android.com/apk/res-auto" android:keyWidth="10.0%p" android:keyHeight="@integer/key_normal_height" ask:autoCap="false">
+  <Row>
+    <Key android:keyEdgeFlags="left" android:codes="ⲑ"/>
+    <Key android:codes="ϣ"/>
+    <Key android:codes="ⲉ"/>
+    <Key android:codes="ⲣ" android:popupCharacters="ⳁ"/>
+    <Key android:codes="ⲧ" android:popupCharacters="ϯ"/>
+    <Key android:codes="ⲯ"/>
+    <Key android:codes="ⲩ" android:popupCharacters="ÿ"/>
+    <Key android:codes="ⲓ" android:popupCharacters="ϊ"/>
+    <Key android:codes="ⲟ"/>
+    <Key android:keyEdgeFlags="right" android:codes="ⲡ"/>
+  </Row>
+  <Row>
+    <Key android:keyEdgeFlags="left" android:codes="ⲁ"/>
+    <Key android:codes="ⲥ" android:popupCharacters="ⲋ"/>
+    <Key android:codes="ⲇ" android:popupCharacters="⳧"/>
+    <Key android:codes="ϥ" android:popupCharacters="ⲫ"/>
+    <Key android:codes="ⲅ"/>
+    <Key android:codes="ⲏ" android:popupCharacters="ϩ"/>
+    <Key android:codes="ϫ" android:popupCharacters="ϭ"/>
+    <Key android:codes="ⲕ" android:popupCharacters="ϧⳉ"/>
+    <Key android:codes="ⲗ"/>
+    <Key android:keyEdgeFlags="right" android:codes="768,772" android:keyLabel="◌"/>
+  </Row>
+  <Row>
+    <Key android:keyEdgeFlags="left" android:keyWidth="15%p" android:codes="@integer/key_code_shift" android:isModifier="true" android:isSticky="true"/>
+    <Key android:codes="ⲍ"/>
+    <Key android:codes="ⲝ"/>
+    <Key android:codes="ⲭ"/>
+    <Key android:codes="ⲱ" android:popupCharacters="⳥"/>
+    <Key android:codes="ⲃ"/>
+    <Key android:codes="ⲛ"/>
+    <Key android:codes="ⲙ"/>
+    <Key android:keyEdgeFlags="right" android:keyWidth="15%p" android:codes="@integer/key_code_delete" android:isRepeatable="true"/>
+  </Row>
+</Keyboard>
