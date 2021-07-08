@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -27,6 +29,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     private OnKeyboardActionListener mKeyboardActionListener;
     private KeyboardTheme mKeyboardTheme;
     private OverlayData mOverlayData = new OverlayData();
+    private LinearLayout mInlineAutofillView;
 
     public KeyboardViewContainerView(Context context) {
         super(context);
@@ -199,16 +202,24 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
     }
 
+    public LinearLayout getInlineAutofillView() {
+        if (mInlineAutofillView == null) {
+            mInlineAutofillView = (LinearLayout) ((HorizontalScrollView) getChildAt(0)).getChildAt(0);
+        }
+
+        return mInlineAutofillView;
+    }
+
     public CandidateView getCandidateView() {
         if (mCandidateView == null) {
-            mCandidateView = (CandidateView) getChildAt(0);
+            mCandidateView = (CandidateView) getChildAt(1);
         }
         return mCandidateView;
     }
 
     public InputViewBinder getStandardKeyboardView() {
         if (mStandardKeyboardView == null) {
-            mStandardKeyboardView = (InputViewBinder) getChildAt(1);
+            mStandardKeyboardView = (InputViewBinder) getChildAt(2);
         }
         return mStandardKeyboardView;
     }

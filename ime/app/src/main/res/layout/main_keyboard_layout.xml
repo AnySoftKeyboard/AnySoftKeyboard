@@ -27,6 +27,17 @@
     android:animateLayoutChanges="false"
     tools:ignore="UnusedAttribute">
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/autofill_suggestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
     <com.anysoftkeyboard.keyboards.views.CandidateView
         android:id="@+id/candidate_view"
         android:layout_width="match_parent"
