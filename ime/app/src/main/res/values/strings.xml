@@ -557,6 +557,7 @@
     <string name="extension_kbd_bottom_minimal">Minimal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (no emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (less punctuation)</string>
+    <string name="extension_kbd_bottom_swiftkey">SwiftKey-style</string>
 
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
