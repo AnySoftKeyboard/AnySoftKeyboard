@@ -36,6 +36,27 @@ public class QuickKeyHistoryRecordsTest {
     }
 
     @Test
+    public void testEmptyHistory() {
+        mSharedPreferences
+                .getString(
+                        R.string.settings_key_quick_text_history, R.string.settings_default_empty)
+                .set("1,2,3,4,5,6");
+        mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
+        List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
+        Assert.assertEquals(3, keys.size());
+        Assert.assertEquals("1", keys.get(0).name);
+        Assert.assertEquals("2", keys.get(0).value);
+        Assert.assertEquals("3", keys.get(1).name);
+        Assert.assertEquals("4", keys.get(1).value);
+        Assert.assertEquals("5", keys.get(2).name);
+        Assert.assertEquals("6", keys.get(2).value);
+
+        mUnderTest.clearHistory();
+        // There has to be at least 1 entry in the history, have to fix this
+        Assert.assertEquals(keys.size(), 1);
+    }
+
+    @Test
     public void testLoad() {
         mSharedPreferences
                 .getString(

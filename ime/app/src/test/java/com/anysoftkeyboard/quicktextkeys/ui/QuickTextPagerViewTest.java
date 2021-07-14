@@ -52,6 +52,7 @@ public class QuickTextPagerViewTest {
                 context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background),
                 context.getDrawable(R.drawable.ic_media_insertion),
+                context.getDrawable(R.drawable.ic_delete_forever_dark),
                 10,
                 Collections.singleton(MediaType.Image));
     }
@@ -76,6 +77,7 @@ public class QuickTextPagerViewTest {
                 context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background),
                 context.getDrawable(R.drawable.ic_media_insertion),
+                context.getDrawable(R.drawable.ic_delete_forever_dark),
                 10,
                 Collections.singleton(MediaType.Image));
 
@@ -94,6 +96,7 @@ public class QuickTextPagerViewTest {
                 context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background),
                 context.getDrawable(R.drawable.ic_media_insertion),
+                context.getDrawable(R.drawable.ic_delete_forever_dark),
                 10,
                 Collections.emptySet());
         Assert.assertEquals(

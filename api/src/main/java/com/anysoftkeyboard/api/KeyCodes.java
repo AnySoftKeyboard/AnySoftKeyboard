@@ -66,5 +66,7 @@ public class KeyCodes {
     public static final int PRE_PREPARED_TEXT_POPUP = -151;
     public static final int PRE_PREPARED_EMAILS_POPUP = -152;
 
+    public static final int DELETE_RECENT_USED_SMILEYS = -160;
+
     public static final int EXTERNAL_INTEGRATION = -200;
 }

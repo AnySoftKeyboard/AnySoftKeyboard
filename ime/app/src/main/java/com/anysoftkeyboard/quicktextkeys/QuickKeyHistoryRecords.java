@@ -79,7 +79,18 @@ public class QuickKeyHistoryRecords {
         return stringBuilder.toString();
     }
 
+    public void clearHistory() {
+        mLoadedKeys.clear();
+        // For a unknown reason, we cannot have 0 history emoji...
+        mLoadedKeys.add(new HistoryKey(DEFAULT_EMOJI, DEFAULT_EMOJI));
+        final String encodedHistory = encodeForOldDevices(mLoadedKeys);
+        mRxPref.set(encodedHistory);
+    }
+
     public List<HistoryKey> getCurrentHistory() {
+        if (mLoadedKeys.size() == 0)
+            // For a unknown reason, we cannot have 0 history emoji...
+            mLoadedKeys.add(new HistoryKey(DEFAULT_EMOJI, DEFAULT_EMOJI));
         return Collections.unmodifiableList(mLoadedKeys);
     }
 
