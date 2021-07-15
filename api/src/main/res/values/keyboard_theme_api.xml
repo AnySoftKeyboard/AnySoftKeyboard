@@ -90,6 +90,7 @@
         <attr name="suggestionDividerImage" format="reference"/>
         <attr name="suggestionCloseImage" format="reference"/>
         <attr name="suggestionStripHeight" format="reference|dimension"/>
+        <attr name="suggestionSelectionHighlight" format="reference"/>
 
         <!-- Size of the text for hinting about long press output. -->
         <attr name="hintTextSize" format="reference|dimension"/>
