@@ -84,6 +84,7 @@ public class CandidateView extends View implements ThemeableChild {
     private CharSequence mAddToDictionaryHint;
     private int mTargetScrollX;
     private int mTotalWidth;
+    private AnySoftKeyboardSuggestions.CloseIconChangedListener mCloseIconChangedListener;
 
     private boolean mAlwaysUseDrawText;
     @NonNull private Disposable mDisposable = Disposables.empty();
@@ -181,6 +182,7 @@ public class CandidateView extends View implements ThemeableChild {
                         break;
                     case R.attr.suggestionCloseImage:
                         mCloseDrawable = a.getDrawable(remoteIndex);
+                        mCloseIconChangedListener.onCloseIconChanged(mCloseDrawable);
                         break;
                     case R.attr.suggestionTextSize:
                         fontSizePixel = a.getDimension(remoteIndex, fontSizePixel);
@@ -213,6 +215,7 @@ public class CandidateView extends View implements ThemeableChild {
         if (mCloseDrawable == null) {
             mCloseDrawable =
                     ContextCompat.getDrawable(context, R.drawable.close_suggestions_strip_icon);
+            mCloseIconChangedListener.onCloseIconChanged(mCloseDrawable);
         }
         mPaint.setColor(
                 mThemeOverlayCombiner.getThemeResources().getKeyTextColor().getDefaultColor());
@@ -556,6 +559,10 @@ public class CandidateView extends View implements ThemeableChild {
 
     public Drawable getCloseIcon() {
         return mCloseDrawable;
+    }
+
+    public void setCloseIconChangedListener(AnySoftKeyboardSuggestions.CloseIconChangedListener listener) {
+        mCloseIconChangedListener = listener;
     }
 
     private class CandidateStripGestureListener extends GestureDetector.SimpleOnGestureListener {

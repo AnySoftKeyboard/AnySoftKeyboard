@@ -15,6 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.ImageView;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -497,6 +499,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final View view = super.onCreateInputView();
         mCandidateView = getInputViewContainer().getCandidateView();
         mCandidateView.setService(this);
+        mCandidateView.setCloseIconChangedListener(mCancelSuggestionsAction);
+        mCancelSuggestionsAction.setCloseIconDrawable(mCandidateView.getCloseIcon());
         return view;
     }
 
@@ -1372,7 +1376,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     @VisibleForTesting
-    static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
+    static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider, CloseIconChangedListener {
         // two seconds is enough.
         private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
         private final Runnable mCancelPrediction;
@@ -1382,6 +1386,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         private Animation mCloseTextToVisibleAnimation;
         private View mRootView;
         private View mCloseText;
+        private Drawable mCloseIcon;
         private final Runnable mReHideTextAction =
                 () -> {
                     mCloseTextToGoneAnimation.reset();
@@ -1439,6 +1444,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
 
+            setCloseIcon();
+
             mRootView.setOnClickListener(
                     view -> {
                         mRootView.removeCallbacks(mReHideTextAction);
@@ -1461,6 +1468,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mRootView.removeCallbacks(mReHideTextAction);
         }
 
+        public void setCloseIconDrawable(Drawable closeIcon) {
+            mCloseIcon = closeIcon;
+        }
+
+        private void setCloseIcon() {
+            ImageView closeIcon = (ImageView) mRootView.findViewById(R.id.close_suggestions_strip_icon);
+            if (mCloseIcon != null) {
+                closeIcon.setImageDrawable(mCloseIcon);
+            }
+        }
+
         void setCancelIconVisible(boolean visible) {
             if (mRootView != null) {
                 final int visibility = visible ? View.VISIBLE : View.GONE;
@@ -1473,5 +1491,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 }
             }
         }
+
+        @Override
+        public void onCloseIconChanged(Drawable icon) {
+            setCloseIconDrawable(icon);
+            setCloseIcon();
+        }
+    }
+
+    public interface CloseIconChangedListener {
+        void onCloseIconChanged(Drawable icon);
     }
 }
