@@ -55,6 +55,9 @@
     <string name="effects_group">Efeitos</string>
     <string name="ime_settings">Configurações do teclado</string>
     <string name="switch_incognito">Modo anônimo</string>
+    <string name="use_system_vibration_title">Usar vibração do sistema</string>
+    <string name="use_system_vibration_off_summary">Utilizando configuração de vibração personalizada</string>
+    <string name="use_system_vibration_on_summary">Utilizando a configuração de vibração do Android</string>
     <string name="vibrate_on_key_press_title">Vibrar ao pressionar tecla</string>
     <string name="vibrate_on_key_press_value_template">%d milissegundos</string>
     <string name="night_mode_screen">Configurações do modo noturno</string>
@@ -590,6 +593,7 @@ simplistas    </string>
     <string name="clipboard_paste_entries_title">Escolher o texto para colar</string>
     <string name="next_word_prefs_clear_data">Limpar dado da sugestão de palavras</string>
     <string name="next_word_prefs_clear_data_summary">Isso é irreversível. Todo seu histórico de digitação será apagado.</string>
+    <string name="storage_permission_rationale">O AnySoftKeyboard necessita permissão para ler e escrever para amarzenar os seus arquivos de cópia de segurança.</string>
     <string name="notification_read_contacts_title">Posso ler seus contatos?</string>
     <string name="notification_read_contacts_text">Precisamos ler seus contatos para dar-lhe uma experiência melhor ao auto-completar.</string>
     <string name="notification_read_contacts_ticker">Permissão de contatos necessário</string>
