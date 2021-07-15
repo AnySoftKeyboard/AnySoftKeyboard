@@ -350,7 +350,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                                 this, R.drawable.ic_watermark_gesture_not_loaded));
             }
         }
-
         return watermark;
     }
 

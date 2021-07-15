@@ -19,6 +19,7 @@ package com.anysoftkeyboard;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.collection.SparseArrayCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -42,6 +44,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.AnySoftKeyboardColorizeNavBar;
+import com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -90,6 +93,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
+    private static int mLastCharTyped = 0;
+
     private static boolean isBackWordDeleteCodePoint(int c) {
         return Character.isLetterOrDigit(c);
     }
@@ -126,6 +131,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     };
             mSpecialWrapCharacters.put(wrapCharacter, outputWrapCharacters);
         }
+    }
+
+    // This method return the last key typed by the user
+    public static int getLastCharTyped() {
+        return mLastCharTyped;
     }
 
     @Override
@@ -384,10 +394,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
         final InputConnection ic = getCurrentInputConnection();
 
+        final List<Drawable> watermark;
+        final InputViewBinder inputView = getInputView();
+
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
                     // we do back-word if the shift is pressed while pressing
+                    if (mLastCharTyped == KeyCodes.ENTER)
+                        super.updateAdditionalCharForReverting(true);
+                    mLastCharTyped = KeyCodes.DELETE;
+                    // we do backword if the shift is pressed while pressing
                     // backspace (like in a PC)
                     if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
                         handleBackWord(ic);
@@ -550,6 +567,25 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             case KeyCodes.DISABLED:
                 Logger.d(TAG, "Disabled key was pressed.");
                 break;
+            case KeyCodes.ENABLE_DISABLE_PUNCTUATION:
+                if (AnySoftKeyboardSuggestions.getIsPuncDisabledByGesture()) {
+                    AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(false);
+                    watermark = super.generateWatermark();
+                    watermark.add(
+                            ContextCompat.getDrawable(
+                                    this, R.drawable.ic_toggle_auto_space_enabled));
+                    inputView.setWatermark(watermark);
+                    Logger.d(TAG, "Space and punctuation has been temporally enabled by user");
+                } else {
+                    AnySoftKeyboardSuggestions.changeIsPuncDisabledByGesture(true);
+                    watermark = super.generateWatermark();
+                    watermark.add(
+                            ContextCompat.getDrawable(
+                                    this, R.drawable.ic_toggle_auto_space_disabled));
+                    inputView.setWatermark(watermark);
+                    Logger.d(TAG, "Space and punctuation has been temporally disabled by user");
+                }
+                break;
             default:
                 if (BuildConfig.DEBUG) {
                     // this should not happen! We should handle ALL function keys.
@@ -560,6 +596,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                             TAG, "UNHANDLED FUNCTION KEY! primary code %d. Ignoring.", primaryCode);
                 }
         }
+    }
+
+    @NonNull
+    @Override
+    protected List<Drawable> generateWatermark() {
+        final List<Drawable> watermark = super.generateWatermark();
+        final InputViewBinder inputView = getInputView();
+        if (AnySoftKeyboardSuggestions.getIsPuncDisabledByGesture()) {
+            watermark.add(
+                    ContextCompat.getDrawable(this, R.drawable.ic_toggle_auto_space_disabled));
+            inputView.setWatermark(watermark);
+        }
+        return watermark;
     }
 
     // convert ASCII codes to Android KeyEvent codes
@@ -591,6 +640,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
         switch (primaryCode) {
             case KeyCodes.ENTER:
+                if (mLastCharTyped == '.'
+                        || mLastCharTyped == ','
+                        || requiresDifferentSpacing(mLastCharTyped, 1)
+                        || requiresDifferentSpacing(mLastCharTyped, 4))
+                    ic.deleteSurroundingText(1, 0);
+
                 if (mShiftKeyState.isPressed() && ic != null) {
                     // power-users feature ahead: Shift+Enter
                     // getting away from firing the default editor action, by forcing newline
@@ -642,8 +697,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     int[] wrapCharacters = mSpecialWrapCharacters.get(primaryCode);
                     wrapSelectionWithCharacters(wrapCharacters[0], wrapCharacters[1]);
                 } else if (isWordSeparator(primaryCode)) {
+                    // A DIGIT is considered as WordSeparator
                     handleSeparator(primaryCode);
                 } else if (mControlKeyState.isActive()) {
+                    disableSamePunctuation();
+                    disableLastDigit();
                     int keyCode = getKeyCode(primaryCode);
                     if (keyCode != 0) {
                         // TextView (and hence its subclasses) can handle ^A, ^Z, ^X, ^C and ^V
@@ -669,10 +727,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                         handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                     }
                 } else {
+                    disableSamePunctuation();
+                    disableLastDigit();
                     handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                 }
                 break;
         }
+        mLastCharTyped = primaryCode;
     }
 
     @Override
@@ -915,6 +976,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
+        super.disableSamePunctuation();
+
         InputConnection ic = getCurrentInputConnection();
         final WordComposer currentComposedWord = getCurrentComposedWord();
         final boolean wordManipulation =

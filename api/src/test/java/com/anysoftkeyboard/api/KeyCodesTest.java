@@ -38,6 +38,9 @@ public class KeyCodesTest {
             }
         }
 
+        // If this test fail, and you have added Keycodes in the KeyCodes class, have you thought
+        // to add them in api/res/values/functionnal_key_codes.xml as well ?
+        // If not, that might be why it fail.
         Assert.assertEquals(
                 seenValues.stream()
                         .map(integer -> integer.toString())
