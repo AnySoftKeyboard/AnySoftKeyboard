@@ -16,7 +16,6 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.ImageView;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1375,7 +1374,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     @VisibleForTesting
-    static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider, CloseIconChangedListener {
+    static class CancelSuggestionsAction
+            implements KeyboardViewContainerView.StripActionProvider, CloseIconChangedListener {
         // two seconds is enough.
         private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
         private final Runnable mCancelPrediction;
