@@ -169,7 +169,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
                         .obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
         Paint paint = new Paint();
         paint.setColor(Color.GREEN);
-        paint.setStrokeWidth(getContext().getResources().getDimension(R.dimen.gesture_stroke_width));
+        paint.setStrokeWidth(
+                getContext().getResources().getDimension(R.dimen.gesture_stroke_width));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.BEVEL);
         paint.setStrokeCap(Paint.Cap.BUTT);
@@ -183,7 +184,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
                         paint.setColor(
                                 a.getColor(
                                         remoteIndex,
-                                        ContextCompat.getColor(getContext(), R.color.candidate_normal)));
+                                        ContextCompat.getColor(
+                                                getContext(), R.color.candidate_normal)));
                         break;
                     case R.attr.swipeTypingStrokeWidth:
                         paint.setStrokeWidth(a.getDimension(remoteIndex, paint.getStrokeWidth()));

@@ -112,8 +112,7 @@ public class GestureTypingPathDrawHelper {
     @NonNull private final Paint mPaint;
 
     public GestureTypingPathDrawHelper(
-            @NonNull OnInvalidateCallback callback,
-            @NonNull Paint paint) {
+            @NonNull OnInvalidateCallback callback, @NonNull Paint paint) {
         mPaint = paint;
         mCallback = callback;
         mStrokeWidth = paint.getStrokeWidth();
