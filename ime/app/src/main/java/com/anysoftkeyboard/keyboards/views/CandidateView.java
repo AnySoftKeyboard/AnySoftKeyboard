@@ -568,7 +568,8 @@ public class CandidateView extends View implements ThemeableChild {
         return mCloseDrawable;
     }
 
-    public void setCloseIconChangedListener(AnySoftKeyboardSuggestions.CloseIconChangedListener listener) {
+    public void setCloseIconChangedListener(
+            AnySoftKeyboardSuggestions.CloseIconChangedListener listener) {
         mCloseIconChangedListener = listener;
     }
 
