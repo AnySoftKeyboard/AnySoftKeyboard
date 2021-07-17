@@ -500,7 +500,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mCandidateView = getInputViewContainer().getCandidateView();
         mCandidateView.setService(this);
         mCandidateView.setCloseIconChangedListener(mCancelSuggestionsAction);
-        mCancelSuggestionsAction.setCloseIconDrawable(mCandidateView.getCloseIcon());
         return view;
     }
 
@@ -1444,7 +1443,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
 
-            setCloseIcon();
+            ImageView closeIcon = mRootView.findViewById(R.id.close_suggestions_strip_icon);
+            closeIcon.setImageDrawable(mCloseIcon);
 
             mRootView.setOnClickListener(
                     view -> {
@@ -1468,17 +1468,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mRootView.removeCallbacks(mReHideTextAction);
         }
 
-        public void setCloseIconDrawable(Drawable closeIcon) {
-            mCloseIcon = closeIcon;
-        }
-
-        private void setCloseIcon() {
-            ImageView closeIcon = (ImageView) mRootView.findViewById(R.id.close_suggestions_strip_icon);
-            if (mCloseIcon != null) {
-                closeIcon.setImageDrawable(mCloseIcon);
-            }
-        }
-
         void setCancelIconVisible(boolean visible) {
             if (mRootView != null) {
                 final int visibility = visible ? View.VISIBLE : View.GONE;
@@ -1494,8 +1483,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         @Override
         public void onCloseIconChanged(Drawable icon) {
-            setCloseIconDrawable(icon);
-            setCloseIcon();
+            mCloseIcon = icon;
         }
     }
 
