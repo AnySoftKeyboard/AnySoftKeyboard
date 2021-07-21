@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ime;
 
-import android.content.ComponentName;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +18,6 @@ import androidx.annotation.RequiresApi;
 import androidx.autofill.inline.UiVersions;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 
 import java.util.ArrayList;
