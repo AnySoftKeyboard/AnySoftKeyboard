@@ -11,15 +11,12 @@ import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.widget.LinearLayout;
 import android.widget.inline.InlinePresentationSpec;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.autofill.inline.UiVersions;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
-
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
