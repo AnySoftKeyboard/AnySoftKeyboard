@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
@@ -29,7 +30,8 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         KeyboardViewContainerView inputViewContainer = getInputViewContainer();
 
         if (inputViewContainer != null) {
-            inputViewContainer.removeAllViews();
+            inputViewContainer.getInlineAutofillView().removeAllViews();
+            inputViewContainer.getInlineScrollView().setVisibility(View.GONE);
         }
     }
 
@@ -80,7 +82,10 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
             for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
                 try {
                     inlineSuggestion.inflate(
-                            this, autofillSize, getMainExecutor(), inlineAutofillLayout::addView);
+                            this, autofillSize, getMainExecutor(), (inlineContentView) -> {
+                                inputViewContainer.getInlineScrollView().setVisibility(View.VISIBLE);
+                                inlineAutofillLayout.addView(inlineContentView);
+                            });
                 } catch (Exception e) {
                     Log.e(
                             TAG,

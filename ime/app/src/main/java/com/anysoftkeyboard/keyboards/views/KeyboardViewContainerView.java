@@ -30,6 +30,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     private KeyboardTheme mKeyboardTheme;
     private OverlayData mOverlayData = new OverlayData();
     private LinearLayout mInlineAutofillView;
+    private HorizontalScrollView mInlineScrollView;
 
     public KeyboardViewContainerView(Context context) {
         super(context);
@@ -202,10 +203,19 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
     }
 
+    public HorizontalScrollView getInlineScrollView() {
+        if (mInlineScrollView == null) {
+            mInlineScrollView =
+                    (HorizontalScrollView) getChildAt(0);
+        }
+
+        return mInlineScrollView;
+    }
+
     public LinearLayout getInlineAutofillView() {
         if (mInlineAutofillView == null) {
             mInlineAutofillView =
-                    (LinearLayout) ((HorizontalScrollView) getChildAt(0)).getChildAt(0);
+                    (LinearLayout) getInlineScrollView().getChildAt(0);
         }
 
         return mInlineAutofillView;
