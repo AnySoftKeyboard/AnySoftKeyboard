@@ -276,14 +276,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         mGlobalSelectionStartPositionDangerous = 0;
     }
 
-    @Override
-    public void onFinishInputView(boolean finishingInput) {
-        LinearLayout autofillLayout = mInputViewContainer.getInlineAutofillView();
-        if (autofillLayout != null) {
-            autofillLayout.removeAllViews();
-        }
-    }
-
     protected abstract boolean isSelectionUpdateDelayed();
 
     @Nullable
