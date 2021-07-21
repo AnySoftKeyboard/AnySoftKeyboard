@@ -205,8 +205,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
     public HorizontalScrollView getInlineScrollView() {
         if (mInlineScrollView == null) {
-            mInlineScrollView =
-                    (HorizontalScrollView) getChildAt(0);
+            mInlineScrollView = (HorizontalScrollView) getChildAt(0);
         }
 
         return mInlineScrollView;
@@ -214,8 +213,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
     public LinearLayout getInlineAutofillView() {
         if (mInlineAutofillView == null) {
-            mInlineAutofillView =
-                    (LinearLayout) getInlineScrollView().getChildAt(0);
+            mInlineAutofillView = (LinearLayout) getInlineScrollView().getChildAt(0);
         }
 
         return mInlineAutofillView;

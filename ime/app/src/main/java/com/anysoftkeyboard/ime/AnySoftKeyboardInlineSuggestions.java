@@ -82,8 +82,13 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
             for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
                 try {
                     inlineSuggestion.inflate(
-                            this, autofillSize, getMainExecutor(), (inlineContentView) -> {
-                                inputViewContainer.getInlineScrollView().setVisibility(View.VISIBLE);
+                            this,
+                            autofillSize,
+                            getMainExecutor(),
+                            (inlineContentView) -> {
+                                inputViewContainer
+                                        .getInlineScrollView()
+                                        .setVisibility(View.VISIBLE);
                                 inlineAutofillLayout.addView(inlineContentView);
                             });
                 } catch (Exception e) {
