@@ -18,17 +18,6 @@ package com.anysoftkeyboard.ime;
 
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.autofill.inline.UiVersions;
-import androidx.autofill.inline.v1.InlineSuggestionUi;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.Size;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,15 +25,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
-import android.view.inputmethod.InlineSuggestion;
-import android.view.inputmethod.InlineSuggestionsRequest;
-import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.inline.InlinePresentationSpec;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
@@ -55,10 +43,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.CompositeDisposable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public abstract class AnySoftKeyboardBase extends InputMethodService
         implements OnKeyboardActionListener {
@@ -351,57 +336,5 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     public void onCancel() {
         // the user released their finger outside of any key... okay. I have nothing to do about
         // that.
-    }
-
-    @RequiresApi(Build.VERSION_CODES.R)
-    @Nullable
-    @Override
-    public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
-        Size smallestSize = new Size(0, 0);
-        Size biggestSize = new Size(Integer.MAX_VALUE, Integer.MAX_VALUE);
-
-        UiVersions.StylesBuilder stylesBuilder = UiVersions.newStylesBuilder();
-
-        InlineSuggestionUi.Style style = InlineSuggestionUi.newStyleBuilder().build();
-        stylesBuilder.addStyle(style);
-
-        Bundle stylesBundle = stylesBuilder.build();
-
-        InlinePresentationSpec spec = new InlinePresentationSpec.Builder(smallestSize, biggestSize).setStyle(stylesBundle).build();
-
-        List<InlinePresentationSpec> specList = new ArrayList<>();
-        specList.add(spec);
-
-        InlineSuggestionsRequest.Builder builder = new InlineSuggestionsRequest.Builder(specList);
-
-        return builder.setMaxSuggestionCount(InlineSuggestionsRequest.SUGGESTION_COUNT_UNLIMITED).build();
-    }
-
-    @RequiresApi(Build.VERSION_CODES.R)
-    @Override
-    public boolean onInlineSuggestionsResponse(@NonNull InlineSuggestionsResponse response) {
-        List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
-
-        if (mInputViewContainer != null) {
-            LinearLayout inlineAutofillLayout = mInputViewContainer.getInlineAutofillView();
-            float height = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    40,
-                    getResources().getDisplayMetrics()
-            );
-            Size autofillSize = new Size(ViewGroup.LayoutParams.WRAP_CONTENT, ((int) height));
-
-            inlineAutofillLayout.removeAllViews();
-            
-            for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
-                try {
-                    inlineSuggestion.inflate(this, autofillSize, getMainExecutor(), inlineAutofillLayout::addView);
-                } catch (Exception e) {
-                    Log.e(TAG, "onInlineSuggestionsResponse - inlineSuggestion.infLate - " + e.toString());
-                }
-
-            }
-        }
-        return true;
     }
 }

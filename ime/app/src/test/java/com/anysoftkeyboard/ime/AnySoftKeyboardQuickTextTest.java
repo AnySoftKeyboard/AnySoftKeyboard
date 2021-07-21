@@ -433,7 +433,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
-                mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt());
+                mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(2));
 
         Assert.assertEquals(
                 View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());

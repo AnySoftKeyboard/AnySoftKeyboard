@@ -284,7 +284,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     protected KeyboardViewContainerView createInputViewContainer() {
         final KeyboardViewContainerView originalInputContainer = super.createInputViewContainer();
-        AnyKeyboardView inputView = (AnyKeyboardView) originalInputContainer.getChildAt(1);
+        AnyKeyboardView inputView = (AnyKeyboardView) originalInputContainer.getChildAt(2);
         originalInputContainer.removeAllViews();
         mMockCandidateView = Mockito.mock(CandidateView.class);
         setupMockCandidateView();

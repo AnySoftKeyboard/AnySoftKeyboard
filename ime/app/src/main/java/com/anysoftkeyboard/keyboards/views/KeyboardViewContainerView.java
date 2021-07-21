@@ -5,10 +5,10 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -204,7 +204,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
     public LinearLayout getInlineAutofillView() {
         if (mInlineAutofillView == null) {
-            mInlineAutofillView = (LinearLayout) ((HorizontalScrollView) getChildAt(0)).getChildAt(0);
+            mInlineAutofillView =
+                    (LinearLayout) ((HorizontalScrollView) getChildAt(0)).getChildAt(0);
         }
 
         return mInlineAutofillView;
