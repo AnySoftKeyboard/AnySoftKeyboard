@@ -60,7 +60,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private EditorInfo mEditorInfo;
     private TestInputConnection mInputConnection;
     private CandidateView mMockCandidateView;
-    //    private HorizontalScrollView mMockInlineAutofillView;
     private boolean mHidden = true;
     private boolean mCandidateShowsHint = false;
     private int mCandidateVisibility = View.VISIBLE;
@@ -291,8 +290,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                 (HorizontalScrollView) originalInputContainer.getChildAt(0);
 
         originalInputContainer.removeAllViews();
-        //        mMockInlineAutofillView = Mockito.mock(HorizontalScrollView.class);
-        //        mMockInlineAutofillView.addView(Mockito.mock(LinearLayout.class));
         mMockCandidateView = Mockito.mock(CandidateView.class);
         setupMockCandidateView();
         mSpiedKeyboardView = Mockito.spy(inputView);
