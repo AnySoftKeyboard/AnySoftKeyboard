@@ -22,20 +22,22 @@ import android.graphics.Paint;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Predicate;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
+import emoji.utils.JavaEmojiUtils;
 import java.util.List;
 
 public class AnyPopupKeyboard extends AnyKeyboard {
 
-    private int mAdditionalWidth = 0;
     private static final char[] EMPTY_CHAR_ARRAY = new char[0];
     private final CharSequence mKeyboardName;
-    @Nullable private final EmojiUtils.SkinTone mDefaultSkinTone;
-
+    @Nullable private final JavaEmojiUtils.SkinTone mDefaultSkinTone;
+    @Nullable private final JavaEmojiUtils.Gender mDefaultGender;
     private final Paint mPaint = new Paint();
+    private int mAdditionalWidth = 0;
 
     public AnyPopupKeyboard(
             @NonNull AddOn keyboardAddOn,
@@ -43,9 +45,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             int xmlLayoutResId,
             @NonNull final KeyboardDimens keyboardDimens,
             @NonNull CharSequence keyboardName,
-            @Nullable EmojiUtils.SkinTone defaultSkinTone) {
+            @Nullable JavaEmojiUtils.SkinTone defaultSkinTone,
+            @Nullable JavaEmojiUtils.Gender defaultGender) {
         super(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         mDefaultSkinTone = defaultSkinTone;
+        mDefaultGender = defaultGender;
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
     }
@@ -58,6 +62,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             @NonNull String keyboardName) {
         super(keyboardAddOn, askContext, askContext, getPopupLayout(popupCharacters));
         mDefaultSkinTone = null;
+        mDefaultGender = null;
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
 
@@ -77,6 +82,63 @@ public class AnyPopupKeyboard extends AnyKeyboard {
                     rowIndex * keysPerRow,
                     keysPerRow);
         }
+    }
+
+    private static int getPopupLayout(CharSequence popupCharacters) {
+        switch (getPopupRowsCount(popupCharacters)) {
+            case 1:
+                return R.xml.popup_one_row;
+            case 2:
+                return R.xml.popup_two_rows;
+            case 3:
+                return R.xml.popup_three_rows;
+            default:
+                throw new RuntimeException("AnyPopupKeyboard supports 1, 2, and 3 rows only!");
+        }
+    }
+
+    private static int getPopupRowsCount(CharSequence popupCharacters) {
+        final int count = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
+        if (count <= 8) return 1;
+        if (count <= 16) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
+    @Nullable
+    private static Key findKeyWithSkinToneAndGender(
+            List<Key> keys,
+            @Nullable JavaEmojiUtils.SkinTone skinTone,
+            @Nullable JavaEmojiUtils.Gender gender) {
+        final Predicate<CharSequence> checker;
+        if (skinTone != null && gender != null) {
+            checker =
+                    text ->
+                            EmojiUtils.containsSkinTone(text, skinTone)
+                                    && EmojiUtils.containsGender(text, gender);
+        } else if (skinTone != null) {
+            checker = text -> EmojiUtils.containsSkinTone(text, skinTone);
+        } else if (gender != null) {
+            checker = text -> EmojiUtils.containsGender(text, gender);
+        } else {
+            throw new IllegalArgumentException(
+                    "can not have both skin-tone and gender set to null!");
+        }
+
+        return findKeyWithPredicate(keys, checker);
+    }
+
+    @Nullable
+    private static Key findKeyWithPredicate(List<Key> keys, Predicate<CharSequence> checker) {
+        for (Key key : keys) {
+            if (checker.test(key.text)) {
+                return key;
+            }
+        }
+
+        return null;
     }
 
     private void addPopupKeysToList(
@@ -140,29 +202,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         }
 
         mAdditionalWidth = Math.max(rowWidth, mAdditionalWidth);
-    }
-
-    private static int getPopupLayout(CharSequence popupCharacters) {
-        switch (getPopupRowsCount(popupCharacters)) {
-            case 1:
-                return R.xml.popup_one_row;
-            case 2:
-                return R.xml.popup_two_rows;
-            case 3:
-                return R.xml.popup_three_rows;
-            default:
-                throw new RuntimeException("AnyPopupKeyboard supports 1, 2, and 3 rows only!");
-        }
-    }
-
-    private static int getPopupRowsCount(CharSequence popupCharacters) {
-        final int count = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        if (count <= 8) return 1;
-        if (count <= 16) {
-            return 2;
-        } else {
-            return 3;
-        }
     }
 
     @Override
@@ -241,7 +280,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             key.mShiftedCodes = EMPTY_INT_ARRAY;
         }
 
-        if (mDefaultSkinTone != null
+        if ((mDefaultSkinTone != null || mDefaultGender != null)
                 && key.popupResId != 0
                 && TextUtils.isEmpty(key.popupCharacters)
                 && !TextUtils.isEmpty(key.text)
@@ -253,8 +292,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
                             key.popupResId,
                             keyboardDimens,
                             "temp",
+                            null,
                             null);
-            Key skinToneKey = findKeyWithSkinTone(popupKeyboard.getKeys(), mDefaultSkinTone);
+            Key skinToneKey =
+                    findKeyWithSkinToneAndGender(
+                            popupKeyboard.getKeys(), mDefaultSkinTone, mDefaultGender);
             if (skinToneKey != null) {
                 key.text = skinToneKey.text;
                 key.label = skinToneKey.label;
@@ -262,17 +304,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         }
 
         return key;
-    }
-
-    @Nullable
-    private static Key findKeyWithSkinTone(List<Key> keys, EmojiUtils.SkinTone skinTone) {
-        for (Key key : keys) {
-            if (EmojiUtils.containsSkinTone(key.text, skinTone)) {
-                return key;
-            }
-        }
-
-        return null;
     }
 
     public void mirrorKeys() {

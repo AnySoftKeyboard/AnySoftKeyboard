@@ -34,6 +34,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
     private List<QuickTextKey> mOrderedEnabledQuickKeys;
     private OnKeyboardActionListener mKeyboardListener;
     private DefaultSkinTonePrefTracker mSkinTonePrefTracker;
+    private DefaultGenderPrefTracker mGenderTracker;
 
     @Before
     public void setup() {
@@ -42,6 +43,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
                 AnyApplication.getQuickTextKeyFactory(getApplicationContext()).getEnabledAddOns();
         mKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         mSkinTonePrefTracker = Mockito.mock(DefaultSkinTonePrefTracker.class);
+        mGenderTracker = Mockito.mock(DefaultGenderPrefTracker.class);
         mUnderTest =
                 new QuickKeysKeyboardPagerAdapter(
                         getApplicationContext(),
@@ -49,6 +51,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
                         mOrderedEnabledQuickKeys,
                         mKeyboardListener,
                         mSkinTonePrefTracker,
+                        mGenderTracker,
                         AnyApplication.getKeyboardThemeFactory(getApplicationContext())
                                 .getEnabledAddOn(),
                         11);
@@ -75,8 +78,9 @@ public class QuickKeysKeyboardPagerAdapterTest {
         Assert.assertTrue(instance0 instanceof ScrollViewWithDisable);
         Assert.assertEquals(1, container.getChildCount());
         Assert.assertSame(instance0, container.getChildAt(0));
-        //noinspection ResultOfMethodCallIgnored
+        //noinspection
         Mockito.verify(mSkinTonePrefTracker).getDefaultSkinTone();
+        Mockito.verify(mGenderTracker).getDefaultGender();
 
         final QuickKeysKeyboardView keyboardView0 =
                 ((View) instance0).findViewById(R.id.keys_container);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="15%p">
+  <!--Variants for 🧛‍♂️-->
   <Row>
     <Key android:keyLabel="&#129499;&#127995;‍♂️" android:keyOutputText="&#129499;&#127995;‍♂️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
     <Key android:keyLabel="&#129499;&#127996;‍♂️" android:keyOutputText="&#129499;&#127996;‍♂️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
