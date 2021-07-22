@@ -24,14 +24,19 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class QuickTextSettingsFragment extends PreferenceFragmentCompat {
 
+    private static void hidePref(Preference preference) {
+        preference.setEnabled(false);
+        preference.setVisible(false);
+    }
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_quick_text_addons_prefs);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            final Preference skinTonePref =
-                    findPreference(getString(R.string.settings_key_default_emoji_skin_tone));
-            skinTonePref.setEnabled(false);
-            skinTonePref.setVisible(false);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            hidePref(findPreference(getString(R.string.settings_key_default_emoji_gender)));
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                hidePref(findPreference(getString(R.string.settings_key_default_emoji_skin_tone)));
+            }
         }
     }
 

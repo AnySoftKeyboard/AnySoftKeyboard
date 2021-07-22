@@ -42,7 +42,9 @@ public class QuickTextPagerViewTest {
                                 .inflate(R.layout.quick_text_popup_root_view, null, false);
         mUnderTest.setQuickKeyHistoryRecords(
                 new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext())));
-        mUnderTest.setDefaultSkinTonePrefTracker(Mockito.mock(DefaultSkinTonePrefTracker.class));
+        mUnderTest.setEmojiVariantsPrefTrackers(
+                Mockito.mock(DefaultSkinTonePrefTracker.class),
+                Mockito.mock(DefaultGenderPrefTracker.class));
         mUnderTest.setThemeValues(
                 mKeyboardTheme,
                 10f,

@@ -167,6 +167,20 @@
         <item>@string/emoji_default_skin_tone_value_random_type</item>
     </string-array>
 
+    <string name="settings_key_default_emoji_gender">settings_key_default_emoji_gender</string>
+    <string-array name="settings_key_default_emoji_gender_values">
+        <item>person</item>
+        <item>woman</item>
+        <item>man</item>
+        <item>random</item>
+    </string-array>
+    <string-array name="settings_key_default_emoji_gender_names">
+        <item>@string/emoji_default_gender_value_person</item>
+        <item>@string/emoji_default_gender_value_woman</item>
+        <item>@string/emoji_default_gender_value_man</item>
+        <item>@string/emoji_default_gender_value_random_type</item>
+    </string-array>
+
     <string-array name="tweak_animations_level_types">
         <item>@string/tweak_animations_level_types_full</item>
         <item>@string/tweak_animations_level_types_some</item>

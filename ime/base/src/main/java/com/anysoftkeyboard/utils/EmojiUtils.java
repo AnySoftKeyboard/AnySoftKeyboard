@@ -3,63 +3,32 @@ package com.anysoftkeyboard.utils;
 import android.graphics.Paint;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.PaintCompat;
+import emoji.utils.JavaEmojiUtils;
 
 public class EmojiUtils {
 
-    private static StringBuilder msStringBuilder = new StringBuilder(16);
-
-    private static char SKIN_TONE_PREFIX_CHAR = '\uD83C';
-
-    public enum SkinTone {
-
-        // Fitzpatrick_1('\uDFFA'),//does not exist
-        Fitzpatrick_2('\uDFFB'),
-        Fitzpatrick_3('\uDFFC'),
-        Fitzpatrick_4('\uDFFD'),
-        Fitzpatrick_5('\uDFFE'),
-        Fitzpatrick_6('\uDFFF');
-
-        private final char mModifier;
-
-        SkinTone(char modifier) {
-            mModifier = modifier;
-        }
+    public static boolean isLabelOfEmoji(@NonNull CharSequence label) {
+        return JavaEmojiUtils.isLabelOfEmoji(label);
     }
 
-    public static boolean isLabelOfEmoji(CharSequence label) {
-        if (label.length() == 0) return false;
-        final char hs = label.charAt(0);
-
-        return 0xd800 <= hs && hs <= 0xdbff;
-    }
-
-    public static boolean containsSkinTone(CharSequence text, SkinTone skinTone) {
-        for (int charIndex = 0; charIndex < text.length() - 1; charIndex++) {
-            final char c = text.charAt(charIndex);
-            if (c == SKIN_TONE_PREFIX_CHAR && text.charAt(charIndex + 1) == skinTone.mModifier) {
-                return true;
-            }
-        }
-
-        return false;
+    public static boolean containsSkinTone(
+            @NonNull CharSequence text, @NonNull JavaEmojiUtils.SkinTone skinTone) {
+        return JavaEmojiUtils.containsSkinTone(text, skinTone);
     }
 
     public static CharSequence removeSkinTone(
-            @NonNull CharSequence text, @NonNull SkinTone skinTone) {
-        msStringBuilder.setLength(0);
+            @NonNull CharSequence text, @NonNull JavaEmojiUtils.SkinTone skinTone) {
+        return JavaEmojiUtils.removeSkinTone(text, skinTone);
+    }
 
-        for (int charIndex = 0; charIndex < text.length(); charIndex++) {
-            final char c = text.charAt(charIndex);
-            if (c == SKIN_TONE_PREFIX_CHAR
-                    && charIndex < (text.length() - 1)
-                    && text.charAt(charIndex + 1) == skinTone.mModifier) {
-                charIndex++; // skipping this and next
-            } else {
-                msStringBuilder.append(c);
-            }
-        }
+    public static boolean containsGender(
+            @NonNull CharSequence text, @NonNull JavaEmojiUtils.Gender gender) {
+        return JavaEmojiUtils.containsGender(text, gender);
+    }
 
-        return msStringBuilder.toString();
+    public static CharSequence removeGender(
+            @NonNull CharSequence text, @NonNull JavaEmojiUtils.Gender gender) {
+        return JavaEmojiUtils.removeGender(text, gender);
     }
 
     public static boolean isRenderable(@NonNull Paint paint, @NonNull CharSequence text) {

@@ -12,7 +12,8 @@ public class QuickTextViewFactory {
             Context context,
             ViewGroup parent,
             QuickKeyHistoryRecords quickKeyHistoryRecords,
-            DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
+            DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
+            DefaultGenderPrefTracker defaultGenderPrefTracker) {
         LayoutInflater inflater = LayoutInflater.from(context);
         QuickTextPagerView rootView =
                 (QuickTextPagerView)
@@ -23,7 +24,7 @@ public class QuickTextViewFactory {
 
         rootView.setLayoutParams(params);
         rootView.setQuickKeyHistoryRecords(quickKeyHistoryRecords);
-        rootView.setDefaultSkinTonePrefTracker(defaultSkinTonePrefTracker);
+        rootView.setEmojiVariantsPrefTrackers(defaultSkinTonePrefTracker, defaultGenderPrefTracker);
 
         return rootView;
     }

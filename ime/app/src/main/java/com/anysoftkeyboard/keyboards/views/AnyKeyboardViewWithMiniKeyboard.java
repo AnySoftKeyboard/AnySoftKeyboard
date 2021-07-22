@@ -160,6 +160,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
                     popupKey.popupResId,
                     mMiniKeyboard.getThemedKeyboardDimens(),
                     "",
+                    null,
                     null);
         }
     }

@@ -22,7 +22,8 @@ public class QuickTextViewFactoryTest {
                         getApplicationContext(),
                         linearLayout,
                         new QuickKeyHistoryRecords(prefs(getApplicationContext())),
-                        mock(DefaultSkinTonePrefTracker.class));
+                        mock(DefaultSkinTonePrefTracker.class),
+                        mock(DefaultGenderPrefTracker.class));
 
         Assert.assertNotNull(view);
 

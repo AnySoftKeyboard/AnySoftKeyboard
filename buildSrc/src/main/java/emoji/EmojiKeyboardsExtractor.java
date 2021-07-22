@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 public class EmojiKeyboardsExtractor {
-    private final List<EmojiCollector> mCollectors = new ArrayList<EmojiCollector>();
+    private final List<EmojiCollector> mCollectors = new ArrayList<>();
     private final File mXmlResourceFolder;
     private final File mSourceHtmlFile;
     private EmojiCollector mUncollectedEmojiCollector;
@@ -44,7 +44,9 @@ public class EmojiKeyboardsExtractor {
 
         System.out.println("Have " + parsedEmojiData.size() + " main emojis parsed. Collecting...");
         for (EmojiData emojiData : parsedEmojiData) {
+            final boolean debug = emojiData.baseOutputDescription.contains("health");
             System.out.print(".");
+            if (debug) System.out.print("!");
             int collected = 0;
             for (EmojiCollector collector : mCollectors) {
                 if (collector.visitEmoji(emojiData)) {
@@ -87,8 +89,7 @@ public class EmojiKeyboardsExtractor {
         StringBuilder errors = new StringBuilder();
         for (EmojiCollector collector : collectors) {
             EmojiKeyboardCreator creator = new EmojiKeyboardCreator(xmlResourceFolder, collector);
-            creator.buildKeyboardFile();
-            if (collector.getOwnedEmjois().size() == 0) {
+            if (creator.buildKeyboardFile() == 0) {
                 errors.append("Collector for ")
                         .append(collector.getResourceFileName())
                         .append(" does not have any emojis collected!")
@@ -96,7 +97,8 @@ public class EmojiKeyboardsExtractor {
             }
         }
 
-        if (uncollectedEmojiCollector.getOwnedEmjois().size() > 0) {
+        final List<EmojiData> uncollectedEmojis = uncollectedEmojiCollector.generateOwnedEmojis();
+        if (uncollectedEmojis.size() > 0) {
             System.out.println(
                     String.format(
                             Locale.US,

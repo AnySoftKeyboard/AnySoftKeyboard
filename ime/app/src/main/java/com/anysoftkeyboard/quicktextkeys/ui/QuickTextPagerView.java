@@ -40,6 +40,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     private int mBottomPadding;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
     private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
+    private DefaultGenderPrefTracker mDefaultGenderPrefTracker;
 
     public QuickTextPagerView(Context context) {
         super(context);
@@ -104,7 +105,6 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             setBackground(keyboardDrawable);
         } else {
-            //noinspection deprecation
             setBackgroundDrawable(keyboardDrawable);
         }
     }
@@ -135,6 +135,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
                         new RecordHistoryKeyboardActionListener(
                                 historyQuickTextKey, keyboardActionListener),
                         mDefaultSkinTonePrefTracker,
+                        mDefaultGenderPrefTracker,
                         mKeyboardTheme,
                         mBottomPadding);
 
@@ -181,8 +182,10 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         mQuickKeyHistoryRecords = quickKeyHistoryRecords;
     }
 
-    public void setDefaultSkinTonePrefTracker(
-            DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
+    public void setEmojiVariantsPrefTrackers(
+            DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
+            DefaultGenderPrefTracker defaultGenderPrefTracker) {
         mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
+        mDefaultGenderPrefTracker = defaultGenderPrefTracker;
     }
 }
