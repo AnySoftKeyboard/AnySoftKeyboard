@@ -52,6 +52,9 @@
     <string name="effects_group">Эффекты</string>
     <string name="ime_settings">Настройки Клавиатуры</string>
     <string name="switch_incognito">Режим инкогнито</string>
+    <string name="use_system_vibration_title">Использовать системную вибрацию</string>
+    <string name="use_system_vibration_off_summary">Использовать пользовательские параметры вибрации</string>
+    <string name="use_system_vibration_on_summary">Использовать системные параметры вибрации Android</string>
     <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
     <string name="vibrate_on_key_press_value_template">%d миллисекунд</string>
     <string name="night_mode_screen">Настройки ночного режима</string>
@@ -577,6 +580,7 @@
     <string name="clipboard_paste_entries_title">Выбрать текст для вставки</string>
     <string name="next_word_prefs_clear_data">Очистить данные следующего слова</string>
     <string name="next_word_prefs_clear_data_summary">Это необратимо. Вся ваша история набора будет очищена.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard требуется разрешение на чтение и запись резервных копий ваших файлов.</string>
     <string name="notification_read_contacts_title">Можно ли читать ваши контакты?</string>
     <string name="notification_read_contacts_text">Мы должны читать ваши контакты, чтобы дать вам лучшее автозаполнение.</string>
     <string name="notification_read_contacts_ticker">Контакты, требуется разрешение</string>
