@@ -374,7 +374,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     private void confirmLastGesture(boolean withAutoSpace) {
         if (mJustPerformedGesture) {
             pickSuggestionManually(0, getCurrentComposedWord().getTypedWord(), withAutoSpace);
-            mJustPerformedGesture = false;
         }
     }
 
@@ -455,5 +454,12 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
             currentGestureDetector.clearGesture();
         }
+    }
+
+    @Override
+    public void pickSuggestionManually(
+            int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
+        mJustPerformedGesture = false;
+        super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
     }
 }
