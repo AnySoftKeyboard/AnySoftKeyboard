@@ -1,13 +1,11 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 import androidx.annotation.NonNull;
-import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,12 +112,10 @@ public class GestureTypingPathDrawHelper {
     @NonNull private final Paint mPaint;
 
     public GestureTypingPathDrawHelper(
-            @NonNull Context context,
-            @NonNull OnInvalidateCallback callback,
-            @NonNull Paint paint) {
+            @NonNull OnInvalidateCallback callback, @NonNull Paint paint) {
         mPaint = paint;
         mCallback = callback;
-        mStrokeWidth = context.getResources().getDimension(R.dimen.gesture_stroke_width);
+        mStrokeWidth = paint.getStrokeWidth();
         mCurrentLine = new LineElement(mStrokeWidth);
     }
 
