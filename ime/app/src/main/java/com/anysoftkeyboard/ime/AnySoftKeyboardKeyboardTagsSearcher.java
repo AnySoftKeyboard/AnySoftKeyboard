@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboardSuggestions {
+public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboardInlineSuggestions {
 
     public static final String MAGNIFYING_GLASS_CHARACTER = "\uD83D\uDD0D";
 
