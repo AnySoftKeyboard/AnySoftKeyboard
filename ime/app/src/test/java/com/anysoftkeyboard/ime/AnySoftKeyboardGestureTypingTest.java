@@ -245,6 +245,17 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOnlySingleSpaceAfterPickingGestureSuggestion() {
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hello", true);
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        simulateGestureProcess("welcome");
+        Assert.assertEquals(
+                "hello welcome", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testDeleteGesturedWordOnWholeWord() {
         simulateGestureProcess("hello");
         simulateGestureProcess("welcome");
