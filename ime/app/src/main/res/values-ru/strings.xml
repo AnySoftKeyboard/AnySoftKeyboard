@@ -514,6 +514,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Средний тёмный тон кожи</string>
     <string name="emoji_default_skin_tone_value_type_6">Тёмный тон кожи</string>
     <string name="emoji_default_skin_tone_value_random_type">Случайный тон кожи</string>
+    <string name="emoji_default_gender_title">Пол Эмодзи по умолчанию</string>
+    <string name="emoji_default_gender_summary">Стандартный пол: %s</string>
+    <string name="emoji_default_gender_value_person">Человек</string>
+    <string name="emoji_default_gender_value_woman">Женский</string>
+    <string name="emoji_default_gender_value_man">Мужской</string>
+    <string name="emoji_default_gender_value_random_type">Случайный пол</string>
     <string name="developer_tools">Инструменты разработчика</string>
     <string name="click_for_developer_features">Инструменты разработчика</string>
     <string name="click_for_developer_features_summary">Различные инструменты для разработчиков AnySoftKeyboard</string>
