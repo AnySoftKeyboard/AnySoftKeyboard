@@ -526,6 +526,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Tonalidade mesu-iscura de sa pedde</string>
     <string name="emoji_default_skin_tone_value_type_6">Tonalidade iscura de sa pedde</string>
     <string name="emoji_default_skin_tone_value_random_type">Tonalidade de sa pedde a casu</string>
+    <string name="emoji_default_gender_title">Gènere predefinidu de sas emoji</string>
+    <string name="emoji_default_gender_summary">Gènere predefinidu de impreare: %s</string>
+    <string name="emoji_default_gender_value_person">Persone</string>
+    <string name="emoji_default_gender_value_woman">Fèmina</string>
+    <string name="emoji_default_gender_value_man">Òmine</string>
+    <string name="emoji_default_gender_value_random_type">Gènere a casu</string>
     <string name="developer_tools">Ainas pro sos isvilupadores</string>
     <string name="click_for_developer_features">Ainas pro sos isvilupadores</string>
     <string name="click_for_developer_features_summary">Aìnas vàrias pro sos isvilupadores de AnySoftKeyboard</string>
