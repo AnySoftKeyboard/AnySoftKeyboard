@@ -512,6 +512,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Tonalità medio-scura</string>
     <string name="emoji_default_skin_tone_value_type_6">Tonalità scura</string>
     <string name="emoji_default_skin_tone_value_random_type">Tonalità casuale</string>
+    <string name="emoji_default_gender_title">Sesso predefinito degli emoji</string>
+    <string name="emoji_default_gender_summary">Sesso predefinito da usare: %s</string>
+    <string name="emoji_default_gender_value_person">Persona</string>
+    <string name="emoji_default_gender_value_woman">Donna</string>
+    <string name="emoji_default_gender_value_man">Uomo</string>
+    <string name="emoji_default_gender_value_random_type">Sesso casuale</string>
     <string name="developer_tools">Strumenti per sviluppatori</string>
     <string name="click_for_developer_features">Strumenti per sviluppatori</string>
     <string name="click_for_developer_features_summary">Strumenti vari per sviluppatori di AnySoftKeyboard</string>
