@@ -511,6 +511,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Tono oscuro medio</string>
     <string name="emoji_default_skin_tone_value_type_6">Tono oscuro</string>
     <string name="emoji_default_skin_tone_value_random_type">Tono aleatorio</string>
+    <string name="emoji_default_gender_title">Género predeterminado del emoji</string>
+    <string name="emoji_default_gender_summary">Género predeterminado para usar: %s</string>
+    <string name="emoji_default_gender_value_person">Persona</string>
+    <string name="emoji_default_gender_value_woman">Mujer</string>
+    <string name="emoji_default_gender_value_man">Hombre</string>
+    <string name="emoji_default_gender_value_random_type">Género aleatorio</string>
     <string name="developer_tools">Herramientas de desarrollador</string>
     <string name="click_for_developer_features">Herramientas de desarrollador</string>
     <string name="click_for_developer_features_summary">Varias herramientas para desarrolladores de AnySoftKeyboard</string>
