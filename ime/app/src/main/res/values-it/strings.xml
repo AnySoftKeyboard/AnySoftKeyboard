@@ -512,7 +512,7 @@
     <string name="emoji_default_skin_tone_value_type_5">Tonalità medio-scura</string>
     <string name="emoji_default_skin_tone_value_type_6">Tonalità scura</string>
     <string name="emoji_default_skin_tone_value_random_type">Tonalità casuale</string>
-    <string name="emoji_default_gender_title">Sesso predefinito degli emoji</string>
+    <string name="emoji_default_gender_title">Sesso predefinito emoji</string>
     <string name="emoji_default_gender_summary">Sesso predefinito da usare: %s</string>
     <string name="emoji_default_gender_value_person">Persona</string>
     <string name="emoji_default_gender_value_woman">Donna</string>
@@ -593,7 +593,7 @@
     <string name="allow_permission">Permetti</string>
     <string name="turn_off_contacts_dictionary">Disattiva dizionario Contatti</string>
     <string name="read_more_about_permissions">Per saperne di più sulle autorizzazioni…</string>
-    <string name="ask_beta_link_promo">Hey! Vuoi nuova roba <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi all\'indirizzo sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare errori prima che raggiungano il pubblico.</string>
+    <string name="ask_beta_link_promo">Hey! Vuoi nuova roba <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi all\'indirizzo sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
     <string name="clipboard_fine_select_enabled_toast">Selezione sottile testo abilitata. Usa freccia sinistra/destra.</string>
     <string name="app_shortcut_keyboards_disabled">Navigazione tastiere disattivata</string>
     <string name="app_shortcut_keyboards_long_label">Scegli disposizioni tastiera da utilizzare</string>
@@ -658,7 +658,7 @@
     <string name="gesture_typing_summary">Immettere una parola scorrendo il dito sulle sue lettere.</string>
     <string name="gesture_typing_action">Attiva digitazione gestuale [BETA]</string>
     <string name="gesture_typing_alert_title">Funzionalità BETA!</string>
-    <string name="gesture_typing_alert_message">La funzionalità di digitazione gestuale ➿ è in fase <b>beta</b>. Presenta alcuni errori, non è molto veloce e non così completa.\nDetto questo, dovresti darci un\'occhiata.</string>
+    <string name="gesture_typing_alert_message">La funzionalità di digitazione gestuale ➿ è in fase <b>beta</b>. Presenta alcuni bachi, non è molto veloce e non così completa.\nDetto questo, dovresti darci un\'occhiata.</string>
     <string name="gesture_typing_alert_button">Capito</string>
     <string name="apply_remote_app_colors_to_theme">Cambia i colori del tema in base all\'app utilizzata</string>
     <string name="apply_overlay_summary_on">I colori della tastiera corrisponderanno all\'applicazione attiva (al meglio delle nostre capacità).</string>

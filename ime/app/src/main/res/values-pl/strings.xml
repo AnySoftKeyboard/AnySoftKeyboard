@@ -597,6 +597,12 @@ Zmiana
     <string name="emoji_default_skin_tone_value_type_5">Średnio-ciemny odcień skóry</string>
     <string name="emoji_default_skin_tone_value_type_6">Ciemny odcień skóry</string>
     <string name="emoji_default_skin_tone_value_random_type">Losowy odcień skóry</string>
+    <string name="emoji_default_gender_title">Domyślna płeć emoji</string>
+    <string name="emoji_default_gender_summary">Domyślna płeć do użycia: %s</string>
+    <string name="emoji_default_gender_value_person">Osoba</string>
+    <string name="emoji_default_gender_value_woman">Kobieta</string>
+    <string name="emoji_default_gender_value_man">Mężczyzna</string>
+    <string name="emoji_default_gender_value_random_type">Losowa płeć</string>
     <string name="developer_tools">Narzędzia dla deweloperów</string>
     <string name="click_for_developer_features">Narzędzia dla deweloperów</string>
     <string name="click_for_developer_features_summary">Różne narzędzia dla deweloperów
