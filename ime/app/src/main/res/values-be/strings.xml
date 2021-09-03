@@ -55,6 +55,9 @@
     <string name="effects_group">Эфекты</string>
     <string name="ime_settings">Налады клавіятуры</string>
     <string name="switch_incognito">Рэжым інкогніта</string>
+    <string name="use_system_vibration_title">Выкарыстоўваць сістэмную вібрацыю</string>
+    <string name="use_system_vibration_off_summary">Выкарыстоўваць уласныя налады вібрацыі</string>
+    <string name="use_system_vibration_on_summary">Выкарыстоўваць сістэмныя налады вібрацыі Android</string>
     <string name="vibrate_on_key_press_title">Вібрыраваць падчас націску клавішаў</string>
     <string name="vibrate_on_key_press_value_template">Мілісекунд: %d</string>
     <string name="night_mode_screen">Налады начнога рэжыму</string>
@@ -524,6 +527,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Умерана-цёмны колер вокладкі</string>
     <string name="emoji_default_skin_tone_value_type_6">Цёмны колер вокладкі</string>
     <string name="emoji_default_skin_tone_value_random_type">Адвольны колер вокладкі</string>
+    <string name="emoji_default_gender_title">Стандартны пол эмодзі</string>
+    <string name="emoji_default_gender_summary">Стандартны пол: %s</string>
+    <string name="emoji_default_gender_value_person">Асоба</string>
+    <string name="emoji_default_gender_value_woman">Жанчына</string>
+    <string name="emoji_default_gender_value_man">Мужчына</string>
+    <string name="emoji_default_gender_value_random_type">Адвольны пол</string>
     <string name="developer_tools">Інструменты распрацоўшчыка</string>
     <string name="click_for_developer_features">Інструменты распрацоўшчыка</string>
     <string name="click_for_developer_features_summary">Разнастайныя інструменты для распрацоўшчыкаў AnySoftKeyboard</string>
@@ -594,6 +603,7 @@
     <string name="clipboard_paste_entries_title">Выберыце тэкст, каб уставіць</string>
     <string name="next_word_prefs_clear_data">Ачысціць даныя наступнага слова</string>
     <string name="next_word_prefs_clear_data_summary">Гэта аперацыя незваротная. Уся ваша гісторыя набору будзе ачышчаная.</string>
+    <string name="storage_permission_rationale">Праграма патрабуе ваш дазвол на чытанне і запіс рэзервовых копій вашых файлаў.</string>
     <string name="notification_read_contacts_title">Ці можна прачытаць вашы кантакты?</string>
     <string name="notification_read_contacts_text">Нам неабходна прачытаць вашы кантакты, каб даць вам магчымасць яшчэ лепш выкарыстоўваць аўтазапаўненне.</string>
     <string name="notification_read_contacts_ticker">Неабходны дазвол на доступ да кантактаў</string>
