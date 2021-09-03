@@ -37,6 +37,8 @@
         <item name="iconKeyMic">@drawable/yochees_dark_mic_popoup</item>
         <!-- should support normal, feedback -->
         <item name="iconKeySettings">@drawable/yochees_dark_settings_popup</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyDeleteRecentlyUsed">@drawable/ic_delete_forever_dark</item>
 
         <!-- condensing icons -->
         <item name="iconKeyCondenseNormal">@drawable/yochees_dark_keyboard_normal</item>

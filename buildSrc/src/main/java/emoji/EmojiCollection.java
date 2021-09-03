@@ -6,5 +6,5 @@ public interface EmojiCollection {
 
     String getResourceFileName();
 
-    List<EmojiData> getOwnedEmjois();
+    List<EmojiData> generateOwnedEmojis();
 }

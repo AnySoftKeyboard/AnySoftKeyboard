@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 class UnicodeOrgEmojiTestDataParser {
-
     // group start: "# group: Flags"
     private static final Pattern GROUP_ROW_PATTERN = Pattern.compile("^#\\s+group:\\s+(.+)$");
     // sub-group start: "# subgroup: flag"
@@ -22,7 +21,10 @@ class UnicodeOrgEmojiTestDataParser {
     // data row: "26AB                                       ; fully-qualified     # ⚫ black circle"
     private static final Pattern DATA_PART_ROW_PATTERN =
             Pattern.compile("^([0-9A-F ]+)\\s+;\\s+fully-qualified\\s*$");
-    private static final Pattern TAGS_PART_ROW_PATTERN = Pattern.compile("([\\w\\s]+)$");
+    // # 🇬🇳 E2.0 flag: Guinea
+    private static final Pattern TAGS_PART_ROW_PATTERN =
+            Pattern.compile("#\\s+.+E\\d+\\.\\d+\\s+(.+)$");
+    private static final StringBuilder msEscapeCodesBuilder = new StringBuilder(32);
 
     static List<EmojiData> parse(File testDataFile, Map<String, List<String>> extraTags)
             throws IOException {
@@ -32,7 +34,6 @@ class UnicodeOrgEmojiTestDataParser {
         String subgroup = "";
 
         int emojis = 0;
-        EmojiData previousEmoji = null;
 
         try (FileReader fileReader = new FileReader(testDataFile)) {
             try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -53,14 +54,14 @@ class UnicodeOrgEmojiTestDataParser {
                             final int tagsIndex = line.lastIndexOf("#");
                             if (tagsIndex > 0) {
                                 final String data = line.substring(0, tagsIndex);
-                                final boolean isVariant = isVariantTag(line.substring(tagsIndex));
                                 final Matcher dataRowMatcher = DATA_PART_ROW_PATTERN.matcher(data);
                                 final Matcher tagsRowMatcher =
                                         TAGS_PART_ROW_PATTERN.matcher(line.substring(tagsIndex));
                                 if (dataRowMatcher.find() && tagsRowMatcher.find()) {
                                     emojis++;
+                                    final String description = tagsRowMatcher.group(1);
                                     List<String> tags =
-                                            Arrays.stream(tagsRowMatcher.group(1).split("\\s+"))
+                                            Arrays.stream(description.split("[:,]", -1))
                                                     .filter(s -> !s.isEmpty())
                                                     .collect(Collectors.toList());
                                     final String output =
@@ -78,18 +79,14 @@ class UnicodeOrgEmojiTestDataParser {
                                     EmojiData emojiData =
                                             new EmojiData(
                                                     emojis,
+                                                    description,
                                                     group.replace(' ', '-')
                                                             + "-"
                                                             + subgroup.replace(' ', '-'),
                                                     output,
                                                     tags);
 
-                                    if (isVariant) {
-                                        previousEmoji.addVariant(emojiData);
-                                    } else {
-                                        previousEmoji = emojiData;
-                                        parsedEmojiData.add(previousEmoji);
-                                    }
+                                    parsedEmojiData.add(emojiData);
                                 }
                             }
                         }
@@ -100,12 +97,6 @@ class UnicodeOrgEmojiTestDataParser {
 
         return parsedEmojiData;
     }
-
-    private static boolean isVariantTag(String tag) {
-        return tag.contains(":") && tag.contains("tone");
-    }
-
-    private static final StringBuilder msEscapeCodesBuilder = new StringBuilder(32);
 
     private static String convertToEscapeCodes(String hexString) {
         msEscapeCodesBuilder.setLength(0);

@@ -42,7 +42,9 @@ public class QuickTextPagerViewTest {
                                 .inflate(R.layout.quick_text_popup_root_view, null, false);
         mUnderTest.setQuickKeyHistoryRecords(
                 new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext())));
-        mUnderTest.setDefaultSkinTonePrefTracker(Mockito.mock(DefaultSkinTonePrefTracker.class));
+        mUnderTest.setEmojiVariantsPrefTrackers(
+                Mockito.mock(DefaultSkinTonePrefTracker.class),
+                Mockito.mock(DefaultGenderPrefTracker.class));
         mUnderTest.setThemeValues(
                 mKeyboardTheme,
                 10f,
@@ -52,6 +54,7 @@ public class QuickTextPagerViewTest {
                 context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background),
                 context.getDrawable(R.drawable.ic_media_insertion),
+                context.getDrawable(R.drawable.ic_delete_forever_dark),
                 10,
                 Collections.singleton(MediaType.Image));
     }
@@ -76,6 +79,7 @@ public class QuickTextPagerViewTest {
                 context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background),
                 context.getDrawable(R.drawable.ic_media_insertion),
+                context.getDrawable(R.drawable.ic_delete_forever_dark),
                 10,
                 Collections.singleton(MediaType.Image));
 
@@ -94,6 +98,7 @@ public class QuickTextPagerViewTest {
                 context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background),
                 context.getDrawable(R.drawable.ic_media_insertion),
+                context.getDrawable(R.drawable.ic_delete_forever_dark),
                 10,
                 Collections.emptySet());
         Assert.assertEquals(

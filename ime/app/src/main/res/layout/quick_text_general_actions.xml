@@ -28,6 +28,13 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_media_insertion" />
 
+    <ImageView
+        android:id="@+id/quick_keys_popup_delete_recently_used_smileys"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_delete_forever_dark" />
+
     <View
         android:layout_width="1px"
         android:layout_height="0px"

@@ -51,6 +51,9 @@
     <string name="effects_group">Efectos</string>
     <string name="ime_settings">Configuración del teclado</string>
     <string name="switch_incognito">Modo incógnito</string>
+    <string name="use_system_vibration_title">Usar vibración del sistema</string>
+    <string name="use_system_vibration_off_summary">Usar configuración de vibración personalizada</string>
+    <string name="use_system_vibration_on_summary">Usar configuración de vibración del sistema Android</string>
     <string name="vibrate_on_key_press_title">Vibrar al pulsar una tecla</string>
     <string name="vibrate_on_key_press_value_template">%d milisegundos</string>
     <string name="night_mode_screen">Configuración del modo nocturno</string>
@@ -404,6 +407,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Números y símbolos</string>
     <string name="extension_kbd_bottom_minimal">Mínimo</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sin emojis)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Mínimo (menos puntuación)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -507,6 +511,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Tono oscuro medio</string>
     <string name="emoji_default_skin_tone_value_type_6">Tono oscuro</string>
     <string name="emoji_default_skin_tone_value_random_type">Tono aleatorio</string>
+    <string name="emoji_default_gender_title">Género predeterminado del emoji</string>
+    <string name="emoji_default_gender_summary">Género predeterminado para usar: %s</string>
+    <string name="emoji_default_gender_value_person">Persona</string>
+    <string name="emoji_default_gender_value_woman">Mujer</string>
+    <string name="emoji_default_gender_value_man">Hombre</string>
+    <string name="emoji_default_gender_value_random_type">Género aleatorio</string>
     <string name="developer_tools">Herramientas de desarrollador</string>
     <string name="click_for_developer_features">Herramientas de desarrollador</string>
     <string name="click_for_developer_features_summary">Varias herramientas para desarrolladores de AnySoftKeyboard</string>
@@ -573,6 +583,7 @@
     <string name="clipboard_paste_entries_title">Elegir qué texto pegar</string>
     <string name="next_word_prefs_clear_data">Borrar datos de palabras sugeridas</string>
     <string name="next_word_prefs_clear_data_summary">Esto es irreversible. Se borrará todo tu historial de escritura.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard requiere tu permiso para leer, escribir y almacenar tus archivos de respaldo.</string>
     <string name="notification_read_contacts_title">¿Puede leer tus contactos?</string>
     <string name="notification_read_contacts_text">Necesitamos poder leer tus contactos, para brindarte una mejor experiencia de auto-completar.</string>
     <string name="notification_read_contacts_ticker">Necesita permiso para contactos</string>

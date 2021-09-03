@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -28,6 +29,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MotionEventCompat;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -67,9 +69,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     private Animation mInAnimation;
 
     // List of motion events for tracking gesture typing
-    private final GestureTypingPathDrawHelper mGestureDrawingHelper;
+    private GestureTypingPathDrawHelper mGestureDrawingHelper;
     private boolean mGestureTypingPathShouldBeDrawn = false;
-    private final Paint mGesturePaint = new Paint();
 
     private final GestureDetector mGestureDetector;
     private boolean mIsStickyExtensionKeyboard;
@@ -120,17 +121,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
         mInAnimation = null;
 
-        // TODO: should come from a theme
-        mGesturePaint.setColor(Color.GREEN);
-        mGesturePaint.setStrokeWidth(10);
-        mGesturePaint.setStyle(Paint.Style.STROKE);
-        mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
-        mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
-
-        mGestureDrawingHelper =
-                new GestureTypingPathDrawHelper(
-                        context, AnyKeyboardView.this::invalidate, mGesturePaint);
-
         mDisposables.add(
                 mAnimationLevelSubject.subscribe(
                         value -> mAnimationLevel = value,
@@ -170,6 +160,45 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
         super.setKeyboardTheme(theme);
 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
+
+        final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
+        final int[] remoteStyleableArray =
+                remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        TypedArray a =
+                theme.getPackageContext()
+                        .obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStrokeWidth(
+                getContext().getResources().getDimension(R.dimen.gesture_stroke_width));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.BEVEL);
+        paint.setStrokeCap(Paint.Cap.BUTT);
+        final int resolvedAttrsCount = a.getIndexCount();
+        for (int attrIndex = 0; attrIndex < resolvedAttrsCount; attrIndex++) {
+            final int remoteIndex = a.getIndex(attrIndex);
+            try {
+                // CHECKSTYLE:OFF: missingswitchdefault
+                switch (remoteAttrs.getLocalAttrId(remoteStyleableArray[remoteIndex])) {
+                    case R.attr.swipeTypingColor:
+                        paint.setColor(
+                                a.getColor(
+                                        remoteIndex,
+                                        ContextCompat.getColor(
+                                                getContext(), R.color.candidate_normal)));
+                        break;
+                    case R.attr.swipeTypingStrokeWidth:
+                        paint.setStrokeWidth(a.getDimension(remoteIndex, paint.getStrokeWidth()));
+                        break;
+                }
+                // CHECKSTYLE:ON: missingswitchdefault
+            } catch (Exception e) {
+                Logger.w(TAG, "Got an exception while reading theme data", e);
+            }
+        }
+        a.recycle();
+        mGestureDrawingHelper =
+                new GestureTypingPathDrawHelper(AnyKeyboardView.this::invalidate, paint);
     }
 
     @Override

@@ -3,10 +3,10 @@ import emoji.EmojiKeyboardsExtractor
 
 tasks.register("makeEmojiKeyboards") { task ->
     task.doLast {
-        //https://unicode.org/Public/emoji/13.1/emoji-test.txt
+        //https://unicode.org/Public/emoji/14.0/emoji-test.txt
         EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
                 new File(project.projectDir, "/emojis/emoji-test.txt"),
-                new File(project.findProject(":ime:app").projectDir, "/src/main/res/xml-v27/"))
+                new File(project.findProject(":ime:app").projectDir, "/src/main/res/xml-v29/"))
         //adding known collectors
         extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
