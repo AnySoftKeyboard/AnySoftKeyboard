@@ -680,7 +680,7 @@ simplistas    </string>
     <string name="settings_key_hint_size_normal">Normal</string>
     <string name="settings_key_hint_size_big">Grande</string>
     <string name="theme_case_type_override_title">Substitui o formato maiúscula-minúscula do teclado</string>
-    <string name="theme_case_type_override_summary">Como determinar minúscula-maiúscula na visualição do teclado. Atual, %s</string>
+    <string name="theme_case_type_override_summary">Como determinar minúscula-maiúscula na visualização do teclado. Atual, %s</string>
     <string name="take_a_while_progress_message">Isso pode levar algum tempo…</string>
     <string name="shared_prefs_provider_name">Configurações do app</string>
     <string name="user_dict_prefs_provider">Palavras do usuário</string>

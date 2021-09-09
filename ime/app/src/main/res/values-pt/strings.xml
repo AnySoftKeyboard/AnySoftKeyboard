@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="debug_tracing_starting">Rastreio iniciado!\nNão se esqueça de parar em alguma parte</string>
-    <string name="debug_tracing_starting_failed">Falha ao iniciar rastreio! Consulte o logcat para detalhes.</string>
+    <string name="debug_tracing_starting">Rastreio iniciado!\nNão se esqueça de o parar a determinado momento
+    </string>
+    <string name="debug_tracing_starting_failed">Falha ao iniciar o rastreio! Consulte o logcat para mais
+        detalhes.
+    </string>
     <string name="debug_tracing_finished">Rastreio iniciado!\nO ficheiro de rastreio é
         <xliff:g id="trace_file">%s</xliff:g>
     
@@ -20,6 +23,7 @@
     <!-- UI root menu -->
     <string name="ui_root_tile">Interface do utilizador</string>
     <string name="ui_theme_settings_tile">Escolha e configure os temas do teclado.</string>
+    <string name="ui_effects_settings_tile">Efeitos de teclado e experiência.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Alterações</string>
@@ -44,6 +48,10 @@
     <string name="voice_input_not_installed_text">Tem que instalar a entrada por voz da Google antes de poder utilizar esta função.</string>
     <string name="voice_input_not_installed_action_install">Instalar</string>
     <string name="voice_input_not_installed_action_do_not_install">Não</string>
+    <string name="voice_input_not_voice_pack_in_market">Não foi encontrada a entrada de voz
+        (com.google.android.voicesearch) na loja de aplicações. Desculpe, a entrada de voz não
+        funcionará no seu dispositivo.
+    </string>
     <!-- Options menu -->
     <string name="change_ime">Alterar método de inserção</string>
     <string name="override_dictionary">Sobrepor dicionário ativo</string>
@@ -58,39 +66,89 @@
     <string name="effects_group">Efeitos</string>
     <string name="ime_settings">Definições do teclado</string>
     <string name="switch_incognito"> Modo anónimo</string>
+    <string name="use_system_vibration_title">Usar vibração do sistema</string>
+    <string name="use_system_vibration_off_summary">A usar a configuração de vibração personalizada</string>
+    <string name="use_system_vibration_on_summary">A usar a configuração de vibração do sistema Android</string>
     <string name="vibrate_on_key_press_title">Vibrar ao pressionar</string>
     <string name="vibrate_on_key_press_value_template">%d milissegundos</string>
     <string name="night_mode_screen">Definições do Modo Noturno</string>
     <string name="night_mode_description">O Modo Noturno irá alterar estas funcionalidades:</string>
+    <string name="night_mode_state_summary">Despoletador do modo noturno atual:\u0020%s</string>
     <string name="night_mode_dialog_title">Ativar Modo Noturno</string>
     <string name="night_mode_type_never">Nunca</string>
     <string name="night_mode_type_follow_system">Usar o mesmo do sistema</string>
     <string name="night_mode_type_always">Sempre</string>
+    <string name="night_mode_app_night_theme">Interface da aplicação escura</string>
+    <string name="night_mode_darken_keyboard_theme">Tema escuro do teclado</string>
     <string name="night_mode_sound_control">Desativar sons de tecla pressionada</string>
     <string name="night_mode_vibration_control">Desativar vibrações de tecla pressionada</string>
     <string name="power_save_mode_screen">Definições de poupança de energia</string>
+    <string name="power_save_mode_description">O modo de economia de energia reduzirá o consumo de energia do AnySoftKeyboard desativando os seguintes recursos:</string>
+    <string name="power_save_mode_state_summary">Despoletador do modo de poupança de energia atual:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Ativar modo de poupança de energia</string>
     <string name="power_save_mode_types_never">Nunca</string>
+    <string name="power_save_mode_types_lower_battery">Quando a bateria estiver fraca</string>
     <string name="power_save_mode_types_always">Sempre</string>
+    <string name="power_saving_keyboard_theme_name">Tema no modo poupança de energia</string>
+    <string name="power_saving_keyboard_theme_description">Cores escuras, disposição gráfica simples que pode exigir menos energia do dispositivo.</string>
+    <string name="power_save_mode_animation_control">Desativar animações e pré-visualizações de teclas</string>
+    <string name="power_save_mode_sound_control">Desativar sons de tecla pressionada</string>
+    <string name="power_save_mode_vibration_control">Desativar vibrações de tecla pressionada</string>
+    <string name="power_save_mode_suggestions_control">Desativar sugestões de palavras</string>
+    <string name="power_save_mode_gesture_typing_control">Desativar escrita por gestos no teclado</string>
+    <string name="power_save_mode_theme_control">Mudar para tema escuro e simples</string>
+    <string name="pop_text_type_title">Destacar texto escrito acima das teclas</string>
+    <string name="pop_text_type_summary">Quando mostrar texto por cima das teclas pressionadas. Atualmente:\u0020%s</string>
+    <string name="pop_text_type_dialog_title">Selecionar tipo de texto por cima da tecla</string>
     <string name="pop_text_type_never">Nunca</string>
+    <string name="pop_text_type_on_correction">Na correção de palavra</string>
+    <string name="pop_text_type_on_word">Em qualquer palavra</string>
+    <string name="pop_text_type_any_key">Em qualquer tecla</string>
+    <string name="input_field_type_password">Campo de entrada palavra-passe</string>
+    <string name="input_field_type_email">Campo de entrada de e-mail</string>
+    <string name="input_field_type_url">Campo de entrada de URL</string>
+    <string name="input_field_type_im">Campo de entrada de mensagem</string>
     <string name="sound_on">Som ao pressionar</string>
     <string name="sound_on_summary">Emitir som ao pressionar teclas.</string>
     <string name="use_custom_sound_volume">Definir volume</string>
     <string name="use_custom_sound_volume_on_summary">Utilizar volume personalizado.</string>
     <string name="use_custom_sound_volume_off_summary">O volume dos efeitos de som é igual ao das notificações.</string>
     <string name="custom_sound_volume">Volume personalizado</string>
+    <string name="vibrate_on_long_press_title">Vibrar no toque longo</string>
+    <string name="vibrate_on_long_press_summary_on">Uma vibração suave quando a ação de toque longo é invocada.</string>
     <string name="switch_keyboard_on_space">Espaço muda de teclado</string>
     <string name="switch_keyboard_on_space_on_summary">Trocar de símbolos/números para alfabeto ao premir a tecla de espaço</string>
     <string name="switch_keyboard_on_space_off_summary">Não trocar de símbolos/números para alfabeto ao premir a tecla de espaço</string>
+    <string name="colorize_nav_bar_title">Desenhar atrás da barra de navegação</string>
+    <string name="colorize_nav_bar_summary_on">Mostra o plano de fundo do teclado atrás da barra de navegação. Isto não é suportado por todos os dispositivos.</string>
+    <string name="colorize_nav_bar_summary_off">Não desenhar atrás da barra de navegação.</string>
     <string name="persistent_layout_per_package_id_title">Memorizar esquema de alfabeto por aplicação</string>
     <string name="persistent_layout_per_package_id_off_summary">Utilizar o mesmo esquema em todas as aplicações.</string>
-    <string name="persistent_layout_per_package_id_on_summary">Trocar automaticamente para o anterior esquema utilizado na aplicação.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Trocar automaticamente para o esquema anterior utilizado na aplicação.</string>
+    <string name="one_shot_quick_text_popup">Fechar automaticamente após pressionar tecla</string>
+    <string name="one_shot_quick_text_popup_on_summary">Fechar texto rápido por cima da tecla após pressionar uma tecla.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Manter texto rápido por cima da tecla aberto até que a tecla Fechar seja pressionada.</string>
+    <string name="quick_text_tags_search">Sugerir emojis ao digitar etiquetas</string>
+    <string name="quick_text_tags_search_on_summary">Pesquisar emojis por etiqueta, quando o digitar começar com
+        dois pontos (:)
+    </string>
     <string name="hide_soft_when_physical">Ocultar teclado ao usar tecla física</string>
     <string name="hide_soft_when_physical_on_summary">Ocultar teclado virtual ao usar teclado físico</string>
     <string name="hide_soft_when_physical_off_summary">Mostrar teclado virtual ao usar teclado físico</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Espaço muda o idioma</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Alt de Hardware + Espaço alterna para a próxima disposição gráfica disponível.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Alt de Hardware + Espaço introduz um espaço.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Espaço muda o idioma</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Shift de Hardware + Espaço muda para a próxima disposição gráfica disponível.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Shift de Hardware + Espaço introduz um espaço.</string>
     <string name="fullscreen_input_connection_supported">Usar ecrã completo no modo horizontal</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Ocupar o ecrã todo quando
+        introduzir texto no modo horizontal
+    </string>
     <string name="fullscreen_input_connection_supported_off_summary">Não usar ecrã completo no modo horizontal</string>
     <string name="fullscreen_portrait_input_connection_supported">Ecrã completo na vertical</string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Não utilizar ecrã completo no modo horizontal</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Ocupar o ecrã todo quando introduzir texto no modo vertical</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Não utilizar ecrã completo no modo vertical</string>
     <string name="backword_support">Apagar palavra</string>
     <string name="backword_support_on_summary">Shift+Backspace apaga a última palavra</string>
     <string name="backword_support_off_summary">Shift+Backspace apaga o último carácter</string>
@@ -118,12 +176,14 @@
     <string name="swipe_left_two_fingers_action">Deslize para a esquerda com 2 dedos</string>
     <string name="swipe_left_two_fingers_action_summary">Defina a ação executada ao deslizar para a esquerda com 2 dedos. Atualmente: %s</string>
     <string name="swipe_right_two_fingers_action">Deslizar dois dedos para a direita</string>
-    <string name="swipe_right_two_fingers_action_summary">Define a ação executada ao deslizar dois dedos para a direita. Atualmente é %s</string>
+    <string name="swipe_right_two_fingers_action_summary">Define a ação executada ao deslizar dois dedos para a direita. Atualmente: %s</string>
     <string name="swipe_right_two_fingers_action_title">Selecione a ação ao deslizar para a direita</string>
     <string name="pinch_gesture_action">Gesto Juntar</string>
     <string name="pinch_gesture_action_title">Escolha a ação</string>
+    <string name="pinch_gesture_action_summary">Define a ação do gesto de pinça. Atualmente: %s</string>
     <string name="separate_gesture_action">Gesto Esticar</string>
     <string name="separate_gesture_action_title">Escolha a ação</string>
+    <string name="separate_gesture_action_summary">Define ação do gesto de ampliar. Atualmente: %s</string>
     <string name="swipe_action_name_none">Sem ação</string>
     <string name="swipe_action_name_next_alphabet">Teclado alfabético seguinte</string>
     <string name="swipe_action_name_next_symbols">Teclado simbólico seguinte</string>
@@ -131,6 +191,7 @@
     <string name="swipe_action_name_cycle_keyboards">Percorrer todos os teclados</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Percorrer todos os teclados em sentido inverso</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Espaço</string>
     <string name="swipe_action_name_hide">Ocultar teclado</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Apagar palavra</string>
@@ -146,12 +207,14 @@
     <string name="swipe_action_name_compact_layout_to_left">Esquema compacto para a esquerda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar teclado auxiliar</string>
     <string name="settings_swipe_velocity_threshold_title">Velocidade de deslizamento</string>
+    <string name="settings_swipe_velocity_threshold_summary">A velocidade mínima do gesto de deslizar. Atualmente: %s</string>
     <string name="settings_swipe_velocity_very_slow">Muito lenta</string>
     <string name="settings_swipe_velocity_slow">Lenta</string>
     <string name="settings_swipe_velocity_normal">Normal</string>
     <string name="settings_swipe_velocity_fast">Rápida</string>
     <string name="settings_swipe_velocity_very_fast">Muito rápida</string>
     <string name="settings_swipe_distance_threshold_title">Distância de deslizamento</string>
+    <string name="settings_swipe_distance_threshold_summary">A distância mínima do gesto de deslizar. Atualmente: %s</string>
     <string name="settings_swipe_distance_very_short">Muito curta</string>
     <string name="settings_swipe_distance_short">Curta</string>
     <string name="settings_swipe_distance_normal">Normal</string>
@@ -160,9 +223,15 @@
     <string name="hardware_keys_group">Funções das teclas</string>
     <string name="volume_key_for_left_right_support">Tecla de volume para esquerda/direita</string>
     <string name="volume_key_for_left_right_support_on_summary">Desativar esquerda/direita com teclas de volume</string>
+    <string name="volume_key_for_left_right_support_off_summary">Volume para cima vira o cursor para a esquerda, volume para baixo vira o cursor para a direita</string>
     <string name="more_ui_settings_group">Interface</string>
     <string name="special_dictionaries_group">Dicionários especiais</string>
+    <string name="special_dictionaries_group_summary">Dicionários de sugestões usados no AnySoftKeyboard</string>
     <string name="use_user_dictionary">Dicionário do utilizador</string>
+    <string name="use_user_dictionary_on_summary">Sugerir palavras adicionadas pelo utilizador (clique 2 vezes numa sugestão escrita para adicionar)</string>
+    <string name="always_use_fallback_user_dictionary">Usar armazenamento privado para o dicionário do utilizador</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Usar o armazenamento privado do mecanismo do dicionário do utilizador integrado no AnySoftKeyboard.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Tentar usar o dicionário do utilizador integrado global do Android.</string>
     <string name="use_auto_dictionary">Dicionário automático</string>
     <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
     <string name="use_auto_dictionary_summary">Aprender palavras automaticamente. Método: %s</string>
@@ -178,6 +247,8 @@
     <string name="use_next_words_dictionary_aggressiveness_minimal">Mínima</string>
     <string name="use_next_words_dictionary_aggressiveness_medium">Normal</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">Máxima</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Agressividade da próxima palavra sugerida: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Agressividade da seleção automática da próxima palavra sugerida </string>
     <string name="auto_pick_suggestion_aggressiveness_none">Desligada</string>
     <string name="auto_pick_suggestion_aggressiveness_minimal">Intensidade mínima</string>
     <string name="auto_pick_suggestion_aggressiveness_medium">Intensidade normal</string>
@@ -191,6 +262,10 @@
     <string name="tweak_physical_keyboard_group">Ajustes de teclado físico</string>
     <string name="tweak_ui_group">Ajustes gráficos</string>
     <string name="tweak_ux_group">Ajustes de comportamento</string>
+    <string name="supported_keyboard_row_modes_title">Ativar modos especializados de campos de entrada</string>
+    <string name="supported_keyboard_row_modes_summary">Pegar em campos de texto especializados (como
+        palavra-passe, URL, etc.).
+    </string>
     <string name="tweak_dictionary_group">Ajustes do dicionário</string>
     <string name="settings_min_length_for_word_correction">Tamanho mínimo das palavras para correção</string>
     <string name="show_keyboard_name_text">Mostrar nome do teclado</string>
@@ -220,11 +295,23 @@
     <string name="is_sticky_extesion_keyboard">Teclado extensivo permanente</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Visível até ser fechado explicitamente</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Fechar ao pressionar tecla</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Mostrar ícone do teclado na barra de estado</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Mostra o ícone do teclado na barra de estado do
+        dispositivo.
+    </string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">Sem ícone na barra de estado.</string>
     <string name="is_extesion_keyboard_above_keyboard">Local do teclado extensivo</string>
     <string name="show_settings_app_in_launcher">Definições</string>
     <string name="settings_key_show_settings_app_on_summary">O ícone das definições da aplicação será mostrado
 no ecrã (pode ser necessário reiniciar)    </string>
     <string name="settings_key_show_settings_app_off_summary">Ocultar aplicação de definições na lista (poderá ter de reiniciar)</string>
+    <string name="always_hide_language_key">Ocultar sempre a tecla do idioma</string>
+    <string name="always_hide_language_key_on_summary">Nunca mostrará a tecla do idioma. Os gestos
+        ainda suportarão a mudança da disposição gráfica.
+    </string>
+    <string name="always_hide_language_key_off_summary">Irá mostrar a tecla de idioma apenas se estiverem ativados
+        vários esquemas.
+    </string>
     <string name="show_crash_notification">Reportar erros</string>
     <string name="show_crash_notification_on_summary">Num erro ASK, abrir caixa de reporte de erros</string>
     <string name="show_crash_notification_off_summary">Enviar erros silenciosamente</string>
@@ -261,6 +348,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="lang_key_shows_popup">Modo de selecção de idioma</string>
     <string name="lang_key_shows_popup_on_summary">A tecla mostra uma caixa de diálogo</string>
     <string name="lang_key_shows_popup_off_summary">A tecla percorre os idiomas</string>
+    <string name="settings_os_clipboard_sync">Sincronizar área de transferência com o sistema operativo</string>
+    <string name="settings_os_clipboard_sync_summary_on">Detetar alterações na área de transferência e sincronizar com o AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Não verificar se ocorrem operações na área de transferência fora do AnySoftKeyboard.</string>
     <string name="auto_caps">Maiúsculas automáticas</string>
     <string name="grammar_group">Gramática</string>
     <string name="keyboard_behavior_group">Comportamento do teclado</string>
@@ -269,6 +359,10 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="candidates_off_summary">Não serão mostradas sugestões</string>
     <string name="quick_fix">Correções rápidas e abreviaturas</string>
     <string name="quick_fix_summary">Corrigir os erros frequentes e expandir as abreviaturas</string>
+    <string name="quick_fix_secon_disabled">…apenas no primeiro idioma</string>
+    <string name="quick_fix_secon_disabled_summ_on">As correções rápidas e as abreviações só funcionarão no idioma do esquema atual</string>
+    <string name="quick_fix_secon_disabled_summ_off">As correções rápidas e as abreviações funcionarão em todos os idiomas 
+                  marcados no dicionário padrão</string>
     <string name="allow_suggestions_restart">Reiniciar sugestões</string>
     <string name="allow_suggestions_restart_summary">Reiniciar sugestões ao mover o cursor</string>
     <!-- settings - keyboard group -->
@@ -282,6 +376,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="keyboard_change_locked">n/d</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Teclas de texto rápido</string>
+    <string name="quick_text_keys_order">Ordem e grupos de texto rápido</string>
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Linha superior comum</string>
     <string name="top_generic_row_dialog_title">Escolha o tipo de linha</string>
@@ -307,6 +402,18 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="lean_light_2_keyboard_theme_name">Claro minimalista - Opção 2</string>
     <string name="lean_light_big_keyboard_theme_name">Claro minimalista - Teclas grandes</string>
     <string name="lean_light_big_keyboard_theme_description">Similar ao tema claro mas com teclas maiores</string>
+    <string name="lean_dark_gray_keyboard_theme_name">Cinza escuro ligeiro</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Tema cinza escuro, com o mínimo de
+        elementos na interface
+    </string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees escuro</string>
+    <string name="yochees_dark_keyboard_theme_description">Tema escuro por Algimantas.</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees escuro - Opção 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees claro</string>
+    <string name="yochees_light_keyboard_theme_description">Tema claro por Algimantas.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Tema claro por Algimantas com
+        teclas maiúsculas.
+    </string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">Sem linha superior</string>
     <string name="extension_kbd_top_small">Teclas pequenas</string>
@@ -314,14 +421,27 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="extension_kbd_top_small_numbers">Teclas numéricas</string>
     <string name="extension_kbd_top_numbers_alt">Teclas numéricas alternativas</string>
     <string name="extension_kbd_top_nav">Teclas de navegação</string>
+    <string name="extension_kbd_top_nav_alt">Alternativa de teclas de navegação</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Alternativa de teclas de navegação. Nenhuma fila de números no modo palavra-passe</string>
+    <string name="extension_kbd_top_numbers_simple">Simples, apenas números</string>
+    <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Edição rápida de texto</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
     <string name="extension_kbd_bottom_regular">Clássico (sem mic.)</string>
     <string name="extension_kbd_bottom_iphone">Estilo iPhone (sem mic.)</string>
     <string name="extension_kbd_bottom_iphone_with_voice">Estilo iPhone com mic.</string>
     <string name="extension_kbd_bottom_alt">Alternativo (sem mic.)</string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternativo com mic.</string>
+    <string name="extension_kbd_bottom_old">Convencional</string>
+    <string name="extension_kbd_bottom_simple">Simples</string>
+    <string name="extension_kbd_bottom_simple_alt">Alternativa simples</string>
+    <string name="extension_kbd_bottom_row_aosp">Estilo AOSP</string>
     <string name="extension_kbd_bottom_ng">Nova geração - Teste</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Nova geração (sem apóstrofe) - Em testes</string>
     <string name="extension_kbd_extension_numbers_symbols">Números e símbolos</string>
+    <string name="extension_kbd_bottom_minimal">Minimalista</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimalista (no emoji)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalista (menos pontuação)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -338,7 +458,12 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="select_keyboard_popup_title">Escolha o teclado</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Tecla smiley</string>
+    <string name="short_smiley_key_name">Tecla mais pequena de smiley</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="history_quick_text_key_name">Histórico</string>
     <string name="default_quick_text_key_name">Emoticons simples</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
+    <string name="unicode_people_quick_text_key_name">Pessoas</string>
     <string name="unicode_gestures_quick_text_key_name">Gestos</string>
     <string name="unicode_accessories_quick_text_key_name">Acessórios</string>
     <string name="unicode_animals_quick_text_key_name">Animais</string>
@@ -347,9 +472,11 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="unicode_transport_quick_text_key_name">Transportes</string>
     <string name="unicode_signs_quick_text_key_name">Sinais</string>
     <string name="unicode_city_quick_text_key_name">Cidades</string>
+    <string name="unicode_scape_quick_text_key_name">Escape</string>
     <string name="unicode_activity_quick_text_key_name">Atividades</string>
     <string name="unicode_office_quick_text_key_name">Produtividade</string>
     <string name="unicode_occasions_quick_text_key_name">Ocasiões</string>
+    <string name="unicode_flags_quick_text_key_name">Bandeiras</string>
     <string name="multitap_timeout_title">Intervalo de múltiplos toques</string>
     <string name="multitap_timeout_summary">Intervalo entre toques</string>
     <string name="settings_multitap_timeout_disabled">Desativado</string>
@@ -367,10 +494,19 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="settings_long_press_timeout_slow">Lenta</string>
     <string name="settings_long_press_timeout_slower">Muito lenta</string>
     <string name="settings_long_press_timeout_never">Nunca</string>
+    <string name="settings_force_locale_title">Forçar localização</string>
+    <string name="settings_force_locale_summary">Forçar a localização usada no AnySoftKeyboard (leva
+        algum tempo a funcionar). Atualmente: %s.
+    </string>
     <string name="tweak_workarounds_group">Soluções alternativas</string>
     <string name="workaround_disable_rtl_fix">Desativar escrita RTL</string>
     <string name="workaround_disable_rtl_fix_summary_on">Texto RTL gerido pelo SO (para SE)</string>
     <string name="workaround_disable_rtl_fix_summary_off">Texto RTL gerido pelo AnySoftKeyboard</string>
+    <string name="settings_split_state_title_portrait">Estado inicial do modo vertical dividir/unir</string>
+    <string name="settings_split_state_title_landscape">Estado inicial do modo horizontal dividir/unir</string>
+    <string name="settings_split_state_summary">Defina se o teclado é dividido à partida.
+        Atualmente: %s
+    </string>
     <string name="settings_split_state_merged_always">Iniciar normal</string>
     <string name="settings_split_state_split_always">Iniciar separado</string>
     <string name="settings_split_state_compact_right_always">Iniciar compactado à direita</string>
@@ -403,9 +539,31 @@ no ecrã (pode ser necessário reiniciar)    </string>
         <xliff:g id="error">%s</xliff:g>
     </string>
     <string name="should_swap_punctuation_and_space_title">Trocar pontuação e espaço</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Não trocar espaço e
+        pontuação.
+    </string>
+    <string name="should_swap_punctuation_and_space_on_summary">Trocar espaço automático e pontuação.
+    </string>
     <string name="initial_quick_text_tab_title">Grupo inicial</string>
+    <string name="initial_quick_text_tab_summary">Grupo de texto rápido para começar: %s</string>
+    <string name="initial_quick_text_tab_always_first_tab">Começar sempre com o primeiro</string>
     <string name="initial_quick_text_tab_last_used_tab">Iniciar com o último grupo utilizado</string>
     <string name="initial_quick_text_tab_history_tab">Iniciar com o histórico</string>
+    <string name="emoji_default_skin_tone_title">Tom de pele dos emoji padrão</string>
+    <string name="emoji_default_skin_tone_summary">Tom de pele padrão Fitzpatrick a usar: %s</string>
+    <string name="emoji_default_skin_tone_value_generic">Genérico</string>
+    <string name="emoji_default_skin_tone_value_type_2">Tom de pele claro</string>
+    <string name="emoji_default_skin_tone_value_type_3">Tom de pele médio-claro</string>
+    <string name="emoji_default_skin_tone_value_type_4">Tom de pele médio</string>
+    <string name="emoji_default_skin_tone_value_type_5">Tom de pele médio-escuro</string>
+    <string name="emoji_default_skin_tone_value_type_6">Tom de pele escuro</string>
+    <string name="emoji_default_skin_tone_value_random_type">Tom de pele aleatório</string>
+    <string name="emoji_default_gender_title">Género padrão dos emoji</string>
+    <string name="emoji_default_gender_summary">Género padrão a usar: %s</string>
+    <string name="emoji_default_gender_value_person">Pessoa</string>
+    <string name="emoji_default_gender_value_woman">Mulher</string>
+    <string name="emoji_default_gender_value_man">Homem</string>
+    <string name="emoji_default_gender_value_random_type">Género aleatório</string>
     <string name="developer_tools">Ferramentas de programação</string>
     <string name="click_for_developer_features">Ferramentas de programação</string>
     <string name="click_for_developer_features_summary">Várias ferramentas de desenvolvimento do AnySoftKeyboard</string>
@@ -427,14 +585,53 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="enter_word_hint">Digite a palavra nova aqui</string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
+    <string name="toast_error_custom_path_backup">Erro: pode ser aberta qualquer aplicação contextual</string>
+    <string name="file_explorer_menu_add_folder">Criar pasta</string>
+    <string name="file_explorer_filename">Nome do ficheiro de cópia de segurança…</string>
+    <string name="file_explorer_filename_empty">O nome do ficheiro não pode estar vazio…</string>
+    <string name="file_explorer_alert_title">Selecionar este ficheiro?</string>
+    <string name="file_explorer_restore_alert_message">Quer restaurar este ficheiro?</string>
+    <string name="file_explorer_backup_alert_message">O ficheiro existente será substituído.</string>
+    <string name="file_explorer_backup_success">Os seus dados foram guardados em\u0020</string>
+    <string name="file_explorer_backup_failed">Não foi possível guardar os seus dados.</string>
+    <string name="file_explorer_restore_success">Os seus dados foram restaurados de\u0020</string>
+    <string name="file_explorer_restore_failed">Não foi possível restaurar os seus dados.</string>
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar o AnySoftKeyboard</string>
+    <string name="setup_wizard_step_one_details">Nesta etapa, terá de ativar o <i>
+        AnySoftKeyboard</i>. Por favor verifique o <i>\'AnySoftKeyboard\'</i> nas suas <i>configurações de Idioma e 
+        introdução</i>. Isto permitirá que seja executado no seu dispositivo.
+    </string>
+    <string name="setup_wizard_step_one_action">Vá a <i>configurações de Idioma e introdução</i>…
+    </string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Erro: o seu dispositivo
+        não suporta teclados externos de terceiros. O AnySoftKeyboard não pode ser ativado!
+    </string>
+    <string name="setup_wizard_step_permissions_title">Ativar permissões</string>
+    <string name="setup_wizard_step_permissions_details">Nesta etapa, pode conceder ao <i>
+        AnySoftKeyboard
+    </i> a permissão para ler os seus contactos. Se quiser bloquear este acesso pode desativar o
+        Dicionário de contactos.
+    </string>
     <string name="setup_wizard_step_two_title">Trocar para o AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">O seu sistema pode utilizar o <i>AnySoftKeyboard</i>, mas este não está definido como o teclado ativo.\nAo trocar, o <i>AnySoftKeyboard</i> será o seu novo teclado!</string>
     <string name="setup_wizard_step_two_action">Trocar teclado ativo</string>
+    <string name="setup_wizard_step_three_title">O que se segue?</string>
+    <string name="setup_wizard_step_three_details">Obrigado por escolher o <i>AnySoftKeyboard</i>.
+    </string>
+    <string name="setup_wizard_step_three_details_done">        <b>Está pronto 🎉\nVá à sua aplicação favorita onde escreve para testar.</b>
+    </string>
+    <string name="setup_wizard_step_three_details_actions">Ou pode personalizar e personalizar o
+        teclado a seu gosto:
+    </string>
     <string name="setup_wizard_step_three_action_languages">Configurar idiomas...</string>
     <string name="setup_wizard_step_three_action_themes">Escolher tema...</string>
     <string name="setup_wizard_step_three_action_all_settings">Outras configurações...</string>
+    <string name="setup_wizard_step_download_title">Descarregar pacotes de idiomas</string>
+    <string name="setup_wizard_step_download_details">Ficará feliz em saber que o <i>AnySoftKeyboard</i> suporta dezenas de idiomas. Basta descarregar o pacote de idioma que quer para poder digitar em
+        qualquer idioma do seu dispositivo.</string>
+    <string name="setup_wizard_step_download_action">Descarregar pacotes de idiomas</string>
+    <string name="setup_wizard_step_download_skip_action">Ignorar</string>
     <string name="ime_crashed_title">O AnySoftKeyboard encerrou!</string>
     <string name="ime_crashed_sub_text">Não esperava por isto…</string>
     <string name="ime_crashed_ticker">O AnySoftKeyboard encerrou. Não estava à espera disto…</string>
@@ -442,11 +639,118 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="ime_crashed_send_button">Enviar</string>
     <string name="ime_crashed_cancel_button">Cancelar</string>
     <string name="ime_crashed_intent_selector_title">Enviar relatório de erros com</string>
+    <string name="next_word_dict_settings">Configurações da próxima palavra</string>
     <string name="next_word_settings_group">Definições</string>
+    <string name="next_word_stats_group">Estatísticas de uso da palavra seguinte</string>
+    <string name="next_words_statistics_count">Contagem inicial de palavras:\u0020<xliff:g id="first_word">%d</xliff:g>\nMédia de contagem de palavras:\u0020<xliff:g id="second_word">%d</xliff:g></string>
+    <string name="next_words_statistics_no_usage">Pouca utilização. Escreva mais um pouco.</string>
+    <string name="clipboard_is_empty_toast">A área de transferência está vazia, não há nada para colar.</string>
+    <string name="clipboard_copy_done_toast">Texto copiado para área de transferência.</string>
+    <string name="clipboard_paste_entries_title">Escolher o texto a colar</string>
+    <string name="next_word_prefs_clear_data">Limpar dados da próxima palavra</string>
+    <string name="next_word_prefs_clear_data_summary">Isto é irreversível. Todo o seu histórico de palavras escritas introduzidas será limpo.</string>
+    <string name="storage_permission_rationale">O AnySoftKeyboard precisa da sua permissão para ler e gravar no armazenamento os ficheiros de cópias de segurança.</string>
     <string name="notification_read_contacts_title">Posso aceder aos seus contactos?</string>
     <string name="notification_read_contacts_text">Necessitamos de aceder aos seus contactos para disponibilizar uma melhor experiência.</string>
     <string name="notification_read_contacts_ticker">Requer acesso aos contactos</string>
+    <string name="contacts_permissions_dialog_message">O AnySoftKeyboard está a usar os nomes dos seus contactos
+        para fornecer uma sugestão personalizada de palavra: ao digitar uma palavra, são procuradas
+        palavras semelhantes para completar corrigir automaticamente a digitação.
+    </string>
+    <string name="wizard_allow_contacts_permission">Permitir sugestões de palavras baseadas nos contactos</string>
     <string name="allow_permission">Permitir</string>
     <string name="turn_off_contacts_dictionary">Desativar dicionário de contactos</string>
+    <string name="read_more_about_permissions">Ler mais sobre permissões…</string>
+    <string name="ask_beta_link_promo">Ei! Quer novas funcionalidades no <i>AnySoftKeyboard</i> mais depressa? Então
+        está com sorte! O canal <i>BETA</i> está disponível a <b>SI</b>!\nBasta registar-se
+        na seguinte hiperligação e fazer atualizações no <i>Google Play</i>!\n\n
+        https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nObrigado por
+        ajudar-nos a corrigir erros antes que eles cheguem ao público em geral.
+    </string>
+    <string name="clipboard_fine_select_enabled_toast">Seleção precisa de texto ativada. Use as setas de direção.</string>
+    <string name="app_shortcut_keyboards_disabled">Navegação de teclados desativada</string>
+    <string name="app_shortcut_keyboards_long_label">Escolher esquemas de teclado a usar</string>
+    <string name="app_shortcut_keyboards_short_label">Teclados</string>
+    <string name="app_shortcut_themes_disabled">Navegação de temas desativada</string>
+    <string name="app_shortcut_themes_long_label">Escolher tema de esquema a usar</string>
+    <string name="app_shortcut_themes_short_label">Temas</string>
+    <string name="app_shortcut_gestures_disabled">Navegação por gestos desativada</string>
+    <string name="app_shortcut_gestures_long_label">Configurar gestos de teclado</string>
+    <string name="app_shortcut_gestures_short_label">Gestos</string>
+    <string name="app_shortcut_quick_keys_disabled">Navegação de configuração de emoji desativada</string>
+    <string name="app_shortcut_quick_keys_long_label">Configurar emojis</string>
+    <string name="app_shortcut_quick_keys_short_label">Configurar emojis</string>
+    <string name="extension_keyboard_enabled_off_summary">Teclado estendido desativado.</string>
+    <string name="extension_keyboard_enabled_on_summary">O teclado estendido será mostrado ao deslizar para cima, acima do teclado.</string>
+    <string name="read_our_privacy_policy">Leia a Política de privacidade…</string>
+    <string name="visit_our_web_site">Visite o nosso site…</string>
+    <string name="keyboard_for_url_fields">Esquema para campos de URL</string>
+    <string name="keyboard_for_url_fields_summary">Em campos URL/email será usado este esquema. Atualmente: %s</string>
+    <string name="keyboard_for_url_fields_title">Selecionar o esquema para introdução de URL</string>
+    <string name="no_internet_fields_specific_layout">Nenhum</string>
+    <string name="bottom_nav_home">Olá</string>
+    <string name="setup_wizard_welcome_title">Bem-vindo(a)!</string>
+    <string name="setup_wizard_welcome_sub_title">Obrigado por escolher o AnySoftKeyboard!
+    </string>
+    <string name="setup_wizard_welcome_info">Como em qualquer outro teclado Android, tem de ativar
+        o AnySoftKeyboard nas configurações do Android. Isto é requerido pelo Android para
+        certificar-se que os seus dados introduzidos não são roubados por teclados maus*.
+    </string>
+    <string name="setup_wizard_welcome_info_2">Ok, está pronto? Clique em baixo para começar, vou guiá-lo passo a passo.</string>
+    <string name="setup_wizard_welcome_start_action">Iniciar a configuração…</string>
+    <string name="setup_wizard_welcome_info_footnote">* Claro que o AnySoftKeyboard não é uma aplicação maliciosa. É
+       encorajado a ver o nosso código-fonte e a verificá-lo. Além disso, não é usada a permissão de <i>REDE
+        </i>, por isso não é enviada nenhuma informação do seu dispositivo.
+    </string>
+    <string name="setup_wizard_welcome_privacy_action">Leia a Política de privacidade…</string>
+    <string name="clear_all_dictionary_override">Limpar substituições</string>
+    <string name="theme_case_type_override_dialog_title">Selecionar substituição para letra maiúscula</string>
+    <string name="theme_case_type_override_theme">Usar formato de maiúsculas do tema</string>
+    <string name="theme_case_type_override_os">Deixar o Android decidir (automático)</string>
+    <string name="theme_case_type_override_lower">Sempre minúsculas</string>
+    <string name="theme_case_type_override_upper">Sempre maiúsculas</string>
+    <string name="settings_hint_size">Tamanho da dica</string>
+    <string name="settings_key_hint_size_summary">Definir o tamanho da dica no teclado. Atualmente: %s</string>
+    <string name="settings_key_hint_size_none">Nenhuma</string>
+    <string name="settings_key_hint_size_small">Pequena</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Grande</string>
+    <string name="theme_case_type_override_title">Substituição de maiúsculas do teclado</string>
+    <string name="theme_case_type_override_summary">Como determinar letras em maiúsculas na visualização do teclado. Atualmente: %s</string>
+    <string name="take_a_while_progress_message">Isto pode demorar algum tempo…</string>
+    <string name="shared_prefs_provider_name">Configurações da aplicação</string>
+    <string name="user_dict_prefs_provider">Palavras do utilizador</string>
+    <string name="next_word_dict_prefs_provider">Próximas palavras</string>
+    <string name="abbreviation_dict_prefs_provider">Abreviaturas</string>
+    <string name="pick_prefs_providers_to_backup">O que quer guardar na cópia de segurança?</string>
+    <string name="pick_prefs_providers_to_restore">O que quer restaurar?</string>
+    <string name="prefs_providers_operation_success">Sucesso</string>
+    <string name="prefs_providers_operation_failed">Falhou!</string>
+    <string name="prefs_providers_failed_backup_due_to">Falha ao guardar seus dados devido a %s</string>
+    <string name="prefs_providers_backed_up_to">Os seus dados foram guardados na cópia de segurança em %s com sucesso</string>
+    <string name="prefs_providers_failed_restore_due_to">Falha ao restaurar os seus dados devido a %s</string>
+    <string name="prefs_providers_restored_to">Os seus dados foram restaurados de %s com sucesso</string>
+    <string name="word_editor_action_choose_path">Escolher um caminho personalizado</string>
+    <string name="allow_layouts_to_provide_generic_rows">Os teclados podem fornecer filas genéricas de teclas</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Usar sempre filas genéricas de teclas selecionadas.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir que o esquema altere as filas genéricas.</string>
+    <string name="gesture_typing_settings">Escrita por gestos nas teclas ➿</string>
+    <string name="gesture_typing_summary">Introduza uma palavra deslizando o dedo pelas teclas</string>
+    <string name="gesture_typing_action">Ativar escrita por gestos [BETA]</string>
+    <string name="gesture_typing_alert_title">Funcionalidade EXPERIMENTAL!</string>
+    <string name="gesture_typing_alert_message">O recurso "escrita por gestos" ➿ está na fse <b>beta</b>. Tem alguns erros, não é muito rápido e não é tão completo.\nApesar disso, pode experimentar.</string>
+    <string name="gesture_typing_alert_button">Entendi</string>
+    <string name="apply_remote_app_colors_to_theme">Alterar as cores do tema com base na aplicação usada</string>
+    <string name="apply_overlay_summary_on">As cores do teclado serão combinadas com a aplicação ativa (na medida do possível).</string>
+    <string name="apply_overlay_summary_off">Usar sempre as cores do tema.</string>
+    <string name="media_insertion_pending_message">Clique na caixa de texto para inserir uma imagem</string>
+    <string name="aosp_dark_theme_name">Tema escuro AOSP</string>
+    <string name="aosp_dark_theme_description">Tema do teclado de cores escuras inspirado no Android Open Source Project</string>
+    <string name="aosp_light_theme_name">Tema claro AOSP</string>
+    <string name="aosp_light_theme_description">Tema do teclado de cores claras inspirado no Android Open Source Project</string>
+    <string name="app_share_title">Bem-vindo(a) ao AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Partilhar o AnySoftKeyboard utilizando</string>
+    <string name="app_share_text">Recomendo a aplicação de teclado Android AnySoftKeyboard de código-fonte aberto, com foco na privacidade, gratuitamente, personalizável e com vários idiomas.\nPode-se descarregar em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
