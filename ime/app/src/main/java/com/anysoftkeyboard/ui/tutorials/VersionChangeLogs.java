@@ -21,6 +21,8 @@ public class VersionChangeLogs {
                         "Better vibration control for newer OS versions.",
                         "Fixes around permission requests.",
                         "Fixes for colorized nav-bar.",
+                        "A few small gesture-typing fixes.",
+                        "Other bug fixes.",
                         "Updated translations from the community."));
         log.add(
                 new VersionChangeLog(
