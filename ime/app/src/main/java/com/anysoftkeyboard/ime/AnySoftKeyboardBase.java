@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ime;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.view.Gravity;
@@ -238,6 +239,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         }
     }
 
+    @SuppressLint("InflateParams")
     protected KeyboardViewContainerView createInputViewContainer() {
         return (KeyboardViewContainerView)
                 getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
