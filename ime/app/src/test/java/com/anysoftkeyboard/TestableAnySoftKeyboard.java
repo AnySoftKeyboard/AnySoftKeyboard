@@ -352,6 +352,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         simulateTextTyping(text, true, true);
     }
 
+    @SuppressWarnings("LoopOverCharArray")
     public void simulateTextTyping(
             final String text, final boolean advanceTime, final boolean asDiscreteKeys) {
         if (asDiscreteKeys) {
