@@ -60,6 +60,8 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
+        # Due to an issue with lint in merge commits, only running in PRs
+        if: github.event_name != 'push'
         run: ./scripts/ci/ci_check_lint.sh
       - uses: ./.github/actions/collect-reports
         if: always()

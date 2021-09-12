@@ -48,15 +48,15 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
     imeMaster)
-      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:publishCanary" )
+      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:publishCanaryApk" )
       ;;
 
     imeProduction)
-      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishRelease" )
+      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishReleaseApk" )
       ;;
 
     addOns*)
-      DEPLOY_TASKS+=( "assembleRelease" "publishRelease" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishRelease" )
+      DEPLOY_TASKS+=( "assembleRelease" "publishReleaseApk" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishReleaseApk" )
       ;;
 
     *)
