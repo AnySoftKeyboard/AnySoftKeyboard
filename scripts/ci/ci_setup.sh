@@ -10,4 +10,4 @@ echo -e "d975f751698a77b662f1254ddbeed3901e976f5a\c" > "${ANDROID_HOME}/licenses
 echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > "${ANDROID_HOME}/licenses/intel-android-sysimage-license"
 
 #setting up SDK paths
-echo -e "sdk.dir=${ANDROID_HOME}\nndk.dir=${ANDROID_NDK}" > local.properties
+echo -e "sdk.dir=${ANDROID_HOME}" > local.properties
