@@ -49,7 +49,7 @@ jobs:
   linters:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.3
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
