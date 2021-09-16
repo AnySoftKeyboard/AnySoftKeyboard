@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+
 DEPLOYMENT_ENVIRONMENT="${1}"
 shift
 DEPLOYMENT_TASK="${1}"
@@ -43,7 +44,19 @@ echo "Copying secret files..."
 cp "${SECRETS_REPO_FOLDER}/anysoftkeyboard.keystore" /tmp/anysoftkeyboard.keystore
 cp "${SECRETS_REPO_FOLDER}/playstore-publisher-certs.json" /tmp/apk_upload_key.json
 
-DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "-DdeployChannel=${DEPLOY_CHANNEL}" "-DdeployFraction=${FRACTION}" )
+echo "Preparing change log files..."
+for f in $(find . -name 'alpha.txt'); do
+  cp $f "$(dirname $f)/beta.txt"
+  cp $f "$(dirname $f)/production.txt"
+done
+
+DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "--promote-track" "${DEPLOY_CHANNEL}" )
+if [[ "${FRACTION}" == "1.00" ]]; then
+  DEPLOY_TASKS+=("--release-status" "complete")
+else
+  DEPLOY_TASKS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
+fi
+
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
