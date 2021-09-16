@@ -20,9 +20,7 @@ import org.robolectric.annotation.Config;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @Config(sdk = Config.NEWEST_SDK /*since we are sensitive to actual latest unicode emojis*/)
 public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
-    // this is related to https://github.com/robolectric/robolectric/issues/6433
-    // should be "\uD83D\uDE03"
-    private static final String WRONG_KEY_OUTPUT = "\uFFFD\uFFFD";
+    private static final String KEY_OUTPUT = "\uD83D\uDE03";
 
     @Test
     public void testOutputTextKeyOutputText() {
@@ -31,7 +29,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(WRONG_KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
 
@@ -399,7 +397,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
 
-        Assert.assertEquals(WRONG_KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
 
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
