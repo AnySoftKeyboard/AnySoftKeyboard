@@ -80,7 +80,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
                 QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         List suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(8, suggestions.size());
+        Assert.assertEquals(134, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
                 suggestions.get(0));
@@ -105,7 +105,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
                 QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         List suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(8, suggestions.size());
+        Assert.assertEquals(134, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
                 suggestions.get(0));
@@ -113,7 +113,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('c');
         suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(6, suggestions.size());
+        Assert.assertEquals(132, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac",
                 suggestions.get(0));
@@ -122,7 +122,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(8, suggestions.size());
+        Assert.assertEquals(134, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fa",
                 suggestions.get(0));
@@ -130,7 +130,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('c');
         suggestions = verifyAndCaptureSuggestion(true);
-        Assert.assertEquals(6, suggestions.size());
+        Assert.assertEquals(132, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "fac",
                 suggestions.get(0));
@@ -148,7 +148,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateTextTyping("face");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(6, suggestions.size());
+        Assert.assertEquals(131, suggestions.size());
         Assert.assertEquals(
                 AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER + "face",
                 suggestions.get(0));
@@ -171,21 +171,21 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(6, suggestions.size());
+        Assert.assertEquals(131, suggestions.size());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
 
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(6, suggestions.size());
+        Assert.assertEquals(131, suggestions.size());
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
-        Assert.assertEquals(6, suggestions.size());
+        Assert.assertEquals(131, suggestions.size());
     }
 
     @Test

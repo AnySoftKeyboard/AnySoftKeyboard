@@ -48,9 +48,8 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
 
         AlertDialog latestShownDialog = GeneralDialogTestUtil.getLatestShownDialog();
-        // should be 🕵
         Assert.assertEquals(
-                "\uFFFD\uFFFD️ Incognito Mode",
+                "\uD83D\uDD75️ Incognito Mode",
                 latestShownDialog.getListView().getAdapter().getItem(3));
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSuggest().isIncognitoMode());

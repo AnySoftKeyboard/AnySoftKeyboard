@@ -5,8 +5,8 @@ TARGET_FOLDER=".robolectric-android-all-jars/"
 rm -rf "${TARGET_FOLDER}" || true
 mkdir -p "${TARGET_FOLDER}"
 
-DOWNLOAD_BASE_URL="https://repo1.maven.org/maven2/org/robolectric/android-all"
-#artifacts taken from: https://github.com/robolectric/robolectric/blob/robolectric-4.5.1/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java
+DOWNLOAD_BASE_URL="https://repo1.maven.org/maven2/org/robolectric/android-all-instrumented"
+#artifacts taken from: https://github.com/robolectric/robolectric/blob/robolectric-4.6.1/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java
 ARTIFACTS=( \
   "11-robolectric-6757853" \
   "10-robolectric-5803371" \
@@ -27,6 +27,6 @@ ARTIFACTS=( \
 for artifact in "${ARTIFACTS[@]}"
 do
   echo "downloading ${artifact}..."
-  jar_name="android-all-${artifact}.jar"
-  wget --tries=5 --waitretry=5 --progress=dot:giga --output-document="${TARGET_FOLDER}/${jar_name}" "${DOWNLOAD_BASE_URL}/${artifact}/${jar_name}"
+  jar_name="android-all-instrumented-${artifact}-i1.jar"
+  wget --tries=5 --waitretry=5 --progress=dot:giga --output-document="${TARGET_FOLDER}/${jar_name}" "${DOWNLOAD_BASE_URL}/${artifact}-i1/${jar_name}"
 done
