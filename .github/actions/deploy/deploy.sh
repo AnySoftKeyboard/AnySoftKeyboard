@@ -50,11 +50,12 @@ for f in $(find . -name 'alpha.txt'); do
   cp $f "$(dirname $f)/production.txt"
 done
 
-DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" "--promote-track" "${DEPLOY_CHANNEL}" )
+DEPLOY_ARGS=( "--promote-track" "${DEPLOY_CHANNEL}" )
+DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" )
 if [[ "${FRACTION}" == "1.00" ]]; then
-  DEPLOY_TASKS+=("--release-status" "complete")
+  DEPLOY_ARGS+=("--release-status" "complete")
 else
-  DEPLOY_TASKS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
+  DEPLOY_ARGS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
 fi
 
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
@@ -94,7 +95,7 @@ fi
 
 echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}"
 
-./gradlew "${DEPLOY_TASKS[@]}"
+./gradlew "${DEPLOY_TASKS[@]}" "${DEPLOY_ARGS[@]}"
 
 #Making sure no future deployments will happen on this branch.
 if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; then
