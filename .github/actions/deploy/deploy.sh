@@ -50,10 +50,10 @@ for f in $(find . -name 'alpha.txt'); do
   cp $f "$(dirname $f)/production.txt"
 done
 
-DEPLOY_ARGS=( "--promote-track" "${DEPLOY_CHANNEL}" )
+DEPLOY_ARGS=()
 DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" )
 if [[ "${FRACTION}" == "1.00" ]]; then
-  DEPLOY_ARGS+=("--release-status" "complete")
+  DEPLOY_ARGS+=("--release-status" "completed")
 else
   DEPLOY_ARGS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
 fi
@@ -63,13 +63,16 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
 
     imeMaster)
       DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:publishCanaryApk" )
+      DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       ;;
 
     imeProduction)
+      DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishReleaseApk" )
       ;;
 
     addOns*)
+      DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "assembleRelease" "publishReleaseApk" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishReleaseApk" )
       ;;
 
@@ -83,10 +86,12 @@ elif [[ "${DEPLOYMENT_TASK}" == "deploy:migration" ]]; then
   case "${PROCESS_NAME}" in
 
     ime*)
+      DEPLOY_ARGS+=( "--promote-track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
       ;;
 
     addOns*)
+      DEPLOY_ARGS+=( "--promote-track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "promoteReleaseArtifact" "-x" "ime:app:promoteReleaseArtifact" )
       ;;
 
