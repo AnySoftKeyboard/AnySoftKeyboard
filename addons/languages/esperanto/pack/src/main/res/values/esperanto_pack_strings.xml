@@ -3,7 +3,7 @@
     <string name="app_name">AnySoftKeyboard - Esperanto Language Pack</string>
     <string name="esperanto_qwerty">Esperanto qwerty</string>
     <string name="esperanto_dvorak">Esperanto Dvorak</string>
-    <string name="dictionary">Esperanto</string>
+    <string name="esperanto_dictionary">Esperanto</string>
     <string name="esperanto_dictionary_description">Esperanto</string>
     <string name="esperanto_keyboard_description">Esperanto keyboard</string>
 </resources>
