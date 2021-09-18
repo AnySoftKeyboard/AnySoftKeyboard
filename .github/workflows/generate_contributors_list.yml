@@ -1,0 +1,35 @@
+name: packs-lists
+
+#always run on the default branch: master
+on:
+  schedule:
+    - cron: '27 10 * * *'
+  push:
+    branches:
+      - master
+
+env:
+  TERM: dumb
+  TMPDIR: "/tmp"
+
+jobs:
+  packs-md-update:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: update contributors list
+        run: ./scripts/generate_contributors_md.sh
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3.5.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Contributors List Update'
+          title: 'Automated Contributors List Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: 'Generated from latest git scan.'
+          team-reviewers: maintainers
+          branch: 'bot-pr/contributors-list-update'
+          labels: automerge

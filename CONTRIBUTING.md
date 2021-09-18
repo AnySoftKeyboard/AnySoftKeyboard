@@ -30,3 +30,7 @@ The components in this repository are released under the [Apache2](https://www.a
 By contributing to this repository you give all copyright and distribution rights or AnySoftKeyboard maintainer.<br/>
 Of course, since this is Apache2, you may fork and do whatever you want with the code, you do not have to share back only give attribute.<br/>
 Read more about this license [here](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)).
+
+# Contributors
+If you decided to help out and contribute your time, we are greatly appreciate this.
+Our contributors list can be found [here](CONTRIBUTORS.md).
