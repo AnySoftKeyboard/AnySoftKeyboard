@@ -46,7 +46,7 @@ public class LocaleTools {
                     parsedLocale = new Locale(localeString);
                 }
 
-                if (parsedLocale == null || TextUtils.isEmpty(parsedLocale.getLanguage())) {
+                if (TextUtils.isEmpty(parsedLocale.getLanguage())) {
                     return Locale.getDefault();
                 } else {
                     return parsedLocale;

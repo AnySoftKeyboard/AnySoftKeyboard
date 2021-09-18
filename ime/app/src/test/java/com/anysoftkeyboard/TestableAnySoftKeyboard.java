@@ -256,6 +256,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                 .when(mMockCandidateView)
                 .getVisibility();
 
+        Mockito.doReturn(
+                        ApplicationProvider.getApplicationContext()
+                                .getResources()
+                                .getDrawable(R.drawable.close_suggestions_strip_icon))
+                .when(mMockCandidateView)
+                .getCloseIcon();
+
         Mockito.doAnswer(invocation -> mCandidateVisibility = invocation.getArgument(0))
                 .when(mMockCandidateView)
                 .setVisibility(anyInt());
