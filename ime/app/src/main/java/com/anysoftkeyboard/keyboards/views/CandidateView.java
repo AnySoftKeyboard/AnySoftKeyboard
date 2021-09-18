@@ -81,7 +81,7 @@ public class CandidateView extends View implements ThemeableChild {
     private Drawable mSelectionHighlight;
     private boolean mScrolled;
     private boolean mShowingAddToDictionary;
-    private CharSequence mAddToDictionaryHint;
+    private final CharSequence mAddToDictionaryHint;
     private int mTargetScrollX;
     private int mTotalWidth;
 

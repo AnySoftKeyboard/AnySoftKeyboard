@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ime;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.anysoftkeyboard.TestableAnySoftKeyboard.createEditorInfo;
 import static com.anysoftkeyboard.ime.KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS;
 
@@ -13,11 +14,14 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.LooperMode;
 
@@ -158,6 +162,35 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                         .getInputViewContainer()
                         .findViewById(R.id.close_suggestions_strip_text));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+    }
+
+    @Test
+    public void testStripTheming() {
+        final KeyboardThemeFactory keyboardThemeFactory =
+                AnyApplication.getKeyboardThemeFactory(getApplicationContext());
+        simulateFinishInputFlow();
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+
+        // switching to light icon
+        keyboardThemeFactory.setAddOnEnabled("18c558ef-bc8c-433a-a36e-92c3ca3be4dd", true);
+        simulateOnStartInputFlow();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.atLeastOnce())
+                .setKeyboardTheme(Mockito.same(keyboardThemeFactory.getEnabledAddOn()));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.atLeastOnce())
+                .setThemeOverlay(Mockito.notNull());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).getCloseIcon();
+
+        simulateFinishInputFlow();
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+
+        // switching to dark icon
+        keyboardThemeFactory.setAddOnEnabled("8774f99e-fb4a-49fa-b8d0-4083f762250a", true);
+        simulateOnStartInputFlow();
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.atLeastOnce())
+                .setKeyboardTheme(Mockito.same(keyboardThemeFactory.getEnabledAddOn()));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.atLeastOnce())
+                .setThemeOverlay(Mockito.notNull());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).getCloseIcon();
     }
 
     @Test
