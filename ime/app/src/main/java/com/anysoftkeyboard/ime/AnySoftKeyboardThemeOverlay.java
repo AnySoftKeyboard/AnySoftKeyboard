@@ -72,6 +72,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
         if (inputViewContainer != null) {
             inputViewContainer.setKeyboardTheme(mCurrentTheme);
+            inputViewContainer.setThemeOverlay(mCurrentOverlayData);
         }
     }
 

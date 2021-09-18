@@ -25,6 +25,7 @@
         <item name="suggestionRecommendedTextColor">@color/light_candidate_recommended</item>
         <item name="suggestionOthersTextColor">@color/light_candidate_other</item>
         <item name="suggestionSelectionHighlight">@drawable/light_candidate_selected_background</item>
+        <item name="suggestionCloseImage">@drawable/close_suggestions_light</item>
 
         <!-- I said Lean theme, so no garbage on the screen please. -->
         <item name="keyboardNameTextColor">#F666</item>

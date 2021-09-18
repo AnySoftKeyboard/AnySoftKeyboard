@@ -183,7 +183,8 @@
 
     <!-- light theme -->
     <style name="YocheesLightKeyIconTheme"
-           parent="YocheesDarkKeyIconTheme" />
+           parent="YocheesDarkKeyIconTheme">
+    </style>
 
     <style name="YocheesLightTheme"
            parent="YocheesBaseTheme">
@@ -204,7 +205,7 @@
         <item name="suggestionOthersTextColor">#888</item>
         <item name="suggestionTextSize">@dimen/candidate_font_height</item>
         <item name="suggestionBackgroundImage">@drawable/yochees_light_main_background</item>
-        <item name="suggestionCloseImage">@drawable/close_suggestions_strip_icon</item>
+        <item name="suggestionCloseImage">@drawable/close_suggestions_light</item>
         <item name="suggestionSelectionHighlight">@drawable/light_candidate_selected_background</item>
     </style>
 

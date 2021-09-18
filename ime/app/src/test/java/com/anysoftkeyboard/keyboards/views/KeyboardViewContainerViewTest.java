@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.mockito.ArgumentMatchers.any;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,6 +11,7 @@ import android.widget.HorizontalScrollView;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -17,6 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardViewContainerViewTest {
@@ -120,6 +123,32 @@ public class KeyboardViewContainerViewTest {
         mUnderTest.removeView(mock2);
 
         Assert.assertSame(originalView, mUnderTest.getCandidateView());
+    }
+
+    @Test
+    public void testCandidateThemeSet() {
+        final CandidateView originalView = mUnderTest.getCandidateView();
+        Assert.assertNotNull(originalView);
+        final KeyboardThemeFactory keyboardThemeFactory =
+                AnyApplication.getKeyboardThemeFactory(getApplicationContext());
+
+        // switching to light icon
+        keyboardThemeFactory.setAddOnEnabled("18c558ef-bc8c-433a-a36e-92c3ca3be4dd", true);
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getEnabledAddOn());
+        final Drawable lightIcon = originalView.getCloseIcon();
+        Assert.assertNotNull(lightIcon);
+        Assert.assertEquals(
+                R.drawable.close_suggestions_light,
+                Shadows.shadowOf(lightIcon).getCreatedFromResId());
+
+        // switching to dark icon
+        keyboardThemeFactory.setAddOnEnabled("8774f99e-fb4a-49fa-b8d0-4083f762250a", true);
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getEnabledAddOn());
+        final Drawable darkIcon = originalView.getCloseIcon();
+        Assert.assertNotNull(darkIcon);
+        Assert.assertEquals(
+                R.drawable.yochees_dark_close_suggetions,
+                Shadows.shadowOf(darkIcon).getCreatedFromResId());
     }
 
     @Test
