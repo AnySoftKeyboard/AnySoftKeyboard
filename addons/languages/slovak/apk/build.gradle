@@ -1,6 +1,4 @@
 ext.shouldBePublished = true
-ext.override_app_id = 'org.herrlado.ask.languagepack.slovak'
-ext.override_release_key_alias = 'slovak'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
