@@ -1,0 +1,12 @@
+<resources>
+    <string name="slovak_dictionary">Slovak dictionary</string>
+    <string name="slovak_keyboard">Slovak</string>
+    <string name="slovak_qwerty_description">Slovak qwerty</string>
+    <string name="slovak_qwerty_multap_description">Slovak qwerty with multi tap diacritics</string>
+    <string name="slovak_qwerty_extra_row_description">Slovak qwerty with extra row</string>
+    <string name="slovak_qwerty_extra_row_multap_description">Slovak qwerty with extra row and multi tap diacritics</string>
+    <string name="slovak_qwertz_description">Slovak qwertz</string>
+    <string name="slovak_qwertz_multap_description">Slovak qwertz with multi tap diacritics</string>
+    <string name="slovak_qwertz_extra_row_description">Slovak qwertz with extra row</string>
+    <string name="slovak_qwertz_extra_row_multap_description">Slovak qwertz with extra row and multi tap diacritics</string>
+</resources>
