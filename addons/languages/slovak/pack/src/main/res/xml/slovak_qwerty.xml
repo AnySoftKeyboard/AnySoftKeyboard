@@ -4,7 +4,7 @@
 <Row>
     <Key android:codes="q" android:popupCharacters="1" android:keyEdgeFlags="left"/>
     <Key android:codes="w" android:popupCharacters="2"/>
-   	<Key android:codes="e" android:popupCharacters="3éě"/>
+    <Key android:codes="e" android:popupCharacters="3éě"/>
     <Key android:codes="r" android:popupCharacters="4ŕř"/>
     <Key android:codes="t" android:popupCharacters="5ť"/>
     <Key android:codes="y" android:popupCharacters="6ý"/>
@@ -25,7 +25,7 @@
     <Key android:codes="l" android:popupCharacters="ľĺ" android:keyEdgeFlags="right"/>
 </Row>
 <Row>
-	<Key android:codes="-1" android:isModifier="true" android:keyWidth="15%p" android:isSticky="true" android:keyEdgeFlags="left"/>
+    <Key android:codes="-1" android:isModifier="true" android:keyWidth="15%p" android:isSticky="true" android:keyEdgeFlags="left"/>
     <Key android:codes="z" android:popupCharacters="ž"/>
     <Key android:codes="x" android:popupCharacters=""/>
     <Key android:codes="c" android:popupCharacters="č"/>
