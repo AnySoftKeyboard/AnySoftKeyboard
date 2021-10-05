@@ -1,6 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.anysoftkeyboard.languagepack.slovak.pack">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.herrlado.ask.languagepack.slovak.pack">
     <application>
-        <receiver android:name="com.anysoftkeyboard.languagepack.slovak.PackBroadcastReceiver" android:exported="true">
+        <receiver android:name="org.herrlado.ask.languagepack.slovak.PackBroadcastReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD"/>
 

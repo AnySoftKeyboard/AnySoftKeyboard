@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.languagepack.slovak;
+package org.herrlado.ask.languagepack.slovak;
 
 import com.anysoftkeyboard.addon.PackBroadcastReceiverBase;
 
