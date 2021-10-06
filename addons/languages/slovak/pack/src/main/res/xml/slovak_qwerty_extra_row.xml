@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyWidth="10%p">
+<Row>
+    <Key android:codes="+" android:popupCharacters="1" android:keyEdgeFlags="left"/>
+    <Key android:codes="ľ" android:popupCharacters="2"/>
+    <Key android:codes="š" android:popupCharacters="3"/>
+    <Key android:codes="č" android:popupCharacters="4"/>
+    <Key android:codes="ť" android:popupCharacters="5"/>
+    <Key android:codes="ž" android:popupCharacters="6"/>
+    <Key android:codes="ý" android:popupCharacters="7"/>
+    <Key android:codes="á" android:popupCharacters="8"/>
+    <Key android:codes="í" android:popupCharacters="9"/>
+    <Key android:codes="é" android:popupCharacters="0" android:keyEdgeFlags="right"/>
+</Row>
+<Row>
+    <Key android:codes="q" android:popupCharacters="" android:keyEdgeFlags="left"/>
+    <Key android:codes="w" android:popupCharacters=""/>
+    <Key android:codes="e" android:popupCharacters="éě"/>
+    <Key android:codes="r" android:popupCharacters="ŕř"/>
+    <Key android:codes="t" android:popupCharacters="ť"/>
+    <Key android:codes="y" android:popupCharacters="ý"/>
+    <Key android:codes="u" android:popupCharacters="úů"/>
+    <Key android:codes="i" android:popupCharacters="í"/>
+    <Key android:codes="o" android:popupCharacters="óô"/>
+    <Key android:codes="p" android:popupCharacters="" android:keyEdgeFlags="right"/>
+</Row>
+<Row>
+    <Key android:codes="a" android:popupCharacters="áä" android:horizontalGap="5%p" android:keyEdgeFlags="left"/>
+    <Key android:codes="s" android:popupCharacters="š"/>
+    <Key android:codes="d" android:popupCharacters="ď"/>
+    <Key android:codes="f" android:popupCharacters=""/>
+    <Key android:codes="g" android:popupCharacters=""/>
+    <Key android:codes="h" android:popupCharacters=""/>
+    <Key android:codes="j" android:popupCharacters=""/>
+    <Key android:codes="k" android:popupCharacters=""/>
+    <Key android:codes="l" android:popupCharacters="ľĺ" android:keyEdgeFlags="right"/>
+</Row>
+<Row>
+    <Key android:codes="-1" android:isModifier="true" android:keyWidth="15%p" android:isSticky="true" android:keyEdgeFlags="left"/>
+    <Key android:codes="z" android:popupCharacters="ž"/>
+    <Key android:codes="x" android:popupCharacters=""/>
+    <Key android:codes="c" android:popupCharacters="č"/>
+    <Key android:codes="v" android:popupCharacters=""/>
+    <Key android:codes="b" android:popupCharacters=""/>
+    <Key android:codes="n" android:popupCharacters="ň"/>
+    <Key android:codes="m" android:popupCharacters=""/>
+    <Key android:codes="-5" android:keyWidth="15%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+</Row>
+</Keyboard>
