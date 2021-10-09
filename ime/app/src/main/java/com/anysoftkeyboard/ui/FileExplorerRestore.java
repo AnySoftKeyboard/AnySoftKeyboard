@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.ArrayAdapter;
@@ -21,19 +20,19 @@ import java.io.File;
 import net.evendanan.pixel.RxProgressDialog;
 
 public class FileExplorerRestore extends AppCompatActivity {
+    private final CompositeDisposable mActionsDisposables = new CompositeDisposable();
     private ListView mListViewFiles;
     private File mBasePath;
     private File mCurrentFolder;
-    private final CompositeDisposable mActionsDisposables = new CompositeDisposable();
 
-    private Disposable launchRestore(@NonNull Context context, String fileName) {
+    private Disposable launchRestore(@NonNull File file) {
         return RxProgressDialog.create(
                         new Pair<>(MainFragment.supportedProviders, MainFragment.checked),
                         this,
                         getText(R.string.take_a_while_progress_message),
                         R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
-                .flatMap(p -> GlobalPrefsBackup.restore(context, p))
+                .flatMap(p -> GlobalPrefsBackup.restore(p, file))
                 .observeOn(RxSchedulers.mainThread())
                 .subscribe(
                         providerDetails ->
@@ -59,21 +58,19 @@ public class FileExplorerRestore extends AppCompatActivity {
                                                 this.getString(
                                                                 R.string
                                                                         .file_explorer_restore_success)
-                                                        + fileName,
+                                                        + file,
                                                 Toast.LENGTH_LONG)
                                         .show());
     }
 
-    public void create_builder(File fileOutput) {
+    public void createBuilder(File fileOutput) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.file_explorer_alert_title)
                 .setMessage(R.string.file_explorer_restore_alert_message)
                 .setPositiveButton(
                         android.R.string.ok,
                         (dialog, which) -> {
-                            GlobalPrefsBackup.updateCustomFilename(fileOutput);
-                            mActionsDisposables.add(
-                                    launchRestore(getApplicationContext(), fileOutput.toString()));
+                            mActionsDisposables.add(launchRestore(fileOutput));
                             finish();
                         })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -102,7 +99,7 @@ public class FileExplorerRestore extends AppCompatActivity {
                         setTitle(o.toString());
                         listFile(mCurrentFolder);
                     } else if (new File(o.toString()).isFile())
-                        create_builder(new File(o.toString()));
+                        createBuilder(new File(o.toString()));
                 });
     }
 

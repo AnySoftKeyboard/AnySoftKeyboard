@@ -209,10 +209,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
-            PrefsXmlStorage storage =
-                    new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(
-                                    requireContext(), ASK_USER_WORDS_SDCARD_FILENAME));
+            PrefsXmlStorage storage = new PrefsXmlStorage();
             UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
             mDisposable.add(
@@ -223,7 +220,11 @@ public class UserDictionaryEditorFragment extends Fragment
                             .subscribeOn(RxSchedulers.background())
                             .map(
                                     pair -> {
-                                        final PrefsRoot prefsRoot = pair.first.load();
+                                        final PrefsRoot prefsRoot =
+                                                pair.first.load(
+                                                        AnyApplication.getBackupFile(
+                                                                requireContext(),
+                                                                ASK_USER_WORDS_SDCARD_FILENAME));
                                         pair.second.storePrefsRoot(prefsRoot);
                                         return Boolean.TRUE;
                                     })
@@ -248,10 +249,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
-            PrefsXmlStorage storage =
-                    new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(
-                                    requireContext(), ASK_USER_WORDS_SDCARD_FILENAME));
+            PrefsXmlStorage storage = new PrefsXmlStorage();
             UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
             mDisposable.add(
@@ -263,7 +261,11 @@ public class UserDictionaryEditorFragment extends Fragment
                             .map(
                                     pair -> {
                                         final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                        pair.first.store(prefsRoot);
+                                        pair.first.store(
+                                                prefsRoot,
+                                                AnyApplication.getBackupFile(
+                                                        requireContext(),
+                                                        ASK_USER_WORDS_SDCARD_FILENAME));
 
                                         return Boolean.TRUE;
                                     })

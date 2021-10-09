@@ -516,4 +516,17 @@ public class RxSharedPrefsTest {
         Assert.assertFalse(
                 preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
     }
+
+    //    @Test
+    //    @Config(sdk = Build.VERSION_CODES.M/*first version to require runtime permissions*/)
+    //    public void testDoesNotAutoApplyPrefFileIfNoPermission() {
+    //        final Application context = getApplicationContext();
+    //        Shadows.shadowOf(context).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    //
+    //        context.getExternalFilesDir(context)
+    //        SharedPreferences preferences =
+    //                Mockito.spy(PreferenceManager.getDefaultSharedPreferences(context));
+    //        new RxSharedPrefs(context, preferences);
+    //
+    //    }
 }

@@ -46,7 +46,7 @@ public class RxSharedPrefs {
     @NonNull private final Resources mResources;
     @NonNull private final RxSharedPreferences mRxSharedPreferences;
 
-    public RxSharedPrefs(Context context, SharedPreferences sp) {
+    public RxSharedPrefs(@NonNull Context context, @NonNull SharedPreferences sp) {
         mResources = context.getResources();
 
         upgradeSettingsValues(sp);
@@ -90,7 +90,7 @@ public class RxSharedPrefs {
         return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
     }
 
-    private static void upgradeSettingsValues(SharedPreferences sp) {
+    private static void upgradeSettingsValues(@NonNull SharedPreferences sp) {
         Logger.d(TAG, "Checking if configuration upgrade is needed.");
         // please note: the default value should be the last version.
         // upgrading should only be done when actually need to be done.
