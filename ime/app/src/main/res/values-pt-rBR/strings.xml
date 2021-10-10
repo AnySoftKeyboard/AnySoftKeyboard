@@ -608,7 +608,7 @@ simplistas    </string>
     <string name="setup_wizard_step_three_action_themes">Selecione temas…</string>
     <string name="setup_wizard_step_three_action_all_settings">E muito mais…</string>
     <string name="setup_wizard_step_download_title">Baixe pacotes de idiomas</string>
-    <string name="setup_wizard_step_download_details">Você vai ficar em saber isso, <i>AnySoftKeyboard</i> suporta várias línguas. Baixe a que você quer e aproveite escrevendo em qualquer língua no seu aparelho.</string>
+    <string name="setup_wizard_step_download_details">Você vai ficar feliz em saber que <i>AnySoftKeyboard</i> suporta várias línguas. Baixe a que você quer e aproveite escrevendo em qualquer língua no seu aparelho.</string>
     <string name="setup_wizard_step_download_action">Baixar pacotes de idioma</string>
     <string name="setup_wizard_step_download_skip_action">Pular</string>
     <string name="ime_crashed_title">AnySoftKeyboard fechou inesperadamente!</string>
