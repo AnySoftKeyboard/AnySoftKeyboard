@@ -16,17 +16,23 @@
 
 package com.anysoftkeyboard.prefs;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.text.format.DateFormat;
+import android.util.Log;
 import androidx.annotation.BoolRes;
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
@@ -34,60 +40,42 @@ import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.f2prateek.rx.preferences2.Preference;
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import java.io.File;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Set;
 
 public class RxSharedPrefs {
-    private static final String TAG = "ASK_Cfg";
-
     static final String CONFIGURATION_VERSION = "configurationVersion";
     static final int CONFIGURATION_LEVEL_VALUE = 12;
+    private static final String TAG = "ASK_Cfg";
 
+    @VisibleForTesting static final String AUTO_APPLY_PREFS_FILENAME = "STARTUP_PREFS_APPLY.xml";
+    private static final String AUTO_APPLIED_PREFS_FILENAME_TEMPLATE_DATETIME_PLACEMENT =
+            "[DATETIME]";
+
+    @VisibleForTesting
+    static final String AUTO_APPLIED_PREFS_FILENAME_TEMPLATE_PREFIX = "STARTUP_PREFS_APPLIED_";
+
+    private static final String AUTO_APPLIED_PREFS_FILENAME_TEMPLATE =
+            AUTO_APPLIED_PREFS_FILENAME_TEMPLATE_PREFIX
+                    + AUTO_APPLIED_PREFS_FILENAME_TEMPLATE_DATETIME_PLACEMENT
+                    + ".xml";
     @NonNull private final Resources mResources;
     @NonNull private final RxSharedPreferences mRxSharedPreferences;
 
-    public RxSharedPrefs(@NonNull Context context, @NonNull SharedPreferences sp) {
+    public RxSharedPrefs(
+            @NonNull Context context,
+            @NonNull SharedPreferences sp,
+            @NonNull Consumer<File> restorer) {
         mResources = context.getResources();
+
+        applyAutoPrefsFile(context, restorer);
 
         upgradeSettingsValues(sp);
 
         mRxSharedPreferences = RxSharedPreferences.create(sp);
-    }
-
-    public Preference<Boolean> getBoolean(@StringRes int prefKey, @BoolRes int defaultValue) {
-        return mRxSharedPreferences.getBoolean(
-                mResources.getString(prefKey), mResources.getBoolean(defaultValue));
-    }
-
-    public Preference<Integer> getInteger(@StringRes int prefKey, @IntegerRes int defaultValue) {
-        return getInteger(mResources.getString(prefKey), defaultValue);
-    }
-
-    public Preference<Integer> getInteger(String prefKey, @IntegerRes int defaultValue) {
-        return mRxSharedPreferences.getInteger(prefKey, mResources.getInteger(defaultValue));
-    }
-
-    public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
-        return getString(mResources.getString(prefKey), defaultValue);
-    }
-
-    public Preference<String> getString(String prefKey, @StringRes int defaultValue) {
-        return mRxSharedPreferences.getString(prefKey, mResources.getString(defaultValue));
-    }
-
-    public <T> Observable<T> getParsedString(
-            @StringRes int prefKey, @StringRes int defaultValue, StringParser<T> parser) {
-        final String defaultStringValue = mResources.getString(defaultValue);
-        return mRxSharedPreferences
-                .getString(mResources.getString(prefKey), defaultStringValue)
-                .asObservable()
-                .map(parser::parse)
-                .onErrorReturnItem(parser.parse(defaultStringValue));
-    }
-
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
-    public Preference<Set<String>> getStringSet(@StringRes int stringSetKeyResId) {
-        return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
     }
 
     private static void upgradeSettingsValues(@NonNull SharedPreferences sp) {
@@ -186,6 +174,97 @@ public class RxSharedPrefs {
         e.apply();
     }
 
+    private void applyAutoPrefsFile(@NonNull Context context, @NonNull Consumer<File> restorer) {
+        final String autoApplyLogTag = TAG + "_auto_apply_pref";
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            final File autoApplyFile =
+                    new File(context.getExternalFilesDir(null), AUTO_APPLY_PREFS_FILENAME);
+            if (autoApplyFile.isFile()) {
+                Logger.i(
+                        autoApplyLogTag,
+                        "Applying prefs file '%s'...",
+                        autoApplyFile.getAbsolutePath());
+                try {
+                    restorer.accept(autoApplyFile);
+                    Logger.i(
+                            autoApplyLogTag,
+                            "Prefs from file '%s' were applied!",
+                            autoApplyFile.getAbsolutePath());
+                    final CharSequence appliedTime =
+                            DateFormat.format("yyyy-MM-dd__HH_mm_ss_zzz", Calendar.getInstance());
+                    final File appliedFile =
+                            new File(
+                                    autoApplyFile.getParent(),
+                                    AUTO_APPLIED_PREFS_FILENAME_TEMPLATE.replace(
+                                            AUTO_APPLIED_PREFS_FILENAME_TEMPLATE_DATETIME_PLACEMENT,
+                                            appliedTime));
+                    Logger.i(
+                            autoApplyLogTag,
+                            "Renaming applied prefs file from '%s' to '%s'...",
+                            autoApplyFile.getAbsolutePath(),
+                            appliedFile.getAbsolutePath());
+                    if (!autoApplyFile.renameTo(appliedFile.getAbsoluteFile())) {
+                        Logger.w(autoApplyLogTag, "Failed to rename prefs file!");
+                    }
+                } catch (Exception e) {
+                    Log.w(autoApplyLogTag, e);
+                    Logger.w(
+                            autoApplyLogTag,
+                            e,
+                            "Failed to restore prefs from the file '%s'.",
+                            autoApplyFile.getAbsolutePath());
+                }
+            } else {
+                Logger.i(
+                        autoApplyLogTag,
+                        "The file '%s' does not exists.",
+                        autoApplyFile.getAbsolutePath());
+            }
+        } else {
+            Logger.i(
+                    autoApplyLogTag,
+                    "Does not have WRITE_EXTERNAL_STORAGE to perform applyAutoPrefsFile.");
+        }
+    }
+
+    public Preference<Boolean> getBoolean(@StringRes int prefKey, @BoolRes int defaultValue) {
+        return mRxSharedPreferences.getBoolean(
+                mResources.getString(prefKey), mResources.getBoolean(defaultValue));
+    }
+
+    public Preference<Integer> getInteger(@StringRes int prefKey, @IntegerRes int defaultValue) {
+        return getInteger(mResources.getString(prefKey), defaultValue);
+    }
+
+    public Preference<Integer> getInteger(String prefKey, @IntegerRes int defaultValue) {
+        return mRxSharedPreferences.getInteger(prefKey, mResources.getInteger(defaultValue));
+    }
+
+    public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
+        return getString(mResources.getString(prefKey), defaultValue);
+    }
+
+    public Preference<String> getString(String prefKey, @StringRes int defaultValue) {
+        return mRxSharedPreferences.getString(prefKey, mResources.getString(defaultValue));
+    }
+
+    public <T> Observable<T> getParsedString(
+            @StringRes int prefKey, @StringRes int defaultValue, StringParser<T> parser) {
+        final String defaultStringValue = mResources.getString(defaultValue);
+        return mRxSharedPreferences
+                .getString(mResources.getString(prefKey), defaultStringValue)
+                .asObservable()
+                .map(parser::parse)
+                .onErrorReturnItem(parser.parse(defaultStringValue));
+    }
+
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+    public Preference<Set<String>> getStringSet(@StringRes int stringSetKeyResId) {
+        return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
+    }
+
     public interface StringParser<T> {
         T parse(String value);
     }
@@ -196,6 +275,43 @@ public class RxSharedPrefs {
 
         public SharedPrefsProvider(SharedPreferences sharedPreferences) {
             mSharedPreferences = sharedPreferences;
+        }
+
+        @Nullable
+        private static String getTypeOf(Object value) {
+            if (value == null) return null;
+
+            if (value instanceof Integer) return "int";
+            if (value instanceof String) return "string";
+            if (value instanceof Boolean) return "bool";
+
+            return null;
+        }
+
+        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(
+                @Nullable String valueType) {
+            if (valueType == null) return SharedPrefsProvider::storeStringToEditor;
+
+            switch (valueType) {
+                case "int":
+                    return SharedPrefsProvider::storeIntToEditor;
+                case "bool":
+                    return SharedPrefsProvider::storeBooleanToEditor;
+                default:
+                    return SharedPrefsProvider::storeStringToEditor;
+            }
+        }
+
+        private static void storeBooleanToEditor(Editor editor, String key, String value) {
+            editor.putBoolean(key, Boolean.valueOf(value));
+        }
+
+        private static void storeIntToEditor(Editor editor, String key, String value) {
+            editor.putInt(key, Integer.parseInt(value));
+        }
+
+        private static void storeStringToEditor(Editor editor, String key, Object value) {
+            editor.putString(key, value == null ? null : value.toString());
         }
 
         @Override
@@ -215,17 +331,6 @@ public class RxSharedPrefs {
                 }
             }
             return root;
-        }
-
-        @Nullable
-        private static String getTypeOf(Object value) {
-            if (value == null) return null;
-
-            if (value instanceof Integer) return "int";
-            if (value instanceof String) return "string";
-            if (value instanceof Boolean) return "bool";
-
-            return null;
         }
 
         @Override
@@ -259,32 +364,6 @@ public class RxSharedPrefs {
             editor.apply();
             // upgrading anything that needs to be fixed
             upgradeSettingsValues(mSharedPreferences);
-        }
-
-        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(
-                @Nullable String valueType) {
-            if (valueType == null) return SharedPrefsProvider::storeStringToEditor;
-
-            switch (valueType) {
-                case "int":
-                    return SharedPrefsProvider::storeIntToEditor;
-                case "bool":
-                    return SharedPrefsProvider::storeBooleanToEditor;
-                default:
-                    return SharedPrefsProvider::storeStringToEditor;
-            }
-        }
-
-        private static void storeBooleanToEditor(Editor editor, String key, String value) {
-            editor.putBoolean(key, Boolean.valueOf(value));
-        }
-
-        private static void storeIntToEditor(Editor editor, String key, String value) {
-            editor.putInt(key, Integer.parseInt(value));
-        }
-
-        private static void storeStringToEditor(Editor editor, String key, Object value) {
-            editor.putString(key, value == null ? null : value.toString());
         }
 
         private interface StoreToSharedPrefsFunction<T> {

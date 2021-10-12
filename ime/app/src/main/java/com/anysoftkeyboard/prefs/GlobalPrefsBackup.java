@@ -22,11 +22,20 @@ import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Function;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class GlobalPrefsBackup {
     public static final String GLOBAL_BACKUP_FILENAME = "AnySoftKeyboardPrefs.xml";
+
+    public static List<ProviderDetails> getAllAutoApplyPrefsProviders(@NonNull Context context) {
+        return Collections.singletonList(
+                new ProviderDetails(
+                        new RxSharedPrefs.SharedPrefsProvider(
+                                PreferenceManager.getDefaultSharedPreferences(context)),
+                        R.string.shared_prefs_provider_name));
+    }
 
     public static List<ProviderDetails> getAllPrefsProviders(@NonNull Context context) {
         return Arrays.asList(
