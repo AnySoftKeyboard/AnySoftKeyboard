@@ -17,9 +17,14 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
             lines.add("    commit: ${commit}")
             lines.add("    gradle:")
             lines.add("      - yes")
+            lines.add("    forceversion: true")
+            lines.add("    prebuild: sed -i -e '/versionCode/d' -e '/versionName/aversionCode \$$VERCODE\$\$'")
+            lines.add("        build.gradle")
+            lines.add("    scanignore:")
+            lines.add("      - buildSrc")
             lines.add("    output: outputs/apks/release/${taskProject.path.substring(1).replace(':', '-')}-${taskProject.android.defaultConfig.versionCode}.apk")
             if (taskProject.path.contains('ime:app')) {
-                lines.add("    ndk: r14b")
+                lines.add("    ndk: r23")
             }
             lines.add("    gradleprops:")
             lines.add("      - forceVersionBuildCount=${System.getenv('BUILD_COUNT_FOR_VERSION')}")
