@@ -52,7 +52,6 @@ public class GlobalPrefsBackupTest {
 
     @Test
     public void testBackupRestoreCustomPath() throws Exception {
-        final Context context = ApplicationProvider.getApplicationContext();
         File customFile = new File(Environment.getExternalStorageDirectory() + "/testBackup.xml");
         final FakePrefsProvider fakePrefsProvider = new FakePrefsProvider("id1");
         List<GlobalPrefsBackup.ProviderDetails> fakeDetails =
@@ -63,9 +62,7 @@ public class GlobalPrefsBackupTest {
         final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
                 new AtomicReference<>(new ArrayList<>());
 
-        GlobalPrefsBackup.updateCustomFilename(customFile);
-
-        GlobalPrefsBackup.backup(context, Pair.create(fakeDetails, new Boolean[] {true}))
+        GlobalPrefsBackup.backup(Pair.create(fakeDetails, new Boolean[] {true}), customFile)
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -78,9 +75,7 @@ public class GlobalPrefsBackupTest {
 
         Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
 
-        GlobalPrefsBackup.updateCustomFilename(customFile);
-
-        GlobalPrefsBackup.restore(context, Pair.create(fakeDetails, new Boolean[] {true}))
+        GlobalPrefsBackup.restore(Pair.create(fakeDetails, new Boolean[] {true}), customFile)
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -108,7 +103,9 @@ public class GlobalPrefsBackupTest {
 
         final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
                 new AtomicReference<>(new ArrayList<>());
-        GlobalPrefsBackup.backup(context, Pair.create(fakeDetails, new Boolean[] {true}))
+        GlobalPrefsBackup.backup(
+                        Pair.create(fakeDetails, new Boolean[] {true}),
+                        GlobalPrefsBackup.getDefaultBackupFile(context))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(1, hits.get().size());
         Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
@@ -123,7 +120,9 @@ public class GlobalPrefsBackupTest {
         Assert.assertTrue(backupFile.length() > 0);
 
         Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
-        GlobalPrefsBackup.restore(context, Pair.create(fakeDetails, new Boolean[] {true}))
+        GlobalPrefsBackup.restore(
+                        Pair.create(fakeDetails, new Boolean[] {true}),
+                        GlobalPrefsBackup.getDefaultBackupFile(context))
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -150,7 +149,9 @@ public class GlobalPrefsBackupTest {
         final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
                 new AtomicReference<>(new ArrayList<>());
         final Boolean[] providersToBackup = {true, true, true, false, true};
-        GlobalPrefsBackup.backup(context, Pair.create(fakesDetails, providersToBackup))
+        GlobalPrefsBackup.backup(
+                        Pair.create(fakesDetails, providersToBackup),
+                        GlobalPrefsBackup.getDefaultBackupFile(context))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(4, hits.get().size());
         Assert.assertSame(fakesDetails.get(0).provider, hits.get().get(0).provider);
@@ -162,7 +163,9 @@ public class GlobalPrefsBackupTest {
         // restoring the first and last. Also asking for restore of the 4th, which is not in the
         // list
         final Boolean[] providersToRestore = {true, false, false, true, true};
-        GlobalPrefsBackup.restore(context, Pair.create(fakesDetails, providersToRestore))
+        GlobalPrefsBackup.restore(
+                        Pair.create(fakesDetails, providersToRestore),
+                        GlobalPrefsBackup.getDefaultBackupFile(context))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(3, hits.get().size());
         Assert.assertSame(fakesDetails.get(0).provider, hits.get().get(0).provider);

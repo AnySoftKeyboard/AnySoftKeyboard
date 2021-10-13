@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.util.Pair;
 import androidx.multidex.MultiDexApplication;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
@@ -47,6 +48,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.saywhat.EasterEggs;
@@ -188,7 +190,7 @@ public class AnyApplication extends MultiDexApplication {
         // setting some statistics
         updateStatistics(this);
 
-        mRxSharedPrefs = new RxSharedPrefs(this, sp);
+        mRxSharedPrefs = new RxSharedPrefs(this, sp, this::prefsAutoRestoreFunction);
 
         mKeyboardFactory = createKeyboardFactory();
         mExternalDictionaryFactory = createExternalDictionaryFactory();
@@ -236,6 +238,37 @@ public class AnyApplication extends MultiDexApplication {
 
         mPublicNotices = new ArrayList<>(EasterEggs.create());
         mPublicNotices.addAll(Notices.create(this));
+    }
+
+    private void prefsAutoRestoreFunction(@NonNull File file) {
+        Logger.d(TAG, "Starting prefsAutoRestoreFunction for '%s'", file.getAbsolutePath());
+        // NOTE: shared_prefs_provider_name is the only supported prefs. All others require
+        // dictionaries to load prior.
+        final Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]> providers =
+                Observable.fromIterable(GlobalPrefsBackup.getAllAutoApplyPrefsProviders(this))
+                        .map(p -> Pair.create(p, true))
+                        .collectInto(
+                                Pair.create(
+                                        new ArrayList<GlobalPrefsBackup.ProviderDetails>(),
+                                        new ArrayList<Boolean>()),
+                                (collectInto, aPair) -> {
+                                    collectInto.first.add(aPair.first);
+                                    collectInto.second.add(aPair.second);
+                                })
+                        .map(
+                                p ->
+                                        Pair.create(
+                                                (List<GlobalPrefsBackup.ProviderDetails>) p.first,
+                                                p.second.toArray(new Boolean[0])))
+                        .blockingGet();
+
+        GlobalPrefsBackup.restore(providers, file)
+                .blockingForEach(
+                        providerDetails ->
+                                Logger.i(
+                                        TAG,
+                                        "Restored prefs for '%s'",
+                                        getString(providerDetails.providerTitle)));
     }
 
     public List<PublicNotice> getPublicNotices() {

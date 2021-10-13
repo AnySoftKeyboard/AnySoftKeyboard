@@ -22,13 +22,20 @@ import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Function;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class GlobalPrefsBackup {
     public static final String GLOBAL_BACKUP_FILENAME = "AnySoftKeyboardPrefs.xml";
 
-    private static File customFilename = null;
+    public static List<ProviderDetails> getAllAutoApplyPrefsProviders(@NonNull Context context) {
+        return Collections.singletonList(
+                new ProviderDetails(
+                        new RxSharedPrefs.SharedPrefsProvider(
+                                PreferenceManager.getDefaultSharedPreferences(context)),
+                        R.string.shared_prefs_provider_name));
+    }
 
     public static List<ProviderDetails> getAllPrefsProviders(@NonNull Context context) {
         return Arrays.asList(
@@ -87,22 +94,20 @@ public class GlobalPrefsBackup {
 
     @NonNull
     public static Observable<ProviderDetails> backup(
-            @NonNull Context context, Pair<List<ProviderDetails>, Boolean[]> enabledProviders) {
+            Pair<List<ProviderDetails>, Boolean[]> enabledProviders, @NonNull File outputFile) {
         return doIt(
-                context,
                 enabledProviders,
                 s -> new PrefsRoot(1),
                 GlobalPrefsBackup::backupProvider,
-                PrefsXmlStorage::store);
+                (storage, root) -> storage.store(root, outputFile));
     }
 
     @NonNull
     public static Observable<ProviderDetails> restore(
-            @NonNull Context context, Pair<List<ProviderDetails>, Boolean[]> enabledProviders) {
+            Pair<List<ProviderDetails>, Boolean[]> enabledProviders, @NonNull File inputFile) {
         return doIt(
-                context,
                 enabledProviders,
-                PrefsXmlStorage::load,
+                s -> s.load(inputFile),
                 GlobalPrefsBackup::restoreProvider,
                 (s, p) -> {
                     /*no-op*/
@@ -111,7 +116,6 @@ public class GlobalPrefsBackup {
 
     @NonNull
     public static Observable<ProviderDetails> doIt(
-            @NonNull Context context,
             Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
             Function<PrefsXmlStorage, PrefsRoot> prefsRootFactory,
             BiConsumer<PrefsProvider, PrefsRoot> providerAction,
@@ -125,7 +129,7 @@ public class GlobalPrefsBackup {
                         .filter(pair -> pair.second)
                         .map(pair -> pair.first);
 
-        final PrefsXmlStorage storage = new PrefsXmlStorage(getBackupFile(context));
+        final PrefsXmlStorage storage = new PrefsXmlStorage();
 
         return Observable.using(
                 () -> prefsRootFactory.apply(storage),
@@ -138,21 +142,8 @@ public class GlobalPrefsBackup {
                 prefsRoot -> prefsRootFinalizer.accept(storage, prefsRoot));
     }
 
-    public static void updateCustomFilename(File filename) {
-        customFilename = filename;
-    }
-
-    public static File getBackupFile(@NonNull Context context) {
-        File tempFilename;
-
-        if (customFilename == null) {
-            return AnyApplication.getBackupFile(context, GLOBAL_BACKUP_FILENAME);
-        } else {
-            // We reset the customFilename
-            tempFilename = customFilename;
-            customFilename = null;
-            return tempFilename;
-        }
+    public static File getDefaultBackupFile(@NonNull Context context) {
+        return AnyApplication.getBackupFile(context, GLOBAL_BACKUP_FILENAME);
     }
 
     public static class ProviderDetails {

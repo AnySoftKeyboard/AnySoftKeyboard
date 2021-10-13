@@ -230,10 +230,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
-            PrefsXmlStorage storage =
-                    new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(
-                                    requireContext(), ASK_NEXT_WORDS_FILENAME));
+            PrefsXmlStorage storage = new PrefsXmlStorage();
             NextWordPrefsProvider provider =
                     new NextWordPrefsProvider(
                             getContext(),
@@ -250,7 +247,10 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                             .map(
                                     pair -> {
                                         final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                        pair.first.store(prefsRoot);
+                                        pair.first.store(
+                                                prefsRoot,
+                                                AnyApplication.getBackupFile(
+                                                        requireContext(), ASK_NEXT_WORDS_FILENAME));
 
                                         return Boolean.TRUE;
                                     })
@@ -271,10 +271,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
-            PrefsXmlStorage storage =
-                    new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(
-                                    requireContext(), ASK_NEXT_WORDS_FILENAME));
+            PrefsXmlStorage storage = new PrefsXmlStorage();
             NextWordPrefsProvider provider =
                     new NextWordPrefsProvider(
                             getContext(),
@@ -290,7 +287,11 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                             .subscribeOn(RxSchedulers.background())
                             .map(
                                     pair -> {
-                                        final PrefsRoot prefsRoot = pair.first.load();
+                                        final PrefsRoot prefsRoot =
+                                                pair.first.load(
+                                                        AnyApplication.getBackupFile(
+                                                                requireContext(),
+                                                                ASK_NEXT_WORDS_FILENAME));
                                         pair.second.storePrefsRoot(prefsRoot);
                                         return Boolean.TRUE;
                                     })
