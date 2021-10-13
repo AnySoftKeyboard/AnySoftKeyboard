@@ -18,7 +18,7 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
             lines.add("    gradle:")
             lines.add("      - yes")
             lines.add("    forceversion: true")
-            lines.add("    prebuild: sed -i -e '/versionCode/d' -e '/versionName/aversionCode \$$VERCODE\$\$'")
+            lines.add("    prebuild: sed -i -e '/versionCode/d' -e '/versionName/aversionCode \$\$VERCODE\$\$'")
             lines.add("        build.gradle")
             lines.add("    scanignore:")
             lines.add("      - buildSrc")
