@@ -38,6 +38,8 @@
         <item name="iconKeyMic">@drawable/ic_av_mic</item>
         <!-- should support normal, feedback -->
         <item name="iconKeySettings">@drawable/ic_action_settings</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyDeleteRecentlyUsed">@drawable/ic_delete_forever_dark</item>
 
         <!-- condensing icons -->
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard</item>
@@ -108,7 +110,9 @@
         <item name="suggestionBackgroundImage">@drawable/dark_background</item>
         <item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
         <item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+        <item name="suggestionSelectionHighlight">@drawable/dark_candidate_selected_background</item>
         <item name="suggestionWordXGap">@dimen/candidate_strip_x_gap</item>
+        <item name="suggestionCloseImage">@drawable/close_suggestions_dark</item>
 
         <item name="keyNormalHeight">@dimen/default_key_height</item>
         <item name="keySmallHeight">@dimen/default_key_half_height</item>

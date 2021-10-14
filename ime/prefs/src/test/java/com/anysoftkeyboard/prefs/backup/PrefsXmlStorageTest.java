@@ -18,7 +18,7 @@ public class PrefsXmlStorageTest {
     @Before
     public void setup() throws Exception {
         mFile = File.createTempFile("PrefsXmlStorageTest", ".xml");
-        mUnderTest = new PrefsXmlStorage(mFile);
+        mUnderTest = new PrefsXmlStorage();
     }
 
     @After
@@ -44,9 +44,9 @@ public class PrefsXmlStorageTest {
 
         Assert.assertEquals(3, root.getVersion());
 
-        mUnderTest.store(root);
+        mUnderTest.store(root, mFile);
 
-        PrefsRoot loadedRoot = mUnderTest.load();
+        PrefsRoot loadedRoot = mUnderTest.load(mFile);
         Assert.assertNotNull(loadedRoot);
 
         Assert.assertEquals(3, loadedRoot.getVersion());
@@ -88,15 +88,15 @@ public class PrefsXmlStorageTest {
         tempPrefItem.addValue("g", "a");
         tempPrefItem.createChild().addValue("inside", "value");
 
-        mUnderTest.store(rootTemp);
+        mUnderTest.store(rootTemp, mFile);
 
         PrefsRoot root = new PrefsRoot(2);
         final PrefItem prefItem = root.createChild();
         prefItem.addValue("a", "b");
 
-        mUnderTest.store(root);
+        mUnderTest.store(root, mFile);
 
-        PrefsRoot loadedRoot = mUnderTest.load();
+        PrefsRoot loadedRoot = mUnderTest.load(mFile);
         Assert.assertEquals(2, loadedRoot.getVersion());
         Assert.assertEquals(1, TestUtils.convertToList(loadedRoot.getChildren()).size());
         Assert.assertEquals(
@@ -137,11 +137,11 @@ public class PrefsXmlStorageTest {
         root.addValue("a", "b");
         root.addValue("n", null);
 
-        mUnderTest.store(root);
+        mUnderTest.store(root, mFile);
 
-        PrefsRoot loadedRoot = mUnderTest.load();
+        PrefsRoot loadedRoot = mUnderTest.load(mFile);
         Assert.assertEquals(1, TestUtils.convertToList(loadedRoot.getValues()).size());
         Assert.assertEquals("b", loadedRoot.getValue("a"));
-        Assert.assertEquals(null, loadedRoot.getValue("n"));
+        Assert.assertNull(loadedRoot.getValue("n"));
     }
 }

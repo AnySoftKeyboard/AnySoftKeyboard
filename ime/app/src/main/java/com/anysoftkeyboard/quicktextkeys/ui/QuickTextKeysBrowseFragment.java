@@ -22,6 +22,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<QuickTextKey> {
 
     private DefaultSkinTonePrefTracker mSkinToneTracker;
+    private DefaultGenderPrefTracker mGenderTracker;
 
     public QuickTextKeysBrowseFragment() {
         super(
@@ -40,13 +41,15 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSkinToneTracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(getContext()));
+        mSkinToneTracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(requireContext()));
+        mGenderTracker = new DefaultGenderPrefTracker(AnyApplication.prefs(requireContext()));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mSkinToneTracker.dispose();
+        mGenderTracker.dispose();
     }
 
     @NonNull
@@ -78,7 +81,8 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
                             addOn.getPopupKeyboardResId(),
                             demoKeyboardView.getThemedKeyboardDimens(),
                             addOn.getName(),
-                            mSkinToneTracker.getDefaultSkinTone());
+                            mSkinToneTracker.getDefaultSkinTone(),
+                            mGenderTracker.getDefaultGender());
         } else {
             keyboard =
                     new PopupListKeyboard(

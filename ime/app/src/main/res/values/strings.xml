@@ -709,6 +709,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Medium-Dark Skin Tone</string>
     <string name="emoji_default_skin_tone_value_type_6">Dark Skin Tone</string>
     <string name="emoji_default_skin_tone_value_random_type">Random Skin Tone</string>
+    <string name="emoji_default_gender_title">Emoji default gender</string>
+    <string name="emoji_default_gender_summary">Default gender to use: %s</string>
+    <string name="emoji_default_gender_value_person">Person</string>
+    <string name="emoji_default_gender_value_woman">Woman</string>
+    <string name="emoji_default_gender_value_man">Man</string>
+    <string name="emoji_default_gender_value_random_type">Random gender</string>
 
     <string name="developer_tools">Developer tools</string>
     <string name="click_for_developer_features">Developer tools</string>

@@ -81,33 +81,8 @@ android {
 if (project.ext.shouldBePublished) {
     project.apply plugin: 'com.github.triplet.play'
 
-    // I hate Gradle!
-    Class<? extends Enum> releaseStatusEnum = play.getClass().classLoader.loadClass("com.github.triplet.gradle.androidpublisher.ReleaseStatus")
-    def releaseStatusEnumInProgress = Enum.valueOf(releaseStatusEnum, 'IN_PROGRESS')
-    def releaseStatusEnumCompleted = Enum.valueOf(releaseStatusEnum, 'COMPLETED')
-    //end-of I hate Gradle!
-
     play {
-        // you can promote from command-line by specifying the track to promote to:
-        // ./gradlew promoteReleaseArtifact -DdeployChannel=beta -DdeployFraction=1.00
-        track.set(System.getProperty('deployChannel', 'alpha'))
-        double fraction = Double.parseDouble(System.getProperty('deployFraction', '1.0')).doubleValue()
-        userFraction.set(fraction)
-        if (fraction < 1.0) {
-            releaseStatus.set(releaseStatusEnumInProgress)
-        } else {
-            releaseStatus.set(releaseStatusEnumCompleted)
-        }
         serviceAccountCredentials = file('/tmp/apk_upload_key.json')
-
-        if ('alpha' != track) {
-            //to keep things simple, we will only specify release-notes in the alpha
-            //channel
-            Files.copy(
-                    project.file('src/main/play/release-notes/en-US/alpha.txt').toPath(),
-                    project.file("src/main/play/release-notes/en-US/${System.getProperty('deployChannel', 'alpha')}.txt").toPath(),
-                    StandardCopyOption.REPLACE_EXISTING)
-        }
     }
 
     //verifying release-notes file

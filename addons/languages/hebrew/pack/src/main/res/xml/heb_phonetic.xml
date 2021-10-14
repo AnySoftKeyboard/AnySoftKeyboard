@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p"
-    android:keyHeight="@integer/key_normal_height"
-    >
+    android:keyHeight="@integer/key_normal_height">
     
     <Row>
         <Key android:codes="1511" android:keyEdgeFlags="left"/>
@@ -19,8 +19,9 @@
     </Row>
     
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="1488" android:keyEdgeFlags="left"/>
-        <Key android:codes="1513" />
+        <Key android:keyLabel="&#x05B3;" android:keyWidth="7%p" android:popupKeyboard="@xml/heb_qwerty_niqquds" android:isModifier="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="1488"/>
+        <Key android:codes="1513" ask:hintLabel="1 ₪" android:popupKeyboard="@xml/heb_qwerty_niqqud_shin"/>
         <Key android:codes="1491" />
         <Key android:codes="1507" />
         <Key android:codes="1490" />

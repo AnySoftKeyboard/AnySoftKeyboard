@@ -63,7 +63,6 @@ public class CandidateView extends View implements ThemeableChild {
     private final int[] mWordX = new int[MAX_SUGGESTIONS];
     private static final int SCROLL_PIXELS = 20;
     private final ArrayList<CharSequence> mSuggestions = new ArrayList<>();
-    private final Drawable mSelectionHighlight;
     private float mHorizontalGap;
     private final ThemeOverlayCombiner mThemeOverlayCombiner = new ThemeOverlayCombiner();
     private final Paint mPaint;
@@ -79,9 +78,10 @@ public class CandidateView extends View implements ThemeableChild {
     private Rect mBgPadding;
     private Drawable mDivider;
     private Drawable mCloseDrawable;
+    private Drawable mSelectionHighlight;
     private boolean mScrolled;
     private boolean mShowingAddToDictionary;
-    private CharSequence mAddToDictionaryHint;
+    private final CharSequence mAddToDictionaryHint;
     private int mTargetScrollX;
     private int mTotalWidth;
 
@@ -95,8 +95,6 @@ public class CandidateView extends View implements ThemeableChild {
     /** Construct a CandidateView for showing suggested words for completion. */
     public CandidateView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mSelectionHighlight =
-                ContextCompat.getDrawable(context, R.drawable.list_selector_background_pressed);
 
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
 
@@ -142,6 +140,7 @@ public class CandidateView extends View implements ThemeableChild {
                 context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
         mDivider = null;
         mCloseDrawable = null;
+        mSelectionHighlight = null;
         setBackgroundDrawable(null);
         setBackgroundColor(Color.BLACK);
         float fontSizePixel =
@@ -199,6 +198,9 @@ public class CandidateView extends View implements ThemeableChild {
                                             .getKeyboardBackground());
                         }
                         break;
+                    case R.attr.suggestionSelectionHighlight:
+                        mSelectionHighlight = a.getDrawable(remoteIndex);
+                        break;
                 }
                 // CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
@@ -213,6 +215,11 @@ public class CandidateView extends View implements ThemeableChild {
         if (mCloseDrawable == null) {
             mCloseDrawable =
                     ContextCompat.getDrawable(context, R.drawable.close_suggestions_strip_icon);
+        }
+        if (mSelectionHighlight == null) {
+            mSelectionHighlight =
+                    ContextCompat.getDrawable(
+                            context, R.drawable.dark_candidate_selected_background);
         }
         mPaint.setColor(
                 mThemeOverlayCombiner.getThemeResources().getKeyTextColor().getDefaultColor());

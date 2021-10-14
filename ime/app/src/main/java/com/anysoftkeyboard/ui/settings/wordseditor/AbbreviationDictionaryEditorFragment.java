@@ -50,10 +50,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage =
-                new PrefsXmlStorage(
-                        AnyApplication.getBackupFile(
-                                requireContext(), ASK_ABBR_WORDS_SDCARD_FILENAME));
+        PrefsXmlStorage storage = new PrefsXmlStorage();
         WordsSQLiteConnectionPrefsProvider provider =
                 new WordsSQLiteConnectionPrefsProvider(
                         getContext(), AbbreviationsDictionary.ABBREVIATIONS_DB);
@@ -66,7 +63,11 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
                         .subscribeOn(RxSchedulers.background())
                         .map(
                                 pair -> {
-                                    final PrefsRoot prefsRoot = pair.first.load();
+                                    final PrefsRoot prefsRoot =
+                                            pair.first.load(
+                                                    AnyApplication.getBackupFile(
+                                                            requireContext(),
+                                                            ASK_ABBR_WORDS_SDCARD_FILENAME));
                                     pair.second.storePrefsRoot(prefsRoot);
                                     return Boolean.TRUE;
                                 })
@@ -88,10 +89,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
-        PrefsXmlStorage storage =
-                new PrefsXmlStorage(
-                        AnyApplication.getBackupFile(
-                                requireContext(), ASK_ABBR_WORDS_SDCARD_FILENAME));
+        PrefsXmlStorage storage = new PrefsXmlStorage();
         WordsSQLiteConnectionPrefsProvider provider =
                 new WordsSQLiteConnectionPrefsProvider(
                         getContext(), AbbreviationsDictionary.ABBREVIATIONS_DB);
@@ -105,7 +103,11 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
                         .map(
                                 pair -> {
                                     final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                    pair.first.store(prefsRoot);
+                                    pair.first.store(
+                                            prefsRoot,
+                                            AnyApplication.getBackupFile(
+                                                    requireContext(),
+                                                    ASK_ABBR_WORDS_SDCARD_FILENAME));
 
                                     return Boolean.TRUE;
                                 })

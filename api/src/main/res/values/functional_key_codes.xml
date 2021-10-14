@@ -61,6 +61,8 @@
     <integer name="key_code_undo">-136</integer>
     <integer name="key_code_redo">-137</integer>
 
+    <integer name="key_code_delete_recent_used_smileys">-160</integer>
+
     <integer name="key_code_delete_word">-7</integer>
     <integer name="key_code_forward_delete">-8</integer>
 </resources>

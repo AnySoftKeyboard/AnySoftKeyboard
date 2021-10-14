@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.herrlado.ask.languagepack.slovak.pack">
+    <application>
+        <receiver android:name="org.herrlado.ask.languagepack.slovak.PackBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.ALTERNATIVE"/>
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.menny.android.anysoftkeyboard.DICTIONARY"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.ALTERNATIVE"/>
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE"/>
+            </intent-filter>
+
+            <meta-data android:name="com.menny.android.anysoftkeyboard.keyboards" android:resource="@xml/slovak_keyboards"/>
+            <meta-data android:name="com.menny.android.anysoftkeyboard.dictionaries" android:resource="@xml/slovak_dictionaries"/>
+        </receiver>
+    </application>
+</manifest>

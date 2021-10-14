@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+        "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
+        "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
+        "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+        "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+        "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+        "description" : text displayed under the name of the keyboard
+    -->
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwerty" id="9a5f8170-241b-11ec-932f-0800200c9a66" description="@string/slovak_qwerty_description" index="1" physicalKeyboardMappingResId="@xml/slovak_qwerty_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwerty_extra_row" id="d13d8e40-243d-11ec-932f-0800200c9a66" description="@string/slovak_qwerty_extra_row_description" index="2" physicalKeyboardMappingResId="@xml/slovak_qwerty_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwerty_multap" id="d74103d0-243d-11ec-932f-0800200c9a66" description="@string/slovak_qwerty_multap_description" index="3" physicalKeyboardMappingResId="@xml/slovak_qwerty_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwerty_extra_row_multap" id="e7277310-243d-11ec-932f-0800200c9a66" description="@string/slovak_qwerty_extra_row_multap_description" index="4" physicalKeyboardMappingResId="@xml/slovak_qwerty_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwertz" id="2d128cd0-2465-11ec-932f-0800200c9a66" description="@string/slovak_qwertz_description" index="5" physicalKeyboardMappingResId="@xml/slovak_qwertz_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwertz_extra_row" id="3288b680-2465-11ec-932f-0800200c9a66" description="@string/slovak_qwertz_extra_row_description" index="6" physicalKeyboardMappingResId="@xml/slovak_qwertz_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwertz_multap" id="36d81370-2465-11ec-932f-0800200c9a66" description="@string/slovak_qwertz_multap_description" index="7" physicalKeyboardMappingResId="@xml/slovak_qwertz_physical" defaultDictionaryLocale="sk"/>
+
+    <Keyboard nameResId="@string/slovak_keyboard" iconResId="@drawable/ic_status_slovak" layoutResId="@xml/slovak_qwertz_extra_row_multap" id="3b13e860-2465-11ec-932f-0800200c9a66" description="@string/slovak_qwertz_extra_row_multap_description" index="8" physicalKeyboardMappingResId="@xml/slovak_qwertz_physical" defaultDictionaryLocale="sk"/>
+</Keyboards>

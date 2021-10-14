@@ -3,12 +3,15 @@ package com.anysoftkeyboard.keyboards.views;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.mockito.ArgumentMatchers.any;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -16,6 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardViewContainerViewTest {
@@ -34,9 +38,10 @@ public class KeyboardViewContainerViewTest {
 
     @Test
     public void testDefaultInflation() {
-        Assert.assertEquals(2, mUnderTest.getChildCount());
-        Assert.assertTrue(mUnderTest.getChildAt(0) instanceof CandidateView);
-        Assert.assertTrue(mUnderTest.getChildAt(1) instanceof AnyKeyboardView);
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertTrue(mUnderTest.getChildAt(0) instanceof HorizontalScrollView);
+        Assert.assertTrue(mUnderTest.getChildAt(1) instanceof CandidateView);
+        Assert.assertTrue(mUnderTest.getChildAt(2) instanceof AnyKeyboardView);
     }
 
     @Test
@@ -44,8 +49,8 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
         mUnderTest.addView(mock);
 
-        Assert.assertEquals(3, mUnderTest.getChildCount());
-        Assert.assertSame(mock, mUnderTest.getChildAt(2));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(mock, mUnderTest.getChildAt(3));
 
         Mockito.verify(mock, Mockito.never()).setKeyboardTheme(any());
         Mockito.verify(mock, Mockito.never()).setThemeOverlay(any());
@@ -59,8 +64,8 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
         mUnderTest.addView(mock);
 
-        Assert.assertEquals(3, mUnderTest.getChildCount());
-        Assert.assertSame(mock, mUnderTest.getChildAt(2));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(mock, mUnderTest.getChildAt(3));
 
         Mockito.verify(mock).setKeyboardTheme(any());
         Mockito.verify(mock).setThemeOverlay(any());
@@ -121,6 +126,32 @@ public class KeyboardViewContainerViewTest {
     }
 
     @Test
+    public void testCandidateThemeSet() {
+        final CandidateView originalView = mUnderTest.getCandidateView();
+        Assert.assertNotNull(originalView);
+        final KeyboardThemeFactory keyboardThemeFactory =
+                AnyApplication.getKeyboardThemeFactory(getApplicationContext());
+
+        // switching to light icon
+        keyboardThemeFactory.setAddOnEnabled("18c558ef-bc8c-433a-a36e-92c3ca3be4dd", true);
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getEnabledAddOn());
+        final Drawable lightIcon = originalView.getCloseIcon();
+        Assert.assertNotNull(lightIcon);
+        Assert.assertEquals(
+                R.drawable.close_suggestions_light,
+                Shadows.shadowOf(lightIcon).getCreatedFromResId());
+
+        // switching to dark icon
+        keyboardThemeFactory.setAddOnEnabled("8774f99e-fb4a-49fa-b8d0-4083f762250a", true);
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getEnabledAddOn());
+        final Drawable darkIcon = originalView.getCloseIcon();
+        Assert.assertNotNull(darkIcon);
+        Assert.assertEquals(
+                R.drawable.yochees_dark_close_suggetions,
+                Shadows.shadowOf(darkIcon).getCreatedFromResId());
+    }
+
+    @Test
     public void testAddRemoveAction() {
         View view = new View(mUnderTest.getContext());
         KeyboardViewContainerView.StripActionProvider provider =
@@ -131,12 +162,12 @@ public class KeyboardViewContainerViewTest {
 
         Mockito.verify(provider).inflateActionView(mUnderTest);
         Mockito.verify(provider, Mockito.never()).onRemoved();
-        Assert.assertEquals(3, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(2));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(3));
 
         mUnderTest.removeStripAction(provider);
         Mockito.verify(provider).onRemoved();
-        Assert.assertEquals(2, mUnderTest.getChildCount());
+        Assert.assertEquals(3, mUnderTest.getChildCount());
     }
 
     @Test
@@ -219,8 +250,8 @@ public class KeyboardViewContainerViewTest {
 
         Mockito.verify(provider).inflateActionView(mUnderTest);
         Mockito.verify(provider, Mockito.never()).onRemoved();
-        Assert.assertEquals(3, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(2));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(3));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -250,8 +281,8 @@ public class KeyboardViewContainerViewTest {
         mUnderTest.addStripAction(provider);
         mUnderTest.setActionsStripVisibility(true);
         mUnderTest.setActionsStripVisibility(true);
-        Assert.assertEquals(3, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(2));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(3));
         Assert.assertSame(mUnderTest, view.getParent());
     }
 

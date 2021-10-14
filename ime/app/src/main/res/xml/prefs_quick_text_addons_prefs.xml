@@ -28,6 +28,15 @@
         android:title="@string/initial_quick_text_tab_title"/>
 
     <androidx.preference.ListPreference
+        android:defaultValue="@string/settings_default_emoji_gender"
+        android:dialogTitle="@string/emoji_default_gender_title"
+        android:entries="@array/settings_key_default_emoji_gender_names"
+        android:entryValues="@array/settings_key_default_emoji_gender_values"
+        android:key="@string/settings_key_default_emoji_gender"
+        android:summary="@string/emoji_default_gender_summary"
+        android:title="@string/emoji_default_gender_title"/>
+
+    <androidx.preference.ListPreference
         android:defaultValue="@string/settings_default_emoji_skin_tone"
         android:dialogTitle="@string/emoji_default_skin_tone_title"
         android:entries="@array/settings_key_default_emoji_skin_tone_names"

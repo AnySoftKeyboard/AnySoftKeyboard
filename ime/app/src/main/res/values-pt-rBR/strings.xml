@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="debug_tracing_starting">Rastreamento iniciado! Lembre-se de parar em algum momento</string>
+    <string name="debug_tracing_starting">Rastreamento iniciado!\nCertifique-se de pará-lo em algum momento
+    </string>
     <string name="debug_tracing_starting_failed">Falha ao iniciar rastreamento! Verifique o log para obter detalhes.</string>
-    <string name="debug_tracing_finished">Rastreamento concluído! \nTrace arquivo é <xliff:g id="trace_file">%s </xliff:g>     </string>
+    <string name="debug_tracing_finished">Rastreamento finalizado!\nO arquivo é\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Sobre</string>
     <string name="how_to_pointer_title">Bem-vindo ao AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Últimas mudanças para v<xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
@@ -14,11 +15,11 @@
     <string name="testers_version">Edição de testes!</string>
     <string name="language_root_tile">Idioma</string>
     <string name="language_keyboards_settings_tile">Habilitar teclados e idiomas.</string>
-    <string name="language_grammar_settings_tile">Configurações do corretor ortográfico.    </string>
+    <string name="language_grammar_settings_tile">Configurar comportamento de correção e outros dicionários.</string>
     <string name="language_tweaks_settings_tile">Outras configurações.</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">Interface</string>
-    <string name="ui_theme_settings_tile">Temas para o teclado.</string>
+    <string name="ui_theme_settings_tile">Escolha e configure temas de teclado.</string>
     <string name="ui_effects_settings_tile">Efeitos e mais.</string>
     <!-- welcome -->
     <!-- changelog -->
@@ -31,11 +32,9 @@
     <string name="close_button">Fechar</string>
     <string name="delete_button">Excluir</string>
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">Adicionado:\u0020<xliff:g id="word">%s</xliff:g>
-    
-    </string>
+    <string name="added_word">Salvo:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Remover\?</string>
-    <string name="removed_word">Removido:\u0020<xliff:g id="word">%s</xliff:g>    </string>
+    <string name="removed_word">Removido:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Toque novamente para salvar</string>
     <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
     <!-- voice -->
@@ -43,18 +42,22 @@
     <string name="voice_input_not_installed_text">Entrada de voz do Google não instalada.\nIsso pode ser resolvido facilmente: instale agora apartir da <i>Google Play Store</i>.</string>
     <string name="voice_input_not_installed_action_install">Instalar</string>
     <string name="voice_input_not_installed_action_do_not_install">Não</string>
-    <string name="voice_input_not_voice_pack_in_market">Eu não consigo encontrar a entrada de voz (com.google.android.voicesearch) na <i>Google Play Store</i>. Desculpe, entrada de voz não funcionará no seu dispositivo.</string>
+    <string name="voice_input_not_voice_pack_in_market">Não foi possível encontrar entrada de voz
+        (com.google.android.voicesearch) na loja de aplicativos. Desculpe, a entrada de voz não funcionará no seu dispositivo.</string>
     <!-- Options menu -->
     <string name="change_ime">Alterar método de entrada</string>
     <string name="override_dictionary">Substituir o dicionário padrão</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Substituir         <xliff:g id="word">%s</xliff:g>         dicionário    </string>
+    <string name="override_dictionary_title">Substituir\u0020<xliff:g id="word">%s</xliff:g>\u0020dicionário</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
     <string name="gesture_settings">Gestos</string>
     <string name="effects_group">Efeitos</string>
     <string name="ime_settings">Configurações do teclado</string>
     <string name="switch_incognito">Modo anônimo</string>
+    <string name="use_system_vibration_title">Usar vibração do sistema</string>
+    <string name="use_system_vibration_off_summary">Usando configuração de vibração personalizada</string>
+    <string name="use_system_vibration_on_summary">Usando a configuração de vibração do Android</string>
     <string name="vibrate_on_key_press_title">Vibrar ao pressionar tecla</string>
     <string name="vibrate_on_key_press_value_template">%d milissegundos</string>
     <string name="night_mode_screen">Configurações do modo noturno</string>
@@ -62,7 +65,7 @@
     <string name="night_mode_state_summary">Modo noturno ativo, atualmente:\u0020%s</string>
     <string name="night_mode_dialog_title">Ativação do Modo Noturno</string>
     <string name="night_mode_type_never">Nunca</string>
-    <string name="night_mode_type_follow_system">Seguir a definição do sistema</string>
+    <string name="night_mode_type_follow_system">Padrão do sistema</string>
     <string name="night_mode_type_always">Sempre</string>
     <string name="night_mode_app_night_theme">Escurecer a interface das configuração</string>
     <string name="night_mode_darken_keyboard_theme">Escurecer o tema do teclado</string>
@@ -109,14 +112,16 @@
     <string name="colorize_nav_bar_title">Desenhar atrás da barra de navegação</string>
     <string name="colorize_nav_bar_summary_on">Desenha o fundo do teclado atrás da barra de navegação. Isto não é suportado por todos os dispositivos.</string>
     <string name="colorize_nav_bar_summary_off">Não desenhe atrás da barra de navegação.</string>
-    <string name="persistent_layout_per_package_id_title">Lembrar do layout do teclado para cara app</string>
+    <string name="persistent_layout_per_package_id_title">Lembrar do layout do teclado para cada app</string>
     <string name="persistent_layout_per_package_id_off_summary">Use o mesmo layout para todos os Apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Voltar automaticamente para o layout usado anteriormente do App.</string>
     <string name="one_shot_quick_text_popup">Fechar automaticamente após a letra</string>
     <string name="one_shot_quick_text_popup_on_summary">Fechar o popup após pressionar tecla</string>
     <string name="one_shot_quick_text_popup_off_summary">Manter o popup aberto até alguma tecla ser pressionada</string>
     <string name="quick_text_tags_search">Sugerir emojis a partir de palavra</string>
-    <string name="quick_text_tags_search_on_summary">Procurar emojis por palavra chave, quando texto iniciar com dois pontos ":"</string>
+    <string name="quick_text_tags_search_on_summary">Procurar emojis por palavra chave, quando texto iniciar com
+        dois pontos (:)
+    </string>
     <string name="hide_soft_when_physical">Esconder o teclado quando teclado físico detectado</string>
     <string name="hide_soft_when_physical_on_summary">Esconder o teclado virtual quando o teclado físico é detectado</string>
     <string name="hide_soft_when_physical_off_summary">Mostra o teclado virtual mesmo quando o teclado físico é detectado</string>
@@ -145,21 +150,21 @@
     <string name="swipe_down_action_summary">Define ação ao puxar para baixo. Atualmente, %s</string>
     <string name="swipe_down_action_title">Selecione a ação ao puxar para a esquerda</string>
     <string name="swipe_left_action">Puxar para a esquerda</string>
-    <string name="swipe_left_action_summary">Define a ação executada ao puxar para a esquerda. Atualmente: %s</string>
+    <string name="swipe_left_action_summary">Define a ação ao puxar para a esquerda. Atualmente: %s</string>
     <string name="swipe_left_action_title">Selecione a ação ao puxar para a esquerda</string>
     <string name="swipe_right_action">Puxar para a direita</string>
-    <string name="swipe_right_action_summary">Define a ação executada ao puxar para a direita. Atualmente: %s</string>
+    <string name="swipe_right_action_summary">Define a ação ao puxar para a direita. Atualmente: %s</string>
     <string name="swipe_right_action_title">Selecione a ação ao puxar para a direita</string>
     <string name="swipe_right_space_bar_action">Puxar para a direita na barra de espaço</string>
     <string name="swipe_right_space_bar_action_summary">Define a ação executada ao puxar para a direita iniciando na barra de espaço. Atualmente: %s</string>
     <string name="swipe_right_space_bar_action_title">Selecione a ação ao puxar para a direita</string>
     <string name="swipe_left_space_bar_action">Puxar para a esquerda na barra de espaço</string>
-    <string name="swipe_left_space_bar_action_summary">Define a ação executada ao puxar para a esquerda iniciando na barra de espaço. Atualmente: %s</string>
+    <string name="swipe_left_space_bar_action_summary">Define a ação ao puxar para a esquerda iniciando na barra de espaço. Atualmente: %s</string>
     <string name="swipe_left_space_bar_action_title">Selecione a ação ao puxar para a esquerda</string>
     <string name="swipe_left_two_fingers_action">Puxar para a esquerda com 2 dedos</string>
-    <string name="swipe_left_two_fingers_action_summary">Define a ação executada ao puxar para a esquerda com 2 dedos. Atualmente: %s</string>
+    <string name="swipe_left_two_fingers_action_summary">Define a ação ao puxar para a esquerda com 2 dedos. Atualmente: %s</string>
     <string name="swipe_right_two_fingers_action">Puxar para a direita com dois dedos</string>
-    <string name="swipe_right_two_fingers_action_summary">Define a ação executada ao deslizar dois dedos para a direita. Atualmente %s</string>
+    <string name="swipe_right_two_fingers_action_summary">Define a ação ao deslizar dois dedos para a direita. Atualmente %s</string>
     <string name="swipe_right_two_fingers_action_title">Selecione a ação ao puxar para a direita</string>
     <string name="pinch_gesture_action">Gesto de pinça</string>
     <string name="pinch_gesture_action_title">Selecione ação para o gesto de pinça</string>
@@ -219,7 +224,7 @@
     <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
     <string name="use_auto_dictionary_summary">Aprender automaticamente novas palavras. Método de aprendizado: %s</string>
     <string name="auto_dictionary_threshold_type_after_a_while">Depois de algum uso</string>
-    <string name="auto_dictionary_threshold_type_immediately">Imediatamente após eu digitá-la</string>
+    <string name="auto_dictionary_threshold_type_immediately">Imediatamente após digitá-la</string>
     <string name="auto_dictionary_threshold_type_off">Não aprender novas palavras</string>
     <string name="use_next_words_dictionary">Sugestão de palavras</string>
     <string name="next_words_dictionary_off">Não sugerir palavras</string>
@@ -255,7 +260,7 @@
     <string name="show_keyboard_name_on_summary">Mostra o nome do teclado na barra de espaço</string>
     <string name="show_keyboard_name_off_summary">Não mostra o nome do teclado</string>
     <string name="show_hint_text">Mostrar dica</string>
-    <string name="show_hint_text_on_summary">Mostra dicas nas teclas, se o tema suportar</string>
+    <string name="show_hint_text_on_summary">Mostra dicas nas teclas, se o tema tiver suporte</string>
     <string name="show_hint_text_off_summary">Não mostra dicas nas teclas</string>
     <string name="use_custom_hint_align">Sobrepor a posição da dica</string>
     <string name="use_custom_hint_align_on_summary">Usar posição personalizada para a dica</string>
@@ -294,9 +299,9 @@
     <string name="use_keyrepeat">Repetir tecla</string>
     <string name="use_keyrepeat_on_summary">Repetição está ativa</string>
     <string name="use_keyrepeat_off_summary">Repetição está desativada</string>
-    <string name="emoticon_long_press_opens_popup">Pressionamento longo em smiley abre popup</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Mostra popup com emoticons após pressionamento longo</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Mostrar popup com emoticons após pressionamento curto</string>
+    <string name="emoticon_long_press_opens_popup">Toque longo em smiley abre popup</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Mostra popup com emoticons no toque longo</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Mostrar popup com emoticons no toque curto</string>
     <string name="default_smiley_text">Texto de riso</string>
     <string name="default_domain_text">Sufixo de domínio</string>
     <string name="key_preview_position_override">Posição da pré-visualização de tecla</string>
@@ -308,10 +313,10 @@
     <string name="key_press_preview_popup_off_summary">Não mostrar pop-up após pressionar</string>
     <string name="zoom_factor_keys_in_portrait">Altura das teclas em modo retrato</string>
     <string name="zoom_factor_keys_in_landscape">Altura das teclas em modo paisagem</string>
-    <string name="insert_space_after_word_suggestion_selection">Inserir espaço após inserir</string>
+    <string name="insert_space_after_word_suggestion_selection">Inserir espaço após escolher a sugestão</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Inserir espaço após tocar na palavra sugerida
     </string>
-    <string name="double_space_to_period">Espaço duplo insere ponto dinal</string>
+    <string name="double_space_to_period">Espaço duplo insere ponto final</string>
     <string name="double_space_to_period_summary">Dois toques em "espaço" irá adicionar ponto final e espaço</string>
     <string name="tweak_animations_level_title">Animações</string>
     <string name="tweak_animations_level_summary">Quantas animações exibir. Atualmente: %s</string>
@@ -322,11 +327,11 @@
     <string name="cycle_all_symbols_keyboards_on_summary">Tecla de símbolos vai ciclar por todos os teclados de símbolos.</string>
     <string name="cycle_all_symbols_keyboards_off_summary">O teclado de símbolos irá mostrar apenas os principais símbolos</string>
     <string name="lang_key_shows_popup">Popup com os idiomas</string>
-    <string name="lang_key_shows_popup_on_summary">Apertar na tecla de idiomas irá mostrar um popup</string>
+    <string name="lang_key_shows_popup_on_summary">Toque na tecla de idiomas irá mostrar um popup</string>
     <string name="lang_key_shows_popup_off_summary">Tecla de linguagem vai ciclar idiomas</string>
-    <string name="settings_os_clipboard_sync">Sincronização da área de colagem com o OS</string>
-    <string name="settings_os_clipboard_sync_summary_on">Detectar mudanças na área de colagem e sincronizar com o AnySoftKeyboard.</string>
-    <string name="settings_os_clipboard_sync_summary_off">Não monitorar ações na área de colagem fora do AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync">Sincronizar área de transferência com o SO</string>
+    <string name="settings_os_clipboard_sync_summary_on">Detectar alterações na área de transferência e sincronizar com o AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Não monitorar ações na área de transferência fora do AnySoftKeyboard.</string>
     <string name="auto_caps">Maiúscula automática</string>
     <string name="grammar_group">Gramática</string>
     <string name="keyboard_behavior_group">Comportamento do teclado</string>
@@ -335,11 +340,11 @@
     <string name="candidates_off_summary">Não serão mostradas sugestões</string>
     <string name="quick_fix">Correções rápidas e abreviaturas</string>
     <string name="quick_fix_summary">Corrige erros comuns e expande as abreviaturas</string>
-    <string name="quick_fix_secon_disabled">...somente no primeiro idioma</string>
+    <string name="quick_fix_secon_disabled">…apenas no primeiro idioma</string>
     <string name="quick_fix_secon_disabled_summ_on">Correções rápidas e abreviações funcionarão apenas no Layout do idioma atual</string>
     <string name="quick_fix_secon_disabled_summ_off">Correções rápidas e abreviações funcionarão em todos os idiomas 
                   selecionado substituir o dicionário padrão</string>
-    <string name="allow_suggestions_restart">Restaurar as sugestões</string>
+    <string name="allow_suggestions_restart">Resetar as sugestões</string>
     <string name="allow_suggestions_restart_summary">Restaura a sugestão de palavras</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Teclados</string>
@@ -362,9 +367,9 @@
     <string name="bottom_generic_row_dialog_title">Selecione tipo de linha</string>
     <string name="bottom_generic_row_summary">Linha inferior selecionada: %s</string>
     <string name="keyboard_theme_list_title">Selecione o tema</string>
-    <string name="dark_plain_keyboard_theme_name">Plain dark</string>
+    <string name="dark_plain_keyboard_theme_name">Tema escuro simples</string>
     <string name="dark_plain_keyboard_theme_description">Cores escuras, gráficos simples</string>
-    <string name="light_plain_keyboard_theme_name">Plain light</string>
+    <string name="light_plain_keyboard_theme_name">Tema claro simples</string>
     <string name="light_plain_keyboard_theme_description">Cores claras, gráficos simples</string>
     <string name="blacktheme_keyboard_theme_name">Simple black glow</string>
     <string name="blacktheme_keyboard_theme_description">Tema escuro simples com cores em destaque</string>
@@ -474,10 +479,14 @@ simplistas    </string>
     <string name="tweak_workarounds_group">Soluções alternativas</string>
     <string name="workaround_disable_rtl_fix">Usar manipulação da direita para a esquerda do Android</string>
     <string name="workaround_disable_rtl_fix_summary_on">Usar a manipulação RTL do sistema operacional (para celulares mais novos).    </string>
-    <string name="workaround_disable_rtl_fix_summary_off">Usar manipulação RTL do AnySoftKeyboard. Usar apenas se não funcionar a do OS.    </string>
+    <string name="workaround_disable_rtl_fix_summary_off">Use o AnySoftKeyboard RTL. Deve ser usado
+        apenas se o sistema operacional falhar em implementar o RTL.
+    </string>
     <string name="settings_split_state_title_portrait">Estado inicial do modo retrato dividir/unir</string>
     <string name="settings_split_state_title_landscape">Estado inicial do modo paisagem dividir/unir</string>
-    <string name="settings_split_state_summary">Definir teclado dividido como padrão. Agora: %s</string>
+    <string name="settings_split_state_summary">Defina se o teclado é dividido por padrão.
+        Agora: %s
+    </string>
     <string name="settings_split_state_merged_always">Início regular</string>
     <string name="settings_split_state_split_always">Comece a dividir</string>
     <string name="settings_split_state_compact_right_always">Comece compactado para a direita</string>
@@ -490,21 +499,38 @@ simplistas    </string>
     <!-- abbreviations editor -->
     <string name="abbreviation_dict_settings_titlebar">Editor de abreviatura</string>
     <string name="abbreviation_dict_editor">Editor de abreviatura</string>
-    <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s </xliff:g></i> \u0020\u2192\u0020 <i><xliff:g id="target"> %s </xliff:g></i></string>
+    <string name="abbreviation_dict_word_template">        <i>
+            <xliff:g id="abbreviation">%s</xliff:g>
+        </i>
+        \u0020\u2192\u0020
+        <i>
+            <xliff:g id="target">%s</xliff:g>
+        </i>
+    </string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_settings_empty_text">Você não tem palavras no dicionário do usuário. Você pode adicionar a primeira palavra agora.</string>
+    <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário.
+        Você pode adicionar sua primeira palavra agora.
+    </string>
     <string name="user_dict_backup_success_title">Backup feito!</string>
-    <string name="user_dict_backup_success_text">Salvo com sucesso em /Android/data/com.menny.android.anysoftkeyboard/files/    </string>
-    <string name="user_dict_backup_fail_title">Falha de backup!</string>
-    <string name="user_dict_backup_fail_text_with_error">Falha ao armazenar palavras devido a: <xliff:g id="error">%s </xliff:g>     </string>
+    <string name="user_dict_backup_success_text">Suas palavras foram salvas em armazenamento do aparelho
+        em\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
+    <string name="user_dict_backup_fail_title">O backup falhou!</string>
+    <string name="user_dict_backup_fail_text_with_error">Falha ao armazenar palavras devido a:\u0020
+        <xliff:g id="error">%s</xliff:g>
+    </string>
     <string name="user_dict_restore_success_title">Restauração feita!</string>
-    <string name="user_dict_restore_success_text">Êxito ao restaurar.</string>
+    <string name="user_dict_restore_success_text">Palavras restauradas com sucesso.</string>
     <string name="user_dict_restore_fail_title">Erro ao restaurar!</string>
-    <string name="user_dict_restore_fail_text_with_error">Falha ao restaurar palavras devido a: <xliff:g id="error">%s </xliff:g>     </string>
+    <string name="user_dict_restore_fail_text_with_error">Falha ao restaurar as palavras devido a:\u0020
+        <xliff:g id="error">%s</xliff:g>
+    </string>
     <string name="should_swap_punctuation_and_space_title">Substituir espaço por pontuação</string>
-    <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por pontuação.</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por
+        pontuação.
+    </string>
     <string name="should_swap_punctuation_and_space_on_summary">Substitui o espaço após palavra por uma pontuação.</string>
     <string name="initial_quick_text_tab_title">Grupo inicial</string>
     <string name="initial_quick_text_tab_summary">Iniciar grupos de texto rápido em: %s</string>
@@ -520,16 +546,24 @@ simplistas    </string>
     <string name="emoji_default_skin_tone_value_type_5">Médio-escuro</string>
     <string name="emoji_default_skin_tone_value_type_6">Escuro</string>
     <string name="emoji_default_skin_tone_value_random_type">Aleatório</string>
-    <string name="developer_tools">Ferramentas de desenvolvedor</string>
-    <string name="click_for_developer_features">Ferramentas de desenvolvedor</string>
+    <string name="emoji_default_gender_title">Gênero padrão de emoji</string>
+    <string name="emoji_default_gender_summary">Gênero padrão para usar: %s</string>
+    <string name="emoji_default_gender_value_person">Pessoa</string>
+    <string name="emoji_default_gender_value_woman">Mulher</string>
+    <string name="emoji_default_gender_value_man">Homem</string>
+    <string name="emoji_default_gender_value_random_type">Gênero aleatório</string>
+    <string name="developer_tools">Ferramentas para desenvolvedor</string>
+    <string name="click_for_developer_features">Ferramentas para desenvolvedor</string>
     <string name="click_for_developer_features_summary">Várias ferramentas para desenvolvedores AnySoftKeyboard</string>
-    <string name="failed_to_create_mem_dump">Falha ao criar arquivo de despejo de memória devido:
+    <string name="failed_to_create_mem_dump">Falha ao criar arquivo de despejo de memória devido a:
         <xliff:g id="message">%s</xliff:g>
     </string>
     <string name="created_mem_dump_file">Arquivo de despejo de memória criado em:
         <xliff:g id="file_path">%s</xliff:g>
     </string>
-    <string name="not_configured_with_click_here">O AnySoftKeyboard não foi totalmente configurado para o uso. Clique aqui para configurar.</string>
+    <string name="not_configured_with_click_here">AnySoftKeyboard não está totalmente configurado para uso. Clique
+        aqui para configurar.
+    </string>
     <string name="not_configured_with_just_click_here">Clique aqui</string>
     <string name="click_for_more">mais…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
@@ -538,29 +572,33 @@ simplistas    </string>
     <string name="word_editor_action_backup_words">Backup</string>
     <string name="word_editor_action_restore_words">Restaurar</string>
     <string name="click_to_add_new_word">Clique para adicionar uma nova palavra</string>
-    <string name="enter_word_hint">Digite a palavra nova aqui</string>
+    <string name="enter_word_hint">Digite a nova palavra aqui</string>
     <string name="enter_abbreviation_hint">Abreviação</string>
     <string name="enter_abbreviation_target_hint">Texto completo</string>
     <string name="toast_error_custom_path_backup">Erro: Qualquer aplicativo contextual pode ser aberto</string>
-    <string name="file_explorer_menu_add_folder">Criar pasta</string>
-    <string name="file_explorer_filename">Backup do arquivo…</string>
-    <string name="file_explorer_filename_empty">O nome do arquivo não pode ficar em branco...</string>
+    <string name="file_explorer_menu_add_folder">Criar uma pasta</string>
+    <string name="file_explorer_filename">Nome do arquivo de backup…</string>
+    <string name="file_explorer_filename_empty">Nome do arquivo não pode estar em branco…</string>
     <string name="file_explorer_alert_title">Selecionar este arquivo ?</string>
     <string name="file_explorer_restore_alert_message">Você quer restaurar este arquivo ?</string>
-    <string name="file_explorer_backup_alert_message">O arquivo existente será substituído</string>
+    <string name="file_explorer_backup_alert_message">O arquivo existente será substituído.</string>
     <string name="file_explorer_backup_success">Seus dados foram salvos em\u0020</string>
     <string name="file_explorer_backup_failed">Não foi possível salvar seus dados.</string>
     <string name="file_explorer_restore_success">Seus dados foram restaurados de\u0020</string>
     <string name="file_explorer_restore_failed">Não foi possível restaurar seus dados.</string>
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
-    <string name="setup_wizard_step_one_details">Nesta etapa, você vai precisar ativar o <i>AnySoftKeyboard</i>. Por favor procure por <i>\'AnySoftKeyboard\'</i> nas suas configurações de <i>Idioma e Teclado</i>. Isso vai permitir que eu funcione no seu aparelho.    </string>
+    <string name="setup_wizard_step_one_details">Nesta etapa, você precisará ativar o <i>
+        AnySoftKeyboard</i>. Por favor, selecione o <i>\'AnySoftKeyboard\'</i> em configurações de <i>Idioma e Teclado</i>. Isso permitirá ativação do app no seu aparelho.
+    </string>
     <string name="setup_wizard_step_one_action">Vá para as suas configurações de <i>Idioma e Teclado</i>…</string>
-    <string name="setup_wizard_step_one_action_error_no_settings_activity">Erro: Seu aparelho não suporta teclados de terceiros. AnySoftKeyboard não pôde ser ativado!</string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Erro: O seu aparelho
+        não suporta teclados de terceiros. AnySoftKeyboard não pode ser ativado!
+    </string>
     <string name="setup_wizard_step_permissions_title">Habilitar permissões</string>
     <string name="setup_wizard_step_permissions_details">Nessa etapa, você vai aprovar o acesso do <i>AnySoftKeyboard</i> à sua lista de contatos. Para impedir esse acesso desabilite "Dicionário de Contatos".</string>
     <string name="setup_wizard_step_two_title">Mudar para o AnySoftKeyboard</string>
-    <string name="setup_wizard_step_two_details">Agora o <i>AnySoftKeyboard</i> está disponível no seu aparelho, no entanto ele não está ativado.\n Mudando isso o <i>AnySoftKeyboard</i> irá ser seu novo teclado, junto com todas as suas funcionalidades!</string>
+    <string name="setup_wizard_step_two_details">Agora o <i>AnySoftKeyboard</i> está disponível no seu aparelho, no entanto ele não está ativado.\n Ao ativar o <i>AnySoftKeyboard</i> se tornará seu novo teclado, junto com todas as suas funcionalidades!</string>
     <string name="setup_wizard_step_two_action">Mudar teclados ativos</string>
     <string name="setup_wizard_step_three_title">O quê vem agora</string>
     <string name="setup_wizard_step_three_details">Obrigado por escolher o <i>AnySoftKeyboard</i>.</string>
@@ -570,7 +608,7 @@ simplistas    </string>
     <string name="setup_wizard_step_three_action_themes">Selecione temas…</string>
     <string name="setup_wizard_step_three_action_all_settings">E muito mais…</string>
     <string name="setup_wizard_step_download_title">Baixe pacotes de idiomas</string>
-    <string name="setup_wizard_step_download_details">Você vai ficar em saber isso, <i>AnySoftKeyboard</i> suporta várias línguas. Baixe a que você quer e aproveite escrevendo em qualquer língua no seu aparelho.</string>
+    <string name="setup_wizard_step_download_details">Você ficará feliz em saber que <i>AnySoftKeyboard</i> suporta dezenas de idiomas. Basta baixar o pacote de idioma desejado e digitar em qualquer idioma no seu dispositivo.</string>
     <string name="setup_wizard_step_download_action">Baixar pacotes de idioma</string>
     <string name="setup_wizard_step_download_skip_action">Pular</string>
     <string name="ime_crashed_title">AnySoftKeyboard fechou inesperadamente!</string>
@@ -580,26 +618,27 @@ simplistas    </string>
     <string name="ime_crashed_send_button">Enviar</string>
     <string name="ime_crashed_cancel_button">Cancelar</string>
     <string name="ime_crashed_intent_selector_title">Enviar relatório de erro por</string>
-    <string name="next_word_dict_settings">Configurações de palavra próxima</string>
+    <string name="next_word_dict_settings">Configurações de Próxima Palavra</string>
     <string name="next_word_settings_group">Configurações</string>
     <string name="next_word_stats_group">Estatísticas do uso da recomendação de palavras</string>
-    <string name="next_words_statistics_count">Palavra inicial contagem: \u0020 <xliff:g id="first_word">%d </xliff:g> \nAverage próxima palavra contagem: \u0020 <xliff:g id="second_word"> %d </xliff:g></string>
+    <string name="next_words_statistics_count">Contagem inicial de palavras:\u0020<xliff:g id="first_word">%d</xliff:g>\nMédia de contagem de palavras:\u0020<xliff:g id="second_word">%d</xliff:g></string>
     <string name="next_words_statistics_no_usage">Sem uso ainda. Digite um pouco mais.</string>
-    <string name="clipboard_is_empty_toast">Área de transferência está vazia, não há nada para colar.</string>
-    <string name="clipboard_copy_done_toast">Seleção copiada para área de transferência.</string>
-    <string name="clipboard_paste_entries_title">Escolher o texto para colar</string>
-    <string name="next_word_prefs_clear_data">Limpar dado da sugestão de palavras</string>
+    <string name="clipboard_is_empty_toast">Clipboard está vazio, não há nada para colar.</string>
+    <string name="clipboard_copy_done_toast">Seleção copiada ao Clipboard.</string>
+    <string name="clipboard_paste_entries_title">Escolha o texto para colar</string>
+    <string name="next_word_prefs_clear_data">Limpar dados da sugestão de palavras</string>
     <string name="next_word_prefs_clear_data_summary">Isso é irreversível. Todo seu histórico de digitação será apagado.</string>
+    <string name="storage_permission_rationale">O AnySoftKeyboard requer sua permissão de acesso ao armazenamento para poder salvar seus arquivos de backup.</string>
     <string name="notification_read_contacts_title">Posso ler seus contatos?</string>
-    <string name="notification_read_contacts_text">Precisamos ler seus contatos para dar-lhe uma experiência melhor ao auto-completar.</string>
+    <string name="notification_read_contacts_text">Precisa de ler seus contatos para lhe proporcionar uma melhor experiência de sugestões.</string>
     <string name="notification_read_contacts_ticker">Permissão de contatos necessário</string>
     <string name="contacts_permissions_dialog_message">AnySoftKeyboard está usando seus nomes de contatos para fornecer-lhe com uma sugestão de palavra personalizado: conforme você digita uma palavra, vamos procurar palavras semelhantes, para auto-completar e corrigir automaticamente sua digitação.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugestão de palavras baseada no nome de seus contatos</string>
     <string name="allow_permission">Permitir</string>
     <string name="turn_off_contacts_dictionary">Desligue o dicionário de contatos</string>
     <string name="read_more_about_permissions">Leia mais sobre permissões...</string>
-    <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a matar bugs antes do alcance do público.</string>
-    <string name="clipboard_fine_select_enabled_toast">Seleção fina de texto ativada. Use as setas direcionais.</string>
+    <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a encontrar os bugs antes do lançamento final.</string>
+    <string name="clipboard_fine_select_enabled_toast">Seleção precisa de texto ativada. Use as setas direcionais.</string>
     <string name="app_shortcut_keyboards_disabled">Navegação do teclado desativada</string>
     <string name="app_shortcut_keyboards_long_label">Selecione um layout de teclado para usar</string>
     <string name="app_shortcut_keyboards_short_label">Teclados</string>
@@ -641,11 +680,11 @@ simplistas    </string>
     <string name="settings_key_hint_size_normal">Normal</string>
     <string name="settings_key_hint_size_big">Grande</string>
     <string name="theme_case_type_override_title">Substitui o formato maiúscula-minúscula do teclado</string>
-    <string name="theme_case_type_override_summary">Como determinar minúscula-maiúscula na visualição do teclado. Atual, %s</string>
-    <string name="take_a_while_progress_message">Isso levar algum tempo…</string>
+    <string name="theme_case_type_override_summary">Como determinar minúscula-maiúscula na visualização do teclado. Atual, %s</string>
+    <string name="take_a_while_progress_message">Isso pode levar algum tempo…</string>
     <string name="shared_prefs_provider_name">Configurações do app</string>
     <string name="user_dict_prefs_provider">Palavras do usuário</string>
-    <string name="next_word_dict_prefs_provider">Predição de palavras</string>
+    <string name="next_word_dict_prefs_provider">Sugestão de palavras</string>
     <string name="abbreviation_dict_prefs_provider">Abreviações</string>
     <string name="pick_prefs_providers_to_backup">O quê você gostaria de salvar?</string>
     <string name="pick_prefs_providers_to_restore">O quê você gostaria de restaurar?</string>
@@ -654,7 +693,7 @@ simplistas    </string>
     <string name="prefs_providers_failed_backup_due_to">Falha ao salvar seus dados devido %s</string>
     <string name="prefs_providers_backed_up_to">Seus dados foram salvos com sucesso em %s</string>
     <string name="prefs_providers_failed_restore_due_to">Falha na restauração dos dados devido %s</string>
-    <string name="prefs_providers_restored_to">Seus dados foram restaurados com êxito a partir de %s</string>
+    <string name="prefs_providers_restored_to">Seus dados foram restaurados de %s com sucesso</string>
     <string name="word_editor_action_choose_path">Escolha localização personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Teclados podem fornecer linhas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre use linhas genéricas selecionadas.</string>
@@ -662,20 +701,20 @@ simplistas    </string>
     <string name="gesture_typing_settings">Digitação por gesto➿</string>
     <string name="gesture_typing_summary">Insira uma palavra ao deslizar pelas letras.</string>
     <string name="gesture_typing_action">Ativar digitação por gesto[BETA]</string>
-    <string name="gesture_typing_alert_title">Função BETA!</string>
+    <string name="gesture_typing_alert_title">Recurso BETA!</string>
     <string name="gesture_typing_alert_message">A digitação por gesto ➿ ainda está em fase <b>beta</b>. Pode conter bugs, não ser tão ágil ou completo.\nSabendo disso, você deveria testar.</string>
     <string name="gesture_typing_alert_button">Entendi</string>
-    <string name="apply_remote_app_colors_to_theme">Mudar a cor do tema de acordo com o app atual</string>
+    <string name="apply_remote_app_colors_to_theme">Alterar as cores do tema com base no app usado</string>
     <string name="apply_overlay_summary_on">A cor do teclado irá combinar com a cor do app ativo, ou ao menos tentar.</string>
     <string name="apply_overlay_summary_off">Sempre usar a cor do tema.</string>
     <string name="media_insertion_pending_message">Clicar na caixa de texto para inserir imagem</string>
-    <string name="aosp_dark_theme_name">AOSP Dark theme</string>
+    <string name="aosp_dark_theme_name">Tema escuro AOSP</string>
     <string name="aosp_dark_theme_description">Baseado no AOSP, tema com cores escuras</string>
-    <string name="aosp_light_theme_name">AOSP Light theme</string>
+    <string name="aosp_light_theme_name">Tema claro AOSP</string>
     <string name="aosp_light_theme_description">Baseado no AOSP, tema com cores claras</string>
     <string name="app_share_title">Bem-vindo ao AnySoftKeyboard</string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
-    <string name="app_share_text">Dê-me a oportunidade de apresentá-lo ao aplicativo de software livre, focado na privacidade, altamente personalizável e multilingue.\nBaixe em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="app_share_text">Deixe-me recomendar um app de teclado - AnySoftKeyboard para Android, ele é de software livre, focado na privacidade, gratuito, personalizável, e multilíngue.\nBaixe na:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

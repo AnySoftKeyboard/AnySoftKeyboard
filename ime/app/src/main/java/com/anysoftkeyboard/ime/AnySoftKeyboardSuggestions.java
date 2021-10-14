@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.ImageView;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -513,6 +514,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final View view = super.onCreateInputView();
         mCandidateView = getInputViewContainer().getCandidateView();
         mCandidateView.setService(this);
+        mCancelSuggestionsAction.setOwningCandidateView(mCandidateView);
         return view;
     }
 
@@ -1511,7 +1513,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final Locale locale = keyboard.getLocale();
         mFrenchSpacePunctuationBehavior =
                 mSwapPunctuationAndSpace
-                        && locale != null
                         && locale.toString().toLowerCase(Locale.US).startsWith("fr");
     }
 
@@ -1632,20 +1633,21 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
         // two seconds is enough.
         private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
-        private final Runnable mCancelPrediction;
+        @NonNull private final Runnable mCancelPrediction;
         private Animation mCancelToGoneAnimation;
         private Animation mCancelToVisibleAnimation;
         private Animation mCloseTextToGoneAnimation;
         private Animation mCloseTextToVisibleAnimation;
         private View mRootView;
         private View mCloseText;
+        @Nullable private CandidateView mCandidateView;
         private final Runnable mReHideTextAction =
                 () -> {
                     mCloseTextToGoneAnimation.reset();
                     mCloseText.startAnimation(mCloseTextToGoneAnimation);
                 };
 
-        CancelSuggestionsAction(Runnable cancelPrediction) {
+        CancelSuggestionsAction(@NonNull Runnable cancelPrediction) {
             mCancelPrediction = cancelPrediction;
         }
 
@@ -1674,9 +1676,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mCloseTextToGoneAnimation.setAnimationListener(
                     new Animation.AnimationListener() {
                         @Override
-                        public void onAnimationStart(Animation animation) {
-                            Logger.d("tsdt", "sdfsdfs");
-                        }
+                        public void onAnimationStart(Animation animation) {}
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
@@ -1696,6 +1696,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
 
+            ImageView closeIcon = mRootView.findViewById(R.id.close_suggestions_strip_icon);
+            if (mCandidateView != null) {
+                closeIcon.setImageDrawable(mCandidateView.getCloseIcon());
+            }
             mRootView.setOnClickListener(
                     view -> {
                         mRootView.removeCallbacks(mReHideTextAction);
@@ -1716,6 +1720,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         @Override
         public void onRemoved() {
             mRootView.removeCallbacks(mReHideTextAction);
+        }
+
+        void setOwningCandidateView(@NonNull CandidateView view) {
+            mCandidateView = view;
         }
 
         void setCancelIconVisible(boolean visible) {

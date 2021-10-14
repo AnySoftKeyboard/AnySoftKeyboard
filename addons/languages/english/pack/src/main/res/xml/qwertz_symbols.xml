@@ -38,7 +38,7 @@
         <Key android:codes="v" android:popupCharacters=":." ask:hintLabel=":" />
         <Key android:codes="b" android:popupCharacters=";," ask:hintLabel=";" />
         <Key android:codes="n" android:popupCharacters="!" ask:hintLabel="!" />
-        <Key android:codes="m" android:popupCharacters="\?µ" ask:hintLabel="\?" />
+        <Key android:codes="m" android:popupCharacters="\?‽µ" ask:hintLabel="\?" />
         <Key android:codes="-5" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

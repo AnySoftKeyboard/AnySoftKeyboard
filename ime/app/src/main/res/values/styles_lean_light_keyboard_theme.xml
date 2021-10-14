@@ -24,7 +24,8 @@
         <item name="suggestionNormalTextColor">@color/light_candidate_normal</item>
         <item name="suggestionRecommendedTextColor">@color/light_candidate_recommended</item>
         <item name="suggestionOthersTextColor">@color/light_candidate_other</item>
-
+        <item name="suggestionSelectionHighlight">@drawable/light_candidate_selected_background</item>
+        <item name="suggestionCloseImage">@drawable/close_suggestions_light</item>
 
         <!-- I said Lean theme, so no garbage on the screen please. -->
         <item name="keyboardNameTextColor">#F666</item>
@@ -60,6 +61,7 @@
         <item name="iconKeyAction">@drawable/light_key_action_set</item>
         <item name="iconKeyMic">@drawable/ic_av_mic_light</item>
         <item name="iconKeySettings">@drawable/ic_action_settings_light</item>
+        <item name="iconKeyDeleteRecentlyUsed">@drawable/ic_delete_forever_light</item>
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard_light</item>
         <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard_light</item>
         <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard_light</item>

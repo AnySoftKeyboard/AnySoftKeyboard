@@ -89,6 +89,7 @@
     <bool name="settings_default_double_space_to_period">true</bool>
 
     <string name="settings_default_emoji_skin_tone">generic</string>
+    <string name="settings_default_emoji_gender">person</string>
 
     <bool name="settings_default_persistent_layout_per_package_id">true</bool>
 

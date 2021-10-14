@@ -29,6 +29,7 @@
     <string name="no_market_store_available">تعذر العثور على متجر للتطبيقات على جهازك.\n لذا لا يمكن البحث عن إضافات !</string>
     <string name="keyboard_theme_tweak_group">تطويعات</string>
     <string name="close_button">إغلاق</string>
+    <string name="delete_button">حذف</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">تم الإحتفاظ بـ :\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="revert_added_word_question">هل تود حذفه\؟</string>

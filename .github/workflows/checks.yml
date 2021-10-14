@@ -22,7 +22,7 @@ env:
 jobs:
   static-checks:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
+    container: menny/android_ndk:1.15.3
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
@@ -48,8 +48,8 @@ jobs:
 
   linters:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
-    timeout-minutes: 15
+    container: menny/android_ndk:1.15.3
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1.1.2
@@ -60,6 +60,8 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
+        # Due to an issue with lint in merge commits, only running in PRs
+        if: github.event_name != 'push'
         run: ./scripts/ci/ci_check_lint.sh
       - uses: ./.github/actions/collect-reports
         if: always()
@@ -74,7 +76,7 @@ jobs:
 
   app-tests-shards:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
+    container: menny/android_ndk:1.15.3
     timeout-minutes: 15
     strategy:
       matrix:
@@ -115,7 +117,7 @@ jobs:
 
   app-all-sdks-tests:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
+    container: menny/android_ndk:1.15.3
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
@@ -151,7 +153,7 @@ jobs:
 
   app-less-tests:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
+    container: menny/android_ndk:1.15.3
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
@@ -187,7 +189,7 @@ jobs:
 
   verify-all-addons:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
+    container: menny/android_ndk:1.15.3
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
@@ -221,7 +223,7 @@ jobs:
 
   deploy-dry-run:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.1
+    container: menny/android_ndk:1.15.3
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
@@ -254,7 +256,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [master-green-requirement]
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.15.1
+    container: menny/android_base:1.15.3
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/deploy-request
@@ -270,7 +272,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [master-green-requirement]
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.15.1
+    container: menny/android_base:1.15.3
     steps:
       - uses: actions/checkout@v2
         with:

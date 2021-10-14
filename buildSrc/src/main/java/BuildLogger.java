@@ -5,13 +5,12 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Locale;
-import org.gradle.BuildListener;
+import org.gradle.BuildAdapter;
 import org.gradle.BuildResult;
-import org.gradle.api.initialization.Settings;
 import org.gradle.api.invocation.Gradle;
 import org.gradle.api.tasks.TaskState;
 
-public class BuildLogger implements BuildListener {
+public class BuildLogger extends BuildAdapter {
 
     private final File mOutputFile;
 
@@ -38,23 +37,34 @@ public class BuildLogger implements BuildListener {
         }
     }
 
-    @Override
-    public void buildStarted(Gradle gradle) {}
+    private static String taskToString(TaskState state) {
+        if (state.getSkipped()) return "SKIPPED";
+        if (state.getNoSource()) return "NO-SOURCE";
+        if (state.getUpToDate()) return "UP-TO-DATE";
+        if (state.getFailure() != null) return "FAILED " + exceptionToString(state.getFailure());
+        if (state.getExecuted()) return "EXECUTED";
+        return "unknown";
+    }
 
-    @Override
-    public void settingsEvaluated(Settings settings) {}
+    private static String exceptionToString(Throwable throwable) {
+        StringBuilder builder = new StringBuilder(throwable.getMessage());
+        while (throwable.getCause() != null) {
+            throwable = throwable.getCause();
+            builder.append(" ]> ").append(throwable.getMessage());
+        }
 
-    @Override
-    public void projectsLoaded(Gradle gradle) {}
+        return builder.toString();
+    }
 
     @Override
     public void projectsEvaluated(Gradle gradle) {
-        StringBuilder log = new StringBuilder();
-        log.append("Build started at ")
-                .append(Instant.now().toString())
-                .append(System.lineSeparator());
-        log.append("Gradle ").append(gradle.getGradleVersion()).append(System.lineSeparator());
-        appendToFile(log.toString());
+        appendToFile(
+                "Build started at "
+                        + Instant.now().toString()
+                        + System.lineSeparator()
+                        + "Gradle "
+                        + gradle.getGradleVersion()
+                        + System.lineSeparator());
     }
 
     @Override
@@ -84,25 +94,6 @@ public class BuildLogger implements BuildListener {
                                             .append(System.lineSeparator()));
         }
         appendToFile(log.toString());
-    }
-
-    private static String taskToString(TaskState state) {
-        if (state.getSkipped()) return "SKIPPED";
-        if (state.getNoSource()) return "NO-SOURCE";
-        if (state.getUpToDate()) return "UP-TO-DATE";
-        if (state.getFailure() != null) return "FAILED " + exceptionToString(state.getFailure());
-        if (state.getExecuted()) return "EXECUTED";
-        return "unknown";
-    }
-
-    private static String exceptionToString(Throwable throwable) {
-        StringBuilder builder = new StringBuilder(throwable.getMessage());
-        while (throwable.getCause() != null) {
-            throwable = throwable.getCause();
-            builder.append(" ]> ").append(throwable.getMessage());
-        }
-
-        return builder.toString();
     }
 
     private void appendToFile(String output) {

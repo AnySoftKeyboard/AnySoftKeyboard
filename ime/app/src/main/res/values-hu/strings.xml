@@ -567,6 +567,12 @@
     <string name="emoji_default_skin_tone_value_type_5">sötétbarna</string>
     <string name="emoji_default_skin_tone_value_type_6">fekete</string>
     <string name="emoji_default_skin_tone_value_random_type">véletlenszerű</string>
+    <string name="emoji_default_gender_title">Emoji alapértelmezett neme</string>
+    <string name="emoji_default_gender_summary">Alapértelmezetten használandó nem: %s</string>
+    <string name="emoji_default_gender_value_person">Személy</string>
+    <string name="emoji_default_gender_value_woman">Nő</string>
+    <string name="emoji_default_gender_value_man">Férfi</string>
+    <string name="emoji_default_gender_value_random_type">Véletlenszerű nem</string>
     <string name="developer_tools">Fejlesztői eszközök</string>
     <string name="click_for_developer_features">Fejlesztői eszközök</string>
     <string name="click_for_developer_features_summary">Különféle eszközök az app fejlesztői

@@ -31,6 +31,7 @@ public class AnySoftKeyboardExtendingTest extends AnySoftKeyboardBaseTest {
                                 com.anysoftkeyboard.ime.AnySoftKeyboardSwipeListener.class,
                                 com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText.class,
                                 com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions.class,
+                                com.anysoftkeyboard.ime.AnySoftKeyboardInlineSuggestions.class,
                                 com.anysoftkeyboard.ime.AnySoftKeyboardThemeOverlay.class,
                                 com.anysoftkeyboard.ime.AnySoftKeyboardHardware.class,
                                 com.anysoftkeyboard.ime.AnySoftKeyboardIncognito.class,

@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.HorizontalScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
@@ -255,6 +256,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                 .when(mMockCandidateView)
                 .getVisibility();
 
+        Mockito.doReturn(
+                        ApplicationProvider.getApplicationContext()
+                                .getResources()
+                                .getDrawable(R.drawable.close_suggestions_strip_icon))
+                .when(mMockCandidateView)
+                .getCloseIcon();
+
         Mockito.doAnswer(invocation -> mCandidateVisibility = invocation.getArgument(0))
                 .when(mMockCandidateView)
                 .setVisibility(anyInt());
@@ -284,11 +292,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     protected KeyboardViewContainerView createInputViewContainer() {
         final KeyboardViewContainerView originalInputContainer = super.createInputViewContainer();
-        AnyKeyboardView inputView = (AnyKeyboardView) originalInputContainer.getChildAt(1);
+        AnyKeyboardView inputView = (AnyKeyboardView) originalInputContainer.getChildAt(2);
+        HorizontalScrollView inlineAutofillView =
+                (HorizontalScrollView) originalInputContainer.getChildAt(0);
+
         originalInputContainer.removeAllViews();
         mMockCandidateView = Mockito.mock(CandidateView.class);
         setupMockCandidateView();
         mSpiedKeyboardView = Mockito.spy(inputView);
+
+        originalInputContainer.addView(Mockito.spy(inlineAutofillView));
         originalInputContainer.addView(mMockCandidateView);
         originalInputContainer.addView(mSpiedKeyboardView);
 
@@ -346,6 +359,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         simulateTextTyping(text, true, true);
     }
 
+    @SuppressWarnings("LoopOverCharArray")
     public void simulateTextTyping(
             final String text, final boolean advanceTime, final boolean asDiscreteKeys) {
         if (asDiscreteKeys) {
