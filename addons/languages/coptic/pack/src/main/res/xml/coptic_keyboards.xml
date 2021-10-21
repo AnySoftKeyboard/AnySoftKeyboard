@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
-    <!-- Dictionary attributes:
-     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
-     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
-     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
-     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
-     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
-     -->
     <Keyboard
         defaultDictionaryLocale="cop"
         description="Coptic keyboard with long-press for some letters"
@@ -15,4 +8,20 @@
         index="1"
         layoutResId="@xml/coptic"
         nameResId="@string/keyboard_name" />
+    <Keyboard
+        defaultDictionaryLocale="cop"
+        description="Scriptorium Coptic Keyboard"
+        iconResId="@drawable/ic_status_coptic"
+        id="650704cc-1280-4b2e-baf5-50929ea8eba2"
+        index="2"
+        layoutResId="@xml/coptic_scriptorium"
+        nameResId="@string/keyboard_name_scriptorium" />
+    <Keyboard
+        defaultDictionaryLocale="cop"
+        description="Coptic Keyboard based on Sw!ftK3y"
+        iconResId="@drawable/ic_status_coptic"
+        id="a92ce296-a5b8-4dcc-bb9a-656b8541a035"
+        index="3"
+        layoutResId="@xml/coptic_swift"
+        nameResId="@string/keyboard_name_swift" />
 </Keyboards>

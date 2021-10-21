@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="keyboard_name">ⲕⲏⲙⲉ</string>
+    <string name="keyboard_name_scriptorium">ⲕⲏⲙⲉ ͼ</string>
+    <string name="keyboard_name_swift">ⲕⲏⲙⲉ ⲛ̅ⲁⲥⲁⲓ</string>
     <string name="dictionary_name">Coptic Dictionary</string>
 </resources>
