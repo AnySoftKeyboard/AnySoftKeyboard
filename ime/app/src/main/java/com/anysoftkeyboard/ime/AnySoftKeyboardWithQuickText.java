@@ -108,7 +108,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
                 actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
                 actualInputView.getBackground(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.IMAGE_MEDIA_POPUP),
-                actualInputView.getDrawableForKeyCode(KeyCodes.DELETE_RECENT_USED_SMILEYS),
+                actualInputView.getDrawableForKeyCode(KeyCodes.CLEAR_QUICK_TEXT_HISTORY),
                 actualInputView.getPaddingBottom(),
                 getSupportedMediaTypesForInput());
 
