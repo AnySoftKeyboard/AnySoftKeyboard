@@ -13,6 +13,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.remote.MediaType;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -105,6 +106,45 @@ public class QuickTextPagerViewTest {
                 View.GONE,
                 mUnderTest
                         .findViewById(R.id.quick_keys_popup_quick_keys_insert_media)
+                        .getVisibility());
+    }
+
+    @Test
+    public void testShowClearEmojiOnlyOnHistory() throws Exception {
+        // setting up the listener since that is what sets up the adapter
+        OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
+        mUnderTest.setOnKeyboardActionListener(listener);
+
+        ViewPagerWithDisable pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
+        Assert.assertNotNull(pager);
+        pager.setCurrentItem(0, false);
+        TestRxSchedulers.foregroundFlushAllJobs();
+        Assert.assertEquals(0, pager.getCurrentItem());
+
+        Assert.assertEquals(
+                View.VISIBLE,
+                mUnderTest
+                        .findViewById(R.id.quick_keys_popup_delete_recently_used_smileys)
+                        .getVisibility());
+
+        pager.setCurrentItem(1, false);
+        TestRxSchedulers.foregroundFlushAllJobs();
+        Assert.assertEquals(1, pager.getCurrentItem());
+
+        Assert.assertEquals(
+                View.GONE,
+                mUnderTest
+                        .findViewById(R.id.quick_keys_popup_delete_recently_used_smileys)
+                        .getVisibility());
+
+        pager.setCurrentItem(0);
+        TestRxSchedulers.foregroundFlushAllJobs();
+        Assert.assertEquals(0, pager.getCurrentItem());
+
+        Assert.assertEquals(
+                View.VISIBLE,
+                mUnderTest
+                        .findViewById(R.id.quick_keys_popup_delete_recently_used_smileys)
                         .getVisibility());
     }
 

@@ -2,6 +2,7 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
 import android.content.res.Resources;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.List;
 public class HistoryQuickTextKey extends QuickTextKey {
 
     private final QuickKeyHistoryRecords mQuickKeyHistoryRecords;
-    private final List<QuickKeyHistoryRecords.HistoryKey> mHistoryKeys;
+    @NonNull private List<QuickKeyHistoryRecords.HistoryKey> mHistoryKeys;
 
     public HistoryQuickTextKey(Context askContext, QuickKeyHistoryRecords quickKeyHistoryRecords) {
         super(
@@ -69,5 +70,6 @@ public class HistoryQuickTextKey extends QuickTextKey {
 
     public void recordUsedKey(String name, String value) {
         mQuickKeyHistoryRecords.store(name, value);
+        mHistoryKeys = mQuickKeyHistoryRecords.getCurrentHistory();
     }
 }
