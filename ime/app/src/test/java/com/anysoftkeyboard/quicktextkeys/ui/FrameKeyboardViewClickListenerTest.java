@@ -66,6 +66,23 @@ public class FrameKeyboardViewClickListenerTest {
     }
 
     @Test
+    public void testOnClearEmoji() throws Exception {
+        OnKeyboardActionListener keyboardActionListener =
+                Mockito.mock(OnKeyboardActionListener.class);
+        FrameKeyboardViewClickListener listener =
+                new FrameKeyboardViewClickListener(keyboardActionListener);
+        Mockito.verifyZeroInteractions(keyboardActionListener);
+        View view = new View(getApplicationContext());
+        view.setId(R.id.quick_keys_popup_delete_recently_used_smileys);
+        listener.onClick(view);
+        Mockito.verify(keyboardActionListener)
+                .onKey(KeyCodes.CLEAR_QUICK_TEXT_HISTORY, null, 0, null, true);
+        Mockito.verify(keyboardActionListener)
+                .onKey(KeyCodes.QUICK_TEXT_POPUP, null, 0, null, true);
+        Mockito.verifyNoMoreInteractions(keyboardActionListener);
+    }
+
+    @Test
     public void testOnClickSetting() throws Exception {
         OnKeyboardActionListener keyboardActionListener =
                 Mockito.mock(OnKeyboardActionListener.class);

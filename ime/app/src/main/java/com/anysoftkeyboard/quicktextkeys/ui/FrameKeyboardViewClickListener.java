@@ -30,7 +30,9 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
                 break;
             case R.id.quick_keys_popup_delete_recently_used_smileys:
                 mKeyboardActionListener.onKey(
-                        KeyCodes.DELETE_RECENT_USED_SMILEYS, null, 0, null, true);
+                        KeyCodes.CLEAR_QUICK_TEXT_HISTORY, null, 0, null, true);
+                // re-show
+                mKeyboardActionListener.onKey(KeyCodes.QUICK_TEXT_POPUP, null, 0, null, true);
                 break;
             case R.id.quick_keys_popup_quick_keys_settings:
                 Intent startSettings =

@@ -945,8 +945,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             case R.attr.iconKeyImageInsert:
                 keyCode = KeyCodes.IMAGE_MEDIA_POPUP;
                 break;
-            case R.attr.iconKeyDeleteRecentlyUsed:
-                keyCode = KeyCodes.DELETE_RECENT_USED_SMILEYS;
+            case R.attr.iconKeyClearQuickTextHistory:
+                keyCode = KeyCodes.CLEAR_QUICK_TEXT_HISTORY;
                 break;
             default:
                 keyCode = 0;

@@ -270,7 +270,7 @@
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyImageInsert" format="reference"/>
         <!-- should support normal, key_type_feedback -->
-        <attr name="iconKeyDeleteRecentlyUsed" format="reference"/>
+        <attr name="iconKeyClearQuickTextHistory" format="reference"/>
     </declare-styleable>
 
 </resources>
