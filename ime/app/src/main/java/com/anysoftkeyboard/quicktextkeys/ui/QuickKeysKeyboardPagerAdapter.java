@@ -85,7 +85,8 @@ import java.util.List;
         keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
         QuickTextKey addOn = mAddOns[position];
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];
-        if (keyboard == null) {
+        if (keyboard == null
+                || position == 0 /*ALWAYS re-create history, in case it has changed*/) {
             if (addOn.isPopupKeyboardUsed()) {
                 keyboard =
                         new AnyPopupKeyboard(

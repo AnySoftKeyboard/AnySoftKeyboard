@@ -2,7 +2,6 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Arrays;
@@ -11,7 +10,6 @@ import java.util.List;
 public class HistoryQuickTextKey extends QuickTextKey {
 
     private final QuickKeyHistoryRecords mQuickKeyHistoryRecords;
-    @NonNull private List<QuickKeyHistoryRecords.HistoryKey> mHistoryKeys;
 
     public HistoryQuickTextKey(Context askContext, QuickKeyHistoryRecords quickKeyHistoryRecords) {
         super(
@@ -32,14 +30,15 @@ public class HistoryQuickTextKey extends QuickTextKey {
                 askContext.getResources().getString(R.string.history_quick_text_key_name),
                 0);
         mQuickKeyHistoryRecords = quickKeyHistoryRecords;
-        mHistoryKeys = quickKeyHistoryRecords.getCurrentHistory();
     }
 
     @Override
     public List<String> getPopupListNames() {
-        String[] names = new String[mHistoryKeys.size()];
+        final List<QuickKeyHistoryRecords.HistoryKey> currentHistory =
+                mQuickKeyHistoryRecords.getCurrentHistory();
+        String[] names = new String[currentHistory.size()];
         int index = names.length - 1;
-        for (QuickKeyHistoryRecords.HistoryKey historyKey : mHistoryKeys) {
+        for (QuickKeyHistoryRecords.HistoryKey historyKey : currentHistory) {
             names[index] = historyKey.name;
             index--;
         }
@@ -53,9 +52,11 @@ public class HistoryQuickTextKey extends QuickTextKey {
 
     @Override
     public List<String> getPopupListValues() {
-        String[] values = new String[mHistoryKeys.size()];
+        final List<QuickKeyHistoryRecords.HistoryKey> currentHistory =
+                mQuickKeyHistoryRecords.getCurrentHistory();
+        String[] values = new String[currentHistory.size()];
         int index = values.length - 1;
-        for (QuickKeyHistoryRecords.HistoryKey historyKey : mHistoryKeys) {
+        for (QuickKeyHistoryRecords.HistoryKey historyKey : currentHistory) {
             values[index] = historyKey.value;
             index--;
         }
@@ -70,6 +71,5 @@ public class HistoryQuickTextKey extends QuickTextKey {
 
     public void recordUsedKey(String name, String value) {
         mQuickKeyHistoryRecords.store(name, value);
-        mHistoryKeys = mQuickKeyHistoryRecords.getCurrentHistory();
     }
 }

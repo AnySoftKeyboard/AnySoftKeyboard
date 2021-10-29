@@ -127,7 +127,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
         final ViewPagerWithDisable pager = findViewById(R.id.quick_text_keyboards_pager);
-        final PagerAdapter adapter =
+        final QuickKeysKeyboardPagerAdapter adapter =
                 new QuickKeysKeyboardPagerAdapter(
                         context,
                         pager,
@@ -148,16 +148,10 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
                         super.onPageSelected(position);
                         QuickTextKey selectedKey = list.get(position);
                         quickTextUserPrefs.setLastSelectedAddOnId(selectedKey.getId());
-                        // if this is History, we need to:
-                        // 1) show clear icon
-                        // 2) re-load the history (TODO)
-                        // else
-                        // 1) hide the clear icon
-                        if (position == 0) {
-                            clearEmojiHistoryIcon.setVisibility(View.VISIBLE);
-                        } else {
-                            clearEmojiHistoryIcon.setVisibility(View.GONE);
-                        }
+                        // if this is History, we need to show clear icon
+                        // else, hide the clear icon
+                        clearEmojiHistoryIcon.setVisibility(
+                                position == 0 ? View.VISIBLE : View.GONE);
                     }
                 };
         int startPageIndex = quickTextUserPrefs.getStartPageIndex(list);
