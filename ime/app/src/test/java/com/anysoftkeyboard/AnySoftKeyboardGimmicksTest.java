@@ -119,6 +119,103 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testSwitchesFromSymbolsToAlphabetOnSpaceAfterSymbolUsed() {
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('1');
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("1 ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testSticksInSymbolsUntilSymbolPressed() {
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('1');
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals(" 1 ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testSticksInSymbolsUntilSymbolPressedDouble() {
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('1');
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals(". 1 ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testSticksInSymbolsWhenSettingIsDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_switch_keyboard_on_space, false);
+        Assert.assertEquals(
+                "c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('1');
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                "symbols_keyboard",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals(" 1 ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testManualPickWordAndAnotherSpaceAndBackspace() {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");

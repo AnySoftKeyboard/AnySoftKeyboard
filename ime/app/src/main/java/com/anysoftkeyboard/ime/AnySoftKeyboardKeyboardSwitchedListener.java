@@ -22,8 +22,10 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -42,6 +44,8 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
     @Nullable private CharSequence mExpectedSubtypeChangeKeyboardId;
+
+    private int mLastPrimaryInNonAlphabetKeyboard = 0;
 
     @Override
     public void onCreate() {
@@ -104,6 +108,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
     @Override
     public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
+        mLastPrimaryInNonAlphabetKeyboard = 0; // initializing
         mCurrentSymbolsKeyboard = keyboard;
         mInAlphabetKeyboardMode = false;
         setKeyboardForView(keyboard);
@@ -207,6 +212,33 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         mKeyboardSwitcher.setInputView(getInputView());
 
         return view;
+    }
+
+    @Override
+    @CallSuper
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
+        if (primaryCode == KeyCodes.SPACE) {
+            // should we switch to alphabet keyboard?
+            if (mSwitchKeyboardOnSpace
+                    && !mInAlphabetKeyboardMode
+                    && mLastPrimaryInNonAlphabetKeyboard != 0
+                    && mLastPrimaryInNonAlphabetKeyboard != KeyCodes.SPACE) {
+                Logger.d(TAG, "SPACE while in symbols mode");
+                getKeyboardSwitcher()
+                        .nextKeyboard(
+                                getCurrentInputEditorInfo(),
+                                KeyboardSwitcher.NextKeyboardType.Alphabet);
+            }
+        }
+
+        if (!mInAlphabetKeyboardMode && primaryCode > 0) {
+            mLastPrimaryInNonAlphabetKeyboard = primaryCode;
+        }
     }
 
     @Override
