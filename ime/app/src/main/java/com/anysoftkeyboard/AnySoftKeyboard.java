@@ -617,19 +617,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     handleSeparator(primaryCode);
                 }
                 break;
-            case KeyCodes.SPACE:
-                // shortcut. Nothing more.
-                handleSeparator(primaryCode);
-                // should we switch to alphabet keyboard?
-                if (!isInAlphabetKeyboardMode()) {
-                    Logger.d(TAG, "SPACE/ENTER while in symbols mode");
-                    if (mSwitchKeyboardOnSpace) {
-                        getKeyboardSwitcher()
-                                .nextKeyboard(
-                                        getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
-                    }
-                }
-                break;
             case KeyCodes.TAB:
                 sendTab();
                 break;

@@ -514,6 +514,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if (primaryCode != KeyCodes.DELETE) {
             mWordRevertLength = 0;
         }
