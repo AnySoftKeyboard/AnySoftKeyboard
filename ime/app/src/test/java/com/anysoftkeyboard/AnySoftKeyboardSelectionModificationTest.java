@@ -1,7 +1,6 @@
 package com.anysoftkeyboard;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,19 +10,25 @@ public class AnySoftKeyboardSelectionModificationTest extends AnySoftKeyboardBas
 
     @Test
     public void testCapitalizeEntireInput() {
-        final String expectedText =
-                "THIS SHOULD ALL HE CAPS"; /*using "he" so we will not get auto-corrected*/
-        final String initialText = expectedText.toLowerCase(Locale.ROOT);
+        final String initialText = "this should all he caps";
+        final String upperCaseText = "THIS SHOULD ALL HE CAPS";
+        final String capitalizedText = "This should all he caps";
         mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
         Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
-        mAnySoftKeyboardUnderTest.setSelectedText(0, expectedText.length(), true);
+        mAnySoftKeyboardUnderTest.setSelectedText(0, initialText.length(), true);
         Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(initialText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        // to capitalized
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertEquals(capitalizedText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(
+                capitalizedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals(expectedText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(upperCaseText, mAnySoftKeyboardUnderTest.getCurrentSelectedText());
         Assert.assertEquals(
-                expectedText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+                upperCaseText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
@@ -43,44 +48,71 @@ public class AnySoftKeyboardSelectionModificationTest extends AnySoftKeyboardBas
 
     @Test
     public void testCapitalizeSingleWord() {
-        final String inputText = "this SHOULD not all be caps";
-        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
+        final String inputText = "this should not all he caps";
+        final String capitalized = "this Should not all he caps";
+        final String uppercase = "this SHOULD not all he caps";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText);
         mAnySoftKeyboardUnderTest.setSelectedText("this ".length(), "this should".length(), true);
+        // To capitalized
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertEquals("Should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(capitalized, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
         Assert.assertEquals("SHOULD", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(uppercase, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
         Assert.assertEquals("should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(inputText, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
-    public void testCapitalizeSingleLetter() {
-        final String inputText = "this shOuld not all be caps";
-        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
-        mAnySoftKeyboardUnderTest.setSelectedText("this sh".length(), "this sho".length(), true);
-        // To uppercase
+    public void testStartsCapitalized() {
+        final String inputText = "this Should not all he caps";
+        final String capitalized = "this Should not all he caps";
+        final String lowercase = "this should not all he caps";
+        final String uppercase = "this SHOULD not all he caps";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(inputText);
+        mAnySoftKeyboardUnderTest.setSelectedText("this ".length(), "this should".length(), true);
+        // To uppercase - instead of capitalized, it switches to uppercase (since it was already
+        // capitalized)
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("O", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals("SHOULD", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(uppercase, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        // To lowercase
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertEquals("should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(lowercase, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
-        // Back to lowercase
+        // Back to capitalized
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
-        Assert.assertEquals("o", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals("Should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(capitalized, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
     public void testCapitalizeMixedCaseWord() {
-        final String inputText = "this sHoUlD not all be caps";
+        final String inputText = "this sHoUlD not all he caps";
+        final String capitalized = "this Should not all he caps";
+        final String uppercase = "this SHOULD not all he caps";
+        final String lowercase = "this should not all he caps";
         mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
         mAnySoftKeyboardUnderTest.setSelectedText("this ".length(), "this should".length(), true);
+        // To capitalized
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        Assert.assertEquals("Should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(capitalized, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         // To uppercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
         Assert.assertEquals("SHOULD", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(uppercase, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         // Back to lowercase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
         Assert.assertEquals("should", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        Assert.assertEquals(lowercase, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test

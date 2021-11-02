@@ -73,6 +73,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     private final PackagesChangedReceiver mPackagesChangedReceiver =
             new PackagesChangedReceiver(this);
 
+    private final StringBuilder mTextCapitalizerWorkspace = new StringBuilder();
     private boolean mShowKeyboardIconInStatusBar;
 
     @NonNull private final SparseArrayCompat<int[]> mSpecialWrapCharacters;
@@ -1047,17 +1048,43 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
         if (selectedText.length() > 0) {
             ic.beginBatchEdit();
-            String selectedTextString = selectedText.toString();
+            final String selectedTextString = selectedText.toString();
             AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
+            @NonNull
             Locale locale =
-                    currentAlphabetKeyboard != null ? currentAlphabetKeyboard.getLocale() : null;
-            if (selectedTextString.compareTo(selectedTextString.toUpperCase(locale)) == 0) {
+                    currentAlphabetKeyboard != null
+                            ? currentAlphabetKeyboard.getLocale()
+                            : Locale.ROOT;
+            // The rules:
+            // lowercase -> Capitalized
+            // UPPERCASE -> lowercase
+            // Capitalized (only first character is uppercase, more than one letter string) ->
+            // UPPERCASE
+            // mixed -> lowercase
+            mTextCapitalizerWorkspace.setLength(0);
+            if (selectedTextString.compareTo(selectedTextString.toLowerCase(locale)) == 0) {
+                // Convert to Capitalized
+                mTextCapitalizerWorkspace.append(selectedTextString.toLowerCase(locale));
+                mTextCapitalizerWorkspace.setCharAt(
+                        0, Character.toUpperCase(selectedTextString.charAt(0)));
+            } else if (selectedTextString.compareTo(selectedTextString.toUpperCase(locale)) == 0) {
                 // Convert to lower case
-                ic.setComposingText(selectedTextString.toLowerCase(locale), 0);
+                mTextCapitalizerWorkspace.append(selectedTextString.toLowerCase(locale));
             } else {
-                // Convert to upper case
-                ic.setComposingText(selectedTextString.toUpperCase(locale), 0);
+                // this has to mean the text is longer than 1 (otherwise, it would be entirely
+                // uppercase or lowercase)
+                final String textWithoutFirst = selectedTextString.substring(1);
+                if (Character.isUpperCase(selectedTextString.charAt(0))
+                        && textWithoutFirst.compareTo(textWithoutFirst.toLowerCase(locale)) == 0) {
+                    // this means it's capitalized
+                    mTextCapitalizerWorkspace.append(selectedTextString.toUpperCase(locale));
+                } else {
+                    // mixed (the first letter is not uppercase, and at least one character from the
+                    // rest is not lowercase
+                    mTextCapitalizerWorkspace.append(selectedTextString.toLowerCase(locale));
+                }
             }
+            ic.setComposingText(mTextCapitalizerWorkspace.toString(), 0);
             ic.endBatchEdit();
             ic.setSelection(selectionStart, selectionEnd);
         }
