@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -10,9 +11,11 @@ import com.anysoftkeyboard.saywhat.OnUiPage;
 import com.anysoftkeyboard.saywhat.OnVisible;
 import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import org.mockito.Mockito;
 
 public class AnyRoboApplication extends AnyApplication {
@@ -112,5 +115,19 @@ public class AnyRoboApplication extends AnyApplication {
 
     public List<PublicNotice> getPublicNoticesProduction() {
         return super.getPublicNotices();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+
+        try {
+            final Class<AppCompatDelegate> clazz = AppCompatDelegate.class;
+            final Field delegatesField = clazz.getDeclaredField("sActivityDelegates");
+            delegatesField.setAccessible(true);
+            ((Set<?>) delegatesField.get(null)).clear();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

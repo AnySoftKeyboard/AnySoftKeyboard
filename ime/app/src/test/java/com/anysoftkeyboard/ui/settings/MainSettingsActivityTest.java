@@ -262,7 +262,6 @@ public class MainSettingsActivityTest {
     @Test(expected = IllegalArgumentException.class)
     @Config(sdk = Build.VERSION_CODES.M)
     public void testFailsIfUnknownPermission() {
-
         Intent requestIntent = getContactsIntent();
         requestIntent.putExtra(
                 MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY,
