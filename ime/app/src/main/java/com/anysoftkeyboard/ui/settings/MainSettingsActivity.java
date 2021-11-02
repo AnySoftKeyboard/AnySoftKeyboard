@@ -22,6 +22,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
@@ -38,12 +39,17 @@ public class MainSettingsActivity extends BasicAnyActivity {
     private CharSequence mTitle;
     private BottomNavigationView mBottomNavigationView;
 
+    public MainSettingsActivity() {
+        // trying to figure out where the leak is coming from
+        Logger.d("MainSettingsActivity", "a new MainSettingsActivity " + this);
+    }
+
     /**
      * Will set the title in the hosting Activity's title. Will only set the title if the fragment
      * is hosted by the Activity's manager, and not inner one.
      */
     public static void setActivityTitle(Fragment fragment, CharSequence title) {
-        FragmentActivity activity = fragment.getActivity();
+        FragmentActivity activity = fragment.requireActivity();
         if (activity.getSupportFragmentManager() == fragment.getParentFragmentManager()) {
             activity.setTitle(title);
         }
