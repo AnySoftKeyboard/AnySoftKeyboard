@@ -4,7 +4,7 @@
           package="com.anysoftkeyboard.remote">
 
     <application>
-        <activity android:name=".RemoteInsertionActivity" android:theme="@style/Theme.AppCompat.Dialog">
+        <activity android:name=".RemoteInsertionActivity" android:theme="@style/Theme.AppCompat.Dialog" android:exported="false">
             <intent-filter>
                 <action android:name="com.anysoftkeyboard.api.INTENT_MEDIA_INSERTION_REQUEST_ACTION"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -25,4 +25,10 @@
         </provider>
     </application>
 
+    <queries>
+        <!-- gif/media search -->
+        <intent>
+            <action android:name="com.anysoftkeyboard.api.INTENT_MEDIA_INSERTION_REQUEST_ACTION" />
+        </intent>
+    </queries>
 </manifest>

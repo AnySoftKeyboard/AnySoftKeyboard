@@ -134,8 +134,8 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
         Assert.assertNotNull(w);
         TestShadowPhoneWindow shadowWindow = (TestShadowPhoneWindow) Shadows.shadowOf(w);
-        Assert.assertTrue(shadowWindow.getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
-        Assert.assertFalse(shadowWindow.decorFitsSystemWindows);
+        Assert.assertFalse(shadowWindow.getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+        Assert.assertTrue(shadowWindow.decorFitsSystemWindows);
     }
 
     @Test
