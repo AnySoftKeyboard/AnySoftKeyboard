@@ -52,19 +52,18 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class AddOnsFactory<E extends AddOn> {
-    public interface OnCriticalAddOnChangeListener {
-        void onAddOnsCriticalChange();
-    }
-
     private static final String XML_PREF_ID_ATTRIBUTE = "id";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_SORT_INDEX_ATTRIBUTE = "index";
     private static final String XML_DEV_ADD_ON_ATTRIBUTE = "devOnly";
     private static final String XML_HIDDEN_ADD_ON_ATTRIBUTE = "hidden";
-
     @NonNull protected final Context mContext;
     protected final String mTag;
+    protected final SharedPreferences mSharedPreferences;
+    final ArrayList<E> mAddOns = new ArrayList<>();
+    final HashMap<String, E> mAddOnsById = new HashMap<>();
+    final String mDefaultAddOnId;
     /**
      * This is the interface name that a broadcast receiver implementing an external addon should
      * say that it supports -- that is, this is the action it uses for its intent filter.
@@ -76,18 +75,14 @@ public abstract class AddOnsFactory<E extends AddOn> {
      */
     private final String mReceiverMetaData;
 
-    final ArrayList<E> mAddOns = new ArrayList<>();
-    final HashMap<String, E> mAddOnsById = new HashMap<>();
     private final boolean mReadExternalPacksToo;
     private final String mRootNodeTag;
     private final String mAddonNodeTag;
     @XmlRes private final int mBuildInAddOnsResId;
-    final String mDefaultAddOnId;
     private final boolean mDevAddOnsIncluded;
 
     // NOTE: this should only be used when interacting with shared-prefs!
     private final String mPrefIdPrefix;
-    protected final SharedPreferences mSharedPreferences;
 
     protected AddOnsFactory(
             @NonNull Context context,
@@ -117,6 +112,14 @@ public abstract class AddOnsFactory<E extends AddOn> {
         mDefaultAddOnId =
                 defaultAddOnStringId == 0 ? null : context.getString(defaultAddOnStringId);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+        if (isDebugBuild && readExternalPacksToo) {
+            Logger.d(
+                    mTag,
+                    "Will read external addons with ACTION '%s' and meta-data '%s'",
+                    mReceiverInterface,
+                    mReceiverMetaData);
+        }
     }
 
     @Nullable
@@ -525,6 +528,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
             boolean isHidden,
             int sortIndex,
             AttributeSet attrs);
+
+    public interface OnCriticalAddOnChangeListener {
+        void onAddOnsCriticalChange();
+    }
 
     private static final class AddOnsComparator implements Comparator<AddOn>, Serializable {
         static final long serialVersionUID = 1276823L;
