@@ -1292,7 +1292,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     protected boolean isWordSeparator(int code) {
-        return (!isAlphabet(code));
+        return !isAlphabet(code);
     }
 
     public boolean preferCapitalization() {
