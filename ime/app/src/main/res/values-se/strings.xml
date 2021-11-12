@@ -23,7 +23,7 @@
     <string name="changelog">Ändringslogg</string>
     <string name="search_market_for_addons">Sök efter tillägg</string>
     <string name="search_market_for_keyboard_addons">Hämta fler tangentbord i app-butiken</string>
-    <string name="search_market_for_quick_key_addons">Hämta fler <i>Snabbtext</i>-tillägg i app-butiken...</string>
+    <string name="search_market_for_quick_key_addons">Hämta fler <i>Snabbtext</i>-tillägg i app-butiken…</string>
     <string name="no_market_store_available">Kunde inte hitta någon app-butik på din enhet.\nDet går ej att söka efter tillägg!</string>
     <string name="keyboard_theme_tweak_group">Justeringar</string>
     <string name="close_button">Stäng</string>

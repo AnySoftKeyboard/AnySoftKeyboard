@@ -24,8 +24,8 @@
     <!-- changelog -->
     <string name="changelog">Зміни</string>
     <string name="search_market_for_addons">Пошук доповнень</string>
-    <string name="search_market_for_keyboard_addons">Отримати більше клавіатур в <i>Google Play магазин</i>...</string>
-    <string name="search_market_for_quick_key_addons">Отримати більш <i>Швидкий текст</i> додатки в <i>Google Play магазин</i>...</string>
+    <string name="search_market_for_keyboard_addons">Отримати більше клавіатур в <i>Google Play магазин</i>…</string>
+    <string name="search_market_for_quick_key_addons">Отримати більш <i>Швидкий текст</i> додатки в <i>Google Play магазин</i>…</string>
     <string name="no_market_store_available"><b>* Не вдалося знайти <i>Google Play магазин</i> на вашому пристрої. Не вдається шукати додаткові компоненти!</b></string>
     <string name="keyboard_theme_tweak_group">Твіки</string>
     <string name="close_button">Закрити</string>
@@ -500,7 +500,7 @@
     <string name="created_mem_dump_file">Створення файлу дампа пам\'яті на: <xliff:g id="file_path">%s </xliff:g>     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не є повністю налаштування для використання. Натисніть тут, щоб налаштувати.</string>
     <string name="not_configured_with_just_click_here">Натисніть тут</string>
-    <string name="click_for_more">більше...</string>
+    <string name="click_for_more">більше…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Додати слово</string>
@@ -513,7 +513,7 @@
     <string name="about_additional_software_licenses">Додаткові ліцензії</string>
     <string name="setup_wizard_step_one_title">Активувати AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">У цьому кроці ви повинні включити <i>AnySoftKeyboard</i>. Будь ласка, перевірте <i>\'AnySoftKeyboard\'</i> в <i>Language&amp;Input settings</i>. Це дозволить нам працювати на вашому пристрої.</string>
-    <string name="setup_wizard_step_one_action">Перейти до <i>Налаштування мови та вводу</i>...</string>
+    <string name="setup_wizard_step_one_action">Перейти до <i>Налаштування мови та вводу</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Помилка: Пристрій підтримує третіх сторін клавіатур. AnySoftKeyboard не може бути активований!</string>
     <string name="setup_wizard_step_permissions_title">Включити дозволи</string>
     <string name="setup_wizard_step_permissions_details">На цьому кроці ви можете надати <i>AnySoftKeyboard</i> доступ до контактів, що зберігаються на вашому пристрої. Якщо Ви хочете заблокувати доступ, Ви можете відключити словник з контактів.</string>
@@ -524,16 +524,16 @@
     <string name="setup_wizard_step_three_details">Дякуємо, що вибрали <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Готово 🎉\nПерейдіть в Ваше улюблене додаток, щоб спробувати.</b></string>
     <string name="setup_wizard_step_three_details_actions">Або ви можете налаштувати та персоналізувати клавіатуру по своєму смаку:</string>
-    <string name="setup_wizard_step_three_action_languages">Налаштування мови...</string>
-    <string name="setup_wizard_step_three_action_themes">Виберіть тему...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Налаштувати все інше...</string>
+    <string name="setup_wizard_step_three_action_languages">Налаштування мови…</string>
+    <string name="setup_wizard_step_three_action_themes">Виберіть тему…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Налаштувати все інше…</string>
     <string name="setup_wizard_step_download_title">Скачати мовні пакети</string>
     <string name="setup_wizard_step_download_details">Ви будете раді дізнатися, що <i>AnySoftKeyboard</i> підтримує десятки мов. Просто завантажте потрібний мовний пакет і насолоджуйтеся друкуванням будь-якою мовою вашого пристрою.</string>
     <string name="setup_wizard_step_download_action">Завантажити мовний пакет</string>
     <string name="setup_wizard_step_download_skip_action">Пропустити</string>
     <string name="ime_crashed_title">AnySoftKeyboard розбився!</string>
-    <string name="ime_crashed_sub_text">На жаль, не бачив, що йде ...</string>
-    <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard розбився, не бачив, що йде ...</string>
+    <string name="ime_crashed_sub_text">На жаль, не бачив, що йде …</string>
+    <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard розбився, не бачив, що йде …</string>
     <string name="ime_crashed_text">На жаль, є проблема з  <i>AnySoftKeyboard</i>. Не панікуйте, є щось  <b>ви</b> може зробити, щоб допомогти вирішити цю проблему: послати нами звіт по аварії, і ми зробимо все можливе, щоб вирішити цю аварію і ви отримаєте назад з дивним досвідом клавіатури!\n\n З щирою вибаченням, команда Dev.</string>
     <string name="ime_crashed_send_button">Надіслати</string>
     <string name="ime_crashed_cancel_button">"Скасувати"</string>

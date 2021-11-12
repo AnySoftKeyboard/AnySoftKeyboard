@@ -16,7 +16,7 @@
 
     <issue id="Typos" severity="error">
         <!-- ignoring translations from crowdin -->
-        <ignore path="src/main/res/values-*/strings.xml" />
+        <ignore path="**/res/values-*/strings.xml" />
     </issue>
 
     <issue id="VisibleForTests" severity="error" >

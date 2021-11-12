@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="keyboard_name">ⲕⲏⲙⲉ</string>
-    <string name="dictionary_name">Dictionnaire Copte</string>
+    <string name="coptic_keyboard_name">ⲕⲏⲙⲉ</string>
+    <string name="coptic_dictionary_name">Dictionnaire Copte</string>
 </resources>

@@ -512,7 +512,7 @@
     <string name="click_for_developer_features_summary">أدوات مختلفة للوحة مفاتيح AnySoftKeyboard خاصة بالمطورين</string>
     <string name="not_configured_with_click_here">تطبيق AnySoftKeyboard ليس جاهزا تماما للإستخدام. إضغط هنا لإعداده.</string>
     <string name="not_configured_with_just_click_here">انقر هنا</string>
-    <string name="click_for_more">المزيد ...</string>
+    <string name="click_for_more">المزيد …</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">إضافة كلمة جديدة</string>
@@ -541,15 +541,15 @@
     <string name="setup_wizard_step_three_details">نشكرك لاختيارك <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>لقد أنهيت 🎉\nإذهب إلى تطبيقك المفضل لتجريبه.</b></string>
     <string name="setup_wizard_step_three_details_actions">أو يمكنك إعداد لوحة المفاتيح حسب أذواقك :</string>
-    <string name="setup_wizard_step_three_action_languages">إعداد اللغات ...</string>
-    <string name="setup_wizard_step_three_action_themes">إختيار السمة ...</string>
-    <string name="setup_wizard_step_three_action_all_settings">إعداد كل ما تبقى ...</string>
+    <string name="setup_wizard_step_three_action_languages">إعداد اللغات …</string>
+    <string name="setup_wizard_step_three_action_themes">إختيار السمة …</string>
+    <string name="setup_wizard_step_three_action_all_settings">إعداد كل ما تبقى …</string>
     <string name="setup_wizard_step_download_title">تنزيل حزم اللغات</string>
     <string name="setup_wizard_step_download_action">تنزيل حزمة لغوية</string>
     <string name="setup_wizard_step_download_skip_action">تخطي</string>
     <string name="ime_crashed_title">تعطل تطبيق AnySoftKeyboard !</string>
-    <string name="ime_crashed_sub_text">عذرا، لم نكن نتوقع ذلك ...</string>
-    <string name="ime_crashed_ticker">عذرا، لقد تحطّم AnySoftKeyboard، لم نكن نتوقع ذلك ...</string>
+    <string name="ime_crashed_sub_text">عذرا، لم نكن نتوقع ذلك …</string>
+    <string name="ime_crashed_ticker">عذرا، لقد تحطّم AnySoftKeyboard، لم نكن نتوقع ذلك …</string>
     <string name="ime_crashed_send_button">إرسال</string>
     <string name="ime_crashed_cancel_button">إلغاء</string>
     <string name="ime_crashed_intent_selector_title">إرسال تقريرا عن العَطَل بواسطة</string>
@@ -581,8 +581,8 @@
     <string name="app_shortcut_quick_keys_short_label">إعدادات الإيموجي</string>
     <string name="extension_keyboard_enabled_off_summary">ملحق لوحة المفاتيح معطل.</string>
     <string name="extension_keyboard_enabled_on_summary">ملحق لوحة المفاتيح سيظهر عند السَّحب إلى أعلى لوحة المفاتيح.</string>
-    <string name="read_our_privacy_policy">إقرأ المزيد عن سياستنا بشأن الخصوصية ...</string>
-    <string name="visit_our_web_site">قم بزيارة موقعنا ...</string>
+    <string name="read_our_privacy_policy">إقرأ المزيد عن سياستنا بشأن الخصوصية …</string>
+    <string name="visit_our_web_site">قم بزيارة موقعنا …</string>
     <string name="keyboard_for_url_fields">النسق الخاص بحقول الروابط</string>
     <string name="keyboard_for_url_fields_title">إختيار نسق لإدخال عناوين الروابط</string>
     <string name="no_internet_fields_specific_layout">لا شيء</string>
@@ -590,13 +590,13 @@
     <string name="setup_wizard_welcome_title">مرحبًا !</string>
     <string name="setup_wizard_welcome_sub_title">شكرا لتجريبيك للوحة المفاتيح AnySoftKeyboard !</string>
     <string name="setup_wizard_welcome_info_2">حسنا، هل أنت جاهز ؟ إضغط أدناه للمواصلة، سوف أدُلّك على الخطوات.</string>
-    <string name="setup_wizard_welcome_start_action">بداية التثبيت ...</string>
-    <string name="setup_wizard_welcome_privacy_action">انتقل إلى سياسة الخصوصية ...</string>
+    <string name="setup_wizard_welcome_start_action">بداية التثبيت …</string>
+    <string name="setup_wizard_welcome_privacy_action">انتقل إلى سياسة الخصوصية …</string>
     <string name="clear_all_dictionary_override">مسح البدائل</string>
     <string name="theme_case_type_override_os">دع نظام الأندرويد يختار (تلقائي)</string>
     <string name="theme_case_type_override_lower">أحرف صغيرة دائما</string>
     <string name="theme_case_type_override_upper">أحرف كبيرة دائما</string>
-    <string name="take_a_while_progress_message">قد تستغرق هذه العملية بعض الوقت ...</string>
+    <string name="take_a_while_progress_message">قد تستغرق هذه العملية بعض الوقت …</string>
     <string name="shared_prefs_provider_name">إعدادات التطبيق</string>
     <string name="user_dict_prefs_provider">كلمات المستخدِم</string>
     <string name="next_word_dict_prefs_provider">الكلمات التالية</string>
