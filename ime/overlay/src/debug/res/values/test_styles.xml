@@ -16,13 +16,6 @@
         <item name="android:colorPrimaryDark">#aacc9911</item>
     </style>
 
-    <style name="HappyPathAttributeColors"
-           parent="Theme.AppCompat.Light">
-        <item name="android:textColorPrimary">@color/testTextColor</item>
-        <item name="android:colorPrimary">?android:colorPrimary</item>
-        <item name="android:colorPrimaryDark">#aacc9911</item>
-    </style>
-
     <style name="MissingAttribute">
         <item name="android:textColorPrimary">@color/testTextColor</item>
     </style>

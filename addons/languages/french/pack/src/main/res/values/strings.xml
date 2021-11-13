@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dictionary_name">French Dictionary</string>
+    <string name="french_dictionary_name">French</string>
     <string name="keyboard_azerty_name">AZERTY</string>
     <string name="keyboard_azerty_description">French keyboard - AZERTY layout</string>
     <string name="keyboard_azerty_with_hyphen_name">AZERTY</string>

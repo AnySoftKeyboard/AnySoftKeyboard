@@ -28,13 +28,5 @@
     
     <dimen name="key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
-    <dimen name="candidate_strip_height">36dip</dimen>
-    <dimen name="candidate_font_height">18sp</dimen>
-    <!-- 
-    <dimen name="key_top_inset">1dp</dimen>
-    <dimen name="key_bottom_inset">2dp</dimen>
-    <dimen name="key_left_inset">3dp</dimen>
-    <dimen name="key_right_inset">3dp</dimen>
-     -->
     <dimen name="key_corner_radius">3dp</dimen>
 </resources>

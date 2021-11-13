@@ -26,7 +26,7 @@
     <string name="changelog">Lista zmian</string>
     <string name="search_market_for_addons">Szukaj dodatków</string>
     <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur z Google Play</string>
-    <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play...</string>
+    <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
     <string name="no_market_store_available">Na Twoim urządzeniu nie odnaleziono <i>Sklepu Google Play</i>.\nNie udało się wyszukać dodatków!</string>
     <string name="keyboard_theme_tweak_group">Ulepszenia</string>
     <string name="close_button">Zamknij</string>
@@ -618,7 +618,7 @@ Zmiana
         tutaj, aby to zrobić.
     </string>
     <string name="not_configured_with_just_click_here">Dotknij tutaj</string>
-    <string name="click_for_more">więcej...</string>
+    <string name="click_for_more">więcej…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Dodaj słowo</string>

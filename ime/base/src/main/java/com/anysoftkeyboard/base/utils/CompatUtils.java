@@ -23,6 +23,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.getkeepsafe.relinker.MissingLibraryException;
 import com.getkeepsafe.relinker.ReLinker;
 
@@ -79,5 +80,11 @@ public class CompatUtils {
             // we are going to fail down the line anyway - better fail now
             throw t;
         }
+    }
+
+    // this is needed since we do not have access to Objects.equals till API19
+    public static boolean objectEquals(@Nullable Object first, @Nullable Object second) {
+        //noinspection EqualsReplaceableByObjectsCall
+        return (first == second) || (first != null && first.equals(second));
     }
 }

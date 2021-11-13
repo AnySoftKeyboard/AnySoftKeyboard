@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="slovak_dictionary">Slovak dictionary</string>
     <string name="slovak_keyboard">Slovak</string>
     <string name="slovak_qwerty_description">Slovak qwerty</string>
