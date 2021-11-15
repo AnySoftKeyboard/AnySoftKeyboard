@@ -51,9 +51,11 @@ public class DeploymentCreate
 
     public static class RequestPayloadField {
         public final List<String> environments_to_kill;
+        public final String previous_environment;
 
-        public RequestPayloadField(List<String> environmentsToKill) {
+        public RequestPayloadField(List<String> environmentsToKill, String previousEnvironment) {
             environments_to_kill = environmentsToKill;
+            previous_environment = previousEnvironment;
         }
     }
 

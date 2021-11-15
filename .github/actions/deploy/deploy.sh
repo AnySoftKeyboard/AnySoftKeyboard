@@ -3,6 +3,8 @@ set -e
 
 DEPLOYMENT_ENVIRONMENT="${1}"
 shift
+PREVIOUS_DEPLOYMENT_ENVIRONMENT="${1}"
+shift
 DEPLOYMENT_TASK="${1}"
 shift
 export ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL="${1}"
@@ -83,28 +85,29 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
 
   esac
 elif [[ "${DEPLOYMENT_TASK}" == "deploy:migration" ]]; then
+  PREVIOUS_DEPLOY_CHANNEL=$(deployChannelFromEnvironmentName "${PREVIOUS_DEPLOYMENT_ENVIRONMENT}")
   case "${PROCESS_NAME}" in
 
     ime*)
-      DEPLOY_ARGS+=( "--promote-track" "${DEPLOY_CHANNEL}" )
+      DEPLOY_ARGS+=( "--from-track" "${PREVIOUS_DEPLOY_CHANNEL}" "--promote-track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
       ;;
 
     addOns*)
-      DEPLOY_ARGS+=( "--promote-track" "${DEPLOY_CHANNEL}" )
+      DEPLOY_ARGS+=( "--from-track" "${PREVIOUS_DEPLOY_CHANNEL}" "--promote-track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "promoteReleaseArtifact" "-x" "ime:app:promoteReleaseArtifact" )
       ;;
 
   esac
 fi
 
-echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}"
+echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}, and DEPLOY_ARGS: ${DEPLOY_ARGS[*]}"
 
 ./gradlew "${DEPLOY_TASKS[@]}" "${DEPLOY_ARGS[@]}"
 
 #Making sure no future deployments will happen on this branch.
 if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; then
-  echo "A succesfull full deploy to production has finished."
+  echo "A succesful full deploy to production has finished."
   MARKER_FILE="deployment/halt_deployment_marker"
   if [[ -f "${MARKER_FILE}" ]]; then
     echo "${MARKER_FILE} exits. No need to create another."
