@@ -98,6 +98,7 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
             int stepIndex)
             throws Exception {
         final String environmentToDeploy = getEnvironmentName(environment, stepIndex);
+        final String previousEnvironment = getPreviousEnvironmentName(environment, stepIndex);
         final List<String> environmentsToKill =
                 environment.environmentSteps.stream()
                         .map(name -> getEnvironmentName(environment.name, name))
@@ -113,11 +114,13 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
                                 environmentToDeploy,
                                 String.format(
                                         Locale.ROOT,
-                                        "Deployment for '%s' request by '%s'.",
+                                        "Deployment for '%s' from ('%s') request by '%s'.",
                                         environmentToDeploy,
+                                        previousEnvironment,
                                         data.apiUsername),
                                 Collections.singletonList("master-green-requirement"),
-                                new DeploymentCreate.RequestPayloadField(environmentsToKill)));
+                                new DeploymentCreate.RequestPayloadField(
+                                        environmentsToKill, previousEnvironment)));
 
         System.out.println(
                 String.format(
@@ -138,5 +141,13 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
     private static String getEnvironmentName(
             DeploymentProcessConfiguration environment, int index) {
         return getEnvironmentName(environment.name, environment.environmentSteps.get(index));
+    }
+
+    private static String getPreviousEnvironmentName(
+            DeploymentProcessConfiguration environment, int index) {
+        if (index == 0) return "NONE";
+        else
+            return getEnvironmentName(
+                    environment.name, environment.environmentSteps.get(index - 1));
     }
 }
