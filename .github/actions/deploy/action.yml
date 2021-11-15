@@ -6,6 +6,9 @@ inputs:
   deployment_environment:
     description: "Deploy to which environment"
     required: true
+  previous_deployment_environment:
+    description: "The previous deployed environment. NONE for none."
+    required: true
   deployment_task:
     description: "Deployment task"
     required: true
@@ -37,6 +40,7 @@ runs:
   args:
     - .github/actions/deploy/deploy.sh
     - ${{ inputs.deployment_environment }}
+    - ${{ inputs.previous_deployment_environment }}
     - ${{ inputs.deployment_task }}
     - ${{ inputs.crash_report_email }}
     - ${{ inputs.secrets_repo_folder }}

@@ -40,6 +40,7 @@ jobs:
       - uses: ./.github/actions/deploy
         with:
           deployment_environment: ${{ github.event.deployment.environment }}
+          previous_deployment_environment: ${{ github.event.deployment.payload.previous_environment }}
           deployment_task: ${{ github.event.deployment.task }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           secrets_repo_folder: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
