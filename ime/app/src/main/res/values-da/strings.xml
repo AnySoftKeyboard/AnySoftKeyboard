@@ -1,42 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="debug_tracing_starting">Sporing startet!\nSørg for at du stopper den på et tidspunkt
+    </string>
+    <string name="debug_tracing_starting_failed">Sporing initiering mislykkedes! Tjek logcat for
+        detaljer.
+    </string>
+    <string name="debug_tracing_finished">Sporing færdig!\nSporingsfil er\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Omkring</string>
     <string name="how_to_pointer_title">Velkommen til AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Seneste ændringer for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Mere:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">Dette er en beta-version. Brug med forsigtighed!</string>
+    <string name="testers_version">Testversion!</string>
     <string name="language_root_tile">Sprog</string>
+    <string name="language_keyboards_settings_tile">Aktivér tastaturer og sprog.</string>
+    <string name="language_grammar_settings_tile">Indstil korrektionsmetode og andre ordbøger.</string>
+    <string name="language_tweaks_settings_tile">Tilpasninger og mere.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">Brugerflade</string>
+    <string name="ui_theme_settings_tile">Vælg og konfigurér tastaturtemaer.</string>
+    <string name="ui_effects_settings_tile">Tastatureffekter og oplevelse.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Changelog</string>
     <string name="search_market_for_addons">Søg efter tilføjelser</string>
+    <string name="search_market_for_keyboard_addons">Hent flere tastaturer i appbutikken</string>
+    <string name="search_market_for_quick_key_addons">Få flere <i>Hurtig-tekst</i> tilføjelser i app-butikken…</string>
+    <string name="no_market_store_available">Kunne ikke finde en app-butik på din enhed.\nKan ikke søge efter tilføjelser!</string>
+    <string name="keyboard_theme_tweak_group">Tilpasninger</string>
     <string name="close_button">Luk</string>
     <string name="delete_button">Slet</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Gemt:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">Fjern\?</string>
+    <string name="removed_word">Fjernet:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Tryk igen for at gemme</string>
+    <string name="hint_double_tap_to_close">Igen for at fjerne forslag</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">Stemme er ikke Installeret</string>
+    <string name="voice_input_not_installed_text">Stemmeinput er ikke installeret på din enhed.\nDet
+        kan nemt rettes: installer det nu fra app-butikken.
+    </string>
     <string name="voice_input_not_installed_action_install">Installer</string>
     <string name="voice_input_not_installed_action_do_not_install">installer ikke</string>
+    <string name="voice_input_not_voice_pack_in_market">Jeg kan ikke finde stemmeinput
+        (com.google.android.voicesearch) i app-butikken. Beklager, stemmeinput vil ikke virker på din enhed.
+    </string>
     <!-- Options menu -->
     <string name="change_ime">Ændre indtastningsmetoden</string>
     <string name="override_dictionary">Tilsidesætte standard ordbog</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Tilsidesæt\u0020<xliff:g id="word">%s</xliff:g>\u0020ordbog</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">Bevægelser</string>
     <string name="effects_group">Effekter</string>
     <string name="ime_settings">Tastatur-indstillinger</string>
+    <string name="switch_incognito">Inkognito-tilstand</string>
+    <string name="use_system_vibration_title">Brug systemvibration</string>
+    <string name="use_system_vibration_off_summary">Bruger brugerdefineret vibrationsindstilling</string>
+    <string name="use_system_vibration_on_summary">Bruger Android-systemets vibrationsindstilling</string>
     <string name="vibrate_on_key_press_title">Vibrer på tastetryk</string>
+    <string name="vibrate_on_key_press_value_template">%d millisekunder</string>
+    <string name="night_mode_screen">Indstillinger for nattilstand</string>
+    <string name="night_mode_description">Nattilstand vil ændre disse funktioner:</string>
+    <string name="night_mode_state_summary">I øjeblikket udløser Nattilstand:\u0020%s</string>
+    <string name="night_mode_dialog_title">Aktivér nattilstand</string>
     <string name="night_mode_type_never">Aldrig</string>
+    <string name="night_mode_type_follow_system">Følg system</string>
     <string name="night_mode_type_always">Altid</string>
+    <string name="night_mode_app_night_theme">Mørkere Indstillinger App-UI</string>
+    <string name="night_mode_darken_keyboard_theme">Mørkere tastaturtema</string>
+    <string name="night_mode_sound_control">Deaktivér tastelyde</string>
+    <string name="night_mode_vibration_control">Deaktivér tastevibrationer</string>
+    <string name="power_save_mode_screen">Strømbesparende indstillinger</string>
+    <string name="power_save_mode_description">Strømbesparende tilstand vil reducere energiforbruget for AnySoftKeyboard ved at deaktivere funktionerne:</string>
+    <string name="power_save_mode_state_summary">I øjeblikket udløser strømbesparelse:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Aktivér strømbesparende tilstand</string>
     <string name="power_save_mode_types_never">Aldrig</string>
+    <string name="power_save_mode_types_lower_battery">Ved lavt batteriniveau</string>
     <string name="power_save_mode_types_always">Altid</string>
+    <string name="power_saving_keyboard_theme_name">Strømbesparende tilstand tema</string>
+    <string name="power_saving_keyboard_theme_description">Mørke farver, enkelt layout, der muligvis kræver mindre strøm fra enheden.</string>
+    <string name="power_save_mode_animation_control">Deaktivér animationer og tast-forhåndsvisninger</string>
+    <string name="power_save_mode_sound_control">Deaktivér tastelyde</string>
+    <string name="power_save_mode_vibration_control">Deaktivér tastevibrationer</string>
+    <string name="power_save_mode_suggestions_control">Deaktivér ord-forslag</string>
+    <string name="power_save_mode_gesture_typing_control">Deaktivér bevægelsestastning</string>
+    <string name="power_save_mode_theme_control">Skift til et mørkt, enkelt tema</string>
     <string name="pop_text_type_never">Aldrig</string>
+    <string name="pop_text_type_on_correction">Ved ordrettelse</string>
+    <string name="pop_text_type_on_word">På ethvert ord</string>
+    <string name="pop_text_type_any_key">På enhver tast</string>
+    <string name="input_field_type_password">Indtastningsfelt for adgangskode</string>
+    <string name="input_field_type_email">Indtastningsfelt for e-mail</string>
+    <string name="input_field_type_url">Indtastningsfelt for URL</string>
+    <string name="input_field_type_im">Indtastningsfelt for beskeder</string>
     <string name="sound_on">Lyd ved tastetryk</string>
     <string name="sound_on_summary">Lydeffekter ved kort tastatur tryk.</string>
     <string name="use_custom_sound_volume">Sæt brugerdefinerede lydstyrke</string>
     <string name="use_custom_sound_volume_on_summary">Lydeffekt volumen er brugerdefinerede</string>
+    <string name="use_custom_sound_volume_off_summary">Lydstyrke for lydeffekter er systemet\'s lydstyrke for notifikationer.</string>
+    <string name="custom_sound_volume">Brugerdefineret lydstyrke for tryk på tast</string>
+    <string name="vibrate_on_long_press_title">Vibrer ved langt tastetryk</string>
+    <string name="vibrate_on_long_press_summary_on">En blød vibration, når der trykkes længe på en knap og en handling aktiveres.</string>
+    <string name="switch_keyboard_on_space">Mellemrum skifter tastaturer</string>
+    <string name="switch_keyboard_on_space_on_summary">Skift fra symboler/tal til alfabet ved tryk på mellemrum.</string>
+    <string name="switch_keyboard_on_space_off_summary">Skift ikke fra symboler/tal til alfabet ved tryk på mellemrum.</string>
+    <string name="colorize_nav_bar_title">Tegn bag navigationsbjælken</string>
+    <string name="colorize_nav_bar_summary_on">Vil tegne baggrunden for tastaturet bag navigationslinjen. Dette understøttes ikke af alle enheder.</string>
+    <string name="colorize_nav_bar_summary_off">Tegn ikke bag navigationsbjælken.</string>
+    <string name="persistent_layout_per_package_id_title">Husk alfabet-layout pr. app</string>
+    <string name="persistent_layout_per_package_id_off_summary">Brug det samme layout for alle apps.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Skift automatisk til det forrige layout brugt i appen.</string>
+    <string name="one_shot_quick_text_popup">Luk automatisk efter tastetryk</string>
+    <string name="one_shot_quick_text_popup_on_summary">Luk hurtig-tekst popup efter tryk på en tast.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Hold hurtig-tekst popup åben, indtil der trykkes på luk-tasten.</string>
+    <string name="hide_soft_when_physical">Skjul tastatur ved fysisk tast</string>
+    <string name="hide_soft_when_physical_on_summary">Skjul skærmtastatur, når fysisk tastatur er
+        i brug
+    </string>
+    <string name="hide_soft_when_physical_off_summary">Vis skærmtastatur, når fysisk tastatur er
+        i brug
+    </string>
+    <string name="enable_alt_space_language_shortcut">Alt + Mellemrum skifter sprog</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Alt + Mellemrum på fysisk tastatur skifter til det næste tilgængelige layout.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Alt + Space på fysisk tastatur tilføjer et mellemrum.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Mellemrum skifter sprog</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Shift + Mellemrum på fysisk tastatur skifter til det næste tilgængelige layout.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Shift + Space på fysisk tastatur tilføjer et mellemrum.</string>
+    <string name="fullscreen_input_connection_supported">Brug fuldskærmsredigering i liggende visning
+    </string>
+    <string name="fullscreen_input_connection_supported_on_summary">Overtag skærmen, når du
+        indtaster tekst i liggende visning
+    </string>
+    <string name="fullscreen_input_connection_supported_off_summary">Brug ikke fuldskærmsredigering
+        i liggende visning
+    </string>
     <string name="fullscreen_portrait_input_connection_supported">Brug portræt fuld skærm</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Overtag skærmen ved indtastning af tekst i stående visning</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Brug ikke fuldskærmsredigering i stående visning</string>
     <string name="swipe_up_action">Stryg op</string>
+    <string name="swipe_up_action_title">Vælg stryg op-handling</string>
+    <string name="swipe_up_from_spacebar_action">Stryg mellemrumstasten op</string>
+    <string name="swipe_up_from_spacebar_action_summary">Definér handlingen for stryg op-bevægelse fra mellemrumstasten. I øjeblikket, %s</string>
+    <string name="swipe_up_from_spacebar_action_title">Vælg handling ved stryg op-bevægelse fra mellemrumstasten</string>
     <string name="swipe_down_action">Stryg nedad</string>
+    <string name="swipe_down_action_summary">Definér handlingen for stryg ned-bevægelse. I øjeblikket, %s</string>
+    <string name="swipe_down_action_title">Vælg stryg ned-handling</string>
     <string name="swipe_left_action">Stryg til venstre</string>
+    <string name="swipe_left_action_summary">Definér handlingen for stryg til venstre-bevægelse. I øjeblikket, %s</string>
+    <string name="swipe_left_action_title">Vælg stryg til venstre-handling</string>
     <string name="swipe_right_action">Stryg til højre</string>
+    <string name="swipe_right_action_summary">Definér handlingen for stryg til højre-bevægelse. I øjeblikket, %s</string>
+    <string name="swipe_right_action_title">Vælg stryg til højre-handling</string>
+    <string name="swipe_right_space_bar_action">Stryg til højre på mellemrumstasten</string>
+    <string name="swipe_right_space_bar_action_summary">Definér handlingen for stryg til højre-bevægelse fra mellemrumstasten. I øjeblikket, %s</string>
+    <string name="swipe_right_space_bar_action_title">Vælg stryg til højre-handling</string>
+    <string name="swipe_left_space_bar_action_summary">Definér handlingen for stryg til venstre-bevægelse fra mellemrumstasten. I øjeblikket, %s</string>
+    <string name="swipe_left_space_bar_action_title">Vælg stryg til venstre-handling</string>
+    <string name="swipe_left_two_fingers_action">Stryg med to fingre til venstre</string>
+    <string name="swipe_left_two_fingers_action_summary">Definér handlingen for stryg til venstre-bevægelse med to fingre. I øjeblikket, %s</string>
+    <string name="swipe_right_two_fingers_action">Stryg med to fingre til højre</string>
+    <string name="swipe_right_two_fingers_action_summary">Definér handlingen for stryg til højre-bevægelse med to fingre. I øjeblikket, %s</string>
+    <string name="swipe_right_two_fingers_action_title">Vælg stryg til højre-handling</string>
+    <string name="pinch_gesture_action">Knibebevægelse</string>
     <string name="swipe_action_name_none">Ingen handling</string>
     <string name="swipe_action_name_next_alphabet">Næste alfabet tastatur</string>
     <string name="swipe_action_name_next_symbols">Næste symboler tastatur</string>
@@ -65,13 +194,40 @@
     <string name="settings_swipe_distance_very_long">Meget lang</string>
     <string name="special_dictionaries_group">Særlige ordbøger</string>
     <string name="use_auto_dictionary">Auto ordbog</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">Efter brug</string>
+    <string name="auto_dictionary_threshold_type_immediately">Umiddelbart efter jeg skriver det</string>
+    <string name="auto_dictionary_threshold_type_off">Lær ikke nye ord</string>
+    <string name="use_next_words_dictionary">Forslag til næste ord</string>
+    <string name="next_words_dictionary_off">Foreslå ikke næste ord</string>
+    <string name="next_words_dictionary_words_only">Foreslå næste ord</string>
+    <string name="next_words_dictionary_words_punctuations">Foreslå næste ord og tegnsætning</string>
+    <string name="next_words_dictionary_summary">Brug det forrige ord til at fremsætte forslag: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness">Aggressivitet for Næste ord</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Minimale forslag</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Mellem aggressivitet</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Vis mange forslag</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Aggressivitet for Næste ord-forslag: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Vælg automatisk aggressivitet for forslag</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Fra</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Minimal aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Mellem aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">Høj aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Ekstrem aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Aggressivitetsniveau: %s</string>
     <string name="use_contacts_dictionary">Kontakter ordbog</string>
     <string name="use_contacts_dictionary_on_summary">Foreslå navne fra kontaktliste</string>
     <string name="tweaks_group">Tweaks</string>
     <string name="tweak_sound_group">Lyd relaterede tweaks</string>
     <string name="tweak_physical_keyboard_group">Fysiske tastatur tweaks</string>
     <string name="tweak_ui_group">Grafisk tweaks</string>
+    <string name="show_keyboard_name_text">Vis tastaturnavn</string>
+    <string name="show_keyboard_name_on_summary">Vis tastaturnavn på mellemrumstasten</string>
+    <string name="show_keyboard_name_off_summary">Vis aldrig tastaturnavn</string>
     <string name="show_hint_text">Vis tip</string>
+    <string name="show_hint_text_on_summary">Vis tips på taster, hvis temaet understøtter det</string>
+    <string name="show_hint_text_off_summary">Vis aldrig tips på taster</string>
+    <string name="use_custom_hint_align">Tilsidesæt tip-placering</string>
+    <string name="use_custom_hint_align_on_summary">Brug brugerdefineret placering af tipstekst</string>
     <string-array name="custom_hint_align_types">
         <item>Venstre</item>
         <item>Midte</item>
@@ -79,11 +235,15 @@
     </string-array>
     <string-array name="custom_hint_valign_types">
         <item>Top</item>
-        <item>Bottom</item>
+        <item>Nederst</item>
     </string-array>
     <string name="is_sticky_extesion_keyboard">Sticky forlængelse tastatur</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Luk efter tastetryk</string>
     <string name="is_extesion_keyboard_above_keyboard">Top forlængelse tastatur</string>
+    <string name="show_settings_app_in_launcher">Indstillings-app</string>
+    <string name="always_hide_language_key_on_summary">Vil aldrig vise sprog-nøglen. Bevægelser
+        vil stadig understøtte layout-skifte.
+    </string>
     <string name="default_smiley_text">Smiley tekst</string>
     <string name="default_domain_text">Domæne tekst</string>
     <string name="zoom_factor_keys_in_portrait">Knap højde i stående tilstand</string>
@@ -95,6 +255,8 @@
     <string name="candidates_on">Vis forslag</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tastaturer</string>
+    <string name="symbols_phone_keyboard">telefon</string>
+    <string name="symbols_time_keyboard">tid</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Hurtig tekst taster</string>
     <!-- settings - top generic row -->
@@ -132,6 +294,7 @@
     <string name="select_keyboard_popup_title">Vælg tastatur</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Smiley knap</string>
+    <string name="unicode_gestures_quick_text_key_name">Bevægelser</string>
     <string name="unicode_animals_quick_text_key_name">Dyr</string>
     <string name="unicode_food_quick_text_key_name">Mad</string>
     <string name="unicode_nature_quick_text_key_name">Natur</string>
@@ -169,14 +332,39 @@
     <string name="user_dict_restore_success_title">Gendannelse fuldført!</string>
     <string name="user_dict_restore_success_text">Dine ord er blevet gendannet.</string>
     <string name="user_dict_restore_fail_title">Gendannelse mislykkedes!</string>
+    <string name="emoji_default_gender_value_person">Person</string>
+    <string name="emoji_default_gender_value_woman">Kvinde</string>
+    <string name="emoji_default_gender_value_man">Mand</string>
+    <string name="emoji_default_gender_value_random_type">Tilfældigt køn</string>
+    <string name="developer_tools">Udviklingsværktøjer</string>
+    <string name="click_for_developer_features">Udviklingsværktøjer</string>
+    <string name="click_for_developer_features_summary">Forskellige værktøjer til AnySoftKeyboard
+        -udviklere
+    </string>
+    <string name="failed_to_create_mem_dump">Kunne ikke oprette hukommelsesdump-fil på grund af:
+        <xliff:g id="message">%s</xliff:g>
+    </string>
+    <string name="created_mem_dump_file">Oprettede hukommelsesdump-fil på:
+        <xliff:g id="file_path">%s</xliff:g>
+    </string>
+    <string name="not_configured_with_click_here">AnySoftKeyboard er ikke fuldt konfigureret til brug. Klik
+        her for at konfigurere.
+    </string>
     <string name="not_configured_with_just_click_here">Klik her</string>
+    <string name="click_for_more">mere…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Tilføj ord</string>
+    <string name="word_editor_action_backup_words">Sikkerhedskopi</string>
     <string name="word_editor_action_restore_words">Gendan</string>
     <string name="click_to_add_new_word">Klik for at tilføje et nyt ord</string>
+    <string name="enter_word_hint">Indtast det nye ord her</string>
     <string name="enter_abbreviation_hint">Forkortelse</string>
+    <string name="enter_abbreviation_target_hint">Fuld sætning</string>
+    <string name="toast_error_custom_path_backup">Fejl: Enhver kontekstuel app kan være åben</string>
     <string name="file_explorer_menu_add_folder">Opret mappe</string>
+    <string name="file_explorer_filename">Sikkerhedskopiens filnavn…</string>
+    <string name="file_explorer_filename_empty">Filnavn skal angives…</string>
     <string name="file_explorer_alert_title">Vælg denne fil?</string>
     <string name="setup_wizard_step_one_title">Aktivér AnySoftKeyboard</string>
     <string name="setup_wizard_step_permissions_title">Aktivér tilladelser</string>
@@ -189,8 +377,15 @@
     <string name="allow_permission">Tillad</string>
     <string name="app_shortcut_keyboards_short_label">Tastaturer</string>
     <string name="app_shortcut_themes_short_label">Temaer</string>
+    <string name="app_shortcut_gestures_disabled">Bevægelsenavigation deaktiveret</string>
+    <string name="app_shortcut_gestures_long_label">Indstil tastaturbevægelser</string>
+    <string name="app_shortcut_gestures_short_label">Bevægelser</string>
     <string name="bottom_nav_home">Hej</string>
     <string name="setup_wizard_welcome_title">Velkommen!</string>
+    <string name="setup_wizard_welcome_info">Som med ethvert andet Android-tastatur, skal du
+        aktivere AnySoftKeyboard i Android-indstillingerne. Dette kræves af Android for at sikre, at
+        dine indtastningsdata ikke stjæles af ondsindede tastaturer*.
+    </string>
     <string name="setup_wizard_welcome_start_action">Start opsætning…</string>
     <string name="settings_key_hint_size_small">Lille</string>
     <string name="settings_key_hint_size_normal">Normal</string>

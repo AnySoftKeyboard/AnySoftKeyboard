@@ -412,7 +412,7 @@
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
-    <string name="label_next_key">Avanti &gt;</string>
+    <string name="label_next_key">Avanti ></string>
     <string name="label_previous_key">&lt; Indietro</string>
     <string name="label_send_key">Invia</string>
     <string name="label_search_key">Cerca</string>
