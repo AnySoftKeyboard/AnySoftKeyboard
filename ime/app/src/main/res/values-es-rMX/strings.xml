@@ -48,9 +48,9 @@ Instalarla ahora desde Play Store.    </string>
     <string name="voice_input_not_voice_pack_in_market">No se encontró entrada de voz (com.google.android.voicesearch) en la Play Store. La función de voz no estará disponible en el dispositivo.    </string>
     <!-- Options menu -->
     <string name="change_ime">Cambiar el método de entrada</string>
-    <string name="override_dictionary">Reemplazar el diccionario predeterminado</string>
+    <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Reemplazar diccionario \u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
+    <string name="override_dictionary_title">Ignorar diccionario \u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
     <string name="gesture_settings">Gestos</string>

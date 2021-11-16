@@ -13,7 +13,7 @@
     <!-- changelog -->
     <string name="search_market_for_addons">ค้นหาส่วนเสริม</string>
     <string name="search_market_for_keyboard_addons">รับแป้นพิมพ์เพิ่มเติมที่ร้านค้าแอป</string>
-    <string name="search_market_for_quick_key_addons">รับส่วนเสริม  <i>Quick-Text</i>  เพิ่มเติมที่ร้านค้าแอป… </string>
+    <string name="search_market_for_quick_key_addons">รับส่วนเสริม  <i>Quick-Text</i>  เพิ่มเติมที่ร้านค้าแอป…</string>
     <string name="no_market_store_available">ไม่พบร้านค้าแอปบนอุปกรณ์ของคุณ \nไม่สามารถค้นหาส่วนเสริมได้!</string>
     <string name="keyboard_theme_tweak_group">ปรับแต่ง</string>
     <string name="close_button">ปิด</string>
