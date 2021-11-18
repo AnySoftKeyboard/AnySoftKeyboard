@@ -62,7 +62,7 @@
 
         <!-- ui activities -->
         <!-- settings ui activities -->
-        <!-- this is just a proxy activity, it does nothing but direct to the actual setting ativity
+        <!-- this is just a proxy activity, it does nothing but direct to the actual setting activity
         I use this, so I can 'disable' this activity at runtime, and so remove ASK from the launcher's icons -->
         <activity
             android:exported="true"
@@ -90,7 +90,7 @@
             android:theme="@style/Theme.AskApp"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.anysoftkeyboard.ui.settings.BasicAnyActivity"
+            android:name="com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/ime_name"
             android:launchMode="singleTask"

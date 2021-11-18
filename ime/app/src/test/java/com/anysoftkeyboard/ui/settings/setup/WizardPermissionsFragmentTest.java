@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
-import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -24,7 +23,7 @@ import org.robolectric.annotation.Config;
 
 @Config(sdk = Build.VERSION_CODES.M)
 public class WizardPermissionsFragmentTest
-        extends RobolectricFragmentTestCase<WizardPermissionsFragment> {
+        extends RobolectricWizardFragmentTestCase<WizardPermissionsFragment> {
 
     @NonNull
     @Override

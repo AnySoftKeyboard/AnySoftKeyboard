@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
@@ -66,7 +65,6 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
     private Context mBaseContext = null;
     private Intent mReLaunchTaskIntent = null;
-    private Context mAppContext;
 
     @Override
     protected int getPageLayoutId() {
@@ -81,9 +79,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                     @Override
                     public void onClick(View v) {
                         // registering for changes, so I'll know to come back here.
-                        mAppContext = getActivity().getApplicationContext();
-                        mAppContext
-                                .getContentResolver()
+                        final Context context = getActivity().getApplicationContext();
+                        context.getContentResolver()
                                 .registerContentObserver(
                                         Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
                         // but I don't want to listen for changes for ever!
@@ -99,11 +96,11 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                         startSettings.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startSettings.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         try {
-                            mAppContext.startActivity(startSettings);
+                            context.startActivity(startSettings);
                         } catch (ActivityNotFoundException notFoundEx) {
                             // weird.. the device does not have the IME setting activity. Nook?
                             Toast.makeText(
-                                            mAppContext,
+                                            context,
                                             R.string
                                                     .setup_wizard_step_one_action_error_no_settings_activity,
                                             Toast.LENGTH_LONG)
@@ -121,7 +118,7 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
         super.onActivityCreated(savedInstanceState);
         FragmentActivity activity = getActivity();
         mBaseContext = activity.getBaseContext();
-        mReLaunchTaskIntent = new Intent(mBaseContext, BasicAnyActivity.class);
+        mReLaunchTaskIntent = new Intent(mBaseContext, SetupWizardActivity.class);
         mReLaunchTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
@@ -156,9 +153,9 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
     private void unregisterSettingsObserverNow() {
         mGetBackHereHandler.removeMessages(KEY_MESSAGE_UNREGISTER_LISTENER);
-        if (mAppContext != null) {
-            mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
-            mAppContext = null;
+        final Context context = getContext();
+        if (context != null) {
+            context.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
         }
     }
 }

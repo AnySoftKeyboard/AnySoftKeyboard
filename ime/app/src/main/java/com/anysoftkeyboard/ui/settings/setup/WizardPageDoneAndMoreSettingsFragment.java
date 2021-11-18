@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
@@ -13,7 +14,6 @@ import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment
@@ -43,17 +43,23 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
 
     @Override
     public void onClick(View v) {
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+        final AppCompatActivity activity = (AppCompatActivity) requireActivity();
         switch (v.getId()) {
             case R.id.go_to_languages_action:
-                activity.addFragmentToUi(
-                        new KeyboardAddOnBrowserFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                startActivity(
+                        MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
+                                requireContext(),
+                                MainSettingsActivity.class,
+                                new KeyboardAddOnBrowserFragment(),
+                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION));
                 break;
             case R.id.go_to_theme_action:
-                activity.addFragmentToUi(
-                        new KeyboardThemeSelectorFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                startActivity(
+                        MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
+                                requireContext(),
+                                MainSettingsActivity.class,
+                                new KeyboardThemeSelectorFragment(),
+                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION));
                 break;
             case R.id.go_to_all_settings_action:
                 startActivity(new Intent(getContext(), MainSettingsActivity.class));

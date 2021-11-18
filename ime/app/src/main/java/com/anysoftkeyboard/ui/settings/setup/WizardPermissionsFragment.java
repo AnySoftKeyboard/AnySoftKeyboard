@@ -12,10 +12,10 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -73,7 +73,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
 
     @Override
     public void onClick(View v) {
-        BasicAnyActivity activity = (BasicAnyActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity == null) return;
 
         switch (v.getId()) {

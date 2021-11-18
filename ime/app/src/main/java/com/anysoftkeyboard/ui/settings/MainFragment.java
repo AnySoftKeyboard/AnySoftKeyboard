@@ -39,8 +39,8 @@ import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.FileExplorerCreate;
 import com.anysoftkeyboard.ui.FileExplorerRestore;
-import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
+import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -200,11 +200,7 @@ public class MainFragment extends Fragment {
                 new ClickableSpan() {
                     @Override
                     public void onClick(View v) {
-                        FragmentChauffeurActivity activity =
-                                (FragmentChauffeurActivity) requireActivity();
-                        activity.addFragmentToUi(
-                                new SetUpKeyboardWizardFragment(),
-                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                        startActivity(new Intent(requireContext(), SetupWizardActivity.class));
                     }
                 };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);

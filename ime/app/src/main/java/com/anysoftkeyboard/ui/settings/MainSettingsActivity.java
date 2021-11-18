@@ -20,15 +20,19 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
+import net.evendanan.pixel.EdgeEffectHacker;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
-public class MainSettingsActivity extends BasicAnyActivity {
+public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
     public static final String ACTION_REQUEST_PERMISSION_ACTIVITY =
@@ -38,11 +42,6 @@ public class MainSettingsActivity extends BasicAnyActivity {
 
     private CharSequence mTitle;
     private BottomNavigationView mBottomNavigationView;
-
-    public MainSettingsActivity() {
-        // trying to figure out where the leak is coming from
-        Logger.d("MainSettingsActivity", "a new MainSettingsActivity " + this);
-    }
 
     /**
      * Will set the title in the hosting Activity's title. Will only set the title if the fragment
@@ -56,13 +55,9 @@ public class MainSettingsActivity extends BasicAnyActivity {
     }
 
     @Override
-    protected int getViewLayoutResourceId() {
-        return R.layout.main_ui;
-    }
-
-    @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        setContentView(R.layout.main_ui);
 
         mTitle = getTitle();
 
@@ -107,6 +102,9 @@ public class MainSettingsActivity extends BasicAnyActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        // applying my very own Edge-Effect color
+        EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
+
         handleAppShortcuts(getIntent());
         handlePermissionRequest(getIntent());
     }
@@ -124,6 +122,20 @@ public class MainSettingsActivity extends BasicAnyActivity {
                 throw new IllegalArgumentException("Unknown permission request " + permission);
             }
         }
+    }
+
+    @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
+    public void startContactsPermissionRequest() {
+        PermissionRequestHelper.check(
+                this, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionRequestHelper.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 
     private void handleAppShortcuts(Intent intent) {
@@ -162,6 +174,11 @@ public class MainSettingsActivity extends BasicAnyActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         handleAppShortcuts(intent);
+    }
+
+    @Override
+    protected int getFragmentRootUiElementId() {
+        return R.id.main_ui_content;
     }
 
     @NonNull

@@ -7,7 +7,6 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -16,7 +15,7 @@ import org.junit.Test;
 import org.robolectric.Shadows;
 
 public class WizardPageSwitchToKeyboardFragmentTest
-        extends RobolectricFragmentTestCase<WizardPageSwitchToKeyboardFragment> {
+        extends RobolectricWizardFragmentTestCase<WizardPageSwitchToKeyboardFragment> {
 
     @NonNull
     @Override
