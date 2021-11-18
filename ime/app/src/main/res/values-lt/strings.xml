@@ -56,7 +56,7 @@
     <string name="effects_group">Efektai</string>
     <string name="ime_settings">Klaviatūros nustatymai</string>
     <string name="switch_incognito">Privatus („Inkognito“) režimas</string>
-    <string name="use_system_vibration_title">Naudoti sistemos vibracija</string>
+    <string name="use_system_vibration_title">Naudoti sistemos vibraciją</string>
     <string name="use_system_vibration_off_summary">Naudojama atskirą vibracijos nustatymą</string>
     <string name="use_system_vibration_on_summary">Naudojama „Android“ sistemos vibracijos nustatymas</string>
     <string name="vibrate_on_key_press_title">Vibruoti paspaudus</string>
