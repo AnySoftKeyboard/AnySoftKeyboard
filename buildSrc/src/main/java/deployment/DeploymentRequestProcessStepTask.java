@@ -145,9 +145,14 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
 
     private static String getPreviousEnvironmentName(
             DeploymentProcessConfiguration environment, int index) {
-        if (index == 0) return "NONE";
-        else
-            return getEnvironmentName(
-                    environment.name, environment.environmentSteps.get(index - 1));
+        // searching for the first, non-empty, step.
+        for (int previousStep = index - 1; previousStep >= 0; previousStep--) {
+            final String previousEnvironmentStepName =
+                    environment.environmentSteps.get(previousStep);
+            if (!previousEnvironmentStepName.isBlank())
+                return getEnvironmentName(environment.name, previousEnvironmentStepName);
+        }
+
+        return "NONE";
     }
 }
