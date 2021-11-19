@@ -593,7 +593,7 @@
     <string name="allow_permission">Permetti</string>
     <string name="turn_off_contacts_dictionary">Disattiva dizionario Contatti</string>
     <string name="read_more_about_permissions">Per saperne di più sulle autorizzazioni…</string>
-    <string name="ask_beta_link_promo">Hey! Vuoi nuova roba <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi all\'indirizzo sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
+    <string name="ask_beta_link_promo">Hey! Vuoi roba nuova di <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi al link sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
     <string name="clipboard_fine_select_enabled_toast">Selezione sottile testo abilitata. Usa freccia sinistra/destra.</string>
     <string name="app_shortcut_keyboards_disabled">Navigazione tastiere disattivata</string>
     <string name="app_shortcut_keyboards_long_label">Scegli disposizioni tastiera da utilizzare</string>
