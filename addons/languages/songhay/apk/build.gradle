@@ -1,0 +1,8 @@
+ext.shouldBePublished = false
+ext.notPublishingReason = "Initial version has not been published yet"
+
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':addons:languages:songhay:pack')
+}
