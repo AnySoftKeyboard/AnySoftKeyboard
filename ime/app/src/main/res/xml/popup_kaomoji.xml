@@ -5,128 +5,128 @@
         android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
         <!--Joy-->
-        <Key android:keyLabel="(* ^ ω ^)" android:keyOutputText="(* ^ ω ^)\u0020" />
-        <Key android:keyLabel="(´ ∀ ` *)" android:keyOutputText="(´ ∀ ` *)\u0020" />
-        <Key android:keyLabel="٩(◕‿◕｡)۶" android:keyOutputText="٩(◕‿◕｡)۶\u0020" />
-        <Key android:keyLabel="(o^▽^o)" android:keyOutputText="(o^▽^o)\u0020" />
-        <Key android:keyLabel="ヽ(・∀・)ﾉ" android:keyOutputText="ヽ(・∀・)ﾉ\u0020" />
-        <Key android:keyLabel="(´｡• ω •｡`)" android:keyOutputText="(´｡• ω •｡`)\u0020" />
-        <Key android:keyLabel="(o･ω･o)" android:keyOutputText="(o･ω･o)\u0020" />
-        <Key android:keyLabel="╰(▔∀▔)╯" android:keyOutputText="╰(▔∀▔)╯\u0020" />
-        <Key android:keyLabel="(*^‿^*)" android:keyOutputText="(*^‿^*)\u0020" />
-        <Key android:keyLabel="(✯◡✯)" android:keyOutputText="(✯◡✯)\u0020" />
-        <Key android:keyLabel="(◕‿◕)" android:keyOutputText="(◕‿◕)\u0020" />
-        <Key android:keyLabel="&lt;(￣︶￣)&gt;" android:keyOutputText="&lt;(￣︶￣)&gt;" />
-        <Key android:keyLabel="(o˘◡˘o)" android:keyOutputText="o˘◡˘o)" />
-        <Key android:keyLabel="(ﾉ◕ヮ◕)ﾉ*" android:keyOutputText="ﾉ◕ヮ◕)ﾉ*:･ﾟ✧" />
-        <Key android:keyLabel="✧◝(⁰▿⁰)◜✧" android:keyOutputText="˖✧◝(⁰▿⁰)◜✧˖°" />
+        <Key android:keyLabel="(* ^ ω ^)" android:keyOutputText="(* ^ ω ^)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(´ ∀ ` *)" android:keyOutputText="(´ ∀ ` *)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="٩(◕‿◕｡)۶" android:keyOutputText="٩(◕‿◕｡)۶\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(o^▽^o)" android:keyOutputText="(o^▽^o)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="ヽ(・∀・)ﾉ" android:keyOutputText="ヽ(・∀・)ﾉ\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(´｡• ω •｡`)" android:keyOutputText="(´｡• ω •｡`)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(o･ω･o)" android:keyOutputText="(o･ω･o)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="╰(▔∀▔)╯" android:keyOutputText="╰(▔∀▔)╯\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(*^‿^*)" android:keyOutputText="(*^‿^*)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(✯◡✯)" android:keyOutputText="(✯◡✯)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(◕‿◕)" android:keyOutputText="(◕‿◕)\u0020" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="&lt;(￣︶￣)&gt;" android:keyOutputText="&lt;(￣︶￣)&gt;" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(o˘◡˘o)" android:keyOutputText="o˘◡˘o)" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="(ﾉ◕ヮ◕)ﾉ*" android:keyOutputText="ﾉ◕ヮ◕)ﾉ*:･ﾟ✧" ask:tags="joy,kjoy"/>
+        <Key android:keyLabel="✧◝(⁰▿⁰)◜✧" android:keyOutputText="˖✧◝(⁰▿⁰)◜✧˖°" ask:tags="joy,kjoy"/>
         <!--Love-->
-        <Key android:keyLabel="(ﾉ´ з `)ノ" android:keyOutputText="(ﾉ´ з `)ノ\u0020" />
-        <Key android:keyLabel="(*^^*)♡" android:keyOutputText="(*^^*)♡\u0020" />
-        <Key android:keyLabel="(*♡∀♡)" android:keyOutputText="(*♡∀♡)\u0020" />
-        <Key android:keyLabel="ヽ(♡‿♡)ノ" android:keyOutputText="ヽ(♡‿♡)ノ\u0020" />
-        <Key android:keyLabel="(っ˘з(˘⌣˘ )" android:keyOutputText="っ˘з(˘⌣˘ ) ♡" />
-        <Key android:keyLabel="(─‿‿─)♡" android:keyOutputText="(─‿‿─)♡" />
-        <Key android:keyLabel="(´｡• ᵕ •｡`) ♡" android:keyOutputText="(´｡• ᵕ •｡`) ♡" />
-        <Key android:keyLabel="(❤ω❤)" android:keyOutputText="(❤ω❤)" />
-        <Key android:keyLabel="(≧◡≦) ♡" android:keyOutputText="(≧◡≦) ♡" />
+        <Key android:keyLabel="(ﾉ´ з `)ノ" android:keyOutputText="(ﾉ´ з `)ノ\u0020" ask:tags="love,klove"/>
+        <Key android:keyLabel="(*^^*)♡" android:keyOutputText="(*^^*)♡\u0020" ask:tags="love,klove"/>
+        <Key android:keyLabel="(*♡∀♡)" android:keyOutputText="(*♡∀♡)\u0020" ask:tags="love,klove"/>
+        <Key android:keyLabel="ヽ(♡‿♡)ノ" android:keyOutputText="ヽ(♡‿♡)ノ\u0020" ask:tags="love,klove"/>
+        <Key android:keyLabel="(っ˘з(˘⌣˘ )" android:keyOutputText="っ˘з(˘⌣˘ ) ♡" ask:tags="love,klove"/>
+        <Key android:keyLabel="(─‿‿─)♡" android:keyOutputText="(─‿‿─)♡" ask:tags="love,klove"/>
+        <Key android:keyLabel="(´｡• ᵕ •｡`) ♡" android:keyOutputText="(´｡• ᵕ •｡`) ♡" ask:tags="love,klove"/>
+        <Key android:keyLabel="(❤ω❤)" android:keyOutputText="(❤ω❤)" ask:tags="love,klove"/>
+        <Key android:keyLabel="(≧◡≦) ♡" android:keyOutputText="(≧◡≦) ♡" ask:tags="love,klove"/>
         <!--Embarrassment-->
-        <Key android:keyLabel="(⌒_⌒;)" android:keyOutputText="(⌒_⌒;)\u0020" />
-        <Key android:keyLabel="(ง ื▿ ื)ว" android:keyOutputText="(ง ื▿ ื)ว\u0020" />
-        <Key android:keyLabel="(⁄⁄•⁄ω⁄•⁄⁄)" android:keyOutputText="(⁄⁄•⁄ω⁄•⁄⁄)" />
-        <Key android:keyLabel="(*/▽＼*)" android:keyOutputText="(*/▽＼*)" />
-        <Key android:keyLabel="(⁄⁄&gt;⁄▽⁄&lt;⁄⁄)" android:keyOutputText="(⁄⁄&gt;⁄▽⁄&lt;⁄⁄)" />
-        <Key android:keyLabel="(*μ_μ)" android:keyOutputText="(*μ_μ)" />
+        <Key android:keyLabel="(⌒_⌒;)" android:keyOutputText="(⌒_⌒;)\u0020" ask:tags="embarrassed,kembarrassed"/>
+        <Key android:keyLabel="(ง ื▿ ื)ว" android:keyOutputText="(ง ื▿ ื)ว\u0020" ask:tags="embarrassed,kembarrassed"/>
+        <Key android:keyLabel="(⁄⁄•⁄ω⁄•⁄⁄)" android:keyOutputText="(⁄⁄•⁄ω⁄•⁄⁄)" ask:tags="embarrassed,kembarrassed"/>
+        <Key android:keyLabel="(*/▽＼*)" android:keyOutputText="(*/▽＼*)" ask:tags="embarrassed,kembarrassed"/>
+        <Key android:keyLabel="(⁄⁄&gt;⁄▽⁄&lt;⁄⁄)" android:keyOutputText="(⁄⁄&gt;⁄▽⁄&lt;⁄⁄)" ask:tags="embarrassed,kembarrassed"/>
+        <Key android:keyLabel="(*μ_μ)" android:keyOutputText="(*μ_μ)" ask:tags="embarrassed,kembarrassed"/>
         <!--Sympathy-->
-        <Key android:keyLabel="っ´ω`)ﾉ(╥ω╥" android:keyOutputText="(っ´ω`)ﾉ(╥ω╥)" />
-        <Key android:keyLabel="_・)ノ”(ノ_&lt;" android:keyOutputText="(ｏ・_・)ノ”(ノ_&lt;、)" />
-        <Key android:keyLabel="(*´ー)ﾉ(ノд`)" android:keyOutputText="(*´ー)ﾉ(ノд`)" />
-        <Key android:keyLabel="(￣ω￣(。。)" android:keyOutputText="ヽ(￣ω￣(。。)ゝ" />
-        <Key android:keyLabel="(;ω;)ヾ(´∀`*)" android:keyOutputText="(;ω;)ヾ(´∀`*)" />
+        <Key android:keyLabel="っ´ω`)ﾉ(╥ω╥" android:keyOutputText="(っ´ω`)ﾉ(╥ω╥)" ask:tags="sympathy,ksympathy"/>
+        <Key android:keyLabel="_・)ノ”(ノ_&lt;" android:keyOutputText="(ｏ・_・)ノ”(ノ_&lt;、)" ask:tags="sympathy,ksympathy"/>
+        <Key android:keyLabel="(*´ー)ﾉ(ノд`)" android:keyOutputText="(*´ー)ﾉ(ノд`)" ask:tags="sympathy,ksympathy"/>
+        <Key android:keyLabel="(￣ω￣(。。)" android:keyOutputText="ヽ(￣ω￣(。。)ゝ" ask:tags="sympathy,ksympathy"/>
+        <Key android:keyLabel="(;ω;)ヾ(´∀`*)" android:keyOutputText="(;ω;)ヾ(´∀`*)" ask:tags="sympathy,ksympathy"/>
         <!--Dissatisfaction-->
-        <Key android:keyLabel="(＃＞＜)" android:keyOutputText="(＃＞＜)\u0020" />
-        <Key android:keyLabel="(︶︹︺)" android:keyOutputText="(︶︹︺)\u0020" />
-        <Key android:keyLabel="(ᗒᗣᗕ)՞" android:keyOutputText="(ᗒᗣᗕ)՞\u0020" />
-        <Key android:keyLabel="(눈_눈)" android:keyOutputText="(눈_눈)\u0020" />
-        <Key android:keyLabel="(」°ロ°)」" android:keyOutputText="(」°ロ°)」" />
-        <Key android:keyLabel="&lt;(￣ ﹌ ￣)&gt;" android:keyOutputText="&lt;(￣ ﹌ ￣)&gt;" />
+        <Key android:keyLabel="(＃＞＜)" android:keyOutputText="(＃＞＜)\u0020" ask:tags="dissatisfied,kdissatisfied"/>
+        <Key android:keyLabel="(︶︹︺)" android:keyOutputText="(︶︹︺)\u0020" ask:tags="dissatisfied,kdissatisfied"/>
+        <Key android:keyLabel="(ᗒᗣᗕ)՞" android:keyOutputText="(ᗒᗣᗕ)՞\u0020" ask:tags="dissatisfied,kdissatisfied"/>
+        <Key android:keyLabel="(눈_눈)" android:keyOutputText="(눈_눈)\u0020" ask:tags="dissatisfied,kdissatisfied"/>
+        <Key android:keyLabel="(」°ロ°)」" android:keyOutputText="(」°ロ°)」" ask:tags="dissatisfied,kdissatisfied"/>
+        <Key android:keyLabel="&lt;(￣ ﹌ ￣)&gt;" android:keyOutputText="&lt;(￣ ﹌ ￣)&gt;" ask:tags="dissatisfied,kdissatisfied"/>
         <!--Anger       -->
-        <Key android:keyLabel="(＃`Д´)" android:keyOutputText="(＃`Д´)\u0020" />
-        <Key android:keyLabel="٩(╬ʘ益ʘ╬)۶" android:keyOutputText="٩(╬ʘ益ʘ╬)۶\u0020" />
-        <Key android:keyLabel="(ノ°益°)ノ" android:keyOutputText="(ノ°益°)ノ\u0020" />
-        <Key android:keyLabel="(ﾉಥ益ಥ)ﾉ" android:keyOutputText="(ﾉಥ益ಥ)ﾉ" />
-        <Key android:keyLabel="((╬◣﹏◢))" android:keyOutputText="(╬◣﹏◢))" />
-        <Key android:keyLabel="୧(#Φ益Φ#)୨" android:keyOutputText="୧((#Φ益Φ#))୨" />
+        <Key android:keyLabel="(＃`Д´)" android:keyOutputText="(＃`Д´)\u0020" ask:tags="anger,kanger"/>
+        <Key android:keyLabel="٩(╬ʘ益ʘ╬)۶" android:keyOutputText="٩(╬ʘ益ʘ╬)۶\u0020" ask:tags="anger,kanger"/>
+        <Key android:keyLabel="(ノ°益°)ノ" android:keyOutputText="(ノ°益°)ノ\u0020" ask:tags="anger,kanger"/>
+        <Key android:keyLabel="(ﾉಥ益ಥ)ﾉ" android:keyOutputText="(ﾉಥ益ಥ)ﾉ" ask:tags="anger,kanger"/>
+        <Key android:keyLabel="((╬◣﹏◢))" android:keyOutputText="(╬◣﹏◢))" ask:tags="anger,kanger"/>
+        <Key android:keyLabel="୧(#Φ益Φ#)୨" android:keyOutputText="୧((#Φ益Φ#))୨" ask:tags="anger,kanger"/>
         <!--Sadness-->
-        <Key android:keyLabel="(-_-)" android:keyOutputText="(-_-)\u0020" />
-        <Key android:keyLabel="(｡╯︵╰｡)" android:keyOutputText="(｡╯︵╰｡)\u0020" />
-        <Key android:keyLabel="(T_T)" android:keyOutputText="(T_T)\u0020" />
-        <Key android:keyLabel="(｡•́︿•̀｡)" android:keyOutputText="(｡•́︿•̀｡)\u0020" />
-        <Key android:keyLabel="(ಥ﹏ಥ)" android:keyOutputText="(ಥ﹏ಥ)\u0020" />
-        <Key android:keyLabel="(╯︵╰,)" android:keyOutputText="(╯︵╰,)" />
-        <Key android:keyLabel="゜(´Ｏ`)゜" android:keyOutputText="゜゜(´Ｏ`)゜゜。" />
-        <Key android:keyLabel="(ಡ‸ಡ)" android:keyOutputText="(ಡ‸ಡ)" />
+        <Key android:keyLabel="(-_-)" android:keyOutputText="(-_-)\u0020" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="(｡╯︵╰｡)" android:keyOutputText="(｡╯︵╰｡)\u0020" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="(T_T)" android:keyOutputText="(T_T)\u0020" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="(｡•́︿•̀｡)" android:keyOutputText="(｡•́︿•̀｡)\u0020" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="(ಥ﹏ಥ)" android:keyOutputText="(ಥ﹏ಥ)\u0020" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="(╯︵╰,)" android:keyOutputText="(╯︵╰,)" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="゜(´Ｏ`)゜" android:keyOutputText="゜゜(´Ｏ`)゜゜。" ask:tags="sad,ksad"/>
+        <Key android:keyLabel="(ಡ‸ಡ)" android:keyOutputText="(ಡ‸ಡ)" ask:tags="sad,ksad"/>
         <!--Pain-->
-        <Key android:keyLabel="☆⌒(&gt; _ &lt;)" android:keyOutputText="☆⌒(&gt; _ &lt;)\u0020" />
-        <Key android:keyLabel="(☆_@)" android:keyOutputText="(☆_@)" />
-        <Key android:keyLabel="(ﾒ﹏ﾒ)" android:keyOutputText="(ﾒ﹏ﾒ)" />
+        <Key android:keyLabel="☆⌒(&gt; _ &lt;)" android:keyOutputText="☆⌒(&gt; _ &lt;)\u0020" ask:tags="pain,kpain"/>
+        <Key android:keyLabel="(☆_@)" android:keyOutputText="(☆_@)" ask:tags="pain,kpain"/>
+        <Key android:keyLabel="(ﾒ﹏ﾒ)" android:keyOutputText="(ﾒ﹏ﾒ)" ask:tags="pain,kpain"/>
         <!--Fear-->
-        <Key android:keyLabel="(/ω＼)" android:keyOutputText="(/ω＼)" />
-        <Key android:keyLabel="(;;;*_*)" android:keyOutputText="(;;;*_*)" />
+        <Key android:keyLabel="(/ω＼)" android:keyOutputText="(/ω＼)" ask:tags="fear,kfear"/>
+        <Key android:keyLabel="(;;;*_*)" android:keyOutputText="(;;;*_*)" ask:tags="fear,kfear"/>
         <!--Indifference-->
-        <Key android:keyLabel="╮(︶▽︶)╭" android:keyOutputText="╮(︶▽︶)╭\u0020" />
-        <Key android:keyLabel="¯\\_(ツ)_/¯" android:keyOutputText="¯\\_(ツ)_/¯\u0020" />
-        <Key android:keyLabel="ᕕ( ᐛ )ᕗ" android:keyOutputText="ᕕ( ᐛ )ᕗ" />
-        <Key android:keyLabel="╮(˘､˘)╭" android:keyOutputText="╮(˘､˘)╭" />
+        <Key android:keyLabel="╮(︶▽︶)╭" android:keyOutputText="╮(︶▽︶)╭\u0020" ask:tags="indifference,kindifference"/>
+        <Key android:keyLabel="¯\\_(ツ)_/¯" android:keyOutputText="¯\\_(ツ)_/¯\u0020" ask:tags="indifference,kindifference"/>
+        <Key android:keyLabel="ᕕ( ᐛ )ᕗ" android:keyOutputText="ᕕ( ᐛ )ᕗ" ask:tags="indifference,kindifference"/>
+        <Key android:keyLabel="╮(˘､˘)╭" android:keyOutputText="╮(˘､˘)╭" ask:tags="indifference,kindifference"/>
         <!--Confusion-->
-        <Key android:keyLabel="(＠_＠)" android:keyOutputText="(＠_＠)\u0020" />
-        <Key android:keyLabel="(・・ ) ?" android:keyOutputText="(・・ ) ?\u0020" />
-        <Key android:keyLabel="ლ(ಠ_ಠ ლ)" android:keyOutputText="ლ(ಠ_ಠ ლ)" />
-        <Key android:keyLabel="(◎ ◎)ゞ" android:keyOutputText="(◎ ◎)ゞ" />
+        <Key android:keyLabel="(＠_＠)" android:keyOutputText="(＠_＠)\u0020" ask:tags="confusion,kconfusion"/>
+        <Key android:keyLabel="(・・ ) ?" android:keyOutputText="(・・ ) ?\u0020" ask:tags="confusion,kconfusion"/>
+        <Key android:keyLabel="ლ(ಠ_ಠ ლ)" android:keyOutputText="ლ(ಠ_ಠ ლ)" ask:tags="confusion,kconfusion"/>
+        <Key android:keyLabel="(◎ ◎)ゞ" android:keyOutputText="(◎ ◎)ゞ" ask:tags="confusion,kconfusion"/>
         <!--Surprise-->
-        <Key android:keyLabel="w(°ｏ°)w" android:keyOutputText="w(°ｏ°)w\u0020" />
-        <Key android:keyLabel="(⊙_⊙)" android:keyOutputText="(⊙_⊙)\u0020" />
+        <Key android:keyLabel="w(°ｏ°)w" android:keyOutputText="w(°ｏ°)w\u0020" ask:tags="surprise,ksurprise"/>
+        <Key android:keyLabel="(⊙_⊙)" android:keyOutputText="(⊙_⊙)\u0020" ask:tags="surprise,ksurprise"/>
         <!--Greeting-->
-        <Key android:keyLabel="(￣▽￣)ノ" android:keyOutputText="(￣▽￣)ノ\u0020" />
-        <Key android:keyLabel="(*°ｰ°)ﾉ" android:keyOutputText="(*°ｰ°)ﾉ" />
-        <Key android:keyLabel="(⌒ω⌒)ﾉ" android:keyOutputText="(⌒ω⌒)ﾉ" />
+        <Key android:keyLabel="(￣▽￣)ノ" android:keyOutputText="(￣▽￣)ノ\u0020" ask:tags="greeting,kgreeting"/>
+        <Key android:keyLabel="(*°ｰ°)ﾉ" android:keyOutputText="(*°ｰ°)ﾉ" ask:tags="greeting,kgreeting"/>
+        <Key android:keyLabel="(⌒ω⌒)ﾉ" android:keyOutputText="(⌒ω⌒)ﾉ" ask:tags="greeting,kgreeting"/>
         <!--Hugging-->
-        <Key android:keyLabel="(づ￣ ³￣)づ" android:keyOutputText="(づ￣ ³￣)づ\u0020" />
-        <Key android:keyLabel="(つ. •́ _ʖ •̀ .)つ" android:keyOutputText="(つ. •́ _ʖ •̀ .)つ" />
-        <Key android:keyLabel="(づ ◕‿◕ )づ" android:keyOutputText="(づ ◕‿◕ )づ" />
+        <Key android:keyLabel="(づ￣ ³￣)づ" android:keyOutputText="(づ￣ ³￣)づ\u0020" ask:tags="hugging,khugging"/>
+        <Key android:keyLabel="(つ. •́ _ʖ •̀ .)つ" android:keyOutputText="(つ. •́ _ʖ •̀ .)つ" ask:tags="hugging,khugging"/>
+        <Key android:keyLabel="(づ ◕‿◕ )づ" android:keyOutputText="(づ ◕‿◕ )づ" ask:tags="hugging,khugging"/>
         <!--Winking-->
-        <Key android:keyLabel="(^_~)" android:keyOutputText="(^_~)\u0020" />
+        <Key android:keyLabel="(^_~)" android:keyOutputText="(^_~)\u0020" ask:tags="winking,kwinking"/>
         <!--Sleeping-->
-        <Key android:keyLabel="(∪｡∪)｡｡｡zzZ" android:keyOutputText="(∪｡∪)｡｡｡zzZ\u0020" />
+        <Key android:keyLabel="(∪｡∪)｡｡｡zzZ" android:keyOutputText="(∪｡∪)｡｡｡zzZ\u0020" ask:tags="sleeping,ksleeping"/>
         <!--Music-->
-        <Key android:keyLabel="ヾ(´〇`)ﾉ♪♪♪" android:keyOutputText="ヾ(´〇`)ﾉ♪♪♪" />
-        <Key android:keyLabel="└(＾＾)┐" android:keyOutputText="└(＾＾)┐" />
-        <Key android:keyLabel="(^_^♪)" android:keyOutputText="(^_^♪)" />
-        <Key android:keyLabel="(˘ɜ˘)♬♪♫" android:keyOutputText="( ˘ ɜ˘) ♬♪♫" />
-        <Key android:keyLabel="♪◖(●o●)◗♪" android:keyOutputText="♬♫♪◖(● o ●)◗♪♫♬" />
+        <Key android:keyLabel="ヾ(´〇`)ﾉ♪♪♪" android:keyOutputText="ヾ(´〇`)ﾉ♪♪♪" ask:tags="music,kmusic"/>
+        <Key android:keyLabel="└(＾＾)┐" android:keyOutputText="└(＾＾)┐" ask:tags="music,kmusic"/>
+        <Key android:keyLabel="(^_^♪)" android:keyOutputText="(^_^♪)" ask:tags="music,kmusic"/>
+        <Key android:keyLabel="(˘ɜ˘)♬♪♫" android:keyOutputText="( ˘ ɜ˘) ♬♪♫" ask:tags="music,kmusic"/>
+        <Key android:keyLabel="♪◖(●o●)◗♪" android:keyOutputText="♬♫♪◖(● o ●)◗♪♫♬" ask:tags="music,kmusic"/>
         <!--Random-->
-        <Key android:keyLabel="(⌐■_■)" android:keyOutputText="(⌐■_■)\u0020" />
-        <Key android:keyLabel="(シ. .)シ" android:keyOutputText="(シ. .)シ" />
-        <Key android:keyLabel="C=┌(;・ω・" android:keyOutputText="C= C= C= C= C=┌(;・ω・)┘" />
-        <Key android:keyLabel="(￣д￣;)ノ=3" android:keyOutputText="ヽ(￣д￣;)ノ=3=3=3" />
-        <Key android:keyLabel="(－‸ლ)" android:keyOutputText="(－‸ლ)" />
-        <Key android:keyLabel="°益°)╯彡┻━┻" android:keyOutputText="(╯°益°)╯彡┻━┻" />
-        <Key android:keyLabel="(￣^￣)ゞ" android:keyOutputText="(￣^￣)ゞ" />
-        <Key android:keyLabel="˘◡˘)┌iii┐" android:keyOutputText="( o˘◡˘o) ┌iii┐" />
-        <Key android:keyLabel="( ˘▽˘)っ♨" android:keyOutputText="( ˘▽˘)っ♨" />
-        <Key android:keyLabel="`⌒*)O-(`⌒´" android:keyOutputText="(`⌒*)O-(`⌒´Q)" />
+        <Key android:keyLabel="(⌐■_■)" android:keyOutputText="(⌐■_■)\u0020" ask:tags="random,krandom"/>
+        <Key android:keyLabel="(シ. .)シ" android:keyOutputText="(シ. .)シ" ask:tags="random,krandom"/>
+        <Key android:keyLabel="C=┌(;・ω・" android:keyOutputText="C= C= C= C= C=┌(;・ω・)┘" ask:tags="random,krandom"/>
+        <Key android:keyLabel="(￣д￣;)ノ=3" android:keyOutputText="ヽ(￣д￣;)ノ=3=3=3" ask:tags="random,krandom"/>
+        <Key android:keyLabel="(－‸ლ)" android:keyOutputText="(－‸ლ)" ask:tags="random,krandom"/>
+        <Key android:keyLabel="°益°)╯彡┻━┻" android:keyOutputText="(╯°益°)╯彡┻━┻" ask:tags="random,krandom"/>
+        <Key android:keyLabel="(￣^￣)ゞ" android:keyOutputText="(￣^￣)ゞ" ask:tags="random,krandom"/>
+        <Key android:keyLabel="˘◡˘)┌iii┐" android:keyOutputText="( o˘◡˘o) ┌iii┐" ask:tags="random,krandom"/>
+        <Key android:keyLabel="( ˘▽˘)っ♨" android:keyOutputText="( ˘▽˘)っ♨" ask:tags="random,krandom"/>
+        <Key android:keyLabel="`⌒*)O-(`⌒´" android:keyOutputText="(`⌒*)O-(`⌒´Q)" ask:tags="random,krandom"/>
         <!--Animals-->
-        <Key android:keyLabel="(=①ω①=)" android:keyOutputText="(=①ω①=)" />
-        <Key android:keyLabel="(^◔ᴥ◔^)" android:keyOutputText="(^◔ᴥ◔^)" />
-        <Key android:keyLabel="ฅ(• ɪ •)ฅ" android:keyOutputText="ฅ(• ɪ •)ฅ" />
-        <Key android:keyLabel="∪＾ェ＾∪" android:keyOutputText="∪＾ェ＾∪" />
-        <Key android:keyLabel="ʕ ᵔᴥᵔ ʔ" android:keyOutputText="ʕ ᵔᴥᵔ ʔ" />
-        <Key android:keyLabel="ʕಠᴥಠʔ" android:keyOutputText="ʕಠᴥಠʔ" />
-        <Key android:keyLabel="／(･ × ･)＼" android:keyOutputText="／(･ × ･)＼" />
-        <Key android:keyLabel="／(˃ᆺ˂)＼" android:keyOutputText="／(˃ᆺ˂)＼" />
-        <Key android:keyLabel="(◉Θ◉)" android:keyOutputText="(◉Θ◉)" />
-        <Key android:keyLabel=">°))))彡" android:keyOutputText=">°))))彡" />
-        <Key android:keyLabel="╭(ఠఠ益ఠఠ)╮" android:keyOutputText="/╲/\╭(ఠఠ益ఠఠ)╮/\╱\" />
+        <Key android:keyLabel="(=①ω①=)" android:keyOutputText="(=①ω①=)" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="(^◔ᴥ◔^)" android:keyOutputText="(^◔ᴥ◔^)" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="ฅ(• ɪ •)ฅ" android:keyOutputText="ฅ(• ɪ •)ฅ" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="∪＾ェ＾∪" android:keyOutputText="∪＾ェ＾∪" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="ʕ ᵔᴥᵔ ʔ" android:keyOutputText="ʕ ᵔᴥᵔ ʔ" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="ʕಠᴥಠʔ" android:keyOutputText="ʕಠᴥಠʔ" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="／(･ × ･)＼" android:keyOutputText="／(･ × ･)＼" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="／(˃ᆺ˂)＼" android:keyOutputText="／(˃ᆺ˂)＼" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="(◉Θ◉)" android:keyOutputText="(◉Θ◉)" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel=">°))))彡" android:keyOutputText=">°))))彡" ask:tags="animals,kanimals"/>
+        <Key android:keyLabel="╭(ఠఠ益ఠఠ)╮" android:keyOutputText="/╲/\╭(ఠఠ益ఠఠ)╮/\╱\" ask:tags="animals,kanimals"/>
 
     </Row>
 </Keyboard>
