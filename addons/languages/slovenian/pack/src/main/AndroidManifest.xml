@@ -22,10 +22,10 @@
 
             <meta-data
                 android:name="com.menny.android.anysoftkeyboard.keyboards"
-                android:resource="@xml/croatian_keyboards" />
+                android:resource="@xml/slovenian_keyboards" />
             <meta-data
                 android:name="com.menny.android.anysoftkeyboard.dictionaries"
-                android:resource="@xml/croatian_dictionaries" />
+                android:resource="@xml/slovenian_dictionaries" />
         </receiver>
     </application>
 </manifest>

@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.languagepack.croatian;
+package com.anysoftkeyboard.languagepack.slovenian;
 
 import com.anysoftkeyboard.addon.PackBroadcastReceiverBase;
 
