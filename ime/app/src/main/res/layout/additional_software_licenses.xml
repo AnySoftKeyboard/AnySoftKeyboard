@@ -18,17 +18,6 @@
             android:text="@string/legal_this_app_uses_android_source_code_license"/>
 
 
-        <View
-            style="@style/Ask.Legal.Divider" />
-
-        <TextView
-            style="@style/Ask.Legal.Title"
-            android:text="@string/legal_this_app_uses_chauffeur_title"/>
-        <TextView
-            style="@style/Ask.Legal.Text"
-            android:text="@string/legal_this_app_uses_chauffeur_license"/>
-
-
 
         <View
             style="@style/Ask.Legal.Divider" />

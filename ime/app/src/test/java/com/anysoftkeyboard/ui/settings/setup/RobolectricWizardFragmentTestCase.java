@@ -15,11 +15,18 @@ public abstract class RobolectricWizardFragmentTestCase<F extends Fragment>
         extends RobolectricFragmentActivityTestCase<
                 RobolectricWizardFragmentTestCase.TestableSetupWizardActivity<F>, F> {
 
+    @NonNull
+    protected abstract F createFragment();
+
     @Override
-    protected ActivityController<TestableSetupWizardActivity<F>> createActivityController(
-            F fragment) {
+    protected Fragment getCurrentFragment() {
+        return getActivityController().get().mFragment;
+    }
+
+    @Override
+    protected ActivityController<TestableSetupWizardActivity<F>> createActivityController() {
         TestableSetupWizardActivity<F> activity = new TestableSetupWizardActivity<F>();
-        activity.mFragment = fragment;
+        activity.mFragment = createFragment();
         return ActivityController.of(activity);
     }
 

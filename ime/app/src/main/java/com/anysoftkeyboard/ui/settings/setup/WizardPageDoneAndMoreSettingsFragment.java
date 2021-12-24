@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -9,12 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
-import com.anysoftkeyboard.ui.settings.KeyboardAddOnBrowserFragment;
-import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment
         implements View.OnClickListener {
@@ -47,19 +45,21 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
         switch (v.getId()) {
             case R.id.go_to_languages_action:
                 startActivity(
-                        MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                        requireContext()
+                                                .getString(R.string.deeplink_url_keyboards)),
                                 requireContext(),
-                                MainSettingsActivity.class,
-                                new KeyboardAddOnBrowserFragment(),
-                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION));
+                                MainSettingsActivity.class));
                 break;
             case R.id.go_to_theme_action:
                 startActivity(
-                        MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(requireContext().getString(R.string.deeplink_url_themes)),
                                 requireContext(),
-                                MainSettingsActivity.class,
-                                new KeyboardThemeSelectorFragment(),
-                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION));
+                                MainSettingsActivity.class));
                 break;
             case R.id.go_to_all_settings_action:
                 startActivity(new Intent(getContext(), MainSettingsActivity.class));
@@ -78,7 +78,7 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     public void onStart() {
         super.onStart();
         AnyKeyboard defaultKeyboard =
-                AnyApplication.getKeyboardFactory(getContext())
+                AnyApplication.getKeyboardFactory(requireContext())
                         .getEnabledAddOn()
                         .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());

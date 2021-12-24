@@ -28,7 +28,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.palette.graphics.Palette;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -53,8 +53,6 @@ import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
 import java.io.File;
 import java.util.List;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -120,19 +118,11 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mDialogController = new GeneralDialogController(getActivity(), this::onSetupDialogRequired);
-
-        if (savedInstanceState == null) {
-            // I to prevent leaks and duplicate ID errors, I must use the getChildFragmentManager
-            // to add the inner fragments into the UI.
-            // See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
-            FragmentManager fragmentManager = getChildFragmentManager();
-            fragmentManager
-                    .beginTransaction()
-                    .replace(
-                            R.id.change_log_fragment,
-                            new ChangeLogFragment.LatestChangeLogFragment())
-                    .commit();
-        }
+        final ViewGroup latestChangeLogCard = view.findViewById(R.id.latest_change_log_card);
+        final View latestChangeLogCardContent =
+                ChangeLogFragment.LatestChangeLogViewFactory.createLatestChangeLogView(
+                        this, latestChangeLogCard);
+        latestChangeLogCard.addView(latestChangeLogCardContent);
         View testingView = view.findViewById(R.id.testing_build_message);
         testingView.setVisibility(mTestingBuild ? View.VISIBLE : View.GONE);
         View testerSignUp = view.findViewById(R.id.beta_sign_up);
@@ -149,17 +139,16 @@ public class MainFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) requireActivity();
         switch (item.getItemId()) {
             case R.id.about_menu_option:
-                activity.addFragmentToUi(
-                        new AboutAnySoftKeyboardFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                Navigation.findNavController(requireView())
+                        .navigate(
+                                MainFragmentDirections
+                                        .actionMainFragmentToAboutAnySoftKeyboardFragment());
                 return true;
             case R.id.tweaks_menu_option:
-                activity.addFragmentToUi(
-                        new MainTweaksFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                Navigation.findNavController(requireView())
+                        .navigate(MainFragmentDirections.actionMainFragmentToMainTweaksFragment());
                 return true;
             case R.id.backup_prefs:
                 onBackupRequested();

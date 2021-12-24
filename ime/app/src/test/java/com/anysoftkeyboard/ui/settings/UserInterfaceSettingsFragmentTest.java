@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.view.View;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
@@ -14,10 +13,9 @@ import org.junit.runner.RunWith;
 public class UserInterfaceSettingsFragmentTest
         extends BaseSettingsFragmentTest<UserInterfaceSettingsFragment> {
 
-    @NonNull
     @Override
-    protected UserInterfaceSettingsFragment createFragment() {
-        return new UserInterfaceSettingsFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.userInterfaceSettingsFragment;
     }
 
     @Override

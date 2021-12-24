@@ -31,10 +31,9 @@ import org.robolectric.shadows.ShadowDialog;
 public class UserDictionaryEditorFragmentTest
         extends RobolectricFragmentTestCase<UserDictionaryEditorFragment> {
 
-    @NonNull
     @Override
-    protected UserDictionaryEditorFragment createFragment() {
-        return new UserDictionaryEditorFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.userDictionaryEditorFragment;
     }
 
     @NonNull

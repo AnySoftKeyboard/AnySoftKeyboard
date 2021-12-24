@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -13,11 +13,8 @@ import com.anysoftkeyboard.keyboards.PopupListKeyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.ui.settings.AbstractAddOnsBrowserFragment;
-import com.anysoftkeyboard.ui.settings.QuickTextSettingsFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<QuickTextKey> {
 
@@ -55,18 +52,15 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
     @NonNull
     @Override
     protected AddOnsFactory<QuickTextKey> getAddOnFactory() {
-        return AnyApplication.getQuickTextKeyFactory(getContext());
+        return AnyApplication.getQuickTextKeyFactory(requireContext());
     }
 
     @Override
     protected void onTweaksOptionSelected() {
-        Activity activity = getActivity();
-        if (activity != null && activity instanceof FragmentChauffeurActivity) {
-            FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            chauffeurActivity.addFragmentToUi(
-                    new QuickTextSettingsFragment(),
-                    TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-        }
+        Navigation.findNavController(requireView())
+                .navigate(
+                        QuickTextKeysBrowseFragmentDirections
+                                .actionQuickTextKeysBrowseFragmentToQuickTextSettingsFragment());
     }
 
     @Override

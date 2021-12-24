@@ -122,10 +122,6 @@ dependencies {
 
     implementation "androidx.multidex:multidex:2.0.1"
 
-    implementation('com.github.menny.Chauffeur:lib:0.1.1') {
-        exclude group: 'com.android.support'
-    }
-
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
     testImplementation 'androidx.test.ext:junit:1.1.3'

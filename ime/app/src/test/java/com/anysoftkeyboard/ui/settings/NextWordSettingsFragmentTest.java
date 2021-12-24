@@ -6,7 +6,6 @@ import android.Manifest;
 import android.app.Application;
 import android.os.Build;
 import android.view.MenuItem;
-import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -25,11 +24,9 @@ import org.robolectric.shadows.ShadowDialog;
 @Config(sdk = Build.VERSION_CODES.M)
 public class NextWordSettingsFragmentTest
         extends RobolectricFragmentTestCase<NextWordSettingsFragment> {
-
-    @NonNull
     @Override
-    protected NextWordSettingsFragment createFragment() {
-        return new NextWordSettingsFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.nextWordSettingsFragment;
     }
 
     @Test

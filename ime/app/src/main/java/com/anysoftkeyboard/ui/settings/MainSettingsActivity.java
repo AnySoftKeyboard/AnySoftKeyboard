@@ -20,28 +20,27 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
-import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pixel.EdgeEffectHacker;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
-public class MainSettingsActivity extends FragmentChauffeurActivity {
+public class MainSettingsActivity extends AppCompatActivity {
 
-    public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
     public static final String ACTION_REQUEST_PERMISSION_ACTIVITY =
             "ACTION_REQUEST_PERMISSION_ACTIVITY";
     public static final String EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY =
             "EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY";
 
     private CharSequence mTitle;
-    private BottomNavigationView mBottomNavigationView;
 
     /**
      * Will set the title in the hosting Activity's title. Will only set the title if the fragment
@@ -61,42 +60,13 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
         mTitle = getTitle();
 
-        mBottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        mBottomNavigationView.setOnNavigationItemSelectedListener(
-                item -> {
-                    switch (item.getItemId()) {
-                        case R.id.bottom_nav_home_button:
-                            navigateToHomeRoot();
-                            break;
-                        case R.id.bottom_nav_language_button:
-                            addFragmentToUi(
-                                    new LanguageSettingsFragment(),
-                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                            break;
-                        case R.id.bottom_nav_ui_button:
-                            addFragmentToUi(
-                                    new UserInterfaceSettingsFragment(),
-                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                            break;
-                        case R.id.bottom_nav_gestures_button:
-                            addFragmentToUi(
-                                    new GesturesSettingsFragment(),
-                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                            break;
-                        case R.id.bottom_nav_quick_text_button:
-                            addFragmentToUi(
-                                    new QuickTextKeysBrowseFragment(),
-                                    TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                            break;
-                        default:
-                            throw new IllegalArgumentException(
-                                    "Failed to handle "
-                                            + item.getItemId()
-                                            + " in mBottomNavigationView.setOnNavigationItemSelectedListener");
-                    }
-                    return true;
-                });
+        final NavController navController =
+                ((NavHostFragment)
+                                getSupportFragmentManager()
+                                        .findFragmentById(R.id.nav_host_fragment))
+                        .getNavController();
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
     @Override
@@ -105,7 +75,6 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         // applying my very own Edge-Effect color
         EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
 
-        handleAppShortcuts(getIntent());
         handlePermissionRequest(getIntent());
     }
 
@@ -138,66 +107,9 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
                 requestCode, permissions, grantResults, this);
     }
 
-    private void handleAppShortcuts(Intent intent) {
-        if (intent != null
-                && Intent.ACTION_VIEW.equals(intent.getAction())
-                && intent.hasExtra(EXTRA_KEY_APP_SHORTCUT_ID)) {
-            final String shortcutId = intent.getStringExtra(EXTRA_KEY_APP_SHORTCUT_ID);
-            intent.removeExtra(EXTRA_KEY_APP_SHORTCUT_ID);
-
-            switch (shortcutId) {
-                case "keyboards":
-                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_language_button);
-                    addFragmentToUi(
-                            new KeyboardAddOnBrowserFragment(),
-                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                    break;
-                case "themes":
-                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_ui_button);
-                    addFragmentToUi(
-                            new KeyboardThemeSelectorFragment(),
-                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                    break;
-                case "gestures":
-                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_gestures_button);
-                    break;
-                case "quick_keys":
-                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_quick_text_button);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown app-shortcut " + shortcutId);
-            }
-        }
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        handleAppShortcuts(intent);
-    }
-
-    @Override
-    protected int getFragmentRootUiElementId() {
-        return R.id.main_ui_content;
-    }
-
-    @NonNull
-    @Override
-    protected Fragment createRootFragmentInstance() {
-        return new MainFragment();
-    }
-
-    // side menu navigation methods
-
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
-    }
-
-    public void navigateToHomeRoot() {
-        addFragmentToUi(
-                createRootFragmentInstance(),
-                TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 }

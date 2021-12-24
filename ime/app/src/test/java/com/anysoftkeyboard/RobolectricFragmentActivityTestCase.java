@@ -34,26 +34,24 @@ public abstract class RobolectricFragmentActivityTestCase<
     }
 
     @NonNull
-    protected abstract F createFragment();
-
-    @NonNull
     protected final F startFragment() {
         return startFragmentWithState(null);
     }
 
+    protected abstract Fragment getCurrentFragment();
+
     @NonNull
     protected final F startFragmentWithState(@Nullable Bundle state) {
-        F fragment = createFragment();
-        mActivityController = createActivityController(fragment);
+        mActivityController = createActivityController();
 
         mActivityController.create(state).start().postCreate(state).resume().visible();
 
         ensureAllScheduledJobsAreDone();
 
-        return fragment;
+        return (F) getCurrentFragment();
     }
 
-    protected abstract ActivityController<A> createActivityController(F fragment);
+    protected abstract ActivityController<A> createActivityController();
 
     protected ActivityController<A> getActivityController() {
         return mActivityController;

@@ -19,6 +19,7 @@ package com.anysoftkeyboard;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -771,11 +772,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                     EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
                     if (SETTINGS_ID.equals(id.toString())) {
                         startActivity(
-                                new Intent(getApplicationContext(), MainSettingsActivity.class)
-                                        .putExtra(
-                                                MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID,
-                                                "keyboards")
-                                        .setAction(Intent.ACTION_VIEW)
+                                new Intent(
+                                                Intent.ACTION_VIEW,
+                                                Uri.parse(
+                                                        getString(R.string.deeplink_url_keyboards)),
+                                                getApplicationContext(),
+                                                MainSettingsActivity.class)
                                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     } else {
                         getKeyboardSwitcher()
