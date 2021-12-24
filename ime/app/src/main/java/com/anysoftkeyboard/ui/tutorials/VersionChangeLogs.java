@@ -14,6 +14,15 @@ public class VersionChangeLogs {
                 new VersionChangeLog(
                         1,
                         11,
+                        "r2",
+                        Uri.parse(
+                                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94"),
+                        "Several fixes to the settings app navigation.",
+                        "Updated translations from the community (at crowdin.net)."));
+        log.add(
+                new VersionChangeLog(
+                        1,
+                        11,
                         "r1",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/93"),

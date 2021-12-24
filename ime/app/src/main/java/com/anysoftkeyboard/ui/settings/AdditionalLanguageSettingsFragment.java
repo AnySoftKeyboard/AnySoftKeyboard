@@ -16,15 +16,14 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class AdditionalLanguageSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceClickListener {
@@ -35,7 +34,7 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
@@ -50,14 +49,11 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity) activity)
-                        .addFragmentToUi(
-                                new LanguageTweaksFragment(),
-                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            }
+            Navigation.findNavController(requireView())
+                    .navigate(
+                            AdditionalLanguageSettingsFragmentDirections
+                                    .actionAdditionalLanguageSettingsFragmentToLanguageTweaksFragment());
+            return true;
         }
         return false;
     }

@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
@@ -22,10 +21,9 @@ public class GesturesSettingsFragmentTest
     private List<Preference> mNotAffectedPrefs;
     private CheckBoxPreference mGestureTypingPref;
 
-    @NonNull
     @Override
-    protected GesturesSettingsFragment createFragment() {
-        return new GesturesSettingsFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.gesturesSettingsFragment;
     }
 
     @Before

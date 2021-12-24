@@ -18,6 +18,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.preference.CheckBoxPreference;
@@ -59,7 +60,7 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.settings_key_gesture_typing))
                 .setOnPreferenceChangeListener(

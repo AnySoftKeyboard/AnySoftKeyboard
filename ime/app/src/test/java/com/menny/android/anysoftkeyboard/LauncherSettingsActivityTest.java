@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +41,7 @@ public class LauncherSettingsActivityTest {
                 Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(startWizardActivityIntent);
 
-        Intent expectIntent = new Intent(getApplicationContext(), BasicAnyActivity.class);
+        Intent expectIntent = new Intent(getApplicationContext(), SetupWizardActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
         Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
-import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
@@ -19,7 +18,7 @@ import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowView;
 
 public class WizardPageWelcomeFragmentTest
-        extends RobolectricFragmentTestCase<
+        extends RobolectricWizardFragmentTestCase<
                 WizardPageWelcomeFragmentTest.TestableWizardPageWelcomeFragment> {
 
     @NonNull

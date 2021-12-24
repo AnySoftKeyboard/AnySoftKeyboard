@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ui.tutorials;
 
 import android.graphics.Paint;
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -15,10 +14,10 @@ import org.junit.runner.RunWith;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ChangeLogFragmentShowAllLogsTest
         extends RobolectricFragmentTestCase<ChangeLogFragment.FullChangeLogFragment> {
-    @NonNull
+
     @Override
-    protected ChangeLogFragment.FullChangeLogFragment createFragment() {
-        return new ChangeLogFragment.FullChangeLogFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.fullChangeLogFragment;
     }
 
     @Override
