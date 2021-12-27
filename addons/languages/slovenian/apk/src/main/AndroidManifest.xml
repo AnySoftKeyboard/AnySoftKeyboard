@@ -1,7 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.anysoftkeyboard.languagepack.slovenian">
-
-    <application android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/slovenian_app_name" />
-</manifest>

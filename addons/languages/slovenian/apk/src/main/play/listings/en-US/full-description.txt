@@ -1,4 +1,0 @@
-Slovenian layouts and dictionary for AnySoftKeyboard keyboard app.
-
-This is an expansion layouts pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.

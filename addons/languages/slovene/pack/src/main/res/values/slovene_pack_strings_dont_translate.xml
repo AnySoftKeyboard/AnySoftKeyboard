@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           tools:ignore="MissingTranslation,TypographyDashes">
+
+    <string name="slovene_dictionary">Slovene</string>
+
+    <string name="slovene_keyboard">Slovene</string>
+    <string name="slovene_keyboard_description">Slovene keyboard</string>
+</resources>
