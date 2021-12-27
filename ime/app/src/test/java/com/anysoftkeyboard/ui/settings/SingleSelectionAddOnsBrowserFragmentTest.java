@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -29,10 +28,9 @@ import org.robolectric.annotation.Config;
 public class SingleSelectionAddOnsBrowserFragmentTest
         extends RobolectricFragmentTestCase<KeyboardThemeSelectorFragment> {
 
-    @NonNull
     @Override
-    protected KeyboardThemeSelectorFragment createFragment() {
-        return new KeyboardThemeSelectorFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.keyboardThemeSelectorFragment;
     }
 
     @Test

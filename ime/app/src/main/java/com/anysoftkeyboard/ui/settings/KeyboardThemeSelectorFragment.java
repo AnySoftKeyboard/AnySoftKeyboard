@@ -25,6 +25,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.navigation.Navigation;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -35,8 +36,6 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment<KeyboardTheme> {
 
@@ -57,27 +56,24 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     @NonNull
     @Override
     protected AddOnsFactory<KeyboardTheme> getAddOnFactory() {
-        return AnyApplication.getKeyboardThemeFactory(getContext());
+        return AnyApplication.getKeyboardThemeFactory(requireContext());
     }
 
     @Override
     protected void onTweaksOptionSelected() {
-        Activity activity = getActivity();
-        if (activity instanceof FragmentChauffeurActivity) {
-            FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            chauffeurActivity.addFragmentToUi(
-                    new KeyboardThemeTweaksFragment(),
-                    TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-        }
+        Navigation.findNavController(requireView())
+                .navigate(
+                        KeyboardThemeSelectorFragmentDirections
+                                .actionKeyboardThemeSelectorFragmentToKeyboardThemeTweaksFragment());
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mSelectedKeyboardView = view.findViewById(R.id.demo_keyboard_view);
 
         mApplyPrefs =
-                AnyApplication.prefs(getContext())
+                AnyApplication.prefs(requireContext())
                         .getBoolean(
                                 R.string.settings_key_apply_remote_app_colors,
                                 R.bool.settings_default_apply_remote_app_colors);
@@ -158,7 +154,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
                 throw new IllegalArgumentException("Unknown demo app view ID " + view.getId());
         }
 
-        Activity activity = getActivity();
+        Activity activity = requireActivity();
         mOverlayData =
                 new OverlayData(
                         ContextCompat.getColor(activity, primaryBackground),
@@ -187,7 +183,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
         demoKeyboardView.setKeyboardTheme(addOn);
         mSelectedKeyboardView.setThemeOverlay(mOverlayData);
         AnyKeyboard defaultKeyboard =
-                AnyApplication.getKeyboardFactory(getContext())
+                AnyApplication.getKeyboardFactory(requireContext())
                         .getEnabledAddOn()
                         .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());

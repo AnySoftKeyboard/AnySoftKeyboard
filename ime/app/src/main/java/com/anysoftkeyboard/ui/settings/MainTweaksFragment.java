@@ -16,17 +16,15 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class MainTweaksFragment extends PreferenceFragmentCompat {
 
@@ -38,7 +36,7 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Preference preference = findPreference(DEV_TOOLS_KEY);
@@ -60,14 +58,10 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
     }
 
     private boolean onDevToolsPreferenceClicked(Preference p) {
-        Activity activity = getActivity();
-        if (activity != null && activity instanceof FragmentChauffeurActivity) {
-            ((FragmentChauffeurActivity) activity)
-                    .addFragmentToUi(
-                            new DeveloperToolsFragment(),
-                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-            return true;
-        }
-        return false;
+        Navigation.findNavController(requireView())
+                .navigate(
+                        MainTweaksFragmentDirections
+                                .actionMainTweaksFragmentToDeveloperToolsFragment());
+        return true;
     }
 }

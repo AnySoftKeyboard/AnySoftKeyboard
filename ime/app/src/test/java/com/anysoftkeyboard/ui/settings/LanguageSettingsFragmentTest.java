@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings;
 
-import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.menny.android.anysoftkeyboard.R;
@@ -12,10 +11,9 @@ import org.junit.runner.RunWith;
 public class LanguageSettingsFragmentTest
         extends BaseSettingsFragmentTest<LanguageSettingsFragment> {
 
-    @NonNull
     @Override
-    protected LanguageSettingsFragment createFragment() {
-        return new LanguageSettingsFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.languageSettingsFragment;
     }
 
     @Test

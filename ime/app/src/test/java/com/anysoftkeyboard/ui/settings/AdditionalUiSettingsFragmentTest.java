@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.DialogInterface;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -21,10 +20,9 @@ import org.robolectric.Shadows;
 public class AdditionalUiSettingsFragmentTest
         extends RobolectricFragmentTestCase<AdditionalUiSettingsFragment> {
 
-    @NonNull
     @Override
-    protected AdditionalUiSettingsFragment createFragment() {
-        return new AdditionalUiSettingsFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.additionalUiSettingsFragment;
     }
 
     @Test
@@ -34,10 +32,7 @@ public class AdditionalUiSettingsFragmentTest
         ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_top_row_key"));
 
         TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next =
-                fragment.getActivity()
-                        .getSupportFragmentManager()
-                        .findFragmentById(R.id.main_ui_content);
+        final Fragment next = getCurrentFragment();
         Assert.assertTrue(next instanceof AdditionalUiSettingsFragment.TopRowAddOnBrowserFragment);
         Assert.assertFalse(next.hasOptionsMenu());
     }
@@ -49,10 +44,7 @@ public class AdditionalUiSettingsFragmentTest
         ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_bottom_row_key"));
 
         TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next =
-                fragment.getActivity()
-                        .getSupportFragmentManager()
-                        .findFragmentById(R.id.main_ui_content);
+        final Fragment next = getCurrentFragment();
         Assert.assertTrue(
                 next instanceof AdditionalUiSettingsFragment.BottomRowAddOnBrowserFragment);
         Assert.assertFalse(next.hasOptionsMenu());
@@ -65,10 +57,7 @@ public class AdditionalUiSettingsFragmentTest
         ViewTestUtils.performClick(fragment.findPreference("tweaks"));
 
         TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next =
-                fragment.getActivity()
-                        .getSupportFragmentManager()
-                        .findFragmentById(R.id.main_ui_content);
+        final Fragment next = getCurrentFragment();
         Assert.assertTrue(next instanceof UiTweaksFragment);
     }
 

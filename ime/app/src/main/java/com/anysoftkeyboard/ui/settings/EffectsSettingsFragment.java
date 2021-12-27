@@ -19,11 +19,12 @@ package com.anysoftkeyboard.ui.settings;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class EffectsSettingsFragment extends PreferenceFragmentCompat {
 
@@ -33,25 +34,25 @@ public class EffectsSettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findPreference(getText(R.string.settings_key_power_save_mode))
                 .setOnPreferenceClickListener(
                         preference -> {
-                            ((MainSettingsActivity) getActivity())
-                                    .addFragmentToUi(
-                                            new PowerSavingSettingsFragment(),
-                                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                            Navigation.findNavController(requireView())
+                                    .navigate(
+                                            EffectsSettingsFragmentDirections
+                                                    .actionEffectsSettingsFragmentToPowerSavingSettingsFragment());
                             return true;
                         });
 
         findPreference(getText(R.string.settings_key_night_mode))
                 .setOnPreferenceClickListener(
                         preference -> {
-                            ((MainSettingsActivity) getActivity())
-                                    .addFragmentToUi(
-                                            new NightModeSettingsFragment(),
-                                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                            Navigation.findNavController(requireView())
+                                    .navigate(
+                                            EffectsSettingsFragmentDirections
+                                                    .actionEffectsSettingsFragmentToNightModeSettingsFragment());
                             return true;
                         });
         if (Build.VERSION.SDK_INT < 29) {

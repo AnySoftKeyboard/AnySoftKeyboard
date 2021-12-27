@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.Menu;
 import android.view.View;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -17,11 +16,9 @@ import org.robolectric.annotation.Config;
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class MultiSelectionAddOnsBrowserFragmentTest
         extends RobolectricFragmentTestCase<KeyboardAddOnBrowserFragment> {
-
-    @NonNull
     @Override
-    protected KeyboardAddOnBrowserFragment createFragment() {
-        return new KeyboardAddOnBrowserFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.keyboardAddOnBrowserFragment;
     }
 
     @Test

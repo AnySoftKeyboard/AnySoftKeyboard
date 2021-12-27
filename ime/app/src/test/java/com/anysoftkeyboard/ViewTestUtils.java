@@ -8,12 +8,12 @@ import android.view.View;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.preference.Preference;
 import androidx.test.core.view.MotionEventBuilder;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
-import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -196,6 +196,7 @@ public class ViewTestUtils {
 
     @NonNull
     public static Fragment navigateByClicking(Fragment rootFragment, int viewToClick) {
+        final FragmentActivity activity = rootFragment.getActivity();
         final View viewById = rootFragment.getView().findViewById(viewToClick);
         Assert.assertNotNull(viewById);
         final View.OnClickListener onClickListener =
@@ -203,10 +204,7 @@ public class ViewTestUtils {
         Assert.assertNotNull(onClickListener);
         onClickListener.onClick(viewById);
         TestRxSchedulers.foregroundFlushAllJobs();
-        return rootFragment
-                .getActivity()
-                .getSupportFragmentManager()
-                .findFragmentById(R.id.main_ui_content);
+        return RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity);
     }
 
     private static class MotionEventData {

@@ -6,7 +6,6 @@ import android.os.Build;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
@@ -21,10 +20,9 @@ import org.robolectric.annotation.Config;
 public class KeyboardThemeSelectorFragmentTest
         extends RobolectricFragmentTestCase<KeyboardThemeSelectorFragment> {
 
-    @NonNull
     @Override
-    protected KeyboardThemeSelectorFragment createFragment() {
-        return new KeyboardThemeSelectorFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.keyboardThemeSelectorFragment;
     }
 
     @Test

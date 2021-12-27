@@ -1,10 +1,10 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Build;
-import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,9 +60,8 @@ public class QuickTextSettingsFragmentTest
         Assert.assertFalse(preference.isEnabled());
     }
 
-    @NonNull
     @Override
-    protected QuickTextSettingsFragment createFragment() {
-        return new QuickTextSettingsFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.quickTextSettingsFragment;
     }
 }
