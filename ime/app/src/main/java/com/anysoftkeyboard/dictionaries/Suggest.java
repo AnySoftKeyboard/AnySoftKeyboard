@@ -41,7 +41,7 @@ public interface Suggest {
      *
      * @return list of suggestions.
      */
-    List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid);
+    List<CharSequence> getSuggestions(WordComposer wordComposer);
 
     boolean hasMinimalCorrection();
 

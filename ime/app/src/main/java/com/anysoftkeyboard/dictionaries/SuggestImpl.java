@@ -198,8 +198,7 @@ public class SuggestImpl implements Suggest {
     }
 
     @Override
-    public List<CharSequence> getSuggestions(
-            WordComposer wordComposer, boolean includeTypedWordIfValid) {
+    public List<CharSequence> getSuggestions(WordComposer wordComposer) {
         if (!mEnabledSuggestions) return Collections.emptyList();
 
         mExplodedAbbreviations.clear();
@@ -235,7 +234,8 @@ public class SuggestImpl implements Suggest {
             mSuggestionsProvider.getAbbreviations(wordComposer, mAbbreviationWordCallback);
 
             if (mSuggestions.size() > 0) {
-                mHaveCorrection = true;
+                mHaveCorrection =
+                        haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(0));
             }
         }
 
@@ -268,18 +268,16 @@ public class SuggestImpl implements Suggest {
                     explodedWordInsertionIndex++;
                 }
 
-                mHaveCorrection = true; // so the exploded text will be auto-committed.
+                mHaveCorrection = true;
             }
         }
 
         if (mLowerOriginalWord.length() > 0) {
-            CharSequence autoText = mSuggestionsProvider.lookupQuickFix(mLowerOriginalWord);
+            final CharSequence autoText = mSuggestionsProvider.lookupQuickFix(mLowerOriginalWord);
             // Is there an AutoText correction?
             // Is that correction already the current prediction (or original
             // word)?
-            boolean canAdd =
-                    !TextUtils.isEmpty(autoText) && !TextUtils.equals(autoText, originalWord);
-            if (canAdd) {
+            if (!TextUtils.isEmpty(autoText) && !TextUtils.equals(autoText, originalWord)) {
                 mHaveCorrection = true;
                 if (mSuggestions.size() == 0) {
                     mSuggestions.add(originalWord);
@@ -303,13 +301,6 @@ public class SuggestImpl implements Suggest {
         // removing possible duplicates to typed.
         IMEUtil.removeDupes(mSuggestions, mStringPool);
 
-        // Check if the first suggestion has a minimum number of characters in common
-        if (mHaveCorrection
-                && mSuggestions.size() > 1
-                && mExplodedAbbreviations.size() == 0
-                && !haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
-            mHaveCorrection = false;
-        }
         return mSuggestions;
     }
 

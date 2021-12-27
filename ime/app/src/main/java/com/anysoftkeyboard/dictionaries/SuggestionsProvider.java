@@ -183,10 +183,6 @@ public class SuggestionsProvider {
                         .subscribe(
                                 aggressiveness -> {
                                     switch (aggressiveness) {
-                                        case "minimal_aggressiveness":
-                                            mMaxNextWordSuggestionsCount = 3;
-                                            mMinWordUsage = 5;
-                                            break;
                                         case "medium_aggressiveness":
                                             mMaxNextWordSuggestionsCount = 5;
                                             mMinWordUsage = 3;
@@ -195,6 +191,7 @@ public class SuggestionsProvider {
                                             mMaxNextWordSuggestionsCount = 8;
                                             mMinWordUsage = 1;
                                             break;
+                                        case "minimal_aggressiveness":
                                         default:
                                             mMaxNextWordSuggestionsCount = 3;
                                             mMinWordUsage = 5;
@@ -216,14 +213,11 @@ public class SuggestionsProvider {
                                             mNextWordEnabled = false;
                                             mAlsoSuggestNextPunctuations = false;
                                             break;
-                                        case "word":
-                                            mNextWordEnabled = true;
-                                            mAlsoSuggestNextPunctuations = false;
-                                            break;
                                         case "words_punctuations":
                                             mNextWordEnabled = true;
                                             mAlsoSuggestNextPunctuations = true;
                                             break;
+                                        case "word":
                                         default:
                                             mNextWordEnabled = true;
                                             mAlsoSuggestNextPunctuations = false;
