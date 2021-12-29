@@ -209,12 +209,12 @@ public class SuggestionsProviderTest {
 
         Mockito.verify(mFakeBuilder).createAutoText();
 
-        mSuggestionsProvider.lookupQuickFix("hello");
+        mSuggestionsProvider.getAutoText(wordFor("hello"), mWordsCallback);
         Mockito.verify(mFakeBuilder.mSpiedAutoText).lookup(Mockito.eq("hello"));
 
         mSuggestionsProvider.close();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hell"));
+        mSuggestionsProvider.getAutoText(wordFor("hell"), mWordsCallback);
         Mockito.verify(mFakeBuilder.mSpiedAutoText, Mockito.never()).lookup(Mockito.eq("hell"));
     }
 
@@ -260,13 +260,13 @@ public class SuggestionsProviderTest {
 
         Mockito.verify(mFakeBuilder).createAutoText();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hello"));
+        mSuggestionsProvider.getAutoText(wordFor("hello"), mWordsCallback);
         // did not create an auto-text
         Assert.assertNull(mFakeBuilder.mSpiedAutoText);
 
         mSuggestionsProvider.close();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hell"));
+        mSuggestionsProvider.getAutoText(wordFor("hell"), mWordsCallback);
         Assert.assertNull(mFakeBuilder.mSpiedAutoText);
     }
 

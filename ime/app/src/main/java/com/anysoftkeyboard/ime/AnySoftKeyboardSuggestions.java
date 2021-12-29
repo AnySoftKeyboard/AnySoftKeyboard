@@ -744,9 +744,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             clearSuggestions();
         } else {
             setSuggestions(
-                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()),
-                    false,
-                    false);
+                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()), -1);
         }
     }
 
@@ -1010,17 +1008,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected void clearSuggestions() {
         mKeyboardHandler.removeAllSuggestionMessages();
-        setSuggestions(Collections.emptyList(), false, false);
+        setSuggestions(Collections.emptyList(), -1);
     }
 
     protected void setSuggestions(
-            @NonNull List<? extends CharSequence> suggestions,
-            boolean typedWordValid,
-            boolean haveMinimalSuggestion) {
+            @NonNull List<? extends CharSequence> suggestions, int highlightedSuggestionIndex) {
         mCancelSuggestionsAction.setCancelIconVisible(!suggestions.isEmpty());
         if (mCandidateView != null) {
-            mCandidateView.setSuggestions(
-                    suggestions, typedWordValid, haveMinimalSuggestion && isAutoCorrect());
+            mCandidateView.setSuggestions(suggestions, highlightedSuggestionIndex);
         }
     }
 
@@ -1095,27 +1090,25 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             return;
         }
 
-        final CharSequence typedWord = mWord.getTypedWord();
-
         final List<CharSequence> suggestionsList = mSuggest.getSuggestions(mWord);
-        boolean correctionAvailable = mSuggest.hasMinimalCorrection();
-        final boolean typedWordValid =
-                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
-
-        if (mShowSuggestions) {
-            correctionAvailable |= typedWordValid;
-        }
+        int highlightedSuggestionIndex =
+                isAutoCorrect() ? mSuggest.getLastValidSuggestionIndex() : -1;
 
         // Don't auto-correct words with multiple capital letter
-        correctionAvailable &= !mWord.isMostlyCaps();
+        if (highlightedSuggestionIndex == 1 && mWord.isMostlyCaps())
+            highlightedSuggestionIndex = -1;
+        //      final CharSequence typedWord = mWord.getTypedWord();
+        //          boolean correctionAvailable = mSuggest.hasMinimalCorrection();
+        //        final boolean typedWordValid =
+        //                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
+        //
+        //        if (mShowSuggestions) {
+        //            correctionAvailable |= typedWordValid;
+        //        }
 
-        setSuggestions(suggestionsList, typedWordValid, correctionAvailable);
-        if (suggestionsList.size() > 0) {
-            if (correctionAvailable && !typedWordValid && suggestionsList.size() > 1) {
-                mWord.setPreferredWord(suggestionsList.get(1));
-            } else {
-                mWord.setPreferredWord(typedWord);
-            }
+        setSuggestions(suggestionsList, highlightedSuggestionIndex);
+        if (highlightedSuggestionIndex >= 0) {
+            mWord.setPreferredWord(suggestionsList.get(highlightedSuggestionIndex));
         } else {
             mWord.setPreferredWord(null);
         }
@@ -1183,9 +1176,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
                 } else {
                     setSuggestions(
-                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()),
-                            false,
-                            false);
+                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), -1);
                 }
             }
         } finally {
@@ -1325,7 +1316,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (ci != null) stringList.add(ci.getText());
                 }
                 // CharSequence typedWord = mWord.getTypedWord();
-                setSuggestions(stringList, true, true);
+                setSuggestions(stringList, -1);
                 mWord.setPreferredWord(null);
             }
         }

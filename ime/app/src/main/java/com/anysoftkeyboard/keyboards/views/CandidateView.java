@@ -73,8 +73,7 @@ public class CandidateView extends View implements ThemeableChild {
     private CharSequence mSelectedString;
     private CharSequence mJustAddedWord;
     private int mSelectedIndex;
-    private boolean mTypedWordValid;
-    private boolean mHaveMinimalSuggestion;
+    private int mHighlightedIndex;
     private Rect mBgPadding;
     private Drawable mDivider;
     private Drawable mCloseDrawable;
@@ -288,7 +287,6 @@ public class CandidateView extends View implements ThemeableChild {
         final int touchX = mTouchX;
         final int scrollX = getScrollX();
         final boolean scrolled = mScrolled;
-        final boolean typedWordValid = mTypedWordValid;
 
         final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
         int x = 0;
@@ -300,8 +298,7 @@ public class CandidateView extends View implements ThemeableChild {
             final int wordLength = suggestion.length();
 
             paint.setColor(themeResources.getNameTextColor());
-            if (mHaveMinimalSuggestion
-                    && ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid))) {
+            if (i == mHighlightedIndex) {
                 paint.setTypeface(Typeface.DEFAULT_BOLD);
                 paint.setColor(themeResources.getKeyTextColor().getDefaultColor());
                 // existsAutoCompletion = true;
@@ -415,15 +412,11 @@ public class CandidateView extends View implements ThemeableChild {
      * Setup what's to display in the suggestions strip
      *
      * @param suggestions the list of words to show
-     * @param typedWordValid the typed word (word at index 0) is a valid word
-     * @param haveMinimalSuggestion the list of suggestions contains a valid word. So, either
-     *     highlight the first word (typedWordValid == true), or highlight the second word
-     *     (typedWordValid != true)
+     * @param highlightedWordIndex the suggestion to highlight (usually means the correct
+     *     suggestion)
      */
     public void setSuggestions(
-            @NonNull List<? extends CharSequence> suggestions,
-            boolean typedWordValid,
-            boolean haveMinimalSuggestion) {
+            @NonNull List<? extends CharSequence> suggestions, int highlightedWordIndex) {
         clear();
         int insertCount = Math.min(suggestions.size(), MAX_SUGGESTIONS);
         for (CharSequence suggestion : suggestions) {
@@ -433,10 +426,9 @@ public class CandidateView extends View implements ThemeableChild {
             }
         }
 
-        mTypedWordValid = typedWordValid;
+        mHighlightedIndex = highlightedWordIndex;
         scrollTo(0, getScrollY());
         mTargetScrollX = 0;
-        mHaveMinimalSuggestion = haveMinimalSuggestion;
         // re-drawing required.
         invalidate();
     }
@@ -445,7 +437,7 @@ public class CandidateView extends View implements ThemeableChild {
         ArrayList<CharSequence> suggestions = new ArrayList<>();
         suggestions.add(word);
         suggestions.add(mAddToDictionaryHint);
-        setSuggestions(suggestions, false, false);
+        setSuggestions(suggestions, -1);
         mShowingAddToDictionary = true;
     }
 
@@ -534,7 +526,7 @@ public class CandidateView extends View implements ThemeableChild {
         ArrayList<CharSequence> notice = new ArrayList<>(2);
         notice.add(getContext().getResources().getString(R.string.added_word, mJustAddedWord));
         notice.add(getContext().getResources().getString(R.string.revert_added_word_question));
-        setSuggestions(notice, true, false);
+        setSuggestions(notice, 0);
         mNoticing = true;
     }
 
@@ -542,7 +534,7 @@ public class CandidateView extends View implements ThemeableChild {
         mJustAddedWord = null;
         ArrayList<CharSequence> notice = new ArrayList<>(1);
         notice.add(getContext().getResources().getString(R.string.removed_word, word));
-        setSuggestions(notice, true, false);
+        setSuggestions(notice, 0);
         mNoticing = true;
     }
 

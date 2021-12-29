@@ -58,8 +58,7 @@ public abstract class AnySoftKeyboardBaseTest {
         final Application application = getApplicationContext();
 
         mInputMethodManagerShadow =
-                (InputMethodManagerShadow)
-                        Shadow.extract(application.getSystemService(Service.INPUT_METHOD_SERVICE));
+                Shadow.extract(application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
         mAnySoftKeyboardController = Robolectric.buildService(getServiceClass());
@@ -113,7 +112,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected final void verifyNoSuggestionsInteractions() {
         Mockito.verify(getMockCandidateView(), Mockito.never())
-                .setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
+                .setSuggestions(Mockito.anyList(), Mockito.anyInt());
     }
 
     protected final void verifySuggestions(
@@ -138,8 +137,7 @@ public abstract class AnySoftKeyboardBaseTest {
     protected List verifyAndCaptureSuggestion(boolean resetCandidateView) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
         Mockito.verify(getMockCandidateView(), Mockito.atLeastOnce())
-                .setSuggestions(
-                        suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
+                .setSuggestions(suggestionsCaptor.capture(), Mockito.anyInt());
         List<List> allValues = suggestionsCaptor.getAllValues();
 
         if (resetCandidateView) mAnySoftKeyboardUnderTest.resetMockCandidateView();

@@ -43,7 +43,12 @@ public interface Suggest {
      */
     List<CharSequence> getSuggestions(WordComposer wordComposer);
 
-    boolean hasMinimalCorrection();
+    /**
+     * Returns the index of the valid word from the last call to getSuggestions. In most cases, if
+     * the typed word is valid then the index is 0, if not and there is a close correction, then it
+     * will probably be 1. If nothing can be suggested the returned index will be -1;
+     */
+    int getLastValidSuggestionIndex();
 
     boolean isValidWord(CharSequence word);
 

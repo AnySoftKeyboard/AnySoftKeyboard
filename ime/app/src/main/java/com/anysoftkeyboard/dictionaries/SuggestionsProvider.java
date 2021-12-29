@@ -426,13 +426,12 @@ public class SuggestionsProvider {
         allDictionariesGetWords(mAbbreviationDictionary, wordComposer, wordCallback);
     }
 
-    public CharSequence lookupQuickFix(String word) {
+    public void getAutoText(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
+        final CharSequence word = wordComposer.getTypedWord();
         for (AutoText autoText : mQuickFixesAutoText) {
             final String fix = autoText.lookup(word);
-            if (fix != null) return fix;
+            if (fix != null) wordCallback.addWord(fix.toCharArray(), 0, fix.length(), 255, null);
         }
-
-        return null;
     }
 
     public void getNextWords(

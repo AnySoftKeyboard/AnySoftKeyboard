@@ -721,8 +721,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
-        public boolean hasMinimalCorrection() {
-            return mDelegate.hasMinimalCorrection();
+        public int getLastValidSuggestionIndex() {
+            return mDelegate.getLastValidSuggestionIndex();
         }
 
         @Override
