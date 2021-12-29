@@ -251,7 +251,7 @@
     <string name="supported_keyboard_row_modes_title">Įjungti specializuoti įvesties laukų režimai</string>
     <string name="supported_keyboard_row_modes_summary">Išsirinkite specializuotus įvesties laukus (slaptažodis, URL ir pan.), kuriuos norite naudoti.</string>
     <string name="tweak_dictionary_group">Žodyno patobulinimai</string>
-    <string name="settings_min_length_for_word_correction">Mažiausias žodžio ilgis korekcijai</string>
+    
     <string name="show_keyboard_name_text">Rodyti klaviatūros pavadinimą</string>
     <string name="show_keyboard_name_on_summary">Rodyti klaviatūros pavadinimą ant tarpo klavišo</string>
     <string name="show_keyboard_name_off_summary">Niekada nerodyti klaviatūros pavadinimo</string>

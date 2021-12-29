@@ -143,7 +143,7 @@
     <string name="tweak_ui_group">שיפורי גרפיקה</string>
     <string name="tweak_ux_group">שיפורי התנהגות</string>
     <string name="tweak_dictionary_group">הגדרות מילון נוספות</string>
-    <string name="settings_min_length_for_word_correction">אורך מילה מינימלי להצעת תיקון</string>
+    
     <string name="show_keyboard_name_text">הצגת שם המקלדת</string>
     <string name="show_keyboard_name_on_summary">הצג את שם המקלדת על גבי מקש הרווח</string>
     <string name="show_keyboard_name_off_summary">אל תציג את שם המקלדת</string>

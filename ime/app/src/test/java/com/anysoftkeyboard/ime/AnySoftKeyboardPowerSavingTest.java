@@ -36,7 +36,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         PowerSavingTest.sendBatteryState(false);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
@@ -49,7 +49,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
                 R.string.settings_key_power_save_mode_suggestions_control, false);
         PowerSavingTest.sendBatteryState(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
@@ -60,7 +60,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         PowerSavingTest.sendBatteryState(false);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
@@ -97,7 +97,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
@@ -106,7 +106,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         PowerSavingTest.sendBatteryState(false);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
@@ -115,7 +115,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         PowerSavingTest.sendBatteryState(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         verifySuggestions(true, "he", "hello", "hell", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");

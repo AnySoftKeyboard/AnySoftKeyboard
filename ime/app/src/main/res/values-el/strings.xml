@@ -135,7 +135,7 @@
     <string name="tweak_ui_group">Γραφικό περιβάλλον προηγμένων ρυθμίσεων</string>
     <string name="tweak_ux_group">Συμπεριφορά προηγμένων ρυθμίσεων</string>
     <string name="tweak_dictionary_group">Τροποποιήσεις λεξικού</string>
-    <string name="settings_min_length_for_word_correction">Ελάχιστο μήκος λέξης για διόρθωση</string>
+    
     <string name="show_keyboard_name_text">Εμφάνιση του ονόματος πληκτρολογίου</string>
     <string name="show_keyboard_name_on_summary">Εμφάνιση του ονόματος πληκτρολογίου πατώντας το πλήκτρο διαστήματος</string>
     <string name="show_keyboard_name_off_summary">Να μην εμφανίζεται ποτέ το όνομα πληκτρολογίου</string>

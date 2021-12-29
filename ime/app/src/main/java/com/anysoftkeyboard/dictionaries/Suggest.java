@@ -6,8 +6,7 @@ import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import java.util.List;
 
 public interface Suggest {
-    void setCorrectionMode(
-            boolean enabledSuggestions, int maxLengthDiff, int maxDistance, int minimumWorLength);
+    void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance);
 
     @VisibleForTesting
     boolean isSuggestionsEnabled();

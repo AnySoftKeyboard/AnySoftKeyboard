@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -37,7 +38,6 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -168,19 +168,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                                 R.string
                                                         .settings_default_auto_pick_suggestion_aggressiveness)
                                         .asObservable(),
-                                prefs().getInteger(
-                                                R.string
-                                                        .settings_key_min_length_for_word_correction__,
-                                                R.integer
-                                                        .settings_default_min_word_length_for_suggestion)
-                                        .asObservable(),
-                                Triple::new)
+                                Pair::new)
                         .subscribe(
-                                triple -> {
+                                pair -> {
                                     final boolean showSuggestionsChanged =
-                                            mShowSuggestions != triple.getFirst();
-                                    mShowSuggestions = triple.getFirst();
-                                    final String autoPickAggressiveness = triple.getSecond();
+                                            mShowSuggestions != pair.first;
+                                    mShowSuggestions = pair.first;
+                                    final String autoPickAggressiveness = pair.second;
 
                                     final int calculatedCommonalityMaxLengthDiff;
                                     final int calculatedCommonalityMaxDistance;
@@ -213,8 +207,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     mSuggest.setCorrectionMode(
                                             mShowSuggestions,
                                             calculatedCommonalityMaxLengthDiff,
-                                            calculatedCommonalityMaxDistance,
-                                            triple.getThird());
+                                            calculatedCommonalityMaxDistance);
                                     // starting over
                                     if (showSuggestionsChanged) {
                                         if (mShowSuggestions) {

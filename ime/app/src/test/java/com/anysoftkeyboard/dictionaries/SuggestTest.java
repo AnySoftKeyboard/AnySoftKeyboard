@@ -39,7 +39,6 @@ public class SuggestTest {
         Mockito.verifyNoMoreInteractions(mProvider);
 
         Assert.assertTrue(mUnderTest.isIncognitoMode());
-        //noinspection ResultOfMethodCallIgnored
         Mockito.verify(mProvider).isIncognitoMode();
         Mockito.verifyNoMoreInteractions(mProvider);
         Mockito.reset(mProvider);
@@ -51,14 +50,13 @@ public class SuggestTest {
         Mockito.verifyNoMoreInteractions(mProvider);
 
         Assert.assertFalse(mUnderTest.isIncognitoMode());
-        //noinspection ResultOfMethodCallIgnored
         Mockito.verify(mProvider).isIncognitoMode();
         Mockito.verifyNoMoreInteractions(mProvider);
     }
 
     @Test
     public void testHasCorrectionWhenHaveCommonalitySuggestions() {
-        mUnderTest.setCorrectionMode(true, 1, 2, 2);
+        mUnderTest.setCorrectionMode(true, 1, 2);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -92,7 +90,7 @@ public class SuggestTest {
 
     @Test
     public void testNeverQueriesWhenSuggestionsOff() {
-        mUnderTest.setCorrectionMode(false, 5, 2, 2);
+        mUnderTest.setCorrectionMode(false, 5, 2);
         WordComposer wordComposer = new WordComposer();
         typeWord(wordComposer, "hello");
         final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
@@ -103,17 +101,20 @@ public class SuggestTest {
 
     @Test
     public void testQueriesWhenSuggestionsOn() {
-        mUnderTest.setCorrectionMode(true, 5, 2, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
-                            final Dictionary.WordCallback callback = invocation.getArgument(1);
-                            callback.addWord(
-                                    "hello".toCharArray(),
-                                    0,
-                                    5,
-                                    23,
-                                    Mockito.mock(Dictionary.class));
+                            final WordComposer word = invocation.getArgument(0);
+                            if (word.codePointCount() > 1) {
+                                final Dictionary.WordCallback callback = invocation.getArgument(1);
+                                callback.addWord(
+                                        "hello".toCharArray(),
+                                        0,
+                                        5,
+                                        23,
+                                        Mockito.mock(Dictionary.class));
+                            }
                             return null;
                         })
                 .when(mProvider)
@@ -124,19 +125,20 @@ public class SuggestTest {
         final List<CharSequence> suggestions1 = mUnderTest.getSuggestions(wordComposer);
         Assert.assertEquals(1, suggestions1.size());
         Assert.assertEquals("h", suggestions1.get(0));
-        Mockito.verify(mProvider, Mockito.never()).getSuggestions(Mockito.any(), Mockito.any());
+        Mockito.verify(mProvider).getSuggestions(Mockito.any(), Mockito.any());
         typeWord(wordComposer, "e");
         final List<CharSequence> suggestions2 = mUnderTest.getSuggestions(wordComposer);
         Assert.assertEquals(2, suggestions2.size());
         Assert.assertEquals("he", suggestions2.get(0).toString());
         Assert.assertEquals("hello", suggestions2.get(1).toString());
-        Mockito.verify(mProvider).getSuggestions(Mockito.same(wordComposer), Mockito.any());
+        Mockito.verify(mProvider, Mockito.times(2))
+                .getSuggestions(Mockito.same(wordComposer), Mockito.any());
         Assert.assertSame(suggestions1, suggestions2);
     }
 
     @Test
     public void testHasCorrectionWhenHaveAbbreviation() {
-        mUnderTest.setCorrectionMode(true, 5, 2, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -181,7 +183,7 @@ public class SuggestTest {
 
     @Test
     public void testAbbreviationsOverTakeDictionarySuggestions() {
-        mUnderTest.setCorrectionMode(true, 5, 2, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -235,7 +237,7 @@ public class SuggestTest {
 
     @Test
     public void testAutoTextIsQueriedEvenWithOneLetter() {
-        mUnderTest.setCorrectionMode(true, 5, 2, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -258,10 +260,7 @@ public class SuggestTest {
         // ensuring abbr are called first, so the max-suggestions will not hide the exploded abbr.
         inOrder.verify(mProvider).getAbbreviations(Mockito.same(wordComposer), Mockito.any());
         inOrder.verify(mProvider).getAutoText(Mockito.same(wordComposer), Mockito.any());
-        inOrder.verify(
-                        mProvider,
-                        Mockito.never() /*because it is less than the minimum word length*/)
-                .getSuggestions(Mockito.same(wordComposer), Mockito.any());
+        inOrder.verify(mProvider).getSuggestions(Mockito.same(wordComposer), Mockito.any());
         // suggesting "I" as a correction (from dictionary)
         Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
 

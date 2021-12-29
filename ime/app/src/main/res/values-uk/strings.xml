@@ -239,7 +239,7 @@
     <string name="supported_keyboard_row_modes_title">Включені спеціалізовані режими поля введення</string>
     <string name="supported_keyboard_row_modes_summary">Для використання виберіть спеціалізовані рядки поля введення (такі, як паролі, посилання тощо).</string>
     <string name="tweak_dictionary_group">Налаштування словників</string>
-    <string name="settings_min_length_for_word_correction">Мінімальна довжина слова для корекції</string>
+    
     <string name="show_keyboard_name_text">Показати назву клавіатури</string>
     <string name="show_keyboard_name_on_summary">Показати ім’я клавіатури на пробілі</string>
     <string name="show_keyboard_name_off_summary">Ніколи не показувати ім’я клавіатури</string>

@@ -206,8 +206,7 @@
     <string name="tweak_physical_keyboard_group">Fyysisen näppäimistön hienosäädöt</string>
     <string name="tweak_ui_group">Graafiset hienosäädöt</string>
     <string name="tweak_dictionary_group">Sanakirjan hienosäädöt</string>
-    <string name="settings_min_length_for_word_correction">Sanan vähimmäispituus korjausta varten
-    </string>
+    
     <string name="show_keyboard_name_text">Näytä näppäimistön nimi</string>
     <string name="show_keyboard_name_on_summary">Näytä näppäimistön nimi välilyöntinäppäimessä</string>
     <string name="show_keyboard_name_off_summary">Älä koskaan näytä näppäimistön nimeä</string>

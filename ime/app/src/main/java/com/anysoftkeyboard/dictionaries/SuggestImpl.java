@@ -50,7 +50,6 @@ public class SuggestImpl implements Suggest {
     private final Dictionary.WordCallback mTypingDictionaryWordCallback;
 
     @NonNull private Locale mLocale = Locale.getDefault();
-    private int mMinimumWordLengthToStartCorrecting = 2;
     private int mPrefMaxSuggestions = 12;
     @NonNull private TagsExtractor mTagsSearcher = TagsExtractorImpl.NO_OP;
     @NonNull private int[] mPriorities = new int[mPrefMaxSuggestions];
@@ -92,12 +91,10 @@ public class SuggestImpl implements Suggest {
     }
 
     @Override
-    public void setCorrectionMode(
-            boolean enabledSuggestions, int maxLengthDiff, int maxDistance, int minimumWorLength) {
+    public void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance) {
         mEnabledSuggestions = enabledSuggestions;
 
         // making sure it is not negative or zero
-        mMinimumWordLengthToStartCorrecting = minimumWorLength;
         mCommonalityMaxLengthDiff = maxLengthDiff;
         mCommonalityMaxDistance = maxDistance;
     }
@@ -158,7 +155,7 @@ public class SuggestImpl implements Suggest {
     @Override
     public List<CharSequence> getNextSuggestions(
             final CharSequence previousWord, final boolean inAllUpperCaseState) {
-        if (previousWord.length() < mMinimumWordLengthToStartCorrecting) {
+        if (previousWord.length() == 0) {
             return Collections.emptyList();
         }
 
@@ -236,9 +233,8 @@ public class SuggestImpl implements Suggest {
         // auto-text
         mSuggestionsProvider.getAutoText(wordComposer, mAutoTextWordCallback);
         // main-dictionary
-        if (wordComposer.codePointCount() >= mMinimumWordLengthToStartCorrecting) {
-            mSuggestionsProvider.getSuggestions(wordComposer, mTypingDictionaryWordCallback);
-        }
+        mSuggestionsProvider.getSuggestions(wordComposer, mTypingDictionaryWordCallback);
+
         // now, we'll look at the next-words-suggestions list, and add all the ones that begins
         // with the typed word. These suggestions are top priority, so they will be added
         // at the top of the list
@@ -335,8 +331,8 @@ public class SuggestImpl implements Suggest {
     private static class AutoTextSuggestionCallback implements Dictionary.WordCallback {
         private final Dictionary.WordCallback mBasicWordCallback;
 
-        private AutoTextSuggestionCallback(Dictionary.WordCallback mBasicWordCallback) {
-            this.mBasicWordCallback = mBasicWordCallback;
+        private AutoTextSuggestionCallback(Dictionary.WordCallback callback) {
+            mBasicWordCallback = callback;
         }
 
         @Override
@@ -350,8 +346,8 @@ public class SuggestImpl implements Suggest {
     private static class AbbreviationSuggestionCallback implements Dictionary.WordCallback {
         private final Dictionary.WordCallback mBasicWordCallback;
 
-        private AbbreviationSuggestionCallback(Dictionary.WordCallback mBasicWordCallback) {
-            this.mBasicWordCallback = mBasicWordCallback;
+        private AbbreviationSuggestionCallback(Dictionary.WordCallback callback) {
+            mBasicWordCallback = callback;
         }
 
         @Override
@@ -365,8 +361,8 @@ public class SuggestImpl implements Suggest {
     private class DictionarySuggestionCallback implements Dictionary.WordCallback {
         private final Dictionary.WordCallback mBasicWordCallback;
 
-        private DictionarySuggestionCallback(Dictionary.WordCallback mBasicWordCallback) {
-            this.mBasicWordCallback = mBasicWordCallback;
+        private DictionarySuggestionCallback(Dictionary.WordCallback callback) {
+            mBasicWordCallback = callback;
         }
 
         @Override
