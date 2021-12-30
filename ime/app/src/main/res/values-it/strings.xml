@@ -246,7 +246,6 @@
     <string name="supported_keyboard_row_modes_title">Modalità di campo immissione specializzate abilitate</string>
     <string name="supported_keyboard_row_modes_summary">Scegli righe di campo immissione specializzato (come password, URL, ecc.) da usare.</string>
     <string name="tweak_dictionary_group">Modifiche del dizionario</string>
-    
     <string name="show_keyboard_name_text">Mostra nome della tastiera</string>
     <string name="show_keyboard_name_on_summary">Mostra nome della tastiera sulla barra spaziatrice</string>
     <string name="show_keyboard_name_off_summary">Non mostrare mai il nome della tastiera</string>
@@ -412,7 +411,7 @@
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
-    <string name="label_next_key">Avanti &gt;</string>
+    <string name="label_next_key">Avanti ></string>
     <string name="label_previous_key">&lt; Indietro</string>
     <string name="label_send_key">Invia</string>
     <string name="label_search_key">Cerca</string>

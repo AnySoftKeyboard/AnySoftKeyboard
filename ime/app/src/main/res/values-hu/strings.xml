@@ -262,7 +262,6 @@
         jelszó, URL, stb.).
     </string>
     <string name="tweak_dictionary_group">Szótár finombeállítások</string>
-    
     <string name="show_keyboard_name_text">Mutassa a billentyűzet nevét</string>
     <string name="show_keyboard_name_on_summary">Mutassa a billentyűzet nevét a szóközön</string>
     <string name="show_keyboard_name_off_summary">Ne mutassa soha a billentyűzet nevét</string>

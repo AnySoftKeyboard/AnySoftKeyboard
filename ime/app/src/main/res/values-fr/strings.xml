@@ -248,7 +248,6 @@
     <string name="supported_keyboard_row_modes_title">Modes de champ de saisie spécialisé activés</string>
     <string name="supported_keyboard_row_modes_summary">Rangées de champ de saisie spécialisé (comme mot de passe, URL, etc.) à utiliser</string>
     <string name="tweak_dictionary_group">Réglages du dictionnaire</string>
-    
     <string name="show_keyboard_name_text">Afficher le nom du clavier</string>
     <string name="show_keyboard_name_on_summary">Afficher le nom du clavier sur la barre d\'espace</string>
     <string name="show_keyboard_name_off_summary">Ne jamais afficher le nom du clavier</string>

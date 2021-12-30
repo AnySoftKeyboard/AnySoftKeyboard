@@ -251,7 +251,6 @@
         كلمة المرور، URL، إلخ.) صفوف لاستخدامها
     </string>
     <string name="tweak_dictionary_group">تحسينات القاموس</string>
-    
     <string name="show_keyboard_name_text">إظهر إسم لوحة المفاتيح</string>
     <string name="show_keyboard_name_on_summary">اظهر اسم لوحة المفاتيح على مفتاح المسافة</string>
     <string name="show_keyboard_name_off_summary">لا تظهر اسم لوحة المفاتيح ابدا </string>
