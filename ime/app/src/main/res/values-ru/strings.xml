@@ -248,7 +248,6 @@
     <string name="supported_keyboard_row_modes_title">Включённые специализированные режимы поля ввода</string>
     <string name="supported_keyboard_row_modes_summary">Для использования выберите специализированные строчки поля ввода (такие как пароли, ссылки и т. д.).</string>
     <string name="tweak_dictionary_group">Настройки словарей</string>
-    
     <string name="show_keyboard_name_text">Показывать имя клавиатуры</string>
     <string name="show_keyboard_name_on_summary">Показывать название раскладки на клавише пробела</string>
     <string name="show_keyboard_name_off_summary">Никогда не показывать название раскладки клавиатуры</string>

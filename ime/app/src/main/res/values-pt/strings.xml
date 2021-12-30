@@ -267,7 +267,6 @@
         palavra-passe, URL, etc.).
     </string>
     <string name="tweak_dictionary_group">Ajustes do dicionário</string>
-    
     <string name="show_keyboard_name_text">Mostrar nome do teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar nome na barra de espaço</string>
     <string name="show_keyboard_name_off_summary">Não mostrar nome do teclado</string>

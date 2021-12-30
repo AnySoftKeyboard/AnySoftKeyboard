@@ -257,7 +257,6 @@ woordenlijst
         wachtwoord, URL, etc.) om te gebruiken.
     </string>
     <string name="tweak_dictionary_group">Woordenlijst aanpassingen</string>
-    
     <string name="show_keyboard_name_text">Toon toetsenbord naam</string>
     <string name="show_keyboard_name_on_summary">Toon toetsenbordnaam op spatiebalk</string>
     <string name="show_keyboard_name_off_summary">Toon toetsenbordnaam niet</string>

@@ -166,7 +166,6 @@
     <string name="tweak_ui_group">Vyladění grafiky</string>
     <string name="tweak_ux_group">Vyladění chování</string>
     <string name="tweak_dictionary_group">Vyladění slovníku</string>
-    
     <string name="show_keyboard_name_text">Název klávesnice</string>
     <string name="show_keyboard_name_on_summary">Zobrazit název klávesnice na mezerníku</string>
     <string name="show_keyboard_name_off_summary">Nikdy nezobrazovat název klávesnice</string>

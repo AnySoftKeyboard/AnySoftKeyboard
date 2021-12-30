@@ -250,7 +250,6 @@
     <string name="supported_keyboard_row_modes_title">Gaitu sarrera-eremu modu espezializatuak</string>
     <string name="supported_keyboard_row_modes_summary">Hautatu erabili beharreko espezializatutako sarrera-eremu errenkadak (pasahitzak, URLak eta abar).</string>
     <string name="tweak_dictionary_group">Hiztegiaren doikuntzak</string>
-    
     <string name="show_keyboard_name_text">Erakutsi teklatuaren izena</string>
     <string name="show_keyboard_name_on_summary">Erakutsi teklatuaren izena zuriune-barran</string>
     <string name="show_keyboard_name_off_summary">Ez erakutsi inoiz teklatuaren izena</string>

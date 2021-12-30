@@ -268,7 +268,6 @@
         hasła, adresy URL, itp.).
     </string>
     <string name="tweak_dictionary_group">Ulepszenia słownika</string>
-    
     <string name="show_keyboard_name_text">Pokaż nazwę klawiatury</string>
     <string name="show_keyboard_name_on_summary">Pokaż nazwę klawiatury na spacji</string>
     <string name="show_keyboard_name_off_summary">Nigdy nie pokazuj nazwy klawiatury</string>

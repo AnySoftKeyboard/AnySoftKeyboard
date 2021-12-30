@@ -249,7 +249,6 @@ Instalarla ahora desde Play Store.    </string>
     <string name="supported_keyboard_row_modes_title">Modos de texto especializado activos</string>
     <string name="supported_keyboard_row_modes_summary">Elegir las filas de campos de texto especializados, como contraseñas, enlaces web, etc.    </string>
     <string name="tweak_dictionary_group">Diccionario</string>
-    
     <string name="show_keyboard_name_text">Mostrar nombre del teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar el nombre del teclado en la barra espaciadora</string>
     <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre del teclado</string>
