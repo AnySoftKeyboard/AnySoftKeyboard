@@ -248,7 +248,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="supported_keyboard_row_modes_title">Özelleştirilmiş giriş alanı modları etkinleştirildi</string>
     <string name="supported_keyboard_row_modes_summary">Kullanılacak özelleştirilmiş giriş alanı (şifre, URL, vb. gibi) satırlarını seç.</string>
     <string name="tweak_dictionary_group">Sözlük ince ayarları</string>
-    <string name="settings_min_length_for_word_correction">Düzeltme için en az harf sayısı</string>
+    
     <string name="show_keyboard_name_text">Klavye adını göster</string>
     <string name="show_keyboard_name_on_summary">Boşluk tuşunda klavye adını göster</string>
     <string name="show_keyboard_name_off_summary">Klavye adını hiçbir zaman gösterme</string>

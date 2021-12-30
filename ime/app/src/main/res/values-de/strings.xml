@@ -248,7 +248,7 @@
     <string name="supported_keyboard_row_modes_title">Aktiviere spezielle Eingabefeldmodi</string>
     <string name="supported_keyboard_row_modes_summary">Wähle spezielle Eingabefelder (wie z. B. Passwort, URL, usw.), die genutzt werden sollen.</string>
     <string name="tweak_dictionary_group">Wörterbuch Feineinstellungen</string>
-    <string name="settings_min_length_for_word_correction">Mindestwortlänge für Korrektur</string>
+    
     <string name="show_keyboard_name_text">Tastaturnamen anzeigen</string>
     <string name="show_keyboard_name_on_summary">Tastaturname auf Leertaste anzeigen</string>
     <string name="show_keyboard_name_off_summary">Tastaturname nie anzeigen</string>

@@ -6,8 +6,7 @@ import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import java.util.List;
 
 public interface Suggest {
-    void setCorrectionMode(
-            boolean enabledSuggestions, int maxLengthDiff, int maxDistance, int minimumWorLength);
+    void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance);
 
     @VisibleForTesting
     boolean isSuggestionsEnabled();
@@ -41,9 +40,14 @@ public interface Suggest {
      *
      * @return list of suggestions.
      */
-    List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid);
+    List<CharSequence> getSuggestions(WordComposer wordComposer);
 
-    boolean hasMinimalCorrection();
+    /**
+     * Returns the index of the valid word from the last call to getSuggestions. In most cases, if
+     * the typed word is valid then the index is 0, if not and there is a close correction, then it
+     * will probably be 1. If nothing can be suggested the returned index will be -1;
+     */
+    int getLastValidSuggestionIndex();
 
     boolean isValidWord(CharSequence word);
 

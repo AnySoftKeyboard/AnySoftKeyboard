@@ -224,8 +224,7 @@ namespace nativeime {
                         mWord[depth] = c;
                         if (mInputLength == inputIndex + 1) {
                             if (terminal) {
-                                if (//INCLUDE_TYPED_WORD_IF_VALID ||
-                                        !sameAsTyped(mWord, depth + 1)) {
+                                if (INCLUDE_WORD_IF_VALID || !sameAsTyped(mWord, depth + 1)) {
                                     int finalFreq = freq * snr * addedWeight;
                                     if (mSkipPos < 0) finalFreq *= mFullWordMultiplier;
                                     addWord(mWord, depth + 1, finalFreq);

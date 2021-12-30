@@ -246,7 +246,7 @@
     <string name="supported_keyboard_row_modes_title">Modos habilitados de filas de entrada especializadas</string>
     <string name="supported_keyboard_row_modes_summary">Elegir las filas de entrada especializadas (como contraseña, URL, etc.) para usar.</string>
     <string name="tweak_dictionary_group">Ajustes de diccionario</string>
-    <string name="settings_min_length_for_word_correction">Longitud de palabra mínima para la corrección</string>
+    
     <string name="show_keyboard_name_text">Mostrar el nombre del teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar el nombre del teclado en la barra espaciadora</string>
     <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre del teclado</string>

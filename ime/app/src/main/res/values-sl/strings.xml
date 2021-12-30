@@ -188,7 +188,7 @@
     <string name="tweak_ui_group">Podr. nast. povezane z grafiko</string>
     <string name="tweak_ux_group">Podr. nast. povez. z vedenjem</string>
     <string name="tweak_dictionary_group">Podr. nast. povezane s slovarjem</string>
-    <string name="settings_min_length_for_word_correction">Najmanjša dolžina besede za popravek</string>
+    
     <string name="show_keyboard_name_text">Prikaži ime tipkovnice</string>
     <string name="show_keyboard_name_on_summary">Prikaži ime tipkovnice na preslednici</string>
     <string name="show_keyboard_name_off_summary">Nikoli ne prikaži imena tipkovnice</string>

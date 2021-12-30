@@ -266,8 +266,7 @@
         adgangskode, URL, osv.) som skal bruges.
     </string>
     <string name="tweak_dictionary_group">Ordbogstilpasninger</string>
-    <string name="settings_min_length_for_word_correction">Mindste ordlængde for rettelse
-    </string>
+    
     <string name="show_keyboard_name_text">Vis tastaturnavn</string>
     <string name="show_keyboard_name_on_summary">Vis tastaturnavn på mellemrumstasten</string>
     <string name="show_keyboard_name_off_summary">Vis aldrig tastaturnavn</string>

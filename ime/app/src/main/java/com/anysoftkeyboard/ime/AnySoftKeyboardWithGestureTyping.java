@@ -443,10 +443,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 mJustPerformedGesture = true;
 
                 if (gestureTypingPossibilities.size() > 1) {
-                    setSuggestions(gestureTypingPossibilities, true, true);
+                    setSuggestions(gestureTypingPossibilities, 0);
                 } else {
                     // clearing any suggestion shown
-                    setSuggestions(Collections.emptyList(), false, false);
+                    setSuggestions(Collections.emptyList(), -1);
                 }
 
                 ic.endBatchEdit();

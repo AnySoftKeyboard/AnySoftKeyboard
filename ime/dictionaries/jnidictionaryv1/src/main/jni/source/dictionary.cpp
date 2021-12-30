@@ -232,7 +232,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {
                         if (terminal) {
-                            if (!sameAsTyped(mWord, depth + 1)) {
+                            if (INCLUDE_WORD_IF_VALID || !sameAsTyped(mWord, depth + 1)) {
                                 int finalFreq = freq * snr * addedWeight;
                                 if (mSkipPos < 0) finalFreq *= mFullWordMultiplier;
                                 addWord(mWord, depth + 1, finalFreq);

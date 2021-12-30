@@ -253,7 +253,7 @@
     <string name="tweak_ui_group">Comportament gràfic</string>
     <string name="tweak_ux_group">Opcions de comportament</string>
     <string name="tweak_dictionary_group">Opcions del diccionari</string>
-    <string name="settings_min_length_for_word_correction">Longitud mínima per a la correcció</string>
+    
     <string name="show_keyboard_name_text">Mostra el nom del teclat</string>
     <string name="show_keyboard_name_on_summary">Mostra el nom del teclat a la barra d\'espai</string>
     <string name="show_keyboard_name_off_summary">No mostris mai el nom</string>

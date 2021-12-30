@@ -55,7 +55,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     private final boolean mIncludeTypedWord;
 
     protected BTreeDictionary(String dictionaryName, Context context) {
-        this(dictionaryName, context, false);
+        this(dictionaryName, context, true);
     }
 
     protected BTreeDictionary(String dictionaryName, Context context, boolean includeTypedWord) {

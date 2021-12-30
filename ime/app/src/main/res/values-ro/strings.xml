@@ -104,7 +104,7 @@
     <string name="tweak_ui_group">Trucuri grafice</string>
     <string name="tweak_ux_group">Trucuri de comportament</string>
     <string name="tweak_dictionary_group">Trucuri dicționar</string>
-    <string name="settings_min_length_for_word_correction">Lungimea minimă a cuvântului pentru corectare</string>
+    
     <string name="show_keyboard_name_text">Afișează numele tastaturii</string>
     <string-array name="custom_hint_align_types">
         <item>Stânga</item>

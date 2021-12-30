@@ -253,7 +253,7 @@
     <string name="supported_keyboard_row_modes_title">Abìlita modadalidades de insertadura de campos personalizadas</string>
     <string name="supported_keyboard_row_modes_summary">Issèbera sos campos personalizados (comente crae, URL etc.) de impreare.</string>
     <string name="tweak_dictionary_group">Megiorias pro su ditzionàriu</string>
-    <string name="settings_min_length_for_word_correction">Longària mìnima de sa paràula pro sa curretzione</string>
+    
     <string name="show_keyboard_name_text">Ammustra su nùmene de sa tastiera</string>
     <string name="show_keyboard_name_on_summary">Ammustra su nùmene de sa tastiera in sa barra de ispàtziu</string>
     <string name="show_keyboard_name_off_summary">No ammustres mai su nùmene de sa tastiera</string>

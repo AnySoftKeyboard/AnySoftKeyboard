@@ -268,8 +268,7 @@
         şîfre, URL û hwd.) rêzên ji bo bikaranînê.
     </string>
     <string name="tweak_dictionary_group">Rastkirina ferhengê</string>
-    <string name="settings_min_length_for_word_correction">Kêmtirîn dirêjiya peyvan ji bo sererastkirinê
-    </string>
+    
     <string name="show_keyboard_name_text">Navê klavyeyê nîşande</string>
     <string name="show_keyboard_name_on_summary">Di dareke vala de navê klavyeyê nîşan bide</string>
     <string name="show_keyboard_name_off_summary">Navê klavyeyê qet nîşan nede</string>

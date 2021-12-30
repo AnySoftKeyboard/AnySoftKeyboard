@@ -255,7 +255,7 @@
         senha, URL, etc.).
     </string>
     <string name="tweak_dictionary_group">Ajustes do dicionário</string>
-    <string name="settings_min_length_for_word_correction">Comprimento mínimo da palavra para correção</string>
+    
     <string name="show_keyboard_name_text">Mostrar o nome do teclado</string>
     <string name="show_keyboard_name_on_summary">Mostra o nome do teclado na barra de espaço</string>
     <string name="show_keyboard_name_off_summary">Não mostra o nome do teclado</string>
