@@ -89,6 +89,108 @@ public class SuggestTest {
     }
 
     @Test
+    public void testDoesNotSuggestFixWhenLengthIsOne() {
+        mUnderTest.setCorrectionMode(true, 1, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "he".toCharArray(), 0, 2, 23, Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        typeWord(wordComposer, "h");
+        List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("h", suggestions.get(0).toString());
+        Assert.assertEquals("he", suggestions.get(1).toString());
+        Assert.assertEquals(-1, mUnderTest.getLastValidSuggestionIndex());
+
+        typeWord(wordComposer, "e");
+        suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(1, suggestions.size());
+        Assert.assertEquals("he", suggestions.get(0).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testPrefersValidTypedToSuggestedFix() {
+        mUnderTest.setCorrectionMode(true, 1, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "works".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "Works".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        typeWord(wordComposer, "works");
+        List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("works", suggestions.get(0).toString());
+        Assert.assertEquals("Works", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "Works".toCharArray(),
+                                    0,
+                                    5,
+                                    50,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "works".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+        suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("works", suggestions.get(0).toString());
+        Assert.assertEquals("Works", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+
+        wordComposer.reset();
+        typeWord(wordComposer, "Works");
+        suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("Works", suggestions.get(0).toString());
+        Assert.assertEquals("works", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+
+        wordComposer.reset();
+        typeWord(wordComposer, "eorks");
+        suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(3, suggestions.size());
+        Assert.assertEquals("eorks", suggestions.get(0).toString());
+        Assert.assertEquals("Works", suggestions.get(1).toString());
+        Assert.assertEquals("works", suggestions.get(2).toString());
+        Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
     public void testNeverQueriesWhenSuggestionsOff() {
         mUnderTest.setCorrectionMode(false, 5, 2);
         WordComposer wordComposer = new WordComposer();
@@ -206,6 +308,12 @@ public class SuggestTest {
                             final Dictionary.WordCallback callback = invocation.getArgument(1);
                             callback.addWord(
                                     "hate".toCharArray(), 0, 4, 23, Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "gate".toCharArray(), 0, 4, 25, Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "bate".toCharArray(), 0, 4, 20, Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "date".toCharArray(), 0, 4, 50, Mockito.mock(Dictionary.class));
                             return null;
                         })
                 .when(mProvider)
@@ -214,9 +322,12 @@ public class SuggestTest {
         typeWord(wordComposer, "hat");
         final InOrder inOrder = Mockito.inOrder(mProvider);
         final List<CharSequence> suggestions1 = mUnderTest.getSuggestions(wordComposer);
-        Assert.assertEquals(2, suggestions1.size());
+        Assert.assertEquals(5, suggestions1.size());
         Assert.assertEquals("hat", suggestions1.get(0).toString());
-        Assert.assertEquals("hate", suggestions1.get(1).toString());
+        Assert.assertEquals("date", suggestions1.get(1).toString());
+        Assert.assertEquals("gate", suggestions1.get(2).toString());
+        Assert.assertEquals("hate", suggestions1.get(3).toString());
+        Assert.assertEquals("bate", suggestions1.get(4).toString());
         // ensuring abbr are called first, so the max-suggestions will not hide the exploded abbr.
         inOrder.verify(mProvider).getAbbreviations(Mockito.same(wordComposer), Mockito.any());
         inOrder.verify(mProvider).getSuggestions(Mockito.same(wordComposer), Mockito.any());
@@ -226,9 +337,12 @@ public class SuggestTest {
         // hate should be converted to love
         typeWord(wordComposer, "e");
         final List<CharSequence> suggestions2 = mUnderTest.getSuggestions(wordComposer);
-        Assert.assertEquals(2, suggestions2.size());
+        Assert.assertEquals(5, suggestions2.size());
         Assert.assertEquals("hate", suggestions2.get(0).toString());
         Assert.assertEquals("love", suggestions2.get(1).toString());
+        Assert.assertEquals("date", suggestions2.get(2).toString());
+        Assert.assertEquals("gate", suggestions2.get(3).toString());
+        Assert.assertEquals("bate", suggestions2.get(4).toString());
         inOrder.verify(mProvider).getAbbreviations(Mockito.same(wordComposer), Mockito.any());
         inOrder.verify(mProvider).getSuggestions(Mockito.same(wordComposer), Mockito.any());
         // suggestion "love" as a correction (abbr)
@@ -275,5 +389,137 @@ public class SuggestTest {
         Assert.assertEquals(
                 -1 /*ill is not a valid word in the test*/,
                 mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testCorrectlyPrioritizeFixes_1() {
+        mUnderTest.setCorrectionMode(true, 5, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "Jello".toCharArray(),
+                                    0,
+                                    5,
+                                    24,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "hello".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        // since we asked for 2 minimum-length, the first letter will not be queried
+        typeWord(wordComposer, "hello");
+        final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("hello", suggestions.get(0).toString());
+        Assert.assertEquals("Jello", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testCorrectlyPrioritizeFixes_2() {
+        mUnderTest.setCorrectionMode(true, 5, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "Jello".toCharArray(),
+                                    0,
+                                    5,
+                                    22,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "hello".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        // since we asked for 2 minimum-length, the first letter will not be queried
+        typeWord(wordComposer, "hello");
+        final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("hello", suggestions.get(0).toString());
+        Assert.assertEquals("Jello", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testCorrectlyPrioritizeFixes_3() {
+        mUnderTest.setCorrectionMode(true, 5, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "hello".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "Jello".toCharArray(),
+                                    0,
+                                    5,
+                                    22,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        // since we asked for 2 minimum-length, the first letter will not be queried
+        typeWord(wordComposer, "hello");
+        final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("hello", suggestions.get(0).toString());
+        Assert.assertEquals("Jello", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testCorrectlyPrioritizeFixes_4() {
+        mUnderTest.setCorrectionMode(true, 5, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "hello".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "Jello".toCharArray(),
+                                    0,
+                                    5,
+                                    24,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        // since we asked for 2 minimum-length, the first letter will not be queried
+        typeWord(wordComposer, "hello");
+        final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("hello", suggestions.get(0).toString());
+        Assert.assertEquals("Jello", suggestions.get(1).toString());
+        Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
     }
 }

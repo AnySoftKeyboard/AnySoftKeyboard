@@ -39,6 +39,7 @@ public class SuggestImpl implements Suggest {
     private static final String TAG = "ASKSuggest";
     private static final int ABBREVIATION_TEXT_FREQUENCY = Integer.MAX_VALUE - 10;
     private static final int AUTO_TEXT_FREQUENCY = Integer.MAX_VALUE - 20;
+    private static final int VALID_TYPED_WORD_FREQUENCY = Integer.MAX_VALUE - 25;
     private static final int FIXED_TYPED_WORD_FREQUENCY = Integer.MAX_VALUE - 30;
     private static final int TYPED_WORD_FREQUENCY = Integer.MAX_VALUE; // always the first
     @NonNull private final SuggestionsProvider mSuggestionsProvider;
@@ -55,6 +56,7 @@ public class SuggestImpl implements Suggest {
     @NonNull private int[] mPriorities = new int[mPrefMaxSuggestions];
     private int mCorrectSuggestionIndex = -1;
     @NonNull private String mLowerOriginalWord = "";
+    @NonNull private String mTypedOriginalWord = "";
     private boolean mIsFirstCharCapitalized;
     private boolean mIsAllUpperCase;
     private int mCommonalityMaxLengthDiff = 1;
@@ -209,14 +211,11 @@ public class SuggestImpl implements Suggest {
         Arrays.fill(mPriorities, 0);
 
         // Save a lowercase version of the original word
-        CharSequence originalWord = wordComposer.getTypedWord();
-        if (originalWord.length() > 0) {
-            // disconnecting from its source (could be a StringBuilder)
-            originalWord = originalWord.toString();
-            mLowerOriginalWord = ((String) originalWord).toLowerCase(mLocale);
+        mTypedOriginalWord = wordComposer.getTypedWord().toString();
+        if (mTypedOriginalWord.length() > 0) {
+            mLowerOriginalWord = mTypedOriginalWord.toLowerCase(mLocale);
         } else {
             mLowerOriginalWord = "";
-            originalWord = "";
         }
 
         if (wordComposer.isAtTagsSearchState() && mTagsSearcher.isEnabled()) {
@@ -224,7 +223,7 @@ public class SuggestImpl implements Suggest {
             return mTagsSearcher.getOutputForTag(typedTagToSearch, wordComposer);
         }
 
-        mSuggestions.add(0, originalWord);
+        mSuggestions.add(0, mTypedOriginalWord);
         mPriorities[0] = TYPED_WORD_FREQUENCY;
 
         // searching dictionaries by priority order:
@@ -245,17 +244,11 @@ public class SuggestImpl implements Suggest {
         for (CharSequence nextWordSuggestion : mNextSuggestions) {
             if (nextWordSuggestion.length() >= typedWordLength
                     && TextUtils.equals(
-                            nextWordSuggestion.subSequence(0, typedWordLength), originalWord)) {
+                            nextWordSuggestion.subSequence(0, typedWordLength),
+                            mTypedOriginalWord)) {
                 mSuggestions.add(nextWordInsertionIndex, nextWordSuggestion);
                 // next next-word will have lower usage, so it should be added after this one.
                 nextWordInsertionIndex++;
-            }
-        }
-        // the easy case where the typed word is exactly as the fix-suggestion word
-        if (mCorrectSuggestionIndex > 0) {
-            if (TextUtils.equals(mSuggestions.get(0), mSuggestions.get(mCorrectSuggestionIndex))) {
-                mSuggestions.remove(mCorrectSuggestionIndex);
-                mCorrectSuggestionIndex = 0;
             }
         }
 
@@ -368,13 +361,19 @@ public class SuggestImpl implements Suggest {
         @Override
         public boolean addWord(
                 char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
-            // Check if it's the same word, only caps are different
+            // Check if it's the same word
             if (compareCaseInsensitive(mLowerOriginalWord, word, wordOffset, wordLength)) {
-                // this is the same word as the typed, may vary by caps.
-                // we want to make sure it is the first
                 frequency = FIXED_TYPED_WORD_FREQUENCY;
             }
-            return mBasicWordCallback.addWord(word, wordOffset, wordLength, frequency, from);
+
+            // we are not allowing the main dictionary to suggest fixes for 1 length words
+            // (think just the alphabet letter)
+            final boolean resetSuggestionsFix =
+                    mLowerOriginalWord.length() < 2 && mCorrectSuggestionIndex == -1;
+            final boolean addWord =
+                    mBasicWordCallback.addWord(word, wordOffset, wordLength, frequency, from);
+            if (resetSuggestionsFix) mCorrectSuggestionIndex = -1;
+            return addWord;
         }
     }
 
@@ -390,34 +389,40 @@ public class SuggestImpl implements Suggest {
             final int[] priorities = mPriorities;
             final int prefMaxSuggestions = mPrefMaxSuggestions;
 
-            // Check the last one's priority and bail
-            if (priorities[prefMaxSuggestions - 1] >= frequency) return true;
-            // looking for the ordered position to insert the new word
-            while (pos < prefMaxSuggestions) {
-                if (priorities[pos] < frequency
-                        || (priorities[pos] == frequency
-                                && wordLength < mSuggestions.get(pos).length())) {
-                    break;
-                }
-                pos++;
-            }
-
-            if (pos >= prefMaxSuggestions) {
-                // we reached a position which is outside the max, we'll skip
-                // this word and ask for more (maybe next one will have higher frequency)
-                return true;
-            }
-            System.arraycopy(priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
-            priorities[pos] = frequency;
             StringBuilder sb = getStringBuilderFromPool(word, wordOffset, wordLength);
-            mSuggestions.add(pos, sb);
 
+            if (!TextUtils.equals(mTypedOriginalWord, sb)) {
+                // Check the last one's priority and bail
+                if (priorities[prefMaxSuggestions - 1] >= frequency) return true;
+                // looking for the ordered position to insert the new word
+                while (pos < prefMaxSuggestions) {
+                    if (priorities[pos] < frequency
+                            || (priorities[pos] == frequency
+                                    && wordLength < mSuggestions.get(pos).length())) {
+                        break;
+                    }
+                    pos++;
+                }
+
+                if (pos >= prefMaxSuggestions) {
+                    // we reached a position which is outside the max, we'll skip
+                    // this word and ask for more (maybe next one will have higher frequency)
+                    return true;
+                }
+
+                System.arraycopy(
+                        priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
+                mSuggestions.add(pos, sb);
+                priorities[pos] = frequency;
+            } else {
+                frequency = VALID_TYPED_WORD_FREQUENCY;
+            }
             // should we mark this as a possible suggestion fix?
             if (frequency >= FIXED_TYPED_WORD_FREQUENCY
                     || haveSufficientCommonality(mLowerOriginalWord, sb)) {
                 // this a suggestion that can be a fix
                 if (mCorrectSuggestionIndex < 0
-                        || mPriorities[mCorrectSuggestionIndex] < frequency) {
+                        || priorities[mCorrectSuggestionIndex] < frequency) {
                     mCorrectSuggestionIndex = pos;
                 }
             }
