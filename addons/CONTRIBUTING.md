@@ -31,6 +31,9 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
     * replace name and description
     * replace the locale
 1. Set the status-bar icon text at `klingon/pack/build.gradle`: `ext.status_icon_text = "kl"`
+1. Set the publish values in `klingon/apk/build.gradle`:
+  - `ext.shouldBePublished = false`
+  - `ext.notPublishingReason = "Initial version has not been published yet"`
 1. Replace the flag at `klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
 1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
 1. Generate the icons: `./gradlew :addons:languages:klingon:pack:generateLanguagePackIcons :addons:languages:klingon:apk:generateStoreLogoIcon`. This will generate the following files (which _should_ be checked into the repo):
