@@ -25,7 +25,7 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.List;
 
@@ -50,7 +50,7 @@ public interface DeviceSpecific {
             @Nullable String keyboardLocale,
             @NonNull CharSequence keyboardId);
 
-    ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary);
+    ContentObserver createDictionaryContentObserver(@NonNull ContentObserverDictionary dictionary);
 
     Clipboard createClipboard(@NonNull Context applicationContext);
 

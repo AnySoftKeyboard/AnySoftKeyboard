@@ -19,6 +19,13 @@
         <property name="message" value="Do not use this. Use only official icons." />
     </module>
 
+    <module name="RegexpSingleline">
+        <property name="id" value="DoNotRegisterContentObserverDirectly" />
+        <property name="format" value="registerContentObserver" />
+        <property name="fileExtensions" value="java" />
+        <property name="message" value="Do not use this. Use RX copper for ContentObserver." />
+    </module>
+
     <module name="RegexpOnFilename">
         <property name="match" value="true"/>
         <property name="fileNamePattern" value="^beta\.txt$"/>

@@ -20,8 +20,8 @@ import android.annotation.TargetApi;
 import android.database.ContentObserver;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
+import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
+import com.anysoftkeyboard.dictionaries.content.DictionaryContentObserverAPI16;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class DeviceSpecificV16 extends DeviceSpecificV15 {
@@ -31,7 +31,8 @@ public class DeviceSpecificV16 extends DeviceSpecificV15 {
     }
 
     @Override
-    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
+    public ContentObserver createDictionaryContentObserver(
+            @NonNull ContentObserverDictionary dictionary) {
         return new DictionaryContentObserverAPI16(dictionary);
     }
 }

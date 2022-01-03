@@ -112,7 +112,6 @@ dependencies {
     implementation "androidx.preference:preference:$androidxPreference"
     implementation "com.google.android.material:material:$androidxMaterial"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
-    implementation 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation "androidx.autofill:autofill:1.1.0"
 

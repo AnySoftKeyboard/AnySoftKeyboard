@@ -31,8 +31,8 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
+import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
+import com.anysoftkeyboard.dictionaries.content.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +97,8 @@ public class DeviceSpecificV15 implements DeviceSpecific {
     }
 
     @Override
-    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
+    public ContentObserver createDictionaryContentObserver(
+            @NonNull ContentObserverDictionary dictionary) {
         return new DictionaryContentObserver(dictionary);
     }
 

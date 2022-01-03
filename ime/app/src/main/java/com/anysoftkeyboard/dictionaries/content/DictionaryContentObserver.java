@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.dictionaries;
+package com.anysoftkeyboard.dictionaries.content;
 
 import android.database.ContentObserver;
 import android.os.Handler;
@@ -25,16 +25,16 @@ import java.lang.ref.WeakReference;
 public class DictionaryContentObserver extends ContentObserver {
 
     private static final String TAG = "DictContentObserver";
-    private final WeakReference<BTreeDictionary> mDictionary;
+    private final WeakReference<ContentObserverDictionary> mDictionary;
 
-    public DictionaryContentObserver(BTreeDictionary dictionary) {
+    public DictionaryContentObserver(ContentObserverDictionary dictionary) {
         super(new Handler(Looper.getMainLooper()));
         mDictionary = new WeakReference<>(dictionary);
     }
 
     @Override
     public void onChange(boolean self) {
-        BTreeDictionary dictionary = mDictionary.get();
+        ContentObserverDictionary dictionary = mDictionary.get();
         if (dictionary == null) return;
         if (self) {
             Logger.i(TAG, "I wont notify about self change.");

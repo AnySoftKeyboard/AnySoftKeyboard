@@ -1,8 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.ContentObserver;
 import java.lang.reflect.Field;
 
 public class TestableBTreeDictionary extends BTreeDictionary {
@@ -25,11 +23,11 @@ public class TestableBTreeDictionary extends BTreeDictionary {
     public int wordFrequencyRequestedToAddedToStorage = -1;
     public boolean storageIsClosed = false;
 
-    private Field mRootsField;
+    private final Field mRootsField;
 
-    TestableBTreeDictionary(String dictionaryName, Context context, boolean inclueTypedWord)
+    TestableBTreeDictionary(String dictionaryName, Context context, boolean includeTypedWord)
             throws NoSuchFieldException {
-        super(dictionaryName, context, inclueTypedWord);
+        super(dictionaryName, context, includeTypedWord);
         mRootsField = BTreeDictionary.class.getDeclaredField("mRoots");
         mRootsField.setAccessible(true);
     }
@@ -46,10 +44,6 @@ public class TestableBTreeDictionary extends BTreeDictionary {
     protected void deleteWordFromStorage(String word) {
         wordRequestedToBeDeletedFromStorage = word;
     }
-
-    @Override
-    protected void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {}
 
     @Override
     protected void readWordsFromActualStorage(WordReadListener listener) {

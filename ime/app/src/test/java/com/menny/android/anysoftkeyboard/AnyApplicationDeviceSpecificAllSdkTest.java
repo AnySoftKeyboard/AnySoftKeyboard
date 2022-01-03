@@ -28,9 +28,9 @@ import com.anysoftkeyboard.devicespecific.PressVibrator;
 import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.devicespecific.PressVibratorV26;
 import com.anysoftkeyboard.devicespecific.PressVibratorV29;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
+import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
+import com.anysoftkeyboard.dictionaries.content.DictionaryContentObserver;
+import com.anysoftkeyboard.dictionaries.content.DictionaryContentObserverAPI16;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
@@ -231,7 +231,8 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
         Assert.assertSame(mExpectedClipboardClass.get(Build.VERSION.SDK_INT), clipboard.getClass());
 
         final ContentObserver dictionaryContentObserver =
-                deviceSpecific.createDictionaryContentObserver(Mockito.mock(BTreeDictionary.class));
+                deviceSpecific.createDictionaryContentObserver(
+                        Mockito.mock(ContentObserverDictionary.class));
         Assert.assertNotNull(dictionaryContentObserver);
         Assert.assertSame(
                 mExpectedDictionaryObserverClass.get(Build.VERSION.SDK_INT),

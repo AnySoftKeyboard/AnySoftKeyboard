@@ -8,4 +8,6 @@ dependencies {
 
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
     api 'io.reactivex.rxjava2:rxjava:2.2.21'
+    api 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
+    api 'app.cash.copper:copper-rx2:1.0.0'
 }

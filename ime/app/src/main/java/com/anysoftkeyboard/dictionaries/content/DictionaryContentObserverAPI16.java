@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.dictionaries;
+package com.anysoftkeyboard.dictionaries.content;
 
 import android.net.Uri;
 
 public class DictionaryContentObserverAPI16 extends DictionaryContentObserver {
-    public DictionaryContentObserverAPI16(BTreeDictionary dictionary) {
+    public DictionaryContentObserverAPI16(ContentObserverDictionary dictionary) {
         super(dictionary);
     }
 

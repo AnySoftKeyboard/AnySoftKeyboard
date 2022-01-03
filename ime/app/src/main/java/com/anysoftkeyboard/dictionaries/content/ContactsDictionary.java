@@ -30,7 +30,6 @@ import androidx.collection.ArrayMap;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -41,7 +40,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ContactsDictionary extends BTreeDictionary implements NextWordSuggestions {
+public class ContactsDictionary extends ContentObserverDictionary implements NextWordSuggestions {
 
     protected static final String TAG = "ASKContactsDict";
     /** A contact is a valid word in a language, and it usually very frequent. */

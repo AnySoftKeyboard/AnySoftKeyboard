@@ -1,8 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.ContentObserver;
 import androidx.core.util.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,10 +29,6 @@ public class InMemoryDictionary extends BTreeDictionary {
     protected void deleteWordFromStorage(String word) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    protected void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {}
 
     @Override
     protected void addWordToStorage(String word, int frequency) {
