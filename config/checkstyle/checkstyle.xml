@@ -23,7 +23,7 @@
         <property name="id" value="DoNotRegisterContentObserverDirectly" />
         <property name="format" value="registerContentObserver" />
         <property name="fileExtensions" value="java" />
-        <property name="message" value="Do not use this. Use RX copper for ContentObserver." />
+        <property name="message" value="Do not use registerContentObserver/unregisterContentObserver. Use RxContentResolver instead." />
     </module>
 
     <module name="RegexpOnFilename">

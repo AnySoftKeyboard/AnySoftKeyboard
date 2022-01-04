@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.content.Context;
-import android.database.ContentObserver;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.view.GestureDetector;
@@ -25,7 +24,6 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.List;
 
@@ -49,8 +47,6 @@ public interface DeviceSpecific {
             @NonNull IBinder token,
             @Nullable String keyboardLocale,
             @NonNull CharSequence keyboardId);
-
-    ContentObserver createDictionaryContentObserver(@NonNull ContentObserverDictionary dictionary);
 
     Clipboard createClipboard(@NonNull Context applicationContext);
 

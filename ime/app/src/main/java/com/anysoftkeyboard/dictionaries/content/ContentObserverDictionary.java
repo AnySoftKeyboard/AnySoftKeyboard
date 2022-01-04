@@ -1,52 +1,61 @@
 package com.anysoftkeyboard.dictionaries.content;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.ContentObserver;
+import android.net.Uri;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import app.cash.copper.rx2.RxContentResolver;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
 public abstract class ContentObserverDictionary extends BTreeDictionary {
 
-    @NonNull private Disposable mDictionaryChangedLoader = Disposables.empty();
-    private ContentObserver mObserver = null;
+    @Nullable private final Uri mDictionaryChangedUri;
+    @NonNull private Disposable mDictionaryReLoaderDisposable = Disposables.empty();
+    @NonNull private Disposable mDictionaryChangedDisposable = Disposables.disposed();
 
-    protected ContentObserverDictionary(String dictionaryName, Context context) {
+    protected ContentObserverDictionary(
+            String dictionaryName, Context context, @Nullable Uri dictionaryChangedUri) {
         super(dictionaryName, context);
+        mDictionaryChangedUri = dictionaryChangedUri;
     }
-
-    protected abstract void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver);
 
     @Override
     protected void loadAllResources() {
         super.loadAllResources();
 
-        if (!isClosed() && mObserver == null) {
-            mObserver = AnyApplication.getDeviceSpecific().createDictionaryContentObserver(this);
-            registerObserver(mObserver, mContext.getContentResolver());
+        if (mDictionaryChangedUri != null && mDictionaryChangedDisposable.isDisposed()) {
+            mDictionaryChangedDisposable =
+                    RxContentResolver.observeQuery(
+                                    mContext.getContentResolver(),
+                                    mDictionaryChangedUri,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true,
+                                    RxSchedulers.background())
+                            .subscribeOn(RxSchedulers.background())
+                            .observeOn(RxSchedulers.mainThread())
+                            .forEach(query -> onStorageChanged());
         }
     }
 
     void onStorageChanged() {
         if (isClosed()) return;
         resetDictionary();
-        mDictionaryChangedLoader.dispose();
-        mDictionaryChangedLoader = DictionaryBackgroundLoader.reloadDictionaryInBackground(this);
+        mDictionaryReLoaderDisposable.dispose();
+        mDictionaryReLoaderDisposable =
+                DictionaryBackgroundLoader.reloadDictionaryInBackground(this);
     }
 
     @Override
     protected void closeAllResources() {
         super.closeAllResources();
-        mDictionaryChangedLoader.dispose();
-
-        if (mObserver != null) {
-            mContext.getContentResolver().unregisterContentObserver(mObserver);
-            mObserver = null;
-        }
+        mDictionaryReLoaderDisposable.dispose();
+        mDictionaryChangedDisposable.dispose();
     }
 }

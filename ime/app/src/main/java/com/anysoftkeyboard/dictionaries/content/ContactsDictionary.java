@@ -18,11 +18,9 @@ package com.anysoftkeyboard.dictionaries.content;
 
 import android.Manifest;
 import android.app.PendingIntent;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
 import androidx.annotation.NonNull;
@@ -56,14 +54,7 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
     private final Map<String, Map<String, NextWord>> mLoadingPhaseNextNames = new ArrayMap<>();
 
     public ContactsDictionary(Context context) {
-        super("ContactsDictionary", context);
-    }
-
-    @Override
-    protected void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
-        contentResolver.registerContentObserver(
-                Contacts.CONTENT_URI, true, dictionaryContentObserver);
+        super("ContactsDictionary", context, Contacts.CONTENT_URI);
     }
 
     @Override
@@ -98,7 +89,8 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
             // showing a notification, so the user's flow will not be interrupted.
             final int requestCode = 456451;
             PendingIntent pendingIntent =
-                    PendingIntent.getActivity(mContext, requestCode, intent, 0);
+                    PendingIntent.getActivity(
+                            mContext, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(mContext, "Permissions");
             builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));

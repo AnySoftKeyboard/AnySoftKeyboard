@@ -15,6 +15,7 @@ import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
 import java.util.Collection;
 import java.util.Iterator;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,13 +28,15 @@ import org.robolectric.shadows.ShadowContentResolver;
 public class ContactsDictionaryTest {
     private ContactsDictionary mDictionaryUnderTest;
     private ContactsContentProvider mProvider;
+    private ContentProviderController<ContactsContentProvider> mProviderController;
 
     @Before
     public void setup() {
         setAllowContactsRead(true);
         // setting up some dummy contacts
         mProvider = new ContactsContentProvider();
-        ContentProviderController.of(mProvider).create(mProvider.getAuthority());
+        mProviderController = ContentProviderController.of(mProvider);
+        mProviderController.create(mProvider.getAuthority());
         mProvider.addRow(1, "Menny Even-Danan", true, 10);
         mProvider.addRow(2, "Jonathan With'In", false, 100);
         mProvider.addRow(3, "Erela Portugaly", true, 10);
@@ -44,6 +47,12 @@ public class ContactsDictionaryTest {
 
         mDictionaryUnderTest = new ContactsDictionary(getApplicationContext());
         mDictionaryUnderTest.loadDictionary();
+        TestRxSchedulers.drainAllTasks();
+    }
+
+    @After
+    public void tearDown() {
+        mProviderController.shutdown();
         TestRxSchedulers.drainAllTasks();
     }
 

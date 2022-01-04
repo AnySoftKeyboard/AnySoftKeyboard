@@ -18,7 +18,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.database.ContentObserver;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -31,8 +30,6 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
-import com.anysoftkeyboard.dictionaries.content.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,12 +91,6 @@ public class DeviceSpecificV15 implements DeviceSpecific {
         if (keyboardLocale != null)
             inputMethodManager.setInputMethodAndSubtype(
                     token, imeId, createSubtype(keyboardLocale, keyboardId));
-    }
-
-    @Override
-    public ContentObserver createDictionaryContentObserver(
-            @NonNull ContentObserverDictionary dictionary) {
-        return new DictionaryContentObserver(dictionary);
     }
 
     @Override
