@@ -5,8 +5,6 @@ import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggesti
 import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
 import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
 
-import android.content.ContentResolver;
-import android.database.ContentObserver;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
@@ -477,10 +475,6 @@ public class SuggestionsProviderTest {
 
         @Override
         protected void deleteWordFromStorage(String word) {}
-
-        @Override
-        protected void registerObserver(
-                ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {}
 
         @Override
         protected void addWordToStorage(String word, int frequency) {}

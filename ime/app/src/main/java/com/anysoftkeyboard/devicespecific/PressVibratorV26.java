@@ -49,7 +49,7 @@ public class PressVibratorV26 extends PressVibratorV1 {
     }
 
     @Override
-    public void setUseSystemVibration(boolean system) {
+    public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
         // not supported
     }
 

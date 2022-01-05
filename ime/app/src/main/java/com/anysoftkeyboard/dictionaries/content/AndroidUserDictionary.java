@@ -17,32 +17,28 @@
 package com.anysoftkeyboard.dictionaries.content;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
-public class AndroidUserDictionary extends BTreeDictionary {
+public class AndroidUserDictionary extends ContentObserverDictionary {
 
     private static final String[] PROJECTION = {Words._ID, Words.WORD, Words.FREQUENCY};
     private final String mLocale;
 
     public AndroidUserDictionary(Context context, String locale) {
-        super("AndroidUserDictionary", context);
-        mLocale = locale;
+        this(context, locale, Words.CONTENT_URI);
     }
 
-    @Override
-    protected void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
-        contentResolver.registerContentObserver(
-                Words.CONTENT_URI, false, dictionaryContentObserver);
+    protected AndroidUserDictionary(Context context, String locale, @Nullable Uri changeUri) {
+        super("AndroidUserDictionary", context, changeUri);
+        mLocale = locale;
     }
 
     @Override
@@ -102,6 +98,7 @@ public class AndroidUserDictionary extends BTreeDictionary {
                 .delete(Words.CONTENT_URI, Words.WORD + "=?", new String[] {word});
     }
 
+    @NonNull
     @Override
     public String toString() {
         return mLocale + "@" + super.toString();

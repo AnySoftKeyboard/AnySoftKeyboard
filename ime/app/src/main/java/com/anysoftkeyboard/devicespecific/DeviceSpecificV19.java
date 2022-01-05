@@ -22,7 +22,7 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputMethodSubtype;
 
 @TargetApi(19)
-public class DeviceSpecificV19 extends DeviceSpecificV16 {
+public class DeviceSpecificV19 extends DeviceSpecificV15 {
     @Override
     public String getApiLevel() {
         return "DeviceSpecificV19";

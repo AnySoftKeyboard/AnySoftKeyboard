@@ -11,6 +11,7 @@ import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
 import java.util.Collection;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,17 +24,26 @@ import org.robolectric.shadows.ShadowContentResolver;
 public class AndroidUserDictionaryTest {
 
     private AUDContentProvider mProvider;
+    private ContentProviderController<AUDContentProvider> mProviderController;
 
     @Before
     public void setup() {
         mProvider = new AUDContentProvider();
-        ContentProviderController.of(mProvider).create(mProvider.getAuthority());
+        mProviderController = ContentProviderController.of(mProvider);
+        mProviderController.create(mProvider.getAuthority());
         // setting up some dummy words
         mProvider.addRow(1, "Dude", 1, "en");
         mProvider.addRow(2, "Dudess", 2, "en");
         mProvider.addRow(3, "shalom", 10, "iw");
         mProvider.addRow(4, "telephone", 2, "iw");
         mProvider.addRow(5, "catchall", 5, null);
+        TestRxSchedulers.drainAllTasks();
+    }
+
+    @After
+    public void tearDown() {
+        mProviderController.shutdown();
+        TestRxSchedulers.drainAllTasks();
     }
 
     @Test
@@ -80,7 +90,6 @@ public class AndroidUserDictionaryTest {
 
         Assert.assertFalse(dictionary.isValidWord("Dudesss"));
         mProvider.addRow(15, "Dudesss", 1, "en");
-        TestRxSchedulers.drainAllTasks();
 
         Assert.assertTrue(dictionary.isValidWord("Dudesss"));
 
@@ -124,6 +133,7 @@ public class AndroidUserDictionaryTest {
                 contentValues.put(Words.KEY_LOCALE, locale);
             }
             insert(UserDictionary.Words.CONTENT_URI, contentValues);
+            TestRxSchedulers.drainAllTasks();
         }
     }
 }

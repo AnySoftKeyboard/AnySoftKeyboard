@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ui.settings.setup;
 
-import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,9 +28,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import app.cash.copper.rx2.RxContentResolver;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import java.lang.ref.WeakReference;
 import net.evendanan.pixel.EdgeEffectHacker;
 
@@ -40,29 +43,31 @@ public class SetupWizardActivity extends AppCompatActivity {
     private static final int KEY_MESSAGE_SCROLL_TO_PAGE = 444;
     private static final int KEY_MESSAGE_UPDATE_FRAGMENTS = 446;
     private final Handler mUiHandler = new WizardHandler(this);
-    private final ContentObserver mSecureSettingsChanged =
-            new ContentObserver(null) {
-                @Override
-                public boolean deliverSelfNotifications() {
-                    return false;
-                }
-
-                @Override
-                public void onChange(boolean selfChange) {
-                    mUiHandler.removeMessages(KEY_MESSAGE_UPDATE_FRAGMENTS);
-                    mUiHandler.sendMessageDelayed(
-                            mUiHandler.obtainMessage(KEY_MESSAGE_UPDATE_FRAGMENTS), 50);
-                }
-            };
     private ViewPager mWizardPager;
     private boolean mReloadPager = false;
+    @NonNull private Disposable mSecureSettingsChangedDisposable = Disposables.empty();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_setup_main_ui);
-        getContentResolver()
-                .registerContentObserver(Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
+        mSecureSettingsChangedDisposable =
+                RxContentResolver.observeQuery(
+                                getContentResolver(),
+                                Settings.Secure.CONTENT_URI,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true)
+                        .observeOn(RxSchedulers.mainThread())
+                        .forEach(
+                                cursor -> {
+                                    mUiHandler.removeMessages(KEY_MESSAGE_UPDATE_FRAGMENTS);
+                                    mUiHandler.sendMessageDelayed(
+                                            mUiHandler.obtainMessage(KEY_MESSAGE_UPDATE_FRAGMENTS),
+                                            50);
+                                });
 
         FragmentPagerAdapter wizardPagesAdapter = createPagesAdapter();
         mWizardPager = findViewById(R.id.wizard_pages_pager);
@@ -132,7 +137,7 @@ public class SetupWizardActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
+        mSecureSettingsChangedDisposable.dispose();
     }
 
     private static class WizardHandler extends Handler {

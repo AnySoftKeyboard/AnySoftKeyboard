@@ -2,8 +2,6 @@ package com.anysoftkeyboard.dictionaries;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import android.content.ContentResolver;
-import android.database.ContentObserver;
 import androidx.core.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.ArrayList;
@@ -127,14 +125,6 @@ public class InMemoryDictionaryTest {
         Assert.assertEquals("AnySoftKeyboard", callback.capturedWords.get(0));
 
         Assert.assertEquals(1, callback.capturedWords.size());
-    }
-
-    @Test
-    public void testDoesNotRegisterToObserver() {
-        ContentResolver contentResolver = Mockito.mock(ContentResolver.class);
-        ContentObserver observer = Mockito.mock(ContentObserver.class);
-        mUnderTest.registerObserver(observer, contentResolver);
-        Mockito.verifyZeroInteractions(observer, contentResolver);
     }
 
     private static class MyWordCallback implements Dictionary.WordCallback {
