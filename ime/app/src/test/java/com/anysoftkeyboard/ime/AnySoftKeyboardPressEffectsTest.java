@@ -8,7 +8,9 @@ import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Looper;
 import android.os.VibrationEffect;
+import android.provider.Settings;
 import android.view.inputmethod.EditorInfo;
+import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ShadowAskAudioManager;
@@ -27,6 +29,7 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -42,6 +45,23 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
     @Override
     protected Class<? extends TestableAnySoftKeyboard> getServiceClass() {
         return TestableAnySoftKeyboardPressEffects.class;
+    }
+
+    @Before
+    public void setupSystemHaptic() {
+        setSystemWideHaptic(true);
+    }
+
+    private void setSystemWideHaptic(boolean enabled) {
+        Settings.System.putInt(
+                ApplicationProvider.getApplicationContext().getContentResolver(),
+                Settings.System.HAPTIC_FEEDBACK_ENABLED,
+                enabled ? 1 : 0);
+        Shadows.shadowOf(ApplicationProvider.getApplicationContext().getContentResolver())
+                .getContentObservers(
+                        Settings.System.getUriFor(Settings.System.HAPTIC_FEEDBACK_ENABLED))
+                .forEach(v -> v.onChange(false));
+        TestRxSchedulers.drainAllTasks();
     }
 
     @Test
@@ -297,7 +317,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_system_vibration, true);
         ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
         // demo
-        // milliseconds is set to -1 for prebaked effects and setPrefsValue calls
+        // milliseconds is set to -1 for pre-baked effects and setPrefsValue calls
         // foregroundFlushAllJobs, so the vibrator will already be finished vibrating
         // Assert.assertTrue(shadowVibrator.isVibrating());
         Assert.assertEquals(VibrationEffect.EFFECT_CLICK, shadowVibrator.getEffectId());
@@ -318,6 +338,44 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onLongPressDone(key);
         Assert.assertTrue(shadowVibrator.isVibrating());
         Assert.assertEquals(VibrationEffect.EFFECT_HEAVY_CLICK, shadowVibrator.getEffectId());
+    }
+
+    @Test
+    @Config(sdk = {29})
+    public void testSystemVibrateWhenSystemHapticTouchDisabled() {
+        TestRxSchedulers.foregroundFlushAllJobs();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_system_vibration, true);
+        ShadowVibrator shadowVibrator = Shadows.shadowOf(mAnySoftKeyboardUnderTest.getVibrator());
+        // demo
+        // milliseconds is set to -1 for pre-baked effects and setPrefsValue calls
+        // foregroundFlushAllJobs, so the vibrator will already be finished vibrating
+        // Assert.assertTrue(shadowVibrator.isVibrating());
+        Assert.assertEquals(VibrationEffect.EFFECT_CLICK, shadowVibrator.getEffectId());
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
+        Assert.assertTrue(shadowVibrator.isVibrating());
+        Assert.assertEquals(VibrationEffect.EFFECT_CLICK, shadowVibrator.getEffectId());
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        setSystemWideHaptic(false);
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
+        Assert.assertFalse(shadowVibrator.isVibrating());
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        setSystemWideHaptic(true);
+        Shadows.shadowOf(Looper.myLooper()).runToEndOfTasks();
+        Assert.assertFalse(shadowVibrator.isVibrating());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SPACE);
+        Assert.assertTrue(shadowVibrator.isVibrating());
+        Assert.assertEquals(VibrationEffect.EFFECT_CLICK, shadowVibrator.getEffectId());
     }
 
     @Test
@@ -590,4 +648,51 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
             super.onNewControllerOrInputView(mLastController, inputViewBinder);
         }
     }
+
+    /*
+       public static class FakeSystemSettingsContentProvider extends AbstractProvider {
+
+           @Override
+           public String getAuthority() {
+               return Settings.System.CONTENT_URI.getAuthority();
+           }
+
+           @Table
+           public static class System {
+               @Column(value = Column.FieldType.INTEGER, primaryKey = true)
+               public static final String KEY_ID = Settings.System._ID;
+               private static final int KEY_ID_VALUE = 1;
+
+               @Column(Column.FieldType.INTEGER)
+               public static final String HAPTIC_FEEDBACK_ENABLED = Settings.System.HAPTIC_FEEDBACK_ENABLED;
+           }
+
+           @Override
+           public boolean onCreate() {
+               final boolean create = super.onCreate();
+               ContentValues contentValues = new ContentValues();
+               contentValues.put(FakeSystemSettingsContentProvider.System.KEY_ID, 0);
+               contentValues.put(FakeSystemSettingsContentProvider.System.HAPTIC_FEEDBACK_ENABLED, 1);
+               insert(Settings.System.CONTENT_URI, contentValues);
+               TestRxSchedulers.drainAllTasks();
+               return create;
+           }
+
+           public void setHapticEnabled(boolean hapticEnabled) {
+               final int enabledInt = hapticEnabled? 1 : 0;
+               ContentValues contentValues = new ContentValues();
+               contentValues.put(FakeSystemSettingsContentProvider.System.KEY_ID, 0);
+               contentValues.put(FakeSystemSettingsContentProvider.System.HAPTIC_FEEDBACK_ENABLED, enabledInt);
+               update(Settings.System.CONTENT_URI, contentValues, FakeSystemSettingsContentProvider.System.KEY_ID + "=" + FakeSystemSettingsContentProvider.System.KEY_ID_VALUE, null);
+
+               Settings.System.putInt(
+                       ApplicationProvider.getApplicationContext().getContentResolver(),
+                       Settings.System.HAPTIC_FEEDBACK_ENABLED,
+                       enabledInt);
+
+               TestRxSchedulers.drainAllTasks();
+           }
+       }
+
+    */
 }

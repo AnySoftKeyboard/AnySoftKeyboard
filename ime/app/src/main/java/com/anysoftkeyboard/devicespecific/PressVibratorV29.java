@@ -23,6 +23,7 @@ import android.os.Vibrator;
 @TargetApi(29)
 public class PressVibratorV29 extends PressVibratorV26 {
     private boolean mSystemVibe;
+    private boolean mSystemHapticEnabled;
     private static final int PRESS_PREDEFINED = VibrationEffect.EFFECT_CLICK;
     private static final int LONG_PRESS_PREDEFINED = VibrationEffect.EFFECT_HEAVY_CLICK;
 
@@ -51,8 +52,9 @@ public class PressVibratorV29 extends PressVibratorV26 {
     }
 
     @Override
-    public void setUseSystemVibration(boolean system) {
+    public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
         mSystemVibe = system;
+        mSystemHapticEnabled = systemWideHapticEnabled;
         if (system) {
             mVibration = VibrationEffect.createPredefined(PRESS_PREDEFINED);
             mLongPressVibration = VibrationEffect.createPredefined(LONG_PRESS_PREDEFINED);
@@ -60,5 +62,12 @@ public class PressVibratorV29 extends PressVibratorV26 {
             setDuration(mDuration);
             setLongPressDuration(mLongPressDuration);
         }
+    }
+
+    @Override
+    public void vibrate(boolean longPress) {
+        if (mSystemVibe && !mSystemHapticEnabled) return;
+
+        super.vibrate(longPress);
     }
 }

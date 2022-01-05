@@ -31,7 +31,7 @@ public abstract class PressVibrator {
 
     public abstract void setLongPressDuration(int duration);
 
-    public void setUseSystemVibration(boolean system) {
+    public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
         // empty; not supported if not overridden
     }
 
