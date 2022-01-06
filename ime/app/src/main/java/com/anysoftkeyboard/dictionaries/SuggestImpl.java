@@ -37,6 +37,7 @@ import java.util.Locale;
  */
 public class SuggestImpl implements Suggest {
     private static final String TAG = "ASKSuggest";
+    private static final int POSSIBLE_FIX_THRESHOLD_FREQUENCY = Integer.MAX_VALUE / 2;
     private static final int ABBREVIATION_TEXT_FREQUENCY = Integer.MAX_VALUE - 10;
     private static final int AUTO_TEXT_FREQUENCY = Integer.MAX_VALUE - 20;
     private static final int VALID_TYPED_WORD_FREQUENCY = Integer.MAX_VALUE - 25;
@@ -138,14 +139,15 @@ public class SuggestImpl implements Suggest {
     }
 
     private boolean haveSufficientCommonality(
-            @NonNull CharSequence typedWord, @NonNull CharSequence toBeAutoPickedSuggestion) {
+            @NonNull CharSequence typedWord,
+            @NonNull final char[] word,
+            final int offset,
+            final int length) {
         final int originalLength = typedWord.length();
-        final int suggestionLength = toBeAutoPickedSuggestion.length();
-        final int lengthDiff = suggestionLength - originalLength;
+        final int lengthDiff = length - originalLength;
 
         return lengthDiff <= mCommonalityMaxLengthDiff
-                && IMEUtil.editDistance(typedWord, toBeAutoPickedSuggestion)
-                        <= mCommonalityMaxDistance;
+                && IMEUtil.editDistance(typedWord, word, offset, length) <= mCommonalityMaxDistance;
     }
 
     @Override
@@ -364,6 +366,9 @@ public class SuggestImpl implements Suggest {
             // Check if it's the same word
             if (compareCaseInsensitive(mLowerOriginalWord, word, wordOffset, wordLength)) {
                 frequency = FIXED_TYPED_WORD_FREQUENCY;
+            } else if (haveSufficientCommonality(
+                    mLowerOriginalWord, word, wordOffset, wordLength)) {
+                frequency += POSSIBLE_FIX_THRESHOLD_FREQUENCY;
             }
 
             // we are not allowing the main dictionary to suggest fixes for 1 length words
@@ -385,15 +390,19 @@ public class SuggestImpl implements Suggest {
             if (BuildConfig.DEBUG && TextUtils.isEmpty(mLowerOriginalWord))
                 throw new IllegalStateException("mLowerOriginalWord is empty!!");
 
-            int pos = 0;
+            int pos;
             final int[] priorities = mPriorities;
             final int prefMaxSuggestions = mPrefMaxSuggestions;
 
             StringBuilder sb = getStringBuilderFromPool(word, wordOffset, wordLength);
 
-            if (!TextUtils.equals(mTypedOriginalWord, sb)) {
+            if (TextUtils.equals(mTypedOriginalWord, sb)) {
+                frequency = VALID_TYPED_WORD_FREQUENCY;
+                pos = 0;
+            } else {
                 // Check the last one's priority and bail
                 if (priorities[prefMaxSuggestions - 1] >= frequency) return true;
+                pos = 1; // never check with the first (typed) word
                 // looking for the ordered position to insert the new word
                 while (pos < prefMaxSuggestions) {
                     if (priorities[pos] < frequency
@@ -414,12 +423,9 @@ public class SuggestImpl implements Suggest {
                         priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
                 mSuggestions.add(pos, sb);
                 priorities[pos] = frequency;
-            } else {
-                frequency = VALID_TYPED_WORD_FREQUENCY;
             }
             // should we mark this as a possible suggestion fix?
-            if (frequency >= FIXED_TYPED_WORD_FREQUENCY
-                    || haveSufficientCommonality(mLowerOriginalWord, sb)) {
+            if (frequency >= POSSIBLE_FIX_THRESHOLD_FREQUENCY) {
                 // this a suggestion that can be a fix
                 if (mCorrectSuggestionIndex < 0
                         || priorities[mCorrectSuggestionIndex] < frequency) {
