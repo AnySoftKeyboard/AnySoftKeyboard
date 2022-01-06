@@ -522,4 +522,56 @@ public class SuggestTest {
         Assert.assertEquals("Jello", suggestions.get(1).toString());
         Assert.assertEquals(0, mUnderTest.getLastValidSuggestionIndex());
     }
+
+    @Test
+    public void testCorrectlyPrioritizeFixes_5() {
+        mUnderTest.setCorrectionMode(true, 2, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            callback.addWord(
+                                    "Jello".toCharArray(),
+                                    0,
+                                    5,
+                                    24,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "hello".toCharArray(),
+                                    0,
+                                    5,
+                                    23,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "cello".toCharArray(),
+                                    0,
+                                    5,
+                                    25,
+                                    Mockito.mock(Dictionary.class));
+                            callback.addWord(
+                                    "following".toCharArray(),
+                                    0,
+                                    9,
+                                    29,
+                                    Mockito.mock(Dictionary.class));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        // typing a typo
+        typeWord(wordComposer, "aello");
+        final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        // all the suggestions
+        Assert.assertEquals(5, suggestions.size());
+        // typed always first
+        Assert.assertEquals("aello", suggestions.get(0).toString());
+        // these are possible corrections, sorted by frequency
+        Assert.assertEquals("cello", suggestions.get(1).toString());
+        Assert.assertEquals("Jello", suggestions.get(2).toString());
+        Assert.assertEquals("hello", suggestions.get(3).toString());
+        // this is a possible suggestion, but not close
+        Assert.assertEquals("following", suggestions.get(4).toString());
+        Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
+    }
 }

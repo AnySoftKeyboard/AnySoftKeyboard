@@ -38,7 +38,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
@@ -51,7 +51,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
@@ -62,7 +62,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
@@ -99,7 +99,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
@@ -108,7 +108,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
@@ -117,7 +117,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
