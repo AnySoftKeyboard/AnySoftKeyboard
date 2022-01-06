@@ -18,6 +18,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        makeDictionaryPlugin {
+            id = 'make-dictionary'
+            implementationClass = 'MakeDictionaryPlugin'
+        }
         deploymentsPlugin {
             id = 'anysoftkeyboard-deployment'
             implementationClass = 'deployment.DeploymentPlugin'
