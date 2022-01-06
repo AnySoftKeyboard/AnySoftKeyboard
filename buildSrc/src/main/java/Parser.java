@@ -166,11 +166,11 @@ class Parser {
 
     private char fixup(int intChar) {
         switch (intChar) {
-//            case '’':
-//                return '\'';
-//            case '”':
-//            case '“':
-//                return '\"';
+            case '’':
+                return '\'';
+            case '”':
+            case '“':
+                return '\"';
             default:
                 return (char) intChar;
         }
