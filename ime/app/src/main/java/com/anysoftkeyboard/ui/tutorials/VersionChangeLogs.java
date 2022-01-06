@@ -18,6 +18,8 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94"),
                         "Several fixes to the settings app navigation.",
+                        "Vibration fixes.",
+                        "Suggestions pick and order fixes.",
                         "Updated translations from the community (at crowdin.net)."));
         log.add(
                 new VersionChangeLog(

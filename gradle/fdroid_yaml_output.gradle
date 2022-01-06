@@ -27,6 +27,7 @@ def generateFdroidYamls = project.tasks.register('generateFdroidYamls') { task -
             lines.add("        build.gradle")
             lines.add("    scanignore:")
             lines.add("      - buildSrc")
+            lines.add("      - addons/languages/*/pack/dictionary/*.gz")
             if (taskProject.path.contains('ime:app')) {
                 lines.add("    ndk: r23")
             }
