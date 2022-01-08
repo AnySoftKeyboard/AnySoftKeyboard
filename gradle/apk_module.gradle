@@ -32,8 +32,9 @@ static String calculateApplicationId(Project proj) {
 apply from: "${rootDir}/gradle/android_general.gradle"
 
 tasks.whenTaskAdded { task ->
-    if (task.name.startsWith("bundle")) {
-        def renameTaskName = "rename${task.name.capitalize()}Aab"
+    if (task.name.startsWith("bundle") ||
+            (task.name.startsWith("publish") && task.name.endsWith("Bundle"))) {
+        def renameTaskName = "Copy${task.name.capitalize()}Aab"
         def sourceFolder = file("${buildDir.absoluteFile}/outputs/bundle")
         tasks.create(renameTaskName, Copy) {
             from sourceFolder
