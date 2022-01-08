@@ -58,8 +58,8 @@ jobs:
           path: build-logging
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: apks
-          path: outputs/apks
+          name: aab
+          path: outputs/aab
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: proguard-mapping

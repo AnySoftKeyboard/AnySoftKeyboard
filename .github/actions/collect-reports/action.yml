@@ -6,6 +6,7 @@ inputs:
   output_folder:
     description: "collect destination"
     default: "collected_reports"
+    required: true
   file_pattern:
     description: "pattern for files"
     required: true

@@ -31,23 +31,24 @@ static String calculateApplicationId(Project proj) {
 
 apply from: "${rootDir}/gradle/android_general.gradle"
 
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("bundle")) {
+        def renameTaskName = "rename${task.name.capitalize()}Aab"
+        def flavor = task.name.substring("bundle".length()).uncapitalize()
+        tasks.create(renameTaskName, Copy) {
+            from("${buildDir}/outputs/bundle/${flavor}/")
+            include "app-${flavor}.aab"
+            destinationDir file("${rootDir.absolutePath}/outputs/aab/${flavor}/")
+            rename "app-${flavor}.aab", "${project.path.substring(1).replace(':', '-')}-${android.defaultConfig.versionCode}.aab"
+        }
+
+        task.finalizedBy(renameTaskName)
+    }
+}
+
 android {
     defaultConfig {
         applicationId calculateApplicationId(project)
-    }
-
-    applicationVariants.configureEach { variant ->
-        variant.outputs.all {
-            outputFileName = "${project.path.substring(1).replace(':', '-')}-${android.defaultConfig.versionCode}.apk"
-        }
-        variant.assembleProvider.configure { assemble ->
-            assemble.doLast {
-                copy {
-                    from variant.outputs*.outputFile
-                    into "${rootDir.absolutePath}/outputs/apks/${variant.dirName}/"
-                }
-            }
-        }
     }
 
     def keystoreFile = file("/tmp/anysoftkeyboard.keystore")

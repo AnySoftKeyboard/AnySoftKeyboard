@@ -68,6 +68,11 @@ jobs:
         with:
           file_pattern: lint-results-*.html
           output_folder: collected_reports/lint
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: java_*.hprof
+          output_folder: oom_dumps
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
