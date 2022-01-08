@@ -53,18 +53,25 @@ jobs:
         run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
+        continue-on-error: true
         with:
           name: deploy-logging
           path: build-logging
       - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        continue-on-error: true
         with:
           name: bundles
           path: outputs/bundle
       - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        continue-on-error: true
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
       - uses: actions/upload-artifact@v1.0.0
+        continue-on-error: true
+        if: always()
         with:
           name: fdroid-metadata
           path: outputs/fdroid
