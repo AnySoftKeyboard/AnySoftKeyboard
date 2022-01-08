@@ -58,8 +58,8 @@ jobs:
           path: build-logging
       - uses: actions/upload-artifact@v1.0.0
         with:
-          name: aab
-          path: outputs/aab
+          name: bundles
+          path: outputs/bundle
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: proguard-mapping

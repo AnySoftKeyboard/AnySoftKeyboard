@@ -34,12 +34,13 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 tasks.whenTaskAdded { task ->
     if (task.name.startsWith("bundle")) {
         def renameTaskName = "rename${task.name.capitalize()}Aab"
-        def flavor = task.name.substring("bundle".length()).uncapitalize()
+        def sourceFolder = file("${buildDir.absoluteFile}/outputs/bundle")
         tasks.create(renameTaskName, Copy) {
-            from("${buildDir}/outputs/bundle/${flavor}/")
-            include "app-${flavor}.aab"
-            destinationDir file("${rootDir.absolutePath}/outputs/aab/${flavor}/")
-            rename "app-${flavor}.aab", "${project.path.substring(1).replace(':', '-')}-${android.defaultConfig.versionCode}.aab"
+            from sourceFolder
+            include "**/*.aab"
+            destinationDir file("${rootDir.absolutePath}/outputs/bundle/${project.parent.name}")
+        }.doLast {
+            println("Copy bundles from ${sourceFolder.absolutePath} to ${it.getDestinationDir().absolutePath}...")
         }
 
         task.finalizedBy(renameTaskName)
