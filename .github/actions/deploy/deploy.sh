@@ -60,22 +60,27 @@ else
   DEPLOY_ARGS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
 fi
 
+# we will call assemble, bundle and publish to ensure:
+# 1) we have the APK file
+# 2) we have the aab file
+# 3) we have uploaded (published) the AAB file to Play Store
+
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
     imeMaster)
-      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:publishCanaryBundle" )
+      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:bundleCanary" "ime:app:publishCanaryBundle" )
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       ;;
 
     imeProduction)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishReleaseBundle" )
+      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:bundleRelease" "ime:app:publishReleaseBundle" )
       ;;
 
     addOns*)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "assembleRelease" "publishReleaseBundle" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishReleaseBundle" )
+      DEPLOY_TASKS+=( "assembleRelease" "bundleRelease" "publishReleaseBundle" "-x" "ime:app:assembleRelease" "ime:app:bundleRelease" "-x" "ime:app:publishReleaseBundle" )
       ;;
 
     *)
@@ -107,7 +112,7 @@ echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRAS
 
 #Making sure no future deployments will happen on this branch.
 if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; then
-  echo "A succesful full deploy to production has finished."
+  echo "A successful full deploy to production has finished."
   MARKER_FILE="deployment/halt_deployment_marker"
   if [[ -f "${MARKER_FILE}" ]]; then
     echo "${MARKER_FILE} exits. No need to create another."
