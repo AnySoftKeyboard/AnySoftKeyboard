@@ -68,10 +68,12 @@ jobs:
         continue-on-error: true
         run: |
           ls -al
-          sudo sysctl kernel.dmesg_restrict=0
-          sudo dmesg -T | egrep -i 'killed process'
-          sudo dmesg -T | egrep -i 'oom'
-          sudo dmesg -T | egrep -i 'out of memory'
+          grep -i 'killed process' /var/log/messages || true
+          grep -i 'killed process' /var/log/syslog || true
+          grep -i 'oom' /var/log/messages || true
+          grep -i 'oom' /var/log/syslog || true
+          grep -i 'out of memory' /var/log/messages || true
+          grep -i 'out of memory' /var/log/syslog || true
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
