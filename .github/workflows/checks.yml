@@ -67,7 +67,10 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
+          echo "repo ls:"
           ls -al
+          echo "logs ls:"
+          ls /var/log
           grep -i 'killed process' /var/log/messages || true
           grep -i 'killed process' /var/log/syslog || true
           grep -i 'oom' /var/log/messages || true
