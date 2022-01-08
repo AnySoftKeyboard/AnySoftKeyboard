@@ -68,6 +68,7 @@ jobs:
         continue-on-error: true
         run: |
           ls -al
+          sudo sysctl kernel.dmesg_restrict=0
           sudo dmesg -T | egrep -i 'killed process'
           sudo dmesg -T | egrep -i 'oom'
           sudo dmesg -T | egrep -i 'out of memory'
