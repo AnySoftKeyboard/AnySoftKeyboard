@@ -251,7 +251,7 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
+          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
       - uses: actions/upload-artifact@v1.0.0
         with:
