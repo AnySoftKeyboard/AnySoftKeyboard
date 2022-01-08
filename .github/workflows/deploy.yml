@@ -67,6 +67,12 @@ jobs:
         if: always()
         continue-on-error: true
         with:
+          name: apks
+          path: outputs/apks
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        continue-on-error: true
+        with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
       - uses: actions/upload-artifact@v1.0.0
