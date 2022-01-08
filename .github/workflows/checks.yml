@@ -63,6 +63,14 @@ jobs:
         # Due to an issue with lint in merge commits, only running in PRs
         if: github.event_name != 'push'
         run: ./scripts/ci/ci_check_lint.sh
+      - name: check-oom-due-to-lint-issue
+        if: always()
+        continue-on-error: true
+        run: |
+          ls -al
+          sudo dmesg -T | egrep -i 'killed process'
+          sudo dmesg -T | egrep -i 'oom'
+          sudo dmesg -T | egrep -i 'out of memory'
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
