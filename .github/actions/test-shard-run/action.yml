@@ -17,7 +17,6 @@ runs:
   env:
     TERM: dumb
     GRADLE_USER_HOME: ".github_cache_gradle/"
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   entrypoint: /bin/bash
   args:
     - .github/actions/test-shard-run/run_tests.sh

@@ -15,7 +15,6 @@ on:
 
 env:
   TERM: dumb
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   GRADLE_USER_HOME: ".github_cache_gradle/"
   TMPDIR: "/tmp"
 

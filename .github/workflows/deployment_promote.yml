@@ -6,7 +6,6 @@ on:
 
 env:
   TERM: dumb
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 jobs:
   promote:

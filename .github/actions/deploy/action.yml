@@ -33,7 +33,6 @@ runs:
   image: "docker://menny/android_ndk:1.15.3"
   env:
     TERM: dumb
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
     GRADLE_USER_HOME: ".github_cache_gradle/"
 
   entrypoint: /bin/bash
