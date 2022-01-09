@@ -60,22 +60,27 @@ else
   DEPLOY_ARGS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
 fi
 
+# we will call assemble, bundle and publish to ensure:
+# 1) we have the APK file
+# 2) we have the aab file
+# 3) we have uploaded (published) the AAB file to Play Store
+
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
     imeMaster)
-      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:publishCanaryBundle" )
+      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:bundleCanary" "ime:app:publishCanaryBundle" )
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       ;;
 
     imeProduction)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishReleaseBundle" )
+      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:bundleRelease" "ime:app:publishReleaseBundle" )
       ;;
 
     addOns*)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "assembleRelease" "publishReleaseBundle" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishReleaseBundle" )
+      DEPLOY_TASKS+=( "assembleRelease" "bundleRelease" "publishReleaseBundle" "-x" "ime:app:assembleRelease" "-x" "ime:app:bundleRelease" "-x" "ime:app:publishReleaseBundle" )
       ;;
 
     *)
