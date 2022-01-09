@@ -112,13 +112,13 @@ public class WizardPageEnableKeyboardFragmentTest
         View.OnClickListener linkClickHandler = Shadows.shadowOf(linkToClick).getOnClickListener();
 
         linkClickHandler.onClick(linkToClick);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         getActivityController().pause();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 2, shadowContentResolver.getContentObservers(Settings.Secure.CONTENT_URI).size());
         getActivityController().destroy();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 0, shadowContentResolver.getContentObservers(Settings.Secure.CONTENT_URI).size());
     }
@@ -137,14 +137,14 @@ public class WizardPageEnableKeyboardFragmentTest
         View.OnClickListener linkClickHandler = Shadows.shadowOf(linkToClick).getOnClickListener();
 
         linkClickHandler.onClick(linkToClick);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         getActivityController().pause();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 2, shadowContentResolver.getContentObservers(Settings.Secure.CONTENT_URI).size());
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         TestRxSchedulers.foregroundAdvanceBy(100 * 1000);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 1, shadowContentResolver.getContentObservers(Settings.Secure.CONTENT_URI).size());
     }
@@ -163,13 +163,13 @@ public class WizardPageEnableKeyboardFragmentTest
         View.OnClickListener linkClickHandler = Shadows.shadowOf(linkToClick).getOnClickListener();
 
         linkClickHandler.onClick(linkToClick);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         getActivityController().pause().stop();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 2, shadowContentResolver.getContentObservers(Settings.Secure.CONTENT_URI).size());
         getActivityController().restart().start().resume();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         Assert.assertEquals(
                 1, shadowContentResolver.getContentObservers(Settings.Secure.CONTENT_URI).size());
     }
@@ -186,9 +186,9 @@ public class WizardPageEnableKeyboardFragmentTest
         View.OnClickListener linkClickHandler = Shadows.shadowOf(linkToClick).getOnClickListener();
 
         linkClickHandler.onClick(linkToClick);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         getActivityController().pause().stop();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
 
         final ShadowApplication shadowApplication =
                 Shadows.shadowOf((Application) getApplicationContext());
@@ -206,9 +206,9 @@ public class WizardPageEnableKeyboardFragmentTest
         shadowContentResolver
                 .getContentObservers(Settings.Secure.CONTENT_URI)
                 .forEach(v -> v.onChange(false));
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         TestRxSchedulers.foregroundAdvanceBy(100);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
 
         final Intent restartActivityIntent = shadowApplication.getNextStartedActivity();
         Assert.assertNotNull(restartActivityIntent);
@@ -232,9 +232,9 @@ public class WizardPageEnableKeyboardFragmentTest
         View.OnClickListener linkClickHandler = Shadows.shadowOf(linkToClick).getOnClickListener();
 
         linkClickHandler.onClick(linkToClick);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         getActivityController().pause().stop();
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
 
         final ShadowApplication shadowApplication =
                 Shadows.shadowOf((Application) getApplicationContext());
@@ -243,9 +243,9 @@ public class WizardPageEnableKeyboardFragmentTest
         shadowContentResolver
                 .getContentObservers(Settings.Secure.CONTENT_URI)
                 .forEach(v -> v.onChange(false));
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
         TestRxSchedulers.foregroundAdvanceBy(100);
-        TestRxSchedulers.foregroundFlushAllJobs();
+        TestRxSchedulers.drainAllTasks();
 
         Assert.assertNull(shadowApplication.getNextStartedActivity());
     }
