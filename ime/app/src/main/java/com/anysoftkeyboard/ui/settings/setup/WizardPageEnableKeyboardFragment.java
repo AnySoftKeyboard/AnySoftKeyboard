@@ -69,7 +69,9 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                                             null,
                                             null,
                                             null,
-                                            true)
+                                            true,
+                                            RxSchedulers.mainThread())
+                                    .subscribeOn(RxSchedulers.background())
                                     .observeOn(RxSchedulers.mainThread())
                                     .forEach(
                                             q -> {

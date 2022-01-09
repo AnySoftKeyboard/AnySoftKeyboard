@@ -30,6 +30,7 @@ import com.anysoftkeyboard.keyboards.views.preview.NullKeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PositionCalculator;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.rx.GenericOnError;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -39,19 +40,17 @@ import io.reactivex.subjects.PublishSubject;
 
 public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboard {
 
-    private AudioManager mAudioManager;
     private static final float SILENT = 0.0f;
     private static final float SYSTEM_VOLUME = -1.0f;
-    private float mCustomSoundVolume = SILENT;
-
-    private PressVibrator mVibrator;
-
-    @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
-
     @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
 
     @NonNull
     private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
+
+    private AudioManager mAudioManager;
+    private float mCustomSoundVolume = SILENT;
+    private PressVibrator mVibrator;
+    @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
 
     @Override
     public void onCreate() {
@@ -175,7 +174,15 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                                 RxContentResolver.observeQuery(
                                                 getContentResolver(),
                                                 Settings.System.getUriFor(
-                                                        Settings.System.HAPTIC_FEEDBACK_ENABLED))
+                                                        Settings.System.HAPTIC_FEEDBACK_ENABLED),
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                true,
+                                                RxSchedulers.mainThread())
+                                        .subscribeOn(RxSchedulers.background())
+                                        .observeOn(RxSchedulers.mainThread())
                                         .map(
                                                 query ->
                                                         Settings.System.getInt(
