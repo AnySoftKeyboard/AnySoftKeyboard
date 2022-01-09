@@ -1,5 +1,4 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = "Initial version has not been published yet"
+ext.shouldBePublished = true
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
