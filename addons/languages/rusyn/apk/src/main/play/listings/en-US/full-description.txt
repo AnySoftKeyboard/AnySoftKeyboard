@@ -1,0 +1,4 @@
+Rusyn Language pack
+
+This is an expansion language pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the Spanish keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.

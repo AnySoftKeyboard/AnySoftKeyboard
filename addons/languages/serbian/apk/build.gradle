@@ -1,5 +1,6 @@
 ext.shouldBePublished = false
-ext.notPublishingReason = 'owner unknown (may have not been published yet).'
+ext.notPublishingReason = 'Not released yet.'
+ext.override_app_id = 'com.anysoftkeyboard.languagepack.serbian_oss'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 

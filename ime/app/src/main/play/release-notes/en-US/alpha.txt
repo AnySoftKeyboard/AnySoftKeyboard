@@ -1,6 +1,7 @@
 * Several fixes to the settings app navigation.
 * Vibration fixes.
 * Suggestions pick and order fixes.
+* Reduced installation size (for supporting devices).
 * Updated translations from the community (at crowdin.net).
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94
