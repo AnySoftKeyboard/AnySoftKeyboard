@@ -1,7 +1,5 @@
 ext.status_icon_text = "haw"
 
-ext.shouldGenerateDictionary = false
-
 ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
 
