@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary nameResId="@string/hawaiian_dictionary_name" locale="iw" id="48c2baa2-8cf8-3219-aeaf-b54c21e91322" type="binary_resource"
+    dictionaryResourceId="@array/hawaiian_words_dict_array"
+    description="@string/hawaiian_dictionary_description"/>
+</Dictionaries>

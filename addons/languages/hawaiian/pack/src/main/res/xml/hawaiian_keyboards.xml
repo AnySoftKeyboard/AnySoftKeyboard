@@ -14,12 +14,13 @@
     * are optional.
      -->
     <Keyboard
-    id="15545800-5a9b-11e0-80e3-0800200c9a77"
-    nameResId="@string/hawaiian_keyboard_name"
-    layoutResId="@xml/hawaiian_qwerty"
-    iconResId="@drawable/ic_status_hawaiian"
-    defaultDictionaryLocale="en"
-    description="@string/hawaiian_keyboard_qwerty_description"
-    index="1"
-    defaultEnabled="true"/>
+        additionalIsLetterExceptions="@string/hawaiian_additional_is_letter_exceptions"
+        defaultDictionaryLocale="en"
+        defaultEnabled="true"
+        description="@string/hawaiian_keyboard_qwerty_description"
+        iconResId="@drawable/ic_status_hawaiian"
+        id="15545800-5a9b-11e0-80e3-0800200c9a77"
+        index="1"
+        layoutResId="@xml/hawaiian_qwerty"
+        nameResId="@string/hawaiian_keyboard_name" />
 </Keyboards>
