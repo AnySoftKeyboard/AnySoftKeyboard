@@ -21,6 +21,7 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
     * Try to locate AOSP dictionary files (could be found at [AOSP](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/), or [LineageOS](https://github.com/LineageOS/android_packages_inputmethods_LatinIME/tree/lineage-16.0/dictionaries)) (you should use the `XX_wordlist.combined.gz` file).
     * If you have anything that was pre-built into a word-list XML, put those under `klingon/pack/dictionary/prebuilt`.
     * Add text files that will be parsed - word-counted -  to generate word-list XMLs
+    * If you do not want to generate a dictionary, then disable that in `klingon/pack/gradle.build` by adding: `ext.shouldGenerateDictionary = false`
 1. Generate the dictionary: `./gradlew :addons:languages:klingon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
     * raw resources under `klingon/pack/src/main/res/raw/klingon_words_?.dict`
     * IDs resource array under `klingon/pack/src/main/res/values/klingon_words_dict_array.xml`
@@ -31,6 +32,9 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
     * replace name and description
     * replace the locale
 1. Set the status-bar icon text at `klingon/pack/build.gradle`: `ext.status_icon_text = "kl"`
+1. If this is an initial publish (as in, a new language pack) then disable the publish in `klingon/apk/build.gradle`:
+  - `ext.shouldBePublished = false`
+  - `ext.notPublishingReason = "Initial version has not been published yet"`
 1. Replace the flag at `klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
 1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
 1. Generate the icons: `./gradlew :addons:languages:klingon:pack:generateLanguagePackIcons :addons:languages:klingon:apk:generateStoreLogoIcon`. This will generate the following files (which _should_ be checked into the repo):
