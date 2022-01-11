@@ -19,9 +19,9 @@
         <Key android:codes="68236" android:keyLabel="𐪌"/>
         <Key android:codes="68237" android:keyLabel="𐪍"/>
         <Key android:codes="68225" android:keyLabel="𐪁"/>
-        <Key android:codes="67713" android:popupCharacters="𐢁" android:keyLabel="𐪑"/>
-        <Key android:codes="68240" android:keyLabel="𐪐"/>
-        <Key android:codes="68241" android:keyLabel="𐪑"/>
+        <Key android:codes="68241" android:popupCharacters="𐢁" android:keyLabel="𐪑"/>
+        <Key android:codes="68240" android:popupCharacters="𐢘" android:keyLabel="𐪐"/>
+        <Key android:codes="68239" android:keyLabel="𐪏"/>
         <Key android:codes="68242" android:keyLabel="𐪒"/>
         <Key android:codes="68247" android:keyLabel="𐪗" android:keyEdgeFlags="right"/>
     </Row>
