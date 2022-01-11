@@ -233,8 +233,11 @@ public class SuggestImpl implements Suggest {
         mSuggestionsProvider.getAbbreviations(wordComposer, mAbbreviationWordCallback);
         // auto-text
         mSuggestionsProvider.getAutoText(wordComposer, mAutoTextWordCallback);
-        // main-dictionary
+        // contacts, user and main dictionaries
         mSuggestionsProvider.getSuggestions(wordComposer, mTypingDictionaryWordCallback);
+        for (KeyCodesProvider possibleSubWord : wordComposer.getPossibleSubWords()) {
+            mSuggestionsProvider.getSuggestions(possibleSubWord, mTypingDictionaryWordCallback);
+        }
 
         // now, we'll look at the next-words-suggestions list, and add all the ones that begins
         // with the typed word. These suggestions are top priority, so they will be added
