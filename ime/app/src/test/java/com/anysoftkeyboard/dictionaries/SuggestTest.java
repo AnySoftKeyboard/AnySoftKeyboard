@@ -829,7 +829,7 @@ public class SuggestTest {
         Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
-        map.put("hellonworld", Collections.singletonList(Pair.create("hellobworld", 13)));
+        map.put("hellonworld", Collections.emptyList());
         mUnderTest.setCorrectionMode(true, 2, 2);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
@@ -858,10 +858,131 @@ public class SuggestTest {
                     false, false, false, false, false, true, false, false, false, false, false
                 });
         List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
         Assert.assertEquals("hellonworld", suggestions.get(0).toString());
         Assert.assertEquals("hello world", suggestions.get(1).toString());
-        Assert.assertEquals("hellobworld", suggestions.get(2).toString());
+        Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testMatchTwoSubWordsButAlsoValid() {
+        Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
+        map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
+        map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
+        map.put("hellonworld", Collections.singletonList(Pair.create("hellonworldsuggested", 12)));
+        mUnderTest.setCorrectionMode(true, 2, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final KeyCodesProvider word = invocation.getArgument(0);
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            final Dictionary dictionary = Mockito.mock(Dictionary.class);
+                            map.get(word.getTypedWord().toString())
+                                    .forEach(
+                                            pair ->
+                                                    callback.addWord(
+                                                            pair.first.toCharArray(),
+                                                            0,
+                                                            pair.first.length(),
+                                                            pair.second,
+                                                            dictionary));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        typeWord(
+                wordComposer,
+                "hellonworld",
+                new boolean[] {
+                    false, false, false, false, false, true, false, false, false, false, false
+                });
+        List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
         Assert.assertEquals(3, suggestions.size());
+        Assert.assertEquals("hellonworld", suggestions.get(0).toString());
+        Assert.assertEquals("hello world", suggestions.get(1).toString());
+        Assert.assertEquals("hellonworldsuggested", suggestions.get(2).toString());
+        Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testMatchTwoSubWordsWithSlightCommon() {
+        Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
+        map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
+        map.put("Hello", Arrays.asList(Pair.create("Notevenhello", 13), Pair.create("Hello", 23)));
+        map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
+        map.put("Hellonworld", Collections.emptyList());
+        mUnderTest.setCorrectionMode(true, 2, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final KeyCodesProvider word = invocation.getArgument(0);
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            final Dictionary dictionary = Mockito.mock(Dictionary.class);
+                            map.get(word.getTypedWord().toString())
+                                    .forEach(
+                                            pair ->
+                                                    callback.addWord(
+                                                            pair.first.toCharArray(),
+                                                            0,
+                                                            pair.first.length(),
+                                                            pair.second,
+                                                            dictionary));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        typeWord(
+                wordComposer,
+                "Hellonworld",
+                new boolean[] {
+                    false, false, false, false, false, true, false, false, false, false, false
+                });
+        List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("Hellonworld", suggestions.get(0).toString());
+        Assert.assertEquals("Hello world", suggestions.get(1).toString());
+        Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testMatchTwoSubWordsWithVariousSuggestions() {
+        Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
+        map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
+        map.put("world", Arrays.asList(Pair.create("worldz", 13), Pair.create("worlds", 23)));
+        map.put("hellonworld", Collections.emptyList());
+        mUnderTest.setCorrectionMode(true, 2, 2);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final KeyCodesProvider word = invocation.getArgument(0);
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            final Dictionary dictionary = Mockito.mock(Dictionary.class);
+                            map.get(word.getTypedWord().toString())
+                                    .forEach(
+                                            pair ->
+                                                    callback.addWord(
+                                                            pair.first.toCharArray(),
+                                                            0,
+                                                            pair.first.length(),
+                                                            pair.second,
+                                                            dictionary));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        typeWord(
+                wordComposer,
+                "hellonworld",
+                new boolean[] {
+                    false, false, false, false, false, true, false, false, false, false, false
+                });
+        List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(2, suggestions.size());
+        Assert.assertEquals("hellonworld", suggestions.get(0).toString());
+        Assert.assertEquals("hello worlds", suggestions.get(1).toString());
         Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
     }
 

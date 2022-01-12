@@ -144,16 +144,18 @@ public class SuggestImpl implements Suggest {
         }
     }
 
-    private boolean haveSufficientCommonality(
-            @NonNull CharSequence typedWord,
+    private static boolean haveSufficientCommonality(
+            final int maxLengthDiff,
+            final int maxCommonDistance,
+            @NonNull final CharSequence typedWord,
             @NonNull final char[] word,
             final int offset,
             final int length) {
         final int originalLength = typedWord.length();
         final int lengthDiff = length - originalLength;
 
-        return lengthDiff <= mCommonalityMaxLengthDiff
-                && IMEUtil.editDistance(typedWord, word, offset, length) <= mCommonalityMaxDistance;
+        return lengthDiff <= maxLengthDiff
+                && IMEUtil.editDistance(typedWord, word, offset, length) <= maxCommonDistance;
     }
 
     @Override
@@ -336,6 +338,10 @@ public class SuggestImpl implements Suggest {
     private static class SubWordSuggestionCallback implements Dictionary.WordCallback {
         private final Dictionary.WordCallback mBasicWordCallback;
         @NonNull private CharSequence mCurrentSubWord = "";
+        private int mCurrentSubWordSuggestionFrequency = 0;
+        private int mCurrentSubWordSuggestionRawFrequency = 0;
+        private final char[] mCurrentSubWordSuggestion = new char[Dictionary.MAX_WORD_LENGTH];
+        private int mCurrentSubWordLength = 0;
         private int mMatchedWordsCount = 0;
         private int mMatchedWordsLength = 0;
         private int mMatchedWordsFrequency = 0;
@@ -358,7 +364,24 @@ public class SuggestImpl implements Suggest {
 
             for (KeyCodesProvider possibleSubWord : possibleSubWords) {
                 mCurrentSubWord = possibleSubWord.getTypedWord();
+                mCurrentSubWordSuggestionFrequency = 0;
+                mCurrentSubWordSuggestionRawFrequency = 0;
+                mCurrentSubWordLength = 0;
                 suggestionsProvider.getSuggestions(possibleSubWord, this);
+                if (mCurrentSubWordLength > 0) {
+                    System.arraycopy(
+                            mCurrentSubWordSuggestion,
+                            0,
+                            mMatchedWords,
+                            mMatchedWordsLength,
+                            mCurrentSubWordLength);
+                    mMatchedWordsLength += mCurrentSubWordLength;
+                    mMatchedWordsCount++;
+                    mMatchedWordsFrequency += mCurrentSubWordSuggestionRawFrequency;
+                    // adding space for the next sub-word
+                    mMatchedWords[mMatchedWordsLength] = KeyCodes.SPACE;
+                    mMatchedWordsLength++;
+                }
             }
 
             if (mMatchedWordsCount == possibleSubWords.size()) {
@@ -379,15 +402,20 @@ public class SuggestImpl implements Suggest {
                 return true; // maybe next word will be shorter
             }
 
-            // only passing if the suggested word IS the sub-word
+            int adjustedFrequency = 0;
+            // giving bonuses
             if (compareCaseInsensitive(mCurrentSubWord, word, wordOffset, wordLength)) {
-                System.arraycopy(word, wordOffset, mMatchedWords, mMatchedWordsLength, wordLength);
-                mMatchedWordsLength += wordLength;
-                mMatchedWordsCount++;
-                mMatchedWordsFrequency += frequency;
-                // adding space for the next sub-word
-                mMatchedWords[mMatchedWordsLength] = KeyCodes.SPACE;
-                mMatchedWordsLength++;
+                adjustedFrequency = frequency * 4;
+            } else if (haveSufficientCommonality(
+                    1, 1, mCurrentSubWord, word, wordOffset, wordLength)) {
+                adjustedFrequency = frequency * 2;
+            }
+            // only passing if the suggested word is close to the sub-word
+            if (adjustedFrequency > mCurrentSubWordSuggestionFrequency) {
+                System.arraycopy(word, wordOffset, mCurrentSubWordSuggestion, 0, wordLength);
+                mCurrentSubWordLength = wordLength;
+                mCurrentSubWordSuggestionFrequency = adjustedFrequency;
+                mCurrentSubWordSuggestionRawFrequency = frequency;
             }
             return true; // next word
         }
@@ -437,7 +465,12 @@ public class SuggestImpl implements Suggest {
             if (compareCaseInsensitive(mLowerOriginalWord, word, wordOffset, wordLength)) {
                 frequency = FIXED_TYPED_WORD_FREQUENCY;
             } else if (haveSufficientCommonality(
-                    mLowerOriginalWord, word, wordOffset, wordLength)) {
+                    mCommonalityMaxLengthDiff,
+                    mCommonalityMaxDistance,
+                    mLowerOriginalWord,
+                    word,
+                    wordOffset,
+                    wordLength)) {
                 frequency += POSSIBLE_FIX_THRESHOLD_FREQUENCY;
             }
 
