@@ -20,6 +20,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
@@ -50,6 +51,7 @@ public class SuggestImpl implements Suggest {
     private final Dictionary.WordCallback mAutoTextWordCallback;
     private final Dictionary.WordCallback mAbbreviationWordCallback;
     private final Dictionary.WordCallback mTypingDictionaryWordCallback;
+    private final SubWordSuggestionCallback mSubWordDictionaryWordCallback;
 
     @NonNull private Locale mLocale = Locale.getDefault();
     private int mPrefMaxSuggestions = 12;
@@ -69,6 +71,7 @@ public class SuggestImpl implements Suggest {
         mSuggestionsProvider = provider;
         final SuggestionCallback basicWordCallback = new SuggestionCallback();
         mTypingDictionaryWordCallback = new DictionarySuggestionCallback(basicWordCallback);
+        mSubWordDictionaryWordCallback = new SubWordSuggestionCallback(basicWordCallback);
         mAutoTextWordCallback = new AutoTextSuggestionCallback(basicWordCallback);
         mAbbreviationWordCallback = new AbbreviationSuggestionCallback(basicWordCallback);
         setMaxSuggestions(mPrefMaxSuggestions);
@@ -79,7 +82,10 @@ public class SuggestImpl implements Suggest {
     }
 
     private static boolean compareCaseInsensitive(
-            final String lowerOriginalWord, final char[] word, final int offset, final int length) {
+            final CharSequence lowerOriginalWord,
+            final char[] word,
+            final int offset,
+            final int length) {
         final int originalLength = lowerOriginalWord.length();
 
         if (originalLength == length) {
@@ -233,11 +239,12 @@ public class SuggestImpl implements Suggest {
         mSuggestionsProvider.getAbbreviations(wordComposer, mAbbreviationWordCallback);
         // auto-text
         mSuggestionsProvider.getAutoText(wordComposer, mAutoTextWordCallback);
+        // for sub-word matching:
+        // only if ALL words match, we should use the sub-words as an suggestion
+        // only exact matches (for now) will be considered
+        mSubWordDictionaryWordCallback.performSubWordsMatching(wordComposer, mSuggestionsProvider);
         // contacts, user and main dictionaries
         mSuggestionsProvider.getSuggestions(wordComposer, mTypingDictionaryWordCallback);
-        for (KeyCodesProvider possibleSubWord : wordComposer.getPossibleSubWords()) {
-            mSuggestionsProvider.getSuggestions(possibleSubWord, mTypingDictionaryWordCallback);
-        }
 
         // now, we'll look at the next-words-suggestions list, and add all the ones that begins
         // with the typed word. These suggestions are top priority, so they will be added
@@ -324,6 +331,66 @@ public class SuggestImpl implements Suggest {
     public void destroy() {
         closeDictionaries();
         mSuggestionsProvider.destroy();
+    }
+
+    private static class SubWordSuggestionCallback implements Dictionary.WordCallback {
+        private final Dictionary.WordCallback mBasicWordCallback;
+        @NonNull private CharSequence mCurrentSubWord = "";
+        private int mMatchedWordsCount = 0;
+        private int mMatchedWordsLength = 0;
+        private int mMatchedWordsFrequency = 0;
+        private final char[] mMatchedWords = new char[5 * Dictionary.MAX_WORD_LENGTH];
+
+        private SubWordSuggestionCallback(Dictionary.WordCallback callback) {
+            mBasicWordCallback = callback;
+        }
+
+        void performSubWordsMatching(
+                @NonNull WordComposer wordComposer,
+                @NonNull SuggestionsProvider suggestionsProvider) {
+            final List<? extends KeyCodesProvider> possibleSubWords =
+                    wordComposer.getPossibleSubWords();
+            if (possibleSubWords.isEmpty()) return;
+
+            mMatchedWordsCount = 0;
+            mMatchedWordsLength = 0;
+            mMatchedWordsFrequency = 0;
+
+            for (KeyCodesProvider possibleSubWord : possibleSubWords) {
+                mCurrentSubWord = possibleSubWord.getTypedWord();
+                suggestionsProvider.getSuggestions(possibleSubWord, this);
+            }
+
+            if (mMatchedWordsCount == possibleSubWords.size()) {
+                mBasicWordCallback.addWord(
+                        mMatchedWords,
+                        0,
+                        mMatchedWordsLength - 1, /*minus the extra space*/
+                        POSSIBLE_FIX_THRESHOLD_FREQUENCY + mMatchedWordsFrequency,
+                        null);
+            }
+        }
+
+        @Override
+        public boolean addWord(
+                char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
+            if (mMatchedWords.length <= mMatchedWordsLength + wordLength + 1) {
+                // can't even copy that word, why bother
+                return true; // maybe next word will be shorter
+            }
+
+            // only passing if the suggested word IS the sub-word
+            if (compareCaseInsensitive(mCurrentSubWord, word, wordOffset, wordLength)) {
+                System.arraycopy(word, wordOffset, mMatchedWords, mMatchedWordsLength, wordLength);
+                mMatchedWordsLength += wordLength;
+                mMatchedWordsCount++;
+                mMatchedWordsFrequency += frequency;
+                // adding space for the next sub-word
+                mMatchedWords[mMatchedWordsLength] = KeyCodes.SPACE;
+                mMatchedWordsLength++;
+            }
+            return true; // next word
+        }
     }
 
     private static class AutoTextSuggestionCallback implements Dictionary.WordCallback {

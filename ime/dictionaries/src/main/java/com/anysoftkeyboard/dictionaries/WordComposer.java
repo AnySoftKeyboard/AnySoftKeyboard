@@ -17,9 +17,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.text.TextUtils;
-
 import com.anysoftkeyboard.api.KeyCodes;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -90,16 +88,16 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     /**
-     * Returns a list of words can be constructed from the typed word
-     * if a key was SPACE rather and a letter. Never returns this.
+     * Returns a list of words can be constructed from the typed word if a key was SPACE rather and
+     * a letter. Never returns this.
      */
     public List<? extends KeyCodesProvider> getPossibleSubWords() {
         mPossibleSubWordsReturn.clear();
         int providerIndex = 0;
         SimpleKeysProvider keyCodesProvider = mPossibleSubWordsWorkSpace.get(providerIndex);
         keyCodesProvider.reset();
-        //looking for keys which are close to SPACE
-        for(int keyIndex=0; keyIndex<mCodes.size(); keyIndex++) {
+        // looking for keys which are close to SPACE
+        for (int keyIndex = 0; keyIndex < mCodes.size(); keyIndex++) {
             final int[] nearByCodes = mCodes.get(keyIndex);
             if (hasSpaceInCodes(nearByCodes)) {
                 if (keyCodesProvider.mCodes.size() > 0) {
@@ -109,24 +107,22 @@ public class WordComposer implements KeyCodesProvider {
                     keyCodesProvider.reset();
                 }
             } else {
-                keyCodesProvider.addTypedCode(mTypedWord.codePointAt(keyIndex), mCodes.get(keyIndex));
+                keyCodesProvider.addTypedCode(
+                        mTypedWord.codePointAt(keyIndex), mCodes.get(keyIndex));
                 if (keyCodesProvider.mCodes.size() == 1) {
                     mPossibleSubWordsReturn.add(keyCodesProvider);
                 }
             }
         }
 
-        if (keyCodesProvider.codePointCount() == codePointCount())
-            return Collections.emptyList();
+        if (keyCodesProvider.codePointCount() == codePointCount()) return Collections.emptyList();
         return mPossibleSubWordsReturn;
     }
 
     private static boolean hasSpaceInCodes(int[] nearByCodes) {
         for (final int nearByCode : nearByCodes) {
-            if (nearByCode == 0)
-                return false;//the end of the array
-            else if (nearByCode == KeyCodes.SPACE)
-                return true;
+            if (nearByCode == 0) return false; // the end of the array
+            else if (nearByCode == KeyCodes.SPACE) return true;
         }
         return false;
     }
@@ -406,6 +402,7 @@ public class WordComposer implements KeyCodesProvider {
     private static class SimpleKeysProvider implements KeyCodesProvider {
         private final List<int[]> mCodes = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
         private final StringBuilder mTypedWord = new StringBuilder();
+
         @Override
         public int codePointCount() {
             return mCodes.size();

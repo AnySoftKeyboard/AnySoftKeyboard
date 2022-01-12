@@ -63,7 +63,7 @@ class ProximityKeyDetector extends KeyDetector {
                                     && (dist = key.squaredDistanceFrom(touchX, touchY))
                                             < mProximityThresholdSquare)
                             || isInside)
-                    && key.getCodeAtIndex(0, keyboard.isShifted()) > KeyCodes.SPACE) {
+                    && key.getCodeAtIndex(0, keyboard.isShifted()) >= KeyCodes.SPACE) {
                 // Find insertion point
                 final int nCodes = key.getCodesCount();
                 if (dist < closestKeyDist) {

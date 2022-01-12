@@ -416,13 +416,15 @@ public class SuggestionsProvider {
         mContactsNextWordDictionary.resetSentence();
     }
 
-    public void getSuggestions(KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
+    public void getSuggestions(
+            KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
         mContactsDictionary.getSuggestions(wordComposer, wordCallback);
         allDictionariesGetWords(mUserDictionary, wordComposer, wordCallback);
         allDictionariesGetWords(mMainDictionary, wordComposer, wordCallback);
     }
 
-    public void getAbbreviations(KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
+    public void getAbbreviations(
+            KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
         allDictionariesGetWords(mAbbreviationDictionary, wordComposer, wordCallback);
     }
 
