@@ -238,7 +238,7 @@ public class SuggestionsProvider {
 
     private static void allDictionariesGetWords(
             List<? extends Dictionary> dictionaries,
-            WordComposer wordComposer,
+            KeyCodesProvider wordComposer,
             Dictionary.WordCallback wordCallback) {
         for (Dictionary dictionary : dictionaries) {
             dictionary.getSuggestions(wordComposer, wordCallback);
@@ -416,17 +416,19 @@ public class SuggestionsProvider {
         mContactsNextWordDictionary.resetSentence();
     }
 
-    public void getSuggestions(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
+    public void getSuggestions(
+            KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
         mContactsDictionary.getSuggestions(wordComposer, wordCallback);
         allDictionariesGetWords(mUserDictionary, wordComposer, wordCallback);
         allDictionariesGetWords(mMainDictionary, wordComposer, wordCallback);
     }
 
-    public void getAbbreviations(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
+    public void getAbbreviations(
+            KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
         allDictionariesGetWords(mAbbreviationDictionary, wordComposer, wordCallback);
     }
 
-    public void getAutoText(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
+    public void getAutoText(KeyCodesProvider wordComposer, Dictionary.WordCallback wordCallback) {
         final CharSequence word = wordComposer.getTypedWord();
         for (AutoText autoText : mQuickFixesAutoText) {
             final String fix = autoText.lookup(word);
