@@ -120,9 +120,11 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     private static boolean hasSpaceInCodes(int[] nearByCodes) {
-        for (final int nearByCode : nearByCodes) {
-            if (nearByCode == 0) return false; // the end of the array
-            else if (nearByCode == KeyCodes.SPACE) return true;
+        if (nearByCodes.length > 0) {
+            // assuming the keycode at the end is SPACE.
+            // see
+            // com.anysoftkeyboard.keyboards.views.ProximityKeyDetector.getKeyIndexAndNearbyCodes
+            return nearByCodes[nearByCodes.length - 1] == KeyCodes.SPACE;
         }
         return false;
     }

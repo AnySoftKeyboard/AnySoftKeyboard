@@ -47,6 +47,7 @@ class ProximityKeyDetector extends KeyDetector {
         int primaryIndex = AnyKeyboardViewBase.NOT_A_KEY;
         int closestKey = AnyKeyboardViewBase.NOT_A_KEY;
         int closestKeyDist = mProximityThresholdSquare + 1;
+        boolean hasSpace = false;
         int[] distances = mDistances;
         Arrays.fill(distances, Integer.MAX_VALUE);
         int[] nearestKeyIndices = keyboard.getNearestKeysIndices(touchX, touchY);
@@ -63,7 +64,7 @@ class ProximityKeyDetector extends KeyDetector {
                                     && (dist = key.squaredDistanceFrom(touchX, touchY))
                                             < mProximityThresholdSquare)
                             || isInside)
-                    && key.getCodeAtIndex(0, keyboard.isShifted()) >= KeyCodes.SPACE) {
+                    && key.getPrimaryCode() >= KeyCodes.SPACE) {
                 // Find insertion point
                 final int nCodes = key.getCodesCount();
                 if (dist < closestKeyDist) {
@@ -72,6 +73,9 @@ class ProximityKeyDetector extends KeyDetector {
                 }
 
                 if (allKeys == null) continue;
+                if (key.getPrimaryCode() == KeyCodes.SPACE) {
+                    hasSpace = true;
+                }
 
                 for (int j = 0; j < distances.length; j++) {
                     if (distances[j] > dist) {
@@ -93,6 +97,9 @@ class ProximityKeyDetector extends KeyDetector {
             primaryIndex = closestKey;
         }
 
+        if (hasSpace) {
+            allKeys[allKeys.length - 1] = KeyCodes.SPACE;
+        }
         return primaryIndex;
     }
 }
