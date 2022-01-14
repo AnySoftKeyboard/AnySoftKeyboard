@@ -56,6 +56,8 @@
     <string name="effects_group">التأثيرات</string>
     <string name="ime_settings">إعدادات لوحة المفاتيح</string>
     <string name="switch_incognito">وضع التخفي</string>
+    <string name="use_system_vibration_title">استخدام إهتزاز النظام</string>
+    <string name="use_system_vibration_off_summary">استخدام إعداد الاهتزاز المخصص</string>
     <string name="vibrate_on_key_press_title">اهتزاز عند النقر على مفتاح</string>
     <string name="vibrate_on_key_press_value_template">ملي ثانية %d</string>
     <string name="night_mode_screen">إعدادات الوضع الليلي</string>
@@ -506,6 +508,10 @@
     <string name="emoji_default_skin_tone_value_type_5">لون داكن نسبيا</string>
     <string name="emoji_default_skin_tone_value_type_6">لون داكن</string>
     <string name="emoji_default_skin_tone_value_random_type">لون متغير</string>
+    <string name="emoji_default_gender_value_person">شخص</string>
+    <string name="emoji_default_gender_value_woman">امرأة</string>
+    <string name="emoji_default_gender_value_man">رجل</string>
+    <string name="emoji_default_gender_value_random_type">جنس عشوائي</string>
     <string name="developer_tools">أدوات المطور</string>
     <string name="click_for_developer_features">أدوات المطور</string>
     <string name="click_for_developer_features_summary">أدوات مختلفة للوحة مفاتيح AnySoftKeyboard خاصة بالمطورين</string>
@@ -521,6 +527,7 @@
     <string name="enter_word_hint">اكتب كلمة جديدة هنا</string>
     <string name="enter_abbreviation_hint">اختصار</string>
     <string name="enter_abbreviation_target_hint">جملة كاملة</string>
+    <string name="file_explorer_menu_add_folder">إنشاء مجلد</string>
     <string name="about_additional_software_licenses">رخص برمجية إضافية</string>
     <string name="setup_wizard_step_one_title">تفعيل AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_action">إنتقل إلى <i>إعدادت اللغة ثم إعدادات لوحة المفاتيح</i> …    </string>
@@ -595,6 +602,9 @@
     <string name="theme_case_type_override_os">دع نظام الأندرويد يختار (تلقائي)</string>
     <string name="theme_case_type_override_lower">أحرف صغيرة دائما</string>
     <string name="theme_case_type_override_upper">أحرف كبيرة دائما</string>
+    <string name="settings_key_hint_size_small">صغير</string>
+    <string name="settings_key_hint_size_normal">عادي</string>
+    <string name="settings_key_hint_size_big">كبير</string>
     <string name="take_a_while_progress_message">قد تستغرق هذه العملية بعض الوقت …</string>
     <string name="shared_prefs_provider_name">إعدادات التطبيق</string>
     <string name="user_dict_prefs_provider">كلمات المستخدِم</string>
@@ -608,9 +618,11 @@
     <string name="prefs_providers_backed_up_to">تمت عملية الإحتفاظ ببياناتك إلى %s بنجاح</string>
     <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
     <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
+    <string name="word_editor_action_choose_path">اختر مسار مخصص</string>
     <string name="gesture_typing_settings">الكتابة بالحركة ➿</string>
     <string name="gesture_typing_alert_title">ميزة تجريبية!</string>
     <string name="gesture_typing_alert_button">حسنا</string>
     <string name="apply_overlay_summary_off">استخدم ألوان السمة دائما.</string>
+    <string name="app_share_title">مرحبا من AnySoftKeyboard</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
