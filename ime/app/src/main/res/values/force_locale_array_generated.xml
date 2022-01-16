@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!-- DO NOT TRANSLATE - this is auto generated -->
+
+    <string name="settings_key_force_locale">settings_key_force_locale</string>
+    <!-- this should hold the locales the app is translated to, and any addon-->
+    <!-- https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/locale_config.xml -->
+    <string-array name="settings_key_force_locale_values">
+        <item>af</item>
+        <item>ar</item>
+        <item>be</item>
+        <item>bg</item>
+        <item>bn</item>
+        <item>bn-IN</item>
+        <item>ca</item>
+        <item>ckb</item>
+        <item>cs</item>
+        <item>da</item>
+        <item>de</item>
+        <item>el</item>
+        <item>en</item>
+        <item>eo</item>
+        <item>es</item>
+        <item>es-MX</item>
+        <item>et</item>
+        <item>eu</item>
+        <item>fa</item>
+        <item>ff</item>
+        <item>fi</item>
+        <item>fil</item>
+        <item>fr</item>
+        <item>hr</item>
+        <item>hu</item>
+        <item>hy</item>
+        <item>id</item>
+        <item>it</item>
+        <item>iw</item>
+        <item>ji</item>
+        <item>ka</item>
+        <item>kmr</item>
+        <item>kn</item>
+        <item>ku</item>
+        <item>lt</item>
+        <item>mk</item>
+        <item>ml-IN</item>
+        <item>my</item>
+        <item>nb</item>
+        <item>nl</item>
+        <item>or</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>pt-BR</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>sc</item>
+        <item>se</item>
+        <item>si-LK</item>
+        <item>sk</item>
+        <item>sl</item>
+        <item>sq</item>
+        <item>ta</item>
+        <item>th</item>
+        <item>tl</item>
+        <item>tlh</item>
+        <item>tr</item>
+        <item>uk</item>
+        <item>vi</item>
+        <item>wo</item>
+        <item>zh-CN</item>
+    </string-array>
+</resources>
