@@ -90,8 +90,8 @@
     <string name="pop_text_type_on_correction">При коррекции слов</string>
     <string name="pop_text_type_on_word">При любом слове</string>
     <string name="pop_text_type_any_key">При любой клавише</string>
-    <string name="input_field_type_password">Поле для ввода пароля</string>
-    <string name="input_field_type_email">поле ввода E-mail</string>
+    <string name="input_field_type_password">Поле ввода пароля</string>
+    <string name="input_field_type_email">Поле ввода эл. почты</string>
     <string name="input_field_type_url">Поле ввода URL-адреса</string>
     <string name="input_field_type_im">Поле для ввода сообщений</string>
     <string name="sound_on">Звук при нажатии</string>
@@ -409,6 +409,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
     <string name="extension_kbd_bottom_minimal">Минимальный</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Минимальный (без эмодзи)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Минимальный (меньше знаков пунктуации)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Пуск</string>
@@ -487,7 +488,7 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Не имеют каких-либо слов в словаре пользователя. Теперь вы можете добавить ваше первое слово.</string>
-    <string name="user_dict_backup_success_title">Резервное копирование сделано!</string>
+    <string name="user_dict_backup_success_title">Резервное копирование завершено!</string>
     <string name="user_dict_backup_success_text">Ваши слова успешно хранятся на устройстве в /Android/data/com.menny.android.anysoftkeyboard/files/     </string>
     <string name="user_dict_backup_fail_title">Сбой резервного копирования!</string>
     <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>
@@ -655,7 +656,7 @@
     <string name="allow_layouts_to_provide_generic_rows">Клавиатуры могут предоставлять общие строки</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Всегда используйте выбранные общие строки.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Разрешить макетам переопределять общие строки.</string>
-    <string name="gesture_typing_settings">Жест-Ввода ➿</string>
+    <string name="gesture_typing_settings">Ввод жестами ➿</string>
     <string name="gesture_typing_summary">Введите слово, проведя пальцем по буквам.</string>
     <string name="gesture_typing_action">Включить типизацию жестов [BETA]</string>
     <string name="gesture_typing_alert_title">BETA функция!</string>
