@@ -250,6 +250,8 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
                 return KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
             case "utility_keyboard":
                 return KeyCodes.UTILITY_KEYBOARD;
+            case "quick_text_popup":
+                return KeyCodes.QUICK_TEXT_POPUP;
             default:
                 return 0; // 0 means no action
         }
