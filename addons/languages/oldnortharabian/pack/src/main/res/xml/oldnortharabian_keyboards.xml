@@ -2,7 +2,7 @@
 <Keyboards>
     <Keyboard nameResId="@string/oldnortharabian_keyboard" iconResId="@drawable/ic_status_oldnortharabian"
               layoutResId="@xml/oldnortharabian_qwerty" id="f331607a-97bd-4598-a001-52741312317a"
-              defaultDictionaryLocale="ona" description="@string/oldnortharabian_keyboard_description"
+              defaultDictionaryLocale="xna" description="@string/oldnortharabian_keyboard_description"
               index="1" defaultEnabled="true"
               physicalKeyboardMappingResId="@xml/oldnortharabian_physical" />
 </Keyboards>

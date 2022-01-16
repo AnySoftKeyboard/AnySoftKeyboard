@@ -1,4 +1,5 @@
-ext.status_icon_text = "ona"
+//https://iso639-3.sil.org/code/xna
+ext.status_icon_text = "xna"
 
 ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
