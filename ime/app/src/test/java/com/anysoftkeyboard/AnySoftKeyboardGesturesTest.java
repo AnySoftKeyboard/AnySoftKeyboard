@@ -382,6 +382,19 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testSwipeForActionQuickTextPopIpConfigurable() {
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_quick_text_popup));
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(
+                KeyCodes.QUICK_TEXT_POPUP, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
     public void testSwipeForActionShiftConfigurable() {
         SharedPrefsHelper.setPrefsValue(
                 getApplicationContext().getString(R.string.settings_key_swipe_right_action),
