@@ -26,6 +26,8 @@ jobs:
         run: ./scripts/upload_strings_to_crowdin_api.sh keep
       - name: Download latest translations
         run: ./scripts/update_strings_from_crowdin_api.sh build
+      - name: Update force-locale list
+        run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:

@@ -1,3 +1,7 @@
+import java.util.regex.Pattern
+import java.util.stream.Collectors
+import java.util.stream.StreamSupport
+
 group 'net.evendanan'
 
 ext.override_app_id = 'com.menny.android.anysoftkeyboard'
@@ -129,6 +133,46 @@ dependencies {
     rootProject.findProject(":addons").subprojects.forEach {
         if (it.name == 'pack') {
             allAddOnsImplementation it
+        }
+    }
+}
+
+tasks.register("generateForceLocaleArrayResourceFile") { generateTask ->
+    //adding all value-XXXX folders as inputs
+    Arrays.stream(generateTask.project.file('src/main/res').listFiles())
+        .filter {it.isDirectory() }
+        .filter {it.name.matches('values-\\w{2,3}(-r\\w+)?')}
+        .filter {!it.name.matches('values-v\\d+.*')}
+        .forEach { generateTask.inputs.dir(it) }
+
+    generateTask.outputs.file('src/main/res/values/force_locale_array_generated.xml')
+
+    generateTask.doLast {
+        def localeEntries = inputs.files.toList()
+                .stream()
+                .filter { it.name == 'strings.xml' }
+                .map { it.parentFile.name }
+                .map { Pattern.compile('values-(\\w{2,3}(-r\\w+)?)').matcher(it) }
+                .filter {it.find() }
+                .map {it.group(1)}
+                .map {it.replace("-r", "-")}
+                .sorted()
+                .collect(Collectors.toList())
+        outputs.files.singleFile.withWriter {
+            //header
+            it.writeLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+            it.writeLine("<resources xmlns:tools=\"http://schemas.android.com/tools\" tools:ignore=\"MissingTranslation\">")
+            it.writeLine("    <!-- DO NOT TRANSLATE - this is auto generated -->")
+            it.newLine()
+            it.writeLine("    <string name=\"settings_key_force_locale\">settings_key_force_locale</string>")
+            it.writeLine("    <!-- this should hold the locales the app is translated to, and any addon-->")
+            it.writeLine("    <!-- https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/locale_config.xml -->")
+            it.writeLine("    <string-array name=\"settings_key_force_locale_values\">")
+            //entries
+            localeEntries.forEach {entry -> it.writeLine("        <item>$entry</item>")}
+            //finish
+            it.writeLine("    </string-array>")
+            it.writeLine("</resources>")
         }
     }
 }
