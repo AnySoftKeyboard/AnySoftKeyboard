@@ -18,6 +18,7 @@ env:
 jobs:
   localization-update:
     runs-on: ubuntu-18.04
+    container: menny/android_ndk:1.15.3
     steps:
       - uses: actions/checkout@v2
         with:
