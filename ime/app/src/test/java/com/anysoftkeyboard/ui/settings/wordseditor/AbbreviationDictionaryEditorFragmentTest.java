@@ -1,14 +1,13 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
-import androidx.annotation.NonNull;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.menny.android.anysoftkeyboard.R;
 
 public class AbbreviationDictionaryEditorFragmentTest
         extends RobolectricFragmentTestCase<AbbreviationDictionaryEditorFragment> {
 
-    @NonNull
     @Override
-    protected AbbreviationDictionaryEditorFragment createFragment() {
-        return new AbbreviationDictionaryEditorFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.abbreviationDictionaryEditorFragment;
     }
 }

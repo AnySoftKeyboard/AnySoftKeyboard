@@ -1,0 +1,2 @@
+Updated Songhay language pack :
+ - new dictionary and layout.

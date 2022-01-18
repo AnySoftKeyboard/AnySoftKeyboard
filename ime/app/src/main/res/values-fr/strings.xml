@@ -53,6 +53,9 @@
     <string name="effects_group">Effets</string>
     <string name="ime_settings">Paramètres du clavier</string>
     <string name="switch_incognito">Mode incognito</string>
+    <string name="use_system_vibration_title">Utiliser les vibrations du système</string>
+    <string name="use_system_vibration_off_summary">Utiliser des vibrations personnalisées</string>
+    <string name="use_system_vibration_on_summary">Utiliser les vibrations du système Android</string>
     <string name="vibrate_on_key_press_title">Vibrer lors de la saisie</string>
     <string name="vibrate_on_key_press_value_template">%d millisecondes</string>
     <string name="night_mode_screen">Paramètres du mode nuit</string>
@@ -100,9 +103,9 @@
     <string name="custom_sound_volume">Volume personnalisé lors de la saisie</string>
     <string name="vibrate_on_long_press_title">Vibrer sur un appui long</string>
     <string name="vibrate_on_long_press_summary_on">Une légère vibration lors d\'un appui long pour d\'une action</string>
-    <string name="switch_keyboard_on_space">Appui sur Espace pour changer de clavier</string>
-    <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
-    <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
+    <string name="switch_keyboard_on_space">Glissement sur Espace pour changer de clavier</string>
+    <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet avec un glissement sur la barre d\'Espace</string>
+    <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un glissement sur la barre d\'Espace</string>
     <string name="colorize_nav_bar_title">Dessiner derrière la barre de navigation</string>
     <string name="colorize_nav_bar_summary_on">L\'arrière-plan du clavier sera dessiné derrière la barre de navigation. Ceci n\'est pas pris en charge par tous les appareils.</string>
     <string name="colorize_nav_bar_summary_off">Ne pas dessiner derrière la barre de navigation.</string>
@@ -245,7 +248,6 @@
     <string name="supported_keyboard_row_modes_title">Modes de champ de saisie spécialisé activés</string>
     <string name="supported_keyboard_row_modes_summary">Rangées de champ de saisie spécialisé (comme mot de passe, URL, etc.) à utiliser</string>
     <string name="tweak_dictionary_group">Réglages du dictionnaire</string>
-    <string name="settings_min_length_for_word_correction">Longueur minimale de mot pour la correction</string>
     <string name="show_keyboard_name_text">Afficher le nom du clavier</string>
     <string name="show_keyboard_name_on_summary">Afficher le nom du clavier sur la barre d\'espace</string>
     <string name="show_keyboard_name_off_summary">Ne jamais afficher le nom du clavier</string>
@@ -514,6 +516,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Ton foncé moyen</string>
     <string name="emoji_default_skin_tone_value_type_6">Ton foncé</string>
     <string name="emoji_default_skin_tone_value_random_type">Ton aléatoire</string>
+    <string name="emoji_default_gender_title">Genre par défaut de l\'émoji</string>
+    <string name="emoji_default_gender_summary">Genre par défaut à utiliser : %s</string>
+    <string name="emoji_default_gender_value_person">Individu</string>
+    <string name="emoji_default_gender_value_woman">Femme</string>
+    <string name="emoji_default_gender_value_man">Homme</string>
+    <string name="emoji_default_gender_value_random_type">Genre aléatoire</string>
     <string name="developer_tools">Outils de développement</string>
     <string name="click_for_developer_features">Outils de développement</string>
     <string name="click_for_developer_features_summary">Divers outils pour les développeurs de AnySoftKeyboard</string>
@@ -585,6 +593,7 @@
     <string name="clipboard_paste_entries_title">Choisir le texte à coller</string>
     <string name="next_word_prefs_clear_data">Effacer les données de mot suivant</string>
     <string name="next_word_prefs_clear_data_summary">Ceci est irréversible. Tout l\'historique de frappe va être effacé.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard nécessite votre autorisation en lecture et écriture pour enregistrer les fichiers de sauvegarde.</string>
     <string name="notification_read_contacts_title">Puis-je lire vos contacts ?</string>
     <string name="notification_read_contacts_text">Les contacts doivent être lus pour améliorer la fonction de complétion automatique.</string>
     <string name="notification_read_contacts_ticker">Autorisation des contacts requise</string>

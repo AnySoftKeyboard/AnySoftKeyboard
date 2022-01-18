@@ -25,6 +25,4 @@
     
     <dimen name="default_key_vertical_gap">2dp</dimen>
     <dimen name="default_key_horizontal_gap">2dp</dimen>
-    
-    <dimen name="candidate_strip_height">38dip</dimen>
 </resources>

@@ -306,8 +306,6 @@
     <string name="supported_keyboard_row_modes_summary">شێوازی پەسەندی خانەکان هەڵبژێرە وەکو (خانەی        تێپەڕە ووشە، URL،  هتد)
     </string>
     <string name="tweak_dictionary_group">ڕێکخستنی فەرهەنگ</string>
-    <string name="settings_min_length_for_word_correction">کەمترین ووشە بۆ ڕاستکردنەوە
-    </string>
     <string name="show_keyboard_name_text">ناوی تەختەکلیل</string>
     <string name="show_keyboard_name_on_summary">پیشاندانی ناوی تەختەکلیل لەسەر دوگمەی بۆشایی</string>
     <string name="show_keyboard_name_off_summary">شاردنەوەی ناوی تەختەکلیل</string>

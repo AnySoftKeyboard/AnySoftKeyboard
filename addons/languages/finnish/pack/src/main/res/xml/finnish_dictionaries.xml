@@ -9,7 +9,7 @@
      -->
      
     <Dictionary
-        nameResId="@string/dictionary_name"
+        nameResId="@string/finnish_dictionary_name"
         locale="fi"
         id="aa85d1dd-f23b-4fc1-a30c-9a0480866122"
         type="binary_resource"

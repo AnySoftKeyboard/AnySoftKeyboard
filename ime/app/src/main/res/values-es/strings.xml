@@ -246,7 +246,6 @@
     <string name="supported_keyboard_row_modes_title">Modos habilitados de filas de entrada especializadas</string>
     <string name="supported_keyboard_row_modes_summary">Elegir las filas de entrada especializadas (como contraseña, URL, etc.) para usar.</string>
     <string name="tweak_dictionary_group">Ajustes de diccionario</string>
-    <string name="settings_min_length_for_word_correction">Longitud de palabra mínima para la corrección</string>
     <string name="show_keyboard_name_text">Mostrar el nombre del teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar el nombre del teclado en la barra espaciadora</string>
     <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre del teclado</string>
@@ -524,7 +523,7 @@
     <string name="created_mem_dump_file">Archivo de volcado de memoria creado en: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no está configurado para su uso. Haz clic aquí para configurar.</string>
     <string name="not_configured_with_just_click_here">Clic aquí</string>
-    <string name="click_for_more">más...</string>
+    <string name="click_for_more">más…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Añadir palabra</string>
@@ -559,9 +558,9 @@
     <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Estás listo 🎉\nVe a tu aplicación favorita para probarlo.</b></string>
     <string name="setup_wizard_step_three_details_actions">O bien, puedes personalizar el teclado según tus gustos:</string>
-    <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
-    <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
+    <string name="setup_wizard_step_three_action_languages">Configuración de idiomas…</string>
+    <string name="setup_wizard_step_three_action_themes">Seleccionar tema…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás…</string>
     <string name="setup_wizard_step_download_title">Descargar paquetes de idioma</string>
     <string name="setup_wizard_step_download_details">Te alegrará saber que <i>AnySoftKeyboard</i> admite docenas de idiomas. Simplemente descarga el paquete de idioma deseado y disfruta escribiendo en cualquier idioma en tu dispositivo.</string>
     <string name="setup_wizard_step_download_action">Descargar paquete de idioma</string>

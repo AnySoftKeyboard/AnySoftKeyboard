@@ -17,9 +17,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     public void testAskForSuggestions() {
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
@@ -28,9 +28,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     public void testPerformUpdateSuggestionsOnSeparatorQuickly() {
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateKeyPress('l', false);
         Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ', false);
@@ -42,9 +42,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     public void testAskForSuggestionsWithoutInputConnectionUpdates() {
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateKeyPress('e');
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateKeyPress('l');
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
     }
@@ -56,9 +56,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         inputConnection.setUpdateSelectionDelay(1000000L);
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateKeyPress('e');
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         // sending a delayed event from the input-connection.
         // this can happen when the user is clicking fast (in ASK thread), but the other side (the
         // app thread)
@@ -74,7 +74,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     public void testAskForSuggestionsWhenCursorInsideWord() {
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hl");
         // moving one character back, and fixing the word to 'hel'
@@ -89,9 +89,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
@@ -203,9 +203,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
@@ -225,7 +225,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hl");
         Assert.assertEquals("hl", inputConnection.getCurrentTextInInputConnection());
@@ -562,7 +562,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 "he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
 
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
 
         // should not do anything
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);

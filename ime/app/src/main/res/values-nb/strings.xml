@@ -242,8 +242,6 @@
     <string name="supported_keyboard_row_modes_title">Aktiverte spesialiserte moduser for inntastingsfelt</string>
     <string name="supported_keyboard_row_modes_summary">Velg spesialiserte inntastingsfelt-rader (f. eks. passord, nettadresse etc.) som skal brukes.    </string>
     <string name="tweak_dictionary_group">Ordlistetilpasninger</string>
-    <string name="settings_min_length_for_word_correction">Minimum ordlengde for korreksjon
-    </string>
     <string name="show_keyboard_name_text">Vis tastaturnavn</string>
     <string name="show_keyboard_name_on_summary">Vis tastaturnavn på mellomromstast</string>
     <string name="show_keyboard_name_off_summary">Vis aldri tastaturnavn</string>

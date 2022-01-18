@@ -16,7 +16,8 @@ on:
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  GRADLE_USER_HOME: ".github_cache_gradle/"
+  GRADLE_USER_HOME: ".github_cache_gradle/user_home/"
+  GRADLE_HOME: ".github_cache_gradle/gradle_home/"
   TMPDIR: "/tmp"
 
 jobs:
@@ -29,8 +30,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: checks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: checks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -55,19 +56,38 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: linters-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: linters-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
         # Due to an issue with lint in merge commits, only running in PRs
         if: github.event_name != 'push'
         run: ./scripts/ci/ci_check_lint.sh
+      - name: check-oom-due-to-lint-issue
+        if: always()
+        continue-on-error: true
+        run: |
+          echo "repo ls:"
+          ls -al
+          echo "logs ls:"
+          ls /var/log
+          grep -i 'killed process' /var/log/messages || true
+          grep -i 'killed process' /var/log/syslog || true
+          grep -i 'oom' /var/log/messages || true
+          grep -i 'oom' /var/log/syslog || true
+          grep -i 'out of memory' /var/log/messages || true
+          grep -i 'out of memory' /var/log/syslog || true
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: lint-results-*.html
           output_folder: collected_reports/lint
+      - uses: ./.github/actions/collect-reports
+        if: always()
+        with:
+          file_pattern: java_*.hprof
+          output_folder: oom_dumps
       - uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
@@ -88,8 +108,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-shards-gradle-v3-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: tests-shards-gradle-v3-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -124,8 +144,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-all-sdks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: tests-all-sdks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -160,8 +180,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-app-less-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: tests-app-less-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -196,8 +216,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: verify-all-addons-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: verify-all-addons-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: verify-add-ons
@@ -230,15 +250,15 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: dry-run-deploy-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: dry-run-deploy-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
+          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
       - uses: actions/upload-artifact@v1.0.0
         with:

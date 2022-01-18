@@ -13,6 +13,7 @@ public class KeyCodes {
 
     public static final int QUICK_TEXT = -10;
     public static final int QUICK_TEXT_POPUP = -102;
+    public static final int CLEAR_QUICK_TEXT_HISTORY = -103;
     public static final int DOMAIN = -9;
 
     public static final int SHIFT = -1;
@@ -65,8 +66,6 @@ public class KeyCodes {
     public static final int PRE_PREPARED_ABBREVIATIONS_POPUP = -150;
     public static final int PRE_PREPARED_TEXT_POPUP = -151;
     public static final int PRE_PREPARED_EMAILS_POPUP = -152;
-
-    public static final int DELETE_RECENT_USED_SMILEYS = -160;
 
     public static final int EXTERNAL_INTEGRATION = -200;
 }

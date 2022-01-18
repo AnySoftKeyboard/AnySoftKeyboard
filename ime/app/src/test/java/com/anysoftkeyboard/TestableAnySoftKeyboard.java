@@ -580,55 +580,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
     }
 
-    //    public static class TestableSuggest extends Suggest {
-    //
-    //        private boolean mHasMinimalCorrection;
-    //        private boolean mEnabledSuggestions;
-    //
-    //        public TestableSuggest(Context context) {
-    //            super(context);
-    //        }
-    //
-    //        @Override
-    //        public void setCorrectionMode(
-    //                boolean enabledSuggestions,
-    //                int maxLengthDiff,
-    //                int maxDistance,
-    //                int minimumWorLength) {
-    //            super.setCorrectionMode(
-    //                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
-    //            mEnabledSuggestions = enabledSuggestions;
-    //        }
-    //
-    //        @Override
-    //        public List<CharSequence> getSuggestions(
-    //                WordComposer wordComposer, boolean includeTypedWordIfValid) {
-    //            if (!mEnabledSuggestions) return Collections.emptyList();
-    //
-    //            if (wordComposer.isAtTagsSearchState()) {
-    //                return super.getSuggestions(wordComposer, includeTypedWordIfValid);
-    //            }
-    //
-    //            String word = wordComposer.getTypedWord().toString().toLowerCase();
-    //
-    //            ArrayList<CharSequence> suggestions = new ArrayList<>();
-    //            suggestions.add(wordComposer.getTypedWord());
-    //            if (mDefinedWords.containsKey(word)) {
-    //                suggestions.addAll(mDefinedWords.get(word));
-    //                mHasMinimalCorrection = true;
-    //            } else {
-    //                mHasMinimalCorrection = false;
-    //            }
-    //
-    //            return suggestions;
-    //        }
-    //
-    //        @Override
-    //        public boolean hasMinimalCorrection() {
-    //            return mHasMinimalCorrection;
-    //        }
-    //    }
-
     public static class TestableKeyboardSwitcher extends KeyboardSwitcher {
 
         private boolean mKeyboardsFlushed;
@@ -723,12 +674,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         @Override
         public void setCorrectionMode(
-                boolean enabledSuggestions,
-                int maxLengthDiff,
-                int maxDistance,
-                int minimumWorLength) {
-            mDelegate.setCorrectionMode(
-                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
+                boolean enabledSuggestions, int maxLengthDiff, int maxDistance) {
+            mDelegate.setCorrectionMode(enabledSuggestions, maxLengthDiff, maxDistance);
         }
 
         @Override
@@ -765,14 +712,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
-        public List<CharSequence> getSuggestions(
-                WordComposer wordComposer, boolean includeTypedWordIfValid) {
-            return mDelegate.getSuggestions(wordComposer, includeTypedWordIfValid);
+        public List<CharSequence> getSuggestions(WordComposer wordComposer) {
+            return mDelegate.getSuggestions(wordComposer);
         }
 
         @Override
-        public boolean hasMinimalCorrection() {
-            return mDelegate.hasMinimalCorrection();
+        public int getLastValidSuggestionIndex() {
+            return mDelegate.getLastValidSuggestionIndex();
         }
 
         @Override

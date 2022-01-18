@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
-import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;
 import org.junit.After;
@@ -17,7 +16,7 @@ import org.junit.Test;
 import org.robolectric.Shadows;
 
 public class WizardLanguagePackFragmentTest
-        extends RobolectricFragmentTestCase<WizardLanguagePackFragment> {
+        extends RobolectricWizardFragmentTestCase<WizardLanguagePackFragment> {
 
     @After
     public void tearDownLanguagePack() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     <string name="debug_tracing_starting">Tracciamento iniziato!\nAssicurati di fermarlo ad un certo punto</string>
-    <string name="debug_tracing_starting_failed">Avvio tracciamento non riuscito! Controlla logcat per dettagli.</string>
+    <string name="debug_tracing_starting_failed">Avvio tracciamento non riuscito! Controlla Logcat per dettagli.</string>
     <string name="debug_tracing_finished">Tracciamento completato!\nIl file di traccia è\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Al riguardo</string>
     <string name="how_to_pointer_title">Benvenuti in AnySoftKeyboard</string>
@@ -246,7 +246,6 @@
     <string name="supported_keyboard_row_modes_title">Modalità di campo immissione specializzate abilitate</string>
     <string name="supported_keyboard_row_modes_summary">Scegli righe di campo immissione specializzato (come password, URL, ecc.) da usare.</string>
     <string name="tweak_dictionary_group">Modifiche del dizionario</string>
-    <string name="settings_min_length_for_word_correction">Lunghezza minima della parola da correggere</string>
     <string name="show_keyboard_name_text">Mostra nome della tastiera</string>
     <string name="show_keyboard_name_on_summary">Mostra nome della tastiera sulla barra spaziatrice</string>
     <string name="show_keyboard_name_off_summary">Non mostrare mai il nome della tastiera</string>
@@ -593,7 +592,7 @@
     <string name="allow_permission">Permetti</string>
     <string name="turn_off_contacts_dictionary">Disattiva dizionario Contatti</string>
     <string name="read_more_about_permissions">Per saperne di più sulle autorizzazioni…</string>
-    <string name="ask_beta_link_promo">Hey! Vuoi nuova roba <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi all\'indirizzo sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
+    <string name="ask_beta_link_promo">Hey! Vuoi roba nuova di <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi al link sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
     <string name="clipboard_fine_select_enabled_toast">Selezione sottile testo abilitata. Usa freccia sinistra/destra.</string>
     <string name="app_shortcut_keyboards_disabled">Navigazione tastiere disattivata</string>
     <string name="app_shortcut_keyboards_long_label">Scegli disposizioni tastiera da utilizzare</string>

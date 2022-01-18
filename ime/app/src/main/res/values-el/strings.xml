@@ -135,7 +135,6 @@
     <string name="tweak_ui_group">Γραφικό περιβάλλον προηγμένων ρυθμίσεων</string>
     <string name="tweak_ux_group">Συμπεριφορά προηγμένων ρυθμίσεων</string>
     <string name="tweak_dictionary_group">Τροποποιήσεις λεξικού</string>
-    <string name="settings_min_length_for_word_correction">Ελάχιστο μήκος λέξης για διόρθωση</string>
     <string name="show_keyboard_name_text">Εμφάνιση του ονόματος πληκτρολογίου</string>
     <string name="show_keyboard_name_on_summary">Εμφάνιση του ονόματος πληκτρολογίου πατώντας το πλήκτρο διαστήματος</string>
     <string name="show_keyboard_name_off_summary">Να μην εμφανίζεται ποτέ το όνομα πληκτρολογίου</string>
@@ -322,12 +321,12 @@
     <string name="about_additional_software_licenses">Επιπλέον άδειες λογισμικού</string>
     <string name="setup_wizard_step_one_title">Ενεργοποίηση AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Σε αυτό το βήμα, θα πρέπει να ενεργοποιήσετε το <i>AnySoftKeyboard</i>. Παρακαλώ επιλέξτε το <i>\'AnySoftKeyboard\'</i> στη δική σας <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>. Αυτό θα επιτρέψει την λειτουργία μας στη συσκευή σας.</string>
-    <string name="setup_wizard_step_one_action">Πηγαίνετε στο <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>...</string>
+    <string name="setup_wizard_step_one_action">Πηγαίνετε στο <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>…</string>
     <string name="setup_wizard_step_two_title">Μεταβείτε σε AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Το σύστημά σας μπορεί να χρησιμοποιήσει το <i>AnySoftKeyboard</i> τώρα, αλλά δεν έχει οριστεί ως ενεργό πληκτρολόγιο.\nΜε την εναλλαγή, το <i>AnySoftKeyboard</i> θα είναι το νέο πληκτρολόγιο οθόνης, μαζί με όλα τα χαρακτηριστικά του!</string>
     <string name="setup_wizard_step_two_action">Εναλλαγή ενεργών πληκτρολογίων</string>
-    <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών...</string>
-    <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων...</string>
+    <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών…</string>
+    <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων…</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

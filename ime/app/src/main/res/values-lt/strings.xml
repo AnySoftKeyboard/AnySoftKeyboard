@@ -55,7 +55,10 @@
     <string name="gesture_settings">Gestai</string>
     <string name="effects_group">Efektai</string>
     <string name="ime_settings">Klaviatūros nustatymai</string>
-    <string name="switch_incognito">Inkognito režimas</string>
+    <string name="switch_incognito">Privatus („Inkognito“) režimas</string>
+    <string name="use_system_vibration_title">Naudoti sistemos vibraciją</string>
+    <string name="use_system_vibration_off_summary">Naudojama atskirą vibracijos nustatymą</string>
+    <string name="use_system_vibration_on_summary">Naudojama „Android“ sistemos vibracijos nustatymas</string>
     <string name="vibrate_on_key_press_title">Vibruoti paspaudus</string>
     <string name="vibrate_on_key_press_value_template">%d milisekundžių</string>
     <string name="night_mode_screen">Naktinio režimo nustatymai</string>
@@ -82,7 +85,7 @@
     <string name="power_save_mode_sound_control">Išjungs klavišų paspaudimo garsus</string>
     <string name="power_save_mode_vibration_control">Išjungs klavišų paspaudimo vibraciją</string>
     <string name="power_save_mode_suggestions_control">Išjungti žodžio siūlymus</string>
-    <string name="power_save_mode_gesture_typing_control">Išjungs teksto rinkimas gestais</string>
+    <string name="power_save_mode_gesture_typing_control">Išjungti teksto rinkimą gestais</string>
     <string name="power_save_mode_theme_control">Persijungti į tamsią, paprastą temą</string>
     <string name="pop_text_type_title">Iššokantis tekstas įvestas klavišais</string>
     <string name="pop_text_type_summary">Kada rodyti tekstą pagal paspaudus klavišus. Šiuo metu: %s</string>
@@ -103,6 +106,7 @@
     </string>
     <string name="custom_sound_volume">Pasirinktinas mygtuko paspaudimo garsumas</string>
     <string name="vibrate_on_long_press_title">Vibraciją paspaudus</string>
+    <string name="vibrate_on_long_press_summary_on">Švelni vibracija, kai ilgai laikomas veiksmas</string>
     <string name="switch_keyboard_on_space">Tarpas pakeičia klaviatūras</string>
     <string name="switch_keyboard_on_space_on_summary">Paspaudus tarpą perjungti iš simbolių/skaičių į abėcelę</string>
     <string name="switch_keyboard_on_space_off_summary">Paspaudus tarpą neperjungti iš simbolių/skaičių į abėcelę</string>
@@ -171,6 +175,7 @@
     <string name="swipe_action_name_cycle_keyboards">Eiti per visas klaviatūras</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Eiti per visas klaviatūras atgal</string>
     <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Tarpas</string>
     <string name="swipe_action_name_hide">Slėpti klaviatūrą</string>
     <string name="swipe_action_name_backspace">Back-space</string>
     <string name="swipe_action_name_backword">Back-word</string>
@@ -210,6 +215,9 @@
     <string name="special_dictionaries_group_summary">Pasiūlymų žodynai naudojami „AnySoftKeyboard“</string>
     <string name="use_user_dictionary">Naudotojo žodynas</string>
     <string name="use_user_dictionary_on_summary">Pasiūlyti naudotojo pridėtus žodžius (dukart spustelėkite įvestą pasiūlymą, kad pridėti)</string>
+    <string name="always_use_fallback_user_dictionary">Naudoti „privatų žodyną“ vietovėję</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Naudoti privačia vietovę „AnySoftKeyboard“\(-os) įrengta naudotojo žodyno mechanizmas.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Mėginti naudoti „Android“ sistemos vartotojo žodyną.</string>
     <string name="use_auto_dictionary">Auto žodynas</string>
     <string name="use_auto_dictionary_dialog_title">Pasirinkite mokymosi režimą</string>
     <string name="use_auto_dictionary_summary">Automatiškai išmokti naujus žodžius. Išmokimo metodas: %s</string>
@@ -243,7 +251,6 @@
     <string name="supported_keyboard_row_modes_title">Įjungti specializuoti įvesties laukų režimai</string>
     <string name="supported_keyboard_row_modes_summary">Išsirinkite specializuotus įvesties laukus (slaptažodis, URL ir pan.), kuriuos norite naudoti.</string>
     <string name="tweak_dictionary_group">Žodyno patobulinimai</string>
-    <string name="settings_min_length_for_word_correction">Mažiausias žodžio ilgis korekcijai</string>
     <string name="show_keyboard_name_text">Rodyti klaviatūros pavadinimą</string>
     <string name="show_keyboard_name_on_summary">Rodyti klaviatūros pavadinimą ant tarpo klavišo</string>
     <string name="show_keyboard_name_off_summary">Niekada nerodyti klaviatūros pavadinimo</string>
@@ -330,6 +337,7 @@
     <string name="candidates_off_summary">Jokių pasiūlymų nebus rodoma</string>
     <string name="quick_fix">Greiti patobulinimai ir santrumpos</string>
     <string name="quick_fix_summary">Ištaiso dažnai daromas klaidas ir išplečia santrumpas</string>
+    <string name="quick_fix_secon_disabled">…tik ant pirmos kalbos</string>
     <string name="allow_suggestions_restart">Pasiūlymų restartas</string>
     <string name="allow_suggestions_restart_summary">Restartuoti žodžio pasiūlymą pajudinus žymeklį</string>
     <!-- settings - keyboard group -->
@@ -384,8 +392,11 @@
     <string name="extension_kbd_top_small_numbers">Skaičių klavišai</string>
     <string name="extension_kbd_top_numbers_alt">Alternatyvūs skaičių klavišai</string>
     <string name="extension_kbd_top_nav">Navigacijos klavišai</string>
+    <string name="extension_kbd_top_nav_alt">Navigacijos mygtukų alternatyvą</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Navigacijos mygtukų alternatyvą. Jokios numerių eilutės „pwd“ režime.</string>
     <string name="extension_kbd_top_numbers_simple">Paprasta, tik skaičiai</string>
     <string name="extension_kbd_top_terminal">Terminalas</string>
+    <string name="extension_kbd_top_text_editing">Greitas teksto redagavimas</string>
     <string name="extension_kbd_bottom_regular_with_voice">Įprastinė</string>
     <string name="extension_kbd_bottom_regular">Klasikinė (be mikrofono)</string>
     <string name="extension_kbd_bottom_iphone">iPhone stiliaus (be mikrofono)</string>
@@ -394,7 +405,10 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternatyvi su mikrofonu</string>
     <string name="extension_kbd_bottom_old">Senovinė</string>
     <string name="extension_kbd_bottom_simple">Paprasta</string>
+    <string name="extension_kbd_bottom_simple_alt">Paprastas alternatyvas</string>
+    <string name="extension_kbd_bottom_row_aosp">„AOSP“ stiliaus</string>
     <string name="extension_kbd_bottom_ng">Naujos kartos - Testavimas</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Naujoji generacija (be paragrafų) - Testuojama</string>
     <string name="extension_kbd_extension_numbers_symbols">Skaičiai ir simboliai</string>
     <string name="extension_kbd_bottom_minimal">Minimalus</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalus (be „Emoji“)</string>
@@ -508,6 +522,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Vidutinio tamsumo apvalkalo tonas</string>
     <string name="emoji_default_skin_tone_value_type_6">Tamsus apvalkalo tonas</string>
     <string name="emoji_default_skin_tone_value_random_type">Atsitiktinis apvalkalo tonas</string>
+    <string name="emoji_default_gender_title">Numatyta jaustukų lytis</string>
+    <string name="emoji_default_gender_summary">Numatyta lytis naudoti: %s</string>
+    <string name="emoji_default_gender_value_person">Asmuo</string>
+    <string name="emoji_default_gender_value_woman">Moteris</string>
+    <string name="emoji_default_gender_value_man">Vyras</string>
+    <string name="emoji_default_gender_value_random_type">Atsitiktinė lytis</string>
     <string name="developer_tools">Programų kūrėjų įrankiai</string>
     <string name="click_for_developer_features">Programų kūrėjų įrankiai</string>
     <string name="click_for_developer_features_summary">Įvairūs įrankiai „AnySoftKeyboard“ kūrėjams</string>
@@ -529,6 +549,17 @@
     <string name="enter_word_hint">Įrašykite naują žodį čia</string>
     <string name="enter_abbreviation_hint">Santrumpa</string>
     <string name="enter_abbreviation_target_hint">Pilnas sakinys</string>
+    <string name="toast_error_custom_path_backup">Klaida: Jokia „Kontekstinė“ programa negalėjo būti atidaryti</string>
+    <string name="file_explorer_menu_add_folder">Sukurti aplanką</string>
+    <string name="file_explorer_filename">Atsarginio failo pavadinimas…</string>
+    <string name="file_explorer_filename_empty">Failo pavadinimas negali būti tuščias…</string>
+    <string name="file_explorer_alert_title">Pasirinkti šį failą?</string>
+    <string name="file_explorer_restore_alert_message">Ar jūs norėtumėt atkurti šį failą?</string>
+    <string name="file_explorer_backup_alert_message">Šis failus bus perrašytas.</string>
+    <string name="file_explorer_backup_success">Jūsų duomenys buvo išsaugoti į\u0020</string>
+    <string name="file_explorer_backup_failed">Nepavyko išsaugoti jūsų duomenų.</string>
+    <string name="file_explorer_restore_success">Jūsų duomenys buvo atkurti iš\u0020</string>
+    <string name="file_explorer_restore_failed">Nepavyko atkurti jūsų duomenų.</string>
     <string name="about_additional_software_licenses">Papildomos programinės įrangos licencijos</string>
     <string name="setup_wizard_step_one_title">Įjungti „AnySoftKeyboard“</string>
     <string name="setup_wizard_step_one_details">Šiame žingsnelyje jums reikia įjungti „<i>AnySoftKeyboard</i>“. Pažymėkite „<i>AnySoftKeyboard</i>“ <i>Kalba ir įvestis</i> nustatymuose. Tai leis klaviatūrai veikti jūsų įrenginyje.</string>
@@ -567,6 +598,7 @@
     <string name="clipboard_paste_entries_title">Pasirinkite tekstą, kad įklijuoti</string>
     <string name="next_word_prefs_clear_data">Išvalyti kito žodžio duomenis</string>
     <string name="next_word_prefs_clear_data_summary">Tai negrąžinama. Visa rašymo istorija bus išvalyta.</string>
+    <string name="storage_permission_rationale">„AnySoftKeyboard“ reikalauja jūsų leidimo skaityti ir rašinėti į jūsų saugyklą, dėl jūsų atsarginių failų.</string>
     <string name="notification_read_contacts_title">Ar galiu perskaityti jūsų kontaktus?</string>
     <string name="notification_read_contacts_text">Mums reikia perskaityti jūsų kontaktus, kad suteiktume geresnę automatinio užbaigimo patirtį.</string>
     <string name="notification_read_contacts_ticker">Reikia kontaktų leidimo</string>
@@ -632,7 +664,12 @@
     <string name="prefs_providers_backed_up_to">Jūsų duomenys sėkmingai nukopijuoti į %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nepavyko atkurti jūsų duomenų dėl %s</string>
     <string name="prefs_providers_restored_to">Jūsų duomenys sėkmingai atkurti iš %s</string>
+    <string name="word_editor_action_choose_path">Pasirinkite paskirties vietą</string>
+    <string name="allow_layouts_to_provide_generic_rows">Klaviatūros gali pateikti „įprastas eilutes“</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Visada naudoti pasirinktines „įprastas eilutes“.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Leisti išdėstymams perrašyti „įprastas eilutes“.</string>
     <string name="gesture_typing_settings">Rašymas gestais ➿</string>
+    <string name="gesture_typing_summary">Įterpti žodį perbraukus pirštu per jo raides.</string>
     <string name="gesture_typing_action">Įjungti rašymą gestais [BETA]</string>
     <string name="gesture_typing_alert_title">BETA funkcija!</string>
     <string name="gesture_typing_alert_message">Rašymo gestais ➿ funkcija yra <b>beta</b> stadijoje. Ji turi keletą klaidų, nėra tokia greita ir neišsami.\nTrumpai tariant, turėtumėte ją pabandyti.</string>
@@ -640,9 +677,15 @@
     <string name="apply_remote_app_colors_to_theme">Pakeisti temos spalvas, atsižvelgiant į naudojamą programėlę</string>
     <string name="apply_overlay_summary_on">Klaviatūros spalvos atitiks aktyviąją programėlę (kiek leis mūsų galimybės).</string>
     <string name="apply_overlay_summary_off">Visada naudokite temos spalvas.</string>
+    <string name="media_insertion_pending_message">Spauskite teksto lauką, kad įterptumėte vaizdą/nuotrauka/paveikslėlį.</string>
     <string name="aosp_dark_theme_name">AOSP tamsi tema</string>
     <string name="aosp_dark_theme_description">AOSP pavyzdžio tamsių spalvų klaviatūros tema</string>
     <string name="aosp_light_theme_name">AOSP šviesi tema</string>
     <string name="aosp_light_theme_description">AOSP pavyzdžio šviesių spalvų klaviatūros tema</string>
+    <string name="app_share_title">Sveiki iš „AnySoftKeyboard“</string>
+    <string name="app_share_menu_title">Bendrinti „AnySoftKeyboard“ naudojant</string>
+    <string name="app_share_text">Leiskite man rekomenduoti atviro kodo, privatumo-orientuota, nemokamą, daugumos kalbų „Android“ klaviatūrą
+„AnySoftKeyboard“!\nGaukite ją iš:\n„Google Play Parduotuvės“: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\n„F-Droid“: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">spausk mane dėl siurprizo</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

@@ -1,13 +1,12 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 /*package*/ class FrameKeyboardViewClickListener implements View.OnClickListener {
     private final OnKeyboardActionListener mKeyboardActionListener;
@@ -30,15 +29,18 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
                 break;
             case R.id.quick_keys_popup_delete_recently_used_smileys:
                 mKeyboardActionListener.onKey(
-                        KeyCodes.DELETE_RECENT_USED_SMILEYS, null, 0, null, true);
+                        KeyCodes.CLEAR_QUICK_TEXT_HISTORY, null, 0, null, true);
+                // re-show
+                mKeyboardActionListener.onKey(KeyCodes.QUICK_TEXT_POPUP, null, 0, null, true);
                 break;
             case R.id.quick_keys_popup_quick_keys_settings:
                 Intent startSettings =
-                        FragmentChauffeurActivity.createStartActivityIntentForAddingFragmentToUi(
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                        v.getContext().getString(R.string.deeplink_url_quick_text)),
                                 v.getContext(),
-                                MainSettingsActivity.class,
-                                new QuickTextKeysBrowseFragment(),
-                                TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                                MainSettingsActivity.class);
                 startSettings.setFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK
                                 | Intent.FLAG_ACTIVITY_NO_HISTORY

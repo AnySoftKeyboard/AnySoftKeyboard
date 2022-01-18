@@ -3,7 +3,6 @@ package com.anysoftkeyboard.ui.settings.setup;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,8 +12,11 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
+import app.cash.copper.rx2.RxContentResolver;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 
 public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
@@ -43,30 +45,9 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                 }
             };
 
-    private final ContentObserver mSecureSettingsChanged =
-            new ContentObserver(null) {
-                @Override
-                public boolean deliverSelfNotifications() {
-                    return false;
-                }
-
-                @Override
-                public void onChange(boolean selfChange) {
-                    if (!isResumed() && isStepCompleted(getContext())) {
-                        // should we return to this task?
-                        // this happens when the user is asked to enable AnySoftKeyboard, which is
-                        // done on a different UI activity (outside of my App).
-                        mGetBackHereHandler.removeMessages(KEY_MESSAGE_RETURN_TO_APP);
-                        mGetBackHereHandler.sendMessageDelayed(
-                                mGetBackHereHandler.obtainMessage(KEY_MESSAGE_RETURN_TO_APP),
-                                50 /*enough for the user to see what happened.*/);
-                    }
-                }
-            };
-
     private Context mBaseContext = null;
     private Intent mReLaunchTaskIntent = null;
-    private Context mAppContext;
+    @NonNull private Disposable mSecureSettingsChangedDisposable = Disposables.empty();
 
     @Override
     protected int getPageLayoutId() {
@@ -77,38 +58,59 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View.OnClickListener goToDeviceLanguageSettings =
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // registering for changes, so I'll know to come back here.
-                        mAppContext = getActivity().getApplicationContext();
-                        mAppContext
-                                .getContentResolver()
-                                .registerContentObserver(
-                                        Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
-                        // but I don't want to listen for changes for ever!
-                        // If the user is taking too long to change one checkbox, I say forget about
-                        // it.
-                        mGetBackHereHandler.removeMessages(KEY_MESSAGE_UNREGISTER_LISTENER);
-                        mGetBackHereHandler.sendMessageDelayed(
-                                mGetBackHereHandler.obtainMessage(KEY_MESSAGE_UNREGISTER_LISTENER),
-                                45
-                                        * 1000 /*45 seconds to change a checkbox is enough. After that, I wont listen to changes anymore.*/);
-                        Intent startSettings = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);
-                        startSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startSettings.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        startSettings.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                        try {
-                            mAppContext.startActivity(startSettings);
-                        } catch (ActivityNotFoundException notFoundEx) {
-                            // weird.. the device does not have the IME setting activity. Nook?
-                            Toast.makeText(
-                                            mAppContext,
-                                            R.string
-                                                    .setup_wizard_step_one_action_error_no_settings_activity,
-                                            Toast.LENGTH_LONG)
-                                    .show();
-                        }
+                v -> {
+                    // registering for changes, so I'll know to come back here.
+                    final Context context = requireContext();
+                    mSecureSettingsChangedDisposable =
+                            RxContentResolver.observeQuery(
+                                            context.getContentResolver(),
+                                            Settings.Secure.CONTENT_URI,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true,
+                                            RxSchedulers.mainThread())
+                                    .subscribeOn(RxSchedulers.background())
+                                    .observeOn(RxSchedulers.mainThread())
+                                    .forEach(
+                                            q -> {
+                                                if (!isResumed() && isStepCompleted(context)) {
+                                                    // should we return to this task?
+                                                    // this happens when the user is asked to enable
+                                                    // AnySoftKeyboard, which is
+                                                    // done on a different UI activity (outside of
+                                                    // my App).
+                                                    mGetBackHereHandler.removeMessages(
+                                                            KEY_MESSAGE_RETURN_TO_APP);
+                                                    mGetBackHereHandler.sendMessageDelayed(
+                                                            mGetBackHereHandler.obtainMessage(
+                                                                    KEY_MESSAGE_RETURN_TO_APP),
+                                                            50 /*enough for the user to see what happened.*/);
+                                                }
+                                            });
+                    // but I don't want to listen for changes for ever!
+                    // If the user is taking too long to change one checkbox, I say forget about
+                    // it.
+                    mGetBackHereHandler.removeMessages(KEY_MESSAGE_UNREGISTER_LISTENER);
+                    mGetBackHereHandler.sendMessageDelayed(
+                            mGetBackHereHandler.obtainMessage(KEY_MESSAGE_UNREGISTER_LISTENER),
+                            45
+                                    * 1000 /*45 seconds to change a checkbox is enough. After that, I wont listen to changes anymore.*/);
+                    Intent startSettings = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);
+                    startSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startSettings.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startSettings.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    try {
+                        context.startActivity(startSettings);
+                    } catch (ActivityNotFoundException notFoundEx) {
+                        // weird.. the device does not have the IME setting activity. Nook?
+                        Toast.makeText(
+                                        context,
+                                        R.string
+                                                .setup_wizard_step_one_action_error_no_settings_activity,
+                                        Toast.LENGTH_LONG)
+                                .show();
                     }
                 };
         view.findViewById(R.id.go_to_language_settings_action)
@@ -121,7 +123,7 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
         super.onActivityCreated(savedInstanceState);
         FragmentActivity activity = getActivity();
         mBaseContext = activity.getBaseContext();
-        mReLaunchTaskIntent = new Intent(mBaseContext, BasicAnyActivity.class);
+        mReLaunchTaskIntent = new Intent(mBaseContext, SetupWizardActivity.class);
         mReLaunchTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
@@ -156,9 +158,6 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
     private void unregisterSettingsObserverNow() {
         mGetBackHereHandler.removeMessages(KEY_MESSAGE_UNREGISTER_LISTENER);
-        if (mAppContext != null) {
-            mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
-            mAppContext = null;
-        }
+        mSecureSettingsChangedDisposable.dispose();
     }
 }

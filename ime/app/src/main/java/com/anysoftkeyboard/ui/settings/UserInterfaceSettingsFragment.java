@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class UserInterfaceSettingsFragment extends Fragment implements View.OnClickListener {
 
@@ -25,7 +26,7 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.settings_tile_themes).setOnClickListener(this);
         view.findViewById(R.id.settings_tile_effects).setOnClickListener(this);
@@ -39,10 +40,10 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle(R.string.ui_root_tile);
+        requireActivity().setTitle(R.string.ui_root_tile);
 
         AnyKeyboard defaultKeyboard =
-                AnyApplication.getKeyboardFactory(getContext())
+                AnyApplication.getKeyboardFactory(requireContext())
                         .getEnabledAddOn()
                         .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
@@ -51,24 +52,26 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
 
     @Override
     public void onClick(View view) {
+        final NavController navController = Navigation.findNavController(requireView());
         switch (view.getId()) {
             case R.id.settings_tile_themes:
-                addFragmentToUi(new KeyboardThemeSelectorFragment());
+                navController.navigate(
+                        UserInterfaceSettingsFragmentDirections
+                                .actionUserInterfaceSettingsFragmentToKeyboardThemeSelectorFragment());
                 break;
             case R.id.settings_tile_effects:
-                addFragmentToUi(new EffectsSettingsFragment());
+                navController.navigate(
+                        UserInterfaceSettingsFragmentDirections
+                                .actionUserInterfaceSettingsFragmentToEffectsSettingsFragment());
                 break;
             case R.id.settings_tile_even_more:
-                addFragmentToUi(new AdditionalUiSettingsFragment());
+                navController.navigate(
+                        UserInterfaceSettingsFragmentDirections
+                                .actionUserInterfaceSettingsFragmentToAdditionalUiSettingsFragment());
                 break;
             default:
                 throw new IllegalArgumentException(
                         "Failed to handle " + view.getId() + " in UserInterfaceSettingsFragment");
         }
-    }
-
-    private void addFragmentToUi(Fragment fragment) {
-        ((FragmentChauffeurActivity) getActivity())
-                .addFragmentToUi(fragment, TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
     }
 }

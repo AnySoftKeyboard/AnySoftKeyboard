@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 apply from: "${rootDir}/gradle/android_general.gradle"
 
 dependencies {
-    api 'com.getkeepsafe.relinker:relinker:1.4.3'
+    api 'com.getkeepsafe.relinker:relinker:1.4.4'
     api project(path: ':api')
     api "androidx.legacy:legacy-support-v4:$androidxSupportLegacy"
 

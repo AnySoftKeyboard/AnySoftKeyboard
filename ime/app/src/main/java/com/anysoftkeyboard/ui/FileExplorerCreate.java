@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -45,7 +44,7 @@ public class FileExplorerCreate extends AppCompatActivity {
                         setTitle(o.toString());
                         listFile(mCurrentFolder);
                     } else if (new File(o.toString()).isFile())
-                        create_builder(new File(o.toString()));
+                        createBuilder(new File(o.toString()));
                 });
     }
 
@@ -67,14 +66,14 @@ public class FileExplorerCreate extends AppCompatActivity {
         dialog.show();
     }
 
-    public Disposable launchBackup(@NonNull Context context, String fileOutput) {
+    public Disposable launchBackup(@NonNull File fileOutput) {
         return RxProgressDialog.create(
                         new Pair<>(MainFragment.supportedProviders, MainFragment.checked),
                         this,
                         getText(R.string.take_a_while_progress_message),
                         R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
-                .flatMap(p -> GlobalPrefsBackup.backup(context, p))
+                .flatMap(p -> GlobalPrefsBackup.backup(p, fileOutput))
                 .observeOn(RxSchedulers.mainThread())
                 .subscribe(
                         providerDetails ->
@@ -105,15 +104,14 @@ public class FileExplorerCreate extends AppCompatActivity {
                                         .show());
     }
 
-    public void create_builder(File outputFile) {
+    public void createBuilder(File outputFile) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.file_explorer_alert_title)
                 .setMessage(R.string.file_explorer_backup_alert_message)
                 .setPositiveButton(
                         android.R.string.ok,
                         (dialog, which) -> {
-                            mDisposables.add(
-                                    launchBackup(getApplicationContext(), outputFile.toString()));
+                            mDisposables.add(launchBackup(outputFile));
                             finish();
                         })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -174,12 +172,10 @@ public class FileExplorerCreate extends AppCompatActivity {
                                                 + filenameTextView.getText().toString()
                                                 + ".xml");
 
-                        GlobalPrefsBackup.updateCustomFilename(fileOutput);
                         if (fileOutput.exists()) {
-                            create_builder(fileOutput);
+                            createBuilder(fileOutput);
                         } else {
-                            mDisposables.add(
-                                    launchBackup(getApplicationContext(), fileOutput.toString()));
+                            mDisposables.add(launchBackup(fileOutput));
                             finish();
                         }
                     } else emptyFilenameError();

@@ -33,6 +33,8 @@
         android:installLocation="internalOnly"
         android:label="@string/ime_name"
         android:restoreAnyVersion="true"
+        android:fullBackupOnly="true"
+        android:allowBackup="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.AskApp"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
@@ -47,6 +49,7 @@
         <!-- this is the IME with the pointer to the settings ui (xml/method) -->
         <service
             android:name=".SoftKeyboard"
+            android:exported="true"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -59,9 +62,10 @@
 
         <!-- ui activities -->
         <!-- settings ui activities -->
-        <!-- this is just a proxy activity, it does nothing but direct to the actual setting ativity
+        <!-- this is just a proxy activity, it does nothing but direct to the actual setting activity
         I use this, so I can 'disable' this activity at runtime, and so remove ASK from the launcher's icons -->
         <activity
+            android:exported="true"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/ime_name"
@@ -86,7 +90,7 @@
             android:theme="@style/Theme.AskApp"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.anysoftkeyboard.ui.settings.BasicAnyActivity"
+            android:name="com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/ime_name"
             android:launchMode="singleTask"
@@ -133,4 +137,29 @@
             android:theme="@style/Theme.AskFileExplorer" />
     </application>
 
+    <queries>
+        <!-- any add-on that we support, must be declared here -->
+
+        <!-- keyboards -->
+        <intent>
+            <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />
+        </intent>
+        <!-- dictionaries -->
+        <intent>
+            <action android:name="com.menny.android.anysoftkeyboard.DICTIONARY" />
+        </intent>
+        <!-- extension-keyboard (rows) -->
+        <intent>
+            <action android:name="com.anysoftkeyboard.plugin.EXTENSION_KEYBOARD" />
+        </intent>
+        <!-- themes -->
+        <intent>
+            <action android:name="com.anysoftkeyboard.plugin.KEYBOARD_THEME" />
+        </intent>
+        <!-- quick-text (emoji) -->
+        <intent>
+            <action android:name="com.anysoftkeyboard.plugin.QUICK_TEXT_KEY" />
+        </intent>
+
+    </queries>
 </manifest>

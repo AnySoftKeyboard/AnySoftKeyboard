@@ -16,20 +16,14 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.ContentObserver;
 import android.text.TextUtils;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 
 public abstract class BTreeDictionary extends EditableDictionary {
-
-    @NonNull private Disposable mDictionaryChangedLoader = Disposables.empty();
 
     public interface WordReadListener {
         /**
@@ -50,12 +44,11 @@ public abstract class BTreeDictionary extends EditableDictionary {
     private NodeArray mRoots;
     private int mMaxDepth;
     private int mInputLength;
-    private ContentObserver mObserver = null;
-    private char[] mWordBuilder = new char[MAX_WORD_LENGTH];
+    private final char[] mWordBuilder = new char[MAX_WORD_LENGTH];
     private final boolean mIncludeTypedWord;
 
     protected BTreeDictionary(String dictionaryName, Context context) {
-        this(dictionaryName, context, false);
+        this(dictionaryName, context, true);
     }
 
     protected BTreeDictionary(String dictionaryName, Context context, boolean includeTypedWord) {
@@ -64,19 +57,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 context.getResources().getInteger(R.integer.maximum_dictionary_words_to_load);
         mContext = context;
         mIncludeTypedWord = includeTypedWord;
-        // creating the root node.
-        clearDictionary();
+        resetDictionary();
     }
 
     @Override
     protected void loadAllResources() {
         WordReadListener listener = createWordReadListener();
         readWordsFromActualStorage(listener);
-
-        if (!isClosed() && mObserver == null) {
-            mObserver = AnyApplication.getDeviceSpecific().createDictionaryContentObserver(this);
-            registerObserver(mObserver, mContext.getContentResolver());
-        }
     }
 
     @NonNull
@@ -141,12 +128,6 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     protected int getMaxWordLength() {
         return MAX_WORD_LENGTH;
-    }
-
-    protected void onStorageChanged() {
-        if (isClosed()) return;
-        clearDictionary();
-        mDictionaryChangedLoader = DictionaryBackgroundLoader.reloadDictionaryInBackground(this);
     }
 
     @Override
@@ -222,9 +203,6 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     protected abstract void deleteWordFromStorage(String word);
-
-    protected abstract void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver);
 
     protected abstract void addWordToStorage(String word, int frequency);
 
@@ -400,13 +378,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     @Override
-    protected final void closeAllResources() {
-        clearDictionary();
-        if (mObserver != null) {
-            mContext.getContentResolver().unregisterContentObserver(mObserver);
-            mObserver = null;
-        }
-
+    protected void closeAllResources() {
+        resetDictionary();
         closeStorage();
     }
 
@@ -447,8 +420,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
         addWordRec(childNode.children, word, depth + 1, frequency);
     }
 
-    private void clearDictionary() {
-        mDictionaryChangedLoader.dispose();
+    @CallSuper
+    protected void resetDictionary() {
         mRoots = new NodeArray(INITIAL_ROOT_CAPACITY);
     }
 
@@ -487,9 +460,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
         public void deleteNode(int nodeIndexToDelete) {
             length--;
             if (length > 0) {
-                for (int i = nodeIndexToDelete; i < length; i++) {
-                    data[i] = data[i + 1];
-                }
+                if (length - nodeIndexToDelete >= 0)
+                    System.arraycopy(
+                            data,
+                            nodeIndexToDelete + 1,
+                            data,
+                            nodeIndexToDelete,
+                            length - nodeIndexToDelete);
             }
         }
     }

@@ -29,9 +29,13 @@ public class IMEUtil {
     private static final String TAG = "ASKIMEUtils";
 
     /* Damerau-Levenshtein distance */
-    public static int editDistance(@NonNull CharSequence s, @NonNull CharSequence t) {
-        final int sl = s.length();
-        final int tl = t.length();
+    public static int editDistance(
+            @NonNull CharSequence lowerCaseWord,
+            @NonNull final char[] word,
+            final int offset,
+            final int length) {
+        final int sl = lowerCaseWord.length();
+        final int tl = length;
         int[][] dp = new int[sl + 1][tl + 1];
         for (int i = 0; i <= sl; i++) {
             dp[i][0] = i;
@@ -41,23 +45,26 @@ public class IMEUtil {
         }
         for (int i = 0; i < sl; ++i) {
             for (int j = 0; j < tl; ++j) {
-                final char sc = Character.toLowerCase(s.charAt(i));
-                final char tc = Character.toLowerCase(t.charAt(j));
+                final char sc = lowerCaseWord.charAt(i);
+                final char tc = Character.toLowerCase(word[offset + j]);
                 final int cost = sc == tc ? 0 : 1;
                 dp[i + 1][j + 1] =
                         Math.min(dp[i][j + 1] + 1, Math.min(dp[i + 1][j] + 1, dp[i][j] + cost));
                 // Overwrite for transposition cases
                 if (i > 0
                         && j > 0
-                        && sc == Character.toLowerCase(t.charAt(j - 1))
-                        && tc == Character.toLowerCase(s.charAt(i - 1))) {
+                        && sc == Character.toLowerCase(word[offset + j - 1])
+                        && tc == lowerCaseWord.charAt(i - 1)) {
                     dp[i + 1][j + 1] = Math.min(dp[i + 1][j + 1], dp[i - 1][j - 1] + cost);
                 }
             }
         }
         if (BuildConfig.DEBUG) {
             StringBuilder sb = new StringBuilder();
-            sb.append("editDistance: ").append(s).append(", ").append(t);
+            sb.append("editDistance: ")
+                    .append(lowerCaseWord)
+                    .append(", ")
+                    .append(word, offset, length);
             Logger.d(TAG, sb.toString());
             for (int i = 0; i < dp.length; ++i) {
                 sb.setLength(0);

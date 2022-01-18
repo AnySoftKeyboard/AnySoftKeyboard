@@ -60,6 +60,9 @@
     <string name="effects_group">Tesîr</string>
     <string name="ime_settings">Mîhengên klavyeyên</string>
     <string name="switch_incognito">Nexwendin Awa</string>
+    <string name="use_system_vibration_title">Vibrasyona pergalê bikar bînin</string>
+    <string name="use_system_vibration_off_summary">Eyarên taybet ên tewrajê tê bikaranîn</string>
+    <string name="use_system_vibration_on_summary">Eyarên vibrasyona pergala Android tê bikaranîn</string>
     <string name="vibrate_on_key_press_title">Li ser pelikır vibrator bika</string>
     <string name="vibrate_on_key_press_value_template">%d mîlîçirkeyan</string>
     <string name="night_mode_screen">Sazkariyên Moda Şevê</string>
@@ -268,8 +271,6 @@
         şîfre, URL û hwd.) rêzên ji bo bikaranînê.
     </string>
     <string name="tweak_dictionary_group">Rastkirina ferhengê</string>
-    <string name="settings_min_length_for_word_correction">Kêmtirîn dirêjiya peyvan ji bo sererastkirinê
-    </string>
     <string name="show_keyboard_name_text">Navê klavyeyê nîşande</string>
     <string name="show_keyboard_name_on_summary">Di dareke vala de navê klavyeyê nîşan bide</string>
     <string name="show_keyboard_name_off_summary">Navê klavyeyê qet nîşan nede</string>
@@ -468,6 +469,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Hejmar û sembol</string>
     <string name="extension_kbd_bottom_minimal">Kêmtirîn</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Kêmtirîn (emojî tune)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Kêmtirîn (kêm xalbendî)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Çûyin</string>
@@ -596,6 +598,12 @@
     <string name="emoji_default_skin_tone_value_type_5">Tonê Çermê Navîn-Tarî</string>
     <string name="emoji_default_skin_tone_value_type_6">Tonê Çermê Tarî</string>
     <string name="emoji_default_skin_tone_value_random_type">Tonê Çermê Tesadûfî</string>
+    <string name="emoji_default_gender_title">Zayendê emoji</string>
+    <string name="emoji_default_gender_summary">Zayendê xwerû ku bikar bînin: %s</string>
+    <string name="emoji_default_gender_value_person">Kes</string>
+    <string name="emoji_default_gender_value_woman">Jin</string>
+    <string name="emoji_default_gender_value_man">Mêr</string>
+    <string name="emoji_default_gender_value_random_type">Zayenda rasthatî</string>
     <string name="developer_tools">Alavên pêşvebir</string>
     <string name="click_for_developer_features">Amûrên pêşdebir</string>
     <string name="click_for_developer_features_summary">Amûrên cûrbecûr ji bo AnySoftKeyboard
@@ -693,6 +701,7 @@
     <string name="clipboard_paste_entries_title">Nivîsarê hilbijêrin da ku bavêjin</string>
     <string name="next_word_prefs_clear_data">Daneyên peyva paşîn paqij bikin</string>
     <string name="next_word_prefs_clear_data_summary">Ev bêveger e. Dê hemî dîroka nivîsandina we paqij bibe.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard destûra we hewce dike ku hûn bixwînin û binivîsin da ku pelên xweya hilanînê hilînin.</string>
     <string name="notification_read_contacts_title">Ma ez dikarim têkiliyên we bixwînim?</string>
     <string name="notification_read_contacts_text">Em hewce ne ku têkiliyên we bixwînin da ku ezmûnek çêtir çêkirina otomotîkê bidin we.</string>
     <string name="notification_read_contacts_ticker">Destûra têkiliyan hewce ye</string>

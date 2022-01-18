@@ -219,8 +219,6 @@
     <string name="tweak_ux_group">Допълнителни настройки за поведението</string>
     <string name="supported_keyboard_row_modes_title">Активирани специализирани режими на полето за въвеждане</string>
     <string name="tweak_dictionary_group">Допълнителни настройки на речника</string>
-    <string name="settings_min_length_for_word_correction">Минимална дължина на думата за корекция
-    </string>
     <string name="show_keyboard_name_text">Показване на името на клавиатурата</string>
     <string name="show_keyboard_name_on_summary">Показване на името на клавиатурата върху клавиша за интервал</string>
     <string name="show_keyboard_name_off_summary">Без показване на името на клавиатурата</string>

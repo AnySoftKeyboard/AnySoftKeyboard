@@ -6,10 +6,16 @@
     </string>
     <string name="menu_about_item">O aplikaci</string>
     <string name="how_to_pointer_title">Vítejte v AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Poslední změny pro v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="notification_text_testers">Jedná se o beta verzi. Používejte opatrně!</string>
     <string name="testers_version">Testovací sestavení!</string>
     <string name="language_root_tile">Jazyk</string>
+    <string name="language_keyboards_settings_tile">Povolit klávesnice a jazyky.</string>
+    <string name="language_grammar_settings_tile">Nastavení chování oprav a další slovníky.</string>
+    <string name="language_tweaks_settings_tile">Vychytávky a další.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">UI</string>
+    <string name="ui_theme_settings_tile">Vyberte a nastavte motivy klávesnice.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Historie změn</string>
@@ -19,6 +25,7 @@
     <string name="no_market_store_available"><b>* Nemohu na vašem zařízení nalézt Obchod Google Play. Nelze vyhledávat rozšíření!</b></string>
     <string name="keyboard_theme_tweak_group">Vyladění</string>
     <string name="close_button">Zavřít</string>
+    <string name="delete_button">Smazat</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Uloženo: <xliff:g id="word">%s</xliff:g>
     </string>
@@ -43,13 +50,29 @@
     <string name="gesture_settings">Gesta</string>
     <string name="effects_group">Efekty</string>
     <string name="ime_settings">Možnosti klávesnice</string>
+    <string name="switch_incognito">Anonymní režim</string>
+    <string name="use_system_vibration_title">Použít systémové vibrace</string>
+    <string name="use_system_vibration_off_summary">Použít vlastní nastavení vibrací</string>
+    <string name="use_system_vibration_on_summary">Použití nastavení vibrací systému Android</string>
     <string name="vibrate_on_key_press_title">Vibrovat při stisku klávesy</string>
+    <string name="vibrate_on_key_press_value_template">%d milisekund</string>
+    <string name="night_mode_screen">Nastavení nočního režimu</string>
+    <string name="night_mode_description">Noční režim změní tyto funkce:</string>
+    <string name="night_mode_state_summary">Momentálně v nočním režimu:\u0020%s</string>
+    <string name="night_mode_dialog_title">Povolit noční režim</string>
     <string name="night_mode_type_never">Nikdy</string>
     <string name="night_mode_type_follow_system">Podle systému</string>
     <string name="night_mode_type_always">Vždy</string>
+    <string name="night_mode_sound_control">Zakázat zvuky stisku kláves</string>
+    <string name="night_mode_vibration_control">Zakázat vibrace stisku kláves</string>
+    <string name="power_save_mode_screen">Nastavení úsporného režimu</string>
+    <string name="power_save_mode_description">Režim úspory sníží spotřebu energie AnySoftKeyboard vypnutím funkcí:</string>
     <string name="power_save_mode_types_never">Nikdy</string>
+    <string name="power_save_mode_types_lower_battery">Při nízkém stavu baterie</string>
     <string name="power_save_mode_types_always">Vždy</string>
     <string name="pop_text_type_never">Nikdy</string>
+    <string name="input_field_type_email">Vstupní pole e-mailu</string>
+    <string name="input_field_type_url">Vstupní pole URL</string>
     <string name="sound_on">Zvuk při stisku klávesy</string>
     <string name="sound_on_summary">Zvukové efekty při stisku softwarové klávesnice.</string>
     <string name="use_custom_sound_volume">Vlastní hlasitost</string>
@@ -166,7 +189,6 @@
     <string name="tweak_ui_group">Vyladění grafiky</string>
     <string name="tweak_ux_group">Vyladění chování</string>
     <string name="tweak_dictionary_group">Vyladění slovníku</string>
-    <string name="settings_min_length_for_word_correction">Minimální délka slova pro korekci</string>
     <string name="show_keyboard_name_text">Název klávesnice</string>
     <string name="show_keyboard_name_on_summary">Zobrazit název klávesnice na mezerníku</string>
     <string name="show_keyboard_name_off_summary">Nikdy nezobrazovat název klávesnice</string>

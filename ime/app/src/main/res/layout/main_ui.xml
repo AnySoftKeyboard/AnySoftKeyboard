@@ -6,12 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/main_ui_content"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/settings_main" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

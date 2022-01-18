@@ -248,7 +248,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="supported_keyboard_row_modes_title">Özelleştirilmiş giriş alanı modları etkinleştirildi</string>
     <string name="supported_keyboard_row_modes_summary">Kullanılacak özelleştirilmiş giriş alanı (şifre, URL, vb. gibi) satırlarını seç.</string>
     <string name="tweak_dictionary_group">Sözlük ince ayarları</string>
-    <string name="settings_min_length_for_word_correction">Düzeltme için en az harf sayısı</string>
     <string name="show_keyboard_name_text">Klavye adını göster</string>
     <string name="show_keyboard_name_on_summary">Boşluk tuşunda klavye adını göster</string>
     <string name="show_keyboard_name_off_summary">Klavye adını hiçbir zaman gösterme</string>
@@ -562,9 +561,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="setup_wizard_step_three_details"><i>AnySoftKeyboard</i>\'u seçtiğiniz için teşekkürler.</string>
     <string name="setup_wizard_step_three_details_done"><b>Artık hazırsınız 🎉\nDenemek için favori uygulamanıza gidin.</b></string>
     <string name="setup_wizard_step_three_details_actions">Ya da, klavyeyi istediğiniz gibi özelleştirebilir ve kişiselleştirebilirsiniz:</string>
-    <string name="setup_wizard_step_three_action_languages">Dilleri kur...</string>
-    <string name="setup_wizard_step_three_action_themes">Tema seç...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Her şeyi yapılandırma...</string>
+    <string name="setup_wizard_step_three_action_languages">Dilleri kur…</string>
+    <string name="setup_wizard_step_three_action_themes">Tema seç…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Her şeyi yapılandırma…</string>
     <string name="setup_wizard_step_download_title">Dil Paketleri İndir</string>
     <string name="setup_wizard_step_download_details"><i>AnySoftKeyboard</i>\'un bir çok dili desteklediğini bilmek sizi mutlu edecektir. Sadece istediğiniz dil paketini indirin ve cihazınızda herhangi bir dilde yazmanın tadını çıkarın.</string>
     <string name="setup_wizard_step_download_action">Dil paketleri indir</string>
@@ -639,7 +638,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="settings_key_hint_size_big">Büyük</string>
     <string name="theme_case_type_override_title">Klavye büyük/küçük harf geçersiz</string>
     <string name="theme_case_type_override_summary">Klavye görünümünde büyük/küçük harfilerin nasıl belirlendiği. Şu anda, %s</string>
-    <string name="take_a_while_progress_message">Bu biraz zaman alabilir...</string>
+    <string name="take_a_while_progress_message">Bu biraz zaman alabilir…</string>
     <string name="shared_prefs_provider_name">Uygulama ayarları</string>
     <string name="user_dict_prefs_provider">Kullanıcı kelimeleri</string>
     <string name="next_word_dict_prefs_provider">Diğer kelimeler</string>

@@ -193,7 +193,6 @@
     <string name="supported_keyboard_row_modes_title">Pinagana ang dalubhasang input-field modes</string>
     <string name="supported_keyboard_row_modes_summary">Pumili ng dalubhasang input-field(tulad sa password, URL, at iba pa.) mga hanay upang gamitin.</string>
     <string name="tweak_dictionary_group">Diksyunaryo ng mga tweaks</string>
-    <string name="settings_min_length_for_word_correction">Pinakamaliit na haba ng salita para sa pagwawasto</string>
     <string name="show_keyboard_name_text">Ipakita ang pangalan ng keyboard</string>
     <string name="show_keyboard_name_on_summary">Ipakita ang pangalan ng keyboard sa space-bar</string>
     <string name="show_keyboard_name_off_summary">Huwag ipakita ang pangalan ng keyboard</string>

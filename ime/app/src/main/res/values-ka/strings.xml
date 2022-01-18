@@ -279,8 +279,6 @@
         პაროლი, ბმული, სხვ.) რიგები გამოსაყენებლად.
     </string>
     <string name="tweak_dictionary_group">ლექსიკონის მორგება</string>
-    <string name="settings_min_length_for_word_correction">სიტყვის უმცირესი სიგრძე, შესწორებისთვის
-    </string>
     <string name="show_keyboard_name_text">კლავიატურის სახელის ჩვენება</string>
     <string name="show_keyboard_name_on_summary">კლავიატურის სახელის ჩვენება ჰარიზე</string>
     <string name="show_keyboard_name_off_summary">კლავიატურის სახელის დამალვა</string>

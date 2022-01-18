@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -37,7 +38,6 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -168,19 +168,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                                 R.string
                                                         .settings_default_auto_pick_suggestion_aggressiveness)
                                         .asObservable(),
-                                prefs().getInteger(
-                                                R.string
-                                                        .settings_key_min_length_for_word_correction__,
-                                                R.integer
-                                                        .settings_default_min_word_length_for_suggestion)
-                                        .asObservable(),
-                                Triple::new)
+                                Pair::new)
                         .subscribe(
-                                triple -> {
+                                pair -> {
                                     final boolean showSuggestionsChanged =
-                                            mShowSuggestions != triple.getFirst();
-                                    mShowSuggestions = triple.getFirst();
-                                    final String autoPickAggressiveness = triple.getSecond();
+                                            mShowSuggestions != pair.first;
+                                    mShowSuggestions = pair.first;
+                                    final String autoPickAggressiveness = pair.second;
 
                                     final int calculatedCommonalityMaxLengthDiff;
                                     final int calculatedCommonalityMaxDistance;
@@ -213,8 +207,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     mSuggest.setCorrectionMode(
                                             mShowSuggestions,
                                             calculatedCommonalityMaxLengthDiff,
-                                            calculatedCommonalityMaxDistance,
-                                            triple.getThird());
+                                            calculatedCommonalityMaxDistance);
                                     // starting over
                                     if (showSuggestionsChanged) {
                                         if (mShowSuggestions) {
@@ -514,6 +507,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if (primaryCode != KeyCodes.DELETE) {
             mWordRevertLength = 0;
         }
@@ -743,9 +737,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             clearSuggestions();
         } else {
             setSuggestions(
-                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()),
-                    false,
-                    false);
+                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()), -1);
         }
     }
 
@@ -1009,17 +1001,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected void clearSuggestions() {
         mKeyboardHandler.removeAllSuggestionMessages();
-        setSuggestions(Collections.emptyList(), false, false);
+        setSuggestions(Collections.emptyList(), -1);
     }
 
     protected void setSuggestions(
-            @NonNull List<? extends CharSequence> suggestions,
-            boolean typedWordValid,
-            boolean haveMinimalSuggestion) {
+            @NonNull List<? extends CharSequence> suggestions, int highlightedSuggestionIndex) {
         mCancelSuggestionsAction.setCancelIconVisible(!suggestions.isEmpty());
         if (mCandidateView != null) {
-            mCandidateView.setSuggestions(
-                    suggestions, typedWordValid, haveMinimalSuggestion && isAutoCorrect());
+            mCandidateView.setSuggestions(suggestions, highlightedSuggestionIndex);
         }
     }
 
@@ -1094,27 +1083,25 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             return;
         }
 
-        final CharSequence typedWord = mWord.getTypedWord();
-
-        final List<CharSequence> suggestionsList = mSuggest.getSuggestions(mWord, false);
-        boolean correctionAvailable = mSuggest.hasMinimalCorrection();
-        final boolean typedWordValid =
-                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
-
-        if (mShowSuggestions) {
-            correctionAvailable |= typedWordValid;
-        }
+        final List<CharSequence> suggestionsList = mSuggest.getSuggestions(mWord);
+        int highlightedSuggestionIndex =
+                isAutoCorrect() ? mSuggest.getLastValidSuggestionIndex() : -1;
 
         // Don't auto-correct words with multiple capital letter
-        correctionAvailable &= !mWord.isMostlyCaps();
+        if (highlightedSuggestionIndex == 1 && mWord.isMostlyCaps())
+            highlightedSuggestionIndex = -1;
+        //      final CharSequence typedWord = mWord.getTypedWord();
+        //          boolean correctionAvailable = mSuggest.hasMinimalCorrection();
+        //        final boolean typedWordValid =
+        //                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
+        //
+        //        if (mShowSuggestions) {
+        //            correctionAvailable |= typedWordValid;
+        //        }
 
-        setSuggestions(suggestionsList, typedWordValid, correctionAvailable);
-        if (suggestionsList.size() > 0) {
-            if (correctionAvailable && !typedWordValid && suggestionsList.size() > 1) {
-                mWord.setPreferredWord(suggestionsList.get(1));
-            } else {
-                mWord.setPreferredWord(typedWord);
-            }
+        setSuggestions(suggestionsList, highlightedSuggestionIndex);
+        if (highlightedSuggestionIndex >= 0) {
+            mWord.setPreferredWord(suggestionsList.get(highlightedSuggestionIndex));
         } else {
             mWord.setPreferredWord(null);
         }
@@ -1182,9 +1169,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
                 } else {
                     setSuggestions(
-                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()),
-                            false,
-                            false);
+                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), -1);
                 }
             }
         } finally {
@@ -1291,7 +1276,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     protected boolean isWordSeparator(int code) {
-        return (!isAlphabet(code));
+        return !isAlphabet(code);
     }
 
     public boolean preferCapitalization() {
@@ -1324,7 +1309,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (ci != null) stringList.add(ci.getText());
                 }
                 // CharSequence typedWord = mWord.getTypedWord();
-                setSuggestions(stringList, true, true);
+                setSuggestions(stringList, -1);
                 mWord.setPreferredWord(null);
             }
         }

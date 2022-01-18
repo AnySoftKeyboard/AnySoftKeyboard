@@ -248,7 +248,6 @@
     <string name="supported_keyboard_row_modes_title">Включённые специализированные режимы поля ввода</string>
     <string name="supported_keyboard_row_modes_summary">Для использования выберите специализированные строчки поля ввода (такие как пароли, ссылки и т. д.).</string>
     <string name="tweak_dictionary_group">Настройки словарей</string>
-    <string name="settings_min_length_for_word_correction">Минимальная длина слова для исправления</string>
     <string name="show_keyboard_name_text">Показывать имя клавиатуры</string>
     <string name="show_keyboard_name_on_summary">Показывать название раскладки на клавише пробела</string>
     <string name="show_keyboard_name_off_summary">Никогда не показывать название раскладки клавиатуры</string>
@@ -527,7 +526,7 @@
     <string name="created_mem_dump_file">Создан файл дампа памяти в: <xliff:g id="file_path">%s </xliff:g>     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не включен. Нажмите здесь, чтобы включить.</string>
     <string name="not_configured_with_just_click_here">Нажмите здесь</string>
-    <string name="click_for_more">Подробнее...</string>
+    <string name="click_for_more">Подробнее…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Добавить слово</string>
@@ -539,8 +538,8 @@
     <string name="enter_abbreviation_target_hint">Полное предложение</string>
     <string name="toast_error_custom_path_backup">Ошибка: Любое контекстное приложение может быть открыто</string>
     <string name="file_explorer_menu_add_folder">Создать папку</string>
-    <string name="file_explorer_filename">Имя файла резервной копии...</string>
-    <string name="file_explorer_filename_empty">Имя файла не может быть пустым...</string>
+    <string name="file_explorer_filename">Имя файла резервной копии…</string>
+    <string name="file_explorer_filename_empty">Имя файла не может быть пустым…</string>
     <string name="file_explorer_alert_title">Выбрать этот файл ?</string>
     <string name="file_explorer_restore_alert_message">Вы хотите восстановить этот файл ?</string>
     <string name="file_explorer_backup_alert_message">Этот файл будет перезаписан.</string>
@@ -563,15 +562,15 @@
     <string name="setup_wizard_step_three_details_done"><b>Готово 🎉\nПерейдите в Ваше любимое приложение чтобы попробовать.</b></string>
     <string name="setup_wizard_step_three_details_actions">Или вы можете настроить и персонализировать клавиатуру по своему вкусу:</string>
     <string name="setup_wizard_step_three_action_languages">Установка языков…</string>
-    <string name="setup_wizard_step_three_action_themes">Выбрать тему...</string>
+    <string name="setup_wizard_step_three_action_themes">Выбрать тему…</string>
     <string name="setup_wizard_step_three_action_all_settings">Персональные настройки…</string>
     <string name="setup_wizard_step_download_title">Скачать языковые пакеты</string>
     <string name="setup_wizard_step_download_details">Вы будете рады узнать, что <i>AnySoftKeyboard</i> поддерживает десятки языков. Просто загрузите нужный языковой пакет и наслаждайтесь печатанием на любом языке вашего устройства.</string>
     <string name="setup_wizard_step_download_action">Скачать языковый пакет</string>
     <string name="setup_wizard_step_download_skip_action">Пропустить</string>
     <string name="ime_crashed_title">AnySoftKeyboard разбился!</string>
-    <string name="ime_crashed_sub_text">К сожалению, не видел, что идет ...</string>
-    <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет ...</string>
+    <string name="ime_crashed_sub_text">К сожалению, не видел, что идет …</string>
+    <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет …</string>
     <string name="ime_crashed_text">К сожалению, есть проблема с <i>AnySoftKeyboard</i>. Не паникуйте, есть что-то <b> вы </b> может сделать, чтобы помочь решить эту проблему: послать нам отчет по аварии, и мы \ \'сделаем  самое лучшее для того чтобы решить эту аварию и вы получите обратно с удивительным опытом клавиатуры! \ N \ N с искренним извинением, команда Dev.</string>
     <string name="ime_crashed_send_button">Отправить</string>
     <string name="ime_crashed_cancel_button">Отменить</string>

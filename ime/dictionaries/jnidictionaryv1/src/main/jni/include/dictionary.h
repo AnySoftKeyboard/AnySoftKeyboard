@@ -29,6 +29,9 @@ namespace nativeime {
 // if the word has other endings.
 #define FLAG_TERMINAL_MASK 0x80
 
+// will also return the typed word, if it valid
+#define INCLUDE_WORD_IF_VALID true
+
 class Dictionary {
 public:
     Dictionary(unsigned char *dict, int typedLetterMultipler, int fullWordMultiplier);

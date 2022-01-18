@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.view.inputmethod.EditorInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.test.core.app.ApplicationProvider;
@@ -511,10 +512,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         Assert.assertEquals(
                 MainSettingsActivity.class.getName(), settingsIntent.getComponent().getClassName());
         Assert.assertEquals(
-                "keyboards",
-                settingsIntent
-                        .getExtras()
-                        .getString(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
+                Uri.parse(getApplicationContext().getString(R.string.deeplink_url_keyboards)),
+                settingsIntent.getData());
         Assert.assertEquals(Intent.ACTION_VIEW, settingsIntent.getAction());
         Assert.assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, settingsIntent.getFlags());
     }

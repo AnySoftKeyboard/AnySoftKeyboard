@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -62,7 +63,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -146,7 +146,7 @@ public class UserDictionaryEditorFragment extends Fragment
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -177,14 +177,14 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         // Inflate the menu items for use in the action bar
         inflater.inflate(R.menu.words_editor_menu_actions, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
         if (mainSettingsActivity == null) return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
@@ -209,21 +209,22 @@ public class UserDictionaryEditorFragment extends Fragment
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
-            PrefsXmlStorage storage =
-                    new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(
-                                    requireContext(), ASK_USER_WORDS_SDCARD_FILENAME));
+            PrefsXmlStorage storage = new PrefsXmlStorage();
             UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
             mDisposable.add(
                     RxProgressDialog.create(
                                     Pair.create(storage, provider),
-                                    getActivity(),
+                                    requireActivity(),
                                     R.layout.progress_window)
                             .subscribeOn(RxSchedulers.background())
                             .map(
                                     pair -> {
-                                        final PrefsRoot prefsRoot = pair.first.load();
+                                        final PrefsRoot prefsRoot =
+                                                pair.first.load(
+                                                        AnyApplication.getBackupFile(
+                                                                requireContext(),
+                                                                ASK_USER_WORDS_SDCARD_FILENAME));
                                         pair.second.storePrefsRoot(prefsRoot);
                                         return Boolean.TRUE;
                                     })
@@ -248,10 +249,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
-            PrefsXmlStorage storage =
-                    new PrefsXmlStorage(
-                            AnyApplication.getBackupFile(
-                                    requireContext(), ASK_USER_WORDS_SDCARD_FILENAME));
+            PrefsXmlStorage storage = new PrefsXmlStorage();
             UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
             mDisposable.add(
@@ -263,7 +261,11 @@ public class UserDictionaryEditorFragment extends Fragment
                             .map(
                                     pair -> {
                                         final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                        pair.first.store(prefsRoot);
+                                        pair.first.store(
+                                                prefsRoot,
+                                                AnyApplication.getBackupFile(
+                                                        requireContext(),
+                                                        ASK_USER_WORDS_SDCARD_FILENAME));
 
                                         return Boolean.TRUE;
                                     })
@@ -300,7 +302,7 @@ public class UserDictionaryEditorFragment extends Fragment
     public void onDestroy() {
         mDisposable.dispose();
 
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) requireActivity();
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);

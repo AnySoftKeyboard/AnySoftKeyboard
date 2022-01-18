@@ -6,6 +6,8 @@ ext.override_release_key_alias = 'anysoftkeyboard'
 
 apply from: "${rootDir}/gradle/apk_module.gradle"
 
+apply plugin: 'androidx.navigation.safeargs'
+
 android {
     defaultConfig {
         //adding additional fields to the BuildConfig class.
@@ -110,17 +112,18 @@ dependencies {
     implementation "androidx.preference:preference:$androidxPreference"
     implementation "com.google.android.material:material:$androidxMaterial"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
-    implementation 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation "androidx.autofill:autofill:1.1.0"
-    implementation('com.github.menny.Chauffeur:lib:0.1.1') {
-        exclude group: 'com.android.support'
-    }
+
+    implementation "androidx.navigation:navigation-fragment:$androidxNavigation"
+    implementation "androidx.navigation:navigation-ui:$androidxNavigation"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$androidxNavigation"
 
     implementation "androidx.multidex:multidex:2.0.1"
 
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
 
     //allAddOns have all the add-ons packs as dependencies
     rootProject.findProject(":addons").subprojects.forEach {

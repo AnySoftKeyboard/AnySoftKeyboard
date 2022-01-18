@@ -48,9 +48,9 @@ Instalarla ahora desde Play Store.    </string>
     <string name="voice_input_not_voice_pack_in_market">No se encontró entrada de voz (com.google.android.voicesearch) en la Play Store. La función de voz no estará disponible en el dispositivo.    </string>
     <!-- Options menu -->
     <string name="change_ime">Cambiar el método de entrada</string>
-    <string name="override_dictionary">Remplazar el diccionario predeterminado</string>
+    <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Remplazar diccionario \u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
+    <string name="override_dictionary_title">Ignorar diccionario \u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
     <string name="gesture_settings">Gestos</string>
@@ -249,7 +249,6 @@ Instalarla ahora desde Play Store.    </string>
     <string name="supported_keyboard_row_modes_title">Modos de texto especializado activos</string>
     <string name="supported_keyboard_row_modes_summary">Elegir las filas de campos de texto especializados, como contraseñas, enlaces web, etc.    </string>
     <string name="tweak_dictionary_group">Diccionario</string>
-    <string name="settings_min_length_for_word_correction">Longitud de palabra mínima para corrección    </string>
     <string name="show_keyboard_name_text">Mostrar nombre del teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar el nombre del teclado en la barra espaciadora</string>
     <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre del teclado</string>
@@ -533,8 +532,8 @@ Instalarla ahora desde Play Store.    </string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="toast_error_custom_path_backup">Error: Cualquier aplicación contextual podría abrirse</string>
     <string name="file_explorer_menu_add_folder">Crear carpeta</string>
-    <string name="file_explorer_filename">Nombre de archivo de respaldo...</string>
-    <string name="file_explorer_filename_empty">El nombre de archivo no puede estar vacío...</string>
+    <string name="file_explorer_filename">Nombre de archivo de respaldo…</string>
+    <string name="file_explorer_filename_empty">El nombre de archivo no puede estar vacío…</string>
     <string name="file_explorer_alert_title">¿Elegir este archivo?</string>
     <string name="file_explorer_restore_alert_message">¿Quieres restaurar este archivo?</string>
     <string name="file_explorer_backup_alert_message">Este archivo se sobrescribirá.</string>

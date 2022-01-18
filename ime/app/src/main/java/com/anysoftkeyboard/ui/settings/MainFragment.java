@@ -28,7 +28,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.palette.graphics.Palette;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -36,12 +36,11 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
-import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.FileExplorerCreate;
 import com.anysoftkeyboard.ui.FileExplorerRestore;
-import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
+import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -53,12 +52,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.List;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -74,18 +68,14 @@ public class MainFragment extends Fragment {
     public static Boolean[] checked;
     static int successDialog;
     static int failedDialog;
-    static Function<
-                    Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
-                    ObservableSource<GlobalPrefsBackup.ProviderDetails>>
-            action;
 
     private final boolean mTestingBuild;
+    @NonNull private final CompositeDisposable mDisposable = new CompositeDisposable();
     public int modeBackupRestore;
     private AnimationDrawable mNotConfiguredAnimation = null;
     @NonNull private Disposable mPaletteDisposable = Disposables.empty();
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
     private GeneralDialogController mDialogController;
-    @NonNull private CompositeDisposable mDisposable = new CompositeDisposable();
 
     public MainFragment() {
         this(BuildConfig.TESTING_BUILD);
@@ -117,14 +107,6 @@ public class MainFragment extends Fragment {
         clickHere.setText(sb);
     }
 
-    public static void launchRestoreCustomFileData(InputStream inputStream) {
-        PrefsXmlStorage.prefsXmlStorageCustomPath(inputStream);
-    }
-
-    public static void launchBackupCustomFileData(OutputStream outputStream) {
-        PrefsXmlStorage.prefsXmlBackupCustomPath(outputStream);
-    }
-
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,19 +118,11 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mDialogController = new GeneralDialogController(getActivity(), this::onSetupDialogRequired);
-
-        if (savedInstanceState == null) {
-            // I to prevent leaks and duplicate ID errors, I must use the getChildFragmentManager
-            // to add the inner fragments into the UI.
-            // See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
-            FragmentManager fragmentManager = getChildFragmentManager();
-            fragmentManager
-                    .beginTransaction()
-                    .replace(
-                            R.id.change_log_fragment,
-                            new ChangeLogFragment.LatestChangeLogFragment())
-                    .commit();
-        }
+        final ViewGroup latestChangeLogCard = view.findViewById(R.id.latest_change_log_card);
+        final View latestChangeLogCardContent =
+                ChangeLogFragment.LatestChangeLogViewFactory.createLatestChangeLogView(
+                        this, latestChangeLogCard);
+        latestChangeLogCard.addView(latestChangeLogCardContent);
         View testingView = view.findViewById(R.id.testing_build_message);
         testingView.setVisibility(mTestingBuild ? View.VISIBLE : View.GONE);
         View testerSignUp = view.findViewById(R.id.beta_sign_up);
@@ -165,17 +139,16 @@ public class MainFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) requireActivity();
         switch (item.getItemId()) {
             case R.id.about_menu_option:
-                activity.addFragmentToUi(
-                        new AboutAnySoftKeyboardFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                Navigation.findNavController(requireView())
+                        .navigate(
+                                MainFragmentDirections
+                                        .actionMainFragmentToAboutAnySoftKeyboardFragment());
                 return true;
             case R.id.tweaks_menu_option:
-                activity.addFragmentToUi(
-                        new MainTweaksFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                Navigation.findNavController(requireView())
+                        .navigate(MainFragmentDirections.actionMainFragmentToMainTweaksFragment());
                 return true;
             case R.id.backup_prefs:
                 onBackupRequested();
@@ -216,11 +189,7 @@ public class MainFragment extends Fragment {
                 new ClickableSpan() {
                     @Override
                     public void onClick(View v) {
-                        FragmentChauffeurActivity activity =
-                                (FragmentChauffeurActivity) requireActivity();
-                        activity.addFragmentToUi(
-                                new SetUpKeyboardWizardFragment(),
-                                TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                        startActivity(new Intent(requireContext(), SetupWizardActivity.class));
                     }
                 };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -379,7 +348,6 @@ public class MainFragment extends Fragment {
         modeBackupRestore = optionId;
         switch (optionId) {
             case R.id.backup_prefs:
-                action = listPair -> GlobalPrefsBackup.backup(requireContext(), listPair);
                 actionString = R.string.word_editor_action_backup_words;
                 actionCustomPath = Intent.ACTION_CREATE_DOCUMENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_backup);
@@ -387,7 +355,6 @@ public class MainFragment extends Fragment {
                 failedDialog = DIALOG_SAVE_FAILED;
                 break;
             case R.id.restore_prefs:
-                action = listPair -> GlobalPrefsBackup.restore(requireContext(), listPair);
                 actionString = R.string.word_editor_action_restore_words;
                 actionCustomPath = Intent.ACTION_GET_CONTENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_restore);
@@ -418,10 +385,11 @@ public class MainFragment extends Fragment {
         builder.setPositiveButton(
                 actionString,
                 (dialog, which) -> {
-                    mDisposable.dispose();
-                    mDisposable = new CompositeDisposable();
-
-                    mDisposable.add(launchBackupRestore(0, null));
+                    mDisposable.clear();
+                    mDisposable.add(
+                            launchBackupRestore(
+                                    optionId == R.id.backup_prefs,
+                                    GlobalPrefsBackup.getDefaultBackupFile(requireContext())));
                 });
         builder.setNeutralButton(
                 choosePathString,
@@ -459,18 +427,15 @@ public class MainFragment extends Fragment {
                 });
     }
 
-    private Disposable launchBackupRestore(int custom, Uri customUri) {
-        final File filePath;
-        if (custom == 1) {
-            if (customUri.getPath() != null) {
-                // Uri won't show an absolute path, so better show only file name
-                List<String> path = Arrays.asList(customUri.getPath().split("/"));
-                filePath = new File(path.get(path.size() - 1));
-            } else {
-                filePath = new File(customUri.getPath());
-            }
+    private Disposable launchBackupRestore(boolean isBackup, File filePath) {
+        final Function<
+                        Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
+                        ObservableSource<GlobalPrefsBackup.ProviderDetails>>
+                action;
+        if (isBackup) {
+            action = listPair -> GlobalPrefsBackup.backup(listPair, filePath);
         } else {
-            filePath = GlobalPrefsBackup.getBackupFile(requireContext());
+            action = listPair -> GlobalPrefsBackup.restore(listPair, filePath);
         }
 
         return RxProgressDialog.create(
@@ -506,25 +471,20 @@ public class MainFragment extends Fragment {
         if (requestCode == 1
                 && resultCode == Activity.RESULT_OK
                 && data != null
-                && data.getDataString() != null) {
+                && data.getData() != null) {
 
             ContentResolver resolver = requireContext().getContentResolver();
             Logger.d(TAG, "Resolver " + resolver.getType(data.getData()));
             try {
                 // Actually, it is not a good idea to convert URI into filepath.
-                // For more informations, see:
+                // For more information, see:
                 // https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
-                if (modeBackupRestore == R.id.restore_prefs) {
-                    Logger.d(TAG, "Launching Restore at uri " + data.getData());
-                    launchRestoreCustomFileData(resolver.openInputStream(data.getData()));
-                } else if (modeBackupRestore == R.id.backup_prefs) {
-                    Logger.d(TAG, "Launching Backup at uri " + data.getData());
-                    launchBackupCustomFileData(resolver.openOutputStream(data.getData()));
-                }
-                launchBackupRestore(1, data.getData());
+                final Uri pickedUri = data.getData();
+                final File filePath = new File(pickedUri.getPath());
+                launchBackupRestore(modeBackupRestore == R.id.backup_prefs, filePath);
             } catch (Exception e) {
                 e.printStackTrace();
-                Logger.d(TAG, "Error when getting inputStream on onActivityResult");
+                Logger.d(TAG, "Error when getting filePath on onActivityResult");
             }
         }
     }

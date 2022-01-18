@@ -13,6 +13,7 @@
 
     <integer name="key_code_quick_text">-10</integer>
     <integer name="key_code_quick_text_popup">-102</integer>
+    <integer name="key_code_clear_quick_text_history">-103</integer>
     <integer name="key_code_image_media_popup">-140</integer>
     <integer name="key_code_pre_prepared_abbreviations_popup">-150</integer>
     <integer name="key_code_pre_prepared_text_popup">-151</integer>
@@ -59,8 +60,6 @@
     <integer name="key_code_clipboard_select_all">-135</integer>
     <integer name="key_code_undo">-136</integer>
     <integer name="key_code_redo">-137</integer>
-
-    <integer name="key_code_delete_recent_used_smileys">-160</integer>
 
     <integer name="key_code_delete_word">-7</integer>
     <integer name="key_code_forward_delete">-8</integer>

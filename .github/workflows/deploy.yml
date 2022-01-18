@@ -12,6 +12,7 @@ jobs:
   deploy:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.3
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2
         with:
@@ -28,6 +29,7 @@ jobs:
         run: |
           ./scripts/ci/ci_setup.sh
           mkdir -p outputs/apks || true
+          mkdir -p outputs/bundle || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
           mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
@@ -40,6 +42,7 @@ jobs:
       - uses: ./.github/actions/deploy
         with:
           deployment_environment: ${{ github.event.deployment.environment }}
+          previous_deployment_environment: ${{ github.event.deployment.payload.previous_environment }}
           deployment_task: ${{ github.event.deployment.task }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           secrets_repo_folder: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
@@ -52,18 +55,31 @@ jobs:
         run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
       - uses: actions/upload-artifact@v1.0.0
         if: always()
+        continue-on-error: true
         with:
           name: deploy-logging
           path: build-logging
       - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        continue-on-error: true
+        with:
+          name: bundles
+          path: outputs/bundle
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        continue-on-error: true
         with:
           name: apks
           path: outputs/apks
       - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        continue-on-error: true
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
       - uses: actions/upload-artifact@v1.0.0
+        continue-on-error: true
+        if: always()
         with:
           name: fdroid-metadata
           path: outputs/fdroid

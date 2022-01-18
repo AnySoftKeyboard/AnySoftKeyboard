@@ -5,8 +5,6 @@ import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggesti
 import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
 import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
 
-import android.content.ContentResolver;
-import android.database.ContentObserver;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
@@ -209,12 +207,12 @@ public class SuggestionsProviderTest {
 
         Mockito.verify(mFakeBuilder).createAutoText();
 
-        mSuggestionsProvider.lookupQuickFix("hello");
+        mSuggestionsProvider.getAutoText(wordFor("hello"), mWordsCallback);
         Mockito.verify(mFakeBuilder.mSpiedAutoText).lookup(Mockito.eq("hello"));
 
         mSuggestionsProvider.close();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hell"));
+        mSuggestionsProvider.getAutoText(wordFor("hell"), mWordsCallback);
         Mockito.verify(mFakeBuilder.mSpiedAutoText, Mockito.never()).lookup(Mockito.eq("hell"));
     }
 
@@ -260,13 +258,13 @@ public class SuggestionsProviderTest {
 
         Mockito.verify(mFakeBuilder).createAutoText();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hello"));
+        mSuggestionsProvider.getAutoText(wordFor("hello"), mWordsCallback);
         // did not create an auto-text
         Assert.assertNull(mFakeBuilder.mSpiedAutoText);
 
         mSuggestionsProvider.close();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hell"));
+        mSuggestionsProvider.getAutoText(wordFor("hell"), mWordsCallback);
         Assert.assertNull(mFakeBuilder.mSpiedAutoText);
     }
 
@@ -477,10 +475,6 @@ public class SuggestionsProviderTest {
 
         @Override
         protected void deleteWordFromStorage(String word) {}
-
-        @Override
-        protected void registerObserver(
-                ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {}
 
         @Override
         protected void addWordToStorage(String word, int frequency) {}
