@@ -194,6 +194,7 @@
     <string name="swipe_action_name_compact_layout_to_right">jobbra igazított elrendezés</string>
     <string name="swipe_action_name_compact_layout_to_left">balra igazított elrendezés</string>
     <string name="swipe_action_name_utility_keyboard">segéd billentyűzet</string>
+    <string name="swipe_action_name_quick_text_popup">Emoji felugró mutatása</string>
     <string name="settings_swipe_velocity_threshold_title">Húzási sebesség mértéke</string>
     <string name="settings_swipe_velocity_threshold_summary">A minimális húzási sebesség. Jelenleg: %s</string>
     <string name="settings_swipe_velocity_very_slow">nagyon lassú</string>
