@@ -73,7 +73,6 @@ public class AnyPopupKeyboardTest {
 
     @Test
     @Config(sdk = Build.VERSION_CODES.N)
-    @Ignore("till https://github.com/robolectric/robolectric/pull/6456 is merged")
     public void testKeyboardSwitchesSkinTone() throws Exception {
         AnyPopupKeyboard keyboardWithGeneric =
                 createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
@@ -98,7 +97,7 @@ public class AnyPopupKeyboardTest {
 
     @Test
     @Config(sdk = Build.VERSION_CODES.N)
-    @Ignore("till https://github.com/robolectric/robolectric/pull/6456 is merged")
+    @Ignore("TODO when gender-filter is working")
     public void testKeyboardSwitchesGender() throws Exception {
         AnyPopupKeyboard keyboardWithSkinTone =
                 createAnyPopupKeyboard(
@@ -112,7 +111,7 @@ public class AnyPopupKeyboardTest {
 
     @Test
     @Config(sdk = Build.VERSION_CODES.N)
-    @Ignore("till https://github.com/robolectric/robolectric/pull/6456 is merged")
+    @Ignore("TODO when gender-filter is working")
     public void testKeyboardSwitchesGenderAndSkinTone() throws Exception {
         AnyPopupKeyboard keyboardWithSkinTone =
                 createAnyPopupKeyboard(
@@ -130,7 +129,6 @@ public class AnyPopupKeyboardTest {
 
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
-    @Ignore("till https://github.com/robolectric/robolectric/pull/6456 is merged")
     public void testHidesKeysWithNoGlyph() throws Exception {
         AnyPopupKeyboard keyboard =
                 createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
