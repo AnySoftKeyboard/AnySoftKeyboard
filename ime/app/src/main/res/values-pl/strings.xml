@@ -207,6 +207,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Zwarty układ po prawej</string>
     <string name="swipe_action_name_compact_layout_to_left">Zwarty układ po lewej</string>
     <string name="swipe_action_name_utility_keyboard">Pokaż klawiaturę użytkową</string>
+    <string name="swipe_action_name_quick_text_popup">Pokaż wyskakujące okno emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Próg prędkości przesuwania</string>
     <string name="settings_swipe_velocity_threshold_summary">Minimalna prędkość gestów przesuwania. Obecnie: %s</string>
     <string name="settings_swipe_velocity_very_slow">Bardzo powoli</string>
