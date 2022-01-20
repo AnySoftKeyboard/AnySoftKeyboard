@@ -240,6 +240,7 @@
     <string name="swipe_action_name_compact_layout_to_right">بردن بۆ لای ڕاست</string>
     <string name="swipe_action_name_compact_layout_to_left">بردن بۆ لای چەپ</string>
     <string name="swipe_action_name_utility_keyboard">تایبەتمەندییەکانی تەختەکلیل</string>
+    <string name="swipe_action_name_quick_text_popup">پیشاندانی بچووککراوەی خەندە</string>
     <string name="settings_swipe_velocity_threshold_title">ئاستی خێرایی ڕاکێشان</string>
     <string name="settings_swipe_velocity_threshold_summary">ڕێژەی خێرایی ئاستی ڕاکێشان، ئێستا بریتیە لە: %s
     </string>
