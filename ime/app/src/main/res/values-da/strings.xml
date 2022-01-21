@@ -205,6 +205,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Kompakt layout til højre</string>
     <string name="swipe_action_name_compact_layout_to_left">Kompakt layout til venstre</string>
     <string name="swipe_action_name_utility_keyboard">Vis tastatur til hjælpefunktioner</string>
+    <string name="swipe_action_name_quick_text_popup">Vis emoji-popup</string>
     <string name="settings_swipe_velocity_threshold_title">Hastighedstærskel for stryg</string>
     <string name="settings_swipe_velocity_threshold_summary">Den minimale strygehastighed. I øjeblikket, %s</string>
     <string name="settings_swipe_velocity_very_slow">Meget langsom</string>
