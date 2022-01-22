@@ -192,6 +192,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Ischema cumpatu a destra</string>
     <string name="swipe_action_name_compact_layout_to_left">Ischema cumpatu a manca</string>
     <string name="swipe_action_name_utility_keyboard">Ammustra sa tastiera de utilidade</string>
+    <string name="swipe_action_name_quick_text_popup">Ammustra sa ventanedda de sas emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Lìmite de lestresa pro sa trisinadura</string>
     <string name="settings_swipe_velocity_threshold_summary">Sa lestresa mìnima pro su gestu de trisinadura. In custu momentu, %s</string>
     <string name="settings_swipe_velocity_very_slow">Lenta meda</string>
