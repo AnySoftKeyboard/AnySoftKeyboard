@@ -187,6 +187,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Distribución compacta a la derecha</string>
     <string name="swipe_action_name_compact_layout_to_left">Distribución compacta a la izquierda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar utilidad del teclado</string>
+    <string name="swipe_action_name_quick_text_popup">Mostrar cuadro emergente de emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Límite de velocidad de deslizamiento</string>
     <string name="settings_swipe_velocity_threshold_summary">Velocidad mínima del gesto de deslizamiento. Actualmente: %s</string>
     <string name="settings_swipe_velocity_very_slow">Muy lenta</string>
