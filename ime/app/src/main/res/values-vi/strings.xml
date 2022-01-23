@@ -38,12 +38,56 @@
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app
         store…
     </string>
+    <string name="keyboard_theme_tweak_group">Tùy chỉnh</string>
+    <string name="close_button">Đóng</string>
+    <string name="delete_button">Xóa</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Đã lưu:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Chạm lại để lưu</string>
+    <string name="hint_double_tap_to_close">Một lần nữa để xóa các đề xuất</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">Giọng nói không được cài đặt</string>
+    <string name="voice_input_not_installed_action_install">Cài đặt</string>
+    <string name="voice_input_not_installed_action_do_not_install">Không</string>
     <!-- Options menu -->
+    <string name="change_ime">Thay đổi phương thức nhập</string>
+    <string name="override_dictionary">Ghi đè từ điển mặc định</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Ghi đè\u0020<xliff:g id="word">%s</xliff:g>\u0020dictionary</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">Cử chỉ</string>
+    <string name="effects_group">Hiệu ứng</string>
+    <string name="ime_settings">Thiết lập bàn phím</string>
+    <string name="switch_incognito">Chế độ ẩn danh</string>
+    <string name="use_system_vibration_title">Sử dụng hệ thống rung</string>
+    <string name="use_system_vibration_off_summary">Sử dụng cài đặt rung tùy chỉnh</string>
+    <string name="use_system_vibration_on_summary">Sử dụng cài đặt rung hệ thống Android</string>
+    <string name="vibrate_on_key_press_title">Rung khi nhấn phím</string>
+    <string name="vibrate_on_key_press_value_template">%d mili giây</string>
+    <string name="night_mode_screen">Thiết lập Chế độ ban đêm</string>
+    <string name="night_mode_description">Chế độ ban đêm sẽ thay đổi các tính năng này:</string>
+    <string name="night_mode_state_summary">Hiện tại, kích hoạt Chế độ ban đêm:\u0020%s</string>
+    <string name="night_mode_dialog_title">Bật chế độ ban đêm</string>
+    <string name="night_mode_type_never">Không bao giờ</string>
+    <string name="night_mode_type_follow_system">Theo hệ thống</string>
+    <string name="night_mode_type_always">Luôn luôn</string>
+    <string name="night_mode_darken_keyboard_theme">Làm tối chủ đề bàn phím</string>
+    <string name="night_mode_sound_control">Tắt âm thanh khi nhấn phím</string>
+    <string name="night_mode_vibration_control">Tắt rung khi nhấn phím</string>
+    <string name="power_save_mode_screen">Thiết lập tiết kiệm năng lượng</string>
+    <string name="power_save_mode_description">Chế độ Tiết kiệm năng lượng sẽ giảm mức tiêu thụ năng lượng của AnySoftKeyboard bằng cách tắt các tính năng:</string>
+    <string name="power_save_mode_state_summary">Hiện tại, kích hoạt Tiết kiệm điện:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Kích hoạt chế độ tiết kiệm năng lượng</string>
+    <string name="power_save_mode_types_never">Không bao giờ</string>
+    <string name="power_save_mode_types_lower_battery">Khi pin thấp</string>
+    <string name="power_save_mode_types_always">Luôn luôn</string>
+    <string name="power_saving_keyboard_theme_name">Chủ đề chế độ tiết kiệm năng lượng</string>
+    <string name="power_saving_keyboard_theme_description">Màu tối, bố cục đơn giản có thể yêu cầu ít năng lượng hơn từ thiết bị.</string>
+    <string name="power_save_mode_animation_control">Tắt hoạt ảnh và xem trước phím</string>
+    <string name="power_save_mode_sound_control">Tắt âm thanh nhấn phím</string>
+    <string name="power_save_mode_vibration_control">Tắt rung khi nhấn phím</string>
+    <string name="power_save_mode_suggestions_control">Tắt gợi ý từ</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
