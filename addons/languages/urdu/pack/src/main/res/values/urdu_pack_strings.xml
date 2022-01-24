@@ -5,9 +5,6 @@
     <string name="urdu_keyboard">Urdu</string>
     <string name="urdu_keyboard_with_symbols_description">Urdu phonetic keyboard with symbols by mirfatif</string>
 
-    <!-- same in ime/app/src/main/res/values/mirfatif_strings.xml -->
-    <string name="urdu_keyboard_with_symbols_guid">37F7188B-6FA1-442B-BF0F-6D8671C12808</string>
-
     <string-array name="urdu_initial_suggestions">
         <item>!</item>
         <item>؟</item>

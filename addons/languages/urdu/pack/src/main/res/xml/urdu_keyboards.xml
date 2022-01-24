@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
     <Keyboard nameResId="@string/urdu_keyboard" iconResId="@drawable/ic_status_urdu"
-              layoutResId="@xml/urdu_with_symbols" id="@string/urdu_keyboard_with_symbols_guid"
+              layoutResId="@xml/urdu_with_symbols" id="37F7188B-6FA1-442B-BF0F-6D8671C12808"
               defaultDictionaryLocale="ur" description="@string/urdu_keyboard_with_symbols_description"
               index="1" defaultEnabled="true" />
 </Keyboards>
