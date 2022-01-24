@@ -184,7 +184,10 @@ public abstract class Keyboard {
         public int defaultHeightCode;
         /** Default horizontal gap between keys in this row. */
         public int defaultHorizontalGap;
-        /** Vertical gap following this row. */
+        /**
+         * Vertical gap following this row. NOTE: Usually we use the theme's value. This is an
+         * override.
+         */
         public int verticalGap;
         /**
          * Edge flags for this row of keys. Possible values that can be assigned are {@link
@@ -254,6 +257,11 @@ public abstract class Keyboard {
                                             remoteIndex,
                                             parent.mDisplayWidth,
                                             parent.mDefaultHorizontalGap);
+                            break;
+                        case android.R.attr.verticalGap:
+                            verticalGap =
+                                    getDimensionOrFraction(
+                                            a, remoteIndex, parent.mDisplayWidth, verticalGap);
                             break;
                     }
                     // CHECKSTYLE:ON: missingswitchdefault
@@ -879,7 +887,7 @@ public abstract class Keyboard {
             int rowHeight = 0;
             Key key = null;
             Row currentRow = null;
-            int lastVerticalGap = 0;
+            float lastVerticalGap = rowVerticalGap;
 
             try {
                 int event;
@@ -921,7 +929,7 @@ public abstract class Keyboard {
                                 mModifierKeys.add(key);
                             }
                         } else if (TAG_KEYBOARD.equals(tag)) {
-                            parseKeyboardAttributes(mLocalContext, res, parser);
+                            parseKeyboardAttributes(res, parser);
                         } else {
                             inUnknown = true;
                             Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);
@@ -936,10 +944,11 @@ public abstract class Keyboard {
                             }
                         } else if (inRow) {
                             inRow = false;
-                            lastVerticalGap = currentRow.verticalGap;
-                            y += currentRow.verticalGap;
+                            if (currentRow.verticalGap >= 0)
+                                lastVerticalGap = currentRow.verticalGap;
+                            else lastVerticalGap = rowVerticalGap;
+                            y += lastVerticalGap;
                             y += rowHeight;
-                            y += rowVerticalGap;
                         } else if (inUnknown) {
                             inUnknown = false;
                         }
@@ -964,19 +973,17 @@ public abstract class Keyboard {
         }
     }
 
-    private void parseKeyboardAttributes(
-            Context askContext, Resources res, XmlResourceParser parser) {
+    private void parseKeyboardAttributes(Resources res, XmlResourceParser parser) {
         final AddOn.AddOnResourceMapping addOnResourceMapping = mKeyboardResourceMap;
         int[] remoteKeyboardLayoutStyleable =
                 addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
         TypedArray a =
                 res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
-        Resources askRes = askContext.getResources();
         // some defaults
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
         mDefaultHorizontalGap = 0;
-        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+        mDefaultVerticalGap = -1;
 
         // now reading from XML
         int n = a.getIndexCount();
@@ -1004,10 +1011,11 @@ public abstract class Keyboard {
                         showPreview =
                                 a.getBoolean(remoteIndex, true /*showing preview by default*/);
                         break;
-                        /*case android.R.attr.verticalGap:
-                        //vertical gap is part of the Theme, not the mKeyboard.
-                        mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
-                        break;*/
+                    case android.R.attr.verticalGap:
+                        mDefaultVerticalGap =
+                                getDimensionOrFraction(
+                                        a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
+                        break;
                     case R.attr.autoCap:
                         autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
                         break;

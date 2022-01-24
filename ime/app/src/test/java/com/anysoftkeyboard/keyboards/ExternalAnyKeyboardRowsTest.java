@@ -137,7 +137,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(0, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
     }
 
@@ -146,7 +147,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 0);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(0, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
     }
 
@@ -155,7 +157,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 0);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(0, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
     }
 
@@ -164,7 +167,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(0, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
     }
 
@@ -173,7 +177,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(0, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
 
         Keyboard.Key key =
@@ -211,7 +216,11 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 0);
 
-        Assert.assertEquals(54 /*extra row*/, keyboard.getHeight());
+        // extra row for password digits
+        Assert.assertEquals(
+                calculateKeyboardHeight(
+                        1 /*this is the password row*/, 4, 0, SIMPLE_KeyboardDimens),
+                keyboard.getHeight());
         Assert.assertEquals(46 /*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
@@ -220,7 +229,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1);
 
-        Assert.assertEquals(54, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(1, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
     }
 
@@ -229,7 +239,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 1);
 
-        Assert.assertEquals(54, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(1, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
     }
 
@@ -238,7 +249,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 1);
 
-        Assert.assertEquals(54, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(1, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(39, keyboard.getKeys().size());
     }
 
@@ -247,8 +259,19 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 1);
 
-        Assert.assertEquals(54, keyboard.getHeight());
         Assert.assertEquals(39, keyboard.getKeys().size());
+        Assert.assertEquals(5, keyboard.getKeys().stream().map(k -> k.y).distinct().count());
+        Assert.assertEquals(
+                calculateKeyboardHeight(1, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
+    }
+
+    public static int calculateKeyboardHeight(
+            int smallRows, int normalRows, int largeRows, KeyboardDimens dimens) {
+        final float rowGap = dimens.getRowVerticalGap();
+        return (int)
+                (smallRows * (dimens.getSmallKeyHeight() + rowGap)
+                        + normalRows * (dimens.getNormalKeyHeight() + rowGap)
+                        + largeRows * (dimens.getLargeKeyHeight() + rowGap));
     }
 
     @Test
@@ -256,7 +279,8 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard =
                 createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 1);
 
-        Assert.assertEquals(64 /*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(
+                calculateKeyboardHeight(2, 4, 0, SIMPLE_KeyboardDimens), keyboard.getHeight());
         Assert.assertEquals(50 /*additional 10 keys over normal*/, keyboard.getKeys().size());
         // also, verify that the gap is correct.
         Assert.assertNotEquals(

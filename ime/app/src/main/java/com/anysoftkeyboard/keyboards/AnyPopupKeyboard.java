@@ -33,6 +33,7 @@ import java.util.List;
 public class AnyPopupKeyboard extends AnyKeyboard {
 
     private static final char[] EMPTY_CHAR_ARRAY = new char[0];
+    private static final int MAX_KEYS_PER_ROW = 5;
     private final CharSequence mKeyboardName;
     @Nullable private final JavaEmojiUtils.SkinTone mDefaultSkinTone;
     @Nullable private final JavaEmojiUtils.Gender mDefaultGender;
@@ -69,18 +70,23 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         final int rowsCount = getPopupRowsCount(popupCharacters);
         final int popupCharactersLength =
                 Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        final int keysPerRow = (int) Math.ceil((float) popupCharactersLength / (float) rowsCount);
+        //final int keysPerRow = (int) Math.ceil((float) popupCharactersLength / (float) rowsCount);
 
         List<Key> keys = getKeys();
-        for (int rowIndex = rowsCount - 1; rowIndex >= 0; rowIndex--) {
-            int baseKeyIndex = keys.size() - rowIndex - 1;
+        for (int rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
+            // initially, the layout is populated (via the xml layout)
+            // with one key per row. This initial key will set the
+            // base X and Y to use for the following keys in the row.
+            // In addPopupKeysToList we inserting keys by rows, at the correct
+            // insert index.
+            int characterOffset = rowIndex * MAX_KEYS_PER_ROW;
             addPopupKeysToList(
-                    baseKeyIndex,
                     keyboardDimens,
                     keys,
                     popupCharacters,
-                    rowIndex * keysPerRow,
-                    keysPerRow);
+                    rowsCount - rowIndex - 1,
+                    characterOffset,
+                    Math.min(MAX_KEYS_PER_ROW, popupCharactersLength - characterOffset));
         }
     }
 
@@ -98,13 +104,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     private static int getPopupRowsCount(CharSequence popupCharacters) {
-        final int count = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        if (count <= 8) return 1;
-        if (count <= 16) {
-            return 2;
-        } else {
-            return 3;
-        }
+        final double count = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
+        return (int) Math.min(3.0 /*no more than three rows*/, Math.ceil(count / MAX_KEYS_PER_ROW));
     }
 
     @Nullable
@@ -142,13 +143,15 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     private void addPopupKeysToList(
-            int baseKeyIndex,
             KeyboardDimens keyboardDimens,
             List<Key> keys,
             CharSequence popupCharacters,
+            int baseKeyIndex,
             int characterOffset,
             int keysPerRow) {
         int rowWidth = 0;
+        // the base key is the same index as the character offset
+        // since we are starting with an empty row
         AnyKey baseKey = (AnyKey) keys.get(baseKeyIndex);
         Row row = baseKey.row;
         // now adding the popups
@@ -189,7 +192,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
             x += xOffset;
             rowWidth += xOffset;
-            keys.add(baseKeyIndex, aKey);
+            keys.add(aKey);
         }
         // adding edge flag to the last key
         baseKey.edgeFlags = EDGE_LEFT;
