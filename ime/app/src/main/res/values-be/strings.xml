@@ -191,6 +191,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Кампактная клавіятура для правай рукі</string>
     <string name="swipe_action_name_compact_layout_to_left">Кампактная клавіятура для левай рукі</string>
     <string name="swipe_action_name_utility_keyboard">Паказваць утыліту клавіятуры</string>
+    <string name="swipe_action_name_quick_text_popup">Паказаць акно з эмоджы</string>
     <string name="settings_swipe_velocity_threshold_title">Мяжа хуткасці правядзення пальцам</string>
     <string name="settings_swipe_velocity_threshold_summary">Мінімальная хуткасць жэсту. У дадзены час: %s</string>
     <string name="settings_swipe_velocity_very_slow">Вельмі марудна</string>
