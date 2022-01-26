@@ -1,0 +1,41 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyDashes">
+    <string name="urdu_dictionary">Urdu</string>
+    <string name="urdu_dictionary_description">Urdu</string>
+
+    <string name="urdu_keyboard">Urdu</string>
+    <string name="urdu_keyboard_with_symbols_description">Urdu phonetic keyboard with symbols by mirfatif</string>
+
+    <string-array name="urdu_initial_suggestions">
+        <item>!</item>
+        <item>؟</item>
+        <item>،</item>
+        <item>\u06D4</item>
+        <item>\"</item>
+        <item>\'</item>
+        <item>:</item>
+        <item>؛</item>
+        <item>(</item>
+        <item>)</item>
+        <item>\u064E</item>
+        <item>\u0650</item>
+
+        <item>\u064F</item>
+        <item>\u064B</item>
+        <item>\u064D</item>
+        <item>\u064C</item>
+        <item>\u0657</item>
+        <item>\u0651</item>
+        <item>\u0653</item>
+        <item>\u0600</item>
+        <item>\u0601</item>
+        <item>\u0602</item>
+        <item>\u0603</item>
+        <item>\u060E</item>
+        <item>\u060F</item>
+        <item>\u0614</item>
+        <item>\u0610</item>
+        <item>\u0611</item>
+        <item>\u0612</item>
+        <item>\u0613</item>
+    </string-array>
+</resources>
