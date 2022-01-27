@@ -29,6 +29,7 @@
     <string name="no_market_store_available"><b>* No s\'ha pogut trobar Google Play Store al vostre dispositiu. No es poden cercar Complements!</b></string>
     <string name="keyboard_theme_tweak_group">Optimitzacions</string>
     <string name="close_button">Surt</string>
+    <string name="delete_button">Suprimeix</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">S\'ha desat:
         <xliff:g id="word">%s</xliff:g>
@@ -61,6 +62,7 @@
     <string name="effects_group">Efectes</string>
     <string name="ime_settings">Configuració del teclat</string>
     <string name="switch_incognito">Mode d\'incògnit</string>
+    <string name="use_system_vibration_title">Utilitza la vibració del sistema</string>
     <string name="vibrate_on_key_press_title">Vibració de les tecles</string>
     <string name="vibrate_on_key_press_value_template">%d mil·lisegons</string>
     <string name="night_mode_screen">Configuració del mode oscur</string>
@@ -498,6 +500,10 @@
     <string name="emoji_default_skin_tone_value_type_5">To de pell mig-fosc</string>
     <string name="emoji_default_skin_tone_value_type_6">To de pell fosc</string>
     <string name="emoji_default_skin_tone_value_random_type">To de pell aleatori</string>
+    <string name="emoji_default_gender_value_person">Persona</string>
+    <string name="emoji_default_gender_value_woman">Dona</string>
+    <string name="emoji_default_gender_value_man">Home</string>
+    <string name="emoji_default_gender_value_random_type">Gènere a l’atzar</string>
     <string name="developer_tools">Eines de desenvolupadors</string>
     <string name="click_for_developer_features">Eines de desenvolupadors</string>
     <string name="click_for_developer_features_summary">Diverses opcions per als desenvolupadors de l\'AnySoftKeyboard</string>
@@ -519,6 +525,8 @@
     <string name="enter_word_hint">Inseriu la paraula aquí</string>
     <string name="enter_abbreviation_hint">Abreviació</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
+    <string name="file_explorer_menu_add_folder">Crea una carpeta</string>
+    <string name="file_explorer_restore_alert_message">Voleu restaurar aquest fitxer?</string>
     <string name="about_additional_software_licenses">Llicències de programari addicional</string>
     <string name="setup_wizard_step_one_title">Activa l\'AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En aquest pas, haureu d\'habilitar <i>AnySoftKeyboard</i>. Verifiqueu que heu seleccionat <i>\'AnySoftKeyboard\'</i> en les <i>entrades de llengua</i>. Això farà funcionar el nostre teclat al vostre dispositiu.</string>
@@ -584,8 +592,13 @@
     <string name="no_internet_fields_specific_layout">Cap</string>
     <string name="bottom_nav_home">Hola</string>
     <string name="setup_wizard_welcome_title">Benvingut!</string>
+    <string name="setup_wizard_welcome_start_action">Inicia la configuració…</string>
     <string name="theme_case_type_override_lower">Sempre en minúscula</string>
     <string name="theme_case_type_override_upper">Sempre en majúscula</string>
+    <string name="settings_key_hint_size_none">Cap</string>
+    <string name="settings_key_hint_size_small">Petit</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Gran</string>
     <string name="shared_prefs_provider_name">Configuració de l\'aplicació</string>
     <string name="user_dict_prefs_provider">Paraules de l\'usuari</string>
     <string name="next_word_dict_prefs_provider">Paraules segúents</string>
@@ -594,5 +607,7 @@
     <string name="pick_prefs_providers_to_restore">Què voleu recuperar?</string>
     <string name="prefs_providers_operation_success">Finalitzat</string>
     <string name="prefs_providers_operation_failed">Ha fallat!</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre utilitza les files genèriques seleccionades.</string>
+    <string name="gesture_typing_alert_button">Entesos</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
