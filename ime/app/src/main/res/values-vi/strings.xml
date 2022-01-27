@@ -292,6 +292,24 @@
     <string name="is_sticky_extesion_keyboard_off_summary">Đóng sau khi nhấn phím</string>
     <string name="show_keyboard_icon_in_status_bar_title">Hiển thị biểu tượng bàn phím trên thanh trạng thái</string>
     <string name="show_keyboard_icon_in_status_bar_off_summary">Không có biểu tượng thanh trạng thái.</string>
+    <string name="show_crash_notification">Báo cáo lỗi</string>
+    <string name="use_keyrepeat">Sử dụng phím lặp lại</string>
+    <string name="use_keyrepeat_on_summary">Phím lặp lại được bật</string>
+    <string name="use_keyrepeat_off_summary">Phím lặp lại bị tắt</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Hiện cửa sổ bật lên biểu tượng cảm xúc khi nhấn và giữ
+    </string>
+    <string name="key_preview_position_override_summary">Phía trên phím được nhấn hoặc phía trên toàn bộ
+        bàn phím
+    </string>
+    <string name="key_preview_position_override_above_key">Phím được nhấn ở trên</string>
+    <string name="key_preview_position_override_above_keyboard">Phía trên bàn phím</string>
+    <string name="key_press_preview_popup_on_summary">Hiện cửa sổ bật lên khi nhấn phím</string>
+    <string name="key_press_preview_popup_off_summary">Không hiện cửa sổ bật lên khi nhấn phím</string>
+    <string name="zoom_factor_keys_in_portrait">Chiều cao phím ở chế độ dọc</string>
+    <string name="zoom_factor_keys_in_landscape">Chiều cao phím ở chế độ ngang</string>
+    <string name="insert_space_after_word_suggestion_selection">Khoảng trắng sau khi chọn ứng viên</string>
+    <string name="double_space_to_period">Thêm dấu chấm khi nhấn đúp phím cách</string>
+    <string name="double_space_to_period_summary">Nhấn đúp phím cách sẽ chèn một dấu chấm, theo sau là dấu cách</string>
     <string name="tweak_animations_level_types_none">Không có</string>
     <string name="cycle_all_symbols_keyboards">Lướt qua tất cả các ký hiệu</string>
     <string name="lang_key_shows_popup">Chuyển đổi ngôn ngữ bằng cửa sổ bật lên</string>
