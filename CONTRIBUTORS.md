@@ -2,8 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (5610)
-1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (214)
+1. [menny](https://github.com/menny) (5613)
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
