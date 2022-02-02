@@ -5,13 +5,13 @@
     <Row>
         <Key android:codes="113" android:popupCharacters="1" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:popupCharacters="2ŵς"/>
-        <Key android:codes="101" android:popupCharacters="3éèëêęėēẽẻε€" />
+        <Key android:codes="101" android:popupCharacters="é3èëêęėēẽẻε€" />
         <Key android:codes="114" android:popupCharacters="4řŕρ"/>
         <Key android:codes="116" android:popupCharacters="5țťţτ"/>
         <Key android:codes="121" android:popupCharacters="6ýÿυ"/>
-        <Key android:codes="117" android:popupCharacters="7úùüûŭűūųṷůθ"/>
-        <Key android:codes="105" android:popupCharacters="8íìïîīǐįïɨι"/>
-        <Key android:codes="111" android:popupCharacters="9óòöõôǒōőøœoº"/>
+        <Key android:codes="117" android:popupCharacters="ú7ùüûŭűūųṷůθ"/>
+        <Key android:codes="105" android:popupCharacters="í8ìïîīǐįïɨι"/>
+        <Key android:codes="111" android:popupCharacters="ó9òöõôǒōőøœoº"/>
         <Key android:codes="112" android:popupCharacters="0π" android:keyEdgeFlags="right"/>
     </Row>
 
