@@ -111,11 +111,11 @@
     <string name="input_field_type_url">Trường nhập URL</string>
     <string name="input_field_type_im">Trường nhập tin nhắn</string>
     <string name="sound_on">Âm thanh khi nhấn phím</string>
-    <string name="sound_on_summary">Hiệu ứng âm thanh khi nhấn phím.</string>
+    <string name="sound_on_summary">Hiệu ứng âm thanh khi nhấn bàn phím ảo.</string>
     <string name="use_custom_sound_volume">Đặt âm lượng tùy chỉnh</string>
     <string name="use_custom_sound_volume_on_summary">Âm lượng hiệu ứng âm thanh là tùy chỉnh.</string>
     <string name="use_custom_sound_volume_off_summary">Âm lượng hiệu ứng âm thanh là âm lượng thông báo của hệ thống.</string>
-    <string name="custom_sound_volume">Âm nhấn phím tùy chỉnh</string>
+    <string name="custom_sound_volume">Tùy chỉnh âm lượng nhấn phím</string>
     <string name="vibrate_on_long_press_title">Rung khi nhấn và giữ</string>
     <string name="vibrate_on_long_press_summary_on">Rung nhẹ khi thực hiện hành động nhấn giữ.</string>
     <string name="switch_keyboard_on_space">Phím cách chuyển đổi bàn phím</string>
@@ -128,8 +128,8 @@
     <string name="persistent_layout_per_package_id_off_summary">Sử dụng cùng một bố cục cho tất cả các Ứng dụng.</string>
     <string name="persistent_layout_per_package_id_on_summary">Tự động chuyển sang bố cục trước đó được sử dụng trong Ứng dụng.</string>
     <string name="one_shot_quick_text_popup">Tự động đóng sau khi nhấn phím</string>
-    <string name="one_shot_quick_text_popup_on_summary">Đóng cửa sổ bật lên Quick-Text sau khi nhấn một phím.</string>
-    <string name="one_shot_quick_text_popup_off_summary">Giữ cửa sổ bật lên Quick-Text luôn mở cho đến khi nhấn phím Đóng.</string>
+    <string name="one_shot_quick_text_popup_on_summary">Đóng cửa sổ nổi Quick-Text sau khi nhấn 1 phím.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Giữ cửa sổ nổi Quick-Text luôn mở cho đến khi nhấn phím Đóng.</string>
     <string name="quick_text_tags_search">Đề xuất Biểu tượng cảm xúc bằng cách nhập thẻ</string>
     <string name="quick_text_tags_search_on_summary">Tìm kiếm biểu tượng cảm xúc theo thẻ, khi nhập bắt đầu bằng
         dấu hai chấm (:)
@@ -204,6 +204,7 @@
     <string name="swipe_action_name_space">Phím cách</string>
     <string name="swipe_action_name_hide">Ẩn bàn phím</string>
     <string name="swipe_action_name_backspace">Phím xóa</string>
+    <string name="swipe_action_name_backword">Back-word</string>
     <string name="swipe_action_name_clear_input">Xóa toàn bộ văn bản</string>
     <string name="swipe_action_name_cursor_up">Di chuyển con trỏ lên</string>
     <string name="swipe_action_name_cursor_down">Di chuyển con trỏ xuống</string>
@@ -215,7 +216,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Bố cục nhỏ gọn sang phải</string>
     <string name="swipe_action_name_compact_layout_to_left">Bố cục nhỏ gọn sang trái</string>
     <string name="swipe_action_name_utility_keyboard">Hiển thị bàn phím tiện ích</string>
-    <string name="swipe_action_name_quick_text_popup">Hiển thị cửa sổ bật lên biểu tượng cảm xúc</string>
+    <string name="swipe_action_name_quick_text_popup">Hiển thị cửa sổ nổi Biểu tượng cảm xúc</string>
     <string name="settings_swipe_velocity_threshold_title">Ngưỡng vận tốc vuốt</string>
     <string name="settings_swipe_velocity_threshold_summary">Tốc độ cử chỉ vuốt tối thiểu. Hiện tại, %s</string>
     <string name="settings_swipe_velocity_very_slow">Rất chậm</string>
@@ -233,32 +234,33 @@
     <string name="hardware_keys_group">Ánh xạ các phím phần cứng</string>
     <string name="volume_key_for_left_right_support">Phím âm lượng cho trái/phải</string>
     <string name="volume_key_for_left_right_support_on_summary">Tắt trái/phải thông qua tăng/giảm âm lượng</string>
-    <string name="volume_key_for_left_right_support_off_summary">Tăng âm lượng xoay con trỏ sang trái, giảm âm lượng xoay con trỏ sang phải</string>
+    <string name="volume_key_for_left_right_support_off_summary">Tăng âm lượng đưa con trỏ qua trái, giảm âm lượng đưa con trỏ qua phải</string>
     <string name="more_ui_settings_group">Giao diện người dùng</string>
     <string name="special_dictionaries_group">Từ điển đặc biệt</string>
     <string name="special_dictionaries_group_summary">Từ điển gợi ý được sử dụng trong AnySoftKeyboard</string>
-    <string name="use_user_dictionary">Từ điển của người dùng</string>
-    <string name="use_user_dictionary_on_summary">Đề xuất các từ đã thêm của người dùng (nhấp đúp vào gợi ý đã nhập để thêm)</string>
-    <string name="always_use_fallback_user_dictionary">Sử dụng bộ nhớ [Từ điển người dùng] riêng</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Sử dụng cơ chế từ điển người dùng được tích hợp sẵn trong bộ nhớ riêng của AnySoftKeyboard.</string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Cố gắng sử dụng Từ điển người dùng tích hợp sẵn toàn cầu của Android</string>
+    <string name="use_user_dictionary">Từ điển cá nhân</string>
+    <string name="use_user_dictionary_on_summary">Đề xuất các từ đã thêm của người dùng (nhấp đúp vào đề xuất đã nhập để Thêm)</string>
+    <string name="always_use_fallback_user_dictionary">Sử dụng bộ nhớ Từ điển cá nhân riêng</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Sử dụng cơ chế Từ điển cá nhân được tích hợp sẵn trong bộ nhớ riêng của AnySoftKeyboard.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Cố gắng sử dụng Từ điển cá nhân tích hợp sẵn toàn cầu của Android</string>
     <string name="use_auto_dictionary">Từ điển tự động</string>
     <string name="use_auto_dictionary_dialog_title">Chọn phương pháp học</string>
-    <string name="use_auto_dictionary_summary">Tự động học từ mới. Phương pháp học: %s</string>
+    <string name="use_auto_dictionary_summary">Tự động học các từ mới. Phương pháp học: %s</string>
     <string name="auto_dictionary_threshold_type_after_a_while">Sau một số sử dụng</string>
     <string name="auto_dictionary_threshold_type_immediately">Ngay sau khi tôi nhập nó</string>
     <string name="auto_dictionary_threshold_type_off">Không học các từ mới</string>
     <string name="use_next_words_dictionary">Đề xuất từ ​​tiếp theo</string>
     <string name="next_words_dictionary_off">Không đề xuất từ ​​tiếp theo</string>
     <string name="next_words_dictionary_words_only">Đề xuất các từ tiếp theo</string>
-    <string name="next_words_dictionary_words_punctuations">Đề xuất các từ và dấu chấm câu tiếp theo</string>
-    <string name="next_words_dictionary_summary">Sử dụng từ trước đó để đưa ra đề xuất: %s</string>
+    <string name="next_words_dictionary_words_punctuations">Đề xuất các từ tiếp theo và dấu chấm câu</string>
+    <string name="next_words_dictionary_summary">Sử dụng các từ trước đây để đưa ra nội dung đề xuất: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Đề xuất tối thiểu</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">Hiển thị nhiều đề xuất</string>
     <string name="auto_pick_suggestion_aggressiveness_title">Tự động chọn gợi ý tích cực</string>
     <string name="auto_pick_suggestion_aggressiveness_none">Tắt</string>
     <string name="auto_pick_suggestion_aggressiveness_minimal">Tích cực tối thiểu</string>
     <string name="auto_pick_suggestion_aggressiveness_medium">Sự tích cực trung bình</string>
-    <string name="use_contacts_dictionary">Danh bạ từ điển</string>
+    <string name="use_contacts_dictionary">Từ điển danh bạ</string>
     <string name="use_contacts_dictionary_on_summary">Đề xuất tên từ danh sách liên hệ</string>
     <string name="tweaks_group">Tinh chỉnh</string>
     <string name="tweak_sound_group">Các tinh chỉnh liên quan đến âm thanh</string>
@@ -296,24 +298,32 @@
     <string name="use_keyrepeat">Sử dụng phím lặp lại</string>
     <string name="use_keyrepeat_on_summary">Phím lặp lại được bật</string>
     <string name="use_keyrepeat_off_summary">Phím lặp lại bị tắt</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Hiện cửa sổ bật lên biểu tượng cảm xúc khi nhấn và giữ
+    <string name="emoticon_long_press_opens_popup">Nhấn và giữ Smiley mở cửa sổ nổi</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Hiện cửa sổ nổi Biểu tượng cảm xúc khi nhấn và giữ
+    </string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Hiện cửa sổ nổi Biểu tượng cảm xúc khi nhấn nhanh
     </string>
     <string name="key_preview_position_override_summary">Phía trên phím được nhấn hoặc phía trên toàn bộ
         bàn phím
     </string>
     <string name="key_preview_position_override_above_key">Phím được nhấn ở trên</string>
     <string name="key_preview_position_override_above_keyboard">Phía trên bàn phím</string>
-    <string name="key_press_preview_popup_on_summary">Hiện cửa sổ bật lên khi nhấn phím</string>
-    <string name="key_press_preview_popup_off_summary">Không hiện cửa sổ bật lên khi nhấn phím</string>
+    <string name="key_press_preview_popup">Key preview popup</string>
+    <string name="key_press_preview_popup_on_summary">Hiện cửa sổ nổi khi nhấn phím</string>
+    <string name="key_press_preview_popup_off_summary">Không hiện cửa sổ nổi khi nhấn phím</string>
     <string name="zoom_factor_keys_in_portrait">Chiều cao phím ở chế độ dọc</string>
     <string name="zoom_factor_keys_in_landscape">Chiều cao phím ở chế độ ngang</string>
     <string name="insert_space_after_word_suggestion_selection">Khoảng trắng sau khi chọn ứng viên</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Chèn khoảng trắng sau từ
+         đề xuất chọn
+    </string>
     <string name="double_space_to_period">Thêm dấu chấm khi nhấn đúp phím cách</string>
     <string name="double_space_to_period_summary">Nhấn đúp phím cách sẽ chèn một dấu chấm, theo sau là dấu cách</string>
     <string name="tweak_animations_level_types_none">Không có</string>
     <string name="cycle_all_symbols_keyboards">Lướt qua tất cả các ký hiệu</string>
-    <string name="lang_key_shows_popup">Chuyển đổi ngôn ngữ bằng cửa sổ bật lên</string>
+    <string name="lang_key_shows_popup">Chuyển đổi ngôn ngữ bằng cửa sổ nổi</string>
     <string name="lang_key_shows_popup_on_summary">Phím ngôn ngữ sẽ bật lên một hộp thoại lựa chọn</string>
+    <string name="lang_key_shows_popup_off_summary">Phím ngôn ngữ sẽ thay đổi ngôn ngữ</string>
     <string name="settings_os_clipboard_sync">Đồng bộ khay nhớ tạm với hệ điều hành</string>
     <string name="settings_os_clipboard_sync_summary_on">Phát hiện các thay đổi của khay nhớ tạm và đồng bộ hóa với AnySoftKeyboard.</string>
     <string name="settings_os_clipboard_sync_summary_off">Không nghe các thao tác trên khay nhớ tạm bên ngoài AnySoftKeyboard.</string>
@@ -343,14 +353,27 @@
     <!-- extension keyboard type -->
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
+    <string name="select_keyboard_popup_title">Chọn bàn phím</string>
     <!-- dictionaries -->
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <string name="user_dict_settings_titlebar">Từ điển cá nhân</string>
     <!-- abbreviations editor -->
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_add_word">Thêm từ mới</string>
+    <string name="click_to_add_new_word">Nhấn để thêm một từ mới</string>
+    <string name="enter_word_hint">Nhập từ mới vào đây</string>
+    <string name="next_word_dict_settings">Cài đặt Từ tiếp theo</string>
+    <string name="next_word_stats_group">Thống kê sử dụng Từ tiếp theo</string>
+    <string name="wizard_allow_contacts_permission">Cho phép đề xuất nhập dựa trên danh bạ</string>
+    <string name="next_word_dict_prefs_provider">Các từ tiếp theo</string>
+    <string name="gesture_typing_settings">Nhập bằng cử chỉ</string>
+    <string name="gesture_typing_action">Bật nhập bằng cử chỉ [BETA]</string>
+    <string name="gesture_typing_alert_title">Tính năng BETA!</string>
+    <string name="gesture_typing_alert_button">Đã hiểu</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
