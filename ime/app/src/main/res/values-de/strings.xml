@@ -189,6 +189,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Kompaktes Layout rechte Seite</string>
     <string name="swipe_action_name_compact_layout_to_left">Kompaktes Layout linke Seite</string>
     <string name="swipe_action_name_utility_keyboard">Zeige Utilitytastatur</string>
+    <string name="swipe_action_name_quick_text_popup">Emoji-Popup anzeigen</string>
     <string name="settings_swipe_velocity_threshold_title">Schwellenwert für Wischgestentempo</string>
     <string name="settings_swipe_velocity_threshold_summary">Die Minimalgeschwindigkeit einer Wischgeste. Derzeit %s</string>
     <string name="settings_swipe_velocity_very_slow">Sehr langsam</string>
