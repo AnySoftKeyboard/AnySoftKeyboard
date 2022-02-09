@@ -186,15 +186,17 @@ jobs:
           sed "s/'com.google.errorprone:error_prone_core:${GREP_VERSION_CLASSES}'/'com.google.errorprone:error_prone_core:${LATEST_VERSION}'/g" gradle/errorprone.gradle > /tmp/output.file
           cp /tmp/output.file gradle/errorprone.gradle
           cat gradle/errorprone.gradle
+      - name: Fixing what can be fixed
+        run: ./script/error-prone-auto-patch.sh
       - name: Sanity verification
-        run: ./gradlew :api:assembleDebug :api:lintDebug
-      - name: Add changed gradle files
-        run: git add gradle/errorprone.gradle
+        run: ./gradle assembleDebug
+      - name: Add changed files
+        run: git add .
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Error-Prone Update'
+          commit-message: 'Automated Error-Prone Update and auto-patches if possible'
           title: 'Automated Error-Prone Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'

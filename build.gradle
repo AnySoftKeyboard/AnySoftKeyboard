@@ -3,7 +3,7 @@ import java.nio.file.Files
 
 System.setProperty("file.encoding", "UTF-8")
 
-def logFile = rootProject.file("build-logging/build-log-${System.currentTimeMillis()}.log")
+def logFile = new File(buildDir.absoluteFile,"build-logging/build-log-${System.currentTimeMillis()}.log")
 gradle.addBuildListener(new BuildLogger(logFile))
 
 buildscript {

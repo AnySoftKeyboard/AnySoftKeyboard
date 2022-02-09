@@ -16,8 +16,11 @@ dependencies {
     //annotationProcessor "com.uber.nullaway:nullaway:0.6.4"
 
     //taken from https://github.com/google/error-prone/releases
-    errorprone 'com.google.errorprone:error_prone_core:2.10.0'
+    errorprone 'com.google.errorprone:error_prone_core:2.11.0'
 }
+
+//this will hold any command-line auto-patch requests (via -PErrorProneAutoPatchList=[coma-separated-list]).
+def errorProneAutoPatch = rootProject.findProperty('ErrorProneAutoPatchList')
 
 afterEvaluate {
     tasks.withType(JavaCompile).configureEach {
@@ -30,9 +33,19 @@ afterEvaluate {
         if (name.toLowerCase(Locale.ROOT).contains('test')) {
             options.errorprone.errorproneArgs.add('-Xep:UndefinedEquals:OFF')
         }
-//            task.options.errorprone {
-//                check("NullAway", CheckSeverity.ERROR)
-//                option("NullAway:AnnotatedPackages", "com.uber")
-//            }
+
+        //auto-patch
+        if (errorProneAutoPatch != null) {
+            options.errorprone {
+                errorproneArgs.addAll(
+                        "-XepPatchChecks:${errorProneAutoPatch}",
+                        "-XepPatchLocation:IN_PLACE"
+                )
+            }
+            options.compilerArgs << '-nowarn'
+        } else {
+            //fail on warnings (which are Error-Prone issues)
+            options.compilerArgs << '-Werror'
+        }
     }
 }

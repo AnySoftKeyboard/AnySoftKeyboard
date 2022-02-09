@@ -6,9 +6,9 @@ shift
 echo "Will retry '$*' for ${retries} times:"
 
 function needsRetry() {
-  if [[ -d "build-logging" ]]; then
+  if [[ -d "build/build-logging" ]]; then
     local contents
-    contents=$(cat "$(ls -t build-logging/*.log | head -1)")
+    contents=$(cat "$(ls -t build/build-logging/*.log | head -1)")
 
     [[ "$contents" =~ .*"finished with non-zero exit value 134".* ]] && echo "RETRY"
   else

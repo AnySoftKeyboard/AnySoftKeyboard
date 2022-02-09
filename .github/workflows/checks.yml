@@ -133,7 +133,7 @@ jobs:
         if: always()
         with:
           name: app-tests-${{ matrix.index }}-build-logging
-          path: build-logging
+          path: build/build-logging
 
   app-all-sdks-tests:
     runs-on: ubuntu-18.04
@@ -169,7 +169,7 @@ jobs:
         if: always()
         with:
           name: app-all-sdks-tests-build-logging
-          path: build-logging
+          path: build/build-logging
 
   app-less-tests:
     runs-on: ubuntu-18.04
@@ -205,7 +205,7 @@ jobs:
         if: always()
         with:
           name: app-less-tests-build-logging
-          path: build-logging
+          path: build/build-logging
 
   verify-all-addons:
     runs-on: ubuntu-18.04
@@ -239,7 +239,7 @@ jobs:
         if: always()
         with:
           name: verify-all-addons-build-logging
-          path: build-logging
+          path: build/build-logging
 
   deploy-dry-run:
     runs-on: ubuntu-18.04
