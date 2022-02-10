@@ -12,12 +12,8 @@
     <string name="how_to_pointer_title">Chào mừng đến với AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Những thay đổi mới nhất cho v<xliff:g id="name">%s</xliff:g>\u0020\u0020
     </string>
-    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">
-        %s</xliff:g>\u0020\u0020
-    </string>
-    <string name="change_log_url">More:\u0020
-        <xliff:g id="url">%s</xliff:g>
-    </string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Thêm:\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="notification_text_testers">Đây là phiên bản beta. Sử dụng cẩn thận!</string>
     <string name="testers_version">Người thử nghiệm xây dựng!</string>
     <string name="language_root_tile">Ngôn ngữ</string>
@@ -33,9 +29,7 @@
     <string name="changelog">Nhật ký thay đổi</string>
     <string name="search_market_for_addons">Tìm kiếm tiện ích bổ sung</string>
     <string name="search_market_for_keyboard_addons">Nhận thêm bàn phím tại cửa hàng ứng dụng</string>
-    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app
-        store…
-    </string>
+    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
     <string name="no_market_store_available">Không thể tìm thấy cửa hàng ứng dụng trên thiết bị này.\nKhông thể tìm kiếm tiện ích bổ sung! </string>
     <string name="keyboard_theme_tweak_group">Tinh chỉnh</string>
     <string name="close_button">Đóng</string>
@@ -333,7 +327,7 @@
     <string name="candidates_on">Hiển thị đề xuất</string>
     <string name="candidates_off_summary">Không có đề xuất nào sẽ được hiển thị</string>
     <string name="quick_fix">Sửa nhanh và viết tắt</string>
-    <string name="quick_fix_summary">Sửa các lỗi đánh máy thường gặp và mở rộng các chữ viết tắt</string>
+    <string name="quick_fix_summary">Sửa các lỗi đánh máy thường gặp, và mở rộng các từ gõ tắt</string>
     <string name="quick_fix_secon_disabled">…chỉ trên ngôn ngữ đầu tiên</string>
     <string name="quick_fix_secon_disabled_summ_on">Các bản sửa lỗi và viết tắt nhanh sẽ chỉ hoạt động trên ngôn ngữ bố cục hiện tại</string>
     <string name="allow_suggestions_restart">Đề xuất khởi động lại</string>
@@ -353,20 +347,41 @@
     <!-- extension keyboard type -->
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
+    <string name="label_done_key">Hoàn tất</string>
     <string name="select_keyboard_popup_title">Chọn bàn phím</string>
     <!-- dictionaries -->
+    <string name="unicode_gestures_quick_text_key_name">Cử chỉ</string>
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">Từ điển cá nhân</string>
     <!-- abbreviations editor -->
+    <string name="abbreviation_dict_settings_titlebar">Bảng gõ tắt</string>
+    <string name="abbreviation_dict_editor">Bảng gõ tắt</string>
+    <string name="abbreviation_dict_word_template">        <i>
+            <xliff:g id="gõ tắt">%s</xliff:g>
+        </i>
+        \u0020\u2192\u0020
+        <i>
+            <xliff:g id="mục tiêu">%s</xliff:g>
+        </i>
+    </string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="user_dict_backup_success_title">Sao lưu hoàn tất!</string>
+    <string name="user_dict_backup_fail_title">Sao lưu thất bại!</string>
+    <string name="user_dict_restore_success_title">Khôi phục hoàn tất!</string>
+    <string name="user_dict_restore_fail_title">Khôi phục thất bại!</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Thêm từ mới</string>
+    <string name="word_editor_action_backup_words">Sao lưu</string>
+    <string name="word_editor_action_restore_words">Khôi phục</string>
     <string name="click_to_add_new_word">Nhấn để thêm một từ mới</string>
     <string name="enter_word_hint">Nhập từ mới vào đây</string>
+    <string name="enter_abbreviation_hint">Từ gõ tắt</string>
+    <string name="enter_abbreviation_target_hint">Cụm từ đầy đủ</string>
+    <string name="file_explorer_backup_alert_message">Tệp này sẽ bị ghi đè.</string>
     <string name="next_word_dict_settings">Cài đặt Từ tiếp theo</string>
     <string name="next_word_stats_group">Thống kê sử dụng Từ tiếp theo</string>
     <string name="wizard_allow_contacts_permission">Cho phép đề xuất nhập dựa trên danh bạ</string>
