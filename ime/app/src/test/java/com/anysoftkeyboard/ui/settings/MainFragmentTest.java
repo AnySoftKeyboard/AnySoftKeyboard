@@ -265,7 +265,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                                 .filter(
                                         dialog ->
                                                 dialog.findViewById(
-                                                                R.id.progress_dialog_message_text_view)
+                                                                R.id
+                                                                        .progress_dialog_message_text_view)
                                                         != null)
                                 .lastOrError()));
         // closing dialog
@@ -300,7 +301,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                                 .filter(
                                         dialog ->
                                                 dialog.findViewById(
-                                                                R.id.progress_dialog_message_text_view)
+                                                                R.id
+                                                                        .progress_dialog_message_text_view)
                                                         != null)
                                 .lastOrError()));
         // closing dialog
