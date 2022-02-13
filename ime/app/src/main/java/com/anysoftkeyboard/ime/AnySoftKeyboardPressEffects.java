@@ -210,7 +210,8 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                 Observable.combineLatest(
                                 prefs().getBoolean(
                                                 R.string.settings_key_key_press_shows_preview_popup,
-                                                R.bool.settings_default_key_press_shows_preview_popup)
+                                                R.bool
+                                                        .settings_default_key_press_shows_preview_popup)
                                         .asObservable(),
                                 AnimationsLevel.createPrefsObservable(this),
                                 prefs().getString(

@@ -57,10 +57,7 @@ public class KeyboardFactoryTest {
                 getApplicationContext()
                         .getResources()
                         .getInteger(
-                                com.anysoftkeyboard
-                                        .addons
-                                        .R
-                                        .integer
+                                com.anysoftkeyboard.addons.R.integer
                                         .anysoftkeyboard_api_version_code),
                 english16Keys.getApiVersion());
     }

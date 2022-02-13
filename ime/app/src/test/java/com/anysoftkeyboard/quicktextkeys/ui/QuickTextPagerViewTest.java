@@ -224,7 +224,8 @@ public class QuickTextPagerViewTest {
                 Shadows.shadowOf(
                                 ((ImageView)
                                                 mUnderTest.findViewById(
-                                                        R.id.quick_keys_popup_quick_keys_insert_media))
+                                                        R.id
+                                                                .quick_keys_popup_quick_keys_insert_media))
                                         .getDrawable())
                         .getCreatedFromResId());
 

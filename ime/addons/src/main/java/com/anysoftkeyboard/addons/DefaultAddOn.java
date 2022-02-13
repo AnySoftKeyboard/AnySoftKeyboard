@@ -11,10 +11,7 @@ public class DefaultAddOn extends AddOnImpl {
                 askContext
                         .getResources()
                         .getInteger(
-                                com.anysoftkeyboard
-                                        .api
-                                        .R
-                                        .integer
+                                com.anysoftkeyboard.api.R.integer
                                         .anysoftkeyboard_api_version_code));
     }
 
