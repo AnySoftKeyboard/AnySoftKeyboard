@@ -19,7 +19,7 @@
         <Key android:codes="1610" android:popupCharacters="ىئ" android:keyLabel="ي" />
         <Key android:codes="1576" android:popupCharacters="پ" android:keyLabel="ب" />
         <Key android:codes="1604" android:keyLabel="ل" />
-        <Key android:codes="1575" android:popupCharacters="&#1649;&#1575;&#1648;&#1570;&#1571;&#1573;&#1569;" android:keyLabel="ا" />
+        <Key android:codes="1575" android:popupKeyboard="@xml/arabic_qwerty_alif"  android:keyLabel="ا" />
         <Key android:codes="1578" android:keyLabel="ت" />
         <Key android:codes="1606" android:keyLabel="ن" />
         <Key android:codes="1605" android:keyLabel="م" />
