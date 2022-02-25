@@ -20,6 +20,7 @@ public class VersionChangeLogs {
                         "Several fixes to the settings app navigation.",
                         "Vibration fixes.",
                         "Suggestions pick and order fixes.",
+                        "Fixes to pop-up keys order.",
                         "Reduced installation size (for supporting devices).",
                         "Updated translations from the community (at crowdin.net)."));
         log.add(
