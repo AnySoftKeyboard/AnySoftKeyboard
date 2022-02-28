@@ -117,13 +117,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
-    implementation "androidx.autofill:autofill:1.1.0"
+    implementation 'androidx.autofill:autofill:1.1.0'
 
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.4.1'
 
-    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
