@@ -61,3 +61,4 @@ do_update https://repo1.maven.org/maven2 com.f2prateek.rx.preferences2 rx-prefer
 #others
 do_update https://repo1.maven.org/maven2 com.jpardogo.materialtabstrip library "Material Tab Strip library"
 do_update https://repo1.maven.org/maven2 pub.devrel easypermissions "Easy-Permissions support library"
+do_update https://repo1.maven.org/maven2 com.getkeepsafe.relinker relinker "ReLinker JNI support library"
