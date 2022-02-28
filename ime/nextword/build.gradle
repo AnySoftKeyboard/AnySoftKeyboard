@@ -4,7 +4,7 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 
 
 dependencies {
-    implementation "androidx.legacy:legacy-support-core-utils:$androidxSupportLegacy"
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation project(':ime:base')
     implementation project(':ime:prefs')
 

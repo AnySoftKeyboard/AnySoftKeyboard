@@ -57,6 +57,32 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
           labels: automerge
+  general-maven-update:
+    runs-on: ubuntu-18.04
+    container: menny/android_ndk:1.15.3
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: update-to-maven-deps
+        run: ./scripts/update_third_party_artifacts.sh
+      - name: Sanity verification
+        run: |
+          ./gradlew :api:assembleDebug :api:lintDebug
+          ./gradlew :api:assembleDebug :api:lintDebug
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3.5.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Maven Artifacts Update'
+          title: 'Automated Maven Artifacts Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          team-reviewers: infra, maintainers
+          branch: 'bot-pr/maven-update'
+          labels: automerge
   robolectric-update:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.3
@@ -91,40 +117,6 @@ jobs:
           body: 'Latest version found at https://github.com/robolectric/robolectric/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/robolectric-update'
-          labels: automerge
-  reliner-update:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-relinker
-        run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/KeepSafe/ReLinker/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/api[[:space:]]'com.getkeepsafe.relinker:relinker:${GREP_VERSION_CLASSES}'/api 'com.getkeepsafe.relinker:relinker:${LATEST_VERSION}'/g" ime/base/build.gradle > /tmp/output.file
-          cp /tmp/output.file ime/base/build.gradle
-          cat ime/base/build.gradle
-      - name: Sanity verification
-        run: |
-          ./gradlew :ime:base:assembleDebug
-      - name: Add changed gradle files
-        run: |
-          git add ime/base/build.gradle
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated ReLinker Update'
-          title: 'Automated ReLinker Update'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found at https://api.github.com/repos/KeepSafe/ReLinker/releases'
-          team-reviewers: infra, maintainers
-          branch: 'bot-pr/relinker-update'
           labels: automerge
   build-tools-update:
     runs-on: ubuntu-18.04
