@@ -16,12 +16,12 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.1'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:2.0.2'
         classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9'
         classpath 'net.evendanan.autoversion:gradle-plugin:0.2.2'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1'
     }
 }
 

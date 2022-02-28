@@ -5,7 +5,7 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
-    implementation "androidx.appcompat:appcompat:$androidxAppCompat"
+    implementation "androidx.appcompat:appcompat:1.0.0"
 
     testImplementation project(':ime:base-test')
 }

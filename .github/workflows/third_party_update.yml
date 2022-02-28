@@ -57,7 +57,7 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
           labels: automerge
-  agp-update:
+  general-maven-update:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.3
     steps:
@@ -66,13 +66,8 @@ jobs:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-agp
-        run: |
-          LATEST_VERSION=$(./scripts/get_latest_maven_artifact_version.sh https://dl.google.com/dl/android/maven2 com.android.tools.build gradle)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/[[:space:]]com.android.tools.build:gradle:${GREP_VERSION_CLASSES}'/ com.android.tools.build:gradle:${LATEST_VERSION}'/g" build.gradle > /tmp/output.file
-          cp /tmp/output.file build.gradle
-          cat build.gradle
+      - name: update-to-maven-deps
+        run: ./scripts/update_third_party_artifacts.sh
       - name: Sanity verification
         run: |
           ./gradlew :api:assembleDebug :api:lintDebug
@@ -84,13 +79,12 @@ jobs:
         uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Android Gradle Plugin Update'
-          title: 'Automated Android Gradle Plugin Update'
+          commit-message: 'Automated Maven Artifacts Update'
+          title: 'Automated Maven Artifacts Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found at https://dl.google.com/dl/android/maven2/com/android/tools/build/group-index.xml'
           team-reviewers: infra, maintainers
-          branch: 'bot-pr/agp-update'
+          branch: 'bot-pr/maven-update'
           labels: automerge
   robolectric-update:
     runs-on: ubuntu-18.04

@@ -6,14 +6,13 @@ GROUP_ID="$2"
 #gradle
 ARTIFACT_ID="$3"
 
-VERSIONS_URL="${MAVEN_URL}/${GROUP_ID//[.]/\/}/group-index.xml"
+VERSIONS_URL="${MAVEN_URL}/${GROUP_ID//[.]/\/}/${ARTIFACT_ID}/maven-metadata.xml"
 
-VERSIONS=$(curl --silent "$VERSIONS_URL" | xmllint --format --xpath "string(/${GROUP_ID}/${ARTIFACT_ID}/@versions)" -)
-#echo "For ${GROUP_ID}:${ARTIFACT_ID} we have: $VERSIONS"
-
-VERSIONS_ARRAY=(${VERSIONS//,/ })
+VERSIONS=$(curl --silent "$VERSIONS_URL" | xmllint --xpath "string(/metadata/versioning/versions)" -)
+VERSIONS_ARRAY=(${VERSIONS//\n/ })
 readarray -t SORTED_VERSIONS_ARRAY < <(for v in "${VERSIONS_ARRAY[@]}"; do echo "$v"; done | sort -r)
 for index in "${!SORTED_VERSIONS_ARRAY[@]}" ; do [[ ${SORTED_VERSIONS_ARRAY[$index]} =~ alpha ]] && unset -v 'SORTED_VERSIONS_ARRAY[$index]' ; done
 for index in "${!SORTED_VERSIONS_ARRAY[@]}" ; do [[ ${SORTED_VERSIONS_ARRAY[$index]} =~ beta ]] && unset -v 'SORTED_VERSIONS_ARRAY[$index]' ; done
+for index in "${!SORTED_VERSIONS_ARRAY[@]}" ; do [[ ${SORTED_VERSIONS_ARRAY[$index]} =~ -rc ]] && unset -v 'SORTED_VERSIONS_ARRAY[$index]' ; done
 SORTED_VERSIONS_ARRAY=("${SORTED_VERSIONS_ARRAY[@]}")
 echo "${SORTED_VERSIONS_ARRAY[0]}"
