@@ -179,7 +179,7 @@ jobs:
           cp /tmp/output.file gradle/errorprone.gradle
           cat gradle/errorprone.gradle
       - name: Fixing what can be fixed
-        run: ./script/error-prone-auto-patch.sh
+        run: ./scripts/error-prone-auto-patch.sh
       - name: Sanity verification
         run: ./gradle assembleDebug
       - name: Add changed files
