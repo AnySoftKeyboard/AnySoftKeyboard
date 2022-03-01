@@ -36,6 +36,14 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: check
         run: ./scripts/ci/ci_check.sh
+      - name: check-all-yamls
+        run: |
+          sudo apt-get install yamllint
+          yamllint -f github . | tee build/yamllint.log
+      - name: check-github-workflows
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.9
+          actionlint -no-color | tee build/actionlint.log
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -46,6 +54,16 @@ jobs:
         with:
           name: checks-reports
           path: collected_reports
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: yamllint-reports
+          path: build/yamllint.log
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: github-actions-lint-reports
+          path: build/actionlint.log
 
   linters:
     runs-on: ubuntu-18.04
