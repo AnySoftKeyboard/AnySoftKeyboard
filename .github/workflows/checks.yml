@@ -38,13 +38,7 @@ jobs:
       - name: check
         run: ./scripts/ci/ci_check.sh
       - name: check-all-yamls
-        run: |
-          sudo apt-get install -y --allow-remove-essential --allow-change-held-packages yamllint
-          yamllint -c config/yamllint.yml -f github . | tee build/yamllint.log
-      - name: check-github-workflows
-        run: |
-          go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.9
-          actionlint -no-color -ignore SC2215| tee build/actionlint.log
+        run: ./scripts/ci/ci_check_yamls.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -60,11 +54,6 @@ jobs:
         with:
           name: yamllint-reports
           path: build/yamllint.log
-      - uses: actions/upload-artifact@v1.0.0
-        if: always()
-        with:
-          name: github-actions-lint-reports
-          path: build/actionlint.log
 
   linters:
     runs-on: ubuntu-18.04
