@@ -1,3 +1,4 @@
+---
 name: checks
 
 on:
@@ -39,7 +40,7 @@ jobs:
       - name: check-all-yamls
         run: |
           sudo apt-get install yamllint
-          yamllint -f github . | tee build/yamllint.log
+          yamllint -c config/yamllint.yml -f github . | tee build/yamllint.log
       - name: check-github-workflows
         run: |
           go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.9
@@ -273,10 +274,12 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build
-        run: |
+        run:
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
+          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha \
+              assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources \
+              generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
       - uses: actions/upload-artifact@v1.0.0
         with:

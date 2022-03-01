@@ -1,3 +1,4 @@
+---
 name: "Run tests"
 author: "menny"
 description: "Runs tests using Gradle and sharding support"
