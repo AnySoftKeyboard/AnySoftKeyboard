@@ -44,7 +44,7 @@ jobs:
       - name: check-github-workflows
         run: |
           go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.9
-          actionlint -no-color | tee build/actionlint.log
+          actionlint -no-color -ignore SC2215| tee build/actionlint.log
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -274,7 +274,7 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build
-        run:
+        run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
           ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha \
