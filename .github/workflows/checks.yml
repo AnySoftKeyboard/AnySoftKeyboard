@@ -39,7 +39,7 @@ jobs:
         run: ./scripts/ci/ci_check.sh
       - name: check-all-yamls
         run: |
-          sudo apt-get install yamllint
+          sudo apt-get install -y --allow-remove-essential --allow-change-held-packages yamllint
           yamllint -c config/yamllint.yml -f github . | tee build/yamllint.log
       - name: check-github-workflows
         run: |
