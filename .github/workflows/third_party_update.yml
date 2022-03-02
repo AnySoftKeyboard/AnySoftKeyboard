@@ -198,7 +198,7 @@ jobs:
       - name: Fixing what can be fixed
         run: ./scripts/error-prone-auto-patch.sh
       - name: Sanity verification
-        run: ./gradle assembleDebug
+        run: ./gradlew assembleDebug
       - name: Add changed files
         run: git add .
       - name: Create pull request
