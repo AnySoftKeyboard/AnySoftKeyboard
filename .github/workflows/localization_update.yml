@@ -1,6 +1,7 @@
+---
 name: localization
 
-#always run on the default branch: master
+# always run on the default branch: master
 on:
   schedule:
     - cron: '24 02 * * *'

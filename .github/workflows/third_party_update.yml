@@ -1,6 +1,7 @@
+---
 name: third-party-update
 
-#always run on the default branch: master
+# always run on the default branch: master
 on:
   schedule:
     - cron: '29 04 * * *'
@@ -10,7 +11,7 @@ env:
   TMPDIR: "/tmp"
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-  #should support 1.2.3 and 2.3 and 1.2.3-r3 and 1.2beta2
+  # should support 1.2.3 and 2.3 and 1.2.3-r3 and 1.2beta2
   GREP_VERSION_CLASSES: "[[:digit:]]\\{1,\\}[.][[:digit:]]\\{1,\\}[[:punct:][:alnum:]]*"
 
 jobs:
@@ -94,9 +95,14 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-robolectric
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases \
+            | jq -c -r '.[] | .tag_name' \
+            | grep -o "${GREP_VERSION_CLASSES}" \
+            | uniq \
+            | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/robolectricVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/robolectricVersion = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
+          sed "s/robolectricVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/robolectricVersion = '${LATEST_VERSION}'/g" \
+            gradle/root_all_projects_ext.gradle > /tmp/output.file
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
           cat gradle/root_all_projects_ext.gradle
       - name: Sanity verification
@@ -163,19 +169,30 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-error-prone-plugin
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/tbroyer/gradle-errorprone-plugin/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/tbroyer/gradle-errorprone-plugin/releases \
+            | jq -c -r '.[] | .tag_name' \
+            | grep -o "${GREP_VERSION_CLASSES}" \
+            | uniq \
+            | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/'net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}'/'net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}'/g" build.gradle > /tmp/output.file
+          sed "s/'net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}'/'net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}'/g" \
+            build.gradle > /tmp/output.file
           cp /tmp/output.file build.gradle
           cat build.gradle
-          sed "s/'net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}'/'net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}'/g" gradle/errorprone.gradle > /tmp/output.file
+          sed "s/'net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}'/'net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}'/g" \
+            gradle/errorprone.gradle > /tmp/output.file
           cp /tmp/output.file gradle/errorprone.gradle
           cat gradle/errorprone.gradle
       - name: update-to-latest-error-prone-tool
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/error-prone/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/error-prone/releases \
+            | jq -c -r '.[] | .tag_name' \
+            | grep -o "${GREP_VERSION_CLASSES}" \
+            | uniq \
+            | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/'com.google.errorprone:error_prone_core:${GREP_VERSION_CLASSES}'/'com.google.errorprone:error_prone_core:${LATEST_VERSION}'/g" gradle/errorprone.gradle > /tmp/output.file
+          sed "s/'com.google.errorprone:error_prone_core:${GREP_VERSION_CLASSES}'/'com.google.errorprone:error_prone_core:${LATEST_VERSION}'/g" \
+            gradle/errorprone.gradle > /tmp/output.file
           cp /tmp/output.file gradle/errorprone.gradle
           cat gradle/errorprone.gradle
       - name: Fixing what can be fixed
@@ -192,7 +209,9 @@ jobs:
           title: 'Automated Error-Prone Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found at https://github.com/tbroyer/gradle-errorprone-plugin/releases and https://github.com/google/error-prone/releases.'
+          body: >
+            Latest version found at https://github.com/tbroyer/gradle-errorprone-plugin/releases
+            https://github.com/google/error-prone/releases.
           team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
           labels: automerge
@@ -207,16 +226,26 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-latest-google-format-plugin
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/sherter/google-java-format-gradle-plugin/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/sherter/google-java-format-gradle-plugin/releases \
+            | jq -c -r '.[] | .tag_name' \
+            | grep -o "${GREP_VERSION_CLASSES}" \
+            | uniq \
+            | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${GREP_VERSION_CLASSES}'/'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${LATEST_VERSION}'/g" build.gradle > /tmp/output.file
+          sed "s/'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${GREP_VERSION_CLASSES}'/'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${LATEST_VERSION}'/g" \
+            build.gradle > /tmp/output.file
           cp /tmp/output.file build.gradle
           cat build.gradle
       - name: update-to-latest-google-format-tool
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/google-java-format/releases | jq -c -r '.[] | .tag_name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/google-java-format/releases \
+            | jq -c -r '.[] | .tag_name' \
+            | grep -o "${GREP_VERSION_CLASSES}" \
+            | uniq \
+            | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/toolVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/toolVersion = '${LATEST_VERSION}'/g" build.gradle > /tmp/output.file
+          sed "s/toolVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/toolVersion = '${LATEST_VERSION}'/g" \
+            build.gradle > /tmp/output.file
           cp /tmp/output.file build.gradle
           cat build.gradle
       - name: Sanity verification
@@ -231,7 +260,9 @@ jobs:
           title: 'Automated Google-Format Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found at https://github.com/sherter/google-java-format-gradle-plugin/releases and https://github.com/google/google-java-format/releases.'
+          body: >
+            Latest version found at https://github.com/sherter/google-java-format-gradle-plugin/releases and
+            https://github.com/google/google-java-format/releases.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/google-format-update'
           labels: automerge

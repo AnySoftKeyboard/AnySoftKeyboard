@@ -1,3 +1,4 @@
+---
 name: checks
 
 on:
@@ -36,6 +37,8 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: check
         run: ./scripts/ci/ci_check.sh
+      - name: check-all-yamls
+        run: ./scripts/ci/ci_check_yamls.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -46,6 +49,11 @@ jobs:
         with:
           name: checks-reports
           path: collected_reports
+      - uses: actions/upload-artifact@v1.0.0
+        if: always()
+        with:
+          name: yamllint-reports
+          path: build/yamllint.log
 
   linters:
     runs-on: ubuntu-18.04
@@ -258,7 +266,9 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
+          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha \
+              assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources \
+              generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
       - uses: actions/upload-artifact@v1.0.0
         with:

@@ -1,6 +1,7 @@
+---
 name: packs-lists
 
-#always run on the default branch: master
+# always run on the default branch: master
 on:
   schedule:
     - cron: '30 09 * * *'
