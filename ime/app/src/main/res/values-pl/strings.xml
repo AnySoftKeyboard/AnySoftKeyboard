@@ -13,9 +13,9 @@
     </string>
     <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
     <string name="testers_version">Wersja dla testerów!</string>
-    <string name="language_root_tile">Języki</string>
+    <string name="language_root_tile">Język</string>
     <string name="language_keyboards_settings_tile">Dodaj klawiatury i języki.</string>
-    <string name="language_grammar_settings_tile">Skonfiguruj korektę i inne słowniki.</string>
+    <string name="language_grammar_settings_tile">Skonfiguruj zachowanie korekty i słowniki.</string>
     <string name="language_tweaks_settings_tile">Więcej ustawień.</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">Interfejs użytkownika</string>
@@ -28,7 +28,7 @@
     <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur z Google Play</string>
     <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
     <string name="no_market_store_available">Na Twoim urządzeniu nie odnaleziono <i>Sklepu Google Play</i>.\nNie udało się wyszukać dodatków!</string>
-    <string name="keyboard_theme_tweak_group">Ulepszenia</string>
+    <string name="keyboard_theme_tweak_group">Tweaki</string>
     <string name="close_button">Zamknij</string>
     <string name="delete_button">Usuń</string>
     <!-- Indicates that a word has been added to the dictionary -->
@@ -62,14 +62,14 @@
     <string name="use_system_vibration_title">Użyj wibracji systemu</string>
     <string name="use_system_vibration_off_summary">Używaj niestandardowych ustawień wibracji</string>
     <string name="use_system_vibration_on_summary">Używaj ustawień wibracji systemu Android</string>
-    <string name="vibrate_on_key_press_title">Wibruj przy naciśnięciu</string>
+    <string name="vibrate_on_key_press_title">Wibracja przy naciśnięciu klawisza</string>
     <string name="vibrate_on_key_press_value_template">%d ms</string>
     <string name="night_mode_screen">Ustawienia trybu nocnego</string>
     <string name="night_mode_description">Tryb nocny zmieni następujące funkcje:</string>
     <string name="night_mode_state_summary">Obecnie tryb nocny wyzwala:\u0020%s</string>
     <string name="night_mode_dialog_title">Włącz tryb nocny</string>
     <string name="night_mode_type_never">Nigdy</string>
-    <string name="night_mode_type_follow_system">Użyj ustawień systemu</string>
+    <string name="night_mode_type_follow_system">Zgodnie z motywem systemu</string>
     <string name="night_mode_type_always">Zawsze</string>
     <string name="night_mode_app_night_theme">Użyj ciemnego stylu w ustawieniach aplikacji</string>
     <string name="night_mode_darken_keyboard_theme">Użyj ciemnego motywu klawiatury</string>
@@ -97,11 +97,11 @@
     <string name="pop_text_type_on_correction">Po korekcie słowa</string>
     <string name="pop_text_type_on_word">Po każdym słowie</string>
     <string name="pop_text_type_any_key">Po każdym wciśnięciu klawisza</string>
-    <string name="input_field_type_password">Wpisywanie haseł</string>
-    <string name="input_field_type_email">Wpisywanie adresów e-mail</string>
-    <string name="input_field_type_url">Wpisywanie adresów URL</string>
-    <string name="input_field_type_im">Pisanie wiadomości w komunikatorach</string>
-    <string name="sound_on">Dźwięk przy naciśnięciu</string>
+    <string name="input_field_type_password">Pole hasła</string>
+    <string name="input_field_type_email">Pole wprowadzania adresu e-mail</string>
+    <string name="input_field_type_url">Pole wprowadzania adresu URL</string>
+    <string name="input_field_type_im">Pole wprowadzania wiadomości</string>
+    <string name="sound_on">Dźwięk przy naciśnięciu klawisza</string>
     <string name="sound_on_summary">Efekt dźwiękowy przy naciśnięciu klawisza.</string>
     <string name="use_custom_sound_volume">Dostosuj głośność</string>
     <string name="use_custom_sound_volume_on_summary">Głośność efektów dźwiękowych jest niestandardowa.</string>
@@ -109,11 +109,11 @@
     <string name="custom_sound_volume">Własna głośność naciśnięcia klawisza</string>
     <string name="vibrate_on_long_press_title">Wibracja przy przytrzymaniu</string>
     <string name="vibrate_on_long_press_summary_on">Delikatna wibracja po wywołaniu akcji długiego przytrzymania.</string>
-    <string name="switch_keyboard_on_space">Spacja zmienia klawiatury</string>
+    <string name="switch_keyboard_on_space">Spacja przełącza klawiatury</string>
     <string name="switch_keyboard_on_space_on_summary">Przejdź z symboli/cyfr do alfabetu naciskając spację.</string>
     <string name="switch_keyboard_on_space_off_summary">Nie przechodź z symboli/cyfr do alfabetu naciskając spację.</string>
     <string name="colorize_nav_bar_title">Rysuj pod paskiem nawigacji</string>
-    <string name="colorize_nav_bar_summary_on">Tło zostanie narysowane pod paskiem nawigacji. Funkcja niedostępna na niektórych urządzeniach.</string>
+    <string name="colorize_nav_bar_summary_on">Rysuj tło klawiatury pod paskiem nawigacji. Funkcja nie jest wspierana przez wszystkie urządzenia.</string>
     <string name="colorize_nav_bar_summary_off">Nie rysuj tła pod paskiem nawigacji.</string>
     <string name="persistent_layout_per_package_id_title">Zapamiętuj układ alfabetu dla każdej aplikacji</string>
     <string name="persistent_layout_per_package_id_off_summary">Używaj tego samego układu dla wszystkich aplikacji.</string>
@@ -121,14 +121,13 @@
     <string name="one_shot_quick_text_popup">Zamknij automatycznie po naciśnięciu klawisza</string>
     <string name="one_shot_quick_text_popup_on_summary">Zamknij okno szybkiego tekstu po naciśnięciu klawisza</string>
     <string name="one_shot_quick_text_popup_off_summary">Okno szybkiego tekstu zamykanie się po naciśnięciu klawisza</string>
-    <string name="quick_text_tags_search">Sugeruj emoji przy wpisywaniu tagów</string>
-    <string name="quick_text_tags_search_on_summary">Rozpocznij pisanie od dwukropka (:) aby znaleźć emoji po tagach    </string>
-    <string name="hide_soft_when_physical">Ukryj przy klawiaturze fizycznej</string>
+    <string name="quick_text_tags_search">Sugeruj emoji przez wpisywanie tagów</string>
+    <string name="quick_text_tags_search_on_summary">Wyszukaj emoji po tagu, rozpoczynając pisanie od dwukropka (:)</string>
+    <string name="hide_soft_when_physical">Ukryj klawiaturę ekranową po naciśnięciu przycisku na klawiaturze fizycznej</string>
     <string name="hide_soft_when_physical_on_summary">Ukryj klawiaturę programową, gdy używana jest
         klawiatura fizyczna
     </string>
-    <string name="hide_soft_when_physical_off_summary">Pokaż klawiaturę programową, gdy używana
-        jest klawiatura fizyczna
+    <string name="hide_soft_when_physical_off_summary">Wyświetlaj klawiaturę programową, gdy używana jest klawiatura fizyczna
     </string>
     <string name="enable_alt_space_language_shortcut">Alt + Spacja zmienia języki</string>
     <string name="enable_alt_space_language_shortcut_on_summary">Zmień layout po wciśnięciu Alt + Spacja na klawiaturze sprzętowej.</string>

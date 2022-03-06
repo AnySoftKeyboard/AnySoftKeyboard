@@ -218,6 +218,7 @@
     <string name="swipe_action_name_compact_layout_to_right">მჭიდრო განლაგება მარჯვნივ</string>
     <string name="swipe_action_name_compact_layout_to_left">მჭიდრო განლაგება მარცხნივ</string>
     <string name="swipe_action_name_utility_keyboard">გამოყენებითი კლავიატურის ჩვენება</string>
+    <string name="swipe_action_name_quick_text_popup">ემოჯების ამომხტომი არე</string>
     <string name="settings_swipe_velocity_threshold_title">გადასმის სიჩქარის ზღურბლი</string>
     <string name="settings_swipe_velocity_threshold_summary">გადასმის უმცირესი სიჩქარე. ამჟამად, %s</string>
     <string name="settings_swipe_velocity_very_slow">ძალიან ნელი</string>
