@@ -25,7 +25,10 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.dictionaries.SuggestImpl;
+import com.anysoftkeyboard.dictionaries.SuggestionsProvider;
 import com.anysoftkeyboard.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardClipboard;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -197,7 +200,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @NonNull
     @Override
     protected Suggest createSuggest() {
-        return Mockito.spy(new TestableSuggest(super.createSuggest()));
+        return Mockito.spy(
+                new TestableSuggest(
+                        new SuggestImpl(
+                                new SuggestionsProvider(this) {
+                                    @NonNull
+                                    @Override
+                                    protected ContactsDictionary createRealContactsDictionary() {
+                                        return Mockito.mock(ContactsDictionary.class);
+                                    }
+                                })));
     }
 
     // MAGIC: now it is visible for tests

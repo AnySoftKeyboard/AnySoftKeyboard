@@ -35,9 +35,8 @@ public abstract class AnySoftKeyboardBaseTest {
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
     protected IBinder mMockBinder;
-
-    private InputMethodManagerShadow mInputMethodManagerShadow;
     protected ServiceController<? extends TestableAnySoftKeyboard> mAnySoftKeyboardController;
+    private InputMethodManagerShadow mInputMethodManagerShadow;
     private AbstractInputMethodService.AbstractInputMethodImpl mAbstractInputMethod;
 
     protected TestInputConnection getCurrentTestInputConnection() {

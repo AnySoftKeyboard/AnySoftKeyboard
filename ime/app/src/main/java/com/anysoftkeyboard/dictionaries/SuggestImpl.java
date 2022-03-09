@@ -67,7 +67,7 @@ public class SuggestImpl implements Suggest {
     private boolean mEnabledSuggestions;
 
     @VisibleForTesting
-    SuggestImpl(@NonNull SuggestionsProvider provider) {
+    public SuggestImpl(@NonNull SuggestionsProvider provider) {
         mSuggestionsProvider = provider;
         final SuggestionCallback basicWordCallback = new SuggestionCallback();
         mTypingDictionaryWordCallback = new DictionarySuggestionCallback(basicWordCallback);

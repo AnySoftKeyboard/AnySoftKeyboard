@@ -1,8 +1,11 @@
 package com.anysoftkeyboard.dictionaries;
 
+import static com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader.NO_OP_LISTENER;
+
 import android.content.Context;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
@@ -100,22 +103,33 @@ public class SuggestionsProvider {
 
     @NonNull private NextWordSuggestions mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
 
-    private final DictionaryBackgroundLoader.Listener mContactsDictionaryListener =
-            new DictionaryBackgroundLoader.Listener() {
-                @Override
-                public void onDictionaryLoadingStarted(Dictionary dictionary) {}
+    private final ContactsDictionaryLoaderListener mContactsDictionaryListener =
+            new ContactsDictionaryLoaderListener();
 
-                @Override
-                public void onDictionaryLoadingDone(Dictionary dictionary) {}
+    private class ContactsDictionaryLoaderListener implements DictionaryBackgroundLoader.Listener {
 
-                @Override
-                public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
-                    if (dictionary == mContactsDictionary) {
-                        mContactsDictionary = NullDictionary;
-                        mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
-                    }
-                }
-            };
+        @NonNull private DictionaryBackgroundLoader.Listener mDelegate = NO_OP_LISTENER;
+
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+            mDelegate.onDictionaryLoadingStarted(dictionary);
+        }
+
+        @Override
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+            mDelegate.onDictionaryLoadingDone(dictionary);
+        }
+
+        @Override
+        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+            mDelegate.onDictionaryLoadingFailed(dictionary, exception);
+            if (dictionary == mContactsDictionary) {
+                mContactsDictionary = NullDictionary;
+                mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
+            }
+        }
+    }
+
     @NonNull private final List<Dictionary> mAbbreviationDictionary = new ArrayList<>();
     private final CompositeDisposable mPrefsDisposables = new CompositeDisposable();
 
@@ -260,9 +274,19 @@ public class SuggestionsProvider {
         }
         final int newSetupHashCode = calculateHashCodeForBuilders(dictionaryBuilders);
         if (newSetupHashCode == mCurrentSetupHashCode) {
-            // TODO: not sure this is needed
-            for (Dictionary dictionary : mMainDictionary) {
+            // no need to load, since we have all the same dictionaries,
+            // but, we do need to notify the dictionary loaded listeners.
+            final List<Dictionary> dictionariesToSimulateLoad =
+                    new ArrayList<>(
+                            mMainDictionary.size() + mUserDictionary.size() + 1 /*for contacts*/);
+            dictionariesToSimulateLoad.addAll(mMainDictionary);
+            dictionariesToSimulateLoad.addAll(mUserDictionary);
+            if (mContactsDictionaryEnabled) dictionariesToSimulateLoad.add(mContactsDictionary);
+
+            for (Dictionary dictionary : dictionariesToSimulateLoad) {
                 cb.onDictionaryLoadingStarted(dictionary);
+            }
+            for (Dictionary dictionary : dictionariesToSimulateLoad) {
                 cb.onDictionaryLoadingDone(dictionary);
             }
             return;
@@ -301,7 +325,7 @@ public class SuggestionsProvider {
                 Logger.d(
                         TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
                 disposablesHolder.add(
-                        DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
+                        DictionaryBackgroundLoader.loadDictionaryInBackground(cb, userDictionary));
                 mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
             } else {
                 Logger.d(TAG, " User does not want user dictionary, skipping...");
@@ -334,12 +358,20 @@ public class SuggestionsProvider {
         }
 
         if (mContactsDictionaryEnabled && mContactsDictionary == NullDictionary) {
-            mContactsDictionary = new ContactsDictionary(mContext);
-            mContactsNextWordDictionary = (ContactsDictionary) mContactsDictionary;
+            mContactsDictionaryListener.mDelegate = cb;
+            final ContactsDictionary realContactsDictionary = createRealContactsDictionary();
+            mContactsDictionary = realContactsDictionary;
+            mContactsNextWordDictionary = realContactsDictionary;
             disposablesHolder.add(
                     DictionaryBackgroundLoader.loadDictionaryInBackground(
                             mContactsDictionaryListener, mContactsDictionary));
         }
+    }
+
+    @NonNull
+    @VisibleForTesting
+    protected ContactsDictionary createRealContactsDictionary() {
+        return new ContactsDictionary(mContext);
     }
 
     private static int calculateHashCodeForBuilders(

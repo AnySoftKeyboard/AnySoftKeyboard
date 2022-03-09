@@ -16,7 +16,11 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.disposables.CompositeDisposable;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,13 +32,35 @@ import org.robolectric.shadows.ShadowSystemClock;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
+    private CompositeDisposable mDisposable;
+
     @Before
     @Override
     public void setUpForAnySoftKeyboardBase() throws Exception {
+        mDisposable = new CompositeDisposable();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
         super.setUpForAnySoftKeyboardBase();
         com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
         TestRxSchedulers.foregroundFlushAllJobs();
+    }
+
+    @After
+    public void tearDownDisposables() {
+        mDisposable.dispose();
+    }
+
+    private Supplier<GestureTypingDetector.LoadingState> createLatestStateProvider(
+            GestureTypingDetector detector) {
+        final AtomicReference<GestureTypingDetector.LoadingState> currentState =
+                new AtomicReference<>();
+        mDisposable.add(
+                detector.state()
+                        .subscribe(
+                                currentState::set,
+                                e -> {
+                                    throw new RuntimeException(e);
+                                }));
+        return currentState::get;
     }
 
     @Test
@@ -285,9 +311,13 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         simulateOnStartInputFlow();
         final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+        Supplier<GestureTypingDetector.LoadingState> detector1State =
+                createLatestStateProvider(detector1);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+        Supplier<GestureTypingDetector.LoadingState> detector2State =
+                createLatestStateProvider(detector2);
 
         // this keeps the currently used detector2, but kills the second
         mAnySoftKeyboardUnderTest.onLowMemory();
@@ -295,10 +325,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
 
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.NOT_LOADED, detector1.state().blockingFirst());
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, detector1State.get());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2State.get());
     }
 
     @Test
@@ -311,8 +339,9 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.LOADING, detector2.state().blockingFirst());
+        Supplier<GestureTypingDetector.LoadingState> detector2State =
+                createLatestStateProvider(detector2);
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, detector2State.get());
 
         // this keeps the currently used detector2, but kills the second
         mAnySoftKeyboardUnderTest.onLowMemory();
@@ -320,8 +349,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
 
         TestRxSchedulers.drainAllTasks();
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2State.get());
     }
 
     @Test
