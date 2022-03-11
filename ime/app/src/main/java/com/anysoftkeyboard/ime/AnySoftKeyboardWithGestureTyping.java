@@ -100,9 +100,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         mDetectorStateSubscription.dispose();
         if (mGestureTypingEnabled) {
             final String key = getKeyForDetector(keyboard);
-            if (mGestureTypingDetectors.containsKey(key)) {
-                mCurrentGestureDetector = mGestureTypingDetectors.get(key);
-            } else {
+            mCurrentGestureDetector = mGestureTypingDetectors.get(key);
+            if (mCurrentGestureDetector == null) {
                 mCurrentGestureDetector =
                         new GestureTypingDetector(
                                 getResources()

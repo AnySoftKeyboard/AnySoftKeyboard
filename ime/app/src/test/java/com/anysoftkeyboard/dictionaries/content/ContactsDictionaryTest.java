@@ -165,7 +165,7 @@ public class ContactsDictionaryTest {
     public static class ContactsContentProvider extends AbstractProvider {
 
         @Override
-        protected String getAuthority() {
+        public String getAuthority() {
             return ContactsContract.Contacts.CONTENT_URI.getAuthority();
         }
 
