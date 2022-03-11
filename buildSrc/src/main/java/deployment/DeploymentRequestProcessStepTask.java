@@ -118,7 +118,7 @@ public class DeploymentRequestProcessStepTask extends DefaultTask {
                                         environmentToDeploy,
                                         previousEnvironment,
                                         data.apiUsername),
-                                Collections.singletonList("main-green-requirement"),
+                                Collections.singletonList("all-green-requirement"),
                                 new DeploymentCreate.RequestPayloadField(
                                         environmentsToKill, previousEnvironment)));
 

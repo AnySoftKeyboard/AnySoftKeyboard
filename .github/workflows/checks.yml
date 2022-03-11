@@ -275,7 +275,7 @@ jobs:
           name: fdroid-metadata-dry-run
           path: outputs/fdroid
 
-  main-green-requirement:
+  all-green-requirement:
     needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
     runs-on: ubuntu-18.04
     steps:
@@ -284,7 +284,7 @@ jobs:
 
   deploy-request:
     if: github.event_name == 'push'
-    needs: [main-green-requirement]
+    needs: [all-green-requirement]
     runs-on: ubuntu-18.04
     container: menny/android_base:1.15.3
     steps:
@@ -300,7 +300,7 @@ jobs:
 
   merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
-    needs: [main-green-requirement]
+    needs: [all-green-requirement]
     runs-on: ubuntu-18.04
     container: menny/android_base:1.15.3
     steps:
