@@ -21,6 +21,7 @@ public class VersionChangeLogs {
                         "Vibration fixes.",
                         "Suggestions pick and order fixes.",
                         "Fixes to pop-up keys order.",
+                        "Gesture-typing supports user-dictionary.",
                         "Reduced installation size (for supporting devices).",
                         "Updated translations from the community (at crowdin.net)."));
         log.add(
