@@ -74,7 +74,7 @@ Remember: the components in this repository are released under the Apache2 licen
 
 # License
 
-    Copyright 2020 Menny Even-Danan
+    Copyright 2009 Menny Even-Danan
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
