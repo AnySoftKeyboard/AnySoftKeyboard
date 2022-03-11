@@ -1,6 +1,6 @@
 ---
 codecov:
-  branch: master
+  branch: main
   require_ci_to_pass: false
   notify:
     wait_for_ci: false
@@ -27,7 +27,7 @@ coverage:
         base: auto
         # advanced settings
         branches:
-          - master
+          - main
         if_no_uploads: error
         if_not_found: success
         if_ci_failed: error

@@ -1,13 +1,13 @@
 ---
 name: packs-lists
 
-# always run on the default branch: master
+# always run on the default branch: main
 on:
   schedule:
     - cron: '30 09 * * *'
   push:
     branches:
-      - master
+      - main
     paths:
       - 'addons/**'
 
@@ -35,7 +35,7 @@ jobs:
           title: 'Automated Packs List Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Generated from latest _master_ addons packages.'
+          body: 'Generated from latest _main_ addons packages.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/packs-list-update'
           labels: automerge

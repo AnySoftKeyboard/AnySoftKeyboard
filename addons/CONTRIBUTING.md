@@ -60,7 +60,7 @@ or directly install it on your connected device:
 ```
 
 
-Iterate on your pack until you feel it is good, and then create a PR to merge it to the _master_.
+Iterate on your pack until you feel it is good, and then create a PR to merge it to the _main_ branch.
 
 ## Publish pack
 You can either publish by yourself, under your developer account and keep complete ownership, or you can let us (aka AnySoftKeyboard organization) do it.

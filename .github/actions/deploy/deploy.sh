@@ -17,19 +17,19 @@ export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
 
 function deployProcessFromEnvironmentName() {
-    #imeMaster_alpha_100
+    #imeMain_alpha_100
     [[ $1 =~ ([a-zA-Z]+)_.*_.* ]]
     echo "${BASH_REMATCH[1]}"
 }
 
 function deployChannelFromEnvironmentName() {
-    #imeMaster_alpha_100
+    #imeMain_alpha_100
     [[ $1 =~ .*_([a-zA-Z]+)_.* ]]
     echo "${BASH_REMATCH[1]}"
 }
 
 function deployFractionFromEnvironmentName() {
-    #imeMaster_alpha_100
+    #imeMain_alpha_100
     [[ $1 =~ .*_.*_([0-9]+) ]]
     local PERCENTAGE="${BASH_REMATCH[1]}"
     echo "$(echo "${PERCENTAGE}" | cut -c1-1).$(echo "${PERCENTAGE}" | cut -c2-3)"
@@ -68,7 +68,7 @@ fi
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
-    imeMaster)
+    imeMain)
       DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:bundleCanary" "ime:app:publishCanaryBundle" )
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       ;;

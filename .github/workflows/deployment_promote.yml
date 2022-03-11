@@ -15,7 +15,7 @@ jobs:
     container: menny/android_base:1.15.3
     strategy:
       matrix:
-        refname: [master, release-branch-addons-v4.1-r2]
+        refname: [main, release-branch-addons-v4.1-r2]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
