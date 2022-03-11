@@ -6,7 +6,7 @@ on:
     paths-ignore:
       - deployment/halt_deployment_marker
     branches:
-      - master
+      - main
       - release-branch-*
   pull_request:
     paths-ignore:
@@ -275,7 +275,7 @@ jobs:
           name: fdroid-metadata-dry-run
           path: outputs/fdroid
 
-  master-green-requirement:
+  main-green-requirement:
     needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
     runs-on: ubuntu-18.04
     steps:
@@ -284,7 +284,7 @@ jobs:
 
   deploy-request:
     if: github.event_name == 'push'
-    needs: [master-green-requirement]
+    needs: [main-green-requirement]
     runs-on: ubuntu-18.04
     container: menny/android_base:1.15.3
     steps:
@@ -298,9 +298,9 @@ jobs:
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
 
-  merge-to-master:
+  merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
-    needs: [master-green-requirement]
+    needs: [main-green-requirement]
     runs-on: ubuntu-18.04
     container: menny/android_base:1.15.3
     steps:
@@ -308,19 +308,19 @@ jobs:
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
-          ref: master
+          ref: main
       - name: create-merge-commit
-        run: ./scripts/ci/ci_merge_to_master.sh ${{ github.ref }}
+        run: ./scripts/ci/ci_merge_to_default_branch.sh ${{ github.ref }}
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Merge to master from ${{ github.ref }}.'
-          title: 'Automated Merge to master from ${{ github.ref }}'
+          commit-message: 'Merge to default branch from ${{ github.ref }}.'
+          title: 'Automated Merge to default branch from ${{ github.ref }}'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: 'Generated from commit ${{ github.sha }} on ${{ github.ref }}.'
           team-reviewers: maintainers
-          branch: 'bot-pr/merge-to-master-from-${{ github.ref }}'
-          base: master
+          branch: 'bot-pr/merge-to-default-branch-from-${{ github.ref }}'
+          base: main
           labels: automerge

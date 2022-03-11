@@ -1,13 +1,13 @@
 ---
 name: packs-lists
 
-# always run on the default branch: master
+# always run on the default branch: main
 on:
   schedule:
     - cron: '27 10 * * *'
   push:
     branches:
-      - master
+      - main
 
 env:
   TERM: dumb

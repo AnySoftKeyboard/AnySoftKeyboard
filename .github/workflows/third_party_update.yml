@@ -1,7 +1,7 @@
 ---
 name: third-party-update
 
-# always run on the default branch: master
+# always run on the default branch: main
 on:
   schedule:
     - cron: '29 04 * * *'

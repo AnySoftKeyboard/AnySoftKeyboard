@@ -14,7 +14,7 @@ git config --global user.name "Polyglot"
 echo "Fetching from ${REF}, as local ${LOCAL_REF}:"
 
 if [[ $(git ls-tree -r "${REF}" --name-only deployment/halt_deployment_marker) ]]; then
-  echo "halt_deployment_marker file was found. This branch can not be merged into master."
+  echo "halt_deployment_marker file was found. This branch can not be merged into main branch."
   exit 0
 fi
 
