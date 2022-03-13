@@ -112,6 +112,37 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testNextWordHappyPath() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping(
+                "hello face hello face hello face hello face ");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+        verifySuggestions(true, "face");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "face");
+        TestRxSchedulers.drainAllTasks();
+        Assert.assertEquals(
+                "hello face hello face hello face hello face hello face ",
+                getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        verifySuggestions(true, "hello");
+    }
+
+    @Test
+    public void testNextWordDeleteAfterPick() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping(
+                "hello face hello face hello face hello face ");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+        verifySuggestions(true, "face");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "face");
+        TestRxSchedulers.drainAllTasks();
+        Assert.assertEquals(
+                "hello face hello face hello face hello face hello face ",
+                getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals(
+                "hello face hello face hello face hello face hello face",
+                getCurrentTestInputConnection().getCurrentTextInInputConnection());
+    }
+
+    @Test
     @LooperMode(LooperMode.Mode.LEGACY) /*sensitive to animations*/
     public void testClickingCancelPredicationHappyPath() {
         TestRxSchedulers.drainAllTasks();
