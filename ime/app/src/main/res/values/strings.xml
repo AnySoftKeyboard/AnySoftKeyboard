@@ -670,21 +670,15 @@
         You can add your first word now.
     </string>
 
-    <string name="user_dict_backup_success_title">Backup done!</string>
-    <string name="user_dict_backup_success_text">Successfully stored your words on device storage
-        at\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Backup failed!</string>
-    <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
 
-    <string name="user_dict_restore_success_title">Restore done!</string>
-    <string name="user_dict_restore_success_text">Successfully restored your words.</string>
-    <string name="user_dict_restore_fail_title">Restore failed!</string>
-    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and
@@ -749,17 +743,17 @@
     <string name="enter_abbreviation_target_hint">Full sentence</string>
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
 
-    <string name="file_explorer_menu_add_folder">Create folder</string>
-    <string name="file_explorer_filename">Backup filename…</string>
-    <string name="file_explorer_filename_empty">Filename cannot be empty…</string>
-    <string name="file_explorer_alert_title">Select this file ?</string>
-    <string name="file_explorer_restore_alert_message">Do you want to restore this file ?</string>
-    <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
+    
+    
+    
+    
+    
+    
 
-    <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
-    <string name="file_explorer_backup_failed">Your data have failed to be saved.</string>
-    <string name="file_explorer_restore_success">Your data have been restored from\u0020</string>
-    <string name="file_explorer_restore_failed">Your data have failed to be restored.</string>
+    
+    
+    
+    
 
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
 
@@ -926,7 +920,7 @@
     <string name="prefs_providers_backed_up_to">You data was successfully backed-up to %s</string>
     <string name="prefs_providers_failed_restore_due_to">Failed to restore your data due to %s</string>
     <string name="prefs_providers_restored_to">You data was successfully restored from %s</string>
-    <string name="word_editor_action_choose_path">Choose custom path</string>
+    
 
     <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>
@@ -954,6 +948,8 @@
     <string name="app_share_text">Let me recommend the open-source, privacy-focus, free, highly customizable, multi-language Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     
     <string name="click_me_for_easter_egg_info">click me for a surprise</string>
+    <string name="backup_restore_not_support_before_kitkat">Not supported on your Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Backup and restore are not supported for devices running Android OS prior to KitKat (version 4.4). Sorry.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     
 

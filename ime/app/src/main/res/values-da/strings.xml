@@ -559,20 +559,14 @@
     <string name="user_dict_settings_empty_text">Du har ingen ord i brugerordbogen.
         Du kan tilføje dit første ord nu.
     </string>
-    <string name="user_dict_backup_success_title">Sikkerhedskopiering fuldført!</string>
-    <string name="user_dict_backup_success_text">Gemte dine ord på enhedens lagerplads
-        på\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Sikkerhedskopiering mislykkedes!</string>
-    <string name="user_dict_backup_fail_text_with_error">Kunne ikke gemme ord på grund af:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Gendannelse fuldført!</string>
-    <string name="user_dict_restore_success_text">Dine ord er blevet gendannet.</string>
-    <string name="user_dict_restore_fail_title">Gendannelse mislykkedes!</string>
-    <string name="user_dict_restore_fail_text_with_error">Kunne ikke gendanne ord på grund af:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Byt om på tegnsætning og mellemrum</string>
     <string name="should_swap_punctuation_and_space_off_summary">Byt ikke om på mellemrum og
         tegnsætning.
@@ -625,16 +619,16 @@
     <string name="enter_abbreviation_hint">Forkortelse</string>
     <string name="enter_abbreviation_target_hint">Fuld sætning</string>
     <string name="toast_error_custom_path_backup">Fejl: Enhver kontekstuel app kan være åben</string>
-    <string name="file_explorer_menu_add_folder">Opret mappe</string>
-    <string name="file_explorer_filename">Sikkerhedskopiens filnavn…</string>
-    <string name="file_explorer_filename_empty">Filnavn skal angives…</string>
-    <string name="file_explorer_alert_title">Vælg denne fil?</string>
-    <string name="file_explorer_restore_alert_message">Vil du gendanne denne fil?</string>
-    <string name="file_explorer_backup_alert_message">Denne fil vil blive overskrevet.</string>
-    <string name="file_explorer_backup_success">Dine data er gemt til\u0020</string>
-    <string name="file_explorer_backup_failed">Dine data er ikke gemt.</string>
-    <string name="file_explorer_restore_success">Dine data er gendannet fra\u0020</string>
-    <string name="file_explorer_restore_failed">Dine data kunne ikke gendannes.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Yderligere softwarelicenser</string>
     <string name="setup_wizard_step_one_title">Aktivér AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">I dette trin skal du aktivere <i>
@@ -777,7 +771,7 @@
     <string name="prefs_providers_backed_up_to">Dine data blev sikkerhedskopieret til %s</string>
     <string name="prefs_providers_failed_restore_due_to">Kunne ikke gendanne dine data på grund af %s</string>
     <string name="prefs_providers_restored_to">Dine data blev gendannet fra %s</string>
-    <string name="word_editor_action_choose_path">Vælg tilpasset sti</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Tastaturer kan give almindelige rækker</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Brug altid valgte almindelige rækker.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Tillad layouts at tilsidesætte almindelige rækker.</string>

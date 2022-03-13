@@ -3,8 +3,11 @@ package com.anysoftkeyboard.ui.settings;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,11 +25,15 @@ import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowDialog;
 
 @Config(sdk = Build.VERSION_CODES.M /*we are testing permissions here*/)
@@ -192,6 +199,46 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     }
 
     @Test
+    @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    public void testBackupMenuItemNotSupportedPreKitKat() throws Exception {
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        final MenuItem item = menu.findItem(R.id.backup_prefs);
+
+        fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
+
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+        Assert.assertEquals(
+                getApplicationContext().getText(R.string.backup_restore_not_support_before_kitkat),
+                GeneralDialogTestUtil.getTitleFromDialog(dialog));
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    public void testRestoreMenuItemNotSupportedPreKitKat() throws Exception {
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        final MenuItem item = menu.findItem(R.id.restore_prefs);
+
+        fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
+
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+        Assert.assertEquals(
+                getApplicationContext().getText(R.string.backup_restore_not_support_before_kitkat),
+                GeneralDialogTestUtil.getTitleFromDialog(dialog));
+    }
+
+    @Test
     public void testBackupMenuItem() throws Exception {
         Shadows.shadowOf((Application) getApplicationContext())
                 .grantPermissions(
@@ -233,11 +280,48 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     }
 
     @Test
+    public void testRestorePickerCancel() throws Exception {
+        final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
+        shadowApplication.grantPermissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        fragment.onOptionsItemSelected(
+                Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
+        TestRxSchedulers.foregroundFlushAllJobs();
+
+        Assert.assertNotSame(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
+
+        Assert.assertTrue(
+                GeneralDialogTestUtil.getLatestShownDialog()
+                        .getButton(DialogInterface.BUTTON_POSITIVE)
+                        .callOnClick());
+        // this will open the System's file chooser
+        ShadowActivity.IntentForResult fileRequest =
+                shadowApplication.getNextStartedActivityForResult();
+        Assert.assertNotNull(fileRequest);
+        Assert.assertEquals(Intent.ACTION_OPEN_DOCUMENT, fileRequest.intent.getAction());
+
+        final var backupFile = Files.createTempFile("ask-backup", ".xml");
+        Intent resultData = new Intent();
+        resultData.setData(Uri.fromFile(backupFile.toFile()));
+        Shadows.shadowOf(activity)
+                .receiveResult(fileRequest.intent, Activity.RESULT_CANCELED, resultData);
+        TestRxSchedulers.drainAllTasks();
+        // pick cancel
+        Assert.assertSame(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
+    }
+
+    @Test
     public void testCompleteOperation() throws Exception {
-        Shadows.shadowOf((Application) getApplicationContext())
-                .grantPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
+        final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
+        shadowApplication.grantPermissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
         final MainFragment fragment = startFragment();
         final FragmentActivity activity = fragment.getActivity();
 
@@ -252,6 +336,21 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 GeneralDialogTestUtil.getLatestShownDialog()
                         .getButton(DialogInterface.BUTTON_POSITIVE)
                         .callOnClick());
+        // this will open the System's file chooser
+        ShadowActivity.IntentForResult fileRequest =
+                shadowApplication.getNextStartedActivityForResult();
+        Assert.assertNotNull(fileRequest);
+        Assert.assertEquals(Intent.ACTION_CREATE_DOCUMENT, fileRequest.intent.getAction());
+        final var backupFile = Files.createTempFile("ask-backup", ".xml");
+        Shadows.shadowOf(activity.getContentResolver())
+                .registerOutputStream(
+                        Uri.fromFile(backupFile.toFile()),
+                        new FileOutputStream(backupFile.toFile()));
+        Intent resultData = new Intent();
+        resultData.setData(Uri.fromFile(backupFile.toFile()));
+        Shadows.shadowOf(activity)
+                .receiveResult(fileRequest.intent, Activity.RESULT_OK, resultData);
+        TestRxSchedulers.drainAllTasks();
         // back up was done
         Assert.assertEquals(
                 getApplicationContext().getText(R.string.prefs_providers_operation_success),
@@ -280,6 +379,10 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         // good!
         ShadowDialog.getShownDialogs().clear();
 
+        Shadows.shadowOf(activity.getContentResolver())
+                .registerInputStream(
+                        Uri.fromFile(backupFile.toFile()),
+                        new FileInputStream(backupFile.toFile()));
         // now, restoring
         fragment.onOptionsItemSelected(
                 Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
@@ -288,6 +391,15 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 GeneralDialogTestUtil.getLatestShownDialog()
                         .getButton(DialogInterface.BUTTON_POSITIVE)
                         .callOnClick());
+        // this will open the System's file chooser
+        fileRequest = shadowApplication.getNextStartedActivityForResult();
+        Assert.assertNotNull(fileRequest);
+        Assert.assertEquals(Intent.ACTION_OPEN_DOCUMENT, fileRequest.intent.getAction());
+        resultData = new Intent();
+        resultData.setData(Uri.fromFile(backupFile.toFile()));
+        Shadows.shadowOf(activity)
+                .receiveResult(fileRequest.intent, Activity.RESULT_OK, resultData);
+        TestRxSchedulers.drainAllTasks();
         // back up was done
         Assert.assertEquals(
                 getApplicationContext().getText(R.string.prefs_providers_operation_success),

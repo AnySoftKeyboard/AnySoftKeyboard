@@ -62,6 +62,8 @@ import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.subjects.ReplaySubject;
 import io.reactivex.subjects.Subject;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -120,19 +122,6 @@ public class AnyApplication extends MultiDexApplication {
 
     public static QuickTextKeyFactory getQuickTextKeyFactory(Context context) {
         return ((AnyApplication) context.getApplicationContext()).mQuickTextKeyFactory;
-    }
-
-    @NonNull
-    public static File getBackupFile(@NonNull Context context, @NonNull String filename) {
-        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/pull/2864/files#r636605962
-
-        // For Android 11 (maybe earlier?) we need to make sure the external application directory
-        // exists, to do so, just have the system get an empty file from it and Android will create
-        // it for us.  Likewise we have to do it here instead of in the getBackupFile function as
-        // we don't have the right context by that time.  We need this to write backups too and
-        // with Android 11 we can no longer do this ourselves.
-        final File externalFolder = context.getExternalFilesDir(null);
-        return new File(externalFolder, filename);
     }
 
     public static long getCurrentVersionInstallTime(Context appContext) {
@@ -239,7 +228,7 @@ public class AnyApplication extends MultiDexApplication {
     }
 
     private void prefsAutoRestoreFunction(@NonNull File file) {
-        Logger.d(TAG, "Starting prefsAutoRestoreFunction for '%s'", file.getAbsolutePath());
+        Logger.d(TAG, "Starting prefsAutoRestoreFunction for '%s'", file);
         // NOTE: shared_prefs_provider_name is the only supported prefs. All others require
         // dictionaries to load prior.
         final Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]> providers =
@@ -260,13 +249,18 @@ public class AnyApplication extends MultiDexApplication {
                                                 p.second.toArray(new Boolean[0])))
                         .blockingGet();
 
-        GlobalPrefsBackup.restore(providers, file)
-                .blockingForEach(
-                        providerDetails ->
-                                Logger.i(
-                                        TAG,
-                                        "Restored prefs for '%s'",
-                                        getString(providerDetails.providerTitle)));
+        try {
+            GlobalPrefsBackup.restore(providers, new FileInputStream(file))
+                    .blockingForEach(
+                            providerDetails ->
+                                    Logger.i(
+                                            TAG,
+                                            "Restored prefs for '%s'",
+                                            getString(providerDetails.providerTitle)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Logger.w(TAG, e, "Failed to load auto-apply file!");
+        }
     }
 
     public List<PublicNotice> getPublicNotices() {

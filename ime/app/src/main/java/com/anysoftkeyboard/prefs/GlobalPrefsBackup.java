@@ -15,12 +15,12 @@ import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Function;
-import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -94,20 +94,30 @@ public class GlobalPrefsBackup {
 
     @NonNull
     public static Observable<ProviderDetails> backup(
-            Pair<List<ProviderDetails>, Boolean[]> enabledProviders, @NonNull File outputFile) {
+            Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
+            @NonNull OutputStream outputFile) {
         return doIt(
                 enabledProviders,
                 s -> new PrefsRoot(1),
                 GlobalPrefsBackup::backupProvider,
-                (storage, root) -> storage.store(root, outputFile));
+                (storage, root) -> {
+                    try (outputFile) {
+                        storage.store(root, outputFile);
+                    }
+                });
     }
 
     @NonNull
     public static Observable<ProviderDetails> restore(
-            Pair<List<ProviderDetails>, Boolean[]> enabledProviders, @NonNull File inputFile) {
+            Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
+            @NonNull InputStream inputFile) {
         return doIt(
                 enabledProviders,
-                s -> s.load(inputFile),
+                s -> {
+                    try (inputFile) {
+                        return s.load(inputFile);
+                    }
+                },
                 GlobalPrefsBackup::restoreProvider,
                 (s, p) -> {
                     /*no-op*/
@@ -140,10 +150,6 @@ public class GlobalPrefsBackup {
                                     return providerDetails;
                                 }),
                 prefsRoot -> prefsRootFinalizer.accept(storage, prefsRoot));
-    }
-
-    public static File getDefaultBackupFile(@NonNull Context context) {
-        return AnyApplication.getBackupFile(context, GLOBAL_BACKUP_FILENAME);
     }
 
     public static class ProviderDetails {

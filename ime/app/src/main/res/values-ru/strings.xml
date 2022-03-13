@@ -489,15 +489,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Не имеют каких-либо слов в словаре пользователя. Теперь вы можете добавить ваше первое слово.</string>
-    <string name="user_dict_backup_success_title">Резервное копирование завершено!</string>
-    <string name="user_dict_backup_success_text">Ваши слова успешно хранятся на устройстве в /Android/data/com.menny.android.anysoftkeyboard/files/     </string>
-    <string name="user_dict_backup_fail_title">Сбой резервного копирования!</string>
-    <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Восстановление завершено!</string>
-    <string name="user_dict_restore_success_text">Успешно восстановлены ваши слова.</string>
-    <string name="user_dict_restore_fail_title">Восстановление потерпело неудачу!</string>
-    <string name="user_dict_restore_fail_text_with_error">Не удается восстановить слова из-за: <xliff:g id="error">%s </xliff:g> </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Замена пунктуации и пробела</string>
     <string name="should_swap_punctuation_and_space_off_summary">Не заменять пробел и пунктуацию.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Заменять авто-пробел и пунктуацию.</string>
@@ -539,16 +538,16 @@
     <string name="enter_abbreviation_hint">Аббревиатура</string>
     <string name="enter_abbreviation_target_hint">Полное предложение</string>
     <string name="toast_error_custom_path_backup">Ошибка: Любое контекстное приложение может быть открыто</string>
-    <string name="file_explorer_menu_add_folder">Создать папку</string>
-    <string name="file_explorer_filename">Имя файла резервной копии…</string>
-    <string name="file_explorer_filename_empty">Имя файла не может быть пустым…</string>
-    <string name="file_explorer_alert_title">Выбрать этот файл ?</string>
-    <string name="file_explorer_restore_alert_message">Вы хотите восстановить этот файл ?</string>
-    <string name="file_explorer_backup_alert_message">Этот файл будет перезаписан.</string>
-    <string name="file_explorer_backup_success">Ваши данные были сохранены в\u0020</string>
-    <string name="file_explorer_backup_failed">Не удалось сохранить ваши данные.</string>
-    <string name="file_explorer_restore_success">Ваши данные были восстановлены из\u0020</string>
-    <string name="file_explorer_restore_failed">Не удалось восстановить ваши данные.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Дополнительные лицензии на программное обеспечение</string>
     <string name="setup_wizard_step_one_title">Включить AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">В этом шаге Вы должны включить <i>AnySoftKeyboard</i>. Пожалуйста, включите <i>\'AnySoftKeyboard\'</i> в окне <i>Клавиатура и способы ввода</i>.</string>
@@ -653,7 +652,7 @@
     <string name="prefs_providers_backed_up_to">Данные были успешно зарезервированы в %s</string>
     <string name="prefs_providers_failed_restore_due_to">Не удалось выполнить воссоздание данных из-за %s</string>
     <string name="prefs_providers_restored_to">Данные были успешно восстановлены в %s</string>
-    <string name="word_editor_action_choose_path">Выберите пользовательский путь</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Клавиатуры могут предоставлять общие строки</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Всегда используйте выбранные общие строки.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Разрешить макетам переопределять общие строки.</string>

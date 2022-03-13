@@ -24,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
@@ -37,8 +39,6 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.ui.FileExplorerCreate;
-import com.anysoftkeyboard.ui.FileExplorerRestore;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
@@ -51,7 +51,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Function;
-import java.io.File;
 import java.util.List;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
@@ -63,15 +62,14 @@ public class MainFragment extends Fragment {
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
     static final int DIALOG_LOAD_FAILED = 21;
+    static final int BACKUP_REQUEST_ID = 1341;
+    static final int RESTORE_REQUEST_ID = 1343;
     private static final String TAG = "MainFragment";
     public static List<GlobalPrefsBackup.ProviderDetails> supportedProviders;
     public static Boolean[] checked;
-    static int successDialog;
-    static int failedDialog;
 
     private final boolean mTestingBuild;
     @NonNull private final CompositeDisposable mDisposable = new CompositeDisposable();
-    public int modeBackupRestore;
     private AnimationDrawable mNotConfiguredAnimation = null;
     @NonNull private Disposable mPaletteDisposable = Disposables.empty();
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
@@ -312,7 +310,13 @@ public class MainFragment extends Fragment {
         switch (optionId) {
             case R.id.backup_prefs:
             case R.id.restore_prefs:
-                onBackupRestoreDialogRequired(builder, optionId);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    onBackupRestoreDialogRequired(builder, optionId);
+                } else {
+                    builder.setTitle(R.string.backup_restore_not_support_before_kitkat);
+                    builder.setMessage(R.string.backup_restore_not_support_before_kitkat_message);
+                    builder.setPositiveButton(android.R.string.ok, null);
+                }
                 break;
             case DIALOG_SAVE_SUCCESS:
                 builder.setTitle(R.string.prefs_providers_operation_success);
@@ -340,26 +344,21 @@ public class MainFragment extends Fragment {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private void onBackupRestoreDialogRequired(AlertDialog.Builder builder, int optionId) {
-        final int actionString;
-        final int choosePathString = R.string.word_editor_action_choose_path;
+        @StringRes final int actionTitle;
 
-        final String actionCustomPath;
-        modeBackupRestore = optionId;
+        final String intentAction;
         switch (optionId) {
             case R.id.backup_prefs:
-                actionString = R.string.word_editor_action_backup_words;
-                actionCustomPath = Intent.ACTION_CREATE_DOCUMENT;
+                actionTitle = R.string.word_editor_action_backup_words;
+                intentAction = Intent.ACTION_CREATE_DOCUMENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_backup);
-                successDialog = DIALOG_SAVE_SUCCESS;
-                failedDialog = DIALOG_SAVE_FAILED;
                 break;
             case R.id.restore_prefs:
-                actionString = R.string.word_editor_action_restore_words;
-                actionCustomPath = Intent.ACTION_GET_CONTENT;
+                actionTitle = R.string.word_editor_action_restore_words;
+                intentAction = Intent.ACTION_OPEN_DOCUMENT;
                 builder.setTitle(R.string.pick_prefs_providers_to_restore);
-                successDialog = DIALOG_LOAD_SUCCESS;
-                failedDialog = DIALOG_LOAD_FAILED;
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -383,59 +382,50 @@ public class MainFragment extends Fragment {
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.setCancelable(true);
         builder.setPositiveButton(
-                actionString,
+                actionTitle,
                 (dialog, which) -> {
-                    mDisposable.clear();
-                    mDisposable.add(
-                            launchBackupRestore(
-                                    optionId == R.id.backup_prefs,
-                                    GlobalPrefsBackup.getDefaultBackupFile(requireContext())));
-                });
-        builder.setNeutralButton(
-                choosePathString,
-                (dialog, which) -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        Intent dataToFileChooser = new Intent();
-                        dataToFileChooser.setType("text/xml");
-                        if (modeBackupRestore == R.id.backup_prefs) {
-                            // create backup file in selected directory
-                            dataToFileChooser.putExtra(
-                                    Intent.EXTRA_TITLE, GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
-                        }
-                        dataToFileChooser.setAction(actionCustomPath);
-                        dataToFileChooser.putExtra("checked", checked);
-                        try {
-                            startActivityForResult(dataToFileChooser, 1);
-                        } catch (ActivityNotFoundException e) {
-                            Logger.e(TAG, "Could not launch the custom path activity");
-                            Toast.makeText(
-                                            requireContext().getApplicationContext(),
-                                            R.string.toast_error_custom_path_backup,
-                                            Toast.LENGTH_LONG)
-                                    .show();
-                        }
-
-                    } else {
-                        Intent intent = null;
-                        if (optionId == R.id.backup_prefs) {
-                            intent = new Intent(getContext(), FileExplorerCreate.class);
-                        } else if (optionId == R.id.restore_prefs) {
-                            intent = new Intent(getContext(), FileExplorerRestore.class);
-                        }
-                        startActivity(intent);
+                    // https://developer.android.com/training/data-storage/shared/documents-files#java
+                    Intent dataToFileChooser = new Intent();
+                    dataToFileChooser.setType("text/xml");
+                    dataToFileChooser.addCategory(Intent.CATEGORY_OPENABLE);
+                    dataToFileChooser.putExtra(
+                            Intent.EXTRA_TITLE, GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
+                    dataToFileChooser.setAction(intentAction);
+                    dataToFileChooser.putExtra("checked", checked);
+                    try {
+                        startActivityForResult(
+                                dataToFileChooser,
+                                optionId == R.id.backup_prefs
+                                        ? BACKUP_REQUEST_ID
+                                        : RESTORE_REQUEST_ID);
+                    } catch (ActivityNotFoundException e) {
+                        Logger.e(TAG, "Could not launch the custom path activity");
+                        Toast.makeText(
+                                        requireContext().getApplicationContext(),
+                                        R.string.toast_error_custom_path_backup,
+                                        Toast.LENGTH_LONG)
+                                .show();
                     }
                 });
     }
 
-    private Disposable launchBackupRestore(boolean isBackup, File filePath) {
+    private Disposable launchBackupRestore(final boolean isBackup, Uri filePath) {
         final Function<
                         Pair<List<GlobalPrefsBackup.ProviderDetails>, Boolean[]>,
                         ObservableSource<GlobalPrefsBackup.ProviderDetails>>
                 action;
         if (isBackup) {
-            action = listPair -> GlobalPrefsBackup.backup(listPair, filePath);
+            action =
+                    listPair ->
+                            GlobalPrefsBackup.backup(
+                                    listPair,
+                                    getContext().getContentResolver().openOutputStream(filePath));
         } else {
-            action = listPair -> GlobalPrefsBackup.restore(listPair, filePath);
+            action =
+                    listPair ->
+                            GlobalPrefsBackup.restore(
+                                    listPair,
+                                    getContext().getContentResolver().openInputStream(filePath));
         }
 
         return RxProgressDialog.create(
@@ -458,35 +448,41 @@ public class MainFragment extends Fragment {
                                     e,
                                     "Failed to do operation due to %s",
                                     e.getMessage());
-                            mDialogController.showDialog(failedDialog, e.getMessage());
+                            mDialogController.showDialog(
+                                    isBackup ? DIALOG_SAVE_FAILED : DIALOG_LOAD_FAILED,
+                                    e.getMessage());
                         },
-                        () -> mDialogController.showDialog(successDialog, filePath));
+                        () ->
+                                mDialogController.showDialog(
+                                        isBackup ? DIALOG_SAVE_SUCCESS : DIALOG_LOAD_SUCCESS,
+                                        filePath));
     }
 
-    // This function is if launched when selecting neutral button of the main Fragment
+    // This function is if launched when selecting backup/restore button of the main Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1
-                && resultCode == Activity.RESULT_OK
-                && data != null
-                && data.getData() != null) {
+        if ((requestCode == RESTORE_REQUEST_ID || requestCode == BACKUP_REQUEST_ID)
+                && resultCode == Activity.RESULT_OK) {
 
             ContentResolver resolver = requireContext().getContentResolver();
             Logger.d(TAG, "Resolver " + resolver.getType(data.getData()));
             try {
-                // Actually, it is not a good idea to convert URI into filepath.
-                // For more information, see:
-                // https://commonsware.com/blog/2016/03/15/how-consume-content-uri.html
-                final Uri pickedUri = data.getData();
-                final File filePath = new File(pickedUri.getPath());
-                launchBackupRestore(modeBackupRestore == R.id.backup_prefs, filePath);
+                // https://developer.android.com/training/data-storage/shared/documents-files#java
+                mDisposable.add(
+                        launchBackupRestore(requestCode == BACKUP_REQUEST_ID, data.getData()));
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger.d(TAG, "Error when getting filePath on onActivityResult");
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        mDisposable.dispose();
+        super.onDestroy();
     }
 
     @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)

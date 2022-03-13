@@ -489,16 +489,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Il n\'y a aucun mot dans le dictionnaire utilisateur. Il est possible d\'ajouter le premier mot maintenant.</string>
-    <string name="user_dict_backup_success_title">Sauvegarde effectuée !</string>
-    <string name="user_dict_backup_success_text">Mots stockés avec succès sur le périphérique de stockage à\u0020/Android/data/com.menny.android.anysoftkeyboard/files/    </string>
-    <string name="user_dict_backup_fail_title">Sauvegarde échouée !</string>
-    <string name="user_dict_backup_fail_text_with_error">Échec du stockage des mots dû à :\u0020<xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Restauration effectuée !</string>
-    <string name="user_dict_restore_success_text">Restauration des mots effectuée avec succès.</string>
-    <string name="user_dict_restore_fail_title">Restauration échouée !</string>
-    <string name="user_dict_restore_fail_text_with_error">Échec de la restauration des mots dû à :\u0020<xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Échanger l\'espace et la ponctuation</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne pas échanger l\'espace et la ponctuation</string>
     <string name="should_swap_punctuation_and_space_on_summary">Échanger l\'espace automatique et la ponctuation</string>
@@ -544,16 +542,16 @@
     <string name="enter_abbreviation_hint">Abréviation</string>
     <string name="enter_abbreviation_target_hint">Phrase complète</string>
     <string name="toast_error_custom_path_backup">Erreur : n\'importe quelle application contextuelle pourrait être ouverte</string>
-    <string name="file_explorer_menu_add_folder">Créer un dossier</string>
-    <string name="file_explorer_filename">Nom du fichier de sauvegarde…</string>
-    <string name="file_explorer_filename_empty">Impossible d\'utiliser un nom de fichier vide</string>
-    <string name="file_explorer_alert_title">Sélectionner ce fichier ?</string>
-    <string name="file_explorer_restore_alert_message">Faut-il restaurer ce fichier ?</string>
-    <string name="file_explorer_backup_alert_message">Ce fichier sera écrasé.</string>
-    <string name="file_explorer_backup_success">Vos données ont été enregistrées dans\u0020</string>
-    <string name="file_explorer_backup_failed">Vos données n\'ont pas pu être enregistrées.</string>
-    <string name="file_explorer_restore_success">Vos données ont été restaurées depuis\u0020</string>
-    <string name="file_explorer_restore_failed">Vos données n\'ont pas pu être restaurées.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Licences additionnelles de logiciels</string>
     <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>
@@ -659,7 +657,7 @@
     <string name="prefs_providers_backed_up_to">Les données ont été correctement sauvegardées vers %s</string>
     <string name="prefs_providers_failed_restore_due_to">Impossible de restaurer les données : %s</string>
     <string name="prefs_providers_restored_to">Les données ont été correctement restaurées depuis %s</string>
-    <string name="word_editor_action_choose_path">Choisir  un chemin personnalisé</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Claviers susceptibles de fournir des rangées génériques</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Toujours utiliser les rangées génériques sélectionnées</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Autoriser les dispositions à remplacer les rangées génériques</string>

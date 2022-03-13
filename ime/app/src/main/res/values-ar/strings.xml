@@ -481,20 +481,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">قاموس المستخدِم فارغ. يمكنك الآن إضافة كلمات إلى القائمة.</string>
-    <string name="user_dict_backup_success_title">تم النسخ الإحتياطي</string>
-    <string name="user_dict_backup_success_text">تم الإحتفاظ بمُفرداتك بنجاح على مساحة تخزين جهازك
-        في\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">فشل النسخ الإحتياطي </string>
-    <string name="user_dict_backup_fail_text_with_error">فشِلَت عملية الإحتفاظ بالمُفردات بسبب :\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">تمت الإستعادة </string>
-    <string name="user_dict_restore_success_text">تمت استعادة كلماتك بنجاح</string>
-    <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
-    <string name="user_dict_restore_fail_text_with_error">فشِلَت عملية استرجاع المفردات بسبب :\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
     <string name="should_swap_punctuation_and_space_off_summary">لا تقم بتبديل المسافة البيضاء و علامات التنقيط.
     </string>
@@ -530,7 +524,7 @@
     <string name="enter_word_hint">اكتب كلمة جديدة هنا</string>
     <string name="enter_abbreviation_hint">اختصار</string>
     <string name="enter_abbreviation_target_hint">جملة كاملة</string>
-    <string name="file_explorer_menu_add_folder">إنشاء مجلد</string>
+    
     <string name="about_additional_software_licenses">رخص برمجية إضافية</string>
     <string name="setup_wizard_step_one_title">تفعيل AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_action">إنتقل إلى <i>إعدادت اللغة ثم إعدادات لوحة المفاتيح</i> …    </string>
@@ -622,7 +616,7 @@
     <string name="prefs_providers_backed_up_to">تمت عملية الإحتفاظ ببياناتك إلى %s بنجاح</string>
     <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
     <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
-    <string name="word_editor_action_choose_path">اختر مسار مخصص</string>
+    
     <string name="gesture_typing_settings">الكتابة بالحركة ➿</string>
     <string name="gesture_typing_alert_title">ميزة تجريبية!</string>
     <string name="gesture_typing_alert_button">حسنا</string>

@@ -485,20 +485,14 @@
     <string name="user_dict_settings_empty_text">Нямате думи в потребителския речник.
         Можете да добавите първата си дума сега.
     </string>
-    <string name="user_dict_backup_success_title">Успешно създаване на резервно копие!</string>
-    <string name="user_dict_backup_success_text">Успешно съхранение на думите Ви в хранилището на устройството
-        в\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Неуспешно създаване на резервно копие!</string>
-    <string name="user_dict_backup_fail_text_with_error">Неуспешно съхраняване на думи поради:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Успешно възстановяване!</string>
-    <string name="user_dict_restore_success_text">Успешно възстановяване на думите Ви.</string>
-    <string name="user_dict_restore_fail_title">Неуспешно възстановяване!</string>
-    <string name="user_dict_restore_fail_text_with_error">Възстановяването на думите не бе успешно поради:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Разменете пунктуация и интервал</string>
     <string name="should_swap_punctuation_and_space_off_summary">Не разменяйте интервал и
         пунктуация.
@@ -539,15 +533,15 @@
     <string name="enter_abbreviation_hint">Абревиатура</string>
     <string name="enter_abbreviation_target_hint">Пълно изречение</string>
     <string name="toast_error_custom_path_backup">Грешка: Всяко контекстуално приложение може да бъде отворено</string>
-    <string name="file_explorer_menu_add_folder">Създаване на папка</string>
-    <string name="file_explorer_filename">Име на резервно копие…</string>
-    <string name="file_explorer_filename_empty">Името на файла не може да бъде празно…</string>
-    <string name="file_explorer_restore_alert_message">Искате ли да възстановите този файл ?</string>
-    <string name="file_explorer_backup_alert_message">Този файл ще бъде презаписан.</string>
-    <string name="file_explorer_backup_success">Вашите данни са запазени в\u0020</string>
-    <string name="file_explorer_backup_failed">Данните Ви не успяха да бъдат запазени.</string>
-    <string name="file_explorer_restore_success">Вашите данни са възстановени от\u0020</string>
-    <string name="file_explorer_restore_failed">Данните Ви не успяха да бъдат възстановени.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Допълнителни лицензи за софтуера</string>
     <string name="setup_wizard_step_one_title">Активирай AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">В тази стъпка ще трябва да активирате <i>
@@ -666,7 +660,7 @@
     <string name="prefs_providers_backed_up_to">Успешно създаване на резервно копие за Вашите данни в %s</string>
     <string name="prefs_providers_failed_restore_due_to">Възстановяването на Вашите данни бе неуспешно поради %s</string>
     <string name="prefs_providers_restored_to">Вашите данни бяха успешно възстановени от %s</string>
-    <string name="word_editor_action_choose_path">Избор на персонализирана пътека</string>
+    
     <string name="gesture_typing_settings">Въвеждане чрез жестове ➿</string>
     <string name="gesture_typing_summary">Въведете дума, като плъзнете пръста си през нейните букви.</string>
     <string name="gesture_typing_action">Активиране на въвеждане чрез жестове [BETA]</string>

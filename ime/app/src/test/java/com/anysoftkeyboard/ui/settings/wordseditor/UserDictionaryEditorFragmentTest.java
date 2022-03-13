@@ -2,8 +2,6 @@ package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import android.Manifest;
-import android.app.Application;
 import android.os.Build;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +15,6 @@ import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
 import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +22,6 @@ import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowDialog;
 
 @Config(sdk = Build.VERSION_CODES.M)
 public class UserDictionaryEditorFragmentTest
@@ -264,139 +260,5 @@ public class UserDictionaryEditorFragmentTest
         Assert.assertEquals(
                 R.id.word_editor_view_type_add_new_row,
                 wordsRecyclerView.getAdapter().getItemViewType(2));
-    }
-
-    @Test
-    public void testBackup() {
-        Shadows.shadowOf((Application) getApplicationContext())
-                .grantPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-        // adding a few words to the dictionary
-        UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
-        userDictionary.loadDictionary();
-        userDictionary.addWord("hello", 1);
-        userDictionary.addWord("you", 2);
-        userDictionary.close();
-
-        UserDictionaryEditorFragment fragment = startEditorFragment();
-
-        final MenuItem menuItem = Mockito.mock(MenuItem.class);
-        Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
-        fragment.onOptionsItemSelected(menuItem);
-        TestRxSchedulers.drainAllTasks();
-
-        // we want a success dialog here
-        Assert.assertEquals(
-                getApplicationContext().getText(R.string.user_dict_backup_success_title),
-                GeneralDialogTestUtil.getTitleFromDialog(
-                        GeneralDialogTestUtil.getLatestShownDialog()));
-    }
-
-    @Test
-    public void testBackupFailsWhenNoPermissions() {
-        Shadows.shadowOf((Application) getApplicationContext())
-                .denyPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-        // adding a few words to the dictionary
-        UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
-        userDictionary.loadDictionary();
-        userDictionary.addWord("hello", 1);
-        userDictionary.addWord("you", 2);
-        userDictionary.close();
-
-        UserDictionaryEditorFragment fragment = startEditorFragment();
-
-        final MenuItem menuItem = Mockito.mock(MenuItem.class);
-        Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
-        fragment.onOptionsItemSelected(menuItem);
-        TestRxSchedulers.drainAllTasks();
-
-        // nothing happens here - the getLatestDialog is the progress-dialog
-        Assert.assertFalse(ShadowDialog.getLatestDialog().isShowing());
-        // this assertion is to make sure the dialog is progress-dialog
-        Assert.assertNotNull(
-                ShadowDialog.getLatestDialog()
-                        .findViewById(R.id.progress_dialog_message_text_view));
-    }
-
-    @Test
-    public void testRestore() {
-        Shadows.shadowOf((Application) getApplicationContext())
-                .grantPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-        // adding a few words to the dictionary
-        UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
-        userDictionary.loadDictionary();
-        userDictionary.addWord("hello", 1);
-        userDictionary.addWord("you", 2);
-        userDictionary.close();
-
-        UserDictionaryEditorFragment fragment = startEditorFragment();
-
-        final MenuItem menuItem = Mockito.mock(MenuItem.class);
-        Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
-        fragment.onOptionsItemSelected(menuItem);
-        TestRxSchedulers.drainAllTasks();
-        GeneralDialogTestUtil.getLatestShownDialog().dismiss();
-
-        Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
-        fragment.onOptionsItemSelected(menuItem);
-        TestRxSchedulers.drainAllTasks();
-
-        // we want a success dialog here
-        Assert.assertEquals(
-                getApplicationContext().getText(R.string.user_dict_restore_success_title),
-                GeneralDialogTestUtil.getTitleFromDialog(
-                        GeneralDialogTestUtil.getLatestShownDialog()));
-    }
-
-    @Test
-    public void testRestoreFailsWhenNoFile() {
-        Shadows.shadowOf((Application) getApplicationContext())
-                .grantPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-
-        UserDictionaryEditorFragment fragment = startEditorFragment();
-
-        final MenuItem menuItem = Mockito.mock(MenuItem.class);
-        Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
-        fragment.onOptionsItemSelected(menuItem);
-        TestRxSchedulers.drainAllTasks();
-
-        // we want a failure dialog here
-        Assert.assertEquals(
-                getApplicationContext().getText(R.string.user_dict_restore_fail_title),
-                GeneralDialogTestUtil.getTitleFromDialog(
-                        GeneralDialogTestUtil.getLatestShownDialog()));
-    }
-
-    @Test
-    public void testRestoreFailsWhenNoPermissions() {
-        // revoking, so it will fail
-        Shadows.shadowOf((Application) getApplicationContext())
-                .denyPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-        // adding a few words to the dictionary
-        UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
-        userDictionary.loadDictionary();
-        userDictionary.addWord("hello", 1);
-        userDictionary.addWord("you", 2);
-        userDictionary.close();
-
-        UserDictionaryEditorFragment fragment = startEditorFragment();
-
-        final MenuItem menuItem = Mockito.mock(MenuItem.class);
-        Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
-        fragment.onOptionsItemSelected(menuItem);
-        TestRxSchedulers.drainAllTasks();
-
-        // nothing happens here
-        Assert.assertSame(
-                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
     }
 }

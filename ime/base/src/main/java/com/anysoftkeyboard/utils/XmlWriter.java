@@ -17,8 +17,7 @@
 package com.anysoftkeyboard.utils;
 
 import com.anysoftkeyboard.base.Charsets;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.OutputStream;
@@ -35,7 +34,7 @@ import java.util.Deque;
  *     on Henri's initial version</a>
  * @version 0.2
  */
-public class XmlWriter {
+public class XmlWriter implements Closeable {
 
     private static final String INDENT_STRING = "    ";
     private final boolean mThisIsWriterOwner; // is this instance the owner?
@@ -58,14 +57,6 @@ public class XmlWriter {
         this.mStack = new ArrayDeque<>();
         this.mAttrs = new StringBuilder();
         if (addXmlPrefix) this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-    }
-
-    public XmlWriter(File outputFile) throws IOException {
-        this(
-                new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8),
-                true,
-                0,
-                true);
     }
 
     public XmlWriter(OutputStream outputFileStream) throws IOException {
@@ -155,6 +146,7 @@ public class XmlWriter {
      * Close this mWriter. It does not close the underlying mWriter, but does throw an exception if
      * there are as yet unclosed tags.
      */
+    @Override
     public void close() throws IOException {
         if (mThisIsWriterOwner) {
             this.mWriter.flush();

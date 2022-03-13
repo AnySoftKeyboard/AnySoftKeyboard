@@ -411,7 +411,7 @@
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
-    <string name="label_next_key">Avanti ></string>
+    <string name="label_next_key">Avanti &gt;</string>
     <string name="label_previous_key">&lt; Indietro</string>
     <string name="label_send_key">Invia</string>
     <string name="label_search_key">Cerca</string>
@@ -486,14 +486,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Non hai nessuna parola nel dizionario utente. Puoi aggiungere la tua prima parola ora.</string>
-    <string name="user_dict_backup_success_title">Backup riuscito!</string>
-    <string name="user_dict_backup_success_text">Parole archiviate con successo sulla memoria del dispositivo in\u0020/Android/data/com.menny.android.anysoftkeyboard/files</string>
-    <string name="user_dict_backup_fail_title">Backup non riuscito!</string>
-    <string name="user_dict_backup_fail_text_with_error">Impossibile memorizzare le parole a causa di:\u0020<xliff:g id="error">%s</xliff:g></string>
-    <string name="user_dict_restore_success_title">Ripristino riuscito!</string>
-    <string name="user_dict_restore_success_text">Hai ripristinato le tue parole.</string>
-    <string name="user_dict_restore_fail_title">Ripristino non riuscito!</string>
-    <string name="user_dict_restore_fail_text_with_error">Impossibile ripristinare le parole a causa di:\u0020<xliff:g id="error">%s</xliff:g></string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Scambia punteggiatura e spazio</string>
     <string name="should_swap_punctuation_and_space_off_summary">Non scambiare spazio e punteggiatura.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Scambia spazio automatico e punteggiatura.</string>
@@ -535,16 +535,16 @@
     <string name="enter_abbreviation_hint">Abbreviazione</string>
     <string name="enter_abbreviation_target_hint">Frase integrale</string>
     <string name="toast_error_custom_path_backup">Errore: potrebbe essere aperta qualsiasi applicazione contestuale</string>
-    <string name="file_explorer_menu_add_folder">Crea cartella</string>
-    <string name="file_explorer_filename">Nome file backup…</string>
-    <string name="file_explorer_filename_empty">Il nome file non può essere vuoto…</string>
-    <string name="file_explorer_alert_title">Selezionare questo file?</string>
-    <string name="file_explorer_restore_alert_message">Si vuole ripristinare questo file?</string>
-    <string name="file_explorer_backup_alert_message">Questo file verrà sovrascritto.</string>
-    <string name="file_explorer_backup_success">I tuoi dati sono stati salvati in\u0020</string>
-    <string name="file_explorer_backup_failed">Salvataggio dati fallito.</string>
-    <string name="file_explorer_restore_success">I tuoi dati sono stati ripristinati da\u0020</string>
-    <string name="file_explorer_restore_failed">Ripristino dati fallito.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Licenze Software Aggiuntive</string>
     <string name="setup_wizard_step_one_title">Abilita AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In questo passaggio dovrai abilitare <i>AnySoftKeyboard</i>. Seleziona <i>\'AnySoftKeyboard\'</i> nel menù delle impostazioni <i>Lingua e immissione</i>. Questo ci permetterà di funzionare sul tuo dispositivo.</string>
@@ -649,7 +649,7 @@
     <string name="prefs_providers_backed_up_to">I tuoi dati sono stati salvati con successo in %s</string>
     <string name="prefs_providers_failed_restore_due_to">Ripristino dei dati non riuscito a causa di %s</string>
     <string name="prefs_providers_restored_to">I tuoi dati sono stati ripristinati con successo da %s</string>
-    <string name="word_editor_action_choose_path">Scegliere percorso personalizzato</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Le tastiere possono fornire righe generiche</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usa sempre righe generiche selezionate.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permetti alle disposizioni di sostituire righe generiche.</string>

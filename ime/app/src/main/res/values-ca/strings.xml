@@ -474,19 +474,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">No teniu cap mot en el diccionari de l\'usuari. Ara podeu afegir les vostres primeres paraules.</string>
-    <string name="user_dict_backup_success_title">Còpia finalitzada!</string>
-    <string name="user_dict_backup_success_text">S\'han desat correctament les paraules del vostre diccionari a
-/Android/data/com.menny.android.anysoftkeyboard/files/</string>
-    <string name="user_dict_backup_fail_title">Còpia errònia!</string>
-    <string name="user_dict_backup_fail_text_with_error">Ha fallat en desar les paraules a causa de: <xliff:g id="error">%s</xliff:g>
-    
-    </string>
-    <string name="user_dict_restore_success_title">Restauració completada!</string>
-    <string name="user_dict_restore_success_text">S\'han restaurat les paraules correctament.</string>
-    <string name="user_dict_restore_fail_title">ha fallat la restauració!</string>
-    <string name="user_dict_restore_fail_text_with_error">Ha fallat en restaurar les paraules a causa de: <xliff:g id="error">%s</xliff:g>
-    
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Intercanvia el punt i l\'espai</string>
     <string name="initial_quick_text_tab_title">Grup inicial</string>
     <string name="initial_quick_text_tab_summary">El grup de text ràpid comença amb: %s</string>
@@ -525,8 +520,8 @@
     <string name="enter_word_hint">Inseriu la paraula aquí</string>
     <string name="enter_abbreviation_hint">Abreviació</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
-    <string name="file_explorer_menu_add_folder">Crea una carpeta</string>
-    <string name="file_explorer_restore_alert_message">Voleu restaurar aquest fitxer?</string>
+    
+    
     <string name="about_additional_software_licenses">Llicències de programari addicional</string>
     <string name="setup_wizard_step_one_title">Activa l\'AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En aquest pas, haureu d\'habilitar <i>AnySoftKeyboard</i>. Verifiqueu que heu seleccionat <i>\'AnySoftKeyboard\'</i> en les <i>entrades de llengua</i>. Això farà funcionar el nostre teclat al vostre dispositiu.</string>
