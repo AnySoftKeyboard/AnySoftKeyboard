@@ -567,19 +567,19 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @Ignore
+    @Ignore("Robolectric scheduler issues. I can't figure how to correctly simulate this.")
     public void testAnnoyingDelayedOnSelectionUpdate() {
         testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.DELAY_BETWEEN_TYPING * 3);
     }
 
     @Test
-    @Ignore
+    @Ignore("Robolectric scheduler issues. I can't figure how to correctly simulate this.")
     public void testCrazyDelayedOnSelectionUpdate() {
         testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.DELAY_BETWEEN_TYPING * 6);
     }
 
     @Test
-    @Ignore
+    @Ignore("Robolectric scheduler issues. I can't figure how to correctly simulate this.")
     public void testOverExpectedDelayedOnSelectionUpdate() {
         testDelayedOnSelectionUpdate(
                 TestableAnySoftKeyboard.MAX_TIME_TO_EXPECT_SELECTION_UPDATE + 1);
