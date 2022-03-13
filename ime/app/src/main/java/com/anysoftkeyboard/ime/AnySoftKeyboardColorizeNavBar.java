@@ -8,6 +8,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import androidx.annotation.BoolRes;
 import androidx.annotation.DimenRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.view.WindowCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
@@ -73,35 +76,7 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (isInPortrait() && doesOsShowNavigationBar()) {
-                final Window w = getWindow().getWindow();
-                if (w != null) {
-                    final int navBarHeight = getNavBarHeight();
-                    if (navBarHeight > 0 && mPrefsToShow) {
-                        Logger.d(TAG, "Showing Colorized nav-bar with height %d", navBarHeight);
-                        w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-                        w.setNavigationBarColor(Color.TRANSPARENT);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            w.setDecorFitsSystemWindows(false);
-                        }
-                        getInputViewContainer()
-                                .setBottomPadding(Math.max(navBarHeight, mNavigationBarMinHeight));
-                    } else {
-                        Logger.d(
-                                TAG,
-                                "Showing Colorized nav-bar with height %d and prefs %s",
-                                navBarHeight,
-                                mPrefsToShow);
-                        clearColorizedNavBar(w);
-                    }
-                }
-            } else {
-                Logger.w(
-                        TAG,
-                        "Will not show Colorized nav-bar since isInPortrait %s and doesOsShowNavigationBar %s",
-                        isInPortrait(),
-                        doesOsShowNavigationBar());
-            }
+            setColorizedNavBar();
         }
     }
 
@@ -110,20 +85,57 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
         super.onFinishInputView(finishingInput);
         if (finishingInput) {
             final Window w = getWindow().getWindow();
-            if (w != null) {
+            if (w != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 clearColorizedNavBar(w);
             }
         }
     }
 
-    private void clearColorizedNavBar(Window w) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                w.setDecorFitsSystemWindows(true);
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setColorizedNavBar() {
+        if (isInPortrait() && doesOsShowNavigationBar()) {
+            final Window w = getWindow().getWindow();
+            if (w != null) {
+                final int navBarHeight = getNavBarHeight();
+                if (navBarHeight > 0 && mPrefsToShow) {
+                    Logger.d(TAG, "Showing Colorized nav-bar with height %d", navBarHeight);
+                    w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                    w.setNavigationBarColor(Color.TRANSPARENT);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        // we only want to do this in R or higher (although, a compat version exists
+                        // prior).
+                        // Using the Compat to better handle old devices
+                        WindowCompat.setDecorFitsSystemWindows(w, false);
+                    }
+                    getInputViewContainer()
+                            .setBottomPadding(Math.max(navBarHeight, mNavigationBarMinHeight));
+                } else {
+                    Logger.d(
+                            TAG,
+                            "Showing Colorized nav-bar with height %d and prefs %s",
+                            navBarHeight,
+                            mPrefsToShow);
+                    clearColorizedNavBar(w);
+                }
             }
-            getInputViewContainer().setBottomPadding(0);
+        } else {
+            Logger.w(
+                    TAG,
+                    "Will not show Colorized nav-bar since isInPortrait %s and doesOsShowNavigationBar %s",
+                    isInPortrait(),
+                    doesOsShowNavigationBar());
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private void clearColorizedNavBar(@NonNull Window w) {
+        w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // we only want to do this in R or higher (although, a compat version exists prior).
+            // Using the Compat to better handle old devices
+            WindowCompat.setDecorFitsSystemWindows(w, true);
+        }
+        getInputViewContainer().setBottomPadding(0);
     }
 
     private int getNavBarHeight() {
