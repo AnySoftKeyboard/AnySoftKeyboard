@@ -32,6 +32,7 @@ do_update https://dl.google.com/dl/android/maven2 com.android.tools.build gradle
 
 #support-lib
 do_update https://dl.google.com/dl/android/maven2 androidx.annotation annotation "Android Annotations Compat Library"
+do_update https://dl.google.com/dl/android/maven2 androidx.core core "AndroidX core library"
 do_update https://dl.google.com/dl/android/maven2 androidx.navigation navigation-safe-args-gradle-plugin "Navigation Safe Args"
 do_update https://dl.google.com/dl/android/maven2 androidx.navigation navigation-fragment "Navigation"
 do_update https://dl.google.com/dl/android/maven2 androidx.navigation navigation-ui "Navigation"
@@ -50,6 +51,16 @@ do_update https://dl.google.com/dl/android/maven2 androidx.preference preference
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-v13 "Legacy v13 support library"
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-v4 "Legacy v4 support library"
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-core-utils "Legacy core utils support library"
+
+#kotlin
+do_update https://dl.google.com/dl/android/maven2 androidx.core core-ktx "Kotlin core extensions"
+
+#compose
+do_update https://dl.google.com/dl/android/maven2 androidx.compose.material material "Kotlin Compose Material"
+do_update https://dl.google.com/dl/android/maven2 androidx.activity activity-compose "Kotlin Compose Activity"
+do_update https://dl.google.com/dl/android/maven2 androidx.compose.animation animation "Kotlin Compose Animation"
+do_update https://dl.google.com/dl/android/maven2 androidx.compose.ui ui-tooling "Compose UI tools"
+do_update https://dl.google.com/dl/android/maven2 androidx.lifecycle lifecycle-viewmodel-compose "Compose UI lifecycle"
 
 #rx
 do_update https://repo1.maven.org/maven2 io.reactivex.rxjava2 rxandroid "RXJava for Android"
