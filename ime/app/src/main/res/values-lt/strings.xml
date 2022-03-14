@@ -491,20 +491,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Jūs neturite jokių žodžių naudotojo žodyne. Dabar galite pridėti savo pirmąjį žodį.</string>
-    <string name="user_dict_backup_success_title">Atsarginė kopija baigta!</string>
-    <string name="user_dict_backup_success_text">Jūsų žodžiai sėkmingai saugomi įrenginio talpykloje
-        /Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Atsarginė kopija nepavyko!</string>
-    <string name="user_dict_backup_fail_text_with_error">Nepavyko išsaugoti žodžių dėl:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Atkūrimas baigtas!</string>
-    <string name="user_dict_restore_success_text">Jūsų žodžiai sėkmingai atkurti.</string>
-    <string name="user_dict_restore_fail_title">Atkūrimas nepavyko!</string>
-    <string name="user_dict_restore_fail_text_with_error">Nepavyko atkurti žodžių dėl:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Apkeisti vietomis skyrybą ir tarpą</string>
     <string name="should_swap_punctuation_and_space_off_summary">Nekeisti tarpo ir skyrybos ženklo.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Keisti auto-tarpo ir skyrybos ženklą.</string>
@@ -550,16 +544,16 @@
     <string name="enter_abbreviation_hint">Santrumpa</string>
     <string name="enter_abbreviation_target_hint">Pilnas sakinys</string>
     <string name="toast_error_custom_path_backup">Klaida: Jokia „Kontekstinė“ programa negalėjo būti atidaryti</string>
-    <string name="file_explorer_menu_add_folder">Sukurti aplanką</string>
-    <string name="file_explorer_filename">Atsarginio failo pavadinimas…</string>
-    <string name="file_explorer_filename_empty">Failo pavadinimas negali būti tuščias…</string>
-    <string name="file_explorer_alert_title">Pasirinkti šį failą?</string>
-    <string name="file_explorer_restore_alert_message">Ar jūs norėtumėt atkurti šį failą?</string>
-    <string name="file_explorer_backup_alert_message">Šis failus bus perrašytas.</string>
-    <string name="file_explorer_backup_success">Jūsų duomenys buvo išsaugoti į\u0020</string>
-    <string name="file_explorer_backup_failed">Nepavyko išsaugoti jūsų duomenų.</string>
-    <string name="file_explorer_restore_success">Jūsų duomenys buvo atkurti iš\u0020</string>
-    <string name="file_explorer_restore_failed">Nepavyko atkurti jūsų duomenų.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Papildomos programinės įrangos licencijos</string>
     <string name="setup_wizard_step_one_title">Įjungti „AnySoftKeyboard“</string>
     <string name="setup_wizard_step_one_details">Šiame žingsnelyje jums reikia įjungti „<i>AnySoftKeyboard</i>“. Pažymėkite „<i>AnySoftKeyboard</i>“ <i>Kalba ir įvestis</i> nustatymuose. Tai leis klaviatūrai veikti jūsų įrenginyje.</string>
@@ -664,7 +658,7 @@
     <string name="prefs_providers_backed_up_to">Jūsų duomenys sėkmingai nukopijuoti į %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nepavyko atkurti jūsų duomenų dėl %s</string>
     <string name="prefs_providers_restored_to">Jūsų duomenys sėkmingai atkurti iš %s</string>
-    <string name="word_editor_action_choose_path">Pasirinkite paskirties vietą</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Klaviatūros gali pateikti „įprastas eilutes“</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Visada naudoti pasirinktines „įprastas eilutes“.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Leisti išdėstymams perrašyti „įprastas eilutes“.</string>

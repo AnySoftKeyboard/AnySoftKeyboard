@@ -488,14 +488,14 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">El diccionario de usuario está vacío. Se puede agregar la primera palabra ahora.    </string>
-    <string name="user_dict_backup_success_title">¡Copia de seguridad realizada!</string>
-    <string name="user_dict_backup_success_text">Se guardaron palabras en el almacenamiento del dispositivo en\u0020/Android/data/com.menny.android.anysoftkeyboard/files/    </string>
-    <string name="user_dict_backup_fail_title">¡Copia de seguridad falló!</string>
-    <string name="user_dict_backup_fail_text_with_error">Error al guardar palabras debido a:\u0020<xliff:g id="error">%s</xliff:g>    </string>
-    <string name="user_dict_restore_success_title">¡Restauración realizada!</string>
-    <string name="user_dict_restore_success_text">Se restauraron las palabras.</string>
-    <string name="user_dict_restore_fail_title">¡La restauración falló!</string>
-    <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras debido a:\u0020<xliff:g id="error">%s</xliff:g>    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Intercambiar puntuación y espacio</string>
     <string name="should_swap_punctuation_and_space_off_summary">No intercambiar puntuación y espacio.    </string>
     <string name="should_swap_punctuation_and_space_on_summary">Intercambiar puntuación y espacio automático.    </string>
@@ -537,16 +537,16 @@
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="toast_error_custom_path_backup">Error: Cualquier aplicación contextual podría abrirse</string>
-    <string name="file_explorer_menu_add_folder">Crear carpeta</string>
-    <string name="file_explorer_filename">Nombre de archivo de respaldo…</string>
-    <string name="file_explorer_filename_empty">El nombre de archivo no puede estar vacío…</string>
-    <string name="file_explorer_alert_title">¿Elegir este archivo?</string>
-    <string name="file_explorer_restore_alert_message">¿Quieres restaurar este archivo?</string>
-    <string name="file_explorer_backup_alert_message">Este archivo se sobrescribirá.</string>
-    <string name="file_explorer_backup_success">Tus datos han sido guardados en \u0020</string>
-    <string name="file_explorer_backup_failed">Tus datos no se pudieron guardar.</string>
-    <string name="file_explorer_restore_success">Tus datos han sido restaurados desde \u0020</string>
-    <string name="file_explorer_restore_failed">Tus datos no se pudieron restaurar.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
     <string name="setup_wizard_step_one_title">Habilitar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En este paso deberá habilitar AnySoftKeyboard. Active <i>\'AnySoftKeyboard\'</i> en la configuración de <i>Idiomas y entradas</i> para permitir que el teclado funcione en el dispositivo.    </string>
@@ -651,7 +651,7 @@
     <string name="prefs_providers_backed_up_to">La información se guardó con éxito en %s</string>
     <string name="prefs_providers_failed_restore_due_to">Error al restaurar la información debido a %s</string>
     <string name="prefs_providers_restored_to">La información se restauró con éxito de %s</string>
-    <string name="word_editor_action_choose_path">Elegir ruta personalizada</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Filas genéricas establecidas por los teclados</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usar siempre filas genéricas elegidas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Dejar que las distribuciones de teclados sobrescriban las filas genéricas.</string>

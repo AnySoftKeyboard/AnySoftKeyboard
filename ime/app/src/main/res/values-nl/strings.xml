@@ -500,20 +500,14 @@ woordenlijst
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">U heeft geen woorden in de gebruikerswoordenlijst. U kunt nu uw eerste woord toevoegen.</string>
-    <string name="user_dict_backup_success_title">Backup klaar!</string>
-    <string name="user_dict_backup_success_text">Uw woorden zijn succesvol opgeslagen in apparaatopslag in 
-/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Backup mislukt!</string>
-    <string name="user_dict_backup_fail_text_with_error">Opslaan van de woorden is mislukt vanwege:
-<xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Terugzetten gedaan!</string>
-    <string name="user_dict_restore_success_text">Herstellen van de woorden is gelukt.</string>
-    <string name="user_dict_restore_fail_title">Herstellen mislukt!</string>
-    <string name="user_dict_restore_fail_text_with_error">Herstel van de woorden mislukt vanwege:
-<xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Wissel leesteken en spatie om</string>
     <string name="should_swap_punctuation_and_space_off_summary">Wissel spatie en leesteken niet om.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Wissel automatische spatie en leesteken om.</string>
@@ -551,16 +545,16 @@ woordenlijst
     <string name="enter_abbreviation_hint">Afkorting</string>
     <string name="enter_abbreviation_target_hint">Volledige zin</string>
     <string name="toast_error_custom_path_backup">Fout: Een willekeurige contextuele app kan geopend zijn</string>
-    <string name="file_explorer_menu_add_folder">Map maken</string>
-    <string name="file_explorer_filename">Back-up bestandsnaam…</string>
-    <string name="file_explorer_filename_empty">Bestandsnaam mag niet leeg zijn…</string>
-    <string name="file_explorer_alert_title">Dit bestand kiezen?</string>
-    <string name="file_explorer_restore_alert_message">Wilt u dit bestand herstellen?</string>
-    <string name="file_explorer_backup_alert_message">Dit bestand wordt overschreven.</string>
-    <string name="file_explorer_backup_success">Uw gegevens zijn opgeslagen in\u0020</string>
-    <string name="file_explorer_backup_failed">Uw gegevens konden niet worden opgeslagen.</string>
-    <string name="file_explorer_restore_success">Uw gegevens zijn hersteld vanuit\u0020</string>
-    <string name="file_explorer_restore_failed">Uw gegevens konden niet worden hersteld.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Extra softwarelicenties</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aanzetten</string>
     <string name="setup_wizard_step_one_details">In deze stap moet u <i>AnySoftKeyboard</i> aanzetten. Vink <i>\'AnySoftKeyboard\'</i> aan in uw <i>Taal en invoer instellingen</i>. Daardoor kan <i>AnySoftKeyboard</i> werken op uw apparaat.</string>

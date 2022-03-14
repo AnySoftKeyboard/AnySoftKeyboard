@@ -561,20 +561,14 @@ Zmiana
     <string name="user_dict_settings_empty_text">Nie masz żadnych słów w słowniku użytkownika.
         Możesz teraz dodać pierwsze słowo.
     </string>
-    <string name="user_dict_backup_success_title">Kopia zapasowa gotowa!</string>
-    <string name="user_dict_backup_success_text">Pomyślnie zapisano Twoje słowa w pamięci urządzenia
-        w\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Tworzenie kopii nie powiodło się!</string>
-    <string name="user_dict_backup_fail_text_with_error">Nie udało się zapisać słów z powodu:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Przywracanie gotowe!</string>
-    <string name="user_dict_restore_success_text">Pomyślnie przywrócono wyrazy.</string>
-    <string name="user_dict_restore_fail_title">Przywracanie nie powiodło się!</string>
-    <string name="user_dict_restore_fail_text_with_error">Nie udało się przywrócić słów z powodu:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Zamień znaki interpunkcyjne i spację</string>
     <string name="should_swap_punctuation_and_space_off_summary">Nie zamieniaj spacji i
         znaków interpunkcyjnych.
@@ -627,16 +621,16 @@ Zmiana
     <string name="enter_abbreviation_hint">Skrót</string>
     <string name="enter_abbreviation_target_hint">Pełne zdanie</string>
     <string name="toast_error_custom_path_backup">Błąd: Aplikacja kontekstowa może być otwarta</string>
-    <string name="file_explorer_menu_add_folder">Utwórz folder</string>
-    <string name="file_explorer_filename">Nazwa kopii zapasowej…</string>
-    <string name="file_explorer_filename_empty">Nazwa pliku nie może być pusta…</string>
-    <string name="file_explorer_alert_title">Wybrać ten plik?</string>
-    <string name="file_explorer_restore_alert_message">Czy chcesz przywrócić ten plik?</string>
-    <string name="file_explorer_backup_alert_message">Ten plik zostanie nadpisany.</string>
-    <string name="file_explorer_backup_success">Twoje dane zostały zapisane w\u0020</string>
-    <string name="file_explorer_backup_failed">Twoje dane nie zostały zapisane.</string>
-    <string name="file_explorer_restore_success">Twoje dane zostały przywrócone z\u0020</string>
-    <string name="file_explorer_restore_failed">Nie udało się przywrócić Twoich danych.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Dodatkowe Licencje Oprogramowania</string>
     <string name="setup_wizard_step_one_title">Włącz AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">W tym kroku musisz włączyć <i>
@@ -775,7 +769,7 @@ Zmiana
     <string name="prefs_providers_backed_up_to">Pomyślnie utworzono kopię zapasową danych w %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nie udało się przywrócić kopii zapasowej z powodu %s</string>
     <string name="prefs_providers_restored_to">Pomyślnie przywrócono kopię zapasową z %s</string>
-    <string name="word_editor_action_choose_path">Wybierz niestandardową ścieżkę</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Klawiatury mogą dostarczać ogólne rzędy</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Zawsze używaj ogólnych rzędów.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Zezwalaj układom na zastępowanie ogólnych rzędów</string>

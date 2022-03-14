@@ -451,11 +451,9 @@
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_restore_success_text">Sanasi on palautettu onnistuneesti.</string>
-    <string name="user_dict_restore_fail_title">Palautus epäonnistui!</string>
-    <string name="user_dict_restore_fail_text_with_error">Sanojen palauttaminen epäonnistui:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
     <string name="emoji_default_skin_tone_value_generic">Yleinen</string>
     <string name="emoji_default_skin_tone_value_type_2">Vaalea ihon sävy</string>
     <string name="emoji_default_skin_tone_value_type_3">Keskivaalea ihon sävy</string>

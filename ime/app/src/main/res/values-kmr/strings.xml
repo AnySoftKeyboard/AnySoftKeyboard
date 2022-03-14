@@ -566,19 +566,14 @@
     <string name="user_dict_settings_empty_text">Di ferhenga bikarhêner de tu gotin tune.
         Tu dikarî peyva xwe ya yekem niha lê zêde bikî.
     </string>
-    <string name="user_dict_backup_success_title">Yêdêk qediya!</string>
-    <string name="user_dict_backup_success_text">Bi serfirazî peyvên xwe li ser hilanîna cîhazê depo kir
-        li\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Yêdêk bi ser neket!</string>
-    <string name="user_dict_backup_fail_text_with_error">Nekarî peyvên bifilite ji ber: \u0020
-        <xliff:g id="error">%s</xliff:g></string>
-    <string name="user_dict_restore_success_title">Restore kirin!</string>
-    <string name="user_dict_restore_success_text">Bi serkeftî peyvên te sererast kirin.</string>
-    <string name="user_dict_restore_fail_title">Restore bi ser neket!</string>
-    <string name="user_dict_restore_fail_text_with_error">Bi ser neket ku peyvên ji ber:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Valahî û cih biguheze</string>
     <string name="should_swap_punctuation_and_space_off_summary">Cihê xwe naguheze û
         deqkirin.
@@ -631,16 +626,16 @@
     <string name="enter_abbreviation_hint">Kinkirî</string>
     <string name="enter_abbreviation_target_hint">Hevoka tam</string>
     <string name="toast_error_custom_path_backup">Çewtî: Her pêveka çarçoveyî dikare were vekirin</string>
-    <string name="file_explorer_menu_add_folder">Peldankekê biafirîne</string>
-    <string name="file_explorer_filename">Navê pelê yêdêk…</string>
-    <string name="file_explorer_filename_empty">Navê pelê nikare vala bibe…</string>
-    <string name="file_explorer_alert_title">Vê pelê hilbijêrin?</string>
-    <string name="file_explorer_restore_alert_message">Ma hûn dixwazin vê pelê vegerînin?</string>
-    <string name="file_explorer_backup_alert_message">Dê ev pel ji nû ve were nivîsandin.</string>
-    <string name="file_explorer_backup_success">Daneyên we li hatin tomarkirin\u0020</string>
-    <string name="file_explorer_backup_failed">Daneyên we nehatin tomarkirin.</string>
-    <string name="file_explorer_restore_success">Daneyên we ji nû ve hatine vegerandin\u0020</string>
-    <string name="file_explorer_restore_failed">Daneyên we nehatin vegerandin.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">Lîsansên Nermalava Zêdetir</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard çalak bike</string>
     <string name="setup_wizard_step_one_details">Di vê pêngavê de, hûn ê hewce ne ku bikin <i>
@@ -782,7 +777,7 @@
     <string name="prefs_providers_backed_up_to">Bi serkeftî daneya te li %sê hate paştkeftkirin</string>
     <string name="prefs_providers_failed_restore_due_to">Ji ber %sê nûsazkirina daneyên te têk çû</string>
     <string name="prefs_providers_restored_to">Daneya te bi serkeftî ji %sê hate nûsazkirin</string>
-    <string name="word_editor_action_choose_path">Riya xwerû hilbijêre</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">Klavye dikarin rêzên gelemperî peyda bikin</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Her dem rêzên gelemperî yên hilbijartî bi kar bîne.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Destûr bide nîskan ku rêzên gelemperî di ser de binivîse.</string>

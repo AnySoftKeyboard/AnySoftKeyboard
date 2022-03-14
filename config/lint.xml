@@ -2,6 +2,8 @@
 <lint>
     <issue id="ObsoleteSdkInt" severity="error" />
 
+    <issue id="IgnoreWithoutReason" severity="error" />
+
     <!-- since those values are copied into the source-code anyway, I don't care -->
     <issue id="InlinedApi" severity="informational" />
 

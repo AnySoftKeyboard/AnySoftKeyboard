@@ -53,7 +53,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     }
 
     @Test
-    @Ignore
+    @Ignore("I haven't implemented the feature yet.")
     public void testDemoKeyboardShowsLastUsedKeyboardAlphabet() {
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
@@ -84,7 +84,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     }
 
     @Test
-    @Ignore
+    @Ignore("I haven't implemented the feature yet.")
     public void testDemoKeyboardShowsLastUsedKeyboardSymbols() {
         TestableAnySoftKeyboard service = Robolectric.setupService(TestableAnySoftKeyboard.class);
         service.getKeyboardSwitcherForTests()

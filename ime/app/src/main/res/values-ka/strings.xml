@@ -575,20 +575,14 @@
     <string name="user_dict_settings_empty_text">ლექსიკონში არცერთი სიტყვა არ გაქვთ მითითებული.
         პირველი მათგანი შეგიძლიათ დაამატოთ ახლავე.
     </string>
-    <string name="user_dict_backup_success_title">მარქაფი შესრულდა!</string>
-    <string name="user_dict_backup_success_text">თქვენი სიტყვები წარმატებითაა შეინახული მოწყობილობაზე
-        მისამართით\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">მარქაფი ვერ მოხერხდა!</string>
-    <string name="user_dict_backup_fail_text_with_error">სიტყვების შენახვა ვერ მოხერხდა, მიზეზი:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">აღდგენა შესრულდა!</string>
-    <string name="user_dict_restore_success_text">წარმატებით აღდგა თქვენი სიტყვები.</string>
-    <string name="user_dict_restore_fail_title">აღდგენა ვერ მოხერხდა!</string>
-    <string name="user_dict_restore_fail_text_with_error">სიტყვების აღდგენა ვერ მოხერხდა, მიზეზია:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">ჰარისა და სასვენი ნიშნისთვის ადგილის გაცვლა</string>
     <string name="should_swap_punctuation_and_space_off_summary">ჰარისა და სასვენი ნიშნისთვის ადგილის
         გაცვლის გარეშე.
@@ -641,16 +635,16 @@
     <string name="enter_abbreviation_hint">შემოკლება</string>
     <string name="enter_abbreviation_target_hint">სრული წინადადება</string>
     <string name="toast_error_custom_path_backup">შეცდომა: ნებისმიერი კონტექსტური აპი შეიძლება გაიხსნას</string>
-    <string name="file_explorer_menu_add_folder">საქაღალდის შექმნა</string>
-    <string name="file_explorer_filename">მარქაფის დასახელება…</string>
-    <string name="file_explorer_filename_empty">დასახელება ვერ იქნება ცარიელი…</string>
-    <string name="file_explorer_alert_title">გსურთ, ამ ფაილის არჩევა?</string>
-    <string name="file_explorer_restore_alert_message">გსურთ ამ ფაილის აღდგენა?</string>
-    <string name="file_explorer_backup_alert_message">ეს ფაილი გადაიწერება.</string>
-    <string name="file_explorer_backup_success">თქვენი მონაცემების შენახვის ფაილია\u0020</string>
-    <string name="file_explorer_backup_failed">თქვენი მონაცემების შენახვა ვერ მოხერხდა.</string>
-    <string name="file_explorer_restore_success">თქვენი მონაცემები ვერ აღდგა ფაილიდან\u0020</string>
-    <string name="file_explorer_restore_failed">თქვენი მონაცემების აღდგენა ვერ მოხერხდა.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">პროგრამის დამატებითი ლიცენზიები</string>
     <string name="setup_wizard_step_one_title">ჩართეთ AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">მოცემულ ეტაპზე, საჭიროა ჩართოთ <i>
@@ -793,7 +787,7 @@
     <string name="prefs_providers_backed_up_to">თქვენი მონაცემები დამარქაფდა ფაილში %s</string>
     <string name="prefs_providers_failed_restore_due_to">მონაცემთა აღდგენა ვერ მოხერხდა, მიზეზი: %s</string>
     <string name="prefs_providers_restored_to">თქვენი მონაცემები აღდგა ფაილიდან %s</string>
-    <string name="word_editor_action_choose_path">მდებარეობის მითითება</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">კლავიატურები საერთო რიგების საშუალებას იძლევა</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">ყოველთვის შერჩეული საერთო რიგების გამოყენება.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">განლაგებებისთვის, საერთო რიგების ჩანაცვლების ნების დართვა.</string>

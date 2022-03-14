@@ -535,19 +535,14 @@
     <string name="user_dict_settings_empty_text">A felhasználói szótárban nincs egyetlen szó sem.
         Most hozzáadhatja az első szót.
     </string>
-    <string name="user_dict_backup_success_title">Archiválás kész!</string>
-    <string name="user_dict_backup_success_text">A szavaid sikeresen tárolva az eszközödön itt:
-        \u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Archiválás sikertelen!</string>
-    <string name="user_dict_backup_fail_text_with_error">Sikertelen szó eltárolás:\u0020 miatt
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Visszaállítás kész!</string>
-    <string name="user_dict_restore_success_text">A szólista sikeresen visszaállítva.</string>
-    <string name="user_dict_restore_fail_title">A visszaállítás sikertelen!</string>
-    <string name="user_dict_restore_fail_text_with_error">Sikertelen szólista betöltés:\u0020 miatt
-        <xliff:g id="error">%s</xliff:g></string>
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="should_swap_punctuation_and_space_title">Írásjelek és szóköz cseréje</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne cserélje meg a szóközt és az 
         írásjeleket.
@@ -599,16 +594,16 @@
     <string name="enter_abbreviation_hint">Rövidítés</string>
     <string name="enter_abbreviation_target_hint">Teljes szó</string>
     <string name="toast_error_custom_path_backup">Hiba: valamely kontextusbeli app nyitva lehet</string>
-    <string name="file_explorer_menu_add_folder">Mappa létrehozása</string>
-    <string name="file_explorer_filename">Bizt.mentés fájlnév…</string>
-    <string name="file_explorer_filename_empty">A fájlnév nem lehet üres…</string>
-    <string name="file_explorer_alert_title">Kiválasztja ezt a fájlt?</string>
-    <string name="file_explorer_restore_alert_message">Visszaállítja ezt a fájlt?</string>
-    <string name="file_explorer_backup_alert_message">A fájl felül lesz írva.</string>
-    <string name="file_explorer_backup_success">Az adatai visszaállítva innen:\u0020</string>
-    <string name="file_explorer_backup_failed">Az adatai elmentése nem sikerült.</string>
-    <string name="file_explorer_restore_success">Az adatai visszaállítva innen:\u0020</string>
-    <string name="file_explorer_restore_failed">Az adatai visszaállítása nem sikerült.</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="about_additional_software_licenses">További szoftver licenszek</string>
     <string name="setup_wizard_step_one_title">Az AnySoftKeyboard engedélyezése</string>
     <string name="setup_wizard_step_one_details">Most engedélyeznie kell az <i>
@@ -745,7 +740,7 @@
     <string name="prefs_providers_backed_up_to">Az adatok sikeresen archiválva ide: %s </string>
     <string name="prefs_providers_failed_restore_due_to">Sikertelen visszaállítás a(z) %s miatt</string>
     <string name="prefs_providers_restored_to">Az adatok sikeresen visszaállítva innen: %s </string>
-    <string name="word_editor_action_choose_path">Egyéni elérési út megadása</string>
+    
     <string name="allow_layouts_to_provide_generic_rows">A billentyűzet gombsort tehet hozzá</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Mindig a választott sorok használata.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">A különböző elrendezések felülírhatják a sorokat.</string>

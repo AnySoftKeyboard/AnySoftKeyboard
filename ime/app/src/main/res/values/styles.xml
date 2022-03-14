@@ -60,19 +60,6 @@
         <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>
     </style>
 
-    <style name="Theme.AskFileExplorer"
-        parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:textColorLink">@color/text_color_link</item>
-        <item name="colorAccent">@color/app_accent</item>
-        <!-- I'm going to use the keyboard's background, so no need for double drawing -->
-        <item name="android:imeFullscreenBackground">@null</item>
-        <item name="preferenceTheme">@style/Theme.AskPrefs</item>
-
-        <item name="colorPrimary">@color/app_color_primary</item>
-        <item name="colorPrimaryDark">@color/app_color_primary_dark</item>
-
-    </style>
-
     <style name="Theme.AskApp.NoTitle"
            parent="Theme.AskApp">
         <item name="windowNoTitle">true</item>
