@@ -485,14 +485,6 @@
     <string name="user_dict_settings_empty_text">Нямате думи в потребителския речник.
         Можете да добавите първата си дума сега.
     </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Разменете пунктуация и интервал</string>
     <string name="should_swap_punctuation_and_space_off_summary">Не разменяйте интервал и
         пунктуация.
@@ -533,15 +525,6 @@
     <string name="enter_abbreviation_hint">Абревиатура</string>
     <string name="enter_abbreviation_target_hint">Пълно изречение</string>
     <string name="toast_error_custom_path_backup">Грешка: Всяко контекстуално приложение може да бъде отворено</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Допълнителни лицензи за софтуера</string>
     <string name="setup_wizard_step_one_title">Активирай AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">В тази стъпка ще трябва да активирате <i>
@@ -660,7 +643,6 @@
     <string name="prefs_providers_backed_up_to">Успешно създаване на резервно копие за Вашите данни в %s</string>
     <string name="prefs_providers_failed_restore_due_to">Възстановяването на Вашите данни бе неуспешно поради %s</string>
     <string name="prefs_providers_restored_to">Вашите данни бяха успешно възстановени от %s</string>
-    
     <string name="gesture_typing_settings">Въвеждане чрез жестове ➿</string>
     <string name="gesture_typing_summary">Въведете дума, като плъзнете пръста си през нейните букви.</string>
     <string name="gesture_typing_action">Активиране на въвеждане чрез жестове [BETA]</string>

@@ -559,14 +559,6 @@
     <string name="user_dict_settings_empty_text">Du har ingen ord i brugerordbogen.
         Du kan tilføje dit første ord nu.
     </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Byt om på tegnsætning og mellemrum</string>
     <string name="should_swap_punctuation_and_space_off_summary">Byt ikke om på mellemrum og
         tegnsætning.
@@ -619,16 +611,6 @@
     <string name="enter_abbreviation_hint">Forkortelse</string>
     <string name="enter_abbreviation_target_hint">Fuld sætning</string>
     <string name="toast_error_custom_path_backup">Fejl: Enhver kontekstuel app kan være åben</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Yderligere softwarelicenser</string>
     <string name="setup_wizard_step_one_title">Aktivér AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">I dette trin skal du aktivere <i>
@@ -771,7 +753,6 @@
     <string name="prefs_providers_backed_up_to">Dine data blev sikkerhedskopieret til %s</string>
     <string name="prefs_providers_failed_restore_due_to">Kunne ikke gendanne dine data på grund af %s</string>
     <string name="prefs_providers_restored_to">Dine data blev gendannet fra %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Tastaturer kan give almindelige rækker</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Brug altid valgte almindelige rækker.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Tillad layouts at tilsidesætte almindelige rækker.</string>

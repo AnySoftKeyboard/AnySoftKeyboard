@@ -523,14 +523,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Você não tem quaisquer palavras no dicionário de utilizador. Pode adicionar uma agora.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Trocar pontuação e espaço</string>
     <string name="should_swap_punctuation_and_space_off_summary">Não trocar espaço e
         pontuação.
@@ -579,16 +571,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="toast_error_custom_path_backup">Erro: pode ser aberta qualquer aplicação contextual</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar o AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Nesta etapa, terá de ativar o <i>
@@ -723,7 +705,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="prefs_providers_backed_up_to">Os seus dados foram guardados na cópia de segurança em %s com sucesso</string>
     <string name="prefs_providers_failed_restore_due_to">Falha ao restaurar os seus dados devido a %s</string>
     <string name="prefs_providers_restored_to">Os seus dados foram restaurados de %s com sucesso</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Os teclados podem fornecer filas genéricas de teclas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usar sempre filas genéricas de teclas selecionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir que o esquema altere as filas genéricas.</string>

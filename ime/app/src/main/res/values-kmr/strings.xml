@@ -566,14 +566,6 @@
     <string name="user_dict_settings_empty_text">Di ferhenga bikarhêner de tu gotin tune.
         Tu dikarî peyva xwe ya yekem niha lê zêde bikî.
     </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Valahî û cih biguheze</string>
     <string name="should_swap_punctuation_and_space_off_summary">Cihê xwe naguheze û
         deqkirin.
@@ -626,16 +618,6 @@
     <string name="enter_abbreviation_hint">Kinkirî</string>
     <string name="enter_abbreviation_target_hint">Hevoka tam</string>
     <string name="toast_error_custom_path_backup">Çewtî: Her pêveka çarçoveyî dikare were vekirin</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Lîsansên Nermalava Zêdetir</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard çalak bike</string>
     <string name="setup_wizard_step_one_details">Di vê pêngavê de, hûn ê hewce ne ku bikin <i>
@@ -777,7 +759,6 @@
     <string name="prefs_providers_backed_up_to">Bi serkeftî daneya te li %sê hate paştkeftkirin</string>
     <string name="prefs_providers_failed_restore_due_to">Ji ber %sê nûsazkirina daneyên te têk çû</string>
     <string name="prefs_providers_restored_to">Daneya te bi serkeftî ji %sê hate nûsazkirin</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Klavye dikarin rêzên gelemperî peyda bikin</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Her dem rêzên gelemperî yên hilbijartî bi kar bîne.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Destûr bide nîskan ku rêzên gelemperî di ser de binivîse.</string>

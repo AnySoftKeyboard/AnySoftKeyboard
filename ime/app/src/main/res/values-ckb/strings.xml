@@ -576,14 +576,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">هیچ  ووشەیەکی پارێزراو نیە لەم فەرهەنگەدا، ئەتوانی ئێستا یەکەم ووشەت زیاد بکەیت        </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">ئاڵوگۆڕکردنی خاڵبەندی و بۆشایی</string>
     <string name="should_swap_punctuation_and_space_off_summary">ئاڵوگۆڕ نەکردنی خاڵبەندی و بۆشایی
     </string>
@@ -632,16 +624,6 @@
     <string name="enter_abbreviation_hint">کورتکراوە</string>
     <string name="enter_abbreviation_target_hint">تەواوی ڕستەکە</string>
     <string name="toast_error_custom_path_backup">هەڵە هەیە: هیچ بەرنامەیەکی پەیوەستکردن ناتوانرێ بکرێتەوە</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Open Source License</string>
     <string name="setup_wizard_step_one_title">چالاککردنی تەختەکلیلی کوردی</string>
     <string name="setup_wizard_step_one_details">لەم هەنگاوەدا پێویستە <b>
@@ -776,7 +758,6 @@
     <string name="prefs_providers_backed_up_to">زانیارییەکانت بەسەرکەوتوویی پاشەکەوتکران لە %s</string>
     <string name="prefs_providers_failed_restore_due_to">گێڕانەوەی داتاکانت سەرکەوتو نەبوو بەهۆی %s</string>
     <string name="prefs_providers_restored_to">داتاکانت بەسەرکەوتوویی گەڕێنرایەوە لەڕێی %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">گۆڕینی شێوازەکانی سەرەوە و خوارەوە بەپێی تەختەکلیل</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">بەکارهێنانی شێوازی تایبەت.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">ڕێگەدان بە گۆڕینی شێوازەکان.</string>

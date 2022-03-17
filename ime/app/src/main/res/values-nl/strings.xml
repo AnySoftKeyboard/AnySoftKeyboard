@@ -500,14 +500,6 @@ woordenlijst
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">U heeft geen woorden in de gebruikerswoordenlijst. U kunt nu uw eerste woord toevoegen.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Wissel leesteken en spatie om</string>
     <string name="should_swap_punctuation_and_space_off_summary">Wissel spatie en leesteken niet om.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Wissel automatische spatie en leesteken om.</string>
@@ -545,16 +537,6 @@ woordenlijst
     <string name="enter_abbreviation_hint">Afkorting</string>
     <string name="enter_abbreviation_target_hint">Volledige zin</string>
     <string name="toast_error_custom_path_backup">Fout: Een willekeurige contextuele app kan geopend zijn</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Extra softwarelicenties</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aanzetten</string>
     <string name="setup_wizard_step_one_details">In deze stap moet u <i>AnySoftKeyboard</i> aanzetten. Vink <i>\'AnySoftKeyboard\'</i> aan in uw <i>Taal en invoer instellingen</i>. Daardoor kan <i>AnySoftKeyboard</i> werken op uw apparaat.</string>
