@@ -3,4 +3,6 @@
 
     <string name="piedmontese_dictionary">Piemontèis</string>
     <string name="piedmontese_keyboard">Piemontèis</string>
+    <string name="piedmontese_qwerty_with_symbols_keyboard">Piemontèis</string>
+    <string name="piedmontese_qwerty_with_symbols_number_row_keyboard">Piemontèis</string>
 </resources>
