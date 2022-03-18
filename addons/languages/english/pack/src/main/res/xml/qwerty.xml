@@ -52,7 +52,7 @@
         <Key android:codes="99" android:keyLabel="c" android:popupCharacters="çćĉčγ"/>
         <Key android:codes="118" android:keyLabel="v"/>
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="β"/>
-        <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńν"/>
+        <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńňν"/>
         <Key android:codes="109" android:keyLabel="m"  android:popupCharacters="μ"/>
         <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
