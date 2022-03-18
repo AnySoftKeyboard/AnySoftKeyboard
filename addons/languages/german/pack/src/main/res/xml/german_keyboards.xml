@@ -9,7 +9,7 @@
         index="1"
         layoutResId="@xml/de_qwertz"
         nameResId="@string/de_keyboard"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -19,7 +19,7 @@
         index="2"
         layoutResId="@xml/de_qwertz_broad"
         nameResId="@string/de_keyboard_broad"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -29,7 +29,7 @@
         index="3"
         layoutResId="@xml/de_qwertz_extra"
         nameResId="@string/de_keyboard_extra"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -39,7 +39,7 @@
         index="4"
         layoutResId="@xml/de_qwertz_symbols"
         nameResId="@string/de_keyboard_symbols"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -49,7 +49,7 @@
         index="5"
         layoutResId="@xml/de_qwerty"
         nameResId="@string/de_keyboard_qwerty"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -59,7 +59,7 @@
         index="6"
         layoutResId="@xml/de_qwerty_broad"
         nameResId="@string/de_keyboard_qwerty_broad"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -69,7 +69,7 @@
         index="7"
         layoutResId="@xml/de_qwerty_extra"
         nameResId="@string/de_keyboard_qwerty_extra"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -79,7 +79,7 @@
         index="8"
         layoutResId="@xml/de_qwerty_slim"
         nameResId="@string/de_keyboard_qwerty_slim"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -89,7 +89,7 @@
         index="9"
         layoutResId="@xml/de_neo2"
         nameResId="@string/de_keyboard_neo2"
-        physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+        physicalKeyboardMappingResId="@xml/german_neo2_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -99,7 +99,7 @@
         layoutResId="@xml/de_neo2_simple"
         nameResId="@string/de_keyboard_neo2_simple"
         description="German NEO2 Simple layout with neo2 physical layout"
-        physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+        physicalKeyboardMappingResId="@xml/german_neo2_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -109,7 +109,7 @@
         index="11"
         layoutResId="@xml/de_adnw"
         nameResId="@string/de_keyboard_adnw"
-        physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+        physicalKeyboardMappingResId="@xml/german_neo2_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -119,7 +119,7 @@
         index="12"
         layoutResId="@xml/de_adnw_koy"
         nameResId="@string/de_keyboard_adnw_koy"
-        physicalKeyboardMappingResId="@xml/german_neo2_physical" />
+        physicalKeyboardMappingResId="@xml/german_neo2_physical"/>
     <Keyboard
         defaultDictionaryLocale="de"
         defaultEnabled="false"
@@ -129,5 +129,15 @@
         index="13"
         layoutResId="@xml/de_dvorak_compact"
         nameResId="@string/de_keyboard_dvorak_compact"
-        physicalKeyboardMappingResId="@xml/german_physical" />
+        physicalKeyboardMappingResId="@xml/german_physical"/>
+    <Keyboard
+        defaultDictionaryLocale="de"
+        defaultEnabled="false"
+        description="@string/de_keyboard_extended_description"
+        iconResId="@drawable/ic_status_german"
+        id="fab2b54c-26c2-4672-ac0d-c201b37d07ca"
+        index="14"
+        layoutResId="@xml/de_qwertz_extended"
+        nameResId="@string/de_keyboard_extended"
+        physicalKeyboardMappingResId="@xml/german_physical"/>
 </Keyboards>
