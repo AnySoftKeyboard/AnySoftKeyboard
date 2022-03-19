@@ -489,14 +489,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Du hast keine Wörter im Benutzerwörterbuch. Du kannst jetzt dein erstes Wort hinzufügen.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>
     <string name="should_swap_punctuation_and_space_off_summary">Leerzeichen und Satzzeichen nicht tauschen.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Automatisches Leerzeichen und Satzzeichen tauschen.</string>
@@ -538,16 +530,6 @@
     <string name="enter_abbreviation_hint">Abkürzung</string>
     <string name="enter_abbreviation_target_hint">Ganzer Satz</string>
     <string name="toast_error_custom_path_backup">Fehler: Eine abhängige App könnte geöffnet sein</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
     <string name="setup_wizard_step_one_details">In diesem Schritt musst du <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>Sprache- und Eingabeeinstellungen</i>. Das ermöglicht der App, auf deinem Gerät zu laufen.</string>
@@ -652,7 +634,6 @@
     <string name="prefs_providers_backed_up_to">Deine Daten wurden erfolgreich in %s gesichert</string>
     <string name="prefs_providers_failed_restore_due_to">Fehler beim Wiederherstellen deiner Daten aufgrund von %s</string>
     <string name="prefs_providers_restored_to">Deine Daten wurden erfolgreich von %s wiederhergestellt</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Tastaturen können generische Zeilen bereitstellen</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Verwende immer ausgewählte generische Zeilen.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Layouts dürfen generische Zeilen überschreiben.</string>

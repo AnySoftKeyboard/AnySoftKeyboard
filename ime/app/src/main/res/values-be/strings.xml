@@ -496,14 +496,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Слоўнік карыстальніка пусты. Зараз можна дадаць першае слова.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Замяніць пунктуацыю і прабел</string>
     <string name="should_swap_punctuation_and_space_off_summary">Не замяняць прабел і пунктуацыю.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Замяняць аўтаматычны прабел і пунктуацыю.</string>
@@ -549,16 +541,6 @@
     <string name="enter_abbreviation_hint">Абрэвіятура</string>
     <string name="enter_abbreviation_target_hint">Поўны сказ</string>
     <string name="toast_error_custom_path_backup">Памылка: Любая кантэкстная праграма можа быць адкрытая</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Дадатковыя ліцэнзіі</string>
     <string name="setup_wizard_step_one_title">Уключыць AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">На гэтым кроку вам неабходна будзе актываваць <i>AnySoftKeyboard</i>. Калі ласка, уключыце <i>\'AnySoftKeyboard\'</i> у раздзеле <i>Налады мовы і ўводу</i>.</string>
@@ -663,7 +645,6 @@
     <string name="prefs_providers_backed_up_to">Даныя былі паспяхова зарэзерваваныя ў %s</string>
     <string name="prefs_providers_failed_restore_due_to">Не атрымалася выканаць аднаўленне даных з-за %s</string>
     <string name="prefs_providers_restored_to">Даныя былі паспяхова адноўленыя ў %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Клавіятура можа забяспечыць агульны рад</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Заўсёды выкарыстоўваць выбраны агульны рад.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Дазваляць раскладцы перавызначаць агульны рад.</string>

@@ -467,14 +467,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Ви не маєте слів у словнику користувача. Тепер можна додати перше слово.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Змініть пунктуації і пробіл</string>
     <string name="should_swap_punctuation_and_space_off_summary">Не замінювати пробіл і пунктуацію.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Замінювати автопробіл і пунктуацію.</string>

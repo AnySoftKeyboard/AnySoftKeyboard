@@ -489,14 +489,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Il n\'y a aucun mot dans le dictionnaire utilisateur. Il est possible d\'ajouter le premier mot maintenant.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Échanger l\'espace et la ponctuation</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne pas échanger l\'espace et la ponctuation</string>
     <string name="should_swap_punctuation_and_space_on_summary">Échanger l\'espace automatique et la ponctuation</string>
@@ -542,16 +534,6 @@
     <string name="enter_abbreviation_hint">Abréviation</string>
     <string name="enter_abbreviation_target_hint">Phrase complète</string>
     <string name="toast_error_custom_path_backup">Erreur : n\'importe quelle application contextuelle pourrait être ouverte</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Licences additionnelles de logiciels</string>
     <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>
@@ -657,7 +639,6 @@
     <string name="prefs_providers_backed_up_to">Les données ont été correctement sauvegardées vers %s</string>
     <string name="prefs_providers_failed_restore_due_to">Impossible de restaurer les données : %s</string>
     <string name="prefs_providers_restored_to">Les données ont été correctement restaurées depuis %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Claviers susceptibles de fournir des rangées génériques</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Toujours utiliser les rangées génériques sélectionnées</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Autoriser les dispositions à remplacer les rangées génériques</string>

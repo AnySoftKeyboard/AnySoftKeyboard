@@ -512,14 +512,6 @@ simplistas    </string>
     <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário.
         Você pode adicionar sua primeira palavra agora.
     </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Substituir espaço por pontuação</string>
     <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por
         pontuação.
@@ -569,16 +561,6 @@ simplistas    </string>
     <string name="enter_abbreviation_hint">Abreviação</string>
     <string name="enter_abbreviation_target_hint">Texto completo</string>
     <string name="toast_error_custom_path_backup">Erro: Qualquer aplicativo contextual pode ser aberto</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Nesta etapa, você precisará ativar o <i>
@@ -687,7 +669,6 @@ simplistas    </string>
     <string name="prefs_providers_backed_up_to">Seus dados foram salvos com sucesso em %s</string>
     <string name="prefs_providers_failed_restore_due_to">Falha na restauração dos dados devido %s</string>
     <string name="prefs_providers_restored_to">Seus dados foram restaurados de %s com sucesso</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Teclados podem fornecer linhas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre use linhas genéricas selecionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir que o layout altere a linha genérica.</string>

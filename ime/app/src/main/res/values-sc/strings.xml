@@ -495,14 +495,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Non tenes peruna paràula in su ditzionàriu impreadore. Podes annànghere sa prima paràula tua como.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Cuncàmbiu puntegiadura e ispàtziu</string>
     <string name="should_swap_punctuation_and_space_off_summary">Non cuncàmbies s\'ispàtziu e sa puntegiadura.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Cuncàmbia s\'ispàtziu automàticu e sa puntegiadura.</string>
@@ -548,16 +540,6 @@
     <string name="enter_abbreviation_hint">Abbreviatzione</string>
     <string name="enter_abbreviation_target_hint">Fràsia intrea</string>
     <string name="toast_error_custom_path_backup">Errore: cale si siat aplicatzione de cuntestu diat pòdere èssere aberta</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Litzèntzias agiuntivas de sos programmas</string>
     <string name="setup_wizard_step_one_title">Abìlita AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In custu passàgiu as a dèpere abilitare <i>AnySoftKeyboard</i>. Pro praghere ischerta <i>\'AnySoftKeyboard\'</i> in sas impostatziones <i>Limba e insertadura</i>. Custu at a permìtere a s\'aplicatzione de funtzionare in su dispositivu.</string>
@@ -662,7 +644,6 @@
     <string name="prefs_providers_backed_up_to">Sos datos tuos sunt istados sarvados in %s</string>
     <string name="prefs_providers_failed_restore_due_to">Riprìstinu de sos datos fallidu pro more de %s</string>
     <string name="prefs_providers_restored_to">Sos datos tuos sunt istados ripristinados dae %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Sas tastieras podent frunire rigas genèricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Imprea semper sas rigas genèricas ischertadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permiti a sa dispositzione de subraiscrìere sas rigas genèricas.</string>

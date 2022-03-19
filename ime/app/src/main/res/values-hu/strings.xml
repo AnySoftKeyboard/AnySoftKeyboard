@@ -535,14 +535,6 @@
     <string name="user_dict_settings_empty_text">A felhasználói szótárban nincs egyetlen szó sem.
         Most hozzáadhatja az első szót.
     </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Írásjelek és szóköz cseréje</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne cserélje meg a szóközt és az 
         írásjeleket.
@@ -594,16 +586,6 @@
     <string name="enter_abbreviation_hint">Rövidítés</string>
     <string name="enter_abbreviation_target_hint">Teljes szó</string>
     <string name="toast_error_custom_path_backup">Hiba: valamely kontextusbeli app nyitva lehet</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">További szoftver licenszek</string>
     <string name="setup_wizard_step_one_title">Az AnySoftKeyboard engedélyezése</string>
     <string name="setup_wizard_step_one_details">Most engedélyeznie kell az <i>
@@ -740,7 +722,6 @@
     <string name="prefs_providers_backed_up_to">Az adatok sikeresen archiválva ide: %s </string>
     <string name="prefs_providers_failed_restore_due_to">Sikertelen visszaállítás a(z) %s miatt</string>
     <string name="prefs_providers_restored_to">Az adatok sikeresen visszaállítva innen: %s </string>
-    
     <string name="allow_layouts_to_provide_generic_rows">A billentyűzet gombsort tehet hozzá</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Mindig a választott sorok használata.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">A különböző elrendezések felülírhatják a sorokat.</string>
@@ -762,5 +743,7 @@
     <string name="app_share_menu_title">AnySoftKeyboard megosztása ezzel</string>
     <string name="app_share_text">Hadd javasoljuk a nyílt forráskódú, ingyenes, jól testreszabható, többnyelvű Android billentyűzetalkalmazást, az AnySoftKeyboard-ot.\nLetöltés:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Kattintson egy meglepetéshez</string>
+    <string name="backup_restore_not_support_before_kitkat">Nem támogatott ezen az Android verzión</string>
+    <string name="backup_restore_not_support_before_kitkat_message">A biztonsági mentés és visszaállítás nem támogatott a KitKat (4.4-es verzió) előtti Android operációs rendszert futtató eszközökön. Sajnálom.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

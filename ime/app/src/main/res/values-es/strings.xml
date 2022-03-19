@@ -486,14 +486,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">No tienes palabras en el diccionario del usuario. Puedes añadir una palabra a través del menú.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Intercambiar espacio y puntuación</string>
     <string name="should_swap_punctuation_and_space_off_summary">No intercambiar espacio ni puntuación.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Intercambio automático de espacio y puntuación.</string>
@@ -535,16 +527,6 @@
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="toast_error_custom_path_backup">Error: Cualquier aplicación contextual podría estar abierta</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
     <string name="setup_wizard_step_one_title">Habilitar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En este paso, deberás habilitar <i>AnySoftKeyboard</i>. Comprueba <i>\'AnySoftKeyboard \'</i> en <i>Idioma - Ajustes de entrada</i>. Esto nos permitirá funcionar en tu dispositivo.</string>
@@ -649,7 +631,6 @@
     <string name="prefs_providers_backed_up_to">Tus datos fueron respaldados correctamente para %s</string>
     <string name="prefs_providers_failed_restore_due_to">Error al restaurar tus datos debido a %s</string>
     <string name="prefs_providers_restored_to">Tus datos fueron restaurados correctamente desde %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Los teclados pueden proporcionar filas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Siempre utilizar las filas genéricas seleccionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir distribución para anular filas genéricas.</string>

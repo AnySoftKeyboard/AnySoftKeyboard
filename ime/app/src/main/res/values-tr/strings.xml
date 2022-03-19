@@ -489,14 +489,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Kullanıcı sözlüğünde hiç  kelime yok. Şimdi ilk kelimeni ekleyebilirsin.</string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Noktalama ve boşluğu değiştir</string>
     <string name="should_swap_punctuation_and_space_off_summary">Boşluk ve noktalamayı değiştirme.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Boşluk ve noktalama işaretlerini otomatik değiştir.</string>
@@ -533,16 +525,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="enter_abbreviation_hint">Kısaltma</string>
     <string name="enter_abbreviation_target_hint">Tam cümle</string>
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Diğer Yazılım Lisanları</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard etkinleştir</string>
     <string name="setup_wizard_step_one_details">Bu adımda <i>AnySoftKeyboard</i>\'u etkinleştirmeniz gerekecek. Lütfen <i>Dil&amp;giriş ayarlarınızda</i> <i>\'AnySoftKeyboard\'</i>u kontrol ediniz. Bu sizin cihazınızda çalışmamıza izin verir.</string>
@@ -647,7 +629,6 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="prefs_providers_backed_up_to">Verileriniz %s\'e başarıyla yedeklendi</string>
     <string name="prefs_providers_failed_restore_due_to">%s nedeniyle verileriniz geri yüklenemedi</string>
     <string name="prefs_providers_restored_to">Veriniz %s\'den başarıyla geri yüklendi</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Klavyeler genel satırlar sağlayabilir</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Her zaman seçili genel satırları kullan.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Yerleşimlerin jenerik satırları değiştirmesine izin ver.</string>

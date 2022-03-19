@@ -28,7 +28,7 @@
     <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur z Google Play</string>
     <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
     <string name="no_market_store_available">Na Twoim urządzeniu nie odnaleziono <i>Sklepu Google Play</i>.\nNie udało się wyszukać dodatków!</string>
-    <string name="keyboard_theme_tweak_group">Tweaki</string>
+    <string name="keyboard_theme_tweak_group">Ulepszenia</string>
     <string name="close_button">Zamknij</string>
     <string name="delete_button">Usuń</string>
     <!-- Indicates that a word has been added to the dictionary -->
@@ -561,14 +561,6 @@ Zmiana
     <string name="user_dict_settings_empty_text">Nie masz żadnych słów w słowniku użytkownika.
         Możesz teraz dodać pierwsze słowo.
     </string>
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="should_swap_punctuation_and_space_title">Zamień znaki interpunkcyjne i spację</string>
     <string name="should_swap_punctuation_and_space_off_summary">Nie zamieniaj spacji i
         znaków interpunkcyjnych.
@@ -621,16 +613,6 @@ Zmiana
     <string name="enter_abbreviation_hint">Skrót</string>
     <string name="enter_abbreviation_target_hint">Pełne zdanie</string>
     <string name="toast_error_custom_path_backup">Błąd: Aplikacja kontekstowa może być otwarta</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <string name="about_additional_software_licenses">Dodatkowe Licencje Oprogramowania</string>
     <string name="setup_wizard_step_one_title">Włącz AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">W tym kroku musisz włączyć <i>
@@ -769,7 +751,6 @@ Zmiana
     <string name="prefs_providers_backed_up_to">Pomyślnie utworzono kopię zapasową danych w %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nie udało się przywrócić kopii zapasowej z powodu %s</string>
     <string name="prefs_providers_restored_to">Pomyślnie przywrócono kopię zapasową z %s</string>
-    
     <string name="allow_layouts_to_provide_generic_rows">Klawiatury mogą dostarczać ogólne rzędy</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Zawsze używaj ogólnych rzędów.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Zezwalaj układom na zastępowanie ogólnych rzędów</string>
@@ -791,5 +772,7 @@ Zmiana
     <string name="app_share_menu_title">Udostępnij AnySoftKeyboard używając</string>
     <string name="app_share_text">Pozwól mi polecić open-source, skoncentrowaną na prywatności, bezpłatną, wysoce konfigurowalną, wielojęzyczną aplikację klawiatury dla Android: AnySoftKeyboard.\nPobierz ją z:\nSklep Google Play: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Dotknij, to niespodzianka</string>
+    <string name="backup_restore_not_support_before_kitkat">Nieobsługiwane na twoim Androidzie</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
