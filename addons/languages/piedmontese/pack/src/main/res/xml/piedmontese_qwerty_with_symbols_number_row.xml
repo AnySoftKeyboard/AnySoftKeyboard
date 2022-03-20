@@ -32,13 +32,13 @@
         <Key android:codes="q" android:popupCharacters="\@" ask:hintLabel="\@" 
              android:keyEdgeFlags="left"/>
         <Key android:codes="w" android:popupCharacters="€" ask:hintLabel="€"/>
-        <Key android:codes="e" android:popupCharacters="èé£" ask:hintLabel="è"/>
+        <Key android:codes="e" android:popupCharacters="èéë" ask:hintLabel="è"/>
         <Key android:codes="r" android:popupCharacters="[" ask:hintLabel="["/>
         <Key android:codes="t" android:popupCharacters="]" ask:hintLabel="]"/>
         <Key android:codes="y" android:popupCharacters="~" ask:hintLabel="~"/>
-        <Key android:codes="u" android:popupCharacters="ù✓✗" ask:hintLabel="ù"/>
+        <Key android:codes="u" android:popupCharacters="ùü" ask:hintLabel="ù"/>
         <Key android:codes="i" android:popupCharacters="ì↑…" ask:hintLabel="ì"/>
-        <Key android:codes="o" android:popupCharacters="ò↓♀♂" ask:hintLabel="ò"/>
+        <Key android:codes="o" android:popupCharacters="òö" ask:hintLabel="ò"/>
         <Key android:codes="p" android:popupCharacters="π¶" ask:hintLabel="π" 
              android:keyEdgeFlags="right"/>
     </Row>
