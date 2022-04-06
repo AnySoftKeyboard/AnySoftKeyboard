@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row android:rowEdgeFlags="top">
+        <Key android:codes="~" android:keyEdgeFlags="left"/>
+        <Key android:codes="ḫ"/>
+        <Key android:codes="ẖ" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="_" android:keyEdgeFlags="left"/>
+        <Key android:codes="ḥ" />
+        <Key android:codes="ĥ" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>
