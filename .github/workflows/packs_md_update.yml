@@ -1,15 +1,13 @@
 ---
 name: packs-lists
 
-# always run on the default branch: main
 on:
-  schedule:
-    - cron: '30 09 * * *'
   push:
     branches:
       - main
     paths:
       - 'addons/**'
+      - '.github/workflows/packs_md_update.yml'
 
 env:
   TERM: dumb

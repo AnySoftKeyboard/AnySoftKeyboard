@@ -5,6 +5,14 @@ name: third-party-update
 on:
   schedule:
     - cron: '29 04 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/verify-third-party-update-greps.sh'
+      - 'scripts/update_third_party_artifacts.sh'
+      - 'scripts/error-prone-auto-patch.sh'
+      - '.github/workflows/third_party_update.yml'
 
 env:
   TERM: dumb
