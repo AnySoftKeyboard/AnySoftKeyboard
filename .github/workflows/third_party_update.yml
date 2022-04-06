@@ -77,7 +77,7 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-maven-deps
         run: |
-          apt -y install libxml2-utils
+          apt-get install -y --allow-remove-essential --allow-change-held-packages libxml2-utils
           ./scripts/update_third_party_artifacts.sh
       - name: Sanity verification
         run: |
