@@ -3,13 +3,18 @@ name: localization
 
 # always run on the default branch: main
 on:
+  # schedule is used to fetch new, async, translations
   schedule:
     - cron: '24 02 * * *'
+  # push is used to upload new system strings
   push:
     branches:
       - main
     paths:
       - 'ime/app/src/main/res/values/strings.xml'
+      - 'scripts/upload_strings_to_crowdin_api.sh'
+      - 'scripts/update_strings_from_crowdin_api.sh'
+      - '.github/workflows/localization_update.yml'
 
 env:
   TERM: dumb
