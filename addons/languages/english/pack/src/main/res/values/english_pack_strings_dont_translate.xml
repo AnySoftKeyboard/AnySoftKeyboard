@@ -15,7 +15,7 @@
     <string name="workman_keyboard">Workman</string>
     <string name="halmak_keyboard">Halmak</string>
     <string name="english_keyboard_qwertz_symbols">English</string>
-    <string name="swiftkey_keyboard">English</string>
+    <string name="minimal_qwerty_keyboard">English</string>
     <string name="main_english_keyboard_id">c7535083-4fe6-49dc-81aa-c5438a1a343a</string>
 
     <string-array name="english_initial_suggestions">
