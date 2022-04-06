@@ -249,7 +249,7 @@ public class ViewTestUtils {
 
         for (int i = 1; i < actions.size() - 1; i++) {
             Assert.assertEquals(MotionEvent.ACTION_MOVE, actions.get(i).action);
-            Assert.assertEquals(startTime, (int) actions.get(i).downTime);
+            Assert.assertEquals(startTime, actions.get(i).downTime);
             Assert.assertNotEquals(startTime, actions.get(i).eventTime);
         }
 
