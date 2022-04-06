@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
-./gradlew assembleDebug 2>&1 | tee build/error-prone-build.log
-cat build/error-prone-build.log | sed -rn 's/.+\.java:[0-9]+:\s\w+:\s\[(\w+)\]\s.+/\1/p' > build/error-prone-errors.txt
-EP_ERRORS_ARRAY=( $(cat build/error-prone-errors.txt) )
+# Ensuring all compile tasks will run
+./gradlew clean
+
+TEMP_DIR="$(mktemp -d)"
+LOG_FILE="${TEMP_DIR}/error-prone-build.log"
+ERRORS_LIST_FILE="${TEMP_DIR}/error-prone-errors.txt"
+
+./gradlew --no-build-cache compileDebugUnitTestJavaWithJavac compileDebugJavaWithJavac 2>&1 | tee ${LOG_FILE}
+cat ${LOG_FILE} | sed -rn 's/.+\.java:[0-9]+:\s\w+:\s\[(\w+)\]\s.+/\1/p' > ${ERRORS_LIST_FILE}
+EP_ERRORS_ARRAY=( $(cat ${ERRORS_LIST_FILE}) )
 EP_ERRORS_LIST=$(IFS=, ; echo "${EP_ERRORS_ARRAY[*]}")
 
 echo ""
@@ -14,7 +21,7 @@ if [[ ! -z "$EP_ERRORS_LIST" ]]; then
   echo ""
   echo "******************"
   echo ""
-  ./gradlew assembleDebug -PErrorProneAutoPatchList=${EP_ERRORS_LIST}
+  ./gradlew --no-build-cache compileDebugUnitTestJavaWithJavac compileDebugJavaWithJavac -PErrorProneAutoPatchList=${EP_ERRORS_LIST}
   ./gradlew googleJavaFormat
 else
   echo "* No issues were found with Error-Prone."
