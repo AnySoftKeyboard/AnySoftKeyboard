@@ -3,6 +3,11 @@ set -e
 
 GREP_VERSION_CLASSES="[[:digit:]]\\{1,\\}[.][[:digit:]]\\{1,\\}[[:punct:][:alnum:]]*"
 
+if [[ -z "$(git config --list | grep user.name)" ]]; then
+  git config user.email "ask@evendanan.net"
+  git config user.name "Polyglot"
+fi
+
 function do_update() {
   local MAVEN_URL="$1"
   local GROUP_ID="$2"
