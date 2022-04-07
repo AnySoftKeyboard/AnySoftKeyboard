@@ -12,7 +12,7 @@ env:
 jobs:
   promote:
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.15.3
+    container: menny/android_base:1.15.4
     strategy:
       matrix:
         refname: [main, release-branch-addons-v4.1-r2]

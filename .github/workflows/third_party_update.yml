@@ -25,14 +25,14 @@ env:
 jobs:
   sanity-test:
     runs-on: ubuntu-18.04
-    container: menny/android_base:1.15.3
+    container: menny/android_base:1.15.4
     steps:
       - uses: actions/checkout@v2
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2
         with:
@@ -68,7 +68,7 @@ jobs:
           labels: automerge
   general-maven-update:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2
         with:
@@ -76,9 +76,7 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-maven-deps
-        run: |
-          apt-get install -y --allow-remove-essential --allow-change-held-packages libxml2-utils
-          ./scripts/update_third_party_artifacts.sh
+        run: ./scripts/update_third_party_artifacts.sh
       - name: Sanity verification
         run: |
           ./gradlew :api:assembleDebug :api:lintDebug
@@ -96,7 +94,7 @@ jobs:
           labels: automerge
   robolectric-update:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2
         with:
@@ -136,7 +134,7 @@ jobs:
           labels: automerge
   build-tools-update:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2
         with:
@@ -170,7 +168,7 @@ jobs:
           labels: automerge
   error-prone-update:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2
         with:
@@ -227,7 +225,7 @@ jobs:
           labels: automerge
   google-format-update:
     runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2
         with:
