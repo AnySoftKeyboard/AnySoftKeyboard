@@ -121,7 +121,7 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
-    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.4.1'
+    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.4.2'
 
     implementation 'androidx.multidex:multidex:2.0.1'
 
