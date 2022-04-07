@@ -14,7 +14,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker://menny/android_ndk:1.15.3"
+  image: "docker://menny/android_ndk:1.15.4"
   entrypoint: /bin/bash
   args:
     - .github/actions/collect-reports/collect.sh
