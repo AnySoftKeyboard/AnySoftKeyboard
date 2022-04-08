@@ -190,6 +190,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Kompaktiškas išdėstymas dešinėje</string>
     <string name="swipe_action_name_compact_layout_to_left">Kompaktiškas išdėstymas kairėje</string>
     <string name="swipe_action_name_utility_keyboard">Rodyti pagalbinę klaviatūrą</string>
+    <string name="swipe_action_name_quick_text_popup">Rodyti jaustukų iškylantį langą.</string>
     <string name="settings_swipe_velocity_threshold_title">Perbraukimo greičio slenkstis</string>
     <string name="settings_swipe_velocity_threshold_summary">Minimalus perbraukimo gesto greitis. Dabartinis %s</string>
     <string name="settings_swipe_velocity_very_slow">Labai lėtai</string>
@@ -662,5 +663,7 @@
     <string name="app_share_text">Leiskite man rekomenduoti atviro kodo, privatumo-orientuota, nemokamą, daugumos kalbų „Android“ klaviatūrą
 „AnySoftKeyboard“!\nGaukite ją iš:\n„Google Play Parduotuvės“: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\n„F-Droid“: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">spausk mane dėl siurprizo</string>
+    <string name="backup_restore_not_support_before_kitkat">Nepalaikoma jūsų „Android“ įrenginyję</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Kurti atsargines kopijas ir jas atkurti nėra palaikoma įrenginiams kurie naudoją „Android“ versiją prieš „KitKat“ (Versiją 4.4).</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
