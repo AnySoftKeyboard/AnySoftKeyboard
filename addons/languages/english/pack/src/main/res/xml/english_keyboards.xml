@@ -57,5 +57,8 @@
               defaultDictionaryLocale="en" description="@string/english_keyboard_qwertz_symbols_description"
               index="12" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/english_physical" />
-
+    <Keyboard nameResId="@string/minimal_qwerty_keyboard"
+              layoutResId="@xml/minimal_qwerty" id="a59067bb-46d3-48a6-9ede-ccc3ace13a04"
+              defaultDictionaryLocale="en" description="@string/minimal_qwerty_keyboard_description"
+              index="13"/>
 </Keyboards>
