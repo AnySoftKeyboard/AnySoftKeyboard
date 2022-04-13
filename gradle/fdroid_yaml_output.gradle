@@ -53,9 +53,7 @@ subprojects {
     tasks.configureEach { newTask ->
         if (newTask.name == 'assembleRelease') {
             if (newTask.project.plugins.hasPlugin('com.android.application')) {
-                generateFdroidYamls.configure {
-                    dependsOn newTask
-                }
+                newTask.finalizedBy(generateFdroidYamls)
             }
         }
     }
