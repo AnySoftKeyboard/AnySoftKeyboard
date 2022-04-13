@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
-import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvider;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
@@ -33,7 +32,7 @@ public class GlobalPrefsBackup {
         return Collections.singletonList(
                 new ProviderDetails(
                         new RxSharedPrefs.SharedPrefsProvider(
-                                PreferenceManager.getDefaultSharedPreferences(context)),
+                                DirectBootAwareSharedPreferences.create(context)),
                         R.string.shared_prefs_provider_name));
     }
 
@@ -41,7 +40,7 @@ public class GlobalPrefsBackup {
         return Arrays.asList(
                 new ProviderDetails(
                         new RxSharedPrefs.SharedPrefsProvider(
-                                PreferenceManager.getDefaultSharedPreferences(context)),
+                                DirectBootAwareSharedPreferences.create(context)),
                         R.string.shared_prefs_provider_name),
                 new ProviderDetails(
                         new UserDictionaryPrefsProvider(context),

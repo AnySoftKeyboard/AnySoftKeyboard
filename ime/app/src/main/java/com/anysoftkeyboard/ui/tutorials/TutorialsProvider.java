@@ -22,10 +22,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -67,7 +67,7 @@ public class TutorialsProvider {
 
     private static boolean firstTestersTimeVersionLoaded(Context context) {
         final String KEY = "testers_version_version_hash";
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sp = DirectBootAwareSharedPreferences.create(context);
         final String lastDebugVersionHash = sp.getString(KEY, "NONE");
         String currentHash = BuildConfig.VERSION_NAME + " code " + BuildConfig.VERSION_CODE;
 

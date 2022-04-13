@@ -28,7 +28,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -86,6 +85,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     protected AddOnsFactory(
             @NonNull Context context,
+            @NonNull SharedPreferences sharedPreferences,
             String tag,
             String receiverInterface,
             String receiverMetaData,
@@ -111,7 +111,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         mDevAddOnsIncluded = isDebugBuild;
         mDefaultAddOnId =
                 defaultAddOnStringId == 0 ? null : context.getString(defaultAddOnStringId);
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mSharedPreferences = sharedPreferences;
 
         if (isDebugBuild && readExternalPacksToo) {
             Logger.d(
@@ -564,6 +564,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         protected SingleAddOnsFactory(
                 @NonNull Context context,
+                @NonNull SharedPreferences sharedPreferences,
                 String tag,
                 String receiverInterface,
                 String receiverMetaData,
@@ -576,6 +577,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 boolean isTestingBuild) {
             super(
                     context,
+                    sharedPreferences,
                     tag,
                     receiverInterface,
                     receiverMetaData,
@@ -616,6 +618,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         protected MultipleAddOnsFactory(
                 @NonNull Context context,
+                @NonNull SharedPreferences sharedPreferences,
                 String tag,
                 String receiverInterface,
                 String receiverMetaData,
@@ -628,6 +631,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 boolean isTestingBuild) {
             super(
                     context,
+                    sharedPreferences,
                     tag,
                     receiverInterface,
                     receiverMetaData,

@@ -19,7 +19,6 @@ package com.anysoftkeyboard.ime;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
-import android.preference.PreferenceManager;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +27,7 @@ import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -52,7 +52,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     @NonNull private TagsExtractor mTagsExtractor = TagsExtractorImpl.NO_OP;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
     private SharedPreferences mSharedPrefsNotToUse;
-    private SharedPreferences.OnSharedPreferenceChangeListener mUpdatedPrefKeysListener =
+    private final SharedPreferences.OnSharedPreferenceChangeListener mUpdatedPrefKeysListener =
             (sharedPreferences, key) -> {
                 if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX)
                         && mTagsExtractor.isEnabled()) {
@@ -75,7 +75,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
                                 this::updateTagExtractor,
                                 GenericOnError.onError("settings_key_search_quick_text_tags")));
 
-        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPrefsNotToUse = DirectBootAwareSharedPreferences.create(this);
         mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
     }
 
@@ -269,7 +269,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         @NonNull
         @Override
         public Iterator<CharSequence> iterator() {
-            return new Iterator<CharSequence>() {
+            return new Iterator<>() {
                 private int mCurrentIndex = 0;
 
                 @Override
