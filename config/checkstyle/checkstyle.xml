@@ -19,13 +19,6 @@
         <property name="message" value="Do not use this. Use only official icons." />
     </module>
 
-    <module name="RegexpSingleline">
-        <property name="id" value="DoNotRegisterContentObserverDirectly" />
-        <property name="format" value="registerContentObserver" />
-        <property name="fileExtensions" value="java" />
-        <property name="message" value="Do not use registerContentObserver/unregisterContentObserver. Use RxContentResolver instead." />
-    </module>
-
     <module name="RegexpOnFilename">
         <property name="match" value="true"/>
         <property name="fileNamePattern" value="^beta\.txt$"/>
@@ -45,6 +38,12 @@
             <property name="id" value="EasyPermissionOnlyUsingHelper" />
             <property name="format" value="EasyPermissions" />
             <property name="message" value="User PermissionRequestHelper!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="DoNotRegisterContentObserverDirectly" />
+            <property name="format" value="registerContentObserver" />
+            <property name="message" value="Do not use registerContentObserver/unregisterContentObserver. Use RxContentResolver instead." />
         </module>
 
         <module name="RegexpSinglelineJava">
@@ -144,6 +143,12 @@
             <property name="id" value="DoNotUseThreadDump" />
             <property name="format" value="Thread\.dumpStack" />
             <property name="message" value="Do not use dumpStack method, is looks like debug code." />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="DoNotUsePreferenceManager" />
+            <property name="format" value="getDefaultSharedPreferences" />
+            <property name="message" value="Do not use this. Use DirectBootAwareSharedPreferences.create(Context) instead." />
         </module>
 
         <module name="RegexpSinglelineJava">
@@ -251,6 +256,7 @@
 
         <!-- allows suppressing using the //CHECKSTYLE:ON //CHECKSTYLE:OFF -->
         <module name="SuppressionCommentFilter" />
+
     </module>
 
     <module name="NewlineAtEndOfFile">

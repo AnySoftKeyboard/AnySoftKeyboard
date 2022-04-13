@@ -181,7 +181,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context appContext = getActivity().getApplicationContext();
+        Context appContext = requireContext().getApplicationContext();
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
@@ -243,7 +243,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 mAllAddOns.size(),
                 mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
-        mRecyclerView.getAdapter().notifyDataSetChanged();
         MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
     }
 
@@ -256,7 +255,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        if (mAllAddOns != null && position == mAllAddOns.size()) {
+                        if (position == mAllAddOns.size()) {
                             return mColumnsCount;
                         } else {
                             return 1;
@@ -321,7 +320,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
                 }
                 mRecyclerView.getAdapter().notifyItemChanged(previouslyEnabledIndex);
-                mRecyclerView.getAdapter().notifyItemChanged(getBindingAdapterPosition());
             } else {
                 // clicking in multi-selection means flip
                 if (isEnabled) {
@@ -331,9 +329,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     mEnabledAddOnsIds.add(mAddOn.getId());
                     mFactory.setAddOnEnabled(mAddOn.getId(), true);
                 }
-
-                mRecyclerView.getAdapter().notifyItemChanged(getBindingAdapterPosition());
             }
+
+            mRecyclerView.getAdapter().notifyItemChanged(getBindingAdapterPosition());
         }
     }
 

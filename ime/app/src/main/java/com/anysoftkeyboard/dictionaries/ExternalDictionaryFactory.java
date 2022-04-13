@@ -27,6 +27,7 @@ import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import io.reactivex.Observable;
@@ -51,6 +52,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     public ExternalDictionaryFactory(Context context) {
         super(
                 context,
+                DirectBootAwareSharedPreferences.create(context),
                 TAG,
                 "com.menny.android.anysoftkeyboard.DICTIONARY",
                 "com.menny.android.anysoftkeyboard.dictionaries",

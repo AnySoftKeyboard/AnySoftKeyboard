@@ -1,12 +1,11 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -18,7 +17,11 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
+        // note: we can not use mSharedPrefs, since this method might be
+        // called before onAttached is called.
+        return (mSharedPrefs == null
+                                ? DirectBootAwareSharedPreferences.create(context)
+                                : mSharedPrefs)
                         .getBoolean(SKIPPED_PREF_KEY, false)
                 || SetupSupport.hasLanguagePackForCurrentLocale(
                         AnyApplication.getKeyboardFactory(context).getAllAddOns());
@@ -27,36 +30,22 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSkipped =
-                PreferenceManager.getDefaultSharedPreferences(getContext())
-                        .getBoolean(SKIPPED_PREF_KEY, false);
+        mSkipped = mSharedPrefs.getBoolean(SKIPPED_PREF_KEY, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final View.OnClickListener openPlayStoreAction =
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AddOnStoreSearchView.startMarketActivity(getContext(), "language");
-                    }
-                };
+                v -> AddOnStoreSearchView.startMarketActivity(getContext(), "language");
         view.findViewById(R.id.go_to_download_packs_action).setOnClickListener(openPlayStoreAction);
         mStateIcon.setOnClickListener(openPlayStoreAction);
         view.findViewById(R.id.skip_download_packs_action)
                 .setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                mSkipped = true;
-                                final SharedPreferences.Editor editor =
-                                        PreferenceManager.getDefaultSharedPreferences(getContext())
-                                                .edit();
-                                editor.putBoolean(SKIPPED_PREF_KEY, true);
-                                editor.apply();
-                                refreshWizardPager();
-                            }
+                        view1 -> {
+                            mSkipped = true;
+                            mSharedPrefs.edit().putBoolean(SKIPPED_PREF_KEY, true).apply();
+                            refreshWizardPager();
                         });
     }
 

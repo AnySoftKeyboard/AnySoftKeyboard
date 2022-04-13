@@ -17,17 +17,15 @@
 package com.anysoftkeyboard.ui.dev;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Debug;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.io.File;
@@ -51,15 +49,15 @@ public class DeveloperUtils {
     }
 
     public static boolean hasTracingRequested(Context applicationContext) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        return prefs.getBoolean(KEY_SDCARD_TRACING_ENABLED, false);
+        return DirectBootAwareSharedPreferences.create(applicationContext)
+                .getBoolean(KEY_SDCARD_TRACING_ENABLED, false);
     }
 
     public static void setTracingRequested(Context applicationContext, boolean enabled) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        Editor e = prefs.edit();
-        e.putBoolean(KEY_SDCARD_TRACING_ENABLED, enabled);
-        e.apply();
+        DirectBootAwareSharedPreferences.create(applicationContext)
+                .edit()
+                .putBoolean(KEY_SDCARD_TRACING_ENABLED, enabled)
+                .apply();
     }
 
     private static boolean msTracingStarted = false;
@@ -105,7 +103,7 @@ public class DeveloperUtils {
                 && context.getResources().getConfiguration() != null) {
             Configuration configuration = context.getResources().getConfiguration();
             sb.append("Locale:").append(configuration.locale).append(NEW_LINE);
-            sb.append("configuration:").append(configuration.toString()).append(NEW_LINE);
+            sb.append("configuration:").append(configuration).append(NEW_LINE);
         }
 
         sb.append("That's all I know.");

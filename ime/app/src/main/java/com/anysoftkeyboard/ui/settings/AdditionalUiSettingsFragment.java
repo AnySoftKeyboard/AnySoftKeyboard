@@ -27,12 +27,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pixel.GeneralDialogController;
@@ -56,7 +56,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
 
     private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
         final SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(requireContext());
+                DirectBootAwareSharedPreferences.create(requireContext());
         final boolean[] enableStateForRowModes =
                 new boolean[] {
                     sharedPreferences.getBoolean(

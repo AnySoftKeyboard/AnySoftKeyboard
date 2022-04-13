@@ -1,10 +1,10 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -38,7 +38,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
         super.onCreate();
         mRxPrefs = AnyApplication.prefs(this);
 
-        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPrefsNotToUse = DirectBootAwareSharedPreferences.create(this);
 
         mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(
                 mGeneralShardPrefChangedListener);

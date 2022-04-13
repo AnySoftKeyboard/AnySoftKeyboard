@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -45,6 +46,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     public KeyboardFactory(@NonNull Context context) {
         super(
                 context,
+                DirectBootAwareSharedPreferences.create(context),
                 TAG,
                 "com.menny.android.anysoftkeyboard.KEYBOARD",
                 "com.menny.android.anysoftkeyboard.keyboards",

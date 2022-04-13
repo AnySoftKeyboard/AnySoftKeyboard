@@ -2,10 +2,8 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
@@ -15,6 +13,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
@@ -45,7 +44,11 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
+        // note: we can not use mSharedPrefs, since this method might be
+        // called before onAttached is called.
+        return (mSharedPrefs == null
+                        ? DirectBootAwareSharedPreferences.create(context)
+                        : mSharedPrefs)
                 .getBoolean(STARTED_PREF_KEY, false);
     }
 
@@ -53,10 +56,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.go_to_start_setup:
-                final SharedPreferences.Editor editor =
-                        PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-                editor.putBoolean(STARTED_PREF_KEY, true);
-                editor.apply();
+                mSharedPrefs.edit().putBoolean(STARTED_PREF_KEY, true).apply();
                 refreshWizardPager();
                 break;
             case R.id.setup_wizard_welcome_privacy_action:
@@ -99,7 +99,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
         private final Context mContext;
         private final DemoAnyKeyboardView mDemoAnyKeyboardView;
 
-        private KeyboardAddOnAndBuilder mKeyboardBuilder;
+        private final KeyboardAddOnAndBuilder mKeyboardBuilder;
 
         public ChangeDemoKeyboardRunnable(
                 Context context, DemoAnyKeyboardView demoAnyKeyboardView) {

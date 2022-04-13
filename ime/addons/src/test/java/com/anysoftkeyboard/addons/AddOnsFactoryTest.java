@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import androidx.annotation.StringRes;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.Assert;
@@ -23,6 +24,7 @@ public class AddOnsFactoryTest {
     public void testMustSupplyPrefix() throws Exception {
         new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(
                 getApplicationContext(),
+                SharedPrefsHelper.getSharedPreferences(),
                 "ASK_KT",
                 "com.anysoftkeyboard.plugin.TEST",
                 "com.anysoftkeyboard.plugindata.TEST",
@@ -207,6 +209,7 @@ public class AddOnsFactoryTest {
         private TestableAddOnsFactory(@StringRes int defaultAddOnId, boolean isDevBuild) {
             super(
                     getApplicationContext(),
+                    SharedPrefsHelper.getSharedPreferences(),
                     "ASK_KT",
                     "com.anysoftkeyboard.plugin.TEST",
                     "com.anysoftkeyboard.plugindata.TEST",
@@ -254,6 +257,7 @@ public class AddOnsFactoryTest {
         protected TestableSingleAddOnsFactory() {
             super(
                     getApplicationContext(),
+                    SharedPrefsHelper.getSharedPreferences(),
                     "ASK_KT",
                     "com.anysoftkeyboard.plugin.TEST",
                     "com.anysoftkeyboard.plugindata.TEST",
@@ -294,6 +298,7 @@ public class AddOnsFactoryTest {
         protected TestableMultiAddOnsFactory() {
             super(
                     getApplicationContext(),
+                    SharedPrefsHelper.getSharedPreferences(),
                     "ASK_KT",
                     "com.anysoftkeyboard.plugin.TEST",
                     "com.anysoftkeyboard.plugindata.TEST",

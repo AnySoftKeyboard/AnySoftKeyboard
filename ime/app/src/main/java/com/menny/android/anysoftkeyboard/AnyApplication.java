@@ -25,7 +25,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -47,6 +46,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
@@ -125,12 +125,12 @@ public class AnyApplication extends MultiDexApplication {
     }
 
     public static long getCurrentVersionInstallTime(Context appContext) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
+        SharedPreferences sp = DirectBootAwareSharedPreferences.create(appContext);
         return sp.getLong(PREF_KEYS_LAST_INSTALLED_APP_TIME, 0);
     }
 
     public static int getFirstAppVersionInstalled(Context appContext) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
+        SharedPreferences sp = DirectBootAwareSharedPreferences.create(appContext);
         return sp.getInt(PREF_KEYS_FIRST_INSTALLED_APP_VERSION, 0);
     }
 
@@ -158,7 +158,7 @@ public class AnyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = DirectBootAwareSharedPreferences.create(this);
         setupCrashHandler(sp);
         Logger.d(TAG, "** Starting application in DEBUG mode.");
         Logger.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
@@ -286,7 +286,7 @@ public class AnyApplication extends MultiDexApplication {
     }
 
     private void updateStatistics(Context context) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sp = DirectBootAwareSharedPreferences.create(context);
 
         boolean firstAppInstall = false;
         boolean firstVersionInstall = false;

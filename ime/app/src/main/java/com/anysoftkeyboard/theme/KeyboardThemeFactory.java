@@ -20,8 +20,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -42,6 +42,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
     public KeyboardThemeFactory(@NonNull Context context) {
         super(
                 context,
+                DirectBootAwareSharedPreferences.create(context),
                 "ASK_KT",
                 "com.anysoftkeyboard.plugin.KEYBOARD_THEME",
                 "com.anysoftkeyboard.plugindata.keyboardtheme",
@@ -112,7 +113,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
         return Observable.<String>create(
                         emitter -> {
                             final SharedPreferences sp =
-                                    PreferenceManager.getDefaultSharedPreferences(context);
+                                    DirectBootAwareSharedPreferences.create(context);
                             final SharedPreferences.OnSharedPreferenceChangeListener listener =
                                     (preferences, key) -> emitter.onNext(key);
                             emitter.setCancellable(
