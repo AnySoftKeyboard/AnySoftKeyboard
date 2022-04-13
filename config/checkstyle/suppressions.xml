@@ -5,6 +5,9 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
+    <suppress files=".*\/src\/test\/.*\.java" id="DoNotUsePreferenceManager" />
+    <suppress files=".*\/SharedPrefsHelper\.java" id="DoNotUsePreferenceManager" />
+
     <suppress files=".*\/src\/test\/.*\.java" id="RawGetKeyboardTheme" />
 
     <suppress files="PermissionRequestHelper\.java" id="EasyPermissionOnlyUsingHelper" />

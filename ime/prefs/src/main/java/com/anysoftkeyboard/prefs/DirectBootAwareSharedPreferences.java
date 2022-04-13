@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.preference.PreferenceManager;
+
 import com.anysoftkeyboard.base.utils.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,10 +22,14 @@ import java.util.Set;
 
 public class DirectBootAwareSharedPreferences implements SharedPreferences {
 
-    @NonNull private final Context mContext;
-    @NonNull private final SharedPreferencesFactory mSharedPreferencesFactory;
-    @NonNull private SharedPreferences mActual = new NoOpSharedPreferences();
-    @Nullable private BroadcastReceiver mBootLockEndedReceiver;
+    @NonNull
+    private final Context mContext;
+    @NonNull
+    private final SharedPreferencesFactory mSharedPreferencesFactory;
+    @NonNull
+    private SharedPreferences mActual = new NoOpSharedPreferences();
+    @Nullable
+    private BroadcastReceiver mBootLockEndedReceiver;
 
     @VisibleForTesting
     DirectBootAwareSharedPreferences(
@@ -37,7 +44,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
     public static SharedPreferences create(@NonNull Context context) {
         // CHECKSTYLE:OFF
         return new DirectBootAwareSharedPreferences(
-                context.getApplicationContext(), PreferenceManager::getDefaultSharedPreferences);
+                context.getApplicationContext(),
+                PreferenceManager::getDefaultSharedPreferences);
         // CHECKSTYLE:ON
     }
 
@@ -70,7 +78,7 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                 Logger.w(
                         "DirectBootAwareSharedPreferences",
                         e,
-                        "Failed to create getDefaultSharedPreferences");
+                        "Failed to create Default-Shared-Preferences");
                 mActual = new NoOpSharedPreferences();
                 mBootLockEndedReceiver =
                         new BroadcastReceiver() {
@@ -268,7 +276,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
             }
 
             @Override
-            public void apply() {}
+            public void apply() {
+            }
         }
     }
 }
