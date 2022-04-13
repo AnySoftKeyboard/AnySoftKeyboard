@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -16,7 +17,12 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return mSharedPrefs.getBoolean(SKIPPED_PREF_KEY, false)
+        // note: we can not use mSharedPrefs, since this method might be
+        // called before onAttached is called.
+        return (mSharedPrefs == null
+                                ? DirectBootAwareSharedPreferences.create(context)
+                                : mSharedPrefs)
+                        .getBoolean(SKIPPED_PREF_KEY, false)
                 || SetupSupport.hasLanguagePackForCurrentLocale(
                         AnyApplication.getKeyboardFactory(context).getAllAddOns());
     }

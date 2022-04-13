@@ -32,9 +32,9 @@ public abstract class WizardPageBaseFragment extends Fragment {
     protected abstract int getPageLayoutId();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mSharedPrefs = DirectBootAwareSharedPreferences.create(requireContext());
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mSharedPrefs = DirectBootAwareSharedPreferences.create(context);
     }
 
     @Override

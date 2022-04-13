@@ -13,6 +13,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
@@ -43,7 +44,12 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return mSharedPrefs.getBoolean(STARTED_PREF_KEY, false);
+        // note: we can not use mSharedPrefs, since this method might be
+        // called before onAttached is called.
+        return (mSharedPrefs == null
+                        ? DirectBootAwareSharedPreferences.create(context)
+                        : mSharedPrefs)
+                .getBoolean(STARTED_PREF_KEY, false);
     }
 
     @Override
