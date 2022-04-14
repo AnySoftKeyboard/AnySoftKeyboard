@@ -73,6 +73,10 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                 Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: Success!");
                 for (OnSharedPreferenceChangeListener listener : listeners) {
                     mActual.registerOnSharedPreferenceChangeListener(listener);
+                    // notify about changes
+                    for (String key : mActual.getAll().keySet()) {
+                        listener.onSharedPreferenceChanged(this, key);
+                    }
                 }
                 mOnReadyListener.accept(this);
             } else {

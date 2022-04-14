@@ -20,6 +20,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.After;
 import org.junit.Assert;
@@ -684,5 +685,54 @@ public class RxSharedPrefsTest {
         Assert.assertEquals(
                 RxSharedPrefs.CONFIGURATION_LEVEL_VALUE,
                 getSharedPreferences().getInt(RxSharedPrefs.CONFIGURATION_VERSION, -12));
+    }
+
+    @Test
+    public void testReturnsDefaultsUntilUserUnlocks() throws Exception {
+
+        Application application = getApplicationContext();
+        ShadowUserManager shadowUserManager =
+                Shadows.shadowOf(application.getSystemService(UserManager.class));
+        shadowUserManager.setUserUnlocked(false);
+
+        SharedPrefsHelper.setPrefsValue("testing-int", 42);
+        SharedPrefsHelper.setPrefsValue("testing-string", "42");
+        RxSharedPrefs underTest = new RxSharedPrefs(application, this::testRestoreFunction);
+
+        AtomicInteger intAnswer = new AtomicInteger(0);
+        AtomicReference<String> stringAnswer = new AtomicReference<>("none");
+
+        mCompositeDisposable.add(
+                underTest
+                        .getInteger("testing-int", R.integer.pref_test_int_value)
+                        .asObservable()
+                        .subscribe(intAnswer::set));
+        Assert.assertEquals(12, intAnswer.get());
+        intAnswer.set(0);
+        mCompositeDisposable.add(
+                underTest
+                        .getString("testing-string", R.string.pref_test_value)
+                        .asObservable()
+                        .subscribe(stringAnswer::set));
+        Assert.assertEquals("value", stringAnswer.get());
+        stringAnswer.set("none");
+
+        shadowUserManager.setUserUnlocked(true);
+        Shadows.shadowOf(application).getRegisteredReceivers().stream()
+                .filter(w -> w.intentFilter.hasAction(Intent.ACTION_USER_UNLOCKED))
+                .forEach(
+                        w ->
+                                w.broadcastReceiver.onReceive(
+                                        application, new Intent(Intent.ACTION_USER_UNLOCKED)));
+
+        // now, we will get the actual stored value
+        Assert.assertEquals(42, intAnswer.get());
+        Assert.assertEquals("42", stringAnswer.get());
+
+        SharedPrefsHelper.setPrefsValue("testing-int", 43);
+        SharedPrefsHelper.setPrefsValue("testing-string", "43");
+
+        Assert.assertEquals(43, intAnswer.get());
+        Assert.assertEquals("43", stringAnswer.get());
     }
 }

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -227,6 +228,30 @@ public class DirectBootAwareSharedPreferencesTest {
 
         mFactory.setInDirectBoot(false);
         Assert.assertEquals(-1, valueReceiver.get());
+        underTest.edit().putInt("int", 2).commit();
+        Assert.assertEquals(2, valueReceiver.get());
+    }
+
+    @Test
+    public void testListenersCalledWithAllKeysWhenSwitched() {
+        SharedPrefsHelper.setPrefsValue("int", 40);
+        mFactory.setInDirectBoot(true);
+
+        DirectBootAwareSharedPreferences underTest =
+                new DirectBootAwareSharedPreferences(
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
+
+        final AtomicInteger valueReceiver = new AtomicInteger(-1);
+        SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
+                (sharedPreferences, key) -> valueReceiver.set(sharedPreferences.getInt("int", -1));
+        underTest.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+        underTest.edit().putInt("int", 1).commit();
+        // nothing was set, we're in no-op land
+        Assert.assertEquals(-1, valueReceiver.get());
+
+        mFactory.setInDirectBoot(false);
+        // listener was called on switch
+        Assert.assertEquals(40, valueReceiver.get());
         underTest.edit().putInt("int", 2).commit();
         Assert.assertEquals(2, valueReceiver.get());
     }
