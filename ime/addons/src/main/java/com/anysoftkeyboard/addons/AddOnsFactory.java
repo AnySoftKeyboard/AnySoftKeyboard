@@ -344,6 +344,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
         for (E addon : external) {
             Logger.d(mTag, "External add-on %s loaded", addon.getId());
         }
+        // ensures there are no duplicates
+        // also, allow overriding internal packs with externals with the same ID
+        mAddOns.removeAll(external);
         mAddOns.addAll(external);
         Logger.d(mTag, "Have %d add on for %s", mAddOns.size(), getClass().getName());
 

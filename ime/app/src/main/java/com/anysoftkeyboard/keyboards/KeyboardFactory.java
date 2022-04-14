@@ -53,7 +53,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
                 "Keyboards",
                 "Keyboard",
                 PREF_ID_PREFIX,
-                0,
+                R.xml.english_keyboards,
                 R.string.settings_default_keyboard_id,
                 true,
                 BuildConfig.TESTING_BUILD);
