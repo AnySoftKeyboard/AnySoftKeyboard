@@ -12,6 +12,7 @@ import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class DirectBootAwareSharedPreferencesTest {
 
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
 
         underTest
                 .edit()
@@ -66,7 +67,7 @@ public class DirectBootAwareSharedPreferencesTest {
 
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
 
         underTest
                 .edit()
@@ -95,7 +96,7 @@ public class DirectBootAwareSharedPreferencesTest {
 
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
 
         underTest.edit().putBoolean("boolean", true).commit();
         // returns the defaults
@@ -112,7 +113,7 @@ public class DirectBootAwareSharedPreferencesTest {
     public void testDoesNotCreateReceiverIfOldVersion() {
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
         Assert.assertNotNull(underTest);
         ShadowApplication shadowApplication =
                 Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext());
@@ -126,7 +127,7 @@ public class DirectBootAwareSharedPreferencesTest {
         mFactory.setInDirectBoot(false);
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
         Assert.assertNotNull(underTest);
         ShadowApplication shadowApplication =
                 Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext());
@@ -140,7 +141,7 @@ public class DirectBootAwareSharedPreferencesTest {
         mFactory.setInDirectBoot(true);
         Context applicationContext = ApplicationProvider.getApplicationContext();
         DirectBootAwareSharedPreferences underTest =
-                new DirectBootAwareSharedPreferences(applicationContext, mFactory);
+                new DirectBootAwareSharedPreferences(applicationContext, sp -> {}, mFactory);
         Assert.assertNotNull(underTest);
         ShadowApplication shadowApplication = Shadows.shadowOf((Application) applicationContext);
         Assert.assertTrue(
@@ -171,12 +172,50 @@ public class DirectBootAwareSharedPreferencesTest {
     }
 
     @Test
+    @Config(sdk = Build.VERSION_CODES.M)
+    public void testCallsOnReadyAfterCreateOnOldDevices() {
+        final AtomicReference<SharedPreferences> called = new AtomicReference<>(null);
+        DirectBootAwareSharedPreferences underTest =
+                new DirectBootAwareSharedPreferences(
+                        ApplicationProvider.getApplicationContext(), called::set, mFactory);
+        Assert.assertNotNull(underTest);
+        Assert.assertSame(underTest, called.get());
+    }
+
+    @Test
+    public void testCallsOnReadyIfDeviceIsUnlocked() {
+        mFactory.setInDirectBoot(false);
+        final AtomicReference<SharedPreferences> called = new AtomicReference<>(null);
+        DirectBootAwareSharedPreferences underTest =
+                new DirectBootAwareSharedPreferences(
+                        ApplicationProvider.getApplicationContext(), called::set, mFactory);
+        Assert.assertNotNull(underTest);
+        Assert.assertSame(underTest, called.get());
+    }
+
+    @Test
+    public void testCallsOnReadyAfterDeviceIsUnlocked() {
+        mFactory.setInDirectBoot(true);
+        final AtomicReference<SharedPreferences> called = new AtomicReference<>(null);
+        DirectBootAwareSharedPreferences underTest =
+                new DirectBootAwareSharedPreferences(
+                        ApplicationProvider.getApplicationContext(), called::set, mFactory);
+        Assert.assertNotNull(underTest);
+        // still locked
+        Assert.assertNull(called.get());
+
+        // unlocking
+        mFactory.setInDirectBoot(false);
+        Assert.assertSame(underTest, called.get());
+    }
+
+    @Test
     public void testListenersPassedWhenSwitchPrefImpl() {
         mFactory.setInDirectBoot(true);
 
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
 
         final AtomicInteger valueReceiver = new AtomicInteger(-1);
         SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
@@ -198,7 +237,7 @@ public class DirectBootAwareSharedPreferencesTest {
 
         DirectBootAwareSharedPreferences underTest =
                 new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                        ApplicationProvider.getApplicationContext(), sp -> {}, mFactory);
 
         final AtomicInteger valueReceiver = new AtomicInteger(-1);
         SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener =
@@ -215,9 +254,8 @@ public class DirectBootAwareSharedPreferencesTest {
 
     public static class TestSharedPreferencesFactory
             implements DirectBootAwareSharedPreferences.SharedPreferencesFactory {
-        private boolean mInDirectBootState = false;
-
         private final ShadowUserManager mShadowUserManager;
+        private boolean mInDirectBootState = false;
 
         TestSharedPreferencesFactory() {
             mShadowUserManager =
