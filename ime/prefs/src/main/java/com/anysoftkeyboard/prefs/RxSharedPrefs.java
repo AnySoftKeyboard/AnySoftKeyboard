@@ -65,16 +65,15 @@ public class RxSharedPrefs {
     @NonNull private final Resources mResources;
     @NonNull private final RxSharedPreferences mRxSharedPreferences;
 
-    public RxSharedPrefs(
-            @NonNull Context context,
-            @NonNull SharedPreferences sp,
-            @NonNull Consumer<File> restorer) {
+    public RxSharedPrefs(@NonNull Context context, @NonNull Consumer<File> restorer) {
         mResources = context.getResources();
-
-        applyAutoPrefsFile(context, restorer);
-
-        upgradeSettingsValues(sp);
-
+        final SharedPreferences sp =
+                DirectBootAwareSharedPreferences.create(
+                        context,
+                        workingSharedPrefs -> {
+                            applyAutoPrefsFile(context, restorer);
+                            upgradeSettingsValues(workingSharedPrefs);
+                        });
         mRxSharedPreferences = RxSharedPreferences.create(sp);
     }
 
@@ -174,7 +173,8 @@ public class RxSharedPrefs {
         e.apply();
     }
 
-    private void applyAutoPrefsFile(@NonNull Context context, @NonNull Consumer<File> restorer) {
+    private static void applyAutoPrefsFile(
+            @NonNull Context context, @NonNull Consumer<File> restorer) {
         final String autoApplyLogTag = TAG + "_auto_apply_pref";
 
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -303,7 +303,7 @@ public class RxSharedPrefs {
         }
 
         private static void storeBooleanToEditor(Editor editor, String key, String value) {
-            editor.putBoolean(key, Boolean.valueOf(value));
+            editor.putBoolean(key, Boolean.parseBoolean(value));
         }
 
         private static void storeIntToEditor(Editor editor, String key, String value) {
