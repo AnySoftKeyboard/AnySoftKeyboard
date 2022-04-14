@@ -107,6 +107,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
         mPrefIdPrefix = prefIdPrefix;
         mBuildInAddOnsResId = buildInAddonResId;
+        if (buildInAddonResId == AddOn.INVALID_RES_ID) {
+            throw new IllegalArgumentException("A built-in addon list MUST be provided!");
+        }
         mReadExternalPacksToo = readExternalPacksToo;
         mDevAddOnsIncluded = isDebugBuild;
         mDefaultAddOnId =
@@ -327,13 +330,16 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected void loadAddOns() {
         clearAddOnList();
 
-        if (mBuildInAddOnsResId != 0) {
-            List<E> local = getAddOnsFromResId(mContext, mBuildInAddOnsResId);
-            for (E addon : local) {
-                Logger.d(mTag, "Local add-on %s loaded", addon.getId());
-            }
-            mAddOns.addAll(local);
+        List<E> local = getAddOnsFromLocalResId(mBuildInAddOnsResId);
+        for (E addon : local) {
+            Logger.d(mTag, "Local add-on %s loaded", addon.getId());
         }
+        if (local.isEmpty()) {
+            throw new IllegalStateException(
+                    "No built-in addons were found for " + getClass().getName());
+        }
+        mAddOns.addAll(local);
+
         List<E> external = getExternalAddOns();
         for (E addon : external) {
             Logger.d(mTag, "External add-on %s loaded", addon.getId());
@@ -402,9 +408,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return externalAddOns;
     }
 
-    private List<E> getAddOnsFromResId(Context packContext, int addOnsResId) {
-        try (final XmlResourceParser xml = packContext.getResources().getXml(addOnsResId)) {
-            return parseAddOnsFromXml(packContext, xml);
+    private List<E> getAddOnsFromLocalResId(int addOnsResId) {
+        try (final XmlResourceParser xml = mContext.getResources().getXml(addOnsResId)) {
+            return parseAddOnsFromXml(mContext, xml, true);
         }
     }
 
@@ -415,11 +421,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 // issue 718: maybe a bad package?
                 return Collections.emptyList();
             }
-            return parseAddOnsFromXml(packContext, xml);
+            return parseAddOnsFromXml(packContext, xml, false);
         }
     }
 
-    private ArrayList<E> parseAddOnsFromXml(Context packContext, XmlPullParser xml) {
+    private ArrayList<E> parseAddOnsFromXml(
+            Context packContext, XmlPullParser xml, boolean isLocal) {
         final ArrayList<E> addOns = new ArrayList<>();
         try {
             int event;
@@ -443,9 +450,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
             }
         } catch (final IOException e) {
             Logger.e(mTag, "IO error:" + e);
+            if (isLocal) throw new RuntimeException(e);
             e.printStackTrace();
         } catch (final XmlPullParserException e) {
             Logger.e(mTag, "Parse error:" + e);
+            if (isLocal) throw new RuntimeException(e);
             e.printStackTrace();
         }
 

@@ -55,6 +55,79 @@ public class AddOnsFactoryTest {
         };
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMustSupplyBuiltInAddOnsList() throws Exception {
+        new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(
+                getApplicationContext(),
+                SharedPrefsHelper.getSharedPreferences(),
+                "ASK_KT",
+                "com.anysoftkeyboard.plugin.TEST",
+                "com.anysoftkeyboard.plugindata.TEST",
+                "TestAddOns",
+                "TestAddOn",
+                "test",
+                0,
+                R.string.test_default_test_addon_id,
+                true,
+                true) {
+
+            @Override
+            public void setAddOnEnabled(String addOnId, boolean enabled) {}
+
+            @Override
+            protected TestAddOn createConcreteAddOn(
+                    Context askContext,
+                    Context context,
+                    int apiVersion,
+                    CharSequence prefId,
+                    CharSequence name,
+                    CharSequence description,
+                    boolean isHidden,
+                    int sortIndex,
+                    AttributeSet attrs) {
+                return null;
+            }
+        };
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testMustSupplyNoneEmptyBuiltIns() throws Exception {
+        AddOnsFactory.SingleAddOnsFactory<TestAddOn> singleAddOnsFactory =
+                new AddOnsFactory.SingleAddOnsFactory<>(
+                        getApplicationContext(),
+                        SharedPrefsHelper.getSharedPreferences(),
+                        "ASK_KT",
+                        "com.anysoftkeyboard.plugin.TEST",
+                        "com.anysoftkeyboard.plugindata.TEST",
+                        "TestAddOns",
+                        "TestAddOn",
+                        "test",
+                        R.xml.test_add_ons_empty,
+                        R.string.test_default_test_addon_id,
+                        true,
+                        true) {
+
+                    @Override
+                    public void setAddOnEnabled(String addOnId, boolean enabled) {}
+
+                    @Override
+                    protected TestAddOn createConcreteAddOn(
+                            Context askContext,
+                            Context context,
+                            int apiVersion,
+                            CharSequence prefId,
+                            CharSequence name,
+                            CharSequence description,
+                            boolean isHidden,
+                            int sortIndex,
+                            AttributeSet attrs) {
+                        return null;
+                    }
+                };
+
+        Assert.assertNotNull(singleAddOnsFactory.getAllAddOns());
+    }
+
     @Test
     public void testGetAllAddOns() throws Exception {
         TestableAddOnsFactory factory = new TestableAddOnsFactory(true);
