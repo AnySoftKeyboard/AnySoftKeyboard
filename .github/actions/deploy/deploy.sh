@@ -53,7 +53,7 @@ for f in $(find . -name 'alpha.txt'); do
 done
 
 DEPLOY_ARGS=()
-DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" )
+DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" )
 if [[ "${FRACTION}" == "1.00" ]]; then
   DEPLOY_ARGS+=("--release-status" "completed")
 else
