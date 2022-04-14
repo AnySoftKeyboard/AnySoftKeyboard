@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.os.UserManagerCompat;
+import androidx.core.util.Consumer;
 import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.util.ArrayList;
@@ -22,22 +23,35 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
 
     @NonNull private final Context mContext;
     @NonNull private final SharedPreferencesFactory mSharedPreferencesFactory;
+    @NonNull private final Consumer<SharedPreferences> mOnReadyListener;
+
     @NonNull private SharedPreferences mActual = new NoOpSharedPreferences();
 
     @VisibleForTesting
     DirectBootAwareSharedPreferences(
-            @NonNull Context context, @NonNull SharedPreferencesFactory sharedPreferencesFactory) {
+            @NonNull Context context,
+            @NonNull Consumer<SharedPreferences> onReadyListener,
+            @NonNull SharedPreferencesFactory sharedPreferencesFactory) {
         Logger.d("DirectBootAwareSharedPreferences", "Creating DirectBootAwareSharedPreferences");
         mContext = context;
+        mOnReadyListener = onReadyListener;
         mSharedPreferencesFactory = sharedPreferencesFactory;
         obtainSharedPreferences();
     }
 
     @NonNull
     public static SharedPreferences create(@NonNull Context context) {
+        return create(context, sp -> {} /*no op listener*/);
+    }
+
+    @NonNull
+    public static SharedPreferences create(
+            @NonNull Context context, @NonNull Consumer<SharedPreferences> onReadyListener) {
         // CHECKSTYLE:OFF
         return new DirectBootAwareSharedPreferences(
-                context.getApplicationContext(), PreferenceManager::getDefaultSharedPreferences);
+                context.getApplicationContext(),
+                onReadyListener,
+                PreferenceManager::getDefaultSharedPreferences);
         // CHECKSTYLE:ON
     }
 
@@ -59,7 +73,12 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                 Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: Success!");
                 for (OnSharedPreferenceChangeListener listener : listeners) {
                     mActual.registerOnSharedPreferenceChangeListener(listener);
+                    // notify about changes
+                    for (String key : mActual.getAll().keySet()) {
+                        listener.onSharedPreferenceChanged(this, key);
+                    }
                 }
+                mOnReadyListener.accept(this);
             } else {
                 Logger.w(
                         "DirectBootAwareSharedPreferences",
@@ -88,6 +107,7 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
         } else {
             Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: old device");
             mActual = mSharedPreferencesFactory.create(mContext);
+            mOnReadyListener.accept(this);
         }
     }
 

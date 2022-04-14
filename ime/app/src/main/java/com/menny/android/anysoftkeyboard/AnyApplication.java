@@ -158,8 +158,8 @@ public class AnyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        SharedPreferences sp = DirectBootAwareSharedPreferences.create(this);
-        setupCrashHandler(sp);
+        DirectBootAwareSharedPreferences.create(this, this::onSharedPreferencesReady);
+
         Logger.d(TAG, "** Starting application in DEBUG mode.");
         Logger.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
         Logger.i(TAG, "** Release code: " + BuildConfig.VERSION_CODE);
@@ -174,10 +174,7 @@ public class AnyApplication extends MultiDexApplication {
                         + " concrete class "
                         + msDeviceSpecific.getClass().getName());
 
-        // setting some statistics
-        updateStatistics(this);
-
-        mRxSharedPrefs = new RxSharedPrefs(this, sp, this::prefsAutoRestoreFunction);
+        mRxSharedPrefs = new RxSharedPrefs(this, this::prefsAutoRestoreFunction);
 
         mKeyboardFactory = createKeyboardFactory();
         mExternalDictionaryFactory = createExternalDictionaryFactory();
@@ -186,8 +183,6 @@ public class AnyApplication extends MultiDexApplication {
         mExtensionKeyboardFactory = createToolsKeyboardExtensionFactory();
         mKeyboardThemeFactory = createKeyboardThemeFactory();
         mQuickTextKeyFactory = createQuickTextKeyFactory();
-
-        TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 
         mCompositeDisposable.add(
                 mRxSharedPrefs
@@ -225,6 +220,12 @@ public class AnyApplication extends MultiDexApplication {
 
         mPublicNotices = new ArrayList<>(EasterEggs.create());
         mPublicNotices.addAll(Notices.create(this));
+    }
+
+    private void onSharedPreferencesReady(@NonNull SharedPreferences sp) {
+        setupCrashHandler(sp);
+        updateStatistics(sp);
+        TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
     }
 
     private void prefsAutoRestoreFunction(@NonNull File file) {
@@ -285,9 +286,7 @@ public class AnyApplication extends MultiDexApplication {
         return mNightModeSubject;
     }
 
-    private void updateStatistics(Context context) {
-        SharedPreferences sp = DirectBootAwareSharedPreferences.create(context);
-
+    private void updateStatistics(@NonNull SharedPreferences sp) {
         boolean firstAppInstall = false;
         boolean firstVersionInstall = false;
 
