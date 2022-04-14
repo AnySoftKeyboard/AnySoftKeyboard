@@ -9,6 +9,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.os.UserManagerCompat;
 import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
     @NonNull private final Context mContext;
     @NonNull private final SharedPreferencesFactory mSharedPreferencesFactory;
     @NonNull private SharedPreferences mActual = new NoOpSharedPreferences();
-    @Nullable private BroadcastReceiver mBootLockEndedReceiver;
 
     @VisibleForTesting
     DirectBootAwareSharedPreferences(
@@ -44,13 +44,7 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
     private void obtainSharedPreferences() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: new device");
-            if (mBootLockEndedReceiver != null) {
-                Logger.i(
-                        "DirectBootAwareSharedPreferences",
-                        "obtainSharedPreferences: unregistering receiver");
-                mContext.unregisterReceiver(mBootLockEndedReceiver);
-            }
-            try {
+            if (UserManagerCompat.isUserUnlocked(mContext)) {
                 final List<OnSharedPreferenceChangeListener> listeners;
                 if (mActual instanceof NoOpSharedPreferences) {
                     listeners = ((NoOpSharedPreferences) mActual).mListeners;
@@ -66,13 +60,15 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                 for (OnSharedPreferenceChangeListener listener : listeners) {
                     mActual.registerOnSharedPreferenceChangeListener(listener);
                 }
-            } catch (Throwable e) {
+            } else {
                 Logger.w(
                         "DirectBootAwareSharedPreferences",
-                        e,
-                        "Failed to create Default-Shared-Preferences");
+                        "Device locked! Will fake Shared-Preferences");
                 mActual = new NoOpSharedPreferences();
-                mBootLockEndedReceiver =
+                Logger.i(
+                        "DirectBootAwareSharedPreferences",
+                        "obtainSharedPreferences: registerReceiver");
+                mContext.registerReceiver(
                         new BroadcastReceiver() {
                             @Override
                             public void onReceive(Context context, Intent intent) {
@@ -80,14 +76,14 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                                         "DirectBootAwareSharedPreferences",
                                         "mBootLockEndedReceiver: received '%s'",
                                         intent);
-                                obtainSharedPreferences();
+                                if (intent != null
+                                        && Intent.ACTION_USER_UNLOCKED.equals(intent.getAction())) {
+                                    context.unregisterReceiver(this);
+                                    obtainSharedPreferences();
+                                }
                             }
-                        };
-                Logger.i(
-                        "DirectBootAwareSharedPreferences",
-                        "obtainSharedPreferences: registerReceiver");
-                mContext.registerReceiver(
-                        mBootLockEndedReceiver, new IntentFilter(Intent.ACTION_USER_UNLOCKED));
+                        },
+                        new IntentFilter(Intent.ACTION_USER_UNLOCKED));
             }
         } else {
             Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: old device");

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.UserManager;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import androidx.test.core.app.ApplicationProvider;
@@ -18,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowUserManager;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @Config(sdk = Build.VERSION_CODES.N)
@@ -136,16 +138,32 @@ public class DirectBootAwareSharedPreferencesTest {
     @Test
     public void testCreateReceiverIfNeededAndRemovesWhenInTheClear() {
         mFactory.setInDirectBoot(true);
+        Context applicationContext = ApplicationProvider.getApplicationContext();
         DirectBootAwareSharedPreferences underTest =
-                new DirectBootAwareSharedPreferences(
-                        ApplicationProvider.getApplicationContext(), mFactory);
+                new DirectBootAwareSharedPreferences(applicationContext, mFactory);
         Assert.assertNotNull(underTest);
-        ShadowApplication shadowApplication =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext());
+        ShadowApplication shadowApplication = Shadows.shadowOf((Application) applicationContext);
         Assert.assertTrue(
                 shadowApplication.getRegisteredReceivers().stream()
                         .anyMatch(w -> w.intentFilter.hasAction(Intent.ACTION_USER_UNLOCKED)));
-
+        // if receiver gets a null intent, it should not unregister
+        shadowApplication.getRegisteredReceivers().stream()
+                .filter(w -> w.intentFilter.hasAction(Intent.ACTION_USER_UNLOCKED))
+                .forEach(w -> w.broadcastReceiver.onReceive(applicationContext, null));
+        Assert.assertTrue(
+                shadowApplication.getRegisteredReceivers().stream()
+                        .anyMatch(w -> w.intentFilter.hasAction(Intent.ACTION_USER_UNLOCKED)));
+        // if receiver gets an intent with a different action, it should not unregister
+        shadowApplication.getRegisteredReceivers().stream()
+                .filter(w -> w.intentFilter.hasAction(Intent.ACTION_USER_UNLOCKED))
+                .forEach(
+                        w ->
+                                w.broadcastReceiver.onReceive(
+                                        applicationContext, new Intent(Intent.ACTION_SEND)));
+        Assert.assertTrue(
+                shadowApplication.getRegisteredReceivers().stream()
+                        .anyMatch(w -> w.intentFilter.hasAction(Intent.ACTION_USER_UNLOCKED)));
+        // if receiver gets the right action, it should unregister
         mFactory.setInDirectBoot(false);
         Assert.assertFalse(
                 shadowApplication.getRegisteredReceivers().stream()
@@ -199,10 +217,20 @@ public class DirectBootAwareSharedPreferencesTest {
             implements DirectBootAwareSharedPreferences.SharedPreferencesFactory {
         private boolean mInDirectBootState = false;
 
+        private final ShadowUserManager mShadowUserManager;
+
+        TestSharedPreferencesFactory() {
+            mShadowUserManager =
+                    Shadows.shadowOf(
+                            ApplicationProvider.getApplicationContext()
+                                    .getSystemService(UserManager.class));
+        }
+
         public void setInDirectBoot(boolean directBoot) {
             directBoot = directBoot && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
             if (mInDirectBootState != directBoot) {
                 mInDirectBootState = directBoot;
+                mShadowUserManager.setUserUnlocked(!mInDirectBootState);
                 if (!mInDirectBootState /*boot ended*/) {
                     Application applicationContext = ApplicationProvider.getApplicationContext();
                     Shadows.shadowOf(applicationContext).getRegisteredReceivers().stream()
@@ -210,7 +238,8 @@ public class DirectBootAwareSharedPreferencesTest {
                             .forEach(
                                     w ->
                                             w.broadcastReceiver.onReceive(
-                                                    applicationContext, new Intent()));
+                                                    applicationContext,
+                                                    new Intent(Intent.ACTION_USER_UNLOCKED)));
                 }
             }
         }
