@@ -49,6 +49,7 @@
         <!-- this is the IME with the pointer to the settings ui (xml/method) -->
         <service
             android:name=".SoftKeyboard"
+            android:label="@string/ime_name"
             android:exported="true"
             android:directBootAware="true"
             android:permission="android.permission.BIND_INPUT_METHOD">
@@ -148,5 +149,9 @@
             <action android:name="com.anysoftkeyboard.plugin.QUICK_TEXT_KEY" />
         </intent>
 
+        <!-- other IMEs -->
+        <intent>
+            <action android:name="android.view.InputMethod"/>
+        </intent>
     </queries>
 </manifest>
