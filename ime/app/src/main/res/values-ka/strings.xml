@@ -479,7 +479,8 @@
     <string name="extension_kbd_extension_numbers_symbols">ციფრები და სიმბოლოები</string>
     <string name="extension_kbd_bottom_minimal">სადა</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">სადა (ემოჯების გარეშე)</string>
-    <string name="extension_kbd_bottom_minimal_less_punctuation">მცირე (ნაკლები სასვენი ნიშნები)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">სადა (ნაკლები სასვენი ნიშნები)</string>
+    <string name="extension_kbd_bottom_minimal_alt">სადა (სათადარიგო)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">წინ</string>
@@ -790,5 +791,7 @@
     <string name="app_share_menu_title">გააზიარეთ AnySoftKeyboard</string>
     <string name="app_share_text">მსურს შემოგთავაზოთ ღია წყაროს მქონე, პირადულობის უზრუნველმყოფი,  თავისუფალი, მორგების უამრავი შესაძლებლობით, მრავალენოვანი Android-კლავიატურის აპი AnySoftKeyboard.\nგადმოსაწერად იხილეთ:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">დაწკაპკეთ სასიამოვნო მოულოდნელობისთვის</string>
+    <string name="backup_restore_not_support_before_kitkat">თქვენი Android მხარდაუჭერელია</string>
+    <string name="backup_restore_not_support_before_kitkat_message">დამარქაფება და აღდგენა მხარდაჭერილია KitKat (4.4 ვერსიის) ან უფრო ახალ Android-ზე. ვწუხვართ.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

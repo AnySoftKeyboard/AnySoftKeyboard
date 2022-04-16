@@ -189,6 +189,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Disposition compact à droite</string>
     <string name="swipe_action_name_compact_layout_to_left">Disposition compact à gauche</string>
     <string name="swipe_action_name_utility_keyboard">Afficher le clavier utilitaire</string>
+    <string name="swipe_action_name_quick_text_popup">Afficher la popup des émoticônes</string>
     <string name="settings_swipe_velocity_threshold_title">Seuil de vitesse du glisser</string>
     <string name="settings_swipe_velocity_threshold_summary">La vitesse minimale pour prise en compte du glisser. Actuellement : %s</string>
     <string name="settings_swipe_velocity_very_slow">Très lente</string>
@@ -411,6 +412,7 @@
     <string name="extension_kbd_bottom_minimal">Minimal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (sans émoticône)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (moins de ponctuation)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimal (alternatif)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Aller</string>
@@ -660,5 +662,7 @@
     <string name="app_share_menu_title">Partager AnySoftKeyboard avec</string>
     <string name="app_share_text">Recommandé : AnySoftKeyboard, un clavier multi-langues hautement personnalisable, respectant la vie privée, gratuit, en sources libres.\nÀ télécharger depuis :\nPlay Store : https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid : https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
+    <string name="backup_restore_not_support_before_kitkat">Non supporté par votre appareil Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">La sauvegarde et la restauration ne sont pas prises en charge pour les appareils fonctionnant sous Android avant KitKat (version 4.4). Désolé.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

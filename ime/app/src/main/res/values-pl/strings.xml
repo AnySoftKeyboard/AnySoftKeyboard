@@ -466,6 +466,7 @@ Zmiana
     <string name="extension_kbd_bottom_minimal">Minimalny</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalny (bez emotek)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalny (mniej interpunkcji)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimalny (wariant)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Przejdź</string>
