@@ -447,6 +447,7 @@
     <string name="extension_kbd_bottom_minimal">Minimál</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimál (emojik nélkül)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimális (kevesebb írásjel)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimál (alternatív)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Tovább</string>
