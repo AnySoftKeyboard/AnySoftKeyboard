@@ -2,9 +2,11 @@
 set -e
 
 # actual static-analysis - broken to variants to have a more stable lint process
-./gradlew --stacktrace lintDebug --continue
-./gradlew --stacktrace lintCanary --continue
-./gradlew --stacktrace lintRelease --continue
+# running on the app module because: https://developer.android.com/studio/releases/gradle-plugin#improved_lint_for_library_dependencies
+./gradlew --stacktrace :ime:app:lintDebug --continue
+./gradlew --stacktrace :ime:app:lintCanary --continue
+./gradlew --stacktrace :ime:app:lintRelease --continue
+./gradlew --stacktrace :ime:app:lintAllAddOns --continue
 
 #see https://github.com/actions/cache/issues/133
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
