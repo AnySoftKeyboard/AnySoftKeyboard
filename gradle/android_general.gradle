@@ -27,7 +27,9 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    lint {
+    lintOptions {
+        // will ensure resources are verified for usage
+        checkDependencies true
         lintConfig file("${rootDir}/config/lint.xml")
     }
 
