@@ -20,7 +20,7 @@ env:
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
   # should support 1.2.3 and 2.3 and 1.2.3-r3 and 1.2beta2
-  GREP_VERSION_CLASSES: "[[:digit:]]\\{1,\\}[.][[:digit:]]\\{1,\\}[[:punct:][:alnum:]]*"
+  GREP_VERSION_CLASSES: "[[:digit:]]\\{1,\\}[.][[:digit:]]\\{1,\\}[[:graph:]]*"
 
 jobs:
   sanity-test:
@@ -113,13 +113,17 @@ jobs:
             gradle/root_all_projects_ext.gradle > /tmp/output.file
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
           cat gradle/root_all_projects_ext.gradle
+          curl --silent https://raw.githubusercontent.com/robolectric/robolectric/robolectric-${LATEST_VERSION}/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java \
+            | grep -o "[[:space:]]\\{1,\\}knownSdks.put([[:graph:]]\\{1,\\},[[:space:]]new[[:space:]]DefaultSdk([[:graph:]]\\{1,\\}[,[:space:]]*[\"][[:digit:]]\\{1,\\}[.[:digit:]]*[[:graph:]]*[\"][,[:space:]]*[\"][[:graph:]]\\{1,\\}[\"]" \
+            | grep -oP '"\K[r_\d\.-]+(?=")' \
+            > scripts/robolectric_jars_versions.txt
       - name: Sanity verification
         run: |
           ./scripts/download_robolectric_jars_to_machine.sh
           ./gradlew :api:testDebugUnitTest :ime:nextword:testDebugUnitTest
       - name: Add changed gradle files
         run: |
-          git add gradle/root_all_projects_ext.gradle
+          git add gradle/root_all_projects_ext.gradle scripts/robolectric_jars_versions.txt
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:
