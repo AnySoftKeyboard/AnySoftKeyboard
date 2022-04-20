@@ -114,9 +114,12 @@ jobs:
           cp /tmp/output.file gradle/root_all_projects_ext.gradle
           cat gradle/root_all_projects_ext.gradle
           curl --silent https://raw.githubusercontent.com/robolectric/robolectric/robolectric-${LATEST_VERSION}/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java \
+            | grep -oP '\s+int\s+PREINSTRUMENTED_VERSION\s+=\s+\K\d+(?=;)' \
+            > scripts/robolectric_jars_versions.txt
+          curl --silent https://raw.githubusercontent.com/robolectric/robolectric/robolectric-${LATEST_VERSION}/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java \
             | grep -o "[[:space:]]\\{1,\\}knownSdks.put([[:graph:]]\\{1,\\},[[:space:]]new[[:space:]]DefaultSdk([[:graph:]]\\{1,\\}[,[:space:]]*[\"][[:digit:]]\\{1,\\}[.[:digit:]]*[[:graph:]]*[\"][,[:space:]]*[\"][[:graph:]]\\{1,\\}[\"]" \
             | grep -oP '"\K[r_\d\.-]+(?=")' \
-            > scripts/robolectric_jars_versions.txt
+            >> scripts/robolectric_jars_versions.txt
       - name: Sanity verification
         run: |
           ./scripts/download_robolectric_jars_to_machine.sh
