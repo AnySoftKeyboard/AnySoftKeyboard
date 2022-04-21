@@ -2,7 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (5693)
+1. [menny](https://github.com/menny) (5718)
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
@@ -45,6 +45,7 @@ Thank you for the fine contributors:
 1. [ccoreilly](https://github.com/ccoreilly) (4)
 1. [PromyLOPh](https://github.com/PromyLOPh) (4)
 1. [Luan1Carlos2](https://github.com/Luan1Carlos2) (4)
+1. [mhdzli](https://github.com/mhdzli) (4)
 1. [titoBouzout](https://github.com/titoBouzout) (4)
 1. [asereze](https://github.com/asereze) (4)
 1. [friesenkiwi](https://github.com/friesenkiwi) (4)
@@ -71,7 +72,6 @@ Thank you for the fine contributors:
 1. [kosciCZ](https://github.com/kosciCZ) (2)
 1. [jgkamat](https://github.com/jgkamat) (2)
 1. [masipcat](https://github.com/masipcat) (2)
-1. [mhdzli](https://github.com/mhdzli) (2)
 1. [Blaimi](https://github.com/Blaimi) (2)
 1. [PhieF](https://github.com/PhieF) (2)
 1. [duchampdev](https://github.com/duchampdev) (2)
