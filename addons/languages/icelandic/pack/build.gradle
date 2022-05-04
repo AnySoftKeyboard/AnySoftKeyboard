@@ -1,0 +1,7 @@
+ext.status_icon_text = "is"
+
+ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
+ext.shouldGenerateDictionary = true
+
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"
