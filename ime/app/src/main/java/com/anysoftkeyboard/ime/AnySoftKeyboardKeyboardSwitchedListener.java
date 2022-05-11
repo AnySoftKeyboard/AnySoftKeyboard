@@ -16,9 +16,7 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.annotation.TargetApi;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
@@ -162,7 +160,6 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
         super.onCurrentInputMethodSubtypeChanged(newSubtype);

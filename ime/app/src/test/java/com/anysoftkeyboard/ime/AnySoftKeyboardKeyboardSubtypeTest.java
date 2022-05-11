@@ -26,7 +26,6 @@ import org.robolectric.util.ReflectionHelpers;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest {
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Test
     public void testSubtypeReported() {
         ArgumentCaptor<InputMethodSubtype> subtypeArgumentCaptor =

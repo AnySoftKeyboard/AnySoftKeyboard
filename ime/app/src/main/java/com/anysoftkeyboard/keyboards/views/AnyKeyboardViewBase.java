@@ -1400,7 +1400,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                                 + (key.width
                                                 - mKeyBackgroundPadding.left
                                                 - mKeyBackgroundPadding.right)
-                                        / 2;
+                                        / 2f;
                 final float textY;
                 // Some devices (mostly pre-Honeycomb, have issues with RTL text
                 // drawing.

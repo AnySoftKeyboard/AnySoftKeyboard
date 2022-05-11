@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ime;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.KeyCharacterMap;
@@ -16,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -326,7 +324,6 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         return false;
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     public void sendDownUpKeyEvents(int keyEventCode, int metaState) {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;
