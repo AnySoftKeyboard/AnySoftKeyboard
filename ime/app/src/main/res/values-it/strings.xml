@@ -409,6 +409,7 @@
     <string name="extension_kbd_bottom_minimal">Minimale</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (niente emoticon)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (meno punteggiatura)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimale (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
