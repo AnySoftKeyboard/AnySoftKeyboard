@@ -22,14 +22,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.Log;
 import androidx.annotation.BoolRes;
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
@@ -260,7 +258,6 @@ public class RxSharedPrefs {
                 .onErrorReturnItem(parser.parse(defaultStringValue));
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     public Preference<Set<String>> getStringSet(@StringRes int stringSetKeyResId) {
         return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
     }

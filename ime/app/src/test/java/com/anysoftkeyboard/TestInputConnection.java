@@ -1,7 +1,5 @@
 package com.anysoftkeyboard;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -233,7 +231,6 @@ public class TestInputConnection extends BaseInputConnection {
         return false;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean commitCorrection(CorrectionInfo correctionInfo) {
         mLastCommitCorrection = correctionInfo.getNewText().toString();

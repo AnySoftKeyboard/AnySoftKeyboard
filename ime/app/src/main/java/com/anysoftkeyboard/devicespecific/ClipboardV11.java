@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -25,7 +24,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(11)
 public class ClipboardV11 implements Clipboard {
     private static final int MAX_ENTRIES_INDEX = 15;
 

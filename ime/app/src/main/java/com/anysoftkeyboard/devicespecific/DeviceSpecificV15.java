@@ -16,9 +16,7 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.text.TextUtils;
@@ -34,7 +32,6 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
 public class DeviceSpecificV15 implements DeviceSpecific {
     @Override
     public String getApiLevel() {

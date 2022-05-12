@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
@@ -54,13 +53,6 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         super(context, attrs, defStyleAttr);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public QuickTextPagerView(
-            Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    @RequiresApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     private static void setupSlidingTab(
             View rootView,
             float tabTitleTextSize,

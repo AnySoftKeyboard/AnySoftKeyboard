@@ -16,16 +16,12 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import androidx.annotation.NonNull;
-import androidx.core.view.MotionEventCompat;
 
-@TargetApi(Build.VERSION_CODES.FROYO)
 public class AskV8GestureDetector extends GestureDetector {
     private static final int NOT_A_POINTER_ID = -1;
 
@@ -61,7 +57,7 @@ public class AskV8GestureDetector extends GestureDetector {
         // I want to keep track on the first finger
         // (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
         // CHECKSTYLE:OFF: missingswitchdefault
-        switch (MotionEventCompat.getActionMasked(ev)) {
+        switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 if (ev.getPointerCount() == 1) {
                     mSingleFingerEventPointerId = ev.getPointerId(0);

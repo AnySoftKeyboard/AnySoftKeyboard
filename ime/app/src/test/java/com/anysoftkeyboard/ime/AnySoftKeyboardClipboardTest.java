@@ -207,7 +207,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardFineSelectToast() {
         final String expectedText = "testing something very long";
         mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
@@ -235,7 +234,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardShowsOptionsToCopy() {
         final String expectedText = "testing something very long";
         mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
@@ -261,7 +259,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testDeleteFirstEntry() {
         ClipboardManager shadowManager =
                 (ClipboardManager)
@@ -357,7 +354,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testDeleteNotFirstEntry() {
         ClipboardManager shadowManager =
                 (ClipboardManager)
@@ -394,7 +390,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardShowsOptionsWhenPrimaryClipChanged() {
         ClipboardManager shadowManager =
                 (ClipboardManager)
@@ -458,7 +453,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardDoesNotShowsOptionsWhenPrimaryClipChangedAndSyncIsDisabled() {
         ClipboardManager shadowManager =
                 (ClipboardManager)
@@ -493,7 +487,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testUndo() {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.UNDO);
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
@@ -516,7 +509,6 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testRedo() {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.REDO);
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
