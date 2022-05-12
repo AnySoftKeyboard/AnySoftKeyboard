@@ -26,7 +26,7 @@ function do_update() {
     if [[ -n $(git status -s) ]]; then
       echo " Bumped."
       git add .
-      git commit -m "$4 Update"
+      git commit -m "Bumping $4 to version ${LATEST_VERSION} from ${MAVEN_URL}."
     else
       echo " Already on latest."
     fi
