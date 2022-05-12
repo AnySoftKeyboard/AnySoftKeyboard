@@ -70,6 +70,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     DeviceSpecificV28.class,
                     DeviceSpecificV29.class,
                     DeviceSpecificV29.class, // 30
+                    DeviceSpecificV29.class,
                     DeviceSpecificV29.class);
 
     private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
@@ -105,6 +106,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     ClipboardV28.class,
                     ClipboardV28.class,
                     ClipboardV28.class, // 30
+                    ClipboardV28.class,
                     ClipboardV28.class);
 
     private final List<Class<? extends GestureDetector>> mExpectedGestureDetectorClass =
@@ -140,6 +142,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class, // 30
+                    AskV19GestureDetector.class,
                     AskV19GestureDetector.class);
 
     private final List<Class<? extends PressVibrator>> mExpectedPressVibratorClass =
@@ -175,6 +178,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     PressVibratorV26.class,
                     PressVibratorV29.class,
                     PressVibratorV29.class, // 30
+                    PressVibratorV29.class,
                     PressVibratorV29.class);
 
     void testCreateDeviceSpecificImplementationImpl() {
