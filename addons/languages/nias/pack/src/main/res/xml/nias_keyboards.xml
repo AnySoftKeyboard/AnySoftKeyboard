@@ -11,21 +11,12 @@
         nameResId="@string/nias_qwerty" />
     <Keyboard
         defaultDictionaryLocale="nia"
-        defaultEnabled="true"
-        description="@string/nias_compact_description"
+        defaultEnabled="false"
+        description="@string/nias_wiki_description"
         iconResId="@drawable/ic_status_nias"
         id="3587e42e-389f-4240-a754-f37231f5912e"
         index="2"
-        layoutResId="@xml/nias_compact"
-        nameResId="@string/nias_compact" />
-    <Keyboard
-        defaultDictionaryLocale="nia"
-        defaultEnabled="true"
-        description="@string/nias_ekstra_description"
-        iconResId="@drawable/ic_status_nias"
-        id="05706826-370f-4178-bb48-56f1043bc35a"
-        index="3"
-        layoutResId="@xml/nias_ekstra"
-        nameResId="@string/nias_ekstra" />
+        layoutResId="@xml/nias_wiki"
+        nameResId="@string/nias_wiki" />
 </Keyboards>
 
