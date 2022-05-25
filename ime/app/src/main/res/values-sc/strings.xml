@@ -417,6 +417,7 @@
     <string name="extension_kbd_bottom_minimal">Minimale</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (chene emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (prus pagu puntegiadura)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimale (alternativu)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Bae</string>
@@ -665,5 +666,7 @@
     <string name="app_share_menu_title">Cumpartzi AnySoftKeyboard impreende</string>
     <string name="app_share_text">Lassa chi ti cunsìgies s\'aplicatzione pro sa tastiera de Android a mitza aberta, chi rispetat sa ridervadesa tua, de badas, personalizabile meda e in prus limbas: AnySoftKeyboard.\nIscàrriga·la dae su:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">incarca·mi pro una sorpresa</string>
+    <string name="backup_restore_not_support_before_kitkat">Non suportadu in s\'Android tuo</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Sa còpia de seguresa e su riprìstinu non sunt suportados pro dispositivos chi tenent unu sistema operativu Android prus betzu de KitKat (version 4.4). Nos dispraghet.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
