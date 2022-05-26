@@ -7,8 +7,10 @@
     <string name="menu_about_item">Tentang</string>
     <string name="how_to_pointer_title">Selamat datang di AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Perubahan terbaru untuk v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020Perubahan terbaru untuk v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_url">Lagi::\u0020<xliff:g id="url">%s</xliff:g></string>
     <string name="notification_text_testers">Ini masih versi beta. Gunakan dengan waspada.</string>
+    <string name="testers_version">Testers build!</string>
     <string name="language_root_tile">Bahasa</string>
     <string name="language_keyboards_settings_tile">Aktifkan keyboard dan bahasa.</string>
     <string name="language_grammar_settings_tile">Atur pengkoreksi dan kamus lainya.</string>
@@ -46,15 +48,21 @@ Maaf, masukan suara tidak bekerja di perangkat         anda.
     <string name="change_ime">Ubah metode masukan</string>
     <string name="override_dictionary">Timpah kamus bawaan</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Menimpa\u0020<xliff:g id="word">%s</xliff:g>\u0020kamus</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
     <string name="gesture_settings">Gestur</string>
     <string name="effects_group">Efek</string>
     <string name="ime_settings">Setelan keyboard</string>
     <string name="switch_incognito">Mode penyamaran</string>
+    <string name="use_system_vibration_title">Gunakan getar sistem</string>
+    <string name="use_system_vibration_off_summary">Gunakan pengaturan getaran kustom</string>
+    <string name="use_system_vibration_on_summary">Gunakan pengaturan getaran kustom</string>
     <string name="vibrate_on_key_press_title">Bergetar kala ditekan</string>
+    <string name="vibrate_on_key_press_value_template">%d milidetik</string>
     <string name="night_mode_screen">Setelan Mode-Malam</string>
     <string name="night_mode_description">Mode-Malam akan merubah fitur ini:</string>
+    <string name="night_mode_state_summary">Sekarang, pemicu Mode-Malam:\u0020%s</string>
     <string name="night_mode_dialog_title">Aktifkan Mode-Malam</string>
     <string name="night_mode_type_never">Tak pernah</string>
     <string name="night_mode_type_follow_system">Ikuti sistem</string>
