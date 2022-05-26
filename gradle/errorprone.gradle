@@ -16,7 +16,7 @@ dependencies {
     //annotationProcessor "com.uber.nullaway:nullaway:0.6.4"
 
     //taken from https://github.com/google/error-prone/releases
-    errorprone 'com.google.errorprone:error_prone_core:2.13.1'
+    errorprone 'com.google.errorprone:error_prone_core:2.14.0'
 }
 
 //this will hold any command-line auto-patch requests (via -PErrorProneAutoPatchList=[coma-separated-list]).
