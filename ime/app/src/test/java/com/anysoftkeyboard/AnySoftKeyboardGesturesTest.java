@@ -104,6 +104,41 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testSwipeWithSpaceOutput() {
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                "space");
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_double_space_to_period),
+                true);
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(" ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(". ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(".. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('x');
+        Assert.assertEquals('x', mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(".. x", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(".. x ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testSwipeLeftFromSpace() {
         AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         TestInputConnection inputConnection =
