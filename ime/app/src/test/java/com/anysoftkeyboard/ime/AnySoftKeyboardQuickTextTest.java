@@ -11,6 +11,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.test.TestUtils;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +19,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@Config(sdk = Config.NEWEST_SDK /*since we are sensitive to actual latest unicode emojis*/)
+@Config(
+        sdk =
+                TestUtils
+                        .NEWEST_STABLE_API_LEVEL /*since we are sensitive to actual latest unicode emojis*/)
 public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     private static final String KEY_OUTPUT = "\uD83D\uDE03";
 

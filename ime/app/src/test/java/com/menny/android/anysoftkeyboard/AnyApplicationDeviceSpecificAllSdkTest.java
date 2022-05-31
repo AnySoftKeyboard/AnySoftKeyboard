@@ -1,7 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static org.robolectric.annotation.Config.NEWEST_SDK;
 import static org.robolectric.annotation.Config.OLDEST_SDK;
 
 import android.app.Application;
@@ -26,6 +25,7 @@ import com.anysoftkeyboard.devicespecific.PressVibrator;
 import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.devicespecific.PressVibratorV26;
 import com.anysoftkeyboard.devicespecific.PressVibratorV29;
+import com.anysoftkeyboard.test.TestUtils;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
@@ -234,7 +234,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
     public static class AnyApplicationDeviceSpecificAllSdkTest3
             extends AnyApplicationDeviceSpecificAllSdkTest {
         @Test
-        @Config(minSdk = 26, maxSdk = NEWEST_SDK)
+        @Config(minSdk = 26, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
         public void testCreateDeviceSpecificImplementation() {
             testCreateDeviceSpecificImplementationImpl();
         }

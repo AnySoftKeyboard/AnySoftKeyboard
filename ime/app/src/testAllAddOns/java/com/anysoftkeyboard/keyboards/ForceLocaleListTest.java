@@ -5,6 +5,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.text.TextUtils;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.test.TestUtils;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -15,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@Config(sdk = Config.NEWEST_SDK)
+@Config(sdk = TestUtils.NEWEST_STABLE_API_LEVEL)
 public class ForceLocaleListTest {
 
     @Test
