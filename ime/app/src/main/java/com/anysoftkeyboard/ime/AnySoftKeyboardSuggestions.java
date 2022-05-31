@@ -1230,7 +1230,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return false;
     }
 
-    private void setSpaceTimeStamp(boolean isSpace) {
+    protected void setSpaceTimeStamp(boolean isSpace) {
         if (isSpace) {
             mLastSpaceTimeStamp = SystemClock.uptimeMillis();
         } else {

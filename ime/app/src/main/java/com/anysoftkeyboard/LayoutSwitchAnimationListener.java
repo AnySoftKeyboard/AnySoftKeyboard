@@ -21,8 +21,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.menny.android.anysoftkeyboard.R;
 
 public class LayoutSwitchAnimationListener
@@ -34,7 +34,17 @@ public class LayoutSwitchAnimationListener
         SwipeRight
     }
 
-    @NonNull private final AnySoftKeyboardBase mIme;
+    public interface InputViewProvider {
+        @Nullable
+        View getInputView();
+    }
+
+    public interface OnKeyAction {
+        void onKey(int keyCode);
+    }
+
+    @NonNull private final InputViewProvider mInputViewProvider;
+    @NonNull private final OnKeyAction mOnKeyAction;
     @NonNull private final Context mAppContext;
 
     private Animation mSwitchAnimation = null;
@@ -47,9 +57,13 @@ public class LayoutSwitchAnimationListener
     private AnimationType mCurrentAnimationType = AnimationType.InPlaceSwitch;
     private int mTargetKeyCode;
 
-    public LayoutSwitchAnimationListener(@NonNull AnySoftKeyboardBase ime) {
-        mIme = ime;
-        mAppContext = ime.getApplicationContext();
+    public LayoutSwitchAnimationListener(
+            @NonNull Context context,
+            @NonNull InputViewProvider inputViewProvider,
+            @NonNull OnKeyAction onKeyAction) {
+        mInputViewProvider = inputViewProvider;
+        mOnKeyAction = onKeyAction;
+        mAppContext = context;
     }
 
     private void loadAnimations() {
@@ -81,32 +95,24 @@ public class LayoutSwitchAnimationListener
     }
 
     public void doSwitchAnimation(AnimationType type, int targetKeyCode) {
+        if (targetKeyCode == 0) return;
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
-        final View view = (View) mIme.getInputView();
+        final View view = mInputViewProvider.getInputView();
         if (mSwitchAnimation != null && view != null && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {
-            mIme.onKey(
-                    mTargetKeyCode,
-                    null,
-                    -1,
-                    new int[] {mTargetKeyCode},
-                    false /*not directly pressed the UI key*/);
+            mOnKeyAction.onKey(targetKeyCode);
         }
     }
 
     @Override
     public void onAnimationEnd(Animation animation) {
         final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view =
-                (com.anysoftkeyboard.keyboards.views.AnyKeyboardView) mIme.getInputView();
+                (com.anysoftkeyboard.keyboards.views.AnyKeyboardView)
+                        mInputViewProvider.getInputView();
         if (view != null) view.requestInAnimation(getEndAnimation(mCurrentAnimationType));
-        mIme.onKey(
-                mTargetKeyCode,
-                null,
-                -1,
-                new int[] {mTargetKeyCode},
-                false /*not directly pressed the UI key*/);
+        mOnKeyAction.onKey(mTargetKeyCode);
     }
 
     @Override

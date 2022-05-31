@@ -191,7 +191,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
 
         private ArrayList<char[][]> mWords = new ArrayList<>();
-        private ArrayList<int[]> mWordFrequencies = new ArrayList<>();
+        private final ArrayList<int[]> mWordFrequencies = new ArrayList<>();
         private final Callback mOnLoadedCallback;
         private final AtomicInteger mExpectedDictionaries = new AtomicInteger(0);
         private final AnyKeyboard mKeyboard;
