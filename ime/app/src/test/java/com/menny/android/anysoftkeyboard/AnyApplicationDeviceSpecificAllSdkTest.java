@@ -1,7 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static org.robolectric.annotation.Config.NEWEST_SDK;
 import static org.robolectric.annotation.Config.OLDEST_SDK;
 
 import android.app.Application;
@@ -26,6 +25,7 @@ import com.anysoftkeyboard.devicespecific.PressVibrator;
 import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.devicespecific.PressVibratorV26;
 import com.anysoftkeyboard.devicespecific.PressVibratorV29;
+import com.anysoftkeyboard.test.TestUtils;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
@@ -70,6 +70,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     DeviceSpecificV28.class,
                     DeviceSpecificV29.class,
                     DeviceSpecificV29.class, // 30
+                    DeviceSpecificV29.class,
                     DeviceSpecificV29.class);
 
     private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
@@ -105,6 +106,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     ClipboardV28.class,
                     ClipboardV28.class,
                     ClipboardV28.class, // 30
+                    ClipboardV28.class,
                     ClipboardV28.class);
 
     private final List<Class<? extends GestureDetector>> mExpectedGestureDetectorClass =
@@ -140,6 +142,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class,
                     AskV19GestureDetector.class, // 30
+                    AskV19GestureDetector.class,
                     AskV19GestureDetector.class);
 
     private final List<Class<? extends PressVibrator>> mExpectedPressVibratorClass =
@@ -175,6 +178,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     PressVibratorV26.class,
                     PressVibratorV29.class,
                     PressVibratorV29.class, // 30
+                    PressVibratorV29.class,
                     PressVibratorV29.class);
 
     void testCreateDeviceSpecificImplementationImpl() {
@@ -230,7 +234,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
     public static class AnyApplicationDeviceSpecificAllSdkTest3
             extends AnyApplicationDeviceSpecificAllSdkTest {
         @Test
-        @Config(minSdk = 26, maxSdk = NEWEST_SDK)
+        @Config(minSdk = 26, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
         public void testCreateDeviceSpecificImplementation() {
             testCreateDeviceSpecificImplementationImpl();
         }
