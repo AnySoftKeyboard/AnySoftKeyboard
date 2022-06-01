@@ -177,9 +177,7 @@
 
         <module name="MultipleVariableDeclarations" />
         <module name="ArrayTypeStyle" />
-        <module name="MissingSwitchDefault" />
         <module name="DefaultComesLast" />
-        <module name="FallThrough" />
         <module name="UpperEll" />
         <module name="ModifierOrder" />
         <module name="EmptyLineSeparator">

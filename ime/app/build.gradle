@@ -104,6 +104,7 @@ dependencies {
     implementation project(':ime:overlay')
     implementation project(':ime:pixel')
     implementation project(':ime:remote')
+    implementation project(':ime:gesturetyping')
     implementation project(':ime:voiceime')
 
     implementation 'androidx.fragment:fragment:1.4.1'

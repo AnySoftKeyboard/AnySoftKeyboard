@@ -236,7 +236,6 @@ public abstract class Keyboard {
                         resourceMap.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
 
                 try {
-                    // CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case android.R.attr.keyWidth:
                             defaultWidth =
@@ -264,7 +263,6 @@ public abstract class Keyboard {
                                             a, remoteIndex, parent.mDisplayWidth, verticalGap);
                             break;
                     }
-                    // CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                 }
@@ -280,7 +278,6 @@ public abstract class Keyboard {
                         resourceMap.getLocalAttrId(remoteKeyboardRowLayoutStyleable[remoteIndex]);
 
                 try {
-                    // CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case android.R.attr.rowEdgeFlags:
                             //noinspection WrongConstant
@@ -296,7 +293,6 @@ public abstract class Keyboard {
                             }
                             break;
                     }
-                    // CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                 }
@@ -495,7 +491,6 @@ public abstract class Keyboard {
                 TypedArray a,
                 int remoteIndex,
                 int localAttrId) {
-            // CHECKSTYLE:OFF: missingswitchdefault
             switch (localAttrId) {
                 case android.R.attr.keyWidth:
                     width =
@@ -566,7 +561,6 @@ public abstract class Keyboard {
                     shiftedTypedText = a.getText(remoteIndex);
                     break;
             }
-            // CHECKSTYLE:ON: missingswitchdefault
         }
 
         public int getPrimaryCode() {
@@ -993,7 +987,6 @@ public abstract class Keyboard {
                     addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
 
             try {
-                // CHECKSTYLE:OFF: missingswitchdefault
                 switch (localAttrId) {
                     case android.R.attr.keyWidth:
                         mDefaultWidth =
@@ -1020,7 +1013,6 @@ public abstract class Keyboard {
                         autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
                         break;
                 }
-                // CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Failed to set data from XML!", e);
             }
