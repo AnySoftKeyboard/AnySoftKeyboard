@@ -149,7 +149,6 @@ public class CandidateView extends View implements ThemeableChild {
         for (int attrIndex = 0; attrIndex < resolvedAttrsCount; attrIndex++) {
             final int remoteIndex = a.getIndex(attrIndex);
             try {
-                // CHECKSTYLE:OFF: missingswitchdefault
                 switch (remoteAttrs.getLocalAttrId(remoteStyleableArray[remoteIndex])) {
                     case R.attr.suggestionNormalTextColor:
                         mThemeOverlayCombiner.setThemeNameTextColor(
@@ -201,7 +200,6 @@ public class CandidateView extends View implements ThemeableChild {
                         mSelectionHighlight = a.getDrawable(remoteIndex);
                         break;
                 }
-                // CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Got an exception while reading theme data", e);
             }

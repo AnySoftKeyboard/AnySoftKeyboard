@@ -19,6 +19,7 @@ package com.anysoftkeyboard.theme;
 import android.content.Context;
 import androidx.annotation.StyleRes;
 import com.anysoftkeyboard.addons.AddOnImpl;
+import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardTheme extends AddOnImpl {
 
@@ -26,6 +27,7 @@ public class KeyboardTheme extends AddOnImpl {
     @StyleRes private final int mPopupThemeResId;
     @StyleRes private final int mIconsThemeResId;
     @StyleRes private final int mPopupIconsThemeResId;
+    @StyleRes private final int mGestureTrailThemeResId;
 
     public KeyboardTheme(
             Context askContext,
@@ -37,6 +39,7 @@ public class KeyboardTheme extends AddOnImpl {
             @StyleRes int popupThemeResId,
             @StyleRes int iconsThemeResId,
             @StyleRes int popupIconsThemeResId,
+            @StyleRes int gestureTrailThemeResId,
             boolean isHidden,
             CharSequence description,
             int sortIndex) {
@@ -47,6 +50,10 @@ public class KeyboardTheme extends AddOnImpl {
         mIconsThemeResId = iconsThemeResId;
         mPopupIconsThemeResId =
                 popupIconsThemeResId == INVALID_RES_ID ? mIconsThemeResId : popupIconsThemeResId;
+        mGestureTrailThemeResId =
+                gestureTrailThemeResId == INVALID_RES_ID
+                        ? R.style.AnyKeyboardGestureTrailTheme
+                        : gestureTrailThemeResId;
     }
 
     @StyleRes
@@ -67,5 +74,10 @@ public class KeyboardTheme extends AddOnImpl {
     @StyleRes
     public int getPopupIconsThemeResId() {
         return mPopupIconsThemeResId;
+    }
+
+    @StyleRes
+    public int getGestureTrailThemeResId() {
+        return mGestureTrailThemeResId;
     }
 }

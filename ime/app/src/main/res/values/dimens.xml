@@ -96,7 +96,6 @@
     <dimen name="quick_key_size">50dp</dimen>
 
     <dimen name="yochees_radius_key_corner">5dp</dimen>
-    <dimen name="gesture_stroke_width">4dp</dimen>
     <dimen name="watermark_size">12sp</dimen>
     <dimen name="watermark_margin">3dp</dimen>
 

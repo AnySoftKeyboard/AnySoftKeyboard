@@ -440,8 +440,8 @@ class PointerTracker {
         final int right = key.x + key.width;
         final int top = key.y;
         final int bottom = key.y + key.height;
-        final int edgeX = x < left ? left : (x > right ? right : x);
-        final int edgeY = y < top ? top : (y > bottom ? bottom : y);
+        final int edgeX = x < left ? left : Math.min(x, right);
+        final int edgeY = y < top ? top : Math.min(y, bottom);
         final int dx = x - edgeX;
         final int dy = y - edgeY;
         return dx * dx + dy * dy;
@@ -618,7 +618,7 @@ class PointerTracker {
         return mKeyCodesInPathLength > 1;
     }
 
-    private boolean canDoGestureTyping() {
+    boolean canDoGestureTyping() {
         return mKeyCodesInPathLength >= 1;
     }
 }

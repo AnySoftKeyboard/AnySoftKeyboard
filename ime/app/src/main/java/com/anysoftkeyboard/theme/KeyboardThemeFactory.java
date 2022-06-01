@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import androidx.annotation.NonNull;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -36,6 +37,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
     private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
     private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE =
             "popupIconsThemeRes";
+    private static final String XML_GESTURE_TRAIL_THEME_RES_ID_ATTRIBUTE = "gestureTrailThemeRes";
     public static final String PREF_ID_PREFIX = "theme_";
     private final String mFallbackThemeId;
 
@@ -72,14 +74,22 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
             int sortIndex,
             AttributeSet attrs) {
         final int keyboardThemeResId =
-                attrs.getAttributeResourceValue(null, XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
+                attrs.getAttributeResourceValue(
+                        null, XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int popupKeyboardThemeResId =
-                attrs.getAttributeResourceValue(null, XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
+                attrs.getAttributeResourceValue(
+                        null, XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int iconsThemeResId =
-                attrs.getAttributeResourceValue(null, XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
+                attrs.getAttributeResourceValue(
+                        null, XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int popupKeyboardIconThemeResId =
                 attrs.getAttributeResourceValue(
-                        null, XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
+                        null,
+                        XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE,
+                        AddOn.INVALID_RES_ID);
+        final int gestureTrailTheme =
+                attrs.getAttributeResourceValue(
+                        null, XML_GESTURE_TRAIL_THEME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
 
         if (keyboardThemeResId == -1) {
             String detailMessage =
@@ -101,6 +111,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
                 popupKeyboardThemeResId,
                 iconsThemeResId,
                 popupKeyboardIconThemeResId,
+                gestureTrailTheme,
                 isHidden,
                 description,
                 sortIndex);
