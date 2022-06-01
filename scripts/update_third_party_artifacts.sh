@@ -51,7 +51,7 @@ do_update https://dl.google.com/dl/android/maven2 androidx.fragment fragment "Fr
 do_update https://dl.google.com/dl/android/maven2 androidx.recyclerview recyclerview "RecyclerView library"
 do_update https://dl.google.com/dl/android/maven2 androidx.cardview cardview "CardView library"
 do_update https://dl.google.com/dl/android/maven2 androidx.palette palette "Palette library"
-do_update https://dl.google.com/dl/android/maven2 com.google.android.material material "Palette library"
+do_update https://dl.google.com/dl/android/maven2 com.google.android.material material "Material Design library"
 do_update https://dl.google.com/dl/android/maven2 androidx.preference preference "Prefernce Storage library"
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-v13 "Legacy v13 support library"
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-v4 "Legacy v4 support library"
