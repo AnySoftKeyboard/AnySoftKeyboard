@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="15%p"
+    android:keyHeight="25%p">
+    <Row>
+        <Key
+            android:codes="1102"
+            android:keyEdgeFlags="left"
+            android:keyLabel="" />
+        <!-- lowercase Yu with acute accent -->
+        <Key
+            android:keyLabel="&#1102;&#x301;"
+            android:keyOutputText="&#1102;&#x301;" />
+        <!-- uppercase Yu with acute accent -->
+        <Key
+            android:keyEdgeFlags="right"
+            android:keyLabel="&#1070;&#x301;"
+            android:keyOutputText="&#1070;&#x301;" />
+    </Row>
+</Keyboard>

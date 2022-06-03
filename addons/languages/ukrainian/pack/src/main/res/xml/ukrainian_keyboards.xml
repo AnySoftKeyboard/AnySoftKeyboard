@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+    <Keyboard
+        defaultDictionaryLocale="uk"
+        description="Created with rlavriv"
+        iconResId="@drawable/ic_status_ukrainian"
+        id="b078a198-dfaf-48bc-a30c-426abed41514"
+        index="1"
+        layoutResId="@xml/ukrainian_qwerty"
+        nameResId="@string/ukrainian_keyboard_name"
+        physicalKeyboardMappingResId="@xml/ukrainian_physical" />
+
+    <Keyboard
+        defaultDictionaryLocale="uk"
+        description="4 rows - Created with rlavriv"
+        iconResId="@drawable/ic_status_ukrainian"
+        id="0b8235ea-47db-47a4-be9e-89e3b287f848"
+        index="2"
+        landscapeResId="@xml/ukrainian_qwerty"
+        layoutResId="@xml/ukrainian_qwerty_4_rows"
+        nameResId="@string/ukrainian_keyboard_name"
+        physicalKeyboardMappingResId="@xml/ukrainian_physical" />
+</Keyboards>
