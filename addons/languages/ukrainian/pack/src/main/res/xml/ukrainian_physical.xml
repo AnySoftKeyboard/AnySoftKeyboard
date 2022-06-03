@@ -1,0 +1,30 @@
+<PhysicalTranslation QwertyTranslation="йукенгшщзхфівапролдясмитьб">
+    <SequenceMapping
+        keySequence="KEYCODE_Q,KEYCODE_Q"
+        targetChar="ц" />
+    <SequenceMapping
+        keySequence="KEYCODE_P,KEYCODE_P"
+        targetChar="ї" />
+    <SequenceMapping
+        keySequence="KEYCODE_Y,KEYCODE_Y"
+        targetChar="ґ" />
+    <SequenceMapping
+        keySequence="KEYCODE_Z,KEYCODE_Z"
+        targetChar="ч" />
+    <SequenceMapping
+        keySequence="KEYCODE_COMMA"
+        targetChar="ю" />
+    <SequenceMapping
+        keySequence="KEYCODE_COMMA,KEYCODE_COMMA"
+        targetChar="\?" />
+    <SequenceMapping
+        keySequence="KEYCODE_PERIOD,KEYCODE_PERIOD"
+        targetChar="," />
+    <SequenceMapping
+        keySequence="KEYCODE_RIGHT_BRACKET"
+        targetChar="ж" />
+    <SequenceMapping
+        keySequence="KEYCODE_RIGHT_BRACKET,KEYCODE_RIGHT_BRACKET"
+        targetChar="є" />
+
+</PhysicalTranslation>

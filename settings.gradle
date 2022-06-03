@@ -60,6 +60,7 @@ include ':addons:languages:songhay:pack', ':addons:languages:songhay:apk'
 include ':addons:languages:spain:pack', ':addons:languages:spain:apk'
 include ':addons:languages:tamazight:pack', ':addons:languages:tamazight:apk'
 include ':addons:languages:thai:pack', ':addons:languages:thai:apk'
+include ':addons:languages:ukrainian:pack', ':addons:languages:ukrainian:apk'
 include ':addons:languages:urdu:pack', ':addons:languages:urdu:apk'
 
 //list of themes should be alphabetized-ordered

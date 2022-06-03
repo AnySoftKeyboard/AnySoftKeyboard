@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p">
+
+    <Row android:keyWidth="8.33%p">
+        <!-- &#1081;&#1094;&#1091;&#1082;&#1077;&#1085;&#1075;&#1096;&#1097;&#1079;&#1093;&#1098; -->
+        <!-- йцукенгшщзхї    -->
+        <Key
+            android:codes="1081"
+            android:keyEdgeFlags="left"
+            android:keyLabel="й" />
+        <Key
+            android:codes="1094"
+            android:keyLabel="ц" />
+        <Key
+            android:codes="1091"
+            android:keyLabel="у"
+            android:popupKeyboard="@xml/ukrainian_popup_u" />
+        <Key
+            android:codes="1082"
+            android:keyLabel="к" />
+        <Key
+            android:codes="1077"
+            android:keyLabel="е"
+            android:popupKeyboard="@xml/ukrainian_popup_e" />
+        <Key
+            android:codes="1085"
+            android:keyLabel="н" />
+        <Key
+            android:codes="1075"
+            android:keyLabel="г"
+            android:popupCharacters="ґ" />
+        <Key
+            android:codes="1096"
+            android:keyLabel="ш" />
+        <Key
+            android:codes="1097"
+            android:keyLabel="щ" />
+        <Key
+            android:codes="1079"
+            android:keyLabel="з" />
+        <Key
+            android:codes="1093"
+            android:keyLabel="х" />
+        <Key
+            android:codes="1111"
+            android:keyEdgeFlags="right"
+            android:keyLabel="ї"
+            android:popupKeyboard="@xml/ukrainian_popup_yi" />
+    </Row>
+
+    <Row android:keyWidth="9.09%p">
+        <!-- &#1092;&#1099;&#1074;&#1072;&#1087;&#1088;&#1086;&#1083;&#1076;&#1078;&#1101; -->
+        <!-- фівапролджє -->
+        <Key
+            android:codes="1092"
+            android:keyEdgeFlags="left"
+            android:keyLabel="ф" />
+        <Key
+            android:codes="1110"
+            android:keyLabel="і"
+            android:popupKeyboard="@xml/ukrainian_popup_i" />
+        <Key
+            android:codes="1074"
+            android:keyLabel="в" />
+        <Key
+            android:codes="1072"
+            android:keyLabel="а"
+            android:popupKeyboard="@xml/ukrainian_popup_a" />
+        <Key
+            android:codes="1087"
+            android:keyLabel="п" />
+        <Key
+            android:codes="1088"
+            android:keyLabel="р" />
+        <Key
+            android:codes="1086"
+            android:keyLabel="о"
+            android:popupKeyboard="@xml/ukrainian_popup_o" />
+        <Key
+            android:codes="1083"
+            android:keyLabel="л" />
+        <Key
+            android:codes="1076"
+            android:keyLabel="д" />
+        <Key
+            android:codes="1078"
+            android:keyLabel="ж" />
+        <Key
+            android:codes="1108"
+            android:keyEdgeFlags="right"
+            android:keyLabel="є"
+            android:popupKeyboard="@xml/ukrainian_popup_ye" />
+    </Row>
+
+    <Row android:keyWidth="9.09%p">
+        <!-- &#1103;&#1095;&#1089;&#1084;&#1080;&#1090;&#1100;&#1073;&#1102; -->
+        <!-- ячсмитьбю -->
+        <Key
+            android:codes="-1"
+            android:isModifier="true"
+            android:isSticky="true"
+            android:keyEdgeFlags="left" />
+        <Key
+            android:codes="1103"
+            android:keyLabel="я"
+            android:popupKeyboard="@xml/ukrainian_popup_ya" />
+        <Key
+            android:codes="1095"
+            android:keyLabel="ч" />
+        <Key
+            android:codes="1089"
+            android:keyLabel="с" />
+        <Key
+            android:codes="1084"
+            android:keyLabel="м" />
+        <Key
+            android:codes="1080"
+            android:keyLabel="и"
+            android:popupKeyboard="@xml/ukrainian_popup_y" />
+        <Key
+            android:codes="1090"
+            android:keyLabel="т" />
+        <Key
+            android:codes="1100"
+            android:keyLabel="ь" />
+        <Key
+            android:codes="1073"
+            android:keyLabel="б" />
+        <Key
+            android:codes="1102"
+            android:keyLabel="ю"
+            android:popupKeyboard="@xml/ukrainian_popup_yu" />
+        <Key
+            android:codes="-5"
+            android:isRepeatable="true"
+            android:keyEdgeFlags="right" />
+    </Row>
+</Keyboard>
