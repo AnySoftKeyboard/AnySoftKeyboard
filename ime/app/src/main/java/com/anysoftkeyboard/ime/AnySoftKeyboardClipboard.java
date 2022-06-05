@@ -34,6 +34,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     private Clipboard mClipboard;
     protected static final int MAX_CHARS_PER_CODE_POINT = 2;
     private static final long MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY = 15 * 1000;
+    private static final long MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT = 120 * 1000;
     private long mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
     @Nullable private CharSequence mLastSyncedClipboardEntry;
     private boolean mLastSyncedClipboardEntryInSecureInput;
@@ -58,9 +59,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 @Override
                 public void outputClipboardText(@NonNull CharSequence text) {
                     AnySoftKeyboardClipboard.this.onText(null, text);
-                    AnySoftKeyboardClipboard.this
-                            .getInputViewContainer()
-                            .removeStripAction(mSuggestionClipboardEntry);
+                    mSuggestionClipboardEntry.setAsHint();
                 }
             };
 
@@ -69,6 +68,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             implements KeyboardViewContainerView.StripActionProvider {
         private final ClipboardActionOwner mOwner;
         @Nullable private CharSequence mEntryText;
+        @Nullable private View mRootView;
         @Nullable private TextView mClipboardText;
 
         ClipboardStripActionProvider(@NonNull ClipboardActionOwner owner) {
@@ -77,35 +77,46 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
         @Override
         public View inflateActionView(ViewGroup parent) {
-            final View rootView =
+            mRootView =
                     LayoutInflater.from(mOwner.getContext())
                             .inflate(R.layout.clipboard_suggestion_action, parent, false);
-            mClipboardText = rootView.findViewById(R.id.clipboard_suggestion_text);
-            rootView.setOnClickListener(
+            mClipboardText = mRootView.findViewById(R.id.clipboard_suggestion_text);
+            mRootView.setOnClickListener(
                     view -> {
-                        final TextView clipboardText = mClipboardText;
-                        if (clipboardText != null) {
-                            mOwner.outputClipboardText(mEntryText);
-                        }
+                        if (mEntryText != null) mOwner.outputClipboardText(mEntryText);
                     });
 
-            return rootView;
+            return mRootView;
         }
 
         @Override
         public void onRemoved() {
             mClipboardText = null;
+            mRootView = null;
         }
 
         boolean isVisible() {
-            return mClipboardText != null;
+            return mRootView != null;
+        }
+
+        boolean isFullyVisible() {
+            return mRootView != null && mRootView.isEnabled();
+        }
+
+        void setAsHint() {
+            mRootView.setSelected(false);
+            mClipboardText.setText("");
         }
 
         void setClipboardText(CharSequence text, boolean isSecured) {
             mEntryText = text;
-            mClipboardText.setSelected(true);
-            if (isSecured) mClipboardText.setText("**********");
-            else mClipboardText.setText(text);
+            final TextView textView = mClipboardText;
+            if (textView != null) {
+                mRootView.setSelected(true);
+                textView.setSelected(true);
+                if (isSecured) textView.setText("**********");
+                else textView.setText(text);
+            }
         }
     }
 
@@ -141,8 +152,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
-        if (mLastSyncedClipboardEntryTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY
-                        >= SystemClock.uptimeMillis()
+        final long now = SystemClock.uptimeMillis();
+        final long startTime = mLastSyncedClipboardEntryTime;
+        if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT > now
                 && !TextUtils.isEmpty(mLastSyncedClipboardEntry)) {
             getInputViewContainer().addStripAction(mSuggestionClipboardEntry);
             getInputViewContainer().setActionsStripVisibility(true);
@@ -150,6 +162,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             mSuggestionClipboardEntry.setClipboardText(
                     mLastSyncedClipboardEntry,
                     mLastSyncedClipboardEntryInSecureInput || isTextPassword(info));
+            if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY <= now) {
+                mSuggestionClipboardEntry.setAsHint();
+            }
         }
     }
 
@@ -173,7 +188,12 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             int[] nearByKeyCodes,
             boolean fromUI) {
         if (mSuggestionClipboardEntry.isVisible()) {
-            getInputViewContainer().removeStripAction(mSuggestionClipboardEntry);
+            final long now = SystemClock.uptimeMillis();
+            if (mLastSyncedClipboardEntryTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT <= now) {
+                getInputViewContainer().removeStripAction(mSuggestionClipboardEntry);
+            } else {
+                mSuggestionClipboardEntry.setAsHint();
+            }
         }
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
