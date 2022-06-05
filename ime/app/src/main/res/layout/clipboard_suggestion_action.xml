@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     android:animateLayoutChanges="true"
+    android:layout_margin="2dp"
     android:background="@drawable/clipboard_action_strip_icon">
 
     <TextView
@@ -14,5 +16,5 @@
         android:ellipsize="marquee"
         android:gravity="center"
         android:maxWidth="150dp"
-        android:singleLine="true"/>
+        android:singleLine="true" />
 </FrameLayout>
