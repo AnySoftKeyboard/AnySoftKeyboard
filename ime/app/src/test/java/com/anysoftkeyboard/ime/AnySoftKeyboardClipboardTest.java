@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.shadows.ShadowToast;
@@ -776,5 +777,60 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
                         .findViewById(R.id.clipboard_suggestion_text));
+    }
+
+    @Test
+    public void testShowPopupWhenLongPress() {
+        simulateFinishInputFlow();
+        ClipboardManager clipboardManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(
+                new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+        simulateOnStartInputFlow();
+        View rootView =
+                (View)
+                        mAnySoftKeyboardUnderTest
+                                .getInputViewContainer()
+                                .findViewById(R.id.clipboard_suggestion_text)
+                                .getParent();
+
+        Shadows.shadowOf(rootView).getOnLongClickListener().onLongClick(rootView);
+
+        Assert.assertEquals("", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        final AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotNull(latestAlertDialog);
+        Assert.assertEquals(
+                "Pick text to paste", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
+
+        Assert.assertFalse(
+                mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isFullyVisible());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+    }
+
+    @Test
+    public void testOutputClipboardEntryOnViewClick() {
+        simulateFinishInputFlow();
+        ClipboardManager clipboardManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(
+                new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+        simulateOnStartInputFlow();
+        View rootView =
+                (View)
+                        mAnySoftKeyboardUnderTest
+                                .getInputViewContainer()
+                                .findViewById(R.id.clipboard_suggestion_text)
+                                .getParent();
+
+        Shadows.shadowOf(rootView).getOnClickListener().onClick(rootView);
+
+        Assert.assertEquals(
+                "text 1", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+
+        Assert.assertFalse(
+                mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isFullyVisible());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
     }
 }

@@ -45,6 +45,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         Context getContext();
 
         void outputClipboardText(@NonNull CharSequence text);
+
+        void showAllClipboardOptions();
     }
 
     @VisibleForTesting
@@ -59,6 +61,12 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 @Override
                 public void outputClipboardText(@NonNull CharSequence text) {
                     AnySoftKeyboardClipboard.this.onText(null, text);
+                    mSuggestionClipboardEntry.setAsHint();
+                }
+
+                @Override
+                public void showAllClipboardOptions() {
+                    AnySoftKeyboardClipboard.this.showAllClipboardEntries(null);
                     mSuggestionClipboardEntry.setAsHint();
                 }
             };
@@ -85,6 +93,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     view -> {
                         if (mEntryText != null) mOwner.outputClipboardText(mEntryText);
                     });
+            mRootView.setOnLongClickListener(
+                    v -> {
+                        mOwner.showAllClipboardOptions();
+                        return true;
+                    });
 
             return mRootView;
         }
@@ -100,7 +113,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
 
         boolean isFullyVisible() {
-            return mRootView != null && mRootView.isEnabled();
+            return mRootView != null && mRootView.isSelected();
         }
 
         void setAsHint() {
