@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.List;
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
 
     private static final int PROVIDER_TAG_ID = R.id.keyboard_container_provider_tag_id;
+    private static final int FIRST_PROVIDER_VIEW_INDEX = 3;
 
     private final int mActionStripHeight;
     private boolean mShowActionStrip = true;
@@ -34,16 +36,19 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
     public KeyboardViewContainerView(Context context) {
         super(context);
+        setWillNotDraw(false);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setWillNotDraw(false);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setWillNotDraw(false);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
@@ -107,7 +112,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
     }
 
-    public void addStripAction(@NonNull StripActionProvider provider) {
+    public void addStripAction(@NonNull StripActionProvider provider, boolean highPriority) {
         for (View stripActionView : mStripActionViews) {
             if (stripActionView.getTag(PROVIDER_TAG_ID) == provider) {
                 return;
@@ -119,9 +124,18 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
             throw new IllegalStateException("StripActionProvider inflated a view with a parent!");
         actionView.setTag(PROVIDER_TAG_ID, provider);
         if (mShowActionStrip) {
-            addView(actionView);
+            if (highPriority) {
+                addView(actionView, FIRST_PROVIDER_VIEW_INDEX);
+            } else {
+                addView(actionView);
+            }
         }
-        mStripActionViews.add(actionView);
+
+        if (highPriority) {
+            mStripActionViews.add(0, actionView);
+        } else {
+            mStripActionViews.add(actionView);
+        }
 
         invalidate();
     }
@@ -183,6 +197,11 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
 
         setMeasuredDimension(totalWidth, totalHeight);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
     }
 
     private void setThemeForChildView(View child) {

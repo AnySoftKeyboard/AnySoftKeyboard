@@ -8,5 +8,7 @@
     <integer name="preview_in_animation_duration">40</integer>
     <integer name="preview_out_animation_duration">100</integer>
 
+    <integer name="close_suggestions_text_visible_time">2000</integer>
     <integer name="extendingAnimTime">110</integer>
+    <integer name="extendingHalfAnimTime">55</integer>
 </resources>

@@ -4,6 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.anysoftkeyboard.TestableAnySoftKeyboard.createEditorInfo;
 import static com.anysoftkeyboard.ime.KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS;
 
+import android.os.Looper;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -160,9 +161,8 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(View.VISIBLE, image.getVisibility());
         Assert.assertEquals(View.GONE, text.getVisibility());
 
+        Shadows.shadowOf(Looper.getMainLooper()).pause();
         onClickListener.onClick(rootActionView);
-        // TestRxSchedulers.drainAllTasks();
-        TestRxSchedulers.foregroundAdvanceBy(120);
         // should be shown for some time
         Assert.assertEquals(View.VISIBLE, text.getVisibility());
         // strip is not removed
@@ -172,12 +172,11 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
                         .findViewById(R.id.close_suggestions_strip_text));
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
-        TestRxSchedulers.foregroundAdvanceBy(5000);
+        Shadows.shadowOf(Looper.getMainLooper()).unPause();
         Assert.assertEquals(View.GONE, text.getVisibility());
 
+        Shadows.shadowOf(Looper.getMainLooper()).pause();
         onClickListener.onClick(rootActionView);
-        TestRxSchedulers.drainAllTasks();
-        TestRxSchedulers.foregroundAdvanceBy(1000);
         Assert.assertEquals(View.VISIBLE, text.getVisibility());
         Assert.assertNotNull(
                 mAnySoftKeyboardUnderTest
@@ -186,8 +185,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
 
         // removing
         onClickListener.onClick(rootActionView);
-        TestRxSchedulers.drainAllTasks();
-        TestRxSchedulers.foregroundAdvanceBy(1000);
+        Shadows.shadowOf(Looper.getMainLooper()).unPause();
         Assert.assertNull(
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()

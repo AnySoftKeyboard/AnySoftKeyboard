@@ -75,9 +75,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     protected static class ClipboardStripActionProvider
             implements KeyboardViewContainerView.StripActionProvider {
         private final ClipboardActionOwner mOwner;
-        @Nullable private CharSequence mEntryText;
-        @Nullable private View mRootView;
-        @Nullable private TextView mClipboardText;
+        private CharSequence mEntryText;
+        private View mRootView;
+        private ViewGroup mParentView;
+        private TextView mClipboardText;
 
         ClipboardStripActionProvider(@NonNull ClipboardActionOwner owner) {
             mOwner = owner;
@@ -85,9 +86,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
         @Override
         public View inflateActionView(ViewGroup parent) {
+            mParentView = parent;
             mRootView =
                     LayoutInflater.from(mOwner.getContext())
-                            .inflate(R.layout.clipboard_suggestion_action, parent, false);
+                            .inflate(R.layout.clipboard_suggestion_action, mParentView, false);
             mClipboardText = mRootView.findViewById(R.id.clipboard_suggestion_text);
             mRootView.setOnClickListener(
                     view -> {
@@ -119,17 +121,16 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         void setAsHint() {
             mRootView.setSelected(false);
             mClipboardText.setText("");
+            mParentView.requestLayout();
         }
 
         void setClipboardText(CharSequence text, boolean isSecured) {
             mEntryText = text;
-            final TextView textView = mClipboardText;
-            if (textView != null) {
-                mRootView.setSelected(true);
-                textView.setSelected(true);
-                if (isSecured) textView.setText("**********");
-                else textView.setText(text);
-            }
+            mRootView.setSelected(true);
+            mClipboardText.setSelected(true);
+            if (isSecured) mClipboardText.setText("**********");
+            else mClipboardText.setText(text);
+            mParentView.requestLayout();
         }
     }
 
@@ -169,7 +170,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         final long startTime = mLastSyncedClipboardEntryTime;
         if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT > now
                 && !TextUtils.isEmpty(mLastSyncedClipboardEntry)) {
-            getInputViewContainer().addStripAction(mSuggestionClipboardEntry);
+            getInputViewContainer().addStripAction(mSuggestionClipboardEntry, true);
             getInputViewContainer().setActionsStripVisibility(true);
 
             mSuggestionClipboardEntry.setClipboardText(
