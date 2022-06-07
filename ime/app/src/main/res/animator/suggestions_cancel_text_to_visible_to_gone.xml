@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="sequentially">
+    <objectAnimator android:duration="@integer/extendingAnimTime" android:propertyName="alpha" android:valueTo="1.0f"/>
+    <animator android:duration="@integer/close_suggestions_text_visible_time"/>
+    <objectAnimator android:duration="@integer/extendingAnimTime" android:propertyName="alpha" android:valueTo="0.0f"/>
+</set>

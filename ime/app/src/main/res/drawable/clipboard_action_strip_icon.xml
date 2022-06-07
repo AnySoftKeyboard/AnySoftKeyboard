@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true">
-        <layer-list android:paddingRight="18dp">
-            <item>
-                <inset android:drawable="@drawable/strip_action_background" android:insetBottom="4dp" android:insetLeft="4dp" android:insetRight="4dp" android:insetTop="4dp"/>
-            </item>
-            <item android:drawable="@drawable/ic_clipboard_paste_action" android:gravity="right|center_vertical"/>
-        </layer-list>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingRight="20dp">
+    <item>
+        <inset
+            android:drawable="@drawable/strip_action_background"
+            android:insetLeft="4dp"
+            android:insetTop="4dp"
+            android:insetRight="4dp"
+            android:insetBottom="4dp" />
     </item>
-    <item android:state_selected="false">
-        <layer-list>
-            <item>
-                <inset android:drawable="@drawable/strip_action_background" android:insetBottom="4dp" android:insetLeft="4dp" android:insetRight="4dp" android:insetTop="4dp"/>
-            </item>
-            <item android:drawable="@drawable/ic_clipboard_paste_action" android:gravity="center"/>
-        </layer-list>
-    </item>
-</selector>
+    <item
+        android:drawable="@drawable/ic_clipboard_paste_action"
+        android:gravity="right|center_vertical" />
+</layer-list>

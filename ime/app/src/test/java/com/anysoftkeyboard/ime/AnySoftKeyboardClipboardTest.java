@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
@@ -583,6 +584,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(clipboardView);
         Assert.assertEquals("text 1", clipboardView.getText().toString());
         ((View) clipboardView.getParent()).performClick();
+        TestRxSchedulers.foregroundAdvanceBy(1000); // animation
         Assert.assertEquals("text 1", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertNotNull(
                 mAnySoftKeyboardUnderTest
@@ -825,7 +827,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
                                 .getParent();
 
         Shadows.shadowOf(rootView).getOnClickListener().onClick(rootView);
-
+        TestRxSchedulers.foregroundAdvanceBy(1000); // animation
         Assert.assertEquals(
                 "text 1", getCurrentTestInputConnection().getCurrentTextInInputConnection());
 

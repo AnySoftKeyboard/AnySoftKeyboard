@@ -18,24 +18,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowSystemClock;
 
 public class TestInputConnection extends BaseInputConnection {
     private static final int DELAYED_SELECTION_UPDATE_MSG_ID = 88;
 
     @NonNull private final AnySoftKeyboard mIme;
     @NonNull private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
+    private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
+    private final Handler mDelayer;
+    private final List<Long> mNextMessageTime = new ArrayList<>();
     @Nullable private SelectionUpdateData mEditModeInitialState = null;
     @Nullable private SelectionUpdateData mEditModeLatestState = null;
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
     private int mLastEditorAction = 0;
-    private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
     private String mLastCommitCorrection = "";
-
     private long mDelayedSelectionUpdate = 1L;
-    private final Handler mDelayer;
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
         super(new TextView(ime.getApplicationContext()), false);
@@ -46,6 +50,8 @@ public class TestInputConnection extends BaseInputConnection {
                     public void handleMessage(@NonNull Message msg) {
                         if (msg.what == DELAYED_SELECTION_UPDATE_MSG_ID) {
                             final SelectionUpdateData data = (SelectionUpdateData) msg.obj;
+                            final long now = ShadowSystemClock.currentTimeMillis();
+                            mNextMessageTime.removeIf(time -> time <= now);
                             mIme.onUpdateSelection(
                                     data.oldSelStart,
                                     data.oldSelEnd,
@@ -72,7 +78,8 @@ public class TestInputConnection extends BaseInputConnection {
     }
 
     public void executeOnSelectionUpdateEvent() {
-        Shadows.shadowOf(mDelayer.getLooper()).runOneTask();
+        final long forTime = mNextMessageTime.remove(0) - ShadowSystemClock.currentTimeMillis();
+        Shadows.shadowOf(mDelayer.getLooper()).idleFor(forTime, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -153,6 +160,7 @@ public class TestInputConnection extends BaseInputConnection {
         if (mEditModeInitialState != null) {
             mEditModeLatestState = data;
         } else {
+            mNextMessageTime.add(mDelayedSelectionUpdate + ShadowSystemClock.currentTimeMillis());
             mDelayer.sendMessageDelayed(
                     mDelayer.obtainMessage(DELAYED_SELECTION_UPDATE_MSG_ID, data),
                     mDelayedSelectionUpdate);

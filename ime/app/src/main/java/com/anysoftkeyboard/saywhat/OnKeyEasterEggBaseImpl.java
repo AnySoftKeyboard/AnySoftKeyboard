@@ -56,7 +56,7 @@ class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
                                         anyKeyboardViewWithExtraDraw.getHeight() / 2),
                                 120,
                                 this::adjustPaint));
-                ime.getInputViewContainer().addStripAction(mSuggestionAction);
+                ime.getInputViewContainer().addStripAction(mSuggestionAction, true);
             }
         }
     }

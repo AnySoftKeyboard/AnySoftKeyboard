@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.ime;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -10,8 +13,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -367,18 +368,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
 
-        if (isPredictionOn()) {
-            getInputViewContainer().setActionsStripVisibility(true);
-            getInputViewContainer().addStripAction(mCancelSuggestionsAction);
-        } else {
-            getInputViewContainer().setActionsStripVisibility(false);
-        }
+        mCancelSuggestionsAction.setCancelIconVisible(false);
+        getInputViewContainer().addStripAction(mCancelSuggestionsAction, false);
+        getInputViewContainer().setActionsStripVisibility(isPredictionOn());
         clearSuggestions();
     }
 
     @Override
     public void onFinishInput() {
         super.onFinishInput();
+        mCancelSuggestionsAction.setCancelIconVisible(false);
         mPredictionOn = false;
         mKeyboardHandler.sendEmptyMessageDelayed(
                 KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
@@ -1359,21 +1358,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     @VisibleForTesting
     static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
-        // two seconds is enough.
-        private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
         @NonNull private final Runnable mCancelPrediction;
-        private Animation mCancelToGoneAnimation;
-        private Animation mCancelToVisibleAnimation;
-        private Animation mCloseTextToGoneAnimation;
-        private Animation mCloseTextToVisibleAnimation;
+        private Animator mCancelToGoneAnimation;
+        private Animator mCancelToVisibleAnimation;
+        private Animator mCloseTextToVisibleToGoneAnimation;
         private View mRootView;
         private View mCloseText;
         @Nullable private CandidateView mCandidateView;
-        private final Runnable mReHideTextAction =
-                () -> {
-                    mCloseTextToGoneAnimation.reset();
-                    mCloseText.startAnimation(mCloseTextToGoneAnimation);
-                };
 
         CancelSuggestionsAction(@NonNull Runnable cancelPrediction) {
             mCancelPrediction = cancelPrediction;
@@ -1383,62 +1374,49 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         public View inflateActionView(ViewGroup parent) {
             final Context context = parent.getContext();
             mCancelToGoneAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_gone);
-            mCancelToGoneAnimation.setAnimationListener(
-                    new Animation.AnimationListener() {
+                    AnimatorInflater.loadAnimator(context, R.animator.suggestions_cancel_to_gone);
+            mCancelToGoneAnimation.addListener(
+                    new AnimatorListenerAdapter() {
                         @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
                             mRootView.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {}
                     });
             mCancelToVisibleAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_visible);
-            mCloseTextToGoneAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_double_cancel_to_gone);
-            mCloseTextToGoneAnimation.setAnimationListener(
-                    new Animation.AnimationListener() {
+                    AnimatorInflater.loadAnimator(
+                            context, R.animator.suggestions_cancel_to_visible);
+            mCloseTextToVisibleToGoneAnimation =
+                    AnimatorInflater.loadAnimator(
+                            context, R.animator.suggestions_cancel_text_to_visible_to_gone);
+            mCloseTextToVisibleToGoneAnimation.addListener(
+                    new AnimatorListenerAdapter() {
                         @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
                             mCloseText.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {}
                     });
-            mCloseTextToVisibleAnimation =
-                    AnimationUtils.loadAnimation(
-                            context, R.anim.suggestions_double_cancel_to_visible);
-
             mRootView =
                     LayoutInflater.from(context)
                             .inflate(R.layout.cancel_suggestions_action, parent, false);
 
             mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
-
             ImageView closeIcon = mRootView.findViewById(R.id.close_suggestions_strip_icon);
             if (mCandidateView != null) {
                 closeIcon.setImageDrawable(mCandidateView.getCloseIcon());
             }
             mRootView.setOnClickListener(
                     view -> {
-                        mRootView.removeCallbacks(mReHideTextAction);
                         if (mCloseText.getVisibility() == View.VISIBLE) {
                             // already shown, so just cancel suggestions.
                             mCancelPrediction.run();
                         } else {
                             mCloseText.setVisibility(View.VISIBLE);
-                            mCloseTextToVisibleAnimation.reset();
-                            mCloseText.startAnimation(mCloseTextToVisibleAnimation);
-                            mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+                            mCloseText.setPivotX(mCloseText.getWidth());
+                            mCloseText.setPivotY(mCloseText.getHeight() / 2f);
+                            mCloseTextToVisibleToGoneAnimation.setTarget(mCloseText);
+                            mCloseTextToVisibleToGoneAnimation.start();
                         }
                     });
 
@@ -1447,7 +1425,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         @Override
         public void onRemoved() {
-            mRootView.removeCallbacks(mReHideTextAction);
+            mCloseTextToVisibleToGoneAnimation.cancel();
+            mCancelToGoneAnimation.cancel();
+            mCancelToVisibleAnimation.cancel();
         }
 
         void setOwningCandidateView(@NonNull CandidateView view) {
@@ -1458,11 +1438,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             if (mRootView != null) {
                 final int visibility = visible ? View.VISIBLE : View.GONE;
                 if (mRootView.getVisibility() != visibility) {
-                    mRootView.setVisibility(View.VISIBLE);
-                    mCancelToVisibleAnimation.reset();
-                    mCancelToGoneAnimation.reset();
-                    mRootView.startAnimation(
-                            visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation);
+                    mRootView.setVisibility(View.VISIBLE); // just to make sure
+                    Animator anim = visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation;
+                    anim.setTarget(mRootView);
+                    anim.start();
                 }
             }
         }
