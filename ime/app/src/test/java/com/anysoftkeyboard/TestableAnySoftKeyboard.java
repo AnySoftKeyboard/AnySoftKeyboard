@@ -400,7 +400,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public void simulateKeyPress(final Keyboard.Key key, final boolean advanceTime) {
         final int primaryCode = key.getPrimaryCode();
-        System.out.println("Simulating " + key.getPrimaryCode());
         onPress(primaryCode);
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);

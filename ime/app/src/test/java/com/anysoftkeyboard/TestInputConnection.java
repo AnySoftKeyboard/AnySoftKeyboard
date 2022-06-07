@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowSystem;
 import org.robolectric.shadows.ShadowSystemClock;
 
 public class TestInputConnection extends BaseInputConnection {
