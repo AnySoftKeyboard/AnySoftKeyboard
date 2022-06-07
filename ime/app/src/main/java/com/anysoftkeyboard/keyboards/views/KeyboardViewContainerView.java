@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -24,8 +23,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     private static final int FIRST_PROVIDER_VIEW_INDEX = 3;
 
     private final int mActionStripHeight;
-    private boolean mShowActionStrip = true;
     private final List<View> mStripActionViews = new ArrayList<>();
+    private boolean mShowActionStrip = true;
     private InputViewBinder mStandardKeyboardView;
     private CandidateView mCandidateView;
     private OnKeyboardActionListener mKeyboardActionListener;
@@ -197,11 +196,6 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
 
         setMeasuredDimension(totalWidth, totalHeight);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
     }
 
     private void setThemeForChildView(View child) {
