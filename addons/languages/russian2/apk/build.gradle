@@ -1,6 +1,7 @@
 ext.shouldBePublished = true
 //russian was release with a different key-store (provided by Sergii Pylypenko)
 ext.override_release_key_alias = 'russian2'
+ext.closedTestingTrackName = 'alpha'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 

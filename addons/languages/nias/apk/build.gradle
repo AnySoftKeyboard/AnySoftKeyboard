@@ -1,5 +1,6 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'Owned by an external [developer](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.nias).'
+ext.shouldBePublished = true
+ext.closedTestingTrackName = 'alpha'
+ext.openTestingTrackName = 'beta'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 

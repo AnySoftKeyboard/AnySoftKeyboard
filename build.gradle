@@ -1,3 +1,4 @@
+import java.util.function.BiConsumer
 import java.util.stream.Stream
 import java.nio.file.Files
 
@@ -46,7 +47,6 @@ allprojects {
 apply from: "${rootDir}/gradle/emoji_generator.gradle"
 apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
 apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
-
 
 tasks.register("clean", Delete) {
     delete buildDir

@@ -275,7 +275,7 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          ./gradlew -PwithAutoVersioning -DdeployChannel=alpha \
+          ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources \
               generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
