@@ -66,4 +66,18 @@ Iterate on your pack until you feel it is good, and then create a PR to merge it
 You can either publish by yourself, under your developer account and keep complete ownership, or you can let us (aka AnySoftKeyboard organization) do it.
 
 ### Play Store Publish by AnySoftKeyboard organization
-TO DO!!!
+First, the pack needs to be _owned_ by the AnySoftKeyboard developer [account](https://play.google.com/store/apps/dev?id=7543681500912687681).
+Second, the initial release needs to be manually done by one of the account owners.
+Third, mark the `:addons:languages:[pack]:apk` module as publishable:
+```
+ext.shouldBePublished = true
+```
+
+and remove the `notPublishingReason` field.
+After this is merged, the pack will be automatically released by our CI/CD pipelines.
+
+#### Alpha and Beta releases
+- `alpha` releases are closed-testing, meaning that you will need to ask to be added to the list of testers.
+  - To support `alpha` releases, add `ext.closedTestingTrackName = 'alpha'` to the build file.
+- `beta` releases are open-testing, meaning anyone can join them.
+  - To support `beta` releases, add `ext.openTestingTrackName = 'beta'` to the build file.

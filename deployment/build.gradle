@@ -29,7 +29,7 @@ deployments {
     }
 
     addOnsMain {
-        environmentSteps = ['beta_100']
+        environmentSteps = ['alpha_100', 'beta_100']
     }
     addOnsProduction {
         environmentSteps = ['production_010', '', 'production_050', '', 'production_100']
@@ -109,6 +109,12 @@ def addOnsOnMainPush = tasks.register("addOnsOnMainPush") {
 def addOnsPromoteMain = tasks.register("addOnsPromoteMain") {
     it.group 'Publishing'
     it.description 'NO-OP: Deployment request on main-branch push for all addons'
+    //promoting add-ons only on Wednesday
+    def shouldPromote = Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
+    it.onlyIf { shouldPromote }
+    if (shouldPromote) {
+        it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "addOnsMain", 1))
+    }
 }
 
 

@@ -1,12 +1,13 @@
 import java.util.regex.Pattern
 import java.util.stream.Collectors
-import java.util.stream.StreamSupport
 
 group 'net.evendanan'
 
 ext.override_app_id = 'com.menny.android.anysoftkeyboard'
 ext.shouldBePublished = true
 ext.override_release_key_alias = 'anysoftkeyboard'
+ext.closedTestingTrackName = 'alpha'
+ext.openTestingTrackName = 'beta'
 
 apply from: "${rootDir}/gradle/apk_module.gradle"
 

@@ -143,6 +143,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 mHideClipboardTextAnimator.setTarget(mClipboardText);
                 mHideClipboardTextAnimator.start();
             }
+            mParentView.requestLayout();
         }
 
         void setClipboardText(CharSequence text, boolean isSecured) {
