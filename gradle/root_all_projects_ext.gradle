@@ -1,6 +1,6 @@
 allprojects {
     project.ext {
-        androidBuildTools = '32.0.0'
+        androidBuildTools = '33.0.0'
         robolectricVersion = '4.8.1'
 
         sideBySideNdkVersion = '23.0.7599858'
