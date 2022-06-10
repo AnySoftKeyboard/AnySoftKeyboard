@@ -19,10 +19,11 @@
 **/*.md @AnySoftKeyboard/developers
 
 #specific packs owner
+addons/languages/german @Pippo8291 @AnySoftKeyboard/add-on-maintainers
 addons/languages/icelandic @lumpidu @AnySoftKeyboard/add-on-maintainers
+addons/languages/indonesian @sslaia @AnySoftKeyboard/add-on-maintainers
 addons/languages/nias @sslaia @AnySoftKeyboard/add-on-maintainers
+addons/languages/oldnortharabian @wahballat @AnySoftKeyboard/add-on-maintainers
 addons/languages/persian @mhdzli @AnySoftKeyboard/add-on-maintainers
 addons/languages/piedmontese @glemco @AnySoftKeyboard/add-on-maintainers
-addons/languages/german @Pippo8291 @AnySoftKeyboard/add-on-maintainers
 addons/languages/urdu @mirfatif @AnySoftKeyboard/add-on-maintainers
-addons/languages/oldnortharabian @wahballat @AnySoftKeyboard/add-on-maintainers
