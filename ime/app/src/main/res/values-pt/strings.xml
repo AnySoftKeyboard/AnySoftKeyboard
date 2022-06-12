@@ -206,6 +206,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Esquema compacto para a direita</string>
     <string name="swipe_action_name_compact_layout_to_left">Esquema compacto para a esquerda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar teclado auxiliar</string>
+    <string name="swipe_action_name_quick_text_popup">Mostrar pop-up de emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Velocidade de deslizamento</string>
     <string name="settings_swipe_velocity_threshold_summary">A velocidade mínima do gesto de deslizar. Atualmente: %s</string>
     <string name="settings_swipe_velocity_very_slow">Muito lenta</string>
@@ -441,6 +442,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="extension_kbd_bottom_minimal">Minimalista</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalista (no emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalista (menos pontuação)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimal (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -726,5 +728,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="app_share_menu_title">Partilhar o AnySoftKeyboard utilizando</string>
     <string name="app_share_text">Recomendo a aplicação de teclado Android AnySoftKeyboard de código-fonte aberto, com foco na privacidade, gratuitamente, personalizável e com vários idiomas.\nPode-se descarregar em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
+    <string name="backup_restore_not_support_before_kitkat">Não suportado na sua versão do Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">A cópia de segurança e restauração não são suportados em dispositivos  com o Android anterior ao KitKat (versão 4.4). Pedimos desculpa.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
