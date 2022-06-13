@@ -30,6 +30,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.gesturetyping.GestureTrailTheme;
+import com.anysoftkeyboard.gesturetyping.GestureTypingPathDraw;
 import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -68,7 +69,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
     // List of motion events for tracking gesture typing
-    private GestureTypingPathDrawHelper mGestureDrawingHelper;
+    private GestureTypingPathDraw mGestureDrawingHelper;
     private boolean mGestureTypingPathShouldBeDrawn = false;
     private boolean mIsStickyExtensionKeyboard;
     private int mExtraBottomOffset;
@@ -155,7 +156,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mGestureDrawingHelper =
-                new GestureTypingPathDrawHelper(
+                GestureTypingPathDrawHelper.create(
                         this::invalidate,
                         GestureTrailTheme.fromThemeResource(
                                 getContext(),

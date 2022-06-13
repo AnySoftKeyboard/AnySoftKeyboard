@@ -5,9 +5,27 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.view.MotionEvent;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
-public class GestureTypingPathDrawHelper {
+public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
     private static final PointF END_OF_PATH = new PointF(-1f, -1f);
+
+    @VisibleForTesting
+    static final GestureTypingPathDraw NO_OP =
+            new GestureTypingPathDraw() {
+                @Override
+                public void draw(Canvas canvas) {}
+
+                @Override
+                public void handleTouchEvent(MotionEvent event) {}
+            };
+
+    @NonNull
+    public static GestureTypingPathDraw create(
+            @NonNull OnInvalidateCallback callback, @NonNull GestureTrailTheme theme) {
+        if (theme.maxTrailLength <= 0) return NO_OP;
+        return new GestureTypingPathDrawHelper(callback, theme);
+    }
 
     @NonNull private final OnInvalidateCallback mCallback;
     private final int mArraysSize;
@@ -16,7 +34,7 @@ public class GestureTypingPathDrawHelper {
     private int mPointsCurrentIndex = -1;
     private int mPaintOffset = 0;
 
-    public GestureTypingPathDrawHelper(
+    private GestureTypingPathDrawHelper(
             @NonNull OnInvalidateCallback callback, @NonNull GestureTrailTheme theme) {
         mCallback = callback;
         mArraysSize = theme.maxTrailLength;
@@ -35,6 +53,7 @@ public class GestureTypingPathDrawHelper {
         }
     }
 
+    @Override
     public void draw(Canvas canvas) {
         if (mPointsCurrentIndex > 1) {
             PointF lastDrawnPoint =
@@ -55,6 +74,7 @@ public class GestureTypingPathDrawHelper {
         }
     }
 
+    @Override
     @SuppressWarnings("fallthrough")
     public void handleTouchEvent(MotionEvent event) {
         final float x = event.getX();
@@ -72,9 +92,5 @@ public class GestureTypingPathDrawHelper {
                 mCallback.invalidate();
                 break;
         }
-    }
-
-    public interface OnInvalidateCallback {
-        void invalidate();
     }
 }

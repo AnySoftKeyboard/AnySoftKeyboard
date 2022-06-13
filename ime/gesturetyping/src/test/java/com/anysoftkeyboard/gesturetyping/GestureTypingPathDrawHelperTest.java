@@ -29,11 +29,53 @@ public class GestureTypingPathDrawHelperTest {
     }
 
     @Test
+    public void testCreatesNoOp() {
+        final AtomicInteger invalidates = new AtomicInteger();
+        Assert.assertSame(
+                GestureTypingPathDrawHelper.NO_OP,
+                GestureTypingPathDrawHelper.create(
+                        invalidates::incrementAndGet,
+                        new GestureTrailTheme(
+                                Color.argb(200, 60, 120, 240),
+                                Color.argb(100, 30, 240, 200),
+                                100f,
+                                20f,
+                                0)));
+    }
+
+    @Test
+    public void testNoOpDoesNotInteractWithInputs() {
+        final Canvas canvas = Mockito.mock(Canvas.class);
+        GestureTypingPathDrawHelper.NO_OP.draw(canvas);
+        Mockito.verifyZeroInteractions(canvas);
+
+        final MotionEvent me = Mockito.mock(MotionEvent.class);
+        GestureTypingPathDrawHelper.NO_OP.handleTouchEvent(me);
+        Mockito.verifyZeroInteractions(me);
+    }
+
+    @Test
+    public void testCreatesImpl() {
+        final AtomicInteger invalidates = new AtomicInteger();
+        GestureTypingPathDraw actual =
+                GestureTypingPathDrawHelper.create(
+                        invalidates::incrementAndGet,
+                        new GestureTrailTheme(
+                                Color.argb(200, 60, 120, 240),
+                                Color.argb(100, 30, 240, 200),
+                                100f,
+                                20f,
+                                10));
+        Assert.assertNotSame(GestureTypingPathDrawHelper.NO_OP, actual);
+        Assert.assertTrue(actual instanceof GestureTypingPathDrawHelper);
+    }
+
+    @Test
     public void testDrawsHappyPath() {
         Canvas canvas = Mockito.mock(Canvas.class);
         final AtomicInteger invalidates = new AtomicInteger();
-        GestureTypingPathDrawHelper underTest =
-                new GestureTypingPathDrawHelper(
+        GestureTypingPathDraw underTest =
+                GestureTypingPathDrawHelper.create(
                         invalidates::incrementAndGet,
                         new GestureTrailTheme(
                                 Color.argb(200, 60, 120, 240),
