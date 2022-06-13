@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+	<Keyboard nameResId="@string/swedish_keyboard" layoutResId="@xml/swedish_qwerty" id="8dd7b7fa-91c7-4be1-9b9c-cdfee1b34a47" index="1" defaultDictionaryLocale="sv" description="Created with jtlallo"/>
+	<Keyboard nameResId="@string/svorak_keyboard" layoutResId="@xml/svorak" id="595f7064-e9d8-40cc-9348-78ea065aff53" index="2" defaultDictionaryLocale="sv" description="Created by Henrik Andersson"/>
+</Keyboards>
