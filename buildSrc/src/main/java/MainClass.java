@@ -48,8 +48,6 @@ public class MainClass {
         }
 
         final File outputFolder = new File(resourcesFolder, "raw/");
-        final File dict_id_array =
-                new File(resourcesFolder, "values/" + prefix + "_words_dict_array.xml");
 
         System.out.println("Reading words from input " + inputFile.getAbsolutePath());
         System.out.println(
@@ -67,7 +65,6 @@ public class MainClass {
                 file.delete();
             }
         }
-        dict_id_array.delete();
 
         MakeBinaryDictionary maker =
                 new MakeBinaryDictionary(
@@ -83,9 +80,20 @@ public class MainClass {
         }
 
         // now, if the file is larger than 1MB, I'll need to split it to 1MB chunks and rename them.
+        final File dictResFolder = new File(resourcesFolder, "values");
+        if (!dictResFolder.isDirectory() && !dictResFolder.mkdirs()) {
+            throw new IOException(
+                    "Failed to create resource folder " + dictResFolder.getAbsolutePath());
+        }
+        final File dictIdArray = new File(dictResFolder, prefix + "_words_dict_array.xml");
+        if (dictIdArray.isFile() && !dictIdArray.delete()) {
+            throw new IOException(
+                    "Failed to delete dict-id-array before recreation! "
+                            + dictIdArray.getAbsolutePath());
+        }
         BinaryDictionaryResourceNormalizer normalizer =
                 new BinaryDictionaryResourceNormalizer(
-                        tempOutputFile, outputFolder, dict_id_array, prefix);
+                        tempOutputFile, outputFolder, dictIdArray, prefix);
         normalizer.writeDictionaryIdsResource();
 
         System.out.println("Done.");
