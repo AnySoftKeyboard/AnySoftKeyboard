@@ -27,7 +27,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.multidex.MultiDexApplication;
 import com.anysoftkeyboard.AnySoftKeyboard;
@@ -35,6 +38,7 @@ import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.base.utils.NullLogProvider;
+import com.anysoftkeyboard.chewbacca.ChewbaccaUncaughtExceptionHandler;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV15;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
@@ -54,6 +58,8 @@ import com.anysoftkeyboard.saywhat.EasterEggs;
 import com.anysoftkeyboard.saywhat.Notices;
 import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.SendBugReportUiActivity;
+import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -372,9 +378,12 @@ public class AnyApplication extends MultiDexApplication {
                 resources.getString(R.string.settings_key_show_chewbacca),
                 resources.getBoolean(R.bool.settings_default_show_chewbacca))) {
             final ChewbaccaUncaughtExceptionHandler chewbaccaUncaughtExceptionHandler =
-                    new ChewbaccaUncaughtExceptionHandler(this, globalErrorHandler);
+                    new AnyChewbaccaUncaughtExceptionHandler(this, globalErrorHandler);
             Thread.setDefaultUncaughtExceptionHandler(chewbaccaUncaughtExceptionHandler);
-            RxJavaPlugins.setErrorHandler(chewbaccaUncaughtExceptionHandler);
+            RxJavaPlugins.setErrorHandler(
+                    e ->
+                            chewbaccaUncaughtExceptionHandler.uncaughtException(
+                                    Thread.currentThread(), e));
         }
 
         Logger.setLogProvider(new NullLogProvider());
@@ -414,6 +423,41 @@ public class AnyApplication extends MultiDexApplication {
                     "Fatal Java error '%s' on thread '%s'",
                     throwable.getMessage(),
                     t.toString());
+        }
+    }
+
+    private static class AnyChewbaccaUncaughtExceptionHandler
+            extends ChewbaccaUncaughtExceptionHandler {
+
+        public AnyChewbaccaUncaughtExceptionHandler(
+                @NonNull Context app, @Nullable Thread.UncaughtExceptionHandler previous) {
+            super(app, previous);
+        }
+
+        @NonNull
+        @Override
+        protected Intent createBugReportingActivityIntent() {
+            return new Intent(mApp, SendBugReportUiActivity.class);
+        }
+
+        @Override
+        protected void setupNotification(
+                @NonNull NotificationCompat.Builder builder, @NonNull Throwable ex) {
+            builder.setSmallIcon(R.drawable.ic_notification_error)
+                    .setColor(ContextCompat.getColor(mApp, R.color.notification_background_error))
+                    .setTicker(mApp.getText(R.string.ime_crashed_ticker))
+                    .setContentTitle(mApp.getText(R.string.ime_name))
+                    .setContentText(mApp.getText(R.string.ime_crashed_sub_text))
+                    .setSubText(
+                            BuildConfig.TESTING_BUILD
+                                    ? ex.getClass().getSimpleName() + ": " + ex.getMessage()
+                                    : null /*not showing the type of crash in RELEASE mode*/);
+        }
+
+        @NonNull
+        @Override
+        protected String getAppDetails() {
+            return DeveloperUtils.getAppDetails(mApp);
         }
     }
 }

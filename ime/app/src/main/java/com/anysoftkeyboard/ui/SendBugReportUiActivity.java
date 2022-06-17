@@ -18,65 +18,20 @@ package com.anysoftkeyboard.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.chewbacca.BugReportDetails;
 import com.anysoftkeyboard.ui.dev.LogCatViewFragment;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class SendBugReportUiActivity extends FragmentActivity {
 
-    public static class BugReportDetails implements Parcelable {
-        public final Throwable throwable;
-        public final String crashReportText;
-
-        public BugReportDetails(Throwable throwable, String crashReportText) {
-
-            this.throwable = throwable;
-            this.crashReportText = crashReportText;
-        }
-
-        // Start of Parcel part
-        public BugReportDetails(Parcel in) {
-            throwable = (Throwable) in.readSerializable();
-            crashReportText = in.readString();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeSerializable(throwable);
-            dest.writeString(crashReportText);
-        }
-
-        public static final Parcelable.Creator<BugReportDetails> CREATOR =
-                new Parcelable.Creator<BugReportDetails>() {
-                    @Override
-                    public BugReportDetails createFromParcel(Parcel in) {
-                        return new BugReportDetails(in);
-                    }
-
-                    @Override
-                    public BugReportDetails[] newArray(int size) {
-                        return new BugReportDetails[size];
-                    }
-                };
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-        // End of Parcel part
-    }
-
     private static final String TAG = "ASKBugSender";
-
-    public static final String EXTRA_KEY_BugReportDetails = "EXTRA_KEY_BugReportDetails";
 
     private BugReportDetails mCrashReportDetails;
 
@@ -91,11 +46,14 @@ public class SendBugReportUiActivity extends FragmentActivity {
         super.onStart();
         TextView crashTypeView = findViewById(R.id.ime_crash_type);
         Intent callingIntent = getIntent();
-        mCrashReportDetails = callingIntent.getParcelableExtra(EXTRA_KEY_BugReportDetails);
+        mCrashReportDetails =
+                callingIntent.getParcelableExtra(BugReportDetails.EXTRA_KEY_BugReportDetails);
         if (mCrashReportDetails == null) {
             if (BuildConfig.DEBUG)
                 throw new IllegalArgumentException(
-                        "Activity started without " + EXTRA_KEY_BugReportDetails + " extra!");
+                        "Activity started without "
+                                + BugReportDetails.EXTRA_KEY_BugReportDetails
+                                + " extra!");
             finish();
         } else {
             if (mCrashReportDetails.throwable == null || !BuildConfig.DEBUG) {

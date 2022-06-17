@@ -33,6 +33,7 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.chewbacca.ChewbaccaUtils;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
@@ -236,8 +237,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 "AnySoftKeyboard Memory Dump File",
                 "Hi! Here is a memory dump file for "
                         + DeveloperUtils.getAppDetails(requireContext().getApplicationContext())
-                        + DeveloperUtils.NEW_LINE
-                        + DeveloperUtils.getSysInfo(getActivity()));
+                        + Logger.NEW_LINE
+                        + ChewbaccaUtils.getSysInfo(getActivity()));
     }
 
     private void onUserClickedFlipTracing() {
@@ -261,7 +262,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 "Hi! Here is a tracing file for "
                         + DeveloperUtils.getAppDetails(requireContext().getApplicationContext())
                         + DeveloperUtils.NEW_LINE
-                        + DeveloperUtils.getSysInfo(getActivity()));
+                        + ChewbaccaUtils.getSysInfo(requireContext()));
     }
 
     private void onUserClickedShowLogCat() {
@@ -278,7 +279,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 "Hi! Here is a LogCat snippet for "
                         + DeveloperUtils.getAppDetails(requireContext().getApplicationContext())
                         + DeveloperUtils.NEW_LINE
-                        + DeveloperUtils.getSysInfo(getActivity())
+                        + ChewbaccaUtils.getSysInfo(requireContext())
                         + DeveloperUtils.NEW_LINE
                         + Logger.getAllLogLines());
     }
