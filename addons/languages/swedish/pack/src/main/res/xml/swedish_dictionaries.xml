@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the dictionary. Should be short. Reference to a string in values.xml
+     "locale" : the ID of the dictionary's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The keyboard should declare the same locale.
+     "id" : UUID for this dictionary. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "dictionaryResourceId" : a reference to the raw resource of the words dictionary
+     "autoTextResourceId" : a reference to a common typing mistakes XML.
+     -->
+    <Dictionary
+        autoTextResourceId="@xml/swedish_autotext"
+        description="A swedish dictionary generated from the AOSP sources"
+        dictionaryResourceId="@array/swedish_words_dict_array"
+        id="935fe956-c7f9-4dc6-b2d0-5a389005c826"
+        locale="sv"
+        nameResId="@string/swedish_dictionary_name"
+        type="binary_resource" />
+</Dictionaries>
