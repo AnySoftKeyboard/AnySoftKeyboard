@@ -50,6 +50,7 @@
 1. <img src='slovene/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Slovene: [Source](slovene) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.slovene)
 1. <img src='songhay/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Songhay: [Source](songhay) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.songhay)
 1. <img src='spain/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Spain: [Source](spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
+1. <img src='swedish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Swedish: [Source](swedish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.swedish)
 1. <img src='tamazight/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Tamazight: [Source](tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight)
 1. <img src='thai/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Thai: [Source](thai) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.thai)
 1. <img src='ukrainian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Ukrainian: [Source](ukrainian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.ukrainian)
