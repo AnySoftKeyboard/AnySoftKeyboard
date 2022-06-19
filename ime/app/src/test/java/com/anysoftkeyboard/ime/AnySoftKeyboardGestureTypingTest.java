@@ -139,6 +139,20 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOutputCapitalisedOnShiftLocked() {
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("HELLO", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputTitleCaseOnShifted() {
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("Hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testCanOutputFromBothDictionaries() {
         mAnySoftKeyboardUnderTest
                 .mGestureTypingDetectors

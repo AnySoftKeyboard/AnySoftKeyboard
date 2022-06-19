@@ -34,6 +34,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Nullable private GestureTypingDetector mCurrentGestureDetector;
     private boolean mDetectorReady = false;
     private boolean mJustPerformedGesture = false;
+    private boolean mGestureShifted = false;
 
     @NonNull private Disposable mDetectorStateSubscription = Disposables.disposed();
 
@@ -296,6 +297,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         if (mGestureTypingEnabled
                 && currentGestureDetector != null
                 && isValidGestureTypingStart(key)) {
+            mGestureShifted = mShiftKeyState.isActive();
             // we can call this as many times as we want, it has a short-circuit check.
             confirmLastGesture(mPrefsAutoSpace);
 
@@ -387,7 +389,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             ArrayList<String> gestureTypingPossibilities = currentGestureDetector.getCandidates();
 
             if (!gestureTypingPossibilities.isEmpty()) {
-                final boolean isShifted = mShiftKeyState.isActive();
+                final boolean isShifted = mGestureShifted;
                 final boolean isCapsLocked = mShiftKeyState.isLocked();
 
                 final Locale locale = getCurrentAlphabetKeyboard().getLocale();
