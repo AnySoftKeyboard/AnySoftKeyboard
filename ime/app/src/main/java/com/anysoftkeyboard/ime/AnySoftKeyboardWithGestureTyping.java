@@ -1,9 +1,13 @@
 package com.anysoftkeyboard.ime;
 
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -14,6 +18,7 @@ import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
@@ -47,10 +52,13 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 keyboard.getHeight());
     }
 
+    @VisibleForTesting protected ClearGestureStripActionProvider mClearLastGestureAction;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
+        mClearLastGestureAction = new ClearGestureStripActionProvider(this);
         addDisposable(
                 Observable.combineLatest(
                                 PowerSaving.observePowerSavingState(
@@ -376,6 +384,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         if (mJustPerformedGesture) {
             pickSuggestionManually(0, getCurrentComposedWord().getTypedWord(), withAutoSpace);
         }
+        getInputViewContainer().removeStripAction(mClearLastGestureAction);
     }
 
     @Override
@@ -442,6 +451,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 ic.setComposingText(currentComposedWord.getTypedWord(), 1);
 
                 mJustPerformedGesture = true;
+                getInputViewContainer().addStripAction(mClearLastGestureAction, true);
 
                 if (gestureTypingPossibilities.size() > 1) {
                     setSuggestions(gestureTypingPossibilities, 0);
@@ -462,5 +472,41 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
         mJustPerformedGesture = false;
         super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
+    }
+
+    protected static class ClearGestureStripActionProvider
+            implements KeyboardViewContainerView.StripActionProvider {
+        private final AnySoftKeyboardWithGestureTyping mKeyboard;
+        private View mRootView;
+
+        ClearGestureStripActionProvider(@NonNull AnySoftKeyboardWithGestureTyping keyboard) {
+            mKeyboard = keyboard;
+        }
+
+        @Override
+        public View inflateActionView(ViewGroup parent) {
+            mRootView =
+                    LayoutInflater.from(mKeyboard)
+                            .inflate(R.layout.clear_gesture_action, parent, false);
+            mRootView.setOnClickListener(
+                    view -> {
+                        InputConnection ic = mKeyboard.getCurrentInputConnection();
+                        mKeyboard.handleBackWord(ic);
+                        mKeyboard.mJustPerformedGesture = false;
+                        // destroy ourselves once a single word has been cleared.
+                        mKeyboard.getInputViewContainer().removeStripAction(this);
+                    });
+
+            return mRootView;
+        }
+
+        @Override
+        public void onRemoved() {
+            mRootView = null;
+        }
+
+        boolean isVisible() {
+            return mRootView != null;
+        }
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clear_gesture_strip_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/clear_gesture_action_icon"
+        android:layout_width="@dimen/candidate_strip_height"
+        android:layout_height="@dimen/candidate_strip_height"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:contentDescription="Undo gesture typing"
+        android:scaleType="centerInside"
+        android:src="@drawable/yochees_dark_backspace" />
+</LinearLayout>
