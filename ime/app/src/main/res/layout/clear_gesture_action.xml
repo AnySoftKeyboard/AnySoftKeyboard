@@ -13,7 +13,7 @@
         android:layout_height="@dimen/candidate_strip_height"
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
-        android:contentDescription="Undo gesture typing"
+        android:contentDescription="@string/undo_gesture_typing"
         android:scaleType="centerInside"
         android:src="@drawable/yochees_dark_backspace" />
 </LinearLayout>

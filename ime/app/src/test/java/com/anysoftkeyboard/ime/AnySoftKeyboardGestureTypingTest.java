@@ -3,7 +3,6 @@ package com.anysoftkeyboard.ime;
 import static org.mockito.ArgumentMatchers.any;
 
 import android.view.View;
-
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -331,7 +330,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.mClearLastGestureAction;
         View rootActionView =
                 provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
-                                .findViewById(R.id.clear_gesture_strip_root);
+                        .findViewById(R.id.clear_gesture_strip_root);
         final View.OnClickListener onClickListener =
                 Shadows.shadowOf(rootActionView).getOnClickListener();
 
@@ -347,7 +346,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.mClearLastGestureAction;
         View rootActionView =
                 provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
-                                .findViewById(R.id.clear_gesture_strip_root);
+                        .findViewById(R.id.clear_gesture_strip_root);
         final View.OnClickListener onClickListener =
                 Shadows.shadowOf(rootActionView).getOnClickListener();
 
