@@ -24,9 +24,9 @@
         <Key android:codes="1089" android:keyLabel="" android:popupCharacters="#" ask:hintLabel="#"/>
         <Key android:codes="1090" android:keyLabel="" android:popupCharacters="$" ask:hintLabel="$"/>
         <Key android:codes="1076" android:keyLabel="" android:popupCharacters="%" ask:hintLabel="%"/>
-        <Key android:codes="1095" android:keyLabel="" android:popupCharacters="\u0026ĥθ" ask:hintLabel="\u0026"/>
+        <Key android:codes="1095" android:keyLabel="" android:popupCharacters="\u0026" ask:hintLabel="\u0026"/>
         <Key android:codes="1085" android:keyLabel="" android:popupCharacters="-" ask:hintLabel="-"/>
-        <Key android:codes="1077" android:keyLabel="" android:popupCharacters="+" ask:hintLabel="+"/>
+        <Key android:codes="1077" android:keyLabel="" android:popupCharacters="+ё" ask:hintLabel="+"/>
         <Key android:codes="1080" android:keyLabel="" android:popupCharacters="([{" ask:hintLabel="{[("/>
         <Key android:codes="1086" android:keyLabel="" android:popupCharacters=")]}" ask:hintLabel="}])"/>
       </Row>
