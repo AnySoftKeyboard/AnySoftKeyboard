@@ -313,14 +313,16 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testShowClearGestureButton() {
         simulateGestureProcess("hello");
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.mClearLastGestureAction.isVisible());
+        Assert.assertEquals(
+                View.VISIBLE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
     }
 
     @Test
     public void testHideClearGestureButtonOnConfirmed() {
         simulateGestureProcess("hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.mClearLastGestureAction.isVisible());
+        Assert.assertEquals(
+                View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
     }
 
     @Test
@@ -352,7 +354,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
         onClickListener.onClick(rootActionView);
 
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.mClearLastGestureAction.isVisible());
+        Assert.assertEquals(
+                View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
     }
 
     @Test

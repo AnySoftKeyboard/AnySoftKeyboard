@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,6 +88,28 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                                     }
                                 },
                                 GenericOnError.onError("settings_key_gesture_typing")));
+    }
+
+    @Override
+    public void onStartInputView(EditorInfo info, boolean restarting) {
+        super.onStartInputView(info, restarting);
+
+        getInputViewContainer().addStripAction(mClearLastGestureAction, true);
+        mClearLastGestureAction.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onFinishInputView(boolean finishInput) {
+        getInputViewContainer().removeStripAction(mClearLastGestureAction);
+
+        super.onFinishInputView(finishInput);
+    }
+
+    @Override
+    public void onFinishInput() {
+        mClearLastGestureAction.setVisibility(View.GONE);
+
+        super.onFinishInput();
     }
 
     private void destroyAllDetectors() {
@@ -374,6 +397,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 && mJustPerformedGesture
                 && primaryCode > 0 /*printable character*/) {
             confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
+        } else if (primaryCode == KeyCodes.DELETE) {
+            mClearLastGestureAction.setVisibility(View.GONE);
         }
         mJustPerformedGesture = false;
 
@@ -383,8 +408,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     private void confirmLastGesture(boolean withAutoSpace) {
         if (mJustPerformedGesture) {
             pickSuggestionManually(0, getCurrentComposedWord().getTypedWord(), withAutoSpace);
+            mClearLastGestureAction.setVisibility(View.GONE);
         }
-        getInputViewContainer().removeStripAction(mClearLastGestureAction);
     }
 
     @Override
@@ -451,7 +476,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 ic.setComposingText(currentComposedWord.getTypedWord(), 1);
 
                 mJustPerformedGesture = true;
-                getInputViewContainer().addStripAction(mClearLastGestureAction, true);
+                mClearLastGestureAction.setVisibility(View.VISIBLE);
 
                 if (gestureTypingPossibilities.size() > 1) {
                     setSuggestions(gestureTypingPossibilities, 0);
@@ -493,8 +518,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         InputConnection ic = mKeyboard.getCurrentInputConnection();
                         mKeyboard.handleBackWord(ic);
                         mKeyboard.mJustPerformedGesture = false;
-                        // destroy ourselves once a single word has been cleared.
-                        mKeyboard.getInputViewContainer().removeStripAction(this);
+                        setVisibility(View.GONE);
                     });
 
             return mRootView;
@@ -505,8 +529,15 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             mRootView = null;
         }
 
-        boolean isVisible() {
-            return mRootView != null;
+        void setVisibility(int visibility) {
+            if (mRootView != null) {
+                mRootView.setVisibility(visibility);
+            }
+        }
+
+        @VisibleForTesting
+        int getVisibility() {
+            return mRootView.getVisibility();
         }
     }
 }
