@@ -12,9 +12,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -56,7 +58,7 @@ public class MergeWordsListTask extends DefaultTask {
                 outputWordsListFile.getName(),
                 wordsToDiscard.length);
         final HashMap<String, Integer> allWords = new HashMap<>();
-
+        final List<String> inputFilesWithDuplicates = new ArrayList<>();
         for (File inputFile : inputWordsListFiles) {
             System.out.printf(Locale.ENGLISH, "Reading %s...%n", inputFile.getName());
             if (!inputFile.exists()) throw new FileNotFoundException(inputFile.getAbsolutePath());
@@ -71,6 +73,7 @@ public class MergeWordsListTask extends DefaultTask {
                 System.out.printf(Locale.ENGLISH, "Loaded %d words in total...%n", allWords.size());
             }
             if (duplicateWords.size() > 0 && !inputFile.getAbsolutePath().contains("/build/")) {
+                inputFilesWithDuplicates.add(inputFile.getAbsolutePath());
                 filterWordsFromInputFile(inputFile, duplicateWords);
             }
         }
@@ -93,6 +96,11 @@ public class MergeWordsListTask extends DefaultTask {
                         writer, entry.getKey(), entry.getValue());
             }
             System.out.println("Done.");
+        }
+
+        if (inputFilesWithDuplicates.size() > 0) {
+            throw new RuntimeException(
+                    "Found duplicate words in: " + String.join(",", inputFilesWithDuplicates));
         }
     }
 
