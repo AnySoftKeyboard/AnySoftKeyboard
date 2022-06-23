@@ -95,6 +95,26 @@ public class MakeDictionaryPlugin implements Plugin<Project> {
                 }
             }
 
+            // you can also provide pre-built word-list XMLs
+            if (project.file("dictionary/prebuilt").exists()) {
+                File[] prebuiltFiles =
+                        project.file("dictionary/prebuilt")
+                                .listFiles((dir, name) -> name.endsWith(".xml"));
+                if (prebuiltFiles != null && prebuiltFiles.length > 0) {
+                    mergingTask.configure(
+                            task -> {
+                                task.setInputWordsListFiles(
+                                        arrayPlus(task.getInputWordsListFiles(), prebuiltFiles));
+                                System.out.println(
+                                        "Found prebuilt word-list folder for "
+                                                + project.getPath()
+                                                + " with "
+                                                + prebuiltFiles.length
+                                                + " files.");
+                            });
+                }
+            }
+
             // we can also parse text files and generate word-list based on that.
             if (project.file("dictionary/inputs").exists()) {
                 TaskProvider<GenerateWordsListTask> inputs =
@@ -151,26 +171,6 @@ public class MakeDictionaryPlugin implements Plugin<Project> {
                                             task.getInputWordsListFiles(),
                                             inputs.get().getOutputWordsListFile()));
                         });
-            }
-
-            // you can also provide pre-built word-list XMLs
-            if (project.file("dictionary/prebuilt").exists()) {
-                File[] prebuiltFiles =
-                        project.file("dictionary/prebuilt")
-                                .listFiles((dir, name) -> name.endsWith(".xml"));
-                if (prebuiltFiles != null && prebuiltFiles.length > 0) {
-                    mergingTask.configure(
-                            task -> {
-                                task.setInputWordsListFiles(
-                                        arrayPlus(task.getInputWordsListFiles(), prebuiltFiles));
-                                System.out.println(
-                                        "Found prebuilt word-list folder for "
-                                                + project.getPath()
-                                                + " with "
-                                                + prebuiltFiles.length
-                                                + " files.");
-                            });
-                }
             }
         }
 
