@@ -25,8 +25,10 @@ public class QuickTextSettingsFragmentTest
 
         preference = startFragment().findPreference("settings_key_default_emoji_gender");
         Assert.assertNotNull(preference);
-        Assert.assertTrue(preference.isVisible());
-        Assert.assertTrue(preference.isEnabled());
+        // for now, we are hiding this always. Although, once we figure this out
+        // it should be visible in Q
+        Assert.assertFalse(preference.isVisible());
+        Assert.assertFalse(preference.isEnabled());
     }
 
     @Test
