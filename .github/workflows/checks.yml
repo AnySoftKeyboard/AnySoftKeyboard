@@ -31,8 +31,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -66,8 +66,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -117,8 +117,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -155,8 +155,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -193,8 +193,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: global-gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -231,8 +231,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: verify-add-ons
@@ -267,8 +267,8 @@ jobs:
       - uses: actions/cache@v1.1.2
         with:
           path: .github_cache_gradle/
-          key: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-          restore-keys: gradle-v5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: global-gradle-v6-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build

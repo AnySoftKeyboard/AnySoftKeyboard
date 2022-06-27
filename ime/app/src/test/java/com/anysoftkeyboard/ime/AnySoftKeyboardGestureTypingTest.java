@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ime;
 
 import static org.mockito.ArgumentMatchers.any;
 
+import android.view.View;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -13,6 +14,7 @@ import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -27,6 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -305,6 +308,54 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE_WORD);
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testShowClearGestureButton() {
+        simulateGestureProcess("hello");
+        Assert.assertEquals(
+                View.VISIBLE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
+    }
+
+    @Test
+    public void testHideClearGestureButtonOnConfirmed() {
+        simulateGestureProcess("hello");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
+    }
+
+    @Test
+    public void testClearGestureButtonClearsGesture() {
+        simulateGestureProcess("hello");
+        final KeyboardViewContainerView.StripActionProvider provider =
+                mAnySoftKeyboardUnderTest.mClearLastGestureAction;
+        View rootActionView =
+                provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
+                        .findViewById(R.id.clear_gesture_strip_root);
+        final View.OnClickListener onClickListener =
+                Shadows.shadowOf(rootActionView).getOnClickListener();
+
+        onClickListener.onClick(rootActionView);
+
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testHideClearGestureButtonOnClear() {
+        simulateGestureProcess("hello");
+        final KeyboardViewContainerView.StripActionProvider provider =
+                mAnySoftKeyboardUnderTest.mClearLastGestureAction;
+        View rootActionView =
+                provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
+                        .findViewById(R.id.clear_gesture_strip_root);
+        final View.OnClickListener onClickListener =
+                Shadows.shadowOf(rootActionView).getOnClickListener();
+
+        onClickListener.onClick(rootActionView);
+
+        Assert.assertEquals(
+                View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
     }
 
     @Test

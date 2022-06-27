@@ -9,10 +9,12 @@ import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.test.TestUtils;
 import com.menny.android.anysoftkeyboard.R;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +36,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
         Assert.assertEquals(KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        AtomicBoolean foundQuickTextView = new AtomicBoolean(false);
+        for (int childIndex = 0;
+                childIndex < mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount();
+                childIndex++) {
+            if (mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(childIndex)
+                    instanceof QuickTextPagerView) {
+                foundQuickTextView.set(true);
+            }
+        }
+        Assert.assertFalse(foundQuickTextView.get());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
 
         Assert.assertSame(
@@ -381,7 +392,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        AtomicBoolean foundQuickTextView = new AtomicBoolean(false);
+        for (int childIndex = 0;
+                childIndex < mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount();
+                childIndex++) {
+            if (mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(childIndex)
+                    instanceof QuickTextPagerView) {
+                foundQuickTextView.set(true);
+            }
+        }
+        Assert.assertTrue(foundQuickTextView.get());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
@@ -403,7 +423,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(KEY_OUTPUT, inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        AtomicBoolean foundQuickTextView = new AtomicBoolean(false);
+        for (int childIndex = 0;
+                childIndex < mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount();
+                childIndex++) {
+            if (mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(childIndex)
+                    instanceof QuickTextPagerView) {
+                foundQuickTextView.set(true);
+            }
+        }
+        Assert.assertFalse(foundQuickTextView.get());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
@@ -431,7 +460,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        AtomicBoolean foundQuickTextView = new AtomicBoolean(false);
+        for (int childIndex = 0;
+                childIndex < mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount();
+                childIndex++) {
+            if (mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(childIndex)
+                    instanceof QuickTextPagerView) {
+                foundQuickTextView.set(true);
+            }
+        }
+        Assert.assertTrue(foundQuickTextView.get());
 
         Assert.assertSame(
                 mAnySoftKeyboardUnderTest.getInputView(),
