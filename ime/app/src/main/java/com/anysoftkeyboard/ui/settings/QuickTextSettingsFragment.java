@@ -32,8 +32,11 @@ public class QuickTextSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_quick_text_addons_prefs);
+        // for now, we are not supporting gender picking at all. Not enough time on our plate...
+        hidePref(findPreference(getString(R.string.settings_key_default_emoji_gender)));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            hidePref(findPreference(getString(R.string.settings_key_default_emoji_gender)));
+            //
+            // hidePref(findPreference(getString(R.string.settings_key_default_emoji_gender)));
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 hidePref(findPreference(getString(R.string.settings_key_default_emoji_skin_tone)));
             }

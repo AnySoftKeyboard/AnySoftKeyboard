@@ -70,8 +70,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         final int rowsCount = getPopupRowsCount(popupCharacters);
         final int popupCharactersLength =
                 Character.codePointCount(popupCharacters, 0, popupCharacters.length());
-        // final int keysPerRow = (int) Math.ceil((float) popupCharactersLength / (float)
-        // rowsCount);
 
         List<Key> keys = getKeys();
         for (int rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
@@ -116,15 +114,13 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             @Nullable JavaEmojiUtils.Gender gender) {
         final Predicate<CharSequence> checker;
         if (skinTone != null && gender != null) {
-            checker =
-                    text ->
-                            EmojiUtils.containsSkinTone(text, skinTone)
-                                    && EmojiUtils.containsGender(text, gender);
+            checker = text -> EmojiUtils.containsSkinTone(text, skinTone)
+            /*&& EmojiUtils.containsGender(text, gender)*/ ;
         } else if (skinTone != null) {
             checker = text -> EmojiUtils.containsSkinTone(text, skinTone);
-        } else if (gender != null) {
-            checker = text -> EmojiUtils.containsGender(text, gender);
-        } else {
+        } /*else if (gender != null) {
+              checker = text -> EmojiUtils.containsGender(text, gender);
+          } */ else {
             throw new IllegalArgumentException(
                     "can not have both skin-tone and gender set to null!");
         }
