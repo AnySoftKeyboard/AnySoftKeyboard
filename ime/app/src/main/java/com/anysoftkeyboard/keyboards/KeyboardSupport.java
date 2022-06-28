@@ -71,8 +71,8 @@ public class KeyboardSupport {
             KeyboardDimens keyboardDimens, int heightCode, float heightFactor) {
         int height;
         switch (heightCode) {
-            case 0:
-                height = 0;
+            case -1:
+                height = keyboardDimens.getNormalKeyHeight();
                 break;
             case -2:
                 height = keyboardDimens.getSmallKeyHeight();
@@ -80,8 +80,10 @@ public class KeyboardSupport {
             case -3:
                 height = keyboardDimens.getLargeKeyHeight();
                 break;
-            default: // -1
-                height = keyboardDimens.getNormalKeyHeight();
+            default:
+                height = heightCode >= 0
+                    ? heightCode
+                    : keyboardDimens.getNormalKeyHeight();
                 break;
         }
 
