@@ -2,7 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (5792)
+1. [menny](https://github.com/menny) (5809)
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
@@ -29,6 +29,7 @@ Thank you for the fine contributors:
 1. [andrewshadura](https://github.com/andrewshadura) (6)
 1. [dotsensei](https://github.com/dotsensei) (6)
 1. [pelya](https://github.com/pelya) (6)
+1. [JellyWX](https://github.com/JellyWX) (6)
 1. [Jonta](https://github.com/Jonta) (6)
 1. [ViXXoR](https://github.com/ViXXoR) (6)
 1. [ajgrf](https://github.com/ajgrf) (5)
@@ -66,6 +67,7 @@ Thank you for the fine contributors:
 1. [malum-prohibitum](https://github.com/malum-prohibitum) (3)
 1. [steelman](https://github.com/steelman) (3)
 1. [Unpublished](https://github.com/Unpublished) (3)
+1. [Er2ch](https://github.com/Er2ch) (2)
 1. [Erwan-Witekio](https://github.com/Erwan-Witekio) (2)
 1. [Shatur](https://github.com/Shatur) (2)
 1. [hezi](https://github.com/hezi) (2)
@@ -91,6 +93,7 @@ Thank you for the fine contributors:
 1. [grimreaper](https://github.com/grimreaper) (1)
 1. [eyedol](https://github.com/eyedol) (1)
 1. [huntermonk](https://github.com/huntermonk) (1)
+1. [jswetzen](https://github.com/jswetzen) (1)
 1. [joukewitteveen](https://github.com/joukewitteveen) (1)
 1. [Apflkuacha](https://github.com/Apflkuacha) (1)
 1. [mliberato](https://github.com/mliberato) (1)
@@ -98,6 +101,3 @@ Thank you for the fine contributors:
 1. [MusKaya](https://github.com/MusKaya) (1)
 1. [nielstron](https://github.com/nielstron) (1)
 1. [burunduk](https://github.com/burunduk) (1)
-1. [Pippo8291](https://github.com/Pippo8291) (1)
-1. [RichyHBM](https://github.com/RichyHBM) (1)
-1. [Roffild](https://github.com/Roffild) (1)
