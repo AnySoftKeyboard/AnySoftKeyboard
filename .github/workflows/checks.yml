@@ -49,12 +49,6 @@ jobs:
         with:
           name: checks-reports
           path: collected_reports
-      - uses: actions/upload-artifact@v3.1.0
-        if: always()
-        continue-on-error: true
-        with:
-          name: yamllint-reports
-          path: build/yamllint.log
 
   linters:
     runs-on: ubuntu-18.04
