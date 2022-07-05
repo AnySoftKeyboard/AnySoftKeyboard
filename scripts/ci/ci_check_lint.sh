@@ -7,6 +7,3 @@ set -e
 ./gradlew --stacktrace :ime:app:lintCanary --continue
 ./gradlew --stacktrace :ime:app:lintRelease --continue
 ./gradlew --stacktrace :ime:app:lintAllAddOns --continue
-
-#see https://github.com/actions/cache/issues/133
-[[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .

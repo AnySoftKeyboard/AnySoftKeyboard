@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-18.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Upload strings from ime/app main branch

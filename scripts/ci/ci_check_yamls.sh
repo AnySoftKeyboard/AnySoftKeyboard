@@ -10,6 +10,3 @@ if command -v go; then
   go install github.com/rhysd/actionlint/cmd/actionlint@latest
   actionlint -no-color -ignore SC2215| tee build/actionlint.log
 fi
-
-#see https://github.com/actions/cache/issues/133
-[[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
