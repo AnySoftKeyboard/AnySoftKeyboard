@@ -81,9 +81,7 @@ public class KeyboardSupport {
                 height = keyboardDimens.getLargeKeyHeight();
                 break;
             default:
-                height = heightCode >= 0
-                    ? heightCode
-                    : keyboardDimens.getNormalKeyHeight();
+                height = heightCode >= 0 ? heightCode : keyboardDimens.getNormalKeyHeight();
                 break;
         }
 
