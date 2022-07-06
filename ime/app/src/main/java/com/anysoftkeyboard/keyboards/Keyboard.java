@@ -673,6 +673,8 @@ public abstract class Keyboard {
         if (value == null) {
             // means that it was not provided. So I take my mParent's
             return defaultHeightCode;
+        } else if (value.type == TypedValue.TYPE_DIMENSION) {
+            return a.getDimensionPixelOffset(remoteIndex, defaultHeightCode);
         } else if (value.type >= TypedValue.TYPE_FIRST_INT
                 && value.type <= TypedValue.TYPE_LAST_INT
                 && value.data <= 0
