@@ -80,7 +80,7 @@
     <string name="power_save_mode_sound_control">Deshabilitar sonidos de pulsación de teclas</string>
     <string name="power_save_mode_vibration_control">Deshabilitar vibraciones de pulsación de teclas</string>
     <string name="power_save_mode_suggestions_control">Deshabilitar sugerencias de palabras</string>
-    <string name="power_save_mode_gesture_typing_control">Deshabilitar la escritura por gestos</string>
+    <string name="power_save_mode_gesture_typing_control">Deshabilitar escritura por gestos</string>
     <string name="power_save_mode_theme_control">Cambiar al tema oscuro y simple</string>
     <string name="pop_text_type_title">Mostrar el texto escrito de las teclas</string>
     <string name="pop_text_type_summary">Cuándo mostrar el texto de las teclas pulsadas. Actualmente: \u0020%s</string>
@@ -637,10 +637,11 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir distribución para anular filas genéricas.</string>
     <string name="gesture_typing_settings">Escritura por gestos ➿</string>
     <string name="gesture_typing_summary">Ingresa una palabra deslizando tu dedo por las letras.</string>
-    <string name="gesture_typing_action">Habilitar la escritura por gestos [BETA]</string>
+    <string name="gesture_typing_action">Habilitar escritura por gestos [BETA]</string>
     <string name="gesture_typing_alert_title">¡Función BETA!</string>
     <string name="gesture_typing_alert_message">La función de escritura por gestos ➿ está en su etapa <b>beta</b>.\nTiene algunos errores, no tan rápido y/o completo. Diciendo eso, deberías probarlo.</string>
     <string name="gesture_typing_alert_button">Entendido</string>
+    <string name="undo_gesture_typing">Deshacer escritura por gestos</string>
     <string name="apply_remote_app_colors_to_theme">Cambiar colores del tema según la aplicación</string>
     <string name="apply_overlay_summary_on">Colores del teclado coincidirán con la aplicación activa (lo mejor posible).</string>
     <string name="apply_overlay_summary_off">Siempre utilizar los colores del tema.</string>
