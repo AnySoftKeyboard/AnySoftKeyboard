@@ -38,6 +38,9 @@ jobs:
         run: ./scripts/ci/ci_check.sh
       - name: check-all-yamls
         run: ./scripts/ci/ci_check_yamls.sh
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -78,6 +81,9 @@ jobs:
           grep -i 'oom' /var/log/syslog || true
           grep -i 'out of memory' /var/log/messages || true
           grep -i 'out of memory' /var/log/syslog || true
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -120,6 +126,9 @@ jobs:
           module: ":ime:app:"
           extra_args: "-PexcludeTestClasses=\"**/*AllSdkTest*\""
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -157,6 +166,9 @@ jobs:
           module: ":ime:app:"
           extra_args: "--tests=*AllSdkTest*"
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -194,6 +206,9 @@ jobs:
           module: ""
           extra_args: "-x :ime:app:testDebugUnitTest -x :ime:app:testDebugUnitTestCoverage"
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -229,6 +244,9 @@ jobs:
           ./gradlew :ime:app:testAllAddOnsUnitTestCoverage :ime:app:testAllAddOnsUnitTest --tests="*LoadedKeyboardsVerificationTest*"
           chmod -R a+rwx .
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
@@ -266,6 +284,9 @@ jobs:
               assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources \
               generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: actions/upload-artifact@v3.1.0
         continue-on-error: true
         with:
