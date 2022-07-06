@@ -2,7 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (5809)
+1. [menny](https://github.com/menny) (5819)
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
@@ -89,6 +89,7 @@ Thank you for the fine contributors:
 1. [Cyph0ZD](https://github.com/Cyph0ZD) (1)
 1. [lumpidu](https://github.com/lumpidu) (1)
 1. [David-Gil](https://github.com/David-Gil) (1)
+1. [djpohly](https://github.com/djpohly) (1)
 1. [dmlls](https://github.com/dmlls) (1)
 1. [grimreaper](https://github.com/grimreaper) (1)
 1. [eyedol](https://github.com/eyedol) (1)
@@ -100,4 +101,3 @@ Thank you for the fine contributors:
 1. [mheinzerling](https://github.com/mheinzerling) (1)
 1. [MusKaya](https://github.com/MusKaya) (1)
 1. [nielstron](https://github.com/nielstron) (1)
-1. [burunduk](https://github.com/burunduk) (1)
