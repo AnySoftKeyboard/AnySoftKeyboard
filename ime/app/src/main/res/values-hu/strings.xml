@@ -732,6 +732,7 @@
     <string name="gesture_typing_alert_title">Béta funkció!</string>
     <string name="gesture_typing_alert_message">A gesztus gépelés ➿ funkció <b>béta</b> állapotú. Van néhány hibája, nem túl gyors, és még nem végleges.\nKipróbálni viszont már most is érdemes.</string>
     <string name="gesture_typing_alert_button">Gyerünk</string>
+    <string name="undo_gesture_typing">Gesztus gépelés visszavonása</string>
     <string name="apply_remote_app_colors_to_theme">A témaszín a használt apphoz igazodjon</string>
     <string name="apply_overlay_summary_on">A billentyűzet színei idomulnak az aktív alkalmazáshoz (amennyire lehet).</string>
     <string name="apply_overlay_summary_off">Mindig a témaszín használata.</string>

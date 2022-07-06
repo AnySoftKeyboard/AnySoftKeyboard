@@ -25,9 +25,9 @@
     <!-- changelog -->
     <string name="changelog">Lista zmian</string>
     <string name="search_market_for_addons">Szukaj dodatków</string>
-    <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur z Google Play</string>
+    <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur ze sklepu z aplikacjami</string>
     <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
-    <string name="no_market_store_available">Na Twoim urządzeniu nie odnaleziono <i>Sklepu Google Play</i>.\nNie udało się wyszukać dodatków!</string>
+    <string name="no_market_store_available">Na twoim urządzeniu nie odnaleziono sklepu z aplikacjami.\nNie udało się wyszukać dodatków!</string>
     <string name="keyboard_theme_tweak_group">Ulepszenia</string>
     <string name="close_button">Zamknij</string>
     <string name="delete_button">Usuń</string>
@@ -39,13 +39,13 @@
     <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Wprowadzanie głosowe niezainstalowane</string>
-    <string name="voice_input_not_installed_text">Pisanie głosowe nie jest zainstalowane na Twoim urządzeniu\nMożna
-        to łatwo naprawić: pobierz je ze <i>Sklepu Google Play</i>.
+    <string name="voice_input_not_installed_text">Pisanie głosowe nie jest zainstalowane na twoim urządzeniu\nMożna
+        to łatwo naprawić: pobierz je ze sklepu z aplikacjami.
     </string>
     <string name="voice_input_not_installed_action_install">Zainstaluj</string>
     <string name="voice_input_not_installed_action_do_not_install">Nie</string>
     <string name="voice_input_not_voice_pack_in_market">Pisanie głosowe
-        (com.google.android.voicesearch) nie znalezione w <i>Sklepie Google Play</i>. Przykro nam, pisanie głosowe nie będzie działało na Twoim
+        (com.google.android.voicesearch) nie zostało znalezione w sklepie z aplikacjami. Przykro nam, pisanie głosowe nie będzie działało na twoim
         urządzeniu.
     </string>
     <!-- Options menu -->
@@ -761,6 +761,7 @@ Zmiana
     <string name="gesture_typing_alert_title">Funkcja w wersji BETA!</string>
     <string name="gesture_typing_alert_message">Funkcja pisania gestami ➿ jest w wersji <b>beta</b>. Zdarzają się błędy, może działać powoli i nie we wszystkich przypadkach.\nNiemniej jednak warto ją wypróbować.</string>
     <string name="gesture_typing_alert_button">Rozumiem</string>
+    <string name="undo_gesture_typing">Cofnij pisanie gestami</string>
     <string name="apply_remote_app_colors_to_theme">Dostosuj motyw do używanej aplikacji</string>
     <string name="apply_overlay_summary_on">Kolory klawiatury dopasują się do używanej aplikacji.</string>
     <string name="apply_overlay_summary_off">Używaj kolorów motywu.</string>
@@ -771,7 +772,7 @@ Zmiana
     <string name="aosp_light_theme_description">AOSP - Motyw klawiatury inspirowany jasnymi kolorami</string>
     <string name="app_share_title">Pozdrowienia od AnySoftKeyboard</string>
     <string name="app_share_menu_title">Udostępnij AnySoftKeyboard używając</string>
-    <string name="app_share_text">Pozwól mi polecić open-source, skoncentrowaną na prywatności, bezpłatną, wysoce konfigurowalną, wielojęzyczną aplikację klawiatury dla Android: AnySoftKeyboard.\nPobierz ją z:\nSklep Google Play: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="app_share_text">Pozwól mi polecić aplikację o otwartym kodzie, skoncentrowaną na prywatności, bezpłatną, wysoce konfigurowalną, wielojęzyczną klawiaturę dla systemu Android: AnySoftKeyboard.\nPobierz ją z:\nSklep Google Play: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Dotknij, to niespodzianka</string>
     <string name="backup_restore_not_support_before_kitkat">Nieobsługiwane na twoim Androidzie</string>
     <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
