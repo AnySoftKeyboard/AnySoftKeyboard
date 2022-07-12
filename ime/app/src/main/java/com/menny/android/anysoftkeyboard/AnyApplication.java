@@ -441,17 +441,12 @@ public class AnyApplication extends MultiDexApplication {
         }
 
         @Override
-        protected void setupNotification(
-                @NonNull NotificationCompat.Builder builder, @NonNull Throwable ex) {
+        protected void setupNotification(@NonNull NotificationCompat.Builder builder) {
             builder.setSmallIcon(R.drawable.ic_notification_error)
                     .setColor(ContextCompat.getColor(mApp, R.color.notification_background_error))
                     .setTicker(mApp.getText(R.string.ime_crashed_ticker))
                     .setContentTitle(mApp.getText(R.string.ime_name))
-                    .setContentText(mApp.getText(R.string.ime_crashed_sub_text))
-                    .setSubText(
-                            BuildConfig.TESTING_BUILD
-                                    ? ex.getClass().getSimpleName() + ": " + ex.getMessage()
-                                    : null /*not showing the type of crash in RELEASE mode*/);
+                    .setContentText(mApp.getText(R.string.ime_crashed_sub_text));
         }
 
         @NonNull

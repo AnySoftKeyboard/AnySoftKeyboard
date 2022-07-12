@@ -18,14 +18,11 @@ package com.anysoftkeyboard.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.chewbacca.BugReportDetails;
-import com.anysoftkeyboard.ui.dev.LogCatViewFragment;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -44,7 +41,6 @@ public class SendBugReportUiActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        TextView crashTypeView = findViewById(R.id.ime_crash_type);
         Intent callingIntent = getIntent();
         mCrashReportDetails =
                 callingIntent.getParcelableExtra(BugReportDetails.EXTRA_KEY_BugReportDetails);
@@ -55,35 +51,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
                                 + BugReportDetails.EXTRA_KEY_BugReportDetails
                                 + " extra!");
             finish();
-        } else {
-            if (mCrashReportDetails.throwable == null || !BuildConfig.DEBUG) {
-                /*not showing the type of crash in RELEASE mode*/
-                crashTypeView.setVisibility(View.GONE);
-            } else {
-                Throwable throwable = mCrashReportDetails.throwable;
-                StringBuilder typeText = new StringBuilder(throwable.getClass().getName());
-                if (!TextUtils.isEmpty(throwable.getMessage()))
-                    typeText.append(": ").append(throwable.getMessage());
-
-                StackTraceElement[] stackTrace = throwable.getStackTrace();
-                if (stackTrace.length > 0) {
-                    typeText.append("\n").append("Thrown at ").append(stackTrace[0]);
-                    for (int i = 1; i < Math.min(3, stackTrace.length); i++) {
-                        typeText.append("\n").append(stackTrace[i]);
-                    }
-                }
-
-                crashTypeView.setText(typeText);
-            }
         }
-    }
-
-    public void onClickOnType(View v) {
-        findViewById(R.id.logcat_fragment_container).setVisibility(View.VISIBLE);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.logcat_fragment_container, new LogCatViewFragment())
-                .commit();
     }
 
     public void onCancelCrashReport(View v) {

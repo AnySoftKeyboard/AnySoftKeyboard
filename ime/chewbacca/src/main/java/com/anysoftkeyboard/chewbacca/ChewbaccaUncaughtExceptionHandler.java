@@ -23,15 +23,28 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.anysoftkeyboard.base.utils.Logger;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.nio.charset.Charset;
 
 public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
+    @VisibleForTesting static final String NEW_CRASH_FILENAME = "new_crash_details.log";
+
+    @VisibleForTesting
+    static final String ACK_CRASH_FILENAME_TEMPLATE = "crash_report_details_{TIME}.log";
+
     private static final String TAG = "ASKChewbacca";
     @NonNull protected final Context mApp;
     @Nullable private final UncaughtExceptionHandler mOsDefaultHandler;
@@ -40,6 +53,53 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
             @NonNull Context app, @Nullable UncaughtExceptionHandler previous) {
         mApp = app;
         mOsDefaultHandler = previous;
+    }
+
+    private static String getAckReportFilename() {
+        return ACK_CRASH_FILENAME_TEMPLATE.replace(
+                "{TIME}", Long.toString(System.currentTimeMillis()));
+    }
+
+    public boolean performCrashDetectingFlow() {
+        final File newCrashFile = new File(mApp.getFilesDir(), NEW_CRASH_FILENAME);
+        if (newCrashFile.isFile()) {
+            String ackReportFilename = getAckReportFilename();
+            StringBuilder report = new StringBuilder();
+            try (BufferedReader reader =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    mApp.openFileInput(NEW_CRASH_FILENAME),
+                                    Charset.forName("UTF-8")))) {
+                try (BufferedWriter writer =
+                        new BufferedWriter(
+                                new OutputStreamWriter(
+                                        mApp.openFileOutput(
+                                                ackReportFilename, Context.MODE_PRIVATE),
+                                        Charset.forName("UTF-8")))) {
+                    Logger.i(TAG, "Archiving crash report to %s.", ackReportFilename);
+                    Logger.d(TAG, "Crash report:");
+                    String line;
+                    while (null != (line = reader.readLine())) {
+                        writer.write(line);
+                        writer.newLine();
+                        report.append(line).append(NEW_LINE);
+                        Logger.d(TAG, "err: %s", line);
+                    }
+                }
+            } catch (Exception e) {
+                Logger.e(TAG, "Failed to write crash report to archive!");
+                return false;
+            }
+
+            if (!newCrashFile.delete()) {
+                Logger.e(TAG, "Failed to delete crash log! %s", newCrashFile.getAbsolutePath());
+            }
+
+            sendNotification(report.toString());
+
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -116,9 +176,30 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                 .append(Logger.getAllLogLines())
                 .append(NEW_LINE);
 
+        try (OutputStreamWriter writer =
+                new OutputStreamWriter(
+                        mApp.openFileOutput(NEW_CRASH_FILENAME, Context.MODE_PRIVATE),
+                        Charset.forName("UTF-8"))) {
+            writer.write(reportMessage.toString());
+            Logger.i(TAG, "Wrote crash report to %s.", NEW_CRASH_FILENAME);
+            Logger.d(TAG, "Crash report:");
+            for (String line : TextUtils.split(reportMessage.toString(), NEW_LINE)) {
+                Logger.d(TAG, "err: %s", line);
+            }
+        } catch (Exception writeEx) {
+            Logger.e(TAG, writeEx, "Failed to write crash report file!");
+        }
+        // and sending to the OS
+        if (mOsDefaultHandler != null) {
+            Logger.i(TAG, "Sending the exception to OS exception handler...");
+            mOsDefaultHandler.uncaughtException(thread, ex);
+        }
+    }
+
+    private void sendNotification(@NonNull String crashReport) {
         final Intent notificationIntent = createBugReportingActivityIntent();
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        final Parcelable reportDetailsExtra = new BugReportDetails(ex, reportMessage.toString());
+        final Parcelable reportDetailsExtra = new BugReportDetails(crashReport);
         notificationIntent.putExtra(
                 BugReportDetails.EXTRA_KEY_BugReportDetails, reportDetailsExtra);
 
@@ -135,24 +216,17 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
                 .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-        setupNotification(builder, ex);
+        setupNotification(builder);
 
         // notifying
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mApp);
         notificationManager.notify(R.id.notification_icon_app_error, builder.build());
-
-        // and sending to the OS
-        if (mOsDefaultHandler != null) {
-            Logger.i(TAG, "Sending the exception to OS exception handler...");
-            mOsDefaultHandler.uncaughtException(thread, ex);
-        }
     }
 
     @NonNull
     protected abstract Intent createBugReportingActivityIntent();
 
-    protected abstract void setupNotification(
-            @NonNull NotificationCompat.Builder builder, @NonNull Throwable ex);
+    protected abstract void setupNotification(@NonNull NotificationCompat.Builder builder);
 
     @NonNull
     protected abstract String getAppDetails();
