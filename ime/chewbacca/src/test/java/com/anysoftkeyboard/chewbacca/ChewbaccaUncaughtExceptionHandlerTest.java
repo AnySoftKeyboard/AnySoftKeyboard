@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
@@ -77,7 +76,14 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
                 new TestableChewbaccaUncaughtExceptionHandler(app, null);
         File newReport =
                 new File(app.getFilesDir(), ChewbaccaUncaughtExceptionHandler.NEW_CRASH_FILENAME);
-        Files.write(newReport.toPath(), Collections.singleton("text"));
+        List<String> reportTextLines =
+                Arrays.asList(
+                        "header text",
+                        "header 2",
+                        ChewbaccaUncaughtExceptionHandler.HEADER_BREAK_LINE,
+                        "report text 1",
+                        "report text 2");
+        Files.write(newReport.toPath(), reportTextLines);
         Assert.assertTrue(newReport.exists());
         Assert.assertTrue(underTest.performCrashDetectingFlow());
         Assert.assertFalse(newReport.exists());
@@ -90,8 +96,13 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
                         .matcher(ackFiles[0].getName());
         Assert.assertTrue(ackFiles[0].getName() + " did not match", matcher.find());
         List<String> text = Files.readAllLines(ackFiles[0].toPath());
-        Assert.assertEquals(1, text.size());
-        Assert.assertEquals("text", text.get(0));
+        Assert.assertEquals(5, text.size());
+        for (int lineIndex = 0; lineIndex < reportTextLines.size(); lineIndex++) {
+            Assert.assertEquals(
+                    "line " + lineIndex + " not equals",
+                    reportTextLines.get(lineIndex),
+                    text.get(lineIndex));
+        }
 
         StatusBarNotification[] activeNotifications =
                 Shadows.shadowOf(app.getSystemService(NotificationManager.class))
@@ -104,6 +115,21 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
                         .orElse(null);
         Assert.assertNotNull(notification);
         Assert.assertEquals("test-channel-id", notification.getChannelId());
+        Intent savedIntent = Shadows.shadowOf(notification.contentIntent).getSavedIntent();
+        Assert.assertEquals(
+                Intent.FLAG_ACTIVITY_NEW_TASK,
+                savedIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Assert.assertEquals(Intent.ACTION_VIEW, savedIntent.getAction());
+        Assert.assertEquals(Uri.parse("https://example.com"), savedIntent.getData());
+        BugReportDetails reportDetails =
+                savedIntent.getParcelableExtra(BugReportDetails.EXTRA_KEY_BugReportDetails);
+        Assert.assertNotNull(reportDetails);
+        Assert.assertEquals(
+                reportDetails.crashHeader.trim(), String.join("\n", reportTextLines.subList(0, 2)));
+        Assert.assertEquals(
+                reportDetails.crashReportText.trim(), String.join("\n", reportTextLines));
+        Assert.assertEquals("file", reportDetails.fullReport.getScheme());
+        Assert.assertEquals(Uri.fromFile(ackFiles[0]), reportDetails.fullReport);
     }
 
     @Test
@@ -125,9 +151,15 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
         Assert.assertTrue(newReport.isFile());
         List<String> text = Files.readAllLines(newReport.toPath());
         Assert.assertEquals(
-                43 /*this is fragile, and can change when crash report is changed*/, text.size());
+                44 /*this is fragile, and can change when crash report is changed*/, text.size());
         Assert.assertEquals(
                 "Hi. It seems that we have crashed.... Here are some details:", text.get(0));
+        Assert.assertEquals(
+                ChewbaccaUncaughtExceptionHandler.HEADER_BREAK_LINE,
+                text.stream()
+                        .filter(ChewbaccaUncaughtExceptionHandler.HEADER_BREAK_LINE::equals)
+                        .findFirst()
+                        .orElse(null));
     }
 
     private static class TestableChewbaccaUncaughtExceptionHandler

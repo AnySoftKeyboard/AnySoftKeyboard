@@ -108,6 +108,7 @@ dependencies {
     implementation project(':ime:gesturetyping')
     implementation project(':ime:voiceime')
     implementation project(':ime:chewbacca')
+    implementation project(':ime:fileprovider')
 
     implementation 'androidx.fragment:fragment:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'

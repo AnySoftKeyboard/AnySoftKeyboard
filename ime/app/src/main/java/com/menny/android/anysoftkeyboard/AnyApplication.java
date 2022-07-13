@@ -384,6 +384,10 @@ public class AnyApplication extends MultiDexApplication {
                     e ->
                             chewbaccaUncaughtExceptionHandler.uncaughtException(
                                     Thread.currentThread(), e));
+
+            if (chewbaccaUncaughtExceptionHandler.performCrashDetectingFlow()) {
+                Logger.w(TAG, "Previous crash detected and reported!");
+            }
         }
 
         Logger.setLogProvider(new NullLogProvider());

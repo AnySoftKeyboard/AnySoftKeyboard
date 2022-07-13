@@ -22,12 +22,13 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -44,6 +45,8 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
 
     @VisibleForTesting
     static final String ACK_CRASH_FILENAME_TEMPLATE = "crash_report_details_{TIME}.log";
+
+    @VisibleForTesting static final String HEADER_BREAK_LINE = "----- FULL REPORT -----";
 
     private static final String TAG = "ASKChewbacca";
     @NonNull protected final Context mApp;
@@ -64,6 +67,7 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
         final File newCrashFile = new File(mApp.getFilesDir(), NEW_CRASH_FILENAME);
         if (newCrashFile.isFile()) {
             String ackReportFilename = getAckReportFilename();
+            StringBuilder header = new StringBuilder();
             StringBuilder report = new StringBuilder();
             try (BufferedReader reader =
                     new BufferedReader(
@@ -79,10 +83,13 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                     Logger.i(TAG, "Archiving crash report to %s.", ackReportFilename);
                     Logger.d(TAG, "Crash report:");
                     String line;
+                    boolean stillInHeader = true;
                     while (null != (line = reader.readLine())) {
                         writer.write(line);
                         writer.newLine();
                         report.append(line).append(NEW_LINE);
+                        if (line.equals(HEADER_BREAK_LINE)) stillInHeader = false;
+                        if (stillInHeader) header.append(line).append(NEW_LINE);
                         Logger.d(TAG, "err: %s", line);
                     }
                 }
@@ -95,7 +102,10 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                 Logger.e(TAG, "Failed to delete crash log! %s", newCrashFile.getAbsolutePath());
             }
 
-            sendNotification(report.toString());
+            sendNotification(
+                    header.toString(),
+                    report.toString(),
+                    new File(mApp.getFilesDir(), ackReportFilename));
 
             return true;
         }
@@ -142,6 +152,8 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                 .append(NEW_LINE)
                 .append("****** Exception message: ")
                 .append(ex.getMessage())
+                .append(NEW_LINE)
+                .append(HEADER_BREAK_LINE)
                 .append(NEW_LINE)
                 .append("****** Trace trace:")
                 .append(NEW_LINE)
@@ -196,12 +208,13 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
         }
     }
 
-    private void sendNotification(@NonNull String crashReport) {
+    private void sendNotification(
+            @NonNull String reportHeader, @NonNull String crashReport, @NonNull File reportFile) {
         final Intent notificationIntent = createBugReportingActivityIntent();
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        final Parcelable reportDetailsExtra = new BugReportDetails(crashReport);
         notificationIntent.putExtra(
-                BugReportDetails.EXTRA_KEY_BugReportDetails, reportDetailsExtra);
+                BugReportDetails.EXTRA_KEY_BugReportDetails,
+                new BugReportDetails(reportHeader, crashReport, Uri.fromFile(reportFile)));
 
         final PendingIntent contentIntent =
                 PendingIntent.getActivity(
@@ -210,16 +223,27 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                         notificationIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp, "Errors");
+        NotificationChannelCompat notificationChannel =
+                new NotificationChannelCompat.Builder(
+                                "crash", NotificationManagerCompat.IMPORTANCE_HIGH)
+                        .setName("App Crash Report")
+                        .setLightsEnabled(true)
+                        .setLightsEnabled(true)
+                        .build();
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(mApp, notificationChannel.getId());
         builder.setWhen(System.currentTimeMillis())
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setOnlyAlertOnce(false);
         setupNotification(builder);
 
         // notifying
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mApp);
+        notificationManager.createNotificationChannel(notificationChannel);
         notificationManager.notify(R.id.notification_icon_app_error, builder.build());
     }
 

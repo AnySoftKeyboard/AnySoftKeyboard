@@ -17,20 +17,25 @@
 package com.anysoftkeyboard.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.chewbacca.BugReportDetails;
+import com.anysoftkeyboard.fileprovider.LocalProxy;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 
 public class SendBugReportUiActivity extends FragmentActivity {
 
     private static final String TAG = "ASKBugSender";
 
     private BugReportDetails mCrashReportDetails;
+    private Disposable mDisposable = Disposables.empty();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,24 +64,28 @@ public class SendBugReportUiActivity extends FragmentActivity {
     }
 
     public void onSendCrashReport(View v) {
+        mDisposable.dispose();
+        mDisposable =
+                LocalProxy.proxy(this, mCrashReportDetails.fullReport)
+                        .subscribe(this::sendReportViaSend);
+    }
+
+    private void sendReportViaSend(Uri fullReportUri) {
         String[] recipients = new String[] {BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
 
-        Intent sendMail = new Intent();
-        sendMail.setAction(Intent.ACTION_SEND);
-        sendMail.setType("plain/text");
-        sendMail.putExtra(Intent.EXTRA_EMAIL, recipients);
-        sendMail.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_crashed_title));
-        sendMail.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashReportText);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("plain/text");
+        sendIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_crashed_title));
+        sendIntent.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashHeader);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, fullReportUri);
 
+        Intent sender =
+                Intent.createChooser(
+                        sendIntent, getString(R.string.ime_crashed_intent_selector_title));
+        Logger.i(TAG, "Sending crash report intent %s, with attachment %s", sender, fullReportUri);
         try {
-            Intent sender =
-                    Intent.createChooser(
-                            sendMail, getString(R.string.ime_crashed_intent_selector_title));
-            sender.putExtra(Intent.EXTRA_EMAIL, sendMail.getStringArrayExtra(Intent.EXTRA_EMAIL));
-            sender.putExtra(Intent.EXTRA_SUBJECT, sendMail.getStringExtra(Intent.EXTRA_SUBJECT));
-            sender.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashReportText);
-
-            Logger.i(TAG, "Will send crash report using " + sender);
             startActivity(sender);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(
@@ -85,7 +94,12 @@ public class SendBugReportUiActivity extends FragmentActivity {
                             Toast.LENGTH_LONG)
                     .show();
         }
-
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDisposable.dispose();
     }
 }
