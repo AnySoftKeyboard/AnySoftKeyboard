@@ -71,6 +71,21 @@ public class GestureTypingPathDrawHelperTest {
     }
 
     @Test
+    public void testDoesNotCrashIfFirstEventIsNotDown() {
+        GestureTypingPathDraw underTest =
+                GestureTypingPathDrawHelper.create(
+                        () -> {},
+                        new GestureTrailTheme(
+                                Color.argb(200, 60, 120, 240),
+                                Color.argb(100, 30, 240, 200),
+                                100f,
+                                20f,
+                                20));
+
+        underTest.handleTouchEvent(createMove(10f, 10f));
+    }
+
+    @Test
     public void testDrawsHappyPath() {
         Canvas canvas = Mockito.mock(Canvas.class);
         final AtomicInteger invalidates = new AtomicInteger();

@@ -31,8 +31,7 @@ public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
     private final int mArraysSize;
     @NonNull private final PointF[] mPointsCircularArray;
     @NonNull private final Paint[] mPaints;
-    private int mPointsCurrentIndex = -1;
-    private int mPaintOffset = 0;
+    private int mPointsCurrentIndex = 0;
 
     private GestureTypingPathDrawHelper(
             @NonNull OnInvalidateCallback callback, @NonNull GestureTrailTheme theme) {
@@ -56,20 +55,18 @@ public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
     @Override
     public void draw(Canvas canvas) {
         if (mPointsCurrentIndex > 1) {
-            PointF lastDrawnPoint =
-                    mPointsCircularArray[Math.floorMod(mPointsCurrentIndex - 1, mArraysSize)];
+            PointF lastDrawnPoint = mPointsCircularArray[(mPointsCurrentIndex - 1) % mArraysSize];
             for (int elementIndex = 1; elementIndex < mArraysSize; elementIndex++) {
                 PointF currentPoint =
                         mPointsCircularArray[
                                 Math.floorMod(mPointsCurrentIndex - 1 - elementIndex, mArraysSize)];
                 if (currentPoint.equals(END_OF_PATH)) break;
 
-                Paint paint = mPaints[Math.min(elementIndex - 1 + mPaintOffset, mArraysSize - 1)];
+                Paint paint = mPaints[Math.min(elementIndex - 1, mArraysSize - 1)];
                 canvas.drawLine(
                         lastDrawnPoint.x, lastDrawnPoint.y, currentPoint.x, currentPoint.y, paint);
                 lastDrawnPoint = currentPoint;
             }
-            mPaintOffset++;
             mCallback.invalidate();
         }
     }
@@ -88,7 +85,6 @@ public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
             case MotionEvent.ACTION_MOVE:
                 mPointsCircularArray[mPointsCurrentIndex % mArraysSize].set(x, y);
                 mPointsCurrentIndex++;
-                mPaintOffset = 0;
                 mCallback.invalidate();
                 break;
         }
