@@ -65,6 +65,10 @@
     <string name="night_mode_screen">夜间模式设置</string>
     <string name="night_mode_description">夜间模式将更改这些功能：</string>
     <string name="night_mode_state_summary">目前，夜间模式触发：\u0020%s</string>
+    <string name="night_mode_dialog_title">切换到夜间模式</string>
+    <string name="night_mode_type_never">永不</string>
+    <string name="night_mode_type_follow_system">按照系统设置</string>
+    <string name="night_mode_type_always">总是</string>
     <string name="persistent_layout_per_package_id_on_summary">自动切换到应用中使用的上一个布局。</string>
     <string name="one_shot_quick_text_popup">按键后自动关闭</string>
     <string name="one_shot_quick_text_popup_on_summary">按键后关闭快速文本弹出窗口。</string>
