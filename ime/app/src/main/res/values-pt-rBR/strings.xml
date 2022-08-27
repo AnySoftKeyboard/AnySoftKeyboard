@@ -194,6 +194,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Layout compacto à direita</string>
     <string name="swipe_action_name_compact_layout_to_left">Layout compacto à esquerda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar teclado utilitário</string>
+    <string name="swipe_action_name_quick_text_popup">Mostrar pop-up de emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Limite da velocidade de arrasto</string>
     <string name="settings_swipe_velocity_threshold_summary">Velocidade mínima do arrasto. Atualmente, %s</string>
     <string name="settings_swipe_velocity_very_slow">Muito lenta</string>
@@ -421,6 +422,7 @@ simplistas    </string>
     <string name="extension_kbd_bottom_minimal">Minimalista</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sem emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Mínimo (menos pontuação)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Mínimo (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -678,6 +680,7 @@ simplistas    </string>
     <string name="gesture_typing_alert_title">Recurso BETA!</string>
     <string name="gesture_typing_alert_message">A digitação por gesto ➿ ainda está em fase <b>beta</b>. Pode conter bugs, não ser tão ágil ou completo.\nSabendo disso, você deveria testar.</string>
     <string name="gesture_typing_alert_button">Entendi</string>
+    <string name="undo_gesture_typing">Desfazer digitação de gestos</string>
     <string name="apply_remote_app_colors_to_theme">Alterar as cores do tema com base no app usado</string>
     <string name="apply_overlay_summary_on">A cor do teclado irá combinar com a cor do app ativo, ou ao menos tentar.</string>
     <string name="apply_overlay_summary_off">Sempre usar a cor do tema.</string>
@@ -690,5 +693,7 @@ simplistas    </string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
     <string name="app_share_text">Deixe-me recomendar um app de teclado - AnySoftKeyboard para Android, ele é de software livre, focado na privacidade, gratuito, personalizável, e multilíngue.\nBaixe na:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
+    <string name="backup_restore_not_support_before_kitkat">Não suportado em seu Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Backup e restauração não são suportados para dispositivos rodando o sistema operacional anterior ao Android KitKat (versão 4.4). Desculpe.</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
