@@ -297,10 +297,11 @@
     </string>
     <string name="emoticon_long_press_opens_popup_off_summary">Hiện cửa sổ nổi Biểu tượng cảm xúc khi nhấn nhanh
     </string>
+    <string name="key_preview_position_override">Vị trí xem trước phím</string>
     <string name="key_preview_position_override_summary">Phía trên phím được nhấn hoặc phía trên toàn bộ
         bàn phím
     </string>
-    <string name="key_preview_position_override_above_key">Phím được nhấn ở trên</string>
+    <string name="key_preview_position_override_above_key">Phía trên Phím được nhấn</string>
     <string name="key_preview_position_override_above_keyboard">Phía trên bàn phím</string>
     <string name="key_press_preview_popup">Key preview popup</string>
     <string name="key_press_preview_popup_on_summary">Hiện cửa sổ nổi khi nhấn phím</string>
@@ -343,7 +344,9 @@
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Các phím văn bản nhanh</string>
     <!-- settings - top generic row -->
+    <string name="top_generic_row_group">Hàng trên cùng</string>
     <!-- settings - bottom generic row -->
+    <string name="bottom_generic_row_group">Hàng dưới cùng</string>
     <!-- extension keyboard type -->
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
