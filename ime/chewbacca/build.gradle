@@ -5,8 +5,8 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
     implementation 'androidx.annotation:annotation:1.4.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.fragment:fragment:1.5.1'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.fragment:fragment:1.5.2'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
     implementation project(':ime:pixel')
