@@ -296,7 +296,7 @@
     <string name="emoticon_long_press_opens_popup_on_summary">Показывать смайлики при долгом нажатии</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Показывать смайлики при коротком нажатии</string>
     <string name="default_smiley_text">Текст Смайликов</string>
-    <string name="default_domain_text">Текст Доменов</string>
+    <string name="default_domain_text">Текст доменов</string>
     <string name="key_preview_position_override">Размещение всплывающих клавиш</string>
     <string name="key_preview_position_override_summary">Над нажатой клавишей или над всей клавиатурой</string>
     <string name="key_preview_position_override_above_key">Над нажатой клавишей</string>
