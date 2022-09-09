@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.prefs.backup;
 
 import androidx.annotation.Nullable;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class PrefItem {
         /*ensuring that all instances are created in this package*/
     }
 
+    @CanIgnoreReturnValue
     public PrefItem addValue(String key, String value) {
         mValues.put(validKey(key), value);
         return this;
