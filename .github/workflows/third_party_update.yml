@@ -24,14 +24,14 @@ env:
 
 jobs:
   sanity-test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_base:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
@@ -67,7 +67,7 @@ jobs:
           branch: 'bot-pr/gradle-update'
           labels: automerge
   general-maven-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
@@ -93,7 +93,7 @@ jobs:
           branch: 'bot-pr/maven-update'
           labels: automerge
   robolectric-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
@@ -140,7 +140,7 @@ jobs:
           branch: 'bot-pr/robolectric-update'
           labels: automerge
   build-tools-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
@@ -174,7 +174,7 @@ jobs:
           branch: 'bot-pr/build-tools-update'
           labels: automerge
   error-prone-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
@@ -231,7 +231,7 @@ jobs:
           branch: 'bot-pr/error-prone-update'
           labels: automerge
   google-format-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2

@@ -23,7 +23,7 @@ env:
 
 jobs:
   static-checks:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
@@ -54,7 +54,7 @@ jobs:
           path: collected_reports
 
   linters:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 20
     steps:
@@ -102,7 +102,7 @@ jobs:
           path: collected_reports
 
   app-tests-shards:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     strategy:
@@ -147,7 +147,7 @@ jobs:
           path: build/build-logging
 
   app-all-sdks-tests:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
@@ -187,7 +187,7 @@ jobs:
           path: build/build-logging
 
   app-less-tests:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
@@ -227,7 +227,7 @@ jobs:
           path: build/build-logging
 
   verify-all-addons:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
@@ -265,7 +265,7 @@ jobs:
           path: build/build-logging
 
   deploy-dry-run:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     timeout-minutes: 30
     steps:
@@ -295,7 +295,7 @@ jobs:
 
   all-green-requirement:
     needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - name: ready
         run: echo "DONE"
@@ -303,7 +303,7 @@ jobs:
   deploy-request:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_base:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
@@ -319,7 +319,7 @@ jobs:
   merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     container: menny/android_base:1.15.4
     steps:
       - uses: actions/checkout@v2.4.2
