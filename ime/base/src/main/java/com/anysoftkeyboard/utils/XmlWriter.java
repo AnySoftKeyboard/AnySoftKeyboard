@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.utils;
 
 import com.anysoftkeyboard.base.Charsets;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InvalidObjectException;
@@ -68,6 +69,7 @@ public class XmlWriter implements Closeable {
      *
      * @param name name of entity.
      */
+    @CanIgnoreReturnValue
     public XmlWriter writeEntity(String name) throws IOException {
         closeOpeningTag(true);
         this.mClosed = false;
@@ -106,6 +108,7 @@ public class XmlWriter implements Closeable {
      * @param attr name of attribute.
      * @param value value of attribute.
      */
+    @CanIgnoreReturnValue
     public XmlWriter writeAttribute(String attr, String value) {
         this.mAttrs.append(" ");
         this.mAttrs.append(attr);
@@ -119,6 +122,7 @@ public class XmlWriter implements Closeable {
      * End the current entity. This will throw an exception if it is called when there is not a
      * currently open entity.
      */
+    @CanIgnoreReturnValue
     public XmlWriter endEntity() throws IOException {
         if (mStack.size() == 0) {
             throw new InvalidObjectException("Called endEntity too many times. ");
@@ -159,6 +163,7 @@ public class XmlWriter implements Closeable {
     }
 
     /** Output body text. Any xml characters are escaped. */
+    @CanIgnoreReturnValue
     public XmlWriter writeText(String text) throws IOException {
         closeOpeningTag(false);
         this.mEmpty = false;
