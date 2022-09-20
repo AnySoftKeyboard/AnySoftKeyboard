@@ -39,6 +39,6 @@
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters=""/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñ"/>
         <Key android:codes="109" android:keyLabel="m" android:popupCharacters="µ"/>
-        <Key android:codes="-5" android:isRepeatable="true" android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="15%p" android:codes="-5" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
