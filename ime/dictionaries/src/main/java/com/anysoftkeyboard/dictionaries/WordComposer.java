@@ -245,7 +245,7 @@ public class WordComposer implements KeyCodesProvider {
                 }
             }
             if (!found) // reverting
-                nearByKeyCodes[0] = swappedItem;
+            nearByKeyCodes[0] = swappedItem;
         }
     }
 
