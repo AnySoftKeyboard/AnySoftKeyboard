@@ -97,15 +97,18 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             mHideClipboardTextAnimator =
                     AnimatorInflater.loadAnimator(
                             parent.getContext(), R.animator.clipboard_text_to_gone);
+            mClipboardText = mRootView.findViewById(R.id.clipboard_suggestion_text);
             mHideClipboardTextAnimator.addListener(
                     new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
-                            mClipboardText.setVisibility(View.GONE);
+                            final TextView textView = mClipboardText;
+                            if (textView != null) {
+                                textView.setVisibility(View.GONE);
+                            }
                         }
                     });
-            mClipboardText = mRootView.findViewById(R.id.clipboard_suggestion_text);
             mRootView.setOnClickListener(
                     view -> {
                         if (mEntryText != null) mOwner.outputClipboardText(mEntryText);
@@ -121,6 +124,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
         @Override
         public void onRemoved() {
+            if (mHideClipboardTextAnimator != null) mHideClipboardTextAnimator.cancel();
             mClipboardText = null;
             mRootView = null;
         }
