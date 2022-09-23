@@ -18,7 +18,7 @@ jobs:
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: update contributors list
-        run: ./scripts/generate_contributors_md.sh
+        run: ./scripts/generate_contributors_md.sh ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:

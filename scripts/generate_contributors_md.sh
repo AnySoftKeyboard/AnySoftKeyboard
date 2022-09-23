@@ -6,9 +6,9 @@ echo "# Contributors" > "$TEMP_CONT_MD_FILE"
 echo "" >> "$TEMP_CONT_MD_FILE"
 echo "Thank you for the fine contributors:" >> "$TEMP_CONT_MD_FILE"
 echo "" >> "$TEMP_CONT_MD_FILE"
-curl https://api.github.com/repos/AnySoftKeyboard/AnySoftKeyboard/contributors\?per_page\=200\&anon\=0 \
-  | jq -r '.[] | "1. [\(.login)](https://github.com/\(.login)) (\(.contributions))"' \
-  | grep -v anysoftkeyboard-bot \
-  >> "$TEMP_CONT_MD_FILE"
+
+./gradlew :generateContributorsFile -PRequest.apiUsername="$1" -PRequest.apiUserToken="$2" -PRequest.sha="$(git rev-parse HEAD)" -PRequest.maxContributors=200
+
+cat build/generateContributorsFile_contributors.md >> "$TEMP_CONT_MD_FILE"
 
 cp "$TEMP_CONT_MD_FILE" CONTRIBUTORS.md
