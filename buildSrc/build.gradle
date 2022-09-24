@@ -26,6 +26,10 @@ gradlePlugin {
             id = 'anysoftkeyboard-deployment'
             implementationClass = 'deployment.DeploymentPlugin'
         }
+        contributorsPlugin {
+            id = 'anysoftkeyboard-contributors'
+            implementationClass = 'contributors.ContributorsPlugin'
+        }
     }
 }
 
