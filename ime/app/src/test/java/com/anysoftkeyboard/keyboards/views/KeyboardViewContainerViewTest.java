@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -367,5 +368,38 @@ public class KeyboardViewContainerViewTest {
 
         Assert.assertEquals(1024, mUnderTest.getMeasuredWidth());
         Assert.assertEquals(1024, mUnderTest.getMeasuredHeight());
+    }
+
+    @Test
+    public void testOffsetTouchesToMainKeyboard() {
+        mUnderTest.onMeasure(
+                View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(1024, View.MeasureSpec.AT_MOST));
+        mUnderTest.onLayout(false, 0, 0, 1024, 1024);
+
+        final float candidateY =
+                mUnderTest.getResources().getDimension(R.dimen.candidate_strip_height);
+        final float midX = mUnderTest.getWidth() / 2f;
+
+        // inside the keyboard
+        MotionEvent e =
+                MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, midX, 2f * candidateY, 0);
+        Assert.assertFalse(mUnderTest.onInterceptTouchEvent(e));
+        Assert.assertEquals(midX, e.getX(), 0.01f);
+        Assert.assertEquals(2f * candidateY, e.getY(), 0.01f);
+
+        // way above the keyboard
+        e = MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, midX, candidateY / 2f, 0);
+        Assert.assertFalse(mUnderTest.onInterceptTouchEvent(e));
+        Assert.assertEquals(midX, e.getX(), 0.01f);
+        // not being offset
+        Assert.assertEquals(candidateY / 2f, e.getY(), 0.01f);
+
+        // a bit above the keyboard
+        e = MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, midX, candidateY * 0.8f, 0);
+        Assert.assertFalse(mUnderTest.onInterceptTouchEvent(e));
+        Assert.assertEquals(midX, e.getX(), 0.01f);
+        // being offset
+        Assert.assertEquals(candidateY + 1f, e.getY(), 0.01f);
     }
 }
