@@ -3,6 +3,8 @@ include ':deployment'
 
 include ':api'
 
+include ':junit-sharding'
+
 include ':addons:base'
 include ':addons:languages'
 include ':addons:languages:english', ':addons:languages:english:pack'

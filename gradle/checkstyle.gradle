@@ -1,4 +1,3 @@
-
 apply plugin: 'checkstyle'
 
 checkstyle {
@@ -16,8 +15,8 @@ tasks.register("checkstyleMain", Checkstyle) { task ->
     // Only one report format is supported. Html is easier to read, so let's use that
     // (xml is the one that's enabled by default).
     task.reports {
-        xml.enabled = false
-        html.enabled = true
-        html.destination = file("${project.buildDir}/reports/checkstyle/checkstyle.html")
+        xml.required = false
+        html.required = true
+        html.outputLocation = file("${project.buildDir}/reports/checkstyle/checkstyle.html")
     }
 }
