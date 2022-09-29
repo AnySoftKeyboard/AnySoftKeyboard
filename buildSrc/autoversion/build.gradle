@@ -1,0 +1,23 @@
+apply plugin: 'java-gradle-plugin'
+
+repositories {
+    maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+dependencies {
+    implementation gradleApi()
+
+    implementation project(path: ':lib')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.16.21"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.16.21"
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'com.github.stefanbirkner:system-rules:1.16.1'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
+}
+
+gradlePlugin {
+}
