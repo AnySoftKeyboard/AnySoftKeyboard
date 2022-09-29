@@ -5,20 +5,22 @@ jacoco {
     toolVersion = "0.8.6"
 }
 
-android {
-    buildTypes {
-        debug {
-            //we have customized coverage task
-            testCoverageEnabled false
+if (project.plugins.hasPlugin('com.android.application') || project.plugins.hasPlugin('com.android.library')) {
+    android {
+        buildTypes {
+            debug {
+                //we have customized coverage task
+                testCoverageEnabled false
+            }
         }
-    }
 
-    testOptions {
-        unitTests.all {
-            jacoco {
-                //some weird Java9 issue (https://github.com/gradle/gradle/issues/5184)
-                includeNoLocationClasses = true
-                excludes = ['jdk.internal.*']
+        testOptions {
+            unitTests.all {
+                jacoco {
+                    //some weird Java9 issue (https://github.com/gradle/gradle/issues/5184)
+                    includeNoLocationClasses = true
+                    excludes = ['jdk.internal.*']
+                }
             }
         }
     }
@@ -67,10 +69,10 @@ private void createJacocoReportTask(testTaskName, name) {
         task.executionData(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
 
         task.reports {
-            xml.enabled = true
-            xml.destination = file("${rootProject.buildDir}/jacoco/jacoco${task.path.replace(':', '-')}Coverage.xml")
-            html.enabled = true
-            html.destination = file("${project.buildDir}/jacoco/report/html/${testTaskName}")
+            xml.required = true
+            xml.outputLocation = file("${rootProject.buildDir}/jacoco/jacoco${task.path.replace(':', '-')}Coverage.xml")
+            html.required = true
+            html.outputLocation = file("${project.buildDir}/jacoco/report/html/${testTaskName}")
         }
     }
 }

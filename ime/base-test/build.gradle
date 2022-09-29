@@ -11,7 +11,7 @@ dependencies {
     api 'junit:junit:4.13.2'
     api "org.robolectric:robolectric:$robolectricVersion"
     api 'org.mockito:mockito-core:2.23.0'
-    api 'com.github.menny:JUnitTestsGrouping:0.3.0'
+    api project(':junit-sharding')
     api 'androidx.test:core:1.4.0'
 }
 

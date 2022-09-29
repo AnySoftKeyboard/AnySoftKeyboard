@@ -21,7 +21,6 @@ buildscript {
         classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:2.0.2'
         classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9'
-        classpath 'net.evendanan.autoversion:gradle-plugin:0.2.2'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2'
     }
 }
