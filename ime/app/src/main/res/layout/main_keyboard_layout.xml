@@ -31,9 +31,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/autofill_suggestions_parent"
+        android:background="@android:color/transparent"
         android:visibility="gone">
         <LinearLayout
             android:id="@+id/autofill_suggestions"
+            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="4dp"
