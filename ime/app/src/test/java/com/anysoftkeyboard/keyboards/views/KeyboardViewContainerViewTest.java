@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -39,10 +38,9 @@ public class KeyboardViewContainerViewTest {
 
     @Test
     public void testDefaultInflation() {
-        Assert.assertEquals(3, mUnderTest.getChildCount());
-        Assert.assertTrue(mUnderTest.getChildAt(0) instanceof HorizontalScrollView);
-        Assert.assertTrue(mUnderTest.getChildAt(1) instanceof CandidateView);
-        Assert.assertTrue(mUnderTest.getChildAt(2) instanceof AnyKeyboardView);
+        Assert.assertEquals(2, mUnderTest.getChildCount());
+        Assert.assertTrue(mUnderTest.getChildAt(0) instanceof CandidateView);
+        Assert.assertTrue(mUnderTest.getChildAt(1) instanceof AnyKeyboardView);
     }
 
     @Test
@@ -50,8 +48,8 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
         mUnderTest.addView(mock);
 
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(mock, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(mock, mUnderTest.getChildAt(2));
 
         Mockito.verify(mock, Mockito.never()).setKeyboardTheme(any());
         Mockito.verify(mock, Mockito.never()).setThemeOverlay(any());
@@ -65,8 +63,8 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
         mUnderTest.addView(mock);
 
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(mock, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(mock, mUnderTest.getChildAt(2));
 
         Mockito.verify(mock).setKeyboardTheme(any());
         Mockito.verify(mock).setThemeOverlay(any());
@@ -163,12 +161,12 @@ public class KeyboardViewContainerViewTest {
 
         Mockito.verify(provider).inflateActionView(mUnderTest);
         Mockito.verify(provider, Mockito.never()).onRemoved();
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
 
         mUnderTest.removeStripAction(provider);
         Mockito.verify(provider).onRemoved();
-        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertEquals(2, mUnderTest.getChildCount());
     }
 
     @Test
@@ -183,13 +181,13 @@ public class KeyboardViewContainerViewTest {
         Mockito.doReturn(viewHigh).when(providerHigh).inflateActionView(any());
 
         mUnderTest.addStripAction(provider, false);
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
 
         mUnderTest.addStripAction(providerHigh, true);
-        Assert.assertEquals(5, mUnderTest.getChildCount());
-        Assert.assertSame(viewHigh, mUnderTest.getChildAt(3));
-        Assert.assertSame(view, mUnderTest.getChildAt(4));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(viewHigh, mUnderTest.getChildAt(2));
+        Assert.assertSame(view, mUnderTest.getChildAt(3));
     }
 
     @Test
@@ -204,13 +202,13 @@ public class KeyboardViewContainerViewTest {
         Mockito.doReturn(viewHigh).when(providerHigh).inflateActionView(any());
 
         mUnderTest.addStripAction(providerHigh, true);
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(viewHigh, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(viewHigh, mUnderTest.getChildAt(2));
 
         mUnderTest.addStripAction(provider, false);
-        Assert.assertEquals(5, mUnderTest.getChildCount());
-        Assert.assertSame(viewHigh, mUnderTest.getChildAt(3));
-        Assert.assertSame(view, mUnderTest.getChildAt(4));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(viewHigh, mUnderTest.getChildAt(2));
+        Assert.assertSame(view, mUnderTest.getChildAt(3));
     }
 
     @Test
@@ -225,13 +223,13 @@ public class KeyboardViewContainerViewTest {
         Mockito.doReturn(view2).when(provider2).inflateActionView(any());
 
         mUnderTest.addStripAction(provider, true);
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
 
         mUnderTest.addStripAction(provider2, true);
-        Assert.assertEquals(5, mUnderTest.getChildCount());
-        Assert.assertSame(view2, mUnderTest.getChildAt(3));
-        Assert.assertSame(view, mUnderTest.getChildAt(4));
+        Assert.assertEquals(4, mUnderTest.getChildCount());
+        Assert.assertSame(view2, mUnderTest.getChildAt(2));
+        Assert.assertSame(view, mUnderTest.getChildAt(3));
     }
 
     @Test
@@ -314,8 +312,8 @@ public class KeyboardViewContainerViewTest {
 
         Mockito.verify(provider).inflateActionView(mUnderTest);
         Mockito.verify(provider, Mockito.never()).onRemoved();
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -345,8 +343,8 @@ public class KeyboardViewContainerViewTest {
         mUnderTest.addStripAction(provider, false);
         mUnderTest.setActionsStripVisibility(true);
         mUnderTest.setActionsStripVisibility(true);
-        Assert.assertEquals(4, mUnderTest.getChildCount());
-        Assert.assertSame(view, mUnderTest.getChildAt(3));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
         Assert.assertSame(mUnderTest, view.getParent());
     }
 

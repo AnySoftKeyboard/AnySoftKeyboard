@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.ime;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.inline.InlinePresentationSpec;
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.arch.core.util.Function;
 import androidx.autofill.inline.UiVersions;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
@@ -44,17 +46,23 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     @Override
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
+        if (finishingInput) {
+            cleanUpInlineLayouts(true);
+            removeActionStrip();
+        }
+    }
 
-        KeyboardViewContainerView inputViewContainer = getInputViewContainer();
-        inputViewContainer.getInlineAutofillView().removeAllViews();
-        inputViewContainer.getInlineScrollView().setVisibility(View.GONE);
-        removeActionStrip();
+    @Override
+    protected boolean handleCloseRequest() {
+        return super.handleCloseRequest() || cleanUpInlineLayouts(true);
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
     @Nullable
     @Override
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
+        final var inputViewContainer = getInputViewContainer();
+        if (inputViewContainer == null) return null;
         // min size is a thumb
         final Size smallestSize =
                 new Size(
@@ -64,7 +72,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         // max size is the keyboard
         final Size biggestSize =
                 new Size(
-                        getInputViewContainer().getWidth(),
+                        inputViewContainer.getWidth(),
                         getResources()
                                 .getDimensionPixelOffset(R.dimen.inline_suggestion_max_height));
 
@@ -107,31 +115,99 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         getInputViewContainer().removeStripAction(mInlineSuggestionAction);
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
-    private Void showSuggestions(List<InlineSuggestion> inlineSuggestions) {
-        KeyboardViewContainerView inputViewContainer = getInputViewContainer();
-
-        if (inputViewContainer != null) {
-            final LinearLayout inlineAutofillLayout = inputViewContainer.getInlineAutofillView();
-            Size autofillSize =
-                    new Size(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            getResources()
-                                    .getDimensionPixelOffset(R.dimen.inline_suggestion_min_height));
-
-            inlineAutofillLayout.removeAllViews();
-
-            for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
-                inputViewContainer.getInlineScrollView().setVisibility(View.VISIBLE);
-                try {
-                    inlineSuggestion.inflate(
-                            this, autofillSize, getMainExecutor(), inlineAutofillLayout::addView);
-                } catch (Exception e) {
-                    Log.e(TAG, "onInlineSuggestionsResponse - inlineSuggestion.infLate - ", e);
-                }
+    private boolean cleanUpInlineLayouts(boolean reshowStandardKeyboard) {
+        if (reshowStandardKeyboard) {
+            View standardKeyboardView = (View) getInputView();
+            if (standardKeyboardView != null) {
+                standardKeyboardView.setVisibility(View.VISIBLE);
             }
         }
+        var inputViewContainer = getInputViewContainer();
+        if (inputViewContainer != null) {
+            var list = inputViewContainer.findViewById(R.id.inline_suggestions_scroller);
+            if (list != null) {
+                var itemsContainer = (ViewGroup) list.findViewById(R.id.inline_suggestions_list);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    list.setOnScrollChangeListener(null);
+                }
+                itemsContainer.removeAllViews();
+                inputViewContainer.removeView(list);
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @RequiresApi(Build.VERSION_CODES.R)
+    private Void showSuggestions(List<InlineSuggestion> inlineSuggestions) {
+        cleanUpInlineLayouts(false);
+
+        var inputViewContainer = getInputViewContainer();
+        Context viewContext = inputViewContainer.getContext();
+        var lister =
+                (ScrollView)
+                        LayoutInflater.from(viewContext)
+                                .inflate(
+                                        R.layout.inline_suggestions_list,
+                                        inputViewContainer,
+                                        false);
+        final var actualInputView = (AnyKeyboardView) getInputView();
+        actualInputView.resetInputView();
+        var params = lister.getLayoutParams();
+        params.height = inputViewContainer.getHeight();
+        params.width = inputViewContainer.getWidth();
+        lister.setLayoutParams(params);
+        lister.setBackground(actualInputView.getBackground());
+        inputViewContainer.addView(lister);
+
+        // inflating all inline-suggestion view and pushing into the linear-layout
+        // I could not find a way to use RecyclerView for this
+        var size =
+                new Size(
+                        actualInputView.getWidth(),
+                        getResources()
+                                .getDimensionPixelOffset(R.dimen.inline_suggestion_min_height));
+        final LinearLayout itemsContainer = lister.findViewById(R.id.inline_suggestions_list);
+        for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
+            inlineSuggestion.inflate(
+                    viewContext,
+                    size,
+                    getMainExecutor(),
+                    v -> {
+                        v.setOnClickListener(v1 -> cleanUpInlineLayouts(true));
+                        itemsContainer.addView(v);
+                    });
+        }
+        // okay.. this is super weird:
+        // Since the items in the list are remote-views, they are drawn on top of our UI.
+        // this means that they think that itemsContainer is very large and so they
+        // draw themselves outside the scroll window.
+        // The only nice why I found to deal with this is to set them to INVISIBLE
+        // when they scroll out of view.
+        lister.setOnScrollChangeListener(
+                (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                    final int itemsOnTop = scrollY / size.getHeight();
+                    for (int childIndex = 0; childIndex < itemsOnTop; childIndex++) {
+                        itemsContainer.getChildAt(childIndex).setVisibility(View.INVISIBLE);
+                    }
+                    for (int childIndex = itemsOnTop;
+                            childIndex < itemsContainer.getChildCount();
+                            childIndex++) {
+                        var child = itemsContainer.getChildAt(childIndex);
+                        child.setVisibility(View.VISIBLE);
+                        child.setScaleX(1f);
+                        child.setScaleY(1f);
+                    }
+                    // how much do we need to scale-down the top item
+                    float partOfTopItemShown = scrollY - (size.getHeight() * itemsOnTop);
+                    final float scaleFactor = 1f - partOfTopItemShown / size.getHeight();
+                    var topVisibleChild = itemsContainer.getChildAt(itemsOnTop);
+                    topVisibleChild.setScaleX(scaleFactor);
+                    topVisibleChild.setScaleY(scaleFactor);
+                    topVisibleChild.setPivotY(size.getHeight());
+                });
+
+        actualInputView.setVisibility(View.GONE);
         return null;
     }
 

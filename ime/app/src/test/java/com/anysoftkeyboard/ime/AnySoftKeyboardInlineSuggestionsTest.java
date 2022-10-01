@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
@@ -107,18 +109,10 @@ public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTes
                         .findViewById(R.id.inline_suggestions_strip_text);
         Assert.assertEquals("2", countText.getText().toString());
 
-        Assert.assertEquals(
-                View.GONE,
+        Assert.assertNull(
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .getInlineScrollView()
-                        .getVisibility());
-        Assert.assertEquals(
-                0,
-                mAnySoftKeyboardUnderTest
-                        .getInputViewContainer()
-                        .getInlineAutofillView()
-                        .getChildCount());
+                        .findViewById(R.id.inline_suggestions_scroller));
 
         Shadows.shadowOf(rootView).getOnClickListener().onClick(rootView);
         // removed icon from action strip
@@ -127,23 +121,61 @@ public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTes
                         .getInputViewContainer()
                         .findViewById(R.id.inline_suggestions_strip_root));
 
-        Assert.assertEquals(
-                View.VISIBLE,
+        var scroller =
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .getInlineScrollView()
-                        .getVisibility());
+                        .findViewById(R.id.inline_suggestions_scroller);
+        Assert.assertNotNull(scroller);
+        var lister = (ViewGroup) scroller.findViewById(R.id.inline_suggestions_list);
+        Assert.assertNotNull(lister);
+        Assert.assertEquals(2, lister.getChildCount());
+
         Assert.assertEquals(
-                View.VISIBLE,
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+    }
+
+    @Test
+    public void testClosesInlineSuggestionsOnPick() {
+        simulateOnStartInputFlow();
+        var inlineView1 = Mockito.mock(InlineContentView.class);
+        var inlineView2 = Mockito.mock(InlineContentView.class);
+        mAnySoftKeyboardUnderTest.onInlineSuggestionsResponse(
+                mockResponse(inlineView1, inlineView2));
+        var rootView =
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .getInlineAutofillView()
-                        .getVisibility());
+                        .findViewById(R.id.inline_suggestions_strip_root);
+
+        Shadows.shadowOf(rootView).getOnClickListener().onClick(rootView);
+
+        var lister =
+                (ViewGroup)
+                        mAnySoftKeyboardUnderTest
+                                .getInputViewContainer()
+                                .findViewById(R.id.inline_suggestions_list);
+
         Assert.assertEquals(
-                2,
-                mAnySoftKeyboardUnderTest
-                        .getInputViewContainer()
-                        .getInlineAutofillView()
-                        .getChildCount());
+                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+
+        Assert.assertEquals(2, lister.getChildCount());
+        for (int childIndex = 0; childIndex < lister.getChildCount(); childIndex++) {
+            View item = lister.getChildAt(childIndex);
+            Mockito.verify(item).setOnClickListener(Mockito.notNull());
+        }
+        var clickCaptor = ArgumentCaptor.forClass(View.OnClickListener.class);
+        Mockito.verify(inlineView1).setOnClickListener(clickCaptor.capture());
+        Assert.assertNotNull(clickCaptor.getValue());
+
+        /*due to inability to test InlineContentView, I have to remove the following checks*/
+        //        clickCaptor.getValue().onClick(inlineView1);
+        //
+        //        Assert.assertEquals(0, lister.getChildCount());
+        //        Assert.assertEquals(
+        //                View.VISIBLE, ((View)
+        // mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        //        Assert.assertNull(
+        //                mAnySoftKeyboardUnderTest
+        //                        .getInputViewContainer()
+        //                        .findViewById(R.id.inline_suggestions_scroller));
     }
 }
