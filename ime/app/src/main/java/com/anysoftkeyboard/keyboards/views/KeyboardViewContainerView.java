@@ -7,8 +7,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
@@ -22,7 +20,7 @@ import java.util.List;
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
 
     private static final int PROVIDER_TAG_ID = R.id.keyboard_container_provider_tag_id;
-    private static final int FIRST_PROVIDER_VIEW_INDEX = 3;
+    private static final int FIRST_PROVIDER_VIEW_INDEX = 2;
 
     private final int mActionStripHeight;
     private final List<View> mStripActionViews = new ArrayList<>();
@@ -32,8 +30,6 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     private OnKeyboardActionListener mKeyboardActionListener;
     private KeyboardTheme mKeyboardTheme;
     private OverlayData mOverlayData = new OverlayData();
-    private LinearLayout mInlineAutofillView;
-    private HorizontalScrollView mInlineScrollView;
     private final Rect mExtraPaddingToMainKeyboard = new Rect();
 
     public KeyboardViewContainerView(Context context) {
@@ -76,10 +72,6 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         setActionsStripVisibility(mShowActionStrip);
 
         switch (child.getId()) {
-            case R.id.autofill_suggestions_parent:
-                mInlineScrollView = (HorizontalScrollView) child;
-                mInlineAutofillView = (LinearLayout) mInlineScrollView.getChildAt(0);
-                break;
             case R.id.candidate_view:
                 mCandidateView = (CandidateView) child;
                 break;
@@ -248,14 +240,6 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
                         .setOnKeyboardActionListener(keyboardActionListener);
             }
         }
-    }
-
-    public HorizontalScrollView getInlineScrollView() {
-        return mInlineScrollView;
-    }
-
-    public LinearLayout getInlineAutofillView() {
-        return mInlineAutofillView;
     }
 
     public CandidateView getCandidateView() {
