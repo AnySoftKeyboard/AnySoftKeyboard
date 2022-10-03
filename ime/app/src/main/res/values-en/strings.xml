@@ -48,6 +48,8 @@
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
 
+    <string name="hint_click_for_inline_suggestions">Available auto-fill suggestions</string>
+
     <!-- voice -->
     <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
     <string name="voice_input_not_installed_text">Voice Input is not installed on your device.\nThat
