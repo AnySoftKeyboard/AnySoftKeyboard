@@ -173,6 +173,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                                 R.string.settings_key_os_clipboard_sync,
                                 R.bool.settings_default_os_clipboard_sync)
                         .asObservable()
+                        .distinctUntilChanged()
                         .subscribe(
                                 syncClipboard -> {
                                     mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
@@ -185,9 +186,22 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     private void onClipboardEntryAdded(CharSequence clipboardEntry) {
         mLastSyncedClipboardEntry = clipboardEntry;
         EditorInfo currentInputEditorInfo = getCurrentInputEditorInfo();
-        mLastSyncedClipboardEntryInSecureInput =
-                currentInputEditorInfo != null && isTextPassword(currentInputEditorInfo);
+        mLastSyncedClipboardEntryInSecureInput = isTextPassword(currentInputEditorInfo);
         mLastSyncedClipboardEntryTime = SystemClock.uptimeMillis();
+        // if we already showing the view, we want to update it contents
+        if (isInputViewShown()) {
+            showClipboardActionIcon(currentInputEditorInfo);
+            mSuggestionClipboardEntry.setAsHint(false);
+        }
+    }
+
+    private void showClipboardActionIcon(EditorInfo info) {
+        getInputViewContainer().addStripAction(mSuggestionClipboardEntry, true);
+        getInputViewContainer().setActionsStripVisibility(true);
+
+        mSuggestionClipboardEntry.setClipboardText(
+                mLastSyncedClipboardEntry,
+                mLastSyncedClipboardEntryInSecureInput || isTextPassword(info));
     }
 
     @Override
@@ -197,19 +211,15 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         final long startTime = mLastSyncedClipboardEntryTime;
         if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT > now
                 && !TextUtils.isEmpty(mLastSyncedClipboardEntry)) {
-            getInputViewContainer().addStripAction(mSuggestionClipboardEntry, true);
-            getInputViewContainer().setActionsStripVisibility(true);
-
-            mSuggestionClipboardEntry.setClipboardText(
-                    mLastSyncedClipboardEntry,
-                    mLastSyncedClipboardEntryInSecureInput || isTextPassword(info));
+            showClipboardActionIcon(info);
             if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY <= now) {
                 mSuggestionClipboardEntry.setAsHint(true);
             }
         }
     }
 
-    protected static boolean isTextPassword(EditorInfo info) {
+    protected static boolean isTextPassword(@Nullable EditorInfo info) {
+        if (info == null) return false;
         if ((info.inputType & EditorInfo.TYPE_CLASS_TEXT) == 0) return false;
         switch (info.inputType & EditorInfo.TYPE_MASK_VARIATION) {
             case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:

@@ -596,6 +596,49 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testShowActionOnLiveClipboard() {
+        ClipboardManager clipboardManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+
+        clipboardManager.setPrimaryClip(
+                new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+        Assert.assertTrue(
+                mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isFullyVisible());
+    }
+
+    @Test
+    public void testUpdateClipboardOnChange() {
+        simulateFinishInputFlow();
+        ClipboardManager clipboardManager =
+                (ClipboardManager)
+                        getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setPrimaryClip(
+                new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+
+        simulateOnStartInputFlow();
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+        final TextView clipboardView =
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.clipboard_suggestion_text);
+        Assert.assertNotNull(clipboardView);
+        Assert.assertEquals("text 1", clipboardView.getText().toString());
+
+        clipboardManager.setPrimaryClip(
+                new ClipData("text 2", new String[0], new ClipData.Item("text 2")));
+
+        Assert.assertEquals("text 2", clipboardView.getText().toString());
+        ((View) clipboardView.getParent()).performClick();
+        TestRxSchedulers.foregroundAdvanceBy(1000); // animation
+        Assert.assertEquals("text 2", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testHideActionIfKeyPressedButLeavesHintForDuration() {
         simulateFinishInputFlow();
         ClipboardManager clipboardManager =
