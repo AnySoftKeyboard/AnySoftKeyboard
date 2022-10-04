@@ -1,7 +1,8 @@
-* Several fixes to the settings app navigation.
+* Clipboard support improvements.
+* A few Settings app navigation fixes.
 * Vibration fixes.
 * Suggestions pick and order fixes.
-* Fixes to pop-up keys order.
+* Improved pop-up keys order.
 * Gesture-typing improvements.
 * Support for Direct-Boot devices.
 * Reduced installation size (for supporting devices).

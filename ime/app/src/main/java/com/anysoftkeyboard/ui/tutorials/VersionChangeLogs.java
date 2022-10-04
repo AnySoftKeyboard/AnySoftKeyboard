@@ -17,10 +17,11 @@ public class VersionChangeLogs {
                         "r2",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94"),
+                        "Improved clipboard support.",
                         "Several fixes to the settings app navigation.",
                         "Vibration fixes.",
                         "Suggestions pick and order fixes.",
-                        "Fixes to pop-up keys order.",
+                        "Improved pop-up keys order.",
                         "Gesture-typing supports user-dictionary.",
                         "Support for direct-boot devices.",
                         "Reduced installation size (for supporting devices).",
