@@ -154,6 +154,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             mHideClipboardTextAnimator.cancel();
             mEntryText = text;
             mClipboardText.setVisibility(View.VISIBLE);
+            mClipboardText.setScaleX(1f);
+            mClipboardText.setScaleY(1f);
+            mClipboardText.setAlpha(1f);
             mClipboardText.setSelected(true);
             if (isSecured) mClipboardText.setText("**********");
             else mClipboardText.setText(text);
@@ -191,7 +194,6 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         // if we already showing the view, we want to update it contents
         if (isInputViewShown()) {
             showClipboardActionIcon(currentInputEditorInfo);
-            mSuggestionClipboardEntry.setAsHint(false);
         }
     }
 
@@ -212,7 +214,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT > now
                 && !TextUtils.isEmpty(mLastSyncedClipboardEntry)) {
             showClipboardActionIcon(info);
-            if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY <= now) {
+            if (startTime + MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY <= now && !restarting) {
                 mSuggestionClipboardEntry.setAsHint(true);
             }
         }
