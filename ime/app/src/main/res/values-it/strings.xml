@@ -34,6 +34,7 @@
     <string name="removed_word">Rimosso:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Tocca di nuovo per salvare</string>
     <string name="hint_double_tap_to_close">Di nuovo per rimuovere i suggerimenti</string>
+    <string name="hint_click_for_inline_suggestions">Suggerimenti di auto-completamento disponibili</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Vocalizzazione non installata</string>
     <string name="voice_input_not_installed_text">Immissione vocale non installata sul dispositivo.\nQuesto può essere facilmente risolto: installalo ora dall\'App Store</string>

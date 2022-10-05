@@ -38,6 +38,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 A mentéshez érintse meg újra</string>
     <string name="hint_double_tap_to_close">Nyomd meg újra a javaslatok eltávolításához</string>
+    <string name="hint_click_for_inline_suggestions">Elérhető automatikus kitöltési javaslatok</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Nincs telepítve hangfelismerő alkalmazás</string>
     <string name="voice_input_not_installed_text">Hangfelismerő nincs telepítve a készüléken.\nEz könnyen orvosolható: telepítse most az alkalmazásboltból.</string>
