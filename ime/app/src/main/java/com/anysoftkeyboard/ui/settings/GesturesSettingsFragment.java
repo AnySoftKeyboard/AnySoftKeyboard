@@ -16,11 +16,13 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -36,11 +38,13 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_gestures_prefs);
-        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
+        mGeneralDialogController =
+                new GeneralDialogController(
+                        getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
     }
 
     private void setupDialog(
-            androidx.appcompat.app.AlertDialog.Builder builder, int optionId, Object data) {
+            Context context, AlertDialog.Builder builder, int optionId, Object data) {
         builder.setTitle(R.string.gesture_typing_alert_title)
                 .setMessage(R.string.gesture_typing_alert_message)
                 .setPositiveButton(

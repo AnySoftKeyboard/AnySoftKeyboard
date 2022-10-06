@@ -65,7 +65,9 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
+        mGeneralDialogController =
+                new GeneralDialogController(
+                        getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
         ((TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_title))
                 .setText(DeveloperUtils.getAppDetails(requireContext().getApplicationContext()));
 
@@ -102,7 +104,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 });
     }
 
-    private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
+    private void setupDialog(
+            Context context, AlertDialog.Builder builder, int optionId, Object data) {
         switch (optionId) {
             case TRACING_ENABLED_DIALOG:
                 builder.setIcon(R.drawable.notification_icon_beta_version)

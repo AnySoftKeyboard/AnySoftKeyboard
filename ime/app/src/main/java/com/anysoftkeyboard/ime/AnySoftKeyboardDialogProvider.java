@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ime;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardService {
@@ -38,7 +40,9 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     @Override
     public void onCreate() {
         super.onCreate();
-        mGeneralDialogController = new GeneralDialogController(this, new ImeDialogPresenter());
+        mGeneralDialogController =
+                new GeneralDialogController(
+                        this, R.style.Theme_AskAlertDialog, new ImeDialogPresenter());
     }
 
     protected void showToastMessage(@StringRes int resId, boolean forShortTime) {
@@ -143,7 +147,7 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
     private class ImeDialogPresenter implements GeneralDialogController.DialogPresenter {
         @Override
         public void onSetupDialogRequired(
-                AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+                Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
             OptionsDialogData dialogData = (OptionsDialogData) data;
             builder.setCancelable(true);
             builder.setIcon(dialogData.mIcon);
@@ -155,7 +159,7 @@ public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardServi
             getInputView().resetInputView();
 
             if (dialogData.mExtraPresenter != null) {
-                dialogData.mExtraPresenter.onSetupDialogRequired(builder, optionId, data);
+                dialogData.mExtraPresenter.onSetupDialogRequired(context, builder, optionId, data);
             }
         }
 

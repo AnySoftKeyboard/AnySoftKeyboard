@@ -115,7 +115,9 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mDialogController = new GeneralDialogController(getActivity(), this::onSetupDialogRequired);
+        mDialogController =
+                new GeneralDialogController(
+                        getActivity(), R.style.Theme_AskAlertDialog, this::onSetupDialogRequired);
         final ViewGroup latestChangeLogCard = view.findViewById(R.id.latest_change_log_card);
         final View latestChangeLogCardContent =
                 ChangeLogFragment.LatestChangeLogViewFactory.createLatestChangeLogView(
@@ -306,7 +308,8 @@ public class MainFragment extends Fragment {
         mDialogController.dismiss();
     }
 
-    private void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, Object data) {
+    private void onSetupDialogRequired(
+            Context context, AlertDialog.Builder builder, int optionId, Object data) {
         switch (optionId) {
             case R.id.backup_prefs:
             case R.id.restore_prefs:

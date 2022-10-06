@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -50,13 +51,16 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
+        mGeneralDialogController =
+                new GeneralDialogController(
+                        getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
 
-    private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
+    private void setupDialog(
+            Context context, AlertDialog.Builder builder, int optionId, Object data) {
         final SharedPreferences sharedPreferences =
-                DirectBootAwareSharedPreferences.create(requireContext());
+                DirectBootAwareSharedPreferences.create(context);
         final boolean[] enableStateForRowModes =
                 new boolean[] {
                     sharedPreferences.getBoolean(

@@ -3,6 +3,7 @@ package net.evendanan.pixel;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 
@@ -12,15 +13,19 @@ public class GeneralDialogController {
     @VisibleForTesting public static final String TAG_VALUE = "GeneralDialogController";
 
     private final Context mContext;
+    private final @StyleRes int mStyle;
     private final DialogPresenter mDialogPresenter;
     private AlertDialog mDialog;
 
-    public GeneralDialogController(Context context, JustSetupDialogPresenter dialogPresenter) {
-        this(context, new NoOpImpl(dialogPresenter));
+    public GeneralDialogController(
+            Context context, @StyleRes int style, JustSetupDialogPresenter dialogPresenter) {
+        this(context, style, new NoOpImpl(dialogPresenter));
     }
 
-    public GeneralDialogController(Context context, DialogPresenter dialogPresenter) {
+    public GeneralDialogController(
+            Context context, @StyleRes int style, DialogPresenter dialogPresenter) {
         mContext = context;
+        mStyle = style;
         mDialogPresenter = dialogPresenter;
     }
 
@@ -41,9 +46,8 @@ public class GeneralDialogController {
     public void showDialog(int optionId, @Nullable Object data) {
         dismiss();
 
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(mContext, R.style.Theme_AppCompat_Dialog_Alert);
-        mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, mStyle);
+        mDialogPresenter.onSetupDialogRequired(mContext, builder, optionId, data);
         mDialog = builder.create();
         mDialog.getWindow().getDecorView().setTag(TAG_ID, TAG_VALUE);
         mDialogPresenter.beforeDialogShown(mDialog, data);
@@ -56,7 +60,7 @@ public class GeneralDialogController {
 
     public interface JustSetupDialogPresenter {
         void onSetupDialogRequired(
-                AlertDialog.Builder builder, int optionId, @Nullable Object data);
+                Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data);
     }
 
     private static class NoOpImpl implements DialogPresenter {
@@ -71,8 +75,8 @@ public class GeneralDialogController {
 
         @Override
         public void onSetupDialogRequired(
-                AlertDialog.Builder builder, int optionId, @Nullable Object data) {
-            mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
+                Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+            mDialogPresenter.onSetupDialogRequired(context, builder, optionId, data);
         }
     }
 }

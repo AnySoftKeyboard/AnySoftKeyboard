@@ -258,14 +258,12 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     }
 
     private void showAllClipboardEntries(Keyboard.Key key) {
-        if (mClipboard.getClipboardEntriesCount() == 0) {
+        int entriesCount = mClipboard.getClipboardEntriesCount();
+        if (entriesCount == 0) {
             showToastMessage(R.string.clipboard_is_empty_toast, true);
         } else {
-            final List<CharSequence> nonEmpties =
-                    new ArrayList<>(mClipboard.getClipboardEntriesCount());
-            for (int entryIndex = 0;
-                    entryIndex < mClipboard.getClipboardEntriesCount();
-                    entryIndex++) {
+            final List<CharSequence> nonEmpties = new ArrayList<>(entriesCount);
+            for (int entryIndex = 0; entryIndex < entriesCount; entryIndex++) {
                 nonEmpties.add(mClipboard.getText(entryIndex));
             }
             final CharSequence[] entries = nonEmpties.toArray(new CharSequence[0]);
@@ -273,7 +271,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     (dialog, which) -> onText(key, entries[which]);
             showOptionsDialogWithData(
                     R.string.clipboard_paste_entries_title,
-                    R.drawable.ic_clipboard_paste_light,
+                    R.drawable.ic_clipboard_paste_in_app,
                     new CharSequence[0],
                     onClickListener,
                     new GeneralDialogController.DialogPresenter() {
@@ -283,11 +281,12 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
                         @Override
                         public void onSetupDialogRequired(
-                                AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+                                Context context,
+                                AlertDialog.Builder builder,
+                                int optionId,
+                                @Nullable Object data) {
                             builder.setAdapter(
-                                    new ClipboardEntriesAdapter(
-                                            AnySoftKeyboardClipboard.this, entries),
-                                    onClickListener);
+                                    new ClipboardEntriesAdapter(context, entries), onClickListener);
                         }
                     });
         }
