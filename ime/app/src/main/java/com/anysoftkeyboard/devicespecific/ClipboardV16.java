@@ -16,23 +16,19 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import androidx.annotation.Nullable;
+import android.annotation.TargetApi;
+import android.content.ClipData;
+import android.content.Context;
 
-public interface Clipboard {
+@TargetApi(16)
+public class ClipboardV16 extends ClipboardV11 {
 
-    interface ClipboardUpdatedListener {
-        void onClipboardEntryAdded(CharSequence text);
+    ClipboardV16(Context context) {
+        super(context);
     }
 
-    CharSequence getText(int entryIndex);
-
-    int getClipboardEntriesCount();
-
-    void setText(CharSequence text);
-
-    void deleteEntry(int entryIndex);
-
-    void deleteAllEntries();
-
-    void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener);
+    @Override
+    protected CharSequence getTextFromCLipItem(ClipData.Item item) {
+        return item.coerceToStyledText(mContext);
+    }
 }

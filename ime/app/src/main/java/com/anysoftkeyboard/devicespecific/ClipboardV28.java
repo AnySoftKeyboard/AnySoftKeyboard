@@ -20,7 +20,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 
 @TargetApi(28)
-public class ClipboardV28 extends ClipboardV11 {
+public class ClipboardV28 extends ClipboardV16 {
 
     ClipboardV28(Context context) {
         super(context);
@@ -33,5 +33,11 @@ public class ClipboardV28 extends ClipboardV11 {
             // actually removing from clipboard
             mClipboardManager.clearPrimaryClip();
         }
+    }
+
+    @Override
+    public void deleteAllEntries() {
+        mEntries.clear();
+        mClipboardManager.clearPrimaryClip();
     }
 }
