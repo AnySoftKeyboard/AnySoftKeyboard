@@ -340,4 +340,5 @@
     <string name="settings_key_allow_layouts_to_provide_generic_rows">settings_key_allow_layouts_to_provide_generic_rows</string>
     <string name="settings_key_apply_remote_app_colors">settings_key_apply_remote_app_colors</string>
 
+    <string name="settings_key_show_slide_for_gesture_back_word_counter">settings_key_show_slide_for_gesture_back_word_counter</string>
 </resources>

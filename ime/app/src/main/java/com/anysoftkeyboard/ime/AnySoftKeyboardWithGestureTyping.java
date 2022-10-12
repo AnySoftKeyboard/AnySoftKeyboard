@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
@@ -21,6 +22,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -518,6 +520,21 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         InputConnection ic = mKeyboard.getCurrentInputConnection();
                         mKeyboard.handleBackWord(ic);
                         mKeyboard.mJustPerformedGesture = false;
+                        var prefs = AnyApplication.prefs(mKeyboard);
+                        var timesShown =
+                                prefs.getInteger(
+                                        R.string
+                                                .settings_key_show_slide_for_gesture_back_word_counter,
+                                        R.integer.settings_default_zero_value);
+                        Integer counter = timesShown.get();
+                        if (counter < 3) {
+                            timesShown.set(counter + 1);
+                            Toast.makeText(
+                                            mKeyboard.getApplicationContext(),
+                                            R.string.tip_swipe_from_backspace_to_clear,
+                                            counter == 0 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT)
+                                    .show();
+                        }
                         setVisibility(View.GONE);
                     });
 

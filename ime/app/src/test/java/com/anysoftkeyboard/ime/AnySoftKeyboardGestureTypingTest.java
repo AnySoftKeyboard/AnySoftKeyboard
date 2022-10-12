@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ime;
 import static org.mockito.ArgumentMatchers.any;
 
 import android.view.View;
+import android.widget.Toast;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -31,6 +32,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
+import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
@@ -356,6 +358,39 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(
                 View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
+    }
+
+    @Test
+    public void testShowsTipOnSwipe() {
+        simulateGestureProcess("hello");
+        var view =
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.clear_gesture_strip_root);
+        final View.OnClickListener onClickListener = Shadows.shadowOf(view).getOnClickListener();
+
+        Assert.assertEquals(0, ShadowToast.shownToastCount());
+        onClickListener.onClick(view);
+        Assert.assertEquals(1, ShadowToast.shownToastCount());
+        Assert.assertEquals(Toast.LENGTH_LONG, ShadowToast.getLatestToast().getDuration());
+        Assert.assertTrue(ShadowToast.getTextOfLatestToast().startsWith("Tip:"));
+
+        simulateGestureProcess("hello");
+        onClickListener.onClick(view);
+        Assert.assertEquals(2, ShadowToast.shownToastCount());
+        Assert.assertEquals(Toast.LENGTH_SHORT, ShadowToast.getLatestToast().getDuration());
+        Assert.assertTrue(ShadowToast.getTextOfLatestToast().startsWith("Tip:"));
+
+        simulateGestureProcess("hello");
+        onClickListener.onClick(view);
+        Assert.assertEquals(3, ShadowToast.shownToastCount());
+        Assert.assertEquals(Toast.LENGTH_SHORT, ShadowToast.getLatestToast().getDuration());
+        Assert.assertTrue(ShadowToast.getTextOfLatestToast().startsWith("Tip:"));
+
+        simulateGestureProcess("hello");
+        onClickListener.onClick(view);
+        // not showing the tip anymore
+        Assert.assertEquals(3, ShadowToast.shownToastCount());
     }
 
     @Test
