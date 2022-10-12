@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,17 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import androidx.annotation.Nullable;
+import android.content.Context;
+import androidx.annotation.NonNull;
 
-public interface Clipboard {
-
-    interface ClipboardUpdatedListener {
-        void onClipboardEntryAdded(CharSequence text);
+public class DeviceSpecificV16 extends DeviceSpecificV15 {
+    @Override
+    public String getApiLevel() {
+        return "DeviceSpecificV16";
     }
 
-    CharSequence getText(int entryIndex);
-
-    int getClipboardEntriesCount();
-
-    void setText(CharSequence text);
-
-    void deleteEntry(int entryIndex);
-
-    void deleteAllEntries();
-
-    void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener);
+    @Override
+    public Clipboard createClipboard(@NonNull Context applicationContext) {
+        return new ClipboardV16(applicationContext);
+    }
 }

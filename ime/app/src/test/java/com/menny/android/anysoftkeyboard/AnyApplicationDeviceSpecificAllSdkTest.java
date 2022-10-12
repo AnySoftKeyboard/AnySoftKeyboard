@@ -13,9 +13,11 @@ import com.anysoftkeyboard.devicespecific.AskV19GestureDetector;
 import com.anysoftkeyboard.devicespecific.AskV8GestureDetector;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.devicespecific.ClipboardV11;
+import com.anysoftkeyboard.devicespecific.ClipboardV16;
 import com.anysoftkeyboard.devicespecific.ClipboardV28;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV15;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV26;
@@ -40,24 +42,24 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
     private final List<Class<? extends DeviceSpecific>> mExpectedDeviceSpecificClass =
             Arrays.asList(
                     DeviceSpecificV15.class, // 0
-                    DeviceSpecificV15.class, // 1
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
-                    DeviceSpecificV15.class, // 8
-                    DeviceSpecificV15.class,
-                    DeviceSpecificV15.class, // 10
-                    DeviceSpecificV15.class, // 11
-                    DeviceSpecificV15.class,
-                    DeviceSpecificV15.class,
-                    DeviceSpecificV15.class, // 14
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV15.class,
+                    DeviceSpecificV16.class, // 16
+                    DeviceSpecificV16.class,
+                    DeviceSpecificV16.class,
                     DeviceSpecificV19.class, // 19
                     DeviceSpecificV19.class, // 20
                     DeviceSpecificV19.class,
@@ -76,34 +78,34 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
     private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
             Arrays.asList(
                     ClipboardV11.class, // 0
-                    ClipboardV11.class, // 1
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
                     ClipboardV11.class,
-                    ClipboardV11.class, // 8
                     ClipboardV11.class,
-                    ClipboardV11.class, // 10
+                    ClipboardV11.class,
+                    ClipboardV11.class,
+                    ClipboardV11.class,
                     ClipboardV11.class, // 11
                     ClipboardV11.class,
                     ClipboardV11.class,
-                    ClipboardV11.class, // 14
-                    ClipboardV11.class,
-                    ClipboardV11.class, // 16
                     ClipboardV11.class,
                     ClipboardV11.class,
-                    ClipboardV11.class, // 19
-                    ClipboardV11.class, // 20
-                    ClipboardV11.class,
-                    ClipboardV11.class,
-                    ClipboardV11.class,
-                    ClipboardV11.class,
-                    ClipboardV11.class,
-                    ClipboardV11.class,
-                    ClipboardV11.class,
-                    ClipboardV28.class,
+                    ClipboardV16.class, // 16
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV16.class,
+                    ClipboardV28.class, // 28
                     ClipboardV28.class,
                     ClipboardV28.class, // 30
                     ClipboardV28.class,

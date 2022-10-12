@@ -1264,7 +1264,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
                     @Override
                     public void onSetupDialogRequired(
-                            AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+                            Context context,
+                            AlertDialog.Builder builder,
+                            int optionId,
+                            @Nullable Object data) {
                         builder.setItems(
                                 null,
                                 null); // clearing previously set items, since we want checked item

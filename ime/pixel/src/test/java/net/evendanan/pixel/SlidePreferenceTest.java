@@ -6,17 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.test.core.app.ActivityScenario;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
+import com.anysoftkeyboard.test.TestFragmentActivity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SlidePreferenceTest {
@@ -28,19 +28,25 @@ public class SlidePreferenceTest {
     @Before
     public void setup() {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final FragmentActivity activity = Robolectric.setupActivity(FragmentActivity.class);
-        activity.setContentView(R.layout.test_activity);
-        activity.setTheme(R.style.TestApp);
-        mTestPrefFragment = new TestPrefFragment();
-        activity.getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.root_test_fragment, mTestPrefFragment, "test_fragment")
-                .commit();
+        ActivityScenario.launch(TestFragmentActivity.class)
+                .onActivity(
+                        activity -> {
+                            activity.setContentView(R.layout.test_activity);
+                            activity.setTheme(R.style.TestApp);
+                            mTestPrefFragment = new TestPrefFragment();
+                            activity.getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(
+                                            R.id.root_test_fragment,
+                                            mTestPrefFragment,
+                                            "test_fragment")
+                                    .commit();
 
-        TestRxSchedulers.foregroundFlushAllJobs();
+                            TestRxSchedulers.foregroundFlushAllJobs();
 
-        mTestSlide = (SlidePreference) mTestPrefFragment.findPreference("test_slide");
-        Assert.assertNotNull(mTestSlide);
+                            mTestSlide = mTestPrefFragment.findPreference("test_slide");
+                            Assert.assertNotNull(mTestSlide);
+                        });
     }
 
     @Test
