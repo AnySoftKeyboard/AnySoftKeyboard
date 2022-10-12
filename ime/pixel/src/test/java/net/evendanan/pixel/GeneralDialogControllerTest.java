@@ -28,7 +28,11 @@ public class GeneralDialogControllerTest {
     @Before
     public void setUp() {
         mPresenter = Mockito.mock(GeneralDialogController.DialogPresenter.class);
-        mUnderTest = new GeneralDialogController(getApplicationContext(), mPresenter);
+        mUnderTest =
+                new GeneralDialogController(
+                        getApplicationContext(),
+                        androidx.appcompat.R.style.Theme_AppCompat_DayNight_Dialog_Alert,
+                        mPresenter);
     }
 
     @Test
@@ -44,7 +48,7 @@ public class GeneralDialogControllerTest {
 
         Mockito.doAnswer(
                         invocation -> {
-                            AlertDialog.Builder builder = invocation.getArgument(0);
+                            AlertDialog.Builder builder = invocation.getArgument(1);
                             builder.setTitle("TEST 32");
 
                             return null;
@@ -77,7 +81,7 @@ public class GeneralDialogControllerTest {
     public void testAlsoCallBeforeShow() {
         Mockito.doAnswer(
                         invocation -> {
-                            AlertDialog.Builder builder = invocation.getArgument(0);
+                            AlertDialog.Builder builder = invocation.getArgument(1);
                             builder.setTitle("TEST 32");
 
                             return null;

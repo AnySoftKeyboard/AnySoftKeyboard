@@ -57,7 +57,6 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
                     DeviceSpecificV15.class,
-                    DeviceSpecificV15.class, // 15
                     DeviceSpecificV16.class, // 16
                     DeviceSpecificV16.class,
                     DeviceSpecificV16.class,
