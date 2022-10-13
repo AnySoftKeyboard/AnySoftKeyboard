@@ -6,11 +6,11 @@ import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.os.Build;
 import android.provider.Settings;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -21,15 +21,11 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.annotation.LooperMode;
 import org.robolectric.shadows.ShadowContentResolver;
-import org.robolectric.util.Scheduler;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@LooperMode(LooperMode.Mode.LEGACY)
 public class SetUpKeyboardWizardTest {
 
     @Rule
@@ -51,11 +47,11 @@ public class SetUpKeyboardWizardTest {
                                             .getContentObservers(Settings.Secure.CONTENT_URI);
                             Assert.assertEquals(1, contentObservers.size());
 
-                            final ViewPager pager = activity.findViewById(R.id.wizard_pages_pager);
+                            final ViewPager2 pager = activity.findViewById(R.id.wizard_pages_pager);
                             Assert.assertNotNull(pager);
-                            Assert.assertEquals(5, pager.getAdapter().getCount());
+                            Assert.assertEquals(5, pager.getAdapter().getItemCount());
                             Assert.assertTrue(
-                                    ((FragmentPagerAdapter) pager.getAdapter()).getItem(3)
+                                    ((FragmentStateAdapter) pager.getAdapter()).createFragment(3)
                                             instanceof WizardPermissionsFragment);
                         });
     }
@@ -78,25 +74,17 @@ public class SetUpKeyboardWizardTest {
                                             Settings.Secure.CONTENT_URI);
                             Assert.assertEquals(1, contentObservers.size());
 
-                            final ViewPager pager = activity.findViewById(R.id.wizard_pages_pager);
+                            final ViewPager2 pager = activity.findViewById(R.id.wizard_pages_pager);
                             Assert.assertNotNull(pager);
-                            Assert.assertEquals(4, pager.getAdapter().getCount());
+                            Assert.assertEquals(4, pager.getAdapter().getItemCount());
                             // starts at page one - welcome keyboard
                             Assert.assertEquals(0, pager.getCurrentItem());
                             Assert.assertTrue(
-                                    ((FragmentPagerAdapter) pager.getAdapter()).getItem(0)
+                                    ((FragmentStateAdapter) pager.getAdapter()).createFragment(0)
                                             instanceof WizardPageWelcomeFragment);
-                            Robolectric.getForegroundThreadScheduler()
-                                    .setIdleState(Scheduler.IdleState.PAUSED);
-                            ((FragmentPagerAdapter) pager.getAdapter())
-                                    .getItem(0)
-                                    .getView()
-                                    .findViewById(R.id.go_to_start_setup)
-                                    .performClick();
+
+                            pager.findViewById(R.id.go_to_start_setup).performClick();
                             TestRxSchedulers.foregroundAdvanceBy(1000 /*after the animation*/);
-                            Robolectric.getForegroundThreadScheduler()
-                                    .setIdleState(Scheduler.IdleState.UNPAUSED);
-                            // TestRxSchedulers.foregroundFlushAllJobs();
 
                             // page two - enable ASK
                             Assert.assertEquals(1, pager.getCurrentItem());
@@ -118,7 +106,6 @@ public class SetUpKeyboardWizardTest {
                 Shadows.shadowOf(contentResolver).getContentObservers(Settings.Secure.CONTENT_URI);
         contentObservers.iterator().next().dispatchChange(false, Settings.Secure.CONTENT_URI);
         TestRxSchedulers.drainAllTasks();
-        Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.PAUSED);
         // notifying about the change.
         mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.RESUMED);
         TestRxSchedulers.foregroundAdvanceBy(1000 /*after the animation*/);
@@ -128,12 +115,9 @@ public class SetUpKeyboardWizardTest {
                 .getScenario()
                 .onActivity(
                         activity -> {
-                            final ViewPager pager = activity.findViewById(R.id.wizard_pages_pager);
+                            final ViewPager2 pager = activity.findViewById(R.id.wizard_pages_pager);
                             Assert.assertNotNull(pager);
                             Assert.assertEquals(2, pager.getCurrentItem());
-
-                            Robolectric.getForegroundThreadScheduler()
-                                    .setIdleState(Scheduler.IdleState.UNPAUSED);
                         });
 
         mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.STARTED);
@@ -151,8 +135,6 @@ public class SetUpKeyboardWizardTest {
                                     .next()
                                     .dispatchChange(false, Settings.Secure.CONTENT_URI);
                             TestRxSchedulers.drainAllTasks();
-                            Robolectric.getForegroundThreadScheduler()
-                                    .setIdleState(Scheduler.IdleState.PAUSED);
                         });
         mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.RESUMED);
         mActivityScenarioRule
@@ -161,7 +143,7 @@ public class SetUpKeyboardWizardTest {
                         activity -> {
                             TestRxSchedulers.foregroundAdvanceBy(1000 /*after the animation*/);
                             // now at page four - more settings.
-                            final ViewPager pager = activity.findViewById(R.id.wizard_pages_pager);
+                            final ViewPager2 pager = activity.findViewById(R.id.wizard_pages_pager);
                             Assert.assertNotNull(pager);
                             Assert.assertEquals(3, pager.getCurrentItem());
                         });

@@ -56,6 +56,7 @@ do_update https://dl.google.com/dl/android/maven2 androidx.preference preference
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-v13 "Legacy v13 support library"
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-v4 "Legacy v4 support library"
 do_update https://dl.google.com/dl/android/maven2 androidx.legacy legacy-support-core-utils "Legacy core utils support library"
+do_update https://dl.google.com/dl/android/maven2 ndroidx.viewpager2 view-viewpager2 "View Pager v2"
 
 #kotlin
 do_update https://dl.google.com/dl/android/maven2 androidx.core core-ktx "Kotlin core extensions"
