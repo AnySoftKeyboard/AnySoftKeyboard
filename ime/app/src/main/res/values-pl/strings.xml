@@ -37,6 +37,7 @@
     <string name="removed_word">Usunięto:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Dotknij ponownie, aby zapisać</string>
     <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
+    <string name="hint_click_for_inline_suggestions">Dostępne propozycje autouzupełniania</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Wprowadzanie głosowe niezainstalowane</string>
     <string name="voice_input_not_installed_text">Pisanie głosowe nie jest zainstalowane na twoim urządzeniu\nMożna

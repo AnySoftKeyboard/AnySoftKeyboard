@@ -954,6 +954,7 @@
     <string name="click_me_for_easter_egg_info">click me for a surprise</string>
     <string name="backup_restore_not_support_before_kitkat">Not supported on your Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Backup and restore are not supported for devices running Android OS prior to KitKat (version 4.4). Sorry.</string>
+    <string name="delete_all_clipboard_entries">Empty clipboard</string>
     <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
     
 
