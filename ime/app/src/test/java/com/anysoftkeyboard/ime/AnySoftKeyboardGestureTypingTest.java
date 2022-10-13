@@ -334,7 +334,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.mClearLastGestureAction;
         View rootActionView =
                 provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
-                        .findViewById(R.id.clear_gesture_strip_root);
+                        .findViewById(R.id.clear_gesture_action_icon);
         final View.OnClickListener onClickListener =
                 Shadows.shadowOf(rootActionView).getOnClickListener();
 
@@ -350,7 +350,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.mClearLastGestureAction;
         View rootActionView =
                 provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
-                        .findViewById(R.id.clear_gesture_strip_root);
+                        .findViewById(R.id.clear_gesture_action_icon);
         final View.OnClickListener onClickListener =
                 Shadows.shadowOf(rootActionView).getOnClickListener();
 
@@ -366,7 +366,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         var view =
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .findViewById(R.id.clear_gesture_strip_root);
+                        .findViewById(R.id.clear_gesture_action_icon);
         final View.OnClickListener onClickListener = Shadows.shadowOf(view).getOnClickListener();
 
         Assert.assertEquals(0, ShadowToast.shownToastCount());
