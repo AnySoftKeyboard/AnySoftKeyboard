@@ -36,6 +36,7 @@
     <string name="removed_word">Retiré :\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Appuyer à nouveau pour enregistrer</string>
     <string name="hint_double_tap_to_close">À nouveau pour retirer les suggestions</string>
+    <string name="hint_click_for_inline_suggestions">Suggestions d\'autocomplétion disponibles</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Saisie vocale non installée</string>
     <string name="voice_input_not_installed_text">La saisie vocale n\'est pas installée sur cet appareil.\nPour ce faire, il faut l\'installer depuis le <i>Play Store</i>.</string>
@@ -650,6 +651,7 @@
     <string name="gesture_typing_alert_title">Fonctionnalité bêta !</string>
     <string name="gesture_typing_alert_message">La fonctionnalité de saisie gestuelle ➿ est au stade <b>bêta</b>. Elle possède quelques bogues, n\'est ni très rapide ni très complète.\nMais pourquoi ne pas l\'essayer ?</string>
     <string name="gesture_typing_alert_button">OK</string>
+    <string name="undo_gesture_typing">Annuler la saisie gestuelle</string>
     <string name="apply_remote_app_colors_to_theme">Modifier les couleurs du thème selon l\'application utilisée</string>
     <string name="apply_overlay_summary_on">Les couleurs du clavier correspondront à application active (si possible).</string>
     <string name="apply_overlay_summary_off">Toujours utiliser les couleurs du thème.</string>
@@ -664,5 +666,5 @@
     <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
     <string name="backup_restore_not_support_before_kitkat">Non pris en charge par cet appareil Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">La sauvegarde et la restauration ne sont pas prises en charge pour les appareils fonctionnant sous Android avant KitKat (version 4.4). Désolé.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="delete_all_clipboard_entries">Presse-papiers vide</string>
 </resources>

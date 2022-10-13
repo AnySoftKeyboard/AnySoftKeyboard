@@ -323,5 +323,4 @@
     <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών…</string>
     <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος…</string>
     <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων…</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

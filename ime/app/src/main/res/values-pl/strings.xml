@@ -777,5 +777,5 @@ Zmiana
     <string name="click_me_for_easter_egg_info">Dotknij, to niespodzianka</string>
     <string name="backup_restore_not_support_before_kitkat">Nieobsługiwane na twoim Androidzie</string>
     <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="delete_all_clipboard_entries">Wyczyść schowek</string>
 </resources>

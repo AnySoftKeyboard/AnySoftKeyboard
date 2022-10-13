@@ -695,5 +695,4 @@ simplistas    </string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Não suportado em seu Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Backup e restauração não são suportados para dispositivos rodando o sistema operacional anterior ao Android KitKat (versão 4.4). Desculpe.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

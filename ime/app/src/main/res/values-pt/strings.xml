@@ -730,5 +730,4 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Não suportado na sua versão do Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">A cópia de segurança e restauração não são suportados em dispositivos  com o Android anterior ao KitKat (versão 4.4). Pedimos desculpa.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

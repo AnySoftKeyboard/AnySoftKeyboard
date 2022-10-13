@@ -388,5 +388,4 @@
     <string name="gesture_typing_action">Bật nhập bằng cử chỉ [BETA]</string>
     <string name="gesture_typing_alert_title">Tính năng BETA!</string>
     <string name="gesture_typing_alert_button">Đã hiểu</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

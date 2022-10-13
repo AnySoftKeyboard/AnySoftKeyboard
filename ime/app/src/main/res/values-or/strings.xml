@@ -87,5 +87,4 @@
     <string name="gesture_typing_alert_button">ବୁଝିଗଲି</string>
     <string name="aosp_dark_theme_name">AOSP ଗାଢ଼ ଥିମ୍</string>
     <string name="aosp_light_theme_name">AOSP ହାଲୁକା ଥିମ୍</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

@@ -658,5 +658,4 @@
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Non supportato sul tuo Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Backup e ripristino non sono supportati per dispositivi con Android precedente a KitKat (versione 4.4).</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

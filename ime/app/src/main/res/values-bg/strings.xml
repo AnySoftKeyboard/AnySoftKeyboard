@@ -658,5 +658,4 @@
     <string name="app_share_title">Привет от AnySoftKeyboard</string>
     <string name="app_share_menu_title">Споделете AnySoftKeyboard с помощта на</string>
     <string name="click_me_for_easter_egg_info">щракни ме за изненада</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

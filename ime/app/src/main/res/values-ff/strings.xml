@@ -112,5 +112,4 @@
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="theme_case_type_override_os">Accu Android suɓoo (Jaajol)</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

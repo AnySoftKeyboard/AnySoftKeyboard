@@ -794,5 +794,4 @@
     <string name="click_me_for_easter_egg_info">დაწკაპკეთ სასიამოვნო მოულოდნელობისთვის</string>
     <string name="backup_restore_not_support_before_kitkat">თქვენი Android მხარდაუჭერელია</string>
     <string name="backup_restore_not_support_before_kitkat_message">დამარქაფება და აღდგენა მხარდაჭერილია KitKat (4.4 ვერსიის) ან უფრო ახალ Android-ზე. ვწუხვართ.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

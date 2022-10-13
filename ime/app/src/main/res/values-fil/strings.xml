@@ -516,5 +516,4 @@
     <string name="setup_wizard_welcome_info_footnote">* Siyempre pa, ang AnySoftKeyboard ay hindi masama. Ikaw ay hinihikayat ng tumingin sa aming source code para mapatunayan ito. Dagdag, wala kaming mga <i>NETWORK</i> na mga permiso, kaya hindi kami nagpapadala ng anumang datus sa iyong aparato.</string>
     <string name="setup_wizard_welcome_privacy_action">Pumunta sa Privacy Policy…</string>
     <string name="clear_all_dictionary_override">Malinaw na napagtungang</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

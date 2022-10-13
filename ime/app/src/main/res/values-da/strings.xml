@@ -776,5 +776,4 @@
     <string name="click_me_for_easter_egg_info">klik på mig for en overraskelse</string>
     <string name="backup_restore_not_support_before_kitkat">Ikke understøttet på din Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Backup og gendannelse understøttes ikke for enheder, der kører Android OS før KitKat (version 4. 4). Beklager.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

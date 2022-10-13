@@ -613,5 +613,4 @@
     <string name="apply_overlay_summary_off">استخدم ألوان السمة دائما.</string>
     <string name="app_share_title">مرحبا من AnySoftKeyboard</string>
     <string name="click_me_for_easter_egg_info">انقر علي لمفاجأة</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
