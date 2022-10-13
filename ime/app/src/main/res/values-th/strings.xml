@@ -315,5 +315,4 @@
     <string name="pick_prefs_providers_to_restore">ต้องการกู้ข้อมูลอะไร</string>
     <string name="prefs_providers_operation_success">สำเร็จ</string>
     <string name="prefs_providers_operation_failed">ล้มเหลว!</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

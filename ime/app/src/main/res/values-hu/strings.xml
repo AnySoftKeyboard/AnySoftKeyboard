@@ -749,5 +749,4 @@
     <string name="backup_restore_not_support_before_kitkat">Nem támogatott ezen az Android verzión</string>
     <string name="backup_restore_not_support_before_kitkat_message">A biztonsági mentés és visszaállítás nem támogatott a KitKat (4.4-es verzió) előtti Android operációs rendszert futtató eszközökön. Sajnálom.</string>
     <string name="delete_all_clipboard_entries">Vágólap törlése</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

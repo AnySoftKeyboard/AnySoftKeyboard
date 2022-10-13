@@ -644,5 +644,4 @@ woordenlijst
     <string name="media_insertion_pending_message">Klik tekstbox om afbeelding in te voegen</string>
     <string name="aosp_dark_theme_name">AOSP-donkerthema</string>
     <string name="aosp_light_theme_name">AOSP-lichtthema</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

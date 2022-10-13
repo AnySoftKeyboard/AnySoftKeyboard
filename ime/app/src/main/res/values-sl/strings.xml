@@ -495,5 +495,4 @@
     <string name="extension_keyboard_enabled_on_summary">Razširjena tipkovnica se bo prikazala, ko potegnete nad tipkovnico.</string>
     <string name="read_our_privacy_policy">Preberite naš pravilnik o zasebnosti …</string>
     <string name="visit_our_web_site">Obiščite našo spletno stran …</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

@@ -570,5 +570,4 @@
     <string name="app_share_menu_title">Jaa AnySoftKeyboard…</string>
     <string name="app_share_text">Saanen suositella avoimen lähdekoodin yksityisyyteen keskittynyttä, ilmaista ja muokattavaa monikielistä Android-näppäimistösovellusta AnySoftKeyboardia.\nHanki täältä:\nPlay-kauppa: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Klikkaa minua, tiedossa yllätys</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

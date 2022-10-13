@@ -558,5 +558,4 @@
     <string name="aosp_dark_theme_description">AOSP-inspirert tastaturtema med mørke farger</string>
     <string name="aosp_light_theme_name">Lyst AOSP-tema</string>
     <string name="aosp_light_theme_description">AOSP-inspirert tastaturtema med lyse farger</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

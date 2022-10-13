@@ -770,5 +770,4 @@
     <string name="click_me_for_easter_egg_info">පුදුමයක් සඳහා මා ක්ලික් කරන්න</string>
     <string name="backup_restore_not_support_before_kitkat">ඔබගේ Android මත සහය නොදක්වයි</string>
     <string name="backup_restore_not_support_before_kitkat_message">KitKat (අනුවාදය 4.4) ට පෙර Android OS ධාවනය වන උපාංග සඳහා උපස්ථ සහ ප්‍රතිසාධනය සහාය නොදක්වයි. සමාවන්න.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

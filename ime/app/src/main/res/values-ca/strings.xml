@@ -594,5 +594,4 @@
     <string name="prefs_providers_operation_failed">Ha fallat!</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre utilitza les files genèriques seleccionades.</string>
     <string name="gesture_typing_alert_button">Entesos</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

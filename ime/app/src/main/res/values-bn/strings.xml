@@ -89,5 +89,4 @@
     <string name="settings_key_hint_size_none">ছাড়া</string>
     <string name="settings_key_hint_size_small">ছোট</string>
     <string name="settings_key_hint_size_big">বড়</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

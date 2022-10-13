@@ -665,5 +665,4 @@
     <string name="click_me_for_easter_egg_info">spausk mane dėl siurprizo</string>
     <string name="backup_restore_not_support_before_kitkat">Nepalaikoma jūsų „Android“ įrenginyje</string>
     <string name="backup_restore_not_support_before_kitkat_message">Kurti atsargines kopijas ir jas atkurti nėra palaikoma įrenginiams kurie naudoją „Android“ versiją prieš „KitKat“ (Versiją 4.4).</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

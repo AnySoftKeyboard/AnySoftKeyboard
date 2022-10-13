@@ -251,5 +251,4 @@
     <string name="visit_our_web_site">Vizitaţi site-ul nostru…</string>
     <string name="setup_wizard_welcome_title">Bine ați venit!</string>
     <string name="prefs_providers_operation_success">Succes</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>
