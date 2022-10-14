@@ -64,8 +64,9 @@ import java.util.List;
         return mPopupKeyboards.length;
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View root =
                 mLayoutInflater.inflate(
                         R.layout.quick_text_popup_autorowkeyboard_view, container, false);

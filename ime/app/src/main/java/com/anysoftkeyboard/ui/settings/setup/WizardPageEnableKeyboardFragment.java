@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import app.cash.copper.rx2.RxContentResolver;
 import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -55,7 +56,7 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View.OnClickListener goToDeviceLanguageSettings =
                 v -> {
@@ -115,6 +116,13 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                 };
         view.findViewById(R.id.go_to_language_settings_action)
                 .setOnClickListener(goToDeviceLanguageSettings);
+        view.findViewById(R.id.skip_setup_wizard)
+                .setOnClickListener(
+                        v -> {
+                            startActivity(new Intent(getContext(), MainSettingsActivity.class));
+                            // not returning to this Activity any longer.
+                            requireActivity().finish();
+                        });
         mStateIcon.setOnClickListener(goToDeviceLanguageSettings);
     }
 
