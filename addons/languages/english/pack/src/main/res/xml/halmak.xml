@@ -106,7 +106,7 @@
 
         <Key
             android:codes="97"
-            android:popupCharacters="àáâãāäåæąăα"
+            android:popupCharacters="àáâãāäåæąăαª"
             android:keyLabel="a" />
 
         <Key
@@ -116,7 +116,7 @@
 
         <Key
             android:codes="111"
-            android:popupCharacters="òóôǒōõöőøœo"
+            android:popupCharacters="òóôǒōõöőøœoº"
             android:keyLabel="o" />
 
         <Key
