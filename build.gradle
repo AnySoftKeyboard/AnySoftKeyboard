@@ -17,7 +17,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
         classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9'
