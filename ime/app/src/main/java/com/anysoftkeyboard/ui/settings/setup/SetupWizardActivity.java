@@ -26,8 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 import app.cash.copper.rx2.RxContentResolver;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.rx.RxSchedulers;
@@ -43,7 +43,7 @@ public class SetupWizardActivity extends AppCompatActivity {
     private static final int KEY_MESSAGE_SCROLL_TO_PAGE = 444;
     private static final int KEY_MESSAGE_UPDATE_FRAGMENTS = 446;
     private final Handler mUiHandler = new WizardHandler(this);
-    private ViewPager mWizardPager;
+    private ViewPager2 mWizardPager;
     private boolean mReloadPager = false;
     @NonNull private Disposable mSecureSettingsChangedDisposable = Disposables.empty();
 
@@ -69,17 +69,17 @@ public class SetupWizardActivity extends AppCompatActivity {
                                             50);
                                 });
 
-        FragmentPagerAdapter wizardPagesAdapter = createPagesAdapter();
+        var wizardPagesAdapter = createPagesAdapter();
         mWizardPager = findViewById(R.id.wizard_pages_pager);
-        mWizardPager.setEnabled(false);
+        mWizardPager.setUserInputEnabled(false);
         mWizardPager.setAdapter(wizardPagesAdapter);
     }
 
     @NonNull
     @VisibleForTesting
-    protected FragmentPagerAdapter createPagesAdapter() {
+    protected FragmentStateAdapter createPagesAdapter() {
         return new WizardPagesAdapter(
-                getSupportFragmentManager(),
+                this,
                 !SetupSupport.hasLanguagePackForCurrentLocale(
                         AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns()));
     }
@@ -112,12 +112,12 @@ public class SetupWizardActivity extends AppCompatActivity {
     private void scrollToPageRequiresSetup() {
         if (mWizardPager.getAdapter() == null) return;
 
-        FragmentPagerAdapter adapter = (FragmentPagerAdapter) mWizardPager.getAdapter();
+        var adapter = (FragmentStateAdapter) mWizardPager.getAdapter();
 
         int fragmentIndex = 0;
-        for (; fragmentIndex < adapter.getCount(); fragmentIndex++) {
+        for (; fragmentIndex < adapter.getItemCount(); fragmentIndex++) {
             WizardPageBaseFragment wizardPageBaseFragment =
-                    (WizardPageBaseFragment) adapter.getItem(fragmentIndex);
+                    (WizardPageBaseFragment) adapter.createFragment(fragmentIndex);
             if (!wizardPageBaseFragment.isStepCompleted(this)) break;
         }
 

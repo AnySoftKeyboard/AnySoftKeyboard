@@ -150,9 +150,15 @@
     </style>
 
     <style name="Ask.Text.Link"
-           parent="Ask.Text.Normal">
+        parent="Ask.Text.Normal">
         <item name="android:textColor">?android:textColorLink</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
+    </style>
+
+    <style name="Ask.Text.Link.Small"
+        parent="Ask.Text.Normal">
+        <item name="android:textColor">?android:textColorLink</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
     </style>
 
     <style name="Ask.Text.Hint"

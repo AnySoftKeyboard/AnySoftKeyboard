@@ -14,6 +14,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
@@ -38,6 +39,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.go_to_start_setup).setOnClickListener(this);
         view.findViewById(R.id.setup_wizard_welcome_privacy_action).setOnClickListener(this);
+        view.findViewById(R.id.skip_setup_wizard).setOnClickListener(this);
 
         mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
     }
@@ -62,6 +64,11 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
             case R.id.setup_wizard_welcome_privacy_action:
                 String privacyUrl = getString(R.string.privacy_policy);
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+                break;
+            case R.id.skip_setup_wizard:
+                startActivity(new Intent(getContext(), MainSettingsActivity.class));
+                // not returning to this Activity any longer.
+                requireActivity().finish();
                 break;
             default:
                 throw new IllegalArgumentException(

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -74,6 +75,26 @@ public class WizardPageEnableKeyboardFragmentTest
                         .getNextStartedActivity();
 
         Assert.assertEquals(Settings.ACTION_INPUT_METHOD_SETTINGS, nextStartedActivity.getAction());
+    }
+
+    @Test
+    public void testClickedSkipped() {
+        var fragment = startFragment();
+
+        final View link = fragment.getView().findViewById(R.id.skip_setup_wizard);
+        var linkClickHandler = Shadows.shadowOf(link).getOnClickListener();
+
+        Assert.assertNotNull(linkClickHandler);
+
+        linkClickHandler.onClick(link);
+
+        final Intent nextStartedActivity =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
+
+        Assert.assertEquals(
+                MainSettingsActivity.class.getName(),
+                nextStartedActivity.getComponent().getClassName());
     }
 
     @Test

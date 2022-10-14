@@ -2,7 +2,7 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentActivityTestCase;
 import org.junit.runner.RunWith;
@@ -10,7 +10,7 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.LooperMode;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@LooperMode(LooperMode.Mode.LEGACY)
+@LooperMode(LooperMode.Mode.PAUSED)
 public abstract class RobolectricWizardFragmentTestCase<F extends Fragment>
         extends RobolectricFragmentActivityTestCase<
                 RobolectricWizardFragmentTestCase.TestableSetupWizardActivity<F>, F> {
@@ -36,16 +36,17 @@ public abstract class RobolectricWizardFragmentTestCase<F extends Fragment>
 
         @NonNull
         @Override
-        protected FragmentPagerAdapter createPagesAdapter() {
-            return new FragmentPagerAdapter(getSupportFragmentManager()) {
+        protected FragmentStateAdapter createPagesAdapter() {
+            return new FragmentStateAdapter(this) {
+
                 @NonNull
                 @Override
-                public Fragment getItem(int position) {
+                public Fragment createFragment(int position) {
                     return mFragment;
                 }
 
                 @Override
-                public int getCount() {
+                public int getItemCount() {
                     return 1;
                 }
             };

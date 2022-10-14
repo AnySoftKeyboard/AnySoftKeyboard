@@ -2,11 +2,15 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.app.Application;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -95,5 +99,25 @@ public class WizardPageSwitchToKeyboardFragmentTest
                 R.drawable.ic_wizard_switch_on,
                 Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
         Assert.assertFalse(stateIcon.isClickable());
+    }
+
+    @Test
+    public void testClickedSkipped() {
+        var fragment = startFragment();
+
+        final View link = fragment.getView().findViewById(R.id.skip_setup_wizard);
+        var linkClickHandler = Shadows.shadowOf(link).getOnClickListener();
+
+        Assert.assertNotNull(linkClickHandler);
+
+        linkClickHandler.onClick(link);
+
+        final Intent nextStartedActivity =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
+
+        Assert.assertEquals(
+                MainSettingsActivity.class.getName(),
+                nextStartedActivity.getComponent().getClassName());
     }
 }

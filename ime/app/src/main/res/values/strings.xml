@@ -891,6 +891,7 @@
         </i> permissions, so we can not send any data off the device.
     </string>
     <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
+    <string name="setup_wizard_skip">Skip</string>
     <string name="clear_all_dictionary_override">Clear overrides</string>
 
     <string name="theme_case_type_override_dialog_title">Pick letter-case override</string>
