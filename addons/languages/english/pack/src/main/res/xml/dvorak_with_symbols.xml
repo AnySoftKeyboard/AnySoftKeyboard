@@ -18,8 +18,8 @@
     </Row>
     
     <Row>
-        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left" android:popupCharacters="\@àáâãāäåæą" ask:hintLabel="\@"/>
-        <Key android:codes="111" android:keyLabel="o" android:popupCharacters="#òóôõöøőœō" ask:hintLabel="#"/>
+        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left" android:popupCharacters="\@àáâãāäåæąª" ask:hintLabel="\@"/>
+        <Key android:codes="111" android:keyLabel="o" android:popupCharacters="#òóôõöøőœōº" ask:hintLabel="#"/>
         <Key android:codes="101" android:keyLabel="e" android:popupCharacters="$%èéêëęē€" ask:hintLabel="$%"/>
         <Key android:codes="117" android:keyLabel="u" android:popupCharacters="^\u0026`°ùúûüŭűūµ"/>
         <Key android:codes="105" android:keyLabel="i" android:popupKeyboard="@xml/popup_dvorak_with_symbols_i" ask:hintLabel="*"/>

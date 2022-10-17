@@ -14,12 +14,12 @@
         <Key android:codes="z"  android:popupCharacters="6ýÿ" ask:hintLabel="6" />
         <Key android:codes="u"  android:popupCharacters="7üµùúûŭűū" ask:hintLabel="7" />
         <Key android:codes="i"  android:popupCharacters="8ìíîïłīι*" ask:hintLabel="8" />
-        <Key android:codes="o"  android:popupCharacters="9öòóôõøőœō" ask:hintLabel="9" />
+        <Key android:codes="o"  android:popupCharacters="9öòóôõøőœōº" ask:hintLabel="9" />
         <Key android:codes="p"  android:popupCharacters="0=¶" ask:hintLabel="0" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row android:keyWidth="11.111%p">
-        <Key android:codes="a"  android:popupCharacters="\@äàáâãāåæą" ask:hintLabel="\@" android:keyEdgeFlags="left"/>
+        <Key android:codes="a"  android:popupCharacters="\@äàáâãāåæąª" ask:hintLabel="\@" android:keyEdgeFlags="left"/>
         <Key android:codes="s"  android:popupCharacters="ßẞ#§ſ$śŝšṣ" ask:hintLabel="#" />
         <Key android:codes="d"  android:popupCharacters="€đďḏ" ask:hintLabel="€" />
         <Key android:codes="f"  android:popupCharacters="_" ask:hintLabel="_" />
