@@ -82,7 +82,7 @@ public class ClipboardV11 implements Clipboard {
         setText("");
     }
 
-    protected CharSequence getTextFromCLipItem(ClipData.Item item) {
+    protected CharSequence getTextFromClipItem(ClipData.Item item) {
         return item.getText();
     }
 
@@ -92,7 +92,7 @@ public class ClipboardV11 implements Clipboard {
             ClipData cp = mClipboardManager.getPrimaryClip();
             if (cp != null) {
                 for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
-                    final CharSequence text = getTextFromCLipItem(cp.getItemAt(entryIndex));
+                    final CharSequence text = getTextFromClipItem(cp.getItemAt(entryIndex));
                     if (TextUtils.isEmpty(text)) continue;
                     if (!alreadyKnownText(text)) {
                         mEntries.add(0, text);

@@ -47,7 +47,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         @NonNull
         Context getContext();
 
-        void outputClipboardText(@NonNull CharSequence text);
+        void outputClipboardText();
 
         void showAllClipboardOptions();
     }
@@ -62,8 +62,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 }
 
                 @Override
-                public void outputClipboardText(@NonNull CharSequence text) {
-                    AnySoftKeyboardClipboard.this.onText(null, text);
+                public void outputClipboardText() {
+                    AnySoftKeyboardClipboard.this.performPaste();
                     mSuggestionClipboardEntry.setAsHint(false);
                 }
 
@@ -78,7 +78,6 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     protected static class ClipboardStripActionProvider
             implements KeyboardViewContainerView.StripActionProvider {
         private final ClipboardActionOwner mOwner;
-        private CharSequence mEntryText;
         private View mRootView;
         private ViewGroup mParentView;
         private TextView mClipboardText;
@@ -109,10 +108,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                             }
                         }
                     });
-            mRootView.setOnClickListener(
-                    view -> {
-                        if (mEntryText != null) mOwner.outputClipboardText(mEntryText);
-                    });
+            mRootView.setOnClickListener(view -> mOwner.outputClipboardText());
             mRootView.setOnLongClickListener(
                     v -> {
                         mOwner.showAllClipboardOptions();
@@ -152,7 +148,6 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
         void setClipboardText(CharSequence text, boolean isSecured) {
             mHideClipboardTextAnimator.cancel();
-            mEntryText = text;
             mClipboardText.setVisibility(View.VISIBLE);
             mClipboardText.setScaleX(1f);
             mClipboardText.setScaleY(1f);
@@ -268,7 +263,13 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             }
             final CharSequence[] entries = nonEmpties.toArray(new CharSequence[0]);
             DialogInterface.OnClickListener onClickListener =
-                    (dialog, which) -> onText(key, entries[which]);
+                    (dialog, which) -> {
+                        if (which == 0) {
+                            performPaste();
+                        } else {
+                            onText(key, entries[which]);
+                        }
+                    };
             showOptionsDialogWithData(
                     R.string.clipboard_paste_entries_title,
                     R.drawable.ic_clipboard_paste_in_app,
@@ -298,37 +299,38 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
     }
 
+    private void performPaste() {
+        CharSequence clipboardText =
+                mClipboard.getClipboardEntriesCount() > 0
+                        ? mClipboard.getText(0 /*last entry paste*/)
+                        : "";
+        if (!TextUtils.isEmpty(clipboardText)) {
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+        } else {
+            showToastMessage(R.string.clipboard_is_empty_toast, true);
+        }
+    }
+
+    private void performCopy(boolean alsoCut) {
+        if (alsoCut) {
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
+        } else {
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
+            // showing toast, since there isn't any other UI feedback
+            showToastMessage(R.string.clipboard_copy_done_toast, true);
+        }
+    }
+
     protected void handleClipboardOperation(
             final Keyboard.Key key, final int primaryCode, InputConnection ic) {
         abortCorrectionAndResetPredictionState(false);
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
-                CharSequence clipboardText =
-                        mClipboard.getClipboardEntriesCount() > 0
-                                ? mClipboard.getText(0 /*last entry paste*/)
-                                : "";
-                if (!TextUtils.isEmpty(clipboardText)) {
-                    onText(null, clipboardText);
-                } else {
-                    showToastMessage(R.string.clipboard_is_empty_toast, true);
-                }
+                performPaste();
                 break;
             case KeyCodes.CLIPBOARD_CUT:
             case KeyCodes.CLIPBOARD_COPY:
-                if (ic != null) {
-                    CharSequence selectedText =
-                            ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
-                    if (!TextUtils.isEmpty(selectedText)) {
-                        mClipboard.setText(selectedText);
-                        if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
-                            // sending a DEL key will delete the selected text
-                            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-                        } else {
-                            // showing toast, since there isn't any other UI feedback
-                            showToastMessage(R.string.clipboard_copy_done_toast, true);
-                        }
-                    }
-                }
+                performCopy(primaryCode == KeyCodes.CLIPBOARD_CUT);
                 break;
             case KeyCodes.CLIPBOARD_SELECT_ALL:
                 final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);

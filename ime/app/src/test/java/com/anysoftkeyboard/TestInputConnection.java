@@ -1,5 +1,8 @@
 package com.anysoftkeyboard;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -325,41 +328,74 @@ public class TestInputConnection extends BaseInputConnection {
                 KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
          */
         boolean handled = false;
-        if (event.getAction() == KeyEvent.ACTION_UP) {
-            // only handling UP events
-            if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                if (mSelectionEndPosition == mCursorPosition) {
-                    handled = true;
-                    deleteSurroundingText(1, 0);
-                } else {
-                    handled = true;
+        final var isUp = event.getAction() == KeyEvent.ACTION_UP;
+        // only handling UP events
+        if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
+            if (mSelectionEndPosition == mCursorPosition) {
+                handled = true;
+                if (isUp) deleteSurroundingText(1, 0);
+            } else {
+                handled = true;
+                if (isUp) {
                     mInputText.delete(mCursorPosition, mSelectionEndPosition);
                     notifyTextChange(0);
                 }
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_FORWARD_DEL) {
-                if (mSelectionEndPosition == mCursorPosition) {
-                    handled = true;
-                    deleteSurroundingText(0, 1);
-                } else {
-                    handled = true;
-                    mInputText.delete(mCursorPosition, mSelectionEndPosition);
-                    notifyTextChange(0);
-                }
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
-                handled = true;
-                commitText(" ", 1);
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                handled = true;
-                commitText("\n", 1);
-            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0
-                    || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
-                handled = true;
-                commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
-            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A
-                    || event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
-                handled = true;
-                commitText("" + (char) (event.getKeyCode() - KeyEvent.KEYCODE_A + 'a'), 1);
             }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_FORWARD_DEL) {
+            if (mSelectionEndPosition == mCursorPosition) {
+                handled = true;
+                if (isUp) deleteSurroundingText(0, 1);
+            } else {
+                handled = true;
+                if (isUp) {
+                    mInputText.delete(mCursorPosition, mSelectionEndPosition);
+                    notifyTextChange(0);
+                }
+            }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
+            handled = true;
+            if (isUp) commitText(" ", 1);
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            handled = true;
+            if (isUp) commitText("\n", 1);
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_C && event.isCtrlPressed()) {
+            handled = true;
+            if (isUp) {
+                var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+                final CharSequence selectedText = getSelectedText(0);
+                ClipData clipData = ClipData.newPlainText(selectedText, selectedText);
+                clipboard.setPrimaryClip(clipData);
+            }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_X && event.isCtrlPressed()) {
+            handled = true;
+            if (isUp) {
+                var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+                final CharSequence selectedText = getSelectedText(0);
+                ClipData clipData = ClipData.newPlainText(selectedText, selectedText);
+                clipboard.setPrimaryClip(clipData);
+                mInputText.delete(mCursorPosition, mSelectionEndPosition);
+                notifyTextChange(0);
+            }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_V && event.isCtrlPressed()) {
+            handled = true;
+            if (isUp) {
+                var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+                var primaryClip = clipboard.getPrimaryClip();
+                if (primaryClip.getItemCount() > 0) {
+                    var clipboardText = primaryClip.getItemAt(0).coerceToStyledText(mIme);
+                    commitTextAs(clipboardText, false, 1);
+                }
+            }
+        } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0
+                && event.getKeyCode() <= KeyEvent.KEYCODE_9) {
+            handled = true;
+            if (isUp) commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
+        } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A
+                && event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
+            handled = true;
+            final char baseChar = event.isShiftPressed() || event.isCapsLockOn() ? 'A' : 'a';
+            if (isUp)
+                commitText("" + (char) (event.getKeyCode() - KeyEvent.KEYCODE_A + baseChar), 1);
         }
 
         if (!handled) {
