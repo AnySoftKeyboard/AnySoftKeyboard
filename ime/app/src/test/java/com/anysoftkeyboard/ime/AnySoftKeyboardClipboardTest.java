@@ -671,6 +671,18 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testHidesActionIconIfClipboardIsEmpty() {
+        mClipboardManager.setPrimaryClip(
+                new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+
+        simulateOnStartInputFlow();
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+
+        mClipboardManager.setPrimaryClip(ClipData.newPlainText("", ""));
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+    }
+
+    @Test
     public void testHideActionIfKeyPressedButLeavesHintForDuration() {
         mClipboardManager.setPrimaryClip(
                 new ClipData("text 1", new String[0], new ClipData.Item("text 1")));

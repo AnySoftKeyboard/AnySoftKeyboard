@@ -16,12 +16,15 @@
 
 package com.anysoftkeyboard.devicespecific;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public interface Clipboard {
 
     interface ClipboardUpdatedListener {
-        void onClipboardEntryAdded(CharSequence text);
+        void onClipboardEntryAdded(@NonNull CharSequence text);
+
+        void onClipboardCleared();
     }
 
     CharSequence getText(int entryIndex);

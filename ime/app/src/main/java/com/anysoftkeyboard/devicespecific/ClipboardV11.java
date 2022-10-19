@@ -87,13 +87,15 @@ public class ClipboardV11 implements Clipboard {
     }
 
     private void onPrimaryClipChanged() {
-        final ClipboardUpdatedListener addedListener = mClipboardEntryAddedListener;
+        final var addedListener = mClipboardEntryAddedListener;
         if (addedListener != null) {
-            ClipData cp = mClipboardManager.getPrimaryClip();
+            var isEmpty = true;
+            var cp = mClipboardManager.getPrimaryClip();
             if (cp != null) {
                 for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
-                    final CharSequence text = getTextFromClipItem(cp.getItemAt(entryIndex));
+                    final var text = getTextFromClipItem(cp.getItemAt(entryIndex));
                     if (TextUtils.isEmpty(text)) continue;
+                    isEmpty = false;
                     if (!alreadyKnownText(text)) {
                         mEntries.add(0, text);
 
@@ -104,6 +106,9 @@ public class ClipboardV11 implements Clipboard {
                         addedListener.onClipboardEntryAdded(text);
                     }
                 }
+            }
+            if (isEmpty) {
+                addedListener.onClipboardCleared();
             }
         }
     }

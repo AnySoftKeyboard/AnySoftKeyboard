@@ -39,6 +39,19 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     private static final long MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_ENTRY = 15 * 1000;
     private static final long MAX_TIME_TO_SHOW_SYNCED_CLIPBOARD_HINT = 120 * 1000;
     private long mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
+    private final Clipboard.ClipboardUpdatedListener mClipboardUpdatedListener =
+            new Clipboard.ClipboardUpdatedListener() {
+                @Override
+                public void onClipboardEntryAdded(@NonNull CharSequence text) {
+                    AnySoftKeyboardClipboard.this.onClipboardEntryAdded(text);
+                }
+
+                @Override
+                public void onClipboardCleared() {
+                    AnySoftKeyboardClipboard.this.onClipboardEntryAdded(null);
+                }
+            };
+
     @Nullable private CharSequence mLastSyncedClipboardEntry;
     private boolean mLastSyncedClipboardEntryInSecureInput;
 
@@ -176,19 +189,25 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                                 syncClipboard -> {
                                     mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
                                     mClipboard.setClipboardUpdatedListener(
-                                            syncClipboard ? this::onClipboardEntryAdded : null);
+                                            syncClipboard ? mClipboardUpdatedListener : null);
                                 },
                                 GenericOnError.onError("settings_key_os_clipboard_sync")));
     }
 
     private void onClipboardEntryAdded(CharSequence clipboardEntry) {
-        mLastSyncedClipboardEntry = clipboardEntry;
-        EditorInfo currentInputEditorInfo = getCurrentInputEditorInfo();
-        mLastSyncedClipboardEntryInSecureInput = isTextPassword(currentInputEditorInfo);
-        mLastSyncedClipboardEntryTime = SystemClock.uptimeMillis();
-        // if we already showing the view, we want to update it contents
-        if (isInputViewShown()) {
-            showClipboardActionIcon(currentInputEditorInfo);
+        if (TextUtils.isEmpty(clipboardEntry)) {
+            mLastSyncedClipboardEntry = null;
+            mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
+            getInputViewContainer().removeStripAction(mSuggestionClipboardEntry);
+        } else {
+            mLastSyncedClipboardEntry = clipboardEntry;
+            EditorInfo currentInputEditorInfo = getCurrentInputEditorInfo();
+            mLastSyncedClipboardEntryInSecureInput = isTextPassword(currentInputEditorInfo);
+            mLastSyncedClipboardEntryTime = SystemClock.uptimeMillis();
+            // if we already showing the view, we want to update it contents
+            if (isInputViewShown()) {
+                showClipboardActionIcon(currentInputEditorInfo);
+            }
         }
     }
 
