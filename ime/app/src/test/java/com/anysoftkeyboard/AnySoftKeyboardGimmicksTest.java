@@ -155,6 +155,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "symbols_keyboard",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals(" 1", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",

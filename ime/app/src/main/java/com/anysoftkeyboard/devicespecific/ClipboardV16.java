@@ -28,7 +28,7 @@ public class ClipboardV16 extends ClipboardV11 {
     }
 
     @Override
-    protected CharSequence getTextFromCLipItem(ClipData.Item item) {
+    protected CharSequence getTextFromClipItem(ClipData.Item item) {
         return item.coerceToStyledText(mContext);
     }
 }

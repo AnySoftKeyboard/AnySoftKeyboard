@@ -15,14 +15,20 @@ DIMENS=[ "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"]
 SIZE_X=22
 SIZE_Y=22
 DIMENS_FACTORS=[1, 1.5, 2, 3, 4]
-OFFSET_X=10
-OFFSET_Y=0
+OFFSET_X=12
+OFFSET_Y=1
 
 def _run_cmd(cmd):
     print(f"-- Running: {cmd}")
     output_stream = os.popen(cmd)
     print(f"  Output:\n{output_stream.read()}")
 
+def _ask_script_border(input_image) -> str:
+    tmp_file=tempfile.mktemp(suffix=".png")
+    _run_cmd(f"scripts/add_border_to_png.sh {input_image} black 1 {tmp_file}")
+
+    return tmp_file
+    
 def _canny_edge_image(input_image) -> str:
     tmp_file=tempfile.mktemp(suffix=".png")
     _run_cmd(f"convert {input_image} -canny 0x0+10%+10% {tmp_file}")
@@ -43,7 +49,7 @@ def _edge_border(input_image) -> str:
     return tmp_file
 
 def _edge_image(input_image) -> str:
-    return _edge_border(input_image)
+    return _ask_script_border(input_image)
 
 for i in range(0, len(DIMENS) - 1):
     input_1=f"{RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}_1.png"
