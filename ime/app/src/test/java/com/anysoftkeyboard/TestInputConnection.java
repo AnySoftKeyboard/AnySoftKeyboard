@@ -24,6 +24,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Assert;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
@@ -38,6 +39,7 @@ public class TestInputConnection extends BaseInputConnection {
     private final List<Long> mNextMessageTime = new ArrayList<>();
     @Nullable private SelectionUpdateData mEditModeInitialState = null;
     @Nullable private SelectionUpdateData mEditModeLatestState = null;
+    private final AtomicInteger mSelectionDataNests = new AtomicInteger(0);
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
     private int mLastEditorAction = 0;
@@ -160,7 +162,7 @@ public class TestInputConnection extends BaseInputConnection {
                         newEnd,
                         composedTextRange[0],
                         composedTextRange[1]);
-        if (mEditModeInitialState != null) {
+        if (mEditModeLatestState != null) {
             mEditModeLatestState = data;
         } else {
             mNextMessageTime.add(mDelayedSelectionUpdate + ShadowSystemClock.currentTimeMillis());
@@ -284,35 +286,36 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean beginBatchEdit() {
-        if (mEditModeInitialState == null) {
-            int[] composedTextRange = findComposedText();
-            mEditModeInitialState =
-                    new SelectionUpdateData(
-                            mCursorPosition,
-                            mSelectionEndPosition,
-                            mCursorPosition,
-                            mSelectionEndPosition,
-                            composedTextRange[0],
-                            composedTextRange[1]);
-            mEditModeLatestState = mEditModeInitialState;
+        final int nests = mSelectionDataNests.getAndIncrement();
+        int[] composedTextRange = findComposedText();
+        mEditModeLatestState =
+                new SelectionUpdateData(
+                        mCursorPosition,
+                        mSelectionEndPosition,
+                        mCursorPosition,
+                        mSelectionEndPosition,
+                        composedTextRange[0],
+                        composedTextRange[1]);
+        if (nests == 0) {
+            mEditModeInitialState = mEditModeLatestState;
         }
         return true;
     }
 
     @Override
     public boolean endBatchEdit() {
-        final SelectionUpdateData initialState = mEditModeInitialState;
-        final SelectionUpdateData finalState = mEditModeLatestState;
-        mEditModeInitialState = null;
-        mEditModeLatestState = null;
-        if (initialState != null) {
-            if (!initialState.equals(finalState)) {
-                notifyTextChanged(
-                        initialState.oldSelStart,
-                        initialState.oldSelEnd,
-                        finalState.newSelStart,
-                        finalState.newSelEnd);
-            }
+        Assert.assertNotNull(mEditModeLatestState);
+        int nests = mSelectionDataNests.decrementAndGet();
+        Assert.assertTrue(nests >= 0);
+        if (nests == 0) {
+            final SelectionUpdateData initialState = mEditModeInitialState;
+            final SelectionUpdateData finalState = mEditModeLatestState;
+            mEditModeLatestState = null;
+            notifyTextChanged(
+                    initialState.oldSelStart,
+                    initialState.oldSelEnd,
+                    finalState.newSelStart,
+                    finalState.newSelEnd);
         }
         return true;
     }

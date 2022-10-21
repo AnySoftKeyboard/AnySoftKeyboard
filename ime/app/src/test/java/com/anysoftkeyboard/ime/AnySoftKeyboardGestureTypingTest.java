@@ -206,6 +206,28 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOutputDoubleSpacesToDotAfterGestureIfEnabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_double_space_to_period, true);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputDoubleSpacesToDotAfterGestureIfDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_double_space_to_period, false);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello  ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testDoesNotConfirmLastGesturesWhenNonePrintableKeyIsPressed() {
         simulateGestureProcess("hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);

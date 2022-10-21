@@ -429,7 +429,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 final boolean isCapsLocked = mShiftKeyState.isLocked();
 
                 final Locale locale = getCurrentAlphabetKeyboard().getLocale();
-                if (locale != null && (isShifted || isCapsLocked)) {
+                if (isShifted || isCapsLocked) {
 
                     StringBuilder builder = new StringBuilder();
                     for (int i = 0; i < gestureTypingPossibilities.size(); ++i) {
@@ -487,6 +487,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     setSuggestions(Collections.emptyList(), -1);
                 }
 
+                markExpectingSelectionUpdate();
                 ic.endBatchEdit();
             }
 

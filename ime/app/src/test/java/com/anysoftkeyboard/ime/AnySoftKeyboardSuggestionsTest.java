@@ -322,17 +322,22 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
         simulateOnStartInputFlow();
 
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hell face ");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell face");
+        verifySuggestions(true, "face");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(
                 "hell face ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        verifySuggestions(true);
 
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
         for (int deleteKeyPress = 6; deleteKeyPress > 0; deleteKeyPress--) {
             // really quickly
             mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
-            SystemClock.sleep(5);
+            TestRxSchedulers.foregroundAdvanceBy(
+                    50 /*that's the key-repeat delay in AnyKeyboardViewBase*/);
         }
         TestRxSchedulers.drainAllTasksUntilEnd(); // lots of events in the queue...
+        TestRxSchedulers.foregroundAdvanceBy(100);
         verifySuggestions(true, "hell", "hello");
         Assert.assertEquals(
                 "hell", getCurrentTestInputConnection().getCurrentTextInInputConnection());

@@ -671,13 +671,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null) ic.beginBatchEdit();
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-
         if (primaryCode > 0) {
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes);
         } else {
             onFunctionKey(primaryCode, key, fromUI);
         }
+        if (ic != null) ic.endBatchEdit();
     }
 
     private boolean isTerminalEmulation() {
@@ -1417,7 +1419,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             int newSelEnd,
             int candidatesStart,
             int candidatesEnd) {
-        updateShiftStateNow();
+        // only updating if the cursor moved
+        if (oldSelStart != oldSelStart) {
+            updateShiftStateNow();
+        }
         super.onUpdateSelection(
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
     }
