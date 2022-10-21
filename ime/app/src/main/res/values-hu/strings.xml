@@ -697,6 +697,7 @@
         </i> így adatokat nem is tudnánk küldeni..
     </string>
     <string name="setup_wizard_welcome_privacy_action">Az adatvédelmi irányelvekhez…</string>
+    <string name="setup_wizard_skip">Kihagyás</string>
     <string name="clear_all_dictionary_override">Egyértelmű felülbírálás</string>
     <string name="theme_case_type_override_dialog_title">A módszer kiválasztása</string>
     <string name="theme_case_type_override_theme">a téma szerint</string>
@@ -749,4 +750,5 @@
     <string name="backup_restore_not_support_before_kitkat">Nem támogatott ezen az Android verzión</string>
     <string name="backup_restore_not_support_before_kitkat_message">A biztonsági mentés és visszaállítás nem támogatott a KitKat (4.4-es verzió) előtti Android operációs rendszert futtató eszközökön. Sajnálom.</string>
     <string name="delete_all_clipboard_entries">Vágólap törlése</string>
+    <string name="tip_swipe_from_backspace_to_clear">Tipp: a szóközről balra húzva törölheted a szót!</string>
 </resources>
