@@ -726,6 +726,7 @@ Zmiana
         więc nie możemy wysyłać żadnych danych z urządzenia.
     </string>
     <string name="setup_wizard_welcome_privacy_action">Przejdź do polityki prywatności…</string>
+    <string name="setup_wizard_skip">Pomiń</string>
     <string name="clear_all_dictionary_override">Wyczyść nadpisania</string>
     <string name="theme_case_type_override_dialog_title">Wybierz nadpisanie wielkości liter</string>
     <string name="theme_case_type_override_theme">Użyj stylu motywu</string>
@@ -778,4 +779,5 @@ Zmiana
     <string name="backup_restore_not_support_before_kitkat">Nieobsługiwane na twoim Androidzie</string>
     <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
     <string name="delete_all_clipboard_entries">Wyczyść schowek</string>
+    <string name="tip_swipe_from_backspace_to_clear">Wskazówka: możesz przesunąć palcem w lewo od backspace, aby wyczyścić słowo!</string>
 </resources>

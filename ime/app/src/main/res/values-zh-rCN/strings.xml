@@ -35,6 +35,7 @@
     <string name="removed_word">已移除：\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 再次触摸以保存</string>
     <string name="hint_double_tap_to_close">再次删除建议</string>
+    <string name="hint_click_for_inline_suggestions">可用的自动填充建议</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">未安装语音</string>
     <string name="voice_input_not_installed_text">语音输入未安装在您的设备上。\n
@@ -69,6 +70,52 @@
     <string name="night_mode_type_never">永不</string>
     <string name="night_mode_type_follow_system">按照系统设置</string>
     <string name="night_mode_type_always">总是</string>
+    <string name="night_mode_app_night_theme">变暗设置应用界面</string>
+    <string name="night_mode_darken_keyboard_theme">深色键盘主题</string>
+    <string name="night_mode_sound_control">禁用按键音效</string>
+    <string name="night_mode_vibration_control">禁用按键振动</string>
+    <string name="power_save_mode_screen">省电设置</string>
+    <string name="power_save_mode_description">为了降低能耗，省电模式将会禁用以下功能：</string>
+    <string name="power_save_mode_state_summary">当前省电模式触发值：\u0020%s</string>
+    <string name="power_save_mode_dialog_title">启动省电模式</string>
+    <string name="power_save_mode_types_never">永不</string>
+    <string name="power_save_mode_types_lower_battery">低电量时</string>
+    <string name="power_save_mode_types_always">总是</string>
+    <string name="power_saving_keyboard_theme_name">节能模式主题</string>
+    <string name="power_saving_keyboard_theme_description">深色界面和简易布局可以减少设备电量的消耗。</string>
+    <string name="power_save_mode_animation_control">禁用动画和按键预览</string>
+    <string name="power_save_mode_sound_control">禁用按键音效</string>
+    <string name="power_save_mode_vibration_control">禁用按键振动</string>
+    <string name="power_save_mode_suggestions_control">禁用词语建议</string>
+    <string name="power_save_mode_gesture_typing_control">禁用手势输入</string>
+    <string name="power_save_mode_theme_control">切换到简易深色模式</string>
+    <string name="pop_text_type_title">按键时弹出文本提示</string>
+    <string name="pop_text_type_summary">按键后何时弹出文本。当前：\u0020%s</string>
+    <string name="pop_text_type_dialog_title">选择弹出文本类型</string>
+    <string name="pop_text_type_never">永不</string>
+    <string name="pop_text_type_on_correction">在文字校正时</string>
+    <string name="pop_text_type_on_word">输入单词时</string>
+    <string name="pop_text_type_any_key">按任意键时</string>
+    <string name="input_field_type_password">密码输入字段</string>
+    <string name="input_field_type_email">邮箱输入字段</string>
+    <string name="input_field_type_url">URL 输入字段</string>
+    <string name="input_field_type_im">短信输入字段</string>
+    <string name="sound_on">按键音效</string>
+    <string name="sound_on_summary">软键盘的按键音效。</string>
+    <string name="use_custom_sound_volume">设置自定义音量</string>
+    <string name="use_custom_sound_volume_on_summary">按键音效是自定义音量。</string>
+    <string name="use_custom_sound_volume_off_summary">按键音效是系统\通知音量。</string>
+    <string name="custom_sound_volume">自定义按键音量</string>
+    <string name="vibrate_on_long_press_title">长按时震动</string>
+    <string name="vibrate_on_long_press_summary_on">调用长按动作时软振动。</string>
+    <string name="switch_keyboard_on_space">空格切换键盘</string>
+    <string name="switch_keyboard_on_space_on_summary">在按空格时从符号/数字键盘切换到字母键盘。</string>
+    <string name="switch_keyboard_on_space_off_summary">在按空格时不从符号/数字键盘切换到字母键盘。</string>
+    <string name="colorize_nav_bar_title">在导航栏下着色</string>
+    <string name="colorize_nav_bar_summary_on">将着色导航栏下的键盘背景，但不支持所有设备。</string>
+    <string name="colorize_nav_bar_summary_off">不要在导航栏下着色。</string>
+    <string name="persistent_layout_per_package_id_title">记住每个应用的按键布局</string>
+    <string name="persistent_layout_per_package_id_off_summary">所有应用使用相同的布局。</string>
     <string name="persistent_layout_per_package_id_on_summary">自动切换到应用中使用的上一个布局。</string>
     <string name="one_shot_quick_text_popup">按键后自动关闭</string>
     <string name="one_shot_quick_text_popup_on_summary">按键后关闭快速文本弹出窗口。</string>
@@ -127,6 +174,9 @@
     <string name="swipe_right_two_fingers_action">两个手指向右滑动</string>
     <string name="swipe_right_two_fingers_action_summary">定义双指向右滑动手势动作。目前，%s</string>
     <string name="swipe_right_two_fingers_action_title">选择向右滑动动作</string>
+    <string name="pinch_gesture_action">缩小手势</string>
+    <string name="pinch_gesture_action_title">选择缩小手势</string>
+    <string name="pinch_gesture_action_summary">定义缩小手势。目前为%s</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->

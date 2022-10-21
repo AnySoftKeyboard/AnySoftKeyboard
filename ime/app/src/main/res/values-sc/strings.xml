@@ -38,6 +38,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Torra a incarcare pro sarvare</string>
     <string name="hint_double_tap_to_close">Torra pro bogare sos impòsitos</string>
+    <string name="hint_click_for_inline_suggestions">Cussìgios de àuto-cumpridura a disponimentu</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Boghe non installada</string>
     <string name="voice_input_not_installed_text">Sa boghe pro sa sintetizatzione vocale no est installada in su dispositivu tuo.\nCustu podet èssere acontzadu in presse: installa·la dae una butega de aplicatziones.</string>
@@ -618,6 +619,7 @@
     <string name="setup_wizard_welcome_start_action">Incumintza sa cunfiguratzione…</string>
     <string name="setup_wizard_welcome_info_footnote">* Craru chi AnySoftKeyboard no est mala. Ses invitadu a abbaidare a su còdighe mitza nostru e a ti lu verificare pro contu tuo. E, fintzas, non tenimus permissos de <i>RETZA</i>, e pro custa resone non podimus imbiare datos dae su dispositivu.</string>
     <string name="setup_wizard_welcome_privacy_action">Bae a sa Polìtica de Privadesa…</string>
+    <string name="setup_wizard_skip">Brinca</string>
     <string name="clear_all_dictionary_override">Iscantzella sas sostitutziones</string>
     <string name="theme_case_type_override_dialog_title">Issèbera sa sostitutzione de sa mannària de sas lìteras in su tema</string>
     <string name="theme_case_type_override_theme">Imprea sa mannària de su tema</string>
@@ -669,4 +671,6 @@
     <string name="click_me_for_easter_egg_info">incarca·mi pro una sorpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Non suportadu in s\'Android tuo</string>
     <string name="backup_restore_not_support_before_kitkat_message">Sa còpia de seguresa e su riprìstinu non sunt suportados pro dispositivos chi tenent unu sistema operativu Android prus betzu de KitKat (version 4.4). Nos dispraghet.</string>
+    <string name="delete_all_clipboard_entries">Punta de billete bòida</string>
+    <string name="tip_swipe_from_backspace_to_clear">Impòsitu: podes trisinare a manca dae sa back-space pro iscantzellare sa paràula!</string>
 </resources>
