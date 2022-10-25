@@ -1374,7 +1374,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             final Context context = parent.getContext();
             mCancelToGoneAnimation =
                     AnimatorInflater.loadAnimator(context, R.animator.suggestions_cancel_to_gone);

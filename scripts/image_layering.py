@@ -52,20 +52,27 @@ def _edge_image(input_image) -> str:
     return _ask_script_border(input_image)
 
 for i in range(0, len(DIMENS) - 1):
-    input_1=f"{RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}_1.png"
-    input_2=f"{RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}_2.png"
-    factor=DIMENS_FACTORS[i]
-    output_size=f"{int(SIZE_X*factor)}x{int(SIZE_Y*factor)}"
-    input_2_offset=f"+{int(OFFSET_X*factor)}+{int(OFFSET_Y*factor)}"
+    result_file=""
+    input=f"{RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}.png"
+    
+    if os.path.exists(input):
+        result_file=_edge_image(input)
+    else:
+        factor=DIMENS_FACTORS[i]
+        output_size=f"{int(SIZE_X*factor)}x{int(SIZE_Y*factor)}"
+        input_1=f"{RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}_1.png"
+        input_2=f"{RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}_2.png"
+        input_2_offset=f"+{int(OFFSET_X*factor)}+{int(OFFSET_Y*factor)}"
 
-    input1_outline=_edge_image(input_1)
-    input2_outline=_edge_image(input_2)
+        input1_outline=_edge_image(input_1)
+        input2_outline=_edge_image(input_2)
 
-    result_file=tempfile.mktemp(suffix=".png")
-    _run_cmd(f"convert -size {output_size} xc:transparent " \
-            f"{input1_outline} -geometry +0+0 -composite " \
-            f"{input_1} -geometry +0+0 -composite " \
-            f"{input2_outline} -geometry {input_2_offset} -composite " \
-            f"{input_2} -geometry {input_2_offset} -composite " \
-            f"{result_file}")
+        result_file=tempfile.mktemp(suffix=".png")
+        _run_cmd(f"convert -size {output_size} xc:transparent " \
+                f"{input1_outline} -geometry +0+0 -composite " \
+                f"{input_1} -geometry +0+0 -composite " \
+                f"{input2_outline} -geometry {input_2_offset} -composite " \
+                f"{input_2} -geometry {input_2_offset} -composite " \
+                f"{result_file}")
+    
     shutil.copyfile(result_file, f"{OUTPUT_RES_FOLDER}/drawable-{DIMENS[i]}/{IMAGE_FILE}.png")

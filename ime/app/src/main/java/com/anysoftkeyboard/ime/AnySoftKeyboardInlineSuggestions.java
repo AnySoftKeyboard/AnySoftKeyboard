@@ -226,7 +226,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             View root =
                     LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.inline_suggestions_available_action, parent, false);

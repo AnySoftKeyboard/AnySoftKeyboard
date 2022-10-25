@@ -512,7 +512,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             mRootView =
                     LayoutInflater.from(mKeyboard)
                             .inflate(R.layout.clear_gesture_action, parent, false);

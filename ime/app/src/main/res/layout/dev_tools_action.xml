@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dev_tools_action_icon"
+    android:layout_width="@dimen/candidate_strip_height"
+    android:layout_height="@dimen/candidate_strip_height"
+    android:layout_gravity="center_vertical"
+    android:background="@android:color/transparent"
+    android:contentDescription="@string/developer_tools"
+    android:scaleType="centerInside"
+    android:src="@drawable/ic_dev_tools_action_icon" />

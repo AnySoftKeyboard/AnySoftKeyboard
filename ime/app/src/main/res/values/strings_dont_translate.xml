@@ -47,6 +47,7 @@
     <string name="deeplink_url_themes">anysoftkeyboard://settings/ui/themes</string>
     <string name="deeplink_url_quick_text">anysoftkeyboard://settings/quick_text</string>
     <string name="deeplink_url_gestures">anysoftkeyboard://settings/gestures</string>
+    <string name="deeplink_url_dev_tools">anysoftkeyboard://settings/dev_tools</string>
 
     <string name="label_subtype_generic">%s</string>
 </resources>
