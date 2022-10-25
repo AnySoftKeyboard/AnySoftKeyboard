@@ -55,6 +55,7 @@ import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
+import com.anysoftkeyboard.ui.dev.DevStripActionProvider;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -79,6 +80,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     @NonNull private final SparseArrayCompat<int[]> mSpecialWrapCharacters;
 
+    private DevStripActionProvider mDevToolsAction;
     private CondenseType mPrefKeyboardInCondensedLandscapeMode = CondenseType.None;
     private CondenseType mPrefKeyboardInCondensedPortraitMode = CondenseType.None;
     private CondenseType mKeyboardInCondensedMode = CondenseType.None;
@@ -240,6 +242,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                                         "settings_key_keyboard_icon_in_status_bar")));
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
+
+        mDevToolsAction = new DevStripActionProvider(this);
     }
 
     @Override
@@ -286,14 +290,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             mVoiceRecognitionTrigger.onStartInputView();
         }
 
-        if (getInputView() == null) {
-            return;
-        }
-
-        getInputView().resetInputView();
-        getInputView().setKeyboardActionType(attribute.imeOptions);
+        InputViewBinder inputView = getInputView();
+        inputView.resetInputView();
+        inputView.setKeyboardActionType(attribute.imeOptions);
 
         updateShiftStateNow();
+
+        if (BuildConfig.DEBUG) {
+            getInputViewContainer().addStripAction(mDevToolsAction, false);
+        }
     }
 
     @Override
@@ -304,9 +309,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         if (mShowKeyboardIconInStatusBar && imeToken != null) {
             mInputMethodManager.hideStatusIcon(imeToken);
         }
+    }
 
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) inputView.resetInputView();
+    @Override
+    public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
+
+        getInputView().resetInputView();
+        if (BuildConfig.DEBUG) {
+            getInputViewContainer().removeStripAction(mDevToolsAction);
+        }
     }
 
     @Override
@@ -596,6 +608,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 if (mShiftKeyState.isPressed() && ic != null) {
                     // power-users feature ahead: Shift+Enter
                     // getting away from firing the default editor action, by forcing newline
+                    abortCorrectionAndResetPredictionState(false);
                     ic.commitText("\n", 1);
                     break;
                 }
@@ -671,13 +684,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null) ic.beginBatchEdit();
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-
         if (primaryCode > 0) {
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes);
         } else {
             onFunctionKey(primaryCode, key, fromUI);
         }
+        if (ic != null) ic.endBatchEdit();
     }
 
     private boolean isTerminalEmulation() {
@@ -1417,7 +1432,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             int newSelEnd,
             int candidatesStart,
             int candidatesEnd) {
-        updateShiftStateNow();
+        // only updating if the cursor moved
+        if (oldSelStart != newSelStart) {
+            updateShiftStateNow();
+        }
         super.onUpdateSelection(
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
     }

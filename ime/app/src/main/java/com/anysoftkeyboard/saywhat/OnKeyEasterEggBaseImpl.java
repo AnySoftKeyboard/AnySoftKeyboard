@@ -102,7 +102,7 @@ class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             final Context context = parent.getContext();
             View root =
                     LayoutInflater.from(context).inflate(R.layout.easter_egg_action, parent, false);

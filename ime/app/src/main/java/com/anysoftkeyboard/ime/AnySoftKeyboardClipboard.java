@@ -101,7 +101,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             mParentView = parent;
             mRootView =
                     LayoutInflater.from(mOwner.getContext())

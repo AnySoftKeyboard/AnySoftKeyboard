@@ -1,5 +1,9 @@
 package com.anysoftkeyboard;
 
+import static android.text.TextUtils.CAP_MODE_CHARACTERS;
+import static android.text.TextUtils.CAP_MODE_SENTENCES;
+import static android.text.TextUtils.CAP_MODE_WORDS;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -24,6 +28,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Assert;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
@@ -38,11 +43,13 @@ public class TestInputConnection extends BaseInputConnection {
     private final List<Long> mNextMessageTime = new ArrayList<>();
     @Nullable private SelectionUpdateData mEditModeInitialState = null;
     @Nullable private SelectionUpdateData mEditModeLatestState = null;
+    private final AtomicInteger mSelectionDataNests = new AtomicInteger(0);
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
     private int mLastEditorAction = 0;
     private String mLastCommitCorrection = "";
     private long mDelayedSelectionUpdate = 1L;
+    private boolean mRealCapsMode = false;
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
         super(new TextView(ime.getApplicationContext()), false);
@@ -67,6 +74,10 @@ public class TestInputConnection extends BaseInputConnection {
                         }
                     }
                 };
+    }
+
+    public void setRealCapsMode(boolean real) {
+        mRealCapsMode = real;
     }
 
     /**
@@ -108,7 +119,99 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public int getCursorCapsMode(int reqModes) {
-        return 0;
+        if (mRealCapsMode) {
+            return latestGetCursorCapsMode(
+                    getCurrentTextInInputConnection(), mCursorPosition, reqModes);
+        } else {
+            return 0;
+        }
+    }
+
+    private static int latestGetCursorCapsMode(CharSequence cs, int off, int reqModes) {
+        if (off < 0) {
+            return 0;
+        }
+
+        int i;
+        char c;
+        int mode = 0;
+
+        if ((reqModes & CAP_MODE_CHARACTERS) != 0) {
+            mode |= CAP_MODE_CHARACTERS;
+        }
+        if ((reqModes & (CAP_MODE_WORDS | CAP_MODE_SENTENCES)) == 0) {
+            return mode;
+        }
+
+        // Back over allowed opening punctuation.
+
+        for (i = off; i > 0; i--) {
+            c = cs.charAt(i - 1);
+
+            if (c != '"' && c != '\'' && Character.getType(c) != Character.START_PUNCTUATION) {
+                break;
+            }
+        }
+
+        // Start of paragraph, with optional whitespace.
+
+        int j = i;
+        while (j > 0 && ((c = cs.charAt(j - 1)) == ' ' || c == '\t')) {
+            j--;
+        }
+        if (j == 0 || cs.charAt(j - 1) == '\n') {
+            return mode | CAP_MODE_WORDS;
+        }
+
+        // Or start of word if we are that style.
+
+        if ((reqModes & CAP_MODE_SENTENCES) == 0) {
+            if (i != j) mode |= CAP_MODE_WORDS;
+            return mode;
+        }
+
+        // There must be a space if not the start of paragraph.
+
+        if (i == j) {
+            return mode;
+        }
+
+        // Back over allowed closing punctuation.
+
+        for (; j > 0; j--) {
+            c = cs.charAt(j - 1);
+
+            if (c != '"' && c != '\'' && Character.getType(c) != Character.END_PUNCTUATION) {
+                break;
+            }
+        }
+
+        if (j > 0) {
+            c = cs.charAt(j - 1);
+
+            if (c == '.' || c == '?' || c == '!') {
+                // Do not capitalize if the word ends with a period but
+                // also contains a period, in which case it is an abbreviation.
+
+                if (c == '.') {
+                    for (int k = j - 2; k >= 0; k--) {
+                        c = cs.charAt(k);
+
+                        if (c == '.') {
+                            return mode;
+                        }
+
+                        if (!Character.isLetter(c)) {
+                            break;
+                        }
+                    }
+                }
+
+                return mode | CAP_MODE_SENTENCES;
+            }
+        }
+
+        return mode;
     }
 
     @Override
@@ -160,7 +263,7 @@ public class TestInputConnection extends BaseInputConnection {
                         newEnd,
                         composedTextRange[0],
                         composedTextRange[1]);
-        if (mEditModeInitialState != null) {
+        if (mEditModeLatestState != null) {
             mEditModeLatestState = data;
         } else {
             mNextMessageTime.add(mDelayedSelectionUpdate + ShadowSystemClock.currentTimeMillis());
@@ -284,35 +387,36 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean beginBatchEdit() {
-        if (mEditModeInitialState == null) {
-            int[] composedTextRange = findComposedText();
-            mEditModeInitialState =
-                    new SelectionUpdateData(
-                            mCursorPosition,
-                            mSelectionEndPosition,
-                            mCursorPosition,
-                            mSelectionEndPosition,
-                            composedTextRange[0],
-                            composedTextRange[1]);
-            mEditModeLatestState = mEditModeInitialState;
+        final int nests = mSelectionDataNests.getAndIncrement();
+        int[] composedTextRange = findComposedText();
+        mEditModeLatestState =
+                new SelectionUpdateData(
+                        mCursorPosition,
+                        mSelectionEndPosition,
+                        mCursorPosition,
+                        mSelectionEndPosition,
+                        composedTextRange[0],
+                        composedTextRange[1]);
+        if (nests == 0) {
+            mEditModeInitialState = mEditModeLatestState;
         }
         return true;
     }
 
     @Override
     public boolean endBatchEdit() {
-        final SelectionUpdateData initialState = mEditModeInitialState;
-        final SelectionUpdateData finalState = mEditModeLatestState;
-        mEditModeInitialState = null;
-        mEditModeLatestState = null;
-        if (initialState != null) {
-            if (!initialState.equals(finalState)) {
-                notifyTextChanged(
-                        initialState.oldSelStart,
-                        initialState.oldSelEnd,
-                        finalState.newSelStart,
-                        finalState.newSelEnd);
-            }
+        Assert.assertNotNull(mEditModeLatestState);
+        int nests = mSelectionDataNests.decrementAndGet();
+        Assert.assertTrue(nests >= 0);
+        if (nests == 0) {
+            final SelectionUpdateData initialState = mEditModeInitialState;
+            final SelectionUpdateData finalState = mEditModeLatestState;
+            mEditModeLatestState = null;
+            notifyTextChanged(
+                    initialState.oldSelStart,
+                    initialState.oldSelEnd,
+                    finalState.newSelStart,
+                    finalState.newSelEnd);
         }
         return true;
     }

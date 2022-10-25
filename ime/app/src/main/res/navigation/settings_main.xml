@@ -139,6 +139,10 @@
         android:id="@+id/developerToolsFragment"
         android:name="com.anysoftkeyboard.ui.dev.DeveloperToolsFragment"
         android:label="DeveloperToolsFragment" >
+        <deepLink
+            android:id="@+id/deepLink_dev_tools"
+            app:action="android.intent.action.VIEW"
+            app:uri="@string/deeplink_url_dev_tools" />
         <action
             android:id="@+id/action_developerToolsFragment_to_logCatViewFragment"
             app:destination="@id/logCatViewFragment"

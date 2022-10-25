@@ -62,6 +62,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     // an inaccurate position (in cases where onSelectionUpdate is delayed).
     protected int mGlobalCursorPositionDangerous = 0;
     protected int mGlobalSelectionStartPositionDangerous = 0;
+    protected int mGlobalCandidateStartPositionDangerous = 0;
+    protected int mGlobalCandidateEndPositionDangerous = 0;
 
     protected final ModifierKeyState mShiftKeyState =
             new ModifierKeyState(true /*supports locked state*/);
@@ -276,6 +278,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         mInputSessionDisposables.clear();
         mGlobalCursorPositionDangerous = 0;
         mGlobalSelectionStartPositionDangerous = 0;
+        mGlobalCandidateStartPositionDangerous = 0;
+        mGlobalCandidateEndPositionDangerous = 0;
     }
 
     protected abstract boolean isSelectionUpdateDelayed();
@@ -324,6 +328,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         }
         mGlobalCursorPositionDangerous = newSelEnd;
         mGlobalSelectionStartPositionDangerous = newSelStart;
+        mGlobalCandidateStartPositionDangerous = candidatesStart;
+        mGlobalCandidateEndPositionDangerous = candidatesEnd;
     }
 
     @Override

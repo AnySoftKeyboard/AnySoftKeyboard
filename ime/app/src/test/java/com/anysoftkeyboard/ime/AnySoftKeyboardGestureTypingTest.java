@@ -148,6 +148,9 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
         simulateGestureProcess("hello");
         Assert.assertEquals("HELLO", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        simulateGestureProcess("hello");
+        Assert.assertEquals(
+                "HELLO HELLO", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -155,6 +158,9 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
         simulateGestureProcess("hello");
         Assert.assertEquals("Hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        simulateGestureProcess("hello");
+        Assert.assertEquals(
+                "Hello hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -203,6 +209,28 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         simulateGestureProcess("hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress('a');
         Assert.assertEquals("hello a", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputDoubleSpacesToDotAfterGestureIfEnabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_double_space_to_period, true);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputDoubleSpacesToDotAfterGestureIfDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_double_space_to_period, false);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello  ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test

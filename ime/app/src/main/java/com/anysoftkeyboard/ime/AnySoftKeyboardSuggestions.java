@@ -402,6 +402,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int newSelEnd,
             int candidatesStart,
             int candidatesEnd) {
+        final int oldCandidateStart = mGlobalCandidateStartPositionDangerous;
+        final int oldCandidateEnd = mGlobalCandidateEndPositionDangerous;
         super.onUpdateSelection(
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
         Logger.v(
@@ -409,7 +411,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 "onUpdateSelection: word '%s', position %d.",
                 mWord.getTypedWord(),
                 mWord.cursorPosition());
+        final boolean noChange =
+                newSelStart == oldSelStart
+                        && oldSelEnd == newSelEnd
+                        && oldCandidateStart == candidatesStart
+                        && oldCandidateEnd == candidatesEnd;
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
+        if (noChange) {
+            Logger.v(TAG, "onUpdateSelection: no-change. Discarding.");
+            return;
+        }
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
 
         if (isExpectedEvent) {
@@ -1089,14 +1100,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         // Don't auto-correct words with multiple capital letter
         if (highlightedSuggestionIndex == 1 && mWord.isMostlyCaps())
             highlightedSuggestionIndex = -1;
-        //      final CharSequence typedWord = mWord.getTypedWord();
-        //          boolean correctionAvailable = mSuggest.hasMinimalCorrection();
-        //        final boolean typedWordValid =
-        //                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
-        //
-        //        if (mShowSuggestions) {
-        //            correctionAvailable |= typedWordValid;
-        //        }
 
         setSuggestions(suggestionsList, highlightedSuggestionIndex);
         if (highlightedSuggestionIndex >= 0) {
@@ -1371,7 +1374,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             final Context context = parent.getContext();
             mCancelToGoneAnimation =
                     AnimatorInflater.loadAnimator(context, R.animator.suggestions_cancel_to_gone);
