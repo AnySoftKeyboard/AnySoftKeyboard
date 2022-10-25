@@ -1,5 +1,9 @@
 package com.anysoftkeyboard;
 
+import static android.text.TextUtils.CAP_MODE_CHARACTERS;
+import static android.text.TextUtils.CAP_MODE_SENTENCES;
+import static android.text.TextUtils.CAP_MODE_WORDS;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -45,6 +49,7 @@ public class TestInputConnection extends BaseInputConnection {
     private int mLastEditorAction = 0;
     private String mLastCommitCorrection = "";
     private long mDelayedSelectionUpdate = 1L;
+    private boolean mRealCapsMode = false;
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
         super(new TextView(ime.getApplicationContext()), false);
@@ -69,6 +74,10 @@ public class TestInputConnection extends BaseInputConnection {
                         }
                     }
                 };
+    }
+
+    public void setRealCapsMode(boolean real) {
+        mRealCapsMode = real;
     }
 
     /**
@@ -110,7 +119,99 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public int getCursorCapsMode(int reqModes) {
-        return 0;
+        if (mRealCapsMode) {
+            return latestGetCursorCapsMode(
+                    getCurrentTextInInputConnection(), mCursorPosition, reqModes);
+        } else {
+            return 0;
+        }
+    }
+
+    private static int latestGetCursorCapsMode(CharSequence cs, int off, int reqModes) {
+        if (off < 0) {
+            return 0;
+        }
+
+        int i;
+        char c;
+        int mode = 0;
+
+        if ((reqModes & CAP_MODE_CHARACTERS) != 0) {
+            mode |= CAP_MODE_CHARACTERS;
+        }
+        if ((reqModes & (CAP_MODE_WORDS | CAP_MODE_SENTENCES)) == 0) {
+            return mode;
+        }
+
+        // Back over allowed opening punctuation.
+
+        for (i = off; i > 0; i--) {
+            c = cs.charAt(i - 1);
+
+            if (c != '"' && c != '\'' && Character.getType(c) != Character.START_PUNCTUATION) {
+                break;
+            }
+        }
+
+        // Start of paragraph, with optional whitespace.
+
+        int j = i;
+        while (j > 0 && ((c = cs.charAt(j - 1)) == ' ' || c == '\t')) {
+            j--;
+        }
+        if (j == 0 || cs.charAt(j - 1) == '\n') {
+            return mode | CAP_MODE_WORDS;
+        }
+
+        // Or start of word if we are that style.
+
+        if ((reqModes & CAP_MODE_SENTENCES) == 0) {
+            if (i != j) mode |= CAP_MODE_WORDS;
+            return mode;
+        }
+
+        // There must be a space if not the start of paragraph.
+
+        if (i == j) {
+            return mode;
+        }
+
+        // Back over allowed closing punctuation.
+
+        for (; j > 0; j--) {
+            c = cs.charAt(j - 1);
+
+            if (c != '"' && c != '\'' && Character.getType(c) != Character.END_PUNCTUATION) {
+                break;
+            }
+        }
+
+        if (j > 0) {
+            c = cs.charAt(j - 1);
+
+            if (c == '.' || c == '?' || c == '!') {
+                // Do not capitalize if the word ends with a period but
+                // also contains a period, in which case it is an abbreviation.
+
+                if (c == '.') {
+                    for (int k = j - 2; k >= 0; k--) {
+                        c = cs.charAt(k);
+
+                        if (c == '.') {
+                            return mode;
+                        }
+
+                        if (!Character.isLetter(c)) {
+                            break;
+                        }
+                    }
+                }
+
+                return mode | CAP_MODE_SENTENCES;
+            }
+        }
+
+        return mode;
     }
 
     @Override

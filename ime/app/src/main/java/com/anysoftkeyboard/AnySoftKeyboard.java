@@ -1432,7 +1432,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             int candidatesStart,
             int candidatesEnd) {
         // only updating if the cursor moved
-        if (oldSelStart != oldSelStart) {
+        if (oldSelStart != newSelStart) {
             updateShiftStateNow();
         }
         super.onUpdateSelection(
