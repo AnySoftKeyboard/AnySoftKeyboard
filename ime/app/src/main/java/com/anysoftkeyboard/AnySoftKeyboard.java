@@ -608,6 +608,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 if (mShiftKeyState.isPressed() && ic != null) {
                     // power-users feature ahead: Shift+Enter
                     // getting away from firing the default editor action, by forcing newline
+                    abortCorrectionAndResetPredictionState(false);
                     ic.commitText("\n", 1);
                     break;
                 }
