@@ -110,7 +110,7 @@ dependencies {
     implementation project(':ime:chewbacca')
     implementation project(':ime:fileprovider')
 
-    implementation 'androidx.fragment:fragment:1.5.3'
+    implementation 'androidx.fragment:fragment:1.5.4'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
@@ -124,9 +124,9 @@ dependencies {
     implementation 'androidx.autofill:autofill:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
-    implementation 'androidx.navigation:navigation-fragment:2.5.2'
-    implementation 'androidx.navigation:navigation-ui:2.5.2'
-    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.5.2'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.5.3'
 
     implementation 'androidx.multidex:multidex:2.0.1'
 
