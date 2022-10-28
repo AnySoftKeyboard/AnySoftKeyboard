@@ -1,0 +1,14 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="†" />
+        <Key android:codes="‡" />
+        <Key android:codes="θ" />
+        <Key android:codes="τ" />
+    </Row>
+    <Row>
+        <Key android:codes="\5" />
+        <Key android:codes="ť" />
+        <Key android:codes="ṭ" />
+        <Key android:codes="ṯ" />
+    </Row>
+</Keyboard>

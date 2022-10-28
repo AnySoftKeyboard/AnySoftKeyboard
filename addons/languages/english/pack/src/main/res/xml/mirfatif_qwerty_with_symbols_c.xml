@@ -1,0 +1,15 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="¢" />
+        <Key android:codes="ç" />
+        <Key android:codes="ĉ" />
+        <Key android:codes="č" />
+    </Row>
+    <Row>
+        <Key android:codes="-" />
+        <Key android:codes="–" />
+        <Key android:codes="—" />
+        <Key android:codes="−" />
+        <Key android:codes="χ" />
+    </Row>
+</Keyboard>

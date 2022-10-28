@@ -1,0 +1,13 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="ï" />
+        <Key android:codes="ī" />
+        <Key android:codes="ι" />
+    </Row>
+    <Row>
+        <Key android:codes="\8" />
+        <Key android:codes="ì" />
+        <Key android:codes="í" />
+        <Key android:codes="î" />
+    </Row>
+</Keyboard>

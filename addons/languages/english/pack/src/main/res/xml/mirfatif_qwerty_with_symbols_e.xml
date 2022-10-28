@@ -1,0 +1,17 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="ę" />
+        <Key android:codes="€" />
+        <Key android:codes="ε" />
+    </Row>
+    <Row>
+        <Key android:codes="ê" />
+        <Key android:codes="ē" />
+        <Key android:codes="ë" />
+    </Row>
+    <Row>
+        <Key android:codes="\3" />
+        <Key android:codes="è" />
+        <Key android:codes="é" />
+    </Row>
+</Keyboard>

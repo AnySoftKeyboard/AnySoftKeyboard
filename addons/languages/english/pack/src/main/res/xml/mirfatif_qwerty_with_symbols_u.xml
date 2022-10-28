@@ -1,0 +1,17 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="ű" />
+        <Key android:codes="ū" />
+        <Key android:codes="υ" />
+    </Row>
+    <Row>
+        <Key android:codes="û" />
+        <Key android:codes="ü" />
+        <Key android:codes="ŭ" />
+    </Row>
+    <Row>
+        <Key android:codes="\7" />
+        <Key android:codes="ù" />
+        <Key android:codes="ú" />
+    </Row>
+</Keyboard>

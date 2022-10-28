@@ -1,0 +1,21 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="ø" />
+        <Key android:codes="∅" />
+        <Key android:codes="ο" />
+        <Key android:codes="ω" />
+    </Row>
+    <Row>
+        <Key android:codes="ö" />
+        <Key android:codes="ő" />
+        <Key android:codes="ō" />
+        <Key android:codes="œ" />
+    </Row>
+    <Row>
+        <Key android:codes="\9" />
+        <Key android:codes="ò" />
+        <Key android:codes="ó" />
+        <Key android:codes="ô" />
+        <Key android:codes="õ" />
+    </Row>
+</Keyboard>
