@@ -6,11 +6,20 @@ dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
 
-    implementation "androidx.preference:preference:$androidxPreference"
+    implementation 'androidx.preference:preference:1.2.0'
 
     api 'junit:junit:4.13.2'
-    api("org.robolectric:robolectric:$robolectricVersion")
+    api "org.robolectric:robolectric:$robolectricVersion"
     api 'org.mockito:mockito-core:2.23.0'
-    api 'com.github.menny:JUnitTestsGrouping:0.3.0'
-    api "androidx.test:core:$androidxTestCore"
+    api project(':junit-sharding')
+    api 'androidx.test:core:1.4.0'
+}
+
+afterEvaluate {
+    tasks.withType(JavaCompile) { JavaCompile task ->
+        //robolectric shadows rely on hidden Android API classes.
+        //during compilation the compiler will scream about missing classes.
+        //these classes will be available during test due to robolectric's `android-all` deps.
+        task.options.compilerArgs << '-Xlint:-classfile'
+    }
 }

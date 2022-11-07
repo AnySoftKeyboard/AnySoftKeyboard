@@ -21,6 +21,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;
@@ -40,6 +41,7 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
     public QuickTextKeyFactory(@NonNull Context context) {
         super(
                 context,
+                DirectBootAwareSharedPreferences.create(context),
                 "ASK_QKF",
                 "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
                 "com.anysoftkeyboard.plugindata.quicktextkeys",

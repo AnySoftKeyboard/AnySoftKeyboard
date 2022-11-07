@@ -17,8 +17,8 @@
 package com.anysoftkeyboard.utils;
 
 import com.anysoftkeyboard.base.Charsets;
-import java.io.File;
-import java.io.FileOutputStream;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.OutputStream;
@@ -35,7 +35,7 @@ import java.util.Deque;
  *     on Henri's initial version</a>
  * @version 0.2
  */
-public class XmlWriter {
+public class XmlWriter implements Closeable {
 
     private static final String INDENT_STRING = "    ";
     private final boolean mThisIsWriterOwner; // is this instance the owner?
@@ -60,14 +60,6 @@ public class XmlWriter {
         if (addXmlPrefix) this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
     }
 
-    public XmlWriter(File outputFile) throws IOException {
-        this(
-                new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8),
-                true,
-                0,
-                true);
-    }
-
     public XmlWriter(OutputStream outputFileStream) throws IOException {
         this(new OutputStreamWriter(outputFileStream, Charsets.UTF8), true, 0, true);
     }
@@ -77,6 +69,7 @@ public class XmlWriter {
      *
      * @param name name of entity.
      */
+    @CanIgnoreReturnValue
     public XmlWriter writeEntity(String name) throws IOException {
         closeOpeningTag(true);
         this.mClosed = false;
@@ -115,6 +108,7 @@ public class XmlWriter {
      * @param attr name of attribute.
      * @param value value of attribute.
      */
+    @CanIgnoreReturnValue
     public XmlWriter writeAttribute(String attr, String value) {
         this.mAttrs.append(" ");
         this.mAttrs.append(attr);
@@ -128,6 +122,7 @@ public class XmlWriter {
      * End the current entity. This will throw an exception if it is called when there is not a
      * currently open entity.
      */
+    @CanIgnoreReturnValue
     public XmlWriter endEntity() throws IOException {
         if (mStack.size() == 0) {
             throw new InvalidObjectException("Called endEntity too many times. ");
@@ -155,6 +150,7 @@ public class XmlWriter {
      * Close this mWriter. It does not close the underlying mWriter, but does throw an exception if
      * there are as yet unclosed tags.
      */
+    @Override
     public void close() throws IOException {
         if (mThisIsWriterOwner) {
             this.mWriter.flush();
@@ -167,6 +163,7 @@ public class XmlWriter {
     }
 
     /** Output body text. Any xml characters are escaped. */
+    @CanIgnoreReturnValue
     public XmlWriter writeText(String text) throws IOException {
         closeOpeningTag(false);
         this.mEmpty = false;

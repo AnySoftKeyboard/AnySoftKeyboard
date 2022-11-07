@@ -1,5 +1,6 @@
 ext.shouldBePublished = true
 ext.override_release_key_alias = 'persian'
+ext.closedTestingTrackName = 'alpha'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 

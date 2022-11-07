@@ -2,10 +2,8 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
@@ -15,6 +13,8 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
@@ -39,13 +39,18 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.go_to_start_setup).setOnClickListener(this);
         view.findViewById(R.id.setup_wizard_welcome_privacy_action).setOnClickListener(this);
+        view.findViewById(R.id.skip_setup_wizard).setOnClickListener(this);
 
         mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
     }
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
+        // note: we can not use mSharedPrefs, since this method might be
+        // called before onAttached is called.
+        return (mSharedPrefs == null
+                        ? DirectBootAwareSharedPreferences.create(context)
+                        : mSharedPrefs)
                 .getBoolean(STARTED_PREF_KEY, false);
     }
 
@@ -53,15 +58,17 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.go_to_start_setup:
-                final SharedPreferences.Editor editor =
-                        PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-                editor.putBoolean(STARTED_PREF_KEY, true);
-                editor.apply();
+                mSharedPrefs.edit().putBoolean(STARTED_PREF_KEY, true).apply();
                 refreshWizardPager();
                 break;
             case R.id.setup_wizard_welcome_privacy_action:
                 String privacyUrl = getString(R.string.privacy_policy);
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+                break;
+            case R.id.skip_setup_wizard:
+                startActivity(new Intent(getContext(), MainSettingsActivity.class));
+                // not returning to this Activity any longer.
+                requireActivity().finish();
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -99,7 +106,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
         private final Context mContext;
         private final DemoAnyKeyboardView mDemoAnyKeyboardView;
 
-        private KeyboardAddOnAndBuilder mKeyboardBuilder;
+        private final KeyboardAddOnAndBuilder mKeyboardBuilder;
 
         public ChangeDemoKeyboardRunnable(
                 Context context, DemoAnyKeyboardView demoAnyKeyboardView) {

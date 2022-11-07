@@ -116,12 +116,11 @@
     <string name="swipe_action_value_compact_layout_to_left">compact_to_left</string>
     <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
     <string name="swipe_action_value_enable_disable_punctuation">enable_disable_punctuation</string>
+    <string name="swipe_action_value_quick_text_popup">quick_text_popup</string>
 
     <string name="settings_default_theme_case_type_override">theme</string>
 
     <string name="settings_key_hint_size_default">normal</string>
-
-    <integer name="settings_default_min_word_length_for_suggestion">2</integer>
 
     <string name="settings_default_power_save_mode_value">on_low_battery</string>
     <string name="settings_default_night_mode_value">never</string>

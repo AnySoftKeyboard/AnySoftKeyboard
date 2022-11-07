@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     <string name="debug_tracing_starting">Tracciamento iniziato!\nAssicurati di fermarlo ad un certo punto</string>
-    <string name="debug_tracing_starting_failed">Avvio tracciamento non riuscito! Controlla logcat per dettagli.</string>
+    <string name="debug_tracing_starting_failed">Avvio tracciamento non riuscito! Controlla Logcat per dettagli.</string>
     <string name="debug_tracing_finished">Tracciamento completato!\nIl file di traccia è\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">Al riguardo</string>
     <string name="how_to_pointer_title">Benvenuti in AnySoftKeyboard</string>
@@ -34,6 +34,7 @@
     <string name="removed_word">Rimosso:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Tocca di nuovo per salvare</string>
     <string name="hint_double_tap_to_close">Di nuovo per rimuovere i suggerimenti</string>
+    <string name="hint_click_for_inline_suggestions">Suggerimenti di auto-completamento disponibili</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Vocalizzazione non installata</string>
     <string name="voice_input_not_installed_text">Immissione vocale non installata sul dispositivo.\nQuesto può essere facilmente risolto: installalo ora dall\'App Store</string>
@@ -187,6 +188,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Compatta disposizione a destra</string>
     <string name="swipe_action_name_compact_layout_to_left">Compatta disposizione a sinistra</string>
     <string name="swipe_action_name_utility_keyboard">Mostra tastiera utility</string>
+    <string name="swipe_action_name_quick_text_popup">Mostra popup emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Soglia velocità di scorrimento</string>
     <string name="settings_swipe_velocity_threshold_summary">La velocità minima del gesto di scorrimento. Al momento, %s</string>
     <string name="settings_swipe_velocity_very_slow">Molto lenta</string>
@@ -246,7 +248,6 @@
     <string name="supported_keyboard_row_modes_title">Modalità di campo immissione specializzate abilitate</string>
     <string name="supported_keyboard_row_modes_summary">Scegli righe di campo immissione specializzato (come password, URL, ecc.) da usare.</string>
     <string name="tweak_dictionary_group">Modifiche del dizionario</string>
-    <string name="settings_min_length_for_word_correction">Lunghezza minima della parola da correggere</string>
     <string name="show_keyboard_name_text">Mostra nome della tastiera</string>
     <string name="show_keyboard_name_on_summary">Mostra nome della tastiera sulla barra spaziatrice</string>
     <string name="show_keyboard_name_off_summary">Non mostrare mai il nome della tastiera</string>
@@ -409,6 +410,7 @@
     <string name="extension_kbd_bottom_minimal">Minimale</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (niente emoticon)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (meno punteggiatura)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimale (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Vai</string>
@@ -487,14 +489,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Non hai nessuna parola nel dizionario utente. Puoi aggiungere la tua prima parola ora.</string>
-    <string name="user_dict_backup_success_title">Backup riuscito!</string>
-    <string name="user_dict_backup_success_text">Parole archiviate con successo sulla memoria del dispositivo in\u0020/Android/data/com.menny.android.anysoftkeyboard/files</string>
-    <string name="user_dict_backup_fail_title">Backup non riuscito!</string>
-    <string name="user_dict_backup_fail_text_with_error">Impossibile memorizzare le parole a causa di:\u0020<xliff:g id="error">%s</xliff:g></string>
-    <string name="user_dict_restore_success_title">Ripristino riuscito!</string>
-    <string name="user_dict_restore_success_text">Hai ripristinato le tue parole.</string>
-    <string name="user_dict_restore_fail_title">Ripristino non riuscito!</string>
-    <string name="user_dict_restore_fail_text_with_error">Impossibile ripristinare le parole a causa di:\u0020<xliff:g id="error">%s</xliff:g></string>
     <string name="should_swap_punctuation_and_space_title">Scambia punteggiatura e spazio</string>
     <string name="should_swap_punctuation_and_space_off_summary">Non scambiare spazio e punteggiatura.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Scambia spazio automatico e punteggiatura.</string>
@@ -536,16 +530,6 @@
     <string name="enter_abbreviation_hint">Abbreviazione</string>
     <string name="enter_abbreviation_target_hint">Frase integrale</string>
     <string name="toast_error_custom_path_backup">Errore: potrebbe essere aperta qualsiasi applicazione contestuale</string>
-    <string name="file_explorer_menu_add_folder">Crea cartella</string>
-    <string name="file_explorer_filename">Nome file backup…</string>
-    <string name="file_explorer_filename_empty">Il nome file non può essere vuoto…</string>
-    <string name="file_explorer_alert_title">Selezionare questo file?</string>
-    <string name="file_explorer_restore_alert_message">Si vuole ripristinare questo file?</string>
-    <string name="file_explorer_backup_alert_message">Questo file verrà sovrascritto.</string>
-    <string name="file_explorer_backup_success">I tuoi dati sono stati salvati in\u0020</string>
-    <string name="file_explorer_backup_failed">Salvataggio dati fallito.</string>
-    <string name="file_explorer_restore_success">I tuoi dati sono stati ripristinati da\u0020</string>
-    <string name="file_explorer_restore_failed">Ripristino dati fallito.</string>
     <string name="about_additional_software_licenses">Licenze Software Aggiuntive</string>
     <string name="setup_wizard_step_one_title">Abilita AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In questo passaggio dovrai abilitare <i>AnySoftKeyboard</i>. Seleziona <i>\'AnySoftKeyboard\'</i> nel menù delle impostazioni <i>Lingua e immissione</i>. Questo ci permetterà di funzionare sul tuo dispositivo.</string>
@@ -593,7 +577,7 @@
     <string name="allow_permission">Permetti</string>
     <string name="turn_off_contacts_dictionary">Disattiva dizionario Contatti</string>
     <string name="read_more_about_permissions">Per saperne di più sulle autorizzazioni…</string>
-    <string name="ask_beta_link_promo">Hey! Vuoi nuova roba <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi all\'indirizzo sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
+    <string name="ask_beta_link_promo">Hey! Vuoi roba nuova di <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi al link sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>
     <string name="clipboard_fine_select_enabled_toast">Selezione sottile testo abilitata. Usa freccia sinistra/destra.</string>
     <string name="app_shortcut_keyboards_disabled">Navigazione tastiere disattivata</string>
     <string name="app_shortcut_keyboards_long_label">Scegli disposizioni tastiera da utilizzare</string>
@@ -650,7 +634,6 @@
     <string name="prefs_providers_backed_up_to">I tuoi dati sono stati salvati con successo in %s</string>
     <string name="prefs_providers_failed_restore_due_to">Ripristino dei dati non riuscito a causa di %s</string>
     <string name="prefs_providers_restored_to">I tuoi dati sono stati ripristinati con successo da %s</string>
-    <string name="word_editor_action_choose_path">Scegliere percorso personalizzato</string>
     <string name="allow_layouts_to_provide_generic_rows">Le tastiere possono fornire righe generiche</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usa sempre righe generiche selezionate.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permetti alle disposizioni di sostituire righe generiche.</string>
@@ -660,6 +643,7 @@
     <string name="gesture_typing_alert_title">Funzionalità BETA!</string>
     <string name="gesture_typing_alert_message">La funzionalità di digitazione gestuale ➿ è in fase <b>beta</b>. Presenta alcuni bachi, non è molto veloce e non così completa.\nDetto questo, dovresti darci un\'occhiata.</string>
     <string name="gesture_typing_alert_button">Capito</string>
+    <string name="undo_gesture_typing">Annulla la digitazione con gesti</string>
     <string name="apply_remote_app_colors_to_theme">Cambia i colori del tema in base all\'app utilizzata</string>
     <string name="apply_overlay_summary_on">I colori della tastiera corrisponderanno all\'applicazione attiva (al meglio delle nostre capacità).</string>
     <string name="apply_overlay_summary_off">Usa sempre i colori del tema.</string>
@@ -672,5 +656,6 @@
     <string name="app_share_menu_title">Condividi l\'utilizzo di AnySoftKeyboard</string>
     <string name="app_share_text">Permettetemi di consigliare la tastiera Android open-source, riservata, gratuita, altamente personalizzabile e multilingua AnySoftKeyboard.\nScaricala da:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard</string>
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">Non supportato sul tuo Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Backup e ripristino non sono supportati per dispositivi con Android precedente a KitKat (versione 4.4).</string>
 </resources>

@@ -7,7 +7,9 @@
      "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
      "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
      -->
-    <Keyboard nameResId="@string/piedmontese_keyboard" iconResId="@drawable/ic_status_piedmontese" layoutResId="@xml/piedmontese_qwerty"
-            landscapeResId="@xml/piedmontese_qwerty"
-            id="c2e7dbe0-5bd8-11ea-aaef-0800200c9a66" defaultDictionaryLocale="pms" description="Piedmontese QWERTY" index="1" />
+    <Keyboard nameResId="@string/piedmontese_keyboard" iconResId="@drawable/ic_status_piedmontese" layoutResId="@xml/piedmontese_qwerty" landscapeResId="@xml/piedmontese_qwerty" id="c2e7dbe0-5bd8-11ea-aaef-0800200c9a66" defaultDictionaryLocale="pms" description="Piedmontese QWERTY" index="1" />
+
+    <Keyboard nameResId="@string/piedmontese_qwerty_with_symbols_keyboard" iconResId="@drawable/ic_status_piedmontese" layoutResId="@xml/piedmontese_qwerty_with_symbols" landscapeResId="@xml/piedmontese_qwerty_with_symbols" id="0711bf80-a762-11ec-b230-0800200c9a66" defaultDictionaryLocale="pms" description="@string/piedmontese_keyboard_symbols_description" index="2" />
+
+    <Keyboard nameResId="@string/piedmontese_qwerty_with_symbols_number_row_keyboard" iconResId="@drawable/ic_status_piedmontese" layoutResId="@xml/piedmontese_qwerty_with_symbols_number_row" landscapeResId="@xml/piedmontese_qwerty_with_symbols_number_row" id="19193a00-a762-11ec-b230-0800200c9a66" defaultDictionaryLocale="pms" description="@string/piedmontese_keyboard_symbols_number_row_description" index="3" />
 </Keyboards>

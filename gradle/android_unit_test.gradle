@@ -34,8 +34,8 @@ android {
                     showStackTraces true
                 }
 
-                systemProperty 'TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY', System.getenv().getOrDefault('TEST_GROUP_INDEX', 0)
-                systemProperty 'TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY', System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
+                systemProperty 'TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY', System.getenv().getOrDefault('TEST_GROUP_INDEX', '0')
+                systemProperty 'TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY', System.getenv().getOrDefault('TEST_GROUPS_COUNT', '1')
 
                 systemProperty 'java.awt.headless', true
                 systemProperty 'robolectric.logging', 'stdout'

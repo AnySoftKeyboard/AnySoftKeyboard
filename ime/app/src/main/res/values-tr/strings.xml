@@ -248,7 +248,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="supported_keyboard_row_modes_title">Özelleştirilmiş giriş alanı modları etkinleştirildi</string>
     <string name="supported_keyboard_row_modes_summary">Kullanılacak özelleştirilmiş giriş alanı (şifre, URL, vb. gibi) satırlarını seç.</string>
     <string name="tweak_dictionary_group">Sözlük ince ayarları</string>
-    <string name="settings_min_length_for_word_correction">Düzeltme için en az harf sayısı</string>
     <string name="show_keyboard_name_text">Klavye adını göster</string>
     <string name="show_keyboard_name_on_summary">Boşluk tuşunda klavye adını göster</string>
     <string name="show_keyboard_name_off_summary">Klavye adını hiçbir zaman gösterme</string>
@@ -490,18 +489,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Kullanıcı sözlüğünde hiç  kelime yok. Şimdi ilk kelimeni ekleyebilirsin.</string>
-    <string name="user_dict_backup_success_title">Yedekleme tamam!</string>
-    <string name="user_dict_backup_success_text">Kelimelerin başarıyla yedeklendi, cihazındaki yedeklenme yeri
-        /Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Yedekleme başarısız!</string>
-    <string name="user_dict_backup_fail_text_with_error">Şu yüzden kelimeler saklanamadı:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Geri yükleme tamamlandı!</string>
-    <string name="user_dict_restore_success_text">Kelimeleriniz başarıyla geri yüklendi.</string>
-    <string name="user_dict_restore_fail_title">Geri yükleme başarısız!</string>
-    <string name="user_dict_restore_fail_text_with_error">Kelime geri yükleme hatası sebebi:         <xliff:g id="error">%s</xliff:g>    </string>
     <string name="should_swap_punctuation_and_space_title">Noktalama ve boşluğu değiştir</string>
     <string name="should_swap_punctuation_and_space_off_summary">Boşluk ve noktalamayı değiştirme.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Boşluk ve noktalama işaretlerini otomatik değiştir.</string>
@@ -538,16 +525,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="enter_abbreviation_hint">Kısaltma</string>
     <string name="enter_abbreviation_target_hint">Tam cümle</string>
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
-    <string name="file_explorer_menu_add_folder">Create folder</string>
-    <string name="file_explorer_filename">Backup filename…</string>
-    <string name="file_explorer_filename_empty">Filename cannot be empty…omnn</string>
-    <string name="file_explorer_alert_title">Select this file ?</string>
-    <string name="file_explorer_restore_alert_message">Bu dosyayı indirmek ister misin?</string>
-    <string name="file_explorer_backup_alert_message">Tu</string>
-    <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
-    <string name="file_explorer_backup_failed">Verileriniz kaydedilemedi.</string>
-    <string name="file_explorer_restore_success">Verileriniz \u0020 konumundan geri yüklendi</string>
-    <string name="file_explorer_restore_failed">Verileriniz kaydedilemedi.</string>
     <string name="about_additional_software_licenses">Diğer Yazılım Lisanları</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard etkinleştir</string>
     <string name="setup_wizard_step_one_details">Bu adımda <i>AnySoftKeyboard</i>\'u etkinleştirmeniz gerekecek. Lütfen <i>Dil&amp;giriş ayarlarınızda</i> <i>\'AnySoftKeyboard\'</i>u kontrol ediniz. Bu sizin cihazınızda çalışmamıza izin verir.</string>
@@ -562,9 +539,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="setup_wizard_step_three_details"><i>AnySoftKeyboard</i>\'u seçtiğiniz için teşekkürler.</string>
     <string name="setup_wizard_step_three_details_done"><b>Artık hazırsınız 🎉\nDenemek için favori uygulamanıza gidin.</b></string>
     <string name="setup_wizard_step_three_details_actions">Ya da, klavyeyi istediğiniz gibi özelleştirebilir ve kişiselleştirebilirsiniz:</string>
-    <string name="setup_wizard_step_three_action_languages">Dilleri kur...</string>
-    <string name="setup_wizard_step_three_action_themes">Tema seç...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Her şeyi yapılandırma...</string>
+    <string name="setup_wizard_step_three_action_languages">Dilleri kur…</string>
+    <string name="setup_wizard_step_three_action_themes">Tema seç…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Her şeyi yapılandırma…</string>
     <string name="setup_wizard_step_download_title">Dil Paketleri İndir</string>
     <string name="setup_wizard_step_download_details"><i>AnySoftKeyboard</i>\'un bir çok dili desteklediğini bilmek sizi mutlu edecektir. Sadece istediğiniz dil paketini indirin ve cihazınızda herhangi bir dilde yazmanın tadını çıkarın.</string>
     <string name="setup_wizard_step_download_action">Dil paketleri indir</string>
@@ -639,7 +616,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="settings_key_hint_size_big">Büyük</string>
     <string name="theme_case_type_override_title">Klavye büyük/küçük harf geçersiz</string>
     <string name="theme_case_type_override_summary">Klavye görünümünde büyük/küçük harfilerin nasıl belirlendiği. Şu anda, %s</string>
-    <string name="take_a_while_progress_message">Bu biraz zaman alabilir...</string>
+    <string name="take_a_while_progress_message">Bu biraz zaman alabilir…</string>
     <string name="shared_prefs_provider_name">Uygulama ayarları</string>
     <string name="user_dict_prefs_provider">Kullanıcı kelimeleri</string>
     <string name="next_word_dict_prefs_provider">Diğer kelimeler</string>
@@ -652,7 +629,6 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="prefs_providers_backed_up_to">Verileriniz %s\'e başarıyla yedeklendi</string>
     <string name="prefs_providers_failed_restore_due_to">%s nedeniyle verileriniz geri yüklenemedi</string>
     <string name="prefs_providers_restored_to">Veriniz %s\'den başarıyla geri yüklendi</string>
-    <string name="word_editor_action_choose_path">Kişisel dosya yolu seç</string>
     <string name="allow_layouts_to_provide_generic_rows">Klavyeler genel satırlar sağlayabilir</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Her zaman seçili genel satırları kullan.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Yerleşimlerin jenerik satırları değiştirmesine izin ver.</string>
@@ -674,5 +650,4 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="app_share_menu_title">AnySoftKeyboard kullanmayı paylaş</string>
     <string name="app_share_text">Açık-kaynak, mahremiyet-odaklı, özgür, fazlasıyla kişiselleştirilebilen, çok-dilli Android klavye uygulaması AnySoftKeyboard\'u tavsiye ediyorum.\nEdinebileceğiniz adresler:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&amp;hl=tr\nF-Droid: https://f-droid.org/tr/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Bir şaşırtma için bana tıklayın</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

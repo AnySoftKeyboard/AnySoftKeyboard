@@ -1,7 +1,12 @@
 package com.anysoftkeyboard;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import static android.text.TextUtils.CAP_MODE_CHARACTERS;
+import static android.text.TextUtils.CAP_MODE_SENTENCES;
+import static android.text.TextUtils.CAP_MODE_WORDS;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,24 +25,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Assert;
 import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowSystemClock;
 
 public class TestInputConnection extends BaseInputConnection {
     private static final int DELAYED_SELECTION_UPDATE_MSG_ID = 88;
 
     @NonNull private final AnySoftKeyboard mIme;
     @NonNull private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
+    private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
+    private final Handler mDelayer;
+    private final List<Long> mNextMessageTime = new ArrayList<>();
     @Nullable private SelectionUpdateData mEditModeInitialState = null;
     @Nullable private SelectionUpdateData mEditModeLatestState = null;
+    private final AtomicInteger mSelectionDataNests = new AtomicInteger(0);
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
     private int mLastEditorAction = 0;
-    private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
     private String mLastCommitCorrection = "";
-
     private long mDelayedSelectionUpdate = 1L;
-    private final Handler mDelayer;
+    private boolean mRealCapsMode = false;
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
         super(new TextView(ime.getApplicationContext()), false);
@@ -48,6 +60,8 @@ public class TestInputConnection extends BaseInputConnection {
                     public void handleMessage(@NonNull Message msg) {
                         if (msg.what == DELAYED_SELECTION_UPDATE_MSG_ID) {
                             final SelectionUpdateData data = (SelectionUpdateData) msg.obj;
+                            final long now = ShadowSystemClock.currentTimeMillis();
+                            mNextMessageTime.removeIf(time -> time <= now);
                             mIme.onUpdateSelection(
                                     data.oldSelStart,
                                     data.oldSelEnd,
@@ -62,6 +76,10 @@ public class TestInputConnection extends BaseInputConnection {
                 };
     }
 
+    public void setRealCapsMode(boolean real) {
+        mRealCapsMode = real;
+    }
+
     /**
      * Sets the delay of the onUpdateSelection notifications. To simulate actual device behavior, we
      * perform onUpdateSelection events in a MessageHandler.
@@ -74,7 +92,8 @@ public class TestInputConnection extends BaseInputConnection {
     }
 
     public void executeOnSelectionUpdateEvent() {
-        Shadows.shadowOf(mDelayer.getLooper()).runOneTask();
+        final long forTime = mNextMessageTime.remove(0) - ShadowSystemClock.currentTimeMillis();
+        Shadows.shadowOf(mDelayer.getLooper()).idleFor(forTime, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -100,7 +119,99 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public int getCursorCapsMode(int reqModes) {
-        return 0;
+        if (mRealCapsMode) {
+            return latestGetCursorCapsMode(
+                    getCurrentTextInInputConnection(), mCursorPosition, reqModes);
+        } else {
+            return 0;
+        }
+    }
+
+    private static int latestGetCursorCapsMode(CharSequence cs, int off, int reqModes) {
+        if (off < 0) {
+            return 0;
+        }
+
+        int i;
+        char c;
+        int mode = 0;
+
+        if ((reqModes & CAP_MODE_CHARACTERS) != 0) {
+            mode |= CAP_MODE_CHARACTERS;
+        }
+        if ((reqModes & (CAP_MODE_WORDS | CAP_MODE_SENTENCES)) == 0) {
+            return mode;
+        }
+
+        // Back over allowed opening punctuation.
+
+        for (i = off; i > 0; i--) {
+            c = cs.charAt(i - 1);
+
+            if (c != '"' && c != '\'' && Character.getType(c) != Character.START_PUNCTUATION) {
+                break;
+            }
+        }
+
+        // Start of paragraph, with optional whitespace.
+
+        int j = i;
+        while (j > 0 && ((c = cs.charAt(j - 1)) == ' ' || c == '\t')) {
+            j--;
+        }
+        if (j == 0 || cs.charAt(j - 1) == '\n') {
+            return mode | CAP_MODE_WORDS;
+        }
+
+        // Or start of word if we are that style.
+
+        if ((reqModes & CAP_MODE_SENTENCES) == 0) {
+            if (i != j) mode |= CAP_MODE_WORDS;
+            return mode;
+        }
+
+        // There must be a space if not the start of paragraph.
+
+        if (i == j) {
+            return mode;
+        }
+
+        // Back over allowed closing punctuation.
+
+        for (; j > 0; j--) {
+            c = cs.charAt(j - 1);
+
+            if (c != '"' && c != '\'' && Character.getType(c) != Character.END_PUNCTUATION) {
+                break;
+            }
+        }
+
+        if (j > 0) {
+            c = cs.charAt(j - 1);
+
+            if (c == '.' || c == '?' || c == '!') {
+                // Do not capitalize if the word ends with a period but
+                // also contains a period, in which case it is an abbreviation.
+
+                if (c == '.') {
+                    for (int k = j - 2; k >= 0; k--) {
+                        c = cs.charAt(k);
+
+                        if (c == '.') {
+                            return mode;
+                        }
+
+                        if (!Character.isLetter(c)) {
+                            break;
+                        }
+                    }
+                }
+
+                return mode | CAP_MODE_SENTENCES;
+            }
+        }
+
+        return mode;
     }
 
     @Override
@@ -152,9 +263,10 @@ public class TestInputConnection extends BaseInputConnection {
                         newEnd,
                         composedTextRange[0],
                         composedTextRange[1]);
-        if (mEditModeInitialState != null) {
+        if (mEditModeLatestState != null) {
             mEditModeLatestState = data;
         } else {
+            mNextMessageTime.add(mDelayedSelectionUpdate + ShadowSystemClock.currentTimeMillis());
             mDelayer.sendMessageDelayed(
                     mDelayer.obtainMessage(DELAYED_SELECTION_UPDATE_MSG_ID, data),
                     mDelayedSelectionUpdate);
@@ -233,7 +345,6 @@ public class TestInputConnection extends BaseInputConnection {
         return false;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean commitCorrection(CorrectionInfo correctionInfo) {
         mLastCommitCorrection = correctionInfo.getNewText().toString();
@@ -276,35 +387,36 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean beginBatchEdit() {
-        if (mEditModeInitialState == null) {
-            int[] composedTextRange = findComposedText();
-            mEditModeInitialState =
-                    new SelectionUpdateData(
-                            mCursorPosition,
-                            mSelectionEndPosition,
-                            mCursorPosition,
-                            mSelectionEndPosition,
-                            composedTextRange[0],
-                            composedTextRange[1]);
-            mEditModeLatestState = mEditModeInitialState;
+        final int nests = mSelectionDataNests.getAndIncrement();
+        int[] composedTextRange = findComposedText();
+        mEditModeLatestState =
+                new SelectionUpdateData(
+                        mCursorPosition,
+                        mSelectionEndPosition,
+                        mCursorPosition,
+                        mSelectionEndPosition,
+                        composedTextRange[0],
+                        composedTextRange[1]);
+        if (nests == 0) {
+            mEditModeInitialState = mEditModeLatestState;
         }
         return true;
     }
 
     @Override
     public boolean endBatchEdit() {
-        final SelectionUpdateData initialState = mEditModeInitialState;
-        final SelectionUpdateData finalState = mEditModeLatestState;
-        mEditModeInitialState = null;
-        mEditModeLatestState = null;
-        if (initialState != null) {
-            if (!initialState.equals(finalState)) {
-                notifyTextChanged(
-                        initialState.oldSelStart,
-                        initialState.oldSelEnd,
-                        finalState.newSelStart,
-                        finalState.newSelEnd);
-            }
+        Assert.assertNotNull(mEditModeLatestState);
+        int nests = mSelectionDataNests.decrementAndGet();
+        Assert.assertTrue(nests >= 0);
+        if (nests == 0) {
+            final SelectionUpdateData initialState = mEditModeInitialState;
+            final SelectionUpdateData finalState = mEditModeLatestState;
+            mEditModeLatestState = null;
+            notifyTextChanged(
+                    initialState.oldSelStart,
+                    initialState.oldSelEnd,
+                    finalState.newSelStart,
+                    finalState.newSelEnd);
         }
         return true;
     }
@@ -320,41 +432,74 @@ public class TestInputConnection extends BaseInputConnection {
                 KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
          */
         boolean handled = false;
-        if (event.getAction() == KeyEvent.ACTION_UP) {
-            // only handling UP events
-            if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                if (mSelectionEndPosition == mCursorPosition) {
-                    handled = true;
-                    deleteSurroundingText(1, 0);
-                } else {
-                    handled = true;
+        final var isUp = event.getAction() == KeyEvent.ACTION_UP;
+        // only handling UP events
+        if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
+            if (mSelectionEndPosition == mCursorPosition) {
+                handled = true;
+                if (isUp) deleteSurroundingText(1, 0);
+            } else {
+                handled = true;
+                if (isUp) {
                     mInputText.delete(mCursorPosition, mSelectionEndPosition);
                     notifyTextChange(0);
                 }
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_FORWARD_DEL) {
-                if (mSelectionEndPosition == mCursorPosition) {
-                    handled = true;
-                    deleteSurroundingText(0, 1);
-                } else {
-                    handled = true;
-                    mInputText.delete(mCursorPosition, mSelectionEndPosition);
-                    notifyTextChange(0);
-                }
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
-                handled = true;
-                commitText(" ", 1);
-            } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                handled = true;
-                commitText("\n", 1);
-            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0
-                    || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
-                handled = true;
-                commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
-            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A
-                    || event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
-                handled = true;
-                commitText("" + (char) (event.getKeyCode() - KeyEvent.KEYCODE_A + 'a'), 1);
             }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_FORWARD_DEL) {
+            if (mSelectionEndPosition == mCursorPosition) {
+                handled = true;
+                if (isUp) deleteSurroundingText(0, 1);
+            } else {
+                handled = true;
+                if (isUp) {
+                    mInputText.delete(mCursorPosition, mSelectionEndPosition);
+                    notifyTextChange(0);
+                }
+            }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
+            handled = true;
+            if (isUp) commitText(" ", 1);
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            handled = true;
+            if (isUp) commitText("\n", 1);
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_C && event.isCtrlPressed()) {
+            handled = true;
+            if (isUp) {
+                var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+                final CharSequence selectedText = getSelectedText(0);
+                ClipData clipData = ClipData.newPlainText(selectedText, selectedText);
+                clipboard.setPrimaryClip(clipData);
+            }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_X && event.isCtrlPressed()) {
+            handled = true;
+            if (isUp) {
+                var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+                final CharSequence selectedText = getSelectedText(0);
+                ClipData clipData = ClipData.newPlainText(selectedText, selectedText);
+                clipboard.setPrimaryClip(clipData);
+                mInputText.delete(mCursorPosition, mSelectionEndPosition);
+                notifyTextChange(0);
+            }
+        } else if (event.getKeyCode() == KeyEvent.KEYCODE_V && event.isCtrlPressed()) {
+            handled = true;
+            if (isUp) {
+                var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
+                var primaryClip = clipboard.getPrimaryClip();
+                if (primaryClip.getItemCount() > 0) {
+                    var clipboardText = primaryClip.getItemAt(0).coerceToStyledText(mIme);
+                    commitTextAs(clipboardText, false, 1);
+                }
+            }
+        } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0
+                && event.getKeyCode() <= KeyEvent.KEYCODE_9) {
+            handled = true;
+            if (isUp) commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
+        } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A
+                && event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
+            handled = true;
+            final char baseChar = event.isShiftPressed() || event.isCapsLockOn() ? 'A' : 'a';
+            if (isUp)
+                commitText("" + (char) (event.getKeyCode() - KeyEvent.KEYCODE_A + baseChar), 1);
         }
 
         if (!handled) {

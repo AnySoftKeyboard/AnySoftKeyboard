@@ -1,0 +1,33 @@
+---
+name: packs-lists
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TERM: dumb
+  TMPDIR: "/tmp"
+
+jobs:
+  packs-md-update:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2.4.2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: update contributors list
+        run: ./scripts/generate_contributors_md.sh ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3.5.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Contributors List Update'
+          title: 'Automated Contributors List Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: 'Generated from latest git scan.'
+          team-reviewers: maintainers
+          branch: 'bot-pr/contributors-list-update'
+          labels: automerge

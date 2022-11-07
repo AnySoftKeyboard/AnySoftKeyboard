@@ -103,7 +103,8 @@ public class QuickKeysKeyboardPagerAdapterTest {
         final QuickKeysKeyboardView keyboardView0Again =
                 ((View) instance0Again).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView0Again);
-        Assert.assertSame(keyboardView0.getKeyboard(), keyboardView0Again.getKeyboard());
+        // the history is always recreated!
+        Assert.assertNotSame(keyboardView0.getKeyboard(), keyboardView0Again.getKeyboard());
         // making sure the keyboard DOES NOT have a background - this is because we want the
         // background to be used in the pager container.
         Assert.assertNull(keyboardView0.getBackground());
@@ -111,6 +112,16 @@ public class QuickKeysKeyboardPagerAdapterTest {
 
         // adds padding
         Assert.assertEquals(11, ((View) instance0).getPaddingBottom());
+
+        // the other views (not history) ARE NOT RECREATED!
+        Object instance1Again = mUnderTest.instantiateItem(container, 1);
+        Assert.assertNotNull(instance1Again);
+        Assert.assertNotSame(instance1, instance1Again);
+        final QuickKeysKeyboardView keyboardView1Again =
+                ((View) instance1Again).findViewById(R.id.keys_container);
+        Assert.assertNotNull(keyboardView1Again);
+        // non history is not recreated!
+        Assert.assertSame(keyboardView1.getKeyboard(), keyboardView1Again.getKeyboard());
     }
 
     @Test

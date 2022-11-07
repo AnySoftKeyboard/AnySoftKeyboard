@@ -2,11 +2,11 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
@@ -29,8 +29,7 @@ import java.util.List;
     private final boolean mOneShotQuickTextPopupDefault;
 
     QuickTextUserPrefs(Context context) {
-        mSharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        mSharedPreferences = DirectBootAwareSharedPreferences.create(context);
         mStartUpTypePrefKey = context.getString(R.string.settings_key_initial_quick_text_tab);
         mStartUpTypePrefDefault =
                 context.getString(R.string.settings_default_initial_quick_text_tab);

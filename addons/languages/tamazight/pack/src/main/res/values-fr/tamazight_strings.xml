@@ -4,9 +4,6 @@
     <string name="tamazight_dictionary_name">Dictionnaire kabyle</string>
     <string name="tamazight_tifinagh_keyboard">Tifinagh</string>
     <string name="tamazight_arabic_keyboard">Arabe</string>
-    <string name="tamazight_arabic_keyboard_description">Clavier arabe</string>
     <string name="tamazight_arabic_dictionary">Dictionnaire arabe</string>
     <string name="tamazight_tifinagh_dictionary">Dictionnaire tifinagh</string>
-    <string name="tamazight_keyboard_name_description">Tamazight</string>
-    <string name="tamazight_tifinagh_keyboard_description">Clavier amazigh</string>
 </resources>

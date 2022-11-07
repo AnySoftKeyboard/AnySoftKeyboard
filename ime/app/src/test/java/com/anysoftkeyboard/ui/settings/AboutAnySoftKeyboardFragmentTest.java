@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -19,10 +18,9 @@ import org.robolectric.Shadows;
 public class AboutAnySoftKeyboardFragmentTest
         extends RobolectricFragmentTestCase<AboutAnySoftKeyboardFragment> {
 
-    @NonNull
     @Override
-    protected AboutAnySoftKeyboardFragment createFragment() {
-        return new AboutAnySoftKeyboardFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.aboutAnySoftKeyboardFragment;
     }
 
     @Test
@@ -108,8 +106,7 @@ public class AboutAnySoftKeyboardFragmentTest
 
         ensureAllScheduledJobsAreDone();
 
-        Fragment nextFragment =
-                fragment.getFragmentManager().findFragmentById(R.id.main_ui_content);
+        Fragment nextFragment = getCurrentFragment();
 
         Assert.assertNotNull(nextFragment);
         Assert.assertTrue(

@@ -1,14 +1,13 @@
+---
 name: packs-lists
 
-#always run on the default branch: master
 on:
-  schedule:
-    - cron: '30 09 * * *'
   push:
     branches:
-      - master
+      - main
     paths:
       - 'addons/**'
+      - '.github/workflows/packs_md_update.yml'
 
 env:
   TERM: dumb
@@ -16,10 +15,10 @@ env:
 
 jobs:
   packs-md-update:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -34,7 +33,7 @@ jobs:
           title: 'Automated Packs List Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Generated from latest _master_ addons packages.'
+          body: 'Generated from latest _main_ addons packages.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/packs-list-update'
           labels: automerge

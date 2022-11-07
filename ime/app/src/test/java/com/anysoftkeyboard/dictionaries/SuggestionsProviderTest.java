@@ -5,10 +5,9 @@ import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggesti
 import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
 import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
 
-import android.content.ContentResolver;
-import android.database.ContentObserver;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -21,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -33,21 +33,33 @@ public class SuggestionsProviderTest {
     private WordsHolder mWordsCallback;
     private NextWordSuggestions mSpiedNextWords;
     private DictionaryBackgroundLoader.Listener mMockListener;
+    private UserDictionary mTestUserDictionary;
+    private ContactsDictionary mFakeContactsDictionary;
 
     @Before
     public void setup() {
         mMockListener = Mockito.mock(DictionaryBackgroundLoader.Listener.class);
+        mTestUserDictionary =
+                Mockito.spy(
+                        new UserDictionary(getApplicationContext(), "en") {
+                            @Override
+                            NextWordSuggestions getUserNextWordGetter() {
+                                return mSpiedNextWords = Mockito.spy(super.getUserNextWordGetter());
+                            }
+                        });
+
         mSuggestionsProvider =
                 new SuggestionsProvider(getApplicationContext()) {
                     @NonNull
                     @Override
                     protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
-                        return new UserDictionary(getApplicationContext(), "en") {
-                            @Override
-                            NextWordSuggestions getUserNextWordGetter() {
-                                return mSpiedNextWords = Mockito.spy(super.getUserNextWordGetter());
-                            }
-                        };
+                        return mTestUserDictionary;
+                    }
+
+                    @NonNull
+                    @Override
+                    protected ContactsDictionary createRealContactsDictionary() {
+                        return mFakeContactsDictionary = Mockito.mock(ContactsDictionary.class);
                     }
                 };
         mWordsCallback = new WordsHolder();
@@ -209,12 +221,12 @@ public class SuggestionsProviderTest {
 
         Mockito.verify(mFakeBuilder).createAutoText();
 
-        mSuggestionsProvider.lookupQuickFix("hello");
+        mSuggestionsProvider.getAutoText(wordFor("hello"), mWordsCallback);
         Mockito.verify(mFakeBuilder.mSpiedAutoText).lookup(Mockito.eq("hello"));
 
         mSuggestionsProvider.close();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hell"));
+        mSuggestionsProvider.getAutoText(wordFor("hell"), mWordsCallback);
         Mockito.verify(mFakeBuilder.mSpiedAutoText, Mockito.never()).lookup(Mockito.eq("hell"));
     }
 
@@ -260,13 +272,13 @@ public class SuggestionsProviderTest {
 
         Mockito.verify(mFakeBuilder).createAutoText();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hello"));
+        mSuggestionsProvider.getAutoText(wordFor("hello"), mWordsCallback);
         // did not create an auto-text
         Assert.assertNull(mFakeBuilder.mSpiedAutoText);
 
         mSuggestionsProvider.close();
 
-        Assert.assertNull(mSuggestionsProvider.lookupQuickFix("hell"));
+        mSuggestionsProvider.getAutoText(wordFor("hell"), mWordsCallback);
         Assert.assertNull(mFakeBuilder.mSpiedAutoText);
     }
 
@@ -405,6 +417,64 @@ public class SuggestionsProviderTest {
         Mockito.verify(mFakeBuilder.mSpiedDictionary).close();
     }
 
+    @Test
+    public void testPassesWordsLoadedListenerToDictionaries() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+
+        TestRxSchedulers.drainAllTasks();
+
+        Assert.assertNotNull(mFakeContactsDictionary);
+
+        final InOrder inOrder = Mockito.inOrder(mMockListener);
+
+        inOrder.verify(mMockListener).onDictionaryLoadingStarted(mFakeBuilder.mSpiedDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingStarted(mTestUserDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingStarted(mFakeContactsDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingDone(mFakeBuilder.mSpiedDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingDone(mTestUserDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingDone(mFakeContactsDictionary);
+
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    @Test
+    public void testPassesWordsLoadedListenerToDictionariesEvenIfSameBuilders() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
+        TestRxSchedulers.drainAllTasks();
+
+        DictionaryBackgroundLoader.Listener listener2 =
+                Mockito.mock(DictionaryBackgroundLoader.Listener.class);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, listener2);
+        TestRxSchedulers.drainAllTasks();
+
+        final InOrder inOrder =
+                Mockito.inOrder(
+                        mMockListener,
+                        listener2,
+                        mFakeBuilder.mSpiedDictionary,
+                        mTestUserDictionary,
+                        mFakeContactsDictionary);
+
+        inOrder.verify(mMockListener).onDictionaryLoadingStarted(mFakeBuilder.mSpiedDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingStarted(mTestUserDictionary);
+        inOrder.verify(mMockListener).onDictionaryLoadingStarted(mFakeContactsDictionary);
+        inOrder.verify(mFakeBuilder.mSpiedDictionary).loadDictionary();
+        inOrder.verify(mMockListener).onDictionaryLoadingDone(mFakeBuilder.mSpiedDictionary);
+        inOrder.verify(mTestUserDictionary).loadDictionary();
+        inOrder.verify(mMockListener).onDictionaryLoadingDone(mTestUserDictionary);
+        inOrder.verify(mFakeContactsDictionary).loadDictionary();
+        inOrder.verify(mMockListener).onDictionaryLoadingDone(mFakeContactsDictionary);
+
+        inOrder.verify(listener2).onDictionaryLoadingStarted(mFakeBuilder.mSpiedDictionary);
+        inOrder.verify(listener2).onDictionaryLoadingStarted(mTestUserDictionary);
+        inOrder.verify(listener2).onDictionaryLoadingStarted(mFakeContactsDictionary);
+        inOrder.verify(listener2).onDictionaryLoadingDone(mFakeBuilder.mSpiedDictionary);
+        inOrder.verify(listener2).onDictionaryLoadingDone(mTestUserDictionary);
+        inOrder.verify(listener2).onDictionaryLoadingDone(mFakeContactsDictionary);
+
+        inOrder.verifyNoMoreInteractions();
+    }
+
     private static class WordsHolder implements Dictionary.WordCallback {
         public final List<String> wordsReceived = new ArrayList<>();
 
@@ -477,10 +547,6 @@ public class SuggestionsProviderTest {
 
         @Override
         protected void deleteWordFromStorage(String word) {}
-
-        @Override
-        protected void registerObserver(
-                ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {}
 
         @Override
         protected void addWordToStorage(String word, int frequency) {}

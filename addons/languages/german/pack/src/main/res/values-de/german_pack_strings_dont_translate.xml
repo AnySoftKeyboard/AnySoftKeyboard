@@ -13,4 +13,5 @@
     <string name="de_keyboard_qwerty_extra">Deutsch QWERTY breit+</string>
     <string name="de_keyboard_qwerty_slim">Deutsch QWERTY slim</string>
     <string name="de_keyboard_dvorak_compact">DE Dv Compact</string>
+    <string name="de_keyboard_extended">Deutsch extended</string>
 </resources>

@@ -1,19 +1,29 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.6.21"
+}
+
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'java-gradle-plugin'
 
 repositories {
-    maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/}
+    mavenCentral()
     maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencies {
-    implementation 'org.jsoup:jsoup:1.9.1'
+    implementation 'org.jsoup:jsoup:1.13.1'
     implementation gradleApi()
     implementation localGroovy()
 
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'com.github.stefanbirkner:system-rules:1.16.1'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
 }
 
 gradlePlugin {
@@ -26,10 +36,32 @@ gradlePlugin {
             id = 'anysoftkeyboard-deployment'
             implementationClass = 'deployment.DeploymentPlugin'
         }
+        contributorsPlugin {
+            id = 'anysoftkeyboard-contributors'
+            implementationClass = 'contributors.ContributorsPlugin'
+        }
+        manualVersionPlugin {
+            id = 'ask.net.evendanan.autoversion'
+            implementationClass = 'net.evendanan.versiongenerator.VersionGeneratorPlugin'
+        }
+        simpleVersionPlugin {
+            id = 'ask.net.evendanan.autoversion.simple'
+            implementationClass = 'net.evendanan.versiongenerator.SimpleVersionGeneratorPlugin'
+        }
     }
 }
 
 java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileKotlin {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileTestKotlin {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 }

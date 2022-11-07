@@ -206,6 +206,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Esquema compacto para a direita</string>
     <string name="swipe_action_name_compact_layout_to_left">Esquema compacto para a esquerda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar teclado auxiliar</string>
+    <string name="swipe_action_name_quick_text_popup">Mostrar pop-up de emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Velocidade de deslizamento</string>
     <string name="settings_swipe_velocity_threshold_summary">A velocidade mínima do gesto de deslizar. Atualmente: %s</string>
     <string name="settings_swipe_velocity_very_slow">Muito lenta</string>
@@ -267,7 +268,6 @@
         palavra-passe, URL, etc.).
     </string>
     <string name="tweak_dictionary_group">Ajustes do dicionário</string>
-    <string name="settings_min_length_for_word_correction">Tamanho mínimo das palavras para correção</string>
     <string name="show_keyboard_name_text">Mostrar nome do teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar nome na barra de espaço</string>
     <string name="show_keyboard_name_off_summary">Não mostrar nome do teclado</string>
@@ -442,6 +442,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="extension_kbd_bottom_minimal">Minimalista</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalista (no emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalista (menos pontuação)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimal (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -524,20 +525,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Você não tem quaisquer palavras no dicionário de utilizador. Pode adicionar uma agora.</string>
-    <string name="user_dict_backup_success_title">Cópia de segurança efetuada!</string>
-    <string name="user_dict_backup_success_text">As palavras foram gravadas no armazenamento do seu dispositivo e na pasta
-        /Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Falha ao copiar!</string>
-    <string name="user_dict_backup_fail_text_with_error">Erro ao gravar palavras devido a:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Restauro efetuado!</string>
-    <string name="user_dict_restore_success_text">As palavras foram restauradas.</string>
-    <string name="user_dict_restore_fail_title">Falha ao restaurar!</string>
-    <string name="user_dict_restore_fail_text_with_error">Erro ao restaurar palavras devido a:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">Trocar pontuação e espaço</string>
     <string name="should_swap_punctuation_and_space_off_summary">Não trocar espaço e
         pontuação.
@@ -575,7 +562,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     </string>
     <string name="not_configured_with_click_here">O AnySoftKeyboard ainda não pode ser utilizado. Clique aqui para o configurar.</string>
     <string name="not_configured_with_just_click_here">Clique aqui</string>
-    <string name="click_for_more">mais...</string>
+    <string name="click_for_more">mais…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Adicionar palavra</string>
@@ -586,16 +573,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="toast_error_custom_path_backup">Erro: pode ser aberta qualquer aplicação contextual</string>
-    <string name="file_explorer_menu_add_folder">Criar pasta</string>
-    <string name="file_explorer_filename">Nome do ficheiro de cópia de segurança…</string>
-    <string name="file_explorer_filename_empty">O nome do ficheiro não pode estar vazio…</string>
-    <string name="file_explorer_alert_title">Selecionar este ficheiro?</string>
-    <string name="file_explorer_restore_alert_message">Quer restaurar este ficheiro?</string>
-    <string name="file_explorer_backup_alert_message">O ficheiro existente será substituído.</string>
-    <string name="file_explorer_backup_success">Os seus dados foram guardados em\u0020</string>
-    <string name="file_explorer_backup_failed">Não foi possível guardar os seus dados.</string>
-    <string name="file_explorer_restore_success">Os seus dados foram restaurados de\u0020</string>
-    <string name="file_explorer_restore_failed">Não foi possível restaurar os seus dados.</string>
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar o AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Nesta etapa, terá de ativar o <i>
@@ -624,9 +601,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="setup_wizard_step_three_details_actions">Ou pode personalizar e personalizar o
         teclado a seu gosto:
     </string>
-    <string name="setup_wizard_step_three_action_languages">Configurar idiomas...</string>
-    <string name="setup_wizard_step_three_action_themes">Escolher tema...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Outras configurações...</string>
+    <string name="setup_wizard_step_three_action_languages">Configurar idiomas…</string>
+    <string name="setup_wizard_step_three_action_themes">Escolher tema…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Outras configurações…</string>
     <string name="setup_wizard_step_download_title">Descarregar pacotes de idiomas</string>
     <string name="setup_wizard_step_download_details">Ficará feliz em saber que o <i>AnySoftKeyboard</i> suporta dezenas de idiomas. Basta descarregar o pacote de idioma que quer para poder digitar em
         qualquer idioma do seu dispositivo.</string>
@@ -730,7 +707,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="prefs_providers_backed_up_to">Os seus dados foram guardados na cópia de segurança em %s com sucesso</string>
     <string name="prefs_providers_failed_restore_due_to">Falha ao restaurar os seus dados devido a %s</string>
     <string name="prefs_providers_restored_to">Os seus dados foram restaurados de %s com sucesso</string>
-    <string name="word_editor_action_choose_path">Escolher um caminho personalizado</string>
     <string name="allow_layouts_to_provide_generic_rows">Os teclados podem fornecer filas genéricas de teclas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Usar sempre filas genéricas de teclas selecionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir que o esquema altere as filas genéricas.</string>
@@ -752,5 +728,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="app_share_menu_title">Partilhar o AnySoftKeyboard utilizando</string>
     <string name="app_share_text">Recomendo a aplicação de teclado Android AnySoftKeyboard de código-fonte aberto, com foco na privacidade, gratuitamente, personalizável e com vários idiomas.\nPode-se descarregar em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">Não suportado na sua versão do Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">A cópia de segurança e restauração não são suportados em dispositivos  com o Android anterior ao KitKat (versão 4.4). Pedimos desculpa.</string>
 </resources>

@@ -27,6 +27,7 @@ import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowPhoneWindow;
 import org.robolectric.shadows.ShadowResources;
 import org.robolectric.util.ReflectionHelpers;
+import org.robolectric.util.ReflectionHelpers.ClassParameter;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @Config(shadows = AnySoftKeyboardColorizeNavBarTest.TestShadowResources.class)
@@ -134,8 +135,8 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
         Assert.assertNotNull(w);
         TestShadowPhoneWindow shadowWindow = (TestShadowPhoneWindow) Shadows.shadowOf(w);
-        Assert.assertTrue(shadowWindow.getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
-        Assert.assertFalse(shadowWindow.decorFitsSystemWindows);
+        Assert.assertFalse(shadowWindow.getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+        Assert.assertTrue(shadowWindow.decorFitsSystemWindows);
     }
 
     @Test
@@ -298,8 +299,13 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
                     && "android".equals(defPackage)) {
                 return RES_CONFIG_ID;
             } else {
-                return Shadow.directlyOn(mResources, Resources.class)
-                        .getIdentifier(name, defType, defPackage);
+                return Shadow.directlyOn(
+                        mResources,
+                        Resources.class,
+                        "getIdentifier",
+                        ClassParameter.from(String.class, name),
+                        ClassParameter.from(String.class, defType),
+                        ClassParameter.from(String.class, defPackage));
             }
         }
 
@@ -308,7 +314,11 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
             if (id == RES_ID) {
                 return NAVIGATION_BAR_HEIGHT;
             } else {
-                return Shadow.directlyOn(mResources, Resources.class).getDimensionPixelSize(id);
+                return Shadow.directlyOn(
+                        mResources,
+                        Resources.class,
+                        "getDimensionPixelSize",
+                        ClassParameter.from(int.class, id));
             }
         }
 
@@ -317,7 +327,11 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
             if (id == RES_CONFIG_ID) {
                 return true;
             } else {
-                return Shadow.directlyOn(mResources, Resources.class).getBoolean(id);
+                return Shadow.directlyOn(
+                        mResources,
+                        Resources.class,
+                        "getBoolean",
+                        ClassParameter.from(int.class, id));
             }
         }
     }
@@ -361,7 +375,11 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
             if (id == RES_CONFIG_ID) {
                 return false;
             } else {
-                return Shadow.directlyOn(mResources, Resources.class).getBoolean(id);
+                return Shadow.directlyOn(
+                        mResources,
+                        Resources.class,
+                        "getBoolean",
+                        ClassParameter.from(int.class, id));
             }
         }
     }

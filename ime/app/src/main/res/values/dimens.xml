@@ -39,6 +39,10 @@
     <dimen name="key_hint_text_size">7sp</dimen>
     <dimen name="keyboard_name_text_size">10sp</dimen>
 
+    <dimen name="inline_suggestion_min_width">44dp</dimen>
+    <dimen name="inline_suggestion_min_height">44dp</dimen>
+    <dimen name="inline_suggestion_max_height">88dp</dimen>
+
     <dimen name="candidate_strip_height">36dp</dimen>
     <dimen name="candidate_font_height">18sp</dimen>
     <dimen name="candidate_strip_x_gap">15dp</dimen>
@@ -96,7 +100,6 @@
     <dimen name="quick_key_size">50dp</dimen>
 
     <dimen name="yochees_radius_key_corner">5dp</dimen>
-    <dimen name="gesture_stroke_width">4dp</dimen>
     <dimen name="watermark_size">12sp</dimen>
     <dimen name="watermark_margin">3dp</dimen>
 

@@ -240,6 +240,7 @@
     <string name="swipe_action_name_compact_layout_to_right">بردن بۆ لای ڕاست</string>
     <string name="swipe_action_name_compact_layout_to_left">بردن بۆ لای چەپ</string>
     <string name="swipe_action_name_utility_keyboard">تایبەتمەندییەکانی تەختەکلیل</string>
+    <string name="swipe_action_name_quick_text_popup">پیشاندانی بچووککراوەی خەندە</string>
     <string name="settings_swipe_velocity_threshold_title">ئاستی خێرایی ڕاکێشان</string>
     <string name="settings_swipe_velocity_threshold_summary">ڕێژەی خێرایی ئاستی ڕاکێشان، ئێستا بریتیە لە: %s
     </string>
@@ -309,8 +310,6 @@
     <string name="supported_keyboard_row_modes_summary">شێوازی پەسەندی خانەکان هەڵبژێرە وەکو (خانەی        تێپەڕە ووشە، URL،  هتد)
     </string>
     <string name="tweak_dictionary_group">ڕێکخستنی فەرهەنگ</string>
-    <string name="settings_min_length_for_word_correction">کەمترین ووشە بۆ ڕاستکردنەوە
-    </string>
     <string name="show_keyboard_name_text">ناوی تەختەکلیل</string>
     <string name="show_keyboard_name_on_summary">پیشاندانی ناوی تەختەکلیل لەسەر دوگمەی بۆشایی</string>
     <string name="show_keyboard_name_off_summary">شاردنەوەی ناوی تەختەکلیل</string>
@@ -577,20 +576,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">هیچ  ووشەیەکی پارێزراو نیە لەم فەرهەنگەدا، ئەتوانی ئێستا یەکەم ووشەت زیاد بکەیت        </string>
-    <string name="user_dict_backup_success_title">پاشەکەوتکردن تەواوبوو!</string>
-    <string name="user_dict_backup_success_text">ووشەکان بەسەرکەوتوویی پاشەکەوتکران لە بیرگەی ئامێرەکەتدا لە
-        \u0020/Android/data/com.gorankeyboard.language.kurdi/files/
-    </string>
-    <string name="user_dict_backup_fail_title">پاشەکەوتکردن سەرکەوتو نەبوو!</string>
-    <string name="user_dict_backup_fail_text_with_error">پاشەکەوتکردنی ووشە سەرکەوتو نەبوو بەهۆی:
-\u0020
-        <xliff:g id="error">%s</xliff:g>    </string>
-    <string name="user_dict_restore_success_title">گێڕانەوە تەواو بوو!</string>
-    <string name="user_dict_restore_success_text">بەسەرکەوتوویی ووشەکانت گەڕێنرایەوە</string>
-    <string name="user_dict_restore_fail_title">گێڕانەوە سەرکەوتو نەبوو!</string>
-    <string name="user_dict_restore_fail_text_with_error">گێڕانەوەی ووشەکان سەرکەوتوو نەبوو بەهۆی:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">ئاڵوگۆڕکردنی خاڵبەندی و بۆشایی</string>
     <string name="should_swap_punctuation_and_space_off_summary">ئاڵوگۆڕ نەکردنی خاڵبەندی و بۆشایی
     </string>
@@ -639,16 +624,6 @@
     <string name="enter_abbreviation_hint">کورتکراوە</string>
     <string name="enter_abbreviation_target_hint">تەواوی ڕستەکە</string>
     <string name="toast_error_custom_path_backup">هەڵە هەیە: هیچ بەرنامەیەکی پەیوەستکردن ناتوانرێ بکرێتەوە</string>
-    <string name="file_explorer_menu_add_folder">دروستکردنی فۆڵدەر</string>
-    <string name="file_explorer_filename">ناوی فایلی پاشەکەوتکردن…</string>
-    <string name="file_explorer_filename_empty">ناوی فایل نابێ بەتاڵ بێت…</string>
-    <string name="file_explorer_alert_title">دیاریکردنی ئەم فایلە؟</string>
-    <string name="file_explorer_restore_alert_message">ئەتەوێ ئەم فایلە بگەڕێنیتەوە؟</string>
-    <string name="file_explorer_backup_alert_message">ئەم فایلە ئاڵوگۆڕ دەکرێت</string>
-    <string name="file_explorer_backup_success">زانیاریەکانت پاشەکەوتکران لە\u0020</string>
-    <string name="file_explorer_backup_failed">پاشەکەوتکردنی زانیارییەکانت سەرکەوتو نەبوو.</string>
-    <string name="file_explorer_restore_success">زانیاریەکانت گەڕێندرایەوە لەڕێی\u0020</string>
-    <string name="file_explorer_restore_failed">گێڕانەوەی زانیارییەکانت سەرکەوتو نەبوو.</string>
     <string name="about_additional_software_licenses">Open Source License</string>
     <string name="setup_wizard_step_one_title">چالاککردنی تەختەکلیلی کوردی</string>
     <string name="setup_wizard_step_one_details">لەم هەنگاوەدا پێویستە <b>
@@ -783,7 +758,6 @@
     <string name="prefs_providers_backed_up_to">زانیارییەکانت بەسەرکەوتوویی پاشەکەوتکران لە %s</string>
     <string name="prefs_providers_failed_restore_due_to">گێڕانەوەی داتاکانت سەرکەوتو نەبوو بەهۆی %s</string>
     <string name="prefs_providers_restored_to">داتاکانت بەسەرکەوتوویی گەڕێنرایەوە لەڕێی %s</string>
-    <string name="word_editor_action_choose_path">گۆڕینی شوێن</string>
     <string name="allow_layouts_to_provide_generic_rows">گۆڕینی شێوازەکانی سەرەوە و خوارەوە بەپێی تەختەکلیل</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">بەکارهێنانی شێوازی تایبەت.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">ڕێگەدان بە گۆڕینی شێوازەکان.</string>
@@ -805,5 +779,4 @@
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

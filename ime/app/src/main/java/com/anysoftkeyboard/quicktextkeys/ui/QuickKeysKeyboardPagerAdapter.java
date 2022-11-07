@@ -64,8 +64,9 @@ import java.util.List;
         return mPopupKeyboards.length;
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View root =
                 mLayoutInflater.inflate(
                         R.layout.quick_text_popup_autorowkeyboard_view, container, false);
@@ -85,7 +86,8 @@ import java.util.List;
         keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
         QuickTextKey addOn = mAddOns[position];
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];
-        if (keyboard == null) {
+        if (keyboard == null
+                || position == 0 /*ALWAYS re-create history, in case it has changed*/) {
             if (addOn.isPopupKeyboardUsed()) {
                 keyboard =
                         new AnyPopupKeyboard(

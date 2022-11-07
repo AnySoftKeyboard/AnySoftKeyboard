@@ -1,14 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="debug_tracing_starting">正在开始追踪！\n请确保您在某个地点停止
+    </string>
+    <string name="debug_tracing_starting_failed">跟踪启动失败！有关详细信息，请查看logcat。</string>
+    <string name="debug_tracing_finished">追踪完成！\n追踪文件是\u0020<xliff:g id="trace_file">%s</xliff:g></string>
+    <string name="menu_about_item">关于</string>
+    <string name="how_to_pointer_title">欢迎使用 AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020v的最新更改<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v的最新更改<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">更多：\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">这是一个 beta 版本。请谨慎使用！</string>
+    <string name="testers_version">测试者构建！</string>
+    <string name="language_root_tile">语言</string>
+    <string name="language_keyboards_settings_tile">启用键盘和语言。</string>
+    <string name="language_grammar_settings_tile">配置更正行为和其他词典。</string>
+    <string name="language_tweaks_settings_tile">调整更多。</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">用户界面</string>
+    <string name="ui_theme_settings_tile">选择并配置键盘主题。</string>
+    <string name="ui_effects_settings_tile">键盘效果和体验。</string>
     <!-- welcome -->
     <!-- changelog -->
+    <string name="changelog">更新日志</string>
+    <string name="search_market_for_addons">搜索加载项</string>
+    <string name="search_market_for_keyboard_addons">在应用商店获得更多键盘</string>
+    <string name="search_market_for_quick_key_addons">在应用商店获得更多 <i>快速文本</i> 附加组件…</string>
+    <string name="no_market_store_available">无法在您的设备上找到应用商店。\n无法搜索附加组件！</string>
+    <string name="keyboard_theme_tweak_group">微调</string>
+    <string name="close_button">关闭</string>
+    <string name="delete_button">删除</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">已保存:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">删除？</string>
+    <string name="removed_word">已移除：\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 再次触摸以保存</string>
+    <string name="hint_double_tap_to_close">再次删除建议</string>
+    <string name="hint_click_for_inline_suggestions">可用的自动填充建议</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_title">未安装语音</string>
+    <string name="voice_input_not_installed_text">语音输入未安装在您的设备上。\n
+        可以轻松修复：现在从应用商店安装。
+    </string>
+    <string name="voice_input_not_installed_action_install">安装</string>
+    <string name="voice_input_not_installed_action_do_not_install">取消</string>
+    <string name="voice_input_not_voice_pack_in_market">我无法在应用商店找到语音输入
+        (com.google.android.voicesearch)。对不起，语音输入将无法在您的
+        设备上工作。
+    </string>
     <!-- Options menu -->
+    <string name="change_ime">更改输入法</string>
+    <string name="override_dictionary">覆盖默认选项</string>
     <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">覆盖\u0020<xliff:g id="word">%s</xliff:g>\u0020字典</string>
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="gesture_settings">手势操作</string>
+    <string name="effects_group">效果</string>
+    <string name="ime_settings">键盘设置</string>
+    <string name="switch_incognito">无痕模式</string>
+    <string name="use_system_vibration_title">使用系统振动</string>
+    <string name="use_system_vibration_off_summary">使用自定义振动设置</string>
+    <string name="use_system_vibration_on_summary">使用 Android 系统振动设置</string>
+    <string name="vibrate_on_key_press_title">按键时振动</string>
+    <string name="vibrate_on_key_press_value_template">%d 毫秒</string>
+    <string name="night_mode_screen">夜间模式设置</string>
+    <string name="night_mode_description">夜间模式将更改这些功能：</string>
+    <string name="night_mode_state_summary">目前，夜间模式触发：\u0020%s</string>
+    <string name="night_mode_dialog_title">切换到夜间模式</string>
+    <string name="night_mode_type_never">永不</string>
+    <string name="night_mode_type_follow_system">按照系统设置</string>
+    <string name="night_mode_type_always">总是</string>
+    <string name="night_mode_app_night_theme">变暗设置应用界面</string>
+    <string name="night_mode_darken_keyboard_theme">深色键盘主题</string>
+    <string name="night_mode_sound_control">禁用按键音效</string>
+    <string name="night_mode_vibration_control">禁用按键振动</string>
+    <string name="power_save_mode_screen">省电设置</string>
+    <string name="power_save_mode_description">为了降低能耗，省电模式将会禁用以下功能：</string>
+    <string name="power_save_mode_state_summary">当前省电模式触发值：\u0020%s</string>
+    <string name="power_save_mode_dialog_title">启动省电模式</string>
+    <string name="power_save_mode_types_never">永不</string>
+    <string name="power_save_mode_types_lower_battery">低电量时</string>
+    <string name="power_save_mode_types_always">总是</string>
+    <string name="power_saving_keyboard_theme_name">节能模式主题</string>
+    <string name="power_saving_keyboard_theme_description">深色界面和简易布局可以减少设备电量的消耗。</string>
+    <string name="power_save_mode_animation_control">禁用动画和按键预览</string>
+    <string name="power_save_mode_sound_control">禁用按键音效</string>
+    <string name="power_save_mode_vibration_control">禁用按键振动</string>
+    <string name="power_save_mode_suggestions_control">禁用词语建议</string>
+    <string name="power_save_mode_gesture_typing_control">禁用手势输入</string>
+    <string name="power_save_mode_theme_control">切换到简易深色模式</string>
+    <string name="pop_text_type_title">按键时弹出文本提示</string>
+    <string name="pop_text_type_summary">按键后何时弹出文本。当前：\u0020%s</string>
+    <string name="pop_text_type_dialog_title">选择弹出文本类型</string>
+    <string name="pop_text_type_never">永不</string>
+    <string name="pop_text_type_on_correction">在文字校正时</string>
+    <string name="pop_text_type_on_word">输入单词时</string>
+    <string name="pop_text_type_any_key">按任意键时</string>
+    <string name="input_field_type_password">密码输入字段</string>
+    <string name="input_field_type_email">邮箱输入字段</string>
+    <string name="input_field_type_url">URL 输入字段</string>
+    <string name="input_field_type_im">短信输入字段</string>
+    <string name="sound_on">按键音效</string>
+    <string name="sound_on_summary">软键盘的按键音效。</string>
+    <string name="use_custom_sound_volume">设置自定义音量</string>
+    <string name="use_custom_sound_volume_on_summary">按键音效是自定义音量。</string>
+    <string name="use_custom_sound_volume_off_summary">按键音效是系统\通知音量。</string>
+    <string name="custom_sound_volume">自定义按键音量</string>
+    <string name="vibrate_on_long_press_title">长按时震动</string>
+    <string name="vibrate_on_long_press_summary_on">调用长按动作时软振动。</string>
+    <string name="switch_keyboard_on_space">空格切换键盘</string>
+    <string name="switch_keyboard_on_space_on_summary">在按空格时从符号/数字键盘切换到字母键盘。</string>
+    <string name="switch_keyboard_on_space_off_summary">在按空格时不从符号/数字键盘切换到字母键盘。</string>
+    <string name="colorize_nav_bar_title">在导航栏下着色</string>
+    <string name="colorize_nav_bar_summary_on">将着色导航栏下的键盘背景，但不支持所有设备。</string>
+    <string name="colorize_nav_bar_summary_off">不要在导航栏下着色。</string>
+    <string name="persistent_layout_per_package_id_title">记住每个应用的按键布局</string>
+    <string name="persistent_layout_per_package_id_off_summary">所有应用使用相同的布局。</string>
+    <string name="persistent_layout_per_package_id_on_summary">自动切换到应用中使用的上一个布局。</string>
+    <string name="one_shot_quick_text_popup">按键后自动关闭</string>
+    <string name="one_shot_quick_text_popup_on_summary">按键后关闭快速文本弹出窗口。</string>
+    <string name="one_shot_quick_text_popup_off_summary">保持快速文本弹出窗口打开，直到按下关闭键。</string>
+    <string name="quick_text_tags_search">通过键入标签来建议表情符号</string>
+    <string name="quick_text_tags_search_on_summary">当键入以冒号(:)开头时，按标签搜索表情符号</string>
+    <string name="hide_soft_when_physical">隐藏实体键盘键</string>
+    <string name="hide_soft_when_physical_on_summary">当物理键盘使用
+        时隐藏软键盘
+    </string>
+    <string name="hide_soft_when_physical_off_summary">当物理键盘使用
+        时隐藏软键盘
+    </string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space切换语言</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">硬件Alt + Space切换到下一个可用布局。</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">硬件Alt + Space输入一个空格。</string>
+    <string name="enable_shift_space_language_shortcut">Alt + Space切换语言</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">硬件Alt + Space切换到下一个可用布局。</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">硬件Alt + Space输入一个空格。</string>
+    <string name="fullscreen_input_connection_supported">在横屏时使用全屏编辑器
+    </string>
+    <string name="fullscreen_input_connection_supported_on_summary">        在横屏时输入文本
+    </string>
+    <string name="fullscreen_input_connection_supported_off_summary">在横屏时使用全屏编辑器
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported">纵向使用全屏编辑器</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">在纵向输入文本时接管屏幕</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">请勿在纵向模式下使用全屏编辑器</string>
+    <string name="backword_support">删除词汇</string>
+    <string name="backword_support_on_summary">Shifted Backspace 将删除最后一个单词</string>
+    <string name="backword_support_off_summary">Shifted Backspace 将删除最后一个单词</string>
+    <string name="swipe_up_action">向上滑动</string>
+    <string name="swipe_up_action_summary">定义向上滑动动动作。当前, %s
+    </string>
+    <string name="swipe_up_action_title">编辑上滑手势动作</string>
+    <string name="swipe_up_from_spacebar_action">向上滑动空格</string>
+    <string name="swipe_up_from_spacebar_action_summary">定义向上滑动动动作。当前, %s</string>
+    <string name="swipe_up_from_spacebar_action_title">选择向上滑动空格键手势</string>
+    <string name="swipe_down_action">向下滑动</string>
+    <string name="swipe_down_action_summary">定义向上滑动动动作。当前, %s</string>
+    <string name="swipe_down_action_title">编辑上滑手势动作</string>
+    <string name="swipe_left_action">向左滑动</string>
+    <string name="swipe_left_action_summary">定义向上滑动动动作。当前, %s</string>
+    <string name="swipe_left_action_title">编辑上滑手势动作</string>
+    <string name="swipe_right_action">向右滑动</string>
+    <string name="swipe_right_action_summary">定义向右滑动手势动作。目前，%s</string>
+    <string name="swipe_right_action_title">选择向右滑动动作</string>
+    <string name="swipe_right_space_bar_action">空格键向右滑动</string>
+    <string name="swipe_right_space_bar_action_summary">定义从空格键向右滑动手势动作。目前，%s</string>
+    <string name="swipe_right_space_bar_action_title">选择向右滑动动作</string>
+    <string name="swipe_left_space_bar_action">空格键向右滑动</string>
+    <string name="swipe_left_space_bar_action_summary">定义空格键向左滑动手势动作。目前，%s</string>
+    <string name="swipe_left_space_bar_action_title">选择向左滑动动作</string>
+    <string name="swipe_left_two_fingers_action">两个手指向左滑动</string>
+    <string name="swipe_left_two_fingers_action_summary">定义双指向左滑动手势动作。目前，%s</string>
+    <string name="swipe_right_two_fingers_action">两个手指向右滑动</string>
+    <string name="swipe_right_two_fingers_action_summary">定义双指向右滑动手势动作。目前，%s</string>
+    <string name="swipe_right_two_fingers_action_title">选择向右滑动动作</string>
+    <string name="pinch_gesture_action">缩小手势</string>
+    <string name="pinch_gesture_action_title">选择缩小手势</string>
+    <string name="pinch_gesture_action_summary">定义缩小手势。目前为%s</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
@@ -25,5 +193,4 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

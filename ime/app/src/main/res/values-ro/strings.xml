@@ -104,7 +104,6 @@
     <string name="tweak_ui_group">Trucuri grafice</string>
     <string name="tweak_ux_group">Trucuri de comportament</string>
     <string name="tweak_dictionary_group">Trucuri dicționar</string>
-    <string name="settings_min_length_for_word_correction">Lungimea minimă a cuvântului pentru corectare</string>
     <string name="show_keyboard_name_text">Afișează numele tastaturii</string>
     <string-array name="custom_hint_align_types">
         <item>Stânga</item>
@@ -211,8 +210,6 @@
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_backup_success_title">Backup terminat!</string>
-    <string name="user_dict_backup_fail_title">Backup nereușit!</string>
     <string name="developer_tools">Unelte dezvoltator</string>
     <string name="click_for_developer_features">Unelte dezvoltator</string>
     <string name="not_configured_with_just_click_here">Click aici</string>
@@ -254,5 +251,4 @@
     <string name="visit_our_web_site">Vizitaţi site-ul nostru…</string>
     <string name="setup_wizard_welcome_title">Bine ați venit!</string>
     <string name="prefs_providers_operation_success">Succes</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

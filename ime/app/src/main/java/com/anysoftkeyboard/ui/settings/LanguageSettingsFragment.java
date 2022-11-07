@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class LanguageSettingsFragment extends Fragment implements View.OnClickListener {
 
@@ -18,7 +19,7 @@ public class LanguageSettingsFragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.settings_tile_keyboards).setOnClickListener(this);
         view.findViewById(R.id.settings_tile_grammar).setOnClickListener(this);
@@ -33,24 +34,26 @@ public class LanguageSettingsFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
+        final NavController navController = Navigation.findNavController(requireView());
         switch (view.getId()) {
             case R.id.settings_tile_keyboards:
-                addFragmentToUi(new KeyboardAddOnBrowserFragment());
+                navController.navigate(
+                        LanguageSettingsFragmentDirections
+                                .actionLanguageSettingsFragmentToKeyboardAddOnBrowserFragment());
                 break;
             case R.id.settings_tile_grammar:
-                addFragmentToUi(new DictionariesFragment());
+                navController.navigate(
+                        LanguageSettingsFragmentDirections
+                                .actionLanguageSettingsFragmentToDictionariesFragment());
                 break;
             case R.id.settings_tile_even_more:
-                addFragmentToUi(new AdditionalLanguageSettingsFragment());
+                navController.navigate(
+                        LanguageSettingsFragmentDirections
+                                .actionLanguageSettingsFragmentToAdditionalLanguageSettingsFragment());
                 break;
             default:
                 throw new IllegalArgumentException(
                         "Failed to handle " + view.getId() + " in LanguageSettingsFragment");
         }
-    }
-
-    private void addFragmentToUi(Fragment fragment) {
-        ((FragmentChauffeurActivity) getActivity())
-                .addFragmentToUi(fragment, TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
     }
 }

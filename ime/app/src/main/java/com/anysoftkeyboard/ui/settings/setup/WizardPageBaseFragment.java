@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class WizardPageBaseFragment extends Fragment {
 
     protected ImageView mStateIcon;
+    protected SharedPreferences mSharedPrefs;
 
     /**
      * calculate whether the step has completed. This should check OS configuration.
@@ -27,6 +30,12 @@ public abstract class WizardPageBaseFragment extends Fragment {
 
     @LayoutRes
     protected abstract int getPageLayoutId();
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mSharedPrefs = DirectBootAwareSharedPreferences.create(context);
+    }
 
     @Override
     public final View onCreateView(
@@ -48,7 +57,7 @@ public abstract class WizardPageBaseFragment extends Fragment {
     protected void refreshFragmentUi() {}
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mStateIcon = view.findViewById(R.id.step_state_icon);
     }
@@ -56,12 +65,9 @@ public abstract class WizardPageBaseFragment extends Fragment {
     protected void refreshWizardPager() {
         refreshFragmentUi();
         // re-triggering UI update
-        Fragment owningFragment =
-                getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
-        if (owningFragment == null || !(owningFragment instanceof SetUpKeyboardWizardFragment))
-            return;
-        SetUpKeyboardWizardFragment wizardFragment = (SetUpKeyboardWizardFragment) owningFragment;
-        wizardFragment.refreshFragmentsUi();
+        SetupWizardActivity owningActivity = (SetupWizardActivity) getActivity();
+        if (owningActivity == null) return;
+        owningActivity.refreshFragmentsUi();
     }
 
     @Override
@@ -72,7 +78,7 @@ public abstract class WizardPageBaseFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, int[] grantResults) {
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionRequestHelper.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);

@@ -14,115 +14,102 @@
              "android:keyWidth" : specify the width of this key
              -->
             <Key
-                android:codes="113"
-                android:keyEdgeFlags="left"
-                android:popupCharacters="1" />
+                android:codes="q" android:popupCharacters="1"
+                android:keyEdgeFlags="left" />
             <Key
-                android:codes="119"
-                android:popupCharacters="2" />
+                android:codes="w" android:popupCharacters="2" />
             <Key
-                android:codes="101"
-                android:popupCharacters="3€" />
+                android:codes="e" android:popupCharacters="3" />
             <Key
-                android:codes="114"
-                android:popupCharacters="4" />
+                android:codes="r" android:popupCharacters="4" />
             <Key
-                android:codes="116"
-                android:popupCharacters="5" />
+                android:codes="t" android:popupCharacters="5" />
             <Key
-                android:codes="121"
-                android:popupCharacters="6" />
+                android:codes="y" android:popupCharacters="6" />
             <Key
-                android:codes="117"
-                android:popupCharacters="7" />
+                android:codes="u" android:popupCharacters="7" />
             <Key
-                android:codes="305"
-                android:popupCharacters="8" />
+                android:codes="ı" android:popupCharacters="8" />
             <Key
-                android:codes="111"
-                android:popupCharacters="9" />
+                android:codes="o" android:popupCharacters="9" />
             <Key
-                android:codes="112"
-                android:popupCharacters="0" />
-            <Key android:codes="287" />
+                android:codes="p" android:popupCharacters="0°"
+                ask:hintLabel="0"/>
             <Key
-                android:codes="252"
-                android:keyEdgeFlags="right" />
+                android:codes="ğ" android:popupCharacters="[{"
+                ask:hintLabel="[" />
+            <Key
+                android:codes="ü" android:popupCharacters="]}"
+                ask:hintLabel="]" android:keyEdgeFlags="right" />
         </Row>
 
         <Row android:keyWidth="9%p">
             <Key
-                android:codes="97"
-                android:keyEdgeFlags="left"
-                android:keyLabel="a"
-                android:popupCharacters="àáâãä" />
+                android:codes="a" android:popupCharacters="@"
+                android:keyEdgeFlags="left" />
             <Key
-                android:codes="115"
-                android:keyLabel="s" />
+                android:codes="s" android:popupCharacters="#" />
             <Key
-                android:codes="100"
-                android:keyLabel="d" />
+                android:codes="d" android:popupCharacters="$₺€£₿"
+                ask:hintLabel="$" />
             <Key
-                android:codes="102"
-                android:keyLabel="f" />
+                android:codes="f" android:popupCharacters="%‰"
+                ask:hintLabel="%" />
             <Key
-                android:codes="103"
-                android:keyLabel="g" />
+                android:codes="g" android:popupCharacters="*·×"
+                ask:hintLabel="*" />
             <Key
-                android:codes="104"
-                android:keyLabel="h" />
+                android:codes="h" android:popupCharacters="+±"
+                ask:hintLabel="+" />
             <Key
-                android:codes="106"
-                android:keyLabel="j" />
+                android:codes="j" android:popupCharacters="÷√"
+                ask:hintLabel="÷" />
             <Key
-                android:codes="107"
-                android:keyLabel="k" />
+                android:codes="k" android:popupCharacters="-_~"
+                ask:hintLabel="-" />
             <Key
-                android:codes="108"
-                android:keyLabel="l" />
-            <Key android:codes="351" />
+                android:codes="l" android:popupCharacters="=\u2248\u2261\u2260\u2249\u2262"
+                ask:hintLabel="=" />
             <Key
-                android:codes="105"
-                android:keyEdgeFlags="right"
-                ask:shiftedCodes="304"
-                ask:shiftedKeyLabel="İ" />
+                android:codes="ş" android:popupCharacters="(" />
+            <Key
+                android:codes="i" android:popupCharacters=")"
+                ask:shiftedCodes="İ" ask:shiftedKeyLabel="İ"
+                android:keyEdgeFlags="right" />
         </Row>
 
         <Row android:keyWidth="8.3%p">
             <Key
-                android:codes="-1"
-                android:isModifier="true"
-                android:isSticky="true"
-                android:keyWidth="13%p"
-                android:keyEdgeFlags="left" />
+                android:codes="-1" android:keyWidth="13%p"
+                android:isModifier="true" android:isSticky="true"
+                android:keyEdgeFlags="left"/>
             <Key
-                android:codes="122"
-                android:keyLabel="z" />
+                android:codes="z" android:popupCharacters="&lt;≤≮«"
+                ask:hintLabel="&lt;" />
             <Key
-                android:codes="120"
-                android:keyLabel="x" />
+                android:codes="x" android:popupCharacters="&gt;≥≯»"
+                ask:hintLabel="&gt;" />
             <Key
-                android:codes="99"
-                android:keyLabel="c" />
+                android:codes="c" android:popupCharacters="^" />
             <Key
-                android:codes="118"
-                android:keyLabel="v" />
+                android:codes="v" android:popupCharacters="\\" />
             <Key
-                android:codes="98"
-                android:keyLabel="b" />
+                android:codes="b" android:popupCharacters="\u0026" />
             <Key
-                android:codes="110"
-                android:keyLabel="n" />
+                android:codes="n" android:popupCharacters="\u0022\u201c\u201d"
+                ask:hintLabel="\u0022" />
             <Key
-                android:codes="109"
-                android:keyLabel="m" />
-            <Key android:codes="246" />
-            <Key android:codes="231" />
+                android:codes="m" android:popupCharacters="\u0027\u0060\u2018\u2019"
+                ask:hintLabel="\u0027" />
             <Key
-                android:codes="-5"
-                android:isRepeatable="true"
-                android:keyWidth="13%p"
-                android:keyEdgeFlags="right" />
+                android:codes="ö" android:popupCharacters=":;"
+                ask:hintLabel=":" />
+            <Key
+                android:codes="ç" android:popupCharacters="\?!\u00BF\u00A1\u2048"
+                ask:hintLabel="?" />
+            <Key
+                android:codes="-5" android:keyWidth="13%p"
+                android:isRepeatable="true" android:keyEdgeFlags="right" />
         </Row>
         <Row android:keyWidth="10%p">
             <Key

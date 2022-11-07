@@ -1,8 +1,8 @@
 package com.anysoftkeyboard;
 
-import static org.robolectric.annotation.Config.NEWEST_SDK;
 import static org.robolectric.annotation.Config.OLDEST_SDK;
 
+import com.anysoftkeyboard.test.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,7 @@ public abstract class AnySoftKeyboardStartUpAllSdkTest extends AnySoftKeyboardBa
 
     public static class AnySoftKeyboardStartUpAllSdkTest3 extends AnySoftKeyboardStartUpAllSdkTest {
         @Test
-        @Config(minSdk = 26, maxSdk = NEWEST_SDK)
+        @Config(minSdk = 26, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
         public void testBasicWorks() {
             testBasicWorks_impl();
         }

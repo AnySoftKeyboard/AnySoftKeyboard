@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -11,11 +10,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class MainTweaksFragmentTest extends RobolectricFragmentTestCase<MainTweaksFragment> {
-
-    @NonNull
     @Override
-    protected MainTweaksFragment createFragment() {
-        return new MainTweaksFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.mainTweaksFragment;
     }
 
     @Test
@@ -27,10 +24,7 @@ public class MainTweaksFragmentTest extends RobolectricFragmentTestCase<MainTwea
         preferenceDevTools.getOnPreferenceClickListener().onPreferenceClick(preferenceDevTools);
 
         TestRxSchedulers.foregroundFlushAllJobs();
-        Fragment navigatedToFragment =
-                fragment.getActivity()
-                        .getSupportFragmentManager()
-                        .findFragmentById(R.id.main_ui_content);
+        Fragment navigatedToFragment = getCurrentFragment();
         Assert.assertTrue(navigatedToFragment instanceof DeveloperToolsFragment);
     }
 }

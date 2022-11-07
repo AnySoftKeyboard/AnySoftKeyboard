@@ -1,3 +1,4 @@
+---
 name: deployment
 
 on:
@@ -10,13 +11,14 @@ env:
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
+    timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
         with:
           repository: ${{ secrets.SECRETS_REPOSITORY }}
           token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}
@@ -28,42 +30,76 @@ jobs:
         run: |
           ./scripts/ci/ci_setup.sh
           mkdir -p outputs/apks || true
+          mkdir -p outputs/bundle || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
           mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         with:
           name: github_object
           path: build/github_object
       - name: status-in-progress
-        run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="in_progress"
+        run: >
+          ./gradlew --stacktrace :deployment:updateDeploymentState \
+            -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
+            -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
+            -PrequestStatus.deployment_state="in_progress"
       - uses: ./.github/actions/deploy
         with:
           deployment_environment: ${{ github.event.deployment.environment }}
+          previous_deployment_environment: ${{ github.event.deployment.payload.previous_environment }}
           deployment_task: ${{ github.event.deployment.task }}
           crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
           secrets_repo_folder: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
       - name: status-success
-        run: ./gradlew --stacktrace :deployment:updateDeploymentSuccess -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.sha="${{ github.event.deployment.sha }}"
+        run: >
+          ./gradlew --stacktrace :deployment:updateDeploymentSuccess \
+            -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
+            -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
+            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
+            -PrequestStatus.sha="${{ github.event.deployment.sha }}"
       - name: status-failure
         if: failure()
-        run: ./gradlew --stacktrace :deployment:updateDeploymentState -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" -PrequestStatus.environment="${{ github.event.deployment.environment }}" -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" -PrequestStatus.deployment_state="failure"
-      - uses: actions/upload-artifact@v1.0.0
+        run: >
+          ./gradlew --stacktrace :deployment:updateDeploymentState \
+            -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
+            -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
+            -PrequestStatus.deployment_state="failure"
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: deploy-logging
-          path: build-logging
-      - uses: actions/upload-artifact@v1.0.0
+          path: build/build-logging
+      - uses: actions/upload-artifact@v3.1.0
+        if: always()
+        continue-on-error: true
+        with:
+          name: bundles
+          path: outputs/bundle
+      - uses: actions/upload-artifact@v3.1.0
+        if: always()
+        continue-on-error: true
         with:
           name: apks
           path: outputs/apks
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
+        if: always()
+        continue-on-error: true
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
+        continue-on-error: true
+        if: always()
         with:
           name: fdroid-metadata
           path: outputs/fdroid

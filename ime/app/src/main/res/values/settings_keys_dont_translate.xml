@@ -266,54 +266,6 @@
         <item>1000000</item>
     </string-array>
 
-    <string name="settings_key_force_locale">settings_key_force_locale</string>
-    <!-- this should hold the locales the app is translated to-->
-    <string-array name="settings_key_force_locale_values">
-        <item>System</item>
-        <item>ar</item>
-        <item>be</item>
-        <item>bg</item>
-        <item>ca</item>
-        <item>cs</item>
-        <item>da</item>
-        <item>de</item>
-        <item>el</item>
-        <item>eo</item>
-        <item>en</item>
-        <item>es</item>
-        <item>eu</item>
-        <item>fi</item>
-        <item>fr</item>
-        <item>hu</item>
-        <item>hy</item>
-        <item>in</item>
-        <item>it</item>
-        <item>iw</item>
-        <item>ka</item>
-        <item>kn</item>
-        <item>ku</item>
-        <item>lt</item>
-        <item>mk</item>
-        <item>my</item>
-        <item>nl</item>
-        <item>no</item>
-        <item>pl</item>
-        <item>pt</item>
-        <item>pt-rBR</item>
-        <item>ro</item>
-        <item>ru</item>
-        <item>se</item>
-        <item>sk</item>
-        <item>sl</item>
-        <item>ta</item>
-        <item>th</item>
-        <item>tl</item>
-        <item>tlh</item>
-        <item>tr</item>
-        <item>uk</item>
-        <item>vi</item>
-    </string-array>
-
     <string-array name="settings_key_long_press_timeout_names">
         <item>@string/settings_long_press_timeout_faster</item>
         <item>@string/settings_long_press_timeout_fast</item>
@@ -339,8 +291,6 @@
         <item>@string/settings_split_state_compact_right_always</item>
         <item>@string/settings_split_state_compact_left_always</item>
     </string-array>
-    <!-- added a _ to handle a preference tpye change from int to string -->
-    <string name="settings_key_min_length_for_word_correction__">settings_key_min_length_for_word_correction__</string>
 
     <string name="settings_key_allow_suggestions_restart">settings_key_allow_suggestions_restart</string>
     <string name="settings_key_switch_keyboard_on_space">settings_key_switch_keyboard_on_space</string>
@@ -390,4 +340,5 @@
     <string name="settings_key_allow_layouts_to_provide_generic_rows">settings_key_allow_layouts_to_provide_generic_rows</string>
     <string name="settings_key_apply_remote_app_colors">settings_key_apply_remote_app_colors</string>
 
+    <string name="settings_key_show_slide_for_gesture_back_word_counter">settings_key_show_slide_for_gesture_back_word_counter</string>
 </resources>

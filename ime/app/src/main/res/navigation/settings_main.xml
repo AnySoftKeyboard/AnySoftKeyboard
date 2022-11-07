@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_main"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.anysoftkeyboard.ui.settings.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_aboutAnySoftKeyboardFragment"
+            app:destination="@id/aboutAnySoftKeyboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_mainTweaksFragment"
+            app:destination="@id/mainTweaksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_fullChangeLogFragment"
+            app:destination="@id/fullChangeLogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/languageSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.LanguageSettingsFragment"
+        android:label="LanguageSettingsFragment">
+        <action
+            android:id="@+id/action_languageSettingsFragment_to_keyboardAddOnBrowserFragment"
+            app:destination="@id/keyboardAddOnBrowserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_languageSettingsFragment_to_dictionariesFragment"
+            app:destination="@id/dictionariesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_languageSettingsFragment_to_additionalLanguageSettingsFragment"
+            app:destination="@id/additionalLanguageSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInterfaceSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.UserInterfaceSettingsFragment"
+        android:label="UserInterfaceSettingsFragment" >
+        <action
+            android:id="@+id/action_userInterfaceSettingsFragment_to_keyboardThemeSelectorFragment"
+            app:destination="@id/keyboardThemeSelectorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_userInterfaceSettingsFragment_to_effectsSettingsFragment"
+            app:destination="@id/effectsSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_userInterfaceSettingsFragment_to_additionalUiSettingsFragment"
+            app:destination="@id/additionalUiSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/gesturesSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.GesturesSettingsFragment"
+        android:label="GesturesSettingsFragment">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:action="android.intent.action.VIEW"
+            app:uri="@string/deeplink_url_gestures" />
+    </fragment>
+    <fragment
+        android:id="@+id/quickTextKeysBrowseFragment"
+        android:name="com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment"
+        android:label="QuickTextKeysBrowseFragment">
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:action="android.intent.action.VIEW"
+            app:uri="@string/deeplink_url_quick_text" />
+        <action
+            android:id="@+id/action_quickTextKeysBrowseFragment_to_quickTextSettingsFragment"
+            app:destination="@id/quickTextSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutAnySoftKeyboardFragment"
+        android:name="com.anysoftkeyboard.ui.settings.AboutAnySoftKeyboardFragment"
+        android:label="AboutAnySoftKeyboardFragment" >
+        <action
+            android:id="@+id/action_aboutAnySoftKeyboardFragment_to_additionalSoftwareLicensesFragment"
+            app:destination="@id/additionalSoftwareLicensesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainTweaksFragment"
+        android:name="com.anysoftkeyboard.ui.settings.MainTweaksFragment"
+        android:label="MainTweaksFragment" >
+        <action
+            android:id="@+id/action_mainTweaksFragment_to_developerToolsFragment"
+            app:destination="@id/developerToolsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/additionalSoftwareLicensesFragment"
+        android:name="com.anysoftkeyboard.ui.settings.AboutAnySoftKeyboardFragment$AdditionalSoftwareLicensesFragment"
+        android:label="AdditionalSoftwareLicensesFragment" />
+    <fragment
+        android:id="@+id/developerToolsFragment"
+        android:name="com.anysoftkeyboard.ui.dev.DeveloperToolsFragment"
+        android:label="DeveloperToolsFragment" >
+        <deepLink
+            android:id="@+id/deepLink_dev_tools"
+            app:action="android.intent.action.VIEW"
+            app:uri="@string/deeplink_url_dev_tools" />
+        <action
+            android:id="@+id/action_developerToolsFragment_to_logCatViewFragment"
+            app:destination="@id/logCatViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/keyboardAddOnBrowserFragment"
+        android:name="com.anysoftkeyboard.ui.settings.KeyboardAddOnBrowserFragment"
+        android:label="KeyboardAddOnBrowserFragment">
+        <deepLink
+            android:id="@+id/deepLink4"
+            app:action="android.intent.action.VIEW"
+            app:uri="@string/deeplink_url_keyboards" />
+    </fragment>
+    <fragment
+        android:id="@+id/dictionariesFragment"
+        android:name="com.anysoftkeyboard.ui.settings.DictionariesFragment"
+        android:label="DictionariesFragment" >
+        <action
+            android:id="@+id/action_dictionariesFragment_to_userDictionaryEditorFragment"
+            app:destination="@id/userDictionaryEditorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dictionariesFragment_to_abbreviationDictionaryEditorFragment"
+            app:destination="@id/abbreviationDictionaryEditorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dictionariesFragment_to_nextWordSettingsFragment"
+            app:destination="@id/nextWordSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/additionalLanguageSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.AdditionalLanguageSettingsFragment"
+        android:label="AdditionalLanguageSettingsFragment" >
+        <action
+            android:id="@+id/action_additionalLanguageSettingsFragment_to_languageTweaksFragment"
+            app:destination="@id/languageTweaksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDictionaryEditorFragment"
+        android:name="com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment"
+        android:label="UserDictionaryEditorFragment" />
+    <fragment
+        android:id="@+id/abbreviationDictionaryEditorFragment"
+        android:name="com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment"
+        android:label="AbbreviationDictionaryEditorFragment" />
+    <fragment
+        android:id="@+id/nextWordSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.NextWordSettingsFragment"
+        android:label="NextWordSettingsFragment" />
+    <fragment
+        android:id="@+id/languageTweaksFragment"
+        android:name="com.anysoftkeyboard.ui.settings.LanguageTweaksFragment"
+        android:label="LanguageTweaksFragment" />
+    <fragment
+        android:id="@+id/keyboardThemeSelectorFragment"
+        android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment"
+        android:label="KeyboardThemeSelectorFragment">
+        <action
+            android:id="@+id/action_keyboardThemeSelectorFragment_to_keyboardThemeTweaksFragment"
+            app:destination="@id/keyboardThemeTweaksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <deepLink
+            android:id="@+id/deepLink5"
+            app:action="android.intent.action.VIEW"
+            app:uri="@string/deeplink_url_themes" />
+    </fragment>
+    <fragment
+        android:id="@+id/effectsSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.EffectsSettingsFragment"
+        android:label="EffectsSettingsFragment" >
+        <action
+            android:id="@+id/action_effectsSettingsFragment_to_powerSavingSettingsFragment"
+            app:destination="@id/powerSavingSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_effectsSettingsFragment_to_nightModeSettingsFragment"
+            app:destination="@id/nightModeSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/additionalUiSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.AdditionalUiSettingsFragment"
+        android:label="AdditionalUiSettingsFragment" >
+        <action
+            android:id="@+id/action_additionalUiSettingsFragment_to_uiTweaksFragment"
+            app:destination="@id/uiTweaksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_additionalUiSettingsFragment_to_topRowAddOnBrowserFragment"
+            app:destination="@id/topRowAddOnBrowserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_additionalUiSettingsFragment_to_bottomRowAddOnBrowserFragment"
+            app:destination="@id/bottomRowAddOnBrowserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/keyboardThemeTweaksFragment"
+        android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeTweaksFragment"
+        android:label="KeyboardThemeTweaksFragment" />
+    <fragment
+        android:id="@+id/powerSavingSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.PowerSavingSettingsFragment"
+        android:label="PowerSavingSettingsFragment" />
+    <fragment
+        android:id="@+id/nightModeSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.NightModeSettingsFragment"
+        android:label="NightModeSettingsFragment" />
+    <fragment
+        android:id="@+id/uiTweaksFragment"
+        android:name="com.anysoftkeyboard.ui.settings.UiTweaksFragment"
+        android:label="UiTweaksFragment" />
+    <fragment
+        android:id="@+id/topRowAddOnBrowserFragment"
+        android:name="com.anysoftkeyboard.ui.settings.AdditionalUiSettingsFragment$TopRowAddOnBrowserFragment"
+        android:label="TopRowAddOnBrowserFragment" />
+    <fragment
+        android:id="@+id/bottomRowAddOnBrowserFragment"
+        android:name="com.anysoftkeyboard.ui.settings.AdditionalUiSettingsFragment$BottomRowAddOnBrowserFragment"
+        android:label="BottomRowAddOnBrowserFragment" />
+    <fragment
+        android:id="@+id/quickTextSettingsFragment"
+        android:name="com.anysoftkeyboard.ui.settings.QuickTextSettingsFragment"
+        android:label="QuickTextSettingsFragment" />
+    <fragment
+        android:id="@+id/logCatViewFragment"
+        android:name="com.anysoftkeyboard.ui.dev.LogCatViewFragment"
+        android:label="LogCatViewFragment" />
+    <fragment
+        android:id="@+id/fullChangeLogFragment"
+        android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$FullChangeLogFragment"
+        android:label="FullChangeLogFragment" />
+</navigation>

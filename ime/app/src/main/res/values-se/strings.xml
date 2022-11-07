@@ -23,16 +23,18 @@
     <string name="changelog">Ändringslogg</string>
     <string name="search_market_for_addons">Sök efter tillägg</string>
     <string name="search_market_for_keyboard_addons">Hämta fler tangentbord i app-butiken</string>
-    <string name="search_market_for_quick_key_addons">Hämta fler <i>Snabbtext</i>-tillägg i app-butiken...</string>
+    <string name="search_market_for_quick_key_addons">Hämta fler <i>Snabbtext</i>-tillägg i app-butiken…</string>
     <string name="no_market_store_available">Kunde inte hitta någon app-butik på din enhet.\nDet går ej att söka efter tillägg!</string>
     <string name="keyboard_theme_tweak_group">Justeringar</string>
     <string name="close_button">Stäng</string>
+    <string name="delete_button">Ta bort</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Sparad:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Ta bort\?</string>
     <string name="removed_word">Borttagen:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Tryck igen för att spara</string>
     <string name="hint_double_tap_to_close">Återigen för att ta bort förslag</string>
+    <string name="hint_click_for_inline_suggestions">Tillgängliga förslag för automatisk ifyllnad</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Röstinmatning är ej installerat</string>
     <string name="voice_input_not_installed_text">Röstinmatning är ej installerat på din enhet.\nDet är enkelt att lösa: installera nu från app-butiken.</string>
@@ -179,6 +181,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Kompakt layout till höger</string>
     <string name="swipe_action_name_compact_layout_to_left">Kompakt layout till vänster</string>
     <string name="swipe_action_name_utility_keyboard">Visa verktygstangentbord</string>
+    <string name="swipe_action_name_quick_text_popup">Visa emoji popup</string>
     <string name="settings_swipe_velocity_threshold_title">Tröskelvärde för svephastighet</string>
     <string name="settings_swipe_velocity_threshold_summary">Den minimala svephastigheten. För närvarande %s</string>
     <string name="settings_swipe_velocity_very_slow">Mycket långsam</string>
@@ -201,13 +204,105 @@
     <string name="special_dictionaries_group">Speciella ordböcker</string>
     <string name="special_dictionaries_group_summary">Förslagsordböcker som används i AnySoftKeyboard</string>
     <string name="use_user_dictionary">Användarordlista</string>
+    <string name="always_use_fallback_user_dictionary">Använd privat lagringsutrymme för användarordbok</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Försök att använda Androids globala, inbyggda användar-ordbok.</string>
+    <string name="use_auto_dictionary">Automatisk ordlista</string>
     <string name="use_auto_dictionary_dialog_title">Välj inlärningsmetod</string>
+    <string name="use_auto_dictionary_summary">Spara nya ord automatiskt. Inlärningsmetod: %s</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">Efter lite användning</string>
+    <string name="auto_dictionary_threshold_type_immediately">Omedelbart efter att jag skrivit in det</string>
+    <string name="auto_dictionary_threshold_type_off">Spara inte nya ord</string>
+    <string name="use_next_words_dictionary">Nästa ordförslag</string>
+    <string name="next_words_dictionary_off">Föreslå inte nästa ord</string>
+    <string name="next_words_dictionary_words_only">Föreslå nästa ord</string>
+    <string name="next_words_dictionary_words_punctuations">Föreslå nästa ord och skiljetecken</string>
+    <string name="next_words_dictionary_summary">Använd föregående ord för att ge förslag: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness">Nästa ord-aggressivitet</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Minimalt med förslag</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Medelhög aggressivitet</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Visa många förslag</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Nästa ordförslag-aggressivitet: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Välj automatiskt ordförslags-aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Av</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Minimal aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Medelhög aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">Hög aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Extrem aggressivitet</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Aggressivitetsnivå: %s</string>
+    <string name="use_contacts_dictionary">Kontakter-ordlista</string>
+    <string name="use_contacts_dictionary_on_summary">Föreslå namn från kontaktlistan</string>
+    <string name="tweaks_group">Anpassningar</string>
+    <string name="tweak_sound_group">Ljudrelaterade anpassningar</string>
+    <string name="tweak_physical_keyboard_group">Fysiskt tangentbords-anpassningar</string>
+    <string name="tweak_ui_group">Grafiska anpassningar</string>
+    <string name="tweak_ux_group">Beteende-anpassningar</string>
+    <string name="supported_keyboard_row_modes_title">Aktiverat specialiserade input-fält lägen</string>
+    <string name="supported_keyboard_row_modes_summary">Välj specialiserade inmatningsfältsrader (såsom
+        lösenord, URL, osv.) att använda.
+    </string>
+    <string name="tweak_dictionary_group">Ordboks-anpassningar</string>
+    <string name="show_keyboard_name_text">Visa tangentbordsnamn</string>
+    <string name="show_keyboard_name_on_summary">Visa tangentbordsnamn på mellanslagstangenten</string>
+    <string name="show_keyboard_name_off_summary">Visa aldrig tangentbordsnamn</string>
+    <string name="show_hint_text">Visa ledtrådstext</string>
+    <string name="show_hint_text_on_summary">Visa ledtrådar på tangenter, om temat stödjer det</string>
+    <string name="show_hint_text_off_summary">Visa aldrig ledtrådar på tangenter</string>
+    <string name="use_custom_hint_align">Åsidosätt ledtrådens position</string>
+    <string name="use_custom_hint_align_on_summary">Använd anpassad ledtrådsposition</string>
+    <string name="use_custom_hint_align_off_summary">Använd temats ledtrådsposition</string>
+    <string name="custom_hint_align">Anpassad horisontell ledtrådsjustering</string>
+    <string name="custom_hint_align_summary">Justera ledtrådstext till vänster, centrerat eller höger om tangenten
+    </string>
+    <string name="settings_custom_hint_align_dialog_title">Välj horisontell justering för ledtråds-
+        text
+    </string>
+    <string-array name="custom_hint_align_types">
+        <item>Vänster</item>
+        <item>Centrera</item>
+        <item>Höger</item>
+    </string-array>
+    <string name="custom_hint_valign">Anpassad vertikal ledtrådsjustering</string>
+    <string name="custom_hint_valign_summary">Justera ledtråden överst eller underst på tangenten</string>
+    <string name="settings_custom_hint_valign_dialog_title">Välj vertikal justering för ledtråds-
+        text
+    </string>
+    <string-array name="custom_hint_valign_types">
+        <item>Överst</item>
+        <item>Underst</item>
+    </string-array>
+    <string name="is_sticky_extesion_keyboard_on_summary">Förblir synlig tills uttryckligen stängd
+    </string>
+    <string name="is_sticky_extesion_keyboard_off_summary">Stänger efter knapptryck</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Visa tangentbordsikon i statusfältet</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Visar tangentbordsikonen i enhetens
+        statusfält.
+    </string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">Ingen statusfälts-ikon.</string>
+    <string name="show_settings_app_in_launcher">Inställningsappen</string>
+    <string name="settings_key_show_settings_app_on_summary">Inställningsappen kommer synas på
+        hemskärmen (kan kräva omstart)
+    </string>
+    <string name="settings_key_show_settings_app_off_summary">Dölj inställningsappen (kan kräva
+        omstart)
+    </string>
+    <string name="always_hide_language_key">Dölj alltid språktangent</string>
+    <string name="always_hide_language_key_on_summary">Kommer aldrig visa språktangent. Gester
+        kommer fortfarande stödja layoutbyte.
+    </string>
+    <string name="always_hide_language_key_off_summary">Visar endast språktangent om flera
+        layouter är aktiverade.
+    </string>
+    <string name="show_crash_notification">Rapportera vid krasch</string>
+    <string name="show_crash_notification_on_summary">Vid ASK-krasch, öppna kraschrapportsdialog
+    </string>
+    <string name="show_crash_notification_off_summary">Absorbera krascher tyst</string>
     <string name="use_keyrepeat">Tangentrepetering</string>
     <string name="use_keyrepeat_on_summary">Repetering är aktiv</string>
     <string name="use_keyrepeat_off_summary">Repetering är inaktiv</string>
     <string name="emoticon_long_press_opens_popup">Lång tryckning för känlsoikoner</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Visa känsloikoner vid lång tryckning</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Visa känsloikoner vid kort tryckning</string>
+    <string name="default_smiley_text">Smiley-text</string>
     <string name="default_domain_text">Domän ändelse</string>
     <string name="key_press_preview_popup">Popupfönster vid tangenttryckning</string>
     <string name="key_press_preview_popup_on_summary">Visa popupfönster vid tangenttryckning</string>
@@ -215,12 +310,38 @@
     <string name="zoom_factor_keys_in_portrait">Höjd på tangenter i porträttläge</string>
     <string name="zoom_factor_keys_in_landscape">Höjd på tangenter i landskapsläge</string>
     <string name="auto_caps">Automatisk begynnelsebokstav</string>
+    <string name="keyboard_behavior_group">Tangentbordsbeteende</string>
     <string name="candidates_on">Visa förslag</string>
+    <string name="candidates_on_summary">En lista över föreslagna ord kommer att visas ovanför
+        tangentbordet
+    </string>
+    <string name="candidates_off_summary">Inga förslag kommer att visas</string>
+    <string name="quick_fix">Snabba korrigeringar och förkortningar</string>
+    <string name="quick_fix_summary">Korrigerar vanliga skrivfel och utökar förkortningar</string>
+    <string name="quick_fix_secon_disabled">…endast på första språket</string>
+    <string name="quick_fix_secon_disabled_summ_on">Snabbkorrigeringar och förkortningar fungerar endast på nuvarande layoutspråk</string>
+    <string name="quick_fix_secon_disabled_summ_off">Snabbkorrigeringar och förkortningar kommer att fungera på varje språk 
+                  som kontrolleras i den åsidosätta standardordlistan</string>
+    <string name="allow_suggestions_restart">Omstart av förslag</string>
+    <string name="allow_suggestions_restart_summary">Starta om ordförslag vid markörrörelse
+    </string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tangenbord</string>
+    <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">123</string>
+    <string name="symbols_phone_keyboard">telefon</string>
+    <string name="symbols_numbers_keyboard">123</string>
+    <string name="symbols_time_keyboard">tid</string>
+    <string name="keyboard_change_locked">ej tillgängligt</string>
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
+    <string name="top_generic_row_group">Gemensam översta generisk rad</string>
+    <string name="top_generic_row_dialog_title">Välj radtyp</string>
+    <string name="top_generic_row_summary">Vald översta rad: %s</string>
     <!-- settings - bottom generic row -->
+    <string name="lean_dark_big_keyboard_theme_description">Samma mörka tema, men med större tangenter
+    </string>
     <!-- extension keyboard type -->
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
@@ -236,5 +357,4 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

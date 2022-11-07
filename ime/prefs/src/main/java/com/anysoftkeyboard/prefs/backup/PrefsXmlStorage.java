@@ -1,10 +1,9 @@
 package com.anysoftkeyboard.prefs.backup;
 
-import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.utils.XmlWriter;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
@@ -37,47 +36,25 @@ public class PrefsXmlStorage {
         }
     }
 
-    public void store(PrefsRoot prefsRoot, File outputFile) throws Exception {
-        final File targetFolder = outputFile.getParentFile();
-        // parent folder may be null in case the file is on the root folder.
-        if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
-            throw new IOException(
-                    "Failure to access storage folder " + targetFolder.getAbsolutePath());
-        }
-
-        final XmlWriter output = new XmlWriter(outputFile);
-
-        try {
+    public void store(PrefsRoot prefsRoot, OutputStream outputFile) throws Exception {
+        try (final XmlWriter output = new XmlWriter(outputFile)) {
             output.writeEntity("AnySoftKeyboardPrefs")
                     .writeAttribute("version", Integer.toString(prefsRoot.getVersion()));
 
             writePrefItems(output, Collections.singleton(prefsRoot), true);
 
             output.endEntity(); // AnySoftKeyboardPrefs
-        } finally {
-            try {
-                output.close();
-            } catch (IllegalStateException e) {
-                // catching and swallowing. This could be because of an exception while writing to
-                // the XML
-                // maybe a non-ASCII key?
-                Logger.w(
-                        "PrefsXmlStorage",
-                        e,
-                        "Caught an IllegalStateException while closing storage backup file "
-                                + outputFile);
-            }
         }
     }
 
-    public PrefsRoot load(File inputFile) throws Exception {
+    public PrefsRoot load(InputStream inputFile) throws Exception {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
         final PrefsXmlParser prefsXmlParser = new PrefsXmlParser();
-        try (FileInputStream fileInputStream = new FileInputStream(inputFile)) {
-            parser.parse(fileInputStream, prefsXmlParser);
+        try (inputFile) {
+            parser.parse(inputFile, prefsXmlParser);
+            return prefsXmlParser.getParsedRoot();
         }
-        return prefsXmlParser.getParsedRoot();
     }
 
     private static class PrefsXmlParser extends DefaultHandler {

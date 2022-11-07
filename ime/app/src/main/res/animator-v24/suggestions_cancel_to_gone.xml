@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+        android:propertyName="alpha"
+        android:duration="@integer/extendingAnimTime"
+        android:valueTo="0.0f" />
+    <objectAnimator
+        android:startOffset="@integer/extendingHalfAnimTime"
+        android:duration="@integer/extendingHalfAnimTime">
+        <propertyValuesHolder android:propertyName="scaleX" android:valueTo="0.0f"/>
+        <propertyValuesHolder android:propertyName="scaleY" android:valueTo="0.0f"/>
+    </objectAnimator>
+</set>

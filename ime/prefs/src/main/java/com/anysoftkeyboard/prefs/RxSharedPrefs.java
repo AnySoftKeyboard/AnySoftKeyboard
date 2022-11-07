@@ -22,14 +22,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.Log;
 import androidx.annotation.BoolRes;
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
@@ -65,16 +63,15 @@ public class RxSharedPrefs {
     @NonNull private final Resources mResources;
     @NonNull private final RxSharedPreferences mRxSharedPreferences;
 
-    public RxSharedPrefs(
-            @NonNull Context context,
-            @NonNull SharedPreferences sp,
-            @NonNull Consumer<File> restorer) {
+    public RxSharedPrefs(@NonNull Context context, @NonNull Consumer<File> restorer) {
         mResources = context.getResources();
-
-        applyAutoPrefsFile(context, restorer);
-
-        upgradeSettingsValues(sp);
-
+        final SharedPreferences sp =
+                DirectBootAwareSharedPreferences.create(
+                        context,
+                        workingSharedPrefs -> {
+                            applyAutoPrefsFile(context, restorer);
+                            upgradeSettingsValues(workingSharedPrefs);
+                        });
         mRxSharedPreferences = RxSharedPreferences.create(sp);
     }
 
@@ -174,7 +171,8 @@ public class RxSharedPrefs {
         e.apply();
     }
 
-    private void applyAutoPrefsFile(@NonNull Context context, @NonNull Consumer<File> restorer) {
+    private static void applyAutoPrefsFile(
+            @NonNull Context context, @NonNull Consumer<File> restorer) {
         final String autoApplyLogTag = TAG + "_auto_apply_pref";
 
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -260,7 +258,6 @@ public class RxSharedPrefs {
                 .onErrorReturnItem(parser.parse(defaultStringValue));
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     public Preference<Set<String>> getStringSet(@StringRes int stringSetKeyResId) {
         return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
     }
@@ -303,7 +300,7 @@ public class RxSharedPrefs {
         }
 
         private static void storeBooleanToEditor(Editor editor, String key, String value) {
-            editor.putBoolean(key, Boolean.valueOf(value));
+            editor.putBoolean(key, Boolean.parseBoolean(value));
         }
 
         private static void storeIntToEditor(Editor editor, String key, String value) {

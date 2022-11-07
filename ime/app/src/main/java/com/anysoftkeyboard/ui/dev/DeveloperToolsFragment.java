@@ -31,15 +31,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.chewbacca.ChewbaccaUtils;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import java.io.File;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
 
@@ -63,11 +63,13 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
+        mGeneralDialogController =
+                new GeneralDialogController(
+                        getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
         ((TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_title))
-                .setText(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
+                .setText(DeveloperUtils.getAppDetails(requireContext().getApplicationContext()));
 
         mFlipper = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file);
         mProgressIndicator =
@@ -94,7 +96,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
         textWithListener.setOnEditorActionListener(
                 (textView, i, keyEvent) -> {
                     Toast.makeText(
-                                    getContext().getApplicationContext(),
+                                    requireContext().getApplicationContext(),
                                     "OnEditorActionListener i:" + i,
                                     Toast.LENGTH_SHORT)
                             .show();
@@ -102,7 +104,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 });
     }
 
-    private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
+    private void setupDialog(
+            Context context, AlertDialog.Builder builder, int optionId, Object data) {
         switch (optionId) {
             case TRACING_ENABLED_DIALOG:
                 builder.setIcon(R.drawable.notification_icon_beta_version)
@@ -150,7 +153,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     }
 
     private void updateTracingState() {
-        if (DeveloperUtils.hasTracingRequested(getActivity().getApplicationContext())) {
+        if (DeveloperUtils.hasTracingRequested(requireContext().getApplicationContext())) {
             mFlipper.setText("Disable tracing");
         } else {
             mFlipper.setText("Enable tracing");
@@ -162,11 +165,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
             mProgressIndicator.setVisibility(View.INVISIBLE);
         }
 
-        if (!DeveloperUtils.hasTracingStarted() && DeveloperUtils.getTraceFile().exists()) {
-            mShareButton.setEnabled(true);
-        } else {
-            mShareButton.setEnabled(false);
-        }
+        mShareButton.setEnabled(
+                !DeveloperUtils.hasTracingStarted() && DeveloperUtils.getTraceFile().exists());
     }
 
     @Override
@@ -197,11 +197,11 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     }
 
     private void onUserClickedMemoryDump() {
-        final Context applicationContext = getActivity().getApplicationContext();
+        final Context applicationContext = requireContext().getApplicationContext();
 
         mDisposable.dispose();
         mDisposable =
-                RxProgressDialog.create(this, getActivity(), R.layout.progress_window)
+                RxProgressDialog.create(this, requireActivity(), R.layout.progress_window)
                         .subscribeOn(RxSchedulers.background())
                         .map(fragment -> Pair.create(fragment, DeveloperUtils.createMemoryDump()))
                         .observeOn(RxSchedulers.mainThread())
@@ -239,15 +239,15 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 memDump,
                 "AnySoftKeyboard Memory Dump File",
                 "Hi! Here is a memory dump file for "
-                        + DeveloperUtils.getAppDetails(getActivity().getApplicationContext())
-                        + DeveloperUtils.NEW_LINE
-                        + DeveloperUtils.getSysInfo(getActivity()));
+                        + DeveloperUtils.getAppDetails(requireContext().getApplicationContext())
+                        + Logger.NEW_LINE
+                        + ChewbaccaUtils.getSysInfo(getActivity()));
     }
 
     private void onUserClickedFlipTracing() {
         final boolean enable =
-                !DeveloperUtils.hasTracingRequested(getActivity().getApplicationContext());
-        DeveloperUtils.setTracingRequested(getActivity().getApplicationContext(), enable);
+                !DeveloperUtils.hasTracingRequested(requireContext().getApplicationContext());
+        DeveloperUtils.setTracingRequested(requireContext().getApplicationContext(), enable);
 
         updateTracingState();
 
@@ -263,16 +263,16 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 DeveloperUtils.getTraceFile(),
                 "AnySoftKeyboard Trace File",
                 "Hi! Here is a tracing file for "
-                        + DeveloperUtils.getAppDetails(getActivity().getApplicationContext())
+                        + DeveloperUtils.getAppDetails(requireContext().getApplicationContext())
                         + DeveloperUtils.NEW_LINE
-                        + DeveloperUtils.getSysInfo(getActivity()));
+                        + ChewbaccaUtils.getSysInfo(requireContext()));
     }
 
     private void onUserClickedShowLogCat() {
-        ((FragmentChauffeurActivity) getActivity())
-                .addFragmentToUi(
-                        new LogCatViewFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+        Navigation.findNavController(requireView())
+                .navigate(
+                        DeveloperToolsFragmentDirections
+                                .actionDeveloperToolsFragmentToLogCatViewFragment());
     }
 
     private void onUserClickedShareLogCat() {
@@ -280,9 +280,9 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
                 null,
                 "AnySoftKeyboard LogCat",
                 "Hi! Here is a LogCat snippet for "
-                        + DeveloperUtils.getAppDetails(getActivity().getApplicationContext())
+                        + DeveloperUtils.getAppDetails(requireContext().getApplicationContext())
                         + DeveloperUtils.NEW_LINE
-                        + DeveloperUtils.getSysInfo(getActivity())
+                        + ChewbaccaUtils.getSysInfo(requireContext())
                         + DeveloperUtils.NEW_LINE
                         + Logger.getAllLogLines());
     }
@@ -304,7 +304,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
             startActivity(sender);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(
-                            getActivity().getApplicationContext(),
+                            requireContext().getApplicationContext(),
                             "Unable to send bug report via e-mail!",
                             Toast.LENGTH_LONG)
                     .show();

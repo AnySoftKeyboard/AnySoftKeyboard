@@ -44,8 +44,21 @@
         <item name="android:theme">@style/Theme.AskPreference</item>
     </style>
 
+    <style name="Theme.AskAlertDialog"
+        parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:textColorLink">@color/text_color_link</item>
+        <item name="colorAccent">@color/app_accent</item>
+
+        <item name="colorPrimary">@color/app_color_primary</item>
+        <item name="colorPrimaryDark">@color/app_color_primary_dark</item>
+
+        <item name="android:textAppearance">@style/Ask.Text.Normal</item>
+        <item name="android:textAppearanceSmall">@style/Ask.Text.Small</item>
+        <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>
+    </style>
+
     <style name="Theme.AskApp"
-           parent="Theme.AppCompat.DayNight">
+        parent="Theme.AppCompat.DayNight">
         <item name="android:textColorLink">@color/text_color_link</item>
         <item name="colorAccent">@color/app_accent</item>
         <!-- I'm going to use the keyboard's background, so no need for double drawing -->
@@ -58,19 +71,6 @@
         <item name="android:textAppearance">@style/Ask.Text.Normal</item>
         <item name="android:textAppearanceSmall">@style/Ask.Text.Small</item>
         <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>
-    </style>
-
-    <style name="Theme.AskFileExplorer"
-        parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:textColorLink">@color/text_color_link</item>
-        <item name="colorAccent">@color/app_accent</item>
-        <!-- I'm going to use the keyboard's background, so no need for double drawing -->
-        <item name="android:imeFullscreenBackground">@null</item>
-        <item name="preferenceTheme">@style/Theme.AskPrefs</item>
-
-        <item name="colorPrimary">@color/app_color_primary</item>
-        <item name="colorPrimaryDark">@color/app_color_primary_dark</item>
-
     </style>
 
     <style name="Theme.AskApp.NoTitle"
@@ -99,7 +99,7 @@
     </style>
 
     <style name="Ask.Text.SuggestionsAction"
-           parent="Ask.Text">
+        parent="Ask.Text">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:shadowColor">#000</item>
@@ -114,6 +114,12 @@
         <item name="android:shadowRadius">0</item>
         <item name="android:textColor">#CCC</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Ask.Text.SuggestionsAction.Small"
+        parent="Ask.Text.SuggestionsAction">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
     </style>
 
     <style name="Ask.Text.Title"
@@ -144,9 +150,15 @@
     </style>
 
     <style name="Ask.Text.Link"
-           parent="Ask.Text.Normal">
+        parent="Ask.Text.Normal">
         <item name="android:textColor">?android:textColorLink</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
+    </style>
+
+    <style name="Ask.Text.Link.Small"
+        parent="Ask.Text.Normal">
+        <item name="android:textColor">?android:textColorLink</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
     </style>
 
     <style name="Ask.Text.Hint"

@@ -13,9 +13,9 @@
     </string>
     <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
     <string name="testers_version">Wersja dla testerów!</string>
-    <string name="language_root_tile">Języki</string>
+    <string name="language_root_tile">Język</string>
     <string name="language_keyboards_settings_tile">Dodaj klawiatury i języki.</string>
-    <string name="language_grammar_settings_tile">Skonfiguruj korektę i inne słowniki.</string>
+    <string name="language_grammar_settings_tile">Skonfiguruj zachowanie korekty i słowniki.</string>
     <string name="language_tweaks_settings_tile">Więcej ustawień.</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">Interfejs użytkownika</string>
@@ -25,9 +25,9 @@
     <!-- changelog -->
     <string name="changelog">Lista zmian</string>
     <string name="search_market_for_addons">Szukaj dodatków</string>
-    <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur z Google Play</string>
-    <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play...</string>
-    <string name="no_market_store_available">Na Twoim urządzeniu nie odnaleziono <i>Sklepu Google Play</i>.\nNie udało się wyszukać dodatków!</string>
+    <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur ze sklepu z aplikacjami</string>
+    <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
+    <string name="no_market_store_available">Na twoim urządzeniu nie odnaleziono sklepu z aplikacjami.\nNie udało się wyszukać dodatków!</string>
     <string name="keyboard_theme_tweak_group">Ulepszenia</string>
     <string name="close_button">Zamknij</string>
     <string name="delete_button">Usuń</string>
@@ -37,15 +37,16 @@
     <string name="removed_word">Usunięto:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Dotknij ponownie, aby zapisać</string>
     <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
+    <string name="hint_click_for_inline_suggestions">Dostępne propozycje autouzupełniania</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Wprowadzanie głosowe niezainstalowane</string>
-    <string name="voice_input_not_installed_text">Pisanie głosowe nie jest zainstalowane na Twoim urządzeniu\nMożna
-        to łatwo naprawić: pobierz je ze <i>Sklepu Google Play</i>.
+    <string name="voice_input_not_installed_text">Pisanie głosowe nie jest zainstalowane na twoim urządzeniu\nMożna
+        to łatwo naprawić: pobierz je ze sklepu z aplikacjami.
     </string>
     <string name="voice_input_not_installed_action_install">Zainstaluj</string>
     <string name="voice_input_not_installed_action_do_not_install">Nie</string>
     <string name="voice_input_not_voice_pack_in_market">Pisanie głosowe
-        (com.google.android.voicesearch) nie znalezione w <i>Sklepie Google Play</i>. Przykro nam, pisanie głosowe nie będzie działało na Twoim
+        (com.google.android.voicesearch) nie zostało znalezione w sklepie z aplikacjami. Przykro nam, pisanie głosowe nie będzie działało na twoim
         urządzeniu.
     </string>
     <!-- Options menu -->
@@ -62,14 +63,14 @@
     <string name="use_system_vibration_title">Użyj wibracji systemu</string>
     <string name="use_system_vibration_off_summary">Używaj niestandardowych ustawień wibracji</string>
     <string name="use_system_vibration_on_summary">Używaj ustawień wibracji systemu Android</string>
-    <string name="vibrate_on_key_press_title">Wibruj przy naciśnięciu</string>
+    <string name="vibrate_on_key_press_title">Wibracja przy naciśnięciu klawisza</string>
     <string name="vibrate_on_key_press_value_template">%d ms</string>
     <string name="night_mode_screen">Ustawienia trybu nocnego</string>
     <string name="night_mode_description">Tryb nocny zmieni następujące funkcje:</string>
     <string name="night_mode_state_summary">Obecnie tryb nocny wyzwala:\u0020%s</string>
     <string name="night_mode_dialog_title">Włącz tryb nocny</string>
     <string name="night_mode_type_never">Nigdy</string>
-    <string name="night_mode_type_follow_system">Użyj ustawień systemu</string>
+    <string name="night_mode_type_follow_system">Zgodnie z motywem systemu</string>
     <string name="night_mode_type_always">Zawsze</string>
     <string name="night_mode_app_night_theme">Użyj ciemnego stylu w ustawieniach aplikacji</string>
     <string name="night_mode_darken_keyboard_theme">Użyj ciemnego motywu klawiatury</string>
@@ -97,11 +98,11 @@
     <string name="pop_text_type_on_correction">Po korekcie słowa</string>
     <string name="pop_text_type_on_word">Po każdym słowie</string>
     <string name="pop_text_type_any_key">Po każdym wciśnięciu klawisza</string>
-    <string name="input_field_type_password">Wpisywanie haseł</string>
-    <string name="input_field_type_email">Wpisywanie adresów e-mail</string>
-    <string name="input_field_type_url">Wpisywanie adresów URL</string>
-    <string name="input_field_type_im">Pisanie wiadomości w komunikatorach</string>
-    <string name="sound_on">Dźwięk przy naciśnięciu</string>
+    <string name="input_field_type_password">Pole hasła</string>
+    <string name="input_field_type_email">Pole wprowadzania adresu e-mail</string>
+    <string name="input_field_type_url">Pole wprowadzania adresu URL</string>
+    <string name="input_field_type_im">Pole wprowadzania wiadomości</string>
+    <string name="sound_on">Dźwięk przy naciśnięciu klawisza</string>
     <string name="sound_on_summary">Efekt dźwiękowy przy naciśnięciu klawisza.</string>
     <string name="use_custom_sound_volume">Dostosuj głośność</string>
     <string name="use_custom_sound_volume_on_summary">Głośność efektów dźwiękowych jest niestandardowa.</string>
@@ -109,11 +110,11 @@
     <string name="custom_sound_volume">Własna głośność naciśnięcia klawisza</string>
     <string name="vibrate_on_long_press_title">Wibracja przy przytrzymaniu</string>
     <string name="vibrate_on_long_press_summary_on">Delikatna wibracja po wywołaniu akcji długiego przytrzymania.</string>
-    <string name="switch_keyboard_on_space">Spacja zmienia klawiatury</string>
+    <string name="switch_keyboard_on_space">Spacja przełącza klawiatury</string>
     <string name="switch_keyboard_on_space_on_summary">Przejdź z symboli/cyfr do alfabetu naciskając spację.</string>
     <string name="switch_keyboard_on_space_off_summary">Nie przechodź z symboli/cyfr do alfabetu naciskając spację.</string>
     <string name="colorize_nav_bar_title">Rysuj pod paskiem nawigacji</string>
-    <string name="colorize_nav_bar_summary_on">Tło zostanie narysowane pod paskiem nawigacji. Funkcja niedostępna na niektórych urządzeniach.</string>
+    <string name="colorize_nav_bar_summary_on">Rysuj tło klawiatury pod paskiem nawigacji. Funkcja nie jest wspierana przez wszystkie urządzenia.</string>
     <string name="colorize_nav_bar_summary_off">Nie rysuj tła pod paskiem nawigacji.</string>
     <string name="persistent_layout_per_package_id_title">Zapamiętuj układ alfabetu dla każdej aplikacji</string>
     <string name="persistent_layout_per_package_id_off_summary">Używaj tego samego układu dla wszystkich aplikacji.</string>
@@ -121,14 +122,13 @@
     <string name="one_shot_quick_text_popup">Zamknij automatycznie po naciśnięciu klawisza</string>
     <string name="one_shot_quick_text_popup_on_summary">Zamknij okno szybkiego tekstu po naciśnięciu klawisza</string>
     <string name="one_shot_quick_text_popup_off_summary">Okno szybkiego tekstu zamykanie się po naciśnięciu klawisza</string>
-    <string name="quick_text_tags_search">Sugeruj emoji przy wpisywaniu tagów</string>
-    <string name="quick_text_tags_search_on_summary">Rozpocznij pisanie od dwukropka (:) aby znaleźć emoji po tagach    </string>
-    <string name="hide_soft_when_physical">Ukryj przy klawiaturze fizycznej</string>
+    <string name="quick_text_tags_search">Sugeruj emoji przez wpisywanie tagów</string>
+    <string name="quick_text_tags_search_on_summary">Wyszukaj emoji po tagu, rozpoczynając pisanie od dwukropka (:)</string>
+    <string name="hide_soft_when_physical">Ukryj klawiaturę ekranową po naciśnięciu przycisku na klawiaturze fizycznej</string>
     <string name="hide_soft_when_physical_on_summary">Ukryj klawiaturę programową, gdy używana jest
         klawiatura fizyczna
     </string>
-    <string name="hide_soft_when_physical_off_summary">Pokaż klawiaturę programową, gdy używana
-        jest klawiatura fizyczna
+    <string name="hide_soft_when_physical_off_summary">Wyświetlaj klawiaturę programową, gdy używana jest klawiatura fizyczna
     </string>
     <string name="enable_alt_space_language_shortcut">Alt + Spacja zmienia języki</string>
     <string name="enable_alt_space_language_shortcut_on_summary">Zmień layout po wciśnięciu Alt + Spacja na klawiaturze sprzętowej.</string>
@@ -207,6 +207,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Zwarty układ po prawej</string>
     <string name="swipe_action_name_compact_layout_to_left">Zwarty układ po lewej</string>
     <string name="swipe_action_name_utility_keyboard">Pokaż klawiaturę użytkową</string>
+    <string name="swipe_action_name_quick_text_popup">Pokaż wyskakujące okno emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Próg prędkości przesuwania</string>
     <string name="settings_swipe_velocity_threshold_summary">Minimalna prędkość gestów przesuwania. Obecnie: %s</string>
     <string name="settings_swipe_velocity_very_slow">Bardzo powoli</string>
@@ -268,8 +269,6 @@
         hasła, adresy URL, itp.).
     </string>
     <string name="tweak_dictionary_group">Ulepszenia słownika</string>
-    <string name="settings_min_length_for_word_correction">Minimalna długość wyrazu do korekty
-    </string>
     <string name="show_keyboard_name_text">Pokaż nazwę klawiatury</string>
     <string name="show_keyboard_name_on_summary">Pokaż nazwę klawiatury na spacji</string>
     <string name="show_keyboard_name_off_summary">Nigdy nie pokazuj nazwy klawiatury</string>
@@ -468,6 +467,7 @@ Zmiana
     <string name="extension_kbd_bottom_minimal">Minimalny</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalny (bez emotek)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalny (mniej interpunkcji)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimalny (wariant)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Przejdź</string>
@@ -563,20 +563,6 @@ Zmiana
     <string name="user_dict_settings_empty_text">Nie masz żadnych słów w słowniku użytkownika.
         Możesz teraz dodać pierwsze słowo.
     </string>
-    <string name="user_dict_backup_success_title">Kopia zapasowa gotowa!</string>
-    <string name="user_dict_backup_success_text">Pomyślnie zapisano Twoje słowa w pamięci urządzenia
-        w\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Tworzenie kopii nie powiodło się!</string>
-    <string name="user_dict_backup_fail_text_with_error">Nie udało się zapisać słów z powodu:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Przywracanie gotowe!</string>
-    <string name="user_dict_restore_success_text">Pomyślnie przywrócono wyrazy.</string>
-    <string name="user_dict_restore_fail_title">Przywracanie nie powiodło się!</string>
-    <string name="user_dict_restore_fail_text_with_error">Nie udało się przywrócić słów z powodu:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">Zamień znaki interpunkcyjne i spację</string>
     <string name="should_swap_punctuation_and_space_off_summary">Nie zamieniaj spacji i
         znaków interpunkcyjnych.
@@ -618,7 +604,7 @@ Zmiana
         tutaj, aby to zrobić.
     </string>
     <string name="not_configured_with_just_click_here">Dotknij tutaj</string>
-    <string name="click_for_more">więcej...</string>
+    <string name="click_for_more">więcej…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Dodaj słowo</string>
@@ -629,16 +615,6 @@ Zmiana
     <string name="enter_abbreviation_hint">Skrót</string>
     <string name="enter_abbreviation_target_hint">Pełne zdanie</string>
     <string name="toast_error_custom_path_backup">Błąd: Aplikacja kontekstowa może być otwarta</string>
-    <string name="file_explorer_menu_add_folder">Utwórz folder</string>
-    <string name="file_explorer_filename">Nazwa kopii zapasowej…</string>
-    <string name="file_explorer_filename_empty">Nazwa pliku nie może być pusta…</string>
-    <string name="file_explorer_alert_title">Wybrać ten plik?</string>
-    <string name="file_explorer_restore_alert_message">Czy chcesz przywrócić ten plik?</string>
-    <string name="file_explorer_backup_alert_message">Ten plik zostanie nadpisany.</string>
-    <string name="file_explorer_backup_success">Twoje dane zostały zapisane w\u0020</string>
-    <string name="file_explorer_backup_failed">Twoje dane nie zostały zapisane.</string>
-    <string name="file_explorer_restore_success">Twoje dane zostały przywrócone z\u0020</string>
-    <string name="file_explorer_restore_failed">Nie udało się przywrócić Twoich danych.</string>
     <string name="about_additional_software_licenses">Dodatkowe Licencje Oprogramowania</string>
     <string name="setup_wizard_step_one_title">Włącz AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">W tym kroku musisz włączyć <i>
@@ -750,6 +726,7 @@ Zmiana
         więc nie możemy wysyłać żadnych danych z urządzenia.
     </string>
     <string name="setup_wizard_welcome_privacy_action">Przejdź do polityki prywatności…</string>
+    <string name="setup_wizard_skip">Pomiń</string>
     <string name="clear_all_dictionary_override">Wyczyść nadpisania</string>
     <string name="theme_case_type_override_dialog_title">Wybierz nadpisanie wielkości liter</string>
     <string name="theme_case_type_override_theme">Użyj stylu motywu</string>
@@ -777,7 +754,6 @@ Zmiana
     <string name="prefs_providers_backed_up_to">Pomyślnie utworzono kopię zapasową danych w %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nie udało się przywrócić kopii zapasowej z powodu %s</string>
     <string name="prefs_providers_restored_to">Pomyślnie przywrócono kopię zapasową z %s</string>
-    <string name="word_editor_action_choose_path">Wybierz niestandardową ścieżkę</string>
     <string name="allow_layouts_to_provide_generic_rows">Klawiatury mogą dostarczać ogólne rzędy</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Zawsze używaj ogólnych rzędów.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Zezwalaj układom na zastępowanie ogólnych rzędów</string>
@@ -787,6 +763,7 @@ Zmiana
     <string name="gesture_typing_alert_title">Funkcja w wersji BETA!</string>
     <string name="gesture_typing_alert_message">Funkcja pisania gestami ➿ jest w wersji <b>beta</b>. Zdarzają się błędy, może działać powoli i nie we wszystkich przypadkach.\nNiemniej jednak warto ją wypróbować.</string>
     <string name="gesture_typing_alert_button">Rozumiem</string>
+    <string name="undo_gesture_typing">Cofnij pisanie gestami</string>
     <string name="apply_remote_app_colors_to_theme">Dostosuj motyw do używanej aplikacji</string>
     <string name="apply_overlay_summary_on">Kolory klawiatury dopasują się do używanej aplikacji.</string>
     <string name="apply_overlay_summary_off">Używaj kolorów motywu.</string>
@@ -797,7 +774,10 @@ Zmiana
     <string name="aosp_light_theme_description">AOSP - Motyw klawiatury inspirowany jasnymi kolorami</string>
     <string name="app_share_title">Pozdrowienia od AnySoftKeyboard</string>
     <string name="app_share_menu_title">Udostępnij AnySoftKeyboard używając</string>
-    <string name="app_share_text">Pozwól mi polecić open-source, skoncentrowaną na prywatności, bezpłatną, wysoce konfigurowalną, wielojęzyczną aplikację klawiatury dla Android: AnySoftKeyboard.\nPobierz ją z:\nSklep Google Play: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="app_share_text">Pozwól mi polecić aplikację o otwartym kodzie, skoncentrowaną na prywatności, bezpłatną, wysoce konfigurowalną, wielojęzyczną klawiaturę dla systemu Android: AnySoftKeyboard.\nPobierz ją z:\nSklep Google Play: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Dotknij, to niespodzianka</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">Nieobsługiwane na twoim Androidzie</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
+    <string name="delete_all_clipboard_entries">Wyczyść schowek</string>
+    <string name="tip_swipe_from_backspace_to_clear">Wskazówka: możesz przesunąć palcem w lewo od backspace, aby wyczyścić słowo!</string>
 </resources>

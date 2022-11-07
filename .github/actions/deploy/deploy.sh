@@ -3,6 +3,8 @@ set -e
 
 DEPLOYMENT_ENVIRONMENT="${1}"
 shift
+PREVIOUS_DEPLOYMENT_ENVIRONMENT="${1}"
+shift
 DEPLOYMENT_TASK="${1}"
 shift
 export ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL="${1}"
@@ -15,19 +17,19 @@ export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
 
 function deployProcessFromEnvironmentName() {
-    #imeMaster_alpha_100
+    #imeMain_alpha_100
     [[ $1 =~ ([a-zA-Z]+)_.*_.* ]]
     echo "${BASH_REMATCH[1]}"
 }
 
 function deployChannelFromEnvironmentName() {
-    #imeMaster_alpha_100
+    #imeMain_alpha_100
     [[ $1 =~ .*_([a-zA-Z]+)_.* ]]
     echo "${BASH_REMATCH[1]}"
 }
 
 function deployFractionFromEnvironmentName() {
-    #imeMaster_alpha_100
+    #imeMain_alpha_100
     [[ $1 =~ .*_.*_([0-9]+) ]]
     local PERCENTAGE="${BASH_REMATCH[1]}"
     echo "$(echo "${PERCENTAGE}" | cut -c1-1).$(echo "${PERCENTAGE}" | cut -c2-3)"
@@ -51,29 +53,34 @@ for f in $(find . -name 'alpha.txt'); do
 done
 
 DEPLOY_ARGS=()
-DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" ":generateFdroidYamls" )
+DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" "-PonlyPublishSupporting=${DEPLOY_CHANNEL}" )
 if [[ "${FRACTION}" == "1.00" ]]; then
   DEPLOY_ARGS+=("--release-status" "completed")
 else
   DEPLOY_ARGS+=("--release-status" "inProgress" "--user-fraction" "${FRACTION}")
 fi
 
+# we will call assemble, bundle and publish to ensure:
+# 1) we have the APK file
+# 2) we have the aab file
+# 3) we have uploaded (published) the AAB file to Play Store
+
 if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
   case "${PROCESS_NAME}" in
 
-    imeMaster)
-      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:publishCanaryApk" )
+    imeMain)
+      DEPLOY_TASKS+=( "ime:app:assembleCanary" "ime:app:bundleCanary" "ime:app:publishCanaryBundle" )
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
       ;;
 
     imeProduction)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:publishReleaseApk" )
+      DEPLOY_TASKS+=( "ime:app:assembleRelease" "ime:app:bundleRelease" "ime:app:publishReleaseBundle" )
       ;;
 
     addOns*)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "assembleRelease" "publishReleaseApk" "-x" "ime:app:assembleRelease" "-x" "ime:app:publishReleaseApk" )
+      DEPLOY_TASKS+=( "assembleRelease" "bundleRelease" "publishReleaseBundle" "-x" "ime:app:assembleRelease" "-x" "ime:app:bundleRelease" "-x" "ime:app:publishReleaseBundle" )
       ;;
 
     *)
@@ -83,28 +90,29 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
 
   esac
 elif [[ "${DEPLOYMENT_TASK}" == "deploy:migration" ]]; then
+  PREVIOUS_DEPLOY_CHANNEL=$(deployChannelFromEnvironmentName "${PREVIOUS_DEPLOYMENT_ENVIRONMENT}")
   case "${PROCESS_NAME}" in
 
     ime*)
-      DEPLOY_ARGS+=( "--promote-track" "${DEPLOY_CHANNEL}" )
+      DEPLOY_ARGS+=( "--from-track" "${PREVIOUS_DEPLOY_CHANNEL}" "--promote-track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "ime:app:promoteReleaseArtifact" )
       ;;
 
     addOns*)
-      DEPLOY_ARGS+=( "--promote-track" "${DEPLOY_CHANNEL}" )
+      DEPLOY_ARGS+=( "--from-track" "${PREVIOUS_DEPLOY_CHANNEL}" "--promote-track" "${DEPLOY_CHANNEL}" )
       DEPLOY_TASKS+=( "promoteReleaseArtifact" "-x" "ime:app:promoteReleaseArtifact" )
       ;;
 
   esac
 fi
 
-echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}"
+echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL}, and tasks: ${DEPLOY_TASKS[*]}, and DEPLOY_ARGS: ${DEPLOY_ARGS[*]}"
 
 ./gradlew "${DEPLOY_TASKS[@]}" "${DEPLOY_ARGS[@]}"
 
 #Making sure no future deployments will happen on this branch.
 if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; then
-  echo "A succesfull full deploy to production has finished."
+  echo "A successful full deploy to production has finished."
   MARKER_FILE="deployment/halt_deployment_marker"
   if [[ -f "${MARKER_FILE}" ]]; then
     echo "${MARKER_FILE} exits. No need to create another."

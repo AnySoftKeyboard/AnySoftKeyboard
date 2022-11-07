@@ -14,5 +14,5 @@
         id="7974f964-4ee2-11ea-9262-002618061037"
         index="1"
         layoutResId="@xml/coptic"
-        nameResId="@string/keyboard_name" />
+        nameResId="@string/coptic_keyboard_name" />
 </Keyboards>

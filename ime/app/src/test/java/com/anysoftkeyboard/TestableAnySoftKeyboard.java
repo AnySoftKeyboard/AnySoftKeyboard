@@ -13,7 +13,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.HorizontalScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
@@ -25,7 +24,10 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.dictionaries.SuggestImpl;
+import com.anysoftkeyboard.dictionaries.SuggestionsProvider;
 import com.anysoftkeyboard.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardClipboard;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -197,7 +199,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @NonNull
     @Override
     protected Suggest createSuggest() {
-        return Mockito.spy(new TestableSuggest(super.createSuggest()));
+        return Mockito.spy(
+                new TestableSuggest(
+                        new SuggestImpl(
+                                new SuggestionsProvider(this) {
+                                    @NonNull
+                                    @Override
+                                    protected ContactsDictionary createRealContactsDictionary() {
+                                        return Mockito.mock(ContactsDictionary.class);
+                                    }
+                                })));
     }
 
     // MAGIC: now it is visible for tests
@@ -292,16 +303,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     protected KeyboardViewContainerView createInputViewContainer() {
         final KeyboardViewContainerView originalInputContainer = super.createInputViewContainer();
-        AnyKeyboardView inputView = (AnyKeyboardView) originalInputContainer.getChildAt(2);
-        HorizontalScrollView inlineAutofillView =
-                (HorizontalScrollView) originalInputContainer.getChildAt(0);
+        AnyKeyboardView inputView =
+                (AnyKeyboardView) originalInputContainer.getStandardKeyboardView();
 
         originalInputContainer.removeAllViews();
         mMockCandidateView = Mockito.mock(CandidateView.class);
         setupMockCandidateView();
         mSpiedKeyboardView = Mockito.spy(inputView);
 
-        originalInputContainer.addView(Mockito.spy(inlineAutofillView));
         originalInputContainer.addView(mMockCandidateView);
         originalInputContainer.addView(mSpiedKeyboardView);
 
@@ -580,55 +589,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
     }
 
-    //    public static class TestableSuggest extends Suggest {
-    //
-    //        private boolean mHasMinimalCorrection;
-    //        private boolean mEnabledSuggestions;
-    //
-    //        public TestableSuggest(Context context) {
-    //            super(context);
-    //        }
-    //
-    //        @Override
-    //        public void setCorrectionMode(
-    //                boolean enabledSuggestions,
-    //                int maxLengthDiff,
-    //                int maxDistance,
-    //                int minimumWorLength) {
-    //            super.setCorrectionMode(
-    //                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
-    //            mEnabledSuggestions = enabledSuggestions;
-    //        }
-    //
-    //        @Override
-    //        public List<CharSequence> getSuggestions(
-    //                WordComposer wordComposer, boolean includeTypedWordIfValid) {
-    //            if (!mEnabledSuggestions) return Collections.emptyList();
-    //
-    //            if (wordComposer.isAtTagsSearchState()) {
-    //                return super.getSuggestions(wordComposer, includeTypedWordIfValid);
-    //            }
-    //
-    //            String word = wordComposer.getTypedWord().toString().toLowerCase();
-    //
-    //            ArrayList<CharSequence> suggestions = new ArrayList<>();
-    //            suggestions.add(wordComposer.getTypedWord());
-    //            if (mDefinedWords.containsKey(word)) {
-    //                suggestions.addAll(mDefinedWords.get(word));
-    //                mHasMinimalCorrection = true;
-    //            } else {
-    //                mHasMinimalCorrection = false;
-    //            }
-    //
-    //            return suggestions;
-    //        }
-    //
-    //        @Override
-    //        public boolean hasMinimalCorrection() {
-    //            return mHasMinimalCorrection;
-    //        }
-    //    }
-
     public static class TestableKeyboardSwitcher extends KeyboardSwitcher {
 
         private boolean mKeyboardsFlushed;
@@ -723,12 +683,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         @Override
         public void setCorrectionMode(
-                boolean enabledSuggestions,
-                int maxLengthDiff,
-                int maxDistance,
-                int minimumWorLength) {
-            mDelegate.setCorrectionMode(
-                    enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
+                boolean enabledSuggestions, int maxLengthDiff, int maxDistance) {
+            mDelegate.setCorrectionMode(enabledSuggestions, maxLengthDiff, maxDistance);
         }
 
         @Override
@@ -765,14 +721,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
-        public List<CharSequence> getSuggestions(
-                WordComposer wordComposer, boolean includeTypedWordIfValid) {
-            return mDelegate.getSuggestions(wordComposer, includeTypedWordIfValid);
+        public List<CharSequence> getSuggestions(WordComposer wordComposer) {
+            return mDelegate.getSuggestions(wordComposer);
         }
 
         @Override
-        public boolean hasMinimalCorrection() {
-            return mDelegate.hasMinimalCorrection();
+        public int getLastValidSuggestionIndex() {
+            return mDelegate.getLastValidSuggestionIndex();
         }
 
         @Override

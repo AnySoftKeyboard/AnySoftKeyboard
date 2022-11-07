@@ -22,9 +22,8 @@ public class NextWordsStorage {
 
     @NonNull
     public Iterable<NextWordsContainer> loadStoredNextWords() {
-        FileInputStream inputStream = null;
-        try {
-            inputStream = mContext.openFileInput(mNextWordsStorageFilename);
+        try (final FileInputStream inputStream =
+                mContext.openFileInput(mNextWordsStorageFilename)) {
             final int version = inputStream.read();
             if (version < 1) {
                 Log.w(TAG, "Failed to read version from file " + mNextWordsStorageFilename);
@@ -56,13 +55,6 @@ public class NextWordsStorage {
                             "Failed to open %s. Maybe it's just the first time.",
                             mNextWordsStorageFilename));
             return Collections.emptyList();
-        } finally {
-            if (inputStream != null)
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    Log.w(TAG, e);
-                }
         }
     }
 

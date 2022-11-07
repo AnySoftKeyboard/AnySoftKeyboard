@@ -48,6 +48,8 @@
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
 
+    <string name="hint_click_for_inline_suggestions">Available auto-fill suggestions</string>
+
     <!-- voice -->
     <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
     <string name="voice_input_not_installed_text">Voice Input is not installed on your device.\nThat
@@ -248,6 +250,7 @@
     <string name="swipe_action_name_compact_layout_to_left">Compact layout to left</string>
 
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
+    <string name="swipe_action_name_quick_text_popup">Show emoji popup</string>
 
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
     <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed. Currently, %s</string>
@@ -323,8 +326,7 @@
     </string>
 
     <string name="tweak_dictionary_group">Dictionary tweaks</string>
-    <string name="settings_min_length_for_word_correction">Minimum word length for correction
-    </string>
+    
 
     <string name="show_keyboard_name_text">Show keyboard name</string>
     <string name="show_keyboard_name_on_summary">Show keyboard name on space-bar</string>
@@ -557,6 +559,7 @@
     <string name="extension_kbd_bottom_minimal">Minimal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (no emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (less punctuation)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimal (alternate)</string>
 
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
@@ -670,21 +673,15 @@
         You can add your first word now.
     </string>
 
-    <string name="user_dict_backup_success_title">Backup done!</string>
-    <string name="user_dict_backup_success_text">Successfully stored your words on device storage
-        at\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Backup failed!</string>
-    <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
 
-    <string name="user_dict_restore_success_title">Restore done!</string>
-    <string name="user_dict_restore_success_text">Successfully restored your words.</string>
-    <string name="user_dict_restore_fail_title">Restore failed!</string>
-    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    
+    
+    
+    
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and
@@ -749,17 +746,17 @@
     <string name="enter_abbreviation_target_hint">Full sentence</string>
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
 
-    <string name="file_explorer_menu_add_folder">Create folder</string>
-    <string name="file_explorer_filename">Backup filename…</string>
-    <string name="file_explorer_filename_empty">Filename cannot be empty…</string>
-    <string name="file_explorer_alert_title">Select this file ?</string>
-    <string name="file_explorer_restore_alert_message">Do you want to restore this file ?</string>
-    <string name="file_explorer_backup_alert_message">This file will be overwritten.</string>
+    
+    
+    
+    
+    
+    
 
-    <string name="file_explorer_backup_success">Your data have been saved to\u0020</string>
-    <string name="file_explorer_backup_failed">Your data have failed to be saved.</string>
-    <string name="file_explorer_restore_success">Your data have been restored from\u0020</string>
-    <string name="file_explorer_restore_failed">Your data have failed to be restored.</string>
+    
+    
+    
+    
 
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
 
@@ -894,6 +891,7 @@
         </i> permissions, so we can not send any data off the device.
     </string>
     <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
+    <string name="setup_wizard_skip">Skip</string>
     <string name="clear_all_dictionary_override">Clear overrides</string>
 
     <string name="theme_case_type_override_dialog_title">Pick letter-case override</string>
@@ -926,7 +924,7 @@
     <string name="prefs_providers_backed_up_to">You data was successfully backed-up to %s</string>
     <string name="prefs_providers_failed_restore_due_to">Failed to restore your data due to %s</string>
     <string name="prefs_providers_restored_to">You data was successfully restored from %s</string>
-    <string name="word_editor_action_choose_path">Choose custom path</string>
+    
 
     <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>
@@ -938,6 +936,7 @@
     <string name="gesture_typing_alert_title">BETA Feature!</string>
     <string name="gesture_typing_alert_message">The gesture-typing ➿ feature is at <b>beta</b> maturity. It has some bugs, not that fast, and not that complete.\nSaying that, you should try it out.</string>
     <string name="gesture_typing_alert_button">Got it</string>
+    <string name="undo_gesture_typing">Undo gesture typing</string>
     <string name="apply_remote_app_colors_to_theme">Change theme colors based on used app</string>
     <string name="apply_overlay_summary_on">Keyboard\'s colors will match active app (to the best of our ability).</string>
     <string name="apply_overlay_summary_off">Always use theme\'s colors.</string>
@@ -952,10 +951,11 @@
     <string name="app_share_title">Hello from AnySoftKeyboard</string>
     <string name="app_share_menu_title">Share AnySoftKeyboard using</string>
     <string name="app_share_text">Let me recommend the open-source, privacy-focus, free, highly customizable, multi-language Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
-    
+
     <string name="click_me_for_easter_egg_info">click me for a surprise</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
-    
+    <string name="backup_restore_not_support_before_kitkat">Not supported on your Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Backup and restore are not supported for devices running Android OS prior to KitKat (version 4.4). Sorry.</string>
+    <string name="delete_all_clipboard_entries">Empty clipboard</string>
 
-
+    <string name="tip_swipe_from_backspace_to_clear">Tip: you can swipe-left from the backspace to clear the word!</string>
 </resources>

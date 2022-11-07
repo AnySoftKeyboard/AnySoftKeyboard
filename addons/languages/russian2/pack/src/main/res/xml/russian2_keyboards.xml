@@ -92,4 +92,13 @@
         layoutResId="@xml/russian_english_qwerty"
         nameResId="РусEng"
         physicalKeyboardMappingResId="@xml/cyrillic_physical" />
+    
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Фонетический Colemak"
+        iconResId="@drawable/ic_status_russian2"
+        id="37d34ff0-2e6d-45e1-9083-88cf4b1d79be"
+        index="9"
+        layoutResId="@xml/russian_rulemak"
+        nameResId="Rulemak" />
 </Keyboards>

@@ -16,11 +16,9 @@
 
 package com.google.android.voiceime;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import java.util.ArrayList;
@@ -72,7 +70,6 @@ public class ActivityHelper extends Activity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private AlertDialog createResultDialog(final String[] recognitionResults) {
         final AlertDialog.Builder builder =
                 new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog_NoActionBar);

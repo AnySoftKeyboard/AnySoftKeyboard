@@ -40,12 +40,12 @@ public class NightModeSettingsFragment extends PreferenceFragmentCompat {
         MainSettingsActivity.setActivityTitle(this, getString(R.string.night_mode_screen));
         mAppNightModeDisposable =
                 NightMode.observeNightModeState(
-                                getContext(),
+                                requireContext(),
                                 R.string.settings_key_night_mode_app_theme_control,
                                 R.bool.settings_default_true)
                         .subscribe(
                                 enabled ->
-                                        ((AppCompatActivity) getActivity())
+                                        ((AppCompatActivity) requireActivity())
                                                 .getDelegate()
                                                 .applyDayNight(),
                                 GenericOnError.onError("NightModeSettingsFragment"));

@@ -10,24 +10,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
-import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnectionPrefsProvider;
-import com.anysoftkeyboard.prefs.backup.PrefsRoot;
-import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
-import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
 import java.util.List;
-import net.evendanan.pixel.RxProgressDialog;
 
 public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFragment {
-
-    private static final String ASK_ABBR_WORDS_SDCARD_FILENAME = "AbbrUserWords.xml";
 
     @NonNull private CompositeDisposable mDisposable = new CompositeDisposable();
 
@@ -42,85 +33,6 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
     public void onDestroy() {
         mDisposable.dispose();
         super.onDestroy();
-    }
-
-    @Override
-    protected void restoreFromStorage() {
-        // not calling base, since we have a different way of storing data
-        mDisposable.dispose();
-        mDisposable = new CompositeDisposable();
-
-        PrefsXmlStorage storage = new PrefsXmlStorage();
-        WordsSQLiteConnectionPrefsProvider provider =
-                new WordsSQLiteConnectionPrefsProvider(
-                        getContext(), AbbreviationsDictionary.ABBREVIATIONS_DB);
-
-        mDisposable.add(
-                RxProgressDialog.create(
-                                Pair.create(storage, provider),
-                                requireActivity(),
-                                R.layout.progress_window)
-                        .subscribeOn(RxSchedulers.background())
-                        .map(
-                                pair -> {
-                                    final PrefsRoot prefsRoot =
-                                            pair.first.load(
-                                                    AnyApplication.getBackupFile(
-                                                            requireContext(),
-                                                            ASK_ABBR_WORDS_SDCARD_FILENAME));
-                                    pair.second.storePrefsRoot(prefsRoot);
-                                    return Boolean.TRUE;
-                                })
-                        .observeOn(RxSchedulers.mainThread())
-                        .subscribe(
-                                o ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS),
-                                throwable ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_LOAD_FAILED,
-                                                throwable.getMessage()),
-                                this::fillWordsList));
-    }
-
-    @Override
-    protected void backupToStorage() {
-        // not calling base, since we have a different way of storing data
-        mDisposable.dispose();
-        mDisposable = new CompositeDisposable();
-
-        PrefsXmlStorage storage = new PrefsXmlStorage();
-        WordsSQLiteConnectionPrefsProvider provider =
-                new WordsSQLiteConnectionPrefsProvider(
-                        getContext(), AbbreviationsDictionary.ABBREVIATIONS_DB);
-
-        mDisposable.add(
-                RxProgressDialog.create(
-                                Pair.create(storage, provider),
-                                requireActivity(),
-                                R.layout.progress_window)
-                        .subscribeOn(RxSchedulers.background())
-                        .map(
-                                pair -> {
-                                    final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
-                                    pair.first.store(
-                                            prefsRoot,
-                                            AnyApplication.getBackupFile(
-                                                    requireContext(),
-                                                    ASK_ABBR_WORDS_SDCARD_FILENAME));
-
-                                    return Boolean.TRUE;
-                                })
-                        .observeOn(RxSchedulers.mainThread())
-                        .subscribe(
-                                o ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS),
-                                throwable ->
-                                        mDialogController.showDialog(
-                                                UserDictionaryEditorFragment.DIALOG_SAVE_FAILED,
-                                                throwable.getMessage()),
-                                this::fillWordsList));
     }
 
     @Override

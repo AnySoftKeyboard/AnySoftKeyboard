@@ -5,6 +5,7 @@
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for
         details.
     </string>
+    <string name="debug_tracing_finished">انتهى التتبع!\nملف التتبع هو\u0020<xliff:g id="trace_file">%s</xliff:g></string>
     <string name="menu_about_item">عن التطبيق</string>
     <string name="how_to_pointer_title">مرحبا بكم إلى AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020آخر التعديلات في الإصدار v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
@@ -56,6 +57,9 @@
     <string name="effects_group">التأثيرات</string>
     <string name="ime_settings">إعدادات لوحة المفاتيح</string>
     <string name="switch_incognito">وضع التخفي</string>
+    <string name="use_system_vibration_title">استخدام إهتزاز النظام</string>
+    <string name="use_system_vibration_off_summary">استخدام إعداد الاهتزاز المخصص</string>
+    <string name="use_system_vibration_on_summary">استخدام إعداد الإهتزاز المخصص لنظام الأندرويد</string>
     <string name="vibrate_on_key_press_title">اهتزاز عند النقر على مفتاح</string>
     <string name="vibrate_on_key_press_value_template">ملي ثانية %d</string>
     <string name="night_mode_screen">إعدادات الوضع الليلي</string>
@@ -124,6 +128,7 @@
     <string name="hide_soft_when_physical_off_summary">إظهار لوحة المفاتيح المرنة عند استخدام لوحة المفاتيح الفعلية</string>
     <string name="enable_alt_space_language_shortcut">مفاتيح ALT + زر المسافة البيضاء لتبديل اللغات</string>
     <string name="enable_alt_space_language_shortcut_on_summary">مفاتيح التشغيل Alt + المسافة لتبديل الى التخطيط التالي المتاح.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">تبديل العتاد + مسافة تدخل إلى مسافة.</string>
     <string name="enable_shift_space_language_shortcut">مفاتيح Shift + زر المسافة البيضاء لتبديل اللغات</string>
     <string name="fullscreen_input_connection_supported">استخدم الشكل العرضي عند ملء الشاشة </string>
     <string name="fullscreen_input_connection_supported_on_summary">التسلل فوق الشاشة عند
@@ -251,7 +256,6 @@
         كلمة المرور، URL، إلخ.) صفوف لاستخدامها
     </string>
     <string name="tweak_dictionary_group">تحسينات القاموس</string>
-    <string name="settings_min_length_for_word_correction">الحد الادنى لطول كلمة قبل التصحيح</string>
     <string name="show_keyboard_name_text">إظهر إسم لوحة المفاتيح</string>
     <string name="show_keyboard_name_on_summary">اظهر اسم لوحة المفاتيح على مفتاح المسافة</string>
     <string name="show_keyboard_name_off_summary">لا تظهر اسم لوحة المفاتيح ابدا </string>
@@ -477,20 +481,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">قاموس المستخدِم فارغ. يمكنك الآن إضافة كلمات إلى القائمة.</string>
-    <string name="user_dict_backup_success_title">تم النسخ الإحتياطي</string>
-    <string name="user_dict_backup_success_text">تم الإحتفاظ بمُفرداتك بنجاح على مساحة تخزين جهازك
-        في\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">فشل النسخ الإحتياطي </string>
-    <string name="user_dict_backup_fail_text_with_error">فشِلَت عملية الإحتفاظ بالمُفردات بسبب :\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">تمت الإستعادة </string>
-    <string name="user_dict_restore_success_text">تمت استعادة كلماتك بنجاح</string>
-    <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
-    <string name="user_dict_restore_fail_text_with_error">فشِلَت عملية استرجاع المفردات بسبب :\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
     <string name="should_swap_punctuation_and_space_off_summary">لا تقم بتبديل المسافة البيضاء و علامات التنقيط.
     </string>
@@ -507,12 +497,16 @@
     <string name="emoji_default_skin_tone_value_type_5">لون داكن نسبيا</string>
     <string name="emoji_default_skin_tone_value_type_6">لون داكن</string>
     <string name="emoji_default_skin_tone_value_random_type">لون متغير</string>
+    <string name="emoji_default_gender_value_person">شخص</string>
+    <string name="emoji_default_gender_value_woman">امرأة</string>
+    <string name="emoji_default_gender_value_man">رجل</string>
+    <string name="emoji_default_gender_value_random_type">جنس عشوائي</string>
     <string name="developer_tools">أدوات المطور</string>
     <string name="click_for_developer_features">أدوات المطور</string>
     <string name="click_for_developer_features_summary">أدوات مختلفة للوحة مفاتيح AnySoftKeyboard خاصة بالمطورين</string>
     <string name="not_configured_with_click_here">تطبيق AnySoftKeyboard ليس جاهزا تماما للإستخدام. إضغط هنا لإعداده.</string>
     <string name="not_configured_with_just_click_here">انقر هنا</string>
-    <string name="click_for_more">المزيد ...</string>
+    <string name="click_for_more">المزيد …</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">إضافة كلمة جديدة</string>
@@ -541,15 +535,15 @@
     <string name="setup_wizard_step_three_details">نشكرك لاختيارك <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>لقد أنهيت 🎉\nإذهب إلى تطبيقك المفضل لتجريبه.</b></string>
     <string name="setup_wizard_step_three_details_actions">أو يمكنك إعداد لوحة المفاتيح حسب أذواقك :</string>
-    <string name="setup_wizard_step_three_action_languages">إعداد اللغات ...</string>
-    <string name="setup_wizard_step_three_action_themes">إختيار السمة ...</string>
-    <string name="setup_wizard_step_three_action_all_settings">إعداد كل ما تبقى ...</string>
+    <string name="setup_wizard_step_three_action_languages">إعداد اللغات …</string>
+    <string name="setup_wizard_step_three_action_themes">إختيار السمة …</string>
+    <string name="setup_wizard_step_three_action_all_settings">إعداد كل ما تبقى …</string>
     <string name="setup_wizard_step_download_title">تنزيل حزم اللغات</string>
     <string name="setup_wizard_step_download_action">تنزيل حزمة لغوية</string>
     <string name="setup_wizard_step_download_skip_action">تخطي</string>
     <string name="ime_crashed_title">تعطل تطبيق AnySoftKeyboard !</string>
-    <string name="ime_crashed_sub_text">عذرا، لم نكن نتوقع ذلك ...</string>
-    <string name="ime_crashed_ticker">عذرا، لقد تحطّم AnySoftKeyboard، لم نكن نتوقع ذلك ...</string>
+    <string name="ime_crashed_sub_text">عذرا، لم نكن نتوقع ذلك …</string>
+    <string name="ime_crashed_ticker">عذرا، لقد تحطّم AnySoftKeyboard، لم نكن نتوقع ذلك …</string>
     <string name="ime_crashed_send_button">إرسال</string>
     <string name="ime_crashed_cancel_button">إلغاء</string>
     <string name="ime_crashed_intent_selector_title">إرسال تقريرا عن العَطَل بواسطة</string>
@@ -581,8 +575,8 @@
     <string name="app_shortcut_quick_keys_short_label">إعدادات الإيموجي</string>
     <string name="extension_keyboard_enabled_off_summary">ملحق لوحة المفاتيح معطل.</string>
     <string name="extension_keyboard_enabled_on_summary">ملحق لوحة المفاتيح سيظهر عند السَّحب إلى أعلى لوحة المفاتيح.</string>
-    <string name="read_our_privacy_policy">إقرأ المزيد عن سياستنا بشأن الخصوصية ...</string>
-    <string name="visit_our_web_site">قم بزيارة موقعنا ...</string>
+    <string name="read_our_privacy_policy">إقرأ المزيد عن سياستنا بشأن الخصوصية …</string>
+    <string name="visit_our_web_site">قم بزيارة موقعنا …</string>
     <string name="keyboard_for_url_fields">النسق الخاص بحقول الروابط</string>
     <string name="keyboard_for_url_fields_title">إختيار نسق لإدخال عناوين الروابط</string>
     <string name="no_internet_fields_specific_layout">لا شيء</string>
@@ -590,13 +584,17 @@
     <string name="setup_wizard_welcome_title">مرحبًا !</string>
     <string name="setup_wizard_welcome_sub_title">شكرا لتجريبيك للوحة المفاتيح AnySoftKeyboard !</string>
     <string name="setup_wizard_welcome_info_2">حسنا، هل أنت جاهز ؟ إضغط أدناه للمواصلة، سوف أدُلّك على الخطوات.</string>
-    <string name="setup_wizard_welcome_start_action">بداية التثبيت ...</string>
-    <string name="setup_wizard_welcome_privacy_action">انتقل إلى سياسة الخصوصية ...</string>
+    <string name="setup_wizard_welcome_start_action">بداية التثبيت …</string>
+    <string name="setup_wizard_welcome_privacy_action">انتقل إلى سياسة الخصوصية …</string>
     <string name="clear_all_dictionary_override">مسح البدائل</string>
     <string name="theme_case_type_override_os">دع نظام الأندرويد يختار (تلقائي)</string>
     <string name="theme_case_type_override_lower">أحرف صغيرة دائما</string>
     <string name="theme_case_type_override_upper">أحرف كبيرة دائما</string>
-    <string name="take_a_while_progress_message">قد تستغرق هذه العملية بعض الوقت ...</string>
+    <string name="settings_key_hint_size_none">لا شيء</string>
+    <string name="settings_key_hint_size_small">صغير</string>
+    <string name="settings_key_hint_size_normal">عادي</string>
+    <string name="settings_key_hint_size_big">كبير</string>
+    <string name="take_a_while_progress_message">قد تستغرق هذه العملية بعض الوقت …</string>
     <string name="shared_prefs_provider_name">إعدادات التطبيق</string>
     <string name="user_dict_prefs_provider">كلمات المستخدِم</string>
     <string name="next_word_dict_prefs_provider">الكلمات التالية</string>
@@ -613,5 +611,6 @@
     <string name="gesture_typing_alert_title">ميزة تجريبية!</string>
     <string name="gesture_typing_alert_button">حسنا</string>
     <string name="apply_overlay_summary_off">استخدم ألوان السمة دائما.</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="app_share_title">مرحبا من AnySoftKeyboard</string>
+    <string name="click_me_for_easter_egg_info">انقر علي لمفاجأة</string>
 </resources>

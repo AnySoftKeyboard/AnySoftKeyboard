@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import androidx.annotation.StringRes;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.Assert;
@@ -23,6 +24,7 @@ public class AddOnsFactoryTest {
     public void testMustSupplyPrefix() throws Exception {
         new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(
                 getApplicationContext(),
+                SharedPrefsHelper.getSharedPreferences(),
                 "ASK_KT",
                 "com.anysoftkeyboard.plugin.TEST",
                 "com.anysoftkeyboard.plugindata.TEST",
@@ -51,6 +53,79 @@ public class AddOnsFactoryTest {
                 return null;
             }
         };
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMustSupplyBuiltInAddOnsList() throws Exception {
+        new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(
+                getApplicationContext(),
+                SharedPrefsHelper.getSharedPreferences(),
+                "ASK_KT",
+                "com.anysoftkeyboard.plugin.TEST",
+                "com.anysoftkeyboard.plugindata.TEST",
+                "TestAddOns",
+                "TestAddOn",
+                "test",
+                0,
+                R.string.test_default_test_addon_id,
+                true,
+                true) {
+
+            @Override
+            public void setAddOnEnabled(String addOnId, boolean enabled) {}
+
+            @Override
+            protected TestAddOn createConcreteAddOn(
+                    Context askContext,
+                    Context context,
+                    int apiVersion,
+                    CharSequence prefId,
+                    CharSequence name,
+                    CharSequence description,
+                    boolean isHidden,
+                    int sortIndex,
+                    AttributeSet attrs) {
+                return null;
+            }
+        };
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testMustSupplyNoneEmptyBuiltIns() throws Exception {
+        AddOnsFactory.SingleAddOnsFactory<TestAddOn> singleAddOnsFactory =
+                new AddOnsFactory.SingleAddOnsFactory<>(
+                        getApplicationContext(),
+                        SharedPrefsHelper.getSharedPreferences(),
+                        "ASK_KT",
+                        "com.anysoftkeyboard.plugin.TEST",
+                        "com.anysoftkeyboard.plugindata.TEST",
+                        "TestAddOns",
+                        "TestAddOn",
+                        "test",
+                        R.xml.test_add_ons_empty,
+                        R.string.test_default_test_addon_id,
+                        true,
+                        true) {
+
+                    @Override
+                    public void setAddOnEnabled(String addOnId, boolean enabled) {}
+
+                    @Override
+                    protected TestAddOn createConcreteAddOn(
+                            Context askContext,
+                            Context context,
+                            int apiVersion,
+                            CharSequence prefId,
+                            CharSequence name,
+                            CharSequence description,
+                            boolean isHidden,
+                            int sortIndex,
+                            AttributeSet attrs) {
+                        return null;
+                    }
+                };
+
+        Assert.assertNotNull(singleAddOnsFactory.getAllAddOns());
     }
 
     @Test
@@ -207,6 +282,7 @@ public class AddOnsFactoryTest {
         private TestableAddOnsFactory(@StringRes int defaultAddOnId, boolean isDevBuild) {
             super(
                     getApplicationContext(),
+                    SharedPrefsHelper.getSharedPreferences(),
                     "ASK_KT",
                     "com.anysoftkeyboard.plugin.TEST",
                     "com.anysoftkeyboard.plugindata.TEST",
@@ -254,6 +330,7 @@ public class AddOnsFactoryTest {
         protected TestableSingleAddOnsFactory() {
             super(
                     getApplicationContext(),
+                    SharedPrefsHelper.getSharedPreferences(),
                     "ASK_KT",
                     "com.anysoftkeyboard.plugin.TEST",
                     "com.anysoftkeyboard.plugindata.TEST",
@@ -294,6 +371,7 @@ public class AddOnsFactoryTest {
         protected TestableMultiAddOnsFactory() {
             super(
                     getApplicationContext(),
+                    SharedPrefsHelper.getSharedPreferences(),
                     "ASK_KT",
                     "com.anysoftkeyboard.plugin.TEST",
                     "com.anysoftkeyboard.plugindata.TEST",

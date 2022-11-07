@@ -3,6 +3,8 @@ package com.anysoftkeyboard.prefs.backup;
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 import com.anysoftkeyboard.test.TestUtils;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,9 +46,9 @@ public class PrefsXmlStorageTest {
 
         Assert.assertEquals(3, root.getVersion());
 
-        mUnderTest.store(root, mFile);
+        mUnderTest.store(root, new FileOutputStream(mFile));
 
-        PrefsRoot loadedRoot = mUnderTest.load(mFile);
+        PrefsRoot loadedRoot = mUnderTest.load(new FileInputStream(mFile));
         Assert.assertNotNull(loadedRoot);
 
         Assert.assertEquals(3, loadedRoot.getVersion());
@@ -88,15 +90,15 @@ public class PrefsXmlStorageTest {
         tempPrefItem.addValue("g", "a");
         tempPrefItem.createChild().addValue("inside", "value");
 
-        mUnderTest.store(rootTemp, mFile);
+        mUnderTest.store(rootTemp, new FileOutputStream(mFile));
 
         PrefsRoot root = new PrefsRoot(2);
         final PrefItem prefItem = root.createChild();
         prefItem.addValue("a", "b");
 
-        mUnderTest.store(root, mFile);
+        mUnderTest.store(root, new FileOutputStream(mFile));
 
-        PrefsRoot loadedRoot = mUnderTest.load(mFile);
+        PrefsRoot loadedRoot = mUnderTest.load(new FileInputStream(mFile));
         Assert.assertEquals(2, loadedRoot.getVersion());
         Assert.assertEquals(1, TestUtils.convertToList(loadedRoot.getChildren()).size());
         Assert.assertEquals(
@@ -137,9 +139,9 @@ public class PrefsXmlStorageTest {
         root.addValue("a", "b");
         root.addValue("n", null);
 
-        mUnderTest.store(root, mFile);
+        mUnderTest.store(root, new FileOutputStream(mFile));
 
-        PrefsRoot loadedRoot = mUnderTest.load(mFile);
+        PrefsRoot loadedRoot = mUnderTest.load(new FileInputStream(mFile));
         Assert.assertEquals(1, TestUtils.convertToList(loadedRoot.getValues()).size());
         Assert.assertEquals("b", loadedRoot.getValue("a"));
         Assert.assertNull(loadedRoot.getValue("n"));

@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.ime;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -10,8 +13,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -38,7 +40,6 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -182,19 +183,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                                 R.string
                                                         .settings_default_auto_pick_suggestion_aggressiveness)
                                         .asObservable(),
-                                prefs().getInteger(
-                                                R.string
-                                                        .settings_key_min_length_for_word_correction__,
-                                                R.integer
-                                                        .settings_default_min_word_length_for_suggestion)
-                                        .asObservable(),
-                                Triple::new)
+                                Pair::new)
                         .subscribe(
-                                triple -> {
+                                pair -> {
                                     final boolean showSuggestionsChanged =
-                                            mShowSuggestions != triple.getFirst();
-                                    mShowSuggestions = triple.getFirst();
-                                    final String autoPickAggressiveness = triple.getSecond();
+                                            mShowSuggestions != pair.first;
+                                    mShowSuggestions = pair.first;
+                                    final String autoPickAggressiveness = pair.second;
 
                                     final int calculatedCommonalityMaxLengthDiff;
                                     final int calculatedCommonalityMaxDistance;
@@ -227,8 +222,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     mSuggest.setCorrectionMode(
                                             mShowSuggestions,
                                             calculatedCommonalityMaxLengthDiff,
-                                            calculatedCommonalityMaxDistance,
-                                            triple.getThird());
+                                            calculatedCommonalityMaxDistance);
                                     // starting over
                                     if (showSuggestionsChanged) {
                                         if (mShowSuggestions) {
@@ -390,18 +384,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
 
-        if (isPredictionOn()) {
-            getInputViewContainer().setActionsStripVisibility(true);
-            getInputViewContainer().addStripAction(mCancelSuggestionsAction);
-        } else {
-            getInputViewContainer().setActionsStripVisibility(false);
-        }
+        mCancelSuggestionsAction.setCancelIconVisible(false);
+        getInputViewContainer().addStripAction(mCancelSuggestionsAction, false);
+        getInputViewContainer().setActionsStripVisibility(isPredictionOn());
         clearSuggestions();
     }
 
     @Override
     public void onFinishInput() {
         super.onFinishInput();
+        mCancelSuggestionsAction.setCancelIconVisible(false);
         mPredictionOn = false;
         mKeyboardHandler.sendEmptyMessageDelayed(
                 KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
@@ -426,6 +418,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int newSelEnd,
             int candidatesStart,
             int candidatesEnd) {
+        final int oldCandidateStart = mGlobalCandidateStartPositionDangerous;
+        final int oldCandidateEnd = mGlobalCandidateEndPositionDangerous;
         super.onUpdateSelection(
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
         Logger.v(
@@ -433,7 +427,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 "onUpdateSelection: word '%s', position %d.",
                 mWord.getTypedWord(),
                 mWord.cursorPosition());
+        final boolean noChange =
+                newSelStart == oldSelStart
+                        && oldSelEnd == newSelEnd
+                        && oldCandidateStart == candidatesStart
+                        && oldCandidateEnd == candidatesEnd;
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
+        if (noChange) {
+            Logger.v(TAG, "onUpdateSelection: no-change. Discarding.");
+            return;
+        }
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
 
         if (isExpectedEvent) {
@@ -530,6 +533,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if (primaryCode != KeyCodes.DELETE) {
             mWordRevertLength = 0;
         }
@@ -962,9 +966,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             clearSuggestions();
         } else {
             setSuggestions(
-                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()),
-                    false,
-                    false);
+                    mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()), -1);
         }
     }
 
@@ -1255,17 +1257,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected void clearSuggestions() {
         mKeyboardHandler.removeAllSuggestionMessages();
-        setSuggestions(Collections.emptyList(), false, false);
+        setSuggestions(Collections.emptyList(), -1);
     }
 
     protected void setSuggestions(
-            @NonNull List<? extends CharSequence> suggestions,
-            boolean typedWordValid,
-            boolean haveMinimalSuggestion) {
+            @NonNull List<? extends CharSequence> suggestions, int highlightedSuggestionIndex) {
         mCancelSuggestionsAction.setCancelIconVisible(!suggestions.isEmpty());
         if (mCandidateView != null) {
-            mCandidateView.setSuggestions(
-                    suggestions, typedWordValid, haveMinimalSuggestion && isAutoCorrect());
+            mCandidateView.setSuggestions(suggestions, highlightedSuggestionIndex);
         }
     }
 
@@ -1340,27 +1339,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             return;
         }
 
-        final CharSequence typedWord = mWord.getTypedWord();
-
-        final List<CharSequence> suggestionsList = mSuggest.getSuggestions(mWord, false);
-        boolean correctionAvailable = mSuggest.hasMinimalCorrection();
-        final boolean typedWordValid =
-                mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
-
-        if (mShowSuggestions) {
-            correctionAvailable |= typedWordValid;
-        }
+        final List<CharSequence> suggestionsList = mSuggest.getSuggestions(mWord);
+        int highlightedSuggestionIndex =
+                isAutoCorrect() ? mSuggest.getLastValidSuggestionIndex() : -1;
 
         // Don't auto-correct words with multiple capital letter
-        correctionAvailable &= !mWord.isMostlyCaps();
+        if (highlightedSuggestionIndex == 1 && mWord.isMostlyCaps())
+            highlightedSuggestionIndex = -1;
 
-        setSuggestions(suggestionsList, typedWordValid, correctionAvailable);
-        if (suggestionsList.size() > 0) {
-            if (correctionAvailable && !typedWordValid && suggestionsList.size() > 1) {
-                mWord.setPreferredWord(suggestionsList.get(1));
-            } else {
-                mWord.setPreferredWord(typedWord);
-            }
+        setSuggestions(suggestionsList, highlightedSuggestionIndex);
+        if (highlightedSuggestionIndex >= 0) {
+            mWord.setPreferredWord(suggestionsList.get(highlightedSuggestionIndex));
         } else {
             mWord.setPreferredWord(null);
         }
@@ -1435,9 +1424,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
                 } else {
                     setSuggestions(
-                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()),
-                            false,
-                            false);
+                            mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), -1);
                 }
             }
         } finally {
@@ -1498,7 +1485,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return false;
     }
 
-    private void setSpaceTimeStamp(boolean isSpace) {
+    protected void setSpaceTimeStamp(boolean isSpace) {
         if (isSpace) {
             mLastSpaceTimeStamp = SystemClock.uptimeMillis();
         } else {
@@ -1548,7 +1535,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     protected boolean isWordSeparator(int code) {
-        return (!isAlphabet(code));
+        return !isAlphabet(code);
     }
 
     public boolean preferCapitalization() {
@@ -1581,7 +1568,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     if (ci != null) stringList.add(ci.getText());
                 }
                 // CharSequence typedWord = mWord.getTypedWord();
-                setSuggestions(stringList, true, true);
+                setSuggestions(stringList, -1);
                 mWord.setPreferredWord(null);
             }
         }
@@ -1631,86 +1618,65 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     @VisibleForTesting
     static class CancelSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
-        // two seconds is enough.
-        private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
         @NonNull private final Runnable mCancelPrediction;
-        private Animation mCancelToGoneAnimation;
-        private Animation mCancelToVisibleAnimation;
-        private Animation mCloseTextToGoneAnimation;
-        private Animation mCloseTextToVisibleAnimation;
+        private Animator mCancelToGoneAnimation;
+        private Animator mCancelToVisibleAnimation;
+        private Animator mCloseTextToVisibleToGoneAnimation;
         private View mRootView;
         private View mCloseText;
         @Nullable private CandidateView mCandidateView;
-        private final Runnable mReHideTextAction =
-                () -> {
-                    mCloseTextToGoneAnimation.reset();
-                    mCloseText.startAnimation(mCloseTextToGoneAnimation);
-                };
 
         CancelSuggestionsAction(@NonNull Runnable cancelPrediction) {
             mCancelPrediction = cancelPrediction;
         }
 
         @Override
-        public View inflateActionView(ViewGroup parent) {
+        public @NonNull View inflateActionView(@NonNull ViewGroup parent) {
             final Context context = parent.getContext();
             mCancelToGoneAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_gone);
-            mCancelToGoneAnimation.setAnimationListener(
-                    new Animation.AnimationListener() {
+                    AnimatorInflater.loadAnimator(context, R.animator.suggestions_cancel_to_gone);
+            mCancelToGoneAnimation.addListener(
+                    new AnimatorListenerAdapter() {
                         @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
                             mRootView.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {}
                     });
             mCancelToVisibleAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_cancel_to_visible);
-            mCloseTextToGoneAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.suggestions_double_cancel_to_gone);
-            mCloseTextToGoneAnimation.setAnimationListener(
-                    new Animation.AnimationListener() {
+                    AnimatorInflater.loadAnimator(
+                            context, R.animator.suggestions_cancel_to_visible);
+            mCloseTextToVisibleToGoneAnimation =
+                    AnimatorInflater.loadAnimator(
+                            context, R.animator.suggestions_cancel_text_to_visible_to_gone);
+            mCloseTextToVisibleToGoneAnimation.addListener(
+                    new AnimatorListenerAdapter() {
                         @Override
-                        public void onAnimationStart(Animation animation) {}
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
                             mCloseText.setVisibility(View.GONE);
                         }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {}
                     });
-            mCloseTextToVisibleAnimation =
-                    AnimationUtils.loadAnimation(
-                            context, R.anim.suggestions_double_cancel_to_visible);
-
             mRootView =
                     LayoutInflater.from(context)
                             .inflate(R.layout.cancel_suggestions_action, parent, false);
 
             mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
-
             ImageView closeIcon = mRootView.findViewById(R.id.close_suggestions_strip_icon);
             if (mCandidateView != null) {
                 closeIcon.setImageDrawable(mCandidateView.getCloseIcon());
             }
             mRootView.setOnClickListener(
                     view -> {
-                        mRootView.removeCallbacks(mReHideTextAction);
                         if (mCloseText.getVisibility() == View.VISIBLE) {
                             // already shown, so just cancel suggestions.
                             mCancelPrediction.run();
                         } else {
                             mCloseText.setVisibility(View.VISIBLE);
-                            mCloseTextToVisibleAnimation.reset();
-                            mCloseText.startAnimation(mCloseTextToVisibleAnimation);
-                            mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+                            mCloseText.setPivotX(mCloseText.getWidth());
+                            mCloseText.setPivotY(mCloseText.getHeight() / 2f);
+                            mCloseTextToVisibleToGoneAnimation.setTarget(mCloseText);
+                            mCloseTextToVisibleToGoneAnimation.start();
                         }
                     });
 
@@ -1719,7 +1685,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         @Override
         public void onRemoved() {
-            mRootView.removeCallbacks(mReHideTextAction);
+            mCloseTextToVisibleToGoneAnimation.cancel();
+            mCancelToGoneAnimation.cancel();
+            mCancelToVisibleAnimation.cancel();
         }
 
         void setOwningCandidateView(@NonNull CandidateView view) {
@@ -1730,11 +1698,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             if (mRootView != null) {
                 final int visibility = visible ? View.VISIBLE : View.GONE;
                 if (mRootView.getVisibility() != visibility) {
-                    mRootView.setVisibility(View.VISIBLE);
-                    mCancelToVisibleAnimation.reset();
-                    mCancelToGoneAnimation.reset();
-                    mRootView.startAnimation(
-                            visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation);
+                    mRootView.setVisibility(View.VISIBLE); // just to make sure
+                    Animator anim = visible ? mCancelToVisibleAnimation : mCancelToGoneAnimation;
+                    anim.setTarget(mRootView);
+                    anim.start();
                 }
             }
         }

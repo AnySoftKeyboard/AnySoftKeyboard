@@ -1,3 +1,4 @@
+---
 name: checks
 
 on:
@@ -5,7 +6,7 @@ on:
     paths-ignore:
       - deployment/halt_deployment_marker
     branches:
-      - master
+      - main
       - release-branch-*
   pull_request:
     paths-ignore:
@@ -16,67 +17,93 @@ on:
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  GRADLE_USER_HOME: ".github_cache_gradle/"
+  GRADLE_USER_HOME: ".github_cache_gradle/user_home/"
+  GRADLE_HOME: ".github_cache_gradle/gradle_home/"
   TMPDIR: "/tmp"
 
 jobs:
   static-checks:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: checks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: checks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
         run: ./scripts/ci/ci_check.sh
+      - name: check-all-yamls
+        run: ./scripts/ci/ci_check_yamls.sh
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: checkstyle*.html
           output_folder: collected_reports/checkstyle
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: checks-reports
           path: collected_reports
 
   linters:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: linters-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: linters-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
-        # Due to an issue with lint in merge commits, only running in PRs
-        if: github.event_name != 'push'
         run: ./scripts/ci/ci_check_lint.sh
+      - name: check-oom-due-to-lint-issue
+        if: always()
+        continue-on-error: true
+        run: |
+          echo "repo ls:"
+          ls -al
+          echo "logs ls:"
+          ls /var/log
+          grep -i 'killed process' /var/log/messages || true
+          grep -i 'killed process' /var/log/syslog || true
+          grep -i 'oom' /var/log/messages || true
+          grep -i 'oom' /var/log/syslog || true
+          grep -i 'out of memory' /var/log/messages || true
+          grep -i 'out of memory' /var/log/syslog || true
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: lint-results-*.html
           output_folder: collected_reports/lint
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: ./.github/actions/collect-reports
         if: always()
+        with:
+          file_pattern: java_*.hprof
+          output_folder: oom_dumps
+      - uses: actions/upload-artifact@v3.1.0
+        if: always()
+        continue-on-error: true
         with:
           name: linters-reports
           path: collected_reports
 
   app-tests-shards:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     strategy:
       matrix:
@@ -84,12 +111,11 @@ jobs:
         groups_count: [2]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: tests-shards-gradle-v3-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: tests-shards-gradle-v3-${{ matrix.index }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -100,32 +126,36 @@ jobs:
           module: ":ime:app:"
           extra_args: "-PexcludeTestClasses=\"**/*AllSdkTest*\""
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: app-tests-${{ matrix.index }}
           path: collected_reports
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: app-tests-${{ matrix.index }}-build-logging
-          path: build-logging
+          path: build/build-logging
 
   app-all-sdks-tests:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: tests-all-sdks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: tests-all-sdks-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -136,32 +166,36 @@ jobs:
           module: ":ime:app:"
           extra_args: "--tests=*AllSdkTest*"
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: app-less-tests
           path: collected_reports
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: app-all-sdks-tests-build-logging
-          path: build-logging
+          path: build/build-logging
 
   app-less-tests:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: tests-app-less-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: tests-app-less-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -172,32 +206,36 @@ jobs:
           module: ""
           extra_args: "-x :ime:app:testDebugUnitTest -x :ime:app:testDebugUnitTestCoverage"
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: app-less-tests
           path: collected_reports
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: app-less-tests-build-logging
-          path: build-logging
+          path: build/build-logging
 
   verify-all-addons:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: verify-all-addons-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: verify-all-addons-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: verify-add-ons
@@ -206,59 +244,69 @@ jobs:
           ./gradlew :ime:app:testAllAddOnsUnitTestCoverage :ime:app:testAllAddOnsUnitTest --tests="*LoadedKeyboardsVerificationTest*"
           chmod -R a+rwx .
       - uses: ./.github/actions/codecov
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
       - uses: ./.github/actions/collect-reports
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: verify-all-addons
           path: collected_reports
-      - uses: actions/upload-artifact@v1.0.0
+      - uses: actions/upload-artifact@v3.1.0
         if: always()
+        continue-on-error: true
         with:
           name: verify-all-addons-build-logging
-          path: build-logging
+          path: build/build-logging
 
   deploy-dry-run:
-    runs-on: ubuntu-18.04
-    container: menny/android_ndk:1.15.3
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1.1.2
+      - uses: actions/checkout@v2.4.2
+      - uses: actions/cache@v3.0.4
         with:
           path: .github_cache_gradle/
-          key: dry-run-deploy-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}-${{ hashFiles('buildSrc/**/*.java') }}
-          restore-keys: dry-run-deploy-gradle-v3-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-
+          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          ./gradlew -PwithAutoVersioning :generateFdroidYamls -DdeployChannel=alpha assembleRelease assembleCanary verifyReleaseResources generateReleasePlayResources generateCanaryPlayResources
+          ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
+              assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources \
+              generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
-      - uses: actions/upload-artifact@v1.0.0
+      - name: fix-fs
+        if: always()
+        run: ./scripts/ci/ci_fix_fs.sh
+      - uses: actions/upload-artifact@v3.1.0
+        continue-on-error: true
         with:
           name: fdroid-metadata-dry-run
           path: outputs/fdroid
 
-  master-green-requirement:
+  all-green-requirement:
     needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - name: ready
         run: echo "DONE"
 
   deploy-request:
     if: github.event_name == 'push'
-    needs: [master-green-requirement]
-    runs-on: ubuntu-18.04
-    container: menny/android_base:1.15.3
+    needs: [all-green-requirement]
+    runs-on: ubuntu-22.04
+    container: menny/android_base:1.15.4
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
       - uses: ./.github/actions/deploy-request
         name: request-new-deploys
         with:
@@ -268,29 +316,29 @@ jobs:
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
 
-  merge-to-master:
+  merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
-    needs: [master-green-requirement]
-    runs-on: ubuntu-18.04
-    container: menny/android_base:1.15.3
+    needs: [all-green-requirement]
+    runs-on: ubuntu-22.04
+    container: menny/android_base:1.15.4
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
-          ref: master
+          ref: main
       - name: create-merge-commit
-        run: ./scripts/ci/ci_merge_to_master.sh ${{ github.ref }}
+        run: ./scripts/ci/ci_merge_to_default_branch.sh ${{ github.ref }}
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Merge to master from ${{ github.ref }}.'
-          title: 'Automated Merge to master from ${{ github.ref }}'
+          commit-message: 'Merge to default branch from ${{ github.ref }}.'
+          title: 'Automated Merge to default branch from ${{ github.ref }}'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: 'Generated from commit ${{ github.sha }} on ${{ github.ref }}.'
           team-reviewers: maintainers
-          branch: 'bot-pr/merge-to-master-from-${{ github.ref }}'
-          base: master
+          branch: 'bot-pr/merge-to-default-branch-from-${{ github.ref }}'
+          base: main
           labels: automerge

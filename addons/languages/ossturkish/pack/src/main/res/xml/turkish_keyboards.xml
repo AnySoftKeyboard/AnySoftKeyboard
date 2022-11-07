@@ -7,12 +7,12 @@
      "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
      "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
      -->
-    <Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwerty"
+    <Keyboard nameResId="@string/turkish_keyboard_name" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwerty"
         id="048aa6d0-e03a-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe" index="1"/>
-    <Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwertymorepopup"
-        id="d3372010-e109-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe - Daha çok pop up karakteri" index="2" />
-    <Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwerty_terminal"
+    <Keyboard nameResId="@string/turkish_keyboard_name" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_withoutaccented"
+        id="d3372010-e109-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe - Şapkalı harfler için basılı tut" index="2" />
+    <Keyboard nameResId="@string/turkish_keyboard_name" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwerty_terminal"
         id="05080ed0-e509-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe - Terminal" index="3" />
-    <Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_f"
+    <Keyboard nameResId="@string/turkish_keyboard_name" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_f"
         id="35045793-713a-4f88-971c-adbb584b75a1" defaultDictionaryLocale="tr" description="Türkçe - F" index="4" />
 </Keyboards>

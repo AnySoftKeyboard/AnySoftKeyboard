@@ -193,7 +193,6 @@
     <string name="supported_keyboard_row_modes_title">Pinagana ang dalubhasang input-field modes</string>
     <string name="supported_keyboard_row_modes_summary">Pumili ng dalubhasang input-field(tulad sa password, URL, at iba pa.) mga hanay upang gamitin.</string>
     <string name="tweak_dictionary_group">Diksyunaryo ng mga tweaks</string>
-    <string name="settings_min_length_for_word_correction">Pinakamaliit na haba ng salita para sa pagwawasto</string>
     <string name="show_keyboard_name_text">Ipakita ang pangalan ng keyboard</string>
     <string name="show_keyboard_name_on_summary">Ipakita ang pangalan ng keyboard sa space-bar</string>
     <string name="show_keyboard_name_off_summary">Huwag ipakita ang pangalan ng keyboard</string>
@@ -415,14 +414,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Wala kang anumang salita na nasa diksyunaryo ng mangagamit. Maari kang magdagdag ng iyong unang salita ngayon.</string>
-    <string name="user_dict_backup_success_title">Ang backup ay tapos na!</string>
-    <string name="user_dict_backup_success_text">Matagumpay na naka-imbak ng iyong mga salita sa ambakan aparato sa /Android/data/com.menny.android.anysoftkeyboard/files/    </string>
-    <string name="user_dict_backup_fail_title">Nagbigo ang pagbackup!</string>
-    <string name="user_dict_backup_fail_text_with_error"><xliff:g id="error">%s</xliff:g>    </string>
-    <string name="user_dict_restore_success_title">Tapos nang maibalik!</string>
-    <string name="user_dict_restore_success_text">Matagumpay na naibalik ang iyong mga salita.</string>
-    <string name="user_dict_restore_fail_title">Bigong naibalik!</string>
-    <string name="user_dict_restore_fail_text_with_error">Nabigong maibalik ang mga salita dahil sa: <xliff:g id="error">%s</xliff:g>    </string>
     <string name="should_swap_punctuation_and_space_title">Magpalitan ng bantas at espasyo</string>
     <string name="should_swap_punctuation_and_space_off_summary">Huwag mong ipalit ang espasyo at bantas.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Magpalitan ng awtomatiko-espasyo at bantas.</string>
@@ -525,5 +516,4 @@
     <string name="setup_wizard_welcome_info_footnote">* Siyempre pa, ang AnySoftKeyboard ay hindi masama. Ikaw ay hinihikayat ng tumingin sa aming source code para mapatunayan ito. Dagdag, wala kaming mga <i>NETWORK</i> na mga permiso, kaya hindi kami nagpapadala ng anumang datus sa iyong aparato.</string>
     <string name="setup_wizard_welcome_privacy_action">Pumunta sa Privacy Policy…</string>
     <string name="clear_all_dictionary_override">Malinaw na napagtungang</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

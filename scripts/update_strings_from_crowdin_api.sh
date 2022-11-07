@@ -35,7 +35,7 @@ APP_RES_FOLDER=ime/app/src/main/res
 echo "will copy from ${TEMP_EXTRACT_FOLDER} to ${APP_RES_FOLDER}"
 for f in "${TEMP_EXTRACT_FOLDER}"*; do cp -R "$f" "${APP_RES_FOLDER}"; done
 
-echo "fixing files a bit..."
+echo "fixing file locations a bit..."
 rm -rf "${APP_RES_FOLDER}/values-en-PT"
 mv "${APP_RES_FOLDER}/values-es-ES/strings.xml" "${APP_RES_FOLDER}/values-es/"
 rm -rf "${APP_RES_FOLDER}/values-es-AR" || true
@@ -66,5 +66,8 @@ mv "${APP_RES_FOLDER}/values-si-LK/strings.xml" "${APP_RES_FOLDER}/values-si-rLK
 rm -rf "${APP_RES_FOLDER}/values-si-LK/" || true
 #copying generic strings to en
 cp "${APP_RES_FOLDER}/values/strings.xml" "${APP_RES_FOLDER}/values-en/strings.xml"
+
+echo "fixing ellipsis character..."
+find "${APP_RES_FOLDER}" -type f -name "strings.xml" -exec sed -i 's/\.\.\./…/g' {} \;
 
 echo "done"

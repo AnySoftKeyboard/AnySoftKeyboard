@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
@@ -19,7 +20,6 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboardTagsSearcher {
     @VisibleForTesting static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
@@ -91,7 +91,8 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
                 @Override
                 public OverlayData createOverlayData(ComponentName remoteApp) {
                     if (mApplyRemoteAppColors) {
-                        if (Objects.equals(remoteApp.getPackageName(), mLastOverlayPackage)) {
+                        if (CompatUtils.objectEquals(
+                                remoteApp.getPackageName(), mLastOverlayPackage)) {
                             return mCurrentOverlayData;
                         } else {
                             mLastOverlayPackage = remoteApp.getPackageName();

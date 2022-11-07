@@ -17,17 +17,13 @@
 package com.anysoftkeyboard.ui.dev;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
-import android.os.Build;
+import android.content.pm.PackageManager;
 import android.os.Debug;
 import android.os.Environment;
-import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.io.File;
@@ -40,6 +36,7 @@ public class DeveloperUtils {
     private static final String KEY_SDCARD_TRACING_ENABLED = "KEY_SDCARD_TRACING_ENABLED";
     private static final String ASK_TRACE_FILENAME = "AnySoftKeyboard_tracing.trace";
     private static final String ASK_MEM_DUMP_FILENAME = "ask_mem_dump.hprof";
+    private static boolean msTracingStarted = false;
 
     public static File createMemoryDump() throws IOException, UnsupportedOperationException {
         File extFolder = Environment.getExternalStorageDirectory();
@@ -51,18 +48,16 @@ public class DeveloperUtils {
     }
 
     public static boolean hasTracingRequested(Context applicationContext) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        return prefs.getBoolean(KEY_SDCARD_TRACING_ENABLED, false);
+        return DirectBootAwareSharedPreferences.create(applicationContext)
+                .getBoolean(KEY_SDCARD_TRACING_ENABLED, false);
     }
 
     public static void setTracingRequested(Context applicationContext, boolean enabled) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        Editor e = prefs.edit();
-        e.putBoolean(KEY_SDCARD_TRACING_ENABLED, enabled);
-        e.apply();
+        DirectBootAwareSharedPreferences.create(applicationContext)
+                .edit()
+                .putBoolean(KEY_SDCARD_TRACING_ENABLED, enabled)
+                .apply();
     }
-
-    private static boolean msTracingStarted = false;
 
     public static void startTracing() {
         Debug.startMethodTracing(getTraceFile().getAbsolutePath());
@@ -88,52 +83,29 @@ public class DeveloperUtils {
         return new File(extFolder, ASK_TRACE_FILENAME);
     }
 
-    public static String getSysInfo(@Nullable Context context) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("BRAND:").append(Build.BRAND).append(NEW_LINE);
-        sb.append("DEVICE:").append(Build.DEVICE).append(NEW_LINE);
-        sb.append("Build ID:").append(Build.DISPLAY).append(NEW_LINE);
-        sb.append("changelist number:").append(Build.ID).append("\n");
-        sb.append("MODEL:").append(Build.MODEL).append(NEW_LINE);
-        sb.append("PRODUCT:").append(Build.PRODUCT).append(NEW_LINE);
-        sb.append("TAGS:").append(Build.TAGS).append(NEW_LINE);
-        sb.append("VERSION.INCREMENTAL:").append(Build.VERSION.INCREMENTAL).append(NEW_LINE);
-        sb.append("VERSION.RELEASE:").append(Build.VERSION.RELEASE).append(NEW_LINE);
-        sb.append("VERSION.SDK_INT:").append(Build.VERSION.SDK_INT).append(NEW_LINE);
-        if (context != null
-                && context.getResources() != null
-                && context.getResources().getConfiguration() != null) {
-            Configuration configuration = context.getResources().getConfiguration();
-            sb.append("Locale:").append(configuration.locale).append(NEW_LINE);
-            sb.append("configuration:").append(configuration.toString()).append(NEW_LINE);
-        }
-
-        sb.append("That's all I know.");
-        return sb.toString();
-    }
-
-    public static String getAppDetails(Context appContext) {
-        String appName =
-                appContext.getString(R.string.ime_name) + " (" + appContext.getPackageName() + ")";
+    @NonNull
+    public static String getAppDetails(@NonNull Context context) {
+        StringBuilder appName = new StringBuilder();
+        appName.append(context.getString(R.string.ime_name))
+                .append(" (")
+                .append(context.getPackageName())
+                .append(")");
         try {
             PackageInfo info =
-                    appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-            appName = appName + " v" + info.versionName + " release " + info.versionCode;
-            appName =
-                    appName
-                            + ". Installed on "
-                            + AnyApplication.getCurrentVersionInstallTime(appContext)
-                            + ", first release installed was "
-                            + AnyApplication.getFirstAppVersionInstalled(appContext)
-                            + ".";
-        } catch (NameNotFoundException e) {
-            appName = "NA";
+                    context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            appName.append(" v")
+                    .append(info.versionName)
+                    .append(" release ")
+                    .append(info.versionCode);
+            appName.append(". Installed on ")
+                    .append(AnyApplication.getCurrentVersionInstallTime(context))
+                    .append(", first release installed was ")
+                    .append(AnyApplication.getFirstAppVersionInstalled(context))
+                    .append(".");
+        } catch (PackageManager.NameNotFoundException e) {
+            appName.append(" !!! Error with package info !!! ");
             e.printStackTrace();
         }
-        return appName;
-    }
-
-    public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {
-        return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+        return appName.toString();
     }
 }

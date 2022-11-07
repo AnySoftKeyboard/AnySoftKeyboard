@@ -35,7 +35,7 @@ public class KeyboardFactoryTest {
     @Test
     public void testDefaultKeyboardId() {
         final List<KeyboardAddOnAndBuilder> allAddOns = mKeyboardFactory.getAllAddOns();
-        Assert.assertEquals(12, allAddOns.size());
+        Assert.assertEquals(13, allAddOns.size());
         KeyboardAddOnAndBuilder addon = mKeyboardFactory.getEnabledAddOn();
         Assert.assertNotNull(addon);
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", addon.getId());
@@ -57,10 +57,7 @@ public class KeyboardFactoryTest {
                 getApplicationContext()
                         .getResources()
                         .getInteger(
-                                com.anysoftkeyboard
-                                        .addons
-                                        .R
-                                        .integer
+                                com.anysoftkeyboard.addons.R.integer
                                         .anysoftkeyboard_api_version_code),
                 english16Keys.getApiVersion());
     }

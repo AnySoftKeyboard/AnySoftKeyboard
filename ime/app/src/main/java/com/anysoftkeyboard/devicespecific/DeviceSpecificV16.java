@@ -16,14 +16,9 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
-import android.database.ContentObserver;
-import android.os.Build;
+import android.content.Context;
 import androidx.annotation.NonNull;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class DeviceSpecificV16 extends DeviceSpecificV15 {
     @Override
     public String getApiLevel() {
@@ -31,7 +26,7 @@ public class DeviceSpecificV16 extends DeviceSpecificV15 {
     }
 
     @Override
-    public ContentObserver createDictionaryContentObserver(@NonNull BTreeDictionary dictionary) {
-        return new DictionaryContentObserverAPI16(dictionary);
+    public Clipboard createClipboard(@NonNull Context applicationContext) {
+        return new ClipboardV16(applicationContext);
     }
 }

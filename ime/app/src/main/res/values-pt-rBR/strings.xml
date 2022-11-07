@@ -194,6 +194,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Layout compacto à direita</string>
     <string name="swipe_action_name_compact_layout_to_left">Layout compacto à esquerda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar teclado utilitário</string>
+    <string name="swipe_action_name_quick_text_popup">Mostrar pop-up de emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Limite da velocidade de arrasto</string>
     <string name="settings_swipe_velocity_threshold_summary">Velocidade mínima do arrasto. Atualmente, %s</string>
     <string name="settings_swipe_velocity_very_slow">Muito lenta</string>
@@ -255,7 +256,6 @@
         senha, URL, etc.).
     </string>
     <string name="tweak_dictionary_group">Ajustes do dicionário</string>
-    <string name="settings_min_length_for_word_correction">Comprimento mínimo da palavra para correção</string>
     <string name="show_keyboard_name_text">Mostrar o nome do teclado</string>
     <string name="show_keyboard_name_on_summary">Mostra o nome do teclado na barra de espaço</string>
     <string name="show_keyboard_name_off_summary">Não mostra o nome do teclado</string>
@@ -422,6 +422,7 @@ simplistas    </string>
     <string name="extension_kbd_bottom_minimal">Minimalista</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sem emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Mínimo (menos pontuação)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Mínimo (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -513,20 +514,6 @@ simplistas    </string>
     <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário.
         Você pode adicionar sua primeira palavra agora.
     </string>
-    <string name="user_dict_backup_success_title">Backup feito!</string>
-    <string name="user_dict_backup_success_text">Suas palavras foram salvas em armazenamento do aparelho
-        em\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">O backup falhou!</string>
-    <string name="user_dict_backup_fail_text_with_error">Falha ao armazenar palavras devido a:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Restauração feita!</string>
-    <string name="user_dict_restore_success_text">Palavras restauradas com sucesso.</string>
-    <string name="user_dict_restore_fail_title">Erro ao restaurar!</string>
-    <string name="user_dict_restore_fail_text_with_error">Falha ao restaurar as palavras devido a:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">Substituir espaço por pontuação</string>
     <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por
         pontuação.
@@ -576,16 +563,6 @@ simplistas    </string>
     <string name="enter_abbreviation_hint">Abreviação</string>
     <string name="enter_abbreviation_target_hint">Texto completo</string>
     <string name="toast_error_custom_path_backup">Erro: Qualquer aplicativo contextual pode ser aberto</string>
-    <string name="file_explorer_menu_add_folder">Criar uma pasta</string>
-    <string name="file_explorer_filename">Nome do arquivo de backup…</string>
-    <string name="file_explorer_filename_empty">Nome do arquivo não pode estar em branco…</string>
-    <string name="file_explorer_alert_title">Selecionar este arquivo ?</string>
-    <string name="file_explorer_restore_alert_message">Você quer restaurar este arquivo ?</string>
-    <string name="file_explorer_backup_alert_message">O arquivo existente será substituído.</string>
-    <string name="file_explorer_backup_success">Seus dados foram salvos em\u0020</string>
-    <string name="file_explorer_backup_failed">Não foi possível salvar seus dados.</string>
-    <string name="file_explorer_restore_success">Seus dados foram restaurados de\u0020</string>
-    <string name="file_explorer_restore_failed">Não foi possível restaurar seus dados.</string>
     <string name="about_additional_software_licenses">Outras licenças</string>
     <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Nesta etapa, você precisará ativar o <i>
@@ -636,7 +613,7 @@ simplistas    </string>
     <string name="wizard_allow_contacts_permission">Permitir sugestão de palavras baseada no nome de seus contatos</string>
     <string name="allow_permission">Permitir</string>
     <string name="turn_off_contacts_dictionary">Desligue o dicionário de contatos</string>
-    <string name="read_more_about_permissions">Leia mais sobre permissões...</string>
+    <string name="read_more_about_permissions">Leia mais sobre permissões…</string>
     <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a encontrar os bugs antes do lançamento final.</string>
     <string name="clipboard_fine_select_enabled_toast">Seleção precisa de texto ativada. Use as setas direcionais.</string>
     <string name="app_shortcut_keyboards_disabled">Navegação do teclado desativada</string>
@@ -694,7 +671,6 @@ simplistas    </string>
     <string name="prefs_providers_backed_up_to">Seus dados foram salvos com sucesso em %s</string>
     <string name="prefs_providers_failed_restore_due_to">Falha na restauração dos dados devido %s</string>
     <string name="prefs_providers_restored_to">Seus dados foram restaurados de %s com sucesso</string>
-    <string name="word_editor_action_choose_path">Escolha localização personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Teclados podem fornecer linhas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre use linhas genéricas selecionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir que o layout altere a linha genérica.</string>
@@ -704,6 +680,7 @@ simplistas    </string>
     <string name="gesture_typing_alert_title">Recurso BETA!</string>
     <string name="gesture_typing_alert_message">A digitação por gesto ➿ ainda está em fase <b>beta</b>. Pode conter bugs, não ser tão ágil ou completo.\nSabendo disso, você deveria testar.</string>
     <string name="gesture_typing_alert_button">Entendi</string>
+    <string name="undo_gesture_typing">Desfazer digitação de gestos</string>
     <string name="apply_remote_app_colors_to_theme">Alterar as cores do tema com base no app usado</string>
     <string name="apply_overlay_summary_on">A cor do teclado irá combinar com a cor do app ativo, ou ao menos tentar.</string>
     <string name="apply_overlay_summary_off">Sempre usar a cor do tema.</string>
@@ -716,5 +693,6 @@ simplistas    </string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
     <string name="app_share_text">Deixe-me recomendar um app de teclado - AnySoftKeyboard para Android, ele é de software livre, focado na privacidade, gratuito, personalizável, e multilíngue.\nBaixe na:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">Não suportado em seu Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Backup e restauração não são suportados para dispositivos rodando o sistema operacional anterior ao Android KitKat (versão 4.4). Desculpe.</string>
 </resources>

@@ -1,12 +1,12 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
@@ -20,31 +20,38 @@ import java.util.List;
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
 
     private static final int PROVIDER_TAG_ID = R.id.keyboard_container_provider_tag_id;
+    private static final int FIRST_PROVIDER_VIEW_INDEX = 2;
 
     private final int mActionStripHeight;
-    private boolean mShowActionStrip = true;
     private final List<View> mStripActionViews = new ArrayList<>();
+    private boolean mShowActionStrip = true;
     private InputViewBinder mStandardKeyboardView;
     private CandidateView mCandidateView;
     private OnKeyboardActionListener mKeyboardActionListener;
     private KeyboardTheme mKeyboardTheme;
     private OverlayData mOverlayData = new OverlayData();
-    private LinearLayout mInlineAutofillView;
-    private HorizontalScrollView mInlineScrollView;
+    private final Rect mExtraPaddingToMainKeyboard = new Rect();
 
     public KeyboardViewContainerView(Context context) {
         super(context);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
+        constructorInit();
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
+        constructorInit();
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
+        constructorInit();
+    }
+
+    private void constructorInit() {
+        setWillNotDraw(false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -63,6 +70,15 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
         setThemeForChildView(child);
         setActionsStripVisibility(mShowActionStrip);
+
+        switch (child.getId()) {
+            case R.id.candidate_view:
+                mCandidateView = (CandidateView) child;
+                break;
+            case R.id.AnyKeyboardMainView:
+                mStandardKeyboardView = (InputViewBinder) child;
+                break;
+        }
     }
 
     @Override
@@ -71,14 +87,23 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         setActionsStripVisibility(mShowActionStrip);
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (mExtraPaddingToMainKeyboard.contains((int) ev.getX(), (int) ev.getY())) {
+            // offsetting
+            ev.setLocation(ev.getX(), mExtraPaddingToMainKeyboard.bottom + 1f);
+        }
+        return false;
+    }
+
     public void setActionsStripVisibility(boolean requestedVisibility) {
         mShowActionStrip = requestedVisibility;
         if (mCandidateView != null) {
             // calculating the actual needed visibility:
             // at least one visible view which is a ActionsStripSupportedChild
-            boolean visible = false;
+            var visible = false;
             for (int childIndex = 0; childIndex < getChildCount(); childIndex++) {
-                View child = getChildAt(childIndex);
+                var child = getChildAt(childIndex);
                 if (child.getVisibility() == View.VISIBLE) {
                     if (child instanceof ActionsStripSupportedChild) {
                         visible = requestedVisibility;
@@ -107,27 +132,36 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
     }
 
-    public void addStripAction(@NonNull StripActionProvider provider) {
-        for (View stripActionView : mStripActionViews) {
+    public void addStripAction(@NonNull StripActionProvider provider, boolean highPriority) {
+        for (var stripActionView : mStripActionViews) {
             if (stripActionView.getTag(PROVIDER_TAG_ID) == provider) {
                 return;
             }
         }
 
-        View actionView = provider.inflateActionView(this);
+        var actionView = provider.inflateActionView(this);
         if (actionView.getParent() != null)
             throw new IllegalStateException("StripActionProvider inflated a view with a parent!");
         actionView.setTag(PROVIDER_TAG_ID, provider);
         if (mShowActionStrip) {
-            addView(actionView);
+            if (highPriority) {
+                addView(actionView, FIRST_PROVIDER_VIEW_INDEX);
+            } else {
+                addView(actionView);
+            }
         }
-        mStripActionViews.add(actionView);
+
+        if (highPriority) {
+            mStripActionViews.add(0, actionView);
+        } else {
+            mStripActionViews.add(actionView);
+        }
 
         invalidate();
     }
 
     public void removeStripAction(@NonNull StripActionProvider provider) {
-        for (View stripActionView : mStripActionViews) {
+        for (var stripActionView : mStripActionViews) {
             if (stripActionView.getTag(PROVIDER_TAG_ID) == provider) {
                 removeView(stripActionView);
                 provider.onRemoved();
@@ -162,6 +196,11 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
                 actionRight -= child.getMeasuredWidth();
             }
         }
+        // setting up the extra-offset for the main-keyboard
+        final var mainKeyboard = ((View) mStandardKeyboardView);
+        mainKeyboard.getHitRect(mExtraPaddingToMainKeyboard);
+        mExtraPaddingToMainKeyboard.bottom = mainKeyboard.getTop();
+        mExtraPaddingToMainKeyboard.top = mainKeyboard.getTop() - mActionStripHeight / 4;
     }
 
     @Override
@@ -203,33 +242,11 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
     }
 
-    public HorizontalScrollView getInlineScrollView() {
-        if (mInlineScrollView == null) {
-            mInlineScrollView = (HorizontalScrollView) getChildAt(0);
-        }
-
-        return mInlineScrollView;
-    }
-
-    public LinearLayout getInlineAutofillView() {
-        if (mInlineAutofillView == null) {
-            mInlineAutofillView = (LinearLayout) getInlineScrollView().getChildAt(0);
-        }
-
-        return mInlineAutofillView;
-    }
-
     public CandidateView getCandidateView() {
-        if (mCandidateView == null) {
-            mCandidateView = (CandidateView) getChildAt(1);
-        }
         return mCandidateView;
     }
 
     public InputViewBinder getStandardKeyboardView() {
-        if (mStandardKeyboardView == null) {
-            mStandardKeyboardView = (InputViewBinder) getChildAt(2);
-        }
         return mStandardKeyboardView;
     }
 
@@ -254,7 +271,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     }
 
     public interface StripActionProvider {
-        View inflateActionView(ViewGroup parent);
+        @NonNull
+        View inflateActionView(@NonNull ViewGroup parent);
 
         void onRemoved();
     }

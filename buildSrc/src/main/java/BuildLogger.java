@@ -97,14 +97,17 @@ public class BuildLogger extends BuildAdapter {
     }
 
     private void appendToFile(String output) {
-        try {
-            try (OutputStreamWriter writer =
-                    new OutputStreamWriter(
-                            new FileOutputStream(mOutputFile, true), StandardCharsets.UTF_8)) {
-                writer.append(output);
+        // the file might be deleted if a "clean" task was executed.
+        if (mOutputFile.exists()) {
+            try {
+                try (OutputStreamWriter writer =
+                        new OutputStreamWriter(
+                                new FileOutputStream(mOutputFile, true), StandardCharsets.UTF_8)) {
+                    writer.append(output);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

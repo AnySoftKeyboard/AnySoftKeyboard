@@ -17,10 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
@@ -29,11 +26,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.MotionEventCompat;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.gesturetyping.GestureTrailTheme;
+import com.anysoftkeyboard.gesturetyping.GestureTypingPathDraw;
 import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -55,32 +52,29 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35; // milliseconds
     private static final String TAG = "ASKKbdView";
+    private final int mExtensionKeyboardPopupOffset;
+    private final Point mFirstTouchPoint = new Point(0, 0);
+    private final GestureDetector mGestureDetector;
+    private final int mWatermarkDimen;
+    private final int mWatermarkMargin;
+    private final int mMinimumKeyboardBottomPadding;
+    private final List<Drawable> mWatermarks = new ArrayList<>();
     private AnimationsLevel mAnimationLevel;
-
     private boolean mExtensionVisible = false;
     private int mExtensionKeyboardYActivationPoint;
-    private final int mExtensionKeyboardPopupOffset;
     private int mExtensionKeyboardYDismissPoint;
     private Keyboard.Key mExtensionKey;
     private Keyboard.Key mUtilityKey;
     private Keyboard.Key mSpaceBarKey = null;
-    private final Point mFirstTouchPoint = new Point(0, 0);
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
-
     // List of motion events for tracking gesture typing
-    private GestureTypingPathDrawHelper mGestureDrawingHelper;
+    private GestureTypingPathDraw mGestureDrawingHelper;
     private boolean mGestureTypingPathShouldBeDrawn = false;
-
-    private final GestureDetector mGestureDetector;
     private boolean mIsStickyExtensionKeyboard;
-    private final int mWatermarkDimen;
-    private final int mWatermarkMargin;
-    private final int mMinimumKeyboardBottomPadding;
     private int mExtraBottomOffset;
     private int mWatermarkEdgeX = 0;
-
-    private final List<Drawable> mWatermarks = new ArrayList<>();
+    private long mExtensionKeyboardAreaEntranceTime = -1;
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -161,44 +155,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
-        final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
-        final int[] remoteStyleableArray =
-                remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
-        TypedArray a =
-                theme.getPackageContext()
-                        .obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
-        Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStrokeWidth(
-                getContext().getResources().getDimension(R.dimen.gesture_stroke_width));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeJoin(Paint.Join.BEVEL);
-        paint.setStrokeCap(Paint.Cap.BUTT);
-        final int resolvedAttrsCount = a.getIndexCount();
-        for (int attrIndex = 0; attrIndex < resolvedAttrsCount; attrIndex++) {
-            final int remoteIndex = a.getIndex(attrIndex);
-            try {
-                // CHECKSTYLE:OFF: missingswitchdefault
-                switch (remoteAttrs.getLocalAttrId(remoteStyleableArray[remoteIndex])) {
-                    case R.attr.swipeTypingColor:
-                        paint.setColor(
-                                a.getColor(
-                                        remoteIndex,
-                                        ContextCompat.getColor(
-                                                getContext(), R.color.candidate_normal)));
-                        break;
-                    case R.attr.swipeTypingStrokeWidth:
-                        paint.setStrokeWidth(a.getDimension(remoteIndex, paint.getStrokeWidth()));
-                        break;
-                }
-                // CHECKSTYLE:ON: missingswitchdefault
-            } catch (Exception e) {
-                Logger.w(TAG, "Got an exception while reading theme data", e);
-            }
-        }
-        a.recycle();
         mGestureDrawingHelper =
-                new GestureTypingPathDrawHelper(AnyKeyboardView.this::invalidate, paint);
+                GestureTypingPathDrawHelper.create(
+                        this::invalidate,
+                        GestureTrailTheme.fromThemeResource(
+                                getContext(),
+                                theme.getPackageContext(),
+                                theme.getResourceMapping(),
+                                theme.getGestureTrailThemeResId()));
     }
 
     @Override
@@ -262,8 +226,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
         return mIsFirstDownEventInsideSpaceBar;
     }
 
-    private long mExtensionKeyboardAreaEntranceTime = -1;
-
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent me) {
         if (getKeyboard() == null) {
@@ -276,13 +238,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
             return super.onTouchEvent(me);
         }
 
-        final int action = MotionEventCompat.getActionMasked(me);
+        final int action = me.getActionMasked();
 
         PointerTracker pointerTracker = getPointerTracker(me);
         mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
-        if (mGestureTypingPathShouldBeDrawn) {
-            mGestureDrawingHelper.handleTouchEvent(me);
-        }
+        mGestureDrawingHelper.handleTouchEvent(me);
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
         if (!mMiniKeyboardPopup.isShowing()

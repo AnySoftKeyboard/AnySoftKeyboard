@@ -184,7 +184,10 @@ public abstract class Keyboard {
         public int defaultHeightCode;
         /** Default horizontal gap between keys in this row. */
         public int defaultHorizontalGap;
-        /** Vertical gap following this row. */
+        /**
+         * Vertical gap following this row. NOTE: Usually we use the theme's value. This is an
+         * override.
+         */
         public int verticalGap;
         /**
          * Edge flags for this row of keys. Possible values that can be assigned are {@link
@@ -233,7 +236,6 @@ public abstract class Keyboard {
                         resourceMap.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
 
                 try {
-                    // CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case android.R.attr.keyWidth:
                             defaultWidth =
@@ -255,8 +257,12 @@ public abstract class Keyboard {
                                             parent.mDisplayWidth,
                                             parent.mDefaultHorizontalGap);
                             break;
+                        case android.R.attr.verticalGap:
+                            verticalGap =
+                                    getDimensionOrFraction(
+                                            a, remoteIndex, parent.mDisplayWidth, verticalGap);
+                            break;
                     }
-                    // CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                 }
@@ -272,7 +278,6 @@ public abstract class Keyboard {
                         resourceMap.getLocalAttrId(remoteKeyboardRowLayoutStyleable[remoteIndex]);
 
                 try {
-                    // CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case android.R.attr.rowEdgeFlags:
                             //noinspection WrongConstant
@@ -288,7 +293,6 @@ public abstract class Keyboard {
                             }
                             break;
                     }
-                    // CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                 }
@@ -487,7 +491,6 @@ public abstract class Keyboard {
                 TypedArray a,
                 int remoteIndex,
                 int localAttrId) {
-            // CHECKSTYLE:OFF: missingswitchdefault
             switch (localAttrId) {
                 case android.R.attr.keyWidth:
                     width =
@@ -558,7 +561,6 @@ public abstract class Keyboard {
                     shiftedTypedText = a.getText(remoteIndex);
                     break;
             }
-            // CHECKSTYLE:ON: missingswitchdefault
         }
 
         public int getPrimaryCode() {
@@ -671,6 +673,8 @@ public abstract class Keyboard {
         if (value == null) {
             // means that it was not provided. So I take my mParent's
             return defaultHeightCode;
+        } else if (value.type == TypedValue.TYPE_DIMENSION) {
+            return a.getDimensionPixelOffset(remoteIndex, defaultHeightCode);
         } else if (value.type >= TypedValue.TYPE_FIRST_INT
                 && value.type <= TypedValue.TYPE_LAST_INT
                 && value.data <= 0
@@ -879,7 +883,7 @@ public abstract class Keyboard {
             int rowHeight = 0;
             Key key = null;
             Row currentRow = null;
-            int lastVerticalGap = 0;
+            float lastVerticalGap = rowVerticalGap;
 
             try {
                 int event;
@@ -921,7 +925,7 @@ public abstract class Keyboard {
                                 mModifierKeys.add(key);
                             }
                         } else if (TAG_KEYBOARD.equals(tag)) {
-                            parseKeyboardAttributes(mLocalContext, res, parser);
+                            parseKeyboardAttributes(res, parser);
                         } else {
                             inUnknown = true;
                             Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);
@@ -936,10 +940,11 @@ public abstract class Keyboard {
                             }
                         } else if (inRow) {
                             inRow = false;
-                            lastVerticalGap = currentRow.verticalGap;
-                            y += currentRow.verticalGap;
+                            if (currentRow.verticalGap >= 0)
+                                lastVerticalGap = currentRow.verticalGap;
+                            else lastVerticalGap = rowVerticalGap;
+                            y += lastVerticalGap;
                             y += rowHeight;
-                            y += rowVerticalGap;
                         } else if (inUnknown) {
                             inUnknown = false;
                         }
@@ -964,19 +969,17 @@ public abstract class Keyboard {
         }
     }
 
-    private void parseKeyboardAttributes(
-            Context askContext, Resources res, XmlResourceParser parser) {
+    private void parseKeyboardAttributes(Resources res, XmlResourceParser parser) {
         final AddOn.AddOnResourceMapping addOnResourceMapping = mKeyboardResourceMap;
         int[] remoteKeyboardLayoutStyleable =
                 addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
         TypedArray a =
                 res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
-        Resources askRes = askContext.getResources();
         // some defaults
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
         mDefaultHorizontalGap = 0;
-        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+        mDefaultVerticalGap = -1;
 
         // now reading from XML
         int n = a.getIndexCount();
@@ -986,7 +989,6 @@ public abstract class Keyboard {
                     addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
 
             try {
-                // CHECKSTYLE:OFF: missingswitchdefault
                 switch (localAttrId) {
                     case android.R.attr.keyWidth:
                         mDefaultWidth =
@@ -1004,15 +1006,15 @@ public abstract class Keyboard {
                         showPreview =
                                 a.getBoolean(remoteIndex, true /*showing preview by default*/);
                         break;
-                        /*case android.R.attr.verticalGap:
-                        //vertical gap is part of the Theme, not the mKeyboard.
-                        mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
-                        break;*/
+                    case android.R.attr.verticalGap:
+                        mDefaultVerticalGap =
+                                getDimensionOrFraction(
+                                        a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
+                        break;
                     case R.attr.autoCap:
                         autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
                         break;
                 }
-                // CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Failed to set data from XML!", e);
             }

@@ -1,1 +1,1 @@
-* Completely revised pack
+* Updated word-completion dictionary.

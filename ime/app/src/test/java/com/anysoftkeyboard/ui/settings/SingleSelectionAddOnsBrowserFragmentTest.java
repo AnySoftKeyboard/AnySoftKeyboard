@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -29,10 +28,9 @@ import org.robolectric.annotation.Config;
 public class SingleSelectionAddOnsBrowserFragmentTest
         extends RobolectricFragmentTestCase<KeyboardThemeSelectorFragment> {
 
-    @NonNull
     @Override
-    protected KeyboardThemeSelectorFragment createFragment() {
-        return new KeyboardThemeSelectorFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.keyboardThemeSelectorFragment;
     }
 
     @Test
@@ -55,7 +53,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     }
 
     @Test
-    @Ignore
+    @Ignore("I haven't implemented the feature yet.")
     public void testDemoKeyboardShowsLastUsedKeyboardAlphabet() {
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(0, true);
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
@@ -86,7 +84,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest
     }
 
     @Test
-    @Ignore
+    @Ignore("I haven't implemented the feature yet.")
     public void testDemoKeyboardShowsLastUsedKeyboardSymbols() {
         TestableAnySoftKeyboard service = Robolectric.setupService(TestableAnySoftKeyboard.class);
         service.getKeyboardSwitcherForTests()

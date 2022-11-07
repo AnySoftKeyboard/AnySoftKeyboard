@@ -2,6 +2,7 @@ package com.menny.android.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -9,15 +10,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.shadows.ShadowActivity;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LauncherSettingsActivityTest {
@@ -41,7 +41,7 @@ public class LauncherSettingsActivityTest {
                 Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(startWizardActivityIntent);
 
-        Intent expectIntent = new Intent(getApplicationContext(), BasicAnyActivity.class);
+        Intent expectIntent = new Intent(getApplicationContext(), SetupWizardActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
         Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());
@@ -121,29 +121,29 @@ public class LauncherSettingsActivityTest {
     public void testJustFinishIfResumedAgain() throws Exception {
         ActivityController<LauncherSettingsActivity> controller =
                 Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
-        ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
-        Assert.assertFalse(shadowActivity.isFinishing());
+        final Activity activity = controller.get();
+        Assert.assertFalse(activity.isFinishing());
         controller.pause().stop();
-        Assert.assertFalse(shadowActivity.isFinishing());
+        Assert.assertFalse(activity.isFinishing());
         controller.restart().resume();
-        Assert.assertTrue(shadowActivity.isFinishing());
+        Assert.assertTrue(activity.isFinishing());
     }
 
     @Test
     public void testJustFinishIfCreatedAgain() throws Exception {
         ActivityController<LauncherSettingsActivity> controller =
                 Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
-        ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
-        Assert.assertFalse(shadowActivity.isFinishing());
+        Activity activity = controller.get();
+        Assert.assertFalse(activity.isFinishing());
         controller.pause().stop();
-        Assert.assertFalse(shadowActivity.isFinishing());
+        Assert.assertFalse(activity.isFinishing());
         Bundle state = new Bundle();
         controller.saveInstanceState(state).destroy();
 
         controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create(state);
-        shadowActivity = Shadows.shadowOf(controller.get());
-        Assert.assertFalse(shadowActivity.isFinishing());
+        activity = controller.get();
+        Assert.assertFalse(activity.isFinishing());
         controller.resume();
-        Assert.assertTrue(shadowActivity.isFinishing());
+        Assert.assertTrue(activity.isFinishing());
     }
 }

@@ -1,9 +1,10 @@
+import java.util.function.BiConsumer
 import java.util.stream.Stream
 import java.nio.file.Files
 
 System.setProperty("file.encoding", "UTF-8")
 
-def logFile = rootProject.file("build-logging/build-log-${System.currentTimeMillis()}.log")
+def logFile = new File(buildDir.absoluteFile,"build-logging/build-log-${System.currentTimeMillis()}.log")
 gradle.addBuildListener(new BuildLogger(logFile))
 
 buildscript {
@@ -16,18 +17,19 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
-        classpath 'com.github.triplet.gradle:play-publisher:3.6.0-agp4.2'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:2.0.2'
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
         classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9'
-        classpath 'net.evendanan.autoversion:gradle-plugin:0.2.2'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
     }
 }
 
 apply plugin: 'com.github.sherter.google-java-format'
+apply plugin: 'anysoftkeyboard-contributors'
 
 googleJavaFormat {
-    toolVersion = '1.11.0'
+    toolVersion = '1.15.0'
     options style: 'AOSP'
 }
 
@@ -45,7 +47,6 @@ allprojects {
 apply from: "${rootDir}/gradle/emoji_generator.gradle"
 apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
 apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
-
 
 tasks.register("clean", Delete) {
     delete buildDir

@@ -206,8 +206,6 @@
     <string name="tweak_physical_keyboard_group">Fyysisen näppäimistön hienosäädöt</string>
     <string name="tweak_ui_group">Graafiset hienosäädöt</string>
     <string name="tweak_dictionary_group">Sanakirjan hienosäädöt</string>
-    <string name="settings_min_length_for_word_correction">Sanan vähimmäispituus korjausta varten
-    </string>
     <string name="show_keyboard_name_text">Näytä näppäimistön nimi</string>
     <string name="show_keyboard_name_on_summary">Näytä näppäimistön nimi välilyöntinäppäimessä</string>
     <string name="show_keyboard_name_off_summary">Älä koskaan näytä näppäimistön nimeä</string>
@@ -453,11 +451,6 @@
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_restore_success_text">Sanasi on palautettu onnistuneesti.</string>
-    <string name="user_dict_restore_fail_title">Palautus epäonnistui!</string>
-    <string name="user_dict_restore_fail_text_with_error">Sanojen palauttaminen epäonnistui:\u0020
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="emoji_default_skin_tone_value_generic">Yleinen</string>
     <string name="emoji_default_skin_tone_value_type_2">Vaalea ihon sävy</string>
     <string name="emoji_default_skin_tone_value_type_3">Keskivaalea ihon sävy</string>
@@ -529,7 +522,7 @@
     </string>
     <string name="ime_crashed_send_button">Lähetä</string>
     <string name="ime_crashed_cancel_button">Peruuta</string>
-    <string name="ime_crashed_intent_selector_title">Lähetä kaatumisilmoitus...</string>
+    <string name="ime_crashed_intent_selector_title">Lähetä kaatumisilmoitus…</string>
     <string name="next_word_settings_group">Asetukset</string>
     <string name="clipboard_is_empty_toast">Leikepöytä on tyhjä, ei ole mitään liitettävää.</string>
     <string name="clipboard_copy_done_toast">Valittu teksti on kopioitu leikepöydälle.</string>
@@ -574,8 +567,7 @@
     <string name="aosp_light_theme_name">AOSP vaalea teema</string>
     <string name="aosp_light_theme_description">Vaaleavärinen, AOSP-inspiroitu näppäimistön teema</string>
     <string name="app_share_title">Hei AnySoftKeyboardilta</string>
-    <string name="app_share_menu_title">Jaa AnySoftKeyboard...</string>
+    <string name="app_share_menu_title">Jaa AnySoftKeyboard…</string>
     <string name="app_share_text">Saanen suositella avoimen lähdekoodin yksityisyyteen keskittynyttä, ilmaista ja muokattavaa monikielistä Android-näppäimistösovellusta AnySoftKeyboardia.\nHanki täältä:\nPlay-kauppa: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Klikkaa minua, tiedossa yllätys</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

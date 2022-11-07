@@ -1,3 +1,4 @@
+---
 name: "code-coverage"
 author: "menny"
 description: "action which locate coverage files and uploads them"
@@ -10,7 +11,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker://menny/android_ndk:1.15.3"
+  image: "docker://menny/android_ndk:1.15.4"
   env:
     TERM: dumb
   entrypoint: /bin/bash

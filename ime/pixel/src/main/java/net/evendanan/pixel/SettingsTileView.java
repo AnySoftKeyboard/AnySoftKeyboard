@@ -1,11 +1,9 @@
 package net.evendanan.pixel;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,7 +27,6 @@ public class SettingsTileView extends LinearLayout {
         init(attrs);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public SettingsTileView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs);

@@ -21,15 +21,15 @@ if (haltDeploymentFile.exists()) {
 }
 
 deployments {
-    imeMaster {
+    imeMain {
         environmentSteps = ['alpha_100', 'beta_100']
     }
     imeProduction {
         environmentSteps = ['production_010', '', 'production_020', '', '', 'production_030', 'production_040', 'production_050', '', '', '', 'production_075', '', 'production_100']
     }
 
-    addOnsMaster {
-        environmentSteps = ['beta_100']
+    addOnsMain {
+        environmentSteps = ['alpha_100', 'beta_100']
     }
     addOnsProduction {
         environmentSteps = ['production_010', '', 'production_050', '', 'production_100']
@@ -60,21 +60,21 @@ static String getTaskNameByStepFor(Project project, String processName, long ste
 }
 
 //////// start - IME
-//master
-def imeOnMasterPush = tasks.register("imeOnMasterPush") {
+//main branch
+def imeOnMainPush = tasks.register("imeOnMainPush") {
     it.group "Publishing"
-    it.description "Deployment request on master push for IME"
-    it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "imeMaster", 0))
+    it.description "Deployment request on main-branch push for IME"
+    it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "imeMain", 0))
 }
 
-def imePromoteMaster = tasks.register("imePromoteMaster") {
+def imePromoteMain = tasks.register("imePromoteMain") {
     it.group "Publishing"
-    it.description "Deployment promoting request on master for IME"
+    it.description "Deployment promoting request on main-branch for IME"
     //promoting ime only on Wednesday
     def shouldPromote = Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
     it.onlyIf { shouldPromote }
     if (shouldPromote) {
-        it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "imeMaster", 1))
+        it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "imeMain", 1))
     }
 }
 
@@ -99,16 +99,22 @@ def imePromoteRelease = tasks.register("imePromoteRelease") {
 def noOpTask = tasks.register("noOpDeployTask")
 
 //////// start - addons
-// master
-def addOnsOnMasterPush = tasks.register("addOnsOnMasterPush") {
+// main-branch
+def addOnsOnMainPush = tasks.register("addOnsOnMainPush") {
     it.group "Publishing"
-    it.description "Deployment request on master push for all addons"
-    it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "addOnsMaster", 0))
+    it.description "Deployment request on main-branch push for all addons"
+    it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "addOnsMain", 0))
 }
 
-def addOnsPromoteMaster = tasks.register("addOnsPromoteMaster") {
+def addOnsPromoteMain = tasks.register("addOnsPromoteMain") {
     it.group 'Publishing'
-    it.description 'NO-OP: Deployment request on master push for all addons'
+    it.description 'NO-OP: Deployment request on main-branch push for all addons'
+    //promoting add-ons only on Wednesday
+    def shouldPromote = Instant.now().toCalendar().toDayOfWeek() == DayOfWeek.WEDNESDAY
+    it.onlyIf { shouldPromote }
+    if (shouldPromote) {
+        it.dependsOn tasks.named(getTaskNameByStepFor(it.project, "addOnsMain", 1))
+    }
 }
 
 
@@ -140,25 +146,25 @@ tasks.register('deploymentRequestProcess').configure {
     if (!skipDeploymentReason.empty) {
         println(skipDeploymentReason);
     } else {
-        if (imeOnMasterPush == null) throw new NullPointerException("imeOnMasterPush")
-        if (addOnsOnMasterPush == null) throw new NullPointerException("addOnsOnMasterPush")
-        if (imePromoteMaster == null) throw new NullPointerException("imePromoteMaster")
-        if (addOnsPromoteMaster == null) throw new NullPointerException("addOnsPromoteMaster")
+        if (imeOnMainPush == null) throw new NullPointerException("imeOnMainPush")
+        if (addOnsOnMainPush == null) throw new NullPointerException("addOnsOnMainPush")
+        if (imePromoteMain == null) throw new NullPointerException("imePromoteMain")
+        if (addOnsPromoteMain == null) throw new NullPointerException("addOnsPromoteMain")
 
         if (ref != null && newDeploy != null) {
             def imeDeploy
             def addOnsDeploy
             ref = ref.replace('refs/heads/', '')
-            if (ref == 'master') {
-                println('deploy-request from master branch')
+            if (ref == 'main') {
+                println('deploy-request from main-branch branch')
                 if (newDeploy == 'true') {
                     println('deploy-request for a new deploy')
-                    imeDeploy = imeOnMasterPush
-                    addOnsDeploy = addOnsOnMasterPush
+                    imeDeploy = imeOnMainPush
+                    addOnsDeploy = addOnsOnMainPush
                 } else if (newDeploy == 'false') {
                     println('deploy-request for a promote')
-                    imeDeploy = imePromoteMaster
-                    addOnsDeploy = addOnsPromoteMaster
+                    imeDeploy = imePromoteMain
+                    addOnsDeploy = addOnsPromoteMain
                 }
             } else if (ref.matches('release-branch-ime-v.+')) {
                 println('deploy-request from ime release branch')

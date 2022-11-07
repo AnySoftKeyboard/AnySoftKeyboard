@@ -80,7 +80,7 @@
     <string name="power_save_mode_sound_control">Deshabilitar sonidos de pulsación de teclas</string>
     <string name="power_save_mode_vibration_control">Deshabilitar vibraciones de pulsación de teclas</string>
     <string name="power_save_mode_suggestions_control">Deshabilitar sugerencias de palabras</string>
-    <string name="power_save_mode_gesture_typing_control">Deshabilitar la escritura por gestos</string>
+    <string name="power_save_mode_gesture_typing_control">Deshabilitar escritura por gestos</string>
     <string name="power_save_mode_theme_control">Cambiar al tema oscuro y simple</string>
     <string name="pop_text_type_title">Mostrar el texto escrito de las teclas</string>
     <string name="pop_text_type_summary">Cuándo mostrar el texto de las teclas pulsadas. Actualmente: \u0020%s</string>
@@ -187,6 +187,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Distribución compacta a la derecha</string>
     <string name="swipe_action_name_compact_layout_to_left">Distribución compacta a la izquierda</string>
     <string name="swipe_action_name_utility_keyboard">Mostrar utilidad del teclado</string>
+    <string name="swipe_action_name_quick_text_popup">Mostrar cuadro emergente de emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Límite de velocidad de deslizamiento</string>
     <string name="settings_swipe_velocity_threshold_summary">Velocidad mínima del gesto de deslizamiento. Actualmente: %s</string>
     <string name="settings_swipe_velocity_very_slow">Muy lenta</string>
@@ -246,7 +247,6 @@
     <string name="supported_keyboard_row_modes_title">Modos habilitados de filas de entrada especializadas</string>
     <string name="supported_keyboard_row_modes_summary">Elegir las filas de entrada especializadas (como contraseña, URL, etc.) para usar.</string>
     <string name="tweak_dictionary_group">Ajustes de diccionario</string>
-    <string name="settings_min_length_for_word_correction">Longitud de palabra mínima para la corrección</string>
     <string name="show_keyboard_name_text">Mostrar el nombre del teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar el nombre del teclado en la barra espaciadora</string>
     <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre del teclado</string>
@@ -408,6 +408,7 @@
     <string name="extension_kbd_bottom_minimal">Mínimo</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Mínimo (sin emojis)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Mínimo (menos puntuación)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Mínimo (alternativo)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ir</string>
@@ -486,14 +487,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">No tienes palabras en el diccionario del usuario. Puedes añadir una palabra a través del menú.</string>
-    <string name="user_dict_backup_success_title">¡Respaldado correctamente!</string>
-    <string name="user_dict_backup_success_text">Tus palabras se han almacenado correctamente en \u0020/Android/data/com.menny.android.anysoftkeyboard/files/</string>
-    <string name="user_dict_backup_fail_title">¡Respaldado fallido!</string>
-    <string name="user_dict_backup_fail_text_with_error">Error al almacenar palabras debido a: \u0020<xliff:g id="error">%s</xliff:g></string>
-    <string name="user_dict_restore_success_title">¡Restaurado correctamente!</string>
-    <string name="user_dict_restore_success_text">Se restauraron correctamente tus palabras.</string>
-    <string name="user_dict_restore_fail_title">¡Restauración fallida!</string>
-    <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras debido a: \u0020<xliff:g id="error">%s</xliff:g></string>
     <string name="should_swap_punctuation_and_space_title">Intercambiar espacio y puntuación</string>
     <string name="should_swap_punctuation_and_space_off_summary">No intercambiar espacio ni puntuación.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Intercambio automático de espacio y puntuación.</string>
@@ -524,7 +517,7 @@
     <string name="created_mem_dump_file">Archivo de volcado de memoria creado en: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no está configurado para su uso. Haz clic aquí para configurar.</string>
     <string name="not_configured_with_just_click_here">Clic aquí</string>
-    <string name="click_for_more">más...</string>
+    <string name="click_for_more">más…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Añadir palabra</string>
@@ -535,16 +528,6 @@
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="toast_error_custom_path_backup">Error: Cualquier aplicación contextual podría estar abierta</string>
-    <string name="file_explorer_menu_add_folder">Crear carpeta</string>
-    <string name="file_explorer_filename">Nombre del archivo de respaldo…</string>
-    <string name="file_explorer_filename_empty">El nombre del archivo no puede estar vacío…</string>
-    <string name="file_explorer_alert_title">¿Seleccionar este archivo?</string>
-    <string name="file_explorer_restore_alert_message">¿Deseas restaurar este archivo?</string>
-    <string name="file_explorer_backup_alert_message">Este archivo se sobrescribirá.</string>
-    <string name="file_explorer_backup_success">Tus datos han sido guardados en \u0020</string>
-    <string name="file_explorer_backup_failed">Tus datos no se pudieron guardar.</string>
-    <string name="file_explorer_restore_success">Tus datos han sido restaurados desde \u0020</string>
-    <string name="file_explorer_restore_failed">Tus datos no se pudieron restaurar.</string>
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
     <string name="setup_wizard_step_one_title">Habilitar AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En este paso, deberás habilitar <i>AnySoftKeyboard</i>. Comprueba <i>\'AnySoftKeyboard \'</i> en <i>Idioma - Ajustes de entrada</i>. Esto nos permitirá funcionar en tu dispositivo.</string>
@@ -559,9 +542,9 @@
     <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Estás listo 🎉\nVe a tu aplicación favorita para probarlo.</b></string>
     <string name="setup_wizard_step_three_details_actions">O bien, puedes personalizar el teclado según tus gustos:</string>
-    <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
-    <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
+    <string name="setup_wizard_step_three_action_languages">Configuración de idiomas…</string>
+    <string name="setup_wizard_step_three_action_themes">Seleccionar tema…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás…</string>
     <string name="setup_wizard_step_download_title">Descargar paquetes de idioma</string>
     <string name="setup_wizard_step_download_details">Te alegrará saber que <i>AnySoftKeyboard</i> admite docenas de idiomas. Simplemente descarga el paquete de idioma deseado y disfruta escribiendo en cualquier idioma en tu dispositivo.</string>
     <string name="setup_wizard_step_download_action">Descargar paquete de idioma</string>
@@ -649,16 +632,16 @@
     <string name="prefs_providers_backed_up_to">Tus datos fueron respaldados correctamente para %s</string>
     <string name="prefs_providers_failed_restore_due_to">Error al restaurar tus datos debido a %s</string>
     <string name="prefs_providers_restored_to">Tus datos fueron restaurados correctamente desde %s</string>
-    <string name="word_editor_action_choose_path">Elegir ruta personalizada</string>
     <string name="allow_layouts_to_provide_generic_rows">Los teclados pueden proporcionar filas genéricas</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Siempre utilizar las filas genéricas seleccionadas.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Permitir distribución para anular filas genéricas.</string>
     <string name="gesture_typing_settings">Escritura por gestos ➿</string>
     <string name="gesture_typing_summary">Ingresa una palabra deslizando tu dedo por las letras.</string>
-    <string name="gesture_typing_action">Habilitar la escritura por gestos [BETA]</string>
+    <string name="gesture_typing_action">Habilitar escritura por gestos [BETA]</string>
     <string name="gesture_typing_alert_title">¡Función BETA!</string>
     <string name="gesture_typing_alert_message">La función de escritura por gestos ➿ está en su etapa <b>beta</b>.\nTiene algunos errores, no tan rápido y/o completo. Diciendo eso, deberías probarlo.</string>
     <string name="gesture_typing_alert_button">Entendido</string>
+    <string name="undo_gesture_typing">Deshacer escritura por gestos</string>
     <string name="apply_remote_app_colors_to_theme">Cambiar colores del tema según la aplicación</string>
     <string name="apply_overlay_summary_on">Colores del teclado coincidirán con la aplicación activa (lo mejor posible).</string>
     <string name="apply_overlay_summary_off">Siempre utilizar los colores del tema.</string>
@@ -671,5 +654,6 @@
     <string name="app_share_menu_title">Compartir uso de AnySoftKeyboard</string>
     <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">No es compatible con tu Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Respaldar y restaurar no son compatibles con dispositivos que tienen sistema operativo Android anterior a KitKat (versión 4.4). Lo siento.</string>
 </resources>

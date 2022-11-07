@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary
+        autoTextResourceId="@xml/icelandic_autotext"
+        description="@string/icelandic_dictionary_description"
+        dictionaryResourceId="@array/icelandic_words_dict_array"
+        id="9abed456-0d54-4fbe-b89d-11ff93d6500e"
+        locale="is"
+        nameResId="@string/icelandic_dictionary"
+        type="binary_resource" />
+</Dictionaries>

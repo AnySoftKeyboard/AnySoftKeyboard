@@ -23,13 +23,11 @@ import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import androidx.collection.ArrayMap;
 import com.anysoftkeyboard.addons.AddOn;
@@ -90,7 +88,7 @@ public class KeyboardSwitcher {
     private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 4;
     private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 5;
     private static final int SYMBOLS_KEYBOARDS_COUNT = 6;
-    private static String TAG = "ASKKbdSwitcher";
+    private static final String TAG = "ASKKbdSwitcher";
     @NonNull private final KeyboardSwitchedListener mKeyboardSwitchedListener;
     @NonNull private final Context mContext;
     // this will hold the last used keyboard ID per app's package ID
@@ -436,8 +434,7 @@ public class KeyboardSwitcher {
                 final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders =
                         AnyApplication.getKeyboardFactory(mContext).getEnabledAddOns();
                 mAlphabetKeyboardsCreators =
-                        enabledKeyboardBuilders.toArray(
-                                new KeyboardAddOnAndBuilder[enabledKeyboardBuilders.size()]);
+                        enabledKeyboardBuilders.toArray(new KeyboardAddOnAndBuilder[0]);
                 mInternetInputLayoutIndex = findIndexOfInternetInputLayout();
                 mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
                 mLastSelectedKeyboardIndex = 0;
@@ -901,7 +898,7 @@ public class KeyboardSwitcher {
 
     public boolean isCurrentKeyboardPhysical() {
         AnyKeyboard current = getCurrentKeyboard();
-        return (current != null) && (current instanceof HardKeyboardTranslator);
+        return (current instanceof HardKeyboardTranslator);
     }
 
     public void onLowMemory() {
@@ -935,7 +932,6 @@ public class KeyboardSwitcher {
         mAlphabetKeyboardIndexByPackageId.clear();
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private void storeKeyboardByAppMapping() {
         Set<String> mapping = new HashSet<>(mAlphabetKeyboardIndexByPackageId.size());
         for (Map.Entry<String, CharSequence> aMapping :
@@ -949,7 +945,6 @@ public class KeyboardSwitcher {
                 .set(mapping);
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private void loadKeyboardAppMapping() {
         Set<String> mapping =
                 AnyApplication.prefs(mContext)

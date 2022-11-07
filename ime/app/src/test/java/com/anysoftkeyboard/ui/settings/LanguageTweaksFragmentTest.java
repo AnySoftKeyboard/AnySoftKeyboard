@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.settings;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -18,11 +17,9 @@ import org.junit.runner.RunWith;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LanguageTweaksFragmentTest
         extends RobolectricFragmentTestCase<LanguageTweaksFragment> {
-
-    @NonNull
     @Override
-    protected LanguageTweaksFragment createFragment() {
-        return new LanguageTweaksFragment();
+    protected int getStartFragmentNavigationId() {
+        return R.id.languageTweaksFragment;
     }
 
     @Test

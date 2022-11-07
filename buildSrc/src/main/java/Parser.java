@@ -166,10 +166,10 @@ class Parser {
 
     private char fixup(int intChar) {
         switch (intChar) {
-            case '’':
+            case 8217: // back-tick `
                 return '\'';
-            case '”':
-            case '“':
+            case 8221: // fancy open-quotes ”
+            case 8220: // fancy close-quotes “
                 return '\"';
             default:
                 return (char) intChar;

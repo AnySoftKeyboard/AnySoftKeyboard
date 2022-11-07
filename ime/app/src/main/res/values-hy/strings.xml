@@ -101,5 +101,4 @@
     <string name="settings_key_hint_size_big">Մեծ</string>
     <string name="gesture_typing_alert_button">Հասկացա</string>
     <string name="app_share_title">Բարև AnySoftKeyboard֊ից</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

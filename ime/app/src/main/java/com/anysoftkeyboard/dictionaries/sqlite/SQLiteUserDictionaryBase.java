@@ -16,21 +16,18 @@
 
 package com.anysoftkeyboard.dictionaries.sqlite;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.ContentObserver;
 import android.database.sqlite.SQLiteException;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.content.ContentObserverDictionary;
 
-public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
+public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary {
     private static final String TAG = "SQLiteUserDictBase";
-
-    private volatile WordsSQLiteConnection mStorage;
     private final String mLocale;
+    private volatile WordsSQLiteConnection mStorage;
 
     protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
-        super(dictionaryName, context);
+        super(dictionaryName, context, null /*internal storage, we know when it changes*/);
         mLocale = locale;
         Logger.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
     }
@@ -86,12 +83,6 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     @Override
     protected final void deleteWordFromStorage(String word) {
         if (mStorage != null) mStorage.deleteWord(word);
-    }
-
-    @Override
-    protected final void registerObserver(
-            ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
-        // nothing to do here, the storage is internal and cannot be changed from the outside.
     }
 
     @Override

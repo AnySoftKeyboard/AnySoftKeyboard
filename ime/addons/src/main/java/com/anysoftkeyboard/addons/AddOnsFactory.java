@@ -28,7 +28,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -52,19 +51,18 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class AddOnsFactory<E extends AddOn> {
-    public interface OnCriticalAddOnChangeListener {
-        void onAddOnsCriticalChange();
-    }
-
     private static final String XML_PREF_ID_ATTRIBUTE = "id";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_SORT_INDEX_ATTRIBUTE = "index";
     private static final String XML_DEV_ADD_ON_ATTRIBUTE = "devOnly";
     private static final String XML_HIDDEN_ADD_ON_ATTRIBUTE = "hidden";
-
     @NonNull protected final Context mContext;
     protected final String mTag;
+    protected final SharedPreferences mSharedPreferences;
+    final ArrayList<E> mAddOns = new ArrayList<>();
+    final HashMap<String, E> mAddOnsById = new HashMap<>();
+    final String mDefaultAddOnId;
     /**
      * This is the interface name that a broadcast receiver implementing an external addon should
      * say that it supports -- that is, this is the action it uses for its intent filter.
@@ -76,21 +74,18 @@ public abstract class AddOnsFactory<E extends AddOn> {
      */
     private final String mReceiverMetaData;
 
-    final ArrayList<E> mAddOns = new ArrayList<>();
-    final HashMap<String, E> mAddOnsById = new HashMap<>();
     private final boolean mReadExternalPacksToo;
     private final String mRootNodeTag;
     private final String mAddonNodeTag;
     @XmlRes private final int mBuildInAddOnsResId;
-    final String mDefaultAddOnId;
     private final boolean mDevAddOnsIncluded;
 
     // NOTE: this should only be used when interacting with shared-prefs!
     private final String mPrefIdPrefix;
-    protected final SharedPreferences mSharedPreferences;
 
     protected AddOnsFactory(
             @NonNull Context context,
+            @NonNull SharedPreferences sharedPreferences,
             String tag,
             String receiverInterface,
             String receiverMetaData,
@@ -112,11 +107,22 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
         mPrefIdPrefix = prefIdPrefix;
         mBuildInAddOnsResId = buildInAddonResId;
+        if (buildInAddonResId == AddOn.INVALID_RES_ID) {
+            throw new IllegalArgumentException("A built-in addon list MUST be provided!");
+        }
         mReadExternalPacksToo = readExternalPacksToo;
         mDevAddOnsIncluded = isDebugBuild;
         mDefaultAddOnId =
                 defaultAddOnStringId == 0 ? null : context.getString(defaultAddOnStringId);
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mSharedPreferences = sharedPreferences;
+
+        if (isDebugBuild && readExternalPacksToo) {
+            Logger.d(
+                    mTag,
+                    "Will read external addons with ACTION '%s' and meta-data '%s'",
+                    mReceiverInterface,
+                    mReceiverMetaData);
+        }
     }
 
     @Nullable
@@ -324,17 +330,23 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected void loadAddOns() {
         clearAddOnList();
 
-        if (mBuildInAddOnsResId != 0) {
-            List<E> local = getAddOnsFromResId(mContext, mBuildInAddOnsResId);
-            for (E addon : local) {
-                Logger.d(mTag, "Local add-on %s loaded", addon.getId());
-            }
-            mAddOns.addAll(local);
+        List<E> local = getAddOnsFromLocalResId(mBuildInAddOnsResId);
+        for (E addon : local) {
+            Logger.d(mTag, "Local add-on %s loaded", addon.getId());
         }
+        if (local.isEmpty()) {
+            throw new IllegalStateException(
+                    "No built-in addons were found for " + getClass().getName());
+        }
+        mAddOns.addAll(local);
+
         List<E> external = getExternalAddOns();
         for (E addon : external) {
             Logger.d(mTag, "External add-on %s loaded", addon.getId());
         }
+        // ensures there are no duplicates
+        // also, allow overriding internal packs with externals with the same ID
+        mAddOns.removeAll(external);
         mAddOns.addAll(external);
         Logger.d(mTag, "Have %d add on for %s", mAddOns.size(), getClass().getName());
 
@@ -399,9 +411,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return externalAddOns;
     }
 
-    private List<E> getAddOnsFromResId(Context packContext, int addOnsResId) {
-        try (final XmlResourceParser xml = packContext.getResources().getXml(addOnsResId)) {
-            return parseAddOnsFromXml(packContext, xml);
+    private List<E> getAddOnsFromLocalResId(int addOnsResId) {
+        try (final XmlResourceParser xml = mContext.getResources().getXml(addOnsResId)) {
+            return parseAddOnsFromXml(mContext, xml, true);
         }
     }
 
@@ -412,11 +424,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 // issue 718: maybe a bad package?
                 return Collections.emptyList();
             }
-            return parseAddOnsFromXml(packContext, xml);
+            return parseAddOnsFromXml(packContext, xml, false);
         }
     }
 
-    private ArrayList<E> parseAddOnsFromXml(Context packContext, XmlPullParser xml) {
+    private ArrayList<E> parseAddOnsFromXml(
+            Context packContext, XmlPullParser xml, boolean isLocal) {
         final ArrayList<E> addOns = new ArrayList<>();
         try {
             int event;
@@ -440,9 +453,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
             }
         } catch (final IOException e) {
             Logger.e(mTag, "IO error:" + e);
+            if (isLocal) throw new RuntimeException(e);
             e.printStackTrace();
         } catch (final XmlPullParserException e) {
             Logger.e(mTag, "Parse error:" + e);
+            if (isLocal) throw new RuntimeException(e);
             e.printStackTrace();
         }
 
@@ -526,6 +541,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
             int sortIndex,
             AttributeSet attrs);
 
+    public interface OnCriticalAddOnChangeListener {
+        void onAddOnsCriticalChange();
+    }
+
     private static final class AddOnsComparator implements Comparator<AddOn>, Serializable {
         static final long serialVersionUID = 1276823L;
 
@@ -557,6 +576,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         protected SingleAddOnsFactory(
                 @NonNull Context context,
+                @NonNull SharedPreferences sharedPreferences,
                 String tag,
                 String receiverInterface,
                 String receiverMetaData,
@@ -569,6 +589,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 boolean isTestingBuild) {
             super(
                     context,
+                    sharedPreferences,
                     tag,
                     receiverInterface,
                     receiverMetaData,
@@ -609,6 +630,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         protected MultipleAddOnsFactory(
                 @NonNull Context context,
+                @NonNull SharedPreferences sharedPreferences,
                 String tag,
                 String receiverInterface,
                 String receiverMetaData,
@@ -621,6 +643,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 boolean isTestingBuild) {
             super(
                     context,
+                    sharedPreferences,
                     tag,
                     receiverInterface,
                     receiverMetaData,

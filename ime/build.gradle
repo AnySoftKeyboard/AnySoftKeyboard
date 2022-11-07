@@ -1,4 +1,4 @@
-apply plugin: 'net.evendanan.autoversion.simple'
+apply plugin: 'ask.net.evendanan.autoversion.simple'
 
 autoVersioning {
     enabled = rootProject.hasProperty("withAutoVersioning")

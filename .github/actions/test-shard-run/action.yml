@@ -1,3 +1,4 @@
+---
 name: "Run tests"
 author: "menny"
 description: "Runs tests using Gradle and sharding support"
@@ -13,7 +14,7 @@ inputs:
     default: ""
 runs:
   using: "docker"
-  image: "docker://menny/android_ndk:1.15.3"
+  image: "docker://menny/android_ndk:1.15.4"
   env:
     TERM: dumb
     GRADLE_USER_HOME: ".github_cache_gradle/"

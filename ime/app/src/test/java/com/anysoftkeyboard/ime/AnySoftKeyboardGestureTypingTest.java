@@ -2,6 +2,8 @@ package com.anysoftkeyboard.ime;
 
 import static org.mockito.ArgumentMatchers.any;
 
+import android.view.View;
+import android.widget.Toast;
 import com.anysoftkeyboard.AddOnTestUtils;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -13,28 +15,57 @@ import com.anysoftkeyboard.dictionaries.GetWordsCallback;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.disposables.CompositeDisposable;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
+import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
+    private CompositeDisposable mDisposable;
+
     @Before
     @Override
     public void setUpForAnySoftKeyboardBase() throws Exception {
+        mDisposable = new CompositeDisposable();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
         super.setUpForAnySoftKeyboardBase();
         com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
         TestRxSchedulers.foregroundFlushAllJobs();
+    }
+
+    @After
+    public void tearDownDisposables() {
+        mDisposable.dispose();
+    }
+
+    private Supplier<GestureTypingDetector.LoadingState> createLatestStateProvider(
+            GestureTypingDetector detector) {
+        final AtomicReference<GestureTypingDetector.LoadingState> currentState =
+                new AtomicReference<>();
+        mDisposable.add(
+                detector.state()
+                        .subscribe(
+                                currentState::set,
+                                e -> {
+                                    throw new RuntimeException(e);
+                                }));
+        return currentState::get;
     }
 
     @Test
@@ -113,6 +144,26 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOutputCapitalisedOnShiftLocked() {
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("HELLO", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        simulateGestureProcess("hello");
+        Assert.assertEquals(
+                "HELLO HELLO", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputTitleCaseOnShifted() {
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("Hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        simulateGestureProcess("hello");
+        Assert.assertEquals(
+                "Hello hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testCanOutputFromBothDictionaries() {
         mAnySoftKeyboardUnderTest
                 .mGestureTypingDetectors
@@ -158,6 +209,28 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         simulateGestureProcess("hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress('a');
         Assert.assertEquals("hello a", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputDoubleSpacesToDotAfterGestureIfEnabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_double_space_to_period, true);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputDoubleSpacesToDotAfterGestureIfDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_double_space_to_period, false);
+        simulateGestureProcess("hello");
+        Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hello  ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -268,6 +341,87 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testShowClearGestureButton() {
+        simulateGestureProcess("hello");
+        Assert.assertEquals(
+                View.VISIBLE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
+    }
+
+    @Test
+    public void testHideClearGestureButtonOnConfirmed() {
+        simulateGestureProcess("hello");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(
+                View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
+    }
+
+    @Test
+    public void testClearGestureButtonClearsGesture() {
+        simulateGestureProcess("hello");
+        final KeyboardViewContainerView.StripActionProvider provider =
+                mAnySoftKeyboardUnderTest.mClearLastGestureAction;
+        View rootActionView =
+                provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
+                        .findViewById(R.id.clear_gesture_action_icon);
+        final View.OnClickListener onClickListener =
+                Shadows.shadowOf(rootActionView).getOnClickListener();
+
+        onClickListener.onClick(rootActionView);
+
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testHideClearGestureButtonOnClear() {
+        simulateGestureProcess("hello");
+        final KeyboardViewContainerView.StripActionProvider provider =
+                mAnySoftKeyboardUnderTest.mClearLastGestureAction;
+        View rootActionView =
+                provider.inflateActionView(mAnySoftKeyboardUnderTest.getInputViewContainer())
+                        .findViewById(R.id.clear_gesture_action_icon);
+        final View.OnClickListener onClickListener =
+                Shadows.shadowOf(rootActionView).getOnClickListener();
+
+        onClickListener.onClick(rootActionView);
+
+        Assert.assertEquals(
+                View.GONE, mAnySoftKeyboardUnderTest.mClearLastGestureAction.getVisibility());
+    }
+
+    @Test
+    public void testShowsTipOnSwipe() {
+        simulateGestureProcess("hello");
+        var view =
+                mAnySoftKeyboardUnderTest
+                        .getInputViewContainer()
+                        .findViewById(R.id.clear_gesture_action_icon);
+        final View.OnClickListener onClickListener = Shadows.shadowOf(view).getOnClickListener();
+
+        Assert.assertEquals(0, ShadowToast.shownToastCount());
+        onClickListener.onClick(view);
+        Assert.assertEquals(1, ShadowToast.shownToastCount());
+        Assert.assertEquals(Toast.LENGTH_LONG, ShadowToast.getLatestToast().getDuration());
+        Assert.assertTrue(ShadowToast.getTextOfLatestToast().startsWith("Tip:"));
+
+        simulateGestureProcess("hello");
+        onClickListener.onClick(view);
+        Assert.assertEquals(2, ShadowToast.shownToastCount());
+        Assert.assertEquals(Toast.LENGTH_SHORT, ShadowToast.getLatestToast().getDuration());
+        Assert.assertTrue(ShadowToast.getTextOfLatestToast().startsWith("Tip:"));
+
+        simulateGestureProcess("hello");
+        onClickListener.onClick(view);
+        Assert.assertEquals(3, ShadowToast.shownToastCount());
+        Assert.assertEquals(Toast.LENGTH_SHORT, ShadowToast.getLatestToast().getDuration());
+        Assert.assertTrue(ShadowToast.getTextOfLatestToast().startsWith("Tip:"));
+
+        simulateGestureProcess("hello");
+        onClickListener.onClick(view);
+        // not showing the tip anymore
+        Assert.assertEquals(3, ShadowToast.shownToastCount());
+    }
+
+    @Test
     public void testClearAllDetectorsWhenCriticalAddOnChange() {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size() > 0);
 
@@ -285,9 +439,13 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
         simulateOnStartInputFlow();
         final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+        Supplier<GestureTypingDetector.LoadingState> detector1State =
+                createLatestStateProvider(detector1);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+        Supplier<GestureTypingDetector.LoadingState> detector2State =
+                createLatestStateProvider(detector2);
 
         // this keeps the currently used detector2, but kills the second
         mAnySoftKeyboardUnderTest.onLowMemory();
@@ -295,10 +453,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
 
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.NOT_LOADED, detector1.state().blockingFirst());
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, detector1State.get());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2State.get());
     }
 
     @Test
@@ -311,8 +467,9 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.LOADING, detector2.state().blockingFirst());
+        Supplier<GestureTypingDetector.LoadingState> detector2State =
+                createLatestStateProvider(detector2);
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, detector2State.get());
 
         // this keeps the currently used detector2, but kills the second
         mAnySoftKeyboardUnderTest.onLowMemory();
@@ -320,8 +477,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
 
         TestRxSchedulers.drainAllTasks();
-        Assert.assertEquals(
-                GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2State.get());
     }
 
     @Test

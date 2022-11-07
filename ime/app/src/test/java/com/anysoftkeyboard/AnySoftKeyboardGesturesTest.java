@@ -104,6 +104,41 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testSwipeWithSpaceOutput() {
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                "space");
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_double_space_to_period),
+                true);
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(" ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(". ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(".. ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('x');
+        Assert.assertEquals('x', mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(".. x", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.SPACE, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+        Assert.assertEquals(".. x ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
     public void testSwipeLeftFromSpace() {
         AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         TestInputConnection inputConnection =
@@ -379,6 +414,19 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 KeyCodes.KEYBOARD_REVERSE_CYCLE,
                 mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeForActionQuickTextPopIpConfigurable() {
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_quick_text_popup));
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(
+                KeyCodes.QUICK_TEXT_POPUP, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
 
     @Test

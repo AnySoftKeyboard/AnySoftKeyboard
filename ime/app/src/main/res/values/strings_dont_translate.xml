@@ -32,7 +32,7 @@
 
     <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward
         compatible!\nIt may also include\u0020&#x1f409;\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>
-        you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.\u0020&#x1f409;
+        you encounter at https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues.\n\nThank you for testing a development build.\u0020&#x1f409;
     </string>
     <string name="about_copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020Menny Even-Danan</string>
     <string name="main_site_url">https://anysoftkeyboard.github.io/</string>
@@ -42,4 +42,12 @@
     <string name="switch_incognito_template">🕵️\u0020<xliff:g id="incognito">%s</xliff:g></string>
 
     <string name="rate_app_in_store_url">http://play.google.com/store/apps/details?id=<xliff:g id="rate_url">%s</xliff:g></string>
+
+    <string name="deeplink_url_keyboards">anysoftkeyboard://settings/language/layouts</string>
+    <string name="deeplink_url_themes">anysoftkeyboard://settings/ui/themes</string>
+    <string name="deeplink_url_quick_text">anysoftkeyboard://settings/quick_text</string>
+    <string name="deeplink_url_gestures">anysoftkeyboard://settings/gestures</string>
+    <string name="deeplink_url_dev_tools">anysoftkeyboard://settings/dev_tools</string>
+
+    <string name="label_subtype_generic">%s</string>
 </resources>

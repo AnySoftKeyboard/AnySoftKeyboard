@@ -172,8 +172,6 @@
         <attr name="keyboardNameTextSize" format="reference|dimension"/>
         <attr name="keyboardNameTextColor" format="reference|color"/>
 
-        <attr name="previewGestureTextSize" format="reference|dimension"/>
-        <attr name="previewGestureTextColor" format="reference|color"/>
         <!-- show hint and/or extra hint on preview -->
         <attr name="showHintOnPreview" format="reference|boolean"/>
         <attr name="showExtraHintOnPreview" format="reference|boolean"/>
@@ -183,17 +181,6 @@
             <flag name="extend_key" value="1"/>
             <flag name="appear" value="2"/>
         </attr>
-
-        <attr name="swipeTypingColor" format="reference|color"/>
-        <attr name="swipeTypingStrokeWidth" format="reference|dimension"/>
-        <attr name="swipeTypingStrokeMinWidth" format="reference|dimension"/>
-        <attr name="swipeTypingStrokeWidthStep" format="reference|dimension"/>
-        <attr name="swipeTypingStrokeMinAlpha" format="reference|float"/>
-        <attr name="swipeTypingStrokeAlphaStep" format="reference|integer"/>
-        <attr name="swipeTypingShadowColor" format="reference|color"/>
-        <attr name="swipeTypingShadowRadius" format="reference|dimension"/>
-        <attr name="swipeTypingShadowOffsetX" format="reference|dimension"/>
-        <attr name="swipeTypingShadowOffsetY" format="reference|dimension"/>
     </declare-styleable>
 
     <declare-styleable name="AnyKeyboardViewIconsTheme">
@@ -270,7 +257,7 @@
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyImageInsert" format="reference"/>
         <!-- should support normal, key_type_feedback -->
-        <attr name="iconKeyDeleteRecentlyUsed" format="reference"/>
+        <attr name="iconKeyClearQuickTextHistory" format="reference"/>
     </declare-styleable>
 
 </resources>

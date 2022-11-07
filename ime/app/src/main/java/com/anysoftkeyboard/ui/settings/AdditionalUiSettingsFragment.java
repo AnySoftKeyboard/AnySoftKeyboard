@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -24,18 +24,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pixel.GeneralDialogController;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
@@ -49,15 +49,18 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
+        mGeneralDialogController =
+                new GeneralDialogController(
+                        getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
 
-    private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
+    private void setupDialog(
+            Context context, AlertDialog.Builder builder, int optionId, Object data) {
         final SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(getContext());
+                DirectBootAwareSharedPreferences.create(context);
         final boolean[] enableStateForRowModes =
                 new boolean[] {
                     sharedPreferences.getBoolean(
@@ -115,14 +118,16 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
         topRowSelector.setSummary(
                 getString(
                         R.string.top_generic_row_summary,
-                        AnyApplication.getTopRowFactory(getContext()).getEnabledAddOn().getName()));
+                        AnyApplication.getTopRowFactory(requireContext())
+                                .getEnabledAddOn()
+                                .getName()));
 
         final Preference topBottomSelector = findPreference("settings_key_ext_kbd_bottom_row_key");
         topBottomSelector.setOnPreferenceClickListener(this);
         topBottomSelector.setSummary(
                 getString(
                         R.string.bottom_generic_row_summary,
-                        AnyApplication.getBottomRowFactory(getContext())
+                        AnyApplication.getBottomRowFactory(requireContext())
                                 .getEnabledAddOn()
                                 .getName()));
 
@@ -132,32 +137,29 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        Activity activity = getActivity();
-        if (activity != null && activity instanceof FragmentChauffeurActivity) {
-            FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            final String key = preference.getKey();
-            if (key.equals(getString(R.string.tweaks_group_key))) {
-                chauffeurActivity.addFragmentToUi(
-                        new UiTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            } else if (key.equals("settings_key_ext_kbd_top_row_key")) {
-                chauffeurActivity.addFragmentToUi(
-                        new TopRowAddOnBrowserFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            } else if (key.equals("settings_key_ext_kbd_bottom_row_key")) {
-                chauffeurActivity.addFragmentToUi(
-                        new BottomRowAddOnBrowserFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            } else if ("settings_key_supported_row_modes".equals(key)) {
-                mGeneralDialogController.showDialog(1);
-
-                return true;
-            }
+        final NavController navController = Navigation.findNavController(requireView());
+        final String key = preference.getKey();
+        if (key.equals(getString(R.string.tweaks_group_key))) {
+            navController.navigate(
+                    AdditionalUiSettingsFragmentDirections
+                            .actionAdditionalUiSettingsFragmentToUiTweaksFragment());
+            return true;
+        } else if (key.equals("settings_key_ext_kbd_top_row_key")) {
+            navController.navigate(
+                    AdditionalUiSettingsFragmentDirections
+                            .actionAdditionalUiSettingsFragmentToTopRowAddOnBrowserFragment());
+            return true;
+        } else if (key.equals("settings_key_ext_kbd_bottom_row_key")) {
+            navController.navigate(
+                    AdditionalUiSettingsFragmentDirections
+                            .actionAdditionalUiSettingsFragmentToBottomRowAddOnBrowserFragment());
+            return true;
+        } else if ("settings_key_supported_row_modes".equals(key)) {
+            mGeneralDialogController.showDialog(1);
+            return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     @Override
@@ -189,7 +191,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
         protected final void applyAddOnToDemoKeyboardView(
                 @NonNull KeyboardExtension addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
             AnyKeyboard defaultKeyboard =
-                    AnyApplication.getKeyboardFactory(getContext())
+                    AnyApplication.getKeyboardFactory(requireContext())
                             .getEnabledAddOn()
                             .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
             loadKeyboardWithAddOn(demoKeyboardView, defaultKeyboard, addOn);
@@ -211,7 +213,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
         @NonNull
         @Override
         protected AddOnsFactory<KeyboardExtension> getAddOnFactory() {
-            return AnyApplication.getTopRowFactory(getContext());
+            return AnyApplication.getTopRowFactory(requireContext());
         }
 
         @Override
@@ -222,7 +224,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
             defaultKeyboard.loadKeyboard(
                     demoKeyboardView.getThemedKeyboardDimens(),
                     addOn,
-                    AnyApplication.getBottomRowFactory(getContext()).getEnabledAddOn());
+                    AnyApplication.getBottomRowFactory(requireContext()).getEnabledAddOn());
         }
     }
 
@@ -235,7 +237,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
         @NonNull
         @Override
         protected AddOnsFactory<KeyboardExtension> getAddOnFactory() {
-            return AnyApplication.getBottomRowFactory(getContext());
+            return AnyApplication.getBottomRowFactory(requireContext());
         }
 
         @Override
@@ -245,7 +247,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
                 KeyboardExtension addOn) {
             defaultKeyboard.loadKeyboard(
                     demoKeyboardView.getThemedKeyboardDimens(),
-                    AnyApplication.getTopRowFactory(getContext()).getEnabledAddOn(),
+                    AnyApplication.getTopRowFactory(requireContext()).getEnabledAddOn(),
                     addOn);
         }
 

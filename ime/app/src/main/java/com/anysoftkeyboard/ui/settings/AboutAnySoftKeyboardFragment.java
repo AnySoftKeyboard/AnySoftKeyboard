@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Calendar;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnClickListener {
 
@@ -23,7 +23,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView copyright = view.findViewById(R.id.about_copyright);
         copyright.setText(
@@ -36,11 +36,11 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
         TextView version = view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
 
-        getView().findViewById(R.id.about_legal_stuff_link).setOnClickListener(this);
-        getView().findViewById(R.id.about_privacy_link).setOnClickListener(this);
-        getView().findViewById(R.id.about_web_site_link).setOnClickListener(this);
-        getView().findViewById(R.id.share_app_details).setOnClickListener(this);
-        getView().findViewById(R.id.rate_app_in_store).setOnClickListener(this);
+        view.findViewById(R.id.about_legal_stuff_link).setOnClickListener(this);
+        view.findViewById(R.id.about_privacy_link).setOnClickListener(this);
+        view.findViewById(R.id.about_web_site_link).setOnClickListener(this);
+        view.findViewById(R.id.share_app_details).setOnClickListener(this);
+        view.findViewById(R.id.rate_app_in_store).setOnClickListener(this);
     }
 
     @Override
@@ -53,10 +53,10 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.about_legal_stuff_link:
-                FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                activity.addFragmentToUi(
-                        new AdditionalSoftwareLicensesFragment(),
-                        TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                Navigation.findNavController(requireView())
+                        .navigate(
+                                AboutAnySoftKeyboardFragmentDirections
+                                        .actionAboutAnySoftKeyboardFragmentToAdditionalSoftwareLicensesFragment());
                 break;
             case R.id.about_privacy_link:
                 String privacyUrl = getString(R.string.privacy_policy);

@@ -1,10 +1,17 @@
+import java.util.regex.Pattern
+import java.util.stream.Collectors
+
 group 'net.evendanan'
 
 ext.override_app_id = 'com.menny.android.anysoftkeyboard'
 ext.shouldBePublished = true
 ext.override_release_key_alias = 'anysoftkeyboard'
+ext.closedTestingTrackName = 'alpha'
+ext.openTestingTrackName = 'beta'
 
 apply from: "${rootDir}/gradle/apk_module.gradle"
+
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     defaultConfig {
@@ -98,34 +105,79 @@ dependencies {
     implementation project(':ime:overlay')
     implementation project(':ime:pixel')
     implementation project(':ime:remote')
+    implementation project(':ime:gesturetyping')
     implementation project(':ime:voiceime')
+    implementation project(':ime:chewbacca')
+    implementation project(':ime:fileprovider')
 
-    implementation "androidx.fragment:fragment:$androidxFragement"
-    implementation "androidx.appcompat:appcompat:$androidxAppCompat"
-    implementation "androidx.legacy:legacy-support-v13:$androidxSupportLegacy"
-    implementation "androidx.recyclerview:recyclerview:$androidxRecyclerView"
-    implementation "androidx.cardview:cardview:$androidxCardView"
-    implementation "androidx.annotation:annotation:$androidxAnnotations"
-    implementation "androidx.palette:palette:$androidxPalette"
-    implementation "androidx.preference:preference:$androidxPreference"
-    implementation "com.google.android.material:material:$androidxMaterial"
-    implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
-    implementation 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
+    implementation 'androidx.fragment:fragment:1.5.4'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
-    implementation "androidx.autofill:autofill:1.1.0"
-    implementation('com.github.menny.Chauffeur:lib:0.1.1') {
-        exclude group: 'com.android.support'
-    }
+    implementation 'androidx.autofill:autofill:1.1.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
-    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.5.3'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
 
     //allAddOns have all the add-ons packs as dependencies
     rootProject.findProject(":addons").subprojects.forEach {
         if (it.name == 'pack') {
             allAddOnsImplementation it
+        }
+    }
+}
+
+tasks.register("generateForceLocaleArrayResourceFile") { generateTask ->
+    //adding all value-XXXX folders as inputs
+    Arrays.stream(generateTask.project.file('src/main/res').listFiles())
+        .filter {it.isDirectory() }
+        .filter {it.name.matches('values-\\w{2,3}(-r\\w+)?')}
+        .filter {!it.name.matches('values-v\\d+.*')}
+        .forEach { generateTask.inputs.dir(it) }
+
+    generateTask.outputs.file('src/main/res/values/force_locale_array_generated.xml')
+
+    generateTask.doLast {
+        def localeEntries = inputs.files.toList()
+                .stream()
+                .filter { it.name == 'strings.xml' }
+                .map { it.parentFile.name }
+                .map { Pattern.compile('values-(\\w{2,3}(-r\\w+)?)').matcher(it) }
+                .filter {it.find() }
+                .map {it.group(1)}
+                .map {it.replace("-r", "-")}
+                .sorted()
+                .collect(Collectors.toList())
+        outputs.files.singleFile.withWriter {
+            //header
+            it.writeLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+            it.writeLine("<resources xmlns:tools=\"http://schemas.android.com/tools\" tools:ignore=\"MissingTranslation\">")
+            it.writeLine("    <!-- DO NOT TRANSLATE - this is auto generated -->")
+            it.newLine()
+            it.writeLine("    <string name=\"settings_key_force_locale\">settings_key_force_locale</string>")
+            it.writeLine("    <!-- this should hold the locales the app is translated to, and any addon-->")
+            it.writeLine("    <!-- https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/locale_config.xml -->")
+            it.writeLine("    <string-array name=\"settings_key_force_locale_values\">")
+            //entries
+            localeEntries.forEach {entry -> it.writeLine("        <item>$entry</item>")}
+            //finish
+            it.writeLine("    </string-array>")
+            it.writeLine("</resources>")
         }
     }
 }

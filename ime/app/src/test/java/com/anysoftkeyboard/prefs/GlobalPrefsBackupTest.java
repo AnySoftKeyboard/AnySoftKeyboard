@@ -2,19 +2,17 @@ package com.anysoftkeyboard.prefs;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import android.content.Context;
-import android.os.Environment;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
-import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.test.TestUtils;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +50,7 @@ public class GlobalPrefsBackupTest {
 
     @Test
     public void testBackupRestoreCustomPath() throws Exception {
-        File customFile = new File(Environment.getExternalStorageDirectory() + "/testBackup.xml");
+        final var customFile = Files.createTempFile("test-backup", ".xml").toFile();
         final FakePrefsProvider fakePrefsProvider = new FakePrefsProvider("id1");
         List<GlobalPrefsBackup.ProviderDetails> fakeDetails =
                 Collections.singletonList(
@@ -62,7 +60,9 @@ public class GlobalPrefsBackupTest {
         final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits =
                 new AtomicReference<>(new ArrayList<>());
 
-        GlobalPrefsBackup.backup(Pair.create(fakeDetails, new Boolean[] {true}), customFile)
+        GlobalPrefsBackup.backup(
+                        Pair.create(fakeDetails, new Boolean[] {true}),
+                        new FileOutputStream(customFile))
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -75,7 +75,9 @@ public class GlobalPrefsBackupTest {
 
         Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
 
-        GlobalPrefsBackup.restore(Pair.create(fakeDetails, new Boolean[] {true}), customFile)
+        GlobalPrefsBackup.restore(
+                        Pair.create(fakeDetails, new Boolean[] {true}),
+                        new FileInputStream(customFile))
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -93,7 +95,7 @@ public class GlobalPrefsBackupTest {
 
     @Test
     public void testBackupRestoreHappyPath() throws Exception {
-        final Context context = ApplicationProvider.getApplicationContext();
+        final var customFile = Files.createTempFile("test-backup", ".xml").toFile();
         final FakePrefsProvider fakePrefsProvider = new FakePrefsProvider("id1");
         final PrefsRoot originalPrefsRoot = fakePrefsProvider.getPrefsRoot();
         List<GlobalPrefsBackup.ProviderDetails> fakeDetails =
@@ -105,24 +107,19 @@ public class GlobalPrefsBackupTest {
                 new AtomicReference<>(new ArrayList<>());
         GlobalPrefsBackup.backup(
                         Pair.create(fakeDetails, new Boolean[] {true}),
-                        GlobalPrefsBackup.getDefaultBackupFile(context))
+                        new FileOutputStream(customFile))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(1, hits.get().size());
         Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
 
         hits.get().clear();
-
-        final File backupFile =
-                AnyApplication.getBackupFile(
-                        ApplicationProvider.getApplicationContext(),
-                        GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME);
-        Assert.assertTrue(backupFile.exists());
-        Assert.assertTrue(backupFile.length() > 0);
+        Assert.assertTrue(customFile.exists());
+        Assert.assertTrue(customFile.length() > 0);
 
         Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
         GlobalPrefsBackup.restore(
                         Pair.create(fakeDetails, new Boolean[] {true}),
-                        GlobalPrefsBackup.getDefaultBackupFile(context))
+                        new FileInputStream(customFile))
                 .blockingSubscribe(p -> hits.get().add(p));
 
         Assert.assertEquals(1, hits.get().size());
@@ -133,8 +130,8 @@ public class GlobalPrefsBackupTest {
     }
 
     @Test
-    public void testOnlyBackupRestoreEnabledProviders() {
-        final Context context = ApplicationProvider.getApplicationContext();
+    public void testOnlyBackupRestoreEnabledProviders() throws Exception {
+        final var customFile = Files.createTempFile("test-backup", ".xml").toFile();
         List<GlobalPrefsBackup.ProviderDetails> fakesDetails = new ArrayList<>(5);
         final FakePrefsProvider[] fakePrefsProviders = new FakePrefsProvider[5];
         final PrefsRoot[] originalRoots = new PrefsRoot[fakePrefsProviders.length];
@@ -151,7 +148,7 @@ public class GlobalPrefsBackupTest {
         final Boolean[] providersToBackup = {true, true, true, false, true};
         GlobalPrefsBackup.backup(
                         Pair.create(fakesDetails, providersToBackup),
-                        GlobalPrefsBackup.getDefaultBackupFile(context))
+                        new FileOutputStream(customFile))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(4, hits.get().size());
         Assert.assertSame(fakesDetails.get(0).provider, hits.get().get(0).provider);
@@ -165,7 +162,7 @@ public class GlobalPrefsBackupTest {
         final Boolean[] providersToRestore = {true, false, false, true, true};
         GlobalPrefsBackup.restore(
                         Pair.create(fakesDetails, providersToRestore),
-                        GlobalPrefsBackup.getDefaultBackupFile(context))
+                        new FileInputStream(customFile))
                 .blockingSubscribe(p -> hits.get().add(p));
         Assert.assertEquals(3, hits.get().size());
         Assert.assertSame(fakesDetails.get(0).provider, hits.get().get(0).provider);

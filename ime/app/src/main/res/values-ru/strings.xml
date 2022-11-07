@@ -50,7 +50,7 @@
     <!-- settings - effects-->
     <string name="gesture_settings">Жесты</string>
     <string name="effects_group">Эффекты</string>
-    <string name="ime_settings">Настройки Клавиатуры</string>
+    <string name="ime_settings">Настройки клавиатуры</string>
     <string name="switch_incognito">Режим инкогнито</string>
     <string name="use_system_vibration_title">Использовать системную вибрацию</string>
     <string name="use_system_vibration_off_summary">Использовать пользовательские параметры вибрации</string>
@@ -90,14 +90,14 @@
     <string name="pop_text_type_on_correction">При коррекции слов</string>
     <string name="pop_text_type_on_word">При любом слове</string>
     <string name="pop_text_type_any_key">При любой клавише</string>
-    <string name="input_field_type_password">Поле для ввода пароля</string>
-    <string name="input_field_type_email">поле ввода E-mail</string>
+    <string name="input_field_type_password">Поле ввода пароля</string>
+    <string name="input_field_type_email">Поле ввода эл. почты</string>
     <string name="input_field_type_url">Поле ввода URL-адреса</string>
     <string name="input_field_type_im">Поле для ввода сообщений</string>
     <string name="sound_on">Звук при нажатии</string>
     <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре.</string>
     <string name="use_custom_sound_volume">Выставить громкость вручную</string>
-    <string name="use_custom_sound_volume_on_summary">Громкость выставленна вручную.</string>
+    <string name="use_custom_sound_volume_on_summary">Громкость выставлена вручную.</string>
     <string name="use_custom_sound_volume_off_summary">Звуковые эффекты являются системными уведомления.     </string>
     <string name="custom_sound_volume">Громкость при нажатии</string>
     <string name="vibrate_on_long_press_title">Вибрация при длительном нажатии</string>
@@ -189,6 +189,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Компактная клавиатура справа</string>
     <string name="swipe_action_name_compact_layout_to_left">Компактная клавиатура слева</string>
     <string name="swipe_action_name_utility_keyboard">Показать утилитную клавиатуру</string>
+    <string name="swipe_action_name_quick_text_popup">Показывать всплывающее окно эмодзи</string>
     <string name="settings_swipe_velocity_threshold_title">Предел скорости ведения пальцем</string>
     <string name="settings_swipe_velocity_threshold_summary">Минимальная скорость жеста. Текущее значение: %s</string>
     <string name="settings_swipe_velocity_very_slow">Очень медленно</string>
@@ -248,7 +249,6 @@
     <string name="supported_keyboard_row_modes_title">Включённые специализированные режимы поля ввода</string>
     <string name="supported_keyboard_row_modes_summary">Для использования выберите специализированные строчки поля ввода (такие как пароли, ссылки и т. д.).</string>
     <string name="tweak_dictionary_group">Настройки словарей</string>
-    <string name="settings_min_length_for_word_correction">Минимальная длина слова для исправления</string>
     <string name="show_keyboard_name_text">Показывать имя клавиатуры</string>
     <string name="show_keyboard_name_on_summary">Показывать название раскладки на клавише пробела</string>
     <string name="show_keyboard_name_off_summary">Никогда не показывать название раскладки клавиатуры</string>
@@ -296,7 +296,7 @@
     <string name="emoticon_long_press_opens_popup_on_summary">Показывать смайлики при долгом нажатии</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Показывать смайлики при коротком нажатии</string>
     <string name="default_smiley_text">Текст Смайликов</string>
-    <string name="default_domain_text">Текст Доменов</string>
+    <string name="default_domain_text">Текст доменов</string>
     <string name="key_preview_position_override">Размещение всплывающих клавиш</string>
     <string name="key_preview_position_override_summary">Над нажатой клавишей или над всей клавиатурой</string>
     <string name="key_preview_position_override_above_key">Над нажатой клавишей</string>
@@ -327,7 +327,7 @@
     <string name="auto_caps">Авто-заглавные</string>
     <string name="grammar_group">Грамматика</string>
     <string name="keyboard_behavior_group">Поведение клавиатуры</string>
-    <string name="candidates_on">Показывать Советы</string>
+    <string name="candidates_on">Показывать советы</string>
     <string name="candidates_on_summary">Будет отображен список предлагаемых слов над клавиатурой</string>
     <string name="candidates_off_summary">Предложения не будут показываться</string>
     <string name="quick_fix">Быстрые исправления и аббревиатуры</string>
@@ -410,6 +410,7 @@
     <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
     <string name="extension_kbd_bottom_minimal">Минимальный</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Минимальный (без эмодзи)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Минимальный (меньше знаков пунктуации)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Пуск</string>
@@ -488,15 +489,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Не имеют каких-либо слов в словаре пользователя. Теперь вы можете добавить ваше первое слово.</string>
-    <string name="user_dict_backup_success_title">Резервное копирование сделано!</string>
-    <string name="user_dict_backup_success_text">Ваши слова успешно хранятся на устройстве в /Android/data/com.menny.android.anysoftkeyboard/files/     </string>
-    <string name="user_dict_backup_fail_title">Сбой резервного копирования!</string>
-    <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Восстановление завершено!</string>
-    <string name="user_dict_restore_success_text">Успешно восстановлены ваши слова.</string>
-    <string name="user_dict_restore_fail_title">Восстановление потерпело неудачу!</string>
-    <string name="user_dict_restore_fail_text_with_error">Не удается восстановить слова из-за: <xliff:g id="error">%s </xliff:g> </string>
     <string name="should_swap_punctuation_and_space_title">Замена пунктуации и пробела</string>
     <string name="should_swap_punctuation_and_space_off_summary">Не заменять пробел и пунктуацию.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Заменять авто-пробел и пунктуацию.</string>
@@ -527,7 +519,7 @@
     <string name="created_mem_dump_file">Создан файл дампа памяти в: <xliff:g id="file_path">%s </xliff:g>     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не включен. Нажмите здесь, чтобы включить.</string>
     <string name="not_configured_with_just_click_here">Нажмите здесь</string>
-    <string name="click_for_more">Подробнее...</string>
+    <string name="click_for_more">Подробнее…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Добавить слово</string>
@@ -538,16 +530,6 @@
     <string name="enter_abbreviation_hint">Аббревиатура</string>
     <string name="enter_abbreviation_target_hint">Полное предложение</string>
     <string name="toast_error_custom_path_backup">Ошибка: Любое контекстное приложение может быть открыто</string>
-    <string name="file_explorer_menu_add_folder">Создать папку</string>
-    <string name="file_explorer_filename">Имя файла резервной копии...</string>
-    <string name="file_explorer_filename_empty">Имя файла не может быть пустым...</string>
-    <string name="file_explorer_alert_title">Выбрать этот файл ?</string>
-    <string name="file_explorer_restore_alert_message">Вы хотите восстановить этот файл ?</string>
-    <string name="file_explorer_backup_alert_message">Этот файл будет перезаписан.</string>
-    <string name="file_explorer_backup_success">Ваши данные были сохранены в\u0020</string>
-    <string name="file_explorer_backup_failed">Не удалось сохранить ваши данные.</string>
-    <string name="file_explorer_restore_success">Ваши данные были восстановлены из\u0020</string>
-    <string name="file_explorer_restore_failed">Не удалось восстановить ваши данные.</string>
     <string name="about_additional_software_licenses">Дополнительные лицензии на программное обеспечение</string>
     <string name="setup_wizard_step_one_title">Включить AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">В этом шаге Вы должны включить <i>AnySoftKeyboard</i>. Пожалуйста, включите <i>\'AnySoftKeyboard\'</i> в окне <i>Клавиатура и способы ввода</i>.</string>
@@ -563,15 +545,15 @@
     <string name="setup_wizard_step_three_details_done"><b>Готово 🎉\nПерейдите в Ваше любимое приложение чтобы попробовать.</b></string>
     <string name="setup_wizard_step_three_details_actions">Или вы можете настроить и персонализировать клавиатуру по своему вкусу:</string>
     <string name="setup_wizard_step_three_action_languages">Установка языков…</string>
-    <string name="setup_wizard_step_three_action_themes">Выбрать тему...</string>
+    <string name="setup_wizard_step_three_action_themes">Выбрать тему…</string>
     <string name="setup_wizard_step_three_action_all_settings">Персональные настройки…</string>
     <string name="setup_wizard_step_download_title">Скачать языковые пакеты</string>
     <string name="setup_wizard_step_download_details">Вы будете рады узнать, что <i>AnySoftKeyboard</i> поддерживает десятки языков. Просто загрузите нужный языковой пакет и наслаждайтесь печатанием на любом языке вашего устройства.</string>
     <string name="setup_wizard_step_download_action">Скачать языковый пакет</string>
     <string name="setup_wizard_step_download_skip_action">Пропустить</string>
     <string name="ime_crashed_title">AnySoftKeyboard разбился!</string>
-    <string name="ime_crashed_sub_text">К сожалению, не видел, что идет ...</string>
-    <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет ...</string>
+    <string name="ime_crashed_sub_text">К сожалению, не видел, что идет …</string>
+    <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет …</string>
     <string name="ime_crashed_text">К сожалению, есть проблема с <i>AnySoftKeyboard</i>. Не паникуйте, есть что-то <b> вы </b> может сделать, чтобы помочь решить эту проблему: послать нам отчет по аварии, и мы \ \'сделаем  самое лучшее для того чтобы решить эту аварию и вы получите обратно с удивительным опытом клавиатуры! \ N \ N с искренним извинением, команда Dev.</string>
     <string name="ime_crashed_send_button">Отправить</string>
     <string name="ime_crashed_cancel_button">Отменить</string>
@@ -652,11 +634,10 @@
     <string name="prefs_providers_backed_up_to">Данные были успешно зарезервированы в %s</string>
     <string name="prefs_providers_failed_restore_due_to">Не удалось выполнить воссоздание данных из-за %s</string>
     <string name="prefs_providers_restored_to">Данные были успешно восстановлены в %s</string>
-    <string name="word_editor_action_choose_path">Выберите пользовательский путь</string>
     <string name="allow_layouts_to_provide_generic_rows">Клавиатуры могут предоставлять общие строки</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Всегда используйте выбранные общие строки.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Разрешить макетам переопределять общие строки.</string>
-    <string name="gesture_typing_settings">Жест-Ввода ➿</string>
+    <string name="gesture_typing_settings">Ввод жестами ➿</string>
     <string name="gesture_typing_summary">Введите слово, проведя пальцем по буквам.</string>
     <string name="gesture_typing_action">Включить типизацию жестов [BETA]</string>
     <string name="gesture_typing_alert_title">BETA функция!</string>
@@ -674,5 +655,6 @@
     <string name="app_share_menu_title">Поделился использованием AnySoftKeyboard</string>
     <string name="app_share_text">Позвольте мне порекомендовать вам приватно-ориентированное, бесплатное, легконастраиваемое, многоязычное приложение с открытым исходным кодом для Android AnySoftKeyboard.\nЗагрузите его из:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">нажмите сюда, чтобы увидеть сюрприз</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">Не поддерживается на вашем Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Резервное копирование и восстановление не поддерживаются для устройств с ОС Android до KitKat (версия 4.4).</string>
 </resources>

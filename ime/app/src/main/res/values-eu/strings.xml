@@ -250,7 +250,6 @@
     <string name="supported_keyboard_row_modes_title">Gaitu sarrera-eremu modu espezializatuak</string>
     <string name="supported_keyboard_row_modes_summary">Hautatu erabili beharreko espezializatutako sarrera-eremu errenkadak (pasahitzak, URLak eta abar).</string>
     <string name="tweak_dictionary_group">Hiztegiaren doikuntzak</string>
-    <string name="settings_min_length_for_word_correction">Hitzaren gutxieneko luzera zuzenketarako</string>
     <string name="show_keyboard_name_text">Erakutsi teklatuaren izena</string>
     <string name="show_keyboard_name_on_summary">Erakutsi teklatuaren izena zuriune-barran</string>
     <string name="show_keyboard_name_off_summary">Ez erakutsi inoiz teklatuaren izena</string>
@@ -490,17 +489,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Ez dago hitzik erabiltzailearen editorean. Lehen hitza gehitu dezakezu orain.</string>
-    <string name="user_dict_backup_success_title">Babes-kopia egin da!</string>
-    <string name="user_dict_backup_success_text">Ongi gorde dira zure hitzak gailuaren biltegiratzean hemen: 
-/Android/data/com.menny.android.anysoftkeyboard/files/    </string>
-    <string name="user_dict_backup_fail_title">Babes-kopiak huts egin du!</string>
-    <string name="user_dict_backup_fail_text_with_error">Ezin izan dira hitza gorde errore hau dela eta:
-        <xliff:g id="error">%s</xliff:g>    </string>
-    <string name="user_dict_restore_success_title">Berreskuratzea eginda!</string>
-    <string name="user_dict_restore_success_text">Zure hitzak ongi berreskuratu dira.</string>
-    <string name="user_dict_restore_fail_title">Berreskuratzeak huts egin du!</string>
-    <string name="user_dict_restore_fail_text_with_error">Ezin izan dira hitza berreskuratu errore hau dela eta:
-        <xliff:g id="error">%s</xliff:g>    </string>
     <string name="should_swap_punctuation_and_space_title">Trukatu puntuazioa eta zuriunea</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ez trukatu puntuazioa eta zuriunea.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Trukatu zuriune eta puntuazio automatikoak.    </string>
@@ -539,16 +527,6 @@
     <string name="enter_abbreviation_hint">Laburdura</string>
     <string name="enter_abbreviation_target_hint">Esaldi osoa</string>
     <string name="toast_error_custom_path_backup">Errorea: edozein testuinguru-aplikazio irekia izan liteke</string>
-    <string name="file_explorer_menu_add_folder">Sortu karpeta</string>
-    <string name="file_explorer_filename">Egin fitxategi-izenaren babeskopia…</string>
-    <string name="file_explorer_filename_empty">Fitxategi-izena ezin da hutsik egon…</string>
-    <string name="file_explorer_alert_title">Aukeratu fitxategi hau?</string>
-    <string name="file_explorer_restore_alert_message">Fitxategi hau leheneratu nahi duzu?</string>
-    <string name="file_explorer_backup_alert_message">Fitxategi hau berridatzi egingo da.</string>
-    <string name="file_explorer_backup_success">Zure datuak hemen idatzi dira:\u0020</string>
-    <string name="file_explorer_backup_failed">Zure datuak gordetzeak huts egin du.</string>
-    <string name="file_explorer_restore_success">Zure datuak hemendik leheneratu dira:\u0020</string>
-    <string name="file_explorer_restore_failed">Zure datuak leheneratzeak huts egin du.</string>
     <string name="about_additional_software_licenses">Software lizentzia gehigarriak</string>
     <string name="setup_wizard_step_one_title">Gaitu AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">Urrats honetan <i>AnySoftKeyboard</i> gaitu behar duzu. Markatu <i>\'AnySoftKeyboard\'</i> zure gailuko <i>Hizkuntza eta idazketa</i> atalean. Honek teklatua zure gailuan erabiltzea ahalbidetuko du.</string>
@@ -652,7 +630,6 @@
     <string name="prefs_providers_backed_up_to">Zure datuen babeskopia ongi egin da %s helbidera</string>
     <string name="prefs_providers_failed_restore_due_to">%s dela eta huts egin du zure datuak berrezartzean</string>
     <string name="prefs_providers_restored_to">Zure datuak ongi berrezarri dira %s helbidetik</string>
-    <string name="word_editor_action_choose_path">Aukeratu bide pertsonalizatua</string>
     <string name="allow_layouts_to_provide_generic_rows">Teklatuak errenkada generikoak eskaini ditzake</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Erabili beti errenkada generikoak.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Baimendu disposizioei errenkada generikoak gainidaztea.</string>
@@ -674,5 +651,4 @@
     <string name="app_share_menu_title">Partekatu anySoftKeyboard honen bidez</string>
     <string name="app_share_text">Pribatutasuna aintzat duen hizkuntza askotarako Android teklatu aplikazio libre doako eta pertsonalizagarri hau aholkatzen dizut.\nEskuratu hemen:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">sakatu sorpresa baterako</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

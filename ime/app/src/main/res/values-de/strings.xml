@@ -189,6 +189,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Kompaktes Layout rechte Seite</string>
     <string name="swipe_action_name_compact_layout_to_left">Kompaktes Layout linke Seite</string>
     <string name="swipe_action_name_utility_keyboard">Zeige Utilitytastatur</string>
+    <string name="swipe_action_name_quick_text_popup">Emoji-Popup anzeigen</string>
     <string name="settings_swipe_velocity_threshold_title">Schwellenwert für Wischgestentempo</string>
     <string name="settings_swipe_velocity_threshold_summary">Die Minimalgeschwindigkeit einer Wischgeste. Derzeit %s</string>
     <string name="settings_swipe_velocity_very_slow">Sehr langsam</string>
@@ -248,7 +249,6 @@
     <string name="supported_keyboard_row_modes_title">Aktiviere spezielle Eingabefeldmodi</string>
     <string name="supported_keyboard_row_modes_summary">Wähle spezielle Eingabefelder (wie z. B. Passwort, URL, usw.), die genutzt werden sollen.</string>
     <string name="tweak_dictionary_group">Wörterbuch Feineinstellungen</string>
-    <string name="settings_min_length_for_word_correction">Mindestwortlänge für Korrektur</string>
     <string name="show_keyboard_name_text">Tastaturnamen anzeigen</string>
     <string name="show_keyboard_name_on_summary">Tastaturname auf Leertaste anzeigen</string>
     <string name="show_keyboard_name_off_summary">Tastaturname nie anzeigen</string>
@@ -489,16 +489,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Du hast keine Wörter im Benutzerwörterbuch. Du kannst jetzt dein erstes Wort hinzufügen.</string>
-    <string name="user_dict_backup_success_title">Backup erfolgreich!</string>
-    <string name="user_dict_backup_success_text">Deine Worte wurden erfolgreich im Gerätespeicher unter
-    /Android/data/com.menny.android.anysoftkeyboard/files/ gespeichert</string>
-    <string name="user_dict_backup_fail_title">Backup fehlgeschlagen!</string>
-    <string name="user_dict_backup_fail_text_with_error">Fehler beim Speichern der Wörter wegen: <xliff:g id="error">%s </xliff:g>             </string>
-    <string name="user_dict_restore_success_title">Wiederherstellen erfolgreich!</string>
-    <string name="user_dict_restore_success_text">Deine Worte wurden erfolgreich wiederhergestellt.</string>
-    <string name="user_dict_restore_fail_title">Wiederherstellen fehlgeschlagen!</string>
-    <string name="user_dict_restore_fail_text_with_error">Fehler beim Wiederherstellen der Worte wegen: <xliff:g id="error">%s </xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>
     <string name="should_swap_punctuation_and_space_off_summary">Leerzeichen und Satzzeichen nicht tauschen.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Automatisches Leerzeichen und Satzzeichen tauschen.</string>
@@ -529,7 +519,7 @@
     <string name="created_mem_dump_file">Arbeitsspeicherabbild erstellt unter: <xliff:g id="file_path">%s </xliff:g>         </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard wurde noch nicht vollständig für den Einsatz konfiguriert. Klicken Sie hier, um die Einrichtung abzuschließen.</string>
     <string name="not_configured_with_just_click_here">Hier klicken</string>
-    <string name="click_for_more">mehr...</string>
+    <string name="click_for_more">mehr…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Wort hinzufügen</string>
@@ -540,16 +530,6 @@
     <string name="enter_abbreviation_hint">Abkürzung</string>
     <string name="enter_abbreviation_target_hint">Ganzer Satz</string>
     <string name="toast_error_custom_path_backup">Fehler: Eine abhängige App könnte geöffnet sein</string>
-    <string name="file_explorer_menu_add_folder">Ordner erstellen</string>
-    <string name="file_explorer_filename">Backup Dateiname...</string>
-    <string name="file_explorer_filename_empty">Dateiname darf nicht leer sein</string>
-    <string name="file_explorer_alert_title">Diese Datei auswählen?</string>
-    <string name="file_explorer_restore_alert_message">Willst du diese Datei wiederherstellen?</string>
-    <string name="file_explorer_backup_alert_message">Diese Datei wird überschrieben.</string>
-    <string name="file_explorer_backup_success">Ihre Daten wurden hier gespeichert: \u0020</string>
-    <string name="file_explorer_backup_failed">Die Daten konnten nicht gespeichert werden.</string>
-    <string name="file_explorer_restore_success">Deine Daten wurden wiederhergestellt von: \u0020</string>
-    <string name="file_explorer_restore_failed">Deine Daten konnten nicht wiederhergestellt werden</string>
     <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
     <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
     <string name="setup_wizard_step_one_details">In diesem Schritt musst du <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>Sprache- und Eingabeeinstellungen</i>. Das ermöglicht der App, auf deinem Gerät zu laufen.</string>
@@ -564,15 +544,15 @@
     <string name="setup_wizard_step_three_details">Danke für die Wahl von <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Sie haben es geschafft 🎉\nÖffne deine liebste App und probiere es aus.</b></string>
     <string name="setup_wizard_step_three_details_actions">Oder die Tastatur kann die eigenen Bedürfnisse angepasst und personalisiert werden:</string>
-    <string name="setup_wizard_step_three_action_languages">Sprachen installieren...</string>
-    <string name="setup_wizard_step_three_action_themes">Design wählen...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Etwas anderes konfigurieren...</string>
+    <string name="setup_wizard_step_three_action_languages">Sprachen installieren…</string>
+    <string name="setup_wizard_step_three_action_themes">Design wählen…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Etwas anderes konfigurieren…</string>
     <string name="setup_wizard_step_download_title">Lade Sprachpakete herunter</string>
     <string name="setup_wizard_step_download_details">Es wird dich freuen zu hören, dass <i>AnySoftKeyboard</i> dutzende Sprachen unterstützt. Laden Sie einfach das gewünschte Sprachpaket herunter und genieße es in jeder Sprache auf deinem Gerät zu tippen.</string>
     <string name="setup_wizard_step_download_action">Lade Sprachpaket herunter</string>
     <string name="setup_wizard_step_download_skip_action">Überspringen</string>
     <string name="ime_crashed_title">AnySoftKeyboard ist abgestürzt!</string>
-    <string name="ime_crashed_sub_text">Ups, das habe ich nicht kommen sehen...</string>
+    <string name="ime_crashed_sub_text">Ups, das habe ich nicht kommen sehen…</string>
     <string name="ime_crashed_ticker">Ups, AnySoftKeyboard ist abgestürzt. Das habe ich nicht kommen sehen…</string>
     <string name="ime_crashed_text">Leider gibt es ein Problem mit <i>AnySoftKeyboard</i>. Keine Panik, es gibt etwas, dass <b>du</b> tun kannst, um uns zu helfen dieses Problem zu beheben: Sende uns den Absturzbericht und wir tun unser Bestes, um dieses Problem zu beheben, damit du wieder in den Genuss einer großartigen Tastaturerfahrung kommst!\n\nWir bitten um Entschuldigung, dein Entwicker-Team.</string>
     <string name="ime_crashed_send_button">Senden</string>
@@ -624,7 +604,7 @@
     <string name="setup_wizard_welcome_sub_title">Danke, dass du AnySoftKeyboard ausprobierst!</string>
     <string name="setup_wizard_welcome_info">Wie bei jeder anderen Android-Tastatur musst du AnySoftKeyboard in den Android-Einstellungen aktivieren. Dies wird von Android benötigt, um sicherzustellen, dass die Eingaben nicht von bösartigen Tastaturen* gestohlen werden.</string>
     <string name="setup_wizard_welcome_info_2">Okay, bereit? Klicke unten, um zu beginnen, ich werde dich dabei begleiten.</string>
-    <string name="setup_wizard_welcome_start_action">Starte Einrichtung...</string>
+    <string name="setup_wizard_welcome_start_action">Starte Einrichtung…</string>
     <string name="setup_wizard_welcome_info_footnote">* AnySoftKeyboard ist natürlich nicht böse. Wir empfehlen unseren Quellcode anzusehen und zu überprüfen. Außerdem verfügen wir nicht über <i>NETZWERK</i> Berechtigungen, sodass wir keine Daten vom Gerät senden können.</string>
     <string name="setup_wizard_welcome_privacy_action">Gehe zur Datenschutzrichtlinie…</string>
     <string name="clear_all_dictionary_override">Lösche Überschreibungen</string>
@@ -654,7 +634,6 @@
     <string name="prefs_providers_backed_up_to">Deine Daten wurden erfolgreich in %s gesichert</string>
     <string name="prefs_providers_failed_restore_due_to">Fehler beim Wiederherstellen deiner Daten aufgrund von %s</string>
     <string name="prefs_providers_restored_to">Deine Daten wurden erfolgreich von %s wiederhergestellt</string>
-    <string name="word_editor_action_choose_path">Eigenen Pfad wählen</string>
     <string name="allow_layouts_to_provide_generic_rows">Tastaturen können generische Zeilen bereitstellen</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Verwende immer ausgewählte generische Zeilen.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Layouts dürfen generische Zeilen überschreiben.</string>
@@ -676,5 +655,4 @@
     <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
     <string name="app_share_text">Lass mich dir die Open-Source, Privatsphäre-fokussierte, kostenlose, höchst anpassbare, mehrsprachige Android Tastatur-App AnySoftKeyboard empfehlen.\nHole sie dir vom:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">für eine Überraschung klicken</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

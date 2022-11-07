@@ -4,18 +4,16 @@ import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -29,7 +27,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.ask_for_permissions_action).setOnClickListener(this);
         mStateIcon.setOnClickListener(this);
@@ -73,7 +71,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
 
     @Override
     public void onClick(View v) {
-        BasicAnyActivity activity = (BasicAnyActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity == null) return;
 
         switch (v.getId()) {
@@ -82,15 +80,11 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
                 enableContactsDictionary();
                 break;
             case R.id.disable_contacts_dictionary:
-                {
-                    SharedPreferences sharedPreferences =
-                            PreferenceManager.getDefaultSharedPreferences(activity);
-                    final SharedPreferences.Editor edit = sharedPreferences.edit();
-                    edit.putBoolean(
-                            getString(R.string.settings_key_use_contacts_dictionary), false);
-                    edit.apply();
-                    refreshWizardPager();
-                }
+                mSharedPrefs
+                        .edit()
+                        .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
+                        .apply();
+                refreshWizardPager();
                 break;
             case R.id.open_permissions_wiki_action:
                 Intent browserIntent =
@@ -120,11 +114,10 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
 
     @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
     public void enableContactsDictionary() {
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(getContext());
-        final SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
-        edit.apply();
+        mSharedPrefs
+                .edit()
+                .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true)
+                .apply();
 
         if (PermissionRequestHelper.check(
                 this, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)) {

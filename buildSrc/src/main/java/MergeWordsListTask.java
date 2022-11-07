@@ -1,13 +1,27 @@
 import static org.gradle.api.tasks.PathSensitivity.RELATIVE;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,29 +50,32 @@ public class MergeWordsListTask extends DefaultTask {
             throw new IllegalArgumentException("Must supply outputWordsListFile");
         }
 
-        System.out.println(
-                "Merging "
-                        + inputWordsListFiles.length
-                        + " files for maximum "
-                        + maxWordsInList
-                        + " words, and writing into \'"
-                        + outputWordsListFile.getName()
-                        + "\'. Discarding "
-                        + wordsToDiscard.length
-                        + " words.");
-        final HashMap<String, WordWithCount> allWords = new HashMap<>();
-
+        System.out.printf(
+                Locale.ENGLISH,
+                "Merging %d files for maximum %d words, and writing into '%s'. Discarding %d words.%n",
+                inputWordsListFiles.length,
+                maxWordsInList,
+                outputWordsListFile.getName(),
+                wordsToDiscard.length);
+        final HashMap<String, Integer> allWords = new HashMap<>();
+        final List<String> inputFilesWithDuplicates = new ArrayList<>();
         for (File inputFile : inputWordsListFiles) {
-            System.out.println("Reading " + inputFile.getName() + "...");
+            System.out.printf(Locale.ENGLISH, "Reading %s...%n", inputFile.getName());
             if (!inputFile.exists()) throw new FileNotFoundException(inputFile.getAbsolutePath());
             SAXParserFactory parserFactor = SAXParserFactory.newInstance();
             SAXParser parser = parserFactor.newSAXParser();
-            final InputStreamReader inputStream =
-                    new InputStreamReader(new FileInputStream(inputFile), Charset.forName("UTF-8"));
-            InputSource inputSource = new InputSource(inputStream);
-            parser.parse(inputSource, new MySaxHandler(allWords));
-            System.out.println("Loaded " + allWords.size() + " words in total...");
-            inputStream.close();
+
+            Set<String> duplicateWords = new HashSet<>();
+            try (final InputStreamReader inputStream =
+                    new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8)) {
+                InputSource inputSource = new InputSource(inputStream);
+                parser.parse(inputSource, new MySaxHandler(allWords, duplicateWords));
+                System.out.printf(Locale.ENGLISH, "Loaded %d words in total...%n", allWords.size());
+            }
+            if (duplicateWords.size() > 0 && !inputFile.getAbsolutePath().contains("/build/")) {
+                inputFilesWithDuplicates.add(inputFile.getAbsolutePath());
+                filterWordsFromInputFile(inputFile, duplicateWords);
+            }
         }
 
         // discarding unwanted words
@@ -74,13 +91,51 @@ public class MergeWordsListTask extends DefaultTask {
 
         System.out.println("Creating output XML file...");
         try (WordListWriter writer = new WordListWriter(outputWordsListFile)) {
-            allWords.values()
-                    .forEach(
-                            word ->
-                                    WordListWriter.writeWordWithRuntimeException(
-                                            writer, word.getWord(), word.getFreq()));
+            for (Map.Entry<String, Integer> entry : allWords.entrySet()) {
+                WordListWriter.writeWordWithRuntimeException(
+                        writer, entry.getKey(), entry.getValue());
+            }
             System.out.println("Done.");
         }
+
+        if (inputFilesWithDuplicates.size() > 0) {
+            throw new RuntimeException(
+                    "Found duplicate words in: " + String.join(",", inputFilesWithDuplicates));
+        }
+    }
+
+    private static final Pattern WORD_LIST_ENTRY =
+            Pattern.compile("\\s*<w\\s+f=\"\\d+\">(.+)</w>\\s*");
+
+    private static void filterWordsFromInputFile(File inputFile, Set<String> duplicateWords)
+            throws IOException {
+        File tempFile = Files.createTempFile("filtered_word_list", "tmp").toFile();
+
+        System.out.printf(
+                Locale.ENGLISH,
+                "Removing duplicate words from '%s': ",
+                inputFile.getAbsolutePath());
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                String currentLine;
+                while ((currentLine = reader.readLine()) != null) {
+                    Matcher matcher = WORD_LIST_ENTRY.matcher(currentLine);
+                    if (matcher.find()) {
+                        String word = matcher.group(1);
+                        if (duplicateWords.contains(word)) {
+                            System.out.printf(Locale.ENGLISH, "%s, ", word);
+                            continue;
+                        }
+                    }
+
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        }
+
+        Files.copy(tempFile.toPath(), inputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("Done!");
     }
 
     @InputFiles
@@ -127,13 +182,17 @@ public class MergeWordsListTask extends DefaultTask {
 
     private static class MySaxHandler extends DefaultHandler {
 
-        private HashMap<String, WordWithCount> allWords;
+        private final HashMap<String, Integer> allWords;
+        private final Set<String> seenBeforeWords;
+        private final Set<String> duplicateWords;
         private boolean inWord;
-        private StringBuilder word = new StringBuilder();
+        private final StringBuilder word = new StringBuilder();
         private int freq;
 
-        public MySaxHandler(HashMap<String, WordWithCount> allWords) {
+        public MySaxHandler(HashMap<String, Integer> allWords, Set<String> duplicateWords) {
             this.allWords = allWords;
+            this.seenBeforeWords = Set.copyOf(allWords.keySet());
+            this.duplicateWords = duplicateWords;
         }
 
         @Override
@@ -185,7 +244,7 @@ public class MergeWordsListTask extends DefaultTask {
         public void unparsedEntityDecl(
                 String name, String publicId, String systemId, String notationName)
                 throws SAXException {
-            System.out.print("unparsedEntityDecl! " + name);
+            System.out.print("unparsed-Entity-Decl! " + name);
             super.unparsedEntityDecl(name, publicId, systemId, notationName);
         }
 
@@ -193,12 +252,11 @@ public class MergeWordsListTask extends DefaultTask {
         public void endElement(String uri, String localName, String qName) throws SAXException {
             super.endElement(uri, localName, qName);
             if (qName.equals("w") && inWord) {
-                WordWithCount wordWithCount = new WordWithCount(word.toString(), freq);
-                if (allWords.containsKey(wordWithCount.getKey())) {
-                    allWords.get(wordWithCount.getKey()).addOtherWord(wordWithCount);
-                } else {
-                    allWords.put(wordWithCount.getKey(), wordWithCount);
+                String word = this.word.toString();
+                if (seenBeforeWords.contains(word)) {
+                    duplicateWords.add(word);
                 }
+                allWords.compute(word, (key, value) -> Math.max(value == null ? 0 : value, freq));
             }
 
             inWord = false;

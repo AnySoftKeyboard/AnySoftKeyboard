@@ -3,14 +3,19 @@ package com.anysoftkeyboard.ui.settings;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import androidx.annotation.NonNull;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -20,36 +25,74 @@ import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowDialog;
 
 @Config(sdk = Build.VERSION_CODES.M /*we are testing permissions here*/)
 public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> {
 
-    private AtomicReference<MainFragment> mFragment;
-
-    @Before
-    public void setup() {
-        mFragment = new AtomicReference<>(new MainFragment());
+    @Override
+    protected int getStartFragmentNavigationId() {
+        return R.id.mainFragment;
     }
 
-    @NonNull
-    @Override
-    protected MainFragment createFragment() {
-        return mFragment.get();
+    @Test
+    public void testRootViewHasLatestLog() {
+        ViewGroup rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
+        Assert.assertTrue(rootView.getChildAt(0) instanceof LinearLayout);
+        LinearLayout container = (LinearLayout) rootView.getChildAt(0);
+
+        int headersFound = 0;
+        int changeLogItems = 0;
+        int linkItems = 0;
+        int visibleLinkItems = 0;
+        for (int childViewIndex = 0; childViewIndex < container.getChildCount(); childViewIndex++) {
+            final View childView = container.getChildAt(childViewIndex);
+            final int id = childView.getId();
+            if (id == R.id.changelog_version_title) {
+                headersFound++;
+            } else if (id == R.id.chang_log_item) {
+                changeLogItems++;
+            } else if (id == R.id.change_log__web_link_item) {
+                linkItems++;
+                if (childView.getVisibility() != View.GONE) visibleLinkItems++;
+            }
+        }
+
+        Assert.assertEquals(1, headersFound);
+        Assert.assertEquals(1, changeLogItems);
+        Assert.assertEquals(1, linkItems);
+        Assert.assertEquals(0, visibleLinkItems);
+    }
+
+    @Test
+    public void testChangeLogDoesNotHaveLinkToOpenWebChangeLog() {
+        LinearLayout rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
+        Assert.assertEquals(
+                View.GONE, rootView.findViewById(R.id.change_log__web_link_item).getVisibility());
     }
 
     @Test
     public void testTestersVisibilityInTestingBuild() {
-        mFragment.set(new MainFragment(true));
+        startFragment();
+        // replacing fragment
+        MainFragment fragment = new MainFragment(true /*BuildConfig.DEBUG*/);
+        getActivityController()
+                .get()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.nav_host_fragment, fragment)
+                .commitNow();
+        ensureAllScheduledJobsAreDone();
 
-        MainFragment fragment = startFragment();
         Assert.assertEquals(
                 View.VISIBLE,
                 fragment.getView().findViewById(R.id.testing_build_message).getVisibility());
@@ -59,9 +102,17 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
     @Test
     public void testTestersVisibilityInReleaseBuild() {
-        mFragment.set(new MainFragment(false));
+        startFragment();
+        // replacing fragment
+        MainFragment fragment = new MainFragment(false /*BuildConfig.DEBUG*/);
+        getActivityController()
+                .get()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.nav_host_fragment, fragment)
+                .commitNow();
+        ensureAllScheduledJobsAreDone();
 
-        MainFragment fragment = startFragment();
         Assert.assertEquals(
                 View.GONE,
                 fragment.getView().findViewById(R.id.testing_build_message).getVisibility());
@@ -72,11 +123,20 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     @Test
     public void testShowsChangelog() throws Exception {
         MainFragment fragment = startFragment();
-        final Fragment changeLogFragment =
-                fragment.getChildFragmentManager().findFragmentById(R.id.change_log_fragment);
-        Assert.assertNotNull(changeLogFragment);
-        Assert.assertTrue(changeLogFragment.isVisible());
-        Assert.assertEquals(View.VISIBLE, changeLogFragment.getView().getVisibility());
+        final View changeLogCard = fragment.getView().findViewById(R.id.latest_change_log_card);
+        Assert.assertNotNull(changeLogCard);
+        final TextView title = changeLogCard.findViewById(R.id.changelog_version_title);
+        Assert.assertNotNull(title);
+        Assert.assertTrue(
+                title.getText()
+                        .toString()
+                        .trim()
+                        .startsWith(
+                                getApplicationContext()
+                                        .getString(
+                                                R.string.change_log_card_version_title_template, "")
+                                        .trim()));
+        Assert.assertEquals(View.VISIBLE, title.getVisibility());
     }
 
     @Test
@@ -93,8 +153,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         fragment.onOptionsItemSelected(item);
         TestRxSchedulers.foregroundFlushAllJobs();
 
-        Fragment aboutFragment =
-                activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+        Fragment aboutFragment = getCurrentFragment();
         Assert.assertNotNull(aboutFragment);
         Assert.assertTrue(aboutFragment instanceof AboutAnySoftKeyboardFragment);
     }
@@ -113,8 +172,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         fragment.onOptionsItemSelected(item);
         TestRxSchedulers.foregroundFlushAllJobs();
 
-        Fragment aboutFragment =
-                activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+        Fragment aboutFragment = getCurrentFragment();
         Assert.assertNotNull(aboutFragment);
         Assert.assertTrue(aboutFragment instanceof MainTweaksFragment);
     }
@@ -138,6 +196,46 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    public void testBackupMenuItemNotSupportedPreKitKat() throws Exception {
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        final MenuItem item = menu.findItem(R.id.backup_prefs);
+
+        fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
+
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+        Assert.assertEquals(
+                getApplicationContext().getText(R.string.backup_restore_not_support_before_kitkat),
+                GeneralDialogTestUtil.getTitleFromDialog(dialog));
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    public void testRestoreMenuItemNotSupportedPreKitKat() throws Exception {
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        final MenuItem item = menu.findItem(R.id.restore_prefs);
+
+        fragment.onOptionsItemSelected(item);
+        TestRxSchedulers.foregroundFlushAllJobs();
+
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+        Assert.assertEquals(
+                getApplicationContext().getText(R.string.backup_restore_not_support_before_kitkat),
+                GeneralDialogTestUtil.getTitleFromDialog(dialog));
     }
 
     @Test
@@ -182,11 +280,48 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     }
 
     @Test
+    public void testRestorePickerCancel() throws Exception {
+        final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
+        shadowApplication.grantPermissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        fragment.onOptionsItemSelected(
+                Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
+        TestRxSchedulers.foregroundFlushAllJobs();
+
+        Assert.assertNotSame(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
+
+        Assert.assertTrue(
+                GeneralDialogTestUtil.getLatestShownDialog()
+                        .getButton(DialogInterface.BUTTON_POSITIVE)
+                        .callOnClick());
+        // this will open the System's file chooser
+        ShadowActivity.IntentForResult fileRequest =
+                shadowApplication.getNextStartedActivityForResult();
+        Assert.assertNotNull(fileRequest);
+        Assert.assertEquals(Intent.ACTION_OPEN_DOCUMENT, fileRequest.intent.getAction());
+
+        final var backupFile = Files.createTempFile("ask-backup", ".xml");
+        Intent resultData = new Intent();
+        resultData.setData(Uri.fromFile(backupFile.toFile()));
+        Shadows.shadowOf(activity)
+                .receiveResult(fileRequest.intent, Activity.RESULT_CANCELED, resultData);
+        TestRxSchedulers.drainAllTasks();
+        // pick cancel
+        Assert.assertSame(
+                GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
+    }
+
+    @Test
     public void testCompleteOperation() throws Exception {
-        Shadows.shadowOf((Application) getApplicationContext())
-                .grantPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
+        final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
+        shadowApplication.grantPermissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
         final MainFragment fragment = startFragment();
         final FragmentActivity activity = fragment.getActivity();
 
@@ -201,6 +336,21 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 GeneralDialogTestUtil.getLatestShownDialog()
                         .getButton(DialogInterface.BUTTON_POSITIVE)
                         .callOnClick());
+        // this will open the System's file chooser
+        ShadowActivity.IntentForResult fileRequest =
+                shadowApplication.getNextStartedActivityForResult();
+        Assert.assertNotNull(fileRequest);
+        Assert.assertEquals(Intent.ACTION_CREATE_DOCUMENT, fileRequest.intent.getAction());
+        final var backupFile = Files.createTempFile("ask-backup", ".xml");
+        Shadows.shadowOf(activity.getContentResolver())
+                .registerOutputStream(
+                        Uri.fromFile(backupFile.toFile()),
+                        new FileOutputStream(backupFile.toFile()));
+        Intent resultData = new Intent();
+        resultData.setData(Uri.fromFile(backupFile.toFile()));
+        Shadows.shadowOf(activity)
+                .receiveResult(fileRequest.intent, Activity.RESULT_OK, resultData);
+        TestRxSchedulers.drainAllTasks();
         // back up was done
         Assert.assertEquals(
                 getApplicationContext().getText(R.string.prefs_providers_operation_success),
@@ -214,7 +364,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                                 .filter(
                                         dialog ->
                                                 dialog.findViewById(
-                                                                R.id.progress_dialog_message_text_view)
+                                                                R.id
+                                                                        .progress_dialog_message_text_view)
                                                         != null)
                                 .lastOrError()));
         // closing dialog
@@ -228,6 +379,10 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         // good!
         ShadowDialog.getShownDialogs().clear();
 
+        Shadows.shadowOf(activity.getContentResolver())
+                .registerInputStream(
+                        Uri.fromFile(backupFile.toFile()),
+                        new FileInputStream(backupFile.toFile()));
         // now, restoring
         fragment.onOptionsItemSelected(
                 Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
@@ -236,6 +391,15 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 GeneralDialogTestUtil.getLatestShownDialog()
                         .getButton(DialogInterface.BUTTON_POSITIVE)
                         .callOnClick());
+        // this will open the System's file chooser
+        fileRequest = shadowApplication.getNextStartedActivityForResult();
+        Assert.assertNotNull(fileRequest);
+        Assert.assertEquals(Intent.ACTION_OPEN_DOCUMENT, fileRequest.intent.getAction());
+        resultData = new Intent();
+        resultData.setData(Uri.fromFile(backupFile.toFile()));
+        Shadows.shadowOf(activity)
+                .receiveResult(fileRequest.intent, Activity.RESULT_OK, resultData);
+        TestRxSchedulers.drainAllTasks();
         // back up was done
         Assert.assertEquals(
                 getApplicationContext().getText(R.string.prefs_providers_operation_success),
@@ -249,7 +413,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                                 .filter(
                                         dialog ->
                                                 dialog.findViewById(
-                                                                R.id.progress_dialog_message_text_view)
+                                                                R.id
+                                                                        .progress_dialog_message_text_view)
                                                         != null)
                                 .lastOrError()));
         // closing dialog

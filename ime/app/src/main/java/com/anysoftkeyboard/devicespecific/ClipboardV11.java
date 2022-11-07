@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -25,17 +24,18 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(11)
 public class ClipboardV11 implements Clipboard {
     private static final int MAX_ENTRIES_INDEX = 15;
 
     protected final List<CharSequence> mEntries = new ArrayList<>(16);
     protected final ClipboardManager mClipboardManager;
+    protected final Context mContext;
     @Nullable private ClipboardUpdatedListener mClipboardEntryAddedListener;
     private final ClipboardManager.OnPrimaryClipChangedListener mOsClipboardChangedListener =
             this::onPrimaryClipChanged;
 
     ClipboardV11(Context context) {
+        mContext = context;
         mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
@@ -44,12 +44,12 @@ public class ClipboardV11 implements Clipboard {
         if (mClipboardEntryAddedListener != listener) {
             mEntries.clear();
         }
-        mClipboardEntryAddedListener = listener;
         if (listener == null) {
             mClipboardManager.removePrimaryClipChangedListener(mOsClipboardChangedListener);
-        } else {
+        } else if (mClipboardEntryAddedListener != listener) {
             mClipboardManager.addPrimaryClipChangedListener(mOsClipboardChangedListener);
         }
+        mClipboardEntryAddedListener = listener;
     }
 
     @Override
@@ -76,23 +76,48 @@ public class ClipboardV11 implements Clipboard {
         }
     }
 
+    @Override
+    public void deleteAllEntries() {
+        mEntries.clear();
+        setText("");
+    }
+
+    protected CharSequence getTextFromClipItem(ClipData.Item item) {
+        return item.getText();
+    }
+
     private void onPrimaryClipChanged() {
-        final ClipboardUpdatedListener addedListener = mClipboardEntryAddedListener;
+        final var addedListener = mClipboardEntryAddedListener;
         if (addedListener != null) {
-            ClipData cp = mClipboardManager.getPrimaryClip();
+            var isEmpty = true;
+            var cp = mClipboardManager.getPrimaryClip();
             if (cp != null) {
                 for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
-                    final CharSequence text = cp.getItemAt(entryIndex).getText();
+                    final var text = getTextFromClipItem(cp.getItemAt(entryIndex));
                     if (TextUtils.isEmpty(text)) continue;
-                    mEntries.add(0, text);
+                    isEmpty = false;
+                    if (!alreadyKnownText(text)) {
+                        mEntries.add(0, text);
 
-                    while (mEntries.size() > MAX_ENTRIES_INDEX) {
-                        mEntries.remove(MAX_ENTRIES_INDEX);
+                        while (mEntries.size() > MAX_ENTRIES_INDEX) {
+                            mEntries.remove(MAX_ENTRIES_INDEX);
+                        }
+
+                        addedListener.onClipboardEntryAdded(text);
                     }
-
-                    addedListener.onClipboardEntryAdded(text);
                 }
             }
+            if (isEmpty) {
+                addedListener.onClipboardCleared();
+            }
         }
+    }
+
+    private boolean alreadyKnownText(CharSequence text) {
+        if (mEntries.size() > 0) {
+            return TextUtils.equals(mEntries.get(0), text);
+        }
+
+        return false;
     }
 }

@@ -6,12 +6,21 @@
     <!-- UI root menu -->
     <!-- welcome -->
     <!-- changelog -->
+    <string name="changelog">മാറ്റ സൂചനാ പട്ടിക</string>
+    <string name="close_button">അടയ്ക്കുക</string>
     <!-- Indicates that a word has been added to the dictionary -->
+    <string name="revert_added_word_question">നീക്കം ചെയ്യുക</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_action_do_not_install">ഇല്ല</string>
     <!-- Options menu -->
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="effects_group">ഇഫക്റ്റുകൾ</string>
+    <string name="switch_incognito">അദൃശ്യ മോഡ്</string>
+    <string name="night_mode_dialog_title">നൈറ്റ് മോഡ് ഓൺ ആകുക</string>
+    <string name="night_mode_type_follow_system">സിസ്റ്റം പിന്തുടരുക</string>
+    <string name="night_mode_type_always">എല്ലായിപ്പോഴും</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
@@ -28,5 +37,4 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

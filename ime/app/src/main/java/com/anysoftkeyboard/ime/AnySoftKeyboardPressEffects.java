@@ -8,16 +8,18 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Pair;
+import app.cash.copper.rx2.RxContentResolver;
 import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.devicespecific.PressVibrator;
-import com.anysoftkeyboard.devicespecific.PressVibratorV1;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
 import com.anysoftkeyboard.keyboards.views.preview.AboveKeyPositionCalculator;
@@ -28,6 +30,7 @@ import com.anysoftkeyboard.keyboards.views.preview.NullKeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PositionCalculator;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.rx.GenericOnError;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -37,18 +40,17 @@ import io.reactivex.subjects.PublishSubject;
 
 public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboard {
 
-    private AudioManager mAudioManager;
     private static final float SILENT = 0.0f;
     private static final float SYSTEM_VOLUME = -1.0f;
-    private float mCustomSoundVolume = SILENT;
-
-    private PressVibrator mVibrator;
-    @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
-
     @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
 
     @NonNull
     private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
+
+    private AudioManager mAudioManager;
+    private float mCustomSoundVolume = SILENT;
+    private PressVibrator mVibrator;
+    @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
 
     @Override
     public void onCreate() {
@@ -169,11 +171,36 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                                                 R.string.settings_key_use_system_vibration,
                                                 R.bool.settings_default_use_system_vibration)
                                         .asObservable(),
-                                (powerState, nightState, systemVibration) ->
-                                        !powerState && !nightState && systemVibration)
+                                RxContentResolver.observeQuery(
+                                                getContentResolver(),
+                                                Settings.System.getUriFor(
+                                                        Settings.System.HAPTIC_FEEDBACK_ENABLED),
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                true,
+                                                RxSchedulers.mainThread())
+                                        .subscribeOn(RxSchedulers.background())
+                                        .observeOn(RxSchedulers.mainThread())
+                                        .map(
+                                                query ->
+                                                        Settings.System.getInt(
+                                                                        getContentResolver(),
+                                                                        Settings.System
+                                                                                .HAPTIC_FEEDBACK_ENABLED,
+                                                                        1)
+                                                                == 1),
+                                (powerState,
+                                        nightState,
+                                        systemVibration,
+                                        systemWideHapticEnabled) ->
+                                        new Pair<>(
+                                                !powerState && !nightState && systemVibration,
+                                                systemWideHapticEnabled))
                         .subscribe(
                                 value -> {
-                                    mVibrator.setUseSystemVibration(value);
+                                    mVibrator.setUseSystemVibration(value.first, value.second);
                                     // demo
                                     performKeyVibration(KeyCodes.SPACE, false);
                                 },
@@ -183,7 +210,8 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                 Observable.combineLatest(
                                 prefs().getBoolean(
                                                 R.string.settings_key_key_press_shows_preview_popup,
-                                                R.bool.settings_default_key_press_shows_preview_popup)
+                                                R.bool
+                                                        .settings_default_key_press_shows_preview_popup)
                                         .asObservable(),
                                 AnimationsLevel.createPrefsObservable(this),
                                 prefs().getString(
@@ -299,7 +327,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
             }
         } catch (Exception e) {
             Logger.w(TAG, "Failed to interact with vibrator! Disabling for now.");
-            mVibrator.setUseSystemVibration(false);
+            mVibrator.setUseSystemVibration(false, false);
             mVibrator.setDuration(0);
             mVibrator.setLongPressDuration(0);
         }
@@ -312,7 +340,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
     @VisibleForTesting
     protected Vibrator getVibrator() {
-        return ((PressVibratorV1) mVibrator).getVibrator();
+        return mVibrator.getVibrator();
     }
 
     @Override

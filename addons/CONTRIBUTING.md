@@ -21,6 +21,7 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
     * Try to locate AOSP dictionary files (could be found at [AOSP](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/), or [LineageOS](https://github.com/LineageOS/android_packages_inputmethods_LatinIME/tree/lineage-16.0/dictionaries)) (you should use the `XX_wordlist.combined.gz` file).
     * If you have anything that was pre-built into a word-list XML, put those under `klingon/pack/dictionary/prebuilt`.
     * Add text files that will be parsed - word-counted -  to generate word-list XMLs
+    * If you do not want to generate a dictionary, then disable that in `klingon/pack/gradle.build` by adding: `ext.shouldGenerateDictionary = false`
 1. Generate the dictionary: `./gradlew :addons:languages:klingon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
     * raw resources under `klingon/pack/src/main/res/raw/klingon_words_?.dict`
     * IDs resource array under `klingon/pack/src/main/res/values/klingon_words_dict_array.xml`
@@ -31,6 +32,9 @@ include ":addons:languages:klingon:pack", ":addons:languages:klingon:apk"
     * replace name and description
     * replace the locale
 1. Set the status-bar icon text at `klingon/pack/build.gradle`: `ext.status_icon_text = "kl"`
+1. If this is an initial publish (as in, a new language pack) then disable the publish in `klingon/apk/build.gradle`:
+  - `ext.shouldBePublished = false`
+  - `ext.notPublishingReason = "Initial version has not been published yet"`
 1. Replace the flag at `klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
 1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
 1. Generate the icons: `./gradlew :addons:languages:klingon:pack:generateLanguagePackIcons :addons:languages:klingon:apk:generateStoreLogoIcon`. This will generate the following files (which _should_ be checked into the repo):
@@ -56,10 +60,24 @@ or directly install it on your connected device:
 ```
 
 
-Iterate on your pack until you feel it is good, and then create a PR to merge it to the _master_.
+Iterate on your pack until you feel it is good, and then create a PR to merge it to the _main_ branch.
 
 ## Publish pack
 You can either publish by yourself, under your developer account and keep complete ownership, or you can let us (aka AnySoftKeyboard organization) do it.
 
 ### Play Store Publish by AnySoftKeyboard organization
-TO DO!!!
+First, the pack needs to be _owned_ by the AnySoftKeyboard developer [account](https://play.google.com/store/apps/dev?id=7543681500912687681).
+Second, the initial release needs to be manually done by one of the account owners.
+Third, mark the `:addons:languages:[pack]:apk` module as publishable:
+```
+ext.shouldBePublished = true
+```
+
+and remove the `notPublishingReason` field.
+After this is merged, the pack will be automatically released by our CI/CD pipelines.
+
+#### Alpha and Beta releases
+- `alpha` releases are closed-testing, meaning that you will need to ask to be added to the list of testers.
+  - To support `alpha` releases, add `ext.closedTestingTrackName = 'alpha'` to the build file.
+- `beta` releases are open-testing, meaning anyone can join them.
+  - To support `beta` releases, add `ext.openTestingTrackName = 'beta'` to the build file.

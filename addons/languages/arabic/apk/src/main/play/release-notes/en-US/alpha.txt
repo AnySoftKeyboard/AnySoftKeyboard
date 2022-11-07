@@ -1,1 +1,1 @@
-* Completely revised pack
+* Fixes to Alif pop-up.

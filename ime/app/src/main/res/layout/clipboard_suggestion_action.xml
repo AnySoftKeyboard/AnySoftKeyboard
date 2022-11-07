@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_margin="2dp"
+    android:background="@drawable/clipboard_action_strip_icon">
 
     <TextView
         android:id="@+id/clipboard_suggestion_text"
@@ -10,13 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/strip_action_background"
-        android:drawableStart="@drawable/ic_clipboard_paste_action"
-        android:drawableLeft="@drawable/ic_clipboard_paste_action"
-        android:drawablePadding="2dp"
         android:ellipsize="marquee"
         android:gravity="center"
         android:maxWidth="150dp"
-        android:padding="4dp"
         android:singleLine="true" />
 </FrameLayout>

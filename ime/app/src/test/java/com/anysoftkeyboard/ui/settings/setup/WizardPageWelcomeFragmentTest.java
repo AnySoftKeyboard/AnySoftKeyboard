@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
-import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowView;
 
 public class WizardPageWelcomeFragmentTest
-        extends RobolectricFragmentTestCase<
+        extends RobolectricWizardFragmentTestCase<
                 WizardPageWelcomeFragmentTest.TestableWizardPageWelcomeFragment> {
 
     @NonNull
@@ -43,6 +43,26 @@ public class WizardPageWelcomeFragmentTest
         Assert.assertTrue(fragment.mRefreshPagerCalled);
 
         Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+    }
+
+    @Test
+    public void testClickedSkipped() {
+        var fragment = startFragment();
+
+        final View link = fragment.getView().findViewById(R.id.skip_setup_wizard);
+        var linkClickHandler = Shadows.shadowOf(link).getOnClickListener();
+
+        Assert.assertNotNull(linkClickHandler);
+
+        linkClickHandler.onClick(link);
+
+        final Intent nextStartedActivity =
+                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+                        .getNextStartedActivity();
+
+        Assert.assertEquals(
+                MainSettingsActivity.class.getName(),
+                nextStartedActivity.getComponent().getClassName());
     }
 
     @Test

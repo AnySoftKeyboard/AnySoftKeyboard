@@ -1,14 +1,20 @@
+---
 name: localization
 
-#always run on the default branch: master
+# always run on the default branch: main
 on:
+  # schedule is used to fetch new, async, translations
   schedule:
     - cron: '24 02 * * *'
+  # push is used to upload new system strings
   push:
     branches:
-      - master
+      - main
     paths:
       - 'ime/app/src/main/res/values/strings.xml'
+      - 'scripts/upload_strings_to_crowdin_api.sh'
+      - 'scripts/update_strings_from_crowdin_api.sh'
+      - '.github/workflows/localization_update.yml'
 
 env:
   TERM: dumb
@@ -17,15 +23,18 @@ env:
 
 jobs:
   localization-update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
+    container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: Upload strings from ime/app master
+      - name: Upload strings from ime/app main branch
         run: ./scripts/upload_strings_to_crowdin_api.sh keep
       - name: Download latest translations
         run: ./scripts/update_strings_from_crowdin_api.sh build
+      - name: Update force-locale list
+        run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:
@@ -34,7 +43,7 @@ jobs:
           title: 'Automated Localization Update from crowdin'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Generated from latest _master_ strings and crowdin data.'
+          body: 'Generated from latest _main_ strings and crowdin data.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/localization-update'
           labels: automerge

@@ -2,6 +2,8 @@
 <lint>
     <issue id="ObsoleteSdkInt" severity="error" />
 
+    <issue id="IgnoreWithoutReason" severity="error" />
+
     <!-- since those values are copied into the source-code anyway, I don't care -->
     <issue id="InlinedApi" severity="informational" />
 
@@ -16,7 +18,7 @@
 
     <issue id="Typos" severity="error">
         <!-- ignoring translations from crowdin -->
-        <ignore path="src/main/res/values-*/strings.xml" />
+        <ignore path="**/res/values-*/strings.xml" />
     </issue>
 
     <issue id="VisibleForTests" severity="error" >

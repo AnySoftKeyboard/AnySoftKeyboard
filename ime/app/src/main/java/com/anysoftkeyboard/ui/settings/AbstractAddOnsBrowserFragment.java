@@ -102,8 +102,10 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         return new ItemTouchHelper.SimpleCallback(itemDragDirectionFlags, 0) {
 
             @Override
-            public int getDragDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                if (viewHolder.getAdapterPosition() >= mAllAddOns.size()) {
+            public int getDragDirs(
+                    @NonNull RecyclerView recyclerView,
+                    @NonNull RecyclerView.ViewHolder viewHolder) {
+                if (viewHolder.getBindingAdapterPosition() >= mAllAddOns.size()) {
                     // this is the case where the item dragged is the Market row.
                     return 0;
                 }
@@ -113,17 +115,17 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             @Override
             @SuppressWarnings("unchecked")
             public boolean onMove(
-                    RecyclerView recyclerView,
-                    RecyclerView.ViewHolder viewHolder,
-                    RecyclerView.ViewHolder target) {
-                final int to = target.getAdapterPosition();
+                    @NonNull RecyclerView recyclerView,
+                    @NonNull RecyclerView.ViewHolder viewHolder,
+                    @NonNull RecyclerView.ViewHolder target) {
+                final int to = target.getBindingAdapterPosition();
                 if (to >= mAllAddOns.size()) {
                     // this is the case where the item is dragged AFTER the Market row.
                     // we won't allow
                     return false;
                 }
 
-                final int from = viewHolder.getAdapterPosition();
+                final int from = viewHolder.getBindingAdapterPosition();
 
                 E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
                 // anything that is dragged, must be enabled
@@ -142,7 +144,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {}
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {}
         };
     }
 
@@ -177,9 +179,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context appContext = getActivity().getApplicationContext();
+        Context appContext = requireContext().getApplicationContext();
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
@@ -196,7 +198,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.add_on_selector_menu, menu);
         menu.findItem(R.id.add_on_market_search_menu_option)
@@ -211,7 +213,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 onTweaksOptionSelected();
                 return true;
             case R.id.add_on_market_search_menu_option:
-                AddOnStoreSearchView.startMarketActivity(getContext(), getMarketSearchKeyword());
+                AddOnStoreSearchView.startMarketActivity(
+                        requireContext(), getMarketSearchKeyword());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -240,7 +243,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 mAllAddOns.size(),
                 mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
-        mRecyclerView.getAdapter().notifyDataSetChanged();
         MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
     }
 
@@ -253,7 +255,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        if (mAllAddOns != null && position == mAllAddOns.size()) {
+                        if (position == mAllAddOns.size()) {
                             return mColumnsCount;
                         } else {
                             return 1;
@@ -318,7 +320,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
                 }
                 mRecyclerView.getAdapter().notifyItemChanged(previouslyEnabledIndex);
-                mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             } else {
                 // clicking in multi-selection means flip
                 if (isEnabled) {
@@ -328,9 +329,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     mEnabledAddOnsIds.add(mAddOn.getId());
                     mFactory.setAddOnEnabled(mAddOn.getId(), true);
                 }
-
-                mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             }
+
+            mRecyclerView.getAdapter().notifyItemChanged(getBindingAdapterPosition());
         }
     }
 
@@ -342,8 +343,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             mLayoutInflater = LayoutInflater.from(getActivity());
         }
 
+        @NonNull
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             if (viewType == 0) {
                 View itemView =
                         mLayoutInflater.inflate(R.layout.add_on_browser_view_item, parent, false);
@@ -360,7 +362,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
         @Override
         @SuppressWarnings("unchecked")
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if (getItemViewType(position) == 0) {
                 E addOn = mAllAddOns.get(position);
                 ((KeyboardAddOnViewHolder) holder).bindToAddOn(addOn);
@@ -369,7 +371,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
         @Override
         public int getItemViewType(int position) {
-            if (mAllAddOns != null && position == mAllAddOns.size()) {
+            if (position == mAllAddOns.size()) {
                 return 1;
             } else {
                 return 0;
@@ -379,7 +381,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         @Override
         public int getItemCount() {
             final int extra = getMarketSearchKeyword() != null ? 1 : 0;
-            return (mAllAddOns == null ? 0 : mAllAddOns.size()) + extra;
+            return mAllAddOns.size() + extra;
         }
     }
 }

@@ -42,4 +42,14 @@
         android:gravity="center"
         android:text="@string/setup_wizard_step_one_details" />
 
+    <TextView
+        android:id="@+id/skip_setup_wizard"
+        style="@style/Ask.Text.Link.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/transparent_click_feedback_background"
+        android:text="@string/setup_wizard_skip" />
+
 </LinearLayout>

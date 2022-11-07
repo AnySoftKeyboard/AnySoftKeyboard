@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -219,26 +218,26 @@ class PointerTracker {
         mKeyAlreadyProcessed = true;
     }
 
-    public void onTouchEvent(int action, int x, int y, long eventTime) {
-        switch (action) {
-            case MotionEvent.ACTION_MOVE:
-                onMoveEvent(x, y, eventTime);
-                break;
-            case MotionEvent.ACTION_DOWN:
-            case 0x00000005: // MotionEvent.ACTION_POINTER_DOWN:
-                onDownEvent(x, y, eventTime);
-                break;
-            case MotionEvent.ACTION_UP:
-            case 0x00000006: // MotionEvent.ACTION_POINTER_UP:
-                onUpEvent(x, y, eventTime);
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                onCancelEvent();
-                break;
-            default:
-                break;
-        }
-    }
+    //    public void onTouchEvent(int action, int x, int y, long eventTime) {
+    //        switch (action) {
+    //            case MotionEvent.ACTION_MOVE:
+    //                onMoveEvent(x, y, eventTime);
+    //                break;
+    //            case MotionEvent.ACTION_DOWN:
+    //            case MotionEvent.ACTION_POINTER_DOWN:
+    //                onDownEvent(x, y, eventTime);
+    //                break;
+    //            case MotionEvent.ACTION_UP:
+    //            case MotionEvent.ACTION_POINTER_UP:
+    //                onUpEvent(x, y, eventTime);
+    //                break;
+    //            case MotionEvent.ACTION_CANCEL:
+    //                onCancelEvent();
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    }
 
     void onDownEvent(int x, int y, long eventTime) {
         int keyIndex = mKeyState.onDownKey(x, y);
@@ -376,8 +375,18 @@ class PointerTracker {
             x = mKeyState.getKeyX();
             y = mKeyState.getKeyY();
         }
-        if (!mIsRepeatableKey) {
-            detectAndSendKey(keyIndex, x, y, eventTime);
+        if (mIsRepeatableKey) {
+            // we just need to report up
+            final OnKeyboardActionListener listener = mListener;
+            final Keyboard.Key key = getKey(keyIndex);
+
+            if (key != null) {
+                if (listener != null) {
+                    listener.onRelease(key.getPrimaryCode());
+                }
+            }
+        } else {
+            detectAndSendKey(keyIndex, x, y, eventTime, true);
         }
 
         if (isValidKeyIndex(keyIndex)) {
@@ -400,7 +409,7 @@ class PointerTracker {
         if (key != null) {
             // While key is repeating, because there is no need to handle multi-tap key, we can
             // pass -1 as eventTime argument.
-            detectAndSendKey(keyIndex, key.x, key.y, -1);
+            detectAndSendKey(keyIndex, key.x, key.y, -1, false);
         }
     }
 
@@ -431,8 +440,8 @@ class PointerTracker {
         final int right = key.x + key.width;
         final int top = key.y;
         final int bottom = key.y + key.height;
-        final int edgeX = x < left ? left : (x > right ? right : x);
-        final int edgeY = y < top ? top : (y > bottom ? bottom : y);
+        final int edgeX = x < left ? left : Math.min(x, right);
+        final int edgeY = y < top ? top : Math.min(y, bottom);
         final int dx = x - edgeX;
         final int dy = y - edgeY;
         return dx * dx + dy * dy;
@@ -461,7 +470,7 @@ class PointerTracker {
         return key.getCodesCount() == 0 && key.popupResId != 0 && TextUtils.isEmpty(key.text);
     }
 
-    private void detectAndSendKey(int index, int x, int y, long eventTime) {
+    private void detectAndSendKey(int index, int x, int y, long eventTime, boolean withRelease) {
         final OnKeyboardActionListener listener = mListener;
         final Keyboard.Key key = getKey(index);
 
@@ -487,7 +496,7 @@ class PointerTracker {
                         text = key.typedText;
                     }
                     listener.onText(key, text);
-                    listener.onRelease(key.getPrimaryCode());
+                    if (withRelease) listener.onRelease(key.getPrimaryCode());
                 }
             } else if ((key.text != null && !isShifted) || (key.shiftedText != null && isShifted)) {
                 if (listener != null) {
@@ -504,7 +513,7 @@ class PointerTracker {
                         text = key.text;
                     }
                     listener.onText(key, text);
-                    listener.onRelease(key.getPrimaryCode());
+                    if (withRelease) listener.onRelease(key.getPrimaryCode());
                 }
             } else {
                 final int code;
@@ -541,7 +550,7 @@ class PointerTracker {
                         listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     }
                     mKeyCodesInPathLength = -1;
-                    listener.onRelease(code);
+                    if (withRelease) listener.onRelease(code);
 
                     if (multiTapStarted) {
                         mListener.onMultiTapEnded();
@@ -609,7 +618,7 @@ class PointerTracker {
         return mKeyCodesInPathLength > 1;
     }
 
-    private boolean canDoGestureTyping() {
+    boolean canDoGestureTyping() {
         return mKeyCodesInPathLength >= 1;
     }
 }

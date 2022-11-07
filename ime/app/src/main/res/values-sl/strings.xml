@@ -188,7 +188,6 @@
     <string name="tweak_ui_group">Podr. nast. povezane z grafiko</string>
     <string name="tweak_ux_group">Podr. nast. povez. z vedenjem</string>
     <string name="tweak_dictionary_group">Podr. nast. povezane s slovarjem</string>
-    <string name="settings_min_length_for_word_correction">Najmanjša dolžina besede za popravek</string>
     <string name="show_keyboard_name_text">Prikaži ime tipkovnice</string>
     <string name="show_keyboard_name_on_summary">Prikaži ime tipkovnice na preslednici</string>
     <string name="show_keyboard_name_off_summary">Nikoli ne prikaži imena tipkovnice</string>
@@ -407,20 +406,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">V uporabniškem slovarju nimate besed. Sedaj lahko dodate prvo besedo.</string>
-    <string name="user_dict_backup_success_title">Varnostno kopiranje končano!</string>
-    <string name="user_dict_backup_success_text">Besede uspešno shranjene na pomnilniško napravo v
-        /Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Varnostno kopiranje ni uspelo!</string>
-    <string name="user_dict_backup_fail_text_with_error">Shranjevanje besed je spodletelo zaradi:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Obnovitev končana!</string>
-    <string name="user_dict_restore_success_text">Besede uspešno obnovljene.</string>
-    <string name="user_dict_restore_fail_title">Obnovitev ni uspela!</string>
-    <string name="user_dict_restore_fail_text_with_error">Obnovitev besed je spodletela zaradi:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
     <string name="should_swap_punctuation_and_space_title">Zamenjaj ločila in presledek</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne zamenjaj presledka in ločil.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Zamenjaj samodejni presledek in ločila.</string>
@@ -510,5 +495,4 @@
     <string name="extension_keyboard_enabled_on_summary">Razširjena tipkovnica se bo prikazala, ko potegnete nad tipkovnico.</string>
     <string name="read_our_privacy_policy">Preberite naš pravilnik o zasebnosti …</string>
     <string name="visit_our_web_site">Obiščite našo spletno stran …</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
 </resources>

@@ -3,8 +3,8 @@ AnySoftKeyboard&nbsp;[![Latest release](https://img.shields.io/github/release/An
 Discussions can be found on&nbsp;[💬&nbsp;GitHub](https://github.com/AnySoftKeyboard/AnySoftKeyboard/discussions)<br/>
 Support chat-channels can be found on&nbsp;[![Gitter chat](https://badges.gitter.im/AnySoftKeyboard/gitter.png)](https://gitter.im/AnySoftKeyboard)<br/>
 <br/>
-`master` latest build&nbsp;![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/checks/badge.svg?event=push&branch=master)<br/>
-`master` coverage&nbsp;[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)<br/>
+`main` latest build&nbsp;![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/checks/badge.svg?event=push&branch=main)<br/>
+`main` coverage&nbsp;[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/main/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)<br/>
 <br/>
 Android (f/w 4.0.3+, API level 15+) on screen keyboard for multiple languages.
 
@@ -36,17 +36,16 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 
 ## Releases
 
-### from _master_
+### from _main_ branch
 
 #### IME - AnySoftKeyboard
-* Every commit to _master_ branch will [deploy](.github/workflows/checks.yml) a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google Groups](https://groups.google.com/d/forum/anysoftkeyboard-alpha-testers) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
+* Every commit to _main_ branch will [deploy](.github/workflows/checks.yml) a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google Groups](https://groups.google.com/d/forum/anysoftkeyboard-alpha-testers) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Every Wednesday the latest _ALPHA_ will be [promoted](.github/workflows/deployment_promote.yml) to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
-* Note about pre-release channels: every few months we will remove all the users in the groups. When that happens, you are required to re-subscribe to the group. This is done to ensure that the members in the groups are active.
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-ime-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
 
 #### AddOns
-* Every commit to _master_ branch will [deploy](.github/workflows/checks.yml) all addons to _BETA_ channel in Google Play-Store. You can subscribe to this release channel by joining the _BETA_ channel for each [addon](addons/languages/PACKS.md).
-* Note about pre-release channels: every few months we will remove all the users in the groups. When that happens, you are required to re-subscribe to the group. This is done to ensure that the members in the groups are active.
+* Every commit to _main_ branch will [deploy](.github/workflows/checks.yml) all addons to closed-testing _ALPHA_ channel in Google Play-Store. If you want to subscribe to this channel, open a (ticket)[https://github.com/AnySoftKeyboard/AnySoftKeyboard/discussions/3391] and asking to join.
+* Every Wednesday the latest _ALPHA_ will be promoted to _BETA_. This is only for supported packs. The _BETA_ channel is an open-testing group, you can subscribe to this release channel by joining the _BETA_ channel for each [addon](addons/languages/PACKS.md).
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-addons-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
 
 ### from _release-branch_
@@ -70,11 +69,13 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 
 # Development/Contributing
 Want to develop a new feature, fix a bug, or add new language-pack? Read more [here](CONTRIBUTING.md).
-Remember: the components in this repository are released under the Apache2 license. By contributing to this repository you give all copyright and distribution rights or AnySoftKeyboard maintainer.
+
+## Copyright requirement
+*Remember:* the components in this repository are released under the Apache2 license. By contributing to this repository you give all copyright and distribution rights to the [AnySoftKeyboard maintainer](https://github.com/menny).
 
 # License
 
-    Copyright 2020 Menny Even-Danan
+    Copyright 2009 Menny Even-Danan
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

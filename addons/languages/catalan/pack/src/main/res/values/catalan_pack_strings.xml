@@ -3,4 +3,5 @@
     <string name="catalan_dictionary_description">Diccionari de català</string>
     <string name="catalan_keyboard">Català</string>
     <string name="catalan_keyboard_description">Teclat QWERTY</string>
+    <string name="catalan_keyboard_description_symbols">Teclat QWERTY amb símbols i sense guió</string>
 </resources>

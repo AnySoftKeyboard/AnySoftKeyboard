@@ -1,10 +1,10 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static net.evendanan.chauffeur.lib.experiences.TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION;
 
 import android.app.Application;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -12,7 +12,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,6 +65,23 @@ public class FrameKeyboardViewClickListenerTest {
     }
 
     @Test
+    public void testOnClearEmoji() throws Exception {
+        OnKeyboardActionListener keyboardActionListener =
+                Mockito.mock(OnKeyboardActionListener.class);
+        FrameKeyboardViewClickListener listener =
+                new FrameKeyboardViewClickListener(keyboardActionListener);
+        Mockito.verifyZeroInteractions(keyboardActionListener);
+        View view = new View(getApplicationContext());
+        view.setId(R.id.quick_keys_popup_delete_recently_used_smileys);
+        listener.onClick(view);
+        Mockito.verify(keyboardActionListener)
+                .onKey(KeyCodes.CLEAR_QUICK_TEXT_HISTORY, null, 0, null, true);
+        Mockito.verify(keyboardActionListener)
+                .onKey(KeyCodes.QUICK_TEXT_POPUP, null, 0, null, true);
+        Mockito.verifyNoMoreInteractions(keyboardActionListener);
+    }
+
+    @Test
     public void testOnClickSetting() throws Exception {
         OnKeyboardActionListener keyboardActionListener =
                 Mockito.mock(OnKeyboardActionListener.class);
@@ -76,11 +92,13 @@ public class FrameKeyboardViewClickListenerTest {
         view.setId(R.id.quick_keys_popup_quick_keys_settings);
         listener.onClick(view);
         Intent expectedIntent =
-                FragmentChauffeurActivity.createStartActivityIntentForAddingFragmentToUi(
+                new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(
+                                getApplicationContext()
+                                        .getString(R.string.deeplink_url_quick_text)),
                         getApplicationContext(),
-                        MainSettingsActivity.class,
-                        new QuickTextKeysBrowseFragment(),
-                        ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                        MainSettingsActivity.class);
         expectedIntent.setFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_NO_HISTORY

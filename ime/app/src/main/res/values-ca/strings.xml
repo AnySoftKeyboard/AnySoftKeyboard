@@ -5,7 +5,7 @@
     <string name="debug_tracing_finished">S\'ha finalitzat el seguiment!\nEl fitxer es troba a
 <xliff:g id="trace_file">%s</xliff:g>
     </string>
-    <string name="menu_about_item">Quant a...</string>
+    <string name="menu_about_item">Quant a…</string>
     <string name="how_to_pointer_title">Us donem la benvinguda a l\'AnySoftKeyboard</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="nom">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="codi">%s</xliff:g>\u0020\u0020</string>
@@ -29,6 +29,7 @@
     <string name="no_market_store_available"><b>* No s\'ha pogut trobar Google Play Store al vostre dispositiu. No es poden cercar Complements!</b></string>
     <string name="keyboard_theme_tweak_group">Optimitzacions</string>
     <string name="close_button">Surt</string>
+    <string name="delete_button">Suprimeix</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">S\'ha desat:
         <xliff:g id="word">%s</xliff:g>
@@ -61,6 +62,7 @@
     <string name="effects_group">Efectes</string>
     <string name="ime_settings">Configuració del teclat</string>
     <string name="switch_incognito">Mode d\'incògnit</string>
+    <string name="use_system_vibration_title">Utilitza la vibració del sistema</string>
     <string name="vibrate_on_key_press_title">Vibració de les tecles</string>
     <string name="vibrate_on_key_press_value_template">%d mil·lisegons</string>
     <string name="night_mode_screen">Configuració del mode oscur</string>
@@ -144,16 +146,16 @@
     <string name="backword_support">Retrocés de paraula</string>
     <string name="backword_support_on_summary">Prement la combinació «majúscules + retrocés» s\'esborra la darrera paraula</string>
     <string name="backword_support_off_summary">Prement la tecla majúscules només s\'esborra el darrer caràcter</string>
-    <string name="swipe_up_action">En lliscar amunt...</string>
+    <string name="swipe_up_action">Llisca amunt</string>
     <string name="swipe_up_action_summary">Definiu l\'acció del gest cap amunt. Actualment, %s</string>
     <string name="swipe_up_action_title">Trieu una acció per associar al moviment</string>
     <string name="swipe_up_from_spacebar_action">Canvia la barra d\'espai a dalt</string>
     <string name="swipe_up_from_spacebar_action_summary">Definiu l\'acció del gest cap amunt de la barra d\'espai. Actualment, %s</string>
     <string name="swipe_up_from_spacebar_action_title">Trieu una acció per associar a la barra d\'espai</string>
-    <string name="swipe_down_action">En lliscar avall...</string>
+    <string name="swipe_down_action">Lliscar avall</string>
     <string name="swipe_down_action_summary">Definiu l\'acció del gest cap a baix. Actualment, %s</string>
     <string name="swipe_down_action_title">Seleccioneu l\'acció de lliscament avall</string>
-    <string name="swipe_left_action">En lliscar a l\'esquerra...</string>
+    <string name="swipe_left_action">Llisca a l\'esquerra</string>
     <string name="swipe_left_action_summary">Definiu l\'acció del gest cap a esquerra. Actualment, %s</string>
     <string name="swipe_left_action_title">Seleccioneu l\'acció de lliscament a l\'esquerra</string>
     <string name="swipe_right_action">Lliscament a la dreta</string>
@@ -170,7 +172,7 @@
     <string name="swipe_right_two_fingers_action">Gest amb dos dits cap a la dreta</string>
     <string name="swipe_right_two_fingers_action_summary">Definiu el gest amb dos dits cap a la dreta. Actualment, %s</string>
     <string name="swipe_right_two_fingers_action_title">Seleccioneu el gest cap a la dreta</string>
-    <string name="pinch_gesture_action">En pessigar la pantalla...</string>
+    <string name="pinch_gesture_action">En pessigar la pantalla</string>
     <string name="pinch_gesture_action_title">Trieu una acció per associar al moviment</string>
     <string name="pinch_gesture_action_summary">Definiu el gest de pessic. Actualment, %s</string>
     <string name="separate_gesture_action">Allarga el gest</string>
@@ -253,7 +255,6 @@
     <string name="tweak_ui_group">Comportament gràfic</string>
     <string name="tweak_ux_group">Opcions de comportament</string>
     <string name="tweak_dictionary_group">Opcions del diccionari</string>
-    <string name="settings_min_length_for_word_correction">Longitud mínima per a la correcció</string>
     <string name="show_keyboard_name_text">Mostra el nom del teclat</string>
     <string name="show_keyboard_name_on_summary">Mostra el nom del teclat a la barra d\'espai</string>
     <string name="show_keyboard_name_off_summary">No mostris mai el nom</string>
@@ -324,7 +325,7 @@
     <string name="tweak_animations_level_types_none">Cap efecte</string>
     <string name="cycle_all_symbols_keyboards">Rotació simbòlic/numèric</string>
     <string name="cycle_all_symbols_keyboards_on_summary">Prement « ← 123 ← » canvia el tipus de teclat</string>
-    <string name="cycle_all_symbols_keyboards_off_summary">Prement « ... » canvia el tipus de teclat</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Prement « … » canvia el tipus de teclat</string>
     <string name="lang_key_shows_popup">Finestra d\'idioma</string>
     <string name="lang_key_shows_popup_on_summary">Prement « → ABC → » es mostra una finestra de selecció dels teclats disponibles</string>
     <string name="lang_key_shows_popup_off_summary">Prement « → ABC → » es canvia directament entre els teclats disponibles</string>
@@ -473,19 +474,6 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">No teniu cap mot en el diccionari de l\'usuari. Ara podeu afegir les vostres primeres paraules.</string>
-    <string name="user_dict_backup_success_title">Còpia finalitzada!</string>
-    <string name="user_dict_backup_success_text">S\'han desat correctament les paraules del vostre diccionari a
-/Android/data/com.menny.android.anysoftkeyboard/files/</string>
-    <string name="user_dict_backup_fail_title">Còpia errònia!</string>
-    <string name="user_dict_backup_fail_text_with_error">Ha fallat en desar les paraules a causa de: <xliff:g id="error">%s</xliff:g>
-    
-    </string>
-    <string name="user_dict_restore_success_title">Restauració completada!</string>
-    <string name="user_dict_restore_success_text">S\'han restaurat les paraules correctament.</string>
-    <string name="user_dict_restore_fail_title">ha fallat la restauració!</string>
-    <string name="user_dict_restore_fail_text_with_error">Ha fallat en restaurar les paraules a causa de: <xliff:g id="error">%s</xliff:g>
-    
-    </string>
     <string name="should_swap_punctuation_and_space_title">Intercanvia el punt i l\'espai</string>
     <string name="initial_quick_text_tab_title">Grup inicial</string>
     <string name="initial_quick_text_tab_summary">El grup de text ràpid comença amb: %s</string>
@@ -499,6 +487,10 @@
     <string name="emoji_default_skin_tone_value_type_5">To de pell mig-fosc</string>
     <string name="emoji_default_skin_tone_value_type_6">To de pell fosc</string>
     <string name="emoji_default_skin_tone_value_random_type">To de pell aleatori</string>
+    <string name="emoji_default_gender_value_person">Persona</string>
+    <string name="emoji_default_gender_value_woman">Dona</string>
+    <string name="emoji_default_gender_value_man">Home</string>
+    <string name="emoji_default_gender_value_random_type">Gènere a l’atzar</string>
     <string name="developer_tools">Eines de desenvolupadors</string>
     <string name="click_for_developer_features">Eines de desenvolupadors</string>
     <string name="click_for_developer_features_summary">Diverses opcions per als desenvolupadors de l\'AnySoftKeyboard</string>
@@ -523,7 +515,7 @@
     <string name="about_additional_software_licenses">Llicències de programari addicional</string>
     <string name="setup_wizard_step_one_title">Activa l\'AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">En aquest pas, haureu d\'habilitar <i>AnySoftKeyboard</i>. Verifiqueu que heu seleccionat <i>\'AnySoftKeyboard\'</i> en les <i>entrades de llengua</i>. Això farà funcionar el nostre teclat al vostre dispositiu.</string>
-    <string name="setup_wizard_step_one_action">Aneu a la pàgina de <i>Configuració d\'entrada de llengua</i>...</string>
+    <string name="setup_wizard_step_one_action">Aneu a la pàgina de <i>Configuració d\'entrada de llengua</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: aquest dispositiu no suporta teclats de tercers. AnySoftKeyboard no pot ser activat!</string>
     <string name="setup_wizard_step_permissions_title">Habilita els permisos</string>
     <string name="setup_wizard_step_permissions_details">En aquest pas, podeu aprovar a l\'<i>AnySoftKeyboard</i> l\'accés als contactes emmagatzemats al vostre dispositiu. Si voleu blocar aquest accés, podríeu inhabilitar el Diccionari de contactes.</string>
@@ -534,15 +526,15 @@
     <string name="setup_wizard_step_three_details">Gràcies per triar l\'<i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Heu finalitzat 🎉\nObriu la vostra aplicació favorita i feu un cop d\'ull.</b></string>
     <string name="setup_wizard_step_three_details_actions">O podeu adaptar i personalitzar el teclat al vostre gust:</string>
-    <string name="setup_wizard_step_three_action_languages">Organitzeu les llengües...</string>
-    <string name="setup_wizard_step_three_action_themes">Seleccioneu el tema...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Configureu tota la resta...</string>
+    <string name="setup_wizard_step_three_action_languages">Organitzeu les llengües…</string>
+    <string name="setup_wizard_step_three_action_themes">Seleccioneu el tema…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Configureu tota la resta…</string>
     <string name="setup_wizard_step_download_title">Baixa paquets de llengua</string>
     <string name="setup_wizard_step_download_action">Baixa el paquet de llengua</string>
     <string name="setup_wizard_step_download_skip_action">Omet</string>
     <string name="ime_crashed_title">AnySoftKeyboard s\'ha estavellat!</string>
-    <string name="ime_crashed_sub_text">UI, no ho hem vist a venir...</string>
-    <string name="ime_crashed_ticker">UI, AnySoftKeyboard s\'ha estavellat, no ho hem vist a venir...</string>
+    <string name="ime_crashed_sub_text">UI, no ho hem vist a venir…</string>
+    <string name="ime_crashed_ticker">UI, AnySoftKeyboard s\'ha estavellat, no ho hem vist a venir…</string>
     <string name="ime_crashed_text">Desafortunadament, hi ha un problema amb <i>AnySoftKeyboard</i>. No tingueu pànic, hi ha alguna cosa <b>que</b> que podeu fer per ajudar-nos a resoldre això: envieu-nos el report d\'accident, i farem el nostre millor esforç per a resoldre aquest accident i tornar amb una experiència impressionant de teclat! \n\nAmb la nostra disculpa sincera, l\'equip de desenvolupament.</string>
     <string name="ime_crashed_send_button">Envia</string>
     <string name="ime_crashed_cancel_button">Cancel·la</string>
@@ -585,8 +577,13 @@
     <string name="no_internet_fields_specific_layout">Cap</string>
     <string name="bottom_nav_home">Hola</string>
     <string name="setup_wizard_welcome_title">Benvingut!</string>
+    <string name="setup_wizard_welcome_start_action">Inicia la configuració…</string>
     <string name="theme_case_type_override_lower">Sempre en minúscula</string>
     <string name="theme_case_type_override_upper">Sempre en majúscula</string>
+    <string name="settings_key_hint_size_none">Cap</string>
+    <string name="settings_key_hint_size_small">Petit</string>
+    <string name="settings_key_hint_size_normal">Normal</string>
+    <string name="settings_key_hint_size_big">Gran</string>
     <string name="shared_prefs_provider_name">Configuració de l\'aplicació</string>
     <string name="user_dict_prefs_provider">Paraules de l\'usuari</string>
     <string name="next_word_dict_prefs_provider">Paraules segúents</string>
@@ -595,5 +592,6 @@
     <string name="pick_prefs_providers_to_restore">Què voleu recuperar?</string>
     <string name="prefs_providers_operation_success">Finalitzat</string>
     <string name="prefs_providers_operation_failed">Ha fallat!</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre utilitza les files genèriques seleccionades.</string>
+    <string name="gesture_typing_alert_button">Entesos</string>
 </resources>

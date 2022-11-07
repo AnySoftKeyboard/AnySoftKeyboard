@@ -38,6 +38,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 A mentéshez érintse meg újra</string>
     <string name="hint_double_tap_to_close">Nyomd meg újra a javaslatok eltávolításához</string>
+    <string name="hint_click_for_inline_suggestions">Elérhető automatikus kitöltési javaslatok</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Nincs telepítve hangfelismerő alkalmazás</string>
     <string name="voice_input_not_installed_text">Hangfelismerő nincs telepítve a készüléken.\nEz könnyen orvosolható: telepítse most az alkalmazásboltból.</string>
@@ -194,6 +195,7 @@
     <string name="swipe_action_name_compact_layout_to_right">jobbra igazított elrendezés</string>
     <string name="swipe_action_name_compact_layout_to_left">balra igazított elrendezés</string>
     <string name="swipe_action_name_utility_keyboard">segéd billentyűzet</string>
+    <string name="swipe_action_name_quick_text_popup">Emoji felugró mutatása</string>
     <string name="settings_swipe_velocity_threshold_title">Húzási sebesség mértéke</string>
     <string name="settings_swipe_velocity_threshold_summary">A minimális húzási sebesség. Jelenleg: %s</string>
     <string name="settings_swipe_velocity_very_slow">nagyon lassú</string>
@@ -262,7 +264,6 @@
         jelszó, URL, stb.).
     </string>
     <string name="tweak_dictionary_group">Szótár finombeállítások</string>
-    <string name="settings_min_length_for_word_correction">Minimális korrigálható szóhossz</string>
     <string name="show_keyboard_name_text">Mutassa a billentyűzet nevét</string>
     <string name="show_keyboard_name_on_summary">Mutassa a billentyűzet nevét a szóközön</string>
     <string name="show_keyboard_name_off_summary">Ne mutassa soha a billentyűzet nevét</string>
@@ -447,6 +448,7 @@
     <string name="extension_kbd_bottom_minimal">Minimál</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimál (emojik nélkül)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimális (kevesebb írásjel)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimál (alternatív)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Tovább</string>
@@ -535,19 +537,6 @@
     <string name="user_dict_settings_empty_text">A felhasználói szótárban nincs egyetlen szó sem.
         Most hozzáadhatja az első szót.
     </string>
-    <string name="user_dict_backup_success_title">Archiválás kész!</string>
-    <string name="user_dict_backup_success_text">A szavaid sikeresen tárolva az eszközödön itt:
-        \u0020/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
-    <string name="user_dict_backup_fail_title">Archiválás sikertelen!</string>
-    <string name="user_dict_backup_fail_text_with_error">Sikertelen szó eltárolás:\u0020 miatt
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-    <string name="user_dict_restore_success_title">Visszaállítás kész!</string>
-    <string name="user_dict_restore_success_text">A szólista sikeresen visszaállítva.</string>
-    <string name="user_dict_restore_fail_title">A visszaállítás sikertelen!</string>
-    <string name="user_dict_restore_fail_text_with_error">Sikertelen szólista betöltés:\u0020 miatt
-        <xliff:g id="error">%s</xliff:g></string>
     <string name="should_swap_punctuation_and_space_title">Írásjelek és szóköz cseréje</string>
     <string name="should_swap_punctuation_and_space_off_summary">Ne cserélje meg a szóközt és az 
         írásjeleket.
@@ -599,16 +588,6 @@
     <string name="enter_abbreviation_hint">Rövidítés</string>
     <string name="enter_abbreviation_target_hint">Teljes szó</string>
     <string name="toast_error_custom_path_backup">Hiba: valamely kontextusbeli app nyitva lehet</string>
-    <string name="file_explorer_menu_add_folder">Mappa létrehozása</string>
-    <string name="file_explorer_filename">Bizt.mentés fájlnév…</string>
-    <string name="file_explorer_filename_empty">A fájlnév nem lehet üres…</string>
-    <string name="file_explorer_alert_title">Kiválasztja ezt a fájlt?</string>
-    <string name="file_explorer_restore_alert_message">Visszaállítja ezt a fájlt?</string>
-    <string name="file_explorer_backup_alert_message">A fájl felül lesz írva.</string>
-    <string name="file_explorer_backup_success">Az adatai visszaállítva innen:\u0020</string>
-    <string name="file_explorer_backup_failed">Az adatai elmentése nem sikerült.</string>
-    <string name="file_explorer_restore_success">Az adatai visszaállítva innen:\u0020</string>
-    <string name="file_explorer_restore_failed">Az adatai visszaállítása nem sikerült.</string>
     <string name="about_additional_software_licenses">További szoftver licenszek</string>
     <string name="setup_wizard_step_one_title">Az AnySoftKeyboard engedélyezése</string>
     <string name="setup_wizard_step_one_details">Most engedélyeznie kell az <i>
@@ -679,7 +658,7 @@
     <string name="wizard_allow_contacts_permission">Engedélyezze a névjegy-alapú gépelési javaslatokat</string>
     <string name="allow_permission">Engedélyezés</string>
     <string name="turn_off_contacts_dictionary">A névjegyszótár kikapcsolása</string>
-    <string name="read_more_about_permissions">További információ az engedélyekről...</string>
+    <string name="read_more_about_permissions">További információ az engedélyekről…</string>
     <string name="ask_beta_link_promo">Hé! Szeretné az <i>AnySoftKeyboard</i> új funkcióit hamarabb kipróbálni? Szerencséje van! <i>BETA</i> csatornánk elérhető az <b>ÖN</b> számára is!\nCsak regisztráljon a lenti linken, és frissítsen a <i>Google Play</i> -ben!\n\n
         https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nÉs köszönet, hogy segíti a hibák javítását, mielőtt azok a nyilvánosság elé kerülnének.
     </string>
@@ -698,8 +677,8 @@
     <string name="app_shortcut_quick_keys_short_label">Emojik beállítása</string>
     <string name="extension_keyboard_enabled_off_summary">Kiegészítő billentyűzet jelenleg tiltva.</string>
     <string name="extension_keyboard_enabled_on_summary">A kiegészítő billentyűzet megjelenik felfele húzással</string>
-    <string name="read_our_privacy_policy">Adatvédelmi irányelvek...</string>
-    <string name="visit_our_web_site">Az app weboldala...</string>
+    <string name="read_our_privacy_policy">Adatvédelmi irányelvek…</string>
+    <string name="visit_our_web_site">Az app weboldala…</string>
     <string name="keyboard_for_url_fields">Elrendezés webcímeknél</string>
     <string name="keyboard_for_url_fields_summary">Webcím/email kitöltésekor a kijelölt elrendezés kerül használatra. Jelenleg: %s</string>
     <string name="keyboard_for_url_fields_title">Elrendezés URL bevitelhez</string>
@@ -712,12 +691,13 @@
         egy gonosz billentyűzetapp ne figyelhesse titokban a gépelését *.
     </string>
     <string name="setup_wizard_welcome_info_2">Oké, kezdhetjük? Kattintson, végigvezetjük a folyamaton.</string>
-    <string name="setup_wizard_welcome_start_action">Beállítások megkezdése...</string>
+    <string name="setup_wizard_welcome_start_action">Beállítások megkezdése…</string>
     <string name="setup_wizard_welcome_info_footnote">* Természetesen az AnySoftKeyboard nem gonosz.
         Arra biztatjuk, hogy nézze meg forráskódunkat és ellenőrizze azt. Ráadásul nem kérünk hozzáférést  a <i>HÁLÓZATHOZ,
         </i> így adatokat nem is tudnánk küldeni..
     </string>
-    <string name="setup_wizard_welcome_privacy_action">Az adatvédelmi irányelvekhez...</string>
+    <string name="setup_wizard_welcome_privacy_action">Az adatvédelmi irányelvekhez…</string>
+    <string name="setup_wizard_skip">Kihagyás</string>
     <string name="clear_all_dictionary_override">Egyértelmű felülbírálás</string>
     <string name="theme_case_type_override_dialog_title">A módszer kiválasztása</string>
     <string name="theme_case_type_override_theme">a téma szerint</string>
@@ -732,7 +712,7 @@
     <string name="settings_key_hint_size_big">Nagy</string>
     <string name="theme_case_type_override_title">Nagybetűsítés beállításai</string>
     <string name="theme_case_type_override_summary">Mi alapján döntsön a nagybetűsítésről. Jelenleg: %s</string>
-    <string name="take_a_while_progress_message">Ez eltarthat egy ideig ...</string>
+    <string name="take_a_while_progress_message">Ez eltarthat egy ideig …</string>
     <string name="shared_prefs_provider_name">App beállítások</string>
     <string name="user_dict_prefs_provider">Saját szólista</string>
     <string name="next_word_dict_prefs_provider">Következő szavak</string>
@@ -745,7 +725,6 @@
     <string name="prefs_providers_backed_up_to">Az adatok sikeresen archiválva ide: %s </string>
     <string name="prefs_providers_failed_restore_due_to">Sikertelen visszaállítás a(z) %s miatt</string>
     <string name="prefs_providers_restored_to">Az adatok sikeresen visszaállítva innen: %s </string>
-    <string name="word_editor_action_choose_path">Egyéni elérési út megadása</string>
     <string name="allow_layouts_to_provide_generic_rows">A billentyűzet gombsort tehet hozzá</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Mindig a választott sorok használata.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">A különböző elrendezések felülírhatják a sorokat.</string>
@@ -755,6 +734,7 @@
     <string name="gesture_typing_alert_title">Béta funkció!</string>
     <string name="gesture_typing_alert_message">A gesztus gépelés ➿ funkció <b>béta</b> állapotú. Van néhány hibája, nem túl gyors, és még nem végleges.\nKipróbálni viszont már most is érdemes.</string>
     <string name="gesture_typing_alert_button">Gyerünk</string>
+    <string name="undo_gesture_typing">Gesztus gépelés visszavonása</string>
     <string name="apply_remote_app_colors_to_theme">A témaszín a használt apphoz igazodjon</string>
     <string name="apply_overlay_summary_on">A billentyűzet színei idomulnak az aktív alkalmazáshoz (amennyire lehet).</string>
     <string name="apply_overlay_summary_off">Mindig a témaszín használata.</string>
@@ -767,5 +747,8 @@
     <string name="app_share_menu_title">AnySoftKeyboard megosztása ezzel</string>
     <string name="app_share_text">Hadd javasoljuk a nyílt forráskódú, ingyenes, jól testreszabható, többnyelvű Android billentyűzetalkalmazást, az AnySoftKeyboard-ot.\nLetöltés:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Kattintson egy meglepetéshez</string>
-    <!-- this URL should be localized - it should point to a web-site with information in the locale language. -->
+    <string name="backup_restore_not_support_before_kitkat">Nem támogatott ezen az Android verzión</string>
+    <string name="backup_restore_not_support_before_kitkat_message">A biztonsági mentés és visszaállítás nem támogatott a KitKat (4.4-es verzió) előtti Android operációs rendszert futtató eszközökön. Sajnálom.</string>
+    <string name="delete_all_clipboard_entries">Vágólap törlése</string>
+    <string name="tip_swipe_from_backspace_to_clear">Tipp: a szóközről balra húzva törölheted a szót!</string>
 </resources>

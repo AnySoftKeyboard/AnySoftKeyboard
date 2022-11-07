@@ -1,3 +1,4 @@
+---
 name: "collect-reports"
 author: "menny"
 description: "Collect checks report files"
@@ -6,13 +7,14 @@ inputs:
   output_folder:
     description: "collect destination"
     default: "collected_reports"
+    required: true
   file_pattern:
     description: "pattern for files"
     required: true
 
 runs:
   using: "docker"
-  image: "docker://menny/android_ndk:1.15.3"
+  image: "docker://menny/android_ndk:1.15.4"
   entrypoint: /bin/bash
   args:
     - .github/actions/collect-reports/collect.sh
