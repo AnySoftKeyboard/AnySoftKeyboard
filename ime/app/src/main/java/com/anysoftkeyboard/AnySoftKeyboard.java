@@ -413,6 +413,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
+                    Log.d(TAG, "Lubenard: Character is being deleted, method 1 ? : " + (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()));
                     // we do back-word if the shift is pressed while pressing
                     // backspace (like in a PC)
                     if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
@@ -984,6 +985,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 isPredictionOn()
                         && currentComposedWord.cursorPosition() > 0
                         && !currentComposedWord.isEmpty();
+
+        Log.d(TAG, "Lubenard: handleDeleteLastCharacter: wordManipulation: " + wordManipulation);
+
         if (isSelectionUpdateDelayed() || ic == null) {
             markExpectingSelectionUpdate();
             Log.d(TAG, "handleDeleteLastCharacter will just sendDownUpKeyEvents.");
@@ -995,6 +999,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         markExpectingSelectionUpdate();
 
         if (shouldRevertOnDelete()) {
+            Log.d(TAG, "Lubenard: revert last word");
             revertLastWord();
         } else if (wordManipulation) {
             // NOTE: we can not use ic.deleteSurroundingText here because
@@ -1025,6 +1030,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
+                Log.d(TAG, "Lubenard: faster alternative method to delete text");
                 // this code tries to delete the text in a different way,
                 // because of multi-tap stuff
                 // using "deleteSurroundingText" will actually get the input

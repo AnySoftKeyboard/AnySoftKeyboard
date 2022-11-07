@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -618,13 +619,30 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         final InputConnection ic = getCurrentInputConnection();
 
+
+        String textBeforeCursor = ic.getTextBeforeCursor(2, 0).toString();
+
+        boolean isLastCharacterDigitOrSpace = false;
+
+        if (textBeforeCursor.isEmpty())
+            isLastCharacterDigitOrSpace = false;
+        else if (textBeforeCursor.charAt(textBeforeCursor.length() - 1) == ' '
+                || (textBeforeCursor.charAt(textBeforeCursor.length() -1) >= '0'
+                    && textBeforeCursor.charAt(textBeforeCursor.length() -1) <= '9'))
+            isLastCharacterDigitOrSpace = true;
+
+        Log.d(TAG, "Lubenard: handle character: isLastCharacterDigitOrSpace: " + isLastCharacterDigitOrSpace);
+
         if (primaryCode == ':'
                 && mFrenchSpacePunctuationBehavior
+                && !isLastCharacterDigitOrSpace
                 && mLastSpaceTimeStamp == NEVER_TIME_STAMP) {
+            Log.d(TAG, "Lubenard: handle character: adding space before ':'");
             mWord.add(' ', nearByKeyCodes);
         }
         mWord.add(primaryCode, nearByKeyCodes);
         if (primaryCode == ':' && !AnySoftKeyboardKeyboardTagsSearcher.getSmileyResearchOption()) {
+            Log.d(TAG, "Lubenard: handle character: adding space after ':'");
             mWord.add(' ', nearByKeyCodes);
         }
 
@@ -704,10 +722,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mIsLastPunctuationSame = 0;
     }
 
-    public void updateAdditionalCharForReverting(boolean newValue) {
-        mAdditionalCharacterForReverting = newValue;
-    }
-
     protected void handleSeparator(int primaryCode) {
         performUpdateSuggestions();
 
@@ -720,6 +734,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 primaryCode = ')';
             }
         }
+
+        Log.d(TAG, "Lubenard: handle separator is called, separator is : '" + primaryCode + "'");
+
         // will not show next-word suggestion in case of a new line or if the separator is a
         // sentence separator.
         final boolean wasPredicting = isCurrentlyPredicting();
@@ -743,6 +760,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
         final WordComposer typedWord = prepareWordComposerForNextWord();
         CharSequence wordToOutput = typedWord.getTypedWord();
+
+        Log.d(TAG, "Lubenard: after setup, mFrenchSpacePunctuationBehavior: " + mFrenchSpacePunctuationBehavior +
+                ", wordToOutput: '" +  wordToOutput.toString() + "'");
+
         // ACTION does not invoke default picking. See
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
         if (isAutoCorrect() && !newLine /*we do not auto-pick on ENTER.*/) {
@@ -797,6 +818,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         if (ic != null) {
             charAfterCursor = ic.getTextAfterCursor(1, 0).toString();
+            // We get the last 2 characters before current position
             charBeforeCursor = ic.getTextBeforeCursor(2, 0).toString();
         }
 
@@ -928,7 +950,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             if (mWasLastCharDigitSeparator
                     && (isDigit || isSpace)
                     && (lastTypedChar == ':' || lastTypedChar == ',' || lastTypedChar == '.')
-                    && lastTypedChar != -5 /* -5 is Keycodes.DELETE */
                     && ic != null
                     && charBeforeCursor.charAt(0) == lastTypedChar) {
                 ic.deleteSurroundingText(1, 0);
@@ -1395,6 +1416,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
                 mAdditionalCharacterForReverting = true;
                 mHowManyCharactersForReverting++;
+                mWordRevertLength = 0;
 
                 setSpaceTimeStamp(true);
             }
@@ -1512,6 +1534,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                             + (mAdditionalCharacterForReverting
                                     ? mHowManyCharactersForReverting
                                     : 0);
+
+            Log.d(TAG, "Lubenard: Revert last word apparently, lenght is " + length) ;
             mAutoCorrectOn = false;
             // note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();

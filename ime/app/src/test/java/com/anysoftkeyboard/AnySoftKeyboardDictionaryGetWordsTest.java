@@ -227,9 +227,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
                 (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifySuggestions(true, "h");
+        verifySuggestions(true, "h", "he");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(true, "he", "hello", "hell", "he'll");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(true, "hel", "he'll", "hello", "hell");
 
