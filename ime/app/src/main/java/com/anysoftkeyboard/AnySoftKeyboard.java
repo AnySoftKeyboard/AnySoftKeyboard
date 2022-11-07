@@ -413,7 +413,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         switch (primaryCode) {
             case KeyCodes.DELETE:
                 if (ic != null) {
-                    Log.d(TAG, "Lubenard: Character is being deleted, method 1 ? : " + (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()));
+                    Log.d(
+                            TAG,
+                            "Lubenard: Character is being deleted, method 1 ? : "
+                                    + (mUseBackWord
+                                            && mShiftKeyState.isPressed()
+                                            && !mShiftKeyState.isLocked()));
                     // we do back-word if the shift is pressed while pressing
                     // backspace (like in a PC)
                     if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {

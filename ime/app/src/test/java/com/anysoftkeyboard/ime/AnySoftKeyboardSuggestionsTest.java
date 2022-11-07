@@ -129,7 +129,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testNextWordDeleteAfterPick() {
         mAnySoftKeyboardUnderTest.simulateTextTyping(
-                        "hello face hello face hello face hello face ");
+                "hello face hello face hello face hello face ");
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
         verifySuggestions(true, "face");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "face");

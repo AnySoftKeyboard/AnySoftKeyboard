@@ -2,10 +2,8 @@ package com.anysoftkeyboard;
 
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
-
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -592,6 +592,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return mWordRevertLength > 0;
     }
 
+    @Override
+    public void onBindInput() {
+        Log.d(TAG, "onBindInput called");
+        super.onBindInput();
+    }
+
     protected void handleCharacter(
             final int primaryCode,
             final Keyboard.Key key,
@@ -619,19 +625,22 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         final InputConnection ic = getCurrentInputConnection();
 
+        Log.d(TAG, "Lubenard: ic is " + ic);
 
         String textBeforeCursor = ic.getTextBeforeCursor(2, 0).toString();
 
         boolean isLastCharacterDigitOrSpace = false;
 
-        if (textBeforeCursor.isEmpty())
-            isLastCharacterDigitOrSpace = false;
+        if (textBeforeCursor.isEmpty()) isLastCharacterDigitOrSpace = false;
         else if (textBeforeCursor.charAt(textBeforeCursor.length() - 1) == ' '
-                || (textBeforeCursor.charAt(textBeforeCursor.length() -1) >= '0'
-                    && textBeforeCursor.charAt(textBeforeCursor.length() -1) <= '9'))
+                || (textBeforeCursor.charAt(textBeforeCursor.length() - 1) >= '0'
+                        && textBeforeCursor.charAt(textBeforeCursor.length() - 1) <= '9'))
             isLastCharacterDigitOrSpace = true;
 
-        Log.d(TAG, "Lubenard: handle character: isLastCharacterDigitOrSpace: " + isLastCharacterDigitOrSpace);
+        Log.d(
+                TAG,
+                "Lubenard: handle character: isLastCharacterDigitOrSpace: "
+                        + isLastCharacterDigitOrSpace);
 
         if (primaryCode == ':'
                 && mFrenchSpacePunctuationBehavior
@@ -761,8 +770,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         final WordComposer typedWord = prepareWordComposerForNextWord();
         CharSequence wordToOutput = typedWord.getTypedWord();
 
-        Log.d(TAG, "Lubenard: after setup, mFrenchSpacePunctuationBehavior: " + mFrenchSpacePunctuationBehavior +
-                ", wordToOutput: '" +  wordToOutput.toString() + "'");
+        Log.d(
+                TAG,
+                "Lubenard: after setup, mFrenchSpacePunctuationBehavior: "
+                        + mFrenchSpacePunctuationBehavior
+                        + ", wordToOutput: '"
+                        + wordToOutput.toString()
+                        + "'");
 
         // ACTION does not invoke default picking. See
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
@@ -1535,7 +1549,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     ? mHowManyCharactersForReverting
                                     : 0);
 
-            Log.d(TAG, "Lubenard: Revert last word apparently, lenght is " + length) ;
+            Log.d(TAG, "Lubenard: Revert last word apparently, lenght is " + length);
             mAutoCorrectOn = false;
             // note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
