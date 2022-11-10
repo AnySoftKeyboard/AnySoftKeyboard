@@ -38,6 +38,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Дакраніцеся зноў, каб захаваць</string>
     <string name="hint_double_tap_to_close">Яшчэ раз, каб выдаліць прапановы</string>
+    <string name="hint_click_for_inline_suggestions">Даступны прапановы аўтаматычнага запаўнення</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Галасавы ўвод не ўсталяваны</string>
     <string name="voice_input_not_installed_text">Галасавы ўвод Google не ўсталяваны на вашай прыладзе.\nГэту праблему можна лёгка вырашыць спампаваўшы патрэбны файл з <i>Google Play</i>.</string>
@@ -619,6 +620,7 @@
     <string name="setup_wizard_welcome_start_action">Запуск усталявання…</string>
     <string name="setup_wizard_welcome_info_footnote">* Вядома, што AnySoftKeyboard не ўяўляе ніякай небяспекі. Вы можаце пераканацца ў гэтым зазірнуўшы ў зыходны код праграмы. Больш за тое, праграма не патрабуе <i>СЕЦІЎНЫХ</i> дазволаў, г. зн. што яна нікуды не адпраўляе даныя з вашай прылады.</string>
     <string name="setup_wizard_welcome_privacy_action">Пераход да палітыкі прыватнасці…</string>
+    <string name="setup_wizard_skip">Прапусціць</string>
     <string name="clear_all_dictionary_override">Ачысціць перавызначэнні</string>
     <string name="theme_case_type_override_dialog_title">Выбраць перавызначэнне рэгістра літар</string>
     <string name="theme_case_type_override_theme">Выкарыстоўваць тэму</string>
@@ -670,4 +672,6 @@
     <string name="click_me_for_easter_egg_info">націсні на мяне для сюрпрызу</string>
     <string name="backup_restore_not_support_before_kitkat">Не падтрымліваецца ў вашай версіі Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Рэзервовая копія і аднаўленне не падтрымліваюцца для прылад з аперацыйнай сістэмай Android версіі ранейшай за KitKat (версія 4.4). Выбачаемся.</string>
+    <string name="delete_all_clipboard_entries">Ачысціць буфер абмену</string>
+    <string name="tip_swipe_from_backspace_to_clear">Парада: чырканнем у левы бок ад прабелу вы можаце ачысціць слова!</string>
 </resources>
