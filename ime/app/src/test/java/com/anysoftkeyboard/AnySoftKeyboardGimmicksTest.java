@@ -16,6 +16,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
+import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -249,6 +250,85 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
         Assert.assertEquals("hello. h", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testVerifyVariousPunctuationsSwapping() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        final var symbolsToVerify = Arrays.asList('.', ',', ':', ';', '?', '!', ')');
+
+        final var expected = new StringBuilder();
+
+        for (char punc : symbolsToVerify) {
+            mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+            verifySuggestions(true, "hel", "he'll", "hello", "hell");
+
+            mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
+            expected.append("hello ");
+            Assert.assertEquals(
+                    expected.toString(), inputConnection.getCurrentTextInInputConnection());
+            // typing punctuation
+            mAnySoftKeyboardUnderTest.simulateKeyPress(punc);
+            expected.setLength(expected.length() - 1);
+            expected.append(punc).append(' ');
+            Assert.assertEquals(
+                    expected.toString(), inputConnection.getCurrentTextInInputConnection());
+        }
+    }
+
+    @Test
+    public void testVerifyVariousPunctuationsSwappingFromOtherKeyboard() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        final var symbolsToVerify = Arrays.asList('.', ':', '?', '!', ')');
+
+        final var expected = new StringBuilder();
+
+        for (char punc : symbolsToVerify) {
+            mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+            verifySuggestions(true, "hel", "he'll", "hello", "hell");
+
+            mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
+            expected.append("hello ");
+            Assert.assertEquals(
+                    expected.toString(), inputConnection.getCurrentTextInInputConnection());
+            // switching to symbols
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+            Assert.assertNotNull(mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(punc));
+            // typing punctuation
+            mAnySoftKeyboardUnderTest.simulateKeyPress(punc);
+            expected.setLength(expected.length() - 1);
+            expected.append(punc).append(' ');
+            Assert.assertEquals(
+                    expected.toString(), inputConnection.getCurrentTextInInputConnection());
+            // switching to alphabet
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+        }
+    }
+
+    @Test
+    public void testVerifyVariousPunctuationsDoNotSwap() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        final var symbolsToVerify = Arrays.asList('\'', '\"', '(');
+
+        final var expected = new StringBuilder();
+
+        for (char punc : symbolsToVerify) {
+            mAnySoftKeyboardUnderTest.simulateTextTyping(" hel");
+            verifySuggestions(true, "hel", "he'll", "hello", "hell");
+
+            mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
+            expected.append(" hello ");
+            Assert.assertEquals(
+                    expected.toString(), inputConnection.getCurrentTextInInputConnection());
+            // typing punctuation
+            mAnySoftKeyboardUnderTest.simulateKeyPress(punc);
+            expected.append(punc);
+            Assert.assertEquals(
+                    expected.toString(), inputConnection.getCurrentTextInInputConnection());
+        }
     }
 
     @Test

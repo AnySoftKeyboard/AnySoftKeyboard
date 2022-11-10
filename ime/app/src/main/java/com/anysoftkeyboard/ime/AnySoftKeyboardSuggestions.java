@@ -528,7 +528,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     public void onRelease(int primaryCode) {
         // not allowing undo on-text in clipboard paste operations.
         if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mWordRevertLength = 0;
-        setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+        if (KeyCodes.isOutputKeyCode(primaryCode)) {
+            setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+        }
         if (!isCurrentlyPredicting()
                 && (primaryCode == KeyCodes.DELETE
                         || primaryCode == KeyCodes.DELETE_WORD
