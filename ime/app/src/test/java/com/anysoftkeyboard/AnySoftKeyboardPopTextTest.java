@@ -175,7 +175,7 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "any_key");
         simulateOnStartInputFlow();
 
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
 
         Assert.assertEquals(
                 "symbols_keyboard",

@@ -1635,7 +1635,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         }
         // these are dynamic keys
         setSpecialKeyIconOrLabel(KeyCodes.MODE_ALPHABET);
-        setSpecialKeyIconOrLabel(KeyCodes.MODE_SYMOBLS);
+        setSpecialKeyIconOrLabel(KeyCodes.MODE_SYMBOLS);
         setSpecialKeyIconOrLabel(KeyCodes.KEYBOARD_MODE_CHANGE);
 
         mTextWidthCache.clear();
@@ -1676,11 +1676,11 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
                 if (mKeyboard instanceof GenericKeyboard) {
                     return guessLabelForKey(KeyCodes.MODE_ALPHABET);
                 } else {
-                    return guessLabelForKey(KeyCodes.MODE_SYMOBLS);
+                    return guessLabelForKey(KeyCodes.MODE_SYMBOLS);
                 }
             case KeyCodes.MODE_ALPHABET:
                 return mNextAlphabetKeyboardName;
-            case KeyCodes.MODE_SYMOBLS:
+            case KeyCodes.MODE_SYMBOLS:
                 return mNextSymbolsKeyboardName;
             case KeyCodes.TAB:
                 return getContext().getText(R.string.label_tab_key);

@@ -49,7 +49,7 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
             case "next_alphabet":
                 return KeyCodes.MODE_ALPHABET;
             case "next_symbols":
-                return KeyCodes.MODE_SYMOBLS;
+                return KeyCodes.MODE_SYMBOLS;
             case "cycle_keyboards":
                 return KeyCodes.KEYBOARD_CYCLE;
             case "reverse_cycle_keyboards":

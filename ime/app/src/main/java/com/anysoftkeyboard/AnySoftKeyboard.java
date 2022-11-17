@@ -511,7 +511,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             case KeyCodes.QUICK_TEXT_POPUP:
                 onQuickTextKeyboardRequested(key);
                 break;
-            case KeyCodes.MODE_SYMOBLS:
+            case KeyCodes.MODE_SYMBOLS:
                 nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
                 break;
             case KeyCodes.MODE_ALPHABET:

@@ -357,7 +357,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
         mAnySoftKeyboardUnderTest.onSwipeRight(false);
         Assert.assertEquals(
-                KeyCodes.MODE_SYMOBLS, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+                KeyCodes.MODE_SYMBOLS, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
 
     @Test

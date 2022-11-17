@@ -175,7 +175,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
                         case KeyCodes.KEYBOARD_REVERSE_CYCLE:
                         case KeyCodes.ALT:
-                        case KeyCodes.MODE_SYMOBLS:
+                        case KeyCodes.MODE_SYMBOLS:
                         case KeyCodes.QUICK_TEXT:
                         case KeyCodes.DOMAIN:
                         case KeyCodes.CANCEL:

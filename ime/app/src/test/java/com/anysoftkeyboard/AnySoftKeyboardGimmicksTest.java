@@ -125,7 +125,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
         Assert.assertEquals(
                 "symbols_keyboard",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
@@ -145,7 +145,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
         Assert.assertEquals(
                 "symbols_keyboard",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
@@ -170,7 +170,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
         Assert.assertEquals(
                 "symbols_keyboard",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
@@ -199,7 +199,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(
                 "c7535083-4fe6-49dc-81aa-c5438a1a343a",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
         Assert.assertEquals(
                 "symbols_keyboard",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
@@ -294,7 +294,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
             Assert.assertEquals(
                     expected.toString(), inputConnection.getCurrentTextInInputConnection());
             // switching to symbols
-            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
             Assert.assertNotNull(mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(punc));
             // typing punctuation
             mAnySoftKeyboardUnderTest.simulateKeyPress(punc);

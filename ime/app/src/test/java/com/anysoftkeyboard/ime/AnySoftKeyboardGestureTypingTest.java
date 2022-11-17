@@ -578,7 +578,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 mAnySoftKeyboardUnderTest.getInputView(),
                 R.drawable.ic_watermark_gesture_not_loaded);
 
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
 
         ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(
                 mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
