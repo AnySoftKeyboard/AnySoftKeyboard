@@ -152,7 +152,7 @@ public class LayoutSwitchAnimationListener
             case KeyCodes.KEYBOARD_MODE_CHANGE:
             case KeyCodes.KEYBOARD_REVERSE_CYCLE:
             case KeyCodes.MODE_ALPHABET:
-            case KeyCodes.MODE_SYMOBLS:
+            case KeyCodes.MODE_SYMBOLS:
                 return true;
             default:
                 return false;

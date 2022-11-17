@@ -79,7 +79,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         Assert.assertEquals(
                 "12335055-4aa6-49dc-8456-c7d38a1a5123",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
         Assert.assertEquals(
                 "DEFAULT_ADD_ON",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());

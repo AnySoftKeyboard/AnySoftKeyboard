@@ -130,7 +130,7 @@ public class AnySoftKeyboardPressEffectsTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals(
                 AudioManager.FX_KEY_CLICK, shadowAudioManager.getLastPlaySoundEffectType());
-        mAnySoftKeyboardUnderTest.onPress(KeyCodes.MODE_SYMOBLS);
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.MODE_SYMBOLS);
         Assert.assertEquals(
                 AudioManager.FX_KEY_CLICK, shadowAudioManager.getLastPlaySoundEffectType());
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE);

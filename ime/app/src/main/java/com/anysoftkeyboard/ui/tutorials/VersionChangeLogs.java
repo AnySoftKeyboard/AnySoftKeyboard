@@ -13,8 +13,8 @@ public class VersionChangeLogs {
         log.add(
                 new VersionChangeLog(
                         1,
-                        11,
-                        "r2",
+                        12,
+                        "",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94"),
                         "Improved clipboard support.",

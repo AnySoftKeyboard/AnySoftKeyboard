@@ -82,6 +82,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private CandidateView mCandidateView;
     @NonNull private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
+    @Nullable private Keyboard.Key mLastKey;
+    private int mLastPrimaryKey = Integer.MIN_VALUE;
     private long mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
     private boolean mLastCharacterWasShifted = false;
     private boolean mFrenchSpacePunctuationBehavior;
@@ -114,6 +116,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             SparseBooleanArray sparseBooleanArray, char[] chars) {
         sparseBooleanArray.clear();
         for (char separator : chars) sparseBooleanArray.put(separator, true);
+    }
+
+    @Nullable
+    protected Keyboard.Key getLastUsedKey() {
+        return mLastKey;
     }
 
     @NonNull
@@ -517,6 +524,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             int multiTapIndex,
             int[] nearByKeyCodes,
             boolean fromUI) {
+        mLastKey = key;
+        mLastPrimaryKey = primaryCode;
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if (primaryCode != KeyCodes.DELETE) {
             mWordRevertLength = 0;
@@ -524,11 +533,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mCandidateView.dismissAddToDictionaryHint();
     }
 
+    protected void resetLastPressedKey() {
+        mLastKey = null;
+    }
+
     @Override
     public void onRelease(int primaryCode) {
         // not allowing undo on-text in clipboard paste operations.
         if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mWordRevertLength = 0;
-        setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+        if (mLastPrimaryKey == primaryCode && KeyCodes.isOutputKeyCode(primaryCode)) {
+            setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+        }
         if (!isCurrentlyPredicting()
                 && (primaryCode == KeyCodes.DELETE
                         || primaryCode == KeyCodes.DELETE_WORD

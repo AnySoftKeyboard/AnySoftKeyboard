@@ -307,7 +307,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                 case KeyCodes.CTRL:
                 case KeyCodes.CTRL_LOCK:
                 case KeyCodes.MODE_ALPHABET:
-                case KeyCodes.MODE_SYMOBLS:
+                case KeyCodes.MODE_SYMBOLS:
                 case KeyCodes.KEYBOARD_MODE_CHANGE:
                 case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
                 case KeyCodes.ALT:

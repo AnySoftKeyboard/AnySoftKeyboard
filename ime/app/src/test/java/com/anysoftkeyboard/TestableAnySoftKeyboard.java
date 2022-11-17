@@ -395,27 +395,31 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         simulateKeyPress(key, advanceTime);
     }
 
-    public void simulateKeyPress(final Keyboard.Key key, final boolean advanceTime) {
-        final int primaryCode = key.getPrimaryCode();
-        onPress(primaryCode);
+    public void simulateKeyPress(Keyboard.Key key, final boolean advanceTime) {
+        final int primaryCode;
+        final int[] nearByKeyCodes;
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);
         if (key instanceof AnyKeyboard.AnyKey /*this will ensure this instance is not a mock*/) {
-            final int keyCodeWithShiftState =
+            primaryCode =
                     key.getCodeAtIndex(
                             0,
                             mSpiedKeyboardView != null
                                     && mSpiedKeyboardView.getKeyDetector().isKeyShifted(key));
-            int[] nearByKeyCodes = new int[64];
+            nearByKeyCodes = new int[64];
             if (mSpiedKeyboardView != null) {
                 mSpiedKeyboardView
                         .getKeyDetector()
                         .getKeyIndexAndNearbyCodes(key.centerX, key.centerY, nearByKeyCodes);
             }
-            onKey(keyCodeWithShiftState, key, 0, nearByKeyCodes, true);
+
         } else {
-            onKey(primaryCode, null, 0, new int[0], true);
+            primaryCode = key.getPrimaryCode();
+            key = null;
+            nearByKeyCodes = new int[0];
         }
+        onPress(primaryCode);
+        onKey(primaryCode, key, 0, nearByKeyCodes, true);
         onRelease(primaryCode);
         if (advanceTime) {
             TestRxSchedulers.foregroundAdvanceBy(mDelayBetweenTyping);

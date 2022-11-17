@@ -22,7 +22,7 @@ public class KeyCodes {
     public static final int SHIFT_LOCK = -14;
     public static final int CTRL_LOCK = -15;
 
-    public static final int MODE_SYMOBLS = -2;
+    public static final int MODE_SYMBOLS = -2;
     public static final int MODE_ALPHABET = -99;
     public static final int MODE_ALPHABET_POPUP = -98;
     public static final int KEYBOARD_CYCLE = -97;
@@ -68,4 +68,19 @@ public class KeyCodes {
     public static final int PRE_PREPARED_EMAILS_POPUP = -152;
 
     public static final int EXTERNAL_INTEGRATION = -200;
+
+    public static boolean isOutputKeyCode(final int code) {
+        if (code > 0) {
+            return true;
+        } else {
+            switch (code) {
+                case DELETE:
+                case DELETE_WORD:
+                case FORWARD_DELETE:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
 }
