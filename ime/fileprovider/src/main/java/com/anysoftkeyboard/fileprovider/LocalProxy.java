@@ -4,6 +4,7 @@ import static androidx.core.content.FileProvider.getUriForFile;
 
 import android.content.Context;
 import android.net.Uri;
+import android.webkit.MimeTypeMap;
 import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.RxSchedulers;
@@ -27,9 +28,14 @@ public class LocalProxy {
             throws IOException {
         try (InputStream remoteInputStream =
                 context.getContentResolver().openInputStream(remoteUri)) {
+            final String ext =
+                    MimeTypeMap.getSingleton()
+                            .getExtensionFromMimeType(
+                                    context.getContentResolver().getType(remoteUri));
             final File localFilesFolder = new File(context.getFilesDir(), "media");
             if (localFilesFolder.isDirectory() || localFilesFolder.mkdirs()) {
-                final File targetFile = new File(localFilesFolder, remoteUri.getLastPathSegment());
+                final File targetFile =
+                        new File(localFilesFolder, remoteUri.getLastPathSegment() + "." + ext);
 
                 Logger.d(
                         "ASKLocalProxy",
