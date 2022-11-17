@@ -476,15 +476,19 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             // so, 1 and 2 requires that predicting is currently done, and the
             // cursor moved
             if (isCurrentlyPredicting()) {
-                if (newSelStart >= candidatesStart && newSelStart <= candidatesEnd) {
+                final var newPosition = newSelEnd - candidatesStart;
+                if (newSelStart >= candidatesStart
+                        && newSelStart <= candidatesEnd
+                        && newPosition >= 0
+                        && newPosition <= mWord.charCount()) {
                     // 1) predicting and moved inside the word - just update the
                     // cursor position and shift state
                     // inside the currently typed word
                     Logger.d(
                             TAG,
                             "onUpdateSelection: inside the currently typed word to location %d.",
-                            newSelEnd - candidatesStart);
-                    mWord.setCursorPosition(newSelEnd - candidatesStart);
+                            newPosition);
+                    mWord.setCursorPosition(newPosition);
                 } else {
                     Logger.d(
                             TAG,

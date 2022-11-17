@@ -367,6 +367,106 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testHandleCompleteCandidateUpdateFromExternalAndBackSpaceWithoutRestart() {
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, false);
+        simulateOnStartInputFlow();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("he");
+        Assert.assertEquals(
+                "he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        var currentState = getCurrentTestInputConnection().getCurrentState();
+        Assert.assertEquals(2, currentState.selectionStart);
+        Assert.assertEquals(2, currentState.selectionEnd);
+        Assert.assertEquals(0, currentState.candidateStart);
+        Assert.assertEquals(2, currentState.candidateEnd);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        // simulating external change
+        getCurrentTestInputConnection().setComposingText("hell is here ", 1);
+
+        TestRxSchedulers.foregroundAdvanceBy(100);
+
+        Assert.assertEquals(
+                "hell is here ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        currentState = getCurrentTestInputConnection().getCurrentState();
+        Assert.assertEquals(13, currentState.selectionStart);
+        Assert.assertEquals(13, currentState.selectionEnd);
+        Assert.assertEquals(13, currentState.candidateStart);
+        Assert.assertEquals(13, currentState.candidateEnd);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        TestRxSchedulers.drainAllTasksUntilEnd();
+
+        Assert.assertEquals(
+                "hell is here", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        currentState = getCurrentTestInputConnection().getCurrentState();
+
+        Assert.assertEquals(12, currentState.selectionStart);
+        Assert.assertEquals(12, currentState.selectionEnd);
+        Assert.assertEquals(12, currentState.candidateStart);
+        Assert.assertEquals(12, currentState.candidateEnd);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        TestRxSchedulers.drainAllTasksUntilEnd();
+
+        Assert.assertEquals(
+                "hell is her", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    }
+
+    @Test
+    public void testHandleCompleteCandidateUpdateFromExternalAndBackSpaceWithRestart() {
+        simulateFinishInputFlow();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+        simulateOnStartInputFlow();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("he");
+        Assert.assertEquals(
+                "he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        var currentState = getCurrentTestInputConnection().getCurrentState();
+        Assert.assertEquals(2, currentState.selectionStart);
+        Assert.assertEquals(2, currentState.selectionEnd);
+        Assert.assertEquals(0, currentState.candidateStart);
+        Assert.assertEquals(2, currentState.candidateEnd);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        // simulating external change
+        getCurrentTestInputConnection().setComposingText("hell is here ", 1);
+
+        TestRxSchedulers.foregroundAdvanceBy(100);
+
+        Assert.assertEquals(
+                "hell is here ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        currentState = getCurrentTestInputConnection().getCurrentState();
+        Assert.assertEquals(13, currentState.selectionStart);
+        Assert.assertEquals(13, currentState.selectionEnd);
+        Assert.assertEquals(13, currentState.candidateStart);
+        Assert.assertEquals(13, currentState.candidateEnd);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        TestRxSchedulers.drainAllTasksUntilEnd();
+
+        Assert.assertEquals(
+                "hell is here", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        currentState = getCurrentTestInputConnection().getCurrentState();
+
+        Assert.assertEquals(12, currentState.selectionStart);
+        Assert.assertEquals(12, currentState.selectionEnd);
+        Assert.assertEquals(8, currentState.candidateStart);
+        Assert.assertEquals(12, currentState.candidateEnd);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        verifySuggestions(true, "here");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        TestRxSchedulers.drainAllTasksUntilEnd();
+
+        Assert.assertEquals(
+                "hell is her", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+        verifySuggestions(true, "her");
+    }
+
+    @Test
     public void testSuggestionsRestartHappyPathWhenDisabled() {
         simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, false);

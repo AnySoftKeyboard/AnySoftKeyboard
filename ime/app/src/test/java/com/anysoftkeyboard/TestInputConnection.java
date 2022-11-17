@@ -216,13 +216,25 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public ExtractedText getExtractedText(ExtractedTextRequest request, int flags) {
-        ExtractedText extracted = new ExtractedText();
+        return getCurrentState();
+    }
+
+    public CompleteState getCurrentState() {
+        final var extracted = new CompleteState();
         extracted.startOffset = 0;
         extracted.text = mInputText.subSequence(0, mInputText.length());
         extracted.selectionStart = mCursorPosition;
         extracted.selectionEnd = mSelectionEndPosition;
+        final var compositeRange = findComposedText();
+        extracted.candidateStart = compositeRange[0];
+        extracted.candidateEnd = compositeRange[1];
 
         return extracted;
+    }
+
+    public static class CompleteState extends ExtractedText {
+        public int candidateStart;
+        public int candidateEnd;
     }
 
     @Override
