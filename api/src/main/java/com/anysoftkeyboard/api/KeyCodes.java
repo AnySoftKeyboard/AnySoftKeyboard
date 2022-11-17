@@ -69,7 +69,18 @@ public class KeyCodes {
 
     public static final int EXTERNAL_INTEGRATION = -200;
 
-    public static boolean isOutputKeyCode(int code) {
-        return code > 0;
+    public static boolean isOutputKeyCode(final int code) {
+        if (code > 0) {
+            return true;
+        } else {
+            switch (code) {
+                case DELETE:
+                case DELETE_WORD:
+                case FORWARD_DELETE:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }

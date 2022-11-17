@@ -33,7 +33,6 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     private boolean mPopTextOnKeyPress = false;
 
     @Nullable private PopTextExtraDraw.PopOut mLastTextPop;
-    private Keyboard.Key mLastKey;
 
     @Override
     public void onCreate() {
@@ -79,24 +78,21 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     public void pickSuggestionManually(
             int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
         // we do not want to pop text when user picks from the suggestions bar
-        mLastKey = null;
+        resetLastPressedKey();
         super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
     }
 
     private void popText(CharSequence textToPop) {
-        if (mLastKey == null) {
-            return; // could be because of manually picked word
-        }
-
         final InputViewBinder inputView = getInputView();
-        if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
+        final var lastKey = getLastUsedKey();
+        if (lastKey != null && inputView instanceof AnyKeyboardViewWithExtraDraw) {
             final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw =
                     (AnyKeyboardViewWithExtraDraw) inputView;
             mLastTextPop =
                     new PopTextExtraDraw.PopOut(
                             textToPop,
-                            new Point(mLastKey.x + mLastKey.width / 2, mLastKey.y),
-                            mLastKey.y - anyKeyboardViewWithExtraDraw.getHeight() / 2);
+                            new Point(lastKey.x + lastKey.width / 2, lastKey.y),
+                            lastKey.y - anyKeyboardViewWithExtraDraw.getHeight() / 2);
             anyKeyboardViewWithExtraDraw.addExtraDraw(mLastTextPop);
         }
     }
@@ -109,7 +105,6 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
             int[] nearByKeyCodes,
             boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-        mLastKey = key;
         if (mPopTextOnKeyPress && isAlphabet(primaryCode)) {
             popText(new String(new int[] {primaryCode}, 0, 1));
         }
