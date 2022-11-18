@@ -36,6 +36,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Erneut berühren, um zu speichern</string>
     <string name="hint_double_tap_to_close">Drücke nochmal, um die Vorschläge zu entfernen</string>
+    <string name="hint_click_for_inline_suggestions">Verfügbare Auto-Ausfüllen Vorschläge</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Sprachpaket ist nicht installiert</string>
     <string name="voice_input_not_installed_text">Spracheingabe ist nicht auf deinem Gerät installiert.\nDas kann einfach behoben werden: Installiere es jetzt vom Appstore.</string>
@@ -95,7 +96,7 @@
     <string name="input_field_type_email">E-Mail-Eingabefeld</string>
     <string name="input_field_type_url">URL-Eingabefeld</string>
     <string name="input_field_type_im">Nachrichteneingabefeld</string>
-    <string name="sound_on">Ton bei Tastenanschlag</string>
+    <string name="sound_on">Ton bei Tastendruck</string>
     <string name="sound_on_summary">Toneffekte bei Bildschirmtastendruck.</string>
     <string name="use_custom_sound_volume">Benutzerdefinierte Lautstärke festlegen</string>
     <string name="use_custom_sound_volume_on_summary">Toneffektlautstärke ist benutzerdefiniert.</string>
@@ -411,6 +412,7 @@
     <string name="extension_kbd_bottom_minimal">Minimal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimal (keine Emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (weniger Interpunktion)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimal (alternativ)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Los</string>
@@ -607,6 +609,7 @@
     <string name="setup_wizard_welcome_start_action">Starte Einrichtung…</string>
     <string name="setup_wizard_welcome_info_footnote">* AnySoftKeyboard ist natürlich nicht böse. Wir empfehlen unseren Quellcode anzusehen und zu überprüfen. Außerdem verfügen wir nicht über <i>NETZWERK</i> Berechtigungen, sodass wir keine Daten vom Gerät senden können.</string>
     <string name="setup_wizard_welcome_privacy_action">Gehe zur Datenschutzrichtlinie…</string>
+    <string name="setup_wizard_skip">Überspringen</string>
     <string name="clear_all_dictionary_override">Lösche Überschreibungen</string>
     <string name="theme_case_type_override_dialog_title">Wähle Groß-/ Kleinschreibung überschreiben</string>
     <string name="theme_case_type_override_theme">Nutze Designvorgabe</string>
@@ -643,6 +646,7 @@
     <string name="gesture_typing_alert_title">BETA Funktion!</string>
     <string name="gesture_typing_alert_message">Die Funktion Gestentippen ➿ ist im <b>Beta</b>-Status. Es hat einige Fehler, ist nicht so schnell und nicht vollständig.\nKurz gesagt, du solltest es ausprobieren.</string>
     <string name="gesture_typing_alert_button">Verstanden</string>
+    <string name="undo_gesture_typing">Gesteneingabe rückgängig machen</string>
     <string name="apply_remote_app_colors_to_theme">Ändere die Designfarben entsprechend der genutzten App</string>
     <string name="apply_overlay_summary_on">Tastaturfarben werden zur aktiven App passen (nach unserem besten Bemühen)</string>
     <string name="apply_overlay_summary_off">Benutze immer die Farben vom Design.</string>
@@ -655,4 +659,8 @@
     <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
     <string name="app_share_text">Lass mich dir die Open-Source, Privatsphäre-fokussierte, kostenlose, höchst anpassbare, mehrsprachige Android Tastatur-App AnySoftKeyboard empfehlen.\nHole sie dir vom:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">für eine Überraschung klicken</string>
+    <string name="backup_restore_not_support_before_kitkat">Wird von deinem Gerät nicht unterstützt.</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Backup und Wiederherstellung werden für Geräte mit Android OS vor KitKat (Version 4.4) nicht unterstützt. Entschuldigung.</string>
+    <string name="delete_all_clipboard_entries">Leere Zwischenablage</string>
+    <string name="tip_swipe_from_backspace_to_clear">Tipp: Sie können mit der Rücktaste nach links wischen, um das Wort zu löschen!</string>
 </resources>
