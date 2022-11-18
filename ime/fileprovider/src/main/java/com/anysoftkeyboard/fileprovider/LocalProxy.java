@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 
 public class LocalProxy {
     public static Single<Uri> proxy(@NonNull Context context, @NonNull Uri data) {
@@ -28,14 +29,31 @@ public class LocalProxy {
             throws IOException {
         try (InputStream remoteInputStream =
                 context.getContentResolver().openInputStream(remoteUri)) {
-            final String ext =
-                    MimeTypeMap.getSingleton()
-                            .getExtensionFromMimeType(
-                                    context.getContentResolver().getType(remoteUri));
+            final var mimeType = context.getContentResolver().getType(remoteUri);
+            final var ext = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+            Logger.d(
+                    "ASKLocalProxy",
+                    "Got mime-type '%s' and ext '%s' for url '%s'",
+                    mimeType,
+                    ext,
+                    remoteUri);
+
             final File localFilesFolder = new File(context.getFilesDir(), "media");
+
             if (localFilesFolder.isDirectory() || localFilesFolder.mkdirs()) {
-                final File targetFile =
-                        new File(localFilesFolder, remoteUri.getLastPathSegment() + "." + ext);
+                final File targetFile;
+                if (ext == null) {
+                    targetFile = new File(localFilesFolder, remoteUri.getLastPathSegment());
+                } else {
+                    targetFile =
+                            new File(
+                                    localFilesFolder,
+                                    String.format(
+                                            Locale.ROOT,
+                                            "%s.%s",
+                                            remoteUri.getLastPathSegment(),
+                                            ext));
+                }
 
                 Logger.d(
                         "ASKLocalProxy",
