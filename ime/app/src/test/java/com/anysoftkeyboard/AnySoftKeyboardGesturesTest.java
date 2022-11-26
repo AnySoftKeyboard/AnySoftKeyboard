@@ -612,6 +612,38 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testSwipeForActionAutoSpacingKeyboardConfigurable() {
+        SharedPrefsHelper.setPrefsValue(
+                getApplicationContext().getString(R.string.settings_key_swipe_up_action),
+                getApplicationContext()
+                        .getString(R.string.swipe_action_value_enable_disable_punctuation));
+        simulateOnStartInputFlow();
+
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hello. ", inputConnection.getCurrentTextInInputConnection());
+
+        // This disable the auto space after punctuation
+        mAnySoftKeyboardUnderTest.onSwipeUp();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+        Assert.assertEquals("hello. hello", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hello. hello.", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hello. hello..", inputConnection.getCurrentTextInInputConnection());
+
+        // This re-enable the auto space after punctuation
+        mAnySoftKeyboardUnderTest.onSwipeUp();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hello. hello... ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testSwipeForActionSpaceConfigurable() {
         SharedPrefsHelper.setPrefsValue(
                 getApplicationContext().getString(R.string.settings_key_swipe_right_action),

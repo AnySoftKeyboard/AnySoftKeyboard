@@ -42,13 +42,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
         Mockito.reset(mAnySoftKeyboardUnderTest.getSuggest());
 
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
-                .setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
-
-        mAnySoftKeyboardUnderTest.onCreateInputView();
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())

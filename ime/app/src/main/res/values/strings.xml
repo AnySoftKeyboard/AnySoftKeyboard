@@ -252,6 +252,8 @@
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
     <string name="swipe_action_name_quick_text_popup">Show emoji popup</string>
 
+    <string name="swipe_action_name_enable_disable_punctuation">Enable / Disable space punctuation when typing</string>
+
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
     <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed. Currently, %s</string>
 
@@ -326,7 +328,7 @@
     </string>
 
     <string name="tweak_dictionary_group">Dictionary tweaks</string>
-    
+
 
     <string name="show_keyboard_name_text">Show keyboard name</string>
     <string name="show_keyboard_name_on_summary">Show keyboard name on space-bar</string>
@@ -673,15 +675,15 @@
         You can add your first word now.
     </string>
 
-    
-    
-    
-    
 
-    
-    
-    
-    
+
+
+
+
+
+
+
+
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and
@@ -746,17 +748,17 @@
     <string name="enter_abbreviation_target_hint">Full sentence</string>
     <string name="toast_error_custom_path_backup">Error: Any contextual app could be open</string>
 
-    
-    
-    
-    
-    
-    
 
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
 
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
 
@@ -924,7 +926,7 @@
     <string name="prefs_providers_backed_up_to">You data was successfully backed-up to %s</string>
     <string name="prefs_providers_failed_restore_due_to">Failed to restore your data due to %s</string>
     <string name="prefs_providers_restored_to">You data was successfully restored from %s</string>
-    
+
 
     <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>

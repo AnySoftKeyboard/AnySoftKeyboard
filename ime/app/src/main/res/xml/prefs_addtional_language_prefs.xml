@@ -72,5 +72,4 @@
     <Preference
         android:key="@string/tweaks_group_key"
         android:title="@string/tweaks_group"/>
-
 </androidx.preference.PreferenceScreen>

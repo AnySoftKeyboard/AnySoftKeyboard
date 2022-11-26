@@ -51,6 +51,7 @@
     <integer name="key_code_compact_layout_to_right">-113</integer>
 
     <integer name="key_code_utility_keyboard">-120</integer>
+    <integer name="key_code_enable_disable_punctuation">-121</integer>
 
     <integer name="key_code_clipboard_copy">-130</integer>
     <integer name="key_code_clipboard_cut">-131</integer>

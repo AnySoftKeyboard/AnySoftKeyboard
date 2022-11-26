@@ -96,6 +96,7 @@
         <item>@string/swipe_action_value_compact_layout_to_right</item>
         <item>@string/swipe_action_value_compact_layout_to_left</item>
         <item>@string/swipe_action_value_utility_keyboard</item>
+        <item>@string/swipe_action_value_enable_disable_punctuation</item>
         <item>@string/swipe_action_value_quick_text_popup</item>
     </string-array>
 
@@ -122,6 +123,7 @@
         <item>@string/swipe_action_name_compact_layout_to_right</item>
         <item>@string/swipe_action_name_compact_layout_to_left</item>
         <item>@string/swipe_action_name_utility_keyboard</item>
+        <item>@string/swipe_action_name_enable_disable_punctuation</item>
         <item>@string/swipe_action_name_quick_text_popup</item>
     </string-array>
 

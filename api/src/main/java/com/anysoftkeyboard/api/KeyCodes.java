@@ -50,6 +50,7 @@ public class KeyCodes {
     public static final int COMPACT_LAYOUT_TO_RIGHT = -113;
 
     public static final int UTILITY_KEYBOARD = -120;
+    public static final int ENABLE_DISABLE_PUNCTUATION = -121;
 
     public static final int CLIPBOARD_COPY = -130;
     public static final int CLIPBOARD_CUT = -131;

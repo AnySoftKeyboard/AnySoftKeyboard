@@ -213,6 +213,30 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress('?');
         Assert.assertEquals("he'll", inputConnection.getLastCommitCorrection());
         // we should also see the question mark
+        Assert.assertEquals("he'll? ", inputConnection.getCurrentTextInInputConnection());
+        // now, if we press DELETE, the word should be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testAutoPickWordWhenCursorAtTheEndOfTheWordWithWordSeparatorSwapPunctuationOFF() {
+        SharedPrefsHelper.setPrefsValue(
+                R.string.settings_key_bool_should_swap_punctuation_and_space, false);
+        TestInputConnection inputConnection =
+                (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h", "he");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "hell", "hello", "he'll");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(true, "hel", "he'll", "hello", "hell");
+
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals("he'll", inputConnection.getLastCommitCorrection());
+        // we should also see the question mark
         Assert.assertEquals("he'll?", inputConnection.getCurrentTextInInputConnection());
         // now, if we press DELETE, the word should be reverted
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
@@ -409,7 +433,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         Assert.assertEquals("hel\n", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(
                 4, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
+
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
         Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(
                 3, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());

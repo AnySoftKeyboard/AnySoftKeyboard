@@ -405,10 +405,15 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     @Override
     public void setWatermark(@NonNull List<Drawable> watermarks) {
+        int imageWidth;
         mWatermarks.clear();
         mWatermarks.addAll(watermarks);
         for (Drawable watermark : mWatermarks) {
-            watermark.setBounds(0, 0, mWatermarkDimen, mWatermarkDimen);
+            imageWidth = watermark.getIntrinsicWidth();
+            if (imageWidth > mWatermarkDimen)
+                watermark.setBounds(
+                        -mWatermarkDimen, 0, imageWidth - mWatermarkDimen, mWatermarkDimen);
+            else watermark.setBounds(0, 0, mWatermarkDimen, mWatermarkDimen);
         }
         invalidate();
     }

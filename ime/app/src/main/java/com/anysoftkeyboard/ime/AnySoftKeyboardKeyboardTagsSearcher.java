@@ -48,6 +48,7 @@ import java.util.NoSuchElementException;
 public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboardInlineSuggestions {
 
     public static final String MAGNIFYING_GLASS_CHARACTER = "\uD83D\uDD0D";
+    private static boolean mIsSmileySearchActivated = false;
 
     @NonNull private TagsExtractor mTagsExtractor = TagsExtractorImpl.NO_OP;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
@@ -85,8 +86,13 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         mSharedPrefsNotToUse.unregisterOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
     }
 
+    public static boolean getSmileyResearchOption() {
+        return mIsSmileySearchActivated;
+    }
+
     private void updateTagExtractor(boolean enabled) {
         if (enabled && !mTagsExtractor.isEnabled()) {
+            mIsSmileySearchActivated = true;
             setupTagsSearcher();
         } else {
             setTagsSearcher(TagsExtractorImpl.NO_OP);
