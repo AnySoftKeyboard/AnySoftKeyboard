@@ -45,7 +45,7 @@
     <Key android:codes="ं" ask:shiftedCodes="ॐ"/>
     <Key android:codes="म" android:popupCharacters="ऀॕ" ask:shiftedCodes="ँ"/>
     <Key android:codes="न" android:popupCharacters="ऩॻ" ask:shiftedCodes="ण"/>
-    <Key android:codes="ञ" android:popupCharacters="ॢञॣ" ask:shiftedCodes="ञ"/>
+    <Key android:codes="व" android:popupCharacters="ॢञॣ" ask:shiftedCodes="ञ"/>
     <Key android:codes="ल" android:popupCharacters="ऴॡळऌ" ask:shiftedCodes="ळ"/>
     <Key android:codes="स" ask:shiftedCodes="श"/>
     <Key android:codes="ष" android:popupCharacters="‌‍" ask:shiftedCodes="ष"/>
