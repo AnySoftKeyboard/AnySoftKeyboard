@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           tools:ignore="MissingTranslation,TypographyDashes">
+
+    <string name="numpad_keyboard">Numpad</string>
+   <!-- <string name="main_english_keyboard_id">c7535083-4fe6-49dc-81aa-c5438a1a343a</string>-->
+
+    <string-array name="english_initial_suggestions">
+        <item>!</item>
+        <item>\?</item>
+        <item>,</item>
+        <item>\"</item>
+        <item>\'</item>
+        <item>:</item>
+        <item>(</item>
+        <item>)</item>
+        <item>-</item>
+        <item>/</item>
+        <item>\@</item>
+        <item>_</item>
+    </string-array>
+</resources>
