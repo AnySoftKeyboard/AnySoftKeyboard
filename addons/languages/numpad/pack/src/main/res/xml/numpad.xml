@@ -8,7 +8,6 @@
     <Row>
         <Key android:codes="40" android:keyWidth="10%p" android:popupCharacters="{[" android:keyEdgeFlags="left"/>
         <Key android:codes="41" android:keyWidth="10%p" android:popupCharacters="}]"/>
-
         <Key android:codes="55"/>
         <Key android:codes="56"/>
         <Key android:codes="57"/>

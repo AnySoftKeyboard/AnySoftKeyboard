@@ -3,5 +3,5 @@
     <Keyboard nameResId="@string/numpad_keyboard"
               layoutResId="@xml/numpad" id="d47bf4f6-c741-4b79-8666-6dc563d74305"
               defaultDictionaryLocale="en" description="@string/numpad_keyboard_description"
-              index="13"/>
+              index="1"/>
 </Keyboards>
