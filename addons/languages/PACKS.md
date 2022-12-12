@@ -34,6 +34,7 @@
 1. <img src='luxembourgish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Luxembourgish: [Source](luxembourgish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.luxembourgish)
 1. <img src='nias/apk/flag/flag.png' height='16'>&nbsp;Nias: [Source](nias) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.nias) • [Beta Channel](https://play.google.com/apps/testing/com.anysoftkeyboard.languagepack.nias)
 1. <img src='norwegian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Norwegian: [Source](norwegian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.norwegian)
+1. <img src='numpad/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Numpad: [Source](numpad) (not published reason: 'Not yet ready for publish')
 1. <img src='oldnortharabian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Oldnortharabian: [Source](oldnortharabian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.oldnortharabian)
 1. <img src='ossturkish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Ossturkish: [Source](ossturkish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.ossturkish)
 1. <img src='persian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Persian: [Source](persian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.persian)

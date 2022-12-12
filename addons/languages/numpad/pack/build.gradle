@@ -1,0 +1,5 @@
+ext.status_icon_text = "np"
+
+ext.shouldGenerateDictionary = false
+
+apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"

@@ -45,6 +45,7 @@ include ':addons:languages:lithuanian:pack', ':addons:languages:lithuanian:apk'
 include ':addons:languages:luxembourgish:pack', ':addons:languages:luxembourgish:apk'
 include ':addons:languages:nias:pack', ':addons:languages:nias:apk'
 include ':addons:languages:norwegian:pack', ':addons:languages:norwegian:apk'
+include ":addons:languages:numpad:pack", ":addons:languages:numpad:apk"
 include ':addons:languages:oldnortharabian:pack', ':addons:languages:oldnortharabian:apk'
 include ':addons:languages:ossturkish:pack', ':addons:languages:ossturkish:apk'
 include ':addons:languages:persian:pack', ':addons:languages:persian:apk'
