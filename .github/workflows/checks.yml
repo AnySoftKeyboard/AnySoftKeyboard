@@ -27,8 +27,8 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -46,7 +46,7 @@ jobs:
         with:
           file_pattern: checkstyle*.html
           output_folder: collected_reports/checkstyle
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
@@ -58,8 +58,8 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -94,7 +94,7 @@ jobs:
         with:
           file_pattern: java_*.hprof
           output_folder: oom_dumps
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
@@ -111,8 +111,8 @@ jobs:
         groups_count: [2]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -133,13 +133,13 @@ jobs:
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: app-tests-${{ matrix.index }}
           path: collected_reports
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
@@ -151,8 +151,8 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -173,13 +173,13 @@ jobs:
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: app-less-tests
           path: collected_reports
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
@@ -191,8 +191,8 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -213,13 +213,13 @@ jobs:
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: app-less-tests
           path: collected_reports
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
@@ -231,8 +231,8 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -251,13 +251,13 @@ jobs:
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: verify-all-addons
           path: collected_reports
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
@@ -269,8 +269,8 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2.4.2
-      - uses: actions/cache@v3.0.4
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
           key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -287,7 +287,7 @@ jobs:
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         continue-on-error: true
         with:
           name: fdroid-metadata-dry-run
@@ -306,7 +306,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_base:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
       - uses: ./.github/actions/deploy-request
         name: request-new-deploys
         with:
@@ -322,7 +322,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_base:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0

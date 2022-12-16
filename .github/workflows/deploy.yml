@@ -15,10 +15,10 @@ jobs:
     container: menny/android_ndk:1.15.4
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           repository: ${{ secrets.SECRETS_REPOSITORY }}
           token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}
@@ -34,7 +34,7 @@ jobs:
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
           mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         with:
           name: github_object
           path: build/github_object
@@ -73,31 +73,31 @@ jobs:
             -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
             -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
             -PrequestStatus.deployment_state="failure"
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: deploy-logging
           path: build/build-logging
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: bundles
           path: outputs/bundle
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: apks
           path: outputs/apks
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
-      - uses: actions/upload-artifact@v3.1.0
+      - uses: actions/upload-artifact@v3.1.1
         continue-on-error: true
         if: always()
         with:
