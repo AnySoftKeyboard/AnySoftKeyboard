@@ -27,14 +27,14 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_base:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -143,7 +143,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -177,7 +177,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -234,7 +234,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
