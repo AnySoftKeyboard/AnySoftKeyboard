@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.base.utils;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -86,5 +87,13 @@ public class CompatUtils {
     public static boolean objectEquals(@Nullable Object first, @Nullable Object second) {
         //noinspection EqualsReplaceableByObjectsCall
         return (first == second) || (first != null && first.equals(second));
+    }
+
+    public static int appendImmutableFlag(int flags) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return flags | PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            return flags;
+        }
     }
 }

@@ -31,6 +31,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -221,7 +222,7 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
                         mApp,
                         0,
                         notificationIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                        CompatUtils.appendImmutableFlag(PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationChannelCompat notificationChannel =
                 new NotificationChannelCompat.Builder(
