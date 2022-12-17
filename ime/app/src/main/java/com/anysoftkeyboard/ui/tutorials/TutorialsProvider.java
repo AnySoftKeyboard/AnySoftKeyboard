@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -42,7 +43,7 @@ public class TutorialsProvider {
                             0,
                             new Intent(context, TestersNoticeActivity.class)
                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-                            0);
+                            CompatUtils.appendImmutableFlag(0));
 
             final NotificationManager manager =
                     ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));

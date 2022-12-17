@@ -28,6 +28,7 @@ import androidx.collection.ArrayMap;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -90,7 +91,7 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
             final int requestCode = 456451;
             PendingIntent pendingIntent =
                     PendingIntent.getActivity(
-                            mContext, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
+                            mContext, requestCode, intent, CompatUtils.appendImmutableFlag(0));
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(mContext, "Permissions");
             builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));
