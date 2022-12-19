@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "lint": "eslint --ext .js --ext .ts .github",
+    "lint-fix": "eslint --ext .js --ext .ts .github --fix",
+    "pretty-check": "prettier --write \".github/**/*.js\" --check",
+    "pretty": "prettier --write \".github/**/*.js\""
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "eslint": "^8.30.0",
+    "prettier": "^2.8.1"
+  }
+}

@@ -21,6 +21,7 @@ outputs/
 .settings/
 .classpath
 .vscode/
+bin/
 
 #generated files
 *_words_*.dict
@@ -42,3 +43,4 @@ addons/.generated_pack_version
 
 #node.js npm
 node_modules
+
