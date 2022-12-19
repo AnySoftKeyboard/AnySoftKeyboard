@@ -3,7 +3,7 @@ name: auto-approve-pr
 
 on:
   pull_request:
-    types: [auto_merge_enabled, review_requested]
+    types: [review_requested]
 
 jobs:
   check-for-auto-approval:
@@ -14,3 +14,4 @@ jobs:
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           allowed_users: menny
+          review_for: anysoftkeyboard-bot

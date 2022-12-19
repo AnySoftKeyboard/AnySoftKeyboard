@@ -22,6 +22,18 @@ env:
   TMPDIR: "/tmp"
 
 jobs:
+  js-checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm clean-install
+      - run: npm run lint
+      - run: npm run pretty-check
+
   static-checks:
     runs-on: ubuntu-22.04
     container: menny/android_ndk:1.15.4
@@ -294,7 +306,7 @@ jobs:
           path: outputs/fdroid
 
   all-green-requirement:
-    needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons]
+    needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons, js-checks]
     runs-on: ubuntu-22.04
     steps:
       - name: ready
