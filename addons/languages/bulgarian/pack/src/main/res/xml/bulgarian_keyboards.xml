@@ -15,4 +15,9 @@
               defaultDictionaryLocale="bg" description="@string/bulgarian_keyboard_bekl_description"
               index="3" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/bulgarian_physical" />
+    <Keyboard nameResId="@string/bulgarian_keyboard_bds_modern" iconResId="@drawable/ic_status_bulgarian"
+              layoutResId="@xml/bds_modern" id="341f8ab5-7ce8-4bba-9c45-58d4a0a7b784"
+              defaultDictionaryLocale="bg" description="@string/bulgarian_keyboard_bds_modern_description"
+              index="4" defaultEnabled="false"
+              physicalKeyboardMappingResId="@xml/bulgarian_physical" />
 </Keyboards>

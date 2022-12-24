@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="9.09%p"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyHeight="@integer/key_normal_height">
+    <Row>
+        <Key android:codes="у" android:popupCharacters="1" ask:hintLabel="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="е" android:popupCharacters="2" ask:hintLabel="2"/>
+        <Key android:codes="и" android:popupCharacters="3ѝ" ask:hintLabel="3"/>
+        <Key android:codes="ш" android:popupCharacters="4" ask:hintLabel="4"/>
+        <Key android:codes="щ" android:popupCharacters="5" ask:hintLabel="5"/>
+        <Key android:codes="к" android:popupCharacters="6" ask:hintLabel="6"/>
+        <Key android:codes="с" android:popupCharacters="7" ask:hintLabel="7"/>
+        <Key android:codes="д" android:popupCharacters="8" ask:hintLabel="8"/>
+        <Key android:codes="з" android:popupCharacters="9" ask:hintLabel="9"/>
+        <Key android:codes="ц" android:popupCharacters="0" ask:hintLabel="0"/>
+        <Key android:codes="б" android:popupCharacters="" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="ь" android:popupCharacters="" android:keyEdgeFlags="left"/>
+        <Key android:codes="я" android:popupCharacters=""/>
+        <Key android:codes="а" android:popupCharacters=""/>
+        <Key android:codes="о" android:popupCharacters=""/>
+        <Key android:codes="ж" android:popupCharacters=""/>
+        <Key android:codes="г" android:popupCharacters=""/>
+        <Key android:codes="т" android:popupCharacters=""/>
+        <Key android:codes="н" android:popupCharacters=""/>
+        <Key android:codes="в" android:popupCharacters=""/>
+        <Key android:codes="м" android:popupCharacters=""/>
+        <Key android:codes="ч" android:popupCharacters="" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="-1"
+             android:isModifier="true" android:isSticky="true" android:keyWidth="13.6%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="ю" android:popupCharacters=""/>
+        <Key android:codes="й" android:popupCharacters=""/>
+        <Key android:codes="ъ" android:popupCharacters=""/>
+        <Key android:codes="ф" android:popupCharacters=""/>
+        <Key android:codes="х" android:popupCharacters=""/>
+        <Key android:codes="п" android:popupCharacters=""/>
+        <Key android:codes="р" android:popupCharacters=""/>
+        <Key android:codes="л" android:popupCharacters=""/>
+        <Key android:codes="-5" android:keyWidth="13.6%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

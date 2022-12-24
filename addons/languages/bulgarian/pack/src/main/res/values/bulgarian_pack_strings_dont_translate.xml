@@ -13,4 +13,7 @@
 
     <string name="bulgarian_keyboard_bekl">Bulgarian BEKL</string>
     <string name="bulgarian_keyboard_bekl_description">Bulgarian BEKL keyboard</string>
+    
+    <string name="bulgarian_keyboard_bds_modern">Bulgarian BDS Modern</string>
+    <string name="bulgarian_keyboard_bds_modern_description">Bulgarian BDS Modern keyboard</string>
 </resources>
