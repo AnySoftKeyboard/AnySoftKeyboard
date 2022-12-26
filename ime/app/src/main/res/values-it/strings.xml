@@ -114,8 +114,8 @@
     <string name="one_shot_quick_text_popup">Chiusura automatica dopo pressione di tasti</string>
     <string name="one_shot_quick_text_popup_on_summary">Chiudi pop-up Testo Rapido dopo aver premuto un tasto.</string>
     <string name="one_shot_quick_text_popup_off_summary">Tieni aperto pop-up Testo Rapido finché non viene premuto il tasto Chiudi.</string>
-    <string name="quick_text_tags_search">Suggerisci emoticon digitando tag</string>
-    <string name="quick_text_tags_search_on_summary">Cerca emoticon per tag quando la digitazione inizia con due punti (:)</string>
+    <string name="quick_text_tags_search">Suggerisci emoji digitando tag</string>
+    <string name="quick_text_tags_search_on_summary">Cerca emoji per tag quando la digitazione inizia con due punti (:)</string>
     <string name="hide_soft_when_physical">Nascondi tastiera su tasti fisici</string>
     <string name="hide_soft_when_physical_on_summary">Nascondi tastiera virtuale quando viene utilizzata la tastiera fisica</string>
     <string name="hide_soft_when_physical_off_summary">Mostra tastiera virtuale quando viene utilizzata la tastiera fisica</string>
@@ -188,7 +188,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Compatta disposizione a destra</string>
     <string name="swipe_action_name_compact_layout_to_left">Compatta disposizione a sinistra</string>
     <string name="swipe_action_name_utility_keyboard">Mostra tastiera utility</string>
-    <string name="swipe_action_name_quick_text_popup">Mostra popup emoji</string>
+    <string name="swipe_action_name_quick_text_popup">Mostra pop-up emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Soglia velocità di scorrimento</string>
     <string name="settings_swipe_velocity_threshold_summary">La velocità minima del gesto di scorrimento. Al momento, %s</string>
     <string name="settings_swipe_velocity_very_slow">Molto lenta</string>
@@ -408,7 +408,7 @@
     <string name="extension_kbd_bottom_ng_no_apo">Nuova generazione (senza apostrofi) - Test</string>
     <string name="extension_kbd_extension_numbers_symbols">Numeri e simboli</string>
     <string name="extension_kbd_bottom_minimal">Minimale</string>
-    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (niente emoticon)</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (nessuna emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (meno punteggiatura)</string>
     <string name="extension_kbd_bottom_minimal_alt">Minimale (alternativo)</string>
     <!-- Tutorials -->
@@ -426,12 +426,12 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Seleziona tastiera</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Tasto faccine</string>
-    <string name="short_smiley_key_name">Tasto faccine più corto</string>
-    <string name="quick_text_kaomoji">Kaomoticon</string>
+    <string name="simley_key_name">Faccine testuali</string>
+    <string name="short_smiley_key_name">Faccine testuali brevi</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Cronologia</string>
     <string name="default_quick_text_key_name">Emoticon semplici</string>
-    <string name="unicode_quick_text_key_name">Emoticon</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
     <string name="unicode_people_quick_text_key_name">Persone</string>
     <string name="unicode_gestures_quick_text_key_name">Gesti</string>
     <string name="unicode_accessories_quick_text_key_name">Accessori</string>
@@ -497,7 +497,7 @@
     <string name="initial_quick_text_tab_always_first_tab">Inizia sempre con il primo</string>
     <string name="initial_quick_text_tab_last_used_tab">Inizia con l\'ultimo gruppo usato</string>
     <string name="initial_quick_text_tab_history_tab">Inizia con il gruppo Cronologia</string>
-    <string name="emoji_default_skin_tone_title">Tonalità pelle emoticon predefinita</string>
+    <string name="emoji_default_skin_tone_title">Tonalità pelle emoji predefinita</string>
     <string name="emoji_default_skin_tone_summary">Tonalità pelle Fitzpatrick predefinita da usare: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Generica</string>
     <string name="emoji_default_skin_tone_value_type_2">Tonalità chiara</string>
@@ -506,7 +506,7 @@
     <string name="emoji_default_skin_tone_value_type_5">Tonalità medio-scura</string>
     <string name="emoji_default_skin_tone_value_type_6">Tonalità scura</string>
     <string name="emoji_default_skin_tone_value_random_type">Tonalità casuale</string>
-    <string name="emoji_default_gender_title">Sesso predefinito emoji</string>
+    <string name="emoji_default_gender_title">Sesso emoji predefinito</string>
     <string name="emoji_default_gender_summary">Sesso predefinito da usare: %s</string>
     <string name="emoji_default_gender_value_person">Persona</string>
     <string name="emoji_default_gender_value_woman">Donna</string>
@@ -588,9 +588,9 @@
     <string name="app_shortcut_gestures_disabled">Navigazione gesti disattivata</string>
     <string name="app_shortcut_gestures_long_label">Imposta gesti tastiera</string>
     <string name="app_shortcut_gestures_short_label">Gesti</string>
-    <string name="app_shortcut_quick_keys_disabled">Navigazione configurazione emoticon disattivata</string>
-    <string name="app_shortcut_quick_keys_long_label">Imposta emoticon</string>
-    <string name="app_shortcut_quick_keys_short_label">Imposta emoticon</string>
+    <string name="app_shortcut_quick_keys_disabled">Navigazione configurazione emoji disattivata</string>
+    <string name="app_shortcut_quick_keys_long_label">Impostazioni emoji</string>
+    <string name="app_shortcut_quick_keys_short_label">Impostazioni emoji</string>
     <string name="extension_keyboard_enabled_off_summary">Tastiera Extension disabilitata.</string>
     <string name="extension_keyboard_enabled_on_summary">La tastiera Extension verrà mostrata quando si scorrerà al di sopra della tastiera.</string>
     <string name="read_our_privacy_policy">Leggi la nostra Informativa sulla Riservatezza…</string>
