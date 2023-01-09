@@ -53,7 +53,7 @@ public class SuggestImpl implements Suggest {
     private final Dictionary.WordCallback mTypingDictionaryWordCallback;
     private final SubWordSuggestionCallback mSubWordDictionaryWordCallback;
 
-    @NonNull private Locale mLocale = Locale.getDefault();
+    @NonNull private final Locale mLocale = Locale.getDefault();
     private int mPrefMaxSuggestions = 12;
     @NonNull private TagsExtractor mTagsSearcher = TagsExtractorImpl.NO_OP;
     @NonNull private int[] mPriorities = new int[mPrefMaxSuggestions];
@@ -336,16 +336,23 @@ public class SuggestImpl implements Suggest {
     }
 
     private static class SubWordSuggestionCallback implements Dictionary.WordCallback {
+        private final WordsSplitter mSplitter = new WordsSplitter();
         private final Dictionary.WordCallback mBasicWordCallback;
+
+        // This will be used to find the best per suggestion word for a possible split
         @NonNull private CharSequence mCurrentSubWord = "";
-        private int mCurrentSubWordSuggestionFrequency = 0;
-        private int mCurrentSubWordSuggestionRawFrequency = 0;
-        private final char[] mCurrentSubWordSuggestion = new char[Dictionary.MAX_WORD_LENGTH];
-        private int mCurrentSubWordLength = 0;
-        private int mMatchedWordsCount = 0;
-        private int mMatchedWordsLength = 0;
-        private int mMatchedWordsFrequency = 0;
-        private final char[] mMatchedWords = new char[5 * Dictionary.MAX_WORD_LENGTH];
+        private final char[] mCurrentBestSubWordSuggestion = new char[Dictionary.MAX_WORD_LENGTH];
+        private int mCurrentBestSubWordSuggestionLength;
+        private int mCurrentBestSubWordSubWordAdjustedFrequency;
+        private int mCurrentBestSubWordSubWordAdjustedRawFrequency;
+
+        // This will be used to identify the best split
+        private final char[] mCurrentMatchedWords =
+                new char[WordsSplitter.MAX_SPLITS * Dictionary.MAX_WORD_LENGTH];
+
+        // this will be used to hold the currently best split
+        private final char[] mBestMatchedWords =
+                new char[WordsSplitter.MAX_SPLITS * Dictionary.MAX_WORD_LENGTH];
 
         private SubWordSuggestionCallback(Dictionary.WordCallback callback) {
             mBasicWordCallback = callback;
@@ -354,54 +361,67 @@ public class SuggestImpl implements Suggest {
         void performSubWordsMatching(
                 @NonNull WordComposer wordComposer,
                 @NonNull SuggestionsProvider suggestionsProvider) {
-            final List<? extends KeyCodesProvider> possibleSubWords =
-                    wordComposer.getPossibleSubWords();
-            if (possibleSubWords.isEmpty()) return;
-
-            mMatchedWordsCount = 0;
-            mMatchedWordsLength = 0;
-            mMatchedWordsFrequency = 0;
-
-            for (KeyCodesProvider possibleSubWord : possibleSubWords) {
-                mCurrentSubWord = possibleSubWord.getTypedWord();
-                mCurrentSubWordSuggestionFrequency = 0;
-                mCurrentSubWordSuggestionRawFrequency = 0;
-                mCurrentSubWordLength = 0;
-                suggestionsProvider.getSuggestions(possibleSubWord, this);
-                if (mCurrentSubWordLength > 0) {
+            int bestAdjustedFrequency = 0;
+            int bestMatchWordsLength = 0;
+            Iterable<Iterable<KeyCodesProvider>> splits = mSplitter.split(wordComposer);
+            for (var split : splits) {
+                int currentSplitLength = 0;
+                int currentSplitAdjustedFrequency = 0;
+                // split is a possible word splitting.
+                // we first need to ensure all words are real words and get their frequency
+                // the values will be in mMatchedWords
+                // NOTE: we only pick a possible split if ALL words match something in the
+                // dictionary
+                int wordCount = 0;
+                for (var subWord : split) {
+                    wordCount++;
+                    mCurrentSubWord = subWord.getTypedWord();
+                    mCurrentBestSubWordSubWordAdjustedFrequency = 0;
+                    mCurrentBestSubWordSubWordAdjustedRawFrequency = 0;
+                    mCurrentBestSubWordSuggestionLength = 0;
+                    suggestionsProvider.getSuggestions(subWord, this);
+                    // at this point, we have the best adjusted sub-word
+                    if (mCurrentBestSubWordSubWordAdjustedFrequency == 0) {
+                        Logger.d(TAG, "Did not find a match for sub-word '%s'", mCurrentSubWord);
+                        wordCount = -1;
+                        break;
+                    }
+                    currentSplitAdjustedFrequency += mCurrentBestSubWordSubWordAdjustedRawFrequency;
+                    if (currentSplitLength > 0) {
+                        // adding space after the previous word
+                        mCurrentMatchedWords[currentSplitLength] = KeyCodes.SPACE;
+                        currentSplitLength++;
+                    }
                     System.arraycopy(
-                            mCurrentSubWordSuggestion,
+                            mCurrentBestSubWordSuggestion,
                             0,
-                            mMatchedWords,
-                            mMatchedWordsLength,
-                            mCurrentSubWordLength);
-                    mMatchedWordsLength += mCurrentSubWordLength;
-                    mMatchedWordsCount++;
-                    mMatchedWordsFrequency += mCurrentSubWordSuggestionRawFrequency;
-                    // adding space for the next sub-word
-                    mMatchedWords[mMatchedWordsLength] = KeyCodes.SPACE;
-                    mMatchedWordsLength++;
+                            mCurrentMatchedWords,
+                            currentSplitLength,
+                            mCurrentBestSubWordSuggestionLength);
+                    currentSplitLength += mCurrentBestSubWordSuggestionLength;
+                }
+                // at this point, we have the best constructed split in mCurrentMatchedWords
+                if (wordCount > 0 && currentSplitAdjustedFrequency > bestAdjustedFrequency) {
+                    System.arraycopy(
+                            mCurrentMatchedWords, 0, mBestMatchedWords, 0, currentSplitLength);
+                    bestAdjustedFrequency = currentSplitAdjustedFrequency;
+                    bestMatchWordsLength = currentSplitLength;
                 }
             }
-
-            if (mMatchedWordsCount == possibleSubWords.size()) {
+            // at this point, we have the most suitable split in mBestMatchedWords
+            if (bestMatchWordsLength > 0) {
                 mBasicWordCallback.addWord(
-                        mMatchedWords,
+                        mBestMatchedWords,
                         0,
-                        mMatchedWordsLength - 1, /*minus the extra space*/
-                        POSSIBLE_FIX_THRESHOLD_FREQUENCY + mMatchedWordsFrequency,
+                        bestMatchWordsLength,
+                        POSSIBLE_FIX_THRESHOLD_FREQUENCY + bestAdjustedFrequency,
                         null);
             }
         }
 
         @Override
         public boolean addWord(
-                char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
-            if (mMatchedWords.length <= mMatchedWordsLength + wordLength + 1) {
-                // can't even copy that word, why bother
-                return true; // maybe next word will be shorter
-            }
-
+                char[] word, int wordOffset, int wordLength, final int frequency, Dictionary from) {
             int adjustedFrequency = 0;
             // giving bonuses
             if (compareCaseInsensitive(mCurrentSubWord, word, wordOffset, wordLength)) {
@@ -411,11 +431,11 @@ public class SuggestImpl implements Suggest {
                 adjustedFrequency = frequency * 2;
             }
             // only passing if the suggested word is close to the sub-word
-            if (adjustedFrequency > mCurrentSubWordSuggestionFrequency) {
-                System.arraycopy(word, wordOffset, mCurrentSubWordSuggestion, 0, wordLength);
-                mCurrentSubWordLength = wordLength;
-                mCurrentSubWordSuggestionFrequency = adjustedFrequency;
-                mCurrentSubWordSuggestionRawFrequency = frequency;
+            if (adjustedFrequency > mCurrentBestSubWordSubWordAdjustedFrequency) {
+                System.arraycopy(word, wordOffset, mCurrentBestSubWordSuggestion, 0, wordLength);
+                mCurrentBestSubWordSuggestionLength = wordLength;
+                mCurrentBestSubWordSubWordAdjustedFrequency = adjustedFrequency;
+                mCurrentBestSubWordSubWordAdjustedRawFrequency = frequency;
             }
             return true; // next word
         }

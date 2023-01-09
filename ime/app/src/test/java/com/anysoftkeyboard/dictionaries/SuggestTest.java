@@ -631,12 +631,12 @@ public class SuggestTest {
         Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
 
         // same typed word, different frequencies and has common letters
+        // this means, "hello" will not appear (less adjusted frequency)
         map.put("hellon", Collections.singletonList(Pair.create("bellon", 33)));
         suggestions = mUnderTest.getSuggestions(wordComposer);
-        Assert.assertEquals(3, suggestions.size());
+        Assert.assertEquals(2, suggestions.size());
         Assert.assertEquals("hellon", suggestions.get(0).toString());
         Assert.assertEquals("bellon", suggestions.get(1).toString());
-        Assert.assertEquals("hello", suggestions.get(2).toString());
         Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
     }
 
