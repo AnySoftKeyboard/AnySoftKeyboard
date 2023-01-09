@@ -65,6 +65,7 @@ public class SuggestImpl implements Suggest {
     private int mCommonalityMaxLengthDiff = 1;
     private int mCommonalityMaxDistance = 1;
     private boolean mEnabledSuggestions;
+    private boolean mSplitWords;
 
     @VisibleForTesting
     public SuggestImpl(@NonNull SuggestionsProvider provider) {
@@ -100,12 +101,14 @@ public class SuggestImpl implements Suggest {
     }
 
     @Override
-    public void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance) {
+    public void setCorrectionMode(
+            boolean enabledSuggestions, int maxLengthDiff, int maxDistance, boolean splitWords) {
         mEnabledSuggestions = enabledSuggestions;
 
         // making sure it is not negative or zero
         mCommonalityMaxLengthDiff = maxLengthDiff;
         mCommonalityMaxDistance = maxDistance;
+        mSplitWords = splitWords;
     }
 
     @Override
@@ -244,7 +247,9 @@ public class SuggestImpl implements Suggest {
         // for sub-word matching:
         // only if ALL words match, we should use the sub-words as an suggestion
         // only exact matches (for now) will be considered
-        mSubWordDictionaryWordCallback.performSubWordsMatching(wordComposer, mSuggestionsProvider);
+        if (mSplitWords)
+            mSubWordDictionaryWordCallback.performSubWordsMatching(
+                    wordComposer, mSuggestionsProvider);
         // contacts, user and main dictionaries
         mSuggestionsProvider.getSuggestions(wordComposer, mTypingDictionaryWordCallback);
 

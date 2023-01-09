@@ -687,8 +687,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         @Override
         public void setCorrectionMode(
-                boolean enabledSuggestions, int maxLengthDiff, int maxDistance) {
-            mDelegate.setCorrectionMode(enabledSuggestions, maxLengthDiff, maxDistance);
+                boolean enabledSuggestions,
+                int maxLengthDiff,
+                int maxDistance,
+                boolean splitWords) {
+            mDelegate.setCorrectionMode(enabledSuggestions, maxLengthDiff, maxDistance, splitWords);
         }
 
         @Override
