@@ -181,6 +181,16 @@
     <string name="auto_dictionary_threshold_type_immediately">Ihned po napsání</string>
     <string name="auto_dictionary_threshold_type_off">Neučit se nová slova</string>
     <string name="use_next_words_dictionary">Návrh dalšího slova</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Středně agresivní</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Zobrazit mnoho návrhů</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Agresivita návrhu dalšího slova: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Autmoatický výběr agresivity návrhů</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Vypnuto</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Minimálně agresivní</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Středně agresivní</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">Vysoce agresivní</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Extrémně agresivní</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Úroveň agresivity: %s</string>
     <string name="use_contacts_dictionary">Slovník kontaktů</string>
     <string name="use_contacts_dictionary_on_summary">Navrhovat jména ze seznamu kontaktů</string>
     <string name="tweaks_group">Vyladění</string>
