@@ -3,25 +3,29 @@ package com.anysoftkeyboard.dictionaries;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Queue;
 
 public class WordsSplitter {
     public static final int MAX_SPLITS = 5;
     private final Queue<WrappingKeysProvider> mPool;
     private final int[] mSplitIndices;
+    private final Result mResult;
 
     public WordsSplitter() {
         mSplitIndices = new int[MAX_SPLITS];
-        final int maxPermutations = 1 << MAX_SPLITS;
-        mPool = new ArrayDeque<>(maxPermutations);
-        for (int itemIndex = 0; itemIndex < maxPermutations; itemIndex++) {
+        // there are 2^MAX_SPLITS permutations, each one has average MAX_SPLITS/2 words.
+        // to be safe, we take a ceil value of that.
+        final int maxSubWords = (int) (Math.ceil(MAX_SPLITS / 2f * (1 << MAX_SPLITS)));
+        Logger.i("WordsSplitter", "Creating %d WrappingKeysProvider in the pool.", maxSubWords);
+        mPool = new ArrayDeque<>(maxSubWords);
+        for (int itemIndex = 0; itemIndex < maxSubWords; itemIndex++) {
             mPool.add(new WrappingKeysProvider());
         }
+        mResult = new Result();
     }
 
     /**
@@ -29,6 +33,7 @@ public class WordsSplitter {
      * SPACE rather and a letter.
      */
     public Iterable<Iterable<KeyCodesProvider>> split(KeyCodesProvider typedKeyCodes) {
+        mResult.reset();
         // optimization: splits can only happen if there are enough characters in the input
         if (typedKeyCodes.codePointCount() < 2) return Collections.emptyList();
         /*
@@ -80,39 +85,34 @@ public class WordsSplitter {
         // optimization: no splits, we do not report anything
         if (splitsCount == 0) return Collections.emptyList();
 
-        List<List<KeyCodesProvider>> possibilities = new ArrayList<>();
         // iterating over the permutations
         final int permutationsCount = 1 << splitsCount;
         for (int permutationIndex = 0; permutationIndex < permutationsCount; permutationIndex++) {
             // mapping to split indices
-            List<KeyCodesProvider> splits = new ArrayList<>();
-            possibilities.add(splits);
+            final var row = mResult.addRow();
             int splitStart = 0;
             for (int pickIndex = 0; pickIndex < splitsCount; pickIndex++) {
                 if (((1 << pickIndex) & permutationIndex) != 0) {
                     final int splitEnd = mSplitIndices[pickIndex];
-                    addSplitToList(typedKeyCodes, splitStart, splitEnd, splits);
+                    addSplitToList(typedKeyCodes, splitStart, splitEnd, row);
                     splitStart = splitEnd + 1;
                 }
             }
             // and last split
-            addSplitToList(typedKeyCodes, splitStart, typedKeyCodes.codePointCount(), splits);
+            addSplitToList(typedKeyCodes, splitStart, typedKeyCodes.codePointCount(), row);
         }
 
-        return new Result(possibilities);
+        return mResult;
     }
 
     private void addSplitToList(
-            KeyCodesProvider typedKeyCodes,
-            int splitStart,
-            int splitEnd,
-            List<KeyCodesProvider> splits) {
+            KeyCodesProvider typedKeyCodes, int splitStart, int splitEnd, ResultRow splits) {
         if (splitStart == splitEnd) return;
 
         // creating split
         WrappingKeysProvider provider = mPool.remove();
         provider.wrap(typedKeyCodes, splitStart, splitEnd);
-        splits.add(provider);
+        splits.addProvider(provider);
         // back to the queue.
         mPool.add(provider);
     }
@@ -127,29 +127,80 @@ public class WordsSplitter {
         return false;
     }
 
-    private static class Result implements Iterable<Iterable<KeyCodesProvider>> {
+    private static class Result
+            implements Iterable<Iterable<KeyCodesProvider>>, Iterator<Iterable<KeyCodesProvider>> {
 
-        private final List<List<KeyCodesProvider>> mPossibilities;
+        private final ResultRow[] mPossibilities = new ResultRow[1 << MAX_SPLITS];
 
-        public Result(List<List<KeyCodesProvider>> possibilities) {
-            mPossibilities = possibilities;
+        private int mRowsCount = 0;
+        private int mCurrentRowIndex = 0;
+
+        public Result() {
+            for (int rowIndex = 0; rowIndex < mPossibilities.length; rowIndex++) {
+                mPossibilities[rowIndex] = new ResultRow();
+            }
+        }
+
+        public void reset() {
+            mRowsCount = 0;
+        }
+
+        @NonNull
+        public ResultRow addRow() {
+            ResultRow row = mPossibilities[mRowsCount++];
+            row.reset();
+            return row;
         }
 
         @NonNull
         @Override
         public Iterator<Iterable<KeyCodesProvider>> iterator() {
-            final var actual = mPossibilities.iterator();
-            return new Iterator<>() {
-                @Override
-                public boolean hasNext() {
-                    return actual.hasNext();
-                }
+            mCurrentRowIndex = 0;
+            return this;
+        }
 
-                @Override
-                public Iterable<KeyCodesProvider> next() {
-                    return actual.next();
-                }
-            };
+        @Override
+        public boolean hasNext() {
+            return mCurrentRowIndex < mRowsCount;
+        }
+
+        @Override
+        public Iterable<KeyCodesProvider> next() {
+            return mPossibilities[mCurrentRowIndex++];
+        }
+    }
+
+    private static class ResultRow
+            implements Iterable<KeyCodesProvider>, Iterator<KeyCodesProvider> {
+
+        private final KeyCodesProvider[] mSubWords = new KeyCodesProvider[MAX_SPLITS];
+
+        private int mSubWordsCount = 0;
+        private int mCurrentSubWordIndex = 0;
+
+        public void reset() {
+            mSubWordsCount = 0;
+        }
+
+        public void addProvider(@NonNull KeyCodesProvider provider) {
+            mSubWords[mSubWordsCount++] = provider;
+        }
+
+        @NonNull
+        @Override
+        public Iterator<KeyCodesProvider> iterator() {
+            mCurrentSubWordIndex = 0;
+            return this;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mCurrentSubWordIndex < mSubWordsCount;
+        }
+
+        @Override
+        public KeyCodesProvider next() {
+            return mSubWords[mCurrentSubWordIndex++];
         }
     }
 
@@ -157,6 +208,7 @@ public class WordsSplitter {
     static class WrappingKeysProvider implements KeyCodesProvider {
         private KeyCodesProvider mOriginal;
         private int mOffset;
+        private int mEndIndex;
         private int mLength;
 
         @Override
@@ -171,13 +223,14 @@ public class WordsSplitter {
 
         @Override
         public CharSequence getTypedWord() {
-            return mOriginal.getTypedWord().subSequence(mOffset, mLength);
+            return mOriginal.getTypedWord().subSequence(mOffset, mEndIndex);
         }
 
-        public void wrap(KeyCodesProvider original, int offset, int length) {
+        public void wrap(KeyCodesProvider original, int offset, int endIndex) {
             mOriginal = original;
             mOffset = offset;
-            mLength = length;
+            mEndIndex = endIndex;
+            mLength = endIndex - offset;
         }
     }
 }

@@ -3,7 +3,9 @@ package com.anysoftkeyboard.dictionaries;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,6 +78,29 @@ public class WordsSplitterTest {
         Assert.assertEquals(0, result.size());
     }
 
+    @Test
+    public void testCanIterateOverWrappedProviders() {
+        typeWord("hello", false, false, true, false, false);
+        var result = splitToLists();
+
+        Assert.assertEquals(2, result.size());
+
+        for (var split : result) {
+            for (var subWord : split) {
+                final var reportedLength = subWord.codePointCount();
+                final var reportedString = subWord.getTypedWord();
+                Assert.assertEquals(
+                        "sub-word " + reportedString, reportedLength, reportedString.length());
+                for (int charIndex = 0; charIndex < reportedLength; charIndex++) {
+                    Assert.assertEquals(
+                            "char at index " + charIndex + " for sub-word " + reportedString,
+                            reportedString.charAt(charIndex),
+                            subWord.getCodesAt(charIndex)[0]);
+                }
+            }
+        }
+    }
+
     private static void assertSplits(List<KeyCodesProvider> splits, String... expected) {
         Assert.assertEquals(expected.length, splits.size());
         for (int splitIndex = 0; splitIndex < splits.size(); splitIndex++) {
@@ -88,11 +113,22 @@ public class WordsSplitterTest {
 
     @Test
     public void testDoesNotExceedMaxSplits() {
-        typeWord("abcdefgh", true, true, true, true, true, true, true, true);
+        typeWord("abcdefghi", true, true, true, true, true, true, true, true, true);
         var result = splitToLists();
 
-        // maximum 32
-        Assert.assertEquals(32, result.size());
+        // maximum 32 permutations of possible splitting
+        Assert.assertEquals(1 << WordsSplitter.MAX_SPLITS, result.size());
+        // now, ensuring we did not reuse the same key-codes-provider
+        Set<KeyCodesProvider> seen = new HashSet<>();
+        for (var split : result) {
+            for (var subWord : split) {
+                Assert.assertTrue(seen.add(subWord));
+            }
+        }
+        final int maxCells =
+                (int) (Math.ceil(WordsSplitter.MAX_SPLITS / 2f * (1 << WordsSplitter.MAX_SPLITS)));
+        Assert.assertEquals(maxCells, seen.size());
+        Assert.assertEquals(80, maxCells);
     }
 
     @Test
