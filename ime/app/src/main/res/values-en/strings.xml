@@ -460,6 +460,11 @@
     <string name="quick_fix_secon_disabled_summ_off">Quick fixes and abbreviations will work on every language 
                   checked in override default dictionary</string>
 
+
+    <string name="try_split_words_for_correction">Correct by splitting typed word</string>
+    <string name="try_split_words_for_correction_summary_on">Split typed word by guessing missing SPACE.</string>
+    <string name="try_split_words_for_correction_summary_off"/>
+
     <string name="allow_suggestions_restart">Suggestions restart</string>
     <string name="allow_suggestions_restart_summary">Restart word suggestion upon cursor movement
     </string>
