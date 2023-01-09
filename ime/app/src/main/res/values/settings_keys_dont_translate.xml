@@ -293,6 +293,7 @@
     </string-array>
 
     <string name="settings_key_allow_suggestions_restart">settings_key_allow_suggestions_restart</string>
+    <string name="settings_key_try_splitting_words_for_correction">settings_key_try_splitting_words_for_correction</string>
     <string name="settings_key_switch_keyboard_on_space">settings_key_switch_keyboard_on_space</string>
     <string name="settings_key_persistent_layout_per_package_id">settings_key_persistent_layout_per_package_id</string>
     <string name="settings_key_double_space_to_period">double_space_to_period</string>

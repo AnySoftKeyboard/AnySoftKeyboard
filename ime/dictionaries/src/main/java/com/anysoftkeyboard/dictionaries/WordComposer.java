@@ -17,10 +17,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.text.TextUtils;
-import com.anysoftkeyboard.api.KeyCodes;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,9 +28,6 @@ public class WordComposer implements KeyCodesProvider {
     public static final int NOT_A_KEY_INDEX = -1;
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
 
-    private static final int MAX_POSSIBLE_SUB_WORDS = 2;
-    private final ArrayList<SimpleKeysProvider> mPossibleSubWordsWorkSpace = new ArrayList<>();
-    private final ArrayList<SimpleKeysProvider> mPossibleSubWordsReturn = new ArrayList<>();
     private static final int[] EMPTY_CODES_ARRAY = new int[0];
     /** The list of unicode values for each keystroke (including surrounding keys) */
     private final ArrayList<int[]> mCodes = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
@@ -54,10 +49,7 @@ public class WordComposer implements KeyCodesProvider {
     /** Whether the user chose to capitalize the first char of the word. */
     private boolean mIsFirstCharCapitalized;
 
-    public WordComposer() {
-        while (mPossibleSubWordsWorkSpace.size() <= MAX_POSSIBLE_SUB_WORDS)
-            mPossibleSubWordsWorkSpace.add(new SimpleKeysProvider());
-    }
+    public WordComposer() {}
 
     public void cloneInto(WordComposer newWord) {
         newWord.reset();
@@ -85,48 +77,6 @@ public class WordComposer implements KeyCodesProvider {
         mTypedWord.setLength(0);
         mCapsCount = 0;
         mCursorPosition = 0;
-    }
-
-    /**
-     * Returns a list of words can be constructed from the typed word if a key was SPACE rather and
-     * a letter. Never returns this.
-     */
-    public List<? extends KeyCodesProvider> getPossibleSubWords() {
-        mPossibleSubWordsReturn.clear();
-        int providerIndex = 0;
-        SimpleKeysProvider keyCodesProvider = mPossibleSubWordsWorkSpace.get(providerIndex);
-        keyCodesProvider.reset();
-        // looking for keys which are close to SPACE
-        for (int keyIndex = 0; keyIndex < mCodes.size(); keyIndex++) {
-            final int[] nearByCodes = mCodes.get(keyIndex);
-            if (hasSpaceInCodes(nearByCodes)) {
-                if (keyCodesProvider.mCodes.size() > 0) {
-                    providerIndex++;
-                    if (providerIndex == MAX_POSSIBLE_SUB_WORDS) break;
-                    keyCodesProvider = mPossibleSubWordsWorkSpace.get(providerIndex);
-                    keyCodesProvider.reset();
-                }
-            } else {
-                keyCodesProvider.addTypedCode(
-                        mTypedWord.codePointAt(keyIndex), mCodes.get(keyIndex));
-                if (keyCodesProvider.mCodes.size() == 1) {
-                    mPossibleSubWordsReturn.add(keyCodesProvider);
-                }
-            }
-        }
-
-        if (keyCodesProvider.codePointCount() == codePointCount()) return Collections.emptyList();
-        return mPossibleSubWordsReturn;
-    }
-
-    private static boolean hasSpaceInCodes(int[] nearByCodes) {
-        if (nearByCodes.length > 0) {
-            // assuming the keycode at the end is SPACE.
-            // see
-            // com.anysoftkeyboard.keyboards.views.ProximityKeyDetector.getKeyIndexAndNearbyCodes
-            return nearByCodes[nearByCodes.length - 1] == KeyCodes.SPACE;
-        }
-        return false;
     }
 
     /**
@@ -265,7 +215,7 @@ public class WordComposer implements KeyCodesProvider {
         } else if (BuildConfig.DEBUG) {
             throw new IllegalStateException(
                     "mTypedWord is '"
-                            + mTypedWord.toString()
+                            + mTypedWord
                             + "' while asking to delete '"
                             + typedTextToDeleteAtEnd
                             + "'.");
@@ -401,35 +351,5 @@ public class WordComposer implements KeyCodesProvider {
 
     public boolean isEmpty() {
         return mCodes.isEmpty();
-    }
-
-    private static class SimpleKeysProvider implements KeyCodesProvider {
-        private final List<int[]> mCodes = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
-        private final StringBuilder mTypedWord = new StringBuilder();
-
-        @Override
-        public int codePointCount() {
-            return mCodes.size();
-        }
-
-        @Override
-        public int[] getCodesAt(int index) {
-            return mCodes.get(index);
-        }
-
-        @Override
-        public CharSequence getTypedWord() {
-            return mTypedWord;
-        }
-
-        void reset() {
-            mCodes.clear();
-            mTypedWord.setLength(0);
-        }
-
-        public void addTypedCode(int codePoint, int[] nearByCodes) {
-            mTypedWord.appendCodePoint(codePoint);
-            mCodes.add(nearByCodes);
-        }
     }
 }

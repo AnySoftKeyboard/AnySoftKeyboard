@@ -69,7 +69,7 @@ public class SuggestTest {
 
     @Test
     public void testHasCorrectionWhenHaveCommonalitySuggestions() {
-        mUnderTest.setCorrectionMode(true, 1, 2);
+        mUnderTest.setCorrectionMode(true, 1, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -103,7 +103,7 @@ public class SuggestTest {
 
     @Test
     public void testDoesNotSuggestFixWhenLengthIsOne() {
-        mUnderTest.setCorrectionMode(true, 1, 2);
+        mUnderTest.setCorrectionMode(true, 1, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -131,7 +131,7 @@ public class SuggestTest {
 
     @Test
     public void testPrefersValidTypedToSuggestedFix() {
-        mUnderTest.setCorrectionMode(true, 1, 2);
+        mUnderTest.setCorrectionMode(true, 1, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -205,7 +205,7 @@ public class SuggestTest {
 
     @Test
     public void testNeverQueriesWhenSuggestionsOff() {
-        mUnderTest.setCorrectionMode(false, 5, 2);
+        mUnderTest.setCorrectionMode(false, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         typeWord(wordComposer, "hello");
         final List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
@@ -216,7 +216,7 @@ public class SuggestTest {
 
     @Test
     public void testQueriesWhenSuggestionsOn() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -253,7 +253,7 @@ public class SuggestTest {
 
     @Test
     public void testHasCorrectionWhenHaveAbbreviation() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -298,7 +298,7 @@ public class SuggestTest {
 
     @Test
     public void testAbbreviationsOverTakeDictionarySuggestions() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -364,7 +364,7 @@ public class SuggestTest {
 
     @Test
     public void testAutoTextIsQueriedEvenWithOneLetter() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -406,7 +406,7 @@ public class SuggestTest {
 
     @Test
     public void testCorrectlyPrioritizeFixes_1() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -439,7 +439,7 @@ public class SuggestTest {
 
     @Test
     public void testCorrectlyPrioritizeFixes_2() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -472,7 +472,7 @@ public class SuggestTest {
 
     @Test
     public void testCorrectlyPrioritizeFixes_3() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -505,7 +505,7 @@ public class SuggestTest {
 
     @Test
     public void testCorrectlyPrioritizeFixes_4() {
-        mUnderTest.setCorrectionMode(true, 5, 2);
+        mUnderTest.setCorrectionMode(true, 5, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -538,7 +538,7 @@ public class SuggestTest {
 
     @Test
     public void testCorrectlyPrioritizeFixes_5() {
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -593,7 +593,7 @@ public class SuggestTest {
         Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("hellon", Collections.singletonList(Pair.create("notevenhello", 13)));
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -631,12 +631,12 @@ public class SuggestTest {
         Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
 
         // same typed word, different frequencies and has common letters
+        // this means, "hello" will not appear (less adjusted frequency)
         map.put("hellon", Collections.singletonList(Pair.create("bellon", 33)));
         suggestions = mUnderTest.getSuggestions(wordComposer);
-        Assert.assertEquals(3, suggestions.size());
+        Assert.assertEquals(2, suggestions.size());
         Assert.assertEquals("hellon", suggestions.get(0).toString());
         Assert.assertEquals("bellon", suggestions.get(1).toString());
-        Assert.assertEquals("hello", suggestions.get(2).toString());
         Assert.assertEquals(1, mUnderTest.getLastValidSuggestionIndex());
     }
 
@@ -645,7 +645,7 @@ public class SuggestTest {
         Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("hellon", Collections.singletonList(Pair.create("notevenhello", 13)));
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -699,7 +699,7 @@ public class SuggestTest {
         Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("hellon", Collections.singletonList(Pair.create("notevenhello", 13)));
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -742,7 +742,7 @@ public class SuggestTest {
         Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("nhello", Collections.emptyList());
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -775,7 +775,7 @@ public class SuggestTest {
         Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("hellon", Collections.singletonList(Pair.create("notevenhello", 13)));
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -830,7 +830,7 @@ public class SuggestTest {
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
         map.put("hellonworld", Collections.emptyList());
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -870,7 +870,7 @@ public class SuggestTest {
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
         map.put("hellonworld", Collections.singletonList(Pair.create("hellonworldsuggested", 12)));
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -912,7 +912,7 @@ public class SuggestTest {
         map.put("Hello", Arrays.asList(Pair.create("Notevenhello", 13), Pair.create("Hello", 23)));
         map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
         map.put("Hellonworld", Collections.emptyList());
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -952,7 +952,7 @@ public class SuggestTest {
         map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
         map.put("world", Arrays.asList(Pair.create("worldz", 13), Pair.create("worlds", 23)));
         map.put("hellonworld", Collections.emptyList());
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
@@ -993,7 +993,46 @@ public class SuggestTest {
         map.put("hellon", Collections.singletonList(Pair.create("notevenhello", 13)));
         map.put("world", Collections.emptyList());
         map.put("hellonworld", Collections.emptyList());
-        mUnderTest.setCorrectionMode(true, 2, 2);
+        mUnderTest.setCorrectionMode(true, 2, 2, true);
+        WordComposer wordComposer = new WordComposer();
+        Mockito.doAnswer(
+                        invocation -> {
+                            final KeyCodesProvider word = invocation.getArgument(0);
+                            final Dictionary.WordCallback callback = invocation.getArgument(1);
+                            final Dictionary dictionary = Mockito.mock(Dictionary.class);
+                            map.get(word.getTypedWord().toString())
+                                    .forEach(
+                                            pair ->
+                                                    callback.addWord(
+                                                            pair.first.toCharArray(),
+                                                            0,
+                                                            pair.first.length(),
+                                                            pair.second,
+                                                            dictionary));
+                            return null;
+                        })
+                .when(mProvider)
+                .getSuggestions(Mockito.any(), Mockito.any());
+
+        typeWord(
+                wordComposer,
+                "hellonworld",
+                new boolean[] {
+                    false, false, false, false, false, true, false, false, false, false, false
+                });
+        List<CharSequence> suggestions = mUnderTest.getSuggestions(wordComposer);
+        Assert.assertEquals(1, suggestions.size());
+        Assert.assertEquals("hellonworld", suggestions.get(0).toString());
+        Assert.assertEquals(-1, mUnderTest.getLastValidSuggestionIndex());
+    }
+
+    @Test
+    public void testDoesNotSplitIfDisabled() {
+        Map<String, List<Pair<String, Integer>>> map = new HashMap<>();
+        map.put("hello", Arrays.asList(Pair.create("notevenhello", 13), Pair.create("hello", 23)));
+        map.put("world", Arrays.asList(Pair.create("world", 13), Pair.create("worlds", 23)));
+        map.put("hellonworld", Collections.emptyList());
+        mUnderTest.setCorrectionMode(true, 2, 2, false);
         WordComposer wordComposer = new WordComposer();
         Mockito.doAnswer(
                         invocation -> {
