@@ -32,7 +32,7 @@ public class EasterEggs {
         private DavidBowieEasterEgg() {
             super(
                     "bowie",
-                    "https://open.spotify.com/playlist/37i9dQZF1DWTTthpScXd3v",
+                    "https://open.spotify.com/playlist/37i9dQZF1DZ06evO0auErC",
                     () -> LYRICS[RANDOM.nextInt(LYRICS.length)],
                     android.R.drawable.ic_media_play);
         }
