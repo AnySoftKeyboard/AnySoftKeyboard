@@ -342,4 +342,6 @@
     <string name="settings_key_apply_remote_app_colors">settings_key_apply_remote_app_colors</string>
 
     <string name="settings_key_show_slide_for_gesture_back_word_counter">settings_key_show_slide_for_gesture_back_word_counter</string>
+
+    <string name="settings_key_strict_mode_enabled">settings_key_strict_mode_enabled</string>
 </resources>
