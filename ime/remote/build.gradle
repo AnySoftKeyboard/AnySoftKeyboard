@@ -10,7 +10,7 @@ dependencies {
     implementation project(':ime:fileprovider')
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.fragment:fragment:1.5.5'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
 
     testImplementation project(':ime:base-test')
 }
