@@ -367,6 +367,8 @@
     <string name="quick_fix_secon_disabled_summ_on">A korrekciók és a kiegészítések csak az aktuális nyelven működnek</string>
     <string name="quick_fix_secon_disabled_summ_off">A korrekciók és a kiegészítések minden nyelven működnek, 
                   az alapértelmezett szótár felülbírálva</string>
+    <string name="try_split_words_for_correction">Javítás a beírt szó kettévágásával</string>
+    <string name="try_split_words_for_correction_summary_on">A beírt szó kettévágása a hiányzó SZÓKÖZ kitalálásával.</string>
     <string name="allow_suggestions_restart">Javaslatok újraindítása</string>
     <string name="allow_suggestions_restart_summary">Szó javaslatok újraindítása kurzor mozgatáskor</string>
     <!-- settings - keyboard group -->
