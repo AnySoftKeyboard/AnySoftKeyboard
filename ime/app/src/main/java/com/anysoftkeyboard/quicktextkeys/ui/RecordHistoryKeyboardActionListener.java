@@ -112,7 +112,9 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     public void onGestureTypingInput(int x, int y, long eventTime) {}
 
     @Override
-    public void onGestureTypingInputDone() {}
+    public boolean onGestureTypingInputDone() {
+        return false;
+    }
 
     @Override
     public void onLongPressDone(@NonNull Keyboard.Key key) {

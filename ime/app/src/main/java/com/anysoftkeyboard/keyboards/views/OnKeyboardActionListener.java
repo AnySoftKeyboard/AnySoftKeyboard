@@ -113,7 +113,12 @@ public interface OnKeyboardActionListener {
 
     void onGestureTypingInput(int x, int y, long eventTime);
 
-    void onGestureTypingInputDone();
+    /**
+     * Notifies on gesture sliding done.
+     *
+     * @return true if this was handled, else false - was determined as non-gesture-typing
+     */
+    boolean onGestureTypingInputDone();
 
     void onLongPressDone(@NonNull Keyboard.Key key);
 }

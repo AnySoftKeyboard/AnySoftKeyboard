@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -31,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Assert;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowSystemClock;
 
 public class TestInputConnection extends BaseInputConnection {
     private static final int DELAYED_SELECTION_UPDATE_MSG_ID = 88;
@@ -60,7 +60,7 @@ public class TestInputConnection extends BaseInputConnection {
                     public void handleMessage(@NonNull Message msg) {
                         if (msg.what == DELAYED_SELECTION_UPDATE_MSG_ID) {
                             final SelectionUpdateData data = (SelectionUpdateData) msg.obj;
-                            final long now = ShadowSystemClock.currentTimeMillis();
+                            final long now = SystemClock.uptimeMillis();
                             mNextMessageTime.removeIf(time -> time <= now);
                             mIme.onUpdateSelection(
                                     data.oldSelStart,
@@ -92,7 +92,7 @@ public class TestInputConnection extends BaseInputConnection {
     }
 
     public void executeOnSelectionUpdateEvent() {
-        final long forTime = mNextMessageTime.remove(0) - ShadowSystemClock.currentTimeMillis();
+        final long forTime = mNextMessageTime.remove(0) - SystemClock.uptimeMillis();
         Shadows.shadowOf(mDelayer.getLooper()).idleFor(forTime, TimeUnit.MILLISECONDS);
     }
 
@@ -278,7 +278,7 @@ public class TestInputConnection extends BaseInputConnection {
         if (mEditModeLatestState != null) {
             mEditModeLatestState = data;
         } else {
-            mNextMessageTime.add(mDelayedSelectionUpdate + ShadowSystemClock.currentTimeMillis());
+            mNextMessageTime.add(mDelayedSelectionUpdate + SystemClock.uptimeMillis());
             mDelayer.sendMessageDelayed(
                     mDelayer.obtainMessage(DELAYED_SELECTION_UPDATE_MSG_ID, data),
                     mDelayedSelectionUpdate);
