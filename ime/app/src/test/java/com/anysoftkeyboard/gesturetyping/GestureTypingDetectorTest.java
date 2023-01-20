@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -127,8 +128,11 @@ public class GestureTypingDetectorTest {
 
         mDetectorUnderTest.clearGesture();
 
+        AtomicInteger distance = new AtomicInteger();
         generatePointsStreamOfKeysString("helo")
-                .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+                .forEach(
+                        point -> distance.addAndGet(mDetectorUnderTest.addPoint(point.x, point.y)));
+        Assert.assertEquals(8016, distance.get());
         final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
 
         Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());

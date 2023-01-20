@@ -362,6 +362,7 @@ class PointerTracker {
     }
 
     void onUpEvent(int x, int y, long eventTime) {
+        final OnKeyboardActionListener listener = mListener;
         mHandler.cancelAllMessages();
         mProxy.hidePreview(mKeyState.getKeyIndex(), this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
@@ -377,7 +378,6 @@ class PointerTracker {
         }
         if (mIsRepeatableKey) {
             // we just need to report up
-            final OnKeyboardActionListener listener = mListener;
             final Keyboard.Key key = getKey(keyIndex);
 
             if (key != null) {
@@ -386,7 +386,12 @@ class PointerTracker {
                 }
             }
         } else {
-            detectAndSendKey(keyIndex, x, y, eventTime, true);
+            boolean notHandled = true;
+            if (isInGestureTyping()) {
+                mKeyCodesInPathLength = -1;
+                notHandled = !listener.onGestureTypingInputDone();
+            }
+            if (notHandled) detectAndSendKey(keyIndex, x, y, eventTime, true);
         }
 
         if (isValidKeyIndex(keyIndex)) {
@@ -480,13 +485,10 @@ class PointerTracker {
             }
         } else {
             boolean isShifted = mKeyDetector.isKeyShifted(key);
+
             if ((key.typedText != null && !isShifted)
                     || (key.shiftedTypedText != null && isShifted)) {
                 if (listener != null) {
-                    if (isInGestureTyping()) {
-                        listener.onGestureTypingInputDone();
-                    }
-                    mKeyCodesInPathLength = -1;
                     mTapCount = 0;
 
                     final CharSequence text;
@@ -500,10 +502,6 @@ class PointerTracker {
                 }
             } else if ((key.text != null && !isShifted) || (key.shiftedText != null && isShifted)) {
                 if (listener != null) {
-                    if (isInGestureTyping()) {
-                        listener.onGestureTypingInputDone();
-                    }
-                    mKeyCodesInPathLength = -1;
                     mTapCount = 0;
 
                     final CharSequence text;
@@ -544,12 +542,7 @@ class PointerTracker {
                     nearByKeyCodes[0] = code;
                 }
                 if (listener != null) {
-                    if (isInGestureTyping()) {
-                        listener.onGestureTypingInputDone();
-                    } else {
-                        listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
-                    }
-                    mKeyCodesInPathLength = -1;
+                    listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     if (withRelease) listener.onRelease(code);
 
                     if (multiTapStarted) {

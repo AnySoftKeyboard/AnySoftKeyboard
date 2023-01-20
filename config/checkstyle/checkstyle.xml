@@ -134,6 +134,13 @@
         </module>
 
         <module name="RegexpSinglelineJava">
+            <property name="id" value="DoNotUseShadowSystemClockForTime" />
+            <property name="format" value="ShadowSystemClock.currentTimeMillis()" />
+            <property name="message"
+                value="Using ShadowSystemClock is funky. Use SystemClock.uptimeMillis()." />
+        </module>
+
+        <module name="RegexpSinglelineJava">
             <property name="id" value="DoNotUseAsyncTask" />
             <property name="format" value="\W+AsyncTask\W+" />
             <property name="message" value="Do not use AsyncTask, use RXJava instead" />

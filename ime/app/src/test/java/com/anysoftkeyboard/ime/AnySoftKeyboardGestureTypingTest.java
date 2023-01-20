@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ime;
 
 import static org.mockito.ArgumentMatchers.any;
 
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Toast;
 import com.anysoftkeyboard.AddOnTestUtils;
@@ -31,7 +32,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -71,7 +71,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDoesNotOutputIfGestureTypingIsDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
-        simulateGestureProcess("hello");
+        Assert.assertFalse(simulateGestureProcess("hello"));
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         verifyNoSuggestionsInteractions();
     }
@@ -139,7 +139,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testOutputPrimarySuggestionOnGestureDone() {
-        simulateGestureProcess("hello");
+        Assert.assertTrue(simulateGestureProcess("hello"));
         Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
@@ -326,6 +326,119 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         simulateGestureProcess("welcome");
         Assert.assertEquals(
                 "hello welcome", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testDoesNotOutputGestureWhenPathIsTooQuick() {
+        final String pathKeys = "you"; // to gesture you
+        long time = SystemClock.uptimeMillis();
+        Keyboard.Key startKey =
+                mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(0));
+        mAnySoftKeyboardUnderTest.onPress(startKey.getPrimaryCode());
+        TestRxSchedulers.drainAllTasks();
+        mAnySoftKeyboardUnderTest.onGestureTypingInputStart(
+                startKey.centerX, startKey.centerY, (AnyKeyboard.AnyKey) startKey, time);
+        TestRxSchedulers.drainAllTasks();
+        // travelling from P to O, but very quickly!
+        final long lastTime = time + AnySoftKeyboardWithGestureTyping.MINIMUM_GESTURE_TIME_MS - 1;
+
+        final Keyboard.Key followingKey =
+                mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(1));
+        // simulating gesture from startKey to followingKey
+        final float xStep = startKey.width / 3.0f;
+        final float yStep = startKey.height / 3.0f;
+
+        final float xDistance = followingKey.centerX - startKey.centerX;
+        final float yDistance = followingKey.centerY - startKey.centerY;
+        int callsToMake = (int) Math.ceil(((xDistance + yDistance) / 2f) / ((xStep + yStep) / 2f));
+
+        final long timeStep =
+                AnySoftKeyboardWithGestureTyping.MINIMUM_GESTURE_TIME_MS / callsToMake;
+
+        float currentX = startKey.centerX;
+        float currentY = startKey.centerY;
+
+        TestRxSchedulers.foregroundAdvanceBy(timeStep);
+        time = SystemClock.uptimeMillis();
+        ;
+        mAnySoftKeyboardUnderTest.onGestureTypingInput(startKey.centerX, startKey.centerY, time);
+
+        while (callsToMake > 0) {
+            callsToMake--;
+            currentX += xStep;
+            currentY += yStep;
+            TestRxSchedulers.foregroundAdvanceBy(timeStep);
+            time = SystemClock.uptimeMillis();
+            ;
+            mAnySoftKeyboardUnderTest.onGestureTypingInput((int) currentX, (int) currentY, time);
+        }
+
+        mAnySoftKeyboardUnderTest.onGestureTypingInput(
+                followingKey.centerX, followingKey.centerY, lastTime);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.onGestureTypingInputDone());
+        TestRxSchedulers.drainAllTasks();
+
+        // nothing should be outputted
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testDoesNotOutputGestureWhenPathIsTooShort() {
+        final String pathKeys = "po"; // to gesture pop, but will not
+        long time = SystemClock.uptimeMillis();
+        Keyboard.Key startKey =
+                mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(0));
+        mAnySoftKeyboardUnderTest.onPress(startKey.getPrimaryCode());
+        TestRxSchedulers.drainAllTasks();
+        mAnySoftKeyboardUnderTest.onGestureTypingInputStart(
+                startKey.centerX, startKey.centerY, (AnyKeyboard.AnyKey) startKey, time);
+        TestRxSchedulers.drainAllTasks();
+        // travelling from P to O, but slow enough to trigger a gesture!
+        final long lastTime = time + AnySoftKeyboardWithGestureTyping.MINIMUM_GESTURE_TIME_MS + 1;
+
+        final Keyboard.Key followingKey =
+                mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(1));
+        // just to make sure we are using the right keys
+        Assert.assertTrue(startKey.centerX > followingKey.centerX);
+        Assert.assertEquals(startKey.centerY, followingKey.centerY);
+        // simulating gesture from startKey to followingKey
+        // they are on the same row (p -> o), from back on the X axis.
+        // we'll do 3 steps, each a quarter of a key. Overall, less than a key width.
+        final float xStep = -startKey.width / 4.0f;
+        int callsToMake = 3;
+
+        final long timeStep =
+                AnySoftKeyboardWithGestureTyping.MINIMUM_GESTURE_TIME_MS / callsToMake;
+
+        float currentX = startKey.centerX;
+        final float currentY = startKey.centerY;
+
+        mAnySoftKeyboardUnderTest.onGestureTypingInput(startKey.centerX, startKey.centerY, time);
+
+        while (callsToMake > 0) {
+            callsToMake--;
+            currentX += xStep;
+            TestRxSchedulers.foregroundAdvanceBy(timeStep);
+            time = SystemClock.uptimeMillis();
+            mAnySoftKeyboardUnderTest.onGestureTypingInput((int) currentX, (int) currentY, time);
+        }
+
+        // ensuring lastTime is used, so we know that the last input
+        // to the gesture-detector was pass the minimum time
+        mAnySoftKeyboardUnderTest.onGestureTypingInput((int) currentX, (int) currentY, lastTime);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.onGestureTypingInputDone());
+        TestRxSchedulers.drainAllTasks();
+
+        // nothing should be outputted
+        Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+    }
+
+    @Test
+    public void testOutputsGestureIfPathIsJustLongEnough() {
+        Assert.assertTrue(simulateGestureProcess("po"));
+        Assert.assertEquals("poo", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -594,8 +707,8 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 R.drawable.ic_watermark_gesture_not_loaded);
     }
 
-    private void simulateGestureProcess(String pathKeys) {
-        long time = ShadowSystemClock.currentTimeMillis();
+    private boolean simulateGestureProcess(String pathKeys) {
+        long time = SystemClock.uptimeMillis();
         Keyboard.Key startKey =
                 mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(0));
         mAnySoftKeyboardUnderTest.onPress(startKey.getPrimaryCode());
@@ -613,7 +726,10 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
             final float xDistance = followingKey.centerX - startKey.centerX;
             final float yDistance = followingKey.centerY - startKey.centerY;
             int callsToMake =
-                    (int) Math.ceil(((xDistance + yDistance) / 2f) / ((xStep + yStep) / 2f));
+                    (int)
+                            Math.ceil(
+                                    Math.abs((xDistance + yDistance) / 2f)
+                                            / ((xStep + yStep) / 2f));
 
             final long timeStep = 16;
 
@@ -621,7 +737,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
             float currentY = startKey.centerY;
 
             TestRxSchedulers.foregroundAdvanceBy(timeStep);
-            time = ShadowSystemClock.currentTimeMillis();
+            time = SystemClock.uptimeMillis();
             mAnySoftKeyboardUnderTest.onGestureTypingInput(
                     startKey.centerX, startKey.centerY, time);
 
@@ -630,19 +746,21 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 currentX += xStep;
                 currentY += yStep;
                 TestRxSchedulers.foregroundAdvanceBy(timeStep);
-                time = ShadowSystemClock.currentTimeMillis();
+                time = SystemClock.uptimeMillis();
                 mAnySoftKeyboardUnderTest.onGestureTypingInput(
                         (int) currentX, (int) currentY, time);
             }
 
             TestRxSchedulers.foregroundAdvanceBy(timeStep);
-            time = ShadowSystemClock.currentTimeMillis();
+            time = SystemClock.uptimeMillis();
+            ;
             mAnySoftKeyboardUnderTest.onGestureTypingInput(
                     followingKey.centerX, followingKey.centerY, time);
 
             startKey = followingKey;
         }
-        mAnySoftKeyboardUnderTest.onGestureTypingInputDone();
+        var handled = mAnySoftKeyboardUnderTest.onGestureTypingInputDone();
         TestRxSchedulers.drainAllTasks();
+        return handled;
     }
 }
