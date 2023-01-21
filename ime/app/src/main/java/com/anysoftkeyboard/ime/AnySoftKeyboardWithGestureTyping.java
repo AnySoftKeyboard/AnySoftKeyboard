@@ -37,6 +37,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
+    public static final long MINIMUM_GESTURE_TIME_MS = 40;
+
     private boolean mGestureTypingEnabled;
     protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
     @Nullable private GestureTypingDetector mCurrentGestureDetector;
@@ -45,6 +47,11 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     private boolean mGestureShifted = false;
 
     @NonNull private Disposable mDetectorStateSubscription = Disposables.disposed();
+    private long mGestureStartTime;
+    private long mGestureLastTime;
+
+    private long mMinimumGesturePathLength;
+    private long mGesturePathLength;
 
     protected static String getKeyForDetector(@NonNull AnyKeyboard keyboard) {
         return String.format(
@@ -98,6 +105,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         getInputViewContainer().addStripAction(mClearLastGestureAction, true);
         mClearLastGestureAction.setVisibility(View.GONE);
+        // the gesture path must be less than a key width, usually, 10%s.
+        // but we need to square it, since we are dealing with distances. See addPoint method.
+        final long width = (long) (getResources().getDisplayMetrics().widthPixels * 0.045f);
+        mMinimumGesturePathLength = width * width;
     }
 
     @Override
@@ -333,7 +344,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             mGestureShifted = mShiftKeyState.isActive();
             // we can call this as many times as we want, it has a short-circuit check.
             confirmLastGesture(mPrefsAutoSpace);
-
+            mGestureStartTime = eventTime;
+            mGesturePathLength = 0;
             currentGestureDetector.clearGesture();
             onGestureTypingInput(x, y, eventTime);
 
@@ -367,56 +379,16 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         if (!mGestureTypingEnabled) return;
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (currentGestureDetector != null) {
-            currentGestureDetector.addPoint(x, y);
-        }
-    }
-
-    @NonNull
-    @Override
-    protected List<Drawable> generateWatermark() {
-        final List<Drawable> watermark = super.generateWatermark();
-        if (mGestureTypingEnabled) {
-            if (mDetectorReady) {
-                watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_gesture));
-            } else if (mCurrentGestureDetector != null) {
-                watermark.add(
-                        ContextCompat.getDrawable(
-                                this, R.drawable.ic_watermark_gesture_not_loaded));
-            }
-        }
-
-        return watermark;
-    }
-
-    @Override
-    public void onKey(
-            int primaryCode,
-            Keyboard.Key key,
-            int multiTapIndex,
-            int[] nearByKeyCodes,
-            boolean fromUI) {
-        if (mGestureTypingEnabled
-                && mJustPerformedGesture
-                && primaryCode > 0 /*printable character*/) {
-            confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
-        } else if (primaryCode == KeyCodes.DELETE) {
-            mClearLastGestureAction.setVisibility(View.GONE);
-        }
-        mJustPerformedGesture = false;
-
-        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-    }
-
-    private void confirmLastGesture(boolean withAutoSpace) {
-        if (mJustPerformedGesture) {
-            pickSuggestionManually(0, getCurrentComposedWord().getTypedWord(), withAutoSpace);
-            mClearLastGestureAction.setVisibility(View.GONE);
+            mGestureLastTime = eventTime;
+            mGesturePathLength += currentGestureDetector.addPoint(x, y);
         }
     }
 
     @Override
-    public void onGestureTypingInputDone() {
-        if (!mGestureTypingEnabled) return;
+    public boolean onGestureTypingInputDone() {
+        if (!mGestureTypingEnabled) return false;
+        if (mGestureLastTime - mGestureStartTime < MINIMUM_GESTURE_TIME_MS) return false;
+        if (mGesturePathLength < mMinimumGesturePathLength) return false;
 
         InputConnection ic = getCurrentInputConnection();
 
@@ -489,9 +461,55 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
                 markExpectingSelectionUpdate();
                 ic.endBatchEdit();
+
+                return true;
             }
 
             currentGestureDetector.clearGesture();
+        }
+        return false;
+    }
+
+    @NonNull
+    @Override
+    protected List<Drawable> generateWatermark() {
+        final List<Drawable> watermark = super.generateWatermark();
+        if (mGestureTypingEnabled) {
+            if (mDetectorReady) {
+                watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_gesture));
+            } else if (mCurrentGestureDetector != null) {
+                watermark.add(
+                        ContextCompat.getDrawable(
+                                this, R.drawable.ic_watermark_gesture_not_loaded));
+            }
+        }
+
+        return watermark;
+    }
+
+    @Override
+    public void onKey(
+            int primaryCode,
+            Keyboard.Key key,
+            int multiTapIndex,
+            int[] nearByKeyCodes,
+            boolean fromUI) {
+        if (mGestureTypingEnabled
+                && mJustPerformedGesture
+                && primaryCode > 0 /*printable character*/) {
+            confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
+        } else if (primaryCode == KeyCodes.DELETE) {
+            mClearLastGestureAction.setVisibility(View.GONE);
+        }
+        mJustPerformedGesture = false;
+
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+    }
+
+    private void confirmLastGesture(boolean withAutoSpace) {
+        if (mJustPerformedGesture) {
+            pickSuggestionManually(0, getCurrentComposedWord().getTypedWord(), withAutoSpace);
+            mClearLastGestureAction.setVisibility(View.GONE);
         }
     }
 

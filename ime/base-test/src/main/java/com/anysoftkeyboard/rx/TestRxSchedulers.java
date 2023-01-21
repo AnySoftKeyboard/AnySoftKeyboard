@@ -56,6 +56,7 @@ public class TestRxSchedulers {
             Shadows.shadowOf(Looper.getMainLooper()).idle();
         } else {
             Shadows.shadowOf(Looper.getMainLooper()).idleFor(milliseconds, TimeUnit.MILLISECONDS);
+            // SystemClock.sleep(milliseconds);
         }
     }
 
