@@ -198,7 +198,12 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         if (TextUtils.isEmpty(clipboardEntry)) {
             mLastSyncedClipboardEntry = null;
             mLastSyncedClipboardEntryTime = Long.MIN_VALUE;
-            getInputViewContainer().removeStripAction(mSuggestionClipboardEntry);
+            // this method could be called before the IM view was created, but the
+            // service already alive.
+            var inputViewContainer = getInputViewContainer();
+            if (inputViewContainer != null) {
+                inputViewContainer.removeStripAction(mSuggestionClipboardEntry);
+            }
         } else {
             mLastSyncedClipboardEntry = clipboardEntry;
             EditorInfo currentInputEditorInfo = getCurrentInputEditorInfo();
