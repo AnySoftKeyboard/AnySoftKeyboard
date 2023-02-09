@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ime;
 
+import static org.mockito.Mockito.times;
 import static org.robolectric.shadow.api.Shadow.directlyOn;
 
 import android.content.res.Resources;
@@ -168,6 +169,8 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     public void testDoNotDrawIfSettingIsOff() {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
         simulateFinishInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+                .setBottomOffset(0);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
         simulateOnStartInputFlow();
 
@@ -176,10 +179,10 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
         simulateFinishInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), times(1))
+                .setBottomOffset(0);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, false);
         simulateOnStartInputFlow();
-        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
-                .setBottomOffset(0);
         Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
         Assert.assertNotNull(w);
         Assert.assertFalse(
@@ -219,10 +222,14 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
                 .setBottomOffset(Mockito.anyInt());
 
         simulateFinishInputFlow();
+        // clears the bottom offset
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), times(1))
+                .setBottomOffset(Mockito.anyInt());
+
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
         simulateOnStartInputFlow();
-
-        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
+        // still, only one time called (on finish before)
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), times(1))
                 .setBottomOffset(Mockito.anyInt());
     }
 
@@ -232,10 +239,12 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
                 .setBottomOffset(Mockito.anyInt());
         simulateFinishInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+                .setBottomOffset(0);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
         simulateOnStartInputFlow();
-
-        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
+        // just one call done before (in onFinish)
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
                 .setBottomOffset(Mockito.anyInt());
     }
 
@@ -246,10 +255,12 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
                 .setBottomOffset(Mockito.anyInt());
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
         simulateFinishInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+                .setBottomOffset(0);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
         simulateOnStartInputFlow();
-
-        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
+        // only one call was made (in the onFinish)
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
                 .setBottomOffset(Mockito.anyInt());
     }
 
@@ -261,10 +272,13 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         simulateFinishInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+                .setBottomOffset(0);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
         simulateOnStartInputFlow();
 
-        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        // sets to zero again
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), times(2))
                 .setBottomOffset(0);
     }
 
@@ -273,10 +287,12 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     public void testDoesNotSetPaddingIfNavHeightIsZero() throws Exception {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
         simulateFinishInputFlow();
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+                .setBottomOffset(0);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
         simulateOnStartInputFlow();
-
-        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        // since size is zero, we hide the padding (set to zero)
+        Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), times(2))
                 .setBottomOffset(0);
     }
 

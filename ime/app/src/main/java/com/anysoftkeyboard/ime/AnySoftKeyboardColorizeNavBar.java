@@ -83,11 +83,9 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     @Override
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
-        if (finishingInput) {
-            final Window w = getWindow().getWindow();
-            if (w != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                clearColorizedNavBar(w);
-            }
+        final Window w = getWindow().getWindow();
+        if (w != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            clearColorizedNavBar(w);
         }
     }
 

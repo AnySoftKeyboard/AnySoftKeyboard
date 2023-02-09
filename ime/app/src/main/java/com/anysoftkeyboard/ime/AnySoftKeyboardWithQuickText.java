@@ -79,9 +79,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
     @Override
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
-        if (finishingInput) {
-            cleanUpQuickTextKeyboard(true);
-        }
+        cleanUpQuickTextKeyboard(true);
     }
 
     private void switchToQuickTextKeyboard() {

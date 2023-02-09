@@ -46,10 +46,8 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     @Override
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
-        if (finishingInput) {
-            cleanUpInlineLayouts(true);
-            removeActionStrip();
-        }
+        cleanUpInlineLayouts(true);
+        removeActionStrip();
     }
 
     @Override
@@ -247,6 +245,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         @Override
         public void onRemoved() {
             mCurrentSuggestions.clear();
+            mSuggestionsCount = null;
         }
 
         void onNewSuggestions(List<InlineSuggestion> suggestions) {

@@ -21,10 +21,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@Config(
-        sdk =
-                TestUtils
-                        .NEWEST_STABLE_API_LEVEL /*since we are sensitive to actual latest unicode emojis*/)
+/*since we are sensitive to actual latest unicode emojis*/
+@Config(sdk = TestUtils.NEWEST_STABLE_API_LEVEL)
 public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     private static final String KEY_OUTPUT = "\uD83D\uDE03";
 
@@ -562,7 +560,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    public void testDoNotCloseQuickTextKeyboardOnInputNotReallyFinished() {
+    public void testCloseQuickTextKeyboardOnFinishInputView() {
         Assert.assertEquals(
                 View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertEquals(
@@ -583,37 +581,16 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         final EditorInfo editorInfo = mAnySoftKeyboardUnderTest.getCurrentInputEditorInfo();
         mAnySoftKeyboardUnderTest.onFinishInputView(false);
 
-        Assert.assertEquals(
-                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
-        Assert.assertEquals(
-                View.VISIBLE,
+        Assert.assertNull(
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .findViewById(R.id.quick_text_pager_root)
-                        .getVisibility());
-        Assert.assertEquals(
-                View.GONE,
-                mAnySoftKeyboardUnderTest
-                        .getInputViewContainer()
-                        .getCandidateView()
-                        .getVisibility());
-
+                        .findViewById(R.id.quick_text_pager_root));
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Assert.assertEquals(
-                View.VISIBLE,
+        Assert.assertNull(
                 mAnySoftKeyboardUnderTest
                         .getInputViewContainer()
-                        .findViewById(R.id.quick_text_pager_root)
-                        .getVisibility());
-        Assert.assertEquals(
-                View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
-        Assert.assertEquals(
-                View.GONE,
-                mAnySoftKeyboardUnderTest
-                        .getInputViewContainer()
-                        .getCandidateView()
-                        .getVisibility());
+                        .findViewById(R.id.quick_text_pager_root));
     }
 
     @Test
