@@ -102,6 +102,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         }
     }
 
+    @Override
+    public boolean isAlphabetKeyboard() {
+        return false;
+    }
+
     private static int getPopupRowsCount(CharSequence popupCharacters) {
         final double count = Character.codePointCount(popupCharacters, 0, popupCharacters.length());
         return (int) Math.min(3.0 /*no more than three rows*/, Math.ceil(count / MAX_KEYS_PER_ROW));

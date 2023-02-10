@@ -152,6 +152,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         }
     }
 
+    @Override
+    public boolean isAlphabetKeyboard() {
+        return true;
+    }
+
     public KeyboardExtension getExtensionLayout() {
         return mExtensionLayout;
     }
@@ -546,7 +551,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
                 default:
-                    super.setupKeyAfterCreation(key);
+                    return super.setupKeyAfterCreation(key);
             }
             return true;
         }

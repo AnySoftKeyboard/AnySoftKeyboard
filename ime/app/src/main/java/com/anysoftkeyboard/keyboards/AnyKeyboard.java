@@ -28,6 +28,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -292,14 +293,22 @@ public abstract class AnyKeyboard extends Keyboard {
             Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
             GenericRowKeyboard rowKeyboard =
                     new GenericRowKeyboard(
-                            topRowPlugin, mLocalContext, getKeyboardDimens(), mKeyboardMode);
+                            topRowPlugin,
+                            mLocalContext,
+                            getKeyboardDimens(),
+                            isAlphabetKeyboard(),
+                            mKeyboardMode);
             fixKeyboardDueToGenericRow(rowKeyboard, true);
         }
         if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
             Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             GenericRowKeyboard rowKeyboard =
                     new GenericRowKeyboard(
-                            bottomRowPlugin, mLocalContext, getKeyboardDimens(), mKeyboardMode);
+                            bottomRowPlugin,
+                            mLocalContext,
+                            getKeyboardDimens(),
+                            isAlphabetKeyboard(),
+                            mKeyboardMode);
             if (rowKeyboard.hasNoKeys()) {
                 Logger.i(
                         TAG,
@@ -310,11 +319,14 @@ public abstract class AnyKeyboard extends Keyboard {
                                 bottomRowPlugin,
                                 mLocalContext,
                                 getKeyboardDimens(),
+                                isAlphabetKeyboard(),
                                 KEYBOARD_ROW_MODE_NORMAL);
             }
             fixKeyboardDueToGenericRow(rowKeyboard, false);
         }
     }
+
+    public abstract boolean isAlphabetKeyboard();
 
     private void fixKeyboardDueToGenericRow(
             @NonNull GenericRowKeyboard genericRowKeyboard, final boolean isTopRow) {
@@ -344,14 +356,19 @@ public abstract class AnyKeyboard extends Keyboard {
         mGenericRowsHeight += genericRowsHeight;
     }
 
-    private static class GenericRowKeyboard extends AnyKeyboard {
+    @VisibleForTesting
+    static class GenericRowKeyboard extends AnyKeyboard {
+
+        private final boolean mInAlphabetMode;
 
         GenericRowKeyboard(
                 @NonNull KeyboardExtension keyboardExtension,
                 @NonNull Context askContext,
                 @NonNull KeyboardDimens keyboardDimens,
+                boolean inAlphabetMode,
                 @KeyboardRowModeId int mode) {
             super(keyboardExtension, askContext, keyboardExtension.getKeyboardResId(), mode);
+            mInAlphabetMode = inAlphabetMode;
             loadKeyboard(keyboardDimens);
         }
 
@@ -361,6 +378,11 @@ public abstract class AnyKeyboard extends Keyboard {
                 @NonNull KeyboardExtension topRowPlugin,
                 @NonNull KeyboardExtension bottomRowPlugin) {
             /*no-op*/
+        }
+
+        @Override
+        public boolean isAlphabetKeyboard() {
+            return mInAlphabetMode;
         }
 
         @Override
@@ -392,6 +414,22 @@ public abstract class AnyKeyboard extends Keyboard {
 
         public boolean hasNoKeys() {
             return getKeys().isEmpty();
+        }
+
+        @Override
+        protected boolean setupKeyAfterCreation(AnyKey key) {
+            if (!super.setupKeyAfterCreation(key)) {
+                if (key.popupResId == 0 && mInAlphabetMode) {
+                    switch (key.getPrimaryCode()) {
+                        case KeyCodes.MODE_SYMBOLS:
+                        case KeyCodes.KEYBOARD_MODE_CHANGE:
+                            key.popupResId = R.xml.symbols;
+                            key.externalResourcePopupLayout = false;
+                            return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 
@@ -606,7 +644,7 @@ public abstract class AnyKeyboard extends Keyboard {
     protected boolean setupKeyAfterCreation(AnyKey key) {
         // if the keyboard XML already specified the popup, then no
         // need to override
-        if (key.popupResId > 0) {
+        if (key.popupResId != 0) {
             return true;
         }
 
