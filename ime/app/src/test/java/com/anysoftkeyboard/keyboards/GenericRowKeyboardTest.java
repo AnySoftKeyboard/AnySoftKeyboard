@@ -51,7 +51,7 @@ public class GenericRowKeyboardTest {
                         .findFirst()
                         .orElse(null);
         Assert.assertNotNull(key);
-        Assert.assertEquals(R.xml.symbols, key.popupResId);
+        Assert.assertEquals(R.xml.ext_symbols, key.popupResId);
         Assert.assertFalse(key.externalResourcePopupLayout);
     }
 
@@ -74,7 +74,7 @@ public class GenericRowKeyboardTest {
                         .findFirst()
                         .orElse(null);
         Assert.assertNotNull(key);
-        Assert.assertEquals(R.xml.symbols, key.popupResId);
+        Assert.assertEquals(R.xml.ext_symbols, key.popupResId);
         Assert.assertFalse(key.externalResourcePopupLayout);
     }
 
@@ -112,7 +112,7 @@ public class GenericRowKeyboardTest {
                         true,
                         KEYBOARD_ROW_MODE_NORMAL);
 
-        keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.symbols, k.popupResId));
+        keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.ext_symbols, k.popupResId));
     }
 
     public void testDoesNotHavePopupSymbolsWhenNoSymbolsKeyboardInNonAlphabet() {
@@ -127,6 +127,6 @@ public class GenericRowKeyboardTest {
                         false,
                         KEYBOARD_ROW_MODE_NORMAL);
 
-        keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.symbols, k.popupResId));
+        keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.ext_symbols, k.popupResId));
     }
 }

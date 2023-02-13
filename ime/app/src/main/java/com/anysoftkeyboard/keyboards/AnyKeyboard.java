@@ -423,7 +423,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     switch (key.getPrimaryCode()) {
                         case KeyCodes.MODE_SYMBOLS:
                         case KeyCodes.KEYBOARD_MODE_CHANGE:
-                            key.popupResId = R.xml.symbols;
+                            key.popupResId = R.xml.ext_symbols;
                             key.externalResourcePopupLayout = false;
                             return true;
                     }
