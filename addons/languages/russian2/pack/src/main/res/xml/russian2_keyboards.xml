@@ -10,7 +10,7 @@
 
     <Keyboard
         defaultDictionaryLocale="ru"
-        description="Created with dbriskin"
+        description="@string/russian2_symbols_desc"
         iconResId="@drawable/ic_status_russian2"
         id="c3e88d57-046d-40ed-b5da-4c1020472cfb"
         index="1"
