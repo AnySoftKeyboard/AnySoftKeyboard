@@ -43,7 +43,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -74,7 +74,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -127,7 +127,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -167,7 +167,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -207,7 +207,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: tests
@@ -247,7 +247,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: verify-add-ons
@@ -285,7 +285,7 @@ jobs:
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v7-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: dry-run-release-build
@@ -293,7 +293,10 @@ jobs:
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
-              assembleRelease bundleRelease assembleCanary bundleCanary verifyReleaseResources \
+              assembleRelease assembleCanary \
+              bundleRelease bundleCanary \
+              signDebugBundle \
+              verifyReleaseResources \
               generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
       - name: fix-fs

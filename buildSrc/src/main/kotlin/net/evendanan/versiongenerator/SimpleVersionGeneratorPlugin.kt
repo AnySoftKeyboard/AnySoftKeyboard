@@ -9,8 +9,8 @@ import org.gradle.api.Project
 
 class SimpleVersionGeneratorPlugin : Plugin<Project> {
 
-    override fun apply(project: Project?) {
-        project?.run {
+    override fun apply(project: Project) {
+        project.run {
             extensions.create("autoVersioning", SimpleConfiguration::class.java)
 
             afterEvaluate {

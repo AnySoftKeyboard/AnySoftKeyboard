@@ -30,19 +30,20 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 
 //copy bundles to output
 tasks.whenTaskAdded { task ->
-    if (task.name.startsWith("bundle") ||
-            (task.name.startsWith("publish") && task.name.endsWith("Bundle"))) {
-        def renameTaskName = "Copy${task.name.capitalize()}Aab"
+    if (task.name.matches("sign.+Bundle")) {
         def sourceFolder = file("${buildDir.absoluteFile}/outputs/bundle")
-        tasks.create(renameTaskName, Copy) {
-            from sourceFolder
-            include "**/*.aab"
-            destinationDir file("${rootDir.absolutePath}/outputs/bundle/${project.parent.name}")
-        }.doLast {
-            println("Copy bundles from ${sourceFolder.absolutePath} to ${it.getDestinationDir().absolutePath}...")
+        def copyTask = tasks.register("Copy${task.name.capitalize()}Aab", Copy)
+        copyTask.configure {
+            it.from task.finalBundleFile
+            it.destinationDir file("${rootDir.absolutePath}/outputs/bundle/${project.parent.name}")
+            it.dependsOn task
+            it.inputs.file(task.finalBundleFile)
+            it.doLast {
+                println("Copy bundles from ${sourceFolder.absolutePath} to ${it.getDestinationDir().absolutePath}...")
+            }
         }
 
-        task.finalizedBy(renameTaskName)
+        task.finalizedBy(copyTask)
     }
 }
 
