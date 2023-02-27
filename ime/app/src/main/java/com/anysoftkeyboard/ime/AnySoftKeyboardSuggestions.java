@@ -101,6 +101,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
     private boolean mJustAutoAddedWord = false;
+    private boolean mPerformedUpdateSuggestions = false;
 
     @VisibleForTesting
     final CancelSuggestionsAction mCancelSuggestionsAction =
@@ -877,7 +878,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             markExpectingSelectionUpdate();
             ic.endBatchEdit();
             performUpdateSuggestions();
+            mPerformedUpdateSuggestions = true;
         } else {
+            mPerformedUpdateSuggestions = false;
             Logger.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
     }
@@ -1007,6 +1010,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected boolean canRestartWordSuggestion() {
         final InputViewBinder inputView = getInputView();
+        //no suggestions performed yet
+        mPerformedUpdateSuggestions=false;
         if (!isPredictionOn()
                 || !mAllowSuggestionsRestart
                 || !mCurrentlyAllowSuggestionRestart
@@ -1168,9 +1173,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             // Follow it with a space if there is not already one or if it is not a punctuation mark
             // that goes attached to the word being manually picked
-            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
+            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {                
                 boolean isNextCharSpaceOrPunctuation = false;
-                if (ic != null) {
+                if (mPerformedUpdateSuggestions && ic != null) {
                     String strNextChar = ic.getTextAfterCursor(1, 0).toString();
                     if (strNextChar.length() == 1) {
                         char nextCharAfterCursor = strNextChar.charAt(0);
@@ -1190,7 +1195,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     }
                 }
                 if (!isNextCharSpaceOrPunctuation) {
-
                     sendKeyChar((char) KeyCodes.SPACE);
                     setSpaceTimeStamp(true);
                 }
