@@ -46,8 +46,10 @@ import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboardSwitchedListener {
 
@@ -102,6 +104,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mCurrentlyAllowSuggestionRestart = true;
     private boolean mJustAutoAddedWord = false;
     private boolean mPerformedUpdateSuggestions = false;
+    private Set<String> mSpaceOrPunctuationSet =
+            new HashSet<>(
+                    Arrays.asList(" ", ",", "?", "!", ";", ":", ".", ")", "]", "}", "\"", "\'"));
 
     @VisibleForTesting
     final CancelSuggestionsAction mCancelSuggestionsAction =
@@ -1010,8 +1015,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected boolean canRestartWordSuggestion() {
         final InputViewBinder inputView = getInputView();
-        //no suggestions performed yet
-        mPerformedUpdateSuggestions=false;
+        // no suggestions performed yet
+        mPerformedUpdateSuggestions = false;
         if (!isPredictionOn()
                 || !mAllowSuggestionsRestart
                 || !mCurrentlyAllowSuggestionRestart
@@ -1173,25 +1178,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
             // Follow it with a space if there is not already one or if it is not a punctuation mark
             // that goes attached to the word being manually picked
-            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {                
+            if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
                 boolean isNextCharSpaceOrPunctuation = false;
                 if (mPerformedUpdateSuggestions && ic != null) {
                     String strNextChar = ic.getTextAfterCursor(1, 0).toString();
                     if (strNextChar.length() == 1) {
                         char nextCharAfterCursor = strNextChar.charAt(0);
                         isNextCharSpaceOrPunctuation =
-                                nextCharAfterCursor == ' '
-                                        || nextCharAfterCursor == ','
-                                        || nextCharAfterCursor == '?'
-                                        || nextCharAfterCursor == '!'
-                                        || nextCharAfterCursor == ';'
-                                        || nextCharAfterCursor == ':'
-                                        || nextCharAfterCursor == '.'
-                                        || nextCharAfterCursor == ')'
-                                        || nextCharAfterCursor == ']'
-                                        || nextCharAfterCursor == '}'
-                                        || nextCharAfterCursor == '"'
-                                        || nextCharAfterCursor == '`';
+                                mSpaceOrPunctuationSet.contains(
+                                        String.valueOf(nextCharAfterCursor));
                     }
                 }
                 if (!isNextCharSpaceOrPunctuation) {
