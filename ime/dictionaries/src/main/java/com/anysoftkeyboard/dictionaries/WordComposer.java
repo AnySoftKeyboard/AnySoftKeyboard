@@ -28,7 +28,6 @@ public class WordComposer implements KeyCodesProvider {
     public static final int NOT_A_KEY_INDEX = -1;
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
 
-    private static final int[] EMPTY_CODES_ARRAY = new int[0];
     /** The list of unicode values for each keystroke (including surrounding keys) */
     private final ArrayList<int[]> mCodes = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
 
@@ -38,6 +37,11 @@ public class WordComposer implements KeyCodesProvider {
     /** The word chosen from the candidate list, until it is committed. */
     private CharSequence mPreferredWord;
 
+    /**
+     * Holds the typed word as it appears in the input. Note: the length of this may be different
+     * than the size of mCodes! But, the code-point length of this is the same as the size of
+     * mCodes.
+     */
     private final StringBuilder mTypedWord = new StringBuilder(Dictionary.MAX_WORD_LENGTH);
 
     private int mCursorPosition;
@@ -118,7 +122,7 @@ public class WordComposer implements KeyCodesProvider {
         return mCodes.get(index);
     }
 
-    private static final int[] PRIMARY_CODE_CREATE = new int[1];
+    private static final char[] PRIMARY_CODE_CREATE = new char[4];
 
     /**
      * Add a new keystroke, with codes[0] containing the pressed key's unicode and the rest of the
@@ -127,31 +131,32 @@ public class WordComposer implements KeyCodesProvider {
      * @param codes the array of unicode values
      */
     public void add(int primaryCode, int[] codes) {
-        PRIMARY_CODE_CREATE[0] = primaryCode;
-        mTypedWord.insert(mCursorPosition, new String(PRIMARY_CODE_CREATE, 0, 1));
+        final var charCount = Character.toChars(primaryCode, PRIMARY_CODE_CREATE, 0);
+        mTypedWord.insert(mCursorPosition, PRIMARY_CODE_CREATE, 0, charCount);
 
         correctPrimaryJuxtapos(primaryCode, codes);
-        // this will return a copy of the codes array, stored in an array with sufficent storage
+        // this will return a copy of the codes array, stored in an array with sufficient storage
         int[] reusableArray = getReusableArray(codes);
         mCodes.add(mTypedWord.codePointCount(0, mCursorPosition), reusableArray);
-        mCursorPosition += Character.charCount(primaryCode);
+        mCursorPosition += charCount;
         if (Character.isUpperCase(primaryCode)) mCapsCount++;
     }
 
     public void simulateTypedWord(CharSequence typedWord) {
-        mCursorPosition -= charCount();
-
-        mTypedWord.setLength(0);
+        final var typedCodes = new int[1];
         mTypedWord.insert(mCursorPosition, typedWord);
 
         int index = 0;
         while (index < typedWord.length()) {
             final int codePoint = Character.codePointAt(typedWord, index);
-            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
+            typedCodes[0] = codePoint;
+            final var codesFromPool = getReusableArray(typedCodes);
+            mCodes.add(mTypedWord.codePointCount(0, mCursorPosition), codesFromPool);
             if (Character.isUpperCase(codePoint)) mCapsCount++;
-            index += Character.charCount(codePoint);
+            final var charCount = Character.charCount(codePoint);
+            index += charCount;
+            mCursorPosition += charCount;
         }
-        mCursorPosition += typedWord.length();
     }
 
     private int[] getReusableArray(int[] codes) {
