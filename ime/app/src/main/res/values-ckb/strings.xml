@@ -418,6 +418,8 @@
     <string name="quick_fix_secon_disabled_summ_on">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری تەنها بۆ ئەم زمانە چالاک دەبێت</string>
     <string name="quick_fix_secon_disabled_summ_off">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری بۆ هەموو زمانەکان چالاک دەبێت 
                   دیاریکراوە بۆ گۆڕینی فەرهەنگی سەرەکی</string>
+    <string name="try_split_words_for_correction">ڕاستکردنەوە بەپێی جۆری ووشە</string>
+    <string name="try_split_words_for_correction_summary_on">جیاکردنەوەی راستکردنەوەی ووشەکان لەڕێی دوگمەی بۆشایی</string>
     <string name="allow_suggestions_restart">ڕیستارتکردنی پێشنیار</string>
     <string name="allow_suggestions_restart_summary">ڕیستارکردنی ووشەکان لەدوای هەڵبژاردن   </string>
     <!-- settings - keyboard group -->
