@@ -177,6 +177,7 @@
     <string name="pinch_gesture_action">缩小手势</string>
     <string name="pinch_gesture_action_title">选择缩小手势</string>
     <string name="pinch_gesture_action_summary">定义缩小手势。目前为%s</string>
+    <string name="separate_gesture_action">拉伸手势</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
