@@ -29,6 +29,7 @@
     <string name="no_market_store_available">Kauppaa ei löydetty laitteestasi.\nLisäosia ei voitu etsiä!</string>
     <string name="keyboard_theme_tweak_group">Hienosäädöt</string>
     <string name="close_button">Sulje</string>
+    <string name="delete_button">Poista</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Tallennettu:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -57,6 +58,8 @@
     <string name="effects_group">Efektit</string>
     <string name="ime_settings">Näppäimistön asetukset</string>
     <string name="switch_incognito">Incognito-tila</string>
+    <string name="use_system_vibration_title">Käytä järjestelmän värinää</string>
+    <string name="use_system_vibration_off_summary">Käytä mukautettua värinäasetusta</string>
     <string name="vibrate_on_key_press_title">Värinä painettaessa</string>
     <string name="vibrate_on_key_press_value_template">%d millisekuntia</string>
     <string name="night_mode_screen">Yötilan asetukset</string>
@@ -120,7 +123,10 @@
     <string name="backword_support_on_summary">Vaihto+Askelpalautin poistaa viimeisen sanan</string>
     <string name="backword_support_off_summary">Vaihto+Askelpalautin poistaa viimeisen merkin</string>
     <string name="swipe_up_action">Hipaise ylös</string>
+    <string name="swipe_up_action_summary">Valitse pyyhkäisy ylös -toiminto. Tällä hetkellä, %s
+    </string>
     <string name="swipe_up_action_title">Valitse hipaisu ylös -toiminto</string>
+    <string name="swipe_up_from_spacebar_action">Pyyhkäise välilyöntiä ylös</string>
     <string name="swipe_down_action">Hipaise alas</string>
     <string name="swipe_down_action_title">Valitse hipaisu alas -toiminto</string>
     <string name="swipe_left_action">Hipaise vasemmalle</string>
