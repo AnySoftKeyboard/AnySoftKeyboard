@@ -7,5 +7,8 @@
     <string name="italian_keyboard">Italian</string>
     <string name="italian_qwerty_with_symbols_keyboard">Italian</string>
     <string name="italian_qwerty_with_symbols_number_row_keyboard">Italian</string>
+    <string name="italian_qwerty_with_symbols_number_row_alt_keyboard">Italian</string>
+    <string name="italian_qwertz_with_symbols_number_row_alt_keyboard">Italian</string>
     <string name="english_qwerty_with_numbers_row_keyboard">English</string>
+    <string name="italian_qwerty_stripped_keyboard">Italian</string>
 </resources>
