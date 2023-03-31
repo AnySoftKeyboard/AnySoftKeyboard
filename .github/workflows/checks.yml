@@ -25,7 +25,7 @@ jobs:
   js-checks:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -36,10 +36,10 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -67,10 +67,10 @@ jobs:
 
   linters:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -115,7 +115,7 @@ jobs:
 
   app-tests-shards:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 15
     strategy:
       matrix:
@@ -123,7 +123,7 @@ jobs:
         groups_count: [2]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -160,10 +160,10 @@ jobs:
 
   app-all-sdks-tests:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -200,10 +200,10 @@ jobs:
 
   app-less-tests:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -240,10 +240,10 @@ jobs:
 
   verify-all-addons:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -278,10 +278,10 @@ jobs:
 
   deploy-dry-run:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
@@ -319,9 +319,9 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-22.04
-    container: menny/android_base:1.15.4
+    container: ghcr.io/menny/android_base:1.17.0
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
       - uses: ./.github/actions/deploy-request
         name: request-new-deploys
         with:
@@ -335,9 +335,9 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
     runs-on: ubuntu-22.04
-    container: menny/android_base:1.15.4
+    container: ghcr.io/menny/android_base:1.17.0
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0

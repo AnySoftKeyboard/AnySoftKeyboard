@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Ensure we can perform git operations
+git config --global --add safe.directory "$PWD"
+
 DUPLICATE_ID=$(find . -type f -path '*/build/*' -prune -o -name "*dictionaries.xml" -o -name "*keyboards.xml" -exec grep -Eo "\\sid=\"([A-Za-z0-9\\-]+)\"" {} \; | sort | uniq -d)
 
 if [[ -n "${DUPLICATE_ID}" ]]; then
