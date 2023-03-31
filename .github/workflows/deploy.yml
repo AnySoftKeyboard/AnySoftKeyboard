@@ -12,13 +12,13 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
         with:
           repository: ${{ secrets.SECRETS_REPOSITORY }}
           token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}

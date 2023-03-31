@@ -1,1 +1,1 @@
-FROM menny/android_ndk:1.15.4
+FROM ghcr.io/menny/android_ndk:1.17.0

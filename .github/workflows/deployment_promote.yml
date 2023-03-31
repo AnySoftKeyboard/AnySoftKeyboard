@@ -12,13 +12,13 @@ env:
 jobs:
   promote:
     runs-on: ubuntu-22.04
-    container: menny/android_base:1.15.4
+    container: ghcr.io/menny/android_base:1.17.0
     strategy:
       matrix:
         refname: [main, release-branch-addons-v4.1-r2]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
         with:
           ref: ${{ matrix.refname }}
       - name: request-scheduled-promote

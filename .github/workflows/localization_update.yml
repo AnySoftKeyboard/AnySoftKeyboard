@@ -24,9 +24,9 @@ env:
 jobs:
   localization-update:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.17.0
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Upload strings from ime/app main branch
