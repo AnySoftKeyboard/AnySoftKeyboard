@@ -32,7 +32,9 @@ jobs:
       - name: Upload strings from ime/app main branch
         run: ./scripts/upload_strings_to_crowdin_api.sh keep
       - name: Download latest translations
-        run: ./scripts/update_strings_from_crowdin_api.sh build
+        run: |
+          git config --global --add safe.directory "${PWD}"
+          ./scripts/update_strings_from_crowdin_api.sh build
       - name: Update force-locale list
         run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
       - name: Create pull request

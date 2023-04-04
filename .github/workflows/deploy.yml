@@ -33,7 +33,6 @@ jobs:
           mkdir -p outputs/bundle || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
-          mkdir -p build/github_object && echo "${GITHUB_CONTEXT_JSON}" > build/github_object/github_object.json
       - uses: actions/upload-artifact@v3.1.1
         with:
           name: github_object
