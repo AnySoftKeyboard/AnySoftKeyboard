@@ -11,3 +11,6 @@ echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > "${ANDROID_HOME}/licenses
 
 #setting up SDK paths
 echo -e "sdk.dir=${ANDROID_HOME}" > local.properties
+
+# New github checkout action has some funky behavior
+git config --global --add safe.directory "${PWD}"
