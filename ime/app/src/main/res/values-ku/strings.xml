@@ -77,6 +77,7 @@
     <string name="effects_group">کاریگەرییەکان</string>
     <string name="ime_settings">ڕێکخستنەکانی تەختەکلیل</string>
     <string name="switch_incognito">شێوازی نادیار</string>
+    <string name="use_system_vibration_title">لەرینەوەی سیستەمەکە بەکاربهێنە</string>
     <string name="vibrate_on_key_press_title">لەرزین لەکاتی نووسین</string>
     <string name="vibrate_on_key_press_value_template">%d میلی چرکە</string>
     <string name="night_mode_screen">ڕێکخستنەکانی دۆخی تاریک</string>
@@ -589,6 +590,10 @@
     <string name="emoji_default_skin_tone_value_type_5">قاوەیی</string>
     <string name="emoji_default_skin_tone_value_type_6">ڕەش</string>
     <string name="emoji_default_skin_tone_value_random_type">ڕەنگی هەڕەمەکی</string>
+    <string name="emoji_default_gender_value_person">کەس</string>
+    <string name="emoji_default_gender_value_woman">ئافرەت</string>
+    <string name="emoji_default_gender_value_man">پیاو</string>
+    <string name="emoji_default_gender_value_random_type">ڕەگەزی هەڕەمەکی</string>
     <string name="developer_tools">ئامرازەکان</string>
     <string name="click_for_developer_features">ئامرازەکانی داڕێژەر</string>
     <string name="click_for_developer_features_summary">ئامرازی هەمەڕەنگ بۆ داڕێژەرەکان
@@ -718,6 +723,7 @@
     <string name="setup_wizard_welcome_start_action">دامـــــەزرانـــــدن</string>
     <string name="setup_wizard_welcome_info_footnote"><b>یەکەمین و باشترین تەختەکلیلی کوردی \n کە چەندین شێوازی جواروجۆر و تایبەتمەندی جیاوازی لەخۆ گرتووە</b></string>
     <string name="setup_wizard_welcome_privacy_action">Privacy Police</string>
+    <string name="setup_wizard_skip">تێپەڕاندن</string>
     <string name="clear_all_dictionary_override">جێگۆڕکێ کردن</string>
     <string name="theme_case_type_override_dialog_title">شێوازی پیتەکان(ئینگلیزی)</string>
     <string name="theme_case_type_override_theme">بەکارهێنانی شێوازی ڕووکار</string>
@@ -766,4 +772,5 @@
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
+    <string name="backup_restore_not_support_before_kitkat">لە ئەندرۆیدەکەی تۆدا پشتگیری نەکراوە</string>
 </resources>
