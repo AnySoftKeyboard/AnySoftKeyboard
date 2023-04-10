@@ -15,4 +15,11 @@
     <Keyboard nameResId="@string/italian_qwerty_with_symbols_number_row_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwerty_with_symbols_number_row" landscapeResId="@xml/italian_qwerty_with_symbols_number_row" id="2727cd5b-c999-4c28-b49d-22ab946df2a2" defaultDictionaryLocale="it" description="@string/italian_keyboard_symbols_number_row_description" index="3" />
 
     <Keyboard nameResId="@string/english_qwerty_with_numbers_row_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/english_qwerty_with_numbers_row" landscapeResId="@xml/english_qwerty_with_numbers_row" id="674178f0-d577-11ea-8b6e-0800200c9a66" defaultDictionaryLocale="en" description="@string/english_qwerty_with_numbers_row_description" index="4" />
+
+    <Keyboard nameResId="@string/italian_qwerty_with_symbols_number_row_alt_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwerty_with_symbols_number_row_alt" landscapeResId="@xml/italian_qwerty_with_symbols_number_row_alt" id="83421780-beb8-11ed-a901-0800200c9a66" defaultDictionaryLocale="it" description="@string/italian_qwerty_keyboard_symbols_number_row_alt_description" index="5" />
+
+    <Keyboard nameResId="@string/italian_qwerty_stripped_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwerty_stripped" landscapeResId="@xml/italian_qwerty_stripped" id="da55b5e0-bebd-11ed-a901-0800200c9a66" defaultDictionaryLocale="it" description="@string/italian_qwerty_stripped_description" index="6" />
+
+    <Keyboard nameResId="@string/italian_qwertz_with_symbols_number_row_alt_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwertz_with_symbols_number_row_alt" landscapeResId="@xml/italian_qwertz_with_symbols_number_row_alt" id="e23fde10-bec3-11ed-a901-0800200c9a66" defaultDictionaryLocale="it" description="@string/italian_qwertz_keyboard_symbols_number_row_alt_description" index="7" />
+    
 </Keyboards>
