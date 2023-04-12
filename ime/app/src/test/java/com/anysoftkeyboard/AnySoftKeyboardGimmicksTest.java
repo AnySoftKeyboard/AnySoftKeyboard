@@ -517,6 +517,49 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        // Expectations: if you delete the whole typed string, the keyboard should shift again at
+        // the beginning
+        mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+        Assert.assertEquals(
+                true, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
+    }
+
+    @Test
+    public void testDeleteWholeWordWhenShiftAndBackSpaceArePressedButNotAllString() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello world");
+        Assert.assertEquals("hello world", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
+        // Expectations: if you delete the whole typed string, the keyboard should shift again at
+        // the beginning
+        mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+        Assert.assertEquals(
+                false, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
+    }
+
+    @Test
+    public void testDeleteWholeWordWhenShiftAndBackSpaceArePressedButNotAllStringWithMorePress() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+        Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        // Expectations: if you delete the whole typed string, the keyboard should shift again at
+        // the beginning
+        mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+        Assert.assertEquals(
+                true, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
     }
 
     @Test
