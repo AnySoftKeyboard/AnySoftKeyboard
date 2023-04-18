@@ -25,14 +25,14 @@ env:
 jobs:
   sanity-test:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.17.0
+    container: ghcr.io/menny/android_base:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -68,7 +68,7 @@ jobs:
           labels: automerge
   general-maven-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -94,7 +94,7 @@ jobs:
           labels: automerge
   robolectric-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -141,7 +141,7 @@ jobs:
           labels: automerge
   build-tools-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -175,7 +175,7 @@ jobs:
           labels: automerge
   error-prone-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -232,7 +232,7 @@ jobs:
           labels: automerge
   google-format-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
