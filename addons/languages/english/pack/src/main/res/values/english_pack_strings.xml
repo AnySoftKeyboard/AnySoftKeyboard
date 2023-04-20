@@ -13,4 +13,5 @@
     <string name="halmak_keyboard_description">Nikolay Nemshilov\'s Halmak layout, implemented by Zorkedon</string>
     <string name="english_keyboard_qwertz_symbols_description">QWERTZ Latin keyboard with symbols, by LuKe</string>
     <string name="minimal_qwerty_keyboard_description">Minimal QWERTY layout by Luc Street</string>
+    <string name="english_keyboard_wide_space_description">QWERTY Latin keyboard with wider spacebar</string>
 </resources>
