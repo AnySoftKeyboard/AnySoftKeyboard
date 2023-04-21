@@ -61,8 +61,8 @@
               layoutResId="@xml/minimal_qwerty" id="a59067bb-46d3-48a6-9ede-ccc3ace13a04"
               defaultDictionaryLocale="en" description="@string/minimal_qwerty_keyboard_description"
               index="13"/>
-    <Keyboard nameResId="@string/english_keyboard" iconResId="@drawable/ic_status_english"
-              layoutResId="@xml/qwerty_wide_spacebar" id="TODO"
+    <Keyboard nameResId="@string/english_keyboard_wide_space" iconResId="@drawable/ic_status_english"
+              layoutResId="@xml/qwerty_wide_spacebar" id="2abfe253-995f-1242-d861-3b3a78910491"
               defaultDictionaryLocale="en" description="@string/english_keyboard_wide_space_description"
               index="1" defaultEnabled="false"
               physicalKeyboardMappingResId="@xml/english_physical" />
