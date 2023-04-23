@@ -18,7 +18,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
         classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
     }
