@@ -35,10 +35,11 @@ public class VoiceRecognitionTrigger {
     }
 
     private Trigger getTrigger() {
-        if (ImeTrigger.isInstalled(mInputMethodService)) {
-            return getImeTrigger();
-        } else if (IntentApiTrigger.isInstalled(mInputMethodService)) {
+        if (IntentApiTrigger.isInstalled(mInputMethodService)) {
             return getIntentTrigger();
+        } else if (ImeTrigger.isInstalled(mInputMethodService)) {
+            //use Google stt as fallback
+            return getImeTrigger();
         } else {
             return null;
         }
