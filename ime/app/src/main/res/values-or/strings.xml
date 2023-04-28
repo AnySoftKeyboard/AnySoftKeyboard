@@ -14,9 +14,9 @@
     <!-- settings - effects-->
     <string name="gesture_settings">ଅଙ୍ଗଭଙ୍ଗୀ</string>
     <string name="switch_incognito"> ଅପରିଚିତ ମୋଡ୍</string>
-    <string name="night_mode_type_follow_system">ସିଷ୍ଟମ୍ କୁ ଅନୁସରଣ କରିବା</string>
-    <string name="night_mode_type_always">ସର୍ବଦା</string>
-    <string name="power_save_mode_types_always">ସର୍ବଦା</string>
+    <string name="night_mode_type_follow_system">ସିଷ୍ଟମ୍‌କୁ ଅନୁସରଣ କରିବା</string>
+    <string name="night_mode_type_always">ସର୍ଵଦା</string>
+    <string name="power_save_mode_types_always">ସର୍ଵଦା</string>
     <string name="swipe_up_action">ଉପରକୁ ସ୍ଵାଇପ୍ କଲେ</string>
     <string name="swipe_down_action">ତଳକୁ ସ୍ଵାଇପ୍ କଲେ</string>
     <string name="swipe_left_action">ବାମକୁ ସ୍ଵାଇପ୍ କଲେ</string>
@@ -41,10 +41,10 @@
     <!-- extension keyboard type -->
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
-    <string name="label_done_key">ହୋଇଗଲା</string>
+    <string name="label_done_key">ହେଲା</string>
     <string name="label_home_key">ଗୃହ</string>
     <!-- dictionaries -->
-    <string name="history_quick_text_key_name">ଇତିବୃତ୍ତି</string>
+    <string name="history_quick_text_key_name">ଇତିଵୃତ୍ତି</string>
     <string name="unicode_gestures_quick_text_key_name">ଅଙ୍ଗଭଙ୍ଗୀ</string>
     <string name="unicode_food_quick_text_key_name">ଖାଦ୍ୟ</string>
     <string name="unicode_nature_quick_text_key_name">ପ୍ରକୃତି</string>
