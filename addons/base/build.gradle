@@ -5,3 +5,7 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
     api project(path: ':api')
 }
+
+android {
+    namespace 'com.anysoftkeyboard.addon'
+}

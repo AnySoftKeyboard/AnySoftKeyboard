@@ -1,4 +1,3 @@
-
 ext.status_icon_text = "af"
 
 ext.dictionaryInputPossibleCharacters = null//"".toCharArray()

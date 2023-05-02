@@ -52,6 +52,8 @@ android {
         applicationId calculateApplicationId(project)
     }
 
+    namespace calculateApplicationId(project)
+
     //copy apks to outputs
     applicationVariants.configureEach { variant ->
         variant.outputs.all {

@@ -9,3 +9,7 @@ dependencies {
 
     testImplementation project(':ime:base-test')
 }
+
+android {
+    namespace 'com.anysoftkeyboard.dictionaries'
+}

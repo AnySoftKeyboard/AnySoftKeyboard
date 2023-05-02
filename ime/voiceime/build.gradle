@@ -6,3 +6,7 @@ dependencies {
 
     implementation project(path: ':ime:base')
 }
+
+android {
+    namespace 'com.google.android.voiceime'
+}
