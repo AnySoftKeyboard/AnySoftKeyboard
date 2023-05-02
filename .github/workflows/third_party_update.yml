@@ -230,3 +230,55 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
           labels: automerge
+
+  spotless-update:
+    runs-on: ubuntu-22.04
+    container: ghcr.io/menny/android_ndk:1.19.0
+    steps:
+      - uses: actions/checkout@v3.5.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - name: setup
+        run: ./scripts/ci/ci_setup.sh
+      - name: update-to-latest-spotless-plugin
+        run: |
+          LATEST_VERSION=$(./scripts/get_latest_maven_artifact_version.sh "https://plugins.gradle.org/m2" "com.diffplug.spotless" "spotless-plugin-gradle")
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/'com.diffplug.spotless:spotless-plugin-gradle:${GREP_VERSION_CLASSES}'/'com.diffplug.spotless:spotless-plugin-gradle:${LATEST_VERSION}'/g" \
+            build.gradle > /tmp/output.file
+          cp /tmp/output.file build.gradle
+          cat build.gradle
+      - name: update-to-latest-google-format-tool-tool
+        run: |
+          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/google-java-format/releases \
+            | jq -c -r '.[] | .tag_name' \
+            | grep -o "${GREP_VERSION_CLASSES}" \
+            | uniq \
+            | head -n 1)
+          echo "Found version '${LATEST_VERSION}'."
+          sed "s/googleJavaFormat('${GREP_VERSION_CLASSES}')/googleJavaFormat('${LATEST_VERSION}')/g" \
+            gradle/spotless.gradle > /tmp/output.file
+          cp /tmp/output.file gradle/spotless.gradle
+          cat gradle/spotless.gradle
+      - name: Fixing what can be fixed
+        run: ./gradlew spotlessApply
+      - name: Sanity verification
+        run: ./gradlew assembleDebug
+      - name: Add changed files
+        run: git add .
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3.5.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Spotless update and auto-patches if possible'
+          title: 'Automated Spotless Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: >
+            Latest version found at:
+            https://plugins.gradle.org/m2/com/diffplug/spotless/spotless-plugin-gradle/maven-metadata.xml
+            https://github.com/diffplug/spotless
+            https://github.com/google/google-java-format/releases
+          team-reviewers: infra, maintainers
+          branch: 'bot-pr/spotless-update'
+          labels: automerge
