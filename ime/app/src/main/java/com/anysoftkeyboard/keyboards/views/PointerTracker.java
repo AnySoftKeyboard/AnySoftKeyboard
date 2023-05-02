@@ -177,8 +177,7 @@ class PointerTracker {
         return keyIndex >= 0 && keyIndex < mKeys.length;
     }
 
-    @Nullable
-    public Keyboard.Key getKey(int keyIndex) {
+    @Nullable public Keyboard.Key getKey(int keyIndex) {
         return isValidKeyIndex(keyIndex) ? mKeys[keyIndex] : null;
     }
 

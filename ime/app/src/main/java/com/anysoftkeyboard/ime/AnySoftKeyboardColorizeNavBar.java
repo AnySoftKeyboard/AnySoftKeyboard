@@ -38,7 +38,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
             Logger.d(
                     TAG,
-                    "Colorized nav-bar resources: navigation_bar_height %d, config_showNavigationBar %d",
+                    "Colorized nav-bar resources: navigation_bar_height %d,"
+                            + " config_showNavigationBar %d",
                     mNavigationBarHeightId,
                     mNavigationBarShownId);
 
@@ -119,7 +120,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
         } else {
             Logger.w(
                     TAG,
-                    "Will not show Colorized nav-bar since isInPortrait %s and doesOsShowNavigationBar %s",
+                    "Will not show Colorized nav-bar since isInPortrait %s and"
+                            + " doesOsShowNavigationBar %s",
                     isInPortrait(),
                     doesOsShowNavigationBar());
         }

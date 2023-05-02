@@ -99,7 +99,10 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
             String detailMessage =
                     String.format(
                             Locale.US,
-                            "Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabel: %s), keyOutputText: %s",
+                            "Missing details for creating QuickTextKey! prefId %s,"
+                                    + " popupKeyboardResId: %d, popupListTextResId: %d,"
+                                    + " popupListOutputResId: %d, (iconResId: %d, keyLabel: %s),"
+                                    + " keyOutputText: %s",
                             prefId,
                             popupKeyboardResId,
                             popupListTextResId,

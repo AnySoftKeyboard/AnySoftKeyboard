@@ -176,13 +176,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                                     if (fancyAnimation != 0) {
                                         Logger.i(
                                                 TAG,
-                                                "Found Animation_InputMethodFancy as %d, so I'll use this",
+                                                "Found Animation_InputMethodFancy as %d, so I'll"
+                                                        + " use this",
                                                 fancyAnimation);
                                         window.setWindowAnimations(fancyAnimation);
                                     } else {
                                         Logger.w(
                                                 TAG,
-                                                "Could not find Animation_InputMethodFancy, using default animation");
+                                                "Could not find Animation_InputMethodFancy, using"
+                                                        + " default animation");
                                         window.setWindowAnimations(
                                                 android.R.style.Animation_InputMethod);
                                     }
@@ -329,12 +331,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
                 // if the view DOES NOT want fullscreen, then do what it wants
                 Logger.d(
                         TAG,
-                        "Will not go to Fullscreen because input view requested IME_FLAG_NO_FULLSCREEN");
+                        "Will not go to Fullscreen because input view requested"
+                                + " IME_FLAG_NO_FULLSCREEN");
                 return false;
             } else if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0) {
                 Logger.d(
                         TAG,
-                        "Will not go to Fullscreen because input view requested IME_FLAG_NO_EXTRACT_UI");
+                        "Will not go to Fullscreen because input view requested"
+                                + " IME_FLAG_NO_EXTRACT_UI");
                 return false;
             }
         }
@@ -1067,8 +1071,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             ic.beginBatchEdit();
             final String selectedTextString = selectedText.toString();
             AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-            @NonNull
-            Locale locale =
+            @NonNull Locale locale =
                     currentAlphabetKeyboard != null
                             ? currentAlphabetKeyboard.getLocale()
                             : Locale.ROOT;

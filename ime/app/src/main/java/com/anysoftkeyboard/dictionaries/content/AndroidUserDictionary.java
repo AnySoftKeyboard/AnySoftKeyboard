@@ -98,8 +98,7 @@ public class AndroidUserDictionary extends ContentObserverDictionary {
                 .delete(Words.CONTENT_URI, Words.WORD + "=?", new String[] {word});
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public String toString() {
         return mLocale + "@" + super.toString();
     }

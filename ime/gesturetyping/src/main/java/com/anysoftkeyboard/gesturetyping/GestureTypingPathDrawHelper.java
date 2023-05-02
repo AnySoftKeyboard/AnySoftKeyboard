@@ -20,8 +20,7 @@ public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
                 public void handleTouchEvent(MotionEvent event) {}
             };
 
-    @NonNull
-    public static GestureTypingPathDraw create(
+    @NonNull public static GestureTypingPathDraw create(
             @NonNull OnInvalidateCallback callback, @NonNull GestureTrailTheme theme) {
         if (theme.maxTrailLength <= 0) return NO_OP;
         return new GestureTypingPathDrawHelper(callback, theme);

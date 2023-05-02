@@ -38,8 +38,7 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardNightMod
                                 GenericOnError.onError("Power-Saving theme")));
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected List<Drawable> generateWatermark() {
         final List<Drawable> watermark = super.generateWatermark();
         if (mPowerState) {

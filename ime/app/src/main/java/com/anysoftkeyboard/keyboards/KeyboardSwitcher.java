@@ -286,8 +286,7 @@ public class KeyboardSwitcher {
         flushKeyboardsCache();
     }
 
-    @NonNull
-    private AnyKeyboard getSymbolsKeyboard(int keyboardIndex) {
+    @NonNull private AnyKeyboard getSymbolsKeyboard(int keyboardIndex) {
         ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
@@ -413,8 +412,7 @@ public class KeyboardSwitcher {
         return mAlphabetKeyboards;
     }
 
-    @NonNull
-    public List<KeyboardAddOnAndBuilder> getEnabledKeyboardsBuilders() {
+    @NonNull public List<KeyboardAddOnAndBuilder> getEnabledKeyboardsBuilders() {
         ensureKeyboardsAreBuilt();
         return Arrays.asList(mAlphabetKeyboardsCreators);
     }
@@ -577,8 +575,7 @@ public class KeyboardSwitcher {
         return null;
     }
 
-    @Nullable
-    private AnyKeyboard getLockedKeyboard(EditorInfo currentEditorInfo) {
+    @Nullable private AnyKeyboard getLockedKeyboard(EditorInfo currentEditorInfo) {
         if (mKeyboardLocked) {
             AnyKeyboard current = getCurrentKeyboard();
             Logger.i(
@@ -703,8 +700,7 @@ public class KeyboardSwitcher {
         return scrollSymbolsKeyboard(currentEditorInfo, 1);
     }
 
-    @NonNull
-    private AnyKeyboard scrollSymbolsKeyboard(EditorInfo currentEditorInfo, int scroll) {
+    @NonNull private AnyKeyboard scrollSymbolsKeyboard(EditorInfo currentEditorInfo, int scroll) {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
         if (locked != null) return locked;
 
@@ -762,8 +758,7 @@ public class KeyboardSwitcher {
         }
     }
 
-    @NonNull
-    private AnyKeyboard getAlphabetKeyboard(int index, @Nullable EditorInfo editorInfo) {
+    @NonNull private AnyKeyboard getAlphabetKeyboard(int index, @Nullable EditorInfo editorInfo) {
         AnyKeyboard[] keyboards = getAlphabetKeyboards();
         if (index >= keyboards.length) {
             index = 0;
@@ -797,8 +792,7 @@ public class KeyboardSwitcher {
         return creator.createKeyboard(mode);
     }
 
-    @NonNull
-    public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) {
+    @NonNull public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
         if (locked != null) return locked;
 

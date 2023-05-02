@@ -75,8 +75,7 @@ public class SetupWizardActivity extends AppCompatActivity {
         mWizardPager.setAdapter(wizardPagesAdapter);
     }
 
-    @NonNull
-    @VisibleForTesting
+    @NonNull @VisibleForTesting
     protected FragmentStateAdapter createPagesAdapter() {
         return new WizardPagesAdapter(
                 this,

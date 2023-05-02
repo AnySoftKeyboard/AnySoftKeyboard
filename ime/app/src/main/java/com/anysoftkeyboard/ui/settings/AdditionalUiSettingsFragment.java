@@ -176,8 +176,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
             super(tag, titleResourceId, true, false, hasTweaks);
         }
 
-        @Nullable
-        @Override
+        @Nullable @Override
         protected final String getMarketSearchKeyword() {
             return null;
         }
@@ -210,8 +209,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
             super("TopRowAddOnBrowserFragment", R.string.top_generic_row_dialog_title, false);
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         protected AddOnsFactory<KeyboardExtension> getAddOnFactory() {
             return AnyApplication.getTopRowFactory(requireContext());
         }
@@ -234,8 +232,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
             super("BottomRowAddOnBrowserFragment", R.string.bottom_generic_row_dialog_title, false);
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         protected AddOnsFactory<KeyboardExtension> getAddOnFactory() {
             return AnyApplication.getBottomRowFactory(requireContext());
         }

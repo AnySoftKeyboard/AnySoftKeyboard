@@ -60,8 +60,7 @@ public abstract class PermissionRequestHelper {
         }
     }
 
-    @NonNull
-    private static String[] getPermissionsStrings(int requestCode) {
+    @NonNull private static String[] getPermissionsStrings(int requestCode) {
         if (requestCode == CONTACTS_PERMISSION_REQUEST_CODE) {
             return new String[] {Manifest.permission.READ_CONTACTS};
         } else {

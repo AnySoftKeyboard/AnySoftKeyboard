@@ -26,8 +26,7 @@ public class LocaleTools {
         context.getResources().updateConfiguration(configuration, null);
     }
 
-    @NonNull
-    public static Locale getLocaleForLocaleString(@Nullable String localeString) {
+    @NonNull public static Locale getLocaleForLocaleString(@Nullable String localeString) {
         if ("System".equals(localeString) || TextUtils.isEmpty(localeString)) {
             return Locale.getDefault();
         } else {

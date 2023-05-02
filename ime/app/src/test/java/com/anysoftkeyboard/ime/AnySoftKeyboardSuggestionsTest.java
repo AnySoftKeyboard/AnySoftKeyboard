@@ -661,9 +661,11 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
 
     private void testDelayedOnSelectionUpdate(long delay) {
         final String testText =
-                "typing 1 2 3 working hel kjasldkjalskdjasd hel fac ksdjflksd smile fac fac hel hel aklsjdas gggggg hello fac hel face hel";
+                "typing 1 2 3 working hel kjasldkjalskdjasd hel fac ksdjflksd smile fac fac hel hel"
+                        + " aklsjdas gggggg hello fac hel face hel";
         final String expectedText =
-                "typing 1 2 3 working he'll kjasldkjalskdjasd he'll face ksdjflksd smile face face he'll he'll aklsjdas gggggg hello face he'll face hel";
+                "typing 1 2 3 working he'll kjasldkjalskdjasd he'll face ksdjflksd smile face face"
+                        + " he'll he'll aklsjdas gggggg hello face he'll face hel";
         mAnySoftKeyboardUnderTest.setUpdateSelectionDelay(delay + 1);
         mAnySoftKeyboardUnderTest.simulateTextTyping(testText);
         // TestRxSchedulers.drainAllTasks();

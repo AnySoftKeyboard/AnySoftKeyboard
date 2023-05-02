@@ -218,7 +218,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                             if (keyCodes.length == 0) {
                                 Logger.e(
                                         TAG,
-                                        "Physical translator sequence does not include mandatory fields "
+                                        "Physical translator sequence does not include mandatory"
+                                                + " fields "
                                                 + XML_KEYS_ATTRIBUTE
                                                 + " or "
                                                 + XML_TARGET_ATTRIBUTE);
@@ -245,7 +246,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                                 throw new XmlPullParserException(
                                         "attribute "
                                                 + XML_MULTITAP_KEY_ATTRIBUTE
-                                                + " should contain exactly one key-code when used in "
+                                                + " should contain exactly one key-code when used"
+                                                + " in "
                                                 + XML_MULTITAP_TAG
                                                 + " tag!",
                                         parser,
@@ -267,7 +269,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                                 throw new XmlPullParserException(
                                         "attribute "
                                                 + XML_MULTITAP_CHARACTERS_ATTRIBUTE
-                                                + " should contain more than one character when used in "
+                                                + " should contain more than one character when"
+                                                + " used in "
                                                 + XML_MULTITAP_TAG
                                                 + " tag!",
                                         parser,
@@ -320,7 +323,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 Logger.e(
                         TAG,
                         e,
-                        "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d",
+                        "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s),"
+                                + " translatorResourceId %d",
                         getKeyboardName(),
                         getKeyboardId(),
                         getKeyboardAddOn().getPackageName(),
@@ -333,8 +337,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         }
     }
 
-    @NonNull
-    private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
+    @NonNull private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
         String[] split = keyCodesArray.split(",", -1);
         int[] keyCodes = new int[split.length];
         for (int i = 0; i < keyCodes.length; i++) {
@@ -370,8 +373,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mLocale;
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public String getKeyboardId() {
         return getKeyboardAddOn().getId();
     }
@@ -381,8 +383,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mIconId;
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public CharSequence getKeyboardName() {
         return mName;
     }

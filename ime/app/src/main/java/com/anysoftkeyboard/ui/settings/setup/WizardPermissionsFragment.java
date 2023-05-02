@@ -102,7 +102,8 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
                     // silently swallowing it
                     Logger.w(
                             "WizardPermissionsFragment",
-                            "Can not open '%' since there is nothing on the device that can handle it.",
+                            "Can not open '%' since there is nothing on the device that can handle"
+                                    + " it.",
                             browserIntent.getData());
                 }
                 break;

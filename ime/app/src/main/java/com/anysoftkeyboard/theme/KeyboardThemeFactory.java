@@ -95,7 +95,8 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
             String detailMessage =
                     String.format(
                             Locale.US,
-                            "Missing details for creating Keyboard theme! prefId %s, keyboardThemeResId: %d",
+                            "Missing details for creating Keyboard theme! prefId %s,"
+                                    + " keyboardThemeResId: %d",
                             prefId,
                             keyboardThemeResId);
 
@@ -117,8 +118,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
                 sortIndex);
     }
 
-    @NonNull
-    @CheckReturnValue
+    @NonNull @CheckReturnValue
     public static Observable<KeyboardTheme> observeCurrentTheme(@NonNull Context context) {
         final KeyboardThemeFactory factory = AnyApplication.getKeyboardThemeFactory(context);
         return Observable.<String>create(

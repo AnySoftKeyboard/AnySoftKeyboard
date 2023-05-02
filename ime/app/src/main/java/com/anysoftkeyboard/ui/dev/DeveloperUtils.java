@@ -83,8 +83,7 @@ public class DeveloperUtils {
         return new File(extFolder, ASK_TRACE_FILENAME);
     }
 
-    @NonNull
-    public static String getAppDetails(@NonNull Context context) {
+    @NonNull public static String getAppDetails(@NonNull Context context) {
         StringBuilder appName = new StringBuilder();
         appName.append(context.getString(R.string.ime_name))
                 .append(" (")

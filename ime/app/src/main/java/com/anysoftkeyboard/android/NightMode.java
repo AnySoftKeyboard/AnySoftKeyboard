@@ -13,8 +13,7 @@ import io.reactivex.annotations.CheckReturnValue;
 public class NightMode {
 
     @CheckReturnValue
-    @NonNull
-    public static Observable<Boolean> observeNightModeState(
+    @NonNull public static Observable<Boolean> observeNightModeState(
             @NonNull Context context,
             @StringRes int enablePrefResId,
             @BoolRes int defaultValueResId) {

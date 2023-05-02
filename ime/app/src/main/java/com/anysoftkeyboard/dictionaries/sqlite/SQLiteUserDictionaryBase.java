@@ -55,7 +55,8 @@ public abstract class SQLiteUserDictionaryBase extends ContentObserverDictionary
             }
             Logger.w(
                     TAG,
-                    "Caught an SQL exception while read database (message: '%s'). I'll delete the database '%s'...",
+                    "Caught an SQL exception while read database (message: '%s'). I'll delete the"
+                            + " database '%s'...",
                     e.getMessage(),
                     dbFile);
             try {

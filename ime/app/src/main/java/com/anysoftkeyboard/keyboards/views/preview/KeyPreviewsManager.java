@@ -92,8 +92,7 @@ public class KeyPreviewsManager implements KeyPreviewsController {
         popup.showPreviewForKey(key, label, previewPosition);
     }
 
-    @NonNull
-    private KeyPreview getPopupForKey(
+    @NonNull private KeyPreview getPopupForKey(
             Keyboard.Key key, View parentView, PreviewPopupTheme previewPopupTheme) {
         mUiHandler.cancelDismissForKey(key);
         if (shouldNotShowPreview(key) || previewPopupTheme.getPreviewKeyTextSize() <= 0)

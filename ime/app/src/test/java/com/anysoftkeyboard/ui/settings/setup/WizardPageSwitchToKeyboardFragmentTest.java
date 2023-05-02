@@ -21,8 +21,7 @@ import org.robolectric.Shadows;
 public class WizardPageSwitchToKeyboardFragmentTest
         extends RobolectricWizardFragmentTestCase<WizardPageSwitchToKeyboardFragment> {
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected WizardPageSwitchToKeyboardFragment createFragment() {
         return new WizardPageSwitchToKeyboardFragment();
     }

@@ -248,11 +248,9 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
         notificationManager.notify(R.id.notification_icon_app_error, builder.build());
     }
 
-    @NonNull
-    protected abstract Intent createBugReportingActivityIntent();
+    @NonNull protected abstract Intent createBugReportingActivityIntent();
 
     protected abstract void setupNotification(@NonNull NotificationCompat.Builder builder);
 
-    @NonNull
-    protected abstract String getAppDetails();
+    @NonNull protected abstract String getAppDetails();
 }

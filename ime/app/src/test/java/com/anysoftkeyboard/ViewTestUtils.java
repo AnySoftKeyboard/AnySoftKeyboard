@@ -194,8 +194,7 @@ public class ViewTestUtils {
                 view, getKeyCenterPoint(start), getKeyCenterPoint(end), duration, alsoDown, alsoUp);
     }
 
-    @NonNull
-    public static Fragment navigateByClicking(Fragment rootFragment, int viewToClick) {
+    @NonNull public static Fragment navigateByClicking(Fragment rootFragment, int viewToClick) {
         final FragmentActivity activity = rootFragment.getActivity();
         final View viewById = rootFragment.getView().findViewById(viewToClick);
         Assert.assertNotNull(viewById);

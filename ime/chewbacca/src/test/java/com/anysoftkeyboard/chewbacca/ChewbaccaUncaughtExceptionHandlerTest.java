@@ -170,8 +170,7 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
             super(app, previous);
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         protected Intent createBugReportingActivityIntent() {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
         }
@@ -181,8 +180,7 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
             builder.setChannelId("test-channel-id");
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         protected String getAppDetails() {
             return "This is the app details in a test";
         }

@@ -239,7 +239,8 @@ public class CandidateView extends View implements ThemeableChild {
                         .subscribe(
                                 value -> mAlwaysUseDrawText = value,
                                 GenericOnError.onError(
-                                        "Failed reading settings_key_workaround_disable_rtl_fix in CandidateView."));
+                                        "Failed reading settings_key_workaround_disable_rtl_fix in"
+                                                + " CandidateView."));
     }
 
     @Override

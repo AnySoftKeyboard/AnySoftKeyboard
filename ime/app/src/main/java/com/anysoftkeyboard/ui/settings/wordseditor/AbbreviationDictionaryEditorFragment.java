@@ -132,8 +132,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
             super.readWordsFromActualStorage(myListener);
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public List<LoadedWord> getLoadedWords() {
             return mLoadedWords;
         }

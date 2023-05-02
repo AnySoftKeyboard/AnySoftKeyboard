@@ -89,7 +89,8 @@ public class UserDictionary extends EditableDictionary {
         } catch (Exception e) {
             Logger.w(
                     TAG,
-                    "Can not load Android's built-in user dictionary (due to error '%s'). FallbackUserDictionary to the rescue!",
+                    "Can not load Android's built-in user dictionary (due to error '%s')."
+                            + " FallbackUserDictionary to the rescue!",
                     e.getMessage());
             if (androidBuiltIn != null) {
                 try {
@@ -99,7 +100,8 @@ public class UserDictionary extends EditableDictionary {
                     buildInCloseException.printStackTrace();
                     Logger.w(
                             TAG,
-                            "Failed to close the build-in user dictionary properly, but it should be fine.");
+                            "Failed to close the build-in user dictionary properly, but it should"
+                                    + " be fine.");
                 }
             }
             BTreeDictionary fallback = createFallbackUserDictionary(mContext, mLocale);
@@ -109,13 +111,11 @@ public class UserDictionary extends EditableDictionary {
         }
     }
 
-    @NonNull
-    protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
+    @NonNull protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
         return new FallbackUserDictionary(context, locale);
     }
 
-    @NonNull
-    protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
+    @NonNull protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
         return new AndroidUserDictionary(context, locale);
     }
 

@@ -731,7 +731,8 @@ public abstract class Keyboard {
                 && modeId != KEYBOARD_ROW_MODE_IM
                 && modeId != KEYBOARD_ROW_MODE_PASSWORD) {
             throw new IllegalArgumentException(
-                    "modeId much be one of KeyboardRowModeId, not including KEYBOARD_ROW_MODE_NONE.");
+                    "modeId much be one of KeyboardRowModeId, not including"
+                            + " KEYBOARD_ROW_MODE_NONE.");
         }
         mKeyboardMode = modeId;
 
@@ -739,8 +740,7 @@ public abstract class Keyboard {
         mModifierKeys = new ArrayList<>();
     }
 
-    @NonNull
-    public AddOn getKeyboardAddOn() {
+    @NonNull public AddOn getKeyboardAddOn() {
         return mAddOn;
     }
 
@@ -796,8 +796,7 @@ public abstract class Keyboard {
         return mShifted;
     }
 
-    @Nullable
-    public Key getShiftKey() {
+    @Nullable public Key getShiftKey() {
         return mShiftKey;
     }
 
@@ -851,8 +850,7 @@ public abstract class Keyboard {
         return new int[0];
     }
 
-    @Nullable
-    protected Row createRowFromXml(
+    @Nullable protected Row createRowFromXml(
             @NonNull AddOn.AddOnResourceMapping resourceMapping,
             Resources res,
             XmlResourceParser parser,
@@ -1061,8 +1059,7 @@ public abstract class Keyboard {
         return defValue;
     }
 
-    @NonNull
-    AddOn.AddOnResourceMapping getKeyboardResourceMap() {
+    @NonNull AddOn.AddOnResourceMapping getKeyboardResourceMap() {
         return mKeyboardResourceMap;
     }
 }

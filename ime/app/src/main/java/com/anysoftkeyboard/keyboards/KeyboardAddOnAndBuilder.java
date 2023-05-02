@@ -88,8 +88,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
         return mSentenceSeparators;
     }
 
-    @Nullable
-    public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
+    @Nullable public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
         if (getPackageContext() == null) return null;
         return new ExternalAnyKeyboard(
                 this,

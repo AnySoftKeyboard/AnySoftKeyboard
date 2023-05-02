@@ -22,8 +22,7 @@ public class WizardPageWelcomeFragmentTest
         extends RobolectricWizardFragmentTestCase<
                 WizardPageWelcomeFragmentTest.TestableWizardPageWelcomeFragment> {
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected TestableWizardPageWelcomeFragment createFragment() {
         return new TestableWizardPageWelcomeFragment();
     }

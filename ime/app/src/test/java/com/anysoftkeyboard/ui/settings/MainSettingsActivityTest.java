@@ -42,8 +42,7 @@ public class MainSettingsActivityTest {
                 MainSettingsActivity.class);
     }
 
-    @NonNull
-    private static Intent getContactsIntent() {
+    @NonNull private static Intent getContactsIntent() {
         Intent requestIntent =
                 new Intent(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class);
         requestIntent.putExtra(

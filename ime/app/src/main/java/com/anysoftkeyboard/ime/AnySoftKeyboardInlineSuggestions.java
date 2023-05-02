@@ -56,8 +56,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    @Nullable
-    @Override
+    @Nullable @Override
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         final var inputViewContainer = getInputViewContainer();
         if (inputViewContainer == null) return null;

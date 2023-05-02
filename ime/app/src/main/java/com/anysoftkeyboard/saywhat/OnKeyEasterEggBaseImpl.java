@@ -81,8 +81,7 @@ class OnKeyEasterEggBaseImpl implements OnKey, OnVisible {
     }
 
     @Override
-    @NonNull
-    public String getName() {
+    @NonNull public String getName() {
         return mEggName;
     }
 

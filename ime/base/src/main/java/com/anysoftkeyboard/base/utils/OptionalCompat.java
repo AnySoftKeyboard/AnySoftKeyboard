@@ -14,8 +14,7 @@ public class OptionalCompat<T> {
         mValue = value;
     }
 
-    @Nullable
-    public T get() {
+    @Nullable public T get() {
         return mValue;
     }
 
@@ -27,8 +26,7 @@ public class OptionalCompat<T> {
         return mValue == null;
     }
 
-    @NonNull
-    public T getOrElse(@NonNull T defaultValue) {
+    @NonNull public T getOrElse(@NonNull T defaultValue) {
         if (mValue == null) return defaultValue;
         else return mValue;
     }

@@ -35,8 +35,7 @@ public class LayoutSwitchAnimationListener
     }
 
     public interface InputViewProvider {
-        @Nullable
-        View getInputView();
+        @Nullable View getInputView();
     }
 
     public interface OnKeyAction {
