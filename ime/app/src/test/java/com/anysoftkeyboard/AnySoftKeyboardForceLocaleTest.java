@@ -42,10 +42,10 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
                         .locale
                         .getDisplayName());
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "iw");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "de");
 
         Assert.assertEquals(
-                "iw",
+                "de",
                 mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
         Assert.assertTrue(
                 mAnySoftKeyboardUnderTest
@@ -53,7 +53,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
                         .getConfiguration()
                         .locale
                         .getDisplayName()
-                        .contains("Hebrew"));
+                        .contains("German"));
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
 

@@ -37,15 +37,15 @@ public class LocaleToolsTest {
                 "English (United States)",
                 mContext.getResources().getConfiguration().locale.getDisplayName());
 
-        LocaleTools.applyLocaleToContext(mContext, "iw");
+        LocaleTools.applyLocaleToContext(mContext, "de");
 
-        Assert.assertEquals("iw", mContext.getResources().getConfiguration().locale.getLanguage());
+        Assert.assertEquals("de", mContext.getResources().getConfiguration().locale.getLanguage());
         Assert.assertTrue(
                 mContext.getResources()
                         .getConfiguration()
                         .locale
                         .getDisplayName()
-                        .contains("Hebrew"));
+                        .contains("German"));
 
         LocaleTools.applyLocaleToContext(mContext, "");
 
