@@ -1,4 +1,5 @@
 package com.anysoftkeyboard.ui.settings.widget;
+
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *

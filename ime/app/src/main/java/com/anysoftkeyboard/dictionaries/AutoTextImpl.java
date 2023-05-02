@@ -62,6 +62,7 @@ public class AutoTextImpl implements AutoText {
     private char[] mTrie;
     private char mTrieUsed;
     private final String mText;
+
     // private Locale mLocale;
     // private int mSize;
 

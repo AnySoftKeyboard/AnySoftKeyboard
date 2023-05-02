@@ -100,6 +100,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
             new int[] {R.attr.key_type_function, R.attr.key_type_action};
     private static final long TWO_FINGERS_LINGER_TIME = 30;
     protected final DefaultAddOn mDefaultAddOn;
+
     /** The canvas for the above mutable keyboard bitmap */
     // private Canvas mCanvas;
     protected final Paint mPaint;
@@ -123,6 +124,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
 
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
     @NonNull private final KeyDetector mKeyDetector;
+
     /** The dirty region in the keyboard bitmap */
     private final Rect mDirtyRect = new Rect();
 
@@ -130,10 +132,12 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
     private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
     protected final CompositeDisposable mDisposables = new CompositeDisposable();
+
     /** Listener for {@link OnKeyboardActionListener}. */
     protected OnKeyboardActionListener mKeyboardActionListener;
 
     @Nullable private KeyboardTheme mLastSetTheme = null;
+
     /** Notes if the keyboard just changed, so that we could possibly reallocate the mBuffer. */
     protected boolean mKeyboardChanged;
 

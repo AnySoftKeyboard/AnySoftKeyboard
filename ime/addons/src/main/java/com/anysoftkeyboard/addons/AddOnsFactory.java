@@ -63,11 +63,13 @@ public abstract class AddOnsFactory<E extends AddOn> {
     final ArrayList<E> mAddOns = new ArrayList<>();
     final HashMap<String, E> mAddOnsById = new HashMap<>();
     final String mDefaultAddOnId;
+
     /**
      * This is the interface name that a broadcast receiver implementing an external addon should
      * say that it supports -- that is, this is the action it uses for its intent filter.
      */
     private final String mReceiverInterface;
+
     /**
      * Name under which an external addon broadcast receiver component publishes information about
      * itself.
