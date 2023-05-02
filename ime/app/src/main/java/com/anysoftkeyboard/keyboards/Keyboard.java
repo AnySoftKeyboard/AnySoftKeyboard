@@ -170,6 +170,7 @@ public abstract class Keyboard {
     private int mCellHeight;
     private int[][] mGridNeighbors;
     private int mProximityThreshold;
+
     /** Number of key widths from current touch point to search for nearest keys. */
     private static float SEARCH_DISTANCE = 1.8f;
 
@@ -180,15 +181,19 @@ public abstract class Keyboard {
     public static class Row {
         /** Default width of a key in this row. */
         public int defaultWidth;
+
         /** Default height of a key in this row. */
         public int defaultHeightCode;
+
         /** Default horizontal gap between keys in this row. */
         public int defaultHorizontalGap;
+
         /**
          * Vertical gap following this row. NOTE: Usually we use the theme's value. This is an
          * override.
          */
         public int verticalGap;
+
         /**
          * Edge flags for this row of keys. Possible values that can be assigned are {@link
          * Keyboard#EDGE_TOP EDGE_TOP} and {@link Keyboard#EDGE_BOTTOM EDGE_BOTTOM}
@@ -318,32 +323,44 @@ public abstract class Keyboard {
 
         /** Icon to display instead of a label. Icon takes precedence over a label */
         public Drawable icon;
+
         /** Preview version of the icon, for the preview popup */
         public Drawable iconPreview;
+
         /** Width of the key, not including the gap */
         public int width;
+
         /** Height of the key, not including the gap */
         public int height;
+
         /** The horizontal gap before this key */
         public int gap;
+
         /** X coordinate of the key in the mKeyboard layout */
         public int x;
 
         public int centerX;
+
         /** Y coordinate of the key in the mKeyboard layout */
         public int y;
 
         public int centerY;
+
         /** The current pressed state of this key */
         public boolean pressed;
+
         /** Text to output when pressed. This can be multiple characters, like ".com" */
         public CharSequence text;
+
         /** Text to output when pressed and shifted. This can be multiple characters, like ".com" */
         public CharSequence shiftedText;
+
         /** Text to output (as typed) when pressed. */
         public CharSequence typedText;
+
         /** Text to output (as typed) when pressed. and shifted. */
         public CharSequence shiftedTypedText;
+
         /** Popup characters */
         public CharSequence popupCharacters;
 
@@ -354,12 +371,15 @@ public abstract class Keyboard {
          * Keyboard#EDGE_BOTTOM}.
          */
         @KeyEdgeValue public int edgeFlags;
+
         /** Whether this is a modifier key, such as Shift or Alt */
         public boolean modifier;
+
         /** The mKeyboard that this key belongs to */
         private Keyboard mKeyboard;
 
         public final Row row;
+
         /**
          * If this key pops up a mini mKeyboard, this is the resource id for the XML layout for that
          * mKeyboard.
@@ -367,6 +387,7 @@ public abstract class Keyboard {
         public int popupResId;
 
         public boolean externalResourcePopupLayout = false;
+
         /** Whether this key repeats itself when held down */
         public boolean repeatable;
 

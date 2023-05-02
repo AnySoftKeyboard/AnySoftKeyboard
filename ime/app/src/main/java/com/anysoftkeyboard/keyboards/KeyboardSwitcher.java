@@ -110,6 +110,7 @@ public class KeyboardSwitcher {
     @Nullable private EditorInfo mLastEditorInfo;
     private String mInternetInputLayoutId;
     private int mInternetInputLayoutIndex;
+
     /** This field will be used to map between requested mode, and enabled mode. */
     @Keyboard.KeyboardRowModeId
     private final int[] mRowModesMapping =

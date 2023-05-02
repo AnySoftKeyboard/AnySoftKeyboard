@@ -105,6 +105,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     @VisibleForTesting
     final CancelSuggestionsAction mCancelSuggestionsAction =
             new CancelSuggestionsAction(() -> abortCorrectionAndResetPredictionState(true));
+
     /*
      * Configuration flag. Should we support dictionary suggestions
      */

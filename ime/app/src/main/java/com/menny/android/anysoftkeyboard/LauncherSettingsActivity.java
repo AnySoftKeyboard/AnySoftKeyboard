@@ -30,6 +30,7 @@ import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 public class LauncherSettingsActivity extends Activity {
 
     private static final String LAUNCHED_KEY = "LAUNCHED_KEY";
+
     /**
      * This flag will help us keeping this activity inside the task, thus returning to the TASK when
      * relaunching (and not to re-create the activity)

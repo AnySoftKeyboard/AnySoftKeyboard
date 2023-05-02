@@ -42,6 +42,7 @@ import java.util.Map;
 public class ContactsDictionary extends ContentObserverDictionary implements NextWordSuggestions {
 
     protected static final String TAG = "ASKContactsDict";
+
     /** A contact is a valid word in a language, and it usually very frequent. */
     private static final int MINIMUM_CONTACT_WORD_FREQUENCY = 64;
 

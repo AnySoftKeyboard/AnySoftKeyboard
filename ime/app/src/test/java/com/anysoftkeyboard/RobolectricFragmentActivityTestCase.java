@@ -60,6 +60,7 @@ public abstract class RobolectricFragmentActivityTestCase<
     protected void ensureAllScheduledJobsAreDone() {
         TestRxSchedulers.drainAllTasks();
     }
+
     /*Ahead are some basic tests we can run regardless*/
 
     @Test
