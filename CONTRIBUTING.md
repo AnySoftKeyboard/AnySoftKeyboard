@@ -12,7 +12,6 @@ To develop this project, you'll need:
 
 ## Continuous Integration and Pull-Requests Verifications
 Each PR is verified by multiple tasks:
- * Code Style is verified by _Google Java Format_. You can auto-format changes by running `./gradlew googleJavaFormat`.
  * Static-Analysis is done with checkstyle, lint and Error-Prone. Run `./scripts/ci/ci_check.sh` to execute all checks.
  * Unit-Tests are verified using `./gradlew testDebugUnitTest`. 
 

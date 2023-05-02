@@ -22,7 +22,6 @@ if [[ ! -z "$EP_ERRORS_LIST" ]]; then
   echo "******************"
   echo ""
   ./gradlew --no-build-cache compileDebugUnitTestJavaWithJavac compileDebugJavaWithJavac -PErrorProneAutoPatchList=${EP_ERRORS_LIST} --continue
-  ./gradlew googleJavaFormat
 else
   echo "* No issues were found with Error-Prone."
 fi
