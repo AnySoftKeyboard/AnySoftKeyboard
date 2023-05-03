@@ -23,137 +23,131 @@ import org.robolectric.annotation.Config;
 
 @Config(sdk = Build.VERSION_CODES.M)
 public class WizardPermissionsFragmentTest
-        extends RobolectricWizardFragmentTestCase<WizardPermissionsFragment> {
+    extends RobolectricWizardFragmentTestCase<WizardPermissionsFragment> {
 
-    @NonNull @Override
-    protected WizardPermissionsFragment createFragment() {
-        return new WizardPermissionsFragment();
-    }
+  @NonNull @Override
+  protected WizardPermissionsFragment createFragment() {
+    return new WizardPermissionsFragment();
+  }
 
-    @Test
-    public void testWhenNoData() {
-        WizardPermissionsFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+  @Test
+  public void testWhenNoData() {
+    WizardPermissionsFragment fragment = startFragment();
+    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(
-                R.drawable.ic_wizard_contacts_off,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertTrue(stateIcon.isClickable());
-    }
+    Assert.assertEquals(
+        R.drawable.ic_wizard_contacts_off,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertTrue(stateIcon.isClickable());
+  }
 
-    @Test
-    public void testKeyboardEnabledAndDefaultButNoPermission() {
-        final String flatASKComponent =
-                new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-                        .flattenToString();
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.ENABLED_INPUT_METHODS,
-                flatASKComponent);
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.DEFAULT_INPUT_METHOD,
-                flatASKComponent);
+  @Test
+  public void testKeyboardEnabledAndDefaultButNoPermission() {
+    final String flatASKComponent =
+        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
+            .flattenToString();
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.ENABLED_INPUT_METHODS,
+        flatASKComponent);
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.DEFAULT_INPUT_METHOD,
+        flatASKComponent);
 
-        WizardPermissionsFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    WizardPermissionsFragment fragment = startFragment();
+    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(
-                R.drawable.ic_wizard_contacts_off,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertTrue(stateIcon.isClickable());
-        // can handle wiki?
-        fragment.getView().findViewById(R.id.open_permissions_wiki_action).performClick();
-        Intent wikiIntent =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getNextStartedActivity();
-        Assert.assertEquals(Intent.ACTION_VIEW, wikiIntent.getAction());
-        Assert.assertEquals(
-                "https://github.com/AnySoftKeyboard/AnySoftKeyboard/wiki/Why-Does-AnySoftKeyboard-Requires-Extra-Permissions",
-                wikiIntent.getData().toString());
-        // can disable Contacts
-        fragment.getView().findViewById(R.id.disable_contacts_dictionary).performClick();
-        Assert.assertFalse(
-                SharedPrefsHelper.getPrefValue(
-                        R.string.settings_key_use_contacts_dictionary, true));
-        Assert.assertEquals(
-                R.drawable.ic_wizard_contacts_disabled,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-    }
-
-    @Test
-    public void testKeyboardEnabledAndDefaultButDictionaryDisabled() {
-        final String flatASKComponent =
-                new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-                        .flattenToString();
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.ENABLED_INPUT_METHODS,
-                flatASKComponent);
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.DEFAULT_INPUT_METHOD,
-                flatASKComponent);
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_contacts_dictionary, false);
-
-        WizardPermissionsFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
-
-        Assert.assertEquals(
-                R.drawable.ic_wizard_contacts_disabled,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertTrue(stateIcon.isClickable());
-
-        // now, clicking on ALLOW, should enable the dictionary back and start permission request
-        stateIcon.performClick();
-        Assert.assertTrue(
-                SharedPrefsHelper.getPrefValue(
-                        R.string.settings_key_use_contacts_dictionary, false));
-    }
-
-    @Test
-    public void testKeyboardEnabledAndDefaultAndHasPermission() {
-        final String flatASKComponent =
-                new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-                        .flattenToString();
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.ENABLED_INPUT_METHODS,
-                flatASKComponent);
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.DEFAULT_INPUT_METHOD,
-                flatASKComponent);
+    Assert.assertEquals(
+        R.drawable.ic_wizard_contacts_off,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertTrue(stateIcon.isClickable());
+    // can handle wiki?
+    fragment.getView().findViewById(R.id.open_permissions_wiki_action).performClick();
+    Intent wikiIntent =
         Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                .grantPermissions(Manifest.permission.READ_CONTACTS);
+            .getNextStartedActivity();
+    Assert.assertEquals(Intent.ACTION_VIEW, wikiIntent.getAction());
+    Assert.assertEquals(
+        "https://github.com/AnySoftKeyboard/AnySoftKeyboard/wiki/Why-Does-AnySoftKeyboard-Requires-Extra-Permissions",
+        wikiIntent.getData().toString());
+    // can disable Contacts
+    fragment.getView().findViewById(R.id.disable_contacts_dictionary).performClick();
+    Assert.assertFalse(
+        SharedPrefsHelper.getPrefValue(R.string.settings_key_use_contacts_dictionary, true));
+    Assert.assertEquals(
+        R.drawable.ic_wizard_contacts_disabled,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+  }
 
-        WizardPermissionsFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+  @Test
+  public void testKeyboardEnabledAndDefaultButDictionaryDisabled() {
+    final String flatASKComponent =
+        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
+            .flattenToString();
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.ENABLED_INPUT_METHODS,
+        flatASKComponent);
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.DEFAULT_INPUT_METHOD,
+        flatASKComponent);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_contacts_dictionary, false);
 
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    WizardPermissionsFragment fragment = startFragment();
+    Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(
-                R.drawable.ic_wizard_contacts_on,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
+    Assert.assertEquals(
+        R.drawable.ic_wizard_contacts_disabled,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertTrue(stateIcon.isClickable());
 
-        View.OnClickListener stateIconClickHandler =
-                Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler =
-                Shadows.shadowOf(
-                                (View)
-                                        fragment.getView()
-                                                .findViewById(R.id.ask_for_permissions_action))
-                        .getOnClickListener();
+    // now, clicking on ALLOW, should enable the dictionary back and start permission request
+    stateIcon.performClick();
+    Assert.assertTrue(
+        SharedPrefsHelper.getPrefValue(R.string.settings_key_use_contacts_dictionary, false));
+  }
 
-        Assert.assertNotNull(stateIconClickHandler);
-        Assert.assertSame(stateIconClickHandler, linkClickHandler);
-    }
+  @Test
+  public void testKeyboardEnabledAndDefaultAndHasPermission() {
+    final String flatASKComponent =
+        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
+            .flattenToString();
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.ENABLED_INPUT_METHODS,
+        flatASKComponent);
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.DEFAULT_INPUT_METHOD,
+        flatASKComponent);
+    Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+        .grantPermissions(Manifest.permission.READ_CONTACTS);
+
+    WizardPermissionsFragment fragment = startFragment();
+    Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
+
+    Assert.assertEquals(
+        R.drawable.ic_wizard_contacts_on,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertFalse(stateIcon.isClickable());
+
+    View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
+    View.OnClickListener linkClickHandler =
+        Shadows.shadowOf((View) fragment.getView().findViewById(R.id.ask_for_permissions_action))
+            .getOnClickListener();
+
+    Assert.assertNotNull(stateIconClickHandler);
+    Assert.assertSame(stateIconClickHandler, linkClickHandler);
+  }
 }

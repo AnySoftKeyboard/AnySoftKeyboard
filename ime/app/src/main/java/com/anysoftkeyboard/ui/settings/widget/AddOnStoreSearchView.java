@@ -38,49 +38,49 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AddOnStoreSearchView extends FrameLayout implements OnClickListener {
-    private static final String TAG = "AddOnStoreSearchView";
+  private static final String TAG = "AddOnStoreSearchView";
 
-    private View mStoreNotFoundView;
+  private View mStoreNotFoundView;
 
-    public AddOnStoreSearchView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        inflate(context, R.layout.addon_store_search_view, this);
-        setOnClickListener(this);
+  public AddOnStoreSearchView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    inflate(context, R.layout.addon_store_search_view, this);
+    setOnClickListener(this);
 
-        mStoreNotFoundView = findViewById(R.id.no_store_found_error);
-        mStoreNotFoundView.setVisibility(View.GONE);
-        if (attrs != null) {
-            CharSequence title = attrs.getAttributeValue("android", "title");
-            if (!TextUtils.isEmpty(title)) {
-                TextView cta = findViewById(R.id.cta_title);
-                cta.setText(title);
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (!startMarketActivity(getContext(), (String) getTag())) {
-            mStoreNotFoundView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public static boolean startMarketActivity(
-            @NonNull Context context, @NonNull String marketKeyword) {
-        try {
-            Intent search = new Intent(Intent.ACTION_VIEW);
-            search.setData(Uri.parse("market://search?q=AnySoftKeyboard " + marketKeyword));
-            search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(search);
-        } catch (Exception ex) {
-            Logger.e(TAG, "Could not launch Store search!", ex);
-            return false;
-        }
-        return true;
-    }
-
-    public void setTitle(CharSequence title) {
+    mStoreNotFoundView = findViewById(R.id.no_store_found_error);
+    mStoreNotFoundView.setVisibility(View.GONE);
+    if (attrs != null) {
+      CharSequence title = attrs.getAttributeValue("android", "title");
+      if (!TextUtils.isEmpty(title)) {
         TextView cta = findViewById(R.id.cta_title);
         cta.setText(title);
+      }
     }
+  }
+
+  @Override
+  public void onClick(View view) {
+    if (!startMarketActivity(getContext(), (String) getTag())) {
+      mStoreNotFoundView.setVisibility(View.VISIBLE);
+    }
+  }
+
+  public static boolean startMarketActivity(
+      @NonNull Context context, @NonNull String marketKeyword) {
+    try {
+      Intent search = new Intent(Intent.ACTION_VIEW);
+      search.setData(Uri.parse("market://search?q=AnySoftKeyboard " + marketKeyword));
+      search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      context.startActivity(search);
+    } catch (Exception ex) {
+      Logger.e(TAG, "Could not launch Store search!", ex);
+      return false;
+    }
+    return true;
+  }
+
+  public void setTitle(CharSequence title) {
+    TextView cta = findViewById(R.id.cta_title);
+    cta.setText(title);
+  }
 }

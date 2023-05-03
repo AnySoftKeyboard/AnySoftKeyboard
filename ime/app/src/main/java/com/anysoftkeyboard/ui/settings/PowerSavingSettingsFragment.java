@@ -22,14 +22,14 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class PowerSavingSettingsFragment extends PreferenceFragmentCompat {
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.power_saving_prefs);
-    }
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.power_saving_prefs);
+  }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.power_save_mode_screen));
-    }
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(this, getString(R.string.power_save_mode_screen));
+  }
 }

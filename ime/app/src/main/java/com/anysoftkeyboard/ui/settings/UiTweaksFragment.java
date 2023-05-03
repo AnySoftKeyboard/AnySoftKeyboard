@@ -22,14 +22,14 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class UiTweaksFragment extends PreferenceFragmentCompat {
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_ui_tweaks);
-    }
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.prefs_ui_tweaks);
+  }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
-    }
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
+  }
 }

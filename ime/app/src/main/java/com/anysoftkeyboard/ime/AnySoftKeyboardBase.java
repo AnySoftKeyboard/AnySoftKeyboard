@@ -47,290 +47,284 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
 public abstract class AnySoftKeyboardBase extends InputMethodService
-        implements OnKeyboardActionListener {
-    protected static final String TAG = "ASK";
+    implements OnKeyboardActionListener {
+  protected static final String TAG = "ASK";
 
-    protected static final long ONE_FRAME_DELAY = 1000L / 60L;
+  protected static final long ONE_FRAME_DELAY = 1000L / 60L;
 
-    private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
+  private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
-    private KeyboardViewContainerView mInputViewContainer;
-    private InputViewBinder mInputView;
-    private InputMethodManager mInputMethodManager;
+  private KeyboardViewContainerView mInputViewContainer;
+  private InputViewBinder mInputView;
+  private InputMethodManager mInputMethodManager;
 
-    // NOTE: These two are dangerous to use, as they may point to
-    // an inaccurate position (in cases where onSelectionUpdate is delayed).
-    protected int mGlobalCursorPositionDangerous = 0;
-    protected int mGlobalSelectionStartPositionDangerous = 0;
-    protected int mGlobalCandidateStartPositionDangerous = 0;
-    protected int mGlobalCandidateEndPositionDangerous = 0;
+  // NOTE: These two are dangerous to use, as they may point to
+  // an inaccurate position (in cases where onSelectionUpdate is delayed).
+  protected int mGlobalCursorPositionDangerous = 0;
+  protected int mGlobalSelectionStartPositionDangerous = 0;
+  protected int mGlobalCandidateStartPositionDangerous = 0;
+  protected int mGlobalCandidateEndPositionDangerous = 0;
 
-    protected final ModifierKeyState mShiftKeyState =
-            new ModifierKeyState(true /*supports locked state*/);
-    protected final ModifierKeyState mControlKeyState =
-            new ModifierKeyState(false /*does not support locked state*/);
+  protected final ModifierKeyState mShiftKeyState =
+      new ModifierKeyState(true /*supports locked state*/);
+  protected final ModifierKeyState mControlKeyState =
+      new ModifierKeyState(false /*does not support locked state*/);
 
-    @NonNull protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
+  @NonNull protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
 
-    @Override
-    @CallSuper
-    public void onCreate() {
-        Logger.i(
-                TAG,
-                "****** AnySoftKeyboard v%s (%d) service started.",
-                BuildConfig.VERSION_NAME,
-                BuildConfig.VERSION_CODE);
-        super.onCreate();
-        if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
-            try {
-                DeveloperUtils.startTracing();
-                Toast.makeText(
-                                getApplicationContext(),
-                                R.string.debug_tracing_starting,
-                                Toast.LENGTH_SHORT)
-                        .show();
-            } catch (Exception e) {
-                // see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
-                // I might get a "Permission denied" error.
-                e.printStackTrace();
-                Toast.makeText(
-                                getApplicationContext(),
-                                R.string.debug_tracing_starting_failed,
-                                Toast.LENGTH_LONG)
-                        .show();
-            }
-        }
-
-        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+  @Override
+  @CallSuper
+  public void onCreate() {
+    Logger.i(
+        TAG,
+        "****** AnySoftKeyboard v%s (%d) service started.",
+        BuildConfig.VERSION_NAME,
+        BuildConfig.VERSION_CODE);
+    super.onCreate();
+    if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
+      try {
+        DeveloperUtils.startTracing();
+        Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting, Toast.LENGTH_SHORT)
+            .show();
+      } catch (Exception e) {
+        // see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
+        // I might get a "Permission denied" error.
+        e.printStackTrace();
+        Toast.makeText(
+                getApplicationContext(), R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG)
+            .show();
+      }
     }
 
-    @Nullable public final InputViewBinder getInputView() {
-        return mInputView;
+    mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+  }
+
+  @Nullable public final InputViewBinder getInputView() {
+    return mInputView;
+  }
+
+  @Nullable public KeyboardViewContainerView getInputViewContainer() {
+    return mInputViewContainer;
+  }
+
+  protected abstract String getSettingsInputMethodId();
+
+  protected InputMethodManager getInputMethodManager() {
+    return mInputMethodManager;
+  }
+
+  @Override
+  public void onComputeInsets(@NonNull Insets outInsets) {
+    super.onComputeInsets(outInsets);
+    if (!isFullscreenMode()) {
+      outInsets.contentTopInsets = outInsets.visibleTopInsets;
     }
+  }
 
-    @Nullable public KeyboardViewContainerView getInputViewContainer() {
-        return mInputViewContainer;
+  public abstract void deleteLastCharactersFromInput(int countToDelete);
+
+  @CallSuper
+  public void onAddOnsCriticalChange() {
+    hideWindow();
+  }
+
+  @Override
+  public View onCreateInputView() {
+    if (mInputView != null) mInputView.onViewNotRequired();
+    mInputView = null;
+
+    GCUtils.getInstance()
+        .performOperationWithMemRetry(
+            TAG,
+            () -> {
+              mInputViewContainer = createInputViewContainer();
+              mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
+            });
+
+    mInputView = mInputViewContainer.getStandardKeyboardView();
+    mInputViewContainer.setOnKeyboardActionListener(this);
+    setupInputViewWatermark();
+
+    return mInputViewContainer;
+  }
+
+  @Override
+  public void setInputView(View view) {
+    super.setInputView(view);
+    updateSoftInputWindowLayoutParameters();
+  }
+
+  @Override
+  public void updateFullscreenMode() {
+    super.updateFullscreenMode();
+    updateSoftInputWindowLayoutParameters();
+  }
+
+  private void updateSoftInputWindowLayoutParameters() {
+    final Window window = getWindow().getWindow();
+    // Override layout parameters to expand {@link SoftInputWindow} to the entire screen.
+    // See {@link InputMethodService#setinputView(View)} and
+    // {@link SoftInputWindow#updateWidthHeight(WindowManager.LayoutParams)}.
+    updateLayoutHeightOf(window, ViewGroup.LayoutParams.MATCH_PARENT);
+    // This method may be called before {@link #setInputView(View)}.
+    if (mInputViewContainer != null) {
+      // In non-fullscreen mode, {@link InputView} and its parent inputArea should expand to
+      // the entire screen and be placed at the bottom of {@link SoftInputWindow}.
+      // In fullscreen mode, these shouldn't expand to the entire screen and should be
+      // coexistent with {@link #mExtractedArea} above.
+      // See {@link InputMethodService#setInputView(View) and
+      // com.android.internal.R.layout.input_method.xml.
+      final View inputArea = window.findViewById(android.R.id.inputArea);
+
+      updateLayoutHeightOf(
+          (View) inputArea.getParent(),
+          isFullscreenMode()
+              ? ViewGroup.LayoutParams.MATCH_PARENT
+              : ViewGroup.LayoutParams.WRAP_CONTENT);
+      updateLayoutGravityOf((View) inputArea.getParent(), Gravity.BOTTOM);
     }
+  }
 
-    protected abstract String getSettingsInputMethodId();
-
-    protected InputMethodManager getInputMethodManager() {
-        return mInputMethodManager;
+  private static void updateLayoutHeightOf(final Window window, final int layoutHeight) {
+    final WindowManager.LayoutParams params = window.getAttributes();
+    if (params != null && params.height != layoutHeight) {
+      params.height = layoutHeight;
+      window.setAttributes(params);
     }
+  }
 
-    @Override
-    public void onComputeInsets(@NonNull Insets outInsets) {
-        super.onComputeInsets(outInsets);
-        if (!isFullscreenMode()) {
-            outInsets.contentTopInsets = outInsets.visibleTopInsets;
-        }
+  private static void updateLayoutHeightOf(final View view, final int layoutHeight) {
+    final ViewGroup.LayoutParams params = view.getLayoutParams();
+    if (params != null && params.height != layoutHeight) {
+      params.height = layoutHeight;
+      view.setLayoutParams(params);
     }
+  }
 
-    public abstract void deleteLastCharactersFromInput(int countToDelete);
-
-    @CallSuper
-    public void onAddOnsCriticalChange() {
-        hideWindow();
+  private static void updateLayoutGravityOf(final View view, final int layoutGravity) {
+    final ViewGroup.LayoutParams lp = view.getLayoutParams();
+    if (lp instanceof LinearLayout.LayoutParams) {
+      final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lp;
+      if (params.gravity != layoutGravity) {
+        params.gravity = layoutGravity;
+        view.setLayoutParams(params);
+      }
+    } else if (lp instanceof FrameLayout.LayoutParams) {
+      final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) lp;
+      if (params.gravity != layoutGravity) {
+        params.gravity = layoutGravity;
+        view.setLayoutParams(params);
+      }
+    } else {
+      throw new IllegalArgumentException(
+          "Layout parameter doesn't have gravity: " + lp.getClass().getName());
     }
+  }
 
-    @Override
-    public View onCreateInputView() {
-        if (mInputView != null) mInputView.onViewNotRequired();
-        mInputView = null;
+  @CallSuper
+  @NonNull protected List<Drawable> generateWatermark() {
+    return ((AnyApplication) getApplication()).getInitialWatermarksList();
+  }
 
-        GCUtils.getInstance()
-                .performOperationWithMemRetry(
-                        TAG,
-                        () -> {
-                            mInputViewContainer = createInputViewContainer();
-                            mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
-                        });
-
-        mInputView = mInputViewContainer.getStandardKeyboardView();
-        mInputViewContainer.setOnKeyboardActionListener(this);
-        setupInputViewWatermark();
-
-        return mInputViewContainer;
+  protected final void setupInputViewWatermark() {
+    final InputViewBinder inputView = getInputView();
+    if (inputView != null) {
+      inputView.setWatermark(generateWatermark());
     }
+  }
 
-    @Override
-    public void setInputView(View view) {
-        super.setInputView(view);
-        updateSoftInputWindowLayoutParameters();
+  @SuppressLint("InflateParams")
+  protected KeyboardViewContainerView createInputViewContainer() {
+    return (KeyboardViewContainerView)
+        getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+  }
+
+  @CallSuper
+  protected boolean handleCloseRequest() {
+    // meaning, I didn't do anything with this request.
+    return false;
+  }
+
+  /** This will ask the OS to hide all views of AnySoftKeyboard. */
+  @Override
+  public void hideWindow() {
+    while (handleCloseRequest()) {
+      Logger.i(TAG, "Still have stuff to close. Trying handleCloseRequest again.");
     }
+    super.hideWindow();
+  }
 
-    @Override
-    public void updateFullscreenMode() {
-        super.updateFullscreenMode();
-        updateSoftInputWindowLayoutParameters();
+  @Override
+  public void onDestroy() {
+    mInputSessionDisposables.dispose();
+    if (getInputView() != null) getInputView().onViewNotRequired();
+    mInputView = null;
+
+    super.onDestroy();
+  }
+
+  @Override
+  @CallSuper
+  public void onFinishInput() {
+    super.onFinishInput();
+    mInputSessionDisposables.clear();
+    mGlobalCursorPositionDangerous = 0;
+    mGlobalSelectionStartPositionDangerous = 0;
+    mGlobalCandidateStartPositionDangerous = 0;
+    mGlobalCandidateEndPositionDangerous = 0;
+  }
+
+  protected abstract boolean isSelectionUpdateDelayed();
+
+  @Nullable protected ExtractedText getExtractedText() {
+    final InputConnection connection = getCurrentInputConnection();
+    if (connection == null) {
+      return null;
     }
+    return connection.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
+  }
 
-    private void updateSoftInputWindowLayoutParameters() {
-        final Window window = getWindow().getWindow();
-        // Override layout parameters to expand {@link SoftInputWindow} to the entire screen.
-        // See {@link InputMethodService#setinputView(View)} and
-        // {@link SoftInputWindow#updateWidthHeight(WindowManager.LayoutParams)}.
-        updateLayoutHeightOf(window, ViewGroup.LayoutParams.MATCH_PARENT);
-        // This method may be called before {@link #setInputView(View)}.
-        if (mInputViewContainer != null) {
-            // In non-fullscreen mode, {@link InputView} and its parent inputArea should expand to
-            // the entire screen and be placed at the bottom of {@link SoftInputWindow}.
-            // In fullscreen mode, these shouldn't expand to the entire screen and should be
-            // coexistent with {@link #mExtractedArea} above.
-            // See {@link InputMethodService#setInputView(View) and
-            // com.android.internal.R.layout.input_method.xml.
-            final View inputArea = window.findViewById(android.R.id.inputArea);
-
-            updateLayoutHeightOf(
-                    (View) inputArea.getParent(),
-                    isFullscreenMode()
-                            ? ViewGroup.LayoutParams.MATCH_PARENT
-                            : ViewGroup.LayoutParams.WRAP_CONTENT);
-            updateLayoutGravityOf((View) inputArea.getParent(), Gravity.BOTTOM);
-        }
+  // TODO SHOULD NOT USE THIS METHOD AT ALL!
+  protected int getCursorPosition() {
+    if (isSelectionUpdateDelayed()) {
+      ExtractedText extracted = getExtractedText();
+      if (extracted == null) {
+        return 0;
+      }
+      mGlobalCursorPositionDangerous = extracted.startOffset + extracted.selectionEnd;
+      mGlobalSelectionStartPositionDangerous = extracted.startOffset + extracted.selectionStart;
     }
+    return mGlobalCursorPositionDangerous;
+  }
 
-    private static void updateLayoutHeightOf(final Window window, final int layoutHeight) {
-        final WindowManager.LayoutParams params = window.getAttributes();
-        if (params != null && params.height != layoutHeight) {
-            params.height = layoutHeight;
-            window.setAttributes(params);
-        }
+  @Override
+  public void onUpdateSelection(
+      int oldSelStart,
+      int oldSelEnd,
+      int newSelStart,
+      int newSelEnd,
+      int candidatesStart,
+      int candidatesEnd) {
+    if (BuildConfig.DEBUG) {
+      Logger.d(
+          TAG,
+          "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
+          oldSelStart,
+          oldSelEnd,
+          newSelStart,
+          newSelEnd,
+          candidatesStart,
+          candidatesEnd);
     }
+    mGlobalCursorPositionDangerous = newSelEnd;
+    mGlobalSelectionStartPositionDangerous = newSelStart;
+    mGlobalCandidateStartPositionDangerous = candidatesStart;
+    mGlobalCandidateEndPositionDangerous = candidatesEnd;
+  }
 
-    private static void updateLayoutHeightOf(final View view, final int layoutHeight) {
-        final ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params != null && params.height != layoutHeight) {
-            params.height = layoutHeight;
-            view.setLayoutParams(params);
-        }
-    }
-
-    private static void updateLayoutGravityOf(final View view, final int layoutGravity) {
-        final ViewGroup.LayoutParams lp = view.getLayoutParams();
-        if (lp instanceof LinearLayout.LayoutParams) {
-            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lp;
-            if (params.gravity != layoutGravity) {
-                params.gravity = layoutGravity;
-                view.setLayoutParams(params);
-            }
-        } else if (lp instanceof FrameLayout.LayoutParams) {
-            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) lp;
-            if (params.gravity != layoutGravity) {
-                params.gravity = layoutGravity;
-                view.setLayoutParams(params);
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    "Layout parameter doesn't have gravity: " + lp.getClass().getName());
-        }
-    }
-
-    @CallSuper
-    @NonNull protected List<Drawable> generateWatermark() {
-        return ((AnyApplication) getApplication()).getInitialWatermarksList();
-    }
-
-    protected final void setupInputViewWatermark() {
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) {
-            inputView.setWatermark(generateWatermark());
-        }
-    }
-
-    @SuppressLint("InflateParams")
-    protected KeyboardViewContainerView createInputViewContainer() {
-        return (KeyboardViewContainerView)
-                getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
-    }
-
-    @CallSuper
-    protected boolean handleCloseRequest() {
-        // meaning, I didn't do anything with this request.
-        return false;
-    }
-
-    /** This will ask the OS to hide all views of AnySoftKeyboard. */
-    @Override
-    public void hideWindow() {
-        while (handleCloseRequest()) {
-            Logger.i(TAG, "Still have stuff to close. Trying handleCloseRequest again.");
-        }
-        super.hideWindow();
-    }
-
-    @Override
-    public void onDestroy() {
-        mInputSessionDisposables.dispose();
-        if (getInputView() != null) getInputView().onViewNotRequired();
-        mInputView = null;
-
-        super.onDestroy();
-    }
-
-    @Override
-    @CallSuper
-    public void onFinishInput() {
-        super.onFinishInput();
-        mInputSessionDisposables.clear();
-        mGlobalCursorPositionDangerous = 0;
-        mGlobalSelectionStartPositionDangerous = 0;
-        mGlobalCandidateStartPositionDangerous = 0;
-        mGlobalCandidateEndPositionDangerous = 0;
-    }
-
-    protected abstract boolean isSelectionUpdateDelayed();
-
-    @Nullable protected ExtractedText getExtractedText() {
-        final InputConnection connection = getCurrentInputConnection();
-        if (connection == null) {
-            return null;
-        }
-        return connection.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
-    }
-
-    // TODO SHOULD NOT USE THIS METHOD AT ALL!
-    protected int getCursorPosition() {
-        if (isSelectionUpdateDelayed()) {
-            ExtractedText extracted = getExtractedText();
-            if (extracted == null) {
-                return 0;
-            }
-            mGlobalCursorPositionDangerous = extracted.startOffset + extracted.selectionEnd;
-            mGlobalSelectionStartPositionDangerous =
-                    extracted.startOffset + extracted.selectionStart;
-        }
-        return mGlobalCursorPositionDangerous;
-    }
-
-    @Override
-    public void onUpdateSelection(
-            int oldSelStart,
-            int oldSelEnd,
-            int newSelStart,
-            int newSelEnd,
-            int candidatesStart,
-            int candidatesEnd) {
-        if (BuildConfig.DEBUG) {
-            Logger.d(
-                    TAG,
-                    "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
-                    oldSelStart,
-                    oldSelEnd,
-                    newSelStart,
-                    newSelEnd,
-                    candidatesStart,
-                    candidatesEnd);
-        }
-        mGlobalCursorPositionDangerous = newSelEnd;
-        mGlobalSelectionStartPositionDangerous = newSelStart;
-        mGlobalCandidateStartPositionDangerous = candidatesStart;
-        mGlobalCandidateEndPositionDangerous = candidatesEnd;
-    }
-
-    @Override
-    public void onCancel() {
-        // the user released their finger outside of any key... okay. I have nothing to do about
-        // that.
-    }
+  @Override
+  public void onCancel() {
+    // the user released their finger outside of any key... okay. I have nothing to do about
+    // that.
+  }
 }

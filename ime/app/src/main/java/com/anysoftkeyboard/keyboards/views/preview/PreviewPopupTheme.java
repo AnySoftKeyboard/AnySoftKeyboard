@@ -7,79 +7,79 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class PreviewPopupTheme {
-    static final int ANIMATION_STYLE_NONE = 0;
-    static final int ANIMATION_STYLE_EXTEND = 1;
-    static final int ANIMATION_STYLE_APPEAR = 2;
-    private int mPreviewKeyTextSize;
-    private int mPreviewLabelTextSize;
-    private Drawable mPreviewKeyBackground;
-    private int mPreviewKeyTextColor;
-    private Typeface mKeyStyle = Typeface.DEFAULT;
-    private int mVerticalOffset;
-    @PreviewAnimationType private int mPreviewAnimationType = ANIMATION_STYLE_APPEAR;
+  static final int ANIMATION_STYLE_NONE = 0;
+  static final int ANIMATION_STYLE_EXTEND = 1;
+  static final int ANIMATION_STYLE_APPEAR = 2;
+  private int mPreviewKeyTextSize;
+  private int mPreviewLabelTextSize;
+  private Drawable mPreviewKeyBackground;
+  private int mPreviewKeyTextColor;
+  private Typeface mKeyStyle = Typeface.DEFAULT;
+  private int mVerticalOffset;
+  @PreviewAnimationType private int mPreviewAnimationType = ANIMATION_STYLE_APPEAR;
 
-    int getPreviewKeyTextSize() {
-        return mPreviewKeyTextSize;
+  int getPreviewKeyTextSize() {
+    return mPreviewKeyTextSize;
+  }
+
+  public void setPreviewKeyTextSize(int previewKeyTextSize) {
+    mPreviewKeyTextSize = previewKeyTextSize;
+  }
+
+  int getPreviewLabelTextSize() {
+    if (mPreviewLabelTextSize < 0) {
+      return getPreviewKeyTextSize();
+    } else {
+      return mPreviewLabelTextSize;
     }
+  }
 
-    public void setPreviewKeyTextSize(int previewKeyTextSize) {
-        mPreviewKeyTextSize = previewKeyTextSize;
-    }
+  public void setPreviewLabelTextSize(int previewLabelTextSize) {
+    mPreviewLabelTextSize = previewLabelTextSize;
+  }
 
-    int getPreviewLabelTextSize() {
-        if (mPreviewLabelTextSize < 0) {
-            return getPreviewKeyTextSize();
-        } else {
-            return mPreviewLabelTextSize;
-        }
-    }
+  public Drawable getPreviewKeyBackground() {
+    return mPreviewKeyBackground;
+  }
 
-    public void setPreviewLabelTextSize(int previewLabelTextSize) {
-        mPreviewLabelTextSize = previewLabelTextSize;
-    }
+  public void setPreviewKeyBackground(Drawable previewKeyBackground) {
+    mPreviewKeyBackground = previewKeyBackground;
+  }
 
-    public Drawable getPreviewKeyBackground() {
-        return mPreviewKeyBackground;
-    }
+  int getPreviewKeyTextColor() {
+    return mPreviewKeyTextColor;
+  }
 
-    public void setPreviewKeyBackground(Drawable previewKeyBackground) {
-        mPreviewKeyBackground = previewKeyBackground;
-    }
+  public void setPreviewKeyTextColor(int previewKeyTextColor) {
+    mPreviewKeyTextColor = previewKeyTextColor;
+  }
 
-    int getPreviewKeyTextColor() {
-        return mPreviewKeyTextColor;
-    }
+  Typeface getKeyStyle() {
+    return mKeyStyle;
+  }
 
-    public void setPreviewKeyTextColor(int previewKeyTextColor) {
-        mPreviewKeyTextColor = previewKeyTextColor;
-    }
+  public void setKeyStyle(Typeface keyStyle) {
+    mKeyStyle = keyStyle;
+  }
 
-    Typeface getKeyStyle() {
-        return mKeyStyle;
-    }
+  public int getVerticalOffset() {
+    return mVerticalOffset;
+  }
 
-    public void setKeyStyle(Typeface keyStyle) {
-        mKeyStyle = keyStyle;
-    }
+  public void setVerticalOffset(int verticalOffset) {
+    mVerticalOffset = verticalOffset;
+  }
 
-    public int getVerticalOffset() {
-        return mVerticalOffset;
-    }
+  @PreviewAnimationType
+  public int getPreviewAnimationType() {
+    return mPreviewAnimationType;
+  }
 
-    public void setVerticalOffset(int verticalOffset) {
-        mVerticalOffset = verticalOffset;
-    }
+  public void setPreviewAnimationType(@PreviewAnimationType int previewAnimationType) {
+    mPreviewAnimationType = previewAnimationType;
+  }
 
-    @PreviewAnimationType
-    public int getPreviewAnimationType() {
-        return mPreviewAnimationType;
-    }
-
-    public void setPreviewAnimationType(@PreviewAnimationType int previewAnimationType) {
-        mPreviewAnimationType = previewAnimationType;
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ANIMATION_STYLE_NONE, ANIMATION_STYLE_EXTEND, ANIMATION_STYLE_APPEAR})
-    public @interface PreviewAnimationType {}
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ANIMATION_STYLE_NONE, ANIMATION_STYLE_EXTEND, ANIMATION_STYLE_APPEAR})
+  public @interface PreviewAnimationType {}
 }

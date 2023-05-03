@@ -13,87 +13,86 @@ import org.mockito.Mockito;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class DictionaryBackgroundLoaderTest {
 
-    @Test
-    public void testHappyPath() {
-        Dictionary dictionary = Mockito.mock(Dictionary.class);
-        DictionaryBackgroundLoader.Listener listener =
-                Mockito.mock(DictionaryBackgroundLoader.Listener.class);
+  @Test
+  public void testHappyPath() {
+    Dictionary dictionary = Mockito.mock(Dictionary.class);
+    DictionaryBackgroundLoader.Listener listener =
+        Mockito.mock(DictionaryBackgroundLoader.Listener.class);
 
-        final Disposable disposable =
-                DictionaryBackgroundLoader.loadDictionaryInBackground(listener, dictionary);
-        TestRxSchedulers.drainAllTasks();
+    final Disposable disposable =
+        DictionaryBackgroundLoader.loadDictionaryInBackground(listener, dictionary);
+    TestRxSchedulers.drainAllTasks();
 
-        final InOrder inOrder = Mockito.inOrder(listener, dictionary);
-        inOrder.verify(dictionary).loadDictionary();
-        inOrder.verify(listener).onDictionaryLoadingDone(same(dictionary));
-        inOrder.verifyNoMoreInteractions();
+    final InOrder inOrder = Mockito.inOrder(listener, dictionary);
+    inOrder.verify(dictionary).loadDictionary();
+    inOrder.verify(listener).onDictionaryLoadingDone(same(dictionary));
+    inOrder.verifyNoMoreInteractions();
 
-        disposable.dispose();
-        TestRxSchedulers.drainAllTasks();
-        Mockito.verify(dictionary).close();
-    }
+    disposable.dispose();
+    TestRxSchedulers.drainAllTasks();
+    Mockito.verify(dictionary).close();
+  }
 
-    @Test
-    public void testFailedToLoad() {
-        Dictionary dictionary = Mockito.mock(Dictionary.class);
-        final RuntimeException runtimeException = new RuntimeException();
-        Mockito.doThrow(runtimeException).when(dictionary).loadDictionary();
-        DictionaryBackgroundLoader.Listener listener =
-                Mockito.mock(DictionaryBackgroundLoader.Listener.class);
+  @Test
+  public void testFailedToLoad() {
+    Dictionary dictionary = Mockito.mock(Dictionary.class);
+    final RuntimeException runtimeException = new RuntimeException();
+    Mockito.doThrow(runtimeException).when(dictionary).loadDictionary();
+    DictionaryBackgroundLoader.Listener listener =
+        Mockito.mock(DictionaryBackgroundLoader.Listener.class);
 
-        final Disposable disposable =
-                DictionaryBackgroundLoader.loadDictionaryInBackground(listener, dictionary);
+    final Disposable disposable =
+        DictionaryBackgroundLoader.loadDictionaryInBackground(listener, dictionary);
 
-        TestRxSchedulers.drainAllTasks();
+    TestRxSchedulers.drainAllTasks();
 
-        final InOrder inOrder = Mockito.inOrder(listener, dictionary);
-        inOrder.verify(dictionary).loadDictionary();
-        inOrder.verify(dictionary).close();
-        inOrder.verify(listener)
-                .onDictionaryLoadingFailed(same(dictionary), same(runtimeException));
-        inOrder.verifyNoMoreInteractions();
+    final InOrder inOrder = Mockito.inOrder(listener, dictionary);
+    inOrder.verify(dictionary).loadDictionary();
+    inOrder.verify(dictionary).close();
+    inOrder.verify(listener).onDictionaryLoadingFailed(same(dictionary), same(runtimeException));
+    inOrder.verifyNoMoreInteractions();
 
-        disposable.dispose();
-        TestRxSchedulers.drainAllTasks();
-        Mockito.verify(dictionary).close();
-    }
+    disposable.dispose();
+    TestRxSchedulers.drainAllTasks();
+    Mockito.verify(dictionary).close();
+  }
 
-    @Test
-    public void testReloadHappyPath() {
-        Dictionary dictionary = Mockito.mock(Dictionary.class);
-        final Disposable disposable =
-                DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
+  @Test
+  public void testReloadHappyPath() {
+    Dictionary dictionary = Mockito.mock(Dictionary.class);
+    final Disposable disposable =
+        DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
 
-        TestRxSchedulers.drainAllTasks();
+    TestRxSchedulers.drainAllTasks();
 
-        final InOrder inOrder = Mockito.inOrder(dictionary);
-        inOrder.verify(dictionary).loadDictionary();
-        inOrder.verify(dictionary, Mockito.never()).close();
-        inOrder.verifyNoMoreInteractions();
+    final InOrder inOrder = Mockito.inOrder(dictionary);
+    inOrder.verify(dictionary).loadDictionary();
+    inOrder.verify(dictionary, Mockito.never()).close();
+    inOrder.verifyNoMoreInteractions();
 
-        disposable.dispose();
-        TestRxSchedulers.drainAllTasks();
-        Mockito.verify(dictionary, Mockito.never()).close();
-    }
+    disposable.dispose();
+    TestRxSchedulers.drainAllTasks();
+    Mockito.verify(dictionary, Mockito.never()).close();
+  }
 
-    @Test
-    public void testReloadFailedToLoad() {
-        Dictionary dictionary = Mockito.mock(Dictionary.class);
-        final RuntimeException runtimeException = new RuntimeException();
+  @Test
+  public void testReloadFailedToLoad() {
+    Dictionary dictionary = Mockito.mock(Dictionary.class);
+    final RuntimeException runtimeException = new RuntimeException();
 
-        Mockito.doThrow(runtimeException).when(dictionary).loadDictionary();
-        final Disposable disposable =
-                DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
+    Mockito.doThrow(runtimeException).when(dictionary).loadDictionary();
+    final Disposable disposable =
+        DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
 
-        TestRxSchedulers.drainAllTasks();
+    TestRxSchedulers.drainAllTasks();
 
-        final InOrder inOrder = Mockito.inOrder(dictionary);
-        inOrder.verify(dictionary).loadDictionary();
-        inOrder.verify(dictionary, Mockito.never()).close();
-        inOrder.verifyNoMoreInteractions();
+    final InOrder inOrder = Mockito.inOrder(dictionary);
+    inOrder.verify(dictionary).loadDictionary();
+    inOrder.verify(dictionary, Mockito.never()).close();
+    inOrder.verifyNoMoreInteractions();
 
-        disposable.dispose();
-        TestRxSchedulers.drainAllTasks();
-        Mockito.verify(dictionary, Mockito.never()).close();
-    }
+    disposable.dispose();
+    TestRxSchedulers.drainAllTasks();
+    Mockito.verify(dictionary, Mockito.never()).close();
+  }
 }

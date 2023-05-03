@@ -6,6 +6,6 @@ import android.content.Intent;
 
 public class PackBroadcastReceiverBase extends BroadcastReceiver {
 
-    @Override
-    public void onReceive(Context arg0, Intent arg1) {}
+  @Override
+  public void onReceive(Context arg0, Intent arg1) {}
 }

@@ -18,31 +18,31 @@ package com.anysoftkeyboard.base.utils;
 
 public interface LogProvider {
 
-    boolean supportsV();
+  boolean supportsV();
 
-    void v(String tag, String text);
+  void v(String tag, String text);
 
-    boolean supportsD();
+  boolean supportsD();
 
-    void d(String tag, String text);
+  void d(String tag, String text);
 
-    boolean supportsYell();
+  boolean supportsYell();
 
-    void yell(String tag, String text);
+  void yell(String tag, String text);
 
-    boolean supportsI();
+  boolean supportsI();
 
-    void i(String tag, String text);
+  void i(String tag, String text);
 
-    boolean supportsW();
+  boolean supportsW();
 
-    void w(String tag, String text);
+  void w(String tag, String text);
 
-    boolean supportsE();
+  boolean supportsE();
 
-    void e(String tag, String text);
+  void e(String tag, String text);
 
-    boolean supportsWTF();
+  boolean supportsWTF();
 
-    void wtf(String tag, String text);
+  void wtf(String tag, String text);
 }

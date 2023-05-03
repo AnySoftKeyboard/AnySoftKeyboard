@@ -28,50 +28,50 @@ import android.util.Log;
  */
 public class ServiceHelper extends Service {
 
-    private static final String TAG = "ServiceHelper";
+  private static final String TAG = "ServiceHelper";
 
-    private final IBinder mBinder = new ServiceHelperBinder();
+  private final IBinder mBinder = new ServiceHelperBinder();
 
-    private Callback mCallback;
+  private Callback mCallback;
 
-    @Override
-    public IBinder onBind(Intent arg0) {
-        return mBinder;
+  @Override
+  public IBinder onBind(Intent arg0) {
+    return mBinder;
+  }
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    Log.i(TAG, "#onCreate");
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    Log.i(TAG, "#onDestroy");
+  }
+
+  public void startRecognition(String languageLocale, Callback callback) {
+    Log.i(TAG, "#startRecognition");
+    mCallback = callback;
+    Intent intent = new Intent(this, ActivityHelper.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+  }
+
+  public void notifyResult(String recognitionResult) {
+    if (mCallback != null) {
+      mCallback.onResult(recognitionResult);
     }
+  }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.i(TAG, "#onCreate");
-    }
+  public interface Callback {
+    void onResult(String recognitionResult);
+  }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "#onDestroy");
+  public class ServiceHelperBinder extends Binder {
+    ServiceHelper getService() {
+      return ServiceHelper.this;
     }
-
-    public void startRecognition(String languageLocale, Callback callback) {
-        Log.i(TAG, "#startRecognition");
-        mCallback = callback;
-        Intent intent = new Intent(this, ActivityHelper.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    public void notifyResult(String recognitionResult) {
-        if (mCallback != null) {
-            mCallback.onResult(recognitionResult);
-        }
-    }
-
-    public interface Callback {
-        void onResult(String recognitionResult);
-    }
-
-    public class ServiceHelperBinder extends Binder {
-        ServiceHelper getService() {
-            return ServiceHelper.this;
-        }
-    }
+  }
 }

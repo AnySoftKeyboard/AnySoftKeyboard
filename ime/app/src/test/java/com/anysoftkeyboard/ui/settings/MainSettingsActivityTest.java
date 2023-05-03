@@ -33,188 +33,177 @@ import org.robolectric.shadows.ShadowActivity;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class MainSettingsActivityTest {
 
-    private static Intent createAppShortcutIntent(@StringRes int deepLinkResId) {
+  private static Intent createAppShortcutIntent(@StringRes int deepLinkResId) {
 
-        return new Intent(
-                ACTION_VIEW,
-                Uri.parse(getApplicationContext().getString(deepLinkResId)),
-                getApplicationContext(),
-                MainSettingsActivity.class);
+    return new Intent(
+        ACTION_VIEW,
+        Uri.parse(getApplicationContext().getString(deepLinkResId)),
+        getApplicationContext(),
+        MainSettingsActivity.class);
+  }
+
+  @NonNull private static Intent getContactsIntent() {
+    Intent requestIntent =
+        new Intent(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class);
+    requestIntent.putExtra(
+        MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY, READ_CONTACTS);
+    requestIntent.setAction(MainSettingsActivity.ACTION_REQUEST_PERMISSION_ACTIVITY);
+    return requestIntent;
+  }
+
+  @Test
+  public void testBottomNavClicks() {
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(MainSettingsActivity.class)) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
+
+      activityController.onActivity(
+          activity -> {
+            BottomNavigationView bottomNav = activity.findViewById(R.id.bottom_navigation);
+            Assert.assertEquals(R.id.mainFragment, bottomNav.getSelectedItemId());
+            Assert.assertTrue(
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
+                    instanceof MainFragment);
+
+            bottomNav.setSelectedItemId(R.id.languageSettingsFragment);
+            TestRxSchedulers.drainAllTasks();
+            Assert.assertTrue(
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
+                    instanceof LanguageSettingsFragment);
+
+            bottomNav.setSelectedItemId(R.id.userInterfaceSettingsFragment);
+            TestRxSchedulers.drainAllTasks();
+            Assert.assertTrue(
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
+                    instanceof UserInterfaceSettingsFragment);
+
+            bottomNav.setSelectedItemId(R.id.quickTextKeysBrowseFragment);
+            TestRxSchedulers.drainAllTasks();
+            Assert.assertTrue(
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
+                    instanceof QuickTextKeysBrowseFragment);
+
+            bottomNav.setSelectedItemId(R.id.gesturesSettingsFragment);
+            TestRxSchedulers.drainAllTasks();
+            Assert.assertTrue(
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
+                    instanceof GesturesSettingsFragment);
+
+            bottomNav.setSelectedItemId(R.id.mainFragment);
+            TestRxSchedulers.drainAllTasks();
+            Assert.assertTrue(
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
+                    instanceof MainFragment);
+          });
     }
+  }
 
-    @NonNull private static Intent getContactsIntent() {
-        Intent requestIntent =
-                new Intent(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class);
-        requestIntent.putExtra(
-                MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY, READ_CONTACTS);
-        requestIntent.setAction(MainSettingsActivity.ACTION_REQUEST_PERMISSION_ACTIVITY);
-        return requestIntent;
+  @Test
+  public void testKeyboardsAppShortcutPassed() {
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_keyboards))) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
+
+      activityController.onActivity(
+          activity -> {
+            Fragment fragment =
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity);
+
+            Assert.assertNotNull(fragment);
+            Assert.assertTrue(fragment instanceof KeyboardAddOnBrowserFragment);
+          });
     }
+  }
 
-    @Test
-    public void testBottomNavClicks() {
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(MainSettingsActivity.class)) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
+  @Test
+  public void testThemesAppShortcutPassed() {
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_themes))) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
 
-            activityController.onActivity(
-                    activity -> {
-                        BottomNavigationView bottomNav =
-                                activity.findViewById(R.id.bottom_navigation);
-                        Assert.assertEquals(R.id.mainFragment, bottomNav.getSelectedItemId());
-                        Assert.assertTrue(
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
-                                        instanceof MainFragment);
+      activityController.onActivity(
+          activity -> {
+            Fragment fragment =
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity);
 
-                        bottomNav.setSelectedItemId(R.id.languageSettingsFragment);
-                        TestRxSchedulers.drainAllTasks();
-                        Assert.assertTrue(
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
-                                        instanceof LanguageSettingsFragment);
-
-                        bottomNav.setSelectedItemId(R.id.userInterfaceSettingsFragment);
-                        TestRxSchedulers.drainAllTasks();
-                        Assert.assertTrue(
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
-                                        instanceof UserInterfaceSettingsFragment);
-
-                        bottomNav.setSelectedItemId(R.id.quickTextKeysBrowseFragment);
-                        TestRxSchedulers.drainAllTasks();
-                        Assert.assertTrue(
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
-                                        instanceof QuickTextKeysBrowseFragment);
-
-                        bottomNav.setSelectedItemId(R.id.gesturesSettingsFragment);
-                        TestRxSchedulers.drainAllTasks();
-                        Assert.assertTrue(
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
-                                        instanceof GesturesSettingsFragment);
-
-                        bottomNav.setSelectedItemId(R.id.mainFragment);
-                        TestRxSchedulers.drainAllTasks();
-                        Assert.assertTrue(
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity)
-                                        instanceof MainFragment);
-                    });
-        }
+            Assert.assertNotNull(fragment);
+            Assert.assertTrue(fragment instanceof KeyboardThemeSelectorFragment);
+          });
     }
+  }
 
-    @Test
-    public void testKeyboardsAppShortcutPassed() {
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_keyboards))) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
+  @Test
+  public void testGesturesAppShortcutPassed() {
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_gestures))) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
 
-            activityController.onActivity(
-                    activity -> {
-                        Fragment fragment =
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(
-                                        activity);
+      activityController.onActivity(
+          activity -> {
+            Fragment fragment =
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity);
 
-                        Assert.assertNotNull(fragment);
-                        Assert.assertTrue(fragment instanceof KeyboardAddOnBrowserFragment);
-                    });
-        }
+            Assert.assertNotNull(fragment);
+            Assert.assertTrue(fragment instanceof GesturesSettingsFragment);
+            BottomNavigationView bottomNav = activity.findViewById(R.id.bottom_navigation);
+            Assert.assertEquals(R.id.gesturesSettingsFragment, bottomNav.getSelectedItemId());
+          });
     }
+  }
 
-    @Test
-    public void testThemesAppShortcutPassed() {
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_themes))) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
+  @Test
+  public void testQuickKeysAppShortcutPassed() {
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_quick_text))) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
 
-            activityController.onActivity(
-                    activity -> {
-                        Fragment fragment =
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(
-                                        activity);
+      activityController.onActivity(
+          activity -> {
+            Fragment fragment =
+                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(activity);
 
-                        Assert.assertNotNull(fragment);
-                        Assert.assertTrue(fragment instanceof KeyboardThemeSelectorFragment);
-                    });
-        }
+            Assert.assertNotNull(fragment);
+            Assert.assertTrue(fragment instanceof QuickTextKeysBrowseFragment);
+            BottomNavigationView bottomNav = activity.findViewById(R.id.bottom_navigation);
+            Assert.assertEquals(R.id.quickTextKeysBrowseFragment, bottomNav.getSelectedItemId());
+          });
     }
+  }
 
-    @Test
-    public void testGesturesAppShortcutPassed() {
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_gestures))) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
+  @Test
+  @Config(sdk = Build.VERSION_CODES.M)
+  public void testContactsPermissionRequestedWhenNotGranted() {
+    Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+        .denyPermissions(Manifest.permission.READ_CONTACTS);
 
-            activityController.onActivity(
-                    activity -> {
-                        Fragment fragment =
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(
-                                        activity);
+    Intent requestIntent = getContactsIntent();
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(requestIntent)) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
 
-                        Assert.assertNotNull(fragment);
-                        Assert.assertTrue(fragment instanceof GesturesSettingsFragment);
-                        BottomNavigationView bottomNav =
-                                activity.findViewById(R.id.bottom_navigation);
-                        Assert.assertEquals(
-                                R.id.gesturesSettingsFragment, bottomNav.getSelectedItemId());
-                    });
-        }
+      activityController.onActivity(
+          activity -> {
+            final ShadowActivity.PermissionsRequest lastRequestedPermission =
+                Shadows.shadowOf(activity).getLastRequestedPermission();
+            Assert.assertNotNull(lastRequestedPermission);
+            Assert.assertEquals(
+                PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE,
+                lastRequestedPermission.requestCode);
+          });
     }
+  }
 
-    @Test
-    public void testQuickKeysAppShortcutPassed() {
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(
-                        createAppShortcutIntent(R.string.deeplink_url_quick_text))) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
+  @Test(expected = IllegalArgumentException.class)
+  @Config(sdk = Build.VERSION_CODES.M)
+  public void testFailsIfUnknownPermission() {
+    Intent requestIntent = getContactsIntent();
+    requestIntent.putExtra(
+        MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY, LOCATION_HARDWARE);
+    try (ActivityScenario<MainSettingsActivity> activityController =
+        ActivityScenario.launch(requestIntent)) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
 
-            activityController.onActivity(
-                    activity -> {
-                        Fragment fragment =
-                                RobolectricFragmentTestCase.getCurrentFragmentFromActivity(
-                                        activity);
-
-                        Assert.assertNotNull(fragment);
-                        Assert.assertTrue(fragment instanceof QuickTextKeysBrowseFragment);
-                        BottomNavigationView bottomNav =
-                                activity.findViewById(R.id.bottom_navigation);
-                        Assert.assertEquals(
-                                R.id.quickTextKeysBrowseFragment, bottomNav.getSelectedItemId());
-                    });
-        }
+      activityController.onActivity(Assert::assertNotNull);
     }
-
-    @Test
-    @Config(sdk = Build.VERSION_CODES.M)
-    public void testContactsPermissionRequestedWhenNotGranted() {
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                .denyPermissions(Manifest.permission.READ_CONTACTS);
-
-        Intent requestIntent = getContactsIntent();
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(requestIntent)) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
-
-            activityController.onActivity(
-                    activity -> {
-                        final ShadowActivity.PermissionsRequest lastRequestedPermission =
-                                Shadows.shadowOf(activity).getLastRequestedPermission();
-                        Assert.assertNotNull(lastRequestedPermission);
-                        Assert.assertEquals(
-                                PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE,
-                                lastRequestedPermission.requestCode);
-                    });
-        }
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    @Config(sdk = Build.VERSION_CODES.M)
-    public void testFailsIfUnknownPermission() {
-        Intent requestIntent = getContactsIntent();
-        requestIntent.putExtra(
-                MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY,
-                LOCATION_HARDWARE);
-        try (ActivityScenario<MainSettingsActivity> activityController =
-                ActivityScenario.launch(requestIntent)) {
-            activityController.moveToState(Lifecycle.State.RESUMED);
-
-            activityController.onActivity(Assert::assertNotNull);
-        }
-    }
+  }
 }

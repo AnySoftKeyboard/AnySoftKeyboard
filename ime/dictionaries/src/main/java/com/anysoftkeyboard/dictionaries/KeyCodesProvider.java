@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.dictionaries;
 
 public interface KeyCodesProvider {
-    int codePointCount();
+  int codePointCount();
 
-    int[] getCodesAt(int index);
+  int[] getCodesAt(int index);
 
-    CharSequence getTypedWord();
+  CharSequence getTypedWord();
 }

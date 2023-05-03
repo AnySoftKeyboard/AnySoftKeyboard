@@ -23,206 +23,204 @@ import org.robolectric.annotation.Config;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
 
-    @Test
-    public void testDefaultAppliesInvalidOverlayAndDoesNotInteractWithCreator() {
-        simulateOnStartInputFlow();
+  @Test
+  public void testDefaultAppliesInvalidOverlayAndDoesNotInteractWithCreator() {
+    simulateOnStartInputFlow();
 
-        OverlayData appliedData = captureOverlay();
-        Assert.assertFalse(appliedData.isValid());
-        Assert.assertSame(AnySoftKeyboardThemeOverlay.INVALID_OVERLAY_DATA, appliedData);
-    }
+    OverlayData appliedData = captureOverlay();
+    Assert.assertFalse(appliedData.isValid());
+    Assert.assertSame(AnySoftKeyboardThemeOverlay.INVALID_OVERLAY_DATA, appliedData);
+  }
 
-    @Test
-    public void testWhenEnabledAppliesOverlayFromCreator() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
-        Mockito.reset(mAnySoftKeyboardUnderTest.getMockOverlayDataCreator());
+  @Test
+  public void testWhenEnabledAppliesOverlayFromCreator() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getMockOverlayDataCreator());
 
-        final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
-        simulateOnStartInputFlow(false, editorInfo);
-        ArgumentCaptor<ComponentName> componentNameArgumentCaptor =
-                ArgumentCaptor.forClass(ComponentName.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getMockOverlayDataCreator())
-                .createOverlayData(componentNameArgumentCaptor.capture());
-        Assert.assertEquals(
-                editorInfo.packageName, componentNameArgumentCaptor.getValue().getPackageName());
+    final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    simulateOnStartInputFlow(false, editorInfo);
+    ArgumentCaptor<ComponentName> componentNameArgumentCaptor =
+        ArgumentCaptor.forClass(ComponentName.class);
+    Mockito.verify(mAnySoftKeyboardUnderTest.getMockOverlayDataCreator())
+        .createOverlayData(componentNameArgumentCaptor.capture());
+    Assert.assertEquals(
+        editorInfo.packageName, componentNameArgumentCaptor.getValue().getPackageName());
 
-        OverlayData appliedData = captureOverlay();
-        Assert.assertTrue(appliedData.isValid());
-    }
+    OverlayData appliedData = captureOverlay();
+    Assert.assertTrue(appliedData.isValid());
+  }
 
-    @Test
-    public void testStartsEnabledStopsApplyingAfterDisabled() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+  @Test
+  public void testStartsEnabledStopsApplyingAfterDisabled() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        simulateOnStartInputFlow(false, createEditorInfoTextWithSuggestionsForSetUp());
+    simulateOnStartInputFlow(false, createEditorInfoTextWithSuggestionsForSetUp());
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
+    simulateFinishInputFlow();
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, false);
-        simulateOnStartInputFlow(false, createEditorInfoTextWithSuggestionsForSetUp());
-        Assert.assertSame(captureOverlay(), AnySoftKeyboardThemeOverlay.INVALID_OVERLAY_DATA);
-    }
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, false);
+    simulateOnStartInputFlow(false, createEditorInfoTextWithSuggestionsForSetUp());
+    Assert.assertSame(captureOverlay(), AnySoftKeyboardThemeOverlay.INVALID_OVERLAY_DATA);
+  }
 
-    @Test
-    public void testAppliesInvalidIfRemotePackageDoesNotHaveIntent() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+  @Test
+  public void testAppliesInvalidIfRemotePackageDoesNotHaveIntent() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
-        editorInfo.packageName = "com.is.not.there";
-        simulateOnStartInputFlow(false, editorInfo);
+    final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.packageName = "com.is.not.there";
+    simulateOnStartInputFlow(false, editorInfo);
 
-        OverlayData appliedData = captureOverlay();
-        Assert.assertFalse(appliedData.isValid());
-        Assert.assertSame(AnySoftKeyboardThemeOverlay.INVALID_OVERLAY_DATA, appliedData);
-    }
+    OverlayData appliedData = captureOverlay();
+    Assert.assertFalse(appliedData.isValid());
+    Assert.assertSame(AnySoftKeyboardThemeOverlay.INVALID_OVERLAY_DATA, appliedData);
+  }
 
-    @Test
-    public void testSwitchesBetweenApps() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+  @Test
+  public void testSwitchesBetweenApps() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
+    simulateFinishInputFlow();
 
-        final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
-        editorInfo.packageName = "com.is.not.there";
-        simulateOnStartInputFlow(false, editorInfo);
+    final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.packageName = "com.is.not.there";
+    simulateOnStartInputFlow(false, editorInfo);
 
-        Assert.assertFalse(captureOverlay().isValid());
+    Assert.assertFalse(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
-        // again, a valid app
-        simulateOnStartInputFlow();
-        Assert.assertTrue(captureOverlay().isValid());
-    }
+    simulateFinishInputFlow();
+    // again, a valid app
+    simulateOnStartInputFlow();
+    Assert.assertTrue(captureOverlay().isValid());
+  }
 
-    @Test
-    public void testRestartsInputField() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+  @Test
+  public void testRestartsInputField() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, false);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, false);
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertFalse(captureOverlay().isValid());
+    Assert.assertFalse(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
+    simulateFinishInputFlow();
 
-        simulateOnStartInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertFalse(captureOverlay().isValid());
-    }
+    Assert.assertFalse(captureOverlay().isValid());
+  }
 
-    @Test
-    @Config(sdk = Build.VERSION_CODES.KITKAT)
-    public void testDoesNotWorkPriorToLollipop() {
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+  @Test
+  @Config(sdk = Build.VERSION_CODES.KITKAT)
+  public void testDoesNotWorkPriorToLollipop() {
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertFalse(captureOverlay().isValid());
+    Assert.assertFalse(captureOverlay().isValid());
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertFalse(captureOverlay().isValid());
+    Assert.assertFalse(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertFalse(captureOverlay().isValid());
-    }
+    Assert.assertFalse(captureOverlay().isValid());
+  }
 
-    @Test
-    public void testDoesNotFailWithEmptyPackageName() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+  @Test
+  public void testDoesNotFailWithEmptyPackageName() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        simulateFinishInputFlow();
-        simulateOnStartInputFlow();
+    simulateFinishInputFlow();
+    simulateOnStartInputFlow();
 
-        Assert.assertTrue(captureOverlay().isValid());
+    Assert.assertTrue(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
+    simulateFinishInputFlow();
 
-        final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
-        editorInfo.packageName = null;
-        simulateOnStartInputFlow(false, editorInfo);
+    final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.packageName = null;
+    simulateOnStartInputFlow(false, editorInfo);
 
-        Assert.assertFalse(captureOverlay().isValid());
+    Assert.assertFalse(captureOverlay().isValid());
 
-        simulateFinishInputFlow();
-        // again, a valid app
-        simulateOnStartInputFlow();
-        Assert.assertTrue(captureOverlay().isValid());
-    }
+    simulateFinishInputFlow();
+    // again, a valid app
+    simulateOnStartInputFlow();
+    Assert.assertTrue(captureOverlay().isValid());
+  }
 
-    @Test
-    public void testPowerSavingPriority() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
+  @Test
+  public void testPowerSavingPriority() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
 
-        final OverlyDataCreator originalOverlayDataCreator =
-                mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
+    final OverlyDataCreator originalOverlayDataCreator =
+        mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
 
-        final OverlayData normal =
-                originalOverlayDataCreator.createOverlayData(
-                        new ComponentName(
-                                ApplicationProvider.getApplicationContext(),
-                                MainSettingsActivity.class));
-        Assert.assertTrue(normal.isValid());
-        Assert.assertEquals(0xFFCC99FF, normal.getPrimaryColor());
-        Assert.assertEquals(0xFFAA77DD, normal.getPrimaryDarkColor());
-        Assert.assertEquals(0xFF000000, normal.getPrimaryTextColor());
+    final OverlayData normal =
+        originalOverlayDataCreator.createOverlayData(
+            new ComponentName(
+                ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+    Assert.assertTrue(normal.isValid());
+    Assert.assertEquals(0xFFCC99FF, normal.getPrimaryColor());
+    Assert.assertEquals(0xFFAA77DD, normal.getPrimaryDarkColor());
+    Assert.assertEquals(0xFF000000, normal.getPrimaryTextColor());
 
-        PowerSavingTest.sendBatteryState(true);
+    PowerSavingTest.sendBatteryState(true);
 
-        final OverlayData powerSaving =
-                originalOverlayDataCreator.createOverlayData(
-                        new ComponentName(
-                                ApplicationProvider.getApplicationContext(),
-                                MainSettingsActivity.class));
-        Assert.assertTrue(powerSaving.isValid());
-        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryColor());
-        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryDarkColor());
-        Assert.assertEquals(0xFF888888, powerSaving.getPrimaryTextColor());
-    }
+    final OverlayData powerSaving =
+        originalOverlayDataCreator.createOverlayData(
+            new ComponentName(
+                ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+    Assert.assertTrue(powerSaving.isValid());
+    Assert.assertEquals(0xFF000000, powerSaving.getPrimaryColor());
+    Assert.assertEquals(0xFF000000, powerSaving.getPrimaryDarkColor());
+    Assert.assertEquals(0xFF888888, powerSaving.getPrimaryTextColor());
+  }
 
-    private OverlayData captureOverlay() {
-        return captureOverlay(mAnySoftKeyboardUnderTest);
-    }
+  private OverlayData captureOverlay() {
+    return captureOverlay(mAnySoftKeyboardUnderTest);
+  }
 
-    public static OverlayData captureOverlay(TestableAnySoftKeyboard testableAnySoftKeyboard) {
-        ArgumentCaptor<OverlayData> captor = ArgumentCaptor.forClass(OverlayData.class);
-        Mockito.verify(testableAnySoftKeyboard.getInputView(), Mockito.atLeastOnce())
-                .setThemeOverlay(captor.capture());
+  public static OverlayData captureOverlay(TestableAnySoftKeyboard testableAnySoftKeyboard) {
+    ArgumentCaptor<OverlayData> captor = ArgumentCaptor.forClass(OverlayData.class);
+    Mockito.verify(testableAnySoftKeyboard.getInputView(), Mockito.atLeastOnce())
+        .setThemeOverlay(captor.capture());
 
-        return captor.getValue();
-    }
+    return captor.getValue();
+  }
 }

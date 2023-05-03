@@ -23,12 +23,12 @@ import android.content.Context;
 @TargetApi(16)
 public class ClipboardV16 extends ClipboardV11 {
 
-    ClipboardV16(Context context) {
-        super(context);
-    }
+  ClipboardV16(Context context) {
+    super(context);
+  }
 
-    @Override
-    protected CharSequence getTextFromClipItem(ClipData.Item item) {
-        return item.coerceToStyledText(mContext);
-    }
+  @Override
+  protected CharSequence getTextFromClipItem(ClipData.Item item) {
+    return item.coerceToStyledText(mContext);
+  }
 }

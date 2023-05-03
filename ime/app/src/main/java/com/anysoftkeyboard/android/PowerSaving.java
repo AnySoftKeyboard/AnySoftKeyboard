@@ -19,92 +19,82 @@ import io.reactivex.annotations.CheckReturnValue;
 
 public class PowerSaving {
 
-    @CheckReturnValue
-    @NonNull public static Observable<Boolean> observePowerSavingState(
-            @NonNull Context context,
-            @StringRes int enablePrefResId,
-            @BoolRes int defaultValueResId) {
-        final RxSharedPrefs prefs = AnyApplication.prefs(context);
-        return Observable.combineLatest(
-                        prefs.getString(
-                                        R.string.settings_key_power_save_mode,
-                                        R.string.settings_default_power_save_mode_value)
-                                .asObservable(),
-                        enablePrefResId == 0
-                                ? Observable.just(true)
-                                : prefs.getBoolean(enablePrefResId, defaultValueResId)
-                                        .asObservable(),
-                        RxBroadcastReceivers.fromIntentFilter(
-                                        context.getApplicationContext(),
-                                        getBatteryStateIntentFilter())
-                                .startWith(new Intent(Intent.ACTION_BATTERY_OKAY)),
-                        RxBroadcastReceivers.fromIntentFilter(
-                                        context.getApplicationContext(),
-                                        getChargerStateIntentFilter())
-                                .startWith(new Intent(Intent.ACTION_POWER_DISCONNECTED)),
-                        getOsPowerSavingStateObservable(context),
-                        (powerSavingPref,
-                                enabledPref,
-                                batteryIntent,
-                                chargerIntent,
-                                osPowerSavingState) -> {
-                            if (!enabledPref) return false;
+  @CheckReturnValue
+  @NonNull public static Observable<Boolean> observePowerSavingState(
+      @NonNull Context context, @StringRes int enablePrefResId, @BoolRes int defaultValueResId) {
+    final RxSharedPrefs prefs = AnyApplication.prefs(context);
+    return Observable.combineLatest(
+            prefs
+                .getString(
+                    R.string.settings_key_power_save_mode,
+                    R.string.settings_default_power_save_mode_value)
+                .asObservable(),
+            enablePrefResId == 0
+                ? Observable.just(true)
+                : prefs.getBoolean(enablePrefResId, defaultValueResId).asObservable(),
+            RxBroadcastReceivers.fromIntentFilter(
+                    context.getApplicationContext(), getBatteryStateIntentFilter())
+                .startWith(new Intent(Intent.ACTION_BATTERY_OKAY)),
+            RxBroadcastReceivers.fromIntentFilter(
+                    context.getApplicationContext(), getChargerStateIntentFilter())
+                .startWith(new Intent(Intent.ACTION_POWER_DISCONNECTED)),
+            getOsPowerSavingStateObservable(context),
+            (powerSavingPref, enabledPref, batteryIntent, chargerIntent, osPowerSavingState) -> {
+              if (!enabledPref) return false;
 
-                            switch (powerSavingPref) {
-                                case "never":
-                                    return false;
-                                case "always":
-                                    return true;
-                                default:
-                                    return osPowerSavingState
-                                            || (Intent.ACTION_BATTERY_LOW.equals(
-                                                            batteryIntent.getAction())
-                                                    && Intent.ACTION_POWER_DISCONNECTED.equals(
-                                                            chargerIntent.getAction()));
-                            }
-                        })
-                .distinctUntilChanged();
+              switch (powerSavingPref) {
+                case "never":
+                  return false;
+                case "always":
+                  return true;
+                default:
+                  return osPowerSavingState
+                      || (Intent.ACTION_BATTERY_LOW.equals(batteryIntent.getAction())
+                          && Intent.ACTION_POWER_DISCONNECTED.equals(chargerIntent.getAction()));
+              }
+            })
+        .distinctUntilChanged();
+  }
+
+  @CheckReturnValue
+  @NonNull public static Observable<Boolean> observePowerSavingState(
+      @NonNull Context context, @StringRes int enablePrefResId) {
+    return observePowerSavingState(context, enablePrefResId, R.bool.settings_default_true);
+  }
+
+  private static Observable<Boolean> getOsPowerSavingStateObservable(Context context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      final PowerManager powerManager =
+          (PowerManager) context.getSystemService(Service.POWER_SERVICE);
+      return RxBroadcastReceivers.fromIntentFilter(context, getPowerSavingIntentFilter())
+          .map(i -> powerManager.isPowerSaveMode())
+          .startWith(false);
+    } else {
+      return Observable.just(false);
     }
+  }
 
-    @CheckReturnValue
-    @NonNull public static Observable<Boolean> observePowerSavingState(
-            @NonNull Context context, @StringRes int enablePrefResId) {
-        return observePowerSavingState(context, enablePrefResId, R.bool.settings_default_true);
-    }
+  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+  private static IntentFilter getPowerSavingIntentFilter() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
 
-    private static Observable<Boolean> getOsPowerSavingStateObservable(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final PowerManager powerManager =
-                    (PowerManager) context.getSystemService(Service.POWER_SERVICE);
-            return RxBroadcastReceivers.fromIntentFilter(context, getPowerSavingIntentFilter())
-                    .map(i -> powerManager.isPowerSaveMode())
-                    .startWith(false);
-        } else {
-            return Observable.just(false);
-        }
-    }
+    return filter;
+  }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private static IntentFilter getPowerSavingIntentFilter() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+  private static IntentFilter getBatteryStateIntentFilter() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(Intent.ACTION_BATTERY_LOW);
+    filter.addAction(Intent.ACTION_BATTERY_OKAY);
 
-        return filter;
-    }
+    return filter;
+  }
 
-    private static IntentFilter getBatteryStateIntentFilter() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_BATTERY_LOW);
-        filter.addAction(Intent.ACTION_BATTERY_OKAY);
+  private static IntentFilter getChargerStateIntentFilter() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(Intent.ACTION_POWER_CONNECTED);
+    filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
 
-        return filter;
-    }
-
-    private static IntentFilter getChargerStateIntentFilter() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_POWER_CONNECTED);
-        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-
-        return filter;
-    }
+    return filter;
+  }
 }

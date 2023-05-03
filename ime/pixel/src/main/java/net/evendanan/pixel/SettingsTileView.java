@@ -12,73 +12,73 @@ import androidx.annotation.DrawableRes;
 
 /** A custom view from a */
 public class SettingsTileView extends LinearLayout {
-    private TextView mLabel;
-    private ImageView mImage;
-    private Drawable mSettingsTile;
-    private CharSequence mSettingsLabel;
+  private TextView mLabel;
+  private ImageView mImage;
+  private Drawable mSettingsTile;
+  private CharSequence mSettingsLabel;
 
-    public SettingsTileView(Context context) {
-        super(context);
-        init(null);
+  public SettingsTileView(Context context) {
+    super(context);
+    init(null);
+  }
+
+  public SettingsTileView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(attrs);
+  }
+
+  public SettingsTileView(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+    init(attrs);
+  }
+
+  private void init(AttributeSet attrs) {
+    setupBasicLayoutConfiguration();
+
+    TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.SettingsTileView);
+
+    mSettingsTile = array.getDrawable(R.styleable.SettingsTileView_tileImage);
+    mSettingsLabel = array.getText(R.styleable.SettingsTileView_tileLabel);
+
+    array.recycle();
+
+    inflate(getContext(), R.layout.settings_tile_view, this);
+  }
+
+  private void setupBasicLayoutConfiguration() {
+    setBackgroundResource(R.drawable.transparent_click_feedback_background);
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      setOrientation(LinearLayout.VERTICAL);
+      setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1f));
+    } else {
+      setOrientation(LinearLayout.HORIZONTAL);
+      setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
     }
+  }
 
-    public SettingsTileView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-    }
+  @Override
+  protected void onFinishInflate() {
+    super.onFinishInflate();
+    mImage = findViewById(R.id.tile_image);
+    mImage.setImageDrawable(mSettingsTile);
+    mLabel = findViewById(R.id.tile_label);
+    mLabel.setText(mSettingsLabel);
+    setupBasicLayoutConfiguration();
+  }
 
-    public SettingsTileView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init(attrs);
-    }
+  public CharSequence getLabel() {
+    return mLabel.getText();
+  }
 
-    private void init(AttributeSet attrs) {
-        setupBasicLayoutConfiguration();
+  public void setLabel(CharSequence label) {
+    mLabel.setText(label);
+  }
 
-        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.SettingsTileView);
+  public Drawable getImage() {
+    return mImage.getDrawable();
+  }
 
-        mSettingsTile = array.getDrawable(R.styleable.SettingsTileView_tileImage);
-        mSettingsLabel = array.getText(R.styleable.SettingsTileView_tileLabel);
-
-        array.recycle();
-
-        inflate(getContext(), R.layout.settings_tile_view, this);
-    }
-
-    private void setupBasicLayoutConfiguration() {
-        setBackgroundResource(R.drawable.transparent_click_feedback_background);
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setOrientation(LinearLayout.VERTICAL);
-            setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1f));
-        } else {
-            setOrientation(LinearLayout.HORIZONTAL);
-            setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-        }
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        mImage = findViewById(R.id.tile_image);
-        mImage.setImageDrawable(mSettingsTile);
-        mLabel = findViewById(R.id.tile_label);
-        mLabel.setText(mSettingsLabel);
-        setupBasicLayoutConfiguration();
-    }
-
-    public CharSequence getLabel() {
-        return mLabel.getText();
-    }
-
-    public void setLabel(CharSequence label) {
-        mLabel.setText(label);
-    }
-
-    public Drawable getImage() {
-        return mImage.getDrawable();
-    }
-
-    public void setImage(@DrawableRes int imageId) {
-        mImage.setImageResource(imageId);
-    }
+  public void setImage(@DrawableRes int imageId) {
+    mImage.setImageResource(imageId);
+  }
 }

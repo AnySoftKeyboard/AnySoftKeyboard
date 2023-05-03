@@ -23,84 +23,76 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 
 public class KeyboardAddOnAndBuilder extends AddOnImpl {
 
-    private final int mResId;
-    private final int mLandscapeResId;
-    private final int mIconResId;
-    private final String mDefaultDictionary;
-    private final int mQwertyTranslationId;
-    private final String mAdditionalIsLetterExceptions;
-    private final String mSentenceSeparators;
-    private final boolean mKeyboardDefaultEnabled;
-    private final Context mAskContext;
+  private final int mResId;
+  private final int mLandscapeResId;
+  private final int mIconResId;
+  private final String mDefaultDictionary;
+  private final int mQwertyTranslationId;
+  private final String mAdditionalIsLetterExceptions;
+  private final String mSentenceSeparators;
+  private final boolean mKeyboardDefaultEnabled;
+  private final Context mAskContext;
 
-    public KeyboardAddOnAndBuilder(
-            Context askContext,
-            Context packageContext,
-            int apiVersion,
-            CharSequence id,
-            CharSequence name,
-            int layoutResId,
-            int landscapeLayoutResId,
-            String defaultDictionary,
-            int iconResId,
-            int physicalTranslationResId,
-            String additionalIsLetterExceptions,
-            String sentenceSeparators,
-            CharSequence description,
-            boolean isHidden,
-            int keyboardIndex,
-            boolean keyboardDefaultEnabled) {
-        super(
-                askContext,
-                packageContext,
-                apiVersion,
-                id,
-                name,
-                description,
-                isHidden,
-                keyboardIndex);
+  public KeyboardAddOnAndBuilder(
+      Context askContext,
+      Context packageContext,
+      int apiVersion,
+      CharSequence id,
+      CharSequence name,
+      int layoutResId,
+      int landscapeLayoutResId,
+      String defaultDictionary,
+      int iconResId,
+      int physicalTranslationResId,
+      String additionalIsLetterExceptions,
+      String sentenceSeparators,
+      CharSequence description,
+      boolean isHidden,
+      int keyboardIndex,
+      boolean keyboardDefaultEnabled) {
+    super(askContext, packageContext, apiVersion, id, name, description, isHidden, keyboardIndex);
 
-        mResId = layoutResId;
-        if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {
-            mLandscapeResId = mResId;
-        } else {
-            mLandscapeResId = landscapeLayoutResId;
-        }
-
-        mDefaultDictionary = defaultDictionary;
-        mIconResId = iconResId;
-        mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
-        mSentenceSeparators = sentenceSeparators;
-        mQwertyTranslationId = physicalTranslationResId;
-        mKeyboardDefaultEnabled = keyboardDefaultEnabled;
-        mAskContext = askContext;
+    mResId = layoutResId;
+    if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {
+      mLandscapeResId = mResId;
+    } else {
+      mLandscapeResId = landscapeLayoutResId;
     }
 
-    public boolean getKeyboardDefaultEnabled() {
-        return mKeyboardDefaultEnabled;
-    }
+    mDefaultDictionary = defaultDictionary;
+    mIconResId = iconResId;
+    mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
+    mSentenceSeparators = sentenceSeparators;
+    mQwertyTranslationId = physicalTranslationResId;
+    mKeyboardDefaultEnabled = keyboardDefaultEnabled;
+    mAskContext = askContext;
+  }
 
-    public String getKeyboardLocale() {
-        return mDefaultDictionary;
-    }
+  public boolean getKeyboardDefaultEnabled() {
+    return mKeyboardDefaultEnabled;
+  }
 
-    public String getSentenceSeparators() {
-        return mSentenceSeparators;
-    }
+  public String getKeyboardLocale() {
+    return mDefaultDictionary;
+  }
 
-    @Nullable public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
-        if (getPackageContext() == null) return null;
-        return new ExternalAnyKeyboard(
-                this,
-                mAskContext,
-                mResId,
-                mLandscapeResId,
-                getName(),
-                mIconResId,
-                mQwertyTranslationId,
-                mDefaultDictionary,
-                mAdditionalIsLetterExceptions,
-                mSentenceSeparators,
-                mode);
-    }
+  public String getSentenceSeparators() {
+    return mSentenceSeparators;
+  }
+
+  @Nullable public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
+    if (getPackageContext() == null) return null;
+    return new ExternalAnyKeyboard(
+        this,
+        mAskContext,
+        mResId,
+        mLandscapeResId,
+        getName(),
+        mIconResId,
+        mQwertyTranslationId,
+        mDefaultDictionary,
+        mAdditionalIsLetterExceptions,
+        mSentenceSeparators,
+        mode);
+  }
 }

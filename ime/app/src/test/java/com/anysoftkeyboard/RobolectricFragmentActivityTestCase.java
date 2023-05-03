@@ -18,92 +18,92 @@ import org.robolectric.annotation.LooperMode;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @LooperMode(LooperMode.Mode.LEGACY)
 public abstract class RobolectricFragmentActivityTestCase<
-        A extends AppCompatActivity, F extends Fragment> {
+    A extends AppCompatActivity, F extends Fragment> {
 
-    private ActivityController<A> mActivityController;
+  private ActivityController<A> mActivityController;
 
-    @After
-    public void afterRobolectricFragmentActivityTestCase() {
-        try {
-            mActivityController.destroy();
-        } catch (Throwable e) {
-            Logger.i(
-                    "RobolectricFragmentActivityTestCase",
-                    "Failed to destroy the host activity in After. That's okay, I guess.");
-        }
+  @After
+  public void afterRobolectricFragmentActivityTestCase() {
+    try {
+      mActivityController.destroy();
+    } catch (Throwable e) {
+      Logger.i(
+          "RobolectricFragmentActivityTestCase",
+          "Failed to destroy the host activity in After. That's okay, I guess.");
     }
+  }
 
-    @NonNull protected final F startFragment() {
-        return startFragmentWithState(null);
-    }
+  @NonNull protected final F startFragment() {
+    return startFragmentWithState(null);
+  }
 
-    protected abstract Fragment getCurrentFragment();
+  protected abstract Fragment getCurrentFragment();
 
-    @NonNull protected final F startFragmentWithState(@Nullable Bundle state) {
-        mActivityController = createActivityController();
+  @NonNull protected final F startFragmentWithState(@Nullable Bundle state) {
+    mActivityController = createActivityController();
 
-        mActivityController.create(state).start().postCreate(state).resume().visible();
+    mActivityController.create(state).start().postCreate(state).resume().visible();
 
-        ensureAllScheduledJobsAreDone();
+    ensureAllScheduledJobsAreDone();
 
-        return (F) getCurrentFragment();
-    }
+    return (F) getCurrentFragment();
+  }
 
-    protected abstract ActivityController<A> createActivityController();
+  protected abstract ActivityController<A> createActivityController();
 
-    protected ActivityController<A> getActivityController() {
-        return mActivityController;
-    }
+  protected ActivityController<A> getActivityController() {
+    return mActivityController;
+  }
 
-    protected void ensureAllScheduledJobsAreDone() {
-        TestRxSchedulers.drainAllTasks();
-    }
+  protected void ensureAllScheduledJobsAreDone() {
+    TestRxSchedulers.drainAllTasks();
+  }
 
-    /*Ahead are some basic tests we can run regardless*/
+  /*Ahead are some basic tests we can run regardless*/
 
-    @Test
-    public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {
-        startFragment();
+  @Test
+  public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {
+    startFragment();
 
-        mActivityController.pause().stop().destroy();
-        ensureAllScheduledJobsAreDone();
-    }
+    mActivityController.pause().stop().destroy();
+    ensureAllScheduledJobsAreDone();
+  }
 
-    @Test
-    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
-    public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {
-        startFragment();
+  @Test
+  @Config(qualifiers = "w480dp-h800dp-land-mdpi")
+  public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {
+    startFragment();
 
-        mActivityController.pause().stop().destroy();
+    mActivityController.pause().stop().destroy();
 
-        ensureAllScheduledJobsAreDone();
-    }
+    ensureAllScheduledJobsAreDone();
+  }
 
-    @Test
-    public void testEnsureFragmentHandlesHappyPathLifecycleWithResume() {
-        startFragment();
+  @Test
+  public void testEnsureFragmentHandlesHappyPathLifecycleWithResume() {
+    startFragment();
 
-        mActivityController.pause().stop();
-        ensureAllScheduledJobsAreDone();
+    mActivityController.pause().stop();
+    ensureAllScheduledJobsAreDone();
 
-        mActivityController.start().resume();
-        ensureAllScheduledJobsAreDone();
+    mActivityController.start().resume();
+    ensureAllScheduledJobsAreDone();
 
-        mActivityController.pause().stop().destroy();
-        ensureAllScheduledJobsAreDone();
-    }
+    mActivityController.pause().stop().destroy();
+    ensureAllScheduledJobsAreDone();
+  }
 
-    @Test
-    public void testEnsureFragmentHandlesRecreateWithInstanceState() {
-        startFragment();
+  @Test
+  public void testEnsureFragmentHandlesRecreateWithInstanceState() {
+    startFragment();
 
-        mActivityController.pause().stop();
-        Bundle state = new Bundle();
-        mActivityController.saveInstanceState(state);
-        mActivityController.destroy();
+    mActivityController.pause().stop();
+    Bundle state = new Bundle();
+    mActivityController.saveInstanceState(state);
+    mActivityController.destroy();
 
-        ensureAllScheduledJobsAreDone();
+    ensureAllScheduledJobsAreDone();
 
-        startFragmentWithState(state);
-    }
+    startFragmentWithState(state);
+  }
 }

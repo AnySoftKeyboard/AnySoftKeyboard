@@ -20,13 +20,13 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 public class DeviceSpecificV16 extends DeviceSpecificV15 {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV16";
-    }
+  @Override
+  public String getApiLevel() {
+    return "DeviceSpecificV16";
+  }
 
-    @Override
-    public Clipboard createClipboard(@NonNull Context applicationContext) {
-        return new ClipboardV16(applicationContext);
-    }
+  @Override
+  public Clipboard createClipboard(@NonNull Context applicationContext) {
+    return new ClipboardV16(applicationContext);
+  }
 }

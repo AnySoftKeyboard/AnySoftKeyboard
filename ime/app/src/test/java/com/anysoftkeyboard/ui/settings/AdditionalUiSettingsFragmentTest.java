@@ -18,101 +18,96 @@ import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AdditionalUiSettingsFragmentTest
-        extends RobolectricFragmentTestCase<AdditionalUiSettingsFragment> {
+    extends RobolectricFragmentTestCase<AdditionalUiSettingsFragment> {
 
-    @Override
-    protected int getStartFragmentNavigationId() {
-        return R.id.additionalUiSettingsFragment;
-    }
+  @Override
+  protected int getStartFragmentNavigationId() {
+    return R.id.additionalUiSettingsFragment;
+  }
 
-    @Test
-    public void testNavigationCommonTopRow() {
-        final AdditionalUiSettingsFragment fragment = startFragment();
+  @Test
+  public void testNavigationCommonTopRow() {
+    final AdditionalUiSettingsFragment fragment = startFragment();
 
-        ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_top_row_key"));
+    ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_top_row_key"));
 
-        TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next = getCurrentFragment();
-        Assert.assertTrue(next instanceof AdditionalUiSettingsFragment.TopRowAddOnBrowserFragment);
-        Assert.assertFalse(next.hasOptionsMenu());
-    }
+    TestRxSchedulers.foregroundFlushAllJobs();
+    final Fragment next = getCurrentFragment();
+    Assert.assertTrue(next instanceof AdditionalUiSettingsFragment.TopRowAddOnBrowserFragment);
+    Assert.assertFalse(next.hasOptionsMenu());
+  }
 
-    @Test
-    public void testNavigationCommonBottomRow() {
-        final AdditionalUiSettingsFragment fragment = startFragment();
+  @Test
+  public void testNavigationCommonBottomRow() {
+    final AdditionalUiSettingsFragment fragment = startFragment();
 
-        ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_bottom_row_key"));
+    ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_bottom_row_key"));
 
-        TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next = getCurrentFragment();
-        Assert.assertTrue(
-                next instanceof AdditionalUiSettingsFragment.BottomRowAddOnBrowserFragment);
-        Assert.assertFalse(next.hasOptionsMenu());
-    }
+    TestRxSchedulers.foregroundFlushAllJobs();
+    final Fragment next = getCurrentFragment();
+    Assert.assertTrue(next instanceof AdditionalUiSettingsFragment.BottomRowAddOnBrowserFragment);
+    Assert.assertFalse(next.hasOptionsMenu());
+  }
 
-    @Test
-    public void testNavigationTweaks() {
-        final AdditionalUiSettingsFragment fragment = startFragment();
+  @Test
+  public void testNavigationTweaks() {
+    final AdditionalUiSettingsFragment fragment = startFragment();
 
-        ViewTestUtils.performClick(fragment.findPreference("tweaks"));
+    ViewTestUtils.performClick(fragment.findPreference("tweaks"));
 
-        TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next = getCurrentFragment();
-        Assert.assertTrue(next instanceof UiTweaksFragment);
-    }
+    TestRxSchedulers.foregroundFlushAllJobs();
+    final Fragment next = getCurrentFragment();
+    Assert.assertTrue(next instanceof UiTweaksFragment);
+  }
 
-    @Test
-    public void testNavigationSupportedRowsAndHappyPath() {
-        final AdditionalUiSettingsFragment fragment = startFragment();
+  @Test
+  public void testNavigationSupportedRowsAndHappyPath() {
+    final AdditionalUiSettingsFragment fragment = startFragment();
 
-        ViewTestUtils.performClick(fragment.findPreference("settings_key_supported_row_modes"));
+    ViewTestUtils.performClick(fragment.findPreference("settings_key_supported_row_modes"));
 
-        TestRxSchedulers.foregroundFlushAllJobs();
+    TestRxSchedulers.foregroundFlushAllJobs();
 
-        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
-        Assert.assertNotNull(latestAlertDialog);
+    AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull(latestAlertDialog);
 
-        Assert.assertEquals(4, latestAlertDialog.getListView().getAdapter().getCount());
-        Assert.assertEquals(
-                "Messaging input field", latestAlertDialog.getListView().getAdapter().getItem(0));
-        Assert.assertEquals(
-                "URL input field", latestAlertDialog.getListView().getAdapter().getItem(1));
-        Assert.assertEquals(
-                "Email input field", latestAlertDialog.getListView().getAdapter().getItem(2));
-        Assert.assertEquals(
-                "Password input field", latestAlertDialog.getListView().getAdapter().getItem(3));
+    Assert.assertEquals(4, latestAlertDialog.getListView().getAdapter().getCount());
+    Assert.assertEquals(
+        "Messaging input field", latestAlertDialog.getListView().getAdapter().getItem(0));
+    Assert.assertEquals("URL input field", latestAlertDialog.getListView().getAdapter().getItem(1));
+    Assert.assertEquals(
+        "Email input field", latestAlertDialog.getListView().getAdapter().getItem(2));
+    Assert.assertEquals(
+        "Password input field", latestAlertDialog.getListView().getAdapter().getItem(3));
 
-        Assert.assertTrue(
-                SharedPrefsHelper.getPrefValue(
-                        Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL),
-                        true));
-        Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(2);
-        Assert.assertTrue(latestAlertDialog.isShowing());
-        latestAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
-        Assert.assertFalse(latestAlertDialog.isShowing());
-        Assert.assertFalse(
-                SharedPrefsHelper.getPrefValue(
-                        Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL),
-                        true));
-    }
+    Assert.assertTrue(
+        SharedPrefsHelper.getPrefValue(
+            Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
+    Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(2);
+    Assert.assertTrue(latestAlertDialog.isShowing());
+    latestAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+    Assert.assertFalse(latestAlertDialog.isShowing());
+    Assert.assertFalse(
+        SharedPrefsHelper.getPrefValue(
+            Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
+  }
 
-    @Test
-    public void testNavigationSupportedRowsAndCancel() {
-        final AdditionalUiSettingsFragment fragment = startFragment();
+  @Test
+  public void testNavigationSupportedRowsAndCancel() {
+    final AdditionalUiSettingsFragment fragment = startFragment();
 
-        ViewTestUtils.performClick(fragment.findPreference("settings_key_supported_row_modes"));
+    ViewTestUtils.performClick(fragment.findPreference("settings_key_supported_row_modes"));
 
-        TestRxSchedulers.foregroundFlushAllJobs();
+    TestRxSchedulers.foregroundFlushAllJobs();
 
-        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
-        Assert.assertNotNull(latestAlertDialog);
+    AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
+    Assert.assertNotNull(latestAlertDialog);
 
-        Assert.assertTrue(
-                SharedPrefsHelper.getPrefValue(
-                        Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL),
-                        true));
-        Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(2);
-        latestAlertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
-        Assert.assertFalse(latestAlertDialog.isShowing());
-    }
+    Assert.assertTrue(
+        SharedPrefsHelper.getPrefValue(
+            Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
+    Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(2);
+    latestAlertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+    Assert.assertFalse(latestAlertDialog.isShowing());
+  }
 }

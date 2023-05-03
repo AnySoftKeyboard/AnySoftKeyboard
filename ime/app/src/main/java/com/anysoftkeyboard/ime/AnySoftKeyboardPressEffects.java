@@ -40,333 +40,322 @@ import io.reactivex.subjects.PublishSubject;
 
 public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboard {
 
-    private static final float SILENT = 0.0f;
-    private static final float SYSTEM_VOLUME = -1.0f;
-    @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
+  private static final float SILENT = 0.0f;
+  private static final float SYSTEM_VOLUME = -1.0f;
+  @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
 
-    @NonNull private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
+  @NonNull private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
 
-    private AudioManager mAudioManager;
-    private float mCustomSoundVolume = SILENT;
-    private PressVibrator mVibrator;
-    @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
+  private AudioManager mAudioManager;
+  private float mCustomSoundVolume = SILENT;
+  private PressVibrator mVibrator;
+  @NonNull private KeyPreviewsController mKeyPreviewController = new NullKeyPreviewsManager();
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+  @Override
+  public void onCreate() {
+    super.onCreate();
 
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mVibrator =
-                AnyApplication.getDeviceSpecific()
-                        .createPressVibrator((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
+    mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    mVibrator =
+        AnyApplication.getDeviceSpecific()
+            .createPressVibrator((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
-        addDisposable(
-                Observable.combineLatest(
-                                PowerSaving.observePowerSavingState(
-                                        getApplicationContext(),
-                                        R.string.settings_key_power_save_mode_sound_control),
-                                NightMode.observeNightModeState(
-                                        getApplicationContext(),
-                                        R.string.settings_key_night_mode_sound_control,
-                                        R.bool.settings_default_true),
-                                RxBroadcastReceivers.fromIntentFilter(
-                                                getApplicationContext(),
-                                                new IntentFilter(
-                                                        AudioManager.RINGER_MODE_CHANGED_ACTION))
-                                        .startWith(new Intent()),
-                                prefs().getBoolean(
-                                                R.string.settings_key_sound_on,
-                                                R.bool.settings_default_sound_on)
-                                        .asObservable(),
-                                prefs().getBoolean(
-                                                R.string.settings_key_use_custom_sound_volume,
-                                                R.bool.settings_default_false)
-                                        .asObservable(),
-                                prefs().getInteger(
-                                                R.string.settings_key_custom_sound_volume,
-                                                R.integer.settings_default_zero_value)
-                                        .asObservable(),
-                                (powerState,
-                                        nightState,
-                                        soundIntent,
-                                        soundOn,
-                                        useCustomVolume,
-                                        customVolumeLevel) -> {
-                                    if (powerState) return SILENT;
-                                    if (nightState) return SILENT;
-                                    if (mAudioManager.getRingerMode()
-                                            != AudioManager.RINGER_MODE_NORMAL) return SILENT;
-                                    if (!soundOn) return SILENT;
+    addDisposable(
+        Observable.combineLatest(
+                PowerSaving.observePowerSavingState(
+                    getApplicationContext(), R.string.settings_key_power_save_mode_sound_control),
+                NightMode.observeNightModeState(
+                    getApplicationContext(),
+                    R.string.settings_key_night_mode_sound_control,
+                    R.bool.settings_default_true),
+                RxBroadcastReceivers.fromIntentFilter(
+                        getApplicationContext(),
+                        new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION))
+                    .startWith(new Intent()),
+                prefs()
+                    .getBoolean(R.string.settings_key_sound_on, R.bool.settings_default_sound_on)
+                    .asObservable(),
+                prefs()
+                    .getBoolean(
+                        R.string.settings_key_use_custom_sound_volume,
+                        R.bool.settings_default_false)
+                    .asObservable(),
+                prefs()
+                    .getInteger(
+                        R.string.settings_key_custom_sound_volume,
+                        R.integer.settings_default_zero_value)
+                    .asObservable(),
+                (powerState,
+                    nightState,
+                    soundIntent,
+                    soundOn,
+                    useCustomVolume,
+                    customVolumeLevel) -> {
+                  if (powerState) return SILENT;
+                  if (nightState) return SILENT;
+                  if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
+                    return SILENT;
+                  if (!soundOn) return SILENT;
 
-                                    if (useCustomVolume) {
-                                        return customVolumeLevel / 100f;
-                                    } else {
-                                        return SYSTEM_VOLUME;
-                                    }
-                                })
-                        .subscribe(
-                                customVolume -> {
-                                    if (mCustomSoundVolume != customVolume) {
-                                        if (customVolume == SILENT) {
-                                            mAudioManager.unloadSoundEffects();
-                                        } else if (mCustomSoundVolume == SILENT) {
-                                            mAudioManager.loadSoundEffects();
-                                        }
-                                    }
-                                    mCustomSoundVolume = customVolume;
-                                    // demo
-                                    performKeySound(KeyCodes.SPACE);
-                                },
-                                t -> Logger.w(TAG, t, "Failed to read custom volume prefs")));
+                  if (useCustomVolume) {
+                    return customVolumeLevel / 100f;
+                  } else {
+                    return SYSTEM_VOLUME;
+                  }
+                })
+            .subscribe(
+                customVolume -> {
+                  if (mCustomSoundVolume != customVolume) {
+                    if (customVolume == SILENT) {
+                      mAudioManager.unloadSoundEffects();
+                    } else if (mCustomSoundVolume == SILENT) {
+                      mAudioManager.loadSoundEffects();
+                    }
+                  }
+                  mCustomSoundVolume = customVolume;
+                  // demo
+                  performKeySound(KeyCodes.SPACE);
+                },
+                t -> Logger.w(TAG, t, "Failed to read custom volume prefs")));
 
-        addDisposable(
-                Observable.combineLatest(
-                                PowerSaving.observePowerSavingState(
-                                        getApplicationContext(),
-                                        R.string.settings_key_power_save_mode_vibration_control),
-                                NightMode.observeNightModeState(
-                                        getApplicationContext(),
-                                        R.string.settings_key_night_mode_vibration_control,
-                                        R.bool.settings_default_true),
-                                prefs().getInteger(
-                                                R.string
-                                                        .settings_key_vibrate_on_key_press_duration_int,
-                                                R.integer
-                                                        .settings_default_vibrate_on_key_press_duration_int)
-                                        .asObservable(),
-                                (powerState, nightState, vibrationDuration) ->
-                                        powerState ? 0 : nightState ? 0 : vibrationDuration)
-                        .subscribe(
-                                value -> {
-                                    mVibrator.setDuration(value);
-                                    // demo
-                                    performKeyVibration(KeyCodes.SPACE, false);
-                                },
-                                t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
+    addDisposable(
+        Observable.combineLatest(
+                PowerSaving.observePowerSavingState(
+                    getApplicationContext(),
+                    R.string.settings_key_power_save_mode_vibration_control),
+                NightMode.observeNightModeState(
+                    getApplicationContext(),
+                    R.string.settings_key_night_mode_vibration_control,
+                    R.bool.settings_default_true),
+                prefs()
+                    .getInteger(
+                        R.string.settings_key_vibrate_on_key_press_duration_int,
+                        R.integer.settings_default_vibrate_on_key_press_duration_int)
+                    .asObservable(),
+                (powerState, nightState, vibrationDuration) ->
+                    powerState ? 0 : nightState ? 0 : vibrationDuration)
+            .subscribe(
+                value -> {
+                  mVibrator.setDuration(value);
+                  // demo
+                  performKeyVibration(KeyCodes.SPACE, false);
+                },
+                t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
 
-        addDisposable(
-                prefs().getBoolean(
-                                R.string.settings_key_vibrate_on_long_press,
-                                R.bool.settings_default_vibrate_on_long_press)
-                        .asObservable()
-                        .subscribe(
-                                value -> {
-                                    mVibrator.setLongPressDuration(value ? 7 : 0);
-                                    // demo
-                                    performKeyVibration(KeyCodes.SPACE, true);
-                                },
-                                t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
+    addDisposable(
+        prefs()
+            .getBoolean(
+                R.string.settings_key_vibrate_on_long_press,
+                R.bool.settings_default_vibrate_on_long_press)
+            .asObservable()
+            .subscribe(
+                value -> {
+                  mVibrator.setLongPressDuration(value ? 7 : 0);
+                  // demo
+                  performKeyVibration(KeyCodes.SPACE, true);
+                },
+                t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
 
-        addDisposable(
-                Observable.combineLatest(
-                                PowerSaving.observePowerSavingState(
-                                        getApplicationContext(),
-                                        R.string.settings_key_power_save_mode_vibration_control),
-                                NightMode.observeNightModeState(
-                                        getApplicationContext(),
-                                        R.string.settings_key_night_mode_vibration_control,
-                                        R.bool.settings_default_true),
-                                prefs().getBoolean(
-                                                R.string.settings_key_use_system_vibration,
-                                                R.bool.settings_default_use_system_vibration)
-                                        .asObservable(),
-                                RxContentResolver.observeQuery(
-                                                getContentResolver(),
-                                                Settings.System.getUriFor(
-                                                        Settings.System.HAPTIC_FEEDBACK_ENABLED),
-                                                null,
-                                                null,
-                                                null,
-                                                null,
-                                                true,
-                                                RxSchedulers.mainThread())
-                                        .subscribeOn(RxSchedulers.background())
-                                        .observeOn(RxSchedulers.mainThread())
-                                        .map(
-                                                query ->
-                                                        Settings.System.getInt(
-                                                                        getContentResolver(),
-                                                                        Settings.System
-                                                                                .HAPTIC_FEEDBACK_ENABLED,
-                                                                        1)
-                                                                == 1),
-                                (powerState,
-                                        nightState,
-                                        systemVibration,
-                                        systemWideHapticEnabled) ->
-                                        new Pair<>(
-                                                !powerState && !nightState && systemVibration,
-                                                systemWideHapticEnabled))
-                        .subscribe(
-                                value -> {
-                                    mVibrator.setUseSystemVibration(value.first, value.second);
-                                    // demo
-                                    performKeyVibration(KeyCodes.SPACE, false);
-                                },
-                                t -> Logger.w(TAG, t, "Failed to read system vibration pref")));
+    addDisposable(
+        Observable.combineLatest(
+                PowerSaving.observePowerSavingState(
+                    getApplicationContext(),
+                    R.string.settings_key_power_save_mode_vibration_control),
+                NightMode.observeNightModeState(
+                    getApplicationContext(),
+                    R.string.settings_key_night_mode_vibration_control,
+                    R.bool.settings_default_true),
+                prefs()
+                    .getBoolean(
+                        R.string.settings_key_use_system_vibration,
+                        R.bool.settings_default_use_system_vibration)
+                    .asObservable(),
+                RxContentResolver.observeQuery(
+                        getContentResolver(),
+                        Settings.System.getUriFor(Settings.System.HAPTIC_FEEDBACK_ENABLED),
+                        null,
+                        null,
+                        null,
+                        null,
+                        true,
+                        RxSchedulers.mainThread())
+                    .subscribeOn(RxSchedulers.background())
+                    .observeOn(RxSchedulers.mainThread())
+                    .map(
+                        query ->
+                            Settings.System.getInt(
+                                    getContentResolver(),
+                                    Settings.System.HAPTIC_FEEDBACK_ENABLED,
+                                    1)
+                                == 1),
+                (powerState, nightState, systemVibration, systemWideHapticEnabled) ->
+                    new Pair<>(
+                        !powerState && !nightState && systemVibration, systemWideHapticEnabled))
+            .subscribe(
+                value -> {
+                  mVibrator.setUseSystemVibration(value.first, value.second);
+                  // demo
+                  performKeyVibration(KeyCodes.SPACE, false);
+                },
+                t -> Logger.w(TAG, t, "Failed to read system vibration pref")));
 
-        addDisposable(
-                Observable.combineLatest(
-                                prefs().getBoolean(
-                                                R.string.settings_key_key_press_shows_preview_popup,
-                                                R.bool
-                                                        .settings_default_key_press_shows_preview_popup)
-                                        .asObservable(),
-                                AnimationsLevel.createPrefsObservable(this),
-                                prefs().getString(
-                                                R.string
-                                                        .settings_key_key_press_preview_popup_position,
-                                                R.string
-                                                        .settings_default_key_press_preview_popup_position)
-                                        .asObservable(),
-                                mKeyPreviewSubject.startWith(0L),
-                                mKeyPreviewForPasswordSubject
-                                        .startWith(false)
-                                        .distinctUntilChanged(),
-                                this::createKeyPreviewController)
-                        .subscribe(
-                                controller ->
-                                        onNewControllerOrInputView(controller, getInputView()),
-                                GenericOnError.onError("key-preview-controller-setup")));
+    addDisposable(
+        Observable.combineLatest(
+                prefs()
+                    .getBoolean(
+                        R.string.settings_key_key_press_shows_preview_popup,
+                        R.bool.settings_default_key_press_shows_preview_popup)
+                    .asObservable(),
+                AnimationsLevel.createPrefsObservable(this),
+                prefs()
+                    .getString(
+                        R.string.settings_key_key_press_preview_popup_position,
+                        R.string.settings_default_key_press_preview_popup_position)
+                    .asObservable(),
+                mKeyPreviewSubject.startWith(0L),
+                mKeyPreviewForPasswordSubject.startWith(false).distinctUntilChanged(),
+                this::createKeyPreviewController)
+            .subscribe(
+                controller -> onNewControllerOrInputView(controller, getInputView()),
+                GenericOnError.onError("key-preview-controller-setup")));
+  }
+
+  @Override
+  public void onStartInputView(EditorInfo info, boolean restarting) {
+    super.onStartInputView(info, restarting);
+    mKeyPreviewForPasswordSubject.onNext(isTextPassword(info) || isNumberPassword(info));
+  }
+
+  @VisibleForTesting
+  protected void onNewControllerOrInputView(
+      KeyPreviewsController controller, InputViewBinder inputViewBinder) {
+    mKeyPreviewController.destroy();
+    mKeyPreviewController = controller;
+    if (inputViewBinder instanceof AnyKeyboardViewBase) {
+      ((AnyKeyboardViewBase) inputViewBinder).setKeyPreviewController(controller);
     }
+  }
 
-    @Override
-    public void onStartInputView(EditorInfo info, boolean restarting) {
-        super.onStartInputView(info, restarting);
-        mKeyPreviewForPasswordSubject.onNext(isTextPassword(info) || isNumberPassword(info));
+  @Override
+  protected void onThemeChanged(@NonNull KeyboardTheme theme) {
+    super.onThemeChanged(theme);
+    // triggering a new controller creation
+    mKeyPreviewSubject.onNext(SystemClock.uptimeMillis());
+  }
+
+  @Override
+  public View onCreateInputView() {
+    final View view = super.onCreateInputView();
+    // triggering a new controller creation
+    mKeyPreviewSubject.onNext(SystemClock.uptimeMillis());
+    return view;
+  }
+
+  @NonNull private KeyPreviewsController createKeyPreviewController(
+      Boolean enabled,
+      AnimationsLevel animationsLevel,
+      String position,
+      Long random /*ignoring this one*/,
+      Boolean isPasswordField) {
+    if (enabled
+        && animationsLevel != AnimationsLevel.None
+        && Boolean.FALSE.equals(isPasswordField)) {
+      final PositionCalculator positionCalculator;
+      final int maxPopups;
+      if ("above_key".equals(position)) {
+        positionCalculator = new AboveKeyPositionCalculator();
+        maxPopups = getResources().getInteger(R.integer.maximum_instances_of_preview_popups);
+      } else {
+        positionCalculator = new AboveKeyboardPositionCalculator();
+        maxPopups = 1;
+      }
+      return new KeyPreviewsManager(this, positionCalculator, maxPopups);
+    } else {
+      return new NullKeyPreviewsManager();
     }
+  }
 
-    @VisibleForTesting
-    protected void onNewControllerOrInputView(
-            KeyPreviewsController controller, InputViewBinder inputViewBinder) {
-        mKeyPreviewController.destroy();
-        mKeyPreviewController = controller;
-        if (inputViewBinder instanceof AnyKeyboardViewBase) {
-            ((AnyKeyboardViewBase) inputViewBinder).setKeyPreviewController(controller);
-        }
+  private void performKeySound(int primaryCode) {
+    if (mCustomSoundVolume != SILENT && primaryCode != 0) {
+      final int keyFX;
+      switch (primaryCode) {
+        case 13:
+        case KeyCodes.ENTER:
+          keyFX = AudioManager.FX_KEYPRESS_RETURN;
+          break;
+        case KeyCodes.DELETE:
+          keyFX = AudioManager.FX_KEYPRESS_DELETE;
+          break;
+        case KeyCodes.SPACE:
+          keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+          break;
+        case KeyCodes.SHIFT:
+        case KeyCodes.SHIFT_LOCK:
+        case KeyCodes.CTRL:
+        case KeyCodes.CTRL_LOCK:
+        case KeyCodes.MODE_ALPHABET:
+        case KeyCodes.MODE_SYMBOLS:
+        case KeyCodes.KEYBOARD_MODE_CHANGE:
+        case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
+        case KeyCodes.ALT:
+          keyFX = AudioManager.FX_KEY_CLICK;
+          break;
+        default:
+          keyFX = AudioManager.FX_KEYPRESS_STANDARD;
+      }
+      mAudioManager.playSoundEffect(keyFX, mCustomSoundVolume);
     }
+  }
 
-    @Override
-    protected void onThemeChanged(@NonNull KeyboardTheme theme) {
-        super.onThemeChanged(theme);
-        // triggering a new controller creation
-        mKeyPreviewSubject.onNext(SystemClock.uptimeMillis());
+  private void performKeyVibration(int primaryCode, boolean longPress) {
+    try {
+      if (primaryCode != 0) {
+        mVibrator.vibrate(longPress);
+      }
+    } catch (Exception e) {
+      Logger.w(TAG, "Failed to interact with vibrator! Disabling for now.");
+      mVibrator.setUseSystemVibration(false, false);
+      mVibrator.setDuration(0);
+      mVibrator.setLongPressDuration(0);
     }
+  }
 
-    @Override
-    public View onCreateInputView() {
-        final View view = super.onCreateInputView();
-        // triggering a new controller creation
-        mKeyPreviewSubject.onNext(SystemClock.uptimeMillis());
-        return view;
-    }
+  @VisibleForTesting
+  protected AudioManager getAudioManager() {
+    return mAudioManager;
+  }
 
-    @NonNull private KeyPreviewsController createKeyPreviewController(
-            Boolean enabled,
-            AnimationsLevel animationsLevel,
-            String position,
-            Long random /*ignoring this one*/,
-            Boolean isPasswordField) {
-        if (enabled
-                && animationsLevel != AnimationsLevel.None
-                && Boolean.FALSE.equals(isPasswordField)) {
-            final PositionCalculator positionCalculator;
-            final int maxPopups;
-            if ("above_key".equals(position)) {
-                positionCalculator = new AboveKeyPositionCalculator();
-                maxPopups =
-                        getResources().getInteger(R.integer.maximum_instances_of_preview_popups);
-            } else {
-                positionCalculator = new AboveKeyboardPositionCalculator();
-                maxPopups = 1;
-            }
-            return new KeyPreviewsManager(this, positionCalculator, maxPopups);
-        } else {
-            return new NullKeyPreviewsManager();
-        }
-    }
+  @VisibleForTesting
+  protected Vibrator getVibrator() {
+    return mVibrator.getVibrator();
+  }
 
-    private void performKeySound(int primaryCode) {
-        if (mCustomSoundVolume != SILENT && primaryCode != 0) {
-            final int keyFX;
-            switch (primaryCode) {
-                case 13:
-                case KeyCodes.ENTER:
-                    keyFX = AudioManager.FX_KEYPRESS_RETURN;
-                    break;
-                case KeyCodes.DELETE:
-                    keyFX = AudioManager.FX_KEYPRESS_DELETE;
-                    break;
-                case KeyCodes.SPACE:
-                    keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
-                    break;
-                case KeyCodes.SHIFT:
-                case KeyCodes.SHIFT_LOCK:
-                case KeyCodes.CTRL:
-                case KeyCodes.CTRL_LOCK:
-                case KeyCodes.MODE_ALPHABET:
-                case KeyCodes.MODE_SYMBOLS:
-                case KeyCodes.KEYBOARD_MODE_CHANGE:
-                case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
-                case KeyCodes.ALT:
-                    keyFX = AudioManager.FX_KEY_CLICK;
-                    break;
-                default:
-                    keyFX = AudioManager.FX_KEYPRESS_STANDARD;
-            }
-            mAudioManager.playSoundEffect(keyFX, mCustomSoundVolume);
-        }
-    }
+  @Override
+  public void onPress(int primaryCode) {
+    super.onPress(primaryCode);
 
-    private void performKeyVibration(int primaryCode, boolean longPress) {
-        try {
-            if (primaryCode != 0) {
-                mVibrator.vibrate(longPress);
-            }
-        } catch (Exception e) {
-            Logger.w(TAG, "Failed to interact with vibrator! Disabling for now.");
-            mVibrator.setUseSystemVibration(false, false);
-            mVibrator.setDuration(0);
-            mVibrator.setLongPressDuration(0);
-        }
-    }
+    performKeySound(primaryCode);
+    performKeyVibration(primaryCode, false);
+  }
 
-    @VisibleForTesting
-    protected AudioManager getAudioManager() {
-        return mAudioManager;
-    }
+  @Override
+  public void onText(Keyboard.Key key, CharSequence text) {
+    super.onText(key, text);
 
-    @VisibleForTesting
-    protected Vibrator getVibrator() {
-        return mVibrator.getVibrator();
-    }
+    performKeySound(KeyCodes.QUICK_TEXT);
+    performKeyVibration(KeyCodes.QUICK_TEXT, false);
+  }
 
-    @Override
-    public void onPress(int primaryCode) {
-        super.onPress(primaryCode);
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mKeyPreviewSubject.onComplete();
+    mKeyPreviewController.destroy();
+    mAudioManager.unloadSoundEffects();
+  }
 
-        performKeySound(primaryCode);
-        performKeyVibration(primaryCode, false);
-    }
-
-    @Override
-    public void onText(Keyboard.Key key, CharSequence text) {
-        super.onText(key, text);
-
-        performKeySound(KeyCodes.QUICK_TEXT);
-        performKeyVibration(KeyCodes.QUICK_TEXT, false);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mKeyPreviewSubject.onComplete();
-        mKeyPreviewController.destroy();
-        mAudioManager.unloadSoundEffects();
-    }
-
-    @Override
-    public void onLongPressDone(@NonNull Keyboard.Key key) {
-        performKeyVibration(key.getPrimaryCode(), true);
-    }
+  @Override
+  public void onLongPressDone(@NonNull Keyboard.Key key) {
+    performKeyVibration(key.getPrimaryCode(), true);
+  }
 }

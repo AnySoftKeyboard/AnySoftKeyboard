@@ -12,41 +12,40 @@ import org.robolectric.annotation.LooperMode;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @LooperMode(LooperMode.Mode.PAUSED)
 public abstract class RobolectricWizardFragmentTestCase<F extends Fragment>
-        extends RobolectricFragmentActivityTestCase<
-                RobolectricWizardFragmentTestCase.TestableSetupWizardActivity<F>, F> {
+    extends RobolectricFragmentActivityTestCase<
+        RobolectricWizardFragmentTestCase.TestableSetupWizardActivity<F>, F> {
 
-    @NonNull protected abstract F createFragment();
+  @NonNull protected abstract F createFragment();
 
-    @Override
-    protected Fragment getCurrentFragment() {
-        return getActivityController().get().mFragment;
-    }
+  @Override
+  protected Fragment getCurrentFragment() {
+    return getActivityController().get().mFragment;
+  }
 
-    @Override
-    protected ActivityController<TestableSetupWizardActivity<F>> createActivityController() {
-        TestableSetupWizardActivity<F> activity = new TestableSetupWizardActivity<F>();
-        activity.mFragment = createFragment();
-        return ActivityController.of(activity);
-    }
+  @Override
+  protected ActivityController<TestableSetupWizardActivity<F>> createActivityController() {
+    TestableSetupWizardActivity<F> activity = new TestableSetupWizardActivity<F>();
+    activity.mFragment = createFragment();
+    return ActivityController.of(activity);
+  }
 
-    public static class TestableSetupWizardActivity<F extends Fragment>
-            extends SetupWizardActivity {
-        private F mFragment;
+  public static class TestableSetupWizardActivity<F extends Fragment> extends SetupWizardActivity {
+    private F mFragment;
+
+    @NonNull @Override
+    protected FragmentStateAdapter createPagesAdapter() {
+      return new FragmentStateAdapter(this) {
 
         @NonNull @Override
-        protected FragmentStateAdapter createPagesAdapter() {
-            return new FragmentStateAdapter(this) {
-
-                @NonNull @Override
-                public Fragment createFragment(int position) {
-                    return mFragment;
-                }
-
-                @Override
-                public int getItemCount() {
-                    return 1;
-                }
-            };
+        public Fragment createFragment(int position) {
+          return mFragment;
         }
+
+        @Override
+        public int getItemCount() {
+          return 1;
+        }
+      };
     }
+  }
 }

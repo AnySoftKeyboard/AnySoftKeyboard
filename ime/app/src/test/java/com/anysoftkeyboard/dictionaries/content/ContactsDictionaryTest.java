@@ -26,183 +26,178 @@ import org.robolectric.shadows.ShadowContentResolver;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ContactsDictionaryTest {
-    private ContactsDictionary mDictionaryUnderTest;
-    private ContactsContentProvider mProvider;
-    private ContentProviderController<ContactsContentProvider> mProviderController;
+  private ContactsDictionary mDictionaryUnderTest;
+  private ContactsContentProvider mProvider;
+  private ContentProviderController<ContactsContentProvider> mProviderController;
 
-    @Before
-    public void setup() {
-        setAllowContactsRead(true);
-        // setting up some dummy contacts
-        mProvider = new ContactsContentProvider();
-        mProviderController = ContentProviderController.of(mProvider);
-        mProviderController.create(mProvider.getAuthority());
-        mProvider.addRow(1, "Menny Even-Danan", true, 10);
-        mProvider.addRow(2, "Jonathan With'In", false, 100);
-        mProvider.addRow(3, "Erela Portugaly", true, 10);
-        mProvider.addRow(4, "John Smith", false, 1);
-        mProvider.addRow(5, "John Lennon", true, 126);
-        mProvider.addRow(6, "Mika Michael Michelle", true, 10);
-        mProvider.addRow(7, "Invisible Man", true, 99, false);
+  @Before
+  public void setup() {
+    setAllowContactsRead(true);
+    // setting up some dummy contacts
+    mProvider = new ContactsContentProvider();
+    mProviderController = ContentProviderController.of(mProvider);
+    mProviderController.create(mProvider.getAuthority());
+    mProvider.addRow(1, "Menny Even-Danan", true, 10);
+    mProvider.addRow(2, "Jonathan With'In", false, 100);
+    mProvider.addRow(3, "Erela Portugaly", true, 10);
+    mProvider.addRow(4, "John Smith", false, 1);
+    mProvider.addRow(5, "John Lennon", true, 126);
+    mProvider.addRow(6, "Mika Michael Michelle", true, 10);
+    mProvider.addRow(7, "Invisible Man", true, 99, false);
 
-        mDictionaryUnderTest = new ContactsDictionary(getApplicationContext());
-        mDictionaryUnderTest.loadDictionary();
-        TestRxSchedulers.drainAllTasks();
+    mDictionaryUnderTest = new ContactsDictionary(getApplicationContext());
+    mDictionaryUnderTest.loadDictionary();
+    TestRxSchedulers.drainAllTasks();
+  }
+
+  @After
+  public void tearDown() {
+    mProviderController.shutdown();
+    TestRxSchedulers.drainAllTasks();
+  }
+
+  private void setAllowContactsRead(boolean enabled) {
+    if (enabled)
+      Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+          .grantPermissions(Manifest.permission.READ_CONTACTS);
+    else
+      Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+          .denyPermissions(Manifest.permission.READ_CONTACTS);
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void testFailsToLoadIfNoPermission() {
+    setAllowContactsRead(false);
+    ContactsDictionary dictionary = new ContactsDictionary(getApplicationContext());
+    dictionary.loadDictionary();
+    TestRxSchedulers.drainAllTasks();
+  }
+
+  @Test
+  public void testRegisterObserver() throws Exception {
+    ShadowContentResolver shadowContentResolver =
+        Shadows.shadowOf(getApplicationContext().getContentResolver());
+    final Collection<ContentObserver> contentObservers =
+        shadowContentResolver.getContentObservers(ContactsContract.Contacts.CONTENT_URI);
+    Assert.assertEquals(1, contentObservers.size());
+
+    // now, simulating contacts update
+    mProvider.addRow(10, "Hagar Even-Danan", true, 10);
+    TestRxSchedulers.drainAllTasks();
+
+    Iterator<String> nextWords = mDictionaryUnderTest.getNextWords("Hagar", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Even-Danan", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+  }
+
+  @Test
+  public void testCloseUnregisterObserver() {
+    mDictionaryUnderTest.close();
+    TestRxSchedulers.drainAllTasks();
+    ShadowContentResolver shadowContentResolver =
+        Shadows.shadowOf(getApplicationContext().getContentResolver());
+    Assert.assertEquals(
+        0, shadowContentResolver.getContentObservers(ContactsContract.Contacts.CONTENT_URI).size());
+  }
+
+  @Test
+  public void testDeleteWordFromStorageDoesNotHaveEffect() throws Exception {
+    mDictionaryUnderTest.deleteWordFromStorage("Menny");
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertTrue(mDictionaryUnderTest.isValidWord("Menny"));
+  }
+
+  @Test
+  public void testAddWordToStorageDoesNotHaveEffect() throws Exception {
+    mDictionaryUnderTest.addWordToStorage("aword", 126);
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertFalse(mDictionaryUnderTest.isValidWord("aword"));
+  }
+
+  @Test
+  public void testIsValid() {
+    Assert.assertTrue(mDictionaryUnderTest.isValidWord("Menny"));
+    Assert.assertFalse(mDictionaryUnderTest.isValidWord("Invisible"));
+  }
+
+  @Test
+  public void testGetNextWords() throws Exception {
+    Iterator<String> nextWords = mDictionaryUnderTest.getNextWords("Menny", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Even-Danan", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+
+    nextWords = mDictionaryUnderTest.getNextWords("Dummy", 2, 1).iterator();
+    Assert.assertFalse(nextWords.hasNext());
+
+    nextWords = mDictionaryUnderTest.getNextWords("Erela", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Portugaly", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+
+    nextWords = mDictionaryUnderTest.getNextWords("John", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Lennon", nextWords.next());
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Smith", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+
+    nextWords = mDictionaryUnderTest.getNextWords("Mika", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Michael", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+    // next part of the name
+    nextWords = mDictionaryUnderTest.getNextWords("Michael", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("Michelle", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+
+    nextWords = mDictionaryUnderTest.getNextWords("Jonathan", 2, 1).iterator();
+    Assert.assertTrue(nextWords.hasNext());
+    Assert.assertEquals("With'In", nextWords.next());
+    Assert.assertFalse(nextWords.hasNext());
+  }
+
+  public static class ContactsContentProvider extends AbstractProvider {
+
+    @Override
+    public String getAuthority() {
+      return ContactsContract.Contacts.CONTENT_URI.getAuthority();
     }
 
-    @After
-    public void tearDown() {
-        mProviderController.shutdown();
-        TestRxSchedulers.drainAllTasks();
+    @Table
+    public static class Contacts {
+      @Column(value = Column.FieldType.INTEGER, primaryKey = true)
+      public static final String _ID = ContactsContract.Contacts._ID;
+
+      @Column(Column.FieldType.TEXT)
+      public static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+
+      @Column(Column.FieldType.INTEGER)
+      public static final String STARRED = ContactsContract.Contacts.STARRED;
+
+      @Column(Column.FieldType.INTEGER)
+      public static final String TIMES_CONTACTED = ContactsContract.Contacts.TIMES_CONTACTED;
+
+      @Column(Column.FieldType.INTEGER)
+      public static final String IN_VISIBLE_GROUP = ContactsContract.Contacts.IN_VISIBLE_GROUP;
     }
 
-    private void setAllowContactsRead(boolean enabled) {
-        if (enabled)
-            Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                    .grantPermissions(Manifest.permission.READ_CONTACTS);
-        else
-            Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                    .denyPermissions(Manifest.permission.READ_CONTACTS);
+    public void addRow(int id, String name, boolean starred, int timesContacted) {
+      addRow(id, name, starred, timesContacted, true);
+      TestRxSchedulers.drainAllTasks();
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testFailsToLoadIfNoPermission() {
-        setAllowContactsRead(false);
-        ContactsDictionary dictionary = new ContactsDictionary(getApplicationContext());
-        dictionary.loadDictionary();
-        TestRxSchedulers.drainAllTasks();
+    public void addRow(int id, String name, boolean starred, int timesContacted, boolean visible) {
+      ContentValues contentValues = new ContentValues();
+      contentValues.put(Contacts._ID, id);
+      contentValues.put(Contacts.DISPLAY_NAME, name);
+      contentValues.put(Contacts.STARRED, starred ? 1 : 0);
+      contentValues.put(Contacts.TIMES_CONTACTED, timesContacted);
+      contentValues.put(Contacts.IN_VISIBLE_GROUP, visible ? 1 : 0);
+      insert(ContactsContract.Contacts.CONTENT_URI, contentValues);
+      TestRxSchedulers.drainAllTasks();
     }
-
-    @Test
-    public void testRegisterObserver() throws Exception {
-        ShadowContentResolver shadowContentResolver =
-                Shadows.shadowOf(getApplicationContext().getContentResolver());
-        final Collection<ContentObserver> contentObservers =
-                shadowContentResolver.getContentObservers(ContactsContract.Contacts.CONTENT_URI);
-        Assert.assertEquals(1, contentObservers.size());
-
-        // now, simulating contacts update
-        mProvider.addRow(10, "Hagar Even-Danan", true, 10);
-        TestRxSchedulers.drainAllTasks();
-
-        Iterator<String> nextWords = mDictionaryUnderTest.getNextWords("Hagar", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Even-Danan", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-    }
-
-    @Test
-    public void testCloseUnregisterObserver() {
-        mDictionaryUnderTest.close();
-        TestRxSchedulers.drainAllTasks();
-        ShadowContentResolver shadowContentResolver =
-                Shadows.shadowOf(getApplicationContext().getContentResolver());
-        Assert.assertEquals(
-                0,
-                shadowContentResolver
-                        .getContentObservers(ContactsContract.Contacts.CONTENT_URI)
-                        .size());
-    }
-
-    @Test
-    public void testDeleteWordFromStorageDoesNotHaveEffect() throws Exception {
-        mDictionaryUnderTest.deleteWordFromStorage("Menny");
-        TestRxSchedulers.drainAllTasks();
-        Assert.assertTrue(mDictionaryUnderTest.isValidWord("Menny"));
-    }
-
-    @Test
-    public void testAddWordToStorageDoesNotHaveEffect() throws Exception {
-        mDictionaryUnderTest.addWordToStorage("aword", 126);
-        TestRxSchedulers.drainAllTasks();
-        Assert.assertFalse(mDictionaryUnderTest.isValidWord("aword"));
-    }
-
-    @Test
-    public void testIsValid() {
-        Assert.assertTrue(mDictionaryUnderTest.isValidWord("Menny"));
-        Assert.assertFalse(mDictionaryUnderTest.isValidWord("Invisible"));
-    }
-
-    @Test
-    public void testGetNextWords() throws Exception {
-        Iterator<String> nextWords = mDictionaryUnderTest.getNextWords("Menny", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Even-Danan", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-
-        nextWords = mDictionaryUnderTest.getNextWords("Dummy", 2, 1).iterator();
-        Assert.assertFalse(nextWords.hasNext());
-
-        nextWords = mDictionaryUnderTest.getNextWords("Erela", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Portugaly", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-
-        nextWords = mDictionaryUnderTest.getNextWords("John", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Lennon", nextWords.next());
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Smith", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-
-        nextWords = mDictionaryUnderTest.getNextWords("Mika", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Michael", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-        // next part of the name
-        nextWords = mDictionaryUnderTest.getNextWords("Michael", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("Michelle", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-
-        nextWords = mDictionaryUnderTest.getNextWords("Jonathan", 2, 1).iterator();
-        Assert.assertTrue(nextWords.hasNext());
-        Assert.assertEquals("With'In", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-    }
-
-    public static class ContactsContentProvider extends AbstractProvider {
-
-        @Override
-        public String getAuthority() {
-            return ContactsContract.Contacts.CONTENT_URI.getAuthority();
-        }
-
-        @Table
-        public static class Contacts {
-            @Column(value = Column.FieldType.INTEGER, primaryKey = true)
-            public static final String _ID = ContactsContract.Contacts._ID;
-
-            @Column(Column.FieldType.TEXT)
-            public static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
-
-            @Column(Column.FieldType.INTEGER)
-            public static final String STARRED = ContactsContract.Contacts.STARRED;
-
-            @Column(Column.FieldType.INTEGER)
-            public static final String TIMES_CONTACTED = ContactsContract.Contacts.TIMES_CONTACTED;
-
-            @Column(Column.FieldType.INTEGER)
-            public static final String IN_VISIBLE_GROUP =
-                    ContactsContract.Contacts.IN_VISIBLE_GROUP;
-        }
-
-        public void addRow(int id, String name, boolean starred, int timesContacted) {
-            addRow(id, name, starred, timesContacted, true);
-            TestRxSchedulers.drainAllTasks();
-        }
-
-        public void addRow(
-                int id, String name, boolean starred, int timesContacted, boolean visible) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(Contacts._ID, id);
-            contentValues.put(Contacts.DISPLAY_NAME, name);
-            contentValues.put(Contacts.STARRED, starred ? 1 : 0);
-            contentValues.put(Contacts.TIMES_CONTACTED, timesContacted);
-            contentValues.put(Contacts.IN_VISIBLE_GROUP, visible ? 1 : 0);
-            insert(ContactsContract.Contacts.CONTENT_URI, contentValues);
-            TestRxSchedulers.drainAllTasks();
-        }
-    }
+  }
 }

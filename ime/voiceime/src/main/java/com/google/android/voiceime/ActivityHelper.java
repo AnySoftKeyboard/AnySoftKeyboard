@@ -26,67 +26,66 @@ import java.util.ArrayList;
 /** Helper activity used for triggering the Intent recognition, and for collecting the results. */
 public class ActivityHelper extends Activity {
 
-    @SuppressWarnings("unused")
-    private static final String TAG = "ActivityHelper";
+  @SuppressWarnings("unused")
+  private static final String TAG = "ActivityHelper";
 
-    private static final int RECOGNITION_REQUEST = 1;
+  private static final int RECOGNITION_REQUEST = 1;
 
-    private ServiceBridge mServiceBridge;
+  private ServiceBridge mServiceBridge;
 
-    @Override
-    protected void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+  @Override
+  protected void onCreate(Bundle bundle) {
+    super.onCreate(bundle);
 
-        mServiceBridge = new ServiceBridge();
+    mServiceBridge = new ServiceBridge();
 
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(
-                "calling_package" /*RecognizerIntent.EXTRA_CALLING_PACKAGE*/,
-                getApplicationContext().getPackageName());
-        intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    intent.putExtra(
+        "calling_package" /*RecognizerIntent.EXTRA_CALLING_PACKAGE*/,
+        getApplicationContext().getPackageName());
+    intent.putExtra(
+        RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
 
-        // Specify the recognition language if provided.
-        if (bundle != null) {
-            String languageLocale = bundle.getString(RecognizerIntent.EXTRA_LANGUAGE);
-            if (languageLocale != null) {
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageLocale);
-            }
-        }
-        startActivityForResult(intent, RECOGNITION_REQUEST);
+    // Specify the recognition language if provided.
+    if (bundle != null) {
+      String languageLocale = bundle.getString(RecognizerIntent.EXTRA_LANGUAGE);
+      if (languageLocale != null) {
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageLocale);
+      }
     }
+    startActivityForResult(intent, RECOGNITION_REQUEST);
+  }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOGNITION_REQUEST
-                && data != null
-                && data.hasExtra(RecognizerIntent.EXTRA_RESULTS)) {
-            ArrayList<String> results =
-                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            createResultDialog(results.toArray(new String[results.size()])).show();
-        } else {
-            notifyResult(null);
-        }
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == RECOGNITION_REQUEST
+        && data != null
+        && data.hasExtra(RecognizerIntent.EXTRA_RESULTS)) {
+      ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+      createResultDialog(results.toArray(new String[results.size()])).show();
+    } else {
+      notifyResult(null);
     }
+  }
 
-    private AlertDialog createResultDialog(final String[] recognitionResults) {
-        final AlertDialog.Builder builder =
-                new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog_NoActionBar);
+  private AlertDialog createResultDialog(final String[] recognitionResults) {
+    final AlertDialog.Builder builder =
+        new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog_NoActionBar);
 
-        builder.setItems(
-                recognitionResults, (dialog, which) -> notifyResult(recognitionResults[which]));
+    builder.setItems(
+        recognitionResults, (dialog, which) -> notifyResult(recognitionResults[which]));
 
-        builder.setCancelable(true);
-        builder.setOnCancelListener(dialog -> notifyResult(null));
+    builder.setCancelable(true);
+    builder.setOnCancelListener(dialog -> notifyResult(null));
 
-        builder.setNeutralButton(android.R.string.cancel, (dialog, which) -> notifyResult(null));
+    builder.setNeutralButton(android.R.string.cancel, (dialog, which) -> notifyResult(null));
 
-        return builder.create();
-    }
+    return builder.create();
+  }
 
-    private void notifyResult(String result) {
-        mServiceBridge.notifyResult(this, result);
-        finish();
-    }
+  private void notifyResult(String result) {
+    mServiceBridge.notifyResult(this, result);
+    finish();
+  }
 }

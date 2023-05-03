@@ -19,238 +19,237 @@ import java.lang.ref.WeakReference;
 
 /** Will render the keyboard view but will not provide ANY interactivity. */
 public class DemoAnyKeyboardView extends AnyKeyboardView {
-    private final TypingSimulator mTypingSimulator;
-    @Nullable private OnViewBitmapReadyListener mOnViewBitmapReadyListener = null;
-    private final int mInitialKeyboardWidth;
-    private float mKeyboardScale = 1f;
+  private final TypingSimulator mTypingSimulator;
+  @Nullable private OnViewBitmapReadyListener mOnViewBitmapReadyListener = null;
+  private final int mInitialKeyboardWidth;
+  private float mKeyboardScale = 1f;
 
-    public DemoAnyKeyboardView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+  public DemoAnyKeyboardView(Context context, AttributeSet attrs) {
+    this(context, attrs, 0);
+  }
+
+  public DemoAnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+    mTypingSimulator = new TypingSimulator(this);
+
+    // CHECKSTYLE:OFF: RawGetKeyboardTheme
+    setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
+    // CHECKSTYLE:ON: RawGetKeyboardTheme
+
+    mInitialKeyboardWidth = getThemedKeyboardDimens().getKeyboardMaxWidth();
+  }
+
+  @Override
+  public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    AnyKeyboard keyboard = getKeyboard();
+    if (keyboard == null) {
+      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    } else {
+      int width = keyboard.getMinWidth() + getPaddingLeft() + getPaddingRight();
+      if (MeasureSpec.getSize(widthMeasureSpec) < width + 10) {
+        width = MeasureSpec.getSize(widthMeasureSpec);
+        mKeyboardScale = ((float) width) / mInitialKeyboardWidth;
+      } else {
+        mKeyboardScale = 1f;
+      }
+      int height = keyboard.getHeight() + getPaddingTop() + getPaddingBottom();
+      setMeasuredDimension((int) (width / mKeyboardScale), (int) (height * mKeyboardScale));
     }
+  }
 
-    public DemoAnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        mTypingSimulator = new TypingSimulator(this);
+  @Override
+  public void onDraw(Canvas canvas) {
+    canvas.scale(mKeyboardScale, mKeyboardScale);
+    super.onDraw(canvas);
+  }
 
-        // CHECKSTYLE:OFF: RawGetKeyboardTheme
-        setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
-        // CHECKSTYLE:ON: RawGetKeyboardTheme
+  @Override
+  public boolean onTouchEvent(@NonNull MotionEvent me) {
+    // not handling ANY touch event.
+    return false;
+  }
 
-        mInitialKeyboardWidth = getThemedKeyboardDimens().getKeyboardMaxWidth();
-    }
+  private void simulateKeyTouchEvent(char keyChar, boolean isDownEvent) {
+    final AnyKeyboard keyboard = getKeyboard();
+    if (keyboard == null) return;
 
-    @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        AnyKeyboard keyboard = getKeyboard();
-        if (keyboard == null) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        } else {
-            int width = keyboard.getMinWidth() + getPaddingLeft() + getPaddingRight();
-            if (MeasureSpec.getSize(widthMeasureSpec) < width + 10) {
-                width = MeasureSpec.getSize(widthMeasureSpec);
-                mKeyboardScale = ((float) width) / mInitialKeyboardWidth;
-            } else {
-                mKeyboardScale = 1f;
-            }
-            int height = keyboard.getHeight() + getPaddingTop() + getPaddingBottom();
-            setMeasuredDimension((int) (width / mKeyboardScale), (int) (height * mKeyboardScale));
-        }
-    }
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        canvas.scale(mKeyboardScale, mKeyboardScale);
-        super.onDraw(canvas);
-    }
-
-    @Override
-    public boolean onTouchEvent(@NonNull MotionEvent me) {
-        // not handling ANY touch event.
-        return false;
-    }
-
-    private void simulateKeyTouchEvent(char keyChar, boolean isDownEvent) {
-        final AnyKeyboard keyboard = getKeyboard();
-        if (keyboard == null) return;
-
-        for (Keyboard.Key key : keyboard.getKeys()) {
-            if (key.getPrimaryCode() == keyChar) {
-                final long eventTime = SystemClock.uptimeMillis();
-                final long downEventTime =
-                        eventTime - (isDownEvent ? 0 : TypingSimulator.KEY_DOWN_DELAY);
-                MotionEvent motionEvent =
-                        MotionEvent.obtain(
-                                downEventTime,
-                                eventTime,
-                                isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
-                                key.centerX,
-                                key.centerY,
-                                0);
-                super.onTouchEvent(motionEvent);
-                motionEvent.recycle();
-            }
-        }
-    }
-
-    private void simulateCancelTouchEvent() {
+    for (Keyboard.Key key : keyboard.getKeys()) {
+      if (key.getPrimaryCode() == keyChar) {
         final long eventTime = SystemClock.uptimeMillis();
+        final long downEventTime = eventTime - (isDownEvent ? 0 : TypingSimulator.KEY_DOWN_DELAY);
         MotionEvent motionEvent =
-                MotionEvent.obtain(eventTime, eventTime, MotionEvent.ACTION_CANCEL, 0, 0, 0);
+            MotionEvent.obtain(
+                downEventTime,
+                eventTime,
+                isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
+                key.centerX,
+                key.centerY,
+                0);
         super.onTouchEvent(motionEvent);
         motionEvent.recycle();
+      }
+    }
+  }
+
+  private void simulateCancelTouchEvent() {
+    final long eventTime = SystemClock.uptimeMillis();
+    MotionEvent motionEvent =
+        MotionEvent.obtain(eventTime, eventTime, MotionEvent.ACTION_CANCEL, 0, 0, 0);
+    super.onTouchEvent(motionEvent);
+    motionEvent.recycle();
+  }
+
+  public void setOnViewBitmapReadyListener(@NonNull OnViewBitmapReadyListener listener) {
+    mOnViewBitmapReadyListener = listener;
+  }
+
+  @Override
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    super.onLayout(changed, left, top, right, bottom);
+    final OnViewBitmapReadyListener listener = mOnViewBitmapReadyListener;
+    if (changed && listener != null && getWidth() > 0 && getHeight() > 0) {
+      final Bitmap bitmap = generateBitmapFromView();
+      if (bitmap != null) {
+        listener.onViewBitmapReady(bitmap);
+      }
+    }
+  }
+
+  private Bitmap generateBitmapFromView() {
+    Bitmap b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+    Canvas c = new Canvas(b);
+    draw(c);
+    return b;
+  }
+
+  public void setSimulatedTypingText(@Nullable String textToSimulate) {
+    if (TextUtils.isEmpty(textToSimulate)) {
+      mTypingSimulator.stopSimulating();
+    } else {
+      mTypingSimulator.startSimulating(textToSimulate);
+    }
+  }
+
+  @Override
+  protected void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+    mTypingSimulator.onViewDetach();
+  }
+
+  @Override
+  public void onStartTemporaryDetach() {
+    super.onStartTemporaryDetach();
+    mTypingSimulator.onViewDetach();
+  }
+
+  @Override
+  public void onFinishTemporaryDetach() {
+    super.onFinishTemporaryDetach();
+    mTypingSimulator.onViewAttach();
+  }
+
+  @Override
+  protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    mTypingSimulator.onViewAttach();
+  }
+
+  private static class TypingSimulator extends Handler {
+    private static final long INITIAL_DELAY = 512;
+    private static final long NEXT_KEY_DELAY = 256;
+    private static final long NEXT_KEY_SPACE_DELAY = 512;
+    private static final long NEXT_CYCLE_DELAY = 1024;
+    private static final long KEY_DOWN_DELAY = 128;
+
+    private static final int PRESS_MESSAGE = 109;
+    private static final int RELEASE_MESSAGE = 110;
+    private static final int CANCEL_MESSAGE = 111;
+
+    private final WeakReference<DemoAnyKeyboardView> mDemoAnyKeyboardViewWeakReference;
+    @NonNull private String mTextToSimulate = "";
+    private int mSimulationIndex = 0;
+    private boolean mIsEnabled;
+
+    private TypingSimulator(@NonNull DemoAnyKeyboardView keyboardView) {
+      super(Looper.getMainLooper());
+      mDemoAnyKeyboardViewWeakReference = new WeakReference<>(keyboardView);
     }
 
-    public void setOnViewBitmapReadyListener(@NonNull OnViewBitmapReadyListener listener) {
-        mOnViewBitmapReadyListener = listener;
+    public void startSimulating(@NonNull String textToSimulate) {
+      stopSimulating();
+      mTextToSimulate = textToSimulate;
+      if (!TextUtils.isEmpty(mTextToSimulate)) {
+        sendMessageDelayed(obtainMessage(PRESS_MESSAGE), INITIAL_DELAY);
+      }
+    }
+
+    public void stopSimulating() {
+      clearPressMessages();
+      mTextToSimulate = "";
+      mSimulationIndex = 0;
+    }
+
+    private void clearPressMessages() {
+      removeMessages(PRESS_MESSAGE);
+      removeMessages(RELEASE_MESSAGE);
+      removeMessages(CANCEL_MESSAGE);
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        final OnViewBitmapReadyListener listener = mOnViewBitmapReadyListener;
-        if (changed && listener != null && getWidth() > 0 && getHeight() > 0) {
-            final Bitmap bitmap = generateBitmapFromView();
-            if (bitmap != null) {
-                listener.onViewBitmapReady(bitmap);
-            }
-        }
-    }
-
-    private Bitmap generateBitmapFromView() {
-        Bitmap b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        draw(c);
-        return b;
-    }
-
-    public void setSimulatedTypingText(@Nullable String textToSimulate) {
-        if (TextUtils.isEmpty(textToSimulate)) {
-            mTypingSimulator.stopSimulating();
-        } else {
-            mTypingSimulator.startSimulating(textToSimulate);
-        }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        mTypingSimulator.onViewDetach();
-    }
-
-    @Override
-    public void onStartTemporaryDetach() {
-        super.onStartTemporaryDetach();
-        mTypingSimulator.onViewDetach();
-    }
-
-    @Override
-    public void onFinishTemporaryDetach() {
-        super.onFinishTemporaryDetach();
-        mTypingSimulator.onViewAttach();
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        mTypingSimulator.onViewAttach();
-    }
-
-    private static class TypingSimulator extends Handler {
-        private static final long INITIAL_DELAY = 512;
-        private static final long NEXT_KEY_DELAY = 256;
-        private static final long NEXT_KEY_SPACE_DELAY = 512;
-        private static final long NEXT_CYCLE_DELAY = 1024;
-        private static final long KEY_DOWN_DELAY = 128;
-
-        private static final int PRESS_MESSAGE = 109;
-        private static final int RELEASE_MESSAGE = 110;
-        private static final int CANCEL_MESSAGE = 111;
-
-        private final WeakReference<DemoAnyKeyboardView> mDemoAnyKeyboardViewWeakReference;
-        @NonNull private String mTextToSimulate = "";
-        private int mSimulationIndex = 0;
-        private boolean mIsEnabled;
-
-        private TypingSimulator(@NonNull DemoAnyKeyboardView keyboardView) {
-            super(Looper.getMainLooper());
-            mDemoAnyKeyboardViewWeakReference = new WeakReference<>(keyboardView);
-        }
-
-        public void startSimulating(@NonNull String textToSimulate) {
-            stopSimulating();
-            mTextToSimulate = textToSimulate;
-            if (!TextUtils.isEmpty(mTextToSimulate)) {
-                sendMessageDelayed(obtainMessage(PRESS_MESSAGE), INITIAL_DELAY);
-            }
-        }
-
-        public void stopSimulating() {
-            clearPressMessages();
-            mTextToSimulate = "";
+    public void handleMessage(Message msg) {
+      DemoAnyKeyboardView keyboardView = mDemoAnyKeyboardViewWeakReference.get();
+      if (keyboardView == null || mTextToSimulate.length() == 0) return;
+      final char keyToSimulate = mTextToSimulate.charAt(mSimulationIndex);
+      switch (msg.what) {
+        case PRESS_MESSAGE:
+          if (mIsEnabled) keyboardView.simulateKeyTouchEvent(keyToSimulate, true);
+          if (mIsEnabled) {
+            sendMessageDelayed(obtainMessage(RELEASE_MESSAGE), KEY_DOWN_DELAY);
+          }
+          break;
+        case RELEASE_MESSAGE:
+          // sending RELEASE even if we are disabled
+          keyboardView.simulateKeyTouchEvent(keyToSimulate, false);
+          mSimulationIndex++;
+          if (mSimulationIndex == mTextToSimulate.length()) {
             mSimulationIndex = 0;
-        }
-
-        private void clearPressMessages() {
-            removeMessages(PRESS_MESSAGE);
-            removeMessages(RELEASE_MESSAGE);
-            removeMessages(CANCEL_MESSAGE);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            DemoAnyKeyboardView keyboardView = mDemoAnyKeyboardViewWeakReference.get();
-            if (keyboardView == null || mTextToSimulate.length() == 0) return;
-            final char keyToSimulate = mTextToSimulate.charAt(mSimulationIndex);
-            switch (msg.what) {
-                case PRESS_MESSAGE:
-                    if (mIsEnabled) keyboardView.simulateKeyTouchEvent(keyToSimulate, true);
-                    if (mIsEnabled) {
-                        sendMessageDelayed(obtainMessage(RELEASE_MESSAGE), KEY_DOWN_DELAY);
-                    }
-                    break;
-                case RELEASE_MESSAGE:
-                    // sending RELEASE even if we are disabled
-                    keyboardView.simulateKeyTouchEvent(keyToSimulate, false);
-                    mSimulationIndex++;
-                    if (mSimulationIndex == mTextToSimulate.length()) {
-                        mSimulationIndex = 0;
-                        if (mIsEnabled) {
-                            sendMessageDelayed(obtainMessage(PRESS_MESSAGE), NEXT_CYCLE_DELAY);
-                        }
-                    } else {
-                        if (mIsEnabled) {
-                            sendMessageDelayed(
-                                    obtainMessage(PRESS_MESSAGE),
-                                    (keyToSimulate == ' ') ? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
-                        }
-                    }
-                    break;
-                case CANCEL_MESSAGE:
-                    keyboardView.simulateCancelTouchEvent();
-                    keyboardView.resetInputView();
-                    break;
-                default:
-                    super.handleMessage(msg);
-                    break;
+            if (mIsEnabled) {
+              sendMessageDelayed(obtainMessage(PRESS_MESSAGE), NEXT_CYCLE_DELAY);
             }
-        }
-
-        public void onViewDetach() {
-            if (!mIsEnabled) return;
-
-            mIsEnabled = false;
-            clearPressMessages();
-            sendMessage(obtainMessage(CANCEL_MESSAGE));
-        }
-
-        public void onViewAttach() {
-            if (mIsEnabled) return;
-            mIsEnabled = true;
-            startSimulating(mTextToSimulate);
-        }
+          } else {
+            if (mIsEnabled) {
+              sendMessageDelayed(
+                  obtainMessage(PRESS_MESSAGE),
+                  (keyToSimulate == ' ') ? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
+            }
+          }
+          break;
+        case CANCEL_MESSAGE:
+          keyboardView.simulateCancelTouchEvent();
+          keyboardView.resetInputView();
+          break;
+        default:
+          super.handleMessage(msg);
+          break;
+      }
     }
 
-    public interface OnViewBitmapReadyListener {
-        void onViewBitmapReady(Bitmap bitmap);
+    public void onViewDetach() {
+      if (!mIsEnabled) return;
+
+      mIsEnabled = false;
+      clearPressMessages();
+      sendMessage(obtainMessage(CANCEL_MESSAGE));
     }
+
+    public void onViewAttach() {
+      if (mIsEnabled) return;
+      mIsEnabled = true;
+      startSimulating(mTextToSimulate);
+    }
+  }
+
+  public interface OnViewBitmapReadyListener {
+    void onViewBitmapReady(Bitmap bitmap);
+  }
 }

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Notices {
-    public static List<PublicNotice> create(Context context) {
-        return Collections.emptyList();
-    }
+  public static List<PublicNotice> create(Context context) {
+    return Collections.emptyList();
+  }
 }

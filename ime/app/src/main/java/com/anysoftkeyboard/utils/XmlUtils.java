@@ -22,33 +22,28 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class XmlUtils {
 
-    public static void beginDocument(XmlPullParser parser, String firstElementName)
-            throws XmlPullParserException, IOException {
-        int type;
-        while ((type = parser.next()) != XmlPullParser.START_TAG
-                && type != XmlPullParser.END_DOCUMENT)
-            ;
+  public static void beginDocument(XmlPullParser parser, String firstElementName)
+      throws XmlPullParserException, IOException {
+    int type;
+    while ((type = parser.next()) != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT)
+      ;
 
-        if (type != XmlPullParser.START_TAG) {
-            throw new XmlPullParserException("No start tag found");
-        }
-
-        if (!parser.getName().equals(firstElementName)) {
-            throw new XmlPullParserException(
-                    "Unexpected start tag: found "
-                            + parser.getName()
-                            + ", expected "
-                            + firstElementName);
-        }
+    if (type != XmlPullParser.START_TAG) {
+      throw new XmlPullParserException("No start tag found");
     }
 
-    public static boolean nextElement(XmlPullParser parser)
-            throws XmlPullParserException, IOException {
-        int type = 0;
-        while ((type = parser.next()) != XmlPullParser.START_TAG
-                && type != XmlPullParser.END_DOCUMENT)
-            ;
-
-        return type != XmlPullParser.END_DOCUMENT;
+    if (!parser.getName().equals(firstElementName)) {
+      throw new XmlPullParserException(
+          "Unexpected start tag: found " + parser.getName() + ", expected " + firstElementName);
     }
+  }
+
+  public static boolean nextElement(XmlPullParser parser)
+      throws XmlPullParserException, IOException {
+    int type = 0;
+    while ((type = parser.next()) != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT)
+      ;
+
+    return type != XmlPullParser.END_DOCUMENT;
+  }
 }

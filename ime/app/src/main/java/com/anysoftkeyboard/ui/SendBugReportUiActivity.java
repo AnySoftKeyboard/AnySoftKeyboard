@@ -32,74 +32,68 @@ import io.reactivex.disposables.Disposables;
 
 public class SendBugReportUiActivity extends FragmentActivity {
 
-    private static final String TAG = "ASKBugSender";
+  private static final String TAG = "ASKBugSender";
 
-    private BugReportDetails mCrashReportDetails;
-    private Disposable mDisposable = Disposables.empty();
+  private BugReportDetails mCrashReportDetails;
+  private Disposable mDisposable = Disposables.empty();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.send_crash_log_ui);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.send_crash_log_ui);
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    Intent callingIntent = getIntent();
+    mCrashReportDetails =
+        callingIntent.getParcelableExtra(BugReportDetails.EXTRA_KEY_BugReportDetails);
+    if (mCrashReportDetails == null) {
+      if (BuildConfig.DEBUG)
+        throw new IllegalArgumentException(
+            "Activity started without " + BugReportDetails.EXTRA_KEY_BugReportDetails + " extra!");
+      finish();
     }
+  }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent callingIntent = getIntent();
-        mCrashReportDetails =
-                callingIntent.getParcelableExtra(BugReportDetails.EXTRA_KEY_BugReportDetails);
-        if (mCrashReportDetails == null) {
-            if (BuildConfig.DEBUG)
-                throw new IllegalArgumentException(
-                        "Activity started without "
-                                + BugReportDetails.EXTRA_KEY_BugReportDetails
-                                + " extra!");
-            finish();
-        }
+  public void onCancelCrashReport(View v) {
+    finish();
+  }
+
+  public void onSendCrashReport(View v) {
+    mDisposable.dispose();
+    mDisposable =
+        LocalProxy.proxy(this, mCrashReportDetails.fullReport).subscribe(this::sendReportViaSend);
+  }
+
+  private void sendReportViaSend(Uri fullReportUri) {
+    String[] recipients = new String[] {BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
+
+    Intent sendIntent = new Intent();
+    sendIntent.setAction(Intent.ACTION_SEND);
+    sendIntent.setType("plain/text");
+    sendIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
+    sendIntent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_crashed_title));
+    sendIntent.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashHeader);
+    sendIntent.putExtra(Intent.EXTRA_STREAM, fullReportUri);
+
+    Intent sender =
+        Intent.createChooser(sendIntent, getString(R.string.ime_crashed_intent_selector_title));
+    Logger.i(TAG, "Sending crash report intent %s, with attachment %s", sender, fullReportUri);
+    try {
+      startActivity(sender);
+    } catch (android.content.ActivityNotFoundException ex) {
+      Toast.makeText(
+              getApplicationContext(), "Unable to send bug report via e-mail!", Toast.LENGTH_LONG)
+          .show();
     }
+    finish();
+  }
 
-    public void onCancelCrashReport(View v) {
-        finish();
-    }
-
-    public void onSendCrashReport(View v) {
-        mDisposable.dispose();
-        mDisposable =
-                LocalProxy.proxy(this, mCrashReportDetails.fullReport)
-                        .subscribe(this::sendReportViaSend);
-    }
-
-    private void sendReportViaSend(Uri fullReportUri) {
-        String[] recipients = new String[] {BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
-
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setType("plain/text");
-        sendIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
-        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_crashed_title));
-        sendIntent.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashHeader);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, fullReportUri);
-
-        Intent sender =
-                Intent.createChooser(
-                        sendIntent, getString(R.string.ime_crashed_intent_selector_title));
-        Logger.i(TAG, "Sending crash report intent %s, with attachment %s", sender, fullReportUri);
-        try {
-            startActivity(sender);
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(
-                            getApplicationContext(),
-                            "Unable to send bug report via e-mail!",
-                            Toast.LENGTH_LONG)
-                    .show();
-        }
-        finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mDisposable.dispose();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mDisposable.dispose();
+  }
 }

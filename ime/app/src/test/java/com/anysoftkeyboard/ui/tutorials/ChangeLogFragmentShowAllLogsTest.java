@@ -13,61 +13,60 @@ import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ChangeLogFragmentShowAllLogsTest
-        extends RobolectricFragmentTestCase<ChangeLogFragment.FullChangeLogFragment> {
+    extends RobolectricFragmentTestCase<ChangeLogFragment.FullChangeLogFragment> {
 
-    @Override
-    protected int getStartFragmentNavigationId() {
-        return R.id.fullChangeLogFragment;
+  @Override
+  protected int getStartFragmentNavigationId() {
+    return R.id.fullChangeLogFragment;
+  }
+
+  @Override
+  @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
+  public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {}
+
+  @Override
+  @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
+  public void testEnsureFragmentHandlesHappyPathLifecycleWithResume() {}
+
+  @Override
+  @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
+  public void testEnsureFragmentHandlesRecreateWithInstanceState() {}
+
+  @Override
+  @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
+  public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {}
+
+  @Test
+  public void testRootViewHasAllLogs() {
+    RecyclerView rootView = startFragment().getView().findViewById(R.id.change_logs_container);
+
+    final RecyclerView.Adapter adapter = rootView.getAdapter();
+    final List<VersionChangeLogs.VersionChangeLog> changeLogItems =
+        VersionChangeLogs.createChangeLog();
+    Assert.assertEquals(changeLogItems.size(), adapter.getItemCount());
+
+    final ChangeLogFragment.ChangeLogViewHolder viewHolder =
+        (ChangeLogFragment.ChangeLogViewHolder) adapter.createViewHolder(rootView, 0);
+    Assert.assertNotNull(viewHolder.titleView);
+    Assert.assertEquals(
+        Paint.UNDERLINE_TEXT_FLAG,
+        viewHolder.titleView.getPaintFlags() & Paint.UNDERLINE_TEXT_FLAG);
+    Assert.assertNotNull(viewHolder.bulletPointsView);
+    Assert.assertNotNull(viewHolder.webLinkChangeLogView);
+
+    for (int childViewIndex = 0; childViewIndex < adapter.getItemCount(); childViewIndex++) {
+      final VersionChangeLogs.VersionChangeLog changeLogItem = changeLogItems.get(childViewIndex);
+      adapter.bindViewHolder(viewHolder, childViewIndex);
+
+      Assert.assertTrue(
+          viewHolder.titleView.getText().toString().contains(changeLogItem.versionName));
+      Assert.assertFalse(viewHolder.bulletPointsView.getText().toString().isEmpty());
+      Assert.assertTrue(
+          viewHolder
+              .webLinkChangeLogView
+              .getText()
+              .toString()
+              .contains(changeLogItem.changesWebUrl.toString()));
     }
-
-    @Override
-    @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
-    public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {}
-
-    @Override
-    @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
-    public void testEnsureFragmentHandlesHappyPathLifecycleWithResume() {}
-
-    @Override
-    @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
-    public void testEnsureFragmentHandlesRecreateWithInstanceState() {}
-
-    @Override
-    @Ignore("hangs with OOM. Maybe the next Robolectric will be better")
-    public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {}
-
-    @Test
-    public void testRootViewHasAllLogs() {
-        RecyclerView rootView = startFragment().getView().findViewById(R.id.change_logs_container);
-
-        final RecyclerView.Adapter adapter = rootView.getAdapter();
-        final List<VersionChangeLogs.VersionChangeLog> changeLogItems =
-                VersionChangeLogs.createChangeLog();
-        Assert.assertEquals(changeLogItems.size(), adapter.getItemCount());
-
-        final ChangeLogFragment.ChangeLogViewHolder viewHolder =
-                (ChangeLogFragment.ChangeLogViewHolder) adapter.createViewHolder(rootView, 0);
-        Assert.assertNotNull(viewHolder.titleView);
-        Assert.assertEquals(
-                Paint.UNDERLINE_TEXT_FLAG,
-                viewHolder.titleView.getPaintFlags() & Paint.UNDERLINE_TEXT_FLAG);
-        Assert.assertNotNull(viewHolder.bulletPointsView);
-        Assert.assertNotNull(viewHolder.webLinkChangeLogView);
-
-        for (int childViewIndex = 0; childViewIndex < adapter.getItemCount(); childViewIndex++) {
-            final VersionChangeLogs.VersionChangeLog changeLogItem =
-                    changeLogItems.get(childViewIndex);
-            adapter.bindViewHolder(viewHolder, childViewIndex);
-
-            Assert.assertTrue(
-                    viewHolder.titleView.getText().toString().contains(changeLogItem.versionName));
-            Assert.assertFalse(viewHolder.bulletPointsView.getText().toString().isEmpty());
-            Assert.assertTrue(
-                    viewHolder
-                            .webLinkChangeLogView
-                            .getText()
-                            .toString()
-                            .contains(changeLogItem.changesWebUrl.toString()));
-        }
-    }
+  }
 }

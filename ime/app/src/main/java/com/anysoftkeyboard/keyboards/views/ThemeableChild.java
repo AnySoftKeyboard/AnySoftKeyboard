@@ -4,7 +4,7 @@ import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 
 public interface ThemeableChild {
-    void setKeyboardTheme(KeyboardTheme theme);
+  void setKeyboardTheme(KeyboardTheme theme);
 
-    void setThemeOverlay(OverlayData overlay);
+  void setThemeOverlay(OverlayData overlay);
 }

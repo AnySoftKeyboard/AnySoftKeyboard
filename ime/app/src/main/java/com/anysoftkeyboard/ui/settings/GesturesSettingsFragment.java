@@ -33,86 +33,85 @@ import net.evendanan.pixel.GeneralDialogController;
 
 public class GesturesSettingsFragment extends PreferenceFragmentCompat {
 
-    private GeneralDialogController mGeneralDialogController;
+  private GeneralDialogController mGeneralDialogController;
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_gestures_prefs);
-        mGeneralDialogController =
-                new GeneralDialogController(
-                        getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.prefs_gestures_prefs);
+    mGeneralDialogController =
+        new GeneralDialogController(getActivity(), R.style.Theme_AskAlertDialog, this::setupDialog);
+  }
+
+  private void setupDialog(
+      Context context, AlertDialog.Builder builder, int optionId, Object data) {
+    builder
+        .setTitle(R.string.gesture_typing_alert_title)
+        .setMessage(R.string.gesture_typing_alert_message)
+        .setPositiveButton(
+            R.string.gesture_typing_alert_button, (dialog, which) -> dialog.dismiss());
+  }
+
+  @VisibleForTesting
+  List<Preference> findPrefs(String... keys) {
+    ArrayList<Preference> prefs = new ArrayList<>(keys.length);
+    for (String key : keys) {
+      final Preference preference = findPreference(key);
+
+      prefs.add(preference);
     }
 
-    private void setupDialog(
-            Context context, AlertDialog.Builder builder, int optionId, Object data) {
-        builder.setTitle(R.string.gesture_typing_alert_title)
-                .setMessage(R.string.gesture_typing_alert_message)
-                .setPositiveButton(
-                        R.string.gesture_typing_alert_button, (dialog, which) -> dialog.dismiss());
+    return prefs;
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    findPreference(getString(R.string.settings_key_gesture_typing))
+        .setOnPreferenceChangeListener(
+            (preference, newValue) -> {
+              final boolean gestureTypingEnabled = (boolean) newValue;
+              if (gestureTypingEnabled) {
+                mGeneralDialogController.showDialog(1);
+              }
+              for (Preference affectedPref : getAffectedPrefs()) {
+                affectedPref.setEnabled(!gestureTypingEnabled);
+              }
+              return true;
+            });
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    findPreference(getString(R.string.settings_key_gesture_typing))
+        .setOnPreferenceChangeListener(null);
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(
+        this, getString(R.string.unicode_gestures_quick_text_key_name));
+
+    final boolean gestureTypingEnabled =
+        ((CheckBoxPreference) findPreference(getString(R.string.settings_key_gesture_typing)))
+            .isChecked();
+    for (Preference affectedPref : getAffectedPrefs()) {
+      affectedPref.setEnabled(!gestureTypingEnabled);
     }
+  }
 
-    @VisibleForTesting
-    List<Preference> findPrefs(String... keys) {
-        ArrayList<Preference> prefs = new ArrayList<>(keys.length);
-        for (String key : keys) {
-            final Preference preference = findPreference(key);
+  private List<Preference> getAffectedPrefs() {
+    return findPrefs(
+        "settings_key_swipe_up_action",
+        "settings_key_swipe_down_action",
+        "settings_key_swipe_left_action",
+        "settings_key_swipe_right_action");
+  }
 
-            prefs.add(preference);
-        }
-
-        return prefs;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findPreference(getString(R.string.settings_key_gesture_typing))
-                .setOnPreferenceChangeListener(
-                        (preference, newValue) -> {
-                            final boolean gestureTypingEnabled = (boolean) newValue;
-                            if (gestureTypingEnabled) {
-                                mGeneralDialogController.showDialog(1);
-                            }
-                            for (Preference affectedPref : getAffectedPrefs()) {
-                                affectedPref.setEnabled(!gestureTypingEnabled);
-                            }
-                            return true;
-                        });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        findPreference(getString(R.string.settings_key_gesture_typing))
-                .setOnPreferenceChangeListener(null);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(
-                this, getString(R.string.unicode_gestures_quick_text_key_name));
-
-        final boolean gestureTypingEnabled =
-                ((CheckBoxPreference)
-                                findPreference(getString(R.string.settings_key_gesture_typing)))
-                        .isChecked();
-        for (Preference affectedPref : getAffectedPrefs()) {
-            affectedPref.setEnabled(!gestureTypingEnabled);
-        }
-    }
-
-    private List<Preference> getAffectedPrefs() {
-        return findPrefs(
-                "settings_key_swipe_up_action",
-                "settings_key_swipe_down_action",
-                "settings_key_swipe_left_action",
-                "settings_key_swipe_right_action");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mGeneralDialogController.dismiss();
-    }
+  @Override
+  public void onStop() {
+    super.onStop();
+    mGeneralDialogController.dismiss();
+  }
 }

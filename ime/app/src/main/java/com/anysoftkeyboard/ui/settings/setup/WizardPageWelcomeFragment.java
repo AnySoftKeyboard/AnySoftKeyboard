@@ -21,121 +21,112 @@ import java.util.List;
 import java.util.Random;
 
 public class WizardPageWelcomeFragment extends WizardPageBaseFragment
-        implements View.OnClickListener {
-    private static final String STARTED_PREF_KEY = "setup_wizard_STARTED_SETUP_PREF_KEY";
-    public static final int DELAY_MILLIS_BEFORE_RESETTING_KEYBOARD = 1000;
+    implements View.OnClickListener {
+  private static final String STARTED_PREF_KEY = "setup_wizard_STARTED_SETUP_PREF_KEY";
+  public static final int DELAY_MILLIS_BEFORE_RESETTING_KEYBOARD = 1000;
 
-    private DemoAnyKeyboardView mDemoAnyKeyboardView;
+  private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
-    private Runnable mPerformDemoKeyboardChange;
+  private Runnable mPerformDemoKeyboardChange;
 
-    @Override
-    protected int getPageLayoutId() {
-        return R.layout.keyboard_setup_wizard_page_welcome_layout;
+  @Override
+  protected int getPageLayoutId() {
+    return R.layout.keyboard_setup_wizard_page_welcome_layout;
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    view.findViewById(R.id.go_to_start_setup).setOnClickListener(this);
+    view.findViewById(R.id.setup_wizard_welcome_privacy_action).setOnClickListener(this);
+    view.findViewById(R.id.skip_setup_wizard).setOnClickListener(this);
+
+    mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
+  }
+
+  @Override
+  protected boolean isStepCompleted(@NonNull Context context) {
+    // note: we can not use mSharedPrefs, since this method might be
+    // called before onAttached is called.
+    return (mSharedPrefs == null ? DirectBootAwareSharedPreferences.create(context) : mSharedPrefs)
+        .getBoolean(STARTED_PREF_KEY, false);
+  }
+
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.go_to_start_setup:
+        mSharedPrefs.edit().putBoolean(STARTED_PREF_KEY, true).apply();
+        refreshWizardPager();
+        break;
+      case R.id.setup_wizard_welcome_privacy_action:
+        String privacyUrl = getString(R.string.privacy_policy);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+        break;
+      case R.id.skip_setup_wizard:
+        startActivity(new Intent(getContext(), MainSettingsActivity.class));
+        // not returning to this Activity any longer.
+        requireActivity().finish();
+        break;
+      default:
+        throw new IllegalArgumentException(
+            "Failed to handle " + v.getId() + " in WizardPageDoneAndMoreSettingsFragment");
+    }
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    mPerformDemoKeyboardChange = new ChangeDemoKeyboardRunnable(getContext(), mDemoAnyKeyboardView);
+    mPerformDemoKeyboardChange.run();
+    SetupSupport.popupViewAnimationWithIds(getView(), R.id.go_to_start_setup);
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    mDemoAnyKeyboardView.removeCallbacks(mPerformDemoKeyboardChange);
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    mDemoAnyKeyboardView.onViewNotRequired();
+  }
+
+  private static class ChangeDemoKeyboardRunnable implements Runnable {
+
+    private final Random mRandom = new Random();
+
+    private final Context mContext;
+    private final DemoAnyKeyboardView mDemoAnyKeyboardView;
+
+    private final KeyboardAddOnAndBuilder mKeyboardBuilder;
+
+    public ChangeDemoKeyboardRunnable(Context context, DemoAnyKeyboardView demoAnyKeyboardView) {
+      mContext = context;
+      mDemoAnyKeyboardView = demoAnyKeyboardView;
+      mKeyboardBuilder = AnyApplication.getKeyboardFactory(mContext).getEnabledAddOn();
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.go_to_start_setup).setOnClickListener(this);
-        view.findViewById(R.id.setup_wizard_welcome_privacy_action).setOnClickListener(this);
-        view.findViewById(R.id.skip_setup_wizard).setOnClickListener(this);
+    public void run() {
+      mDemoAnyKeyboardView.setKeyboardTheme(
+          getRandomAddOn(AnyApplication.getKeyboardThemeFactory(mContext)));
 
-        mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
+      KeyboardExtension bottomRow = getRandomAddOn(AnyApplication.getBottomRowFactory(mContext));
+      KeyboardExtension topRow = getRandomAddOn(AnyApplication.getTopRowFactory(mContext));
+
+      AnyKeyboard keyboard = mKeyboardBuilder.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+      keyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens(), topRow, bottomRow);
+      mDemoAnyKeyboardView.setKeyboard(keyboard, null, null);
+
+      mDemoAnyKeyboardView.postDelayed(this, DELAY_MILLIS_BEFORE_RESETTING_KEYBOARD);
     }
 
-    @Override
-    protected boolean isStepCompleted(@NonNull Context context) {
-        // note: we can not use mSharedPrefs, since this method might be
-        // called before onAttached is called.
-        return (mSharedPrefs == null
-                        ? DirectBootAwareSharedPreferences.create(context)
-                        : mSharedPrefs)
-                .getBoolean(STARTED_PREF_KEY, false);
+    private <T extends AddOn> T getRandomAddOn(AddOnsFactory<T> factory) {
+      List<T> list = factory.getAllAddOns();
+      return list.get(mRandom.nextInt(list.size()));
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.go_to_start_setup:
-                mSharedPrefs.edit().putBoolean(STARTED_PREF_KEY, true).apply();
-                refreshWizardPager();
-                break;
-            case R.id.setup_wizard_welcome_privacy_action:
-                String privacyUrl = getString(R.string.privacy_policy);
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
-                break;
-            case R.id.skip_setup_wizard:
-                startActivity(new Intent(getContext(), MainSettingsActivity.class));
-                // not returning to this Activity any longer.
-                requireActivity().finish();
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Failed to handle "
-                                + v.getId()
-                                + " in WizardPageDoneAndMoreSettingsFragment");
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mPerformDemoKeyboardChange =
-                new ChangeDemoKeyboardRunnable(getContext(), mDemoAnyKeyboardView);
-        mPerformDemoKeyboardChange.run();
-        SetupSupport.popupViewAnimationWithIds(getView(), R.id.go_to_start_setup);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mDemoAnyKeyboardView.removeCallbacks(mPerformDemoKeyboardChange);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mDemoAnyKeyboardView.onViewNotRequired();
-    }
-
-    private static class ChangeDemoKeyboardRunnable implements Runnable {
-
-        private final Random mRandom = new Random();
-
-        private final Context mContext;
-        private final DemoAnyKeyboardView mDemoAnyKeyboardView;
-
-        private final KeyboardAddOnAndBuilder mKeyboardBuilder;
-
-        public ChangeDemoKeyboardRunnable(
-                Context context, DemoAnyKeyboardView demoAnyKeyboardView) {
-            mContext = context;
-            mDemoAnyKeyboardView = demoAnyKeyboardView;
-            mKeyboardBuilder = AnyApplication.getKeyboardFactory(mContext).getEnabledAddOn();
-        }
-
-        @Override
-        public void run() {
-            mDemoAnyKeyboardView.setKeyboardTheme(
-                    getRandomAddOn(AnyApplication.getKeyboardThemeFactory(mContext)));
-
-            KeyboardExtension bottomRow =
-                    getRandomAddOn(AnyApplication.getBottomRowFactory(mContext));
-            KeyboardExtension topRow = getRandomAddOn(AnyApplication.getTopRowFactory(mContext));
-
-            AnyKeyboard keyboard =
-                    mKeyboardBuilder.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-            keyboard.loadKeyboard(
-                    mDemoAnyKeyboardView.getThemedKeyboardDimens(), topRow, bottomRow);
-            mDemoAnyKeyboardView.setKeyboard(keyboard, null, null);
-
-            mDemoAnyKeyboardView.postDelayed(this, DELAY_MILLIS_BEFORE_RESETTING_KEYBOARD);
-        }
-
-        private <T extends AddOn> T getRandomAddOn(AddOnsFactory<T> factory) {
-            List<T> list = factory.getAllAddOns();
-            return list.get(mRandom.nextInt(list.size()));
-        }
-    }
+  }
 }

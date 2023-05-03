@@ -27,60 +27,60 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "ASKPkgChanged";
+  private static final String TAG = "ASKPkgChanged";
 
-    private final AnySoftKeyboard mIme;
-    private final StringBuilder mStringBuffer = new StringBuilder();
+  private final AnySoftKeyboard mIme;
+  private final StringBuilder mStringBuffer = new StringBuilder();
 
-    public PackagesChangedReceiver(AnySoftKeyboard ime) {
-        mIme = ime;
+  public PackagesChangedReceiver(AnySoftKeyboard ime) {
+    mIme = ime;
+  }
+
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    if (intent == null || intent.getData() == null || context == null) return;
+
+    if (BuildConfig.TESTING_BUILD) {
+      mStringBuffer.setLength(0);
+      String text =
+          mStringBuffer
+              .append("Package '")
+              .append(intent.getData())
+              .append("' have been changed.")
+              .toString();
+      Logger.d(TAG, text);
     }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if (intent == null || intent.getData() == null || context == null) return;
-
-        if (BuildConfig.TESTING_BUILD) {
-            mStringBuffer.setLength(0);
-            String text =
-                    mStringBuffer
-                            .append("Package '")
-                            .append(intent.getData())
-                            .append("' have been changed.")
-                            .toString();
-            Logger.d(TAG, text);
-        }
-        try {
-            ((AnyApplication) mIme.getApplicationContext()).onPackageChanged(intent, mIme);
-        } catch (Exception e) {
-            Logger.e(TAG, "Failed to parse changed package. Ignoring.", e);
-        }
+    try {
+      ((AnyApplication) mIme.getApplicationContext()).onPackageChanged(intent, mIme);
+    } catch (Exception e) {
+      Logger.e(TAG, "Failed to parse changed package. Ignoring.", e);
     }
+  }
 
-    public IntentFilter createIntentFilter() {
-        /*
-        receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="android.intent.action.PACKAGE_CHANGED"/>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-         */
-        IntentFilter filter = new IntentFilter();
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
+  public IntentFilter createIntentFilter() {
+    /*
+    receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
+        <intent-filter>
+            <category android:name="android.intent.category.DEFAULT" />
+            <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+            <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+            <action android:name="android.intent.action.PACKAGE_ADDED"/>
+            <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+            <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+            <data android:scheme="package" />
+        </intent-filter>
+    </receiver>
+     */
+    IntentFilter filter = new IntentFilter();
+    filter.addCategory(Intent.CATEGORY_DEFAULT);
 
-        filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+    filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
+    filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+    filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+    filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
 
-        filter.addDataScheme("package");
+    filter.addDataScheme("package");
 
-        return filter;
-    }
+    return filter;
+  }
 }

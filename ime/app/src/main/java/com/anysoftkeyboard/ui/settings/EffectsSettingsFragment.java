@@ -28,44 +28,44 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class EffectsSettingsFragment extends PreferenceFragmentCompat {
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_effects_prefs);
-    }
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.prefs_effects_prefs);
+  }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findPreference(getText(R.string.settings_key_power_save_mode))
-                .setOnPreferenceClickListener(
-                        preference -> {
-                            Navigation.findNavController(requireView())
-                                    .navigate(
-                                            EffectsSettingsFragmentDirections
-                                                    .actionEffectsSettingsFragmentToPowerSavingSettingsFragment());
-                            return true;
-                        });
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    findPreference(getText(R.string.settings_key_power_save_mode))
+        .setOnPreferenceClickListener(
+            preference -> {
+              Navigation.findNavController(requireView())
+                  .navigate(
+                      EffectsSettingsFragmentDirections
+                          .actionEffectsSettingsFragmentToPowerSavingSettingsFragment());
+              return true;
+            });
 
-        findPreference(getText(R.string.settings_key_night_mode))
-                .setOnPreferenceClickListener(
-                        preference -> {
-                            Navigation.findNavController(requireView())
-                                    .navigate(
-                                            EffectsSettingsFragmentDirections
-                                                    .actionEffectsSettingsFragmentToNightModeSettingsFragment());
-                            return true;
-                        });
-        if (Build.VERSION.SDK_INT < 29) {
-            // Android earlier than 29 does not support predefined vibrations
-            Preference svPref = findPreference(getText(R.string.settings_key_use_system_vibration));
-            svPref.setVisible(false);
-            svPref.setSelectable(false);
-        }
+    findPreference(getText(R.string.settings_key_night_mode))
+        .setOnPreferenceClickListener(
+            preference -> {
+              Navigation.findNavController(requireView())
+                  .navigate(
+                      EffectsSettingsFragmentDirections
+                          .actionEffectsSettingsFragmentToNightModeSettingsFragment());
+              return true;
+            });
+    if (Build.VERSION.SDK_INT < 29) {
+      // Android earlier than 29 does not support predefined vibrations
+      Preference svPref = findPreference(getText(R.string.settings_key_use_system_vibration));
+      svPref.setVisible(false);
+      svPref.setSelectable(false);
     }
+  }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.effects_group));
-    }
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(this, getString(R.string.effects_group));
+  }
 }

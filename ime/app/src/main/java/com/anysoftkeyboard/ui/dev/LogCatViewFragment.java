@@ -26,15 +26,15 @@ import com.anysoftkeyboard.base.utils.Logger;
 
 public class LogCatViewFragment extends ListFragment {
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(
-                        inflater.getContext(),
-                        android.R.layout.simple_list_item_1,
-                        Logger.getAllLogLinesList());
-        setListAdapter(adapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
+  @Override
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    ArrayAdapter<String> adapter =
+        new ArrayAdapter<>(
+            inflater.getContext(),
+            android.R.layout.simple_list_item_1,
+            Logger.getAllLogLinesList());
+    setListAdapter(adapter);
+    return super.onCreateView(inflater, container, savedInstanceState);
+  }
 }
