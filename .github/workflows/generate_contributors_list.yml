@@ -1,5 +1,5 @@
 ---
-name: packs-lists
+name: contributors-lists
 
 on:
   push:
