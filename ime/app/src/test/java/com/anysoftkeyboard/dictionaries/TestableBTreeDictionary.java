@@ -4,62 +4,62 @@ import android.content.Context;
 import java.lang.reflect.Field;
 
 public class TestableBTreeDictionary extends BTreeDictionary {
-    public static final Object[][] STORAGE = {
-        {1, "hello", 255, "en"},
-        {2, "AnySoftKeyboard", 255, "en"},
-        {3, "phone", 200, "en"},
-        {4, "thing", 200, "en"},
-        {5, "she", 180, "en"},
-        {6, "are", 179, "en"},
-        {7, "Menny", 50, "en"},
-        {8, "laptop", 40, "en"},
-        {9, "gmail.com", 30, "en"},
-        {10, "Android", 29, "en"},
-        {11, "don't", 29, "en"},
-    };
+  public static final Object[][] STORAGE = {
+    {1, "hello", 255, "en"},
+    {2, "AnySoftKeyboard", 255, "en"},
+    {3, "phone", 200, "en"},
+    {4, "thing", 200, "en"},
+    {5, "she", 180, "en"},
+    {6, "are", 179, "en"},
+    {7, "Menny", 50, "en"},
+    {8, "laptop", 40, "en"},
+    {9, "gmail.com", 30, "en"},
+    {10, "Android", 29, "en"},
+    {11, "don't", 29, "en"},
+  };
 
-    public String wordRequestedToBeDeletedFromStorage = null;
-    public String wordRequestedToAddedToStorage = null;
-    public int wordFrequencyRequestedToAddedToStorage = -1;
-    public boolean storageIsClosed = false;
+  public String wordRequestedToBeDeletedFromStorage = null;
+  public String wordRequestedToAddedToStorage = null;
+  public int wordFrequencyRequestedToAddedToStorage = -1;
+  public boolean storageIsClosed = false;
 
-    private final Field mRootsField;
+  private final Field mRootsField;
 
-    TestableBTreeDictionary(String dictionaryName, Context context, boolean includeTypedWord)
-            throws NoSuchFieldException {
-        super(dictionaryName, context, includeTypedWord);
-        mRootsField = BTreeDictionary.class.getDeclaredField("mRoots");
-        mRootsField.setAccessible(true);
+  TestableBTreeDictionary(String dictionaryName, Context context, boolean includeTypedWord)
+      throws NoSuchFieldException {
+    super(dictionaryName, context, includeTypedWord);
+    mRootsField = BTreeDictionary.class.getDeclaredField("mRoots");
+    mRootsField.setAccessible(true);
+  }
+
+  TestableBTreeDictionary(String dictionaryName, Context context) throws NoSuchFieldException {
+    this(dictionaryName, context, false);
+  }
+
+  public NodeArray getRoot() throws IllegalAccessException {
+    return (NodeArray) mRootsField.get(this);
+  }
+
+  @Override
+  protected void deleteWordFromStorage(String word) {
+    wordRequestedToBeDeletedFromStorage = word;
+  }
+
+  @Override
+  protected void readWordsFromActualStorage(WordReadListener listener) {
+    for (Object[] row : STORAGE) {
+      listener.onWordRead((String) row[1], (int) row[2]);
     }
+  }
 
-    TestableBTreeDictionary(String dictionaryName, Context context) throws NoSuchFieldException {
-        this(dictionaryName, context, false);
-    }
+  @Override
+  protected void addWordToStorage(String word, int frequency) {
+    wordRequestedToAddedToStorage = word;
+    wordFrequencyRequestedToAddedToStorage = frequency;
+  }
 
-    public NodeArray getRoot() throws IllegalAccessException {
-        return (NodeArray) mRootsField.get(this);
-    }
-
-    @Override
-    protected void deleteWordFromStorage(String word) {
-        wordRequestedToBeDeletedFromStorage = word;
-    }
-
-    @Override
-    protected void readWordsFromActualStorage(WordReadListener listener) {
-        for (Object[] row : STORAGE) {
-            listener.onWordRead((String) row[1], (int) row[2]);
-        }
-    }
-
-    @Override
-    protected void addWordToStorage(String word, int frequency) {
-        wordRequestedToAddedToStorage = word;
-        wordFrequencyRequestedToAddedToStorage = frequency;
-    }
-
-    @Override
-    protected void closeStorage() {
-        storageIsClosed = true;
-    }
+  @Override
+  protected void closeStorage() {
+    storageIsClosed = true;
+  }
 }

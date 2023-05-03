@@ -22,13 +22,13 @@ import androidx.annotation.NonNull;
 
 @TargetApi(26)
 public class DeviceSpecificV26 extends DeviceSpecificV24 {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV26";
-    }
+  @Override
+  public String getApiLevel() {
+    return "DeviceSpecificV26";
+  }
 
-    @Override
-    public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
-        return new PressVibratorV26(vibe);
-    }
+  @Override
+  public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
+    return new PressVibratorV26(vibe);
+  }
 }

@@ -15,32 +15,32 @@ import org.robolectric.util.Logger;
 
 /** Just a way to add general things on-top RobolectricTestRunner. */
 public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner {
-    public AnySoftKeyboardRobolectricTestRunner(Class<?> testClass) throws InitializationError {
-        super(testClass);
-        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(
-                this, new TestClassHashingStrategy(), false /*so running from AS will work*/);
-    }
+  public AnySoftKeyboardRobolectricTestRunner(Class<?> testClass) throws InitializationError {
+    super(testClass);
+    TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(
+        this, new TestClassHashingStrategy(), false /*so running from AS will work*/);
+  }
 
-    @Nonnull
+  @Nonnull
+  @Override
+  @SuppressWarnings("rawtypes")
+  protected Class<? extends TestLifecycle> getTestLifecycleClass() {
+    return AnySoftKeyboardRobolectricTestLifeCycle.class;
+  }
+
+  public static class AnySoftKeyboardRobolectricTestLifeCycle extends DefaultTestLifecycle {
     @Override
-    @SuppressWarnings("rawtypes")
-    protected Class<? extends TestLifecycle> getTestLifecycleClass() {
-        return AnySoftKeyboardRobolectricTestLifeCycle.class;
+    public void beforeTest(Method method) {
+      Logger.info("***** Starting test '%s' *****", method);
+      TestRxSchedulers.setSchedulers(Looper.getMainLooper(), new PausedExecutorService());
+      super.beforeTest(method);
     }
 
-    public static class AnySoftKeyboardRobolectricTestLifeCycle extends DefaultTestLifecycle {
-        @Override
-        public void beforeTest(Method method) {
-            Logger.info("***** Starting test '%s' *****", method);
-            TestRxSchedulers.setSchedulers(Looper.getMainLooper(), new PausedExecutorService());
-            super.beforeTest(method);
-        }
-
-        @Override
-        public void afterTest(Method method) {
-            Logger.info("***** Finished test '%s' *****", method);
-            super.afterTest(method);
-            TestRxSchedulers.destroySchedulers();
-        }
+    @Override
+    public void afterTest(Method method) {
+      Logger.info("***** Finished test '%s' *****", method);
+      super.afterTest(method);
+      TestRxSchedulers.destroySchedulers();
     }
+  }
 }

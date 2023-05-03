@@ -9,21 +9,21 @@ import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 
 class TappingUserDictionary extends UserDictionary {
 
-    private final BTreeDictionary.WordReadListener mWordsTapper;
+  private final BTreeDictionary.WordReadListener mWordsTapper;
 
-    public TappingUserDictionary(
-            Context context, String locale, BTreeDictionary.WordReadListener wordsTapper) {
-        super(context, locale);
-        mWordsTapper = wordsTapper;
-    }
+  public TappingUserDictionary(
+      Context context, String locale, BTreeDictionary.WordReadListener wordsTapper) {
+    super(context, locale);
+    mWordsTapper = wordsTapper;
+  }
 
-    @NonNull @Override
-    protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
-        return new TappedAndroidUserDictionary(context, locale, mWordsTapper);
-    }
+  @NonNull @Override
+  protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
+    return new TappedAndroidUserDictionary(context, locale, mWordsTapper);
+  }
 
-    @NonNull @Override
-    protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
-        return new TappedUserFallbackUserDictionary(context, locale, mWordsTapper);
-    }
+  @NonNull @Override
+  protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
+    return new TappedUserFallbackUserDictionary(context, locale, mWordsTapper);
+  }
 }

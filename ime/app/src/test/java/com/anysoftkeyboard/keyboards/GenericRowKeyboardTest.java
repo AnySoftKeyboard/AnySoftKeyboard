@@ -21,112 +21,88 @@ import org.mockito.Mockito;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GenericRowKeyboardTest {
 
-    private AddOn mDefaultAddOn;
-    private Context mContext;
-    private KeyboardExtension mRowExtension;
+  private AddOn mDefaultAddOn;
+  private Context mContext;
+  private KeyboardExtension mRowExtension;
 
-    @Before
-    public void setup() {
-        mContext = getApplicationContext();
-        mDefaultAddOn = new DefaultAddOn(mContext, mContext);
-        mRowExtension = Mockito.spy(AnyApplication.getBottomRowFactory(mContext).getEnabledAddOn());
-    }
+  @Before
+  public void setup() {
+    mContext = getApplicationContext();
+    mDefaultAddOn = new DefaultAddOn(mContext, mContext);
+    mRowExtension = Mockito.spy(AnyApplication.getBottomRowFactory(mContext).getEnabledAddOn());
+  }
 
-    @Test
-    public void testHasPopupForSymbolsWhenFromAlphabetKeyboard() {
-        Mockito.doReturn(R.xml.test_ext_kbd_row_with_symbols)
-                .when(mRowExtension)
-                .getKeyboardResId();
-        AnyKeyboard.GenericRowKeyboard keyboard =
-                new AnyKeyboard.GenericRowKeyboard(
-                        mRowExtension,
-                        mContext,
-                        SIMPLE_KeyboardDimens,
-                        true,
-                        KEYBOARD_ROW_MODE_NORMAL);
+  @Test
+  public void testHasPopupForSymbolsWhenFromAlphabetKeyboard() {
+    Mockito.doReturn(R.xml.test_ext_kbd_row_with_symbols).when(mRowExtension).getKeyboardResId();
+    AnyKeyboard.GenericRowKeyboard keyboard =
+        new AnyKeyboard.GenericRowKeyboard(
+            mRowExtension, mContext, SIMPLE_KeyboardDimens, true, KEYBOARD_ROW_MODE_NORMAL);
 
-        Keyboard.Key key =
-                keyboard.getKeys().stream()
-                        .filter(k -> k.getPrimaryCode() == KeyCodes.MODE_SYMBOLS)
-                        .findFirst()
-                        .orElse(null);
-        Assert.assertNotNull(key);
-        Assert.assertEquals(R.xml.ext_symbols, key.popupResId);
-        Assert.assertFalse(key.externalResourcePopupLayout);
-    }
+    Keyboard.Key key =
+        keyboard.getKeys().stream()
+            .filter(k -> k.getPrimaryCode() == KeyCodes.MODE_SYMBOLS)
+            .findFirst()
+            .orElse(null);
+    Assert.assertNotNull(key);
+    Assert.assertEquals(R.xml.ext_symbols, key.popupResId);
+    Assert.assertFalse(key.externalResourcePopupLayout);
+  }
 
-    @Test
-    public void testHasPopupForChangeModeWhenFromAlphabetKeyboard() {
-        Mockito.doReturn(R.xml.test_ext_kbd_row_with_mode_change)
-                .when(mRowExtension)
-                .getKeyboardResId();
-        AnyKeyboard.GenericRowKeyboard keyboard =
-                new AnyKeyboard.GenericRowKeyboard(
-                        mRowExtension,
-                        mContext,
-                        SIMPLE_KeyboardDimens,
-                        true,
-                        KEYBOARD_ROW_MODE_NORMAL);
+  @Test
+  public void testHasPopupForChangeModeWhenFromAlphabetKeyboard() {
+    Mockito.doReturn(R.xml.test_ext_kbd_row_with_mode_change)
+        .when(mRowExtension)
+        .getKeyboardResId();
+    AnyKeyboard.GenericRowKeyboard keyboard =
+        new AnyKeyboard.GenericRowKeyboard(
+            mRowExtension, mContext, SIMPLE_KeyboardDimens, true, KEYBOARD_ROW_MODE_NORMAL);
 
-        Keyboard.Key key =
-                keyboard.getKeys().stream()
-                        .filter(k -> k.getPrimaryCode() == KeyCodes.KEYBOARD_MODE_CHANGE)
-                        .findFirst()
-                        .orElse(null);
-        Assert.assertNotNull(key);
-        Assert.assertEquals(R.xml.ext_symbols, key.popupResId);
-        Assert.assertFalse(key.externalResourcePopupLayout);
-    }
+    Keyboard.Key key =
+        keyboard.getKeys().stream()
+            .filter(k -> k.getPrimaryCode() == KeyCodes.KEYBOARD_MODE_CHANGE)
+            .findFirst()
+            .orElse(null);
+    Assert.assertNotNull(key);
+    Assert.assertEquals(R.xml.ext_symbols, key.popupResId);
+    Assert.assertFalse(key.externalResourcePopupLayout);
+  }
 
-    @Test
-    public void testDoesNotHavePopupSymbolsWhenFromNonAlphabetKeyboard() {
-        Mockito.doReturn(R.xml.test_ext_kbd_row_with_symbols)
-                .when(mRowExtension)
-                .getKeyboardResId();
-        AnyKeyboard.GenericRowKeyboard keyboard =
-                new AnyKeyboard.GenericRowKeyboard(
-                        mRowExtension,
-                        mContext,
-                        SIMPLE_KeyboardDimens,
-                        false,
-                        KEYBOARD_ROW_MODE_NORMAL);
+  @Test
+  public void testDoesNotHavePopupSymbolsWhenFromNonAlphabetKeyboard() {
+    Mockito.doReturn(R.xml.test_ext_kbd_row_with_symbols).when(mRowExtension).getKeyboardResId();
+    AnyKeyboard.GenericRowKeyboard keyboard =
+        new AnyKeyboard.GenericRowKeyboard(
+            mRowExtension, mContext, SIMPLE_KeyboardDimens, false, KEYBOARD_ROW_MODE_NORMAL);
 
-        Keyboard.Key key =
-                keyboard.getKeys().stream()
-                        .filter(k -> k.getPrimaryCode() == KeyCodes.MODE_SYMBOLS)
-                        .findFirst()
-                        .orElse(null);
-        Assert.assertNotNull(key);
-        Assert.assertEquals(0, key.popupResId);
-    }
+    Keyboard.Key key =
+        keyboard.getKeys().stream()
+            .filter(k -> k.getPrimaryCode() == KeyCodes.MODE_SYMBOLS)
+            .findFirst()
+            .orElse(null);
+    Assert.assertNotNull(key);
+    Assert.assertEquals(0, key.popupResId);
+  }
 
-    public void testDoesNotHavePopupSymbolsWhenNoSymbolsKeyboard() {
-        Mockito.doReturn(R.xml.test_ext_kbd_row_without_symbols_or_mode_change)
-                .when(mRowExtension)
-                .getKeyboardResId();
-        AnyKeyboard.GenericRowKeyboard keyboard =
-                new AnyKeyboard.GenericRowKeyboard(
-                        mRowExtension,
-                        mContext,
-                        SIMPLE_KeyboardDimens,
-                        true,
-                        KEYBOARD_ROW_MODE_NORMAL);
+  public void testDoesNotHavePopupSymbolsWhenNoSymbolsKeyboard() {
+    Mockito.doReturn(R.xml.test_ext_kbd_row_without_symbols_or_mode_change)
+        .when(mRowExtension)
+        .getKeyboardResId();
+    AnyKeyboard.GenericRowKeyboard keyboard =
+        new AnyKeyboard.GenericRowKeyboard(
+            mRowExtension, mContext, SIMPLE_KeyboardDimens, true, KEYBOARD_ROW_MODE_NORMAL);
 
-        keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.ext_symbols, k.popupResId));
-    }
+    keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.ext_symbols, k.popupResId));
+  }
 
-    public void testDoesNotHavePopupSymbolsWhenNoSymbolsKeyboardInNonAlphabet() {
-        Mockito.doReturn(R.xml.test_ext_kbd_row_without_symbols_or_mode_change)
-                .when(mRowExtension)
-                .getKeyboardResId();
-        AnyKeyboard.GenericRowKeyboard keyboard =
-                new AnyKeyboard.GenericRowKeyboard(
-                        mRowExtension,
-                        mContext,
-                        SIMPLE_KeyboardDimens,
-                        false,
-                        KEYBOARD_ROW_MODE_NORMAL);
+  public void testDoesNotHavePopupSymbolsWhenNoSymbolsKeyboardInNonAlphabet() {
+    Mockito.doReturn(R.xml.test_ext_kbd_row_without_symbols_or_mode_change)
+        .when(mRowExtension)
+        .getKeyboardResId();
+    AnyKeyboard.GenericRowKeyboard keyboard =
+        new AnyKeyboard.GenericRowKeyboard(
+            mRowExtension, mContext, SIMPLE_KeyboardDimens, false, KEYBOARD_ROW_MODE_NORMAL);
 
-        keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.ext_symbols, k.popupResId));
-    }
+    keyboard.getKeys().forEach(k -> Assert.assertNotEquals(R.xml.ext_symbols, k.popupResId));
+  }
 }

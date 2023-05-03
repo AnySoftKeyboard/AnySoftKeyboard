@@ -32,103 +32,102 @@ import org.robolectric.annotation.Implements;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LocalProxyTest {
 
-    private Uri mUri;
-    private FileInputStream mInputStream;
-    private ContentProviderController<FileProvider> mFileProvider;
+  private Uri mUri;
+  private FileInputStream mInputStream;
+  private ContentProviderController<FileProvider> mFileProvider;
 
-    @Before
-    public void setup() throws IOException {
-        final var appId = ApplicationProvider.getApplicationContext().getPackageName();
-        final File tempFile = File.createTempFile("LocalProxyTest", ".png");
-        Files.write("testing 123".getBytes(Charsets.UTF8), tempFile);
-        mUri = Uri.parse("content://" + appId + "/file.png");
-        mInputStream = new FileInputStream(tempFile);
-        var shadowContentResolver =
-                Shadows.shadowOf(ApplicationProvider.getApplicationContext().getContentResolver());
-        shadowContentResolver.registerInputStream(mUri, mInputStream);
-        var providerInfo = new ProviderInfo();
-        providerInfo.authority = appId;
-        providerInfo.grantUriPermissions = true;
-        mFileProvider = Robolectric.buildContentProvider(FileProvider.class).create(providerInfo);
-    }
+  @Before
+  public void setup() throws IOException {
+    final var appId = ApplicationProvider.getApplicationContext().getPackageName();
+    final File tempFile = File.createTempFile("LocalProxyTest", ".png");
+    Files.write("testing 123".getBytes(Charsets.UTF8), tempFile);
+    mUri = Uri.parse("content://" + appId + "/file.png");
+    mInputStream = new FileInputStream(tempFile);
+    var shadowContentResolver =
+        Shadows.shadowOf(ApplicationProvider.getApplicationContext().getContentResolver());
+    shadowContentResolver.registerInputStream(mUri, mInputStream);
+    var providerInfo = new ProviderInfo();
+    providerInfo.authority = appId;
+    providerInfo.grantUriPermissions = true;
+    mFileProvider = Robolectric.buildContentProvider(FileProvider.class).create(providerInfo);
+  }
 
-    @After
-    public void tearDown() throws IOException {
-        mInputStream.close();
-        mFileProvider.shutdown();
-    }
+  @After
+  public void tearDown() throws IOException {
+    mInputStream.close();
+    mFileProvider.shutdown();
+  }
 
-    @Test
-    @Config(shadows = ShadowFileProvider.class)
-    public void testHappyPathKnownMime() throws IOException {
-        var shadowMimeTypeMap = Shadows.shadowOf(MimeTypeMap.getSingleton());
-        shadowMimeTypeMap.addExtensionMimeTypMapping("png", "image/png");
-        final var uriSingle = LocalProxy.proxy(ApplicationProvider.getApplicationContext(), mUri);
-        final Uri localUri = TestRxSchedulers.blockingGet(uriSingle);
+  @Test
+  @Config(shadows = ShadowFileProvider.class)
+  public void testHappyPathKnownMime() throws IOException {
+    var shadowMimeTypeMap = Shadows.shadowOf(MimeTypeMap.getSingleton());
+    shadowMimeTypeMap.addExtensionMimeTypMapping("png", "image/png");
+    final var uriSingle = LocalProxy.proxy(ApplicationProvider.getApplicationContext(), mUri);
+    final Uri localUri = TestRxSchedulers.blockingGet(uriSingle);
 
-        Assert.assertNotNull(localUri);
-        Assert.assertEquals("content", localUri.getScheme());
-        Assert.assertEquals("com.anysoftkeyboard.fileprovider.test", localUri.getAuthority());
-        Assert.assertTrue(
-                localUri.getPath() + " should have a different value!",
-                localUri.getPath()
-                        .endsWith(
-                                "com.anysoftkeyboard.fileprovider.test-dataDir/files/media/file.png.png"));
+    Assert.assertNotNull(localUri);
+    Assert.assertEquals("content", localUri.getScheme());
+    Assert.assertEquals("com.anysoftkeyboard.fileprovider.test", localUri.getAuthority());
+    Assert.assertTrue(
+        localUri.getPath() + " should have a different value!",
+        localUri
+            .getPath()
+            .endsWith("com.anysoftkeyboard.fileprovider.test-dataDir/files/media/file.png.png"));
 
-        File actualFile = new File(localUri.getPath());
-        Assert.assertTrue(
-                "File " + actualFile.getAbsolutePath() + " does not exist", actualFile.isFile());
+    File actualFile = new File(localUri.getPath());
+    Assert.assertTrue(
+        "File " + actualFile.getAbsolutePath() + " does not exist", actualFile.isFile());
 
-        final List<String> copiedData = Files.readLines(actualFile, Charsets.UTF8);
-        Assert.assertEquals(1, copiedData.size());
-        Assert.assertEquals("testing 123", copiedData.get(0));
-    }
+    final List<String> copiedData = Files.readLines(actualFile, Charsets.UTF8);
+    Assert.assertEquals(1, copiedData.size());
+    Assert.assertEquals("testing 123", copiedData.get(0));
+  }
 
-    @Test
-    @Config(shadows = ShadowFileProvider.class)
-    public void testHappyPathUnknownMime() throws IOException {
-        final var uriSingle = LocalProxy.proxy(ApplicationProvider.getApplicationContext(), mUri);
-        final Uri localUri = TestRxSchedulers.blockingGet(uriSingle);
+  @Test
+  @Config(shadows = ShadowFileProvider.class)
+  public void testHappyPathUnknownMime() throws IOException {
+    final var uriSingle = LocalProxy.proxy(ApplicationProvider.getApplicationContext(), mUri);
+    final Uri localUri = TestRxSchedulers.blockingGet(uriSingle);
 
-        Assert.assertNotNull(localUri);
-        Assert.assertEquals("content", localUri.getScheme());
-        Assert.assertEquals("com.anysoftkeyboard.fileprovider.test", localUri.getAuthority());
-        Assert.assertTrue(
-                localUri.getPath()
-                        .endsWith(
-                                "com.anysoftkeyboard.fileprovider.test-dataDir/files/media/file.png"));
+    Assert.assertNotNull(localUri);
+    Assert.assertEquals("content", localUri.getScheme());
+    Assert.assertEquals("com.anysoftkeyboard.fileprovider.test", localUri.getAuthority());
+    Assert.assertTrue(
+        localUri
+            .getPath()
+            .endsWith("com.anysoftkeyboard.fileprovider.test-dataDir/files/media/file.png"));
 
-        File actualFile = new File(localUri.getPath());
-        Assert.assertTrue(
-                "File " + actualFile.getAbsolutePath() + " does not exist", actualFile.isFile());
+    File actualFile = new File(localUri.getPath());
+    Assert.assertTrue(
+        "File " + actualFile.getAbsolutePath() + " does not exist", actualFile.isFile());
 
-        final List<String> copiedData = Files.readLines(actualFile, Charsets.UTF8);
-        Assert.assertEquals(1, copiedData.size());
-        Assert.assertEquals("testing 123", copiedData.get(0));
-    }
+    final List<String> copiedData = Files.readLines(actualFile, Charsets.UTF8);
+    Assert.assertEquals(1, copiedData.size());
+    Assert.assertEquals("testing 123", copiedData.get(0));
+  }
 
-    @Implements(FileProvider.class)
-    public static class ShadowFileProvider {
-        @Nullable @Implementation
-        public static String getType(@NonNull Uri uri) {
-            String fileName = uri.getLastPathSegment();
-            final int lastDot = fileName.lastIndexOf('.');
-            if (lastDot >= 0) {
-                final String extension = fileName.substring(lastDot + 1);
-                final String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-                if (mime != null) {
-                    return mime;
-                }
-            }
-
-            return "application/octet-stream";
+  @Implements(FileProvider.class)
+  public static class ShadowFileProvider {
+    @Nullable @Implementation
+    public static String getType(@NonNull Uri uri) {
+      String fileName = uri.getLastPathSegment();
+      final int lastDot = fileName.lastIndexOf('.');
+      if (lastDot >= 0) {
+        final String extension = fileName.substring(lastDot + 1);
+        final String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        if (mime != null) {
+          return mime;
         }
+      }
 
-        @Implementation
-        public static Uri getUriForFile(Context context, String authority, File file) {
-            return Uri.parse(
-                    String.format(
-                            Locale.ROOT, "content://%s%s", authority, file.getAbsolutePath()));
-        }
+      return "application/octet-stream";
     }
+
+    @Implementation
+    public static Uri getUriForFile(Context context, String authority, File file) {
+      return Uri.parse(
+          String.format(Locale.ROOT, "content://%s%s", authority, file.getAbsolutePath()));
+    }
+  }
 }

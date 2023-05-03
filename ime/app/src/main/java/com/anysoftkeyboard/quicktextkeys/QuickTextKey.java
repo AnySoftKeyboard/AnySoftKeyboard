@@ -26,91 +26,90 @@ import java.util.List;
 
 public class QuickTextKey extends AddOnImpl {
 
-    private int mPopupKeyboardResId;
-    private String[] mPopupListNames;
-    private String[] mPopupListValues;
-    private int[] mPopupListIconResIds;
-    private CharSequence mKeyOutputText;
+  private int mPopupKeyboardResId;
+  private String[] mPopupListNames;
+  private String[] mPopupListValues;
+  private int[] mPopupListIconResIds;
+  private CharSequence mKeyOutputText;
 
-    private CharSequence mKeyLabel;
+  private CharSequence mKeyLabel;
 
-    @SuppressWarnings("UnusedVariable")
-    private int mKeyIconResId;
+  @SuppressWarnings("UnusedVariable")
+  private int mKeyIconResId;
 
-    @SuppressWarnings("UnusedVariable")
-    private int mIconPreviewResId;
+  @SuppressWarnings("UnusedVariable")
+  private int mIconPreviewResId;
 
-    public QuickTextKey(
-            Context askContext,
-            Context packageContext,
-            int apiVersion,
-            CharSequence id,
-            CharSequence name,
-            int popupKeyboardResId,
-            int popupListNamesResId,
-            int popupListValuesResId,
-            int popupListIconsResId,
-            int keyIconResId,
-            CharSequence keyLabel,
-            CharSequence keyOutput,
-            int iconPreviewResId,
-            boolean isHidden,
-            CharSequence description,
-            int sortIndex) {
-        super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
+  public QuickTextKey(
+      Context askContext,
+      Context packageContext,
+      int apiVersion,
+      CharSequence id,
+      CharSequence name,
+      int popupKeyboardResId,
+      int popupListNamesResId,
+      int popupListValuesResId,
+      int popupListIconsResId,
+      int keyIconResId,
+      CharSequence keyLabel,
+      CharSequence keyOutput,
+      int iconPreviewResId,
+      boolean isHidden,
+      CharSequence description,
+      int sortIndex) {
+    super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
 
-        Resources resources = packageContext.getResources();
+    Resources resources = packageContext.getResources();
 
-        this.mPopupKeyboardResId = popupKeyboardResId;
-        if (popupKeyboardResId == INVALID_RES_ID) {
-            this.mPopupListNames = getStringArrayFromNamesResId(popupListNamesResId, resources);
-            this.mPopupListValues = getStringArrayFromValuesResId(popupListValuesResId, resources);
+    this.mPopupKeyboardResId = popupKeyboardResId;
+    if (popupKeyboardResId == INVALID_RES_ID) {
+      this.mPopupListNames = getStringArrayFromNamesResId(popupListNamesResId, resources);
+      this.mPopupListValues = getStringArrayFromValuesResId(popupListValuesResId, resources);
 
-            if (popupListIconsResId != INVALID_RES_ID) {
-                TypedArray arr = resources.obtainTypedArray(popupListIconsResId);
-                mPopupListIconResIds = new int[arr.length()];
-                for (int pos = 0; pos < mPopupListIconResIds.length; pos++) {
-                    mPopupListIconResIds[pos] = arr.getResourceId(pos, INVALID_RES_ID);
-                }
-                arr.recycle();
-            }
+      if (popupListIconsResId != INVALID_RES_ID) {
+        TypedArray arr = resources.obtainTypedArray(popupListIconsResId);
+        mPopupListIconResIds = new int[arr.length()];
+        for (int pos = 0; pos < mPopupListIconResIds.length; pos++) {
+          mPopupListIconResIds[pos] = arr.getResourceId(pos, INVALID_RES_ID);
         }
-        mKeyIconResId = keyIconResId;
-        mKeyLabel = keyLabel;
-        mKeyOutputText = keyOutput;
-        mIconPreviewResId = iconPreviewResId;
+        arr.recycle();
+      }
     }
+    mKeyIconResId = keyIconResId;
+    mKeyLabel = keyLabel;
+    mKeyOutputText = keyOutput;
+    mIconPreviewResId = iconPreviewResId;
+  }
 
-    protected String[] getStringArrayFromValuesResId(
-            int popupListValuesResId, Resources resources) {
-        return resources.getStringArray(popupListValuesResId);
-    }
+  protected String[] getStringArrayFromValuesResId(int popupListValuesResId, Resources resources) {
+    return resources.getStringArray(popupListValuesResId);
+  }
 
-    protected String[] getStringArrayFromNamesResId(int popupListNamesResId, Resources resources) {
-        return resources.getStringArray(popupListNamesResId);
-    }
+  protected String[] getStringArrayFromNamesResId(int popupListNamesResId, Resources resources) {
+    return resources.getStringArray(popupListNamesResId);
+  }
 
-    public boolean isPopupKeyboardUsed() {
-        return mPopupKeyboardResId != INVALID_RES_ID;
-    }
+  public boolean isPopupKeyboardUsed() {
+    return mPopupKeyboardResId != INVALID_RES_ID;
+  }
 
-    public int getPopupKeyboardResId() {
-        return mPopupKeyboardResId;
-    }
+  public int getPopupKeyboardResId() {
+    return mPopupKeyboardResId;
+  }
 
-    public List<String> getPopupListNames() {
-        return Arrays.asList(mPopupListNames);
-    }
+  public List<String> getPopupListNames() {
+    return Arrays.asList(mPopupListNames);
+  }
 
-    public List<String> getPopupListValues() {
-        return Arrays.asList(mPopupListValues);
-    }
+  public List<String> getPopupListValues() {
+    return Arrays.asList(mPopupListValues);
+  }
 
-    public CharSequence getKeyOutputText() {
-        return mKeyOutputText;
-    }
+  public CharSequence getKeyOutputText() {
+    return mKeyOutputText;
+  }
 
-    @Nullable public CharSequence getKeyLabel() {
-        return mKeyLabel;
-    }
+  @Nullable public CharSequence getKeyLabel() {
+    return mKeyLabel;
+  }
 }

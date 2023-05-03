@@ -15,27 +15,27 @@ import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class BaseSettingsFragmentTest<T extends Fragment>
-        extends RobolectricFragmentTestCase<T> {
+    extends RobolectricFragmentTestCase<T> {
 
-    @Test
-    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
-    public void testLandscape() {
-        getApplicationContext().getResources().getConfiguration().orientation =
-                Configuration.ORIENTATION_LANDSCAPE;
-        final T fragment = startFragment();
-        final LinearLayout rootView = fragment.getView().findViewById(R.id.settings_root);
+  @Test
+  @Config(qualifiers = "w480dp-h800dp-land-mdpi")
+  public void testLandscape() {
+    getApplicationContext().getResources().getConfiguration().orientation =
+        Configuration.ORIENTATION_LANDSCAPE;
+    final T fragment = startFragment();
+    final LinearLayout rootView = fragment.getView().findViewById(R.id.settings_root);
 
-        Assert.assertEquals(LinearLayout.HORIZONTAL, rootView.getOrientation());
-        Assert.assertEquals(rootView.getChildCount(), rootView.getWeightSum(), 0f);
-    }
+    Assert.assertEquals(LinearLayout.HORIZONTAL, rootView.getOrientation());
+    Assert.assertEquals(rootView.getChildCount(), rootView.getWeightSum(), 0f);
+  }
 
-    @Test
-    public void testPortrait() {
-        getApplicationContext().getResources().getConfiguration().orientation =
-                Configuration.ORIENTATION_PORTRAIT;
-        final T fragment = startFragment();
-        final LinearLayout rootView = fragment.getView().findViewById(R.id.settings_root);
+  @Test
+  public void testPortrait() {
+    getApplicationContext().getResources().getConfiguration().orientation =
+        Configuration.ORIENTATION_PORTRAIT;
+    final T fragment = startFragment();
+    final LinearLayout rootView = fragment.getView().findViewById(R.id.settings_root);
 
-        Assert.assertEquals(LinearLayout.VERTICAL, rootView.getOrientation());
-    }
+    Assert.assertEquals(LinearLayout.VERTICAL, rootView.getOrientation());
+  }
 }

@@ -37,169 +37,167 @@ import java.util.Set;
 /** Triggers a voice recognition using the Intent api. */
 class IntentApiTrigger implements Trigger {
 
-    private static final String TAG = "VoiceIntentApiTrigger";
+  private static final String TAG = "VoiceIntentApiTrigger";
 
-    private final InputMethodService mInputMethodService;
+  private final InputMethodService mInputMethodService;
 
-    private final ServiceBridge mServiceBridge;
+  private final ServiceBridge mServiceBridge;
 
-    private String mLastRecognitionResult;
+  private String mLastRecognitionResult;
 
-    private Set<Character> mUpperCaseChars;
+  private Set<Character> mUpperCaseChars;
 
-    private final Handler mHandler;
+  private final Handler mHandler;
 
-    private IBinder mToken;
+  private IBinder mToken;
 
-    public IntentApiTrigger(InputMethodService inputMethodService) {
-        mInputMethodService = inputMethodService;
+  public IntentApiTrigger(InputMethodService inputMethodService) {
+    mInputMethodService = inputMethodService;
 
-        mServiceBridge =
-                new ServiceBridge(
-                        new Callback() {
+    mServiceBridge =
+        new ServiceBridge(
+            new Callback() {
 
-                            @Override
-                            public void onRecognitionResult(String recognitionResult) {
-                                postResult(recognitionResult);
-                            }
-                        });
+              @Override
+              public void onRecognitionResult(String recognitionResult) {
+                postResult(recognitionResult);
+              }
+            });
 
-        mUpperCaseChars = new HashSet<>();
-        mUpperCaseChars.add('.');
-        mUpperCaseChars.add('!');
-        mUpperCaseChars.add('?');
-        mUpperCaseChars.add('\n');
+    mUpperCaseChars = new HashSet<>();
+    mUpperCaseChars.add('.');
+    mUpperCaseChars.add('!');
+    mUpperCaseChars.add('?');
+    mUpperCaseChars.add('\n');
 
-        mHandler = new Handler(Looper.getMainLooper());
+    mHandler = new Handler(Looper.getMainLooper());
+  }
+
+  @Override
+  public void startVoiceRecognition(String language) {
+    mToken = mInputMethodService.getWindow().getWindow().getAttributes().token;
+
+    mServiceBridge.startVoiceRecognition(mInputMethodService, language);
+  }
+
+  public static boolean isInstalled(InputMethodService inputMethodService) {
+    PackageManager pm = inputMethodService.getPackageManager();
+    List<ResolveInfo> activities =
+        pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+    return activities.size() > 0;
+  }
+
+  private InputMethodManager getInputMethodManager() {
+    return (InputMethodManager) mInputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
+  }
+
+  private void postResult(String recognitionResult) {
+    mLastRecognitionResult = recognitionResult;
+
+    // Request the system to display the IME.
+    getInputMethodManager().showSoftInputFromInputMethod(mToken, InputMethodManager.SHOW_IMPLICIT);
+  }
+
+  @Override
+  public void onStartInputView() {
+    Log.i(TAG, "#onStartInputView");
+    if (mLastRecognitionResult != null) {
+      scheduleCommit();
+    }
+  }
+
+  private void scheduleCommit() {
+    mHandler.post(
+        new Runnable() {
+
+          @Override
+          public void run() {
+            commitResult();
+          }
+        });
+  }
+
+  private void commitResult() {
+    if (mLastRecognitionResult == null) {
+      return;
     }
 
-    @Override
-    public void startVoiceRecognition(String language) {
-        mToken = mInputMethodService.getWindow().getWindow().getAttributes().token;
+    String result = mLastRecognitionResult;
 
-        mServiceBridge.startVoiceRecognition(mInputMethodService, language);
+    InputConnection conn = mInputMethodService.getCurrentInputConnection();
+
+    if (conn == null) {
+      Log.i(
+          TAG,
+          "Unable to commit recognition result, as the current input connection "
+              + "is null. Did someone kill the IME?");
+      return;
     }
 
-    public static boolean isInstalled(InputMethodService inputMethodService) {
-        PackageManager pm = inputMethodService.getPackageManager();
-        List<ResolveInfo> activities =
-                pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return activities.size() > 0;
+    if (!conn.beginBatchEdit()) {
+      Log.i(TAG, "Unable to commit recognition result, as a batch edit cannot start");
+      return;
     }
 
-    private InputMethodManager getInputMethodManager() {
-        return (InputMethodManager)
-                mInputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
-    }
+    try {
+      ExtractedTextRequest etr = new ExtractedTextRequest();
+      etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
 
-    private void postResult(String recognitionResult) {
-        mLastRecognitionResult = recognitionResult;
+      ExtractedText et = conn.getExtractedText(etr, 0);
 
-        // Request the system to display the IME.
-        getInputMethodManager()
-                .showSoftInputFromInputMethod(mToken, InputMethodManager.SHOW_IMPLICIT);
-    }
+      if (et == null) {
+        Log.i(TAG, "Unable to commit recognition result, as extracted text is null");
+        return;
+      }
 
-    @Override
-    public void onStartInputView() {
-        Log.i(TAG, "#onStartInputView");
-        if (mLastRecognitionResult != null) {
-            scheduleCommit();
-        }
-    }
+      if (et.text != null) {
 
-    private void scheduleCommit() {
-        mHandler.post(
-                new Runnable() {
-
-                    @Override
-                    public void run() {
-                        commitResult();
-                    }
-                });
-    }
-
-    private void commitResult() {
-        if (mLastRecognitionResult == null) {
-            return;
-        }
-
-        String result = mLastRecognitionResult;
-
-        InputConnection conn = mInputMethodService.getCurrentInputConnection();
-
-        if (conn == null) {
-            Log.i(
-                    TAG,
-                    "Unable to commit recognition result, as the current input connection "
-                            + "is null. Did someone kill the IME?");
-            return;
-        }
-
-        if (!conn.beginBatchEdit()) {
-            Log.i(TAG, "Unable to commit recognition result, as a batch edit cannot start");
-            return;
-        }
-
-        try {
-            ExtractedTextRequest etr = new ExtractedTextRequest();
-            etr.flags = InputConnection.GET_TEXT_WITH_STYLES;
-
-            ExtractedText et = conn.getExtractedText(etr, 0);
-
-            if (et == null) {
-                Log.i(TAG, "Unable to commit recognition result, as extracted text is null");
-                return;
-            }
-
-            if (et.text != null) {
-
-                if (et.selectionStart != et.selectionEnd) {
-                    conn.deleteSurroundingText(et.selectionStart, et.selectionEnd);
-                }
-
-                result = format(et, result);
-            }
-
-            if (!conn.commitText(result, 0)) {
-                Log.i(TAG, "Unable to commit recognition result");
-                return;
-            }
-
-            mLastRecognitionResult = null;
-        } finally {
-            conn.endBatchEdit();
-        }
-    }
-
-    /**
-     * Formats the recognised text by adding white spaces at the beginning or at the end, and by
-     * making the first char upper case if necessary.
-     */
-    private String format(ExtractedText et, String result) {
-        int pos = et.selectionStart - 1;
-
-        while (pos > 0 && Character.isWhitespace(et.text.charAt(pos))) {
-            pos--;
+        if (et.selectionStart != et.selectionEnd) {
+          conn.deleteSurroundingText(et.selectionStart, et.selectionEnd);
         }
 
-        if (pos == -1 || mUpperCaseChars.contains(et.text.charAt(pos))) {
-            result = Character.toUpperCase(result.charAt(0)) + result.substring(1);
-        }
+        result = format(et, result);
+      }
 
-        if (et.selectionStart - 1 > 0
-                && !Character.isWhitespace(et.text.charAt(et.selectionStart - 1))) {
-            result = " " + result;
-        }
+      if (!conn.commitText(result, 0)) {
+        Log.i(TAG, "Unable to commit recognition result");
+        return;
+      }
 
-        if (et.selectionEnd < et.text.length()
-                && !Character.isWhitespace(et.text.charAt(et.selectionEnd))) {
-            result = result + " ";
-        }
-        return result;
+      mLastRecognitionResult = null;
+    } finally {
+      conn.endBatchEdit();
+    }
+  }
+
+  /**
+   * Formats the recognised text by adding white spaces at the beginning or at the end, and by
+   * making the first char upper case if necessary.
+   */
+  private String format(ExtractedText et, String result) {
+    int pos = et.selectionStart - 1;
+
+    while (pos > 0 && Character.isWhitespace(et.text.charAt(pos))) {
+      pos--;
     }
 
-    interface Callback {
-        void onRecognitionResult(String recognitionResult);
+    if (pos == -1 || mUpperCaseChars.contains(et.text.charAt(pos))) {
+      result = Character.toUpperCase(result.charAt(0)) + result.substring(1);
     }
+
+    if (et.selectionStart - 1 > 0
+        && !Character.isWhitespace(et.text.charAt(et.selectionStart - 1))) {
+      result = " " + result;
+    }
+
+    if (et.selectionEnd < et.text.length()
+        && !Character.isWhitespace(et.text.charAt(et.selectionEnd))) {
+      result = result + " ";
+    }
+    return result;
+  }
+
+  interface Callback {
+    void onRecognitionResult(String recognitionResult);
+  }
 }

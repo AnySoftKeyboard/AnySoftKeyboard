@@ -18,111 +18,108 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<QuickTextKey> {
 
-    private DefaultSkinTonePrefTracker mSkinToneTracker;
-    private DefaultGenderPrefTracker mGenderTracker;
+  private DefaultSkinTonePrefTracker mSkinToneTracker;
+  private DefaultGenderPrefTracker mGenderTracker;
 
-    public QuickTextKeysBrowseFragment() {
-        super(
-                "QuickKey",
-                R.string.quick_text_keys_order,
-                false,
-                false,
-                true,
-                ItemTouchHelper.UP
-                        | ItemTouchHelper.DOWN
-                        | ItemTouchHelper.LEFT
-                        | ItemTouchHelper.RIGHT);
+  public QuickTextKeysBrowseFragment() {
+    super(
+        "QuickKey",
+        R.string.quick_text_keys_order,
+        false,
+        false,
+        true,
+        ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    mSkinToneTracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(requireContext()));
+    mGenderTracker = new DefaultGenderPrefTracker(AnyApplication.prefs(requireContext()));
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mSkinToneTracker.dispose();
+    mGenderTracker.dispose();
+  }
+
+  @NonNull @Override
+  protected AddOnsFactory<QuickTextKey> getAddOnFactory() {
+    return AnyApplication.getQuickTextKeyFactory(requireContext());
+  }
+
+  @Override
+  protected void onTweaksOptionSelected() {
+    Navigation.findNavController(requireView())
+        .navigate(
+            QuickTextKeysBrowseFragmentDirections
+                .actionQuickTextKeysBrowseFragmentToQuickTextSettingsFragment());
+  }
+
+  @Override
+  protected void applyAddOnToDemoKeyboardView(
+      @NonNull QuickTextKey addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+    AnyKeyboard keyboard;
+    if (addOn.isPopupKeyboardUsed()) {
+      keyboard =
+          new AnyPopupKeyboard(
+              addOn,
+              getContext(),
+              addOn.getPopupKeyboardResId(),
+              demoKeyboardView.getThemedKeyboardDimens(),
+              addOn.getName(),
+              mSkinToneTracker.getDefaultSkinTone(),
+              mGenderTracker.getDefaultGender());
+    } else {
+      keyboard =
+          new PopupListKeyboard(
+              addOn,
+              getContext(),
+              demoKeyboardView.getThemedKeyboardDimens(),
+              addOn.getPopupListNames(),
+              addOn.getPopupListValues(),
+              addOn.getName());
     }
+    keyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
+    demoKeyboardView.setKeyboard(keyboard, null, null);
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mSkinToneTracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(requireContext()));
-        mGenderTracker = new DefaultGenderPrefTracker(AnyApplication.prefs(requireContext()));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mSkinToneTracker.dispose();
-        mGenderTracker.dispose();
-    }
-
-    @NonNull @Override
-    protected AddOnsFactory<QuickTextKey> getAddOnFactory() {
-        return AnyApplication.getQuickTextKeyFactory(requireContext());
-    }
-
-    @Override
-    protected void onTweaksOptionSelected() {
-        Navigation.findNavController(requireView())
-                .navigate(
-                        QuickTextKeysBrowseFragmentDirections
-                                .actionQuickTextKeysBrowseFragmentToQuickTextSettingsFragment());
-    }
-
-    @Override
-    protected void applyAddOnToDemoKeyboardView(
-            @NonNull QuickTextKey addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
-        AnyKeyboard keyboard;
-        if (addOn.isPopupKeyboardUsed()) {
-            keyboard =
-                    new AnyPopupKeyboard(
-                            addOn,
-                            getContext(),
-                            addOn.getPopupKeyboardResId(),
-                            demoKeyboardView.getThemedKeyboardDimens(),
-                            addOn.getName(),
-                            mSkinToneTracker.getDefaultSkinTone(),
-                            mGenderTracker.getDefaultGender());
-        } else {
-            keyboard =
-                    new PopupListKeyboard(
-                            addOn,
-                            getContext(),
-                            demoKeyboardView.getThemedKeyboardDimens(),
-                            addOn.getPopupListNames(),
-                            addOn.getPopupListValues(),
-                            addOn.getName());
+    final int keyboardViewMaxWidth =
+        demoKeyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
+    if (keyboard.getMinWidth() > keyboardViewMaxWidth) {
+      // fixing up the keyboard, so it will fit nicely in the width
+      int currentY = 0;
+      int xSub = 0;
+      int rowsShown = 0;
+      final int maxRowsToShow = 2;
+      for (Keyboard.Key key : keyboard.getKeys()) {
+        key.y = currentY;
+        key.x -= xSub;
+        if (key.x + key.width > keyboardViewMaxWidth) {
+          if (rowsShown < maxRowsToShow) {
+            rowsShown++;
+            currentY += key.height;
+            xSub += key.x;
+            key.y = currentY;
+            key.x = 0;
+          } else {
+            break; // only showing maxRowsToShow rows
+          }
         }
-        keyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
-        demoKeyboardView.setKeyboard(keyboard, null, null);
-
-        final int keyboardViewMaxWidth =
-                demoKeyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
-        if (keyboard.getMinWidth() > keyboardViewMaxWidth) {
-            // fixing up the keyboard, so it will fit nicely in the width
-            int currentY = 0;
-            int xSub = 0;
-            int rowsShown = 0;
-            final int maxRowsToShow = 2;
-            for (Keyboard.Key key : keyboard.getKeys()) {
-                key.y = currentY;
-                key.x -= xSub;
-                if (key.x + key.width > keyboardViewMaxWidth) {
-                    if (rowsShown < maxRowsToShow) {
-                        rowsShown++;
-                        currentY += key.height;
-                        xSub += key.x;
-                        key.y = currentY;
-                        key.x = 0;
-                    } else {
-                        break; // only showing maxRowsToShow rows
-                    }
-                }
-            }
-            keyboard.resetDimensions();
-        }
+      }
+      keyboard.resetDimensions();
     }
+  }
 
-    @Nullable @Override
-    protected String getMarketSearchKeyword() {
-        return "quick key";
-    }
+  @Nullable @Override
+  protected String getMarketSearchKeyword() {
+    return "quick key";
+  }
 
-    @Override
-    protected int getMarketSearchTitle() {
-        return R.string.search_market_for_quick_key_addons;
-    }
+  @Override
+  protected int getMarketSearchTitle() {
+    return R.string.search_market_for_quick_key_addons;
+  }
 }

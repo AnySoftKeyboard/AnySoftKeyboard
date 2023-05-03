@@ -18,17 +18,17 @@ package com.anysoftkeyboard.utils;
 
 public class Workarounds {
 
-    public static boolean isRightToLeftCharacter(final char key) {
-        final byte direction = Character.getDirectionality(key);
+  public static boolean isRightToLeftCharacter(final char key) {
+    final byte direction = Character.getDirectionality(key);
 
-        switch (direction) {
-            case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
-            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:
-            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING:
-            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE:
-                return true;
-            default:
-                return false;
-        }
+    switch (direction) {
+      case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
+      case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:
+      case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING:
+      case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE:
+        return true;
+      default:
+        return false;
     }
+  }
 }

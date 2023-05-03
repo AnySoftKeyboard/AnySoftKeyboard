@@ -20,49 +20,46 @@ import org.robolectric.annotation.LooperMode;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @LooperMode(LooperMode.Mode.LEGACY)
 public abstract class RobolectricFragmentTestCase<F extends Fragment>
-        extends RobolectricFragmentActivityTestCase<
-                RobolectricFragmentTestCase.TestMainSettingsActivity, F> {
+    extends RobolectricFragmentActivityTestCase<
+        RobolectricFragmentTestCase.TestMainSettingsActivity, F> {
 
-    @IdRes
-    protected abstract int getStartFragmentNavigationId();
+  @IdRes
+  protected abstract int getStartFragmentNavigationId();
+
+  @Override
+  protected Fragment getCurrentFragment() {
+    return getCurrentFragmentFromActivity(getActivityController().get());
+  }
+
+  @NonNull public static Fragment getCurrentFragmentFromActivity(@NonNull FragmentActivity activity) {
+    NavHostFragment navHostFragment =
+        (NavHostFragment)
+            activity.getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+    Assert.assertNotNull(navHostFragment);
+    final List<Fragment> fragments = navHostFragment.getChildFragmentManager().getFragments();
+    Assert.assertFalse(fragments.isEmpty());
+    final Fragment fragment = fragments.get(0);
+    Assert.assertNotNull(fragment);
+    return fragment;
+  }
+
+  @Override
+  protected ActivityController<TestMainSettingsActivity> createActivityController() {
+    TestMainSettingsActivity.CREATED_FRAGMENT = getStartFragmentNavigationId();
+    return ActivityController.of(new TestMainSettingsActivity());
+  }
+
+  public static class TestMainSettingsActivity extends MainSettingsActivity {
+    @IdRes private static int CREATED_FRAGMENT;
 
     @Override
-    protected Fragment getCurrentFragment() {
-        return getCurrentFragmentFromActivity(getActivityController().get());
+    protected void onPostCreate(Bundle savedInstanceState) {
+      super.onPostCreate(savedInstanceState);
+      final NavController navController =
+          ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment))
+              .getNavController();
+      navController.navigate(CREATED_FRAGMENT);
+      TestRxSchedulers.drainAllTasks();
     }
-
-    @NonNull public static Fragment getCurrentFragmentFromActivity(@NonNull FragmentActivity activity) {
-        NavHostFragment navHostFragment =
-                (NavHostFragment)
-                        activity.getSupportFragmentManager()
-                                .findFragmentById(R.id.nav_host_fragment);
-        Assert.assertNotNull(navHostFragment);
-        final List<Fragment> fragments = navHostFragment.getChildFragmentManager().getFragments();
-        Assert.assertFalse(fragments.isEmpty());
-        final Fragment fragment = fragments.get(0);
-        Assert.assertNotNull(fragment);
-        return fragment;
-    }
-
-    @Override
-    protected ActivityController<TestMainSettingsActivity> createActivityController() {
-        TestMainSettingsActivity.CREATED_FRAGMENT = getStartFragmentNavigationId();
-        return ActivityController.of(new TestMainSettingsActivity());
-    }
-
-    public static class TestMainSettingsActivity extends MainSettingsActivity {
-        @IdRes private static int CREATED_FRAGMENT;
-
-        @Override
-        protected void onPostCreate(Bundle savedInstanceState) {
-            super.onPostCreate(savedInstanceState);
-            final NavController navController =
-                    ((NavHostFragment)
-                                    getSupportFragmentManager()
-                                            .findFragmentById(R.id.nav_host_fragment))
-                            .getNavController();
-            navController.navigate(CREATED_FRAGMENT);
-            TestRxSchedulers.drainAllTasks();
-        }
-    }
+  }
 }

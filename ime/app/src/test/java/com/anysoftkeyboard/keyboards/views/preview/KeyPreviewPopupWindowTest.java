@@ -20,59 +20,59 @@ import org.robolectric.Shadows;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyPreviewPopupWindowTest {
 
-    @Test
-    public void testPreviewLayoutCorrectlyForNoneLabel() {
-        PreviewPopupTheme theme = new PreviewPopupTheme();
-        theme.setPreviewKeyBackground(
-                ContextCompat.getDrawable(getApplicationContext(), blacktheme_preview_background));
-        theme.setPreviewKeyTextSize(1);
-        final KeyPreviewPopupWindow underTest =
-                new KeyPreviewPopupWindow(
-                        getApplicationContext(), new View(getApplicationContext()), theme);
+  @Test
+  public void testPreviewLayoutCorrectlyForNoneLabel() {
+    PreviewPopupTheme theme = new PreviewPopupTheme();
+    theme.setPreviewKeyBackground(
+        ContextCompat.getDrawable(getApplicationContext(), blacktheme_preview_background));
+    theme.setPreviewKeyTextSize(1);
+    final KeyPreviewPopupWindow underTest =
+        new KeyPreviewPopupWindow(
+            getApplicationContext(), new View(getApplicationContext()), theme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+    PopupWindow createdPopupWindow =
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getLatestPopupWindow();
+    Assert.assertNull(createdPopupWindow);
 
-        Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
-        Mockito.doReturn((int) 'y').when(key).getPrimaryCode();
-        Mockito.doReturn(1).when(key).getCodesCount();
-        key.width = 10;
-        key.height = 20;
-        underTest.showPreviewForKey(key, "y", new Point(1, 1));
+    Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
+    Mockito.doReturn((int) 'y').when(key).getPrimaryCode();
+    Mockito.doReturn(1).when(key).getCodesCount();
+    key.width = 10;
+    key.height = 20;
+    underTest.showPreviewForKey(key, "y", new Point(1, 1));
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNotNull(createdPopupWindow);
-    }
+    createdPopupWindow =
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getLatestPopupWindow();
+    Assert.assertNotNull(createdPopupWindow);
+  }
 
-    @Test
-    public void testPreviewLayoutCorrectlyForLabel() {
-        PreviewPopupTheme theme = new PreviewPopupTheme();
-        theme.setPreviewKeyBackground(
-                ContextCompat.getDrawable(getApplicationContext(), blacktheme_preview_background));
-        theme.setPreviewKeyTextSize(1);
-        final KeyPreviewPopupWindow underTest =
-                new KeyPreviewPopupWindow(
-                        getApplicationContext(), new View(getApplicationContext()), theme);
+  @Test
+  public void testPreviewLayoutCorrectlyForLabel() {
+    PreviewPopupTheme theme = new PreviewPopupTheme();
+    theme.setPreviewKeyBackground(
+        ContextCompat.getDrawable(getApplicationContext(), blacktheme_preview_background));
+    theme.setPreviewKeyTextSize(1);
+    final KeyPreviewPopupWindow underTest =
+        new KeyPreviewPopupWindow(
+            getApplicationContext(), new View(getApplicationContext()), theme);
 
-        PopupWindow createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+    PopupWindow createdPopupWindow =
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getLatestPopupWindow();
+    Assert.assertNull(createdPopupWindow);
 
-        Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
-        Mockito.doReturn((int) 'y').when(key).getPrimaryCode();
-        Mockito.doReturn(1).when(key).getCodesCount();
-        key.width = 10;
-        key.height = 20;
-        underTest.showPreviewForKey(key, "yy", new Point(1, 1));
+    Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
+    Mockito.doReturn((int) 'y').when(key).getPrimaryCode();
+    Mockito.doReturn(1).when(key).getCodesCount();
+    key.width = 10;
+    key.height = 20;
+    underTest.showPreviewForKey(key, "yy", new Point(1, 1));
 
-        createdPopupWindow =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getLatestPopupWindow();
-        Assert.assertNotNull(createdPopupWindow);
-    }
+    createdPopupWindow =
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getLatestPopupWindow();
+    Assert.assertNotNull(createdPopupWindow);
+  }
 }

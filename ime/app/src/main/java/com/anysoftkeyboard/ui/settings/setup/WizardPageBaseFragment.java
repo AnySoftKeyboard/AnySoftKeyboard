@@ -18,69 +18,66 @@ import com.menny.android.anysoftkeyboard.R;
 
 public abstract class WizardPageBaseFragment extends Fragment {
 
-    protected ImageView mStateIcon;
-    protected SharedPreferences mSharedPrefs;
+  protected ImageView mStateIcon;
+  protected SharedPreferences mSharedPrefs;
 
-    /**
-     * calculate whether the step has completed. This should check OS configuration.
-     *
-     * @return true if step setup is valid in OS
-     */
-    protected abstract boolean isStepCompleted(@NonNull Context context);
+  /**
+   * calculate whether the step has completed. This should check OS configuration.
+   *
+   * @return true if step setup is valid in OS
+   */
+  protected abstract boolean isStepCompleted(@NonNull Context context);
 
-    @LayoutRes
-    protected abstract int getPageLayoutId();
+  @LayoutRes
+  protected abstract int getPageLayoutId();
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mSharedPrefs = DirectBootAwareSharedPreferences.create(context);
-    }
+  @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+    mSharedPrefs = DirectBootAwareSharedPreferences.create(context);
+  }
 
-    @Override
-    public final View onCreateView(
-            LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        NestedScrollView scrollView =
-                (NestedScrollView)
-                        inflater.inflate(
-                                R.layout.keyboard_setup_wizard_page_base_layout, container, false);
+  @Override
+  public final View onCreateView(
+      LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    NestedScrollView scrollView =
+        (NestedScrollView)
+            inflater.inflate(R.layout.keyboard_setup_wizard_page_base_layout, container, false);
 
-        View actualPageView = inflater.inflate(getPageLayoutId(), scrollView, false);
+    View actualPageView = inflater.inflate(getPageLayoutId(), scrollView, false);
 
-        scrollView.addView(actualPageView);
+    scrollView.addView(actualPageView);
 
-        return scrollView;
-    }
+    return scrollView;
+  }
 
-    protected void refreshFragmentUi() {}
+  protected void refreshFragmentUi() {}
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mStateIcon = view.findViewById(R.id.step_state_icon);
-    }
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    mStateIcon = view.findViewById(R.id.step_state_icon);
+  }
 
-    protected void refreshWizardPager() {
-        refreshFragmentUi();
-        // re-triggering UI update
-        SetupWizardActivity owningActivity = (SetupWizardActivity) getActivity();
-        if (owningActivity == null) return;
-        owningActivity.refreshFragmentsUi();
-    }
+  protected void refreshWizardPager() {
+    refreshFragmentUi();
+    // re-triggering UI update
+    SetupWizardActivity owningActivity = (SetupWizardActivity) getActivity();
+    if (owningActivity == null) return;
+    owningActivity.refreshFragmentsUi();
+  }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        refreshFragmentUi();
-    }
+  @Override
+  public void onStart() {
+    super.onStart();
+    refreshFragmentUi();
+  }
 
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionRequestHelper.onRequestPermissionsResult(
-                requestCode, permissions, grantResults, this);
-    }
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    PermissionRequestHelper.onRequestPermissionsResult(
+        requestCode, permissions, grantResults, this);
+  }
 }

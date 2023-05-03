@@ -21,44 +21,44 @@ import androidx.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 
 public class GenericKeyboard extends ExternalAnyKeyboard {
-    private final String mKeyboardId;
+  private final String mKeyboardId;
 
-    public GenericKeyboard(
-            @NonNull AddOn keyboardAddOn,
-            Context askContext,
-            int xmlLayoutResId,
-            int xmlLandscapeLayoutResId,
-            String name,
-            String prefKeyId,
-            @KeyboardRowModeId int mode) {
-        super(
-                keyboardAddOn,
-                askContext,
-                xmlLayoutResId,
-                xmlLandscapeLayoutResId,
-                name,
-                AddOn.INVALID_RES_ID,
-                AddOn.INVALID_RES_ID,
-                null,
-                null,
-                "",
-                filterPasswordMode(mode),
-                null);
-        mKeyboardId = prefKeyId;
-    }
+  public GenericKeyboard(
+      @NonNull AddOn keyboardAddOn,
+      Context askContext,
+      int xmlLayoutResId,
+      int xmlLandscapeLayoutResId,
+      String name,
+      String prefKeyId,
+      @KeyboardRowModeId int mode) {
+    super(
+        keyboardAddOn,
+        askContext,
+        xmlLayoutResId,
+        xmlLandscapeLayoutResId,
+        name,
+        AddOn.INVALID_RES_ID,
+        AddOn.INVALID_RES_ID,
+        null,
+        null,
+        "",
+        filterPasswordMode(mode),
+        null);
+    mKeyboardId = prefKeyId;
+  }
 
-    /** This will ensure that password extra rows are not shown over a symbols keyboard. */
-    @KeyboardRowModeId
-    private static int filterPasswordMode(@KeyboardRowModeId int mode) {
-        if (mode == KEYBOARD_ROW_MODE_PASSWORD) {
-            return KEYBOARD_ROW_MODE_NORMAL;
-        } else {
-            return mode;
-        }
+  /** This will ensure that password extra rows are not shown over a symbols keyboard. */
+  @KeyboardRowModeId
+  private static int filterPasswordMode(@KeyboardRowModeId int mode) {
+    if (mode == KEYBOARD_ROW_MODE_PASSWORD) {
+      return KEYBOARD_ROW_MODE_NORMAL;
+    } else {
+      return mode;
     }
+  }
 
-    @NonNull @Override
-    public String getKeyboardId() {
-        return mKeyboardId;
-    }
+  @NonNull @Override
+  public String getKeyboardId() {
+    return mKeyboardId;
+  }
 }

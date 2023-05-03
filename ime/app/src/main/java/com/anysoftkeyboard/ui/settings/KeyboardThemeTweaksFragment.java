@@ -21,8 +21,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardThemeTweaksFragment extends PreferenceFragmentCompat {
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_keyboard_theme_tweaks);
-    }
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.prefs_keyboard_theme_tweaks);
+  }
 }

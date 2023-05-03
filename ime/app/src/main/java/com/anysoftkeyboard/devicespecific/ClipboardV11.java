@@ -25,99 +25,99 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClipboardV11 implements Clipboard {
-    private static final int MAX_ENTRIES_INDEX = 15;
+  private static final int MAX_ENTRIES_INDEX = 15;
 
-    protected final List<CharSequence> mEntries = new ArrayList<>(16);
-    protected final ClipboardManager mClipboardManager;
-    protected final Context mContext;
-    @Nullable private ClipboardUpdatedListener mClipboardEntryAddedListener;
-    private final ClipboardManager.OnPrimaryClipChangedListener mOsClipboardChangedListener =
-            this::onPrimaryClipChanged;
+  protected final List<CharSequence> mEntries = new ArrayList<>(16);
+  protected final ClipboardManager mClipboardManager;
+  protected final Context mContext;
+  @Nullable private ClipboardUpdatedListener mClipboardEntryAddedListener;
+  private final ClipboardManager.OnPrimaryClipChangedListener mOsClipboardChangedListener =
+      this::onPrimaryClipChanged;
 
-    ClipboardV11(Context context) {
-        mContext = context;
-        mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+  ClipboardV11(Context context) {
+    mContext = context;
+    mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+  }
+
+  @Override
+  public void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener) {
+    if (mClipboardEntryAddedListener != listener) {
+      mEntries.clear();
     }
-
-    @Override
-    public void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener) {
-        if (mClipboardEntryAddedListener != listener) {
-            mEntries.clear();
-        }
-        if (listener == null) {
-            mClipboardManager.removePrimaryClipChangedListener(mOsClipboardChangedListener);
-        } else if (mClipboardEntryAddedListener != listener) {
-            mClipboardManager.addPrimaryClipChangedListener(mOsClipboardChangedListener);
-        }
-        mClipboardEntryAddedListener = listener;
+    if (listener == null) {
+      mClipboardManager.removePrimaryClipChangedListener(mOsClipboardChangedListener);
+    } else if (mClipboardEntryAddedListener != listener) {
+      mClipboardManager.addPrimaryClipChangedListener(mOsClipboardChangedListener);
     }
+    mClipboardEntryAddedListener = listener;
+  }
 
-    @Override
-    public void setText(CharSequence text) {
-        mClipboardManager.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
+  @Override
+  public void setText(CharSequence text) {
+    mClipboardManager.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
+  }
+
+  @Override
+  public CharSequence getText(int entryIndex) {
+    return mEntries.get(entryIndex);
+  }
+
+  @Override
+  public int getClipboardEntriesCount() {
+    return mEntries.size();
+  }
+
+  @Override
+  public void deleteEntry(int entryIndex) {
+    mEntries.remove(entryIndex);
+    if (entryIndex == 0) {
+      // also remove from clipboard
+      setText("");
     }
+  }
 
-    @Override
-    public CharSequence getText(int entryIndex) {
-        return mEntries.get(entryIndex);
-    }
+  @Override
+  public void deleteAllEntries() {
+    mEntries.clear();
+    setText("");
+  }
 
-    @Override
-    public int getClipboardEntriesCount() {
-        return mEntries.size();
-    }
+  protected CharSequence getTextFromClipItem(ClipData.Item item) {
+    return item.getText();
+  }
 
-    @Override
-    public void deleteEntry(int entryIndex) {
-        mEntries.remove(entryIndex);
-        if (entryIndex == 0) {
-            // also remove from clipboard
-            setText("");
-        }
-    }
+  private void onPrimaryClipChanged() {
+    final var addedListener = mClipboardEntryAddedListener;
+    if (addedListener != null) {
+      var isEmpty = true;
+      var cp = mClipboardManager.getPrimaryClip();
+      if (cp != null) {
+        for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
+          final var text = getTextFromClipItem(cp.getItemAt(entryIndex));
+          if (TextUtils.isEmpty(text)) continue;
+          isEmpty = false;
+          if (!alreadyKnownText(text)) {
+            mEntries.add(0, text);
 
-    @Override
-    public void deleteAllEntries() {
-        mEntries.clear();
-        setText("");
-    }
-
-    protected CharSequence getTextFromClipItem(ClipData.Item item) {
-        return item.getText();
-    }
-
-    private void onPrimaryClipChanged() {
-        final var addedListener = mClipboardEntryAddedListener;
-        if (addedListener != null) {
-            var isEmpty = true;
-            var cp = mClipboardManager.getPrimaryClip();
-            if (cp != null) {
-                for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
-                    final var text = getTextFromClipItem(cp.getItemAt(entryIndex));
-                    if (TextUtils.isEmpty(text)) continue;
-                    isEmpty = false;
-                    if (!alreadyKnownText(text)) {
-                        mEntries.add(0, text);
-
-                        while (mEntries.size() > MAX_ENTRIES_INDEX) {
-                            mEntries.remove(MAX_ENTRIES_INDEX);
-                        }
-
-                        addedListener.onClipboardEntryAdded(text);
-                    }
-                }
+            while (mEntries.size() > MAX_ENTRIES_INDEX) {
+              mEntries.remove(MAX_ENTRIES_INDEX);
             }
-            if (isEmpty) {
-                addedListener.onClipboardCleared();
-            }
+
+            addedListener.onClipboardEntryAdded(text);
+          }
         }
+      }
+      if (isEmpty) {
+        addedListener.onClipboardCleared();
+      }
+    }
+  }
+
+  private boolean alreadyKnownText(CharSequence text) {
+    if (mEntries.size() > 0) {
+      return TextUtils.equals(mEntries.get(0), text);
     }
 
-    private boolean alreadyKnownText(CharSequence text) {
-        if (mEntries.size() > 0) {
-            return TextUtils.equals(mEntries.get(0), text);
-        }
-
-        return false;
-    }
+    return false;
+  }
 }

@@ -19,104 +19,99 @@ import org.junit.Test;
 import org.robolectric.Shadows;
 
 public class WizardPageSwitchToKeyboardFragmentTest
-        extends RobolectricWizardFragmentTestCase<WizardPageSwitchToKeyboardFragment> {
+    extends RobolectricWizardFragmentTestCase<WizardPageSwitchToKeyboardFragment> {
 
-    @NonNull @Override
-    protected WizardPageSwitchToKeyboardFragment createFragment() {
-        return new WizardPageSwitchToKeyboardFragment();
-    }
+  @NonNull @Override
+  protected WizardPageSwitchToKeyboardFragment createFragment() {
+    return new WizardPageSwitchToKeyboardFragment();
+  }
 
-    @Test
-    public void testKeyboardNotEnabled() {
-        WizardPageSwitchToKeyboardFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
+  @Test
+  public void testKeyboardNotEnabled() {
+    WizardPageSwitchToKeyboardFragment fragment = startFragment();
+    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(
-                R.drawable.ic_wizard_switch_off,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertTrue(stateIcon.isClickable());
-    }
+    Assert.assertEquals(
+        R.drawable.ic_wizard_switch_off,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertTrue(stateIcon.isClickable());
+  }
 
-    @Test
-    public void testKeyboardEnabledButNotDefault() {
-        final String flatASKComponent =
-                new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-                        .flattenToString();
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.ENABLED_INPUT_METHODS,
-                flatASKComponent);
+  @Test
+  public void testKeyboardEnabledButNotDefault() {
+    final String flatASKComponent =
+        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
+            .flattenToString();
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.ENABLED_INPUT_METHODS,
+        flatASKComponent);
 
-        WizardPageSwitchToKeyboardFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
+    WizardPageSwitchToKeyboardFragment fragment = startFragment();
+    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(
-                R.drawable.ic_wizard_switch_off,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertTrue(stateIcon.isClickable());
+    Assert.assertEquals(
+        R.drawable.ic_wizard_switch_off,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertTrue(stateIcon.isClickable());
 
-        View.OnClickListener stateIconClickHandler =
-                Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler =
-                Shadows.shadowOf(
-                                (View)
-                                        fragment.getView()
-                                                .findViewById(R.id.go_to_switch_keyboard_action))
-                        .getOnClickListener();
+    View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
+    View.OnClickListener linkClickHandler =
+        Shadows.shadowOf((View) fragment.getView().findViewById(R.id.go_to_switch_keyboard_action))
+            .getOnClickListener();
 
-        Assert.assertNotNull(stateIconClickHandler);
-        Assert.assertSame(stateIconClickHandler, linkClickHandler);
-    }
+    Assert.assertNotNull(stateIconClickHandler);
+    Assert.assertSame(stateIconClickHandler, linkClickHandler);
+  }
 
-    @Test
-    public void testKeyboardEnabledAndDefault() {
-        final String flatASKComponent =
-                new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-                        .flattenToString();
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.ENABLED_INPUT_METHODS,
-                flatASKComponent);
-        Settings.Secure.putString(
-                getApplicationContext().getContentResolver(),
-                Settings.Secure.DEFAULT_INPUT_METHOD,
-                flatASKComponent);
+  @Test
+  public void testKeyboardEnabledAndDefault() {
+    final String flatASKComponent =
+        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
+            .flattenToString();
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.ENABLED_INPUT_METHODS,
+        flatASKComponent);
+    Settings.Secure.putString(
+        getApplicationContext().getContentResolver(),
+        Settings.Secure.DEFAULT_INPUT_METHOD,
+        flatASKComponent);
 
-        WizardPageSwitchToKeyboardFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+    WizardPageSwitchToKeyboardFragment fragment = startFragment();
+    Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(
-                R.drawable.ic_wizard_switch_on,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
-    }
+    Assert.assertEquals(
+        R.drawable.ic_wizard_switch_on,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertFalse(stateIcon.isClickable());
+  }
 
-    @Test
-    public void testClickedSkipped() {
-        var fragment = startFragment();
+  @Test
+  public void testClickedSkipped() {
+    var fragment = startFragment();
 
-        final View link = fragment.getView().findViewById(R.id.skip_setup_wizard);
-        var linkClickHandler = Shadows.shadowOf(link).getOnClickListener();
+    final View link = fragment.getView().findViewById(R.id.skip_setup_wizard);
+    var linkClickHandler = Shadows.shadowOf(link).getOnClickListener();
 
-        Assert.assertNotNull(linkClickHandler);
+    Assert.assertNotNull(linkClickHandler);
 
-        linkClickHandler.onClick(link);
+    linkClickHandler.onClick(link);
 
-        final Intent nextStartedActivity =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getNextStartedActivity();
+    final Intent nextStartedActivity =
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getNextStartedActivity();
 
-        Assert.assertEquals(
-                MainSettingsActivity.class.getName(),
-                nextStartedActivity.getComponent().getClassName());
-    }
+    Assert.assertEquals(
+        MainSettingsActivity.class.getName(), nextStartedActivity.getComponent().getClassName());
+  }
 }

@@ -23,39 +23,38 @@ import android.view.inputmethod.InputMethodSubtype;
 
 @TargetApi(19)
 public class DeviceSpecificV19 extends DeviceSpecificV16 {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV19";
+  @Override
+  public String getApiLevel() {
+    return "DeviceSpecificV19";
+  }
+
+  @Override
+  public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
+    return new AskV19GestureDetector(appContext, listener);
+  }
+
+  @Override
+  protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
+    return buildAndFillSubtypeBuilder(locale, keyboardId).build();
+  }
+
+  protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(
+      String locale, CharSequence keyboardId) {
+    return new InputMethodSubtype.InputMethodSubtypeBuilder()
+        .setSubtypeNameResId(0)
+        .setSubtypeId(calculateSubtypeIdFromKeyboardId(keyboardId))
+        .setIsAsciiCapable(true)
+        .setSubtypeLocale(locale)
+        .setSubtypeMode("keyboard")
+        .setSubtypeExtraValue(keyboardId.toString());
+  }
+
+  private static int calculateSubtypeIdFromKeyboardId(CharSequence keyboardId) {
+    long hash = 0;
+    for (int i = 0; i < keyboardId.length(); i++) {
+      hash = hash * 31L + keyboardId.charAt(i);
     }
 
-    @Override
-    public GestureDetector createGestureDetector(
-            Context appContext, AskOnGestureListener listener) {
-        return new AskV19GestureDetector(appContext, listener);
-    }
-
-    @Override
-    protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
-        return buildAndFillSubtypeBuilder(locale, keyboardId).build();
-    }
-
-    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(
-            String locale, CharSequence keyboardId) {
-        return new InputMethodSubtype.InputMethodSubtypeBuilder()
-                .setSubtypeNameResId(0)
-                .setSubtypeId(calculateSubtypeIdFromKeyboardId(keyboardId))
-                .setIsAsciiCapable(true)
-                .setSubtypeLocale(locale)
-                .setSubtypeMode("keyboard")
-                .setSubtypeExtraValue(keyboardId.toString());
-    }
-
-    private static int calculateSubtypeIdFromKeyboardId(CharSequence keyboardId) {
-        long hash = 0;
-        for (int i = 0; i < keyboardId.length(); i++) {
-            hash = hash * 31L + keyboardId.charAt(i);
-        }
-
-        return (int) (hash ^ (hash >>> 32));
-    }
+    return (int) (hash ^ (hash >>> 32));
+  }
 }

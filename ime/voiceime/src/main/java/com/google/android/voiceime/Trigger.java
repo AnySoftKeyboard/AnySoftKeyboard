@@ -19,13 +19,13 @@ package com.google.android.voiceime;
 /** Triggers a voice recognition. */
 interface Trigger {
 
-    /**
-     * Start a voice recognition.
-     *
-     * @param language The voice recognition language.
-     */
-    public abstract void startVoiceRecognition(String language);
+  /**
+   * Start a voice recognition.
+   *
+   * @param language The voice recognition language.
+   */
+  public abstract void startVoiceRecognition(String language);
 
-    /** Notifies that the calling IME started. */
-    public abstract void onStartInputView();
+  /** Notifies that the calling IME started. */
+  public abstract void onStartInputView();
 }

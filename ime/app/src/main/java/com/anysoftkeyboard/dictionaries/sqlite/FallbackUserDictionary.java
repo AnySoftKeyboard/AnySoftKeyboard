@@ -20,12 +20,12 @@ import android.content.Context;
 
 public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 
-    public FallbackUserDictionary(Context context, String locale) {
-        super("FallbackUserDictionary", context, locale);
-    }
+  public FallbackUserDictionary(Context context, String locale) {
+    super("FallbackUserDictionary", context, locale);
+  }
 
-    @Override
-    protected WordsSQLiteConnection createStorage(String locale) {
-        return new WordsSQLiteConnection(mContext, "fallback.db", locale);
-    }
+  @Override
+  protected WordsSQLiteConnection createStorage(String locale) {
+    return new WordsSQLiteConnection(mContext, "fallback.db", locale);
+  }
 }

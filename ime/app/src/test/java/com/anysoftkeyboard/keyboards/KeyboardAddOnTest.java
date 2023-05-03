@@ -18,75 +18,73 @@ import org.junit.runner.RunWith;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardAddOnTest {
 
-    private static final String ASK_ENGLISH_1_ID = "c7535083-4fe6-49dc-81aa-c5438a1a343a";
-    private static final String ASK_ENGLISH_16_KEYS_ID = "12335055-4aa6-49dc-8456-c7d38a1a5123";
+  private static final String ASK_ENGLISH_1_ID = "c7535083-4fe6-49dc-81aa-c5438a1a343a";
+  private static final String ASK_ENGLISH_16_KEYS_ID = "12335055-4aa6-49dc-8456-c7d38a1a5123";
 
-    @Test
-    public void testGetKeyboardDefaultEnabled() throws Exception {
-        List<KeyboardAddOnAndBuilder> enabledKeyboards =
-                AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns();
-        // checking that ASK English is enabled
-        boolean askEnglishEnabled = false;
-        for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
-            if (addOnAndBuilder.getId().equals(ASK_ENGLISH_1_ID)) {
-                assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
-                assertEquals(
-                        addOnAndBuilder.getPackageName(), getApplicationContext().getPackageName());
-                askEnglishEnabled = true;
-            }
-        }
-        assertTrue(askEnglishEnabled);
-        // only one enabled keyboard
-        Assert.assertEquals(1, enabledKeyboards.size());
+  @Test
+  public void testGetKeyboardDefaultEnabled() throws Exception {
+    List<KeyboardAddOnAndBuilder> enabledKeyboards =
+        AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns();
+    // checking that ASK English is enabled
+    boolean askEnglishEnabled = false;
+    for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
+      if (addOnAndBuilder.getId().equals(ASK_ENGLISH_1_ID)) {
+        assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
+        assertEquals(addOnAndBuilder.getPackageName(), getApplicationContext().getPackageName());
+        askEnglishEnabled = true;
+      }
+    }
+    assertTrue(askEnglishEnabled);
+    // only one enabled keyboard
+    Assert.assertEquals(1, enabledKeyboards.size());
+  }
+
+  @Test
+  public void testGetEnabledDefaultFromAllKeyboards() throws Exception {
+    List<KeyboardAddOnAndBuilder> allAvailableKeyboards =
+        AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
+
+    Map<String, Boolean> keyboardsEnabled = new HashMap<>();
+    for (KeyboardAddOnAndBuilder addOnAndBuilder : allAvailableKeyboards) {
+      keyboardsEnabled.put(addOnAndBuilder.getId(), addOnAndBuilder.getKeyboardDefaultEnabled());
     }
 
-    @Test
-    public void testGetEnabledDefaultFromAllKeyboards() throws Exception {
-        List<KeyboardAddOnAndBuilder> allAvailableKeyboards =
-                AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
+    Assert.assertEquals(13, keyboardsEnabled.size());
+    Assert.assertTrue(keyboardsEnabled.containsKey(ASK_ENGLISH_1_ID));
+    Assert.assertTrue(keyboardsEnabled.get(ASK_ENGLISH_1_ID));
+    Assert.assertTrue(keyboardsEnabled.containsKey(ASK_ENGLISH_16_KEYS_ID));
+    Assert.assertFalse(keyboardsEnabled.get(ASK_ENGLISH_16_KEYS_ID));
+  }
 
-        Map<String, Boolean> keyboardsEnabled = new HashMap<>();
-        for (KeyboardAddOnAndBuilder addOnAndBuilder : allAvailableKeyboards) {
-            keyboardsEnabled.put(
-                    addOnAndBuilder.getId(), addOnAndBuilder.getKeyboardDefaultEnabled());
-        }
+  private KeyboardAddOnAndBuilder getKeyboardFromFactory(String id) {
+    List<KeyboardAddOnAndBuilder> keyboards =
+        AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
 
-        Assert.assertEquals(13, keyboardsEnabled.size());
-        Assert.assertTrue(keyboardsEnabled.containsKey(ASK_ENGLISH_1_ID));
-        Assert.assertTrue(keyboardsEnabled.get(ASK_ENGLISH_1_ID));
-        Assert.assertTrue(keyboardsEnabled.containsKey(ASK_ENGLISH_16_KEYS_ID));
-        Assert.assertFalse(keyboardsEnabled.get(ASK_ENGLISH_16_KEYS_ID));
+    for (KeyboardAddOnAndBuilder addOnAndBuilder : keyboards) {
+      if (addOnAndBuilder.getId().equals(id)) {
+        return addOnAndBuilder;
+      }
     }
 
-    private KeyboardAddOnAndBuilder getKeyboardFromFactory(String id) {
-        List<KeyboardAddOnAndBuilder> keyboards =
-                AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
+    return null;
+  }
 
-        for (KeyboardAddOnAndBuilder addOnAndBuilder : keyboards) {
-            if (addOnAndBuilder.getId().equals(id)) {
-                return addOnAndBuilder;
-            }
-        }
+  @Test
+  public void testGetKeyboardLocale() throws Exception {
+    KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1_ID);
+    assertNotNull(askEnglish);
+    assertEquals("en", askEnglish.getKeyboardLocale());
 
-        return null;
-    }
+    KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory(ASK_ENGLISH_16_KEYS_ID);
+    assertNotNull(testerEnglish);
+    assertEquals("en", testerEnglish.getKeyboardLocale());
 
-    @Test
-    public void testGetKeyboardLocale() throws Exception {
-        KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1_ID);
-        assertNotNull(askEnglish);
-        assertEquals("en", askEnglish.getKeyboardLocale());
+    KeyboardAddOnAndBuilder testerTerminal =
+        getKeyboardFromFactory("b1c24b40-02ce-4857-9fb8-fb9e4e3b4318");
+    assertNotNull(testerTerminal);
+    assertTrue(TextUtils.isEmpty(testerTerminal.getKeyboardLocale()));
+  }
 
-        KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory(ASK_ENGLISH_16_KEYS_ID);
-        assertNotNull(testerEnglish);
-        assertEquals("en", testerEnglish.getKeyboardLocale());
-
-        KeyboardAddOnAndBuilder testerTerminal =
-                getKeyboardFromFactory("b1c24b40-02ce-4857-9fb8-fb9e4e3b4318");
-        assertNotNull(testerTerminal);
-        assertTrue(TextUtils.isEmpty(testerTerminal.getKeyboardLocale()));
-    }
-
-    @Test
-    public void testCreateKeyboard() throws Exception {}
+  @Test
+  public void testCreateKeyboard() throws Exception {}
 }

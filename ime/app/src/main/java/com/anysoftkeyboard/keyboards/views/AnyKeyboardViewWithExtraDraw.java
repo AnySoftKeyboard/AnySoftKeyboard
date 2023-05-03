@@ -26,46 +26,46 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMiniKeyboard {
-    private final List<ExtraDraw> mExtraDraws = new ArrayList<>();
+  private final List<ExtraDraw> mExtraDraws = new ArrayList<>();
 
-    private AnimationsLevel mCurrentAnimationLevel;
+  private AnimationsLevel mCurrentAnimationLevel;
 
-    protected AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mCurrentAnimationLevel = value));
+  protected AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+    mDisposables.add(mAnimationLevelSubject.subscribe(value -> mCurrentAnimationLevel = value));
+  }
+
+  public void addExtraDraw(ExtraDraw extraDraw) {
+    if (!mAlwaysUseDrawText) {
+      return; // not doing it with StaticLayout
     }
 
-    public void addExtraDraw(ExtraDraw extraDraw) {
-        if (!mAlwaysUseDrawText) {
-            return; // not doing it with StaticLayout
-        }
-
-        if (mCurrentAnimationLevel == AnimationsLevel.None) {
-            return; // no animations requested.
-        }
-
-        mExtraDraws.add(extraDraw);
-        // it is ok to wait for the next loop.
-        postInvalidate();
+    if (mCurrentAnimationLevel == AnimationsLevel.None) {
+      return; // no animations requested.
     }
 
-    @Override
-    public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (!mExtraDraws.isEmpty()) {
-            Iterator<ExtraDraw> extraDrawListIterator = mExtraDraws.iterator();
-            while (extraDrawListIterator.hasNext()) {
-                ExtraDraw extraDraw = extraDrawListIterator.next();
-                if (!extraDraw.onDraw(canvas, mPaint, this)) {
-                    extraDrawListIterator.remove();
-                }
-            }
+    mExtraDraws.add(extraDraw);
+    // it is ok to wait for the next loop.
+    postInvalidate();
+  }
 
-            if (!mExtraDraws.isEmpty()) {
-                // requesting another re-draw since we have more items waiting to be drawn
-                // next frame
-                postInvalidateDelayed(1000 / 60); // doing 60 frames per second;
-            }
+  @Override
+  public void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    if (!mExtraDraws.isEmpty()) {
+      Iterator<ExtraDraw> extraDrawListIterator = mExtraDraws.iterator();
+      while (extraDrawListIterator.hasNext()) {
+        ExtraDraw extraDraw = extraDrawListIterator.next();
+        if (!extraDraw.onDraw(canvas, mPaint, this)) {
+          extraDrawListIterator.remove();
         }
+      }
+
+      if (!mExtraDraws.isEmpty()) {
+        // requesting another re-draw since we have more items waiting to be drawn
+        // next frame
+        postInvalidateDelayed(1000 / 60); // doing 60 frames per second;
+      }
     }
+  }
 }

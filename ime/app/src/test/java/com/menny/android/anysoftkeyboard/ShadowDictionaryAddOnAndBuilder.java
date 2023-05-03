@@ -26,25 +26,25 @@ import org.robolectric.annotation.Implements;
 import org.robolectric.annotation.RealObject;
 
 @Implements(
-        value = DictionaryAddOnAndBuilder.class,
-        isInAndroidSdk = false,
-        callThroughByDefault = true)
+    value = DictionaryAddOnAndBuilder.class,
+    isInAndroidSdk = false,
+    callThroughByDefault = true)
 public class ShadowDictionaryAddOnAndBuilder {
 
-    @RealObject DictionaryAddOnAndBuilder mOriginalBuilder;
+  @RealObject DictionaryAddOnAndBuilder mOriginalBuilder;
 
-    /** Shadows the native-dictionary creation. */
-    public Dictionary createDictionary() throws Exception {
-        return new InMemoryDictionary(
-                mOriginalBuilder.getName(),
-                ApplicationProvider.getApplicationContext(),
-                // frequencies were taken from the original English AOSP file.
-                Arrays.asList(
-                        Pair.create("he", 187),
-                        Pair.create("he'll", 94),
-                        Pair.create("hell", 108),
-                        Pair.create("hello", 120),
-                        Pair.create("face", 141)),
-                true);
-    }
+  /** Shadows the native-dictionary creation. */
+  public Dictionary createDictionary() throws Exception {
+    return new InMemoryDictionary(
+        mOriginalBuilder.getName(),
+        ApplicationProvider.getApplicationContext(),
+        // frequencies were taken from the original English AOSP file.
+        Arrays.asList(
+            Pair.create("he", 187),
+            Pair.create("he'll", 94),
+            Pair.create("hell", 108),
+            Pair.create("hello", 120),
+            Pair.create("face", 141)),
+        true);
+  }
 }

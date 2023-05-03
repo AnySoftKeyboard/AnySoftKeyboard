@@ -21,43 +21,43 @@ import android.view.KeyEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardAction;
 
 public class HardKeyboardActionImpl implements HardKeyboardAction {
-    private int mKeyCode = 0;
-    private boolean mChanged = false;
-    private long mMetaState;
+  private int mKeyCode = 0;
+  private boolean mChanged = false;
+  private long mMetaState;
 
-    private static final int META_ACTIVE_ALT =
-            (MetaKeyKeyListener.META_ALT_ON | MetaKeyKeyListener.META_ALT_LOCKED);
-    private static final int META_ACTIVE_SHIFT =
-            (MetaKeyKeyListener.META_SHIFT_ON | MetaKeyKeyListener.META_CAP_LOCKED);
+  private static final int META_ACTIVE_ALT =
+      (MetaKeyKeyListener.META_ALT_ON | MetaKeyKeyListener.META_ALT_LOCKED);
+  private static final int META_ACTIVE_SHIFT =
+      (MetaKeyKeyListener.META_SHIFT_ON | MetaKeyKeyListener.META_CAP_LOCKED);
 
-    public void initializeAction(KeyEvent event, long metaState) {
-        mChanged = false;
-        mKeyCode = event.getKeyCode();
-        mMetaState = metaState;
-    }
+  public void initializeAction(KeyEvent event, long metaState) {
+    mChanged = false;
+    mKeyCode = event.getKeyCode();
+    mMetaState = metaState;
+  }
 
-    @Override
-    public int getKeyCode() {
-        return mKeyCode;
-    }
+  @Override
+  public int getKeyCode() {
+    return mKeyCode;
+  }
 
-    @Override
-    public boolean isAltActive() {
-        return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_ALT) != 0;
-    }
+  @Override
+  public boolean isAltActive() {
+    return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_ALT) != 0;
+  }
 
-    @Override
-    public boolean isShiftActive() {
-        return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_SHIFT) != 0;
-    }
+  @Override
+  public boolean isShiftActive() {
+    return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_SHIFT) != 0;
+  }
 
-    @Override
-    public void setNewKeyCode(int keyCode) {
-        mChanged = true;
-        mKeyCode = keyCode;
-    }
+  @Override
+  public void setNewKeyCode(int keyCode) {
+    mChanged = true;
+    mKeyCode = keyCode;
+  }
 
-    public boolean getKeyCodeWasChanged() {
-        return mChanged;
-    }
+  public boolean getKeyCodeWasChanged() {
+    return mChanged;
+  }
 }

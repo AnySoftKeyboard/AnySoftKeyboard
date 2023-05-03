@@ -16,68 +16,64 @@ import org.junit.Test;
 import org.robolectric.Shadows;
 
 public class WizardLanguagePackFragmentTest
-        extends RobolectricWizardFragmentTestCase<WizardLanguagePackFragment> {
+    extends RobolectricWizardFragmentTestCase<WizardLanguagePackFragment> {
 
-    @After
-    public void tearDownLanguagePack() {
-        Locale.setDefault(Locale.US);
-    }
+  @After
+  public void tearDownLanguagePack() {
+    Locale.setDefault(Locale.US);
+  }
 
-    @NonNull @Override
-    protected WizardLanguagePackFragment createFragment() {
-        return new WizardLanguagePackFragment();
-    }
+  @NonNull @Override
+  protected WizardLanguagePackFragment createFragment() {
+    return new WizardLanguagePackFragment();
+  }
 
-    @Test
-    public void testPageCompleteIfStartedWithLanguagePackInstalled() {
-        Locale.setDefault(Locale.US);
-        WizardLanguagePackFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+  @Test
+  public void testPageCompleteIfStartedWithLanguagePackInstalled() {
+    Locale.setDefault(Locale.US);
+    WizardLanguagePackFragment fragment = startFragment();
+    Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertFalse(stateIcon.isClickable());
-        Assert.assertEquals(
-                R.drawable.ic_wizard_download_pack_ready,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-    }
+    Assert.assertFalse(stateIcon.isClickable());
+    Assert.assertEquals(
+        R.drawable.ic_wizard_download_pack_ready,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+  }
 
-    @Test
-    public void testHappyPath() {
-        Locale.setDefault(Locale.FRANCE);
-        WizardLanguagePackFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
+  @Test
+  public void testHappyPath() {
+    Locale.setDefault(Locale.FRANCE);
+    WizardLanguagePackFragment fragment = startFragment();
+    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
+    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
+    Assert.assertNotNull(stateIcon);
 
-        Assert.assertTrue(stateIcon.isClickable());
-        Assert.assertEquals(
-                R.drawable.ic_wizard_download_pack_missing,
-                Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+    Assert.assertTrue(stateIcon.isClickable());
+    Assert.assertEquals(
+        R.drawable.ic_wizard_download_pack_missing,
+        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
 
-        View.OnClickListener stateIconClickHandler =
-                Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler =
-                Shadows.shadowOf(
-                                (View)
-                                        fragment.getView()
-                                                .findViewById(R.id.go_to_download_packs_action))
-                        .getOnClickListener();
+    View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
+    View.OnClickListener linkClickHandler =
+        Shadows.shadowOf((View) fragment.getView().findViewById(R.id.go_to_download_packs_action))
+            .getOnClickListener();
 
-        Assert.assertNotNull(stateIconClickHandler);
-        Assert.assertSame(stateIconClickHandler, linkClickHandler);
+    Assert.assertNotNull(stateIconClickHandler);
+    Assert.assertSame(stateIconClickHandler, linkClickHandler);
 
-        Assert.assertNull(
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getNextStartedActivity());
+    Assert.assertNull(
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getNextStartedActivity());
 
-        stateIconClickHandler.onClick(null);
+    stateIconClickHandler.onClick(null);
 
-        Intent searchIntent =
-                Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-                        .getNextStartedActivity();
-        Assert.assertNotNull(searchIntent);
-    }
+    Intent searchIntent =
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+            .getNextStartedActivity();
+    Assert.assertNotNull(searchIntent);
+  }
 }

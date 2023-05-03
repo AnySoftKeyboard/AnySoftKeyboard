@@ -11,299 +11,299 @@ import org.junit.runner.RunWith;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ModifierKeyStateTest {
 
-    private static final int DOUBLE_TAP_TIMEOUT = 2;
-    private static final int LONG_PRESS_TIMEOUT = 5;
+  private static final int DOUBLE_TAP_TIMEOUT = 2;
+  private static final int LONG_PRESS_TIMEOUT = 5;
 
-    @Test
-    public void testLongPressToLockAndUnLock() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
+  @Test
+  public void testLongPressToLockAndUnLock() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
 
-        ModifierKeyState state = new ModifierKeyState(true);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    ModifierKeyState state = new ModifierKeyState(true);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
-
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
-
-        sleep(LONG_PRESS_TIMEOUT + 1);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
-
-        Assert.assertTrue(state.isActive());
-        Assert.assertTrue(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-
-        sleep(1000);
-
-        state.onPress();
-        setCurrentTimeMillis(LONG_PRESS_TIMEOUT + 1);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
+    state.onPress();
+
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
+
+    sleep(LONG_PRESS_TIMEOUT + 1);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+
+    Assert.assertTrue(state.isActive());
+    Assert.assertTrue(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+
+    sleep(1000);
+
+    state.onPress();
+    setCurrentTimeMillis(LONG_PRESS_TIMEOUT + 1);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
 
-    @Test
-    public void testLongPressToLockWhenDisabled() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
+  @Test
+  public void testLongPressToLockWhenDisabled() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
 
-        ModifierKeyState state = new ModifierKeyState(false);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-
-        state.onPress();
+    ModifierKeyState state = new ModifierKeyState(false);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        sleep(LONG_PRESS_TIMEOUT + 1);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    sleep(LONG_PRESS_TIMEOUT + 1);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
 
-    @Test
-    public void testPressToLockedState() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
-        ModifierKeyState state = new ModifierKeyState(true);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-
-        state.onPress();
-
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
-
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
-
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-
-        state.onPress();
+  @Test
+  public void testPressToLockedState() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
+    ModifierKeyState state = new ModifierKeyState(true);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+
+    state.onPress();
+
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
+
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertTrue(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertTrue(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        // for UI purposes, while the key is pressed, it can not be LOCKED
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    // for UI purposes, while the key is pressed, it can not be LOCKED
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
-
-    @Test
-    public void testPressAndSkipLockedState() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
-        ModifierKeyState state = new ModifierKeyState(true);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
+
+  @Test
+  public void testPressAndSkipLockedState() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
+    ModifierKeyState state = new ModifierKeyState(true);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        millis += DOUBLE_TAP_TIMEOUT + 1;
-        setCurrentTimeMillis(millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    millis += DOUBLE_TAP_TIMEOUT + 1;
+    setCurrentTimeMillis(millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
 
-    @Test
-    public void testReset() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
-        ModifierKeyState state = new ModifierKeyState(true);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+  @Test
+  public void testReset() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
+    ModifierKeyState state = new ModifierKeyState(true);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.reset();
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    state.reset();
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
 
-    @Test
-    public void testPressWhenLockedStateNotSupported() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
+  @Test
+  public void testPressWhenLockedStateNotSupported() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
 
-        ModifierKeyState state = new ModifierKeyState(false);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    ModifierKeyState state = new ModifierKeyState(false);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
 
-    @Test
-    public void testSetActiveState() throws Exception {
-        long millis = 1000;
-        setCurrentTimeMillis(++millis);
+  @Test
+  public void testSetActiveState() throws Exception {
+    long millis = 1000;
+    setCurrentTimeMillis(++millis);
 
-        ModifierKeyState state = new ModifierKeyState(true);
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    ModifierKeyState state = new ModifierKeyState(true);
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.setActiveState(true);
+    state.setActiveState(true);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
-        // although the state is ACTIVE before the press-release
-        // sequence, we will not move to LOCKED state.
-        // we can only move to LOCKED state if the user has double-clicked.
-        Assert.assertFalse(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    // although the state is ACTIVE before the press-release
+    // sequence, we will not move to LOCKED state.
+    // we can only move to LOCKED state if the user has double-clicked.
+    Assert.assertFalse(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
 
-        state.onPress();
+    state.onPress();
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertTrue(state.isPressed());
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertTrue(state.isPressed());
 
-        setCurrentTimeMillis(++millis);
-        state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
+    setCurrentTimeMillis(++millis);
+    state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
-        Assert.assertTrue(state.isActive());
-        Assert.assertFalse(state.isLocked());
-        Assert.assertFalse(state.isPressed());
-    }
+    Assert.assertTrue(state.isActive());
+    Assert.assertFalse(state.isLocked());
+    Assert.assertFalse(state.isPressed());
+  }
 }

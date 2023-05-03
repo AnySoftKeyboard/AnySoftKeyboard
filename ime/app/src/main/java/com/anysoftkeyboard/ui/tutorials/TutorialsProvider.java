@@ -31,51 +31,49 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TutorialsProvider {
-    private static final String TAG = "ASKTutorial";
+  private static final String TAG = "ASKTutorial";
 
-    public static void showDragonsIfNeeded(Context context) {
-        if (BuildConfig.TESTING_BUILD && firstTestersTimeVersionLoaded(context)) {
-            Logger.i(TAG, "TESTERS VERSION added");
+  public static void showDragonsIfNeeded(Context context) {
+    if (BuildConfig.TESTING_BUILD && firstTestersTimeVersionLoaded(context)) {
+      Logger.i(TAG, "TESTERS VERSION added");
 
-            PendingIntent contentIntent =
-                    PendingIntent.getActivity(
-                            context,
-                            0,
-                            new Intent(context, TestersNoticeActivity.class)
-                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-                            CompatUtils.appendImmutableFlag(0));
+      PendingIntent contentIntent =
+          PendingIntent.getActivity(
+              context,
+              0,
+              new Intent(context, TestersNoticeActivity.class)
+                  .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+              CompatUtils.appendImmutableFlag(0));
 
-            final NotificationManager manager =
-                    ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+      final NotificationManager manager =
+          ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
-            NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(context, "Tester");
-            notificationBuilder
-                    .setSmallIcon(R.drawable.ic_notification_debug_version)
-                    .setContentText(context.getText(R.string.notification_text_testers))
-                    .setContentTitle(context.getText(R.string.ime_name))
-                    .setWhen(System.currentTimeMillis())
-                    .setContentIntent(contentIntent)
-                    .setColor(
-                            ContextCompat.getColor(
-                                    context, R.color.notification_background_debug_version))
-                    .setDefaults(0 /*no sound, vibrate, etc*/)
-                    .setAutoCancel(true);
+      NotificationCompat.Builder notificationBuilder =
+          new NotificationCompat.Builder(context, "Tester");
+      notificationBuilder
+          .setSmallIcon(R.drawable.ic_notification_debug_version)
+          .setContentText(context.getText(R.string.notification_text_testers))
+          .setContentTitle(context.getText(R.string.ime_name))
+          .setWhen(System.currentTimeMillis())
+          .setContentIntent(contentIntent)
+          .setColor(ContextCompat.getColor(context, R.color.notification_background_debug_version))
+          .setDefaults(0 /*no sound, vibrate, etc*/)
+          .setAutoCancel(true);
 
-            manager.notify(R.id.notification_icon_debug_version, notificationBuilder.build());
-        }
+      manager.notify(R.id.notification_icon_debug_version, notificationBuilder.build());
     }
+  }
 
-    private static boolean firstTestersTimeVersionLoaded(Context context) {
-        final String KEY = "testers_version_version_hash";
-        SharedPreferences sp = DirectBootAwareSharedPreferences.create(context);
-        final String lastDebugVersionHash = sp.getString(KEY, "NONE");
-        String currentHash = BuildConfig.VERSION_NAME + " code " + BuildConfig.VERSION_CODE;
+  private static boolean firstTestersTimeVersionLoaded(Context context) {
+    final String KEY = "testers_version_version_hash";
+    SharedPreferences sp = DirectBootAwareSharedPreferences.create(context);
+    final String lastDebugVersionHash = sp.getString(KEY, "NONE");
+    String currentHash = BuildConfig.VERSION_NAME + " code " + BuildConfig.VERSION_CODE;
 
-        Editor e = sp.edit();
-        e.putString(KEY, currentHash);
-        e.apply();
+    Editor e = sp.edit();
+    e.putString(KEY, currentHash);
+    e.apply();
 
-        return !currentHash.equals(lastDebugVersionHash);
-    }
+    return !currentHash.equals(lastDebugVersionHash);
+  }
 }

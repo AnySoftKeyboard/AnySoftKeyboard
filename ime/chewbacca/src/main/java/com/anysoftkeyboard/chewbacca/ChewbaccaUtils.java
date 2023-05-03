@@ -24,22 +24,22 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 
 public abstract class ChewbaccaUtils {
-    @NonNull public static String getSysInfo(@NonNull Context context) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("BRAND:").append(Build.BRAND).append(NEW_LINE);
-        sb.append("DEVICE:").append(Build.DEVICE).append(NEW_LINE);
-        sb.append("Build ID:").append(Build.DISPLAY).append(NEW_LINE);
-        sb.append("changelist number:").append(Build.ID).append(NEW_LINE);
-        sb.append("MODEL:").append(Build.MODEL).append(NEW_LINE);
-        sb.append("PRODUCT:").append(Build.PRODUCT).append(NEW_LINE);
-        sb.append("TAGS:").append(Build.TAGS).append(NEW_LINE);
-        sb.append("VERSION.INCREMENTAL:").append(Build.VERSION.INCREMENTAL).append(NEW_LINE);
-        sb.append("VERSION.RELEASE:").append(Build.VERSION.RELEASE).append(NEW_LINE);
-        sb.append("VERSION.SDK_INT:").append(Build.VERSION.SDK_INT).append(NEW_LINE);
-        Configuration configuration = context.getResources().getConfiguration();
-        sb.append("Locale:").append(configuration.locale).append(NEW_LINE);
-        sb.append("configuration:").append(configuration).append(NEW_LINE);
-        sb.append("That's all I know.");
-        return sb.toString();
-    }
+  @NonNull public static String getSysInfo(@NonNull Context context) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("BRAND:").append(Build.BRAND).append(NEW_LINE);
+    sb.append("DEVICE:").append(Build.DEVICE).append(NEW_LINE);
+    sb.append("Build ID:").append(Build.DISPLAY).append(NEW_LINE);
+    sb.append("changelist number:").append(Build.ID).append(NEW_LINE);
+    sb.append("MODEL:").append(Build.MODEL).append(NEW_LINE);
+    sb.append("PRODUCT:").append(Build.PRODUCT).append(NEW_LINE);
+    sb.append("TAGS:").append(Build.TAGS).append(NEW_LINE);
+    sb.append("VERSION.INCREMENTAL:").append(Build.VERSION.INCREMENTAL).append(NEW_LINE);
+    sb.append("VERSION.RELEASE:").append(Build.VERSION.RELEASE).append(NEW_LINE);
+    sb.append("VERSION.SDK_INT:").append(Build.VERSION.SDK_INT).append(NEW_LINE);
+    Configuration configuration = context.getResources().getConfiguration();
+    sb.append("Locale:").append(configuration.locale).append(NEW_LINE);
+    sb.append("configuration:").append(configuration).append(NEW_LINE);
+    sb.append("That's all I know.");
+    return sb.toString();
+  }
 }

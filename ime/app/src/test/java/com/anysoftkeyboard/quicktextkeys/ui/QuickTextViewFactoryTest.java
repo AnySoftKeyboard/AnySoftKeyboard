@@ -14,19 +14,19 @@ import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class QuickTextViewFactoryTest {
-    @Test
-    public void testCreateQuickTextView() throws Exception {
-        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-        QuickTextPagerView view =
-                QuickTextViewFactory.createQuickTextView(
-                        getApplicationContext(),
-                        linearLayout,
-                        new QuickKeyHistoryRecords(prefs(getApplicationContext())),
-                        mock(DefaultSkinTonePrefTracker.class),
-                        mock(DefaultGenderPrefTracker.class));
+  @Test
+  public void testCreateQuickTextView() throws Exception {
+    LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+    QuickTextPagerView view =
+        QuickTextViewFactory.createQuickTextView(
+            getApplicationContext(),
+            linearLayout,
+            new QuickKeyHistoryRecords(prefs(getApplicationContext())),
+            mock(DefaultSkinTonePrefTracker.class),
+            mock(DefaultGenderPrefTracker.class));
 
-        Assert.assertNotNull(view);
+    Assert.assertNotNull(view);
 
-        Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, view.getLayoutParams().width);
-    }
+    Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, view.getLayoutParams().width);
+  }
 }

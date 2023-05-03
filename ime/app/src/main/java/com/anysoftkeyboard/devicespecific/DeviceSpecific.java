@@ -29,26 +29,26 @@ import java.util.List;
 
 public interface DeviceSpecific {
 
-    String getApiLevel();
+  String getApiLevel();
 
-    GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
+  GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
-    void commitCorrectionToInputConnection(
-            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);
+  void commitCorrectionToInputConnection(
+      InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);
 
-    void reportInputMethodSubtypes(
-            @NonNull InputMethodManager inputMethodManager,
-            @NonNull String imeId,
-            @NonNull List<KeyboardAddOnAndBuilder> builders);
+  void reportInputMethodSubtypes(
+      @NonNull InputMethodManager inputMethodManager,
+      @NonNull String imeId,
+      @NonNull List<KeyboardAddOnAndBuilder> builders);
 
-    void reportCurrentInputMethodSubtypes(
-            @NonNull InputMethodManager inputMethodManager,
-            @NonNull String imeId,
-            @NonNull IBinder token,
-            @Nullable String keyboardLocale,
-            @NonNull CharSequence keyboardId);
+  void reportCurrentInputMethodSubtypes(
+      @NonNull InputMethodManager inputMethodManager,
+      @NonNull String imeId,
+      @NonNull IBinder token,
+      @Nullable String keyboardLocale,
+      @NonNull CharSequence keyboardId);
 
-    Clipboard createClipboard(@NonNull Context applicationContext);
+  Clipboard createClipboard(@NonNull Context applicationContext);
 
-    PressVibrator createPressVibrator(@NonNull Vibrator vibe);
+  PressVibrator createPressVibrator(@NonNull Vibrator vibe);
 }

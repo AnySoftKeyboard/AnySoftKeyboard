@@ -12,21 +12,21 @@ import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class EffectsSettingsFragmentTest
-        extends RobolectricFragmentTestCase<EffectsSettingsFragment> {
+    extends RobolectricFragmentTestCase<EffectsSettingsFragment> {
 
-    @Override
-    protected int getStartFragmentNavigationId() {
-        return R.id.effectsSettingsFragment;
-    }
+  @Override
+  protected int getStartFragmentNavigationId() {
+    return R.id.effectsSettingsFragment;
+  }
 
-    @Test
-    public void testNavigateToPowerSavingFragment() {
-        final EffectsSettingsFragment fragment = startFragment();
+  @Test
+  public void testNavigateToPowerSavingFragment() {
+    final EffectsSettingsFragment fragment = startFragment();
 
-        ViewTestUtils.performClick(fragment.findPreference("settings_key_power_save_mode"));
+    ViewTestUtils.performClick(fragment.findPreference("settings_key_power_save_mode"));
 
-        TestRxSchedulers.foregroundFlushAllJobs();
-        final Fragment next = getCurrentFragment();
-        Assert.assertTrue(next instanceof PowerSavingSettingsFragment);
-    }
+    TestRxSchedulers.foregroundFlushAllJobs();
+    final Fragment next = getCurrentFragment();
+    Assert.assertTrue(next instanceof PowerSavingSettingsFragment);
+  }
 }

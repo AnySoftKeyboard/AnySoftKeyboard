@@ -34,148 +34,146 @@ import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardService {
 
-    private static final int OPTIONS_DIALOG = 123123;
-    private GeneralDialogController mGeneralDialogController;
+  private static final int OPTIONS_DIALOG = 123123;
+  private GeneralDialogController mGeneralDialogController;
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    mGeneralDialogController =
+        new GeneralDialogController(this, R.style.Theme_AskAlertDialog, new ImeDialogPresenter());
+  }
+
+  protected void showToastMessage(@StringRes int resId, boolean forShortTime) {
+    showToastMessage(getResources().getText(resId), forShortTime);
+  }
+
+  protected void showToastMessage(CharSequence text, boolean forShortTime) {
+    int duration = forShortTime ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
+    Toast.makeText(this.getApplication(), text, duration).show();
+  }
+
+  protected void showOptionsDialogWithData(
+      @StringRes int title,
+      @DrawableRes int iconRedId,
+      final CharSequence[] entries,
+      final DialogInterface.OnClickListener listener) {
+    showOptionsDialogWithData(getText(title), iconRedId, entries, listener);
+  }
+
+  protected void showOptionsDialogWithData(
+      CharSequence title,
+      @DrawableRes int iconRedId,
+      final CharSequence[] entries,
+      final DialogInterface.OnClickListener listener) {
+    showOptionsDialogWithData(title, iconRedId, entries, listener, null);
+  }
+
+  protected void showOptionsDialogWithData(
+      @StringRes int title,
+      @DrawableRes int iconRedId,
+      final CharSequence[] entries,
+      final DialogInterface.OnClickListener listener,
+      @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
+    showOptionsDialogWithData(getText(title), iconRedId, entries, listener, extraPresenter);
+  }
+
+  protected void showOptionsDialogWithData(
+      CharSequence title,
+      @DrawableRes int iconRedId,
+      final CharSequence[] entries,
+      final DialogInterface.OnClickListener listener,
+      @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
+    mGeneralDialogController.showDialog(
+        OPTIONS_DIALOG, new OptionsDialogData(title, iconRedId, entries, listener, extraPresenter));
+  }
+
+  @Override
+  public View onCreateInputView() {
+    // resetting UI token
+    mGeneralDialogController.dismiss();
+
+    return super.onCreateInputView();
+  }
+
+  @CallSuper
+  @Override
+  protected boolean handleCloseRequest() {
+    if (closeGeneralOptionsDialog()) {
+      return true;
+    } else {
+      return super.handleCloseRequest();
+    }
+  }
+
+  protected boolean closeGeneralOptionsDialog() {
+    return mGeneralDialogController.dismiss();
+  }
+
+  protected class OptionsDialogData {
+    private final CharSequence mTitle;
+    @DrawableRes private final int mIcon;
+    private final CharSequence[] mOptions;
+    private final DialogInterface.OnClickListener mOnClickListener;
+    @Nullable private final GeneralDialogController.DialogPresenter mExtraPresenter;
+
+    public OptionsDialogData(
+        CharSequence title,
+        int icon,
+        CharSequence[] options,
+        DialogInterface.OnClickListener onClickListener,
+        @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
+      mTitle = title;
+      mIcon = icon;
+      mOptions = options;
+      mOnClickListener = onClickListener;
+      mExtraPresenter = extraPresenter;
+    }
+
+    public void dialogOptionHandler(DialogInterface dialog, int which) {
+      mGeneralDialogController.dismiss();
+
+      if ((which < 0) || (which >= mOptions.length)) {
+        Logger.d(TAG, "Selection dialog popup canceled");
+      } else {
+        Logger.d(TAG, "User selected '%s' at position %d", mOptions[which], which);
+        mOnClickListener.onClick(dialog, which);
+      }
+    }
+  }
+
+  private class ImeDialogPresenter implements GeneralDialogController.DialogPresenter {
+    @Override
+    public void onSetupDialogRequired(
+        Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+      OptionsDialogData dialogData = (OptionsDialogData) data;
+      builder.setCancelable(true);
+      builder.setIcon(dialogData.mIcon);
+      builder.setTitle(dialogData.mTitle);
+      builder.setNegativeButton(android.R.string.cancel, null);
+
+      builder.setItems(dialogData.mOptions, dialogData::dialogOptionHandler);
+
+      getInputView().resetInputView();
+
+      if (dialogData.mExtraPresenter != null) {
+        dialogData.mExtraPresenter.onSetupDialogRequired(context, builder, optionId, data);
+      }
+    }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        mGeneralDialogController =
-                new GeneralDialogController(
-                        this, R.style.Theme_AskAlertDialog, new ImeDialogPresenter());
+    public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
+      OptionsDialogData dialogData = (OptionsDialogData) data;
+      Window window = dialog.getWindow();
+      WindowManager.LayoutParams lp = window.getAttributes();
+      lp.token = ((View) getInputView()).getWindowToken();
+      lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+      window.setAttributes(lp);
+      window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+      if (dialogData.mExtraPresenter != null) {
+        dialogData.mExtraPresenter.beforeDialogShown(dialog, data);
+      }
     }
-
-    protected void showToastMessage(@StringRes int resId, boolean forShortTime) {
-        showToastMessage(getResources().getText(resId), forShortTime);
-    }
-
-    protected void showToastMessage(CharSequence text, boolean forShortTime) {
-        int duration = forShortTime ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
-        Toast.makeText(this.getApplication(), text, duration).show();
-    }
-
-    protected void showOptionsDialogWithData(
-            @StringRes int title,
-            @DrawableRes int iconRedId,
-            final CharSequence[] entries,
-            final DialogInterface.OnClickListener listener) {
-        showOptionsDialogWithData(getText(title), iconRedId, entries, listener);
-    }
-
-    protected void showOptionsDialogWithData(
-            CharSequence title,
-            @DrawableRes int iconRedId,
-            final CharSequence[] entries,
-            final DialogInterface.OnClickListener listener) {
-        showOptionsDialogWithData(title, iconRedId, entries, listener, null);
-    }
-
-    protected void showOptionsDialogWithData(
-            @StringRes int title,
-            @DrawableRes int iconRedId,
-            final CharSequence[] entries,
-            final DialogInterface.OnClickListener listener,
-            @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
-        showOptionsDialogWithData(getText(title), iconRedId, entries, listener, extraPresenter);
-    }
-
-    protected void showOptionsDialogWithData(
-            CharSequence title,
-            @DrawableRes int iconRedId,
-            final CharSequence[] entries,
-            final DialogInterface.OnClickListener listener,
-            @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
-        mGeneralDialogController.showDialog(
-                OPTIONS_DIALOG,
-                new OptionsDialogData(title, iconRedId, entries, listener, extraPresenter));
-    }
-
-    @Override
-    public View onCreateInputView() {
-        // resetting UI token
-        mGeneralDialogController.dismiss();
-
-        return super.onCreateInputView();
-    }
-
-    @CallSuper
-    @Override
-    protected boolean handleCloseRequest() {
-        if (closeGeneralOptionsDialog()) {
-            return true;
-        } else {
-            return super.handleCloseRequest();
-        }
-    }
-
-    protected boolean closeGeneralOptionsDialog() {
-        return mGeneralDialogController.dismiss();
-    }
-
-    protected class OptionsDialogData {
-        private final CharSequence mTitle;
-        @DrawableRes private final int mIcon;
-        private final CharSequence[] mOptions;
-        private final DialogInterface.OnClickListener mOnClickListener;
-        @Nullable private final GeneralDialogController.DialogPresenter mExtraPresenter;
-
-        public OptionsDialogData(
-                CharSequence title,
-                int icon,
-                CharSequence[] options,
-                DialogInterface.OnClickListener onClickListener,
-                @Nullable GeneralDialogController.DialogPresenter extraPresenter) {
-            mTitle = title;
-            mIcon = icon;
-            mOptions = options;
-            mOnClickListener = onClickListener;
-            mExtraPresenter = extraPresenter;
-        }
-
-        public void dialogOptionHandler(DialogInterface dialog, int which) {
-            mGeneralDialogController.dismiss();
-
-            if ((which < 0) || (which >= mOptions.length)) {
-                Logger.d(TAG, "Selection dialog popup canceled");
-            } else {
-                Logger.d(TAG, "User selected '%s' at position %d", mOptions[which], which);
-                mOnClickListener.onClick(dialog, which);
-            }
-        }
-    }
-
-    private class ImeDialogPresenter implements GeneralDialogController.DialogPresenter {
-        @Override
-        public void onSetupDialogRequired(
-                Context context, AlertDialog.Builder builder, int optionId, @Nullable Object data) {
-            OptionsDialogData dialogData = (OptionsDialogData) data;
-            builder.setCancelable(true);
-            builder.setIcon(dialogData.mIcon);
-            builder.setTitle(dialogData.mTitle);
-            builder.setNegativeButton(android.R.string.cancel, null);
-
-            builder.setItems(dialogData.mOptions, dialogData::dialogOptionHandler);
-
-            getInputView().resetInputView();
-
-            if (dialogData.mExtraPresenter != null) {
-                dialogData.mExtraPresenter.onSetupDialogRequired(context, builder, optionId, data);
-            }
-        }
-
-        @Override
-        public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
-            OptionsDialogData dialogData = (OptionsDialogData) data;
-            Window window = dialog.getWindow();
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.token = ((View) getInputView()).getWindowToken();
-            lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-            window.setAttributes(lp);
-            window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-
-            if (dialogData.mExtraPresenter != null) {
-                dialogData.mExtraPresenter.beforeDialogShown(dialog, data);
-            }
-        }
-    }
+  }
 }
