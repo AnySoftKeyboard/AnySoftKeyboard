@@ -55,7 +55,7 @@ jobs:
           git add -f gradle/wrapper
           git add -f gradle/wrapper/gradle-wrapper.jar
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Gradle Update'
@@ -65,7 +65,7 @@ jobs:
           body: 'Latest version found at https://github.com/gradle/gradle/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/gradle-update'
-          labels: automerge
+          delete-branch: true
   general-maven-update:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.19.0
@@ -82,7 +82,7 @@ jobs:
           ./gradlew :api:assembleDebug :api:lintDebug
           ./gradlew :api:assembleDebug :api:lintDebug
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Maven Artifacts Update'
@@ -91,7 +91,7 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/maven-update'
-          labels: automerge
+          delete-branch: true
   robolectric-update:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.19.0
@@ -128,7 +128,7 @@ jobs:
         run: |
           git add gradle/root_all_projects_ext.gradle scripts/robolectric_jars_versions.txt
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Robolectric Update'
@@ -138,7 +138,7 @@ jobs:
           body: 'Latest version found at https://github.com/robolectric/robolectric/releases'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/robolectric-update'
-          labels: automerge
+          delete-branch: true
   build-tools-update:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.19.0
@@ -162,7 +162,7 @@ jobs:
         run: |
           git add gradle/root_all_projects_ext.gradle
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Build-Tools Update'
@@ -172,7 +172,7 @@ jobs:
           body: 'Latest version found in `sdkmanager --list` call.'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/build-tools-update'
-          labels: automerge
+          delete-branch: true
   error-prone-update:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.19.0
@@ -217,7 +217,7 @@ jobs:
       - name: Add changed files
         run: git add .
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Error-Prone Update and auto-patches if possible'
@@ -229,7 +229,7 @@ jobs:
             https://github.com/google/error-prone/releases.
           team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
-          labels: automerge
+          delete-branch: true
 
   spotless-update:
     runs-on: ubuntu-22.04
@@ -267,7 +267,7 @@ jobs:
       - name: Add changed files
         run: git add .
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Spotless update and auto-patches if possible'
@@ -281,4 +281,4 @@ jobs:
             https://github.com/google/google-java-format/releases
           team-reviewers: infra, maintainers
           branch: 'bot-pr/spotless-update'
-          labels: automerge
+          delete-branch: true
