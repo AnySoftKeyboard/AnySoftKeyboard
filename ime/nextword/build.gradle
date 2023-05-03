@@ -12,5 +12,8 @@ dependencies {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     namespace 'com.anysoftkeyboard.nextword'
 }

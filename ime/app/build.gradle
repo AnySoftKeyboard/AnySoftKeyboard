@@ -46,6 +46,9 @@ android {
 
 //adding TESTING_BUILD
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             buildConfigField("boolean", "TESTING_BUILD", "false")
