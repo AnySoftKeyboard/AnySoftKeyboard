@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 TEMP_CONT_MD_FILE="$(mktemp)"
 

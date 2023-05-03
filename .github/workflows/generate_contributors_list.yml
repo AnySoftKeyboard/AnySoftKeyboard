@@ -11,7 +11,7 @@ env:
   TMPDIR: "/tmp"
 
 jobs:
-  packs-md-update:
+  contributors-md-update:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3.2.0
@@ -22,7 +22,7 @@ jobs:
           git config --global --add safe.directory "${PWD}"
           ./scripts/generate_contributors_md.sh ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Contributors List Update'
@@ -32,4 +32,4 @@ jobs:
           body: 'Generated from latest git scan.'
           team-reviewers: maintainers
           branch: 'bot-pr/contributors-list-update'
-          labels: automerge
+          delete-branch: true

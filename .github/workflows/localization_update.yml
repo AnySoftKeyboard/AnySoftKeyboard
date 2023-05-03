@@ -38,7 +38,7 @@ jobs:
       - name: Update force-locale list
         run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'
@@ -48,4 +48,4 @@ jobs:
           body: 'Generated from latest _main_ strings and crowdin data.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/localization-update'
-          labels: automerge
+          delete-branch: true
