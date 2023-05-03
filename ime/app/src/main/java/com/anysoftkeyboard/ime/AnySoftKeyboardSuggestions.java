@@ -46,8 +46,10 @@ import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboardSwitchedListener {
 
@@ -101,6 +103,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
     private boolean mJustAutoAddedWord = false;
+    private boolean mRestartedWordSuggestions = false;
+    private Set<String> mSpaceOrPunctuationSet =
+            new HashSet<>(
+                    Arrays.asList(" ", ",", "?", "!", ";", ":", ".", ")", "]", "}", "\"", "\'"));
 
     @VisibleForTesting
     final CancelSuggestionsAction mCancelSuggestionsAction =
@@ -878,7 +884,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             markExpectingSelectionUpdate();
             ic.endBatchEdit();
             performUpdateSuggestions();
+            mRestartedWordSuggestions = true;
         } else {
+            mRestartedWordSuggestions = false;
             Logger.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
     }
@@ -1008,6 +1016,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     protected boolean canRestartWordSuggestion() {
         final InputViewBinder inputView = getInputView();
+        // no suggestions performed yet
+        mRestartedWordSuggestions = false;
         if (!isPredictionOn()
                 || !mAllowSuggestionsRestart
                 || !mCurrentlyAllowSuggestionRestart
@@ -1167,10 +1177,23 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     suggestion,
                     suggestion /*user physically picked a word from the suggestions strip. this is not a fix*/);
 
-            // Follow it with a space
+            // Follow it with a space if there is not already one or if it is not a punctuation mark
+            // that goes attached to the word being manually picked
             if (withAutoSpaceEnabled && (index == 0 || !typedWord.isAtTagsSearchState())) {
-                sendKeyChar((char) KeyCodes.SPACE);
-                setSpaceTimeStamp(true);
+                boolean isNextCharSpaceOrPunctuation = false;
+                if (mRestartedWordSuggestions && ic != null) {
+                    String strNextChar = ic.getTextAfterCursor(1, 0).toString();
+                    if (strNextChar.length() == 1) {
+                        char nextCharAfterCursor = strNextChar.charAt(0);
+                        isNextCharSpaceOrPunctuation =
+                                mSpaceOrPunctuationSet.contains(
+                                        String.valueOf(nextCharAfterCursor));
+                    }
+                }
+                if (!isNextCharSpaceOrPunctuation) {
+                    sendKeyChar((char) KeyCodes.SPACE);
+                    setSpaceTimeStamp(true);
+                }
             }
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
