@@ -72,7 +72,12 @@ public class MergeWordsListTask extends DefaultTask {
                 parser.parse(inputSource, new MySaxHandler(allWords, duplicateWords));
                 System.out.printf(Locale.ENGLISH, "Loaded %d words in total...%n", allWords.size());
             }
-            if (duplicateWords.size() > 0 && !inputFile.getAbsolutePath().contains("/build/")) {
+
+            boolean isBuildDir =
+                    inputFile
+                            .getAbsolutePath()
+                            .contains((File.separator).concat("build").concat(File.separator));
+            if (duplicateWords.size() > 0 && !isBuildDir) {
                 inputFilesWithDuplicates.add(inputFile.getAbsolutePath());
                 filterWordsFromInputFile(inputFile, duplicateWords);
             }
