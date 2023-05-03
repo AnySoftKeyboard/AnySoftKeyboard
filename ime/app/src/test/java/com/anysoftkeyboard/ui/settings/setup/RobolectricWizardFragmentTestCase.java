@@ -15,8 +15,7 @@ public abstract class RobolectricWizardFragmentTestCase<F extends Fragment>
         extends RobolectricFragmentActivityTestCase<
                 RobolectricWizardFragmentTestCase.TestableSetupWizardActivity<F>, F> {
 
-    @NonNull
-    protected abstract F createFragment();
+    @NonNull protected abstract F createFragment();
 
     @Override
     protected Fragment getCurrentFragment() {
@@ -34,13 +33,11 @@ public abstract class RobolectricWizardFragmentTestCase<F extends Fragment>
             extends SetupWizardActivity {
         private F mFragment;
 
-        @NonNull
-        @Override
+        @NonNull @Override
         protected FragmentStateAdapter createPagesAdapter() {
             return new FragmentStateAdapter(this) {
 
-                @NonNull
-                @Override
+                @NonNull @Override
                 public Fragment createFragment(int position) {
                     return mFragment;
                 }

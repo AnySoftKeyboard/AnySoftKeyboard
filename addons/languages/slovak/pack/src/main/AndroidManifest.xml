@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.herrlado.ask.languagepack.slovak.pack">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <receiver android:name="org.herrlado.ask.languagepack.slovak.PackBroadcastReceiver" android:exported="true">
             <intent-filter>

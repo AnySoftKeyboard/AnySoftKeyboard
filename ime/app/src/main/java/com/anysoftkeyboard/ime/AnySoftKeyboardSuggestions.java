@@ -119,13 +119,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         for (char separator : chars) sparseBooleanArray.put(separator, true);
     }
 
-    @Nullable
-    protected Keyboard.Key getLastUsedKey() {
+    @Nullable protected Keyboard.Key getLastUsedKey() {
         return mLastKey;
     }
 
-    @NonNull
-    private static CompletionInfo[] copyCompletionsFromAndroid(
+    @NonNull private static CompletionInfo[] copyCompletionsFromAndroid(
             @Nullable CompletionInfo[] completions) {
         if (completions == null) {
             return new CompletionInfo[0];
@@ -278,7 +276,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             case EditorInfo.TYPE_CLASS_DATETIME:
                 Logger.d(
                         TAG,
-                        "Setting INPUT_MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME input.");
+                        "Setting INPUT_MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME"
+                                + " input.");
                 getKeyboardSwitcher()
                         .setKeyboardMode(
                                 KeyboardSwitcher.INPUT_MODE_DATETIME, attribute, restarting);
@@ -342,7 +341,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
                         Logger.d(
                                 TAG,
-                                "Setting INPUT_MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
+                                "Setting INPUT_MODE_EMAIL as keyboard due to a"
+                                        + " TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
                         getKeyboardSwitcher()
                                 .setKeyboardMode(
                                         KeyboardSwitcher.INPUT_MODE_EMAIL, attribute, restarting);
@@ -350,7 +350,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     case EditorInfo.TYPE_TEXT_VARIATION_URI:
                         Logger.d(
                                 TAG,
-                                "Setting INPUT_MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
+                                "Setting INPUT_MODE_URL as keyboard due to a"
+                                        + " TYPE_TEXT_VARIATION_URI input.");
                         getKeyboardSwitcher()
                                 .setKeyboardMode(
                                         KeyboardSwitcher.INPUT_MODE_URL, attribute, restarting);
@@ -358,7 +359,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                     case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
                         Logger.d(
                                 TAG,
-                                "Setting INPUT_MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
+                                "Setting INPUT_MODE_IM as keyboard due to a"
+                                        + " TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
                         getKeyboardSwitcher()
                                 .setKeyboardMode(
                                         KeyboardSwitcher.INPUT_MODE_IM, attribute, restarting);
@@ -450,7 +452,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             if (shouldRevertOnDelete()) {
                 Logger.d(
                         TAG,
-                        "onUpdateSelection: user moved cursor from a undo-commit sensitive position. Will not be able to undo-commit.");
+                        "onUpdateSelection: user moved cursor from a undo-commit sensitive"
+                                + " position. Will not be able to undo-commit.");
                 mWordRevertLength = 0;
             }
         }
@@ -500,14 +503,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 } else {
                     Logger.d(
                             TAG,
-                            "onUpdateSelection: cursor moving outside the currently predicting word");
+                            "onUpdateSelection: cursor moving outside the currently predicting"
+                                    + " word");
                     abortCorrectionAndResetPredictionState(false);
                     postRestartWordSuggestion();
                 }
             } else {
                 Logger.d(
                         TAG,
-                        "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
+                        "onUpdateSelection: not predicting at this moment, maybe the cursor is now"
+                                + " at a new word?");
                 postRestartWordSuggestion();
             }
         } else {
@@ -954,8 +959,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
-    @NonNull
-    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
+    @NonNull protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
             @NonNull AnyKeyboard currentAlphabetKeyboard) {
         return NO_OP_DICTIONARY_LOADER_LISTENER;
     }
@@ -1023,7 +1027,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             // mInputView == null - obvious, no?
             Logger.d(
                     TAG,
-                    "performRestartWordSuggestion: no need to restart: isPredictionOn=%s, mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s",
+                    "performRestartWordSuggestion: no need to restart: isPredictionOn=%s,"
+                            + " mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s",
                     isPredictionOn(),
                     mAllowSuggestionsRestart,
                     mCurrentlyAllowSuggestionRestart);
@@ -1049,14 +1054,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         }
     }
 
-    @NonNull
-    protected Suggest getSuggest() {
+    @NonNull protected Suggest getSuggest() {
         return mSuggest;
     }
 
     @Override
-    @NonNull
-    protected List<Drawable> generateWatermark() {
+    @NonNull protected List<Drawable> generateWatermark() {
         final List<Drawable> watermark = super.generateWatermark();
         if (mSuggest.isIncognitoMode()) {
             watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_incognito));
@@ -1064,8 +1067,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return watermark;
     }
 
-    @NonNull
-    protected Suggest createSuggest() {
+    @NonNull protected Suggest createSuggest() {
         return new SuggestImpl(this);
     }
 

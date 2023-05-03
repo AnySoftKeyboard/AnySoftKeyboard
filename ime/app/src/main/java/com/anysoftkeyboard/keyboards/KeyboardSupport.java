@@ -52,8 +52,7 @@ public class KeyboardSupport {
 
     private static final TypedValue codesValue = new TypedValue();
 
-    @NonNull
-    public static int[] getKeyCodesFromTypedArray(TypedArray typedArray, int index) {
+    @NonNull public static int[] getKeyCodesFromTypedArray(TypedArray typedArray, int index) {
         typedArray.getValue(index, codesValue);
 
         if (codesValue.type == TypedValue.TYPE_INT_DEC

@@ -15,9 +15,9 @@ fi
 git clean -f -d
 git reset --hard HEAD
 
-./gradlew verifyGoogleJavaFormat || {
+./gradlew spotlessCheck || {
     echo "code is not formatted."
-    echo "run './gradlew googleJavaFormat' to fix."
+    echo "run './gradlew spotlessApply' to fix."
     exit 1
 }
 

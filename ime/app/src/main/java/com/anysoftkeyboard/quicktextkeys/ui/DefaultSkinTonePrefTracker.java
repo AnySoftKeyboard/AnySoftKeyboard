@@ -54,8 +54,7 @@ public class DefaultSkinTonePrefTracker implements Disposable {
                                 });
     }
 
-    @Nullable
-    public JavaEmojiUtils.SkinTone getDefaultSkinTone() {
+    @Nullable public JavaEmojiUtils.SkinTone getDefaultSkinTone() {
         if (mRandom) {
             switch (new Random().nextInt(JavaEmojiUtils.SkinTone.values().length)) {
                 case 0:

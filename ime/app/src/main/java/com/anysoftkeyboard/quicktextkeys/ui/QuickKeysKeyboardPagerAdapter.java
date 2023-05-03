@@ -64,8 +64,7 @@ import java.util.List;
         return mPopupKeyboards.length;
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View root =
                 mLayoutInflater.inflate(

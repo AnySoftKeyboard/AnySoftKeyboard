@@ -26,8 +26,7 @@ public class PrefItem {
         return Collections.unmodifiableCollection(mValues.entrySet());
     }
 
-    @Nullable
-    public String getValue(String key) {
+    @Nullable public String getValue(String key) {
         return mValues.get(key);
     }
 
@@ -48,7 +47,8 @@ public class PrefItem {
             throw new IllegalArgumentException(
                     "The key '"
                             + text
-                            + "' has non ASCII or has whitespaces or is empty! This is not valid as an XML attribute");
+                            + "' has non ASCII or has whitespaces or is empty! This is not valid as"
+                            + " an XML attribute");
         }
     }
 

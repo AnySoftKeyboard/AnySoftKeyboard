@@ -312,7 +312,8 @@ public abstract class AnyKeyboard extends Keyboard {
             if (rowKeyboard.hasNoKeys()) {
                 Logger.i(
                         TAG,
-                        "Could not find any rows that match mode %d. Trying again with normal mode.",
+                        "Could not find any rows that match mode %d. Trying again with normal"
+                                + " mode.",
                         mKeyboardMode);
                 rowKeyboard =
                         new GenericRowKeyboard(
@@ -395,8 +396,7 @@ public abstract class AnyKeyboard extends Keyboard {
             return new char[0];
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public CharSequence getKeyboardName() {
             return "not important";
         }
@@ -406,8 +406,7 @@ public abstract class AnyKeyboard extends Keyboard {
             return AddOn.INVALID_RES_ID;
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public String getKeyboardId() {
             return "no-important";
         }
@@ -446,8 +445,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     public abstract String getDefaultDictionaryLocale();
 
-    @NonNull
-    public Locale getLocale() {
+    @NonNull public Locale getLocale() {
         return Locale.ROOT;
     }
 
@@ -503,8 +501,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @Override
-    @Nullable
-    protected Row createRowFromXml(
+    @Nullable protected Row createRowFromXml(
             @NonNull AddOn.AddOnResourceMapping resourceMapping,
             Resources res,
             XmlResourceParser parser,
@@ -552,8 +549,7 @@ public abstract class AnyKeyboard extends Keyboard {
         mEnterKey.enable();
     }
 
-    @NonNull
-    public abstract CharSequence getKeyboardName();
+    @NonNull public abstract CharSequence getKeyboardName();
 
     public boolean isLeftToRightLanguage() {
         return !mRightToLeftLayout;
@@ -659,8 +655,7 @@ public abstract class AnyKeyboard extends Keyboard {
         return false;
     }
 
-    @NonNull
-    public abstract String getKeyboardId();
+    @NonNull public abstract String getKeyboardId();
 
     @KeyboardRowModeId
     public int getKeyboardMode() {
@@ -858,8 +853,7 @@ public abstract class AnyKeyboard extends Keyboard {
             return super.getCurrentDrawableState(provider);
         }
 
-        @NonNull
-        public List<String> getKeyTags() {
+        @NonNull public List<String> getKeyTags() {
             return mKeyTags;
         }
 

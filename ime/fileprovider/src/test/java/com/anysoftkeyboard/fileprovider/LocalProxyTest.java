@@ -109,8 +109,7 @@ public class LocalProxyTest {
 
     @Implements(FileProvider.class)
     public static class ShadowFileProvider {
-        @Nullable
-        @Implementation
+        @Nullable @Implementation
         public static String getType(@NonNull Uri uri) {
             String fileName = uri.getLastPathSegment();
             final int lastDot = fileName.lastIndexOf('.');

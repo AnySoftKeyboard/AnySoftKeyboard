@@ -16,8 +16,7 @@ import java.util.List;
  */
 public class NextWordsFileParserV1 implements NextWordsFileParser {
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public Iterable<NextWordsContainer> loadStoredNextWords(@NonNull InputStream inputStream)
             throws IOException {
         final byte[] buffer = new byte[256];
@@ -39,8 +38,7 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
         return loadedEntries;
     }
 
-    @Nullable
-    private String readWord(@NonNull byte[] buffer, @NonNull InputStream inputStream)
+    @Nullable private String readWord(@NonNull byte[] buffer, @NonNull InputStream inputStream)
             throws IOException {
         final int bytesToRead = inputStream.read();
         if (bytesToRead < 1) return null;

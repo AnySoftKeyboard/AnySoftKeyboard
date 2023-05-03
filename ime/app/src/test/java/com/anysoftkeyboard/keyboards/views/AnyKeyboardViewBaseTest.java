@@ -358,8 +358,7 @@ public class AnyKeyboardViewBaseTest {
         Assert.assertEquals(0, mUnderTest.mHintTextSizeMultiplier, 0);
     }
 
-    @Nullable
-    protected AnyKeyboard.AnyKey findKey(int codeToFind) {
+    @Nullable protected AnyKeyboard.AnyKey findKey(int codeToFind) {
         final int index = findKeyIndex(codeToFind);
         if (index == -1) {
             return null;

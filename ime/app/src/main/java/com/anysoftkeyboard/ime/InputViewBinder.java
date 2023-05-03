@@ -12,8 +12,7 @@ public interface InputViewBinder extends InputViewActionsProvider, ThemeableChil
     /**
      * Returns the {@link KeyboardDimens} describing the UI for the current keyboard view and theme.
      */
-    @NonNull
-    KeyboardDimens getThemedKeyboardDimens();
+    @NonNull KeyboardDimens getThemedKeyboardDimens();
 
     /** Called when the View is no longer needed, and can release any resources it has. */
     void onViewNotRequired();

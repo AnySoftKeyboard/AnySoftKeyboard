@@ -110,7 +110,8 @@ public class RxSharedPrefs {
                 } catch (Exception e) {
                     Logger.w(
                             TAG,
-                            "Failed to parse vibrate_on_key_press_duration prefs value. Going with default value");
+                            "Failed to parse vibrate_on_key_press_duration prefs value. Going with"
+                                    + " default value");
                 }
             }
         }
@@ -274,8 +275,7 @@ public class RxSharedPrefs {
             mSharedPreferences = sharedPreferences;
         }
 
-        @Nullable
-        private static String getTypeOf(Object value) {
+        @Nullable private static String getTypeOf(Object value) {
             if (value == null) return null;
 
             if (value instanceof Integer) return "int";

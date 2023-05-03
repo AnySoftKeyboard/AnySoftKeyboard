@@ -8,3 +8,7 @@ dependencies {
 
     testImplementation project(path: ':ime:base-test')
 }
+
+android {
+    namespace 'com.anysoftkeyboard.overlay'
+}

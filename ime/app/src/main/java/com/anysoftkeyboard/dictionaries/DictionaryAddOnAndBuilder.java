@@ -133,8 +133,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         }
     }
 
-    @Nullable
-    public AutoText createAutoText() {
+    @Nullable public AutoText createAutoText() {
         if (mAutoTextResId == INVALID_RES_ID) {
             return null;
         } else {
@@ -147,8 +146,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         }
     }
 
-    @NonNull
-    public List<String> createInitialSuggestions() {
+    @NonNull public List<String> createInitialSuggestions() {
         if (mInitialSuggestionsResId == INVALID_RES_ID) {
             return Collections.emptyList();
         } else {

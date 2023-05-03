@@ -285,8 +285,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
             @NonNull AnyKeyboard currentAlphabetKeyboard) {
         if (mGestureTypingEnabled && !mDetectorReady) {
@@ -470,8 +469,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         return false;
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected List<Drawable> generateWatermark() {
         final List<Drawable> watermark = super.generateWatermark();
         if (mGestureTypingEnabled) {

@@ -24,8 +24,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 
 public abstract class ChewbaccaUtils {
-    @NonNull
-    public static String getSysInfo(@NonNull Context context) {
+    @NonNull public static String getSysInfo(@NonNull Context context) {
         StringBuilder sb = new StringBuilder();
         sb.append("BRAND:").append(Build.BRAND).append(NEW_LINE);
         sb.append("DEVICE:").append(Build.DEVICE).append(NEW_LINE);

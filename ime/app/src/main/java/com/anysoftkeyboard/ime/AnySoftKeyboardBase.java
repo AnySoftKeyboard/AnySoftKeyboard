@@ -70,8 +70,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     protected final ModifierKeyState mControlKeyState =
             new ModifierKeyState(false /*does not support locked state*/);
 
-    @NonNull
-    protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
+    @NonNull protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
 
     @Override
     @CallSuper
@@ -105,13 +104,11 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
-    @Nullable
-    public final InputViewBinder getInputView() {
+    @Nullable public final InputViewBinder getInputView() {
         return mInputView;
     }
 
-    @Nullable
-    public KeyboardViewContainerView getInputViewContainer() {
+    @Nullable public KeyboardViewContainerView getInputViewContainer() {
         return mInputViewContainer;
     }
 
@@ -230,8 +227,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     }
 
     @CallSuper
-    @NonNull
-    protected List<Drawable> generateWatermark() {
+    @NonNull protected List<Drawable> generateWatermark() {
         return ((AnyApplication) getApplication()).getInitialWatermarksList();
     }
 
@@ -285,8 +281,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
 
     protected abstract boolean isSelectionUpdateDelayed();
 
-    @Nullable
-    protected ExtractedText getExtractedText() {
+    @Nullable protected ExtractedText getExtractedText() {
         final InputConnection connection = getCurrentInputConnection();
         if (connection == null) {
             return null;

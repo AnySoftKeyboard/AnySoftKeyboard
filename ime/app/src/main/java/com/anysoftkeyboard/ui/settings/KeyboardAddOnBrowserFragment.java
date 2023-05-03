@@ -43,14 +43,12 @@ public class KeyboardAddOnBrowserFragment
                         | ItemTouchHelper.RIGHT);
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected AddOnsFactory<KeyboardAddOnAndBuilder> getAddOnFactory() {
         return AnyApplication.getKeyboardFactory(getContext());
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     protected String getMarketSearchKeyword() {
         return "language";
     }

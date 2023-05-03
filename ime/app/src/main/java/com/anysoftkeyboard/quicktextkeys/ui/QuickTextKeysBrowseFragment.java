@@ -49,8 +49,7 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
         mGenderTracker.dispose();
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     protected AddOnsFactory<QuickTextKey> getAddOnFactory() {
         return AnyApplication.getQuickTextKeyFactory(requireContext());
     }
@@ -117,8 +116,7 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
         }
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     protected String getMarketSearchKeyword() {
         return "quick key";
     }

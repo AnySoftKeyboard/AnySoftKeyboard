@@ -97,7 +97,8 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
         if (layoutResId == AddOn.INVALID_RES_ID) {
             Logger.e(
                     TAG,
-                    "External Keyboard does not include all mandatory details! Will not create keyboard.");
+                    "External Keyboard does not include all mandatory details! Will not create"
+                            + " keyboard.");
             return null;
         } else {
             if (BuildConfig.DEBUG) {

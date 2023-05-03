@@ -31,8 +31,7 @@ public abstract class RobolectricFragmentTestCase<F extends Fragment>
         return getCurrentFragmentFromActivity(getActivityController().get());
     }
 
-    @NonNull
-    public static Fragment getCurrentFragmentFromActivity(@NonNull FragmentActivity activity) {
+    @NonNull public static Fragment getCurrentFragmentFromActivity(@NonNull FragmentActivity activity) {
         NavHostFragment navHostFragment =
                 (NavHostFragment)
                         activity.getSupportFragmentManager()

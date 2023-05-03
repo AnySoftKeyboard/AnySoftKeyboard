@@ -101,7 +101,8 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 && editorInfo.fieldId != 0) {
             Logger.d(
                     TAG,
-                    "Already used physical keyboard on this input-field. Will not show keyboard view.");
+                    "Already used physical keyboard on this input-field. Will not show keyboard"
+                            + " view.");
             previouslyPhysicalKeyboardInput = true;
         } else {
             previouslyPhysicalKeyboardInput = false;

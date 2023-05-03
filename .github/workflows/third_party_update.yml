@@ -25,14 +25,14 @@ env:
 jobs:
   sanity-test:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.17.0
+    container: ghcr.io/menny/android_base:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
       - name: verify-greps
         run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
   gradle-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -68,7 +68,7 @@ jobs:
           labels: automerge
   general-maven-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -94,7 +94,7 @@ jobs:
           labels: automerge
   robolectric-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -141,7 +141,7 @@ jobs:
           labels: automerge
   build-tools-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -175,7 +175,7 @@ jobs:
           labels: automerge
   error-prone-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -230,28 +230,25 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/error-prone-update'
           labels: automerge
-  google-format-update:
+
+  spotless-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.17.0
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-google-format-plugin
+      - name: update-to-latest-spotless-plugin
         run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/sherter/google-java-format-gradle-plugin/releases \
-            | jq -c -r '.[] | .tag_name' \
-            | grep -o "${GREP_VERSION_CLASSES}" \
-            | uniq \
-            | head -n 1)
+          LATEST_VERSION=$(./scripts/get_latest_maven_artifact_version.sh "https://plugins.gradle.org/m2" "com.diffplug.spotless" "spotless-plugin-gradle")
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${GREP_VERSION_CLASSES}'/'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:${LATEST_VERSION}'/g" \
+          sed "s/'com.diffplug.spotless:spotless-plugin-gradle:${GREP_VERSION_CLASSES}'/'com.diffplug.spotless:spotless-plugin-gradle:${LATEST_VERSION}'/g" \
             build.gradle > /tmp/output.file
           cp /tmp/output.file build.gradle
           cat build.gradle
-      - name: update-to-latest-google-format-tool
+      - name: update-to-latest-google-format-tool-tool
         run: |
           LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/google-java-format/releases \
             | jq -c -r '.[] | .tag_name' \
@@ -259,25 +256,29 @@ jobs:
             | uniq \
             | head -n 1)
           echo "Found version '${LATEST_VERSION}'."
-          sed "s/toolVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/toolVersion = '${LATEST_VERSION}'/g" \
-            build.gradle > /tmp/output.file
-          cp /tmp/output.file build.gradle
-          cat build.gradle
+          sed "s/googleJavaFormat('${GREP_VERSION_CLASSES}')/googleJavaFormat('${LATEST_VERSION}')/g" \
+            gradle/spotless.gradle > /tmp/output.file
+          cp /tmp/output.file gradle/spotless.gradle
+          cat gradle/spotless.gradle
+      - name: Fixing what can be fixed
+        run: ./gradlew spotlessApply
       - name: Sanity verification
-        run: ./gradlew googleJavaFormat
-      - name: Add changed formated files
+        run: ./gradlew assembleDebug
+      - name: Add changed files
         run: git add .
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Google-Format Update'
-          title: 'Automated Google-Format Update'
+          commit-message: 'Automated Spotless update and auto-patches if possible'
+          title: 'Automated Spotless Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: >
-            Latest version found at https://github.com/sherter/google-java-format-gradle-plugin/releases and
-            https://github.com/google/google-java-format/releases.'
+            Latest version found at:
+            https://plugins.gradle.org/m2/com/diffplug/spotless/spotless-plugin-gradle/maven-metadata.xml
+            https://github.com/diffplug/spotless
+            https://github.com/google/google-java-format/releases
           team-reviewers: infra, maintainers
-          branch: 'bot-pr/google-format-update'
+          branch: 'bot-pr/spotless-update'
           labels: automerge

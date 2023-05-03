@@ -80,16 +80,19 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             if (oldVersion < 5) {
                 Logger.d(
                         TAG,
-                        "Upgrading WordsSQLiteConnection to version 5: Adding _id column and populating...");
+                        "Upgrading WordsSQLiteConnection to version 5: Adding _id column and"
+                                + " populating...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
                 db.execSQL("UPDATE FALL_BACK_USER_DICTIONARY SET _id=Id;");
             }
             if (oldVersion < 6) {
                 Logger.d(
                         TAG,
-                        "Upgrading WordsSQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
+                        "Upgrading WordsSQLiteConnection to version 6: Matching schema with"
+                                + " Android's User-Dictionary table...");
                 db.execSQL(
-                        "ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
+                        "ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO"
+                                + " tmp_FALL_BACK_USER_DICTIONARY;");
 
                 db.execSQL(
                         "CREATE TABLE FALL_BACK_USER_DICTIONARY ("
@@ -97,7 +100,8 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
                                 + "frequency INTEGER,locale TEXT);");
 
                 db.execSQL(
-                        "INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
+                        "INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT"
+                                + " _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
 
                 db.execSQL("DROP TABLE tmp_FALL_BACK_USER_DICTIONARY;");
             }

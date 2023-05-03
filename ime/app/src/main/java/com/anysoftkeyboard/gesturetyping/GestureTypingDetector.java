@@ -71,8 +71,7 @@ public class GestureTypingDetector {
         mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
     }
 
-    @NonNull
-    public Observable<LoadingState> state() {
+    @NonNull public Observable<LoadingState> state() {
         return mGenerateStateSubject;
     }
 
@@ -356,7 +355,8 @@ public class GestureTypingDetector {
         if (actualUserPath.length < 2 || generatedWordPath.length == 0) {
             Logger.w(
                     TAG,
-                    "calculateDistanceBetweenUserPathAndWord: actualUserPath = \"%s\", generatedWordPath = \"%s\"",
+                    "calculateDistanceBetweenUserPathAndWord: actualUserPath = \"%s\","
+                            + " generatedWordPath = \"%s\"",
                     actualUserPath,
                     generatedWordPath);
             Logger.w(TAG, "Some strings are too short; will return maximum distance.");

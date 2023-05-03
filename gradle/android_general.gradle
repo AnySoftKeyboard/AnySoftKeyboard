@@ -1,8 +1,14 @@
 
 apply from: "${rootDir}/gradle/errorprone.gradle"
 apply from: "${rootDir}/gradle/checkstyle.gradle"
+apply from: "${rootDir}/gradle/spotless.gradle"
 
 android {
+    lint {
+        checkDependencies true
+        lintConfig file("$rootDir/config/lint.xml")
+    }
+
     packagingOptions {
         resources {
             excludes += [
@@ -23,15 +29,10 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
-    lintOptions {
-        // will ensure resources are verified for usage
-        checkDependencies true
-        lintConfig file("${rootDir}/config/lint.xml")
-    }
 
     androidResources {
         noCompress ''

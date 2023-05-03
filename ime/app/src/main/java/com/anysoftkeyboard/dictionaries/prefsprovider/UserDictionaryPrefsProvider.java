@@ -87,7 +87,8 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
                                                 if (!userDictionary.addWord(
                                                         word.first, word.second)) {
                                                     throw new RuntimeException(
-                                                            "Failed to add word to dictionary. Word: "
+                                                            "Failed to add word to dictionary."
+                                                                    + " Word: "
                                                                     + word.first
                                                                     + ", dictionary is closed? "
                                                                     + userDictionary.isClosed());

@@ -33,8 +33,7 @@ public class DrawableBuilder {
         mDrawableResourceId = drawableResId;
     }
 
-    @Nullable
-    public Drawable buildDrawable() {
+    @Nullable public Drawable buildDrawable() {
         if (mDrawable != null) return mDrawable;
         final Context packageContext = mTheme.getPackageContext();
         if (packageContext == null) return null;

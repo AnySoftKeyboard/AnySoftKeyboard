@@ -107,8 +107,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         getSuggest().setTagsSearcher(mTagsExtractor);
     }
 
-    @Nullable
-    protected TagsExtractor getQuickTextTagsSearcher() {
+    @Nullable protected TagsExtractor getQuickTextTagsSearcher() {
         return mTagsExtractor;
     }
 
@@ -266,8 +265,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
             return false;
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public Iterator<CharSequence> iterator() {
             return new Iterator<>() {
                 private int mCurrentIndex = 0;
@@ -339,13 +337,11 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
-        @NonNull
-        public ListIterator<CharSequence> listIterator() {
+        @NonNull public ListIterator<CharSequence> listIterator() {
             throw new UnsupportedOperationException();
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public ListIterator<CharSequence> listIterator(int location) {
             throw new UnsupportedOperationException();
         }
@@ -375,14 +371,12 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
             throw new UnsupportedOperationException();
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public List<CharSequence> subList(int start, int end) {
             throw new UnsupportedOperationException();
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public Object[] toArray() {
             Object[] items = new Object[size()];
             items[0] = mTypedTag;
@@ -393,8 +387,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
             return items;
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public <T> T[] toArray(@NonNull T[] array) {
             throw new UnsupportedOperationException();
         }

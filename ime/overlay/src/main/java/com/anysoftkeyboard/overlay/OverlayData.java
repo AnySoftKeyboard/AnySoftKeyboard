@@ -80,7 +80,8 @@ public class OverlayData {
     public String toString() {
         return String.format(
                 Locale.US,
-                "Overlay primary-color %s, dark-primary-color %s, primary text color %s, secondary text color %s (is valid %b)",
+                "Overlay primary-color %s, dark-primary-color %s, primary text color %s, secondary"
+                        + " text color %s (is valid %b)",
                 Integer.toHexString(getPrimaryColor()),
                 Integer.toHexString(getPrimaryDarkColor()),
                 Integer.toHexString(getPrimaryTextColor()),

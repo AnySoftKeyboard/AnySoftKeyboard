@@ -127,8 +127,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
     }
 
-    @Nullable
-    protected static CharSequence getTextFromResourceOrText(
+    @Nullable protected static CharSequence getTextFromResourceOrText(
             Context context, AttributeSet attrs, String attributeName) {
         final int stringResId =
                 attrs.getAttributeResourceValue(null, attributeName, AddOn.INVALID_RES_ID);
@@ -466,8 +465,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return addOns;
     }
 
-    @Nullable
-    private E createAddOnFromXmlAttributes(AttributeSet attrs, Context packContext) {
+    @Nullable private E createAddOnFromXmlAttributes(AttributeSet attrs, Context packContext) {
         final CharSequence prefId =
                 getTextFromResourceOrText(packContext, attrs, XML_PREF_ID_ATTRIBUTE);
         final CharSequence name =
@@ -477,7 +475,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 && attrs.getAttributeBooleanValue(null, XML_DEV_ADD_ON_ATTRIBUTE, false)) {
             Logger.w(
                     mTag,
-                    "Discarding add-on %s (name %s) since it is marked as DEV addon, and we're not a TESTING_BUILD build.",
+                    "Discarding add-on %s (name %s) since it is marked as DEV addon, and we're not"
+                            + " a TESTING_BUILD build.",
                     prefId,
                     name);
             return null;
@@ -495,7 +494,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
         if (TextUtils.isEmpty(prefId) || TextUtils.isEmpty(name)) {
             Logger.e(
                     mTag,
-                    "External add-on does not include all mandatory details! Will not create add-on.");
+                    "External add-on does not include all mandatory details! Will not create"
+                            + " add-on.");
             return null;
         } else {
             Logger.d(mTag, "External addon details: prefId:" + prefId + " name:" + name);

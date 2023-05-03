@@ -145,15 +145,13 @@ public class WordsSplitter {
             mRowsCount = 0;
         }
 
-        @NonNull
-        public ResultRow addRow() {
+        @NonNull public ResultRow addRow() {
             ResultRow row = mPossibilities[mRowsCount++];
             row.reset();
             return row;
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public Iterator<Iterable<KeyCodesProvider>> iterator() {
             mCurrentRowIndex = 0;
             return this;
@@ -186,8 +184,7 @@ public class WordsSplitter {
             mSubWords[mSubWordsCount++] = provider;
         }
 
-        @NonNull
-        @Override
+        @NonNull @Override
         public Iterator<KeyCodesProvider> iterator() {
             mCurrentSubWordIndex = 0;
             return this;

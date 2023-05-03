@@ -11,3 +11,7 @@ dependencies {
     api 'com.github.karczews:rx2-broadcast-receiver:1.0.6'
     api 'app.cash.copper:copper-rx2:1.0.0'
 }
+
+android {
+    namespace 'com.anysoftkeyboard.rx'
+}

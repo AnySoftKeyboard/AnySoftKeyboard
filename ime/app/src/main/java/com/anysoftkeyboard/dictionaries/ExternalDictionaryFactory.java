@@ -144,7 +144,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
                 || ((assets == null) && (dictionaryResourceId == AddOn.INVALID_RES_ID))) {
             Logger.e(
                     TAG,
-                    "External dictionary does not include all mandatory details! Will not create dictionary.");
+                    "External dictionary does not include all mandatory details! Will not create"
+                            + " dictionary.");
             return null;
         } else {
             final DictionaryAddOnAndBuilder creator;
@@ -182,8 +183,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         }
     }
 
-    @NonNull
-    public List<DictionaryAddOnAndBuilder> getBuildersForKeyboard(AnyKeyboard keyboard) {
+    @NonNull public List<DictionaryAddOnAndBuilder> getBuildersForKeyboard(AnyKeyboard keyboard) {
         List<DictionaryAddOnAndBuilder> builders = new ArrayList<>();
         final String dictionaryValue =
                 mSharedPreferences.getString(getDictionaryOverrideKey(keyboard), null);
@@ -222,8 +222,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         editor.apply();
     }
 
-    @NonNull
-    public static Iterable<String> getLocalesFromDictionaryAddOns(@NonNull Context context) {
+    @NonNull public static Iterable<String> getLocalesFromDictionaryAddOns(@NonNull Context context) {
         return Observable.fromIterable(
                         AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
                 .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))

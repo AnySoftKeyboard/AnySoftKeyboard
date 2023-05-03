@@ -112,7 +112,8 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
             throw new RuntimeException(
                     String.format(
                             Locale.US,
-                            "Missing details for creating Extension Keyboard! prefId %s keyboardResId: %d, type: %d",
+                            "Missing details for creating Extension Keyboard! prefId %s"
+                                    + " keyboardResId: %d, type: %d",
                             prefId,
                             keyboardResId,
                             extensionType));

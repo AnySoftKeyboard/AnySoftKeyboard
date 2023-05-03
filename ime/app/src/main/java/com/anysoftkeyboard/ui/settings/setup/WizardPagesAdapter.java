@@ -32,8 +32,7 @@ class WizardPagesAdapter extends FragmentStateAdapter {
         mFragments = Collections.unmodifiableList(fragments);
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public Fragment createFragment(int position) {
         return mFragments.get(position).get();
     }

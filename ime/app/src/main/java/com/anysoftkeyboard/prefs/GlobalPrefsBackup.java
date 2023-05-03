@@ -91,8 +91,7 @@ public class GlobalPrefsBackup {
         return Boolean.TRUE;
     }
 
-    @NonNull
-    public static Observable<ProviderDetails> backup(
+    @NonNull public static Observable<ProviderDetails> backup(
             Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
             @NonNull OutputStream outputFile) {
         return doIt(
@@ -106,8 +105,7 @@ public class GlobalPrefsBackup {
                 });
     }
 
-    @NonNull
-    public static Observable<ProviderDetails> restore(
+    @NonNull public static Observable<ProviderDetails> restore(
             Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
             @NonNull InputStream inputFile) {
         return doIt(
@@ -123,8 +121,7 @@ public class GlobalPrefsBackup {
                 });
     }
 
-    @NonNull
-    public static Observable<ProviderDetails> doIt(
+    @NonNull public static Observable<ProviderDetails> doIt(
             Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
             Function<PrefsXmlStorage, PrefsRoot> prefsRootFactory,
             BiConsumer<PrefsProvider, PrefsRoot> providerAction,

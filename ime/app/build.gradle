@@ -46,6 +46,9 @@ android {
 
 //adding TESTING_BUILD
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             buildConfigField("boolean", "TESTING_BUILD", "false")
@@ -88,6 +91,7 @@ android {
         it.java.srcDirs += 'src/debug/java'
         it.res.srcDirs += 'src/debug/res'
     }
+    namespace 'com.menny.android.anysoftkeyboard'
 }
 
 dependencies {

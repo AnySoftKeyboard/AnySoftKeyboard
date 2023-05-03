@@ -70,8 +70,7 @@ import java.util.List;
         }
     }
 
-    @Nullable
-    private String getLastSelectedAddOnId() {
+    @Nullable private String getLastSelectedAddOnId() {
         return mSharedPreferences.getString(KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID, "");
     }
 

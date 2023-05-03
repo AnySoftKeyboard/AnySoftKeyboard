@@ -16,10 +16,8 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.os.Vibrator;
 
-@TargetApi(1)
 public class PressVibratorV1 extends PressVibrator {
     protected int mDuration;
     protected int mLongPressDuration;

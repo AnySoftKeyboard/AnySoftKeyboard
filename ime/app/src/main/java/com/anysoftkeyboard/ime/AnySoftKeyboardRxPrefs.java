@@ -130,8 +130,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                                 GenericOnError.onError("settings_key_long_press_timeout")));
     }
 
-    @NonNull
-    protected RxSharedPrefs prefs() {
+    @NonNull protected RxSharedPrefs prefs() {
         return mRxPrefs;
     }
 

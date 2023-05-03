@@ -68,7 +68,8 @@ public class HardKeyboardSequenceHandler {
         if (msQwerty.length != targetCharacters.length()) {
             if (BuildConfig.DEBUG) {
                 throw new InvalidParameterException(
-                        "'targetCharacters' should be the same length as the latin QWERTY keys strings. QWERTY is "
+                        "'targetCharacters' should be the same length as the latin QWERTY keys"
+                                + " strings. QWERTY is "
                                 + msQwerty.length
                                 + ", while targetCharacters is "
                                 + targetCharacters.length()
@@ -77,7 +78,8 @@ public class HardKeyboardSequenceHandler {
             } else {
                 Logger.w(
                         "HardKeyboardSequenceHandler",
-                        "'targetCharacters' should be the same length as the latin QWERTY keys strings. QWERTY is %d, while targetCharacters is %d.",
+                        "'targetCharacters' should be the same length as the latin QWERTY keys"
+                                + " strings. QWERTY is %d, while targetCharacters is %d.",
                         msQwerty.length,
                         targetCharacters.length());
                 return;

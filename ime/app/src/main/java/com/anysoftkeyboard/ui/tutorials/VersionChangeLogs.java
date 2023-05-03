@@ -94,7 +94,8 @@ public class VersionChangeLogs {
                         "Power Saving mode tweaks.",
                         "Updated build-tools (smaller binary now).",
                         "Halmak layout for English.",
-                        "Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, IW (HE), KMR, KU, NB, PT, SC, SK, TR."));
+                        "Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, IW (HE),"
+                                + " KMR, KU, NB, PT, SC, SK, TR."));
 
         log.add(
                 new VersionChangeLog(
@@ -103,8 +104,10 @@ public class VersionChangeLogs {
                         "r6",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88"),
-                        "➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.",
-                        "Honoring IME_FLAG_NO_PERSONALIZED_LEARNING and PASSWORD as Incognito - if an app ask us not to remember stuff, we'll do it.",
+                        "➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if"
+                                + " you want to try it out.",
+                        "Honoring IME_FLAG_NO_PERSONALIZED_LEARNING and PASSWORD as Incognito - if"
+                                + " an app ask us not to remember stuff, we'll do it.",
                         "Updated localization: BE, CKB, EU, FR, IT, NB, SC."));
 
         log.add(
@@ -114,10 +117,14 @@ public class VersionChangeLogs {
                         "r5",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87"),
-                        "Power-Saving mode improvements - you can pick which features to include in Power-Saving.",
-                        "Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.",
-                        "New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.",
-                        "Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK."));
+                        "Power-Saving mode improvements - you can pick which features to include in"
+                                + " Power-Saving.",
+                        "Also, we allow switching to dark, simple theme in Power-Saving mode. But"
+                                + " this is optional.",
+                        "New Workman layout, Terminal generic-top-row and long-press fixes. Done by"
+                                + " Alex Griffin.",
+                        "Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT,"
+                                + " RO, RU, SC, UK."));
 
         log.add(
                 new VersionChangeLog(
@@ -126,7 +133,8 @@ public class VersionChangeLogs {
                         "r4",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86"),
-                        "Power-Saving mode - when battery is low, we will not do animations or dictionary look ups.",
+                        "Power-Saving mode - when battery is low, we will not do animations or"
+                                + " dictionary look ups.",
                         "A few UI/UX changes.",
                         "A few bug fixes.",
                         "Updated localization: CA, IT, RO."));
@@ -138,7 +146,8 @@ public class VersionChangeLogs {
                         "r3",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/85"),
-                        "You can now set the default skin-tone for emojis #expressYourself. Android 7+.",
+                        "You can now set the default skin-tone for emojis #expressYourself. Android"
+                                + " 7+.",
                         "Clipboard is now synced with outside changes. Long-press PASTE for list.",
                         "Various bug fixes.",
                         "Updated localization: BE, CA, EU, LT, NB, RU, SC, TR, UK."));
@@ -150,11 +159,13 @@ public class VersionChangeLogs {
                         "r2",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84"),
-                        "Completely rewrote backup and restore mechanism. Now you can backup words, abbr, next-word and all-app settings.",
+                        "Completely rewrote backup and restore mechanism. Now you can backup words,"
+                                + " abbr, next-word and all-app settings.",
                         "New Kaomoji emoji group.",
                         "Pressing shift will change caps of selected text.",
                         "A few bug fixes.",
-                        "Updated localization: AR, BE, BG, DU, EU, FI, FIL, FR, HU, KA, KMR, KU, LT, NB, PT-rBR, RU, SC, TR, UK."));
+                        "Updated localization: AR, BE, BG, DU, EU, FI, FIL, FR, HU, KA, KMR, KU,"
+                                + " LT, NB, PT-rBR, RU, SC, TR, UK."));
 
         log.add(
                 new VersionChangeLog(
@@ -166,7 +177,8 @@ public class VersionChangeLogs {
                         "New Settings UI bottom navigation.",
                         "Also, new Setup Wizard UI.",
                         "And many new settings all around.",
-                        "Localization update: AR, BE, pt-rBR, ES, EU, FR, FIL, HU, KU, LT, MY, SC, TR, RU, UK.",
+                        "Localization update: AR, BE, pt-rBR, ES, EU, FR, FIL, HU, KU, LT, MY, SC,"
+                                + " TR, RU, UK.",
                         "YABTU and also will only work with Android 2.2 \uD83C\uDF6A or newer."));
 
         log.add(
@@ -190,9 +202,12 @@ public class VersionChangeLogs {
                         "r11",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/81"),
-                        "All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.",
-                        "Now you can use multiple dictionaries on a given keyboard. Long-press ENTER for options.",
-                        "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.",
+                        "All languages are equal! You can now reorder keyboards. In keyboard"
+                                + " selection page - long press an enabled keyboard and drag it.",
+                        "Now you can use multiple dictionaries on a given keyboard. Long-press"
+                                + " ENTER for options.",
+                        "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact"
+                                + " English.",
                         "New theme by Algimantas",
                         "YABTU",
                         "Localization update: too many to mention."));
@@ -217,7 +232,8 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9"),
                         "New Initial Setup Wizard. For clearer activation.",
-                        "Seems like we did not include words with accents in suggestions. We do now!",
+                        "Seems like we did not include words with accents in suggestions. We do"
+                                + " now!",
                         "Better Emoji-Search experience. Type a : to start searching.",
                         "Yet more bugs squashed.",
                         "Localization update: BE, NL, FR, SL, DE, NO, EU."));
@@ -250,11 +266,13 @@ public class VersionChangeLogs {
                         "r7",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r7"),
-                        "Language key will now show only if you actually have more than one layout enabled.",
+                        "Language key will now show only if you actually have more than one layout"
+                                + " enabled.",
                         "For Android 7.1 - you now have Launcher shortcuts.",
                         "A few changes to the dictionary loading mechanism.",
                         "Some bug fixes.",
-                        "Emojis are no longer popups, but their own keyboard. Plus, long press to get various skin tones (if available).",
+                        "Emojis are no longer popups, but their own keyboard. Plus, long press to"
+                                + " get various skin tones (if available).",
                         "YABTU",
                         "Localization update: BE, UK, FR, TR, and SL."));
 
@@ -278,11 +296,15 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r5"),
                         "Many bug fixes",
-                        "Now you can \uD83D\uDD0D for emojis! Just start your search with a colon, like this - ':magnifying",
+                        "Now you can \uD83D\uDD0D for emojis! Just start your search with a colon,"
+                                + " like this - ':magnifying",
                         "Long-press an emoji to find out its assigned tags.",
-                        "A massive rewrite of long-press interactions. I hope I didn't break anything (major).",
-                        "When in a password field, numbers will show up at the top of the keyboard, because strong passwords and such.",
-                        "Also, pressing SHIFT, will switch the numbers-row to symbols, because strong passwords and such.",
+                        "A massive rewrite of long-press interactions. I hope I didn't break"
+                                + " anything (major).",
+                        "When in a password field, numbers will show up at the top of the keyboard,"
+                                + " because strong passwords and such.",
+                        "Also, pressing SHIFT, will switch the numbers-row to symbols, because"
+                                + " strong passwords and such.",
                         "YABTU.",
                         "Localization update: KN, KU, PT-BR."));
 
@@ -296,7 +318,8 @@ public class VersionChangeLogs {
                         "Updated Emoticon emoji listing - presentation is everything \uD83D\uDE0E!",
                         "Also, flags \uD83C\uDFC1 were also added to the emoji list.",
                         "Merged People and Gestures, and added a bunch \uD83D\uDE4B.",
-                        "Unfortunately - to make sure emojis are full supported - it is only available for Android 6.0 devices \uD83D\uDE22."));
+                        "Unfortunately - to make sure emojis are full supported - it is only"
+                                + " available for Android 6.0 devices \uD83D\uDE22."));
 
         log.add(
                 new VersionChangeLog(
@@ -394,7 +417,9 @@ public class VersionChangeLogs {
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r3"),
                         "Even more bugs crashed!",
-                        "The utility box (swipe up from space-bar) now has SELECT-ALL key. Pro tip: long-press that key and then use left&right arrows to precisely select characters.",
+                        "The utility box (swipe up from space-bar) now has SELECT-ALL key. Pro tip:"
+                                + " long-press that key and then use left&right arrows to precisely"
+                                + " select characters.",
                         "Talking about space-bar. Try double-spacing.",
                         "And, yes, YABTU.",
                         "Localization update: LT (100% complete!), KU."));
@@ -417,9 +442,11 @@ public class VersionChangeLogs {
                         "r1",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r1"),
-                        "Marshmallow Permissions support - now we can annoy you with even more dialogs!",
+                        "Marshmallow Permissions support - now we can annoy you with even more"
+                                + " dialogs!",
                         "Bugs squashing all around. Thanks for the reports!",
-                        "Localization update: DE, SL, FR, PT. And awesome note: German, Slovenian and French have been completely translated!",
+                        "Localization update: DE, SL, FR, PT. And awesome note: German, Slovenian"
+                                + " and French have been completely translated!",
                         "YABTU"));
 
         log.add(
@@ -429,9 +456,12 @@ public class VersionChangeLogs {
                         "",
                         Uri.parse(
                                 "https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7"),
-                        "Printing-out speed ups. This is very helpful to you 150-words-a-minute wizards.",
-                        "Physical-Keyboard interaction enhancements. This has Wife-Seal-of-Approval stamp on it.",
-                        "Automatically switch to previously used layout in an App. Probably good for multilingual users.",
+                        "Printing-out speed ups. This is very helpful to you 150-words-a-minute"
+                                + " wizards.",
+                        "Physical-Keyboard interaction enhancements. This has Wife-Seal-of-Approval"
+                                + " stamp on it.",
+                        "Automatically switch to previously used layout in an App. Probably good"
+                                + " for multilingual users.",
                         "And, fixed a few bugs (probably also introduced a few...)",
                         "Localization update: PL, CA, MY, UK, DE, FR, SL.",
                         "YABTU"));

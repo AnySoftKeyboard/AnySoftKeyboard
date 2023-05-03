@@ -91,7 +91,8 @@ public class KeyboardCondenser {
             // we have condensed before
             if (stashedKeySizes.size() != keys.size()) {
                 throw new IllegalStateException(
-                        "The size of the stashed keys and the actual keyboard keys is not the same!");
+                        "The size of the stashed keys and the actual keyboard keys is not the"
+                                + " same!");
             }
             for (int i = 0; i < stashedKeySizes.size(); i++) {
                 Keyboard.Key k = keys.get(i);

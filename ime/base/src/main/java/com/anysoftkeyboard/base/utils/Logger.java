@@ -58,8 +58,7 @@ public class Logger {
         addLog(level, tag, getStackTrace(t));
     }
 
-    @NonNull
-    public static synchronized ArrayList<String> getAllLogLinesList() {
+    @NonNull public static synchronized ArrayList<String> getAllLogLinesList() {
         ArrayList<String> lines = new ArrayList<>(msLogs.length);
         if (msLogs.length > 0) {
             int index = msLogIndex;
@@ -74,8 +73,7 @@ public class Logger {
         return lines;
     }
 
-    @NonNull
-    public static synchronized String getAllLogLines() {
+    @NonNull public static synchronized String getAllLogLines() {
         ArrayList<String> lines = getAllLogLinesList();
         // now to build the string
         StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
