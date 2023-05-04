@@ -489,7 +489,7 @@ public class TestInputConnection extends BaseInputConnection {
       if (isUp) {
         var clipboard = (ClipboardManager) mIme.getSystemService(Context.CLIPBOARD_SERVICE);
         var primaryClip = clipboard.getPrimaryClip();
-        if (primaryClip.getItemCount() > 0) {
+        if (primaryClip != null && primaryClip.getItemCount() > 0) {
           var clipboardText = primaryClip.getItemAt(0).coerceToStyledText(mIme);
           commitTextAs(clipboardText, false, 1);
         }
