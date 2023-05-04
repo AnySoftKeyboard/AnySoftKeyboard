@@ -3,7 +3,7 @@
 Thank you for the fine contributors:
 
 1. [menny](https://github.com/menny) (6.0k)
-1. [🤖 anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.3k)
+1. [🤖 anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.4k)
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
@@ -38,6 +38,7 @@ Thank you for the fine contributors:
 1. [PanderMusubi](https://github.com/PanderMusubi) (5)
 1. [ajgrf](https://github.com/ajgrf) (5)
 1. [antonok-edm](https://github.com/antonok-edm) (5)
+1. [drew-sinha](https://github.com/drew-sinha) (5)
 1. [jakubfabijan](https://github.com/jakubfabijan) (5)
 1. [lulucca12](https://github.com/lulucca12) (5)
 1. [maximbaz](https://github.com/maximbaz) (5)
@@ -98,7 +99,6 @@ Thank you for the fine contributors:
 1. [dmlls](https://github.com/dmlls) (1)
 1. [eyedol](https://github.com/eyedol) (1)
 1. [grimreaper](https://github.com/grimreaper) (1)
-1. [huntermonk](https://github.com/huntermonk) (1)
 1. [katyasyc](https://github.com/katyasyc) (1)
 1. [lumpidu](https://github.com/lumpidu) (1)
 1. [nvllsvm](https://github.com/nvllsvm) (1)
