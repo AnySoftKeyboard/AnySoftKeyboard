@@ -45,7 +45,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-ime-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
 
 #### AddOns
-* Every commit to _main_ branch will [deploy](.github/workflows/checks.yml) all addons to closed-testing _ALPHA_ channel in Google Play-Store. If you want to subscribe to this channel, open a (ticket)[https://github.com/AnySoftKeyboard/AnySoftKeyboard/discussions/3391] and asking to join.
+* Every commit to _main_ branch will [deploy](.github/workflows/checks.yml) all addons to closed-testing _ALPHA_ channel in Google Play-Store. If you want to subscribe to this channel, open a [ticket](https://github.com/AnySoftKeyboard/AnySoftKeyboard/discussions/3391) and asking to join.
 * Every Wednesday the latest _ALPHA_ will be promoted to _BETA_. This is only for supported packs. The _BETA_ channel is an open-testing group, you can subscribe to this release channel by joining the _BETA_ channel for each [addon](addons/languages/PACKS.md).
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-addons-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store (_STABLE_ channel) and will roll-out users gradually.
 
@@ -70,7 +70,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 
 # Development/Contributing
 Want to develop a new feature, fix a bug, or add new language-pack? Read more [here](CONTRIBUTING.md).
-Contributors should adhere to the (Code-of-Conduct)[CODE_OF_CONDUCT.md] document.
+Contributors should adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) document.
 
 ## Copyright requirement
 *Remember:* the components in this repository are released under the Apache2 license. By contributing to this repository you give all copyright and distribution rights to the [AnySoftKeyboard maintainer](https://github.com/menny).
