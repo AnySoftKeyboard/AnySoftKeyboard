@@ -13,6 +13,7 @@ env:
 jobs:
   contributors-md-update:
     runs-on: ubuntu-22.04
+    container: ghcr.io/menny/android_base:1.19.0
     steps:
       - uses: actions/checkout@v3.2.0
         with:
