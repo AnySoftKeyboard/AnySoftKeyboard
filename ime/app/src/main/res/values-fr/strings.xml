@@ -338,6 +338,8 @@
     <string name="quick_fix_secon_disabled_summ_on">Les solutions rapides et abréviations fonctionneront seulement sur la langue actuelle.</string>
     <string name="quick_fix_secon_disabled_summ_off">Les solutions rapides et abréviations fonctionneront pour chaque langue 
                   cochée en substitution du dictionnaire par défaut.</string>
+    <string name="try_split_words_for_correction">Corriger en coupant le mot saisi</string>
+    <string name="try_split_words_for_correction_summary_on">Couper le mot saisi en devinant la zone manquante</string>
     <string name="allow_suggestions_restart">Relancer les suggestions</string>
     <string name="allow_suggestions_restart_summary">Relancer la suggestion de mots à chaque mouvement du curseur</string>
     <!-- settings - keyboard group -->
@@ -615,6 +617,7 @@
     <string name="setup_wizard_welcome_start_action">Démarrer l\'installation…</string>
     <string name="setup_wizard_welcome_info_footnote">* Bien sûr, AnySoftKeyboard n\'est pas un mouchard. Son code source est disponible pour le vérifier. De plus AnySoftKeyboard n\'a pas les permissions <i>RESEAU</i>, ce qui fait qu\'aucune donnée ne peut être transmise.</string>
     <string name="setup_wizard_welcome_privacy_action">Politique de confidentialité…</string>
+    <string name="setup_wizard_skip">Ignorer</string>
     <string name="clear_all_dictionary_override">Effacer les substitutions</string>
     <string name="theme_case_type_override_dialog_title">Choisir la casse</string>
     <string name="theme_case_type_override_theme">Utiliser la casse du thème</string>
@@ -666,5 +669,6 @@
     <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
     <string name="backup_restore_not_support_before_kitkat">Non pris en charge par cet appareil Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">La sauvegarde et la restauration ne sont pas prises en charge pour les appareils fonctionnant sous Android avant KitKat (version 4.4). Désolé.</string>
-    <string name="delete_all_clipboard_entries">Presse-papiers vide</string>
+    <string name="delete_all_clipboard_entries">Vider le presse-papiers</string>
+    <string name="tip_swipe_from_backspace_to_clear">Astuce : glisser vers la gauche depuis l\'arrière plan pour effacer le mot !</string>
 </resources>
