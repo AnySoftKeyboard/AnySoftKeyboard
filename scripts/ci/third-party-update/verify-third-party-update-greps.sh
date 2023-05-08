@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-GREP_VERSION_CLASSES="$1"
+set -e
+
+source scripts/ci/third-party-update/version_grep_regex.sh
 
 TESTS=0
 PASSED=0
+
 function testRegex {
   local text="$1"
   local expected="$2"
