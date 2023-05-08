@@ -26,7 +26,7 @@
 
     <androidx.preference.CheckBoxPreference
         android:key="Test"
-        android:title="Enable 'T9 dictionary'"
+        android:title="Enable 'T9 suggestions'"
         android:summaryOn="Allows for faster typing on T9-like keyboards"
         android:summaryOff=""
         android:persistent="true"
