@@ -23,6 +23,16 @@
         android:summaryOn="@string/use_user_dictionary_on_summary"
         android:summaryOff="@string/use_user_dictionary_off_summary"
         android:dependency="candidates_on"/>
+
+    <androidx.preference.CheckBoxPreference
+        android:key="Test"
+        android:title="Enable 'T9 dictionary'"
+        android:summaryOn="Allows for faster typing on T9-like keyboards"
+        android:summaryOff=""
+        android:persistent="true"
+        android:defaultValue="false"
+        />
+
     <Preference android:title="@string/user_dict_editor"
         android:key="@string/user_dict_editor_key"
         android:dependency="candidates_on">
