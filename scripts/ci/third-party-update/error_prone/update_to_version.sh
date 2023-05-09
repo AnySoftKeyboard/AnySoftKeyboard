@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-LATEST_VERSIONS=($1)
+IFS=' ' read -r -a LATEST_VERSIONS <<< "$1"
 
 LATEST_VERSION_PLUGIN="${LATEST_VERSIONS[0]}"
 LATEST_VERSION_TOOL="${LATEST_VERSIONS[1]}"
