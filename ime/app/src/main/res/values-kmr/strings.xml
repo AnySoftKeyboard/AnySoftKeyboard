@@ -387,6 +387,8 @@
     <string name="quick_fix_secon_disabled_summ_on">Rastkirin û kurtkirinên bilez dê tenê li ser zimanê rêza heyî bixebitin</string>
     <string name="quick_fix_secon_disabled_summ_off">Kurte ziman û rastkirinên bilez dê li ser her zimanî bixebitin 
                   di ferhenga pêşdarazî ya nederbasbar de hatiye kontrolkirin</string>
+    <string name="try_split_words_for_correction">Bi dabeşkirina peyva tîpkirî rast bike</string>
+    <string name="try_split_words_for_correction_summary_on">Bi texmînkirina CIHÊ wenda peyvan perçe bike.</string>
     <string name="allow_suggestions_restart">Pêşniyar ji nû ve dest pê dikin</string>
     <string name="allow_suggestions_restart_summary">Pêşniyara peyvan a li ser tevgera nîşanek ji nû ve dest pê bike
     </string>

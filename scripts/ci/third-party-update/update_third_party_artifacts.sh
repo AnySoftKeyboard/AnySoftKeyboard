@@ -13,7 +13,8 @@ function do_update() {
   local GROUP_ID="$2"
   local ARTIFACT_ID="$3"
 
-  local LATEST_VERSION=$(./scripts/get_latest_maven_artifact_version.sh ${MAVEN_URL} ${GROUP_ID} ${ARTIFACT_ID})
+  local LATEST_VERSION
+  LATEST_VERSION=$(./scripts/ci/third-party-update/get_latest_maven_artifact_version.sh "${MAVEN_URL}" "${GROUP_ID}" "${ARTIFACT_ID}")
   if [[ -z "$LATEST_VERSION" ]]; then
     echo "Failed to load versions metadata for '${GROUP_ID}:${ARTIFACT_ID}'."
   else

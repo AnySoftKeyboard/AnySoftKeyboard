@@ -50,6 +50,8 @@ jobs:
         run: ./scripts/ci/ci_check.sh
       - name: check-all-yamls
         run: ./scripts/ci/ci_check_yamls.sh
+      - name: verify-version-classes-greps
+        run: ./scripts/ci/third-party-update/verify-third-party-update-greps.sh
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh

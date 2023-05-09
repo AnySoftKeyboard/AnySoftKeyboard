@@ -9,9 +9,7 @@ on:
     branches:
       - main
     paths:
-      - 'scripts/verify-third-party-update-greps.sh'
-      - 'scripts/update_third_party_artifacts.sh'
-      - 'scripts/error-prone-auto-patch.sh'
+      - 'scripts/ci/third-party-update/**/*'
       - '.github/workflows/third_party_update.yml'
 
 env:
@@ -19,53 +17,8 @@ env:
   TMPDIR: "/tmp"
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-  # should support 1.2.3 and 2.3 and 1.2.3-r3 and 1.2beta2
-  GREP_VERSION_CLASSES: "[[:digit:]]\\{1,\\}[.][[:digit:]]\\{1,\\}[[:graph:]]*"
 
 jobs:
-  sanity-test:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.19.0
-    steps:
-      - uses: actions/checkout@v3.5.0
-      - name: verify-greps
-        run: ./scripts/verify-third-party-update-greps.sh "${GREP_VERSION_CLASSES}"
-  gradle-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    steps:
-      - uses: actions/checkout@v3.5.0
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-gradle
-        run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/gradle/gradle/releases | jq -c -r '.[] | select(.prerelease == false) | .name' | grep -o "${GREP_VERSION_CLASSES}" | uniq | head -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          ./gradlew wrapper --gradle-version="${LATEST_VERSION}"
-          ./gradlew wrapper --gradle-version="${LATEST_VERSION}"
-      - name: Sanity verification
-        run: |
-          ./gradlew :api:assembleDebug :api:lintDebug
-          ./gradlew :api:assembleDebug :api:lintDebug
-      - name: Add changed gradle files
-        run: |
-          git add -f gradlew*
-          git add -f gradle/wrapper
-          git add -f gradle/wrapper/gradle-wrapper.jar
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v5.0.1
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Gradle Update'
-          title: 'Automated Gradle Update'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found at https://github.com/gradle/gradle/releases'
-          team-reviewers: infra, maintainers
-          branch: 'bot-pr/gradle-update'
-          delete-branch: true
   general-maven-update:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.19.0
@@ -76,7 +29,7 @@ jobs:
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: update-to-maven-deps
-        run: ./scripts/update_third_party_artifacts.sh
+        run: ./scripts/ci/third-party-update/update_third_party_artifacts.sh
       - name: Sanity verification
         run: |
           ./gradlew :api:assembleDebug :api:lintDebug
@@ -91,147 +44,31 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/maven-update'
-          delete-branch: true
-  robolectric-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    steps:
-      - uses: actions/checkout@v3.5.0
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-robolectric
-        run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/robolectric/robolectric/releases \
-            | jq -c -r '.[] | .tag_name' \
-            | grep -o "${GREP_VERSION_CLASSES}" \
-            | uniq \
-            | head -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/robolectricVersion[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/robolectricVersion = '${LATEST_VERSION}'/g" \
-            gradle/root_all_projects_ext.gradle > /tmp/output.file
-          cp /tmp/output.file gradle/root_all_projects_ext.gradle
-          cat gradle/root_all_projects_ext.gradle
-          curl --silent https://raw.githubusercontent.com/robolectric/robolectric/robolectric-${LATEST_VERSION}/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java \
-            | grep -oP '\s+int\s+PREINSTRUMENTED_VERSION\s+=\s+\K\d+(?=;)' \
-            > scripts/robolectric_jars_versions.txt
-          curl --silent https://raw.githubusercontent.com/robolectric/robolectric/robolectric-${LATEST_VERSION}/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java \
-            | grep -o "[[:space:]]\\{1,\\}knownSdks.put([[:graph:]]\\{1,\\},[[:space:]]new[[:space:]]DefaultSdk([[:graph:]]\\{1,\\}[,[:space:]]*[\"][[:digit:]]\\{1,\\}[.[:digit:]]*[[:graph:]]*[\"][,[:space:]]*[\"][[:graph:]]\\{1,\\}[\"]" \
-            | grep -oP '"\K[r_\d\.-]+(?=")' \
-            >> scripts/robolectric_jars_versions.txt
-      - name: Sanity verification
-        run: |
-          ./scripts/download_robolectric_jars_to_machine.sh
-          ./gradlew :api:testDebugUnitTest :ime:nextword:testDebugUnitTest
-      - name: Add changed gradle files
-        run: |
-          git add gradle/root_all_projects_ext.gradle scripts/robolectric_jars_versions.txt
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v5.0.1
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Robolectric Update'
-          title: 'Automated Robolectric Update'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found at https://github.com/robolectric/robolectric/releases'
-          team-reviewers: infra, maintainers
-          branch: 'bot-pr/robolectric-update'
-          delete-branch: true
-  build-tools-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    steps:
-      - uses: actions/checkout@v3.5.0
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-build-tools
-        run: |
-          LATEST_VERSION=$("${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --list | grep -o "build-tools;${GREP_VERSION_CLASSES}" | grep -o "${GREP_VERSION_CLASSES}" | uniq | tail -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/androidBuildTools[[:space:]]=[[:space:]]'${GREP_VERSION_CLASSES}'/androidBuildTools = '${LATEST_VERSION}'/g" gradle/root_all_projects_ext.gradle > /tmp/output.file
-          cp /tmp/output.file gradle/root_all_projects_ext.gradle
-          cat gradle/root_all_projects_ext.gradle
-          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "build-tools;${LATEST_VERSION}"
-      - name: Sanity verification
-        run: ./gradlew :api:assembleDebug :api:lintDebug
-      - name: Add changed gradle files
-        run: |
-          git add gradle/root_all_projects_ext.gradle
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v5.0.1
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Build-Tools Update'
-          title: 'Automated Build-Tools Update'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          body: 'Latest version found in `sdkmanager --list` call.'
-          team-reviewers: infra, maintainers
-          branch: 'bot-pr/build-tools-update'
-          delete-branch: true
-  error-prone-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    steps:
-      - uses: actions/checkout@v3.5.0
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-error-prone-plugin
-        run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/tbroyer/gradle-errorprone-plugin/releases \
-            | jq -c -r '.[] | .tag_name' \
-            | grep -o "${GREP_VERSION_CLASSES}" \
-            | uniq \
-            | head -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/'net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}'/'net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}'/g" \
-            build.gradle > /tmp/output.file
-          cp /tmp/output.file build.gradle
-          cat build.gradle
-          sed "s/'net.ltgt.gradle:gradle-errorprone-plugin:${GREP_VERSION_CLASSES}'/'net.ltgt.gradle:gradle-errorprone-plugin:${LATEST_VERSION}'/g" \
-            gradle/errorprone.gradle > /tmp/output.file
-          cp /tmp/output.file gradle/errorprone.gradle
-          cat gradle/errorprone.gradle
-      - name: update-to-latest-error-prone-tool
-        run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/error-prone/releases \
-            | jq -c -r '.[] | .tag_name' \
-            | grep -o "${GREP_VERSION_CLASSES}" \
-            | uniq \
-            | head -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/'com.google.errorprone:error_prone_core:${GREP_VERSION_CLASSES}'/'com.google.errorprone:error_prone_core:${LATEST_VERSION}'/g" \
-            gradle/errorprone.gradle > /tmp/output.file
-          cp /tmp/output.file gradle/errorprone.gradle
-          cat gradle/errorprone.gradle
-      - name: Fixing what can be fixed
-        run: ./scripts/error-prone-auto-patch.sh
-      - name: Sanity verification
-        run: ./gradlew assembleDebug
-      - name: Add changed files
-        run: git add .
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v5.0.1
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Error-Prone Update and auto-patches if possible'
-          title: 'Automated Error-Prone Update'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          body: >
-            Latest version found at https://github.com/tbroyer/gradle-errorprone-plugin/releases
-            https://github.com/google/error-prone/releases.
-          team-reviewers: infra, maintainers
-          branch: 'bot-pr/error-prone-update'
-          delete-branch: true
+          delete-branch:
+            true
 
-  spotless-update:
+  third-party-update:
+    strategy:
+      matrix:
+        type: [gradle, robolectric, build_tools, error_prone, spotless]
+        include:
+          - type: gradle
+            pr_body: Latest version found at https://github.com/gradle/gradle/releases
+          - type: robolectric
+            pr_body: Latest version found at https://github.com/robolectric/robolectric/releases
+          - type: build_tools
+            pr_body: Latest version found in `sdkmanager --list` call.
+          - type: error_prone
+            pr_body: |
+              Latest version found at:
+              - https://github.com/tbroyer/gradle-errorprone-plugin/releases
+              - https://github.com/google/error-prone/releases.
+          - type: spotless
+            pr_body: |
+              Latest version found at:
+              - https://plugins.gradle.org/m2/com/diffplug/spotless/spotless-plugin-gradle/maven-metadata.xml
+              - https://github.com/diffplug/spotless
+              - https://github.com/google/google-java-format/releases
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.19.0
     steps:
@@ -240,45 +77,26 @@ jobs:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: update-to-latest-spotless-plugin
+      - name: Find latest version
         run: |
-          LATEST_VERSION=$(./scripts/get_latest_maven_artifact_version.sh "https://plugins.gradle.org/m2" "com.diffplug.spotless" "spotless-plugin-gradle")
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/'com.diffplug.spotless:spotless-plugin-gradle:${GREP_VERSION_CLASSES}'/'com.diffplug.spotless:spotless-plugin-gradle:${LATEST_VERSION}'/g" \
-            build.gradle > /tmp/output.file
-          cp /tmp/output.file build.gradle
-          cat build.gradle
-      - name: update-to-latest-google-format-tool-tool
-        run: |
-          LATEST_VERSION=$(curl --silent -u "${BOT_USERNAME}:${BOT_TOKEN}" https://api.github.com/repos/google/google-java-format/releases \
-            | jq -c -r '.[] | .tag_name' \
-            | grep -o "${GREP_VERSION_CLASSES}" \
-            | uniq \
-            | head -n 1)
-          echo "Found version '${LATEST_VERSION}'."
-          sed "s/googleJavaFormat('${GREP_VERSION_CLASSES}')/googleJavaFormat('${LATEST_VERSION}')/g" \
-            gradle/spotless.gradle > /tmp/output.file
-          cp /tmp/output.file gradle/spotless.gradle
-          cat gradle/spotless.gradle
-      - name: Fixing what can be fixed
-        run: ./gradlew spotlessApply
+          LATEST_VERSION="$(./scripts/ci/third-party-update/${{ matrix.type}}/get_latest_version.sh)"
+          echo "Found version ${LATEST_VERSION} for ${{ matrix.type}}."
+          echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
+      - name: Update
+        run: ./scripts/ci/third-party-update/${{ matrix.type}}/update_to_version.sh "${{ env.LATEST_VERSION }}"
       - name: Sanity verification
-        run: ./gradlew assembleDebug
+        run: ./scripts/ci/third-party-update/${{ matrix.type}}/sanity_check.sh
       - name: Add changed files
-        run: git add .
+        run: ./scripts/ci/third-party-update/${{ matrix.type}}/add_files_to_commit.sh
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Spotless update and auto-patches if possible'
-          title: 'Automated Spotless Update'
+          commit-message: 'Automated ${{ matrix.type}} ${{ env.LATEST_VERSION }} update'
+          title: 'Automated ${{ matrix.type}} ${{ env.LATEST_VERSION }} update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: >
-            Latest version found at:
-            https://plugins.gradle.org/m2/com/diffplug/spotless/spotless-plugin-gradle/maven-metadata.xml
-            https://github.com/diffplug/spotless
-            https://github.com/google/google-java-format/releases
+          body: ${{ matrix.pr_body}}
           team-reviewers: infra, maintainers
-          branch: 'bot-pr/spotless-update'
+          branch: 'bot-pr/auto-update-${{ matrix.type}}'
           delete-branch: true
