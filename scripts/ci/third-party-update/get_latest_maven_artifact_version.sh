@@ -8,8 +8,8 @@ ARTIFACT_ID="$3"
 
 VERSIONS_URL="${MAVEN_URL}/${GROUP_ID//[.]/\/}/${ARTIFACT_ID}/maven-metadata.xml"
 
-VERSIONS=$(curl --silent "$VERSIONS_URL" | xmllint --format - | xmllint --xpath "string(/metadata/versioning/versions)" -)
-IFS=$'\n' read -r -a VERSIONS_ARRAY <<< "$VERSIONS"
+VERSIONS="$(curl --silent "$VERSIONS_URL" | xmllint --format - | xmllint --xpath "string(/metadata/versioning/versions)" - | xargs)"
+IFS=' ' read -r -a VERSIONS_ARRAY <<< "$VERSIONS"
 
 readarray -t SORTED_VERSIONS_ARRAY < <(for v in "${VERSIONS_ARRAY[@]}"; do echo "$v"; done | sort -r -V)
 for index in "${!SORTED_VERSIONS_ARRAY[@]}" ; do [[ ${SORTED_VERSIONS_ARRAY[$index]} =~ alpha ]] && unset -v 'SORTED_VERSIONS_ARRAY[$index]' ; done
