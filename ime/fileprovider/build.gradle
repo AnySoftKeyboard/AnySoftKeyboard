@@ -7,7 +7,7 @@ dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
 
-    implementation 'androidx.core:core:1.9.0'
+    implementation 'androidx.core:core:1.10.1'
 
     testImplementation project(':ime:base-test')
 }

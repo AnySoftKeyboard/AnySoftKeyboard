@@ -34,13 +34,26 @@ allprojects {
         maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
+
+    configurations.all {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name == 'kotlin-stdlib') {
+                details.useVersion '1.8.10'
+                details.because 'Ensure everything is using the same version of kotlin'
+            } else if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name == 'kotlin-stdlib-jdk8') {
+                details.useVersion '1.8.10'
+                details.because 'Ensure everything is using the same version of kotlin'
+            }
+        }
+    }
 }
 
 apply from: "${rootDir}/gradle/emoji_generator.gradle"
 apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
 apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
 
-tasks.register("clean", Delete) {
+def cleanOthers = tasks.register("cleanOthers", Delete) {
     delete buildDir
     //we do not want to delete the current log file
     logFile.parentFile.listFiles().each {
@@ -57,3 +70,7 @@ tasks.register("clean", Delete) {
             .forEach { it.deleteOnExit() }
     files.close()
 }
+
+tasks.register('clean').configure({
+    it.finalizedBy(cleanOthers)
+})
