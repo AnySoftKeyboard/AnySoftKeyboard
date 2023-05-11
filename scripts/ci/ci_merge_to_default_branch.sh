@@ -4,6 +4,7 @@ set -x
 
 REF="${1}"
 LOCAL_REF="$(echo "${REF}" | cut -d'/' -f 3)"
+git config --global --add safe.directory "${PWD}"
 
 echo "setting git user details"
 echo "email"
