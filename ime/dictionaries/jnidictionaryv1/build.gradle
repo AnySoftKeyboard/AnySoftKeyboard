@@ -15,5 +15,5 @@ android {
 dependencies {
     implementation project(':ime:dictionaries')
     implementation project(':ime:base')
-    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.annotation:annotation:1.6.0-dev01'
 }
