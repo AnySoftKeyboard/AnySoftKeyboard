@@ -14,6 +14,7 @@ shift
 
 if [[ "${SHA}" == "HEAD" ]]; then
   echo "HEAD was specified as SHA. Taking from git:"
+  git config --global --add safe.directory "${PWD}"
   SHA="$(git show-ref --head --hash "${REF}" | tail -n 1)"
   echo "HEAD SHA was found to be '${SHA}'."
 fi
