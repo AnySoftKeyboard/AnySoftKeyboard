@@ -33,4 +33,4 @@ Read more about this license [here](https://tldrlegal.com/license/apache-license
 # Contributors
 If you decided to help out and contribute your time, we are greatly appreciate this.
 Our contributors list can be found [here](CONTRIBUTORS.md).
-Contributors should adhere to the (Code-of-Conduct)[CODE_OF_CONDUCT.md] document.
+Contributors should adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) document.
