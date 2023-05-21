@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="45px"
+    android:horizontalGap="1px"
+    android:verticalGap="0px"
+    android:isRepeatable="false">
+    
+    <Row android:keyWidth="14%p">
+        <Key android:codes="63711" android:keyEdgeFlags="left" android:keyIcon="@drawable/piqad_letter_q"/>
+        <Key android:codes="63717" android:keyIcon="@drawable/piqad_letter_u"/>
+        <Key android:codes="63704" android:keyIcon="@drawable/piqad_letter_j"/>
+        <Key android:codes="63696" android:keyIcon="@drawable/piqad_letter_a"/>
+        <Key android:codes="63721" android:keyIcon="@drawable/piqad_letter_apos"/>
+        <Key android:keyWidth="28%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+    
+    <Row android:keyWidth="14%p">
+        <Key android:codes="63712" android:keyEdgeFlags="left" android:keyIcon="@drawable/piqad_letter_qu"/>
+        <Key android:codes="63706" android:keyIcon="@drawable/piqad_letter_m"/>
+        <Key android:codes="63703" android:keyIcon="@drawable/piqad_letter_iu"/>
+        <Key android:codes="63716" android:keyLabel=""/>
+        <Key android:codes="63709" android:keyIcon="@drawable/piqad_letter_o"/>
+        <Key android:codes="63700" android:keyIcon="@drawable/piqad_letter_e"/>
+        <Key android:codes="63702" android:keyEdgeFlags="right" android:keyIcon="@drawable/piqad_letter_hu"/>
+    </Row>
+    
+    <Row android:keyWidth="14%p">
+        <Key android:codes="63699" android:keyEdgeFlags="left" android:keyIcon="@drawable/piqad_letter_du"/>
+        <Key android:codes="63718" android:keyIcon="@drawable/piqad_letter_v"/>
+        <Key android:codes="63705" android:keyIcon="@drawable/piqad_letter_l"/>
+        <Key android:codes="63715" android:keyIcon="@drawable/piqad_letter_t"/>
+        <Key android:codes="63697" android:keyIcon="@drawable/piqad_letter_b"/>
+        <Key android:codes="63714" android:keyIcon="@drawable/piqad_letter_su"/>
+        <Key android:codes="63710" android:keyEdgeFlags="right" android:keyIcon="@drawable/piqad_letter_p"/>
+    </Row>
+    
+    <Row android:keyWidth="14%p">
+        <Key android:codes="63698" android:keyEdgeFlags="left" android:keyIcon="@drawable/piqad_letter_ch"/>
+        <Key android:codes="63720" android:keyIcon="@drawable/piqad_letter_y"/>
+        <Key android:codes="63719" android:keyIcon="@drawable/piqad_letter_w"/>
+        <Key android:codes="63701" android:keyIcon="@drawable/piqad_letter_gh"/>
+        <Key android:codes="63713" android:keyIcon="@drawable/piqad_letter_r"/>
+        <Key android:codes="63707" android:keyIcon="@drawable/piqad_letter_n"/>
+        <Key android:codes="63708" android:keyEdgeFlags="right" android:keyIcon="@drawable/piqad_letter_ng"/>
+    </Row>
+</Keyboard>
