@@ -1,5 +1,4 @@
 ext.shouldBePublished = true
-ext.notPublishingReason = ''
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
