@@ -67,7 +67,7 @@
         <Key android:codes="44" ask:isShiftAlways="true" ask:shiftedKeyOutputText="&lt;" android:popupCharacters=";&lt;"/>
         <Key android:codes="." ask:isShiftAlways="true" ask:shiftedKeyOutputText="&gt;" android:popupCharacters=":&gt;"/>
         <Key android:codes="/" ask:isShiftAlways="true" ask:shiftedKeyOutputText="\?" android:popupCharacters="|?"/>
-        <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true" ask:shiftedKeyLabel="&#x25bd;" android:keyLabel="&#x25bd;"/>
+        <Key android:codes="@integer/key_code_arrow_up" android:isRepeatable="true" ask:shiftedKeyLabel="&#x25b3;" android:keyLabel="&#x25b3;"/>
         <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="right"/>
     </Row>
 
@@ -86,7 +86,7 @@
         <!-- Dpad Center (remote control center/"enter button"?) is not supported on AnySoftKeyboard?-->
         <Key android:codes="" android:isRepeatable="true" ask:shiftedKeyLabel="" android:keyLabel=""/>
         <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true" ask:shiftedKeyLabel="&#x25c1;" android:keyLabel="&#x25c1;"/>
-        <Key android:codes="@integer/key_code_arrow_up" android:isRepeatable="true" ask:shiftedKeyLabel="&#x25b3;" android:keyLabel="&#x25b3;"/>
+        <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true" ask:shiftedKeyLabel="&#x25bd;" android:keyLabel="&#x25bd;"/>
         <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true" ask:shiftedKeyLabel="&#x25b7;" android:keyLabel="&#x25b7;" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
