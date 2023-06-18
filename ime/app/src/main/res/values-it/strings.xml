@@ -335,6 +335,8 @@
     <string name="quick_fix_secon_disabled">…solo sulla prima lingua</string>
     <string name="quick_fix_secon_disabled_summ_on">Correzioni rapide ed abbreviazioni funzioneranno solo nella lingua della disposizione corrente</string>
     <string name="quick_fix_secon_disabled_summ_off">Correzioni rapide ed abbreviazioni funzioneranno su ogni lingua selezionata nella sovrascrizione dizionario predefinito</string>
+    <string name="try_split_words_for_correction">Correggi dividendo la parola digitata</string>
+    <string name="try_split_words_for_correction_summary_on">Dividere la parola digitata indovinando lo SPAZIO mancante.</string>
     <string name="allow_suggestions_restart">Riavvio suggerimenti</string>
     <string name="allow_suggestions_restart_summary">Riavvia il suggerimento delle parole al movimento del cursore</string>
     <!-- settings - keyboard group -->
@@ -607,6 +609,7 @@
     <string name="setup_wizard_welcome_start_action">Avvia messa a punto…</string>
     <string name="setup_wizard_welcome_info_footnote">*Naturalmente, AnySoftKeyboard non è malevola. Sei incoraggiato a guardare il nostro codice sorgente e verificarlo. Inoltre, non abbiamo le autorizzazioni di <i>RETE</i>, così non possiamo inviare alcun dato fuori dal dispositivo.</string>
     <string name="setup_wizard_welcome_privacy_action">Vai alla Informativa sulla Riservatezza…</string>
+    <string name="setup_wizard_skip">Salta</string>
     <string name="clear_all_dictionary_override">Cancella sostituzioni</string>
     <string name="theme_case_type_override_dialog_title">Scegli sostituzione del formato caratteri</string>
     <string name="theme_case_type_override_theme">Usa formato del tema</string>
@@ -658,4 +661,6 @@
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Non supportato sul tuo Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Backup e ripristino non sono supportati per dispositivi con Android precedente a KitKat (versione 4.4).</string>
+    <string name="delete_all_clipboard_entries">Svuota appunti</string>
+    <string name="tip_swipe_from_backspace_to_clear">Suggerimento: puoi swipe-left dal backspace per cancellare la parola!</string>
 </resources>
