@@ -337,6 +337,8 @@
     <string name="quick_fix_secon_disabled_summ_on">Schnelle Korrekturen und Abkürzungen funktionieren nur in der aktuellen Layoutsprache</string>
     <string name="quick_fix_secon_disabled_summ_off">Schnelle Korrekturen und Abkürzungen funktionieren in jeder Sprache 
                    überschreibt das Standardwörterbuch</string>
+    <string name="try_split_words_for_correction">Korrektur durch Aufteilen des eingegebenen Wortes</string>
+    <string name="try_split_words_for_correction_summary_on">Teile eingegebene Worte durch Erraten fehlender Leerzeichen.</string>
     <string name="allow_suggestions_restart">Vorschläge neustarten</string>
     <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
     <!-- settings - keyboard group -->
