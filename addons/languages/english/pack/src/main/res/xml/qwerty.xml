@@ -26,13 +26,13 @@
         <Key android:codes="116" android:popupCharacters="5țť\u0163τ"/>
         <Key android:codes="121" android:popupCharacters="6ýÿψ"/>
         <Key android:codes="117" android:popupKeyboard="@xml/popup_qwerty_u"/>
-        <Key android:codes="105" android:popupCharacters="8ìíîïłīι*"/>
+        <Key android:codes="105" android:popupCharacters="8ìíîǐïłīι*"/>
         <Key android:codes="111" android:popupCharacters="9òóôǒōõöőøœoº"/>
         <Key android:codes="112" android:popupCharacters="0þπ" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="a" android:popupCharacters="àáâãāäåæąăαª"
+        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="a" android:popupCharacters="àáâǎãāäåæąăαª"
              android:keyEdgeFlags="left"/>
         <Key android:codes="115" android:keyLabel="s" android:popupCharacters="§ßśŝšșσ"/>
         <Key android:codes="100" android:keyLabel="d" android:popupCharacters="đďδ"/>
