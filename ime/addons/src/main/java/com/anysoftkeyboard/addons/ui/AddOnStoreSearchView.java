@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.ui.settings.widget;
+package com.anysoftkeyboard.addons.ui;
 
 /*
  * Copyright (c) 2013 Menny Even-Danan
@@ -27,39 +27,29 @@ package com.anysoftkeyboard.ui.settings.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import com.anysoftkeyboard.addons.R;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.menny.android.anysoftkeyboard.R;
 
-public class AddOnStoreSearchView extends FrameLayout implements OnClickListener {
+public class AddOnStoreSearchView extends FrameLayout {
   private static final String TAG = "AddOnStoreSearchView";
 
-  private View mStoreNotFoundView;
+  private final View mStoreNotFoundView;
 
   public AddOnStoreSearchView(Context context, AttributeSet attrs) {
     super(context, attrs);
     inflate(context, R.layout.addon_store_search_view, this);
-    setOnClickListener(this);
+    setOnClickListener(this::onClick);
 
     mStoreNotFoundView = findViewById(R.id.no_store_found_error);
     mStoreNotFoundView.setVisibility(View.GONE);
-    if (attrs != null) {
-      CharSequence title = attrs.getAttributeValue("android", "title");
-      if (!TextUtils.isEmpty(title)) {
-        TextView cta = findViewById(R.id.cta_title);
-        cta.setText(title);
-      }
-    }
   }
 
-  @Override
-  public void onClick(View view) {
+  private void onClick(View view) {
     if (!startMarketActivity(getContext(), (String) getTag())) {
       mStoreNotFoundView.setVisibility(View.VISIBLE);
     }
@@ -69,7 +59,13 @@ public class AddOnStoreSearchView extends FrameLayout implements OnClickListener
       @NonNull Context context, @NonNull String marketKeyword) {
     try {
       Intent search = new Intent(Intent.ACTION_VIEW);
-      search.setData(Uri.parse("market://search?q=AnySoftKeyboard " + marketKeyword));
+      Uri uri =
+          new Uri.Builder()
+              .scheme("market")
+              .authority("search")
+              .appendQueryParameter("q", "AnySoftKeyboard " + marketKeyword)
+              .build();
+      search.setData(uri);
       search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(search);
     } catch (Exception ex) {

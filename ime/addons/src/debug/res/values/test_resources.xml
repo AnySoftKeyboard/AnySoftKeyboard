@@ -10,4 +10,6 @@
     <string name="addon_4_description">add-on 4 description</string>
     <string name="addon_4_name">add-on 4</string>
     <integer name="data_2">22</integer>
+
+    <string name="testing_search_title">Search this</string>
 </resources>

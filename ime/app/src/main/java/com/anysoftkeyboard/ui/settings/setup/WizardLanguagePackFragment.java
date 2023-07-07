@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.anysoftkeyboard.addons.ui.AddOnStoreSearchView;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
-import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

@@ -16,9 +16,8 @@
 ** See the License for the specific language governing permissions and 
 ** limitations under the License.
 */
---><resources>
-    <dimen name="window_popup_corner_radius">5dp</dimen>
-
+-->
+<resources>
     <dimen name="default_key_height">48dp</dimen>
     <dimen name="default_key_half_height">32dp</dimen>
     <dimen name="default_key_tall_height">54dp</dimen>
@@ -82,19 +81,6 @@
     <dimen name="blacktheme_paddingBottom">0dp</dimen>
 
     <dimen name="default_paddingBottom">0dp</dimen>
-
-    <dimen name="font_size_title">16sp</dimen>
-    <dimen name="font_size_large">24sp</dimen>
-    <dimen name="font_size_sub_title">18sp</dimen>
-    <dimen name="font_size_text">14sp</dimen>
-    <dimen name="font_size_hint_text">15sp</dimen>
-    <dimen name="font_size_small_text">12sp</dimen>
-
-    <!-- Global content UI padding, bottom -->
-    <dimen name="global_content_padding_bottom">4dp</dimen>
-    <!-- Global content UI padding, sides -->
-    <dimen name="global_content_padding_side">16dp</dimen>
-    <!-- MAKE SURE THIS VALUE ALIGNED WITH DEMO-KEYBOARD-VIEW BACKGROUND PADDING! -->
 
     <dimen name="comfortable_min_row_height">44dp</dimen>
     <dimen name="quick_key_size">50dp</dimen>

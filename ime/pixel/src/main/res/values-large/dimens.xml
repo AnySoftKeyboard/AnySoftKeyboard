@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="window_popup_corner_radius">6dp</dimen>
+
+    <!-- Global content UI padding, bottom -->
+    <dimen name="global_content_padding_bottom">8dp</dimen>
+    <!-- Global content UI padding, sides -->
+    <dimen name="global_content_padding_side">24dp</dimen>
+</resources>

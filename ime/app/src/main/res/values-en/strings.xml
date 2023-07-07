@@ -33,10 +33,10 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Change Log</string>
-    <string name="search_market_for_addons">Search for add-ons</string>
+    
     <string name="search_market_for_keyboard_addons">Get more keyboards at the app store</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
-    <string name="no_market_store_available">Could not find an app store on your device.\nUnable to search for add-ons!</string>
+    
     <string name="keyboard_theme_tweak_group">Tweaks</string>
     <string name="close_button">Close</string>
     <string name="delete_button">Delete</string>
