@@ -22,10 +22,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Lijst van wijzigingen</string>
-    <string name="search_market_for_addons">Zoeken naar add-ons</string>
     <string name="search_market_for_keyboard_addons">Meer toetsenborden in de <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Meer <i>Quick-Text</i> toevoegingen in de <i>Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* Kan op uw apparaat geen Google Play Store vinden. Daardoor geen add-ons!</b></string>
     <string name="keyboard_theme_tweak_group">Fijnafstellingen</string>
     <string name="close_button">Sluiten</string>
     <string name="delete_button">Verwijderen</string>

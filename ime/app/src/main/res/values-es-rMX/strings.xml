@@ -22,11 +22,9 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registro de cambios</string>
-    <string name="search_market_for_addons">Buscar complementos</string>
     <string name="search_market_for_keyboard_addons">Obtener más teclados en la tienda de aplicaciones</string>
     <string name="search_market_for_quick_key_addons">Conseguir más complementos de <i>texto rápido</i> en la Play Store…
     </string>
-    <string name="no_market_store_available">No se pudo encontrar una tienda de aplicaciones en su dispositivo.\n¡No se puede buscar complementos!</string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Cerrar</string>
     <string name="delete_button">Eliminar</string>

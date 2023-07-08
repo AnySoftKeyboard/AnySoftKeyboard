@@ -17,10 +17,8 @@
     <string name="ui_theme_settings_tile">Cuɓagol e teeltagol ciŋkooje tappirɗe.</string>
     <!-- welcome -->
     <!-- changelog -->
-    <string name="search_market_for_addons">Yiylo ɓeyditte</string>
     <string name="search_market_for_keyboard_addons">Heɓ tappirɗe goɗɗe to <i>Pkay Store</i></string>
     <string name="search_market_for_quick_key_addons">Heɓ ɓeyditte goɗɗe <i>Binndi Jaawɗi</i> to jeere jaaɓɗe tog…</string>
-    <string name="no_market_store_available">Horiima yiytude Google Play e kaɓirgol maa.\nJiylagol ɓeyditte aaɓnotaako!</string>
     <string name="keyboard_theme_tweak_group">Peewnite</string>
     <string name="close_button">Uddu</string>
     <string name="delete_button">Momtu</string>

@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Journal des modifications</string>
-    <string name="search_market_for_addons">Rechercher des modules</string>
     <string name="search_market_for_keyboard_addons">Obtenir plus de claviers sur le <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obtenir plus de modules <i>texte rapide</i> du magasin…</string>
-    <string name="no_market_store_available">Aucun magasin installé sur cet appareil.\nImpossible de rechercher des modules !</string>
     <string name="keyboard_theme_tweak_group">Réglages avancés</string>
     <string name="close_button">Fermer</string>
     <string name="delete_button">Supprimer</string>

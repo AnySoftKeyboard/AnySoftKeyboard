@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registru de sas modìficas</string>
-    <string name="search_market_for_addons">Chirca estensiones</string>
     <string name="search_market_for_keyboard_addons">Iscàrriga àteras tastieras dae s\'app store</string>
     <string name="search_market_for_quick_key_addons">Agata prus estensiones <i>Testu Lestru</i> dae sas butegas de sas aplicatziones…</string>
-    <string name="no_market_store_available">Impossìbile agatare una butega de sas aplicatziones in sos dispositivos. \nImpossìbile chircare estensiones!</string>
     <string name="keyboard_theme_tweak_group">Acontzos</string>
     <string name="close_button">Serra</string>
     <string name="delete_button">Iscantzella</string>

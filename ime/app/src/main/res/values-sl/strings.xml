@@ -15,10 +15,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Seznam sprememb</string>
-    <string name="search_market_for_addons">Poišči dodatke</string>
     <string name="search_market_for_keyboard_addons">Dobi več tipkovnic v <i>Trgovini Google Play</i> …</string>
     <string name="search_market_for_quick_key_addons">Dobi več dodatkov za <i>hitro besedilo</i> v <i>Trgovini Google Play</i> …</string>
-    <string name="no_market_store_available">Na vaši napravi ni bilo mogoče najti <i>Trgovine Google Play</i>.\nDodatkov ni mogoče poiskati!</string>
     <string name="keyboard_theme_tweak_group">Podr. nast.</string>
     <string name="close_button">Zapri</string>
     <!-- Indicates that a word has been added to the dictionary -->

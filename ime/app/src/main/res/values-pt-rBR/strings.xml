@@ -24,10 +24,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Log de alterações</string>
-    <string name="search_market_for_addons">Procurar por complementos</string>
     <string name="search_market_for_keyboard_addons">Adquira mais teclados na loja de aplicativos</string>
     <string name="search_market_for_quick_key_addons">Obtenha mais complementos de <i>texto rápido</i> na loja de aplicativos…    </string>
-    <string name="no_market_store_available">Não foi possível encontrar uma loja de aplicativos no seu dispositivo. \nImpossível pesquisar complementos!    </string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Fechar</string>
     <string name="delete_button">Excluir</string>

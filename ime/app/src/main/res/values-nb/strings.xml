@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Endringslogg</string>
-    <string name="search_market_for_addons">Søk etter tillegg</string>
     <string name="search_market_for_keyboard_addons">Finn flere tastaturer i <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Få flere <i>Hurtigtekst</i>-tillegg i app-butikken…</string>
-    <string name="no_market_store_available">Kunne ikke finne en app-butikk på din enhet.\nDet er ikke mulig å søke etter tillegg!</string>
     <string name="keyboard_theme_tweak_group">Tilpasninger</string>
     <string name="close_button">Lukk</string>
     <string name="delete_button">Slett</string>

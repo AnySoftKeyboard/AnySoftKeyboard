@@ -19,9 +19,7 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Списък с промените</string>
-    <string name="search_market_for_addons">Търсене на добавки</string>
     <string name="search_market_for_keyboard_addons">Вземете още клавиатури от магазина за приложения</string>
-    <string name="no_market_store_available">Не може да бъде открит магазин за приложения на вашето устройство.\nНе могат да се търсят добавки!</string>
     <string name="keyboard_theme_tweak_group">Допълнителни настройки</string>
     <string name="close_button">Затваряне</string>
     <string name="delete_button">Изтриване</string>

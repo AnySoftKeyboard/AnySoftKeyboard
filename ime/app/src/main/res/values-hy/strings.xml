@@ -6,7 +6,6 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Փոփոխություններ</string>
-    <string name="search_market_for_addons">Որոնել հավելումներ</string>
     <string name="close_button">Փակել</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="revert_added_word_question">Ջնջե՞լ</string>

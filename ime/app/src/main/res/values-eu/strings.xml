@@ -25,10 +25,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Aldaketa-egunkaria</string>
-    <string name="search_market_for_addons">Bilatu gehigarriak</string>
     <string name="search_market_for_keyboard_addons">Eskuratu teklatu gehiago <i>Google Play Store</i>n…</string>
     <string name="search_market_for_quick_key_addons">Eskuratu <i>Testu-azkarra</i> motako gehigarri gehiago <i>Google Play Store</i> biltegian…</string>
-    <string name="no_market_store_available">Ezin izan da <i>Google Play Store</i> aurkitu zure gailuan.\nEzin dira gehigarriak bilatu!</string>
     <string name="keyboard_theme_tweak_group">Doikuntzak</string>
     <string name="close_button">Itxi</string>
     <string name="delete_button">Ezabatu</string>

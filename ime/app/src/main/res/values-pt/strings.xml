@@ -27,10 +27,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Alterações</string>
-    <string name="search_market_for_addons">Procurar extras</string>
     <string name="search_market_for_keyboard_addons">Obter mais teclados na <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obter mais <i>textos rápidos</i> e extras na <i>Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* A Google Play Store não foi encontrada no seu dispositivo. Não é possível procurar extras!</b></string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Fechar</string>
     <string name="delete_button">Eliminar</string>

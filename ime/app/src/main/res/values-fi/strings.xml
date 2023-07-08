@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Muutosloki</string>
-    <string name="search_market_for_addons">Etsi lisäosia</string>
     <string name="search_market_for_keyboard_addons">Hae lisää näppäimistöjä Kaupasta</string>
     <string name="search_market_for_quick_key_addons">Hanki lisää  <i>Pikateksti</i>-lisäosia sovelluskaupasta…</string>
-    <string name="no_market_store_available">Kauppaa ei löydetty laitteestasi.\nLisäosia ei voitu etsiä!</string>
     <string name="keyboard_theme_tweak_group">Hienosäädöt</string>
     <string name="close_button">Sulje</string>
     <string name="delete_button">Poista</string>
