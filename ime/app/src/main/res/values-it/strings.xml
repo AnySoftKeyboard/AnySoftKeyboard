@@ -21,10 +21,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registro modifiche</string>
-    <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
     <string name="search_market_for_keyboard_addons">Ottieni più tastiere nell\'App Store</string>
     <string name="search_market_for_quick_key_addons">Ottieni ulteriori componenti <i>Testo Rapido</i> aggiuntivi dall\'App Store…</string>
-    <string name="no_market_store_available">Impossibile trovare un App Store sul tuo dispositivo.\nImpossibile cercare componenti aggiuntivi!</string>
     <string name="keyboard_theme_tweak_group">Aggiustamenti</string>
     <string name="close_button">Chiudi</string>
     <string name="delete_button">Elimina</string>

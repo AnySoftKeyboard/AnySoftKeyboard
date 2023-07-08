@@ -22,10 +22,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Änderungsprotokoll</string>
-    <string name="search_market_for_addons">Nach Erweiterungen suchen</string>
     <string name="search_market_for_keyboard_addons">Erhalte mehr Tastaturen im Appstore</string>
     <string name="search_market_for_quick_key_addons">Erhalte weitere <i>Quick-Text</i> Erweiterungen im Appstore…</string>
-    <string name="no_market_store_available">Konnte keinen Appstore auf deinem Gerät finden.\nEs ist nicht möglich, nach Erweiterungen suchen!</string>
     <string name="keyboard_theme_tweak_group">Optimierungen</string>
     <string name="close_button">Schließen</string>
     <string name="delete_button">Löschen</string>

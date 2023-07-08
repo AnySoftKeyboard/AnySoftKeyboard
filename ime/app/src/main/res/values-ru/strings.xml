@@ -21,10 +21,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Список изменений</string>
-    <string name="search_market_for_addons">Поиск дополнений</string>
     <string name="search_market_for_keyboard_addons">Получите больше языков и раскладок в <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Найдите больше <i>Quick-Text</i> дополнений в <i>Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* Не удалось найти Google Play Store на вашем устройстве. Нет возможности искать дополнения!</b></string>
     <string name="keyboard_theme_tweak_group">Твики</string>
     <string name="close_button">Закрыть</string>
     <string name="delete_button">Удалить</string>

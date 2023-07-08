@@ -19,10 +19,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Historie změn</string>
-    <string name="search_market_for_addons">Vyhledávání doplňků</string>
     <string name="search_market_for_keyboard_addons">Získejte více klávesnic v <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Získejte více rozšíření <i>rychlého textu</i> v <i>Obchodu Play</i>…</string>
-    <string name="no_market_store_available"><b>* Nemohu na vašem zařízení nalézt Obchod Google Play. Nelze vyhledávat rozšíření!</b></string>
     <string name="keyboard_theme_tweak_group">Vyladění</string>
     <string name="close_button">Zavřít</string>
     <string name="delete_button">Smazat</string>

@@ -27,13 +27,9 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">ცვლილებები</string>
-    <string name="search_market_for_addons">დამატებათა ძიება</string>
     <string name="search_market_for_keyboard_addons">მოიძიეთ სხვა კლავიატურები მაღაზიაში</string>
     <string name="search_market_for_quick_key_addons">იხილეთ სხვა <i>Quick-Text</i> დამატებები
         მაღაზიაში…
-    </string>
-    <string name="no_market_store_available">მაღაზიის პროგრამა ვერ მოიძებნა თქვენს მოწყობილობაზე.\nვერ ხერხდება
-        დამატებების მოძიება!
     </string>
     <string name="keyboard_theme_tweak_group">მორგება</string>
     <string name="close_button">დახურვა</string>

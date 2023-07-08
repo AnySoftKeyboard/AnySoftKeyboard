@@ -10,7 +10,6 @@
     <string name="ui_root_tile">Fasado</string>
     <!-- welcome -->
     <!-- changelog -->
-    <string name="search_market_for_addons">Serĉi kromprogramojn</string>
     <string name="search_market_for_keyboard_addons">Havigu al vi pliajn klavarojn ĉe <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Plibonigaĵoj</string>
     <string name="close_button">Fermi</string>

@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Muudatuste logi</string>
-    <string name="search_market_for_addons">Otsi lisasid</string>
     <string name="search_market_for_keyboard_addons">Hangi eri keeletoega klaviatuurid rakenduste poest</string>
     <string name="search_market_for_quick_key_addons">Hangi <i>Quick-Text</i>-i lisad rakenduste poest…</string>
-    <string name="no_market_store_available">Teie seadmesse ei ole paigaldatud rakenduste poodi.\nLisade otsimine nurjus. </string>
     <string name="keyboard_theme_tweak_group">Täiustused</string>
     <string name="close_button">Sulge</string>
     <string name="delete_button">Kustuta</string>

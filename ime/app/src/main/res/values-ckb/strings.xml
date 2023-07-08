@@ -30,14 +30,10 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">تۆماری نوێکردنەوە</string>
-    <string name="search_market_for_addons">گەڕان بۆ پێوەکراو</string>
     <string name="search_market_for_keyboard_addons">دابەزاندنی ڕووکار و زمانی زیاتر لە گۆگڵ پلەی</string>
     <string name="search_market_for_quick_key_addons"> دابەزاندنی <i>پێوەکراوی زیاتر</i> لە کۆگای گۆگڵ
         پلەی
 
-    </string>
-    <string name="no_market_store_available">ناتوانرێ فرۆشگای گۆگڵ پلەی\nبدۆزرێتەوە لە ئامێرەکەتدا،
- لەبەرئەوە ناتوانی بگەڕێی بۆ زیادکراوەکان!
     </string>
     <string name="keyboard_theme_tweak_group">ڕێکخستنی زیاتر</string>
     <string name="close_button">داخستن</string>

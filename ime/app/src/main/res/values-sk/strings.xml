@@ -26,10 +26,7 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Zoznam zmien</string>
-    <string name="search_market_for_addons">Hľadať doplnky</string>
     <string name="search_market_for_keyboard_addons">Získať viac klávesníc v obchode</string>
-    <string name="no_market_store_available">Nepodarilo sa nájsť aplikáciu pre obchod.\nNie je možné nájsť ďalšie doplnky!
-    </string>
     <string name="close_button">Zavrieť</string>
     <string name="delete_button">Vymazať</string>
     <!-- Indicates that a word has been added to the dictionary -->

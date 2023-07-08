@@ -25,10 +25,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Guhertina Bıgêra</string>
-    <string name="search_market_for_addons">Lê pêvekê bigere</string>
     <string name="search_market_for_keyboard_addons">Zêdetir klavyeyan li app store bistîne</string>
     <string name="search_market_for_quick_key_addons">Zêdetir bibin<i>Quick-Text</i> Ji bilî li sêr app store dikana bisti na…</string>
-    <string name="no_market_store_available">Nikare di cîhaza xwe de app store bibîne.\nNikare pêvekê bigere!</string>
     <string name="keyboard_theme_tweak_group">Rastbune</string>
     <string name="close_button">Girtin</string>
     <string name="delete_button">Jêbirin</string>

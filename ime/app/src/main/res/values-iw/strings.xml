@@ -15,7 +15,6 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">רשימת שינויים</string>
-    <string name="search_market_for_addons">חיפוש תוספים</string>
     <string name="keyboard_theme_tweak_group">הגדרות נוספות</string>
     <string name="close_button">סגור</string>
     <!-- Indicates that a word has been added to the dictionary -->

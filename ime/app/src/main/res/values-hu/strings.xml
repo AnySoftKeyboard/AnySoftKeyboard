@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Változási jegyzék</string>
-    <string name="search_market_for_addons">Kiegészítők keresése</string>
     <string name="search_market_for_keyboard_addons">Továbbiak beszerzése az alkalmazásboltból</string>
     <string name="search_market_for_quick_key_addons">További <i>ikonok és hangulatjelek</i> az alkalmazásboltban…</string>
-    <string name="no_market_store_available">Nem található alkalmazásbolt az eszközén.\nA bővítmények nem kereshetők!</string>
     <string name="keyboard_theme_tweak_group">Finomhangolás</string>
     <string name="close_button">Bezárás</string>
     <string name="delete_button">Törlés</string>

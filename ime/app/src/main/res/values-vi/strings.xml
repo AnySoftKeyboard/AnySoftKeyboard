@@ -27,10 +27,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Nhật ký thay đổi</string>
-    <string name="search_market_for_addons">Tìm kiếm tiện ích bổ sung</string>
     <string name="search_market_for_keyboard_addons">Nhận thêm bàn phím tại cửa hàng ứng dụng</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
-    <string name="no_market_store_available">Không thể tìm thấy cửa hàng ứng dụng trên thiết bị này.\nKhông thể tìm kiếm tiện ích bổ sung! </string>
     <string name="keyboard_theme_tweak_group">Tinh chỉnh</string>
     <string name="close_button">Đóng</string>
     <string name="delete_button">Xóa</string>
