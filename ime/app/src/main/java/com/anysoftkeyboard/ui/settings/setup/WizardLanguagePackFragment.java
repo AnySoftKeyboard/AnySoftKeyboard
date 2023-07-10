@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.anysoftkeyboard.addons.ui.AddOnStoreSearchController;
-import com.anysoftkeyboard.addons.ui.AddOnStoreSearchView;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,8 +37,7 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    final View.OnClickListener openPlayStoreAction =
-        v -> mMarketSearchController.searchForAddOns();
+    final View.OnClickListener openPlayStoreAction = v -> mMarketSearchController.searchForAddOns();
     view.findViewById(R.id.go_to_download_packs_action).setOnClickListener(openPlayStoreAction);
     mStateIcon.setOnClickListener(openPlayStoreAction);
     view.findViewById(R.id.skip_download_packs_action)

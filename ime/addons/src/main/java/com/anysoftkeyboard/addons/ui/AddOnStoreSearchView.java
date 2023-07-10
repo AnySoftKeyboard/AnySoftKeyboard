@@ -28,19 +28,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.anysoftkeyboard.addons.R;
 
 public class AddOnStoreSearchView extends FrameLayout {
-    private static final String TAG = "AddOnStoreSearchView";
+  private static final String TAG = "AddOnStoreSearchView";
 
-    public AddOnStoreSearchView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        inflate(context, R.layout.addon_store_search_view, this);
-    }
+  public AddOnStoreSearchView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    inflate(context, R.layout.addon_store_search_view, this);
+  }
 
-    public void setTitle(CharSequence title) {
-        TextView cta = findViewById(R.id.cta_title);
-        cta.setText(title);
-    }
+  public void setTitle(CharSequence title) {
+    TextView cta = findViewById(R.id.cta_title);
+    cta.setText(title);
+  }
 }

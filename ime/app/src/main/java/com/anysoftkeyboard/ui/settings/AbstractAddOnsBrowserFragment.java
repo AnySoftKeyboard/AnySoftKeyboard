@@ -172,7 +172,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
       LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
     final var keyword = getMarketSearchKeyword();
     if (keyword != null) {
-      mMarketSearchController = new AddOnStoreSearchController(requireActivity(), getMarketSearchKeyword());
+      mMarketSearchController =
+          new AddOnStoreSearchController(requireActivity(), getMarketSearchKeyword());
     }
     return paramLayoutInflater.inflate(
         mIsSingleSelection

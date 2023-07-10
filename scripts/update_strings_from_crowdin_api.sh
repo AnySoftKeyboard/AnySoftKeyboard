@@ -49,33 +49,33 @@ function copy_translations() {
   done
 
   echo "fixing file locations a bit..."
-  rm -rf "${TARGET_FOLDER}/values-en-PT"
-  mv "${TARGET_FOLDER}/values-es-ES/strings.xml" "${TARGET_FOLDER}/values-es/"
+  rm -rf "${TARGET_FOLDER}/values-en-PT" || true
+  mv "${TARGET_FOLDER}/values-es-ES/strings.xml" "${TARGET_FOLDER}/values-es/" || true
   rm -rf "${TARGET_FOLDER}/values-es-AR" || true
   rm -rf "${TARGET_FOLDER}/values-es-ES" || true
-  mv "${TARGET_FOLDER}/values-he/strings.xml" "${TARGET_FOLDER}/values-iw/"
+  mv "${TARGET_FOLDER}/values-he/strings.xml" "${TARGET_FOLDER}/values-iw/" || true
   rm -rf "${TARGET_FOLDER}/values-he" || true
-  mv "${TARGET_FOLDER}/values-yi/strings.xml" "${TARGET_FOLDER}/values-ji/"
+  mv "${TARGET_FOLDER}/values-yi/strings.xml" "${TARGET_FOLDER}/values-ji/" || true
   rm -rf "${TARGET_FOLDER}/values-yi" || true
-  mv "${TARGET_FOLDER}/values-hy-AM/strings.xml" "${TARGET_FOLDER}/values-hy/"
+  mv "${TARGET_FOLDER}/values-hy-AM/strings.xml" "${TARGET_FOLDER}/values-hy/" || true
   rm -rf "${TARGET_FOLDER}/values-hy-AM" || true
-  mv "${TARGET_FOLDER}/values-sv-SE/strings.xml" "${TARGET_FOLDER}/values-se/"
+  mv "${TARGET_FOLDER}/values-sv-SE/strings.xml" "${TARGET_FOLDER}/values-se/" || true
   rm -rf "${TARGET_FOLDER}/values-sv-SE/" || true
-  mv "${TARGET_FOLDER}/values-pt-PT/strings.xml" "${TARGET_FOLDER}/values-pt/"
+  mv "${TARGET_FOLDER}/values-pt-PT/strings.xml" "${TARGET_FOLDER}/values-pt/" || true
   rm -rf "${TARGET_FOLDER}/values-pt-PT/" || true
-  mv "${TARGET_FOLDER}/values-pt-BR/strings.xml" "${TARGET_FOLDER}/values-pt-rBR/"
+  mv "${TARGET_FOLDER}/values-pt-BR/strings.xml" "${TARGET_FOLDER}/values-pt-rBR/" || true
   rm -rf "${TARGET_FOLDER}/values-pt-BR/" || true
-  mv "${TARGET_FOLDER}/values-zh-CN/strings.xml" "${TARGET_FOLDER}/values-zh-rCN/"
+  mv "${TARGET_FOLDER}/values-zh-CN/strings.xml" "${TARGET_FOLDER}/values-zh-rCN/" || true
   rm -rf "${TARGET_FOLDER}/values-zh-CN/" || true
-  mv "${TARGET_FOLDER}/values-tlh-AA/strings.xml" "${TARGET_FOLDER}/values-tlh/"
+  mv "${TARGET_FOLDER}/values-tlh-AA/strings.xml" "${TARGET_FOLDER}/values-tlh/" || true
   rm -rf "${TARGET_FOLDER}/values-tlh-AA" || true
-  mv "${TARGET_FOLDER}/values-es-MX/strings.xml" "${TARGET_FOLDER}/values-es-rMX/"
+  mv "${TARGET_FOLDER}/values-es-MX/strings.xml" "${TARGET_FOLDER}/values-es-rMX/" || true
   rm -rf "${TARGET_FOLDER}/values-es-MX/" || true
-  mv "${TARGET_FOLDER}/values-ml-IN/strings.xml" "${TARGET_FOLDER}/values-ml-rIN/"
+  mv "${TARGET_FOLDER}/values-ml-IN/strings.xml" "${TARGET_FOLDER}/values-ml-rIN/" || true
   rm -rf "${TARGET_FOLDER}/values-ml-IN/" || true
-  mv "${TARGET_FOLDER}/values-bn-IN/strings.xml" "${TARGET_FOLDER}/values-bn-rIN/"
-  rm -rf "${TARGET_FOLDER}/values-bn-IN/" || true
-  mv "${TARGET_FOLDER}/values-si-LK/strings.xml" "${TARGET_FOLDER}/values-si-rLK/"
+  mv "${TARGET_FOLDER}/values-bn-IN/strings.xml" "${TARGET_FOLDER}/values-bn-rIN/" || true
+  rm -rf "${TARGET_FOLDER}/values-bn-IN" || true
+  mv "${TARGET_FOLDER}/values-si-LK/strings.xml" "${TARGET_FOLDER}/values-si-rLK/" || true
   rm -rf "${TARGET_FOLDER}/values-si-LK/" || true
   #copying generic strings to en
   cp "${TARGET_FOLDER}/values/strings.xml" "${TARGET_FOLDER}/values-en/strings.xml"
