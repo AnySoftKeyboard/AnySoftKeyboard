@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.test.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;

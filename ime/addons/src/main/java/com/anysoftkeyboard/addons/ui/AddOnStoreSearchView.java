@@ -28,6 +28,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import com.anysoftkeyboard.addons.R;
 
 public class AddOnStoreSearchView extends FrameLayout {
@@ -41,5 +42,13 @@ public class AddOnStoreSearchView extends FrameLayout {
   public void setTitle(CharSequence title) {
     TextView cta = findViewById(R.id.cta_title);
     cta.setText(title);
+  }
+
+  public void setSearchController(@Nullable final AddOnStoreSearchController controller) {
+    if (controller == null) {
+      setOnClickListener(null);
+    } else {
+      setOnClickListener(v -> controller.searchForAddOns());
+    }
   }
 }

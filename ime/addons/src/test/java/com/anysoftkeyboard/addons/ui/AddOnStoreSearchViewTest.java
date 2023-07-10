@@ -9,6 +9,8 @@ import com.anysoftkeyboard.addons.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AddOnStoreSearchViewTest {
@@ -24,5 +26,20 @@ public class AddOnStoreSearchViewTest {
 
     underTest.setTitle("now this");
     Assert.assertEquals("now this", title.getText().toString());
+  }
+
+  public void testControllerClick() {
+    AddOnStoreSearchController mock = Mockito.mock(AddOnStoreSearchController.class);
+    Context context = ApplicationProvider.getApplicationContext();
+    final var rootTest = LayoutInflater.from(context).inflate(R.layout.test_search_layout, null);
+
+    final AddOnStoreSearchView underTest = rootTest.findViewById(R.id.test_search_view);
+
+    underTest.setSearchController(mock);
+    Shadows.shadowOf(underTest).getOnClickListener().onClick(underTest);
+    Mockito.verify(mock).searchForAddOns();
+
+    underTest.setSearchController(null);
+    Assert.assertNull(Shadows.shadowOf(underTest).getOnClickListener());
   }
 }

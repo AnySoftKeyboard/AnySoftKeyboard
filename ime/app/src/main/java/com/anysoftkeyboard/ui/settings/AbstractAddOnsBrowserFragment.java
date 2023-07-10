@@ -357,6 +357,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         AddOnStoreSearchView searchView = new AddOnStoreSearchView(getActivity(), null);
         searchView.setTag(getMarketSearchKeyword());
         searchView.setTitle(getText(getMarketSearchTitle()));
+        searchView.setSearchController(mMarketSearchController);
         return new RecyclerView.ViewHolder(searchView) {
           /*empty implementation*/
         };
