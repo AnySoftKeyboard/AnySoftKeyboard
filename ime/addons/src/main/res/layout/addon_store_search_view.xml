@@ -1,30 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addon_list_item_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/card_background_normal"
+    android:gravity="center"
+    android:minHeight="44dp"
+    android:orientation="vertical"
+    android:padding="6dp">
 
-    <LinearLayout
-        android:id="@+id/addon_list_item_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/cta_title"
+        style="@style/Ask.Text.SubTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/card_background_normal"
+        android:layout_gravity="center"
+        android:drawablePadding="8dp"
         android:gravity="center"
-        android:minHeight="44dp"
-        android:orientation="vertical"
-        android:padding="6dp"
-        tools:ignore="UnusedAttribute,UselessParent">
-
-        <TextView
-            android:id="@+id/cta_title"
-            style="@style/Ask.Text.SubTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:text="@string/search_market_for_addons" />
-    </LinearLayout>
-</FrameLayout>
+        android:text="@string/search_market_for_addons"
+        app:drawableStartCompat="@drawable/ic_action_search" />
+</LinearLayout>

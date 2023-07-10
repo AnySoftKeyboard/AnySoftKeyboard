@@ -1,8 +1,8 @@
-package net.evendanan.pixel;
+package com.anysoftkeyboard.test;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static net.evendanan.pixel.GeneralDialogTestUtil.getLatestShownDialog;
-import static net.evendanan.pixel.GeneralDialogTestUtil.getTitleFromDialog;
+import static com.anysoftkeyboard.test.GeneralDialogTestUtil.getLatestShownDialog;
+import static com.anysoftkeyboard.test.GeneralDialogTestUtil.getTitleFromDialog;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -11,6 +11,7 @@ import static org.mockito.ArgumentMatchers.notNull;
 import android.app.Dialog;
 import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import net.evendanan.pixel.GeneralDialogController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

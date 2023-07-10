@@ -3,11 +3,11 @@ package com.anysoftkeyboard.ui.settings.setup;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
+import com.anysoftkeyboard.test.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Locale;
 import org.junit.After;
@@ -71,9 +71,8 @@ public class WizardLanguagePackFragmentTest
 
     stateIconClickHandler.onClick(null);
 
-    Intent searchIntent =
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
-            .getNextStartedActivity();
-    Assert.assertNotNull(searchIntent);
+    Assert.assertEquals(
+        "Leaving AnySoftKeyboard",
+        GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
   }
 }
