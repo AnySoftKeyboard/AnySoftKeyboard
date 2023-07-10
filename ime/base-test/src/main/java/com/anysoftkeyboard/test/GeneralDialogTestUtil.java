@@ -1,15 +1,20 @@
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.test;
 
 import android.app.Dialog;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import com.anysoftkeyboard.rx.TestRxSchedulers;
-import io.reactivex.Observable;
+
 import net.evendanan.pixel.GeneralDialogController;
+
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
+
+import io.reactivex.Observable;
 
 public class GeneralDialogTestUtil {
 

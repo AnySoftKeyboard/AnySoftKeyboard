@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.anysoftkeyboard.addons.ui.AddOnStoreSearchController;
 import com.anysoftkeyboard.addons.ui.AddOnStoreSearchView;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -14,6 +16,8 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
 
   private static final String SKIPPED_PREF_KEY = "setup_wizard_SKIPPED_PREF_KEY";
   private boolean mSkipped;
+
+  private AddOnStoreSearchController mMarketSearchController;
 
   @Override
   protected boolean isStepCompleted(@NonNull Context context) {
@@ -29,13 +33,14 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mSkipped = mSharedPrefs.getBoolean(SKIPPED_PREF_KEY, false);
+    mMarketSearchController = new AddOnStoreSearchController(requireActivity(), "language");
   }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     final View.OnClickListener openPlayStoreAction =
-        v -> AddOnStoreSearchView.startMarketActivity(getContext(), "language");
+        v -> mMarketSearchController.searchForAddOns();
     view.findViewById(R.id.go_to_download_packs_action).setOnClickListener(openPlayStoreAction);
     mStateIcon.setOnClickListener(openPlayStoreAction);
     view.findViewById(R.id.skip_download_packs_action)
@@ -45,6 +50,12 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
               mSharedPrefs.edit().putBoolean(SKIPPED_PREF_KEY, true).apply();
               refreshWizardPager();
             });
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    mMarketSearchController.dismiss();
   }
 
   @Override

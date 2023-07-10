@@ -7,7 +7,6 @@ import androidx.preference.PreferenceCategory;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
 import org.junit.Assert;

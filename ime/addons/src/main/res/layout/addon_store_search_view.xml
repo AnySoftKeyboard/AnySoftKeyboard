@@ -26,15 +26,5 @@
             android:drawablePadding="8dp"
             android:gravity="center"
             android:text="@string/search_market_for_addons" />
-
-        <TextView
-            android:id="@+id/no_store_found_error"
-            style="@style/Ask.Text.Small.Error"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:text="@string/no_market_store_available"
-            android:visibility="gone" />
     </LinearLayout>
 </FrameLayout>

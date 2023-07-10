@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.addons.ui;
 
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2023 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,58 +25,22 @@ package com.anysoftkeyboard.addons.ui;
  */
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
+
 import com.anysoftkeyboard.addons.R;
-import com.anysoftkeyboard.base.utils.Logger;
 
 public class AddOnStoreSearchView extends FrameLayout {
-  private static final String TAG = "AddOnStoreSearchView";
+    private static final String TAG = "AddOnStoreSearchView";
 
-  private final View mStoreNotFoundView;
-
-  public AddOnStoreSearchView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    inflate(context, R.layout.addon_store_search_view, this);
-    setOnClickListener(this::onClick);
-
-    mStoreNotFoundView = findViewById(R.id.no_store_found_error);
-    mStoreNotFoundView.setVisibility(View.GONE);
-  }
-
-  private void onClick(View view) {
-    if (!startMarketActivity(getContext(), (String) getTag())) {
-      mStoreNotFoundView.setVisibility(View.VISIBLE);
+    public AddOnStoreSearchView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        inflate(context, R.layout.addon_store_search_view, this);
     }
-  }
 
-  public static boolean startMarketActivity(
-      @NonNull Context context, @NonNull String marketKeyword) {
-    try {
-      Intent search = new Intent(Intent.ACTION_VIEW);
-      Uri uri =
-          new Uri.Builder()
-              .scheme("market")
-              .authority("search")
-              .appendQueryParameter("q", "AnySoftKeyboard " + marketKeyword)
-              .build();
-      search.setData(uri);
-      search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      context.startActivity(search);
-    } catch (Exception ex) {
-      Logger.e(TAG, "Could not launch Store search!", ex);
-      return false;
+    public void setTitle(CharSequence title) {
+        TextView cta = findViewById(R.id.cta_title);
+        cta.setText(title);
     }
-    return true;
-  }
-
-  public void setTitle(CharSequence title) {
-    TextView cta = findViewById(R.id.cta_title);
-    cta.setText(title);
-  }
 }

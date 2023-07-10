@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.addons.ui.AddOnStoreSearchController;
 import com.anysoftkeyboard.addons.ui.AddOnStoreSearchView;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
@@ -60,6 +61,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
   private final ItemTouchHelper mRecyclerViewItemTouchHelper;
   private RecyclerView mRecyclerView;
   @Nullable private DemoAnyKeyboardView mSelectedKeyboardView;
+
+  @Nullable private AddOnStoreSearchController mMarketSearchController;
   private int mColumnsCount = 2;
 
   protected AbstractAddOnsBrowserFragment(
@@ -167,12 +170,22 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
   @Override
   public View onCreateView(
       LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
+    final var keyword = getMarketSearchKeyword();
+    if (keyword != null) {
+      mMarketSearchController = new AddOnStoreSearchController(requireActivity(), getMarketSearchKeyword());
+    }
     return paramLayoutInflater.inflate(
         mIsSingleSelection
             ? R.layout.add_on_browser_single_selection_layout
             : R.layout.add_on_browser_multiple_selection_layout,
         paramViewGroup,
         false);
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    if (mMarketSearchController != null) mMarketSearchController.dismiss();
   }
 
   @Override
@@ -209,7 +222,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         onTweaksOptionSelected();
         return true;
       case R.id.add_on_market_search_menu_option:
-        AddOnStoreSearchView.startMarketActivity(requireContext(), getMarketSearchKeyword());
+        if (mMarketSearchController != null) mMarketSearchController.searchForAddOns();
         return true;
       default:
         return super.onOptionsItemSelected(item);
