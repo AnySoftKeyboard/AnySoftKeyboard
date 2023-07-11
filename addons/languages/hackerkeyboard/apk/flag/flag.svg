@@ -1,3 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="600">
-  <path d="M0 0h900v600H0z" style="fill:#000000" />
+  <path d="M0 0h900v600H0z" style="fill: #ffffff"></path>
+  <linearGradient id="Gradient" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0%" stop-color="#9a9b92" />
+    <stop offset="50%" stop-color="#9a9b92" />
+    <stop offset="100%" stop-color="#656563" />
+  </linearGradient>
+  <path d="M100 50h700v500h-700z" stroke-linejoin="round" stroke-width="50" stroke="url(#Gradient)" stroke-opacity=".7"></path>
+  <path d="M100 50h700v500h-700z" style="fill: #cbcdc0;"></path>
+  <path d="M300 150h-130v150h100h-100v150h130" stroke-width="50" stroke="black" style="fill: #cbcdc0;"></path>
+  <path d="M520 200h-150v125h120v125h-150" stroke-width="50" stroke="black" style="fill: #cbcdc0;"></path>
+  <path d="M750 200h-150v250h150" stroke-width="50" stroke="black" style="fill: #cbcdc0;"></path>
 </svg>
