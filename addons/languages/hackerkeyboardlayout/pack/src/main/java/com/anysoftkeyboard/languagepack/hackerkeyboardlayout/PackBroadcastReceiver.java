@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.languagepack.hackerkeyboard;
+package com.anysoftkeyboard.languagepack.hackerkeyboardlayout;
 
 import com.anysoftkeyboard.addon.PackBroadcastReceiverBase;
 

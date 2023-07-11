@@ -4,5 +4,5 @@ ext.notPublishingReason = 'Testing'
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
 dependencies {
-    implementation project(path: ':addons:languages:hackerkeyboard:pack')
+    implementation project(path: ':addons:languages:hackerkeyboardlayout:pack')
 }

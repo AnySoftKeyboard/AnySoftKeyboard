@@ -2,7 +2,7 @@
 
     <application>
         <receiver
-            android:name="com.anysoftkeyboard.languagepack.hackerkeyboard.PackBroadcastReceiver"
+            android:name="com.anysoftkeyboard.languagepack.hackerkeyboardlayout.PackBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />
@@ -14,7 +14,7 @@
 
             <meta-data
                 android:name="com.menny.android.anysoftkeyboard.keyboards"
-                android:resource="@xml/hacker_keyboards" />
+                android:resource="@xml/hacker_keyboard_layouts" />
         </receiver>
     </application>
 </manifest>
