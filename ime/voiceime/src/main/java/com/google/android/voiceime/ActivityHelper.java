@@ -63,7 +63,14 @@ public class ActivityHelper extends Activity {
         && data != null
         && data.hasExtra(RecognizerIntent.EXTRA_RESULTS)) {
       ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-      createResultDialog(results.toArray(new String[results.size()])).show();
+
+      if (results.size() > 1) {
+        createResultDialog(results.toArray(new String[results.size()])).show();
+      } else if (results.size() == 1) {
+        notifyResult(results.get(0));
+      } else {
+        notifyResult(null);
+      }
     } else {
       notifyResult(null);
     }
