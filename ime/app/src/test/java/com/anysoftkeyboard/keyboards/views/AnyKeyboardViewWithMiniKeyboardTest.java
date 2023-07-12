@@ -23,6 +23,7 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -68,6 +69,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
     Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
     ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     Mockito.verify(listener).onPopupKeyboardShowingChanged(true);
 
@@ -191,7 +193,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     Assert.assertEquals("abc", key.popupCharacters);
 
     ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
-
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
     Assert.assertNotNull(miniKeyboard);
@@ -272,6 +274,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     Assert.assertNull(key.popupCharacters);
 
     ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
+    TestRxSchedulers.foregroundAdvanceBy(1);
 
     Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -396,6 +399,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     Assert.assertNull(key.popupCharacters);
 
     ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 1000, true, false);
+    TestRxSchedulers.foregroundAdvanceBy(1);
 
     Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -487,6 +491,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     Assert.assertNull(key.popupCharacters);
 
     ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 1000, true, false);
+    TestRxSchedulers.foregroundAdvanceBy(1);
 
     Assert.assertNull(mViewUnderTest.getMiniKeyboard());
     Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -578,6 +583,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
     Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
     ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     Mockito.verify(mMockKeyboardListener, Mockito.never())
         .onKey(
