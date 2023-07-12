@@ -43,8 +43,10 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.LooperMode;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+@LooperMode(LooperMode.Mode.LEGACY)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
   private AnyKeyboardView mViewUnderTest;

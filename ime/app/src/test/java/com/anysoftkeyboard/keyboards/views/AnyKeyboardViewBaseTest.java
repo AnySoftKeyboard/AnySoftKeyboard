@@ -17,6 +17,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -32,7 +33,7 @@ import org.robolectric.annotation.LooperMode;
 import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@LooperMode(LooperMode.Mode.LEGACY)
+@LooperMode(LooperMode.Mode.PAUSED)
 public class AnyKeyboardViewBaseTest {
   OnKeyboardActionListener mMockKeyboardListener;
   AnyKeyboard mEnglishKeyboard;
@@ -108,7 +109,7 @@ public class AnyKeyboardViewBaseTest {
     key.longPressCode = 'z';
 
     ViewTestUtils.navigateFromTo(mUnderTest, key, key, 1000, true, false);
-
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Mockito.verify(mMockKeyboardListener).onLongPressDone(same(key));
   }
 
@@ -228,6 +229,7 @@ public class AnyKeyboardViewBaseTest {
     ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 80, true, false);
     Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
     ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 300, false, false);
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
 
     mUnderTest.onTouchEvent(

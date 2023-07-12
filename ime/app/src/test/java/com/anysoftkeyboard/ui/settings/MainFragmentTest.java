@@ -294,6 +294,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         GeneralDialogTestUtil.getLatestShownDialog()
             .getButton(DialogInterface.BUTTON_POSITIVE)
             .callOnClick());
+    TestRxSchedulers.foregroundAdvanceBy(1);
     // this will open the System's file chooser
     ShadowActivity.IntentForResult fileRequest =
         shadowApplication.getNextStartedActivityForResult();
@@ -330,6 +331,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         GeneralDialogTestUtil.getLatestShownDialog()
             .getButton(DialogInterface.BUTTON_POSITIVE)
             .callOnClick());
+    TestRxSchedulers.foregroundAdvanceBy(1);
     // this will open the System's file chooser
     ShadowActivity.IntentForResult fileRequest =
         shadowApplication.getNextStartedActivityForResult();
@@ -377,6 +379,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         GeneralDialogTestUtil.getLatestShownDialog()
             .getButton(DialogInterface.BUTTON_POSITIVE)
             .callOnClick());
+    TestRxSchedulers.foregroundAdvanceBy(1);
     // this will open the System's file chooser
     fileRequest = shadowApplication.getNextStartedActivityForResult();
     Assert.assertNotNull(fileRequest);

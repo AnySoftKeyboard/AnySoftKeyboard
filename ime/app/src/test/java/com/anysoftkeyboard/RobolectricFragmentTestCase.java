@@ -18,7 +18,7 @@ import org.robolectric.annotation.LooperMode;
 
 /** Driver for a Fragment unit-tests */
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@LooperMode(LooperMode.Mode.LEGACY)
+@LooperMode(LooperMode.Mode.PAUSED)
 public abstract class RobolectricFragmentTestCase<F extends Fragment>
     extends RobolectricFragmentActivityTestCase<
         RobolectricFragmentTestCase.TestMainSettingsActivity, F> {

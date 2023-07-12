@@ -86,6 +86,7 @@ public class AdditionalUiSettingsFragmentTest
     Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(2);
     Assert.assertTrue(latestAlertDialog.isShowing());
     latestAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Assert.assertFalse(latestAlertDialog.isShowing());
     Assert.assertFalse(
         SharedPrefsHelper.getPrefValue(
@@ -108,6 +109,7 @@ public class AdditionalUiSettingsFragmentTest
             Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
     Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(2);
     latestAlertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+    TestRxSchedulers.foregroundAdvanceBy(1);
     Assert.assertFalse(latestAlertDialog.isShowing());
   }
 }
