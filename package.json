@@ -16,12 +16,12 @@
   "packageManager": "pnpm@8.6.9",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
-    "eslint": "^8.30.0",
-    "prettier": "^2.8.1",
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
-    "@types/node": "18.16.0"
+    "@types/node": "20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0"
   }
 }
