@@ -1,14 +1,27 @@
 {
   "scripts": {
-    "lint": "eslint --ext .js --ext .ts .github",
-    "lint-fix": "eslint --ext .js --ext .ts .github --fix",
-    "pretty-check": "prettier --write \".github/**/*.js\" --check",
+    "lint": "eslint --ext .js --ext .ts js/",
+    "lint-fix": "eslint --ext .js --ext .ts js/ --fix",
+    "pretty-check": "prettier --write \"js/**/*.js\" --check",
     "pretty": "prettier --write \".github/**/*.js\""
   },
+  "repository": "git@github.com:AnySoftKeyboard/AnySoftKeyboard.git",
+  "author": {
+    "name": "menny"
+  },
+  "engines": {
+    "node": "18.16.0",
+    "yarn": "1.22.19"
+  },
+  "packageManager": "pnpm@8.6.9",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
     "eslint": "^8.30.0",
-    "prettier": "^2.8.1"
+    "prettier": "^2.8.1",
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "@types/node": "18.16.0"
   }
 }
