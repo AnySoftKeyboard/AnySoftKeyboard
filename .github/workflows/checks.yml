@@ -26,13 +26,18 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3.5.0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.9
+          run_install: true
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'npm'
-      - run: npm clean-install
-      - run: npm run lint
-      - run: npm run pretty-check
+          cache: 'pnpm'
+      - run: pnpm lint
+      - run: pnpm pretty
+      - run: pnpm build
+      - run: pnpm test
 
   static-checks:
     runs-on: ubuntu-22.04

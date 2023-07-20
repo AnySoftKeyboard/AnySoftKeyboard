@@ -10,12 +10,12 @@ inputs:
   allowed_users:
     description: "Which users can be auto-approved. Comma separated list."
     required: true
-  review_for:
+  review_as:
     description: "Approver login."
     required: true
 runs:
   using: 'node16'
-  main: '../../../js/auto_approval/dist/index.js'
+  main: 'dist/index.js'
 
 branding:
   icon: 'git-pull-request'
