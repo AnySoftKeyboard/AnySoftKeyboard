@@ -13,15 +13,21 @@ env:
 jobs:
   contributors-md-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.19.0
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.0
+      - uses: pnpm/action-setup@v2
         with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          version: 8.6.9
+          run_install: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: 'pnpm'
+      - run: pnpm build
       - name: update contributors list
         run: |
           git config --global --add safe.directory "${PWD}"
-          ./scripts/generate_contributors_md.sh ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          node dist/contributors/index.js generate --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file CONTRIBUTORS.md
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5.0.1
         with:

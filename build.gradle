@@ -24,8 +24,6 @@ buildscript {
     }
 }
 
-apply plugin: 'anysoftkeyboard-contributors'
-
 allprojects {
     repositories {
         google()
