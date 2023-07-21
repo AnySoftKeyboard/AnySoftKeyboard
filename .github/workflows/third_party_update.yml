@@ -100,3 +100,35 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/auto-update-${{ matrix.type}}'
           delete-branch: true
+
+  general-js-deps:
+    runs-on: ubuntu-22.04
+    container: ghcr.io/menny/android_ndk:1.19.0
+    steps:
+      - uses: actions/checkout@v3.5.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.9
+          run_install: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: 'pnpm'
+      - name: upgrade to latest deps using pnpm
+        run: pnpm upgrade --latest
+      - name: Sanity verification
+        run: pnpm build
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5.0.1
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Maven Artifacts Update'
+          title: 'JS Dependencies Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          team-reviewers: infra, maintainers
+          branch: 'bot-pr/maven-update'
+          delete-branch:
+            true
