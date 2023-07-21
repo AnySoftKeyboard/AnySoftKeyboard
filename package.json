@@ -6,7 +6,7 @@
     "pretty-fix": "prettier --write \"js/**/*.ts\"",
     "build": "tsc",
     "test": "pnpm build && mocha \"dist/**/*.test.js\"",
-    "package_approval": "ncc build dist/auto_approval/index.js -o .github/actions/auto_approval/dist",
+    "package_approval": "ncc build dist/contributors/index.js -o .github/actions/contributors/dist",
     "package": "pnpm package_approval"
   },
   "repository": "git@github.com:AnySoftKeyboard/AnySoftKeyboard.git",
@@ -36,5 +36,8 @@
     "sinon": "^15.2.0",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "commander": "^11.0.0"
   }
 }
