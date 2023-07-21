@@ -10,7 +10,7 @@ inputs:
   allowed_users:
     description: "Which users can be auto-approved. Comma separated list."
     required: true
-  review_for:
+  review_as:
     description: "Approver login."
     required: true
 runs:

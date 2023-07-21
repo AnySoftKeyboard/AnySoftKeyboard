@@ -41,6 +41,6 @@ build-logging/
 
 addons/.generated_pack_version
 
-#node.js npm
+#js
 node_modules
-
+/dist

@@ -1,14 +1,43 @@
 {
   "scripts": {
-    "lint": "eslint --ext .js --ext .ts .github",
-    "lint-fix": "eslint --ext .js --ext .ts .github --fix",
-    "pretty-check": "prettier --write \".github/**/*.js\" --check",
-    "pretty": "prettier --write \".github/**/*.js\""
+    "lint": "eslint --ext .ts js/",
+    "lint-fix": "eslint --ext .ts js/ --fix",
+    "pretty": "prettier --check \"js/**/*.ts\"",
+    "pretty-fix": "prettier --write \"js/**/*.ts\"",
+    "build": "tsc",
+    "test": "pnpm build && mocha \"dist/**/*.test.js\"",
+    "package_approval": "ncc build dist/contributors/index.js -o .github/actions/contributors/dist",
+    "package": "pnpm package_approval"
   },
+  "repository": "git@github.com:AnySoftKeyboard/AnySoftKeyboard.git",
+  "author": {
+    "name": "menny"
+  },
+  "engines": {
+    "node": "18.16.0",
+    "yarn": "1.22.19"
+  },
+  "packageManager": "pnpm@8.6.9",
+  "license": "Apache-2.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
-    "eslint": "^8.30.0",
-    "prettier": "^2.8.1"
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.4.2",
+    "@types/sinon": "^10.0.15",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "@vercel/ncc": "^0.36.1",
+    "chai": "^4.3.7",
+    "eslint": "^8.45.0",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.0",
+    "sinon": "^15.2.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "commander": "^11.0.0"
   }
 }

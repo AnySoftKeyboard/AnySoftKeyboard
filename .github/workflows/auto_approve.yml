@@ -14,4 +14,4 @@ jobs:
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           allowed_users: menny
-          review_for: anysoftkeyboard-bot
+          review_as: anysoftkeyboard-bot
