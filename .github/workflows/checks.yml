@@ -32,12 +32,16 @@ jobs:
           run_install: true
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: ".nvmrc"
           cache: 'pnpm'
       - run: pnpm lint
       - run: pnpm pretty
       - run: pnpm build
       - run: pnpm test
+      - name: check if package required
+        run: |
+          pnpm package
+          git --no-pager diff --exit-code --ignore-all-space --ignore-blank-lines .github/actions/
 
   static-checks:
     runs-on: ubuntu-22.04

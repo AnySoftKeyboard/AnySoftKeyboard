@@ -2,7 +2,8 @@
     "compilerOptions": {
         "allowJs": true,
         "target": "es5",
-        "outDir": "dist"
+        "outDir": "dist/",
+        "rootDir": "js/"
     },
-        "include": ["js/**/*"]
+    "include": ["js/**/*"]
 }

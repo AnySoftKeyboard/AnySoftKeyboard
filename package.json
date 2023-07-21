@@ -2,11 +2,12 @@
   "scripts": {
     "lint": "eslint --ext .ts js/",
     "lint-fix": "eslint --ext .ts js/ --fix",
-    "pretty": "prettier --write \"js/**/*.ts\" --check",
-    "pretty-fix": "prettier --write \".js/**/*.ts\"",
-    "test": "mocha \"dist/**/*.test.js\"",
+    "pretty": "prettier --check \"js/**/*.ts\"",
+    "pretty-fix": "prettier --write \"js/**/*.ts\"",
     "build": "tsc",
-    "package_auto_approval": "ncc build dist/approval.js -o .github/actions/auto_approval/dist"
+    "test": "pnpm build && mocha \"dist/**/*.test.js\"",
+    "package_approval": "ncc build dist/auto_approval/index.js -o .github/actions/auto_approval/dist",
+    "package": "pnpm package_approval"
   },
   "repository": "git@github.com:AnySoftKeyboard/AnySoftKeyboard.git",
   "author": {

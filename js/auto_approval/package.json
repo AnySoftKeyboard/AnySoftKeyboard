@@ -1,9 +1,0 @@
-{
-  "name": "auto_approval",
-  "version": "0.0.1",
-  "description": "auto-approval for github",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc"
-  }
-}
