@@ -24,7 +24,7 @@
     "@actions/github": "^5.1.1",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "20.4.2",
+    "@types/node": "20.4.4",
     "@types/sinon": "^10.0.15",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
