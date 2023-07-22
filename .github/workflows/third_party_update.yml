@@ -103,7 +103,6 @@ jobs:
 
   general-js-deps:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -124,7 +123,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Maven Artifacts Update'
+          commit-message: 'Automated JS Dependencies Update Update'
           title: 'JS Dependencies Update'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
