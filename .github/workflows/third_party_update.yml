@@ -128,6 +128,6 @@ jobs:
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
-          branch: 'bot-pr/maven-update'
+          branch: 'bot-pr/js-deps-update'
           delete-branch:
             true
