@@ -38,7 +38,7 @@ public class VoiceRecognitionTrigger {
     if (ImeTrigger.isInstalled(mInputMethodService)) {
       // Prioritize IME as it's usually a better experience
       return getImeTrigger();
-    }else if (IntentApiTrigger.isInstalled(mInputMethodService)) {
+    } else if (IntentApiTrigger.isInstalled(mInputMethodService)) {
       return getIntentTrigger();
     } else {
       return null;
