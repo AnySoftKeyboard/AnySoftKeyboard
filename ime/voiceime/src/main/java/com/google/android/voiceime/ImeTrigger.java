@@ -29,8 +29,6 @@ class ImeTrigger implements Trigger {
 
   private static final String VOICE_IME_SUBTYPE_MODE = "voice";
 
-  private static final String VOICE_IME_PACKAGE_PREFIX = "com.google.android";
-
   private final InputMethodService mInputMethodService;
 
   public ImeTrigger(InputMethodService inputMethodService) {
@@ -76,11 +74,7 @@ class ImeTrigger implements Trigger {
     for (InputMethodInfo inputMethodInfo : inputMethodManager.getEnabledInputMethodList()) {
       for (int i = 0; i < inputMethodInfo.getSubtypeCount(); i++) {
         InputMethodSubtype subtype = inputMethodInfo.getSubtypeAt(i);
-        if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode())
-            && inputMethodInfo
-                .getComponent()
-                .getPackageName()
-                .startsWith(VOICE_IME_PACKAGE_PREFIX)) {
+        if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode())) {
           return inputMethodInfo;
         }
       }
