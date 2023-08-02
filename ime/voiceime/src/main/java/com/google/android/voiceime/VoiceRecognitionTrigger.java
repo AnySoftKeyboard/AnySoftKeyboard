@@ -67,6 +67,19 @@ public class VoiceRecognitionTrigger {
     return true;
   }
 
+  // For testing
+  public String getKind() {
+    if (mImeTrigger != null && mIntentApiTrigger != null) {
+      return "both";
+    } else if (mImeTrigger != null) {
+      return "ime";
+    } else if (mIntentApiTrigger != null) {
+      return "intent";
+    } else {
+      return "none";
+    }
+  }
+
   /**
    * Starts a voice recognition
    *
