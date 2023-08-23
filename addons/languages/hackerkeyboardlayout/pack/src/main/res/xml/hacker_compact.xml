@@ -57,7 +57,7 @@
         <Key android:codes="m" android:popupCharacters="µ"/>
         <Key android:codes="44" ask:isShiftAlways="true" ask:shiftedKeyOutputText="&lt;" android:popupCharacters=";&lt;"/>
         <Key android:codes="." ask:isShiftAlways="true" ask:shiftedKeyOutputText="&gt;" android:popupCharacters=":&gt;"/>
-        <Key android:codes="/" android:keyWidth="7.49090909%p" ask:isShiftAlways="true" ask:shiftedKeyOutputText="\?" android:popupCharacters="|?" android:keyEdgeFlags="right"/>
+        <Key android:codes="/" android:keyWidth="7.49090909%p" ask:isShiftAlways="true" ask:shiftedKeyOutputText="\\" android:popupCharacters="\\?" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
