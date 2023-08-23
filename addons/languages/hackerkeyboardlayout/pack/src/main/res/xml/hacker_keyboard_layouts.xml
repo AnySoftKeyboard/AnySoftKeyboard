@@ -9,26 +9,26 @@
      -->
     <Keyboard
         defaultDictionaryLocale="en"
-        description="Hacker keyboard"
+        description="@string/hacker_keyboard_description"
         iconResId="@drawable/ic_status_hackerkeyboard"
         id="f9736295-9cc2-4c59-ab80-e711c1723556"
         index="1"
         layoutResId="@xml/hacker_qwerty"
-        nameResId="Hacker Keyboard" />
+        nameResId="@string/hacker_keyboard" />
     <Keyboard
         defaultDictionaryLocale="en"
-        description="Hacker compact keyboard"
+        description="@string/hacker_keyboard_compact_description"
         iconResId="@drawable/ic_status_hackerkeyboard"
         id="443b6139-7461-4dbd-9806-4dfd0feb012a"
         index="2"
         layoutResId="@xml/hacker_compact"
-        nameResId="Hacker Keyboard Compact" />
+        nameResId="@string/hacker_keyboard_compact" />
     <Keyboard
         defaultDictionaryLocale="en"
-        description="Hacker full keyboard"
+        description="@string/hacker_keyboard_full_description"
         iconResId="@drawable/ic_status_hackerkeyboard"
         id="38aad44b-aa6d-4509-ba53-d57279112ed0"
         index="3"
         layoutResId="@xml/hacker_full"
-        nameResId="Hacker Keyboard Full" />
+        nameResId="@string/hacker_keyboard_full" />
 </Keyboards>
