@@ -13,6 +13,7 @@
             android:persistent="true"
             android:summary="@string/gesture_typing_summary"
             android:title="@string/gesture_typing_action" />
+<!--        sdfiasjdf-->
 
     </androidx.preference.PreferenceCategory>
 
