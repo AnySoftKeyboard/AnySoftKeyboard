@@ -7,7 +7,7 @@ dependencies {
     implementation project(':ime:base-rx')
     implementation project(':ime:pixel')
 
-    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.preference:preference:1.2.1'
 
     api 'junit:junit:4.13.2'
     api "org.robolectric:robolectric:$robolectricVersion"

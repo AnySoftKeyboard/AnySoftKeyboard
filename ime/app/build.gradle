@@ -121,7 +121,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.annotation:annotation:1.7.0'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.preference:preference:1.2.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
