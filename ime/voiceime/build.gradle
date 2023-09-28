@@ -5,6 +5,8 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
 
     implementation project(path: ':ime:base')
+
+    testImplementation project(path: ':ime:base-test')
 }
 
 android {
