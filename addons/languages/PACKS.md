@@ -20,6 +20,7 @@
 1. <img src='georgian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Georgian: [Source](georgian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.georgian)
 1. <img src='german/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;German: [Source](german) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.german)
 1. <img src='greek/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Greek: [Source](greek) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.greek)
+1. <img src='hackerkeyboardlayout/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hackerkeyboardlayout: [Source](hackerkeyboardlayout) (not published reason: 'Testing')
 1. <img src='hawaiian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hawaiian: [Source](hawaiian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hawaiian)
 1. <img src='hebrew/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hebrew: [Source](hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
 1. <img src='hindi/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Hindi: [Source](hindi) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hindi)
