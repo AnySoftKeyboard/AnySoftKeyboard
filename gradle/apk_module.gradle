@@ -28,22 +28,30 @@ static String calculateApplicationId(Project proj) {
 
 apply from: "${rootDir}/gradle/android_general.gradle"
 
-//copy bundles to output
-tasks.whenTaskAdded { task ->
-    if (task.name.matches("sign.+Bundle")) {
-        def sourceFolder = file("${buildDir.absoluteFile}/outputs/bundle")
-        def copyTask = tasks.register("Copy${task.name.capitalize()}Aab", Copy)
-        copyTask.configure {
-            it.from task.finalBundleFile
-            it.destinationDir file("${rootDir.absolutePath}/outputs/bundle/${project.parent.name}")
-            it.dependsOn task
-            it.inputs.file(task.finalBundleFile)
-            it.doLast {
-                println("Copy bundles from ${sourceFolder.absolutePath} to ${it.getDestinationDir().absolutePath}...")
-            }
-        }
+//copy bundles and APKs to output
+android.applicationVariants.configureEach { variant ->
+    def bundleProvider = tasks.named("sign${variant.name.capitalize()}Bundle")
+    def bundleCopy = tasks.register("Copy${variant.name.capitalize()}Aab", Copy)
+    bundleCopy.configure {
+        it.from "${project.buildDir.absolutePath}/outputs/bundle/${variant.name}/app-${variant.name}.aab"
+        it.destinationDir file("${rootDir.absolutePath}/outputs/bundle/")
+        rename ".*", "${project.parent.name}_${variant.name}.aab"
+        dependsOn bundleProvider
+    }
+    bundleProvider.configure {
+        finalizedBy(bundleCopy)
+    }
 
-        task.finalizedBy(copyTask)
+    def assembleProvider = tasks.named("assemble${variant.name.capitalize()}")
+    def apkCopy = tasks.register("Copy${variant.name.capitalize()}Apk", Copy)
+    apkCopy.configure {
+        it.from "${project.buildDir.absolutePath}/outputs/apk/${variant.name}/app-${variant.name}.apk"
+        it.destinationDir file("${rootDir.absolutePath}/outputs/apk/")
+        rename ".*", "${project.parent.name}_${variant.name}.apk"
+        dependsOn assembleProvider
+    }
+    assembleProvider.configure {
+        finalizedBy(apkCopy)
     }
 }
 
@@ -53,21 +61,6 @@ android {
     }
 
     namespace calculateApplicationId(project)
-
-    //copy apks to outputs
-    applicationVariants.configureEach { variant ->
-        variant.outputs.all {
-            outputFileName = "${project.path.substring(1).replace(':', '-')}-${android.defaultConfig.versionCode}.apk"
-        }
-        variant.assembleProvider.configure { assemble ->
-            assemble.doLast {
-                copy {
-                    from variant.outputs*.outputFile
-                    into "${rootDir.absolutePath}/outputs/apks/${variant.dirName}/"
-                }
-            }
-        }
-    }
 
     def keystoreFile = file("/tmp/anysoftkeyboard.keystore")
 
