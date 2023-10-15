@@ -75,7 +75,7 @@ Thank you for the fine contributors:
 1. [Blaimi](https://github.com/Blaimi) (2)
 1. [dgalaktionov](https://github.com/dgalaktionov) (2)
 1. [duchampdev](https://github.com/duchampdev) (2)
-1. [Er2ch](https://github.com/Er2ch) (2)
+1. [er2off](https://github.com/er2off) (2)
 1. [Erwan-Witekio](https://github.com/Erwan-Witekio) (2)
 1. [glemco](https://github.com/glemco) (2)
 1. [hezi](https://github.com/hezi) (2)
