@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pilaga_keyboard_name">Pilagá</string>
+    <string name="pilaga_dictionary_name">Pilagá dict</string>
+    <string name="pilaga_keyboard_with_symbols_name">Pilagá symbol</string>
+    <string name="pilaga_keyboard_with_symbols_alt_name">Pilagá symbol alt</string>
+    <string name="pilaga_keyboard_name_dvorak">Pilagá Dvorak</string>
+</resources>
