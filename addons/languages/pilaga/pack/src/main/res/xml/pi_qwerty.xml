@@ -6,24 +6,19 @@
 
     <Row>
         <Key android:horizontalGap="10%p" android:codes="q" android:popupCharacters="1" android:keyEdgeFlags="left"/>
-<!--        <Key android:codes="q" android:popupCharacters="1" android:keyEdgeFlags="left"/>-->
         <Key android:codes="w" android:popupCharacters="2"/>
         <Key android:codes="e" android:popupCharacters="3èêé"/>
-<!--        <Key android:codes="r" android:popupCharacters="4"/>-->
         <Key android:codes="t" android:popupCharacters="5"/>
         <Key android:codes="y" android:popupCharacters="6żžź"/>
-<!--        <Key android:codes="u" android:popupCharacters="7ùüû"/>-->
         <Key android:codes="i" android:popupCharacters="8"/>
         <Key android:codes="o" android:popupCharacters="9öô"/>
         <Key android:codes="p" android:popupCharacters="0" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="a" android:keyLabel="a" android:popupCharacters="àäâ" android:keyEdgeFlags="left"/>
-<!--        <Key android:codes="a" android:keyLabel="a" android:popupCharacters="àäâ" android:keyEdgeFlags="left"/>-->
+        <Key android:horizontalGap="5%p" android:codes="a" android:keyLabel="a" android:popupCharacters="áàäâ" android:keyEdgeFlags="left"/>
         <Key android:codes="s" android:popupCharacters=""/>
         <Key android:codes="d" android:popupCharacters="đ"/>
-<!--        <Key android:codes="f" android:popupCharacters=""/>-->
         <Key android:codes="g" android:popupCharacters="ĝ"/>
         <Key android:codes="h" android:popupCharacters="ĥ"/>
         <Key android:codes="λ" android:popupCharacters="ĵ"/>
@@ -33,8 +28,7 @@
     </Row>
 
     <Row>
-        <Key android:codes="-1" android:keyWidth="10%p"
-            android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="-1" android:keyWidth="10%p" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="ʕ" android:popupCharacters=""/>
         <Key android:codes="ʼ" android:popupCharacters=""/>
         <Key android:codes="č" android:popupCharacters=""/>
