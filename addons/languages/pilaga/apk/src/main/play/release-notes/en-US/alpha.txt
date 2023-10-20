@@ -1,4 +1,3 @@
 Adding missing accent letters.
-Adding new Pilagá layout: Es qwerty with symbols
-Adding new Pilagá layout: Es Querty with symbols alt (without ñ)
-Adding popup_domains for pilaga locales
+Adding new Pilagá layout: pi qwerty with symbols
+Adding popup_domains for pilagá locales
