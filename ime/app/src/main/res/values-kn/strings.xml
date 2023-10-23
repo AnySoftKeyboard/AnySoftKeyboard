@@ -11,9 +11,6 @@
     <!-- UI root menu -->
     <string name="ui_effects_settings_tile">ಕೀಲಿಮಣೆಯ ಪರಿಣಾಮಗಳು ಮತ್ತು ಅನುಭವ.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">ಬದಲಾವಣೆಗಳ ದಾಖಲೆಗಳು</string>
-    <string name="close_button">ಮುಚ್ಚು</string>
     <string name="delete_button">ಅಳಿಸು</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->

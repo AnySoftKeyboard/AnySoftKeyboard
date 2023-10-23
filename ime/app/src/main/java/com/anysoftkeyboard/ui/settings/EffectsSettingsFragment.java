@@ -25,6 +25,7 @@ import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
+import net.evendanan.pixel.UiUtils;
 
 public class EffectsSettingsFragment extends PreferenceFragmentCompat {
 
@@ -66,6 +67,6 @@ public class EffectsSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.effects_group));
+    UiUtils.setActivityTitle(this, getString(R.string.effects_group));
   }
 }

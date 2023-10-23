@@ -21,4 +21,8 @@ curl \
   -F "files[strings.xml]=@ime/app/src/main/res/values/strings.xml" \
   -F "files[remote_strings.xml]=@ime/remote/src/main/res/values/strings.xml" \
   -F "files[addons_strings.xml]=@ime/addons/src/main/res/values/strings.xml" \
+  -F "files[chewbacca_strings.xml]=@ime/chewbacca/src/main/res/values/strings.xml" \
+  -F "files[release_info_strings.xml]=@ime/releaseinfo/src/main/res/values/strings.xml" \
+  -F "files[permissions_strings.xml]=@ime/permissions/src/main/res/values/strings.xml" \
+  -F "files[pixel_strings.xml]=@ime/pixel/src/main/res/values/strings.xml" \
   "https://api.crowdin.com/api/project/anysoftkeyboard/update-file?key=${CROWDIN_API}${UPDATE_OPTION}"

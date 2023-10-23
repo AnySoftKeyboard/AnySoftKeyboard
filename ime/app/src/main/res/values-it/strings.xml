@@ -19,12 +19,9 @@
     <string name="ui_theme_settings_tile">Scegli e configura i temi della tastiera.</string>
     <string name="ui_effects_settings_tile">Effetti ed esperienza della tastiera.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Registro modifiche</string>
     <string name="search_market_for_keyboard_addons">Ottieni più tastiere nell\'App Store</string>
     <string name="search_market_for_quick_key_addons">Ottieni ulteriori componenti <i>Testo Rapido</i> aggiuntivi dall\'App Store…</string>
     <string name="keyboard_theme_tweak_group">Aggiustamenti</string>
-    <string name="close_button">Chiudi</string>
     <string name="delete_button">Elimina</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Salvato:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -519,7 +516,6 @@
     <string name="created_mem_dump_file">File di dump memoria creato in: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">AnySoftKeyboard non è completamente messo a punto per l\'uso. Clicca qui per settare.</string>
     <string name="not_configured_with_just_click_here">Clicca qui</string>
-    <string name="click_for_more">altro…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Aggiungi parola</string>
@@ -551,9 +547,6 @@
     <string name="setup_wizard_step_download_details">Sarete felici di sapere che <i>AnySoftKeyboard</i> supporta decine di lingue. Basta scaricare il pacchetto lingua desiderato e godersi la digitazione in qualsiasi lingua sul tuo dispositivo.</string>
     <string name="setup_wizard_step_download_action">Scarica pacchetto lingua</string>
     <string name="setup_wizard_step_download_skip_action">Salta</string>
-    <string name="ime_crashed_title">AnySoftKeyboard si è chiusa inaspettatamente!</string>
-    <string name="ime_crashed_sub_text">Oops, non l\'avevo previsto…</string>
-    <string name="ime_crashed_ticker">Oops, AnySoftKeyboard si è chiusa in maniera anomala, non l\'avevo previsto…</string>
     <string name="ime_crashed_text">Sfortunatamente, c\'è un problema con <i>AnySoftKeyboard</i>. Niente panico tuttavia, c\'è qualcosa che anche <b>tu</b> puoi fare per aiutarne la risoluzione: inviaci la segnalazione di arresto anomalo, e faremo del nostro meglio per risolvere questo incidente e restituirti una fantastica esperienza con la tastiera!\n\nCon sincere scuse, la Squadra di sviluppo.</string>
     <string name="ime_crashed_send_button">Invia</string>
     <string name="ime_crashed_cancel_button">Annulla</string>
@@ -568,13 +561,9 @@
     <string name="clipboard_paste_entries_title">Scegli testo da incollare</string>
     <string name="next_word_prefs_clear_data">Cancella dati di Prossima Parola</string>
     <string name="next_word_prefs_clear_data_summary">Questo è irreversibile. Tutta la tua cronologia di digitazione verrà cancellata.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard richiede il permesso di leggere e scrivere per memorizzare i file di backup.</string>
     <string name="notification_read_contacts_title">Posso leggere i tuoi Contatti?</string>
     <string name="notification_read_contacts_text">Dobbiamo leggere i tuoi Contatti per poterti offrire una migliore esperienza di completamento automatico.</string>
-    <string name="notification_read_contacts_ticker">Autorizzazione Contatti necessaria</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard sta usando i nomi dei tuoi Contatti per fornirti il suggerimento personalizzato di parole: mentre scrivi una parola, cerchiamo parole simili per completare automaticamente e correggere automaticamente la tua digitazione.</string>
     <string name="wizard_allow_contacts_permission">Permetti suggerimenti di digitazione basati sui Contatti</string>
-    <string name="allow_permission">Permetti</string>
     <string name="turn_off_contacts_dictionary">Disattiva dizionario Contatti</string>
     <string name="read_more_about_permissions">Per saperne di più sulle autorizzazioni…</string>
     <string name="ask_beta_link_promo">Hey! Vuoi roba nuova di <i>AnySoftKeyboard</i> più velocemente? Allora sei fortunato! Il canale <i>BETA</i> è ora disponibile per <b>TE</b>!\nBasta iscriversi al link sottostante, e aggiornare tramite <i>Google Play</i> App Store!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nE grazie dell\'aiuto nell\'acchiappare bachi prima che raggiungano il pubblico.</string>

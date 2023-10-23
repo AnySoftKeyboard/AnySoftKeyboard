@@ -25,12 +25,9 @@
     <string name="ui_theme_settings_tile">Escolha e configure os temas do teclado.</string>
     <string name="ui_effects_settings_tile">Efeitos de teclado e experiência.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Alterações</string>
     <string name="search_market_for_keyboard_addons">Obter mais teclados na <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obter mais <i>textos rápidos</i> e extras na <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
-    <string name="close_button">Fechar</string>
     <string name="delete_button">Eliminar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gravado:\u0020<xliff:g id="word">%s</xliff:g>
@@ -561,7 +558,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     </string>
     <string name="not_configured_with_click_here">O AnySoftKeyboard ainda não pode ser utilizado. Clique aqui para o configurar.</string>
     <string name="not_configured_with_just_click_here">Clique aqui</string>
-    <string name="click_for_more">mais…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Adicionar palavra</string>
@@ -608,9 +604,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
         qualquer idioma do seu dispositivo.</string>
     <string name="setup_wizard_step_download_action">Descarregar pacotes de idiomas</string>
     <string name="setup_wizard_step_download_skip_action">Ignorar</string>
-    <string name="ime_crashed_title">O AnySoftKeyboard encerrou!</string>
-    <string name="ime_crashed_sub_text">Não esperava por isto…</string>
-    <string name="ime_crashed_ticker">O AnySoftKeyboard encerrou. Não estava à espera disto…</string>
     <string name="ime_crashed_text">Infelizmente, ocorreu um erro com o <i>AnySoftKeyboard</i>. Não entre em pânico pois existe algo que <b>você</b> pode fazer para o resolver: envie um relatório de erros que nós tentaremos corrigir o problema e melhorar o seu teclado!\n\nAceite um pedido de desculpa em nome da equipa de desenvolvimento.</string>
     <string name="ime_crashed_send_button">Enviar</string>
     <string name="ime_crashed_cancel_button">Cancelar</string>
@@ -625,16 +618,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="clipboard_paste_entries_title">Escolher o texto a colar</string>
     <string name="next_word_prefs_clear_data">Limpar dados da próxima palavra</string>
     <string name="next_word_prefs_clear_data_summary">Isto é irreversível. Todo o seu histórico de palavras escritas introduzidas será limpo.</string>
-    <string name="storage_permission_rationale">O AnySoftKeyboard precisa da sua permissão para ler e gravar no armazenamento os ficheiros de cópias de segurança.</string>
     <string name="notification_read_contacts_title">Posso aceder aos seus contactos?</string>
     <string name="notification_read_contacts_text">Necessitamos de aceder aos seus contactos para disponibilizar uma melhor experiência.</string>
-    <string name="notification_read_contacts_ticker">Requer acesso aos contactos</string>
-    <string name="contacts_permissions_dialog_message">O AnySoftKeyboard está a usar os nomes dos seus contactos
-        para fornecer uma sugestão personalizada de palavra: ao digitar uma palavra, são procuradas
-        palavras semelhantes para completar corrigir automaticamente a digitação.
-    </string>
     <string name="wizard_allow_contacts_permission">Permitir sugestões de palavras baseadas nos contactos</string>
-    <string name="allow_permission">Permitir</string>
     <string name="turn_off_contacts_dictionary">Desativar dicionário de contactos</string>
     <string name="read_more_about_permissions">Ler mais sobre permissões…</string>
     <string name="ask_beta_link_promo">Ei! Quer novas funcionalidades no <i>AnySoftKeyboard</i> mais depressa? Então

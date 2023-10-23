@@ -17,12 +17,9 @@
     <string name="ui_root_tile">UI</string>
     <string name="ui_theme_settings_tile">Vyberte a nastavte motivy klávesnice.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Historie změn</string>
     <string name="search_market_for_keyboard_addons">Získejte více klávesnic v <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Získejte více rozšíření <i>rychlého textu</i> v <i>Obchodu Play</i>…</string>
     <string name="keyboard_theme_tweak_group">Vyladění</string>
-    <string name="close_button">Zavřít</string>
     <string name="delete_button">Smazat</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Uloženo: <xliff:g id="word">%s</xliff:g>
@@ -179,6 +176,7 @@
     <string name="auto_dictionary_threshold_type_immediately">Ihned po napsání</string>
     <string name="auto_dictionary_threshold_type_off">Neučit se nová slova</string>
     <string name="use_next_words_dictionary">Návrh dalšího slova</string>
+    <string name="next_words_dictionary_off">Nenavrhujte další slovo</string>
     <string name="use_next_words_dictionary_aggressiveness_medium">Středně agresivní</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">Zobrazit mnoho návrhů</string>
     <string name="use_next_words_dictionary_aggressiveness_summary">Agresivita návrhu dalšího slova: %s</string>
@@ -265,6 +263,7 @@
     <string name="lang_key_shows_popup_on_summary">Klávesa jazyka zobrazí vyskakovací dialog výběru</string>
     <string name="lang_key_shows_popup_off_summary">Klávesa jazyka rotuje přes jazyky</string>
     <string name="auto_caps">Autom. velká písmena</string>
+    <string name="grammar_group">Gramatika</string>
     <string name="keyboard_behavior_group">Chování klávesnice</string>
     <string name="candidates_on">Zobrazovat návrhy</string>
     <string name="candidates_on_summary">Seznam navrhovaných slov se zobrazí nad klávesnicí</string>
@@ -309,6 +308,7 @@
     <string name="extension_kbd_top_small_numbers">Číselné klávesy</string>
     <string name="extension_kbd_top_numbers_alt">Alternativní číselné klávesy</string>
     <string name="extension_kbd_top_nav">Navigační klávesy</string>
+    <string name="extension_kbd_top_terminal">Terminál</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normální</string>
     <string name="extension_kbd_bottom_regular">Klasický (bez mikrofonu)</string>
     <string name="extension_kbd_bottom_iphone">Styl iPhone (bez mikrofonu)</string>
@@ -317,6 +317,7 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternativní s mikrofonem</string>
     <string name="extension_kbd_bottom_ng">Nová generace - testování</string>
     <string name="extension_kbd_extension_numbers_symbols">Čísla a symboly</string>
+    <string name="extension_kbd_bottom_minimal">Minimální</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Jít</string>
@@ -333,7 +334,14 @@
     <string name="select_keyboard_popup_title">Vyberte klávesnici</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Klávesa smajlíku</string>
+    <string name="history_quick_text_key_name">Historie</string>
     <string name="default_quick_text_key_name">Jednoduché smajlíky</string>
+    <string name="unicode_food_quick_text_key_name">Jídlo</string>
+    <string name="unicode_nature_quick_text_key_name">Příroda</string>
+    <string name="unicode_transport_quick_text_key_name">Doprava</string>
+    <string name="unicode_city_quick_text_key_name">Město</string>
+    <string name="unicode_office_quick_text_key_name">Kancelář</string>
+    <string name="unicode_flags_quick_text_key_name">Vlajky</string>
     <string name="multitap_timeout_title">Čas vícenásobného stisknutí</string>
     <string name="multitap_timeout_summary">Časový limit mezi stisky kláves</string>
     <string name="settings_multitap_timeout_disabled">Zakázán</string>
@@ -374,6 +382,10 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Nemáte žádná slova v uživatelském slovníku. Nyní můžete přidat své první slovo.</string>
     <string name="should_swap_punctuation_and_space_title">Prohodit interpunkci a mezeru</string>
+    <string name="emoji_default_gender_value_person">Osoba</string>
+    <string name="emoji_default_gender_value_woman">Žena</string>
+    <string name="emoji_default_gender_value_man">Muž</string>
+    <string name="emoji_default_gender_value_random_type">Náhodné pohlaví</string>
     <string name="developer_tools">Vývojářské nástroje</string>
     <string name="click_for_developer_features">Vývojářské nástroje</string>
     <string name="click_for_developer_features_summary">Různé nástroje pro vývojáře AnySoftKeyboard</string>
@@ -381,7 +393,6 @@
     <string name="created_mem_dump_file">Byl vytvořen soubor se stavem paměti: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">Aplikace AnySoftKeyboard není plně nakonfigurována pro používání. Klikněte sem pro nastavení.</string>
     <string name="not_configured_with_just_click_here">Klikněte sem</string>
-    <string name="click_for_more">více…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Přidat slovo</string>
@@ -401,11 +412,29 @@
     <string name="setup_wizard_step_three_action_languages">Nastavte jazyky…</string>
     <string name="setup_wizard_step_three_action_themes">Vyberte motiv…</string>
     <string name="setup_wizard_step_three_action_all_settings">Konfigurujte všechno ostatní…</string>
-    <string name="ime_crashed_title">Aplikace AnySoftKeyboard spadla!</string>
-    <string name="ime_crashed_sub_text">Jejda, to se nemělo stát…</string>
-    <string name="ime_crashed_ticker">Jejda, aplikace AnySoftKeyboard spadla, to se nemělo stát…</string>
+    <string name="setup_wizard_step_download_skip_action">Přeskočit</string>
     <string name="ime_crashed_text">Naneštěstí je s aplikací <i>AnySoftKeyboard</i> nějaký problém. Nepanikařte, <b>vy sami</b> můžete pomoci to vyřešit: odešlete nám zprávu o pádu a my se budeme snažit tento pád vyřešit, jak nejlépe dovedeme, abychom vám opět poskytli úchvatný zážitek s klávesnicí!\n\nS upřímnou omluvou tým vývojářů.</string>
     <string name="ime_crashed_send_button">Odeslat</string>
     <string name="ime_crashed_cancel_button">Zrušit</string>
     <string name="ime_crashed_intent_selector_title">Odeslat hlášení o pádu přes</string>
+    <string name="next_word_settings_group">Nastavení</string>
+    <string name="read_more_about_permissions"></string>
+    <string name="app_shortcut_keyboards_short_label">Klávesnice</string>
+    <string name="app_shortcut_themes_short_label">Motivy</string>
+    <string name="app_shortcut_gestures_short_label">Gesta</string>
+    <string name="visit_our_web_site">Navštivte naše webové stránky…</string>
+    <string name="setup_wizard_welcome_title">Vítejte!</string>
+    <string name="setup_wizard_skip">Přeskočit</string>
+    <string name="theme_case_type_override_lower">Vždy velká písmena</string>
+    <string name="theme_case_type_override_upper">Vždy velká písmena</string>
+    <string name="settings_key_hint_size_none">Žádná</string>
+    <string name="settings_key_hint_size_small">Malá</string>
+    <string name="settings_key_hint_size_normal">Normální</string>
+    <string name="settings_key_hint_size_big">Velká</string>
+    <string name="take_a_while_progress_message">Může to chvíli trvat…</string>
+    <string name="shared_prefs_provider_name">Nastavení aplikace</string>
+    <string name="next_word_dict_prefs_provider">Další slova</string>
+    <string name="aosp_dark_theme_name">Tmavý motiv AOSP</string>
+    <string name="aosp_light_theme_name">Světlý motiv AOSP</string>
+    <string name="delete_all_clipboard_entries">Prázdná schránka</string>
 </resources>

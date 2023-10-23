@@ -20,10 +20,7 @@
     <!-- UI root menu -->
     <string name="ui_root_tile">UI</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Jurnal de modificări</string>
     <string name="keyboard_theme_tweak_group">Trucuri</string>
-    <string name="close_button">Închide</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Salvat:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -221,7 +218,6 @@
     <string name="developer_tools">Unelte dezvoltator</string>
     <string name="click_for_developer_features">Unelte dezvoltator</string>
     <string name="not_configured_with_just_click_here">Click aici</string>
-    <string name="click_for_more">mai multe…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Adaugă cuvânt</string>
@@ -240,14 +236,12 @@
     <string name="setup_wizard_step_three_action_languages">Configurează limbile…</string>
     <string name="setup_wizard_step_three_action_themes">Selectează tema…</string>
     <string name="setup_wizard_step_download_skip_action">Sari peste</string>
-    <string name="ime_crashed_title">AnySoftKeyboard a generat erori!</string>
     <string name="ime_crashed_send_button">Trimite</string>
     <string name="ime_crashed_cancel_button">Anulează</string>
     <string name="next_word_settings_group">Setări</string>
     <string name="clipboard_copy_done_toast">Textul selectat a fost copiat în clipboard.</string>
     <string name="clipboard_paste_entries_title">Alegeți textul pentru lipire</string>
     <string name="notification_read_contacts_title">Pot să vă citesc contactele?</string>
-    <string name="allow_permission">Permite</string>
     <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then
         you\'re in luck! <i>BETA</i> channel is now available pentru <b>TINE</b>!\nJust sign up at the
         link below, and update through <i>Google Play</i> app store!\n\n

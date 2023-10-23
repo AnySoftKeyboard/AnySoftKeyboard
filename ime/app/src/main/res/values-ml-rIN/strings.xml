@@ -5,9 +5,6 @@
     <string name="language_root_tile">ഭാഷ</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">മാറ്റ സൂചനാ പട്ടിക</string>
-    <string name="close_button">അടയ്ക്കുക</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="revert_added_word_question">നീക്കം ചെയ്യുക</string>
     <!-- voice -->

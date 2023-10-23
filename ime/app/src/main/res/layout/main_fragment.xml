@@ -16,6 +16,7 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -50,12 +51,12 @@
                 android:layout_gravity="top|start"
                 android:layout_margin="8dp"
                 android:autoLink="web"
-                android:drawableStart="@drawable/ic_go_to_website"
-                android:drawableLeft="@drawable/ic_go_to_website"
                 android:drawablePadding="6dp"
                 android:padding="8dp"
                 android:text="@string/ime_name"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_go_to_website"
+                app:drawableLeftCompat="@drawable/ic_go_to_website" />
 
         </FrameLayout>
 
@@ -97,13 +98,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:drawableStart="@drawable/ic_not_configured_animation"
-                android:drawableLeft="@drawable/ic_not_configured_animation"
                 android:drawablePadding="6dp"
                 android:padding="8dp"
                 android:text="@string/not_configured_with_click_here"
                 android:textColor="?android:textColorSecondary"
-                android:textSize="@dimen/font_size_sub_title" />
+                android:textSize="@dimen/font_size_sub_title"
+                app:drawableStartCompat="@drawable/ic_not_configured_animation"
+                app:drawableLeftCompat="@drawable/ic_not_configured_animation" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- this box will be should shown
+         only if we do not have permissions to post notifications. -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/no_notifications_permission_click_here_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Ask.Text.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawablePadding="6dp"
+                android:padding="8dp"
+                android:text="@string/not_notification_permission_text"
+                android:textColor="?android:textColorSecondary"
+                app:drawableTopCompat="@drawable/ic_notification_perm_required" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView

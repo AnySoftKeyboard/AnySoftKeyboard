@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="change_log_bullet_point">•\u0020<xliff:g id="change_log_entry">%s</xliff:g></string>
+    <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward
+    compatible!\nIt may also include\u0020&#x1f409;\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>
+    you encounter at https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues.\n\nThank you for testing a development build.\u0020&#x1f409;
+    </string>
+</resources>

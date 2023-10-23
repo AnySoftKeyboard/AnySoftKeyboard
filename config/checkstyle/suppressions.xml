@@ -37,4 +37,6 @@
 
     <suppress files="simple_phone\.xml" id="DoNotUseAndroidKeyIcon" />
     <suppress files="keyboard_layout_api\.xml" id="DoNotUseAndroidKeyIcon" />
+
+    <suppress files=".*\/src\/.*\/com/anysoftkeyboard/notification/.*.java" id="NeverUseNotificationsDirectly" />
 </suppressions>

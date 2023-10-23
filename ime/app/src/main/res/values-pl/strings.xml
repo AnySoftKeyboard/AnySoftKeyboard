@@ -22,12 +22,9 @@
     <string name="ui_theme_settings_tile">Wybierz i skonfiguruj motywy klawiatury.</string>
     <string name="ui_effects_settings_tile">Efekty i doświadczenia użytkownika.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Lista zmian</string>
     <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur ze sklepu z aplikacjami</string>
     <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
     <string name="keyboard_theme_tweak_group">Ulepszenia</string>
-    <string name="close_button">Zamknij</string>
     <string name="delete_button">Usuń</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Zapisano:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -604,7 +601,6 @@ Zmiana
         tutaj, aby to zrobić.
     </string>
     <string name="not_configured_with_just_click_here">Dotknij tutaj</string>
-    <string name="click_for_more">więcej…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Dodaj słowo</string>
@@ -651,10 +647,6 @@ Zmiana
         dowolnym języku na swoim urządzeniu.</string>
     <string name="setup_wizard_step_download_action">Pobierz pakiet językowy</string>
     <string name="setup_wizard_step_download_skip_action">Pomiń</string>
-    <string name="ime_crashed_title">AnySoftKeyboard zawieszona!</string>
-    <string name="ime_crashed_sub_text">Ups, nie przewidzieliśmy tego…</string>
-    <string name="ime_crashed_ticker">Ups, AnySoftKeyboard napotkał błąd, którego nie przewidzieliśmy…
-    </string>
     <string name="ime_crashed_text">Niestety wystąpił problem z <i>AnySoftKeyboard</i>.
         Nie panikuj, jest coś co <b>Ty</b> możesz zrobić by pomóc go rozwiązać: wyślij nam raport
          błędu, a my zrobimy co w naszej mocy, by rozwiązać problem i przywrócić Ci doskonałą sprawność
@@ -673,16 +665,9 @@ Zmiana
     <string name="clipboard_paste_entries_title">Wybierz tekst do wklejenia</string>
     <string name="next_word_prefs_clear_data">Wyczyść dane następnego słowa</string>
     <string name="next_word_prefs_clear_data_summary">To jest nieodwracalne. Cała historia Twojego pisania zostanie wyczyszczona.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard wymaga Twojej zgody na odczytywanie i zapisywanie w celu przechowywania plików kopii zapasowych.</string>
     <string name="notification_read_contacts_title">Czy mogę czytać twoje kontakty?</string>
     <string name="notification_read_contacts_text">Potrzebujemy dostępu do Twoich kontaktów, aby móc wykorzystać je w autouzupełnianiu.</string>
-    <string name="notification_read_contacts_ticker">Potrzebujemy dostępu do kontaktów</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard używa nazw Twoich kontaktów,
-         aby dostarczyć spersonalizowane sugestie: wpisując słowo, szukamy
-        podobnych słów w kontaktach i używamy ich do autouzupełniania i auto-korekty.
-    </string>
     <string name="wizard_allow_contacts_permission">Zezwalaj na sugerowanie nazw kontaktów</string>
-    <string name="allow_permission">Zezwól</string>
     <string name="turn_off_contacts_dictionary">Wyłącz słownik kontaktów</string>
     <string name="read_more_about_permissions">Przeczytaj więcej o uprawnieniach…</string>
     <string name="ask_beta_link_promo">Hej! Chcesz szybciej dostać nowe rzeczy od <i>AnySoftKeyboard</i> ? W takim razie

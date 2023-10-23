@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Selecciona i configura temes del teclat.</string>
     <string name="ui_effects_settings_tile">Efectes del teclat i experimentació.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Registre de canvis</string>
     <string name="search_market_for_keyboard_addons">Aconseguiu més teclats al <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obtingueu més <i>Quick-Text</i> afegitons al <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Optimitzacions</string>
-    <string name="close_button">Surt</string>
     <string name="delete_button">Suprimeix</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">S\'ha desat:
@@ -198,6 +195,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Disseny compacte a la dreta</string>
     <string name="swipe_action_name_compact_layout_to_left">Disseny compacte a l\'esquerra</string>
     <string name="swipe_action_name_utility_keyboard">Mostra l\'ajuda al teclat</string>
+    <string name="swipe_action_name_quick_text_popup">Emojis en finestra emergent</string>
     <string name="settings_swipe_velocity_threshold_title">Reconeixement de gestos</string>
     <string name="settings_swipe_velocity_threshold_summary">La velocitat de gest mínim. Actualment, %s</string>
     <string name="settings_swipe_velocity_very_slow">Molt lenta</string>
@@ -223,6 +221,7 @@
     <string name="use_user_dictionary">Diccionari de l\'usuari</string>
     <string name="use_user_dictionary_on_summary">Suggereix paraules afegides per l\'usuari (toqueu 2 vegades al suggeriment per afegir-ho)</string>
     <string name="always_use_fallback_user_dictionary">Utilitza un emmagatzematge privat de diccionari d\'usuari.  </string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Utilitza el diccionari d\'usuari global d\'Android</string>
     <string name="use_auto_dictionary">Diccionari automàtic</string>
     <string name="use_auto_dictionary_dialog_title">Seleccioneu el mètode d\'aprenentatge</string>
     <string name="use_auto_dictionary_summary">Aprèn paraules automàticament. Mètode triat: %s</string>
@@ -327,6 +326,7 @@
     <string name="lang_key_shows_popup">Finestra d\'idioma</string>
     <string name="lang_key_shows_popup_on_summary">Prement « → ABC → » es mostra una finestra de selecció dels teclats disponibles</string>
     <string name="lang_key_shows_popup_off_summary">Prement « → ABC → » es canvia directament entre els teclats disponibles</string>
+    <string name="settings_os_clipboard_sync">Sincronitza el porta-retalls amb el sistema</string>
     <string name="auto_caps">Majúscules automàtiques</string>
     <string name="grammar_group">Gramàtica</string>
     <string name="keyboard_behavior_group">Comportament del teclat</string>
@@ -381,6 +381,9 @@
     <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - Opció 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
     <string name="yochees_light_keyboard_theme_description">Tema clar per Algimantas.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Tema clar d\'Algimantas amb
+        tecles majúscules.
+    </string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">Sense fila superior</string>
     <string name="extension_kbd_top_small">Tecles petites</string>
@@ -388,6 +391,8 @@
     <string name="extension_kbd_top_small_numbers">Teclat numèric</string>
     <string name="extension_kbd_top_numbers_alt">Alternació del teclat numèric</string>
     <string name="extension_kbd_top_nav">Tecles de navegació</string>
+    <string name="extension_kbd_top_numbers_simple">Senzill, només números</string>
+    <string name="extension_kbd_top_terminal">Terminal</string>
     <string name="extension_kbd_bottom_regular_with_voice">Clàssic</string>
     <string name="extension_kbd_bottom_regular">Clàssic (sense micròfon)</string>
     <string name="extension_kbd_bottom_iphone">Estil iPhone (sense micròfon)</string>
@@ -395,6 +400,7 @@
     <string name="extension_kbd_bottom_alt">Alternatiu sense micròfon</string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternatiu amb micròfon</string>
     <string name="extension_kbd_bottom_simple">Senzill</string>
+    <string name="extension_kbd_bottom_row_aosp">Estil AOSP</string>
     <string name="extension_kbd_bottom_ng">Nova generació - proves</string>
     <string name="extension_kbd_extension_numbers_symbols">Numèric i simbòlic</string>
     <!-- Tutorials -->
@@ -478,6 +484,8 @@
     <string name="initial_quick_text_tab_always_first_tab">Comença sempre amb el primer</string>
     <string name="initial_quick_text_tab_last_used_tab">Comença amb l\'últim grup usat</string>
     <string name="initial_quick_text_tab_history_tab">Inicia amb l\'historial</string>
+    <string name="emoji_default_skin_tone_title">To de pell per defecte d\'emojis</string>
+    <string name="emoji_default_skin_tone_summary">To de pell d\'ús per defecte als emojis Fitzpatrick: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Genèric</string>
     <string name="emoji_default_skin_tone_value_type_2">To de pell clar</string>
     <string name="emoji_default_skin_tone_value_type_3">To de pell mig-clar</string>
@@ -485,6 +493,8 @@
     <string name="emoji_default_skin_tone_value_type_5">To de pell mig-fosc</string>
     <string name="emoji_default_skin_tone_value_type_6">To de pell fosc</string>
     <string name="emoji_default_skin_tone_value_random_type">To de pell aleatori</string>
+    <string name="emoji_default_gender_title">Gènere per defecte d\'emojis</string>
+    <string name="emoji_default_gender_summary">Gènere d\'ús per defecte: %s</string>
     <string name="emoji_default_gender_value_person">Persona</string>
     <string name="emoji_default_gender_value_woman">Dona</string>
     <string name="emoji_default_gender_value_man">Home</string>
@@ -500,7 +510,6 @@
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no és totalment a punt per al seu ús. Feu clic aquí per configurar-lo.</string>
     <string name="not_configured_with_just_click_here">Toqueu aquí</string>
-    <string name="click_for_more">més…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Afegeix</string>
@@ -530,9 +539,6 @@
     <string name="setup_wizard_step_download_title">Baixa paquets de llengua</string>
     <string name="setup_wizard_step_download_action">Baixa el paquet de llengua</string>
     <string name="setup_wizard_step_download_skip_action">Omet</string>
-    <string name="ime_crashed_title">AnySoftKeyboard s\'ha estavellat!</string>
-    <string name="ime_crashed_sub_text">UI, no ho hem vist a venir…</string>
-    <string name="ime_crashed_ticker">UI, AnySoftKeyboard s\'ha estavellat, no ho hem vist a venir…</string>
     <string name="ime_crashed_text">Desafortunadament, hi ha un problema amb <i>AnySoftKeyboard</i>. No tingueu pànic, hi ha alguna cosa <b>que</b> que podeu fer per ajudar-nos a resoldre això: envieu-nos el report d\'accident, i farem el nostre millor esforç per a resoldre aquest accident i tornar amb una experiència impressionant de teclat! \n\nAmb la nostra disculpa sincera, l\'equip de desenvolupament.</string>
     <string name="ime_crashed_send_button">Envia</string>
     <string name="ime_crashed_cancel_button">Cancel·la</string>
@@ -549,10 +555,7 @@
     <string name="next_word_prefs_clear_data_summary">Això és irreversible. Tot l\'historial que heu escrit serà suprimit.</string>
     <string name="notification_read_contacts_title">Permeteu l\'accés als contactes?</string>
     <string name="notification_read_contacts_text">Es necessita permís d\'accés als contactes per oferir-vos-hi l\'auto completat de noms correctament.</string>
-    <string name="notification_read_contacts_ticker">Permís de contactes necessari</string>
-    <string name="contacts_permissions_dialog_message">L\'AnySoftKeyboard pot utilitzar suggeriments per als noms de contactes; en escriure una paraula, es verifica si existeix al diccionari per ajudar-vos a corregir automàticament un nom inserit incorrectament.</string>
     <string name="wizard_allow_contacts_permission">Permet els contactes en escriure noms</string>
-    <string name="allow_permission">Permet</string>
     <string name="turn_off_contacts_dictionary">Inhabilita el diccionari amb els contactes</string>
     <string name="read_more_about_permissions">Llegiu més sobre els permisos…</string>
     <string name="ask_beta_link_promo">Ep! Voleu contingut nou i més ràpid a l\'<i>AnySoftKeyboard</i>? Llavors esteu d\'enhorabona! El canal <i>BETA</i> ja està <b>DISPONIBLE</b>!\nUniu-vos mitjançant l\'enllaç de sota i actualitzeu-vos al <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nGràcies per ajudar-nos a combatre els errors abans que l\'aplicació arribi al públic general.</string>
@@ -578,10 +581,13 @@
     <string name="setup_wizard_welcome_start_action">Inicia la configuració…</string>
     <string name="theme_case_type_override_lower">Sempre en minúscula</string>
     <string name="theme_case_type_override_upper">Sempre en majúscula</string>
+    <string name="settings_hint_size">Mida del text de consells</string>
+    <string name="settings_key_hint_size_summary">Canvia la mida de text dels trucs al teclat. Actualment, %s</string>
     <string name="settings_key_hint_size_none">Cap</string>
     <string name="settings_key_hint_size_small">Petit</string>
     <string name="settings_key_hint_size_normal">Normal</string>
     <string name="settings_key_hint_size_big">Gran</string>
+    <string name="take_a_while_progress_message">Això pot trigar una mica…</string>
     <string name="shared_prefs_provider_name">Configuració de l\'aplicació</string>
     <string name="user_dict_prefs_provider">Paraules de l\'usuari</string>
     <string name="next_word_dict_prefs_provider">Paraules segúents</string>
@@ -590,6 +596,31 @@
     <string name="pick_prefs_providers_to_restore">Què voleu recuperar?</string>
     <string name="prefs_providers_operation_success">Finalitzat</string>
     <string name="prefs_providers_operation_failed">Ha fallat!</string>
+    <string name="prefs_providers_failed_backup_due_to">S\'ha produït un error en crear la còpia de seguretat: %s</string>
+    <string name="prefs_providers_backed_up_to">S\'ha creat correctament la còpia de seguretat a %s</string>
+    <string name="prefs_providers_failed_restore_due_to">S\'ha produït un error en restaurar la còpia de seguretat: %s</string>
+    <string name="prefs_providers_restored_to">S\'ha restaurat correctament la còpia de seguretat des de %s</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Sempre utilitza les files genèriques seleccionades.</string>
+    <string name="gesture_typing_settings">Escriptura lliscant ➿</string>
+    <string name="gesture_typing_summary">Inseriu text simplement lliscant el dit per les tecles.</string>
+    <string name="gesture_typing_action">Habilita l\'escriptura lliscant [BETA]</string>
+    <string name="gesture_typing_alert_title">Característica BETA!</string>
+    <string name="gesture_typing_alert_message">L\'escriptura lliscant ➿ és una característica en estat <b>beta</b>. Pot contenir algun error, tenir un rendiment lent o no estar complet.\nAixí tot, hauríeu de provar-ho.</string>
     <string name="gesture_typing_alert_button">Entesos</string>
+    <string name="undo_gesture_typing">Desfés l\'escriptura lliscant</string>
+    <string name="apply_remote_app_colors_to_theme">Canvia els colors acord a l\'aplicació en ús</string>
+    <string name="apply_overlay_summary_on">Els colors coincidiran amb l\'aplicació activa (quan sigui possible).</string>
+    <string name="apply_overlay_summary_off">Utilitza sempre els colors del sistema.</string>
+    <string name="aosp_dark_theme_name">Tema AOSP fosc</string>
+    <string name="aosp_dark_theme_description">Teclat de colors foscos inspirat en AOSP</string>
+    <string name="aosp_light_theme_name">Tema AOSP clar</string>
+    <string name="aosp_light_theme_description">Teclat de colors clars inspirat en AOSP</string>
+    <string name="app_share_title">Hola des de l\'AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Comparteix l\'AnySoftKeyboard mitjançant</string>
+    <string name="app_share_text">Et recomano l\'AnySoftKeyboard; un teclat per a Android de codi lliure i gratuït, multillengua i molt personalitzable, focalitzat en la privadesa.\nGet Disponible al:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">Sorprèn-me</string>
+    <string name="backup_restore_not_support_before_kitkat">No suportat al vostre Android</string>
+    <string name="backup_restore_not_support_before_kitkat_message">La còpia de seguretat i restauració no estan suportades en sistemes anteriors a KitKat (versió 4.4)…</string>
+    <string name="delete_all_clipboard_entries">Buida el porta-retalls</string>
+    <string name="tip_swipe_from_backspace_to_clear">Truc: podeu lliscar la tecla retrocès cap a l\'esquerra per suprimir el mot!</string>
 </resources>

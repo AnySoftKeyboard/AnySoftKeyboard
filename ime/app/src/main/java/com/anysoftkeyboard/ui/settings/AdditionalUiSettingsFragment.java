@@ -37,6 +37,7 @@ import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pixel.GeneralDialogController;
+import net.evendanan.pixel.UiUtils;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceClickListener {
@@ -99,7 +100,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.more_ui_settings_group));
+    UiUtils.setActivityTitle(this, getString(R.string.more_ui_settings_group));
 
     final Preference topRowSelector = findPreference("settings_key_ext_kbd_top_row_key");
     topRowSelector.setOnPreferenceClickListener(this);

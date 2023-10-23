@@ -30,6 +30,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 import net.evendanan.pixel.GeneralDialogController;
+import net.evendanan.pixel.UiUtils;
 
 public class GesturesSettingsFragment extends PreferenceFragmentCompat {
 
@@ -90,8 +91,7 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(
-        this, getString(R.string.unicode_gestures_quick_text_key_name));
+    UiUtils.setActivityTitle(this, getString(R.string.unicode_gestures_quick_text_key_name));
 
     final boolean gestureTypingEnabled =
         ((CheckBoxPreference) findPreference(getString(R.string.settings_key_gesture_typing)))

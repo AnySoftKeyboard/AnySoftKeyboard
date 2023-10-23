@@ -22,12 +22,9 @@
     <string name="ui_theme_settings_tile">Escolha e configure temas de teclado.</string>
     <string name="ui_effects_settings_tile">Efeitos e mais.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Log de alterações</string>
     <string name="search_market_for_keyboard_addons">Adquira mais teclados na loja de aplicativos</string>
     <string name="search_market_for_quick_key_addons">Obtenha mais complementos de <i>texto rápido</i> na loja de aplicativos…    </string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
-    <string name="close_button">Fechar</string>
     <string name="delete_button">Excluir</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Salvo:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -550,7 +547,6 @@ simplistas    </string>
         aqui para configurar.
     </string>
     <string name="not_configured_with_just_click_here">Clique aqui</string>
-    <string name="click_for_more">mais…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Adicionar palavra</string>
@@ -586,9 +582,6 @@ simplistas    </string>
     <string name="setup_wizard_step_download_details">Você ficará feliz em saber que <i>AnySoftKeyboard</i> suporta dezenas de idiomas. Basta baixar o pacote de idioma desejado e digitar em qualquer idioma no seu dispositivo.</string>
     <string name="setup_wizard_step_download_action">Baixar pacotes de idioma</string>
     <string name="setup_wizard_step_download_skip_action">Pular</string>
-    <string name="ime_crashed_title">AnySoftKeyboard fechou inesperadamente!</string>
-    <string name="ime_crashed_sub_text">Ops, não esperava por isso…</string>
-    <string name="ime_crashed_ticker">Ops, AnySoftKeyboard fechou inesperadamente, não esperavamos por isso…</string>
     <string name="ime_crashed_text">Infelizmente houve um problema com o <i>AnySoftKeyboard</i>. Não se preocupe, exite uma coise que <b>você</b> pode fazer para nos ajudar a resolver isso, envie um relatório de erro, e nos vamos dar o nosso melhor para resolver esse problema e trazer de volta sua incrível experiência com o teclado!\n\n Com as sinceras desculpas do time de desenvolvedores.</string>
     <string name="ime_crashed_send_button">Enviar</string>
     <string name="ime_crashed_cancel_button">Cancelar</string>
@@ -603,13 +596,9 @@ simplistas    </string>
     <string name="clipboard_paste_entries_title">Escolha o texto para colar</string>
     <string name="next_word_prefs_clear_data">Limpar dados da sugestão de palavras</string>
     <string name="next_word_prefs_clear_data_summary">Isso é irreversível. Todo seu histórico de digitação será apagado.</string>
-    <string name="storage_permission_rationale">O AnySoftKeyboard requer sua permissão de acesso ao armazenamento para poder salvar seus arquivos de backup.</string>
     <string name="notification_read_contacts_title">Posso ler seus contatos?</string>
     <string name="notification_read_contacts_text">Precisa de ler seus contatos para lhe proporcionar uma melhor experiência de sugestões.</string>
-    <string name="notification_read_contacts_ticker">Permissão de contatos necessário</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard está usando seus nomes de contatos para fornecer-lhe com uma sugestão de palavra personalizado: conforme você digita uma palavra, vamos procurar palavras semelhantes, para auto-completar e corrigir automaticamente sua digitação.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugestão de palavras baseada no nome de seus contatos</string>
-    <string name="allow_permission">Permitir</string>
     <string name="turn_off_contacts_dictionary">Desligue o dicionário de contatos</string>
     <string name="read_more_about_permissions">Leia mais sobre permissões…</string>
     <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a encontrar os bugs antes do lançamento final.</string>

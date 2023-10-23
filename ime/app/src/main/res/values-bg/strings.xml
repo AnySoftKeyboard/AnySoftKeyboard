@@ -17,11 +17,8 @@
     <string name="ui_theme_settings_tile">Избор и конфигурация на теми за клавиатурата.</string>
     <string name="ui_effects_settings_tile">Клавиатурни ефекти и изживяване.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Списък с промените</string>
     <string name="search_market_for_keyboard_addons">Вземете още клавиатури от магазина за приложения</string>
     <string name="keyboard_theme_tweak_group">Допълнителни настройки</string>
-    <string name="close_button">Затваряне</string>
     <string name="delete_button">Изтриване</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Запазено:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -512,7 +509,6 @@
         тук, за да настроите.
     </string>
     <string name="not_configured_with_just_click_here">Щракнете тук</string>
-    <string name="click_for_more">още…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Добавяне на дума</string>
@@ -562,10 +558,6 @@
         който и да е език във вашето устройство.</string>
     <string name="setup_wizard_step_download_action">Изтегляне на езиков пакет</string>
     <string name="setup_wizard_step_download_skip_action">Прескачане</string>
-    <string name="ime_crashed_title">AnySoftKeyboard се срина!</string>
-    <string name="ime_crashed_sub_text">Опаа, това бе неочаквано…</string>
-    <string name="ime_crashed_ticker">Опаа, AnySoftKeyboard се срина, това бе неочаквано…
-    </string>
     <string name="ime_crashed_text">За съжаление има проблем с <i>AnySoftKeyboard</i>.
         Не се паникьосвайте, има нещо, което <b>Вие</b> можете да направите, за да разрешите това: изпратете ни 
 отчета
@@ -582,13 +574,7 @@
     <string name="next_word_prefs_clear_data_summary">Това е необратимо. Цялата ви история на писане ще бъде изчистена.</string>
     <string name="notification_read_contacts_title">Мога ли да чета вашите контакти?</string>
     <string name="notification_read_contacts_text">Трябва да прочетем Вашите контакти, за да Ви осигурим по-добро изживяване с автоматично попълване.</string>
-    <string name="notification_read_contacts_ticker">Необходимо е разрешение за достъп до контактите</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard използва имената на Вашите
-        контакти, за да Ви предостави персонализирано предложение на думи: докато въвеждате дума, ние търсим
-        подобни думи за автоматично попълване и автоматично коригиране на въвеждането Ви.
-    </string>
     <string name="wizard_allow_contacts_permission">Разрешаване на предложения за писане на базата на контакти</string>
-    <string name="allow_permission">Позволяване</string>
     <string name="turn_off_contacts_dictionary">Изключване на речника с контакти</string>
     <string name="read_more_about_permissions">Прочетете повече за разрешенията…</string>
     <string name="app_shortcut_keyboards_disabled">Клавиатурната навигация е изключена</string>

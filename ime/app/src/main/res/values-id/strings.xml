@@ -20,12 +20,9 @@
     <string name="ui_theme_settings_tile">Pilih dan atur tema keyboard.</string>
     <string name="ui_effects_settings_tile">Efek dan pengalaman keyboard.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Catatan Perubahan</string>
     <string name="search_market_for_keyboard_addons">Dapatkan keyboard lainnya di app store</string>
     <string name="search_market_for_quick_key_addons">Dapatkan lebih <i>Quick-Text</i> tambahan di app store…</string>
     <string name="keyboard_theme_tweak_group">Setelan lebih lanjut</string>
-    <string name="close_button">Tutup</string>
     <string name="delete_button">Hapus</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Simpan:\u0020<xliff:g id="word">%s</xliff:g></string>

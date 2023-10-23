@@ -36,7 +36,6 @@ import androidx.navigation.Navigation;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.chewbacca.ChewbaccaUtils;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -46,6 +45,7 @@ import io.reactivex.disposables.Disposables;
 import java.io.File;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
+import net.evendanan.pixel.UiUtils;
 
 @SuppressLint("SetTextI18n")
 public class DeveloperToolsFragment extends Fragment implements View.OnClickListener {
@@ -159,7 +159,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
   public void onStart() {
     super.onStart();
     updateTracingState();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.developer_tools));
+    UiUtils.setActivityTitle(this, getString(R.string.developer_tools));
   }
 
   @Override
@@ -188,27 +188,14 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
   @Override
   public void onClick(View v) {
     switch (v.getId()) {
-      case R.id.memory_dump_button:
-        onUserClickedMemoryDump();
-        break;
-      case R.id.dev_share_mem_file:
-        onUserClickedShareMemoryDump(v);
-        break;
-      case R.id.dev_flip_trace_file:
-        onUserClickedFlipTracing();
-        break;
-      case R.id.dev_share_trace_file:
-        onUserClickedShareTracingFile();
-        break;
-      case R.id.show_logcat_button:
-        onUserClickedShowLogCat();
-        break;
-      case R.id.share_logcat_button:
-        onUserClickedShareLogCat();
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + v.getId() + " in DeveloperToolsFragment");
+      case R.id.memory_dump_button -> onUserClickedMemoryDump();
+      case R.id.dev_share_mem_file -> onUserClickedShareMemoryDump(v);
+      case R.id.dev_flip_trace_file -> onUserClickedFlipTracing();
+      case R.id.dev_share_trace_file -> onUserClickedShareTracingFile();
+      case R.id.show_logcat_button -> onUserClickedShowLogCat();
+      case R.id.share_logcat_button -> onUserClickedShareLogCat();
+      default -> throw new IllegalArgumentException(
+          "Failed to handle " + v.getId() + " in DeveloperToolsFragment");
     }
   }
 

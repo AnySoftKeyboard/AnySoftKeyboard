@@ -28,23 +28,24 @@ public class SlidePreferenceTest {
   @Before
   public void setup() {
     mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    ActivityScenario.launch(TestFragmentActivity.class)
-        .onActivity(
-            activity -> {
-              activity.setContentView(R.layout.test_activity);
-              activity.setTheme(R.style.TestApp);
-              mTestPrefFragment = new TestPrefFragment();
-              activity
-                  .getSupportFragmentManager()
-                  .beginTransaction()
-                  .add(R.id.root_test_fragment, mTestPrefFragment, "test_fragment")
-                  .commit();
+    try (var scenario = ActivityScenario.launch(TestFragmentActivity.class)) {
+      scenario.onActivity(
+          activity -> {
+            activity.setContentView(R.layout.test_activity);
+            activity.setTheme(R.style.TestApp);
+            mTestPrefFragment = new TestPrefFragment();
+            activity
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.root_test_fragment, mTestPrefFragment, "test_fragment")
+                .commit();
 
-              TestRxSchedulers.foregroundFlushAllJobs();
+            TestRxSchedulers.foregroundFlushAllJobs();
 
-              mTestSlide = mTestPrefFragment.findPreference("test_slide");
-              Assert.assertNotNull(mTestSlide);
-            });
+            mTestSlide = mTestPrefFragment.findPreference("test_slide");
+            Assert.assertNotNull(mTestSlide);
+          });
+    }
   }
 
   @Test

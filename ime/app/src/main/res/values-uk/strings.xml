@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Оберіть та встановіть теми клавіатури.</string>
     <string name="ui_effects_settings_tile">Ефекти клавіатури й можливості.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Зміни</string>
     <string name="search_market_for_keyboard_addons">Отримати більше клавіатур в <i>Google Play магазин</i>…</string>
     <string name="search_market_for_quick_key_addons">Отримати більш <i>Швидкий текст</i> додатки в <i>Google Play магазин</i>…</string>
     <string name="keyboard_theme_tweak_group">Твіки</string>
-    <string name="close_button">Закрити</string>
     <string name="delete_button">Видалити</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Вилучений: \u0020 <xliff:g id="word">%s </xliff:g>
@@ -506,7 +503,6 @@
     <string name="created_mem_dump_file">Створення файлу дампа пам\'яті на: <xliff:g id="file_path">%s </xliff:g>     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не є повністю налаштування для використання. Натисніть тут, щоб налаштувати.</string>
     <string name="not_configured_with_just_click_here">Натисніть тут</string>
-    <string name="click_for_more">більше…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Додати слово</string>
@@ -537,9 +533,6 @@
     <string name="setup_wizard_step_download_details">Ви будете раді дізнатися, що <i>AnySoftKeyboard</i> підтримує десятки мов. Просто завантажте потрібний мовний пакет і насолоджуйтеся друкуванням будь-якою мовою вашого пристрою.</string>
     <string name="setup_wizard_step_download_action">Завантажити мовний пакет</string>
     <string name="setup_wizard_step_download_skip_action">Пропустити</string>
-    <string name="ime_crashed_title">AnySoftKeyboard розбився!</string>
-    <string name="ime_crashed_sub_text">На жаль, не бачив, що йде …</string>
-    <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard розбився, не бачив, що йде …</string>
     <string name="ime_crashed_text">На жаль, є проблема з  <i>AnySoftKeyboard</i>. Не панікуйте, є щось  <b>ви</b> може зробити, щоб допомогти вирішити цю проблему: послати нами звіт по аварії, і ми зробимо все можливе, щоб вирішити цю аварію і ви отримаєте назад з дивним досвідом клавіатури!\n\n З щирою вибаченням, команда Dev.</string>
     <string name="ime_crashed_send_button">Надіслати</string>
     <string name="ime_crashed_cancel_button">"Скасувати"</string>
@@ -556,10 +549,7 @@
     <string name="next_word_prefs_clear_data_summary">Цей процес необоротний. Буде видалено всю історію набору.</string>
     <string name="notification_read_contacts_title">Можна читати ваші контакти?</string>
     <string name="notification_read_contacts_text">Ми повинні читати ваші контакти, щоб дати вам краще автозаповнення.</string>
-    <string name="notification_read_contacts_ticker">Необхідний дозвіл для Контакти</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard використовує ваші імена контактів, щоб надати вам персоналізовані пропозиції: при введенні слова, ми шукаємо подібні слова до автозаповнення і автоматичної корекції вашого друку.</string>
     <string name="wizard_allow_contacts_permission">Дозволити пропозиції на основі контактів</string>
-    <string name="allow_permission">Дозволити</string>
     <string name="turn_off_contacts_dictionary">Вимкнути словник Контакти</string>
     <string name="read_more_about_permissions">Прочитати більше про дозволи…</string>
     <string name="ask_beta_link_promo">Гей! Хочеш швидше отримувати нові функції <i>AnySoftKeyboard</i>? Тоді тобі пощастило! Канал <i>BETA</i> просто створено для <b>ТЕБЕ</b>!\пПросто зареєструйся за посиланням нижче та онови через <i>Google Play Маркет</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nІ дякуємо за допомогу в усуненні помилок перед переходом нововведень в реліз.</string>

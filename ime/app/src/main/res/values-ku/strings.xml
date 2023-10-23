@@ -28,15 +28,12 @@
     <string name="ui_theme_settings_tile">ڕێکخستنی ڕووکار</string>
     <string name="ui_effects_settings_tile">ڕێکخستنی دەنگ و لەرزین</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">تۆماری نوێکردنەوە</string>
     <string name="search_market_for_keyboard_addons">دابەزاندنی ڕووکار و زمانی زیاتر لە گۆگڵ پلەی</string>
     <string name="search_market_for_quick_key_addons"> دابەزاندنی <i>پێوەکراوی زیاتر</i> لە کۆگای گۆگڵ
         پلەی
 
     </string>
     <string name="keyboard_theme_tweak_group">ڕێکخستنی زیاتر</string>
-    <string name="close_button">داخستن</string>
     <string name="delete_button">سڕینەوە؟</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">پاشەکەوتکرا:\u0020
@@ -603,7 +600,6 @@
     <string name="not_configured_with_click_here">تەختەکلیل بەتەواوی ڕێکنەخراوە  بۆ بەکارهێنان ، پەنجەبنێ بێرەدا بۆ ڕێکخستن
     </string>
     <string name="not_configured_with_just_click_here">پەنجەبنێ بێرەدا</string>
-    <string name="click_for_more">…زیاتر</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">زیادکردنی ووشە</string>
@@ -647,10 +643,6 @@
     <string name="setup_wizard_step_download_details">ئایا ئەزانی کە لەڕێی <i>تەختەکلیلی کوردیەوە</i> ئەتوانی چەندین زمانی جۆراوجۆری تر  بەکاربهێنیت بۆ نووسین، لەڕێی دابەزاندنی لە کۆگای گۆگڵ پلەی</string>
     <string name="setup_wizard_step_download_action">داگرتن</string>
     <string name="setup_wizard_step_download_skip_action">فەرامۆشکردن</string>
-    <string name="ime_crashed_title">تەختەکلیلی کوردی لەکارکەوت!</string>
-    <string name="ime_crashed_sub_text">بەداخەوە، هەڵەیەک ڕوویدا…</string>
-    <string name="ime_crashed_ticker">بەداخەوە، بەهۆی هەڵەیەکەوە تەختەکلیلەکە لەکارکەوت, پێشبینی ئەوە نەکرابوو…
-    </string>
     <string name="ime_crashed_text">بەداخەوە، هەڵەیەک ڕوویدا لە <b>تەختەکلیلی کوردی</b>.
         بێ هیوا مەبە، ئەتوانی <b>تۆ</b> یارمەتی دەر بیت لە چارەسەرکردنیدا: ڕاپۆرتی هەڵەکەمان بۆ بنێرە
         و ئێمەش بەوپەڕی توانامانەوە هەوڵ ئەدەین چارەسەری بکەین!\n\nلەگەڵ ڕێزی تایبەتی داڕێژەر
@@ -670,12 +662,7 @@
     <string name="next_word_prefs_clear_data_summary">ئەم کردارە ئەبێتە هۆی سڕینەوەی سەرجەم مێژووی ئەو ووشانەی کە نووسیوتە</string>
     <string name="notification_read_contacts_title">ڕێگەپێدان بۆ پێشنیارکردنی ناوەکان بۆ خێرا دۆزینەوە پێویستە</string>
     <string name="notification_read_contacts_text">بۆ پێشنیارکردنی ناوەکان بۆ خێرا دۆزینەوە، ڕێگەپێدان پێویستە</string>
-    <string name="notification_read_contacts_ticker">ڕێگەپێدانی ناوەکان پێویستە</string>
-    <string name="contacts_permissions_dialog_message">تەختەکلیلەکە ناوەکانی ناو مۆبایلەکەت بۆ پێشنیار دەکات لەکاتی نوسینی هەر پیتێک کە هاوشێوەی ناوەکە بێت بۆ ئەوەی کاتێکی زیاترت بۆ بگەڕێتەوە و\
-        هەڵەی ڕێنووسی و زمانەوانیت بۆ ڕاست ئەکاتەوە
-    </string>
     <string name="wizard_allow_contacts_permission">ڕێگەدان بە پێشنیارکردنی ناوەکان</string>
-    <string name="allow_permission">ڕێگەپێدان</string>
     <string name="turn_off_contacts_dictionary">نا چالاککردنی پێشنیارکردنی ناوەکان</string>
     <string name="read_more_about_permissions">زانیاری زیاتر لەسەر رێگەپێدانەکان</string>
     <string name="ask_beta_link_promo">بۆ وەرگرتنی زانیاری زیاتر لەسەر <b>تەختەکلیلی کوردی</b> یان لەکاتی بوونی هەر کێشەکەدا، پەیوەندی بکە بە لاپەڕەی <b>کـــــوردرۆیــــــد</b>" 

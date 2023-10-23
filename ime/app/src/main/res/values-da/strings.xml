@@ -22,12 +22,9 @@
     <string name="ui_theme_settings_tile">Vælg og konfigurér tastaturtemaer.</string>
     <string name="ui_effects_settings_tile">Tastatureffekter og oplevelse.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Changelog</string>
     <string name="search_market_for_keyboard_addons">Hent flere tastaturer i appbutikken</string>
     <string name="search_market_for_quick_key_addons">Få flere <i>Hurtig-tekst</i> tilføjelser i app-butikken…</string>
     <string name="keyboard_theme_tweak_group">Tilpasninger</string>
-    <string name="close_button">Luk</string>
     <string name="delete_button">Slet</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gemt:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -598,7 +595,6 @@
         her for at konfigurere.
     </string>
     <string name="not_configured_with_just_click_here">Klik her</string>
-    <string name="click_for_more">mere…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Tilføj ord</string>
@@ -648,10 +644,6 @@
         ethvert sprog på din enhed.</string>
     <string name="setup_wizard_step_download_action">Hent sprogpakke</string>
     <string name="setup_wizard_step_download_skip_action">Spring over</string>
-    <string name="ime_crashed_title">AnySoftKeyboard gik ned!</string>
-    <string name="ime_crashed_sub_text">Ups, det havde jeg ikke forudset…</string>
-    <string name="ime_crashed_ticker">Ups, AnySoftKeyboard gik ned. Det var uforudset…
-    </string>
     <string name="ime_crashed_text">Desværre er der et problem med <i>AnySoftKeyboard</i>.
         Ingen grund til panik. Der er noget <b>du</b> kan gøre for at hjælpe med at løse dette: send os nedbruds-
         rapporten og vi vil gøre vores bedste for at løse dette nedbrud og få dig tilbage til en fantastisk tastatur-
@@ -670,16 +662,9 @@
     <string name="clipboard_paste_entries_title">Vælg tekst at indsætte</string>
     <string name="next_word_prefs_clear_data">Ryd næste-ord-data</string>
     <string name="next_word_prefs_clear_data_summary">Dette kan ikke fortrydes. Al din skrivehistorik vil blive ryddet.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard kræver din tilladelse til at læse og skrive i lageret for dine sikkerhedskopifiler.</string>
     <string name="notification_read_contacts_title">Må jeg læse dine kontakter?</string>
     <string name="notification_read_contacts_text">Vi har brug for at læse dine kontakter for at give dig en bedre auto-udfyldningsoplevelse.</string>
-    <string name="notification_read_contacts_ticker">Adgang til kontakter påkrævet</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard bruger dine kontakt-
-        navne til at give dig et personligt ordforslag: når du skriver et ord, vi leder efter
-        lignende ord til auto-fuldførelse og auto-korrigere din indtastning.
-    </string>
     <string name="wizard_allow_contacts_permission">Tillad kontaktbaserede indtastningsforslag</string>
-    <string name="allow_permission">Tillad</string>
     <string name="turn_off_contacts_dictionary">Slå kontaktordbog fra</string>
     <string name="read_more_about_permissions">Læs mere om tilladelser…</string>
     <string name="ask_beta_link_promo">Hej! Vil du have nye <i>AnySoftKeyboard</i> ting hurtigere? Så

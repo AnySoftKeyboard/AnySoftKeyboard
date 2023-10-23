@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Issèbera e cunfigura sos temas pro sas tastieras.</string>
     <string name="ui_effects_settings_tile">Efetos pro sas tastieras e esperièntzia.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Registru de sas modìficas</string>
     <string name="search_market_for_keyboard_addons">Iscàrriga àteras tastieras dae s\'app store</string>
     <string name="search_market_for_quick_key_addons">Agata prus estensiones <i>Testu Lestru</i> dae sas butegas de sas aplicatziones…</string>
     <string name="keyboard_theme_tweak_group">Acontzos</string>
-    <string name="close_button">Serra</string>
     <string name="delete_button">Iscantzella</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Sarvadu:\u0020<xliff:g id="word">%s</xliff:g>
@@ -531,7 +528,6 @@
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no est impostada de su totu pro s\'impreu. Incarca inoghe pro l\'impostare.</string>
     <string name="not_configured_with_just_click_here">Incarca inoghe</string>
-    <string name="click_for_more">àteru…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Annanghe paràula</string>
@@ -563,9 +559,6 @@
     <string name="setup_wizard_step_download_details">As a èssere cuntentu de ischire chi <i>AnySoftKeyboard</i> suportat unu muntone de limbas. Iscàrriga su pachete de sa limba chi cheres e iscrie in cale si siat limba in su dispositivu tuo.</string>
     <string name="setup_wizard_step_download_action">Iscàrriga su pachete de sa limba</string>
     <string name="setup_wizard_step_download_skip_action">Brinca</string>
-    <string name="ime_crashed_title">AnySoftKeyboard s\'est serradu!</string>
-    <string name="ime_crashed_sub_text">Oops, non no l\'isetaìamus…</string>
-    <string name="ime_crashed_ticker">Oops, AnySoftKeyboard s\'est serradu, non no l\'isetaìamus…</string>
     <string name="ime_crashed_text">B\'est istadu unu problema cun <i>AnySoftKeyboard</i>. Non ti preòcupes, b\'est una cosa chi <b>tue</b> podes fàghere pro agiudare a l\'isòrvere: imbia·nos sa sinnalatzione de errore, e amus a fàghere su chi podimus pro sistemare custu problema e megiorare s\'esperièntzia tua!\n\nCun sas iscusas sentidas nostras, su grupu de Isvilupu.</string>
     <string name="ime_crashed_send_button">Imbia</string>
     <string name="ime_crashed_cancel_button">Annulla</string>
@@ -580,13 +573,9 @@
     <string name="clipboard_paste_entries_title">Issèbera su testu de incollare</string>
     <string name="next_word_prefs_clear_data">Iscantzella sos datos in sas paràulas imbenientes</string>
     <string name="next_word_prefs_clear_data_summary">Custu est irreversìbile. Totu sa cronologia de digitatzione at a èssere iscantzellada.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard tenet bisòngiu de su permissu tuo pro lèghere e iscrìere pro sarvare sos documentos de sas còpias de seguresa in sa memòria.</string>
     <string name="notification_read_contacts_title">Potzo lèghere sos cuntatos tuos?</string>
     <string name="notification_read_contacts_text">Tenimus bisòngiu de atzèdere a sos cuntatos tuos pro ti dare una funtzionalidade mègius de auto-cumpridura.</string>
-    <string name="notification_read_contacts_ticker">Est netzessàriu su permissu pro lèghere sos cuntatos</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard impreat sos nùmenes de sos cuntatos tuos pro ti frunire impòsitos personalizados: comente ses iscriende una paràula amus a chircare paràulas chi l\'asimigiant pro currègere e cumprire automaticamente su chi ses iscriende.</string>
     <string name="wizard_allow_contacts_permission">Permiti cunsìgios de paràulas basados in subra de sos cuntatos</string>
-    <string name="allow_permission">Permiti</string>
     <string name="turn_off_contacts_dictionary">Istuda su ditzionàriu de sos cuntatos</string>
     <string name="read_more_about_permissions">Àteras informatziones a pitzu de sos permissos…</string>
     <string name="ask_beta_link_promo">Salude! Cheres otènnere sas novidades de <i>AnySoftKeyboard</i> prus in presse? Tando ses fortunadu! Como est disponìbile unu canale <i>BETA</i> pro <b>TIE</b>!\nRegistra·ti dae su ligàmene inoghe in suta, e agiorna impreende sa butega de aplicatziones <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nE gràtzias meda pro s\'agiudu chi ses dende a s\'eliminatzione de sos errore in antis chi retzant su pùblicu.</string>

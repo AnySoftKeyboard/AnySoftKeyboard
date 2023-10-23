@@ -20,12 +20,9 @@
     <string name="ui_theme_settings_tile">Kies en configureer toetsenbordthema\'s.</string>
     <string name="ui_effects_settings_tile">Toetsenbordeffecten en ervaring.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Lijst van wijzigingen</string>
     <string name="search_market_for_keyboard_addons">Meer toetsenborden in de <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Meer <i>Quick-Text</i> toevoegingen in de <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Fijnafstellingen</string>
-    <string name="close_button">Sluiten</string>
     <string name="delete_button">Verwijderen</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Opgeslagen:\u0020<xliff:g id="word">%s</xliff:g>
@@ -524,7 +521,6 @@ woordenlijst
      </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard is niet volledig ingesteld. Klik hier als u wilt instellen.</string>
     <string name="not_configured_with_just_click_here">Klik hier</string>
-    <string name="click_for_more">meer…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Woord toevoegen</string>
@@ -556,9 +552,6 @@ woordenlijst
     <string name="setup_wizard_step_download_details">U mag zich verheugen dat <i>AnySoftKeyboard</i> tientallen talen ondersteunt. Download het gewenste taalpakket en geniet van het typen in de taal van uw keuze op uw apparaat.</string>
     <string name="setup_wizard_step_download_action">Download taalpakket</string>
     <string name="setup_wizard_step_download_skip_action">Overslaan</string>
-    <string name="ime_crashed_title">AnySoftKeyboard crashed!</string>
-    <string name="ime_crashed_sub_text">Oeps, zag dat niet aankomen…</string>
-    <string name="ime_crashed_ticker">Oeps, AnySoftKeyboard is crashed, zag dat niet aankomen…</string>
     <string name="ime_crashed_text">Helaas, er is een probleem met <i>AnySoftKeyboard</i>. Raak niet in paniek, er is iets dat <b>u</b> kunt doen om te helpen dit probleem op te lossen: stuur ons het crashrapport en we zullen ons best doen om het probleem op te lossen en u weer met een geweldig toetsenbord te laten werken!\n\nMet oprechte verontschuldiging, het ontwikkelteam.</string>
     <string name="ime_crashed_send_button">Verzenden</string>
     <string name="ime_crashed_cancel_button">Annuleren</string>
@@ -575,10 +568,7 @@ woordenlijst
     <string name="next_word_prefs_clear_data_summary">Dit is onomkeerbaar. Al uw typgeschiedenis wordt gewist.</string>
     <string name="notification_read_contacts_title">Mag ik uw contacten lezen?</string>
     <string name="notification_read_contacts_text">We moeten uw contacten lezen voor een betere automatische aanvulervaring.</string>
-    <string name="notification_read_contacts_ticker">Leesrechten contacten nodig</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard gebruikt de namen van uw contacten om u gepersonaliseerde woordsuggesties te bieden: als u een woord typt, zoeken we naar overeenkomstige woorden voor het automatisch aanvullen en automatisch corrigeren van wat u typt.</string>
     <string name="wizard_allow_contacts_permission">Sta op contacten gebaseerde suggesties toe</string>
-    <string name="allow_permission">Sta toe</string>
     <string name="turn_off_contacts_dictionary">Schakel woordenlijst van contact uit</string>
     <string name="read_more_about_permissions">Lees meer over rechten…</string>
     <string name="ask_beta_link_promo">Hallo! Wilt u sneller nieuwe functionaliteit van <i>AnySoftKeyboard</i>? Dan heeft u geluk! Het <i>BÉTA</i>-kanaal is nu beschikbaar voor <b>U</b>!\nMeld u aan via onderstaande link en updates komen via <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nBedankt voor het helpen om bugs op te lossen voordat die bij het grote publiek komen.</string>

@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Išsirinkti ir konfigūruoti klaviatūros temas.</string>
     <string name="ui_effects_settings_tile">Klaviatūros efektai ir patirtis.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Pakeitimų žurnalas</string>
     <string name="search_market_for_keyboard_addons">Gaukite daugiau klaviatūrų <i>Google Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Gaukite daugiau <i>Quick-Text</i> papildinių <i> Google Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Patobulinimai</string>
-    <string name="close_button">Uždaryti</string>
     <string name="delete_button">Ištrinti</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Išsaugota:\u0020<xliff:g id="word">%s</xliff:g>    </string>
@@ -534,7 +531,6 @@
     </string>
     <string name="not_configured_with_click_here">„AnySoftKeyboard“ nėra visiškai parengta naudoti. Spauskite čia, kad parengti.</string>
     <string name="not_configured_with_just_click_here">Spauskite čia</string>
-    <string name="click_for_more">daugiau…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Pridėti žodį</string>
@@ -566,9 +562,6 @@
     <string name="setup_wizard_step_download_details">Jums bus malonu žinoti, kad „<i>AnySoftKeyboard</i>“ palaiko keliasdešimt kalbų. Tiesiog atsisiųskite norimą kalbos paketą ir mėgaukitės rašydami bet kuria jūsų įrenginyje esančia kalba.</string>
     <string name="setup_wizard_step_download_action">Atsisiųsti kalbos paketą</string>
     <string name="setup_wizard_step_download_skip_action">Praleisti</string>
-    <string name="ime_crashed_title">„AnySoftKeyboard“ nulūžo!</string>
-    <string name="ime_crashed_sub_text">Oi, tai buvo netikėta…</string>
-    <string name="ime_crashed_ticker">Oi, „AnySoftKeyboard“ netikėtai nulūžo…</string>
     <string name="ime_crashed_text">Deja, yra problema su „<i>AnySoftKeyboard</i>“. Nepanikuokite, yra kai kas, ka <b>jūs</b> galite padaryti, kad tai ištaisyti: atsiųskite mums nulūžimo ataskaitą ir mes padarysime ką galėsime, kad tai ištaisytumėme!\n\nSu nuoširdžiu atsiprašymu, kūrėjų komanda.</string>
     <string name="ime_crashed_send_button">Siųsti</string>
     <string name="ime_crashed_cancel_button">Atšaukti</string>
@@ -583,13 +576,9 @@
     <string name="clipboard_paste_entries_title">Pasirinkite tekstą, kad įklijuoti</string>
     <string name="next_word_prefs_clear_data">Išvalyti kito žodžio duomenis</string>
     <string name="next_word_prefs_clear_data_summary">Tai negrąžinama. Visa rašymo istorija bus išvalyta.</string>
-    <string name="storage_permission_rationale">„AnySoftKeyboard“ reikalauja jūsų leidimo skaityti ir rašinėti į jūsų saugyklą, dėl jūsų atsarginių failų.</string>
     <string name="notification_read_contacts_title">Ar galiu perskaityti jūsų kontaktus?</string>
     <string name="notification_read_contacts_text">Mums reikia perskaityti jūsų kontaktus, kad suteiktume geresnę automatinio užbaigimo patirtį.</string>
-    <string name="notification_read_contacts_ticker">Reikia kontaktų leidimo</string>
-    <string name="contacts_permissions_dialog_message">„AnySoftKeyboard“ naudoja jūsų kontaktų vardus, kad pateikti suasmenintus žodžių pasiūlymus: kai vedate žodį, ieškome panašių žodžių, kad automatiškai užbaigti ar ištaisyti jūsų žodžius.</string>
     <string name="wizard_allow_contacts_permission">Leisti pasiūlymus, paremtus kontaktų informacija</string>
-    <string name="allow_permission">Leisti</string>
     <string name="turn_off_contacts_dictionary">Išjungti kontaktų žodyną</string>
     <string name="read_more_about_permissions">Skaityti daugiau apie teises…</string>
     <string name="ask_beta_link_promo">Ei! Norite naujų „<i>AnySoftKeyboard</i>“ funkcijų greičiau? Tada jums pasisekė! <b>JUMS</b> jau prieinamas <i>BETA</i> kanalas!\nTiesiog užsiregistruokite per žemiau esančią nuorodą į „<i>Google Play</i>“ programų parduotuvę ir atnaujinkite duomenis!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nIr ačiū, kad padedat šalinti klaidas, iki pakeitimai tampa viešai prieinami.</string>

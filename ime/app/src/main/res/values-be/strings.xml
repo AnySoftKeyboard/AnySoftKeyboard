@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Выберыце і наладзьце тэмы клавіятуры.</string>
     <string name="ui_effects_settings_tile">Эфекты клавіятуры і магчымасці.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Журнал змен</string>
     <string name="search_market_for_keyboard_addons">Атрымаць больш клавіятур у <i>Краме Google Play</i>…</string>
     <string name="search_market_for_quick_key_addons">Атрымаць больш <i>Quick-Text</i> дапаўненняў у <i>Google Play</i>…    </string>
     <string name="keyboard_theme_tweak_group">Дадатковыя налады</string>
-    <string name="close_button">Закрыць</string>
     <string name="delete_button">Выдаліць</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Захавана:\u0020<xliff:g id="word">%s</xliff:g>
@@ -530,7 +527,6 @@
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не цалкам наладжаная для выкарыстання. Націсніце сюды, каб наладзіць.</string>
     <string name="not_configured_with_just_click_here">Націсніце сюды</string>
-    <string name="click_for_more">яшчэ…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Дадаць слова</string>
@@ -562,9 +558,6 @@
     <string name="setup_wizard_step_download_details">Мы рады паведаміць пра тое, што <i>AnySoftKeyboard</i> падтрымлівае больш за дзясятак разнастайных моў. Проста спампуйце неабходны моўны пакет і атрымлівайце асалоду ад набору на любой мове на вашай прыладзе.</string>
     <string name="setup_wizard_step_download_action">Спампаваць моўны пакет</string>
     <string name="setup_wizard_step_download_skip_action">Прапусціць</string>
-    <string name="ime_crashed_title">AnySoftKeyboard аварыйна спыненая!</string>
-    <string name="ime_crashed_sub_text">На жаль, нешта пайшло не так…</string>
-    <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard аварыйна спыненая, нешта пайшло не так…</string>
     <string name="ime_crashed_text">На жаль, у <i>AnySoftKeyboard</i> адбылася памылка. Без панікі, ёсць нешта, чым <b>вы</b> можаце дапамагчы, каб выправіць гэту праблему: проста адпраўце нам справаздачу пра памылку, і мы зробім усё магчымае, каб выправіць яе, а вы зможаце і далей атрымліваць асалоду ад нашай клавіятуры!\n\nЗ найлепшымі пажаданнямі і прабачэннямі, каманда распрацоўшчыкаў.</string>
     <string name="ime_crashed_send_button">Адправіць</string>
     <string name="ime_crashed_cancel_button">Адмена</string>
@@ -579,13 +572,9 @@
     <string name="clipboard_paste_entries_title">Выберыце тэкст, каб уставіць</string>
     <string name="next_word_prefs_clear_data">Ачысціць даныя наступнага слова</string>
     <string name="next_word_prefs_clear_data_summary">Гэта аперацыя незваротная. Уся ваша гісторыя набору будзе ачышчаная.</string>
-    <string name="storage_permission_rationale">Праграма патрабуе ваш дазвол на чытанне і запіс рэзервовых копій вашых файлаў.</string>
     <string name="notification_read_contacts_title">Ці можна прачытаць вашы кантакты?</string>
     <string name="notification_read_contacts_text">Нам неабходна прачытаць вашы кантакты, каб даць вам магчымасць яшчэ лепш выкарыстоўваць аўтазапаўненне.</string>
-    <string name="notification_read_contacts_ticker">Неабходны дазвол на доступ да кантактаў</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard выкарыстоўвае вашы імёны кантактаў, каб даць вам персаналізаваную прапанову слова: падчас набору слова, мы шукаем падобныя словы для аўтазапаўнення і аўтавыпраўлення вашага друку.</string>
     <string name="wizard_allow_contacts_permission">Дазволіць прапановы на падставе кантактаў</string>
-    <string name="allow_permission">Дазволіць</string>
     <string name="turn_off_contacts_dictionary">Выключыць слоўнік кантактаў</string>
     <string name="read_more_about_permissions">Даведацца больш пра дазволы…</string>
     <string name="ask_beta_link_promo">Вітаем! Хочаце імгненна атрымліваць доступ да новых функцый <i>AnySoftKeyboard</i>? Тады наперад! Для <b>ВАС</b> цяпер працуе <i>BETA</i> канал!\nПроста зарэгіструйцеся па спасылцы ніжэй і абнавіце праграму ў <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nШчыра ўдзячныя вам за тое, што дапамагаеце выпраўляць памылкі, перш чым яны трапяць у фінальную версію праграмы.</string>

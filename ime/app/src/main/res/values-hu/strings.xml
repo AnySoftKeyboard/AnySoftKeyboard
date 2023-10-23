@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Billentyűzet témák kiválasztása és konfigurálása.</string>
     <string name="ui_effects_settings_tile">A billentyűzet viselkedése</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Változási jegyzék</string>
     <string name="search_market_for_keyboard_addons">Továbbiak beszerzése az alkalmazásboltból</string>
     <string name="search_market_for_quick_key_addons">További <i>ikonok és hangulatjelek</i> az alkalmazásboltban…</string>
     <string name="keyboard_theme_tweak_group">Finomhangolás</string>
-    <string name="close_button">Bezárás</string>
     <string name="delete_button">Törlés</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Mentve:\u0020<xliff:g id="word">%s</xliff:g>
@@ -577,7 +574,6 @@
         a beállításhoz.
     </string>
     <string name="not_configured_with_just_click_here">Kattintson</string>
-    <string name="click_for_more">több…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Szó hozzáadása</string>
@@ -626,9 +622,6 @@
         a készülékén.</string>
     <string name="setup_wizard_step_download_action">Nyelvi csomag letöltése</string>
     <string name="setup_wizard_step_download_skip_action">Kihagyás</string>
-    <string name="ime_crashed_title">A program összeomlott!</string>
-    <string name="ime_crashed_sub_text">Hopp, ez nem volt előre látható…</string>
-    <string name="ime_crashed_ticker">Hopp, az AnySoftKeyboard váratlanul összeomlott…</string>
     <string name="ime_crashed_text">Sajnos valami probléma van az <i>AnySoftKeyboard</i>-dal.
         Semmi vész, <b>Ön</b> segíteni tud nekünk a megoldásban: küldje el emailben a
         hibajelentést, és mi megpróbáljuk kijavítani a hibát, hogy egy hibátlan programot kapjon
@@ -647,16 +640,9 @@
     <string name="clipboard_paste_entries_title">Szöveg választása a beillesztéshez</string>
     <string name="next_word_prefs_clear_data">Adatbázis törlése</string>
     <string name="next_word_prefs_clear_data_summary">Nem visszavonható! Az összes gépelési előzmény törlődik.</string>
-    <string name="storage_permission_rationale">Az AnySoftKeyboard-nak tárhely hozzáférési engedélyre van szüksége a biztonsági mentések olvasásához és írásához</string>
     <string name="notification_read_contacts_title">Hozzáférhetek a névjegyekhez?</string>
     <string name="notification_read_contacts_text">A névjegyekhez való hozzáféréssel jobb auto-kiegészítés találatokat tudnánk adni.</string>
-    <string name="notification_read_contacts_ticker">Névjegyekhez való hozzáférés engedélyezése</string>
-    <string name="contacts_permissions_dialog_message">Az AnySoftKeyboard a névjegyeit
-        használja a személyesebb javaslatok megjelenítéséhez: ahogy gépeli a szavakat, az app
-        hasonló szavakat ajánl fel kiegészítéshez ill hibajavításhoz.
-    </string>
     <string name="wizard_allow_contacts_permission">Engedélyezze a névjegy-alapú gépelési javaslatokat</string>
-    <string name="allow_permission">Engedélyezés</string>
     <string name="turn_off_contacts_dictionary">A névjegyszótár kikapcsolása</string>
     <string name="read_more_about_permissions">További információ az engedélyekről…</string>
     <string name="ask_beta_link_promo">Hé! Szeretné az <i>AnySoftKeyboard</i> új funkcióit hamarabb kipróbálni? Szerencséje van! <i>BETA</i> csatornánk elérhető az <b>ÖN</b> számára is!\nCsak regisztráljon a lenti linken, és frissítsen a <i>Google Play</i> -ben!\n\n

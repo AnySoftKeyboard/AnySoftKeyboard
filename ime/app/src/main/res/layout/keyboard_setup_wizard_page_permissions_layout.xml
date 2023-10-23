@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="@string/contacts_permissions_dialog_message" />
+        android:text="@string/contacts_permissions_rationale" />
 
     <TextView
         android:id="@+id/open_permissions_wiki_action"

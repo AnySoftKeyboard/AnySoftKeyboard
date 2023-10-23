@@ -60,10 +60,6 @@
     <color name="blacktheme_color_normal_hint">#FF0088FF</color>
     <color name="blacktheme_color_normal_pressed_hint">#FF00BBFF</color>
 
-    <color name="notification_background_error">#F33</color>
-    <color name="notification_background_debug_version">#FF3399</color>
-
-
     <color name="aosp_dark_background">#32373A</color>
     <color name="aosp_dark_suggestions_background">#222</color>
 

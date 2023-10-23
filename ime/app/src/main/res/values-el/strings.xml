@@ -10,11 +10,8 @@
     <string name="testers_version">Έκδοση για δοκιμαστές!</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Αρχείο αλλαγών</string>
     <string name="search_market_for_keyboard_addons">Αποκτήστε περισσότερα πληκτρολόγια στο <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Τροποποιήσεις</string>
-    <string name="close_button">Κλείσιμο</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Αποθηκεύτηκε:
 <xliff:g id="word">%s</xliff:g>
@@ -304,7 +301,6 @@
     <string name="created_mem_dump_file">Δημιουργήθηκε το αρχείο σφαλμάτων μνήμης στο: <xliff:g id="file_path">%s</xliff:g>     </string>
     <string name="not_configured_with_click_here">Το AnySoftKeyboard δεν είναι πλήρως ρυθμισμένο για χρήση. Κάντε κλικ εδώ για να το ρυθμίσετε.</string>
     <string name="not_configured_with_just_click_here">Κάντε κλικ εδώ</string>
-    <string name="click_for_more">περισσότερα…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Προσθήκη λέξης</string>

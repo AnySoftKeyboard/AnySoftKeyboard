@@ -29,7 +29,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import app.cash.copper.rx2.RxContentResolver;
-import com.anysoftkeyboard.android.PermissionRequestHelper;
+import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;

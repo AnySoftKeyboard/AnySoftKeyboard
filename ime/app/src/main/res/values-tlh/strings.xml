@@ -5,10 +5,7 @@
     <string name="language_root_tile">Hol</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">choH QonoS</string>
     <string name="keyboard_theme_tweak_group">lISwI\'Hommey</string>
-    <string name="close_button">SoQmoH</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="revert_added_word_question">teq\'a\'\?</string>
     <!-- voice -->

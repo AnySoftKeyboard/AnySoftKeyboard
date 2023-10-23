@@ -24,10 +24,7 @@
     <string name="ui_root_tile">UI</string>
     <string name="ui_theme_settings_tile">Vyberte a nakonfigurujte témy klávesnice.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Zoznam zmien</string>
     <string name="search_market_for_keyboard_addons">Získať viac klávesníc v obchode</string>
-    <string name="close_button">Zavrieť</string>
     <string name="delete_button">Vymazať</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Uložené:\u0020

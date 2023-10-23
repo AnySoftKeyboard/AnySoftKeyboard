@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.test;
 
 import android.os.Build;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@VisibleForTesting
 public class TestUtils {
   public static final int NEWEST_STABLE_API_LEVEL = Build.VERSION_CODES.S;
 

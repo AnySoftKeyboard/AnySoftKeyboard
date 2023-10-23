@@ -26,6 +26,7 @@ import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
+import net.evendanan.pixel.UiUtils;
 
 public class DictionariesFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceClickListener {
@@ -50,7 +51,7 @@ public class DictionariesFragment extends PreferenceFragmentCompat
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.special_dictionaries_group));
+    UiUtils.setActivityTitle(this, getString(R.string.special_dictionaries_group));
   }
 
   @Override

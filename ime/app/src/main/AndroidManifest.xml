@@ -16,10 +16,6 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <!-- REQUIRED FOR THE CONTACTS DICTIONARY -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- REQUIRED BACKUP TO/RESTORE FROM SDCARD -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- Required by Android 13 (API level 33) -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!-- currently, only support touch and fake-touch devices -->
     <uses-feature android:name="android.hardware.faketouch" />
     <uses-feature
@@ -99,15 +95,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@style/Theme.AskApp.NoTitle.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
-        <activity
-            android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/testers_version"
-            android:launchMode="singleTop"
-            android:noHistory="true"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:theme="@style/Theme.AskApp.Popup" />
         <!-- ui when a crash happens -->
         <activity
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"

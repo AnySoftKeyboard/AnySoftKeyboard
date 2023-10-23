@@ -23,7 +23,7 @@
         style="@style/Ask.Text.Small.Error"
         android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
-        android:text="@string/ime_crashed_sub_text" />
+        android:text="@string/ime_crashed_text" />
 
     <View android:layout_width="match_parent"
         android:layout_height="1dp"

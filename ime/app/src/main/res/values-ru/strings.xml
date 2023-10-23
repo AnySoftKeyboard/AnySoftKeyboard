@@ -19,12 +19,9 @@
     <string name="ui_theme_settings_tile">Выберите и настройте темы клавиатуры.</string>
     <string name="ui_effects_settings_tile">Эффекты клавиатуры и возможности.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Список изменений</string>
     <string name="search_market_for_keyboard_addons">Получите больше языков и раскладок в <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Найдите больше <i>Quick-Text</i> дополнений в <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Твики</string>
-    <string name="close_button">Закрыть</string>
     <string name="delete_button">Удалить</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Сохранено:\u0020<xliff:g id="word">%s </xliff:g></string>
@@ -519,7 +516,6 @@
     <string name="created_mem_dump_file">Создан файл дампа памяти в: <xliff:g id="file_path">%s </xliff:g>     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не включен. Нажмите здесь, чтобы включить.</string>
     <string name="not_configured_with_just_click_here">Нажмите здесь</string>
-    <string name="click_for_more">Подробнее…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Добавить слово</string>
@@ -551,9 +547,6 @@
     <string name="setup_wizard_step_download_details">Вы будете рады узнать, что <i>AnySoftKeyboard</i> поддерживает десятки языков. Просто загрузите нужный языковой пакет и наслаждайтесь печатанием на любом языке вашего устройства.</string>
     <string name="setup_wizard_step_download_action">Скачать языковый пакет</string>
     <string name="setup_wizard_step_download_skip_action">Пропустить</string>
-    <string name="ime_crashed_title">AnySoftKeyboard разбился!</string>
-    <string name="ime_crashed_sub_text">К сожалению, не видел, что идет …</string>
-    <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет …</string>
     <string name="ime_crashed_text">К сожалению, есть проблема с <i>AnySoftKeyboard</i>. Не паникуйте, есть что-то <b> вы </b> может сделать, чтобы помочь решить эту проблему: послать нам отчет по аварии, и мы \ \'сделаем  самое лучшее для того чтобы решить эту аварию и вы получите обратно с удивительным опытом клавиатуры! \ N \ N с искренним извинением, команда Dev.</string>
     <string name="ime_crashed_send_button">Отправить</string>
     <string name="ime_crashed_cancel_button">Отменить</string>
@@ -568,13 +561,9 @@
     <string name="clipboard_paste_entries_title">Выбрать текст для вставки</string>
     <string name="next_word_prefs_clear_data">Очистить данные следующего слова</string>
     <string name="next_word_prefs_clear_data_summary">Это необратимо. Вся ваша история набора будет очищена.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard требуется разрешение на чтение и запись резервных копий ваших файлов.</string>
     <string name="notification_read_contacts_title">Можно ли читать ваши контакты?</string>
     <string name="notification_read_contacts_text">Мы должны читать ваши контакты, чтобы дать вам лучшее автозаполнение.</string>
-    <string name="notification_read_contacts_ticker">Контакты, требуется разрешение</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard использует ваши имена контактов, чтобы предоставить вам персонализированное слово предложение: при вводе слова, мы ищем подобные слова к автозаполнению и автоматической корректировки вашей печати.</string>
     <string name="wizard_allow_contacts_permission">Разрешить предложения на основе контактов</string>
-    <string name="allow_permission">Разрешить</string>
     <string name="turn_off_contacts_dictionary">Выключить словарь из Контакты</string>
     <string name="read_more_about_permissions">Прочитать больше про разрешения…</string>
     <string name="ask_beta_link_promo">Эй! Хочешь быстрее получать новые функции <i>AnySoftKeyboard</i>? Тогда тебе повезло! Канал <i>BETA</i> просто создан для <b>ТЕБЯ</b>!\nПросто зарегистрируйся по ссылке ниже и обнови через <i>Google Play Маркет</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nИ спасибо за помощь в устранении багов перед переходом нововведений в релиз.</string>

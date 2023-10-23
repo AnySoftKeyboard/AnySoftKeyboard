@@ -59,6 +59,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import net.evendanan.pixel.RxProgressDialog;
+import net.evendanan.pixel.UiUtils;
 
 public class UserDictionaryEditorFragment extends Fragment
     implements EditorWordsAdapter.DictionaryCallbacks {
@@ -148,7 +149,7 @@ public class UserDictionaryEditorFragment extends Fragment
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
+    UiUtils.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
 
     fillLanguagesSpinner();
   }

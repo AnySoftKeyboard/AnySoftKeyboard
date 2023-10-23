@@ -22,12 +22,9 @@
     <string name="ui_theme_settings_tile">إختيار و إعداد سمات لوحة المفاتيح</string>
     <string name="ui_effects_settings_tile">تأثيرات لوحة المفاتيح</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">سجل التغييرات</string>
     <string name="search_market_for_keyboard_addons">تحصَّل على المزيد من لوحات المفاتيح</string>
     <string name="search_market_for_quick_key_addons">تحصّل على المزيد من إضافات <i>النص السريع</i> على متجر التطبيقات …</string>
     <string name="keyboard_theme_tweak_group">تطويعات</string>
-    <string name="close_button">إغلاق</string>
     <string name="delete_button">حذف</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">تم الإحتفاظ بـ :\u0020<xliff:g id="word">%s</xliff:g>    </string>
@@ -35,6 +32,7 @@
     <string name="removed_word">تمت إزالة :\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="hint_add_to_dictionary">أنقر مجددا لحفظ \u2190</string>
     <string name="hint_double_tap_to_close">مرة ثانية لإزالة الإقتراحات</string>
+    <string name="hint_click_for_inline_suggestions">اقتراحات الملء التلقائي المتاحة</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">مدخل الصوت غير مثبت</string>
     <string name="voice_input_not_installed_text">آلية الإدخال الصوتي غير مثبة على جهازك. يمكنك تصليح ذلك : قم بتنصيبها من خلال متجر التطبيقات.</string>
@@ -504,7 +502,6 @@
     <string name="click_for_developer_features_summary">أدوات مختلفة للوحة مفاتيح AnySoftKeyboard خاصة بالمطورين</string>
     <string name="not_configured_with_click_here">تطبيق AnySoftKeyboard ليس جاهزا تماما للإستخدام. إضغط هنا لإعداده.</string>
     <string name="not_configured_with_just_click_here">انقر هنا</string>
-    <string name="click_for_more">المزيد …</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">إضافة كلمة جديدة</string>
@@ -539,9 +536,6 @@
     <string name="setup_wizard_step_download_title">تنزيل حزم اللغات</string>
     <string name="setup_wizard_step_download_action">تنزيل حزمة لغوية</string>
     <string name="setup_wizard_step_download_skip_action">تخطي</string>
-    <string name="ime_crashed_title">تعطل تطبيق AnySoftKeyboard !</string>
-    <string name="ime_crashed_sub_text">عذرا، لم نكن نتوقع ذلك …</string>
-    <string name="ime_crashed_ticker">عذرا، لقد تحطّم AnySoftKeyboard، لم نكن نتوقع ذلك …</string>
     <string name="ime_crashed_send_button">إرسال</string>
     <string name="ime_crashed_cancel_button">إلغاء</string>
     <string name="ime_crashed_intent_selector_title">إرسال تقريرا عن العَطَل بواسطة</string>
@@ -556,9 +550,7 @@
     <string name="next_word_prefs_clear_data_summary">هذا الإجراء لا رجعة فيه. سيتم مسح كافة إدخالاتك من كلمات و نصوص.</string>
     <string name="notification_read_contacts_title">هل تسمح لي بقراءة قائمة جهات اتصالك ؟</string>
     <string name="notification_read_contacts_text">إني بحاجة إلى قراءة قائمة جهات إتصالك لتحسين ميزة الإكمال التلقائي عند الكتابة.</string>
-    <string name="notification_read_contacts_ticker">الإذن للإطلاع على جهات الإتصال مطلوب</string>
     <string name="wizard_allow_contacts_permission">السماح باقتراح الكلمات استنادا إلى قائمة جهات الإتصال</string>
-    <string name="allow_permission">السماح</string>
     <string name="turn_off_contacts_dictionary">إلغاء إستعمال جهات الإتصال كقاموس للتصحيح</string>
     <string name="read_more_about_permissions">قراءة المزيد عن التصريحات…</string>
     <string name="app_shortcut_keyboards_disabled">الإنتقال ما بين ألواح المفاتيح معطل</string>

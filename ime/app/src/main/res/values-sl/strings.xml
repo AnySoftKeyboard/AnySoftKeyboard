@@ -13,12 +13,9 @@
     <string name="testers_version">Izgradnja za preizkuševalce!</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Seznam sprememb</string>
     <string name="search_market_for_keyboard_addons">Dobi več tipkovnic v <i>Trgovini Google Play</i> …</string>
     <string name="search_market_for_quick_key_addons">Dobi več dodatkov za <i>hitro besedilo</i> v <i>Trgovini Google Play</i> …</string>
     <string name="keyboard_theme_tweak_group">Podr. nast.</string>
-    <string name="close_button">Zapri</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Shranjeno:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -423,7 +420,6 @@
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard ni popolnoma nastavljen za uporabo. Kliknite tukaj za nastavitev.</string>
     <string name="not_configured_with_just_click_here">Kliknite tukaj</string>
-    <string name="click_for_more">Več …</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Dodaj besedo</string>
@@ -450,9 +446,6 @@
     <string name="setup_wizard_step_three_action_languages">Nastavitev jezikov …</string>
     <string name="setup_wizard_step_three_action_themes">Izberi temo …</string>
     <string name="setup_wizard_step_three_action_all_settings">Nastavi vse ostalo …</string>
-    <string name="ime_crashed_title">AnySoftKeyboard se je sesul!</string>
-    <string name="ime_crashed_sub_text">Ups, tega nismo pričakovali …</string>
-    <string name="ime_crashed_ticker">Ups, AnySoftKeyboard se je sesul, tega nismo pričakovali …</string>
     <string name="ime_crashed_text">Na žalost z <i>AnySoftKeyboardom</i> obstaja težava. Ne skrbite, nekaj lahko naredite, da to razrešite: pošljite nam poročilo po sesutju in kar najbolj se bomo potrudili, da sesutje razrešimo in vas vrnemo na čudovito izkušnjo tipkovnice!\n\nIskreno se opravičujemo, ekipa razvijalcev.</string>
     <string name="ime_crashed_send_button">Pošlji</string>
     <string name="ime_crashed_cancel_button">Prekliči</string>
@@ -469,10 +462,7 @@
     <string name="next_word_prefs_clear_data_summary">Tega ni mogoče povrniti. Vsa zgodovina tipkanja bo počiščena.</string>
     <string name="notification_read_contacts_title">Ali lahko berem vaše stike?</string>
     <string name="notification_read_contacts_text">Za boljšo izkušnjo samodokončanja potrebujemo vaše dovoljenje za branje stikov.</string>
-    <string name="notification_read_contacts_ticker">Potrebno dovoljenje za stike</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard uporablja imena vaših stikov, da ponudi bolj poosebljene predloge za besede: med tipkanjem iščemo podobne besede za samodokončanje in samopopravilo vašega tipkanja.</string>
     <string name="wizard_allow_contacts_permission">Dovoli predloge osnovane na stikih</string>
-    <string name="allow_permission">Dovoli</string>
     <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>
     <string name="read_more_about_permissions">Več o dovoljenjih …</string>
     <string name="ask_beta_link_promo">Pozdravljeni! Želite takojšnji dostop do novih značilnosti <i>AnySoftKeyboarda</i>? Imate srečo! Za <b>VAS</b> je sedaj na voljo kanal <i>BETA</i>!\nVpišite se na spodnji povezavi in posodobite program preko <i>Trgovine Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nHvala za pomoč pri uničevanju hroščev, preden dosežejo javnost.</string>

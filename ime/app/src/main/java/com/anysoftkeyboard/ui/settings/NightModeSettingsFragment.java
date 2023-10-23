@@ -24,6 +24,7 @@ import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import net.evendanan.pixel.UiUtils;
 
 public class NightModeSettingsFragment extends PreferenceFragmentCompat {
 
@@ -37,7 +38,7 @@ public class NightModeSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.night_mode_screen));
+    UiUtils.setActivityTitle(this, getString(R.string.night_mode_screen));
     mAppNightModeDisposable =
         NightMode.observeNightModeState(
                 requireContext(),

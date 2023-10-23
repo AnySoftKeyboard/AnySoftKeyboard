@@ -1,18 +1,18 @@
 package com.anysoftkeyboard.chewbacca;
 
 import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.service.notification.StatusBarNotification;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 import androidx.core.util.Pair;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.notification.NotificationDriver;
+import com.anysoftkeyboard.notification.NotificationIds;
+import com.anysoftkeyboard.notification.NotifyBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +24,8 @@ import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -36,7 +38,9 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
 
     TestableChewbaccaUncaughtExceptionHandler underTest =
         new TestableChewbaccaUncaughtExceptionHandler(
-            ApplicationProvider.getApplicationContext(), handler);
+            ApplicationProvider.getApplicationContext(),
+            handler,
+            Mockito.mock(NotificationDriver.class));
 
     Thread thread = new Thread();
     IOException exception = new IOException("an error");
@@ -50,7 +54,9 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
   public void testDoesNotCrashOnNullPreviousHandler() {
     TestableChewbaccaUncaughtExceptionHandler underTest =
         new TestableChewbaccaUncaughtExceptionHandler(
-            ApplicationProvider.getApplicationContext(), null);
+            ApplicationProvider.getApplicationContext(),
+            null,
+            Mockito.mock(NotificationDriver.class));
 
     underTest.uncaughtException(Thread.currentThread(), new IOException("an error"));
   }
@@ -58,22 +64,35 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
   @Test
   public void testDoesNotCreateArchivedReportIfNotCrashed() {
     Context app = ApplicationProvider.getApplicationContext();
+    var notificationDriver = Mockito.mock(NotificationDriver.class);
     TestableChewbaccaUncaughtExceptionHandler underTest =
-        new TestableChewbaccaUncaughtExceptionHandler(app, null);
+        new TestableChewbaccaUncaughtExceptionHandler(app, null, notificationDriver);
     Assert.assertFalse(underTest.performCrashDetectingFlow());
     Assert.assertFalse(new File(app.getFilesDir(), "crashes").exists());
-    Assert.assertEquals(
-        0,
-        Shadows.shadowOf(app.getSystemService(NotificationManager.class))
-            .getActiveNotifications()
-            .length);
+    Mockito.verify(notificationDriver, Mockito.never()).notify(Mockito.any(), Mockito.anyBoolean());
   }
 
   @Test
   public void testCallsDetectedIfPreviouslyCrashed() throws Exception {
     Context app = ApplicationProvider.getApplicationContext();
+    var notificationDriver = Mockito.mock(NotificationDriver.class);
+    var notificationBuilder = Mockito.mock(NotifyBuilder.class);
+    Mockito.doReturn(notificationBuilder)
+        .when(notificationDriver)
+        .buildNotification(Mockito.any(), Mockito.anyInt(), Mockito.anyInt());
+    Mockito.doReturn(notificationBuilder).when(notificationBuilder).setContentText(Mockito.any());
+    Mockito.doReturn(notificationBuilder).when(notificationBuilder).setColor(Mockito.anyInt());
+    Mockito.doReturn(notificationBuilder).when(notificationBuilder).setDefaults(Mockito.anyInt());
+    Mockito.doReturn(notificationBuilder).when(notificationBuilder).setContentIntent(Mockito.any());
+    Mockito.doReturn(notificationBuilder)
+        .when(notificationBuilder)
+        .setAutoCancel(Mockito.anyBoolean());
+    Mockito.doReturn(notificationBuilder)
+        .when(notificationBuilder)
+        .setOnlyAlertOnce(Mockito.anyBoolean());
+
     TestableChewbaccaUncaughtExceptionHandler underTest =
-        new TestableChewbaccaUncaughtExceptionHandler(app, null);
+        new TestableChewbaccaUncaughtExceptionHandler(app, null, notificationDriver);
     File newReport =
         new File(app.getFilesDir(), ChewbaccaUncaughtExceptionHandler.NEW_CRASH_FILENAME);
     List<String> reportTextLines =
@@ -102,17 +121,17 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
           "line " + lineIndex + " not equals", reportTextLines.get(lineIndex), text.get(lineIndex));
     }
 
-    StatusBarNotification[] activeNotifications =
-        Shadows.shadowOf(app.getSystemService(NotificationManager.class)).getActiveNotifications();
-    Notification notification =
-        Arrays.stream(activeNotifications)
-            .filter(n -> n.getId() == R.id.notification_icon_app_error)
-            .map(StatusBarNotification::getNotification)
-            .findFirst()
-            .orElse(null);
-    Assert.assertNotNull(notification);
-    Assert.assertEquals("test-channel-id", notification.getChannelId());
-    Intent savedIntent = Shadows.shadowOf(notification.contentIntent).getSavedIntent();
+    Mockito.verify(notificationDriver)
+        .buildNotification(
+            NotificationIds.CrashDetected,
+            R.drawable.ic_crash_detected,
+            R.string.ime_crashed_title);
+    Mockito.verify(notificationDriver).notify(Mockito.notNull(), Mockito.eq(true));
+
+    ArgumentCaptor<PendingIntent> captor = ArgumentCaptor.forClass(PendingIntent.class);
+    Mockito.verify(notificationBuilder).setContentIntent(captor.capture());
+
+    Intent savedIntent = Shadows.shadowOf(captor.getValue()).getSavedIntent();
     Assert.assertEquals(
         Intent.FLAG_ACTIVITY_NEW_TASK, savedIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
     Assert.assertEquals(Intent.ACTION_VIEW, savedIntent.getAction());
@@ -130,16 +149,13 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
   @Test
   public void testCrashLogFileWasCreated() throws Exception {
     Application app = ApplicationProvider.getApplicationContext();
+    NotificationDriver notificationDriver = Mockito.mock(NotificationDriver.class);
     TestableChewbaccaUncaughtExceptionHandler underTest =
-        new TestableChewbaccaUncaughtExceptionHandler(app, null);
+        new TestableChewbaccaUncaughtExceptionHandler(app, null, notificationDriver);
 
     underTest.uncaughtException(Thread.currentThread(), new IOException("an error"));
 
-    Assert.assertEquals(
-        0,
-        Shadows.shadowOf(app.getSystemService(NotificationManager.class))
-            .getActiveNotifications()
-            .length);
+    Mockito.verify(notificationDriver, Mockito.never()).notify(Mockito.any(), Mockito.anyBoolean());
 
     File newReport =
         new File(app.getFilesDir(), ChewbaccaUncaughtExceptionHandler.NEW_CRASH_FILENAME);
@@ -161,18 +177,15 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
       extends ChewbaccaUncaughtExceptionHandler {
 
     public TestableChewbaccaUncaughtExceptionHandler(
-        @NonNull Context app, @Nullable Thread.UncaughtExceptionHandler previous) {
-      super(app, previous);
+        @NonNull Context app,
+        @Nullable Thread.UncaughtExceptionHandler previous,
+        @NonNull NotificationDriver driver) {
+      super(app, previous, driver);
     }
 
     @NonNull @Override
     protected Intent createBugReportingActivityIntent() {
       return new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
-    }
-
-    @Override
-    protected void setupNotification(@NonNull NotificationCompat.Builder builder) {
-      builder.setChannelId("test-channel-id");
     }
 
     @NonNull @Override

@@ -3,11 +3,6 @@
 <resources>
     
     <string name="how_to_pointer_title">Magligayang padating sa AnySoftKeyboard</string>
-    
-    <string name="changelog">Changelog</string>
-    
-    
-    
     <string name="effects_group">Mga epekto</string>
     <string name="ime_settings">Mga setting ng keyboard</string>
     <string name="vibrate_on_key_press_title">Manginig kapag ipinduntin ang key</string>

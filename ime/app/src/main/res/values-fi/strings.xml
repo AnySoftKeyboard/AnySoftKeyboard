@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Valitse ja määritä näppäimistön teemoja.</string>
     <string name="ui_effects_settings_tile">Näppäimistön tehosteet ja kokemus.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Muutosloki</string>
     <string name="search_market_for_keyboard_addons">Hae lisää näppäimistöjä Kaupasta</string>
     <string name="search_market_for_quick_key_addons">Hanki lisää  <i>Pikateksti</i>-lisäosia sovelluskaupasta…</string>
     <string name="keyboard_theme_tweak_group">Hienosäädöt</string>
-    <string name="close_button">Sulje</string>
     <string name="delete_button">Poista</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Tallennettu:\u0020<xliff:g id="word">%s</xliff:g>
@@ -476,7 +473,6 @@
         Paina tästä asettaaksesi
     </string>
     <string name="not_configured_with_just_click_here">Paina tästä</string>
-    <string name="click_for_more">lisää…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Lisää sana</string>
@@ -515,10 +511,6 @@
         millä tahansa kielellä.</string>
     <string name="setup_wizard_step_download_action">Lataa kielipaketti</string>
     <string name="setup_wizard_step_download_skip_action">Ohita</string>
-    <string name="ime_crashed_title">AnySoftKeyboard kaatui!</string>
-    <string name="ime_crashed_sub_text">Hups, tämäpä yllätys…</string>
-    <string name="ime_crashed_ticker">Hups, AnySoftKeyboard kaatui, tämäpä yllätys…
-    </string>
     <string name="ime_crashed_text">Valitettavasti  <i>AnySoftKeyboardin</i> kanssa on ongelma.
         Ei hätää, <b>sinä</b> voit auttaa ongelman ratkaisussa lähettämällä meille kaatumisilmoitus
         ja teemme parhaamme ratkaistaksemme tämän ongelman ja saadaksemme sinulle takaisin upean
@@ -534,13 +526,7 @@
     <string name="next_word_prefs_clear_data_summary">Tämä on peruuttamatonta. Kaikki kirjoitushistoriasi tyhjennetään.</string>
     <string name="notification_read_contacts_title">Voinko lukea yhteystietojasi?</string>
     <string name="notification_read_contacts_text">Meidän täytyy lukea yhteystietojasi antaaksemme sinulle paremman kokemuksen automaattisesta täytöstä.</string>
-    <string name="notification_read_contacts_ticker">Käyttöoikeus yhteystietoihin vaaditaan</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard käyttää yhteystietojesi
-        nimiä antaakseen sinulle yksilöllisen sanaehdotuksen: kirjoittaessasi sanan, etsimme
-        saman tyyppisiä sanoja ja tarvittaessa korjaamme tai täydennämme automaattisesti kirjoitustasi.
-    </string>
     <string name="wizard_allow_contacts_permission">Salli yhteystietopohjaiset kirjoitusehdotukset</string>
-    <string name="allow_permission">Salli</string>
     <string name="turn_off_contacts_dictionary">Poista yhteystietosanakirja käytöstä</string>
     <string name="read_more_about_permissions">Lue lisää käyttöoikeuksista…</string>
     <string name="ask_beta_link_promo">Hei! Haluatko uusia <i>AnySoftKeyboard</i> juttuja nopeammin? Sitten

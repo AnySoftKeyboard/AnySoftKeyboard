@@ -4,10 +4,7 @@
     <string name="notification_text_testers">Ова е бета верзија. Користете ја внимателно!</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Листа на измени</string>
     <string name="keyboard_theme_tweak_group">Додатни поставувања</string>
-    <string name="close_button">Затвори</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="revert_added_word_question">Отстрани\?</string>
     <!-- voice -->

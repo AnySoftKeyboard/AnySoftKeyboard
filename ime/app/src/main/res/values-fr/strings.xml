@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Choisir et configurer les thèmes du clavier</string>
     <string name="ui_effects_settings_tile">Effets de clavier et expérience</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Journal des modifications</string>
     <string name="search_market_for_keyboard_addons">Obtenir plus de claviers sur le <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obtenir plus de modules <i>texte rapide</i> du magasin…</string>
     <string name="keyboard_theme_tweak_group">Réglages avancés</string>
-    <string name="close_button">Fermer</string>
     <string name="delete_button">Supprimer</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Enregistré :\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -526,7 +523,6 @@
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard n\'est pas totalement configuré pour être utilisé. Appuyer ici pour configurer.</string>
     <string name="not_configured_with_just_click_here">Appuyez ici</string>
-    <string name="click_for_more">plus…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Ajouter un mot</string>
@@ -559,9 +555,6 @@
     <string name="setup_wizard_step_download_details">Réjouissez-vous : <i>AnySoft Keyboard</i> prend en charge plusieurs dizaines de langues. Il est seulement nécessaire de télécharger le module linguistique désiré puis de profiter de la saisie dans n’importe quelle langue sur votre appareil.</string>
     <string name="setup_wizard_step_download_action">Télécharger le module linguistique</string>
     <string name="setup_wizard_step_download_skip_action">Ignorer</string>
-    <string name="ime_crashed_title">AnySoftKeyboard a planté !</string>
-    <string name="ime_crashed_sub_text">Aie, plantage sans prévenir…</string>
-    <string name="ime_crashed_ticker">Aïe, AnySoftKeyboard a planté sans prévenir…    </string>
     <string name="ime_crashed_text">Malheureusement il y a un problème avec <i>AnySoftKeyboard</i>. Pas de panique, il y a quelque chose que <b>vous</b> pouvez faire pour aider à résoudre ce problème : nous envoyer le rapport d\'incident. Nous ferons alors notre possible pour résoudre ce plantage et vous faire profiter d\'une expérience de clavier améliorée ! \n\nAvec nos plus sincères excuses, l\'équipe de développement.</string>
     <string name="ime_crashed_send_button">Envoyer</string>
     <string name="ime_crashed_cancel_button">Annuler</string>
@@ -576,13 +569,9 @@
     <string name="clipboard_paste_entries_title">Choisir le texte à coller</string>
     <string name="next_word_prefs_clear_data">Effacer les données de mot suivant</string>
     <string name="next_word_prefs_clear_data_summary">Ceci est irréversible. Tout l\'historique de frappe va être effacé.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard nécessite votre autorisation en lecture et écriture pour enregistrer les fichiers de sauvegarde.</string>
     <string name="notification_read_contacts_title">Puis-je lire vos contacts ?</string>
     <string name="notification_read_contacts_text">Les contacts doivent être lus pour améliorer la fonction de complétion automatique.</string>
-    <string name="notification_read_contacts_ticker">Autorisation des contacts requise</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard utilise les noms des contacts pour offrir une suggestion personnalisée de mots : en tapant un mot, des mots similaires sont recherchés pour corriger et compléter automatiquement la saisie.</string>
     <string name="wizard_allow_contacts_permission">Permettre les suggestions basées sur les contacts</string>
-    <string name="allow_permission">Autoriser</string>
     <string name="turn_off_contacts_dictionary">Désactiver le dictionnaire des contacts</string>
     <string name="read_more_about_permissions">En savoir plus sur les autorisations…</string>
     <string name="ask_beta_link_promo">Hello ! Intéressé(e) pour obtenir les nouveautés de <i>AnySoft Keyboard</i> plus vite ? Quelle chance ! Le canal de <i>BÊTA</i> est maintenant disponible pour <b>VOUS</b> ! \nPour cela, il suffit de s\'inscrire avec le lien ci-dessous et de mettre à jour sur <i>Google Play</i> ! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nMerci du coup de main pour éliminer les bogues avant la version publique.</string>
