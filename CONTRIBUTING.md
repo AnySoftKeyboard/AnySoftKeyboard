@@ -9,6 +9,7 @@ To develop this project, you'll need:
     * Set up `local.properties` file to point to it (that is, ensure you have `sdk.dir=/path/to/android/sdk` in it).
  * Android NDK level 15+ installed.
    * Navigate to `Tools > SDK Manager > SDK Tools` and check `NDK (Side by side)`.
+ * root_all_projects_ext.gradle > minSdkVersion = 21
 
 ## Continuous Integration and Pull-Requests Verifications
 Each PR is verified by multiple tasks:
