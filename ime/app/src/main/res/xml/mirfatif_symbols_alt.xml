@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height"
+    ask:showPreview="false">
+
+    <!-- Top row -->
+    <Row android:rowEdgeFlags="top">
+        <Key
+            android:codes="@integer/key_code_esc"
+            android:keyEdgeFlags="left"
+            android:keyLabel="Esc"
+            ask:isFunctional="true" />
+        <Key android:codes="@integer/key_code_tab" />
+        <Key
+            android:codes="@integer/key_code_ctrl"
+            android:isModifier="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_left"
+            android:horizontalGap="5%p"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_up"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_down"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_arrow_right"
+            android:isRepeatable="true"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_home"
+            android:horizontalGap="5%p"
+            android:keyLabel="Hom"
+            ask:isFunctional="true" />
+        <Key
+            android:codes="@integer/key_code_move_end"
+            android:keyEdgeFlags="right"
+            android:keyLabel="End"
+            ask:isFunctional="true" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="~"
+            android:keyEdgeFlags="left"
+            android:popupCharacters="`" />
+        <Key
+            android:codes="!"
+            android:popupCharacters="#" />
+        <Key
+            android:codes="$"
+            android:popupCharacters="%" />
+        <Key
+            android:codes="^"
+            android:popupCharacters="&amp;" />
+        <Key
+            android:codes="®"
+            android:popupCharacters="©" />
+        <Key android:codes="™" />
+        <Key android:codes="{" />
+        <Key android:codes="}" />
+        <Key android:codes="[" />
+        <Key
+            android:codes="]"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="←"
+            android:horizontalGap="5%p"
+            android:keyEdgeFlags="left" />
+        <Key android:codes="↑" />
+        <Key android:codes="→" />
+        <Key
+            android:codes="✔"
+            android:popupCharacters="✘" />
+        <Key
+            android:codes="&lt;"
+            android:popupCharacters="≤" />
+        <Key
+            android:codes="&gt;"
+            android:popupCharacters="≥" />
+        <Key
+            android:codes="‹"
+            android:popupCharacters="«" />
+        <Key
+            android:codes="›"
+            android:popupCharacters="»" />
+        <Key
+            android:codes="¦"
+            android:popupCharacters="‖" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@integer/key_code_mode_symbols"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="left" />
+        <Key android:codes="↓" />
+        <Key
+            android:codes="“"
+            android:popupCharacters="‘" />
+        <Key
+            android:codes="”"
+            android:popupCharacters="’" />
+        <Key android:codes="=" />
+        <Key android:codes="|" />
+        <Key android:codes=":" />
+        <Key android:codes="\'" />
+        <Key
+            android:codes="@integer/key_code_delete"
+            android:isRepeatable="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <!-- Bottom row -->
+    <Row android:rowEdgeFlags="bottom">
+
+        <Key
+            android:codes="@integer/key_code_keyboard_mode_change"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="left"
+            ask:isFunctional="true"
+            ask:keyDynamicEmblem="icon"
+            ask:longPressCode="@integer/key_code_mode_alphabet_popup" />
+
+        <!-- comma -->
+        <Key
+            android:codes="44"
+            android:popupCharacters="„"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_quick_text_popup"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_quick_text" />
+
+        <Key
+            android:codes="@integer/key_code_space"
+            android:keyWidth="35%p"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="&quot;"
+            android:popupCharacters="\'“”‘’"
+            ask:hintLabel="\'"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="."
+            android:popupCharacters="…⋯"
+            ask:hintLabel="…"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="@integer/key_code_enter"
+            android:keyWidth="12.5%p"
+            android:keyEdgeFlags="right"
+            ask:isFunctional="true"
+            ask:longPressCode="@integer/key_code_settings" />
+    </Row>
+</Keyboard>

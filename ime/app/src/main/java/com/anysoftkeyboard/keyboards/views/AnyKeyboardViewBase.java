@@ -1032,6 +1032,9 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
   }
 
+  // Remember last used alphabet keyboard
+  private String mLastAlphabetKbId;
+
   /**
    * Returns the current keyboard being displayed by this view.
    *
@@ -1050,6 +1053,16 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     if (TextUtils.isEmpty(mNextAlphabetKeyboardName)) {
       mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
     }
+
+    // If mirfatif alphabet keyboard name is longer than 4 characters, truncate it to 3
+    if (mirfatifKeyboard(mLastAlphabetKbId) && mNextAlphabetKeyboardName.length() > 4) {
+      mNextAlphabetKeyboardName = mNextAlphabetKeyboardName.subSequence(0, 3);
+    }
+    // Remember alphabet keyboard in use
+    if (!(currentKeyboard instanceof GenericKeyboard)) {
+      mLastAlphabetKbId = currentKeyboard.getKeyboardId();
+    }
+
     mNextSymbolsKeyboardName = nextSymbolsKeyboard;
     if (TextUtils.isEmpty(mNextSymbolsKeyboardName)) {
       mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
@@ -2280,5 +2293,12 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
           && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
           && TextUtils.equals(((TextWidthCacheKey) o).mLabel, mLabel);
     }
+  }
+
+  // If it's one of mirfatif keyboards
+  private boolean mirfatifKeyboard(String keyboardId) {
+    return keyboardId != null
+        && (keyboardId.equals(getContext().getString(R.string.mirfatif_qwerty_with_symbols_guid))
+            || keyboardId.equals(getContext().getString(R.string.urdu_keyboard_with_symbols_guid)));
   }
 }
