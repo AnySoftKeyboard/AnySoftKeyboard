@@ -33,74 +33,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceSpecificV15 implements DeviceSpecific {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV15";
-    }
+  @Override
+  public String getApiLevel() {
+    return "DeviceSpecificV15";
+  }
 
-    @Override
-    public GestureDetector createGestureDetector(
-            Context appContext, AskOnGestureListener listener) {
-        return new AskV8GestureDetector(appContext, listener);
-    }
+  @Override
+  public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
+    return new AskV8GestureDetector(appContext, listener);
+  }
 
-    @Override
-    public void commitCorrectionToInputConnection(
-            InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
-        ic.commitText(newWord, 1);
-        CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
-        ic.commitCorrection(correctionInfo);
-    }
+  @Override
+  public void commitCorrectionToInputConnection(
+      InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+    ic.commitText(newWord, 1);
+    CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
+    ic.commitCorrection(correctionInfo);
+  }
 
-    @Override
-    public final void reportInputMethodSubtypes(
-            @NonNull InputMethodManager inputMethodManager,
-            @NonNull String imeId,
-            @NonNull List<KeyboardAddOnAndBuilder> builders) {
-        List<InputMethodSubtype> subtypes = new ArrayList<>();
-        for (KeyboardAddOnAndBuilder builder : builders) {
-            Logger.d(
-                    "reportInputMethodSubtypes",
-                    "reportInputMethodSubtypes for %s with locale %s",
-                    builder.getId(),
-                    builder.getKeyboardLocale());
-            final String locale = builder.getKeyboardLocale();
-            if (TextUtils.isEmpty(locale)) continue;
-            InputMethodSubtype subtype = createSubtype(locale, builder.getId());
-            Logger.d(
-                    "reportInputMethodSubtypes",
-                    "created subtype for %s with hash %s",
-                    builder.getId(),
-                    subtype);
-            subtypes.add(subtype);
-        }
-        inputMethodManager.setAdditionalInputMethodSubtypes(
-                imeId, subtypes.toArray(new InputMethodSubtype[0]));
+  @Override
+  public final void reportInputMethodSubtypes(
+      @NonNull InputMethodManager inputMethodManager,
+      @NonNull String imeId,
+      @NonNull List<KeyboardAddOnAndBuilder> builders) {
+    List<InputMethodSubtype> subtypes = new ArrayList<>();
+    for (KeyboardAddOnAndBuilder builder : builders) {
+      Logger.d(
+          "reportInputMethodSubtypes",
+          "reportInputMethodSubtypes for %s with locale %s",
+          builder.getId(),
+          builder.getKeyboardLocale());
+      final String locale = builder.getKeyboardLocale();
+      if (TextUtils.isEmpty(locale)) continue;
+      InputMethodSubtype subtype = createSubtype(locale, builder.getId());
+      Logger.d(
+          "reportInputMethodSubtypes",
+          "created subtype for %s with hash %s",
+          builder.getId(),
+          subtype);
+      subtypes.add(subtype);
     }
+    inputMethodManager.setAdditionalInputMethodSubtypes(
+        imeId, subtypes.toArray(new InputMethodSubtype[0]));
+  }
 
-    @Override
-    public void reportCurrentInputMethodSubtypes(
-            @NonNull InputMethodManager inputMethodManager,
-            @NonNull String imeId,
-            @NonNull IBinder token,
-            @Nullable String keyboardLocale,
-            @NonNull CharSequence keyboardId) {
-        if (keyboardLocale != null)
-            inputMethodManager.setInputMethodAndSubtype(
-                    token, imeId, createSubtype(keyboardLocale, keyboardId));
-    }
+  @Override
+  public void reportCurrentInputMethodSubtypes(
+      @NonNull InputMethodManager inputMethodManager,
+      @NonNull String imeId,
+      @NonNull IBinder token,
+      @Nullable String keyboardLocale,
+      @NonNull CharSequence keyboardId) {
+    if (keyboardLocale != null)
+      inputMethodManager.setInputMethodAndSubtype(
+          token, imeId, createSubtype(keyboardLocale, keyboardId));
+  }
 
-    @Override
-    public Clipboard createClipboard(@NonNull Context applicationContext) {
-        return new ClipboardV11(applicationContext);
-    }
+  @Override
+  public Clipboard createClipboard(@NonNull Context applicationContext) {
+    return new ClipboardV11(applicationContext);
+  }
 
-    protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
-        return new InputMethodSubtype(0, 0, locale, "", keyboardId.toString(), false, false);
-    }
+  protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
+    return new InputMethodSubtype(0, 0, locale, "", keyboardId.toString(), false, false);
+  }
 
-    @Override
-    public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
-        return new PressVibratorV1(vibe);
-    }
+  @Override
+  public PressVibrator createPressVibrator(@NonNull Vibrator vibe) {
+    return new PressVibratorV1(vibe);
+  }
 }

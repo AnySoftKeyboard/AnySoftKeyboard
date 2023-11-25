@@ -21,10 +21,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Список изменений</string>
-    <string name="search_market_for_addons">Поиск дополнений</string>
     <string name="search_market_for_keyboard_addons">Получите больше языков и раскладок в <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Найдите больше <i>Quick-Text</i> дополнений в <i>Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* Не удалось найти Google Play Store на вашем устройстве. Нет возможности искать дополнения!</b></string>
     <string name="keyboard_theme_tweak_group">Твики</string>
     <string name="close_button">Закрыть</string>
     <string name="delete_button">Удалить</string>
@@ -34,6 +32,7 @@
     <string name="removed_word">Удалено:\u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 нажмите еще раз, чтобы сохранить</string>
     <string name="hint_double_tap_to_close">Еще раз, чтобы не предлагать слова</string>
+    <string name="hint_click_for_inline_suggestions">Доступные варианты автозаполнения</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Программа воспр. голоса не установлена</string>
     <string name="voice_input_not_installed_text">Голосовой ввод Google не установлен на вашем устройстве. \nЭто может быть легко исправлено: установить его сейчас из Play Store.</string>
@@ -411,6 +410,7 @@
     <string name="extension_kbd_bottom_minimal">Минимальный</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Минимальный (без эмодзи)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Минимальный (меньше знаков пунктуации)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Минимальный (альтернативный)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Пуск</string>
@@ -607,6 +607,7 @@
     <string name="setup_wizard_welcome_start_action">Запуск установки…</string>
     <string name="setup_wizard_welcome_info_footnote">* Нет сомнений, что AnySoftKeyboard не представляет никакой опасности. Вы можете убедиться в этом, заглянув в исходный код программы. Более того, программа не требует <i>СЕТЕВЫХ</i> разрешений, т.е. она никуда не отправляет данные с вашего устройства.</string>
     <string name="setup_wizard_welcome_privacy_action">Переход к политике конфиденциальности…</string>
+    <string name="setup_wizard_skip">Пропустить</string>
     <string name="clear_all_dictionary_override">Очистить перезаписи</string>
     <string name="theme_case_type_override_dialog_title">Клавиатура-регистр переопределения регистра</string>
     <string name="theme_case_type_override_theme">Использовать тему</string>
@@ -643,6 +644,7 @@
     <string name="gesture_typing_alert_title">BETA функция!</string>
     <string name="gesture_typing_alert_message">Функция жестового ввода ➿ находится на стадии <b>бета</b>. В нем есть некоторые ошибки, не такие быстрые и не настолько полные. \nСказав это, вы должны попробовать это.</string>
     <string name="gesture_typing_alert_button">Понял</string>
+    <string name="undo_gesture_typing">Отключить набор жестами</string>
     <string name="apply_remote_app_colors_to_theme">Изменить цвета темы в зависимости от используемого приложения</string>
     <string name="apply_overlay_summary_on">Цвета клавиатуры будут соответствовать активному приложению (в меру наших возможностей).</string>
     <string name="apply_overlay_summary_off">Всегда используйте цвета темы.</string>
@@ -657,4 +659,6 @@
     <string name="click_me_for_easter_egg_info">нажмите сюда, чтобы увидеть сюрприз</string>
     <string name="backup_restore_not_support_before_kitkat">Не поддерживается на вашем Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Резервное копирование и восстановление не поддерживаются для устройств с ОС Android до KitKat (версия 4.4).</string>
+    <string name="delete_all_clipboard_entries">Пустой буфер обмена</string>
+    <string name="tip_swipe_from_backspace_to_clear">Подсказка: Вы можете провести влево с кнопки Backspaсе, чтобы удалить слово!</string>
 </resources>

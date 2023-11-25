@@ -12,33 +12,33 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
  */
 public class QuickKeysKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
 
-    public QuickKeysKeyboardView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public QuickKeysKeyboardView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    public QuickKeysKeyboardView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+  public QuickKeysKeyboardView(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+  }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void setBackgroundDrawable(Drawable background) {
-        // no background in this class
-        super.setBackgroundDrawable(null);
-    }
+  @SuppressWarnings("deprecation")
+  @Override
+  public void setBackgroundDrawable(Drawable background) {
+    // no background in this class
+    super.setBackgroundDrawable(null);
+  }
 
-    @Override
-    public void setBackground(Drawable background) {
-        // no background in this class
-        super.setBackground(null);
-    }
+  @Override
+  public void setBackground(Drawable background) {
+    // no background in this class
+    super.setBackground(null);
+  }
 
-    @Override
-    protected void setKeyboard(@NonNull AnyKeyboard keyboard, float verticalCorrection) {
-        super.setKeyboard(keyboard, 0 /*no vertical correct here*/);
-    }
+  @Override
+  protected void setKeyboard(@NonNull AnyKeyboard keyboard, float verticalCorrection) {
+    super.setKeyboard(keyboard, 0 /*no vertical correct here*/);
+  }
 
-    public void setKeyboard(@NonNull AnyKeyboard keyboard) {
-        super.setKeyboard(keyboard, 0 /*no vertical correct here*/);
-    }
+  public void setKeyboard(@NonNull AnyKeyboard keyboard) {
+    super.setKeyboard(keyboard, 0 /*no vertical correct here*/);
+  }
 }

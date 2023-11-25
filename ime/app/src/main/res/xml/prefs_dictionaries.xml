@@ -70,6 +70,15 @@
             android:summary="@string/auto_pick_suggestion_aggressiveness_summary"
             android:title="@string/auto_pick_suggestion_aggressiveness_title"/>
 
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_try_splitting_words_for_correction"
+            android:dependency="candidates_on"
+            android:key="@string/settings_key_try_splitting_words_for_correction"
+            android:persistent="true"
+            android:summaryOff="@string/try_split_words_for_correction_summary_off"
+            android:summaryOn="@string/try_split_words_for_correction_summary_on"
+            android:title="@string/try_split_words_for_correction"/>
+
     </androidx.preference.PreferenceCategory>
 
     <Preference android:title="@string/abbreviation_dict_editor"

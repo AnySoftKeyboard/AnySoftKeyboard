@@ -50,4 +50,6 @@
     <string name="deeplink_url_dev_tools">anysoftkeyboard://settings/dev_tools</string>
 
     <string name="label_subtype_generic">%s</string>
+
+    <string name="developer_strict_mode_change_restart">Restart AnySoftKeyboard to take affect!</string>
 </resources>

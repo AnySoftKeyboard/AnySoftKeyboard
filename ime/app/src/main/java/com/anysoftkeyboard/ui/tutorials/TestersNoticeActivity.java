@@ -23,13 +23,13 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class TestersNoticeActivity extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.testers_version);
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.testers_version);
+  }
 
-    public void onCloseClicked(View v) {
-        finish();
-    }
+  public void onCloseClicked(View v) {
+    finish();
+  }
 }

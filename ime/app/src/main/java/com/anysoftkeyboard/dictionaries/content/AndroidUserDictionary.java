@@ -29,83 +29,80 @@ import com.anysoftkeyboard.base.utils.Logger;
 
 public class AndroidUserDictionary extends ContentObserverDictionary {
 
-    private static final String[] PROJECTION = {Words._ID, Words.WORD, Words.FREQUENCY};
-    private final String mLocale;
+  private static final String[] PROJECTION = {Words._ID, Words.WORD, Words.FREQUENCY};
+  private final String mLocale;
 
-    public AndroidUserDictionary(Context context, String locale) {
-        this(context, locale, Words.CONTENT_URI);
+  public AndroidUserDictionary(Context context, String locale) {
+    this(context, locale, Words.CONTENT_URI);
+  }
+
+  protected AndroidUserDictionary(Context context, String locale, @Nullable Uri changeUri) {
+    super("AndroidUserDictionary", context, changeUri);
+    mLocale = locale;
+  }
+
+  @Override
+  protected void readWordsFromActualStorage(WordReadListener listener) {
+    @SuppressLint("Recycle")
+    Cursor cursor =
+        TextUtils.isEmpty(mLocale)
+            ? mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null)
+            : mContext
+                .getContentResolver()
+                .query(
+                    Words.CONTENT_URI,
+                    PROJECTION,
+                    Words.LOCALE + "=?",
+                    new String[] {mLocale},
+                    null);
+
+    if (cursor == null) throw new RuntimeException("No built-in Android dictionary!");
+    if (cursor.moveToFirst()) {
+      while (!cursor.isAfterLast() && listener.onWordRead(cursor.getString(1), cursor.getInt(2))) {
+        cursor.moveToNext();
+      }
+    }
+    cursor.close();
+  }
+
+  @Override
+  protected void addWordToStorage(String word, int frequency) {
+    if (TextUtils.isEmpty(word)) {
+      return;
     }
 
-    protected AndroidUserDictionary(Context context, String locale, @Nullable Uri changeUri) {
-        super("AndroidUserDictionary", context, changeUri);
-        mLocale = locale;
-    }
+    if (frequency < 1) frequency = 1;
+    if (frequency > 255) frequency = 255;
 
-    @Override
-    protected void readWordsFromActualStorage(WordReadListener listener) {
-        @SuppressLint("Recycle")
-        Cursor cursor =
-                TextUtils.isEmpty(mLocale)
-                        ? mContext.getContentResolver()
-                                .query(Words.CONTENT_URI, PROJECTION, null, null, null)
-                        : mContext.getContentResolver()
-                                .query(
-                                        Words.CONTENT_URI,
-                                        PROJECTION,
-                                        Words.LOCALE + "=?",
-                                        new String[] {mLocale},
-                                        null);
+    ContentValues values = new ContentValues(4);
+    values.put(Words.WORD, word);
+    values.put(Words.FREQUENCY, frequency);
+    values.put(Words.LOCALE, mLocale);
+    values.put(Words.APP_ID, 0); // TODO: Get App UID
 
-        if (cursor == null) throw new RuntimeException("No built-in Android dictionary!");
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()
-                    && listener.onWordRead(cursor.getString(1), cursor.getInt(2))) {
-                cursor.moveToNext();
-            }
-        }
-        cursor.close();
-    }
+    Uri result = mContext.getContentResolver().insert(Words.CONTENT_URI, values);
+    Logger.i(
+        TAG,
+        "Added the word '"
+            + word
+            + "' at locale "
+            + mLocale
+            + " into Android's user dictionary. Result "
+            + result);
+  }
 
-    @Override
-    protected void addWordToStorage(String word, int frequency) {
-        if (TextUtils.isEmpty(word)) {
-            return;
-        }
+  @Override
+  protected final void deleteWordFromStorage(String word) {
+    mContext.getContentResolver().delete(Words.CONTENT_URI, Words.WORD + "=?", new String[] {word});
+  }
 
-        if (frequency < 1) frequency = 1;
-        if (frequency > 255) frequency = 255;
+  @NonNull @Override
+  public String toString() {
+    return mLocale + "@" + super.toString();
+  }
 
-        ContentValues values = new ContentValues(4);
-        values.put(Words.WORD, word);
-        values.put(Words.FREQUENCY, frequency);
-        values.put(Words.LOCALE, mLocale);
-        values.put(Words.APP_ID, 0); // TODO: Get App UID
-
-        Uri result = mContext.getContentResolver().insert(Words.CONTENT_URI, values);
-        Logger.i(
-                TAG,
-                "Added the word '"
-                        + word
-                        + "' at locale "
-                        + mLocale
-                        + " into Android's user dictionary. Result "
-                        + result);
-    }
-
-    @Override
-    protected final void deleteWordFromStorage(String word) {
-        mContext.getContentResolver()
-                .delete(Words.CONTENT_URI, Words.WORD + "=?", new String[] {word});
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return mLocale + "@" + super.toString();
-    }
-
-    @Override
-    protected void closeStorage() {
-        /*nothing to close here*/
-    }
+  @Override
+  protected void closeStorage() {
+    /*nothing to close here*/
+  }
 }

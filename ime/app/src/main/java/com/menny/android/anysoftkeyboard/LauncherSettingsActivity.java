@@ -29,45 +29,45 @@ import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
  */
 public class LauncherSettingsActivity extends Activity {
 
-    private static final String LAUNCHED_KEY = "LAUNCHED_KEY";
-    /**
-     * This flag will help us keeping this activity inside the task, thus returning to the TASK when
-     * relaunching (and not to re-create the activity)
-     */
-    private boolean mLaunched = false;
+  private static final String LAUNCHED_KEY = "LAUNCHED_KEY";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null)
-            mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY, false);
+  /**
+   * This flag will help us keeping this activity inside the task, thus returning to the TASK when
+   * relaunching (and not to re-create the activity)
+   */
+  private boolean mLaunched = false;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    if (savedInstanceState != null) mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY, false);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (mLaunched) {
+      finish();
+    } else {
+      if (SetupSupport.isThisKeyboardEnabled(getApplication())) {
+        startActivity(new Intent(this, MainSettingsActivity.class));
+      } else {
+        startActivity(new Intent(this, SetupWizardActivity.class));
+      }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mLaunched) {
-            finish();
-        } else {
-            if (SetupSupport.isThisKeyboardEnabled(getApplication())) {
-                startActivity(new Intent(this, MainSettingsActivity.class));
-            } else {
-                startActivity(new Intent(this, SetupWizardActivity.class));
-            }
-        }
+    mLaunched = true;
+  }
 
-        mLaunched = true;
-    }
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(LAUNCHED_KEY, mLaunched);
+  }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(LAUNCHED_KEY, mLaunched);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY);
-    }
+  @Override
+  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY);
+  }
 }

@@ -24,19 +24,21 @@ env:
 jobs:
   localization-update:
     runs-on: ubuntu-22.04
-    container: menny/android_ndk:1.15.4
+    container: ghcr.io/menny/android_ndk:1.19.0
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.5.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Upload strings from ime/app main branch
         run: ./scripts/upload_strings_to_crowdin_api.sh keep
       - name: Download latest translations
-        run: ./scripts/update_strings_from_crowdin_api.sh build
+        run: |
+          git config --global --add safe.directory "${PWD}"
+          ./scripts/update_strings_from_crowdin_api.sh build
       - name: Update force-locale list
         run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'
@@ -46,4 +48,4 @@ jobs:
           body: 'Generated from latest _main_ strings and crowdin data.'
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/localization-update'
-          labels: automerge
+          delete-branch: true

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="window_popup_corner_radius">5dp</dimen>
+
+    <dimen name="font_size_title">16sp</dimen>
+    <dimen name="font_size_large">24sp</dimen>
+    <dimen name="font_size_sub_title">18sp</dimen>
+    <dimen name="font_size_text">14sp</dimen>
+    <dimen name="font_size_hint_text">15sp</dimen>
+    <dimen name="font_size_small_text">12sp</dimen>
+
+
+    <!-- MAKE SURE THIS VALUE ALIGNED WITH DEMO-KEYBOARD-VIEW BACKGROUND PADDING! -->
+    <!-- Global content UI padding, bottom -->
+    <dimen name="global_content_padding_bottom">4dp</dimen>
+    <!-- Global content UI padding, sides -->
+    <dimen name="global_content_padding_side">16dp</dimen>
+
+</resources>

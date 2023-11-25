@@ -28,113 +28,111 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class UserDictionary extends EditableDictionary {
 
-    private static final String TAG = "ASKUserDict";
-    private final NextWordDictionary mNextWordDictionary;
-    private final Context mContext;
-    private final String mLocale;
-    private volatile BTreeDictionary mActualDictionary;
+  private static final String TAG = "ASKUserDict";
+  private final NextWordDictionary mNextWordDictionary;
+  private final Context mContext;
+  private final String mLocale;
+  private volatile BTreeDictionary mActualDictionary;
 
-    public UserDictionary(Context context, String locale) {
-        super("UserDictionary");
-        mLocale = locale;
-        mContext = context;
+  public UserDictionary(Context context, String locale) {
+    super("UserDictionary");
+    mLocale = locale;
+    mContext = context;
 
-        mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
-    }
+    mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
+  }
 
-    @Override
-    public void getLoadedWords(@NonNull GetWordsCallback callback) {
-        mActualDictionary.getLoadedWords(callback);
-    }
+  @Override
+  public void getLoadedWords(@NonNull GetWordsCallback callback) {
+    mActualDictionary.getLoadedWords(callback);
+  }
 
-    @Override
-    public final void getSuggestions(KeyCodesProvider composer, WordCallback callback) {
-        if (mActualDictionary != null) mActualDictionary.getSuggestions(composer, callback);
-    }
+  @Override
+  public final void getSuggestions(KeyCodesProvider composer, WordCallback callback) {
+    if (mActualDictionary != null) mActualDictionary.getSuggestions(composer, callback);
+  }
 
-    NextWordSuggestions getUserNextWordGetter() {
-        return mNextWordDictionary;
-    }
+  NextWordSuggestions getUserNextWordGetter() {
+    return mNextWordDictionary;
+  }
 
-    @Override
-    public final boolean isValidWord(CharSequence word) {
-        return mActualDictionary != null && mActualDictionary.isValidWord(word);
-    }
+  @Override
+  public final boolean isValidWord(CharSequence word) {
+    return mActualDictionary != null && mActualDictionary.isValidWord(word);
+  }
 
-    @Override
-    protected final void closeAllResources() {
-        if (mActualDictionary != null) mActualDictionary.close();
-        mNextWordDictionary.close();
-    }
+  @Override
+  protected final void closeAllResources() {
+    if (mActualDictionary != null) mActualDictionary.close();
+    mNextWordDictionary.close();
+  }
 
-    @Override
-    protected final void loadAllResources() {
-        mNextWordDictionary.load();
+  @Override
+  protected final void loadAllResources() {
+    mNextWordDictionary.load();
 
-        BTreeDictionary androidBuiltIn = null;
+    BTreeDictionary androidBuiltIn = null;
+    try {
+      // The only reason I see someone uses this, is for development or debugging.
+      if (AnyApplication.prefs(mContext)
+          .getBoolean(
+              R.string.settings_key_always_use_fallback_user_dictionary,
+              R.bool.settings_default_always_use_fallback_user_dictionary)
+          .get()) {
+        throw new RuntimeException("User requested to always use fall-back user-dictionary.");
+      }
+
+      androidBuiltIn = createAndroidUserDictionary(mContext, mLocale);
+      androidBuiltIn.loadDictionary();
+      mActualDictionary = androidBuiltIn;
+    } catch (Exception e) {
+      Logger.w(
+          TAG,
+          "Can not load Android's built-in user dictionary (due to error '%s')."
+              + " FallbackUserDictionary to the rescue!",
+          e.getMessage());
+      if (androidBuiltIn != null) {
         try {
-            // The only reason I see someone uses this, is for development or debugging.
-            if (AnyApplication.prefs(mContext)
-                    .getBoolean(
-                            R.string.settings_key_always_use_fallback_user_dictionary,
-                            R.bool.settings_default_always_use_fallback_user_dictionary)
-                    .get()) {
-                throw new RuntimeException(
-                        "User requested to always use fall-back user-dictionary.");
-            }
-
-            androidBuiltIn = createAndroidUserDictionary(mContext, mLocale);
-            androidBuiltIn.loadDictionary();
-            mActualDictionary = androidBuiltIn;
-        } catch (Exception e) {
-            Logger.w(
-                    TAG,
-                    "Can not load Android's built-in user dictionary (due to error '%s'). FallbackUserDictionary to the rescue!",
-                    e.getMessage());
-            if (androidBuiltIn != null) {
-                try {
-                    androidBuiltIn.close();
-                } catch (Exception buildInCloseException) {
-                    // it's an half-baked object, no need to worry about it
-                    buildInCloseException.printStackTrace();
-                    Logger.w(
-                            TAG,
-                            "Failed to close the build-in user dictionary properly, but it should be fine.");
-                }
-            }
-            BTreeDictionary fallback = createFallbackUserDictionary(mContext, mLocale);
-            fallback.loadDictionary();
-
-            mActualDictionary = fallback;
+          androidBuiltIn.close();
+        } catch (Exception buildInCloseException) {
+          // it's an half-baked object, no need to worry about it
+          buildInCloseException.printStackTrace();
+          Logger.w(
+              TAG,
+              "Failed to close the build-in user dictionary properly, but it should" + " be fine.");
         }
-    }
+      }
+      BTreeDictionary fallback = createFallbackUserDictionary(mContext, mLocale);
+      fallback.loadDictionary();
 
-    @NonNull
-    protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
-        return new FallbackUserDictionary(context, locale);
+      mActualDictionary = fallback;
     }
+  }
 
-    @NonNull
-    protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
-        return new AndroidUserDictionary(context, locale);
-    }
+  @NonNull protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
+    return new FallbackUserDictionary(context, locale);
+  }
 
-    @Override
-    public final boolean addWord(String word, int frequency) {
-        if (mActualDictionary != null) {
-            return mActualDictionary.addWord(word, frequency);
-        } else {
-            Logger.d(TAG, "There is no actual dictionary to use for adding word! How come?");
-            return false;
-        }
-    }
+  @NonNull protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
+    return new AndroidUserDictionary(context, locale);
+  }
 
-    @Override
-    public final void deleteWord(String word) {
-        if (mActualDictionary != null) mActualDictionary.deleteWord(word);
+  @Override
+  public final boolean addWord(String word, int frequency) {
+    if (mActualDictionary != null) {
+      return mActualDictionary.addWord(word, frequency);
+    } else {
+      Logger.d(TAG, "There is no actual dictionary to use for adding word! How come?");
+      return false;
     }
+  }
 
-    protected BTreeDictionary getActualDictionary() {
-        return mActualDictionary;
-    }
+  @Override
+  public final void deleteWord(String word) {
+    if (mActualDictionary != null) mActualDictionary.deleteWord(word);
+  }
+
+  protected BTreeDictionary getActualDictionary() {
+    return mActualDictionary;
+  }
 }

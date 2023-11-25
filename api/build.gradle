@@ -2,10 +2,14 @@ apply plugin: 'com.android.library'
 
 apply from: "${rootDir}/gradle/android_general.gradle"
 
+android {
+    namespace 'com.anysoftkeyboard.api'
+}
+
 dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation("org.robolectric:robolectric:$robolectricVersion") {
         exclude group: 'com.google.auto.service', module: 'auto-service'
     }
-    testImplementation 'androidx.test:core:1.4.0'
+    testImplementation 'androidx.test:core:1.5.0'
 }

@@ -1,0 +1,17 @@
+---
+name: auto-approve-pr
+
+on:
+  pull_request:
+    types: [review_requested]
+
+jobs:
+  check-for-auto-approval:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.5.0
+      - uses: ./.github/actions/auto_approval
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          allowed_users: menny
+          review_as: anysoftkeyboard-bot

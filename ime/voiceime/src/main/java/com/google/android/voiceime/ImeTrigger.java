@@ -27,83 +27,76 @@ import java.util.Map;
 /** Triggers a voice recognition using Google voice typing. */
 class ImeTrigger implements Trigger {
 
-    private static final String VOICE_IME_SUBTYPE_MODE = "voice";
+  private static final String VOICE_IME_SUBTYPE_MODE = "voice";
 
-    private static final String VOICE_IME_PACKAGE_PREFIX = "com.google.android";
+  private final InputMethodService mInputMethodService;
 
-    private final InputMethodService mInputMethodService;
+  public ImeTrigger(InputMethodService inputMethodService) {
+    mInputMethodService = inputMethodService;
+  }
 
-    public ImeTrigger(InputMethodService inputMethodService) {
-        mInputMethodService = inputMethodService;
+  /** Switches to Voice IME. */
+  @Override
+  public void startVoiceRecognition(String language) {
+    InputMethodManager inputMethodManager = getInputMethodManager(mInputMethodService);
+
+    InputMethodInfo inputMethodInfo = getVoiceImeInputMethodInfo(inputMethodManager);
+
+    if (inputMethodInfo == null) {
+      return;
     }
 
-    /** Switches to Voice IME. */
-    @Override
-    public void startVoiceRecognition(String language) {
-        InputMethodManager inputMethodManager = getInputMethodManager(mInputMethodService);
+    inputMethodManager.setInputMethodAndSubtype(
+        mInputMethodService.getWindow().getWindow().getAttributes().token,
+        inputMethodInfo.getId(),
+        getVoiceImeSubtype(inputMethodManager, inputMethodInfo));
+  }
 
-        InputMethodInfo inputMethodInfo = getVoiceImeInputMethodInfo(inputMethodManager);
+  private static InputMethodManager getInputMethodManager(InputMethodService inputMethodService) {
+    return (InputMethodManager) inputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
+  }
 
-        if (inputMethodInfo == null) {
-            return;
+  private InputMethodSubtype getVoiceImeSubtype(
+      InputMethodManager inputMethodManager, InputMethodInfo inputMethodInfo)
+      throws SecurityException, IllegalArgumentException {
+    Map<InputMethodInfo, List<InputMethodSubtype>> map =
+        inputMethodManager.getShortcutInputMethodsAndSubtypes();
+    List<InputMethodSubtype> list = map.get(inputMethodInfo);
+    if (list != null && list.size() > 0) {
+      return list.get(0);
+    } else {
+      return null;
+    }
+  }
+
+  private static InputMethodInfo getVoiceImeInputMethodInfo(InputMethodManager inputMethodManager)
+      throws SecurityException, IllegalArgumentException {
+    for (InputMethodInfo inputMethodInfo : inputMethodManager.getEnabledInputMethodList()) {
+      for (int i = 0; i < inputMethodInfo.getSubtypeCount(); i++) {
+        InputMethodSubtype subtype = inputMethodInfo.getSubtypeAt(i);
+        if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode())) {
+          return inputMethodInfo;
         }
+      }
+    }
+    return null;
+  }
 
-        inputMethodManager.setInputMethodAndSubtype(
-                mInputMethodService.getWindow().getWindow().getAttributes().token,
-                inputMethodInfo.getId(),
-                getVoiceImeSubtype(inputMethodManager, inputMethodInfo));
+  /** Returns true if an implementation of Voice IME is installed. */
+  public static boolean isInstalled(InputMethodService inputMethodService) {
+    InputMethodInfo inputMethodInfo =
+        getVoiceImeInputMethodInfo(getInputMethodManager(inputMethodService));
+
+    if (inputMethodInfo == null) {
+      return false;
     }
 
-    private static InputMethodManager getInputMethodManager(InputMethodService inputMethodService) {
-        return (InputMethodManager)
-                inputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
-    }
+    return inputMethodInfo.getSubtypeCount() > 0;
+  }
 
-    private InputMethodSubtype getVoiceImeSubtype(
-            InputMethodManager inputMethodManager, InputMethodInfo inputMethodInfo)
-            throws SecurityException, IllegalArgumentException {
-        Map<InputMethodInfo, List<InputMethodSubtype>> map =
-                inputMethodManager.getShortcutInputMethodsAndSubtypes();
-        List<InputMethodSubtype> list = map.get(inputMethodInfo);
-        if (list != null && list.size() > 0) {
-            return list.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    private static InputMethodInfo getVoiceImeInputMethodInfo(InputMethodManager inputMethodManager)
-            throws SecurityException, IllegalArgumentException {
-        for (InputMethodInfo inputMethodInfo : inputMethodManager.getEnabledInputMethodList()) {
-            for (int i = 0; i < inputMethodInfo.getSubtypeCount(); i++) {
-                InputMethodSubtype subtype = inputMethodInfo.getSubtypeAt(i);
-                if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode())
-                        && inputMethodInfo
-                                .getComponent()
-                                .getPackageName()
-                                .startsWith(VOICE_IME_PACKAGE_PREFIX)) {
-                    return inputMethodInfo;
-                }
-            }
-        }
-        return null;
-    }
-
-    /** Returns true if an implementation of Voice IME is installed. */
-    public static boolean isInstalled(InputMethodService inputMethodService) {
-        InputMethodInfo inputMethodInfo =
-                getVoiceImeInputMethodInfo(getInputMethodManager(inputMethodService));
-
-        if (inputMethodInfo == null) {
-            return false;
-        }
-
-        return inputMethodInfo.getSubtypeCount() > 0;
-    }
-
-    @Override
-    public void onStartInputView() {
-        // Empty. Voice IME pastes the recognition result directly into the text
-        // view
-    }
+  @Override
+  public void onStartInputView() {
+    // Empty. Voice IME pastes the recognition result directly into the text
+    // view
+  }
 }

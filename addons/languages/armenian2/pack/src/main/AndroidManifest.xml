@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.anysoftkeyboard.languagepack.armenian2.pack">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
         <receiver

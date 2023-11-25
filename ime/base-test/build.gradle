@@ -5,14 +5,19 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
+    implementation project(':ime:pixel')
 
-    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.preference:preference:1.2.1'
 
     api 'junit:junit:4.13.2'
     api "org.robolectric:robolectric:$robolectricVersion"
     api 'org.mockito:mockito-core:2.23.0'
     api project(':junit-sharding')
-    api 'androidx.test:core:1.4.0'
+    api 'androidx.test:core:1.5.0'
+}
+
+android {
+    namespace 'com.anysoftkeyboard.test'
 }
 
 afterEvaluate {

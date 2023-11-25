@@ -19,7 +19,6 @@
 -->
 
 <resources>
-    <dimen name="window_popup_corner_radius">6dp</dimen>
 
     <dimen name="default_key_height">52dip</dimen>
     <dimen name="default_key_half_height">38dip</dimen>
@@ -54,9 +53,4 @@
 
     <integer name="condensing_precentage">80</integer>
     <integer name="condensing_precentage_edge">65</integer>
-
-    <!-- Global content UI padding, bottom -->
-    <dimen name="global_content_padding_bottom">8dp</dimen>
-    <!-- Global content UI padding, sides -->
-    <dimen name="global_content_padding_side">24dp</dimen>
 </resources>

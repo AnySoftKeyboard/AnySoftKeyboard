@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Pakeitimų žurnalas</string>
-    <string name="search_market_for_addons">Ieškoti priedų</string>
     <string name="search_market_for_keyboard_addons">Gaukite daugiau klaviatūrų <i>Google Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Gaukite daugiau <i>Quick-Text</i> papildinių <i> Google Play Store</i>…</string>
-    <string name="no_market_store_available">Nerasta <i>Google Play Store</i> jūsų įrenginyje.\nNeįmanoma ieškoti priedų!</string>
     <string name="keyboard_theme_tweak_group">Patobulinimai</string>
     <string name="close_button">Uždaryti</string>
     <string name="delete_button">Ištrinti</string>
@@ -36,6 +34,7 @@
     <string name="removed_word">Panaikinta:\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="hint_add_to_dictionary">\u2190 Paliesti dar, kad išsaugoti</string>
     <string name="hint_double_tap_to_close">Dar kart, kad panaikinti pasliūlymus</string>
+    <string name="hint_click_for_inline_suggestions">Galimi automatiškai įvedamųjų tekstų pasiūlymai</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Balsas Nėra Įdiegtas</string>
     <string name="voice_input_not_installed_text">Google Balso Įvestis nėra įdiegta jūsų įrenginyje.\nTai gali būti lengvai sutvarkyta: įrašykite dabar iš <i>Google Play Store</i>.</string>
@@ -110,6 +109,9 @@
     <string name="switch_keyboard_on_space">Tarpas pakeičia klaviatūras</string>
     <string name="switch_keyboard_on_space_on_summary">Paspaudus tarpą perjungti iš simbolių/skaičių į abėcelę</string>
     <string name="switch_keyboard_on_space_off_summary">Paspaudus tarpą neperjungti iš simbolių/skaičių į abėcelę</string>
+    <string name="colorize_nav_bar_title">Piešti už navigacijos juostos</string>
+    <string name="colorize_nav_bar_summary_on">Bus piešiama klaviatūros fonas už navigacijos juostos. Ši funkcija nėra palaikoma ant visų įrenginių.</string>
+    <string name="colorize_nav_bar_summary_off">Nepiešti už navigacijos juostos.</string>
     <string name="persistent_layout_per_package_id_title">Prisiminti abėcėlės išdėstymą kiekvienai programėlei atskirai</string>
     <string name="persistent_layout_per_package_id_off_summary">Naudoti tą patį išdėstymą visoms programėlėms.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatiškai perjungti į buvusį išdėstymą naudotą programėlėje.</string>
@@ -339,6 +341,11 @@
     <string name="quick_fix">Greiti patobulinimai ir santrumpos</string>
     <string name="quick_fix_summary">Ištaiso dažnai daromas klaidas ir išplečia santrumpas</string>
     <string name="quick_fix_secon_disabled">…tik ant pirmos kalbos</string>
+    <string name="quick_fix_secon_disabled_summ_on">Greiti pataisymai ir abreviacijos veiks tik ant dabartinio klaviatūros išdėstymo</string>
+    <string name="quick_fix_secon_disabled_summ_off">Greiti pataisymai ir abreviacijos veiks ant visų kalbų 
+                  patikrinta perrašymojame numatytame žodyne</string>
+    <string name="try_split_words_for_correction">Pataisykite išskaidinę (išskyrę) parašytą žodį</string>
+    <string name="try_split_words_for_correction_summary_on">Išskirkite parašytą žodį nuspėje spraleistą „Tarpas“</string>
     <string name="allow_suggestions_restart">Pasiūlymų restartas</string>
     <string name="allow_suggestions_restart_summary">Restartuoti žodžio pasiūlymą pajudinus žymeklį</string>
     <!-- settings - keyboard group -->
@@ -414,6 +421,7 @@
     <string name="extension_kbd_bottom_minimal">Minimalus</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimalus (be „Emoji“)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimalus (mažiau skyrybos ženklų)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimalus (alternatyvus)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Primyn</string>
@@ -614,6 +622,7 @@
     <string name="setup_wizard_welcome_start_action">Pradėti diegimą…</string>
     <string name="setup_wizard_welcome_info_footnote">* Žinoma, „AnySoftKeyboard“ nėra kenksmingo kodo. Kviečiame peržvelgti programos išeities kodą ir įsitikinti tuo. Be to, neturime <i>NETWORK</i> leidimų, todėl negalime siųsti jokių duomenų iš įrenginio.</string>
     <string name="setup_wizard_welcome_privacy_action">Į Privatumo Politiką…</string>
+    <string name="setup_wizard_skip">Praleisti</string>
     <string name="clear_all_dictionary_override">Išvalyti nustelbimus</string>
     <string name="theme_case_type_override_dialog_title">Pasirinkite raidžių registro nustelbimą</string>
     <string name="theme_case_type_override_theme">Temos naudojimo atvejai</string>
@@ -650,6 +659,7 @@
     <string name="gesture_typing_alert_title">BETA funkcija!</string>
     <string name="gesture_typing_alert_message">Rašymo gestais ➿ funkcija yra <b>beta</b> stadijoje. Ji turi keletą klaidų, nėra tokia greita ir neišsami.\nTrumpai tariant, turėtumėte ją pabandyti.</string>
     <string name="gesture_typing_alert_button">Supratau</string>
+    <string name="undo_gesture_typing">Sugrąžinti gestūrinį rašymą</string>
     <string name="apply_remote_app_colors_to_theme">Pakeisti temos spalvas, atsižvelgiant į naudojamą programėlę</string>
     <string name="apply_overlay_summary_on">Klaviatūros spalvos atitiks aktyviąją programėlę (kiek leis mūsų galimybės).</string>
     <string name="apply_overlay_summary_off">Visada naudokite temos spalvas.</string>
@@ -665,4 +675,6 @@
     <string name="click_me_for_easter_egg_info">spausk mane dėl siurprizo</string>
     <string name="backup_restore_not_support_before_kitkat">Nepalaikoma jūsų „Android“ įrenginyje</string>
     <string name="backup_restore_not_support_before_kitkat_message">Kurti atsargines kopijas ir jas atkurti nėra palaikoma įrenginiams kurie naudoją „Android“ versiją prieš „KitKat“ (Versiją 4.4).</string>
+    <string name="delete_all_clipboard_entries">Tuštinti mainų sritį</string>
+    <string name="tip_swipe_from_backspace_to_clear">Patarimas: Jūs gali slinkti kairėn nuo atgal mygtuko, kad pašalintumėte žodį!</string>
 </resources>

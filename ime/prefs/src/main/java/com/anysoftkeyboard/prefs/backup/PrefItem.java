@@ -9,50 +9,50 @@ import java.util.List;
 import java.util.Map;
 
 public class PrefItem {
-    private final Map<String, String> mValues = new HashMap<>();
-    private final List<PrefItem> mChildren = new ArrayList<>();
+  private final Map<String, String> mValues = new HashMap<>();
+  private final List<PrefItem> mChildren = new ArrayList<>();
 
-    PrefItem() {
-        /*ensuring that all instances are created in this package*/
-    }
+  PrefItem() {
+    /*ensuring that all instances are created in this package*/
+  }
 
-    @CanIgnoreReturnValue
-    public PrefItem addValue(String key, String value) {
-        mValues.put(validKey(key), value);
-        return this;
-    }
+  @CanIgnoreReturnValue
+  public PrefItem addValue(String key, String value) {
+    mValues.put(validKey(key), value);
+    return this;
+  }
 
-    public Iterable<Map.Entry<String, String>> getValues() {
-        return Collections.unmodifiableCollection(mValues.entrySet());
-    }
+  public Iterable<Map.Entry<String, String>> getValues() {
+    return Collections.unmodifiableCollection(mValues.entrySet());
+  }
 
-    @Nullable
-    public String getValue(String key) {
-        return mValues.get(key);
-    }
+  @Nullable public String getValue(String key) {
+    return mValues.get(key);
+  }
 
-    public PrefItem createChild() {
-        PrefItem child = new PrefItem();
-        mChildren.add(child);
-        return child;
-    }
+  public PrefItem createChild() {
+    PrefItem child = new PrefItem();
+    mChildren.add(child);
+    return child;
+  }
 
-    public Iterable<PrefItem> getChildren() {
-        return Collections.unmodifiableCollection(mChildren);
-    }
+  public Iterable<PrefItem> getChildren() {
+    return Collections.unmodifiableCollection(mChildren);
+  }
 
-    private static String validKey(String text) {
-        if (text.matches("\\A[\\p{Upper}|\\p{Lower}]+[\\p{Upper}|\\p{Lower}|\\p{Digit}|_|-]*\\z")) {
-            return text;
-        } else {
-            throw new IllegalArgumentException(
-                    "The key '"
-                            + text
-                            + "' has non ASCII or has whitespaces or is empty! This is not valid as an XML attribute");
-        }
+  private static String validKey(String text) {
+    if (text.matches("\\A[\\p{Upper}|\\p{Lower}]+[\\p{Upper}|\\p{Lower}|\\p{Digit}|_|-]*\\z")) {
+      return text;
+    } else {
+      throw new IllegalArgumentException(
+          "The key '"
+              + text
+              + "' has non ASCII or has whitespaces or is empty! This is not valid as"
+              + " an XML attribute");
     }
+  }
 
-    public void addChild(PrefItem prefsItem) {
-        mChildren.add(prefsItem);
-    }
+  public void addChild(PrefItem prefsItem) {
+    mChildren.add(prefsItem);
+  }
 }

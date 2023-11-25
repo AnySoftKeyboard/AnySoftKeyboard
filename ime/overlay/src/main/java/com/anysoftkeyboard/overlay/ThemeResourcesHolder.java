@@ -5,15 +5,15 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.ColorInt;
 
 public interface ThemeResourcesHolder {
-    ColorStateList getKeyTextColor();
+  ColorStateList getKeyTextColor();
 
-    @ColorInt
-    int getNameTextColor();
+  @ColorInt
+  int getNameTextColor();
 
-    @ColorInt
-    int getHintTextColor();
+  @ColorInt
+  int getHintTextColor();
 
-    Drawable getKeyBackground();
+  Drawable getKeyBackground();
 
-    Drawable getKeyboardBackground();
+  Drawable getKeyboardBackground();
 }

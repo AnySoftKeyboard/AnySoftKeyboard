@@ -12,34 +12,33 @@ import java.util.List;
 
 class WizardPagesAdapter extends FragmentStateAdapter {
 
-    private final List<Supplier<WizardPageBaseFragment>> mFragments;
+  private final List<Supplier<WizardPageBaseFragment>> mFragments;
 
-    WizardPagesAdapter(FragmentActivity activity, boolean withLanguageDownload) {
-        super(activity);
-        ArrayList<Supplier<WizardPageBaseFragment>> fragments = new ArrayList<>(6);
-        fragments.add(WizardPageWelcomeFragment::new);
-        fragments.add(WizardPageEnableKeyboardFragment::new);
-        fragments.add(WizardPageSwitchToKeyboardFragment::new);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            fragments.add(WizardPermissionsFragment::new);
-        }
-        if (withLanguageDownload) {
-            fragments.add(WizardLanguagePackFragment::new);
-        }
-
-        fragments.add(WizardPageDoneAndMoreSettingsFragment::new);
-
-        mFragments = Collections.unmodifiableList(fragments);
+  WizardPagesAdapter(FragmentActivity activity, boolean withLanguageDownload) {
+    super(activity);
+    ArrayList<Supplier<WizardPageBaseFragment>> fragments = new ArrayList<>(6);
+    fragments.add(WizardPageWelcomeFragment::new);
+    fragments.add(WizardPageEnableKeyboardFragment::new);
+    fragments.add(WizardPageSwitchToKeyboardFragment::new);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      fragments.add(WizardPermissionsFragment::new);
+    }
+    if (withLanguageDownload) {
+      fragments.add(WizardLanguagePackFragment::new);
     }
 
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        return mFragments.get(position).get();
-    }
+    fragments.add(WizardPageDoneAndMoreSettingsFragment::new);
 
-    @Override
-    public int getItemCount() {
-        return mFragments.size();
-    }
+    mFragments = Collections.unmodifiableList(fragments);
+  }
+
+  @NonNull @Override
+  public Fragment createFragment(int position) {
+    return mFragments.get(position).get();
+  }
+
+  @Override
+  public int getItemCount() {
+    return mFragments.size();
+  }
 }

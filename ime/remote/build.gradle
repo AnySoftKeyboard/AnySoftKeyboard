@@ -9,8 +9,12 @@ dependencies {
     implementation project(':ime:pixel')
     implementation project(':ime:fileprovider')
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.fragment:fragment:1.5.4'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.fragment:fragment:1.6.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 
     testImplementation project(':ime:base-test')
+}
+
+android {
+    namespace 'com.anysoftkeyboard.remote'
 }

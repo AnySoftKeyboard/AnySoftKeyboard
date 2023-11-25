@@ -22,10 +22,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">更新日志</string>
-    <string name="search_market_for_addons">搜索加载项</string>
     <string name="search_market_for_keyboard_addons">在应用商店获得更多键盘</string>
     <string name="search_market_for_quick_key_addons">在应用商店获得更多 <i>快速文本</i> 附加组件…</string>
-    <string name="no_market_store_available">无法在您的设备上找到应用商店。\n无法搜索附加组件！</string>
     <string name="keyboard_theme_tweak_group">微调</string>
     <string name="close_button">关闭</string>
     <string name="delete_button">删除</string>
@@ -177,6 +175,7 @@
     <string name="pinch_gesture_action">缩小手势</string>
     <string name="pinch_gesture_action_title">选择缩小手势</string>
     <string name="pinch_gesture_action_summary">定义缩小手势。目前为%s</string>
+    <string name="separate_gesture_action">拉伸手势</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->

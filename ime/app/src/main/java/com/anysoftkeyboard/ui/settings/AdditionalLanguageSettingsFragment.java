@@ -26,35 +26,34 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AdditionalLanguageSettingsFragment extends PreferenceFragmentCompat
-        implements Preference.OnPreferenceClickListener {
+    implements Preference.OnPreferenceClickListener {
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_addtional_language_prefs);
-    }
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.prefs_addtional_language_prefs);
+  }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
-    }
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
+  }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(
-                this, getString(R.string.language_tweaks_settings_tile));
-    }
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(this, getString(R.string.language_tweaks_settings_tile));
+  }
 
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-        if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
-            Navigation.findNavController(requireView())
-                    .navigate(
-                            AdditionalLanguageSettingsFragmentDirections
-                                    .actionAdditionalLanguageSettingsFragmentToLanguageTweaksFragment());
-            return true;
-        }
-        return false;
+  @Override
+  public boolean onPreferenceClick(Preference preference) {
+    if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
+      Navigation.findNavController(requireView())
+          .navigate(
+              AdditionalLanguageSettingsFragmentDirections
+                  .actionAdditionalLanguageSettingsFragmentToLanguageTweaksFragment());
+      return true;
     }
+    return false;
+  }
 }

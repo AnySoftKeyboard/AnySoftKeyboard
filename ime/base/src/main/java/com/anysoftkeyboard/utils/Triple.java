@@ -1,29 +1,29 @@
 package com.anysoftkeyboard.utils;
 
 public class Triple<F, S, T> {
-    public static <F, S, T> Triple<F, S, T> create(F f, S s, T t) {
-        return new Triple<>(f, s, t);
-    }
+  public static <F, S, T> Triple<F, S, T> create(F f, S s, T t) {
+    return new Triple<>(f, s, t);
+  }
 
-    private final F mFirst;
-    private final S mSecond;
-    private final T mThird;
+  private final F mFirst;
+  private final S mSecond;
+  private final T mThird;
 
-    public Triple(F first, S second, T third) {
-        mFirst = first;
-        mSecond = second;
-        mThird = third;
-    }
+  public Triple(F first, S second, T third) {
+    mFirst = first;
+    mSecond = second;
+    mThird = third;
+  }
 
-    public F getFirst() {
-        return mFirst;
-    }
+  public F getFirst() {
+    return mFirst;
+  }
 
-    public S getSecond() {
-        return mSecond;
-    }
+  public S getSecond() {
+    return mSecond;
+  }
 
-    public T getThird() {
-        return mThird;
-    }
+  public T getThird() {
+    return mThird;
+  }
 }

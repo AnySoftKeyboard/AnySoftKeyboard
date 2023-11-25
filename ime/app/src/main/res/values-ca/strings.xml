@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registre de canvis</string>
-    <string name="search_market_for_addons">Cerca de complements</string>
     <string name="search_market_for_keyboard_addons">Aconseguiu més teclats al <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obtingueu més <i>Quick-Text</i> afegitons al <i>Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* No s\'ha pogut trobar Google Play Store al vostre dispositiu. No es poden cercar Complements!</b></string>
     <string name="keyboard_theme_tweak_group">Optimitzacions</string>
     <string name="close_button">Surt</string>
     <string name="delete_button">Suprimeix</string>

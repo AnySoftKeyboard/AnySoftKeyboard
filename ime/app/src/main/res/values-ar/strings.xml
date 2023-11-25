@@ -24,10 +24,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">سجل التغييرات</string>
-    <string name="search_market_for_addons">البحث عن إضافات</string>
     <string name="search_market_for_keyboard_addons">تحصَّل على المزيد من لوحات المفاتيح</string>
     <string name="search_market_for_quick_key_addons">تحصّل على المزيد من إضافات <i>النص السريع</i> على متجر التطبيقات …</string>
-    <string name="no_market_store_available">تعذر العثور على متجر للتطبيقات على جهازك.\n لذا لا يمكن البحث عن إضافات !</string>
     <string name="keyboard_theme_tweak_group">تطويعات</string>
     <string name="close_button">إغلاق</string>
     <string name="delete_button">حذف</string>

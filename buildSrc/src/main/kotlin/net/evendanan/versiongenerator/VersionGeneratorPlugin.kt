@@ -7,8 +7,8 @@ import org.gradle.api.Project
 
 class VersionGeneratorPlugin : Plugin<Project> {
 
-    override fun apply(project: Project?) {
-        project?.also {
+    override fun apply(project: Project) {
+        project.also {
             it.extensions.create("versionGenerator", Factory::class.java, project)
         }
     }

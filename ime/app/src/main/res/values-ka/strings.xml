@@ -27,13 +27,9 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">ცვლილებები</string>
-    <string name="search_market_for_addons">დამატებათა ძიება</string>
     <string name="search_market_for_keyboard_addons">მოიძიეთ სხვა კლავიატურები მაღაზიაში</string>
     <string name="search_market_for_quick_key_addons">იხილეთ სხვა <i>Quick-Text</i> დამატებები
         მაღაზიაში…
-    </string>
-    <string name="no_market_store_available">მაღაზიის პროგრამა ვერ მოიძებნა თქვენს მოწყობილობაზე.\nვერ ხერხდება
-        დამატებების მოძიება!
     </string>
     <string name="keyboard_theme_tweak_group">მორგება</string>
     <string name="close_button">დახურვა</string>
@@ -46,6 +42,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 კვლავ შეეხეთ შესანახად</string>
     <string name="hint_double_tap_to_close">კვლავ, შემოთავაზებების მოსაცილებლად</string>
+    <string name="hint_click_for_inline_suggestions">თვითშევსების შემოთავაზება</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">ხმოვანი შეყვანის პროგრამა არაა დაყენებული</string>
     <string name="voice_input_not_installed_text">ხმოვანი შეყვანა არაა თქვენს მოწყობილობაზე დაყენებული.\nამის
@@ -394,6 +391,8 @@
     <string name="quick_fix_secon_disabled_summ_on">სწრაფი შესწორება და შემოკლება მხოლოდ მიმდინარე ენის განლაგებაზე იმუშავებს</string>
     <string name="quick_fix_secon_disabled_summ_off">სწრაფი შესწორება და შემოკლება იმუშავებს ყველა ენაზე 
                   მონიშნული ნაგულისხმევი ლექსიკონის ჩანაცვლებით</string>
+    <string name="try_split_words_for_correction">აკრეფილი სიტყვის დაყოფით შესწორება</string>
+    <string name="try_split_words_for_correction_summary_on">აკრეფილი სიტყვის დაყოფა დაშორების ამოცნობით.</string>
     <string name="allow_suggestions_restart">შემოთავაზებები ხელახლა</string>
     <string name="allow_suggestions_restart_summary">სიტყვის ხელახლა შემოთავაზება მაჩვენებლის გაწევისას
     </string>
@@ -743,6 +742,7 @@
         </i> ნებართვებს, ასე რომ მოწყობილობიდან მონაცემებს ვერ გავგზავნით.
     </string>
     <string name="setup_wizard_welcome_privacy_action">პირადულობის დებულებაზე გადასვლა…</string>
+    <string name="setup_wizard_skip">გამოტოვება</string>
     <string name="clear_all_dictionary_override">გადაწერილების გასუფთავება</string>
     <string name="theme_case_type_override_dialog_title">ასოების სიმაღლის ჩანაცვლება</string>
     <string name="theme_case_type_override_theme">თემის მიხედვით გამოყენება</string>
@@ -794,4 +794,6 @@
     <string name="click_me_for_easter_egg_info">დაწკაპკეთ სასიამოვნო მოულოდნელობისთვის</string>
     <string name="backup_restore_not_support_before_kitkat">თქვენი Android მხარდაუჭერელია</string>
     <string name="backup_restore_not_support_before_kitkat_message">დამარქაფება და აღდგენა მხარდაჭერილია KitKat (4.4 ვერსიის) ან უფრო ახალ Android-ზე. ვწუხვართ.</string>
+    <string name="delete_all_clipboard_entries">აღებული ასლის წაშლა</string>
+    <string name="tip_swipe_from_backspace_to_clear">რჩევა: უკუშლიდან მარცხნივ გაუსვით სიტყვის მოცილებისთვის!</string>
 </resources>

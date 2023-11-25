@@ -1,0 +1,8 @@
+ext.shouldBePublished = false
+ext.notPublishingReason = 'Not yet ready for publish'
+
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':addons:languages:numpad:pack')
+}

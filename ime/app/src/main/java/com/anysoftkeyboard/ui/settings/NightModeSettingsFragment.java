@@ -27,33 +27,30 @@ import io.reactivex.disposables.Disposables;
 
 public class NightModeSettingsFragment extends PreferenceFragmentCompat {
 
-    private Disposable mAppNightModeDisposable = Disposables.empty();
+  private Disposable mAppNightModeDisposable = Disposables.empty();
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.night_mode_prefs);
-    }
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.night_mode_prefs);
+  }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.night_mode_screen));
-        mAppNightModeDisposable =
-                NightMode.observeNightModeState(
-                                requireContext(),
-                                R.string.settings_key_night_mode_app_theme_control,
-                                R.bool.settings_default_true)
-                        .subscribe(
-                                enabled ->
-                                        ((AppCompatActivity) requireActivity())
-                                                .getDelegate()
-                                                .applyDayNight(),
-                                GenericOnError.onError("NightModeSettingsFragment"));
-    }
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(this, getString(R.string.night_mode_screen));
+    mAppNightModeDisposable =
+        NightMode.observeNightModeState(
+                requireContext(),
+                R.string.settings_key_night_mode_app_theme_control,
+                R.bool.settings_default_true)
+            .subscribe(
+                enabled -> ((AppCompatActivity) requireActivity()).getDelegate().applyDayNight(),
+                GenericOnError.onError("NightModeSettingsFragment"));
+  }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAppNightModeDisposable.dispose();
-    }
+  @Override
+  public void onStop() {
+    super.onStop();
+    mAppNightModeDisposable.dispose();
+  }
 }

@@ -28,43 +28,38 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardAddOnBrowserFragment
-        extends AbstractAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
+    extends AbstractAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
 
-    public KeyboardAddOnBrowserFragment() {
-        super(
-                "LanguageAddOnBrowserFragment",
-                R.string.keyboards_group,
-                false,
-                false,
-                false,
-                ItemTouchHelper.UP
-                        | ItemTouchHelper.DOWN
-                        | ItemTouchHelper.LEFT
-                        | ItemTouchHelper.RIGHT);
-    }
+  public KeyboardAddOnBrowserFragment() {
+    super(
+        "LanguageAddOnBrowserFragment",
+        R.string.keyboards_group,
+        false,
+        false,
+        false,
+        ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+  }
 
-    @NonNull
-    @Override
-    protected AddOnsFactory<KeyboardAddOnAndBuilder> getAddOnFactory() {
-        return AnyApplication.getKeyboardFactory(getContext());
-    }
+  @NonNull @Override
+  protected AddOnsFactory<KeyboardAddOnAndBuilder> getAddOnFactory() {
+    return AnyApplication.getKeyboardFactory(getContext());
+  }
 
-    @Nullable
-    @Override
-    protected String getMarketSearchKeyword() {
-        return "language";
-    }
+  @Nullable @Override
+  protected String getMarketSearchKeyword() {
+    return "language";
+  }
 
-    @Override
-    protected int getMarketSearchTitle() {
-        return R.string.search_market_for_keyboard_addons;
-    }
+  @Override
+  protected int getMarketSearchTitle() {
+    return R.string.search_market_for_keyboard_addons;
+  }
 
-    @Override
-    protected void applyAddOnToDemoKeyboardView(
-            @NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
-        AnyKeyboard defaultKeyboard = addOn.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
-        demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
-    }
+  @Override
+  protected void applyAddOnToDemoKeyboardView(
+      @NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+    AnyKeyboard defaultKeyboard = addOn.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+    defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
+    demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
+  }
 }

@@ -183,7 +183,8 @@
 
     <!-- light theme -->
     <style name="YocheesLightKeyIconTheme"
-           parent="YocheesDarkKeyIconTheme">
+           parent="LeanLightKeyIconTheme">
+        <!-- TODO: create light-theme versions of Yochees icons instead of using ones from Lean Light -->
     </style>
 
     <style name="YocheesLightTheme"

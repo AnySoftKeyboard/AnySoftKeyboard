@@ -10,51 +10,49 @@ import com.anysoftkeyboard.base.utils.Logger;
 import java.util.Locale;
 
 public class LocaleTools {
-    private static final String TAG = "ASKLocaleTools";
+  private static final String TAG = "ASKLocaleTools";
 
-    public static void applyLocaleToContext(
-            @NonNull Context context, @Nullable String localeString) {
-        final Locale forceLocale = LocaleTools.getLocaleForLocaleString(localeString);
+  public static void applyLocaleToContext(@NonNull Context context, @Nullable String localeString) {
+    final Locale forceLocale = LocaleTools.getLocaleForLocaleString(localeString);
 
-        final Configuration configuration = context.getResources().getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLocale(forceLocale);
-        } else {
-            //noinspection deprecation
-            configuration.locale = forceLocale;
-        }
-        context.getResources().updateConfiguration(configuration, null);
+    final Configuration configuration = context.getResources().getConfiguration();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      configuration.setLocale(forceLocale);
+    } else {
+      //noinspection deprecation
+      configuration.locale = forceLocale;
     }
+    context.getResources().updateConfiguration(configuration, null);
+  }
 
-    @NonNull
-    public static Locale getLocaleForLocaleString(@Nullable String localeString) {
-        if ("System".equals(localeString) || TextUtils.isEmpty(localeString)) {
-            return Locale.getDefault();
+  @NonNull public static Locale getLocaleForLocaleString(@Nullable String localeString) {
+    if ("System".equals(localeString) || TextUtils.isEmpty(localeString)) {
+      return Locale.getDefault();
+    } else {
+      try {
+        final Locale parsedLocale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          parsedLocale = Locale.forLanguageTag(localeString);
         } else {
-            try {
-                final Locale parsedLocale;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    parsedLocale = Locale.forLanguageTag(localeString);
-                } else {
-                    // first, we'll try to be nice citizens
-                    for (Locale locale : Locale.getAvailableLocales()) {
-                        if (localeString.equals(locale.getLanguage())) {
-                            return locale;
-                        }
-                    }
-                    // couldn't find it. Trying to force it.
-                    parsedLocale = new Locale(localeString);
-                }
-
-                if (TextUtils.isEmpty(parsedLocale.getLanguage())) {
-                    return Locale.getDefault();
-                } else {
-                    return parsedLocale;
-                }
-            } catch (Exception e) {
-                Logger.w(TAG, e, "Failed to parse locale value '%s'!", localeString);
-                return Locale.getDefault();
+          // first, we'll try to be nice citizens
+          for (Locale locale : Locale.getAvailableLocales()) {
+            if (localeString.equals(locale.getLanguage())) {
+              return locale;
             }
+          }
+          // couldn't find it. Trying to force it.
+          parsedLocale = new Locale(localeString);
         }
+
+        if (TextUtils.isEmpty(parsedLocale.getLanguage())) {
+          return Locale.getDefault();
+        } else {
+          return parsedLocale;
+        }
+      } catch (Exception e) {
+        Logger.w(TAG, e, "Failed to parse locale value '%s'!", localeString);
+        return Locale.getDefault();
+      }
     }
+  }
 }

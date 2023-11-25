@@ -13,49 +13,48 @@ import io.reactivex.disposables.Disposables;
 
 public abstract class ContentObserverDictionary extends BTreeDictionary {
 
-    @Nullable private final Uri mDictionaryChangedUri;
-    @NonNull private Disposable mDictionaryReLoaderDisposable = Disposables.empty();
-    @NonNull private Disposable mDictionaryChangedDisposable = Disposables.disposed();
+  @Nullable private final Uri mDictionaryChangedUri;
+  @NonNull private Disposable mDictionaryReLoaderDisposable = Disposables.empty();
+  @NonNull private Disposable mDictionaryChangedDisposable = Disposables.disposed();
 
-    protected ContentObserverDictionary(
-            String dictionaryName, Context context, @Nullable Uri dictionaryChangedUri) {
-        super(dictionaryName, context);
-        mDictionaryChangedUri = dictionaryChangedUri;
+  protected ContentObserverDictionary(
+      String dictionaryName, Context context, @Nullable Uri dictionaryChangedUri) {
+    super(dictionaryName, context);
+    mDictionaryChangedUri = dictionaryChangedUri;
+  }
+
+  @Override
+  protected void loadAllResources() {
+    super.loadAllResources();
+
+    if (mDictionaryChangedUri != null && mDictionaryChangedDisposable.isDisposed()) {
+      mDictionaryChangedDisposable =
+          RxContentResolver.observeQuery(
+                  mContext.getContentResolver(),
+                  mDictionaryChangedUri,
+                  null,
+                  null,
+                  null,
+                  null,
+                  true,
+                  RxSchedulers.background())
+              .subscribeOn(RxSchedulers.background())
+              .observeOn(RxSchedulers.mainThread())
+              .forEach(query -> onStorageChanged());
     }
+  }
 
-    @Override
-    protected void loadAllResources() {
-        super.loadAllResources();
+  void onStorageChanged() {
+    if (isClosed()) return;
+    resetDictionary();
+    mDictionaryReLoaderDisposable.dispose();
+    mDictionaryReLoaderDisposable = DictionaryBackgroundLoader.reloadDictionaryInBackground(this);
+  }
 
-        if (mDictionaryChangedUri != null && mDictionaryChangedDisposable.isDisposed()) {
-            mDictionaryChangedDisposable =
-                    RxContentResolver.observeQuery(
-                                    mContext.getContentResolver(),
-                                    mDictionaryChangedUri,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    true,
-                                    RxSchedulers.background())
-                            .subscribeOn(RxSchedulers.background())
-                            .observeOn(RxSchedulers.mainThread())
-                            .forEach(query -> onStorageChanged());
-        }
-    }
-
-    void onStorageChanged() {
-        if (isClosed()) return;
-        resetDictionary();
-        mDictionaryReLoaderDisposable.dispose();
-        mDictionaryReLoaderDisposable =
-                DictionaryBackgroundLoader.reloadDictionaryInBackground(this);
-    }
-
-    @Override
-    protected void closeAllResources() {
-        super.closeAllResources();
-        mDictionaryReLoaderDisposable.dispose();
-        mDictionaryChangedDisposable.dispose();
-    }
+  @Override
+  protected void closeAllResources() {
+    super.closeAllResources();
+    mDictionaryReLoaderDisposable.dispose();
+    mDictionaryChangedDisposable.dispose();
+  }
 }

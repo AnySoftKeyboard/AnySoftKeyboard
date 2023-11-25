@@ -11,61 +11,57 @@ import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class UserInterfaceSettingsFragmentTest
-        extends BaseSettingsFragmentTest<UserInterfaceSettingsFragment> {
+    extends BaseSettingsFragmentTest<UserInterfaceSettingsFragment> {
 
-    @Override
-    protected int getStartFragmentNavigationId() {
-        return R.id.userInterfaceSettingsFragment;
-    }
+  @Override
+  protected int getStartFragmentNavigationId() {
+    return R.id.userInterfaceSettingsFragment;
+  }
 
-    @Override
-    public void testLandscape() {
-        super.testLandscape();
-        // also
-        Fragment fragment = startFragment();
-        Assert.assertEquals(
-                View.GONE,
-                fragment.getView()
-                        .findViewById(R.id.demo_keyboard_view_background)
-                        .getVisibility());
-    }
+  @Override
+  public void testLandscape() {
+    super.testLandscape();
+    // also
+    Fragment fragment = startFragment();
+    Assert.assertEquals(
+        View.GONE,
+        fragment.getView().findViewById(R.id.demo_keyboard_view_background).getVisibility());
+  }
 
-    @Override
-    public void testPortrait() {
-        super.testPortrait();
-        // also
-        Fragment fragment = startFragment();
-        Assert.assertEquals(
-                View.VISIBLE,
-                fragment.getView()
-                        .findViewById(R.id.demo_keyboard_view_background)
-                        .getVisibility());
-    }
+  @Override
+  public void testPortrait() {
+    super.testPortrait();
+    // also
+    Fragment fragment = startFragment();
+    Assert.assertEquals(
+        View.VISIBLE,
+        fragment.getView().findViewById(R.id.demo_keyboard_view_background).getVisibility());
+  }
 
-    @Test
-    public void testNavigationThemes() {
-        final Fragment fragment = startFragment();
+  @Test
+  public void testNavigationThemes() {
+    final Fragment fragment = startFragment();
 
-        Assert.assertTrue(
-                ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_themes)
-                        instanceof KeyboardThemeSelectorFragment);
-    }
+    Assert.assertTrue(
+        ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_themes)
+            instanceof KeyboardThemeSelectorFragment);
+  }
 
-    @Test
-    public void testNavigationEffects() {
-        final Fragment fragment = startFragment();
+  @Test
+  public void testNavigationEffects() {
+    final Fragment fragment = startFragment();
 
-        Assert.assertTrue(
-                ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_effects)
-                        instanceof EffectsSettingsFragment);
-    }
+    Assert.assertTrue(
+        ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_effects)
+            instanceof EffectsSettingsFragment);
+  }
 
-    @Test
-    public void testNavigationTweaks() {
-        final Fragment fragment = startFragment();
+  @Test
+  public void testNavigationTweaks() {
+    final Fragment fragment = startFragment();
 
-        Assert.assertTrue(
-                ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_even_more)
-                        instanceof AdditionalUiSettingsFragment);
-    }
+    Assert.assertTrue(
+        ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_even_more)
+            instanceof AdditionalUiSettingsFragment);
+  }
 }

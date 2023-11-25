@@ -23,10 +23,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Változási jegyzék</string>
-    <string name="search_market_for_addons">Kiegészítők keresése</string>
     <string name="search_market_for_keyboard_addons">Továbbiak beszerzése az alkalmazásboltból</string>
     <string name="search_market_for_quick_key_addons">További <i>ikonok és hangulatjelek</i> az alkalmazásboltban…</string>
-    <string name="no_market_store_available">Nem található alkalmazásbolt az eszközén.\nA bővítmények nem kereshetők!</string>
     <string name="keyboard_theme_tweak_group">Finomhangolás</string>
     <string name="close_button">Bezárás</string>
     <string name="delete_button">Törlés</string>
@@ -367,6 +365,8 @@
     <string name="quick_fix_secon_disabled_summ_on">A korrekciók és a kiegészítések csak az aktuális nyelven működnek</string>
     <string name="quick_fix_secon_disabled_summ_off">A korrekciók és a kiegészítések minden nyelven működnek, 
                   az alapértelmezett szótár felülbírálva</string>
+    <string name="try_split_words_for_correction">Javítás a beírt szó kettévágásával</string>
+    <string name="try_split_words_for_correction_summary_on">A beírt szó kettévágása a hiányzó SZÓKÖZ kitalálásával.</string>
     <string name="allow_suggestions_restart">Javaslatok újraindítása</string>
     <string name="allow_suggestions_restart_summary">Szó javaslatok újraindítása kurzor mozgatáskor</string>
     <!-- settings - keyboard group -->

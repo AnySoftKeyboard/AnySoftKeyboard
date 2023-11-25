@@ -24,10 +24,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Lista zmian</string>
-    <string name="search_market_for_addons">Szukaj dodatków</string>
     <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur ze sklepu z aplikacjami</string>
     <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
-    <string name="no_market_store_available">Na twoim urządzeniu nie odnaleziono sklepu z aplikacjami.\nNie udało się wyszukać dodatków!</string>
     <string name="keyboard_theme_tweak_group">Ulepszenia</string>
     <string name="close_button">Zamknij</string>
     <string name="delete_button">Usuń</string>
@@ -383,6 +381,8 @@ Zmiana
     <string name="quick_fix_secon_disabled">…tylko w pierwszym języku</string>
     <string name="quick_fix_secon_disabled_summ_on">Szybkie poprawki i skróty będą działać tylko w bieżącym układzie języka </string>
     <string name="quick_fix_secon_disabled_summ_off">Szybkie poprawki i skróty będą działać w każdym języku                  w nadpisanym domyślnym słowniku</string>
+    <string name="try_split_words_for_correction">Popraw dzieląc wpisane słowo </string>
+    <string name="try_split_words_for_correction_summary_on">Podziel wpisane słowo, odgadując brakującą SPACJĘ.</string>
     <string name="allow_suggestions_restart">Uruchom ponownie sugestie</string>
     <string name="allow_suggestions_restart_summary">Restartuj podpowiedzi słów po przemieszczeniu kursora
     </string>

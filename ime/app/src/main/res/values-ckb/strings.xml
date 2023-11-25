@@ -30,14 +30,10 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">تۆماری نوێکردنەوە</string>
-    <string name="search_market_for_addons">گەڕان بۆ پێوەکراو</string>
     <string name="search_market_for_keyboard_addons">دابەزاندنی ڕووکار و زمانی زیاتر لە گۆگڵ پلەی</string>
     <string name="search_market_for_quick_key_addons"> دابەزاندنی <i>پێوەکراوی زیاتر</i> لە کۆگای گۆگڵ
         پلەی
 
-    </string>
-    <string name="no_market_store_available">ناتوانرێ فرۆشگای گۆگڵ پلەی\nبدۆزرێتەوە لە ئامێرەکەتدا،
- لەبەرئەوە ناتوانی بگەڕێی بۆ زیادکراوەکان!
     </string>
     <string name="keyboard_theme_tweak_group">ڕێکخستنی زیاتر</string>
     <string name="close_button">داخستن</string>
@@ -52,6 +48,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 دەستی پێدابنێ بۆ پاراستن</string>
     <string name="hint_double_tap_to_close">دەستی پێدابنێ بۆ ناچالاککردن</string>
+    <string name="hint_click_for_inline_suggestions">تەواوکەری خۆکاری سیستەم</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">پێوەکراوی دەنگ دانەبەزێنراوە</string>
     <string name="voice_input_not_installed_text">پێوەکراوی گەڕانی دەنگی دانەبەزێنراوە،\nکە
@@ -417,6 +414,8 @@
     <string name="quick_fix_secon_disabled_summ_on">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری تەنها بۆ ئەم زمانە چالاک دەبێت</string>
     <string name="quick_fix_secon_disabled_summ_off">ڕاستکردنەوە و هەڵبژاردنی ووشەکان بەخۆکاری بۆ هەموو زمانەکان چالاک دەبێت 
                   دیاریکراوە بۆ گۆڕینی فەرهەنگی سەرەکی</string>
+    <string name="try_split_words_for_correction">ڕاستکردنەوە بەپێی جۆری ووشە</string>
+    <string name="try_split_words_for_correction_summary_on">جیاکردنەوەی راستکردنەوەی ووشەکان لەڕێی دوگمەی بۆشایی</string>
     <string name="allow_suggestions_restart">ڕیستارتکردنی پێشنیار</string>
     <string name="allow_suggestions_restart_summary">ڕیستارکردنی ووشەکان لەدوای هەڵبژاردن   </string>
     <!-- settings - keyboard group -->
@@ -492,6 +491,7 @@
     <string name="extension_kbd_bottom_minimal">بچووک</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">بچووک (بێ ئیمۆجی)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">کەمترین (خاڵبەندی کەم)</string>
+    <string name="extension_kbd_bottom_minimal_alt">کەمترین هێما (سادە)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">بڕۆ</string>
@@ -731,6 +731,7 @@
     <string name="setup_wizard_welcome_start_action">دامـــــەزرانـــــدن</string>
     <string name="setup_wizard_welcome_info_footnote"><b>یەکەمین و باشترین تەختەکلیلی کوردی \n کە چەندین شێوازی جواروجۆر و تایبەتمەندی جیاوازی لەخۆ گرتووە</b></string>
     <string name="setup_wizard_welcome_privacy_action">Privacy Police</string>
+    <string name="setup_wizard_skip">فەرامۆشکردن</string>
     <string name="clear_all_dictionary_override">جێگۆڕکێ کردن</string>
     <string name="theme_case_type_override_dialog_title">شێوازی پیتەکان(ئینگلیزی)</string>
     <string name="theme_case_type_override_theme">بەکارهێنانی شێوازی ڕووکار</string>
@@ -767,6 +768,7 @@
     <string name="gesture_typing_alert_title">تایبەتمەندی وەشانی تاقیکاری!</string>
     <string name="gesture_typing_alert_message">نووسین بەسەریەکەوە ➿ لە دۆخی <b>تاقیکردنەوە</b> دایە، بۆیە لەوانەیە بەباشی کارنەکات و کێشەی هەبێ چاوەڕانبە تا بە جێگیری بەردەست ئەبێت.</string>
     <string name="gesture_typing_alert_button">باشە</string>
+    <string name="undo_gesture_typing">سڕینەوەی نوسین بەدەسخشاندن</string>
     <string name="apply_remote_app_colors_to_theme">گۆڕینی ڕەنگی ڕووکار بەپێی جۆری بەرنامە</string>
     <string name="apply_overlay_summary_on">گۆڕینی ڕەنگی تەختەکلیل بەپێی ڕەنگی بەرنامەکان.</string>
     <string name="apply_overlay_summary_off">بەکارهێنانی ڕەنگی تایبەتی تەختەکلیل.</string>
@@ -779,4 +781,8 @@
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
+    <string name="backup_restore_not_support_before_kitkat">ئامێرەکەت پاڵپشتی ئەم تایبەتمەندییە ناکات!</string>
+    <string name="backup_restore_not_support_before_kitkat_message">تایبەتمەندی پاشەکەوتکردن و هەڵگرتنی داتاو ڕێکخستنەکانی بەرنامەکە، لە وەشانە نزمەکانی ئەندرۆیدا بەردەست نیە کە نزمتر بێت لە کیت کات - Android KitKat 4.4</string>
+    <string name="delete_all_clipboard_entries">سڕینەوەی هەمووی</string>
+    <string name="tip_swipe_from_backspace_to_clear">زانیاری: پەنجەت بە ئاڕاستەی چەپی دوگمەی سڕینەوە بخشێنە بۆ سڕینەوە بەیەکجار!</string>
 </resources>

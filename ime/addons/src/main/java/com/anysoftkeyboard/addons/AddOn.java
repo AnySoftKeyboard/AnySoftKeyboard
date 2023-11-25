@@ -21,31 +21,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public interface AddOn {
-    interface AddOnResourceMapping {
-        int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray);
-
-        int getApiVersion();
-
-        int getLocalAttrId(int remoteAttrId);
-    }
-
-    int INVALID_RES_ID = 0;
-
-    String getId();
-
-    String getName();
-
-    CharSequence getDescription();
-
-    String getPackageName();
-
-    @Nullable
-    Context getPackageContext();
-
-    int getSortIndex();
-
-    @NonNull
-    AddOnResourceMapping getResourceMapping();
+  interface AddOnResourceMapping {
+    int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray);
 
     int getApiVersion();
+
+    int getLocalAttrId(int remoteAttrId);
+  }
+
+  int INVALID_RES_ID = 0;
+
+  String getId();
+
+  String getName();
+
+  CharSequence getDescription();
+
+  String getPackageName();
+
+  @Nullable Context getPackageContext();
+
+  int getSortIndex();
+
+  @NonNull AddOnResourceMapping getResourceMapping();
+
+  int getApiVersion();
 }

@@ -23,154 +23,147 @@ import java.util.List;
 
 /*package*/ class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 
-    @NonNull private final Context mContext;
-    @NonNull private final OnKeyboardActionListener mKeyboardActionListener;
-    @NonNull private final LayoutInflater mLayoutInflater;
-    @NonNull private final AnyPopupKeyboard[] mPopupKeyboards;
-    @NonNull private final boolean[] mIsAutoFitKeyboards;
-    @NonNull private final QuickTextKey[] mAddOns;
-    private final DefaultAddOn mDefaultLocalAddOn;
+  @NonNull private final Context mContext;
+  @NonNull private final OnKeyboardActionListener mKeyboardActionListener;
+  @NonNull private final LayoutInflater mLayoutInflater;
+  @NonNull private final AnyPopupKeyboard[] mPopupKeyboards;
+  @NonNull private final boolean[] mIsAutoFitKeyboards;
+  @NonNull private final QuickTextKey[] mAddOns;
+  private final DefaultAddOn mDefaultLocalAddOn;
+  private final ViewPagerWithDisable mViewPager;
+  private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
+  private final DefaultGenderPrefTracker mDefaultGenderPrefTracker;
+  private final KeyboardTheme mKeyboardTheme;
+  private int mBottomPadding;
+
+  public QuickKeysKeyboardPagerAdapter(
+      @NonNull Context context,
+      @NonNull ViewPagerWithDisable ownerPager,
+      @NonNull List<QuickTextKey> keyAddOns,
+      @NonNull OnKeyboardActionListener keyboardActionListener,
+      @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
+      @NonNull DefaultGenderPrefTracker defaultGenderPrefTracker,
+      @NonNull KeyboardTheme keyboardTheme,
+      int bottomPadding) {
+    mViewPager = ownerPager;
+    mDefaultLocalAddOn = new DefaultAddOn(context, context);
+    mContext = context;
+    mKeyboardActionListener = keyboardActionListener;
+    mAddOns = keyAddOns.toArray(new QuickTextKey[0]);
+    mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
+    mIsAutoFitKeyboards = new boolean[mAddOns.length];
+    mLayoutInflater = LayoutInflater.from(context);
+    mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
+    mDefaultGenderPrefTracker = defaultGenderPrefTracker;
+    mKeyboardTheme = keyboardTheme;
+    mBottomPadding = bottomPadding;
+  }
+
+  @Override
+  public int getCount() {
+    return mPopupKeyboards.length;
+  }
+
+  @NonNull @Override
+  public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    View root =
+        mLayoutInflater.inflate(R.layout.quick_text_popup_autorowkeyboard_view, container, false);
+    ScrollViewWithDisable scrollViewWithDisable =
+        root.findViewById(R.id.scroll_root_for_quick_test_keyboard);
+    scrollViewWithDisable.setPadding(
+        scrollViewWithDisable.getPaddingLeft(),
+        scrollViewWithDisable.getPaddingTop(),
+        scrollViewWithDisable.getPaddingRight(),
+        scrollViewWithDisable.getPaddingBottom() + mBottomPadding);
+    container.addView(root);
+
+    final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);
+    keyboardView.setKeyboardTheme(mKeyboardTheme);
+    keyboardView.setOnPopupShownListener(
+        new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
+    keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
+    QuickTextKey addOn = mAddOns[position];
+    AnyPopupKeyboard keyboard = mPopupKeyboards[position];
+    if (keyboard == null || position == 0 /*ALWAYS re-create history, in case it has changed*/) {
+      if (addOn.isPopupKeyboardUsed()) {
+        keyboard =
+            new AnyPopupKeyboard(
+                addOn,
+                mContext,
+                addOn.getPopupKeyboardResId(),
+                keyboardView.getThemedKeyboardDimens(),
+                addOn.getName(),
+                mDefaultSkinTonePrefTracker.getDefaultSkinTone(),
+                mDefaultGenderPrefTracker.getDefaultGender());
+      } else {
+        keyboard =
+            new PopupListKeyboard(
+                mDefaultLocalAddOn,
+                mContext,
+                keyboardView.getThemedKeyboardDimens(),
+                addOn.getPopupListNames(),
+                addOn.getPopupListValues(),
+                addOn.getName());
+      }
+      mPopupKeyboards[position] = keyboard;
+      final int keyboardViewMaxWidth = keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
+      mIsAutoFitKeyboards[position] =
+          keyboard.getMinWidth() > keyboardViewMaxWidth || addOn instanceof HistoryQuickTextKey;
+      if (mIsAutoFitKeyboards[position]) {
+        // fixing up the keyboard, so it will fit nicely in the width
+        int currentY = 0;
+        int xSub = 0;
+        for (Keyboard.Key key : keyboard.getKeys()) {
+          key.y = currentY;
+          key.x -= xSub;
+          if (key.x + key.width > keyboardViewMaxWidth) {
+            currentY += key.height;
+            xSub += key.x;
+            key.y = currentY;
+            key.x = 0;
+          }
+        }
+        keyboard.resetDimensions();
+      }
+    }
+    keyboardView.setKeyboard(keyboard);
+    return root;
+  }
+
+  @Override
+  public void destroyItem(ViewGroup container, int position, Object object) {
+    View view = (View) object;
+    container.removeView(view);
+  }
+
+  @Override
+  public CharSequence getPageTitle(int position) {
+    QuickTextKey key = mAddOns[position];
+    return mContext
+        .getResources()
+        .getString(R.string.quick_text_tab_title_template, key.getKeyOutputText(), key.getName());
+  }
+
+  @Override
+  public boolean isViewFromObject(View view, Object object) {
+    return view == object;
+  }
+
+  private static class PopupKeyboardShownHandler
+      implements AnyKeyboardViewWithMiniKeyboard.OnPopupShownListener {
     private final ViewPagerWithDisable mViewPager;
-    private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
-    private final DefaultGenderPrefTracker mDefaultGenderPrefTracker;
-    private final KeyboardTheme mKeyboardTheme;
-    private int mBottomPadding;
+    private final ScrollViewWithDisable mScrollViewWithDisable;
 
-    public QuickKeysKeyboardPagerAdapter(
-            @NonNull Context context,
-            @NonNull ViewPagerWithDisable ownerPager,
-            @NonNull List<QuickTextKey> keyAddOns,
-            @NonNull OnKeyboardActionListener keyboardActionListener,
-            @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
-            @NonNull DefaultGenderPrefTracker defaultGenderPrefTracker,
-            @NonNull KeyboardTheme keyboardTheme,
-            int bottomPadding) {
-        mViewPager = ownerPager;
-        mDefaultLocalAddOn = new DefaultAddOn(context, context);
-        mContext = context;
-        mKeyboardActionListener = keyboardActionListener;
-        mAddOns = keyAddOns.toArray(new QuickTextKey[0]);
-        mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
-        mIsAutoFitKeyboards = new boolean[mAddOns.length];
-        mLayoutInflater = LayoutInflater.from(context);
-        mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
-        mDefaultGenderPrefTracker = defaultGenderPrefTracker;
-        mKeyboardTheme = keyboardTheme;
-        mBottomPadding = bottomPadding;
+    public PopupKeyboardShownHandler(
+        ViewPagerWithDisable viewPager, ScrollViewWithDisable scrollViewWithDisable) {
+      mViewPager = viewPager;
+      mScrollViewWithDisable = scrollViewWithDisable;
     }
 
     @Override
-    public int getCount() {
-        return mPopupKeyboards.length;
+    public void onPopupKeyboardShowingChanged(boolean showing) {
+      mViewPager.setEnabled(!showing);
+      mScrollViewWithDisable.setEnabled(!showing);
     }
-
-    @NonNull
-    @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View root =
-                mLayoutInflater.inflate(
-                        R.layout.quick_text_popup_autorowkeyboard_view, container, false);
-        ScrollViewWithDisable scrollViewWithDisable =
-                root.findViewById(R.id.scroll_root_for_quick_test_keyboard);
-        scrollViewWithDisable.setPadding(
-                scrollViewWithDisable.getPaddingLeft(),
-                scrollViewWithDisable.getPaddingTop(),
-                scrollViewWithDisable.getPaddingRight(),
-                scrollViewWithDisable.getPaddingBottom() + mBottomPadding);
-        container.addView(root);
-
-        final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);
-        keyboardView.setKeyboardTheme(mKeyboardTheme);
-        keyboardView.setOnPopupShownListener(
-                new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
-        keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
-        QuickTextKey addOn = mAddOns[position];
-        AnyPopupKeyboard keyboard = mPopupKeyboards[position];
-        if (keyboard == null
-                || position == 0 /*ALWAYS re-create history, in case it has changed*/) {
-            if (addOn.isPopupKeyboardUsed()) {
-                keyboard =
-                        new AnyPopupKeyboard(
-                                addOn,
-                                mContext,
-                                addOn.getPopupKeyboardResId(),
-                                keyboardView.getThemedKeyboardDimens(),
-                                addOn.getName(),
-                                mDefaultSkinTonePrefTracker.getDefaultSkinTone(),
-                                mDefaultGenderPrefTracker.getDefaultGender());
-            } else {
-                keyboard =
-                        new PopupListKeyboard(
-                                mDefaultLocalAddOn,
-                                mContext,
-                                keyboardView.getThemedKeyboardDimens(),
-                                addOn.getPopupListNames(),
-                                addOn.getPopupListValues(),
-                                addOn.getName());
-            }
-            mPopupKeyboards[position] = keyboard;
-            final int keyboardViewMaxWidth =
-                    keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
-            mIsAutoFitKeyboards[position] =
-                    keyboard.getMinWidth() > keyboardViewMaxWidth
-                            || addOn instanceof HistoryQuickTextKey;
-            if (mIsAutoFitKeyboards[position]) {
-                // fixing up the keyboard, so it will fit nicely in the width
-                int currentY = 0;
-                int xSub = 0;
-                for (Keyboard.Key key : keyboard.getKeys()) {
-                    key.y = currentY;
-                    key.x -= xSub;
-                    if (key.x + key.width > keyboardViewMaxWidth) {
-                        currentY += key.height;
-                        xSub += key.x;
-                        key.y = currentY;
-                        key.x = 0;
-                    }
-                }
-                keyboard.resetDimensions();
-            }
-        }
-        keyboardView.setKeyboard(keyboard);
-        return root;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        View view = (View) object;
-        container.removeView(view);
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        QuickTextKey key = mAddOns[position];
-        return mContext.getResources()
-                .getString(
-                        R.string.quick_text_tab_title_template,
-                        key.getKeyOutputText(),
-                        key.getName());
-    }
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-
-    private static class PopupKeyboardShownHandler
-            implements AnyKeyboardViewWithMiniKeyboard.OnPopupShownListener {
-        private final ViewPagerWithDisable mViewPager;
-        private final ScrollViewWithDisable mScrollViewWithDisable;
-
-        public PopupKeyboardShownHandler(
-                ViewPagerWithDisable viewPager, ScrollViewWithDisable scrollViewWithDisable) {
-            mViewPager = viewPager;
-            mScrollViewWithDisable = scrollViewWithDisable;
-        }
-
-        @Override
-        public void onPopupKeyboardShowingChanged(boolean showing) {
-            mViewPager.setEnabled(!showing);
-            mScrollViewWithDisable.setEnabled(!showing);
-        }
-    }
+  }
 }

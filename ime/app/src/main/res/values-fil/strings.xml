@@ -21,10 +21,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Changelog</string>
-    <string name="search_market_for_addons">Humanap ng add-ons</string>
     <string name="search_market_for_keyboard_addons">Kumuha ng maraming keyboard sa app store</string>
     <string name="search_market_for_quick_key_addons">Kumuha ng higit <i>Madaling-Text</i> mga add-ons na nasa app store…</string>
-    <string name="no_market_store_available">Hindi mahanap ang app store sa iyong device.\nHindi ito mahanap para sa add-ons!</string>
     <string name="keyboard_theme_tweak_group">Mga Tweak</string>
     <string name="close_button">Isara</string>
     <!-- Indicates that a word has been added to the dictionary -->

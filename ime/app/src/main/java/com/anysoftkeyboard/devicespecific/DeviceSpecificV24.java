@@ -21,15 +21,15 @@ import android.view.inputmethod.InputMethodSubtype;
 
 @TargetApi(24)
 public class DeviceSpecificV24 extends DeviceSpecificV19 {
-    @Override
-    public String getApiLevel() {
-        return "DeviceSpecificV24";
-    }
+  @Override
+  public String getApiLevel() {
+    return "DeviceSpecificV24";
+  }
 
-    @Override
-    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(
-            String locale, CharSequence keyboardId) {
-        // adding languageTag
-        return super.buildAndFillSubtypeBuilder(locale, keyboardId).setLanguageTag(locale);
-    }
+  @Override
+  protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(
+      String locale, CharSequence keyboardId) {
+    // adding languageTag
+    return super.buildAndFillSubtypeBuilder(locale, keyboardId).setLanguageTag(locale);
+  }
 }

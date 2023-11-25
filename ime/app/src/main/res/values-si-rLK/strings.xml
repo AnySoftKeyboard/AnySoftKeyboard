@@ -22,10 +22,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">ලොගය වෙනස් කරන්න</string>
-    <string name="search_market_for_addons">ඇඩෝන සඳහා සොයන්න</string>
     <string name="search_market_for_keyboard_addons">යෙදුම් වෙළඳසැලේ තවත් යතුරුපුවරු ලබා ගන්න</string>
     <string name="search_market_for_quick_key_addons">යෙදුම් වෙළඳසැල…හි ඉක්මන්-පෙළ&lt;/i&gt; ඇඩෝන &lt;i&gt;ක් ලබා ගන්න</string>
-    <string name="no_market_store_available">ඔබගේ උපාංගයේ යෙදුම් ගබඩාවක් සොයා ගැනීමට නොහැකි විය.\nඇඩෝන සෙවීමට නොහැක!</string>
     <string name="keyboard_theme_tweak_group">tweaks</string>
     <string name="close_button">වසන්න</string>
     <string name="delete_button">මකන්න</string>

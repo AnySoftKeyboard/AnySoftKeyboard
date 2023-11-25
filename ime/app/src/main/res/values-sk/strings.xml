@@ -18,22 +18,27 @@
     <string name="notification_text_testers">Toto je beta verzia. Používajte opatrne!</string>
     <string name="testers_version">Verzia pre testerov!</string>
     <string name="language_root_tile">Jazyk</string>
+    <string name="language_keyboards_settings_tile">Povoliť klávesnice a jazyky.</string>
+    <string name="language_tweaks_settings_tile">Vychytávky a ďalšie.</string>
     <!-- UI root menu -->
+    <string name="ui_root_tile">UI</string>
+    <string name="ui_theme_settings_tile">Vyberte a nakonfigurujte témy klávesnice.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Zoznam zmien</string>
-    <string name="search_market_for_addons">Hľadať doplnky</string>
     <string name="search_market_for_keyboard_addons">Získať viac klávesníc v obchode</string>
-    <string name="no_market_store_available">Nepodarilo sa nájsť aplikáciu pre obchod.\nNie je možné nájsť ďalšie doplnky!
-    </string>
     <string name="close_button">Zavrieť</string>
+    <string name="delete_button">Vymazať</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Uložené:\u0020
         <xliff:g id="word">%s</xliff:g>
     </string>
+    <string name="revert_added_word_question">Odstrániť\?</string>
     <string name="removed_word">Odstránené:\u0020
         <xliff:g id="word">%s</xliff:g>
     </string>
+    <string name="hint_add_to_dictionary">\u2190 Ďalším dotykom uložíte</string>
+    <string name="hint_double_tap_to_close">Znovu pre skrytie návrhov</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Hlasové ovládanie nie je nainštalované</string>
     <string name="voice_input_not_installed_text">Ovládanie hlasom nie je nainštalované.\nTo sa dá jednoducho opraviť: nainštalujte si ho z obchodu.    </string>
@@ -50,20 +55,34 @@
     <!-- settings - effects-->
     <string name="gesture_settings">Gestá</string>
     <string name="effects_group">Efekty</string>
-    <string name="switch_incognito">Inkognito mód</string>
+    <string name="ime_settings">Nastavenia klávesnice</string>
+    <string name="switch_incognito">Režim Inkognito</string>
+    <string name="use_system_vibration_title">Použiť systémové vibrácie</string>
     <string name="vibrate_on_key_press_title">Vibrovať pri stlačení</string>
+    <string name="vibrate_on_key_press_value_template">%d milisekúnd</string>
+    <string name="night_mode_dialog_title">Zapnúť nočný režim</string>
     <string name="power_save_mode_screen">Nastavenie šetriaceho režimu úspory energie</string>
     <string name="power_save_mode_description">Režim úspory energie zníži spotrebu energie AnySoftKeyboard vypnutím týchto funkcií:</string>
     <string name="power_save_mode_dialog_title">Zapnúť mód úspory energie</string>
+    <string name="power_save_mode_types_lower_battery">Pri nízkej úrovni batérie</string>
+    <string name="power_save_mode_types_always">Vždy</string>
     <string name="power_saving_keyboard_theme_description">Tmavé farby, jednoduché rozloženie, ktoré vyžadujú menej výkonu zo zariadenia.</string>
     <string name="power_save_mode_animation_control">Vypnúť animácie a náhľady kláves</string>
     <string name="power_save_mode_sound_control">Vypnúť zvuky stlačenia klávesy</string>
     <string name="power_save_mode_vibration_control">Vypnúť vibrácie pri stlačení klávesy</string>
     <string name="power_save_mode_suggestions_control">Vypnúť návrhy opráv</string>
+    <string name="power_save_mode_gesture_typing_control">Deaktivovať písanie gestami</string>
     <string name="power_save_mode_theme_control">Prepnúť na tmavý, jednoduchý vzhľad</string>
     <string name="pop_text_type_never">Nikdy</string>
+    <string name="input_field_type_password">Pole pre heslo</string>
+    <string name="input_field_type_email">Vstupné pole pre e-mail</string>
+    <string name="input_field_type_url">Vstupné pole pre URL</string>
+    <string name="sound_on">Zvuk pri stlačení klávesu</string>
     <string name="enable_shift_space_language_shortcut">Shift + medzerník prepne jazyk</string>
+    <string name="tweak_animations_level_title">Animácie</string>
     <!-- settings - keyboard group -->
+    <string name="symbols_alt_num_keyboard">123</string>
+    <string name="symbols_numbers_keyboard">123</string>
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
     <!-- settings - bottom generic row -->
@@ -79,4 +98,7 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="prefs_providers_operation_success">Hotovo</string>
+    <string name="prefs_providers_operation_failed">Chyba!</string>
+    <string name="gesture_typing_alert_title">BETA funkcia!</string>
 </resources>

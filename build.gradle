@@ -13,24 +13,15 @@ buildscript {
         mavenLocal()
         maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.1.4'
         classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.0.1'
-        classpath 'gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.7.5'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.20.0'
     }
-}
-
-apply plugin: 'com.github.sherter.google-java-format'
-apply plugin: 'anysoftkeyboard-contributors'
-
-googleJavaFormat {
-    toolVersion = '1.15.0'
-    options style: 'AOSP'
 }
 
 allprojects {
@@ -40,7 +31,19 @@ allprojects {
         gradlePluginPortal()
         maven { url 'https://repo1.maven.org/maven2' /*maven-central with HTTPS*/ }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url "https://jitpack.io" }
+    }
+
+    configurations.all {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name == 'kotlin-stdlib') {
+                details.useVersion '1.8.10'
+                details.because 'Ensure everything is using the same version of kotlin'
+            } else if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name == 'kotlin-stdlib-jdk8') {
+                details.useVersion '1.8.10'
+                details.because 'Ensure everything is using the same version of kotlin'
+            }
+        }
     }
 }
 
@@ -48,7 +51,7 @@ apply from: "${rootDir}/gradle/emoji_generator.gradle"
 apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
 apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
 
-tasks.register("clean", Delete) {
+def cleanOthers = tasks.register("cleanOthers", Delete) {
     delete buildDir
     //we do not want to delete the current log file
     logFile.parentFile.listFiles().each {
@@ -65,3 +68,7 @@ tasks.register("clean", Delete) {
             .forEach { it.deleteOnExit() }
     files.close()
 }
+
+tasks.register('clean').configure({
+    it.finalizedBy(cleanOthers)
+})

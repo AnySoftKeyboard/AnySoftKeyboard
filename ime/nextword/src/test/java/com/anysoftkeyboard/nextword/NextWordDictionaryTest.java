@@ -11,144 +11,136 @@ import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class NextWordDictionaryTest {
-    private NextWordDictionary mNextWordDictionaryUnderTest;
+  private NextWordDictionary mNextWordDictionaryUnderTest;
 
-    private static void assertHasNextWordsForWord(
-            NextWordDictionary nextWordDictionaryUnderTest,
-            String word,
-            String... expectedNextWords)
-            throws Exception {
-        assertHasNextWordsForWord(true, nextWordDictionaryUnderTest, word, expectedNextWords);
+  private static void assertHasNextWordsForWord(
+      NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords)
+      throws Exception {
+    assertHasNextWordsForWord(true, nextWordDictionaryUnderTest, word, expectedNextWords);
+  }
+
+  private static void assertHasNextWordsForWord(
+      boolean withNotify,
+      NextWordDictionary nextWordDictionaryUnderTest,
+      String word,
+      String... expectedNextWords)
+      throws Exception {
+    if (withNotify) nextWordDictionaryUnderTest.notifyNextTypedWord(word);
+
+    Iterator<String> nextWordsIterator =
+        nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
+    for (String expectedNextWord : expectedNextWords) {
+      Assert.assertTrue(nextWordsIterator.hasNext());
+      Assert.assertEquals(expectedNextWord, nextWordsIterator.next());
     }
+    Assert.assertFalse(nextWordsIterator.hasNext());
+  }
 
-    private static void assertHasNextWordsForWord(
-            boolean withNotify,
-            NextWordDictionary nextWordDictionaryUnderTest,
-            String word,
-            String... expectedNextWords)
-            throws Exception {
-        if (withNotify) nextWordDictionaryUnderTest.notifyNextTypedWord(word);
+  @Before
+  public void setup() {
+    mNextWordDictionaryUnderTest = new NextWordDictionary(getApplicationContext(), "en");
+  }
 
-        Iterator<String> nextWordsIterator =
-                nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
-        for (String expectedNextWord : expectedNextWords) {
-            Assert.assertTrue(nextWordsIterator.hasNext());
-            Assert.assertEquals(expectedNextWord, nextWordsIterator.next());
-        }
-        Assert.assertFalse(nextWordsIterator.hasNext());
-    }
+  @Test
+  public void testLoadEmpty() throws Exception {
+    mNextWordDictionaryUnderTest.load();
 
-    @Before
-    public void setup() {
-        mNextWordDictionaryUnderTest = new NextWordDictionary(getApplicationContext(), "en");
-    }
+    Assert.assertEquals(0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
+    Assert.assertEquals(0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
 
-    @Test
-    public void testLoadEmpty() throws Exception {
-        mNextWordDictionaryUnderTest.load();
+    mNextWordDictionaryUnderTest.close();
+  }
 
-        Assert.assertEquals(
-                0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(
-                0, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
+  @Test
+  public void testLyrics() throws Exception {
+    mNextWordDictionaryUnderTest.load();
 
-        mNextWordDictionaryUnderTest.close();
-    }
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "is");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "it");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "me");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "you");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "looking");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for");
 
-    @Test
-    public void testLyrics() throws Exception {
-        mNextWordDictionaryUnderTest.load();
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "is");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "is", "it");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "it", "me");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "me", "you");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "you", "looking");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "looking", "for");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for", "hello");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "bye");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for", "hello", "bye");
 
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "is");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "it");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "me");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "you");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "looking");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for");
+    Assert.assertEquals(8, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
+    Assert.assertEquals(9, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
 
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "is");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "is", "it");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "it", "me");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "me", "you");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "you", "looking");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "looking", "for");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for", "hello");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "bye");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "for", "hello", "bye");
+    mNextWordDictionaryUnderTest.close();
+  }
 
-        Assert.assertEquals(
-                8, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(
-                9, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
+  @Test
+  public void testResetSentence() throws Exception {
+    mNextWordDictionaryUnderTest.load();
 
-        mNextWordDictionaryUnderTest.close();
-    }
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
+    mNextWordDictionaryUnderTest.resetSentence();
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
 
-    @Test
-    public void testResetSentence() throws Exception {
-        mNextWordDictionaryUnderTest.load();
+    mNextWordDictionaryUnderTest.close();
+  }
 
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
-        mNextWordDictionaryUnderTest.resetSentence();
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
+  @Test
+  public void testLoadAgain() throws Exception {
+    mNextWordDictionaryUnderTest.load();
 
-        mNextWordDictionaryUnderTest.close();
-    }
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny", "hello");
 
-    @Test
-    public void testLoadAgain() throws Exception {
-        mNextWordDictionaryUnderTest.load();
+    Assert.assertEquals(2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
+    Assert.assertEquals(2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
 
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny", "hello");
+    mNextWordDictionaryUnderTest.close();
+    mNextWordDictionaryUnderTest = null;
 
-        Assert.assertEquals(
-                2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(
-                2, mNextWordDictionaryUnderTest.dumpDictionaryStatistics().secondWordCount);
+    NextWordDictionary loadedDictionary = new NextWordDictionary(getApplicationContext(), "en");
+    loadedDictionary.load();
 
-        mNextWordDictionaryUnderTest.close();
-        mNextWordDictionaryUnderTest = null;
+    assertHasNextWordsForWord(loadedDictionary, "hello", "menny");
+    assertHasNextWordsForWord(loadedDictionary, "menny", "hello");
 
-        NextWordDictionary loadedDictionary = new NextWordDictionary(getApplicationContext(), "en");
-        loadedDictionary.load();
+    Assert.assertEquals(2, loadedDictionary.dumpDictionaryStatistics().firstWordCount);
+    Assert.assertEquals(2, loadedDictionary.dumpDictionaryStatistics().secondWordCount);
 
-        assertHasNextWordsForWord(loadedDictionary, "hello", "menny");
-        assertHasNextWordsForWord(loadedDictionary, "menny", "hello");
+    loadedDictionary.close();
+  }
 
-        Assert.assertEquals(2, loadedDictionary.dumpDictionaryStatistics().firstWordCount);
-        Assert.assertEquals(2, loadedDictionary.dumpDictionaryStatistics().secondWordCount);
+  @Test
+  public void testClearData() throws Exception {
+    mNextWordDictionaryUnderTest.load();
 
-        loadedDictionary.close();
-    }
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny", "hello");
+    mNextWordDictionaryUnderTest.clearData();
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
 
-    @Test
-    public void testClearData() throws Exception {
-        mNextWordDictionaryUnderTest.load();
+    mNextWordDictionaryUnderTest.close();
+  }
 
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello", "menny");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny", "hello");
-        mNextWordDictionaryUnderTest.clearData();
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
+  @Test
+  public void testDoesNotLearnIfNotNotifying() throws Exception {
+    mNextWordDictionaryUnderTest.load();
 
-        mNextWordDictionaryUnderTest.close();
-    }
-
-    @Test
-    public void testDoesNotLearnIfNotNotifying() throws Exception {
-        mNextWordDictionaryUnderTest.load();
-
-        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "menny");
-        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "hello");
-        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "menny");
-    }
+    assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "menny");
+    assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "hello");
+    assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "menny");
+  }
 }

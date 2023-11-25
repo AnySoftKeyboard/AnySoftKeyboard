@@ -23,61 +23,61 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardTheme extends AddOnImpl {
 
-    @StyleRes private final int mThemeResId;
-    @StyleRes private final int mPopupThemeResId;
-    @StyleRes private final int mIconsThemeResId;
-    @StyleRes private final int mPopupIconsThemeResId;
-    @StyleRes private final int mGestureTrailThemeResId;
+  @StyleRes private final int mThemeResId;
+  @StyleRes private final int mPopupThemeResId;
+  @StyleRes private final int mIconsThemeResId;
+  @StyleRes private final int mPopupIconsThemeResId;
+  @StyleRes private final int mGestureTrailThemeResId;
 
-    public KeyboardTheme(
-            Context askContext,
-            Context packageContext,
-            int apiVersion,
-            CharSequence id,
-            CharSequence name,
-            @StyleRes int themeResId,
-            @StyleRes int popupThemeResId,
-            @StyleRes int iconsThemeResId,
-            @StyleRes int popupIconsThemeResId,
-            @StyleRes int gestureTrailThemeResId,
-            boolean isHidden,
-            CharSequence description,
-            int sortIndex) {
-        super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
+  public KeyboardTheme(
+      Context askContext,
+      Context packageContext,
+      int apiVersion,
+      CharSequence id,
+      CharSequence name,
+      @StyleRes int themeResId,
+      @StyleRes int popupThemeResId,
+      @StyleRes int iconsThemeResId,
+      @StyleRes int popupIconsThemeResId,
+      @StyleRes int gestureTrailThemeResId,
+      boolean isHidden,
+      CharSequence description,
+      int sortIndex) {
+    super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
 
-        mThemeResId = themeResId;
-        mPopupThemeResId = popupThemeResId == INVALID_RES_ID ? mThemeResId : popupThemeResId;
-        mIconsThemeResId = iconsThemeResId;
-        mPopupIconsThemeResId =
-                popupIconsThemeResId == INVALID_RES_ID ? mIconsThemeResId : popupIconsThemeResId;
-        mGestureTrailThemeResId =
-                gestureTrailThemeResId == INVALID_RES_ID
-                        ? R.style.AnyKeyboardGestureTrailTheme
-                        : gestureTrailThemeResId;
-    }
+    mThemeResId = themeResId;
+    mPopupThemeResId = popupThemeResId == INVALID_RES_ID ? mThemeResId : popupThemeResId;
+    mIconsThemeResId = iconsThemeResId;
+    mPopupIconsThemeResId =
+        popupIconsThemeResId == INVALID_RES_ID ? mIconsThemeResId : popupIconsThemeResId;
+    mGestureTrailThemeResId =
+        gestureTrailThemeResId == INVALID_RES_ID
+            ? R.style.AnyKeyboardGestureTrailTheme
+            : gestureTrailThemeResId;
+  }
 
-    @StyleRes
-    public int getThemeResId() {
-        return mThemeResId;
-    }
+  @StyleRes
+  public int getThemeResId() {
+    return mThemeResId;
+  }
 
-    @StyleRes
-    public int getPopupThemeResId() {
-        return mPopupThemeResId;
-    }
+  @StyleRes
+  public int getPopupThemeResId() {
+    return mPopupThemeResId;
+  }
 
-    @StyleRes
-    public int getIconsThemeResId() {
-        return mIconsThemeResId;
-    }
+  @StyleRes
+  public int getIconsThemeResId() {
+    return mIconsThemeResId;
+  }
 
-    @StyleRes
-    public int getPopupIconsThemeResId() {
-        return mPopupIconsThemeResId;
-    }
+  @StyleRes
+  public int getPopupIconsThemeResId() {
+    return mPopupIconsThemeResId;
+  }
 
-    @StyleRes
-    public int getGestureTrailThemeResId() {
-        return mGestureTrailThemeResId;
-    }
+  @StyleRes
+  public int getGestureTrailThemeResId() {
+    return mGestureTrailThemeResId;
+  }
 }

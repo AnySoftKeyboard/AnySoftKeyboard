@@ -6,24 +6,22 @@ import androidx.annotation.Nullable;
 
 public abstract class AnySoftKeyboardService extends AnySoftKeyboardBase {
 
-    @Nullable private IBinder mImeToken = null;
+  @Nullable private IBinder mImeToken = null;
 
-    @Nullable
-    protected IBinder getImeToken() {
-        return mImeToken;
-    }
+  @Nullable protected IBinder getImeToken() {
+    return mImeToken;
+  }
 
-    @NonNull
+  @NonNull @Override
+  public AbstractInputMethodImpl onCreateInputMethodInterface() {
+    return new InputMethod();
+  }
+
+  public class InputMethod extends InputMethodImpl {
     @Override
-    public AbstractInputMethodImpl onCreateInputMethodInterface() {
-        return new InputMethod();
+    public void attachToken(IBinder token) {
+      super.attachToken(token);
+      mImeToken = token;
     }
-
-    public class InputMethod extends InputMethodImpl {
-        @Override
-        public void attachToken(IBinder token) {
-            super.attachToken(token);
-            mImeToken = token;
-        }
-    }
+  }
 }

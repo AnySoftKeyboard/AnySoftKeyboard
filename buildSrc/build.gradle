@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.6.21"
+    id "org.jetbrains.kotlin.jvm" version "1.7.20"
 }
 
 apply plugin: 'groovy'
@@ -18,7 +18,7 @@ dependencies {
 
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'com.google.code.gson:gson:2.9.0'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.20"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.github.stefanbirkner:system-rules:1.16.1'
@@ -52,16 +52,24 @@ gradlePlugin {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 compileKotlin {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    kotlinOptions {
+        jvmTarget = 11
+    }
 }
 
 compileTestKotlin {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    kotlinOptions {
+        jvmTarget = 11
+    }
 }

@@ -18,17 +18,17 @@ package com.anysoftkeyboard.keyboards;
 
 public interface KeyboardDimens {
 
-    int getKeyboardMaxWidth();
+  int getKeyboardMaxWidth();
 
-    float getKeyHorizontalGap();
+  float getKeyHorizontalGap();
 
-    float getRowVerticalGap();
+  float getRowVerticalGap();
 
-    int getNormalKeyHeight();
+  int getNormalKeyHeight();
 
-    int getSmallKeyHeight();
+  int getSmallKeyHeight();
 
-    int getLargeKeyHeight();
+  int getLargeKeyHeight();
 
-    float getPaddingBottom();
+  float getPaddingBottom();
 }

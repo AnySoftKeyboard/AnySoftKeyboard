@@ -21,21 +21,21 @@ import androidx.annotation.Nullable;
 
 public interface Clipboard {
 
-    interface ClipboardUpdatedListener {
-        void onClipboardEntryAdded(@NonNull CharSequence text);
+  interface ClipboardUpdatedListener {
+    void onClipboardEntryAdded(@NonNull CharSequence text);
 
-        void onClipboardCleared();
-    }
+    void onClipboardCleared();
+  }
 
-    CharSequence getText(int entryIndex);
+  CharSequence getText(int entryIndex);
 
-    int getClipboardEntriesCount();
+  int getClipboardEntriesCount();
 
-    void setText(CharSequence text);
+  void setText(CharSequence text);
 
-    void deleteEntry(int entryIndex);
+  void deleteEntry(int entryIndex);
 
-    void deleteAllEntries();
+  void deleteAllEntries();
 
-    void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener);
+  void setClipboardUpdatedListener(@Nullable ClipboardUpdatedListener listener);
 }

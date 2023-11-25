@@ -38,159 +38,150 @@ import java.util.List;
 
 public abstract class ChangeLogFragment extends Fragment {
 
-    protected ChangeLogFragment() {}
+  protected ChangeLogFragment() {}
+
+  @Override
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    return inflater.inflate(getMainLayout(), container, false);
+  }
+
+  protected abstract int getMainLayout();
+
+  protected static void fillViewForLogItem(
+      Context context,
+      StringBuilder stringBuilder,
+      VersionChangeLogs.VersionChangeLog change,
+      ChangeLogViewHolder holder,
+      CharSequence title) {
+    holder.titleView.setText(title);
+
+    stringBuilder.setLength(0);
+    for (String changeEntry : change.changes) {
+      if (stringBuilder.length() != 0) stringBuilder.append('\n');
+      stringBuilder.append(context.getString(R.string.change_log_bullet_point, changeEntry));
+    }
+
+    holder.bulletPointsView.setText(stringBuilder.toString());
+
+    holder.webLinkChangeLogView.setText(
+        context.getString(R.string.change_log_url, change.changesWebUrl.toString()));
+  }
+
+  public static class FullChangeLogFragment extends ChangeLogFragment {
+    private final StringBuilder mBulletsBuilder = new StringBuilder();
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(getMainLayout(), container, false);
+    public void onStart() {
+      super.onStart();
+      MainSettingsActivity.setActivityTitle(this, getString(R.string.changelog));
     }
 
-    protected abstract int getMainLayout();
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+      super.onViewCreated(view, savedInstanceState);
 
-    protected static void fillViewForLogItem(
-            Context context,
-            StringBuilder stringBuilder,
-            VersionChangeLogs.VersionChangeLog change,
-            ChangeLogViewHolder holder,
-            CharSequence title) {
-        holder.titleView.setText(title);
-
-        stringBuilder.setLength(0);
-        for (String changeEntry : change.changes) {
-            if (stringBuilder.length() != 0) stringBuilder.append('\n');
-            stringBuilder.append(context.getString(R.string.change_log_bullet_point, changeEntry));
-        }
-
-        holder.bulletPointsView.setText(stringBuilder.toString());
-
-        holder.webLinkChangeLogView.setText(
-                context.getString(R.string.change_log_url, change.changesWebUrl.toString()));
+      RecyclerView recyclerView = view.findViewById(R.id.change_logs_container);
+      recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+      recyclerView.setAdapter(new ChangeLogsAdapter(VersionChangeLogs.createChangeLog()));
+      recyclerView.setHasFixedSize(false);
     }
 
-    public static class FullChangeLogFragment extends ChangeLogFragment {
-        private final StringBuilder mBulletsBuilder = new StringBuilder();
+    private class ChangeLogsAdapter extends RecyclerView.Adapter<ChangeLogViewHolder> {
+      private final List<VersionChangeLogs.VersionChangeLog> mChangeLog;
 
-        @Override
-        public void onStart() {
-            super.onStart();
-            MainSettingsActivity.setActivityTitle(this, getString(R.string.changelog));
-        }
+      ChangeLogsAdapter(List<VersionChangeLogs.VersionChangeLog> changeLog) {
+        mChangeLog = changeLog;
+        setHasStableIds(true);
+      }
 
-        @Override
-        public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+      @NonNull @Override
+      public ChangeLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ChangeLogViewHolder(
+            getLayoutInflater().inflate(R.layout.changelogentry_item, parent, false));
+      }
 
-            RecyclerView recyclerView = view.findViewById(R.id.change_logs_container);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(new ChangeLogsAdapter(VersionChangeLogs.createChangeLog()));
-            recyclerView.setHasFixedSize(false);
-        }
+      @Override
+      public void onBindViewHolder(@NonNull ChangeLogViewHolder holder, int position) {
+        final VersionChangeLogs.VersionChangeLog change = mChangeLog.get(position);
+        fillViewForLogItem(
+            requireContext(),
+            mBulletsBuilder,
+            change,
+            holder,
+            getString(R.string.change_log_entry_header_template_without_name, change.versionName));
+      }
 
-        private class ChangeLogsAdapter extends RecyclerView.Adapter<ChangeLogViewHolder> {
-            private final List<VersionChangeLogs.VersionChangeLog> mChangeLog;
+      @Override
+      public long getItemId(int position) {
+        return mChangeLog.get(position).hashCode();
+      }
 
-            ChangeLogsAdapter(List<VersionChangeLogs.VersionChangeLog> changeLog) {
-                mChangeLog = changeLog;
-                setHasStableIds(true);
-            }
+      @Override
+      public int getItemCount() {
+        return mChangeLog.size();
+      }
+    }
 
-            @NonNull
+    @Override
+    protected int getMainLayout() {
+      return R.layout.changelog;
+    }
+  }
+
+  public static class LatestChangeLogViewFactory {
+
+    @NonNull public static View createLatestChangeLogView(
+        @NonNull MainFragment mainFragment, @NonNull ViewGroup changeLogViewParent) {
+      final LayoutInflater layoutInflater = mainFragment.getLayoutInflater();
+      final View rootView =
+          layoutInflater.inflate(R.layout.card_with_more_container, changeLogViewParent, false);
+      ViewGroup container = rootView.findViewById(R.id.card_with_read_more);
+      MainFragment.setupLink(
+          container,
+          R.id.read_more_link,
+          new ClickableSpan() {
             @Override
-            public ChangeLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new ChangeLogViewHolder(
-                        getLayoutInflater().inflate(R.layout.changelogentry_item, parent, false));
+            public void onClick(View v) {
+              Navigation.findNavController(mainFragment.requireView())
+                  .navigate(MainFragmentDirections.actionMainFragmentToFullChangeLogFragment());
             }
+          },
+          true);
 
-            @Override
-            public void onBindViewHolder(@NonNull ChangeLogViewHolder holder, int position) {
-                final VersionChangeLogs.VersionChangeLog change = mChangeLog.get(position);
-                fillViewForLogItem(
-                        requireContext(),
-                        mBulletsBuilder,
-                        change,
-                        holder,
-                        getString(
-                                R.string.change_log_entry_header_template_without_name,
-                                change.versionName));
-            }
+      final ChangeLogViewHolder changeLogViewHolder =
+          new ChangeLogViewHolder(
+              layoutInflater.inflate(R.layout.changelogentry_item, container, false));
+      final VersionChangeLogs.VersionChangeLog change = VersionChangeLogs.createChangeLog().get(0);
+      final Context context = mainFragment.requireContext();
+      fillViewForLogItem(
+          context,
+          new StringBuilder(),
+          change,
+          changeLogViewHolder,
+          context.getString(R.string.change_log_card_version_title_template, change.versionName));
+      changeLogViewHolder.webLinkChangeLogView.setVisibility(View.GONE);
 
-            @Override
-            public long getItemId(int position) {
-                return mChangeLog.get(position).hashCode();
-            }
+      container.addView(changeLogViewHolder.itemView, 0);
 
-            @Override
-            public int getItemCount() {
-                return mChangeLog.size();
-            }
-        }
-
-        @Override
-        protected int getMainLayout() {
-            return R.layout.changelog;
-        }
+      return rootView;
     }
+  }
 
-    public static class LatestChangeLogViewFactory {
+  @VisibleForTesting
+  static class ChangeLogViewHolder extends RecyclerView.ViewHolder {
 
-        @NonNull
-        public static View createLatestChangeLogView(
-                @NonNull MainFragment mainFragment, @NonNull ViewGroup changeLogViewParent) {
-            final LayoutInflater layoutInflater = mainFragment.getLayoutInflater();
-            final View rootView =
-                    layoutInflater.inflate(
-                            R.layout.card_with_more_container, changeLogViewParent, false);
-            ViewGroup container = rootView.findViewById(R.id.card_with_read_more);
-            MainFragment.setupLink(
-                    container,
-                    R.id.read_more_link,
-                    new ClickableSpan() {
-                        @Override
-                        public void onClick(View v) {
-                            Navigation.findNavController(mainFragment.requireView())
-                                    .navigate(
-                                            MainFragmentDirections
-                                                    .actionMainFragmentToFullChangeLogFragment());
-                        }
-                    },
-                    true);
+    public final TextView titleView;
+    public final TextView bulletPointsView;
+    public final TextView webLinkChangeLogView;
 
-            final ChangeLogViewHolder changeLogViewHolder =
-                    new ChangeLogViewHolder(
-                            layoutInflater.inflate(R.layout.changelogentry_item, container, false));
-            final VersionChangeLogs.VersionChangeLog change =
-                    VersionChangeLogs.createChangeLog().get(0);
-            final Context context = mainFragment.requireContext();
-            fillViewForLogItem(
-                    context,
-                    new StringBuilder(),
-                    change,
-                    changeLogViewHolder,
-                    context.getString(
-                            R.string.change_log_card_version_title_template, change.versionName));
-            changeLogViewHolder.webLinkChangeLogView.setVisibility(View.GONE);
+    ChangeLogViewHolder(View itemView) {
+      super(itemView);
+      titleView = itemView.findViewById(R.id.changelog_version_title);
+      bulletPointsView = itemView.findViewById(R.id.chang_log_item);
+      webLinkChangeLogView = itemView.findViewById(R.id.change_log__web_link_item);
 
-            container.addView(changeLogViewHolder.itemView, 0);
-
-            return rootView;
-        }
+      titleView.setPaintFlags(titleView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
-
-    @VisibleForTesting
-    static class ChangeLogViewHolder extends RecyclerView.ViewHolder {
-
-        public final TextView titleView;
-        public final TextView bulletPointsView;
-        public final TextView webLinkChangeLogView;
-
-        ChangeLogViewHolder(View itemView) {
-            super(itemView);
-            titleView = itemView.findViewById(R.id.changelog_version_title);
-            bulletPointsView = itemView.findViewById(R.id.chang_log_item);
-            webLinkChangeLogView = itemView.findViewById(R.id.change_log__web_link_item);
-
-            titleView.setPaintFlags(titleView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        }
-    }
+  }
 }

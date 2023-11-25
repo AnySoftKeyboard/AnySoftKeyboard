@@ -40,140 +40,132 @@ import net.evendanan.pixel.EdgeEffectHacker;
 
 public class SetupWizardActivity extends AppCompatActivity {
 
-    private static final int KEY_MESSAGE_SCROLL_TO_PAGE = 444;
-    private static final int KEY_MESSAGE_UPDATE_FRAGMENTS = 446;
-    private final Handler mUiHandler = new WizardHandler(this);
-    private ViewPager2 mWizardPager;
-    private boolean mReloadPager = false;
-    @NonNull private Disposable mSecureSettingsChangedDisposable = Disposables.empty();
+  private static final int KEY_MESSAGE_SCROLL_TO_PAGE = 444;
+  private static final int KEY_MESSAGE_UPDATE_FRAGMENTS = 446;
+  private final Handler mUiHandler = new WizardHandler(this);
+  private ViewPager2 mWizardPager;
+  private boolean mReloadPager = false;
+  @NonNull private Disposable mSecureSettingsChangedDisposable = Disposables.empty();
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.initial_setup_main_ui);
-        mSecureSettingsChangedDisposable =
-                RxContentResolver.observeQuery(
-                                getContentResolver(),
-                                Settings.Secure.CONTENT_URI,
-                                null,
-                                null,
-                                null,
-                                null,
-                                true)
-                        .observeOn(RxSchedulers.mainThread())
-                        .forEach(
-                                cursor -> {
-                                    mUiHandler.removeMessages(KEY_MESSAGE_UPDATE_FRAGMENTS);
-                                    mUiHandler.sendMessageDelayed(
-                                            mUiHandler.obtainMessage(KEY_MESSAGE_UPDATE_FRAGMENTS),
-                                            50);
-                                });
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.initial_setup_main_ui);
+    mSecureSettingsChangedDisposable =
+        RxContentResolver.observeQuery(
+                getContentResolver(), Settings.Secure.CONTENT_URI, null, null, null, null, true)
+            .observeOn(RxSchedulers.mainThread())
+            .forEach(
+                cursor -> {
+                  mUiHandler.removeMessages(KEY_MESSAGE_UPDATE_FRAGMENTS);
+                  mUiHandler.sendMessageDelayed(
+                      mUiHandler.obtainMessage(KEY_MESSAGE_UPDATE_FRAGMENTS), 50);
+                });
 
-        var wizardPagesAdapter = createPagesAdapter();
-        mWizardPager = findViewById(R.id.wizard_pages_pager);
-        mWizardPager.setUserInputEnabled(false);
-        mWizardPager.setAdapter(wizardPagesAdapter);
+    var wizardPagesAdapter = createPagesAdapter();
+    mWizardPager = findViewById(R.id.wizard_pages_pager);
+    mWizardPager.setUserInputEnabled(false);
+    mWizardPager.setAdapter(wizardPagesAdapter);
+  }
+
+  @NonNull @VisibleForTesting
+  protected FragmentStateAdapter createPagesAdapter() {
+    return new WizardPagesAdapter(
+        this,
+        !SetupSupport.hasLanguagePackForCurrentLocale(
+            AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns()));
+  }
+
+  @Override
+  protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    // applying my very own Edge-Effect color
+    EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    // checking to see which page should be shown on start
+    if (mReloadPager) {
+      refreshFragmentsUi();
+    } else {
+      scrollToPageRequiresSetup();
     }
 
-    @NonNull
-    @VisibleForTesting
-    protected FragmentStateAdapter createPagesAdapter() {
-        return new WizardPagesAdapter(
-                this,
-                !SetupSupport.hasLanguagePackForCurrentLocale(
-                        AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns()));
+    mReloadPager = false;
+  }
+
+  public void refreshFragmentsUi() {
+    mWizardPager.getAdapter().notifyDataSetChanged();
+    scrollToPageRequiresSetup();
+  }
+
+  private void scrollToPageRequiresSetup() {
+    if (mWizardPager.getAdapter() == null) return;
+
+    var adapter = (FragmentStateAdapter) mWizardPager.getAdapter();
+
+    int fragmentIndex = 0;
+    for (; fragmentIndex < adapter.getItemCount(); fragmentIndex++) {
+      WizardPageBaseFragment wizardPageBaseFragment =
+          (WizardPageBaseFragment) adapter.createFragment(fragmentIndex);
+      if (!wizardPageBaseFragment.isStepCompleted(this)) break;
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // applying my very own Edge-Effect color
-        EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
-    }
+    mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
+    mUiHandler.sendMessageDelayed(
+        mUiHandler.obtainMessage(KEY_MESSAGE_SCROLL_TO_PAGE, fragmentIndex, 0),
+        getResources().getInteger(android.R.integer.config_longAnimTime));
+  }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // checking to see which page should be shown on start
-        if (mReloadPager) {
-            refreshFragmentsUi();
-        } else {
-            scrollToPageRequiresSetup();
-        }
+  @Override
+  public void onStop() {
+    super.onStop();
+    // don't scroll if the UI is not visible
+    mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
+  }
 
-        mReloadPager = false;
-    }
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mSecureSettingsChangedDisposable.dispose();
+  }
 
-    public void refreshFragmentsUi() {
-        mWizardPager.getAdapter().notifyDataSetChanged();
-        scrollToPageRequiresSetup();
-    }
+  private static class WizardHandler extends Handler {
 
-    private void scrollToPageRequiresSetup() {
-        if (mWizardPager.getAdapter() == null) return;
+    private final WeakReference<SetupWizardActivity> mActivity;
 
-        var adapter = (FragmentStateAdapter) mWizardPager.getAdapter();
-
-        int fragmentIndex = 0;
-        for (; fragmentIndex < adapter.getItemCount(); fragmentIndex++) {
-            WizardPageBaseFragment wizardPageBaseFragment =
-                    (WizardPageBaseFragment) adapter.createFragment(fragmentIndex);
-            if (!wizardPageBaseFragment.isStepCompleted(this)) break;
-        }
-
-        mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
-        mUiHandler.sendMessageDelayed(
-                mUiHandler.obtainMessage(KEY_MESSAGE_SCROLL_TO_PAGE, fragmentIndex, 0),
-                getResources().getInteger(android.R.integer.config_longAnimTime));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        // don't scroll if the UI is not visible
-        mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mSecureSettingsChangedDisposable.dispose();
-    }
-
-    private static class WizardHandler extends Handler {
-
-        private final WeakReference<SetupWizardActivity> mActivity;
-
-        WizardHandler(@NonNull SetupWizardActivity activity) {
-            super(Looper.getMainLooper());
-            mActivity = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            final SetupWizardActivity activity = mActivity.get();
-            if (activity == null) return;
-
-            switch (msg.what) {
-                case KEY_MESSAGE_SCROLL_TO_PAGE:
-                    int pageToScrollTo = msg.arg1;
-                    activity.mWizardPager.setCurrentItem(pageToScrollTo, true);
-                    break;
-                case KEY_MESSAGE_UPDATE_FRAGMENTS:
-                    activity.refreshFragmentsUi();
-                    break;
-                default:
-                    super.handleMessage(msg);
-                    break;
-            }
-        }
+    WizardHandler(@NonNull SetupWizardActivity activity) {
+      super(Looper.getMainLooper());
+      mActivity = new WeakReference<>(activity);
     }
 
     @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionRequestHelper.onRequestPermissionsResult(
-                requestCode, permissions, grantResults, this);
+    public void handleMessage(Message msg) {
+      final SetupWizardActivity activity = mActivity.get();
+      if (activity == null) return;
+
+      switch (msg.what) {
+        case KEY_MESSAGE_SCROLL_TO_PAGE:
+          int pageToScrollTo = msg.arg1;
+          activity.mWizardPager.setCurrentItem(pageToScrollTo, true);
+          break;
+        case KEY_MESSAGE_UPDATE_FRAGMENTS:
+          activity.refreshFragmentsUi();
+          break;
+        default:
+          super.handleMessage(msg);
+          break;
+      }
     }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    PermissionRequestHelper.onRequestPermissionsResult(
+        requestCode, permissions, grantResults, this);
+  }
 }

@@ -46,6 +46,9 @@ android {
 
 //adding TESTING_BUILD
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             buildConfigField("boolean", "TESTING_BUILD", "false")
@@ -88,6 +91,7 @@ android {
         it.java.srcDirs += 'src/debug/java'
         it.res.srcDirs += 'src/debug/res'
     }
+    namespace 'com.menny.android.anysoftkeyboard'
 }
 
 dependencies {
@@ -110,29 +114,29 @@ dependencies {
     implementation project(':ime:chewbacca')
     implementation project(':ime:fileprovider')
 
-    implementation 'androidx.fragment:fragment:1.5.4'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.fragment:fragment:1.6.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.annotation:annotation:1.7.0'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.preference:preference:1.2.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'androidx.autofill:autofill:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
-    implementation 'androidx.navigation:navigation-fragment:2.5.3'
-    implementation 'androidx.navigation:navigation-ui:2.5.3'
-    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment:2.7.5'
+    implementation 'androidx.navigation:navigation-ui:2.7.5'
+    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.7.5'
 
     implementation 'androidx.multidex:multidex:2.0.1'
 
     testImplementation project(path: ':ime:base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
-    testImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation 'androidx.test.ext:junit:1.1.5'
 
     //allAddOns have all the add-ons packs as dependencies
     rootProject.findProject(":addons").subprojects.forEach {

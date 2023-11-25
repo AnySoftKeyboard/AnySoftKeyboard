@@ -12,19 +12,19 @@ import org.robolectric.shadows.ShadowPaint;
 @SuppressWarnings({"UnusedDeclaration"})
 @Implements(Paint.class)
 public class MyShadowPaint extends ShadowPaint {
-    private static final Set<String> msTextsWithoutGlyphs = new HashSet<>();
+  private static final Set<String> msTextsWithoutGlyphs = new HashSet<>();
 
-    @Implementation(minSdk = Build.VERSION_CODES.M)
-    public boolean hasGlyph(String text) {
-        return !msTextsWithoutGlyphs.contains(text);
-    }
+  @Implementation(minSdk = Build.VERSION_CODES.M)
+  public boolean hasGlyph(String text) {
+    return !msTextsWithoutGlyphs.contains(text);
+  }
 
-    public static void addStringWithoutGlyph(String string) {
-        msTextsWithoutGlyphs.add(string);
-    }
+  public static void addStringWithoutGlyph(String string) {
+    msTextsWithoutGlyphs.add(string);
+  }
 
-    @Resetter
-    public void clearGlyphs() {
-        msTextsWithoutGlyphs.clear();
-    }
+  @Resetter
+  public void clearGlyphs() {
+    msTextsWithoutGlyphs.clear();
+  }
 }

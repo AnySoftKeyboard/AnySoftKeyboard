@@ -7,3 +7,7 @@ dependencies {
 }
 
 group "com.anysoftkeyboard.theme.${parent.name}"
+
+android {
+    namespace group
+}

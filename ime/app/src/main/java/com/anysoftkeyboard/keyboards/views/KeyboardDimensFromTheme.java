@@ -20,76 +20,76 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 
 public class KeyboardDimensFromTheme implements KeyboardDimens {
 
-    private int mMaxKeyboardWidth;
-    private float mKeyHorizontalGap;
-    private float mRowVerticalGap;
-    private int mNormalKeyHeight;
-    private int mSmallKeyHeight;
-    private int mLargeKeyHeight;
-    private float mPaddingBottom;
+  private int mMaxKeyboardWidth;
+  private float mKeyHorizontalGap;
+  private float mRowVerticalGap;
+  private int mNormalKeyHeight;
+  private int mSmallKeyHeight;
+  private int mLargeKeyHeight;
+  private float mPaddingBottom;
 
-    KeyboardDimensFromTheme() {}
+  KeyboardDimensFromTheme() {}
 
-    @Override
-    public int getKeyboardMaxWidth() {
-        return mMaxKeyboardWidth;
-    }
+  @Override
+  public int getKeyboardMaxWidth() {
+    return mMaxKeyboardWidth;
+  }
 
-    @Override
-    public float getKeyHorizontalGap() {
-        return mKeyHorizontalGap;
-    }
+  @Override
+  public float getKeyHorizontalGap() {
+    return mKeyHorizontalGap;
+  }
 
-    @Override
-    public float getRowVerticalGap() {
-        return mRowVerticalGap;
-    }
+  @Override
+  public float getRowVerticalGap() {
+    return mRowVerticalGap;
+  }
 
-    @Override
-    public int getNormalKeyHeight() {
-        return mNormalKeyHeight;
-    }
+  @Override
+  public int getNormalKeyHeight() {
+    return mNormalKeyHeight;
+  }
 
-    @Override
-    public int getSmallKeyHeight() {
-        return mSmallKeyHeight;
-    }
+  @Override
+  public int getSmallKeyHeight() {
+    return mSmallKeyHeight;
+  }
 
-    @Override
-    public int getLargeKeyHeight() {
-        return mLargeKeyHeight;
-    }
+  @Override
+  public int getLargeKeyHeight() {
+    return mLargeKeyHeight;
+  }
 
-    @Override
-    public float getPaddingBottom() {
-        return mPaddingBottom;
-    }
+  @Override
+  public float getPaddingBottom() {
+    return mPaddingBottom;
+  }
 
-    void setKeyboardMaxWidth(int maxKeyboardWidth) {
-        mMaxKeyboardWidth = maxKeyboardWidth;
-    }
+  void setKeyboardMaxWidth(int maxKeyboardWidth) {
+    mMaxKeyboardWidth = maxKeyboardWidth;
+  }
 
-    void setHorizontalKeyGap(float themeHorizontalKeyGap) {
-        mKeyHorizontalGap = themeHorizontalKeyGap;
-    }
+  void setHorizontalKeyGap(float themeHorizontalKeyGap) {
+    mKeyHorizontalGap = themeHorizontalKeyGap;
+  }
 
-    void setVerticalRowGap(float themeVerticalRowGap) {
-        mRowVerticalGap = themeVerticalRowGap;
-    }
+  void setVerticalRowGap(float themeVerticalRowGap) {
+    mRowVerticalGap = themeVerticalRowGap;
+  }
 
-    void setNormalKeyHeight(float themeNormalKeyHeight) {
-        mNormalKeyHeight = (int) themeNormalKeyHeight;
-    }
+  void setNormalKeyHeight(float themeNormalKeyHeight) {
+    mNormalKeyHeight = (int) themeNormalKeyHeight;
+  }
 
-    void setLargeKeyHeight(float themeLargeKeyHeight) {
-        mLargeKeyHeight = (int) themeLargeKeyHeight;
-    }
+  void setLargeKeyHeight(float themeLargeKeyHeight) {
+    mLargeKeyHeight = (int) themeLargeKeyHeight;
+  }
 
-    void setSmallKeyHeight(float themeSmallKeyHeight) {
-        mSmallKeyHeight = (int) themeSmallKeyHeight;
-    }
+  void setSmallKeyHeight(float themeSmallKeyHeight) {
+    mSmallKeyHeight = (int) themeSmallKeyHeight;
+  }
 
-    void setPaddingBottom(float paddingBottom) {
-        mPaddingBottom = paddingBottom;
-    }
+  void setPaddingBottom(float paddingBottom) {
+    mPaddingBottom = paddingBottom;
+  }
 }

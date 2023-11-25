@@ -22,42 +22,40 @@ import android.os.Vibrator;
 
 @TargetApi(26)
 public class PressVibratorV26 extends PressVibratorV1 {
-    protected VibrationEffect mVibration;
-    protected VibrationEffect mLongPressVibration;
-    protected static final int AMPLITUDE = VibrationEffect.DEFAULT_AMPLITUDE;
+  protected VibrationEffect mVibration;
+  protected VibrationEffect mLongPressVibration;
+  protected static final int AMPLITUDE = VibrationEffect.DEFAULT_AMPLITUDE;
 
-    public PressVibratorV26(Vibrator vibe) {
-        super(vibe);
-    }
+  public PressVibratorV26(Vibrator vibe) {
+    super(vibe);
+  }
 
-    @Override
-    public void setDuration(int duration) {
-        this.mDuration = duration;
-        mVibration =
-                this.mDuration > 0
-                        ? VibrationEffect.createOneShot(this.mDuration, AMPLITUDE)
-                        : null;
-    }
+  @Override
+  public void setDuration(int duration) {
+    this.mDuration = duration;
+    mVibration =
+        this.mDuration > 0 ? VibrationEffect.createOneShot(this.mDuration, AMPLITUDE) : null;
+  }
 
-    @Override
-    public void setLongPressDuration(int duration) {
-        mLongPressDuration = duration;
-        mLongPressVibration =
-                mLongPressDuration > 0
-                        ? VibrationEffect.createOneShot(mLongPressDuration, AMPLITUDE)
-                        : null;
-    }
+  @Override
+  public void setLongPressDuration(int duration) {
+    mLongPressDuration = duration;
+    mLongPressVibration =
+        mLongPressDuration > 0
+            ? VibrationEffect.createOneShot(mLongPressDuration, AMPLITUDE)
+            : null;
+  }
 
-    @Override
-    public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
-        // not supported
-    }
+  @Override
+  public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
+    // not supported
+  }
 
-    @Override
-    public void vibrate(boolean longPress) {
-        VibrationEffect ve = longPress ? mLongPressVibration : mVibration;
-        if (ve != null && !checkSuppressed()) {
-            mVibe.vibrate(ve);
-        }
+  @Override
+  public void vibrate(boolean longPress) {
+    VibrationEffect ve = longPress ? mLongPressVibration : mVibration;
+    if (ve != null && !checkSuppressed()) {
+      mVibe.vibrate(ve);
     }
+  }
 }

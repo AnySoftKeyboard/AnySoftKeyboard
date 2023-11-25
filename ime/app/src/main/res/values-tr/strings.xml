@@ -24,10 +24,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Değişiklikler</string>
-    <string name="search_market_for_addons">Eklenti ara</string>
     <string name="search_market_for_keyboard_addons"><i>Google Play Store</i>\'dan daha fazla klavye indir…</string>
     <string name="search_market_for_quick_key_addons">Daha fazla <i>Hızlı-Yazma</i> eklentisi için <i>Google Play Store</i>…</string>
-    <string name="no_market_store_available"><i>Google Play Store</i> uygulaması cihazınızda bulunamadı.\nEklentilerde arama yapılamıyor!</string>
     <string name="keyboard_theme_tweak_group">ince ayar</string>
     <string name="close_button">Kapat</string>
     <string name="delete_button">Delete</string>
@@ -38,6 +36,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Kaydetmek için tekrar dokunun</string>
     <string name="hint_double_tap_to_close">Önerileri kaldırmak için tekrar</string>
+    <string name="hint_click_for_inline_suggestions">Kullanılabilir otomatik doldurma önerileri</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Ses dosyası yüklenmedi</string>
     <string name="voice_input_not_installed_text">Google Voice uygulaması cihazınızda yükü değil.\nBu durumu kolayca düzeltebilirsiniz: Hemen yüklemek için <i>Google Play Store</i></string>
@@ -56,6 +55,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="effects_group">Efektler</string>
     <string name="ime_settings">Klavye ayarları</string>
     <string name="switch_incognito">Gizli mod</string>
+    <string name="use_system_vibration_title">Sistem titreşimini kullan</string>
+    <string name="use_system_vibration_off_summary">Özel titreşim ayarının kullan</string>
+    <string name="use_system_vibration_on_summary">Android\'in sistem titreşim ayarını kullan</string>
     <string name="vibrate_on_key_press_title">Tuş temasında titreşim</string>
     <string name="vibrate_on_key_press_value_template">%d milisaniye</string>
     <string name="night_mode_screen">Gece Kipi ayarları</string>
@@ -189,6 +191,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="swipe_action_name_compact_layout_to_right">Sağa sıkıştırılmış yerleşim</string>
     <string name="swipe_action_name_compact_layout_to_left">Sola sıkıştırılmış yerleşim</string>
     <string name="swipe_action_name_utility_keyboard">Araçlar klavyesini göster</string>
+    <string name="swipe_action_name_quick_text_popup">Açılır emoji penceresini göster</string>
     <string name="settings_swipe_velocity_threshold_title">Kaydırma hızı eşik değeri</string>
     <string name="settings_swipe_velocity_threshold_summary">En düşük kaydırma hareketi hızı. Şu anda, %s</string>
     <string name="settings_swipe_velocity_very_slow">Çok yavaş</string>
@@ -336,6 +339,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="quick_fix_secon_disabled">…sadece ilk dilde</string>
     <string name="quick_fix_secon_disabled_summ_on">Hızlı düzeltmeler ve kısaltmalar yalnızca geçerli düzen dilinde çalışır</string>
     <string name="quick_fix_secon_disabled_summ_off">Kontrol edilmiş öntanımlı sözlükleri geçersiz kıl                  Hızlı düzeltmeler ve kısaltmalar her dilde çalışacak          </string>
+    <string name="try_split_words_for_correction_summary_on">Eksik BOŞLUĞU tahmin ederek yazılan kelimeyi ayır.</string>
     <string name="allow_suggestions_restart">Öneri sıfırlama</string>
     <string name="allow_suggestions_restart_summary">Imleç hareketinden sonra kelime önermeyi yeniden başlat</string>
     <!-- settings - keyboard group -->
@@ -411,6 +415,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="extension_kbd_bottom_minimal">En küçük</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">En küçük (duygu simgesi yok)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimal (daha az noktalama işareti)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimum (alternatif)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Git</string>
@@ -506,6 +511,12 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="emoji_default_skin_tone_value_type_5">Orta-Koyu Cilt Tonu</string>
     <string name="emoji_default_skin_tone_value_type_6">Koyu Cilt Tonu</string>
     <string name="emoji_default_skin_tone_value_random_type">Rastgele Cilt Tonu</string>
+    <string name="emoji_default_gender_title">Emojilerin varsayılan cinsiyeti</string>
+    <string name="emoji_default_gender_summary">Kullanılacak varsayılan cinsiyet: %s</string>
+    <string name="emoji_default_gender_value_person">Adam</string>
+    <string name="emoji_default_gender_value_woman">Kadın</string>
+    <string name="emoji_default_gender_value_man">Erkek</string>
+    <string name="emoji_default_gender_value_random_type">Rastgele</string>
     <string name="developer_tools">Geliştirici araçları</string>
     <string name="click_for_developer_features">Geliştirici araçları</string>
     <string name="click_for_developer_features_summary">AnySoftKeyboard geliştiricilerinden çeşitli araçlar</string>
@@ -563,6 +574,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="clipboard_paste_entries_title">Yapıştırılacak metin seçin</string>
     <string name="next_word_prefs_clear_data">Sonraki kelime verilerini temizle</string>
     <string name="next_word_prefs_clear_data_summary">Bu işlem geri alınamaz. Tüm yazma geçmişiniz silinecek.</string>
+    <string name="storage_permission_rationale">AnySoftKeyboard, yedeklemelerinizi depolamak için okuma ve yazma iznine ihtiyaç duyar.</string>
     <string name="notification_read_contacts_title">Kişilerinizi okuyabilir miyim?</string>
     <string name="notification_read_contacts_text">Size daha iyi otomatik tamamlama deneyimi sunmak için kişilerinizi okumamuz gerekmekte.</string>
     <string name="notification_read_contacts_ticker">Kişilere erişim izni gerekli</string>
@@ -602,6 +614,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="setup_wizard_welcome_start_action">Kurulumu başlat…</string>
     <string name="setup_wizard_welcome_info_footnote">* Tabii ki AnySoftKeyboard şeytani değildir. Bunu, kaynak kodumuza bakıp onaylamaya teşvik ediliyorsunuz. Ayrıca, <i>AĞ</i> iznimiz de bulunmamakta, yani cihazınızdan dışarıya hiçbir veri gönderemeyiz.</string>
     <string name="setup_wizard_welcome_privacy_action">Gizlilik politikası sayfasına gidin…</string>
+    <string name="setup_wizard_skip">Atla</string>
     <string name="clear_all_dictionary_override">Üstüne yazmaları temizle</string>
     <string name="theme_case_type_override_dialog_title">Büyük/harfi geçersiz kılmayı seç</string>
     <string name="theme_case_type_override_theme">Tema fontunu kullan</string>
@@ -638,6 +651,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="gesture_typing_alert_title">BETA Özelliği!</string>
     <string name="gesture_typing_alert_message">Gesture-typing ➿ özelliği <b>beta</b> aşamasındadır. Bazı hatalar mevcut olup, yeterince hızlı değil, ve tam olarak tamamlanmamıştır.\nBuna rağmen, denemeniz tavsiye edilir.</string>
     <string name="gesture_typing_alert_button">Git</string>
+    <string name="undo_gesture_typing">Sürükleyerek yazılanı geri al</string>
     <string name="apply_remote_app_colors_to_theme">Kullanılan uygulamaya göre tema renklerini değiştir</string>
     <string name="apply_overlay_summary_on">Klavye\'nin renkleri aktif uygulama ile uyumlu olacak (elimizden geldiği kadar).</string>
     <string name="apply_overlay_summary_off">Her zaman theme\'nın renklerini kullanın.</string>
@@ -650,4 +664,8 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="app_share_menu_title">AnySoftKeyboard kullanmayı paylaş</string>
     <string name="app_share_text">Açık-kaynak, mahremiyet-odaklı, özgür, fazlasıyla kişiselleştirilebilen, çok-dilli Android klavye uygulaması AnySoftKeyboard\'u tavsiye ediyorum.\nEdinebileceğiniz adresler:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&amp;hl=tr\nF-Droid: https://f-droid.org/tr/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Bir şaşırtma için bana tıklayın</string>
+    <string name="backup_restore_not_support_before_kitkat">Android cihazınızda desteklenmiyor</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Yedekleme ve geri yükleme, KitKat\'tan önceki (sürüm 4.4) Android işletim sistemini çalıştıran cihazlarda desteklenmiyor.  Üzgünüm.</string>
+    <string name="delete_all_clipboard_entries">Panoyu temizle</string>
+    <string name="tip_swipe_from_backspace_to_clear">İpucu: Boşluk tuşundan sola doğru kaydırarak kelimeyi silebilirsiniz!</string>
 </resources>

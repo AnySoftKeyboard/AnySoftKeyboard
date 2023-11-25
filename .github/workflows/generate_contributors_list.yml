@@ -1,5 +1,5 @@
 ---
-name: packs-lists
+name: contributors-lists
 
 on:
   push:
@@ -11,16 +11,25 @@ env:
   TMPDIR: "/tmp"
 
 jobs:
-  packs-md-update:
+  contributors-md-update:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.5.0
+      - uses: pnpm/action-setup@v2
         with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          version: 8.6.9
+          run_install: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: 'pnpm'
+      - run: pnpm build
       - name: update contributors list
-        run: ./scripts/generate_contributors_md.sh ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+        run: |
+          git config --global --add safe.directory "${PWD}"
+          node dist/contributors/index.js generate --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file CONTRIBUTORS.md
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v5.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Contributors List Update'
@@ -30,4 +39,4 @@ jobs:
           body: 'Generated from latest git scan.'
           team-reviewers: maintainers
           branch: 'bot-pr/contributors-list-update'
-          labels: automerge
+          delete-branch: true

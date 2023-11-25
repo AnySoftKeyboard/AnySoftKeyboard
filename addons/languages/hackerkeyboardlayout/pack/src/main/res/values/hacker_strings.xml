@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hacker_keyboard_description">A layout base on Hacker keyboard</string>
+    <string name="hacker_keyboard_compact_description">A layout base on the Compact Hacker keyboard</string>
+    <string name="hacker_keyboard_full_description">A layout base on the Full-Sized Hacker keyboard</string>
+</resources>

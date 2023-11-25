@@ -23,64 +23,64 @@ import android.view.ScaleGestureDetector;
 import androidx.annotation.NonNull;
 
 public class AskV8GestureDetector extends GestureDetector {
-    private static final int NOT_A_POINTER_ID = -1;
+  private static final int NOT_A_POINTER_ID = -1;
 
-    protected final ScaleGestureDetector mScaleGestureDetector;
-    private final AskOnGestureListener mListener;
+  protected final ScaleGestureDetector mScaleGestureDetector;
+  private final AskOnGestureListener mListener;
 
-    private int mSingleFingerEventPointerId = NOT_A_POINTER_ID;
+  private int mSingleFingerEventPointerId = NOT_A_POINTER_ID;
 
-    public AskV8GestureDetector(Context context, AskOnGestureListener listener) {
-        super(context, listener, null, true /*ignore multi-touch*/);
+  public AskV8GestureDetector(Context context, AskOnGestureListener listener) {
+    super(context, listener, null, true /*ignore multi-touch*/);
 
-        mListener = listener;
+    mListener = listener;
 
-        mScaleGestureDetector =
-                new ScaleGestureDetector(
-                        context,
-                        new ScaleGestureDetector.SimpleOnScaleGestureListener() {
-                            @Override
-                            public boolean onScale(ScaleGestureDetector detector) {
-                                final float factor = detector.getScaleFactor();
-                                if (factor > 1.1) return mListener.onSeparate(factor);
-                                else if (factor < 0.9) return mListener.onPinch(factor);
+    mScaleGestureDetector =
+        new ScaleGestureDetector(
+            context,
+            new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+              @Override
+              public boolean onScale(ScaleGestureDetector detector) {
+                final float factor = detector.getScaleFactor();
+                if (factor > 1.1) return mListener.onSeparate(factor);
+                else if (factor < 0.9) return mListener.onPinch(factor);
 
-                                return false;
-                            }
-                        });
-    }
+                return false;
+              }
+            });
+  }
 
-    @Override
-    public boolean onTouchEvent(@NonNull MotionEvent ev) {
-        int singleFingerEventPointerId = mSingleFingerEventPointerId;
+  @Override
+  public boolean onTouchEvent(@NonNull MotionEvent ev) {
+    int singleFingerEventPointerId = mSingleFingerEventPointerId;
 
-        // I want to keep track on the first finger
-        // (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
-        switch (ev.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                if (ev.getPointerCount() == 1) {
-                    mSingleFingerEventPointerId = ev.getPointerId(0);
-                    singleFingerEventPointerId = mSingleFingerEventPointerId;
-                }
-                break;
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_UP:
-                if (ev.getPointerCount() == 1) mSingleFingerEventPointerId = NOT_A_POINTER_ID;
-                break;
+    // I want to keep track on the first finger
+    // (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
+    switch (ev.getActionMasked()) {
+      case MotionEvent.ACTION_DOWN:
+        if (ev.getPointerCount() == 1) {
+          mSingleFingerEventPointerId = ev.getPointerId(0);
+          singleFingerEventPointerId = mSingleFingerEventPointerId;
         }
-        try {
-            // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/26
-            mScaleGestureDetector.onTouchEvent(ev);
-        } catch (IllegalArgumentException e) {
-            // I have nothing I can do here.
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // I have nothing I can do here.
-        }
-        // I'm going to pass the event to the super, only if it is a single touch, and the event is
-        // for the first finger
-        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300
-        if (ev.getPointerCount() == 1 && ev.getPointerId(0) == singleFingerEventPointerId)
-            return super.onTouchEvent(ev);
-        else return false;
+        break;
+      case MotionEvent.ACTION_CANCEL:
+      case MotionEvent.ACTION_UP:
+        if (ev.getPointerCount() == 1) mSingleFingerEventPointerId = NOT_A_POINTER_ID;
+        break;
     }
+    try {
+      // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/26
+      mScaleGestureDetector.onTouchEvent(ev);
+    } catch (IllegalArgumentException e) {
+      // I have nothing I can do here.
+    } catch (ArrayIndexOutOfBoundsException e) {
+      // I have nothing I can do here.
+    }
+    // I'm going to pass the event to the super, only if it is a single touch, and the event is
+    // for the first finger
+    // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300
+    if (ev.getPointerCount() == 1 && ev.getPointerId(0) == singleFingerEventPointerId)
+      return super.onTouchEvent(ev);
+    else return false;
+  }
 }

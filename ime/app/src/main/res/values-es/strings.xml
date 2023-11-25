@@ -21,10 +21,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registro de cambios</string>
-    <string name="search_market_for_addons">Búsqueda de complementos</string>
     <string name="search_market_for_keyboard_addons">Obtenga más teclados en la <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obtenga más complementos de <i>texto rápido</i> en la <i>Play Store</i>…</string>
-    <string name="no_market_store_available">No se pudo encontrar la Play Store en tu dispositivo.\n¡Incapaz de buscar complementos!</string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Cerrar</string>
     <string name="delete_button">Borrar</string>
@@ -34,6 +32,7 @@
     <string name="removed_word">Quitado: \u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Toca otra vez para guardar</string>
     <string name="hint_double_tap_to_close">Otra vez para quitar sugerencias</string>
+    <string name="hint_click_for_inline_suggestions">Sugerencias de autocompletar disponibles</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
     <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo.\nEso se puede corregir fácilmente: instálalo ahora desde la Play Store.</string>
@@ -333,6 +332,8 @@
     <string name="quick_fix_secon_disabled">…solo en el primer idioma</string>
     <string name="quick_fix_secon_disabled_summ_on">Las correcciones rápidas y abreviaturas solo funcionarán en el idioma de distribución actual.</string>
     <string name="quick_fix_secon_disabled_summ_off">Las correcciones rápidas y abreviaturas funcionarán en todos los idiomas marcados en el diccionario predeterminado.</string>
+    <string name="try_split_words_for_correction">Corregir dividiendo la palabra escrita</string>
+    <string name="try_split_words_for_correction_summary_on">Dividir palabra escrita adivinando el ESPACIO que falta.</string>
     <string name="allow_suggestions_restart">Reiniciar sugerencias</string>
     <string name="allow_suggestions_restart_summary">Al mover el cursor, reiniciar la sugerencia de la palabra</string>
     <!-- settings - keyboard group -->
@@ -605,6 +606,7 @@
     <string name="setup_wizard_welcome_start_action">Iniciar configuración…</string>
     <string name="setup_wizard_welcome_info_footnote">* Por supuesto, AnySoftKeyboard no es malvado. Te recomendamos que mires nuestro código fuente y lo verifiques. Además, no tenemos permisos de <i>RED</i>, por lo que no podemos enviar ningún dato desde el dispositivo.</string>
     <string name="setup_wizard_welcome_privacy_action">Ir a la política de privacidad…</string>
+    <string name="setup_wizard_skip">Omitir</string>
     <string name="clear_all_dictionary_override">Borrar reemplazados</string>
     <string name="theme_case_type_override_dialog_title">Elegir que escritura de letras reemplazar</string>
     <string name="theme_case_type_override_theme">Usar la letra del tema</string>
@@ -656,4 +658,6 @@
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
     <string name="backup_restore_not_support_before_kitkat">No es compatible con tu Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Respaldar y restaurar no son compatibles con dispositivos que tienen sistema operativo Android anterior a KitKat (versión 4.4). Lo siento.</string>
+    <string name="delete_all_clipboard_entries">Vaciar portapapeles</string>
+    <string name="tip_swipe_from_backspace_to_clear">Consejo: ¡puedes deslizar hacia la izquierda desde retroceso para borrar la palabra!</string>
 </resources>

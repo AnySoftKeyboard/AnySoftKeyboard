@@ -14,21 +14,21 @@ import org.robolectric.annotation.Config;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @Config(sdk = Build.VERSION_CODES.M)
 public class NextWordSettingsFragmentTest
-        extends RobolectricFragmentTestCase<NextWordSettingsFragment> {
-    @Override
-    protected int getStartFragmentNavigationId() {
-        return R.id.nextWordSettingsFragment;
-    }
+    extends RobolectricFragmentTestCase<NextWordSettingsFragment> {
+  @Override
+  protected int getStartFragmentNavigationId() {
+    return R.id.nextWordSettingsFragment;
+  }
 
-    @Test
-    public void testShowLanguageStats() {
-        final NextWordSettingsFragment nextWordSettingsFragment = startFragment();
+  @Test
+  public void testShowLanguageStats() {
+    final NextWordSettingsFragment nextWordSettingsFragment = startFragment();
 
-        com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
-        TestRxSchedulers.foregroundFlushAllJobs();
+    com.anysoftkeyboard.rx.TestRxSchedulers.backgroundFlushAllJobs();
+    TestRxSchedulers.foregroundFlushAllJobs();
 
-        final Preference enStats = nextWordSettingsFragment.findPreference("en_stats");
-        Assert.assertNotNull(enStats);
-        Assert.assertEquals("en - English", enStats.getTitle());
-    }
+    final Preference enStats = nextWordSettingsFragment.findPreference("en_stats");
+    Assert.assertNotNull(enStats);
+    Assert.assertEquals("en - English", enStats.getTitle());
+  }
 }

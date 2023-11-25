@@ -1,3 +1,4 @@
+
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" xmlns:ask="http://schemas.android.com/apk/res-auto" android:keyWidth="9.09%p" android:keyHeight="@integer/key_normal_height" ask:autoCap="false">
   <Row>
     <Key android:keyEdgeFlags="left" android:codes="ॉ" android:popupCharacters="ॲऄ" ask:shiftedCodes="ऑ"/>
@@ -19,10 +20,10 @@
     <Key android:codes="ी" ask:shiftedCodes="ई"/>
     <Key android:codes="ू" android:popupCharacters="ॗॷ" ask:shiftedCodes="ऊ"/>
     <Key android:codes="ब" android:popupCharacters="ॿ" ask:shiftedCodes="भ"/>
-    <Key android:codes="ङ" android:popupCharacters="ङ" ask:shiftedCodes="ङ"/>
-    <Key android:codes="घ" android:popupCharacters="ग़घ" ask:shiftedCodes="घ"/>
-    <Key android:codes="ध" android:popupCharacters="ध" ask:shiftedCodes="ध"/>
-    <Key android:codes="झ" android:popupCharacters="ज़ॹझ" ask:shiftedCodes="झ"/>
+    <Key android:codes="ह" android:popupCharacters="ङ" ask:shiftedCodes="ङ"/>
+    <Key android:codes="ग" android:popupCharacters="ग़घ" ask:shiftedCodes="घ"/>
+    <Key android:codes="द" android:popupCharacters="ध" ask:shiftedCodes="ध"/>
+    <Key android:codes="ज" android:popupCharacters="ज़ॹझ" ask:shiftedCodes="झ"/>
     <Key android:keyEdgeFlags="right" android:codes="ड" android:popupCharacters="ड़ढ़ॾऽ" ask:shiftedCodes="ढ"/>
   </Row>
   <Row>
@@ -44,8 +45,8 @@
     <Key android:codes="ं" ask:shiftedCodes="ॐ"/>
     <Key android:codes="म" android:popupCharacters="ऀॕ" ask:shiftedCodes="ँ"/>
     <Key android:codes="न" android:popupCharacters="ऩॻ" ask:shiftedCodes="ण"/>
-    <Key android:codes="ञ" android:popupCharacters="ॢञॣ" ask:shiftedCodes="ञ"/>
-    <Key android:codes="ळ" android:popupCharacters="ऴॡळऌ" ask:shiftedCodes="ळ"/>
+    <Key android:codes="व" android:popupCharacters="ॢञॣ" ask:shiftedCodes="ञ"/>
+    <Key android:codes="ल" android:popupCharacters="ऴॡळऌ" ask:shiftedCodes="ळ"/>
     <Key android:codes="स" ask:shiftedCodes="श"/>
     <Key android:codes="ष" android:popupCharacters="‌‍" ask:shiftedCodes="ष"/>
     <Key android:codes="य" android:popupCharacters="य़" ask:shiftedCodes="य"/>

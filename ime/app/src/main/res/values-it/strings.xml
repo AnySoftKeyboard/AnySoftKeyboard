@@ -21,10 +21,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registro modifiche</string>
-    <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
     <string name="search_market_for_keyboard_addons">Ottieni più tastiere nell\'App Store</string>
     <string name="search_market_for_quick_key_addons">Ottieni ulteriori componenti <i>Testo Rapido</i> aggiuntivi dall\'App Store…</string>
-    <string name="no_market_store_available">Impossibile trovare un App Store sul tuo dispositivo.\nImpossibile cercare componenti aggiuntivi!</string>
     <string name="keyboard_theme_tweak_group">Aggiustamenti</string>
     <string name="close_button">Chiudi</string>
     <string name="delete_button">Elimina</string>
@@ -114,8 +112,8 @@
     <string name="one_shot_quick_text_popup">Chiusura automatica dopo pressione di tasti</string>
     <string name="one_shot_quick_text_popup_on_summary">Chiudi pop-up Testo Rapido dopo aver premuto un tasto.</string>
     <string name="one_shot_quick_text_popup_off_summary">Tieni aperto pop-up Testo Rapido finché non viene premuto il tasto Chiudi.</string>
-    <string name="quick_text_tags_search">Suggerisci emoticon digitando tag</string>
-    <string name="quick_text_tags_search_on_summary">Cerca emoticon per tag quando la digitazione inizia con due punti (:)</string>
+    <string name="quick_text_tags_search">Suggerisci emoji digitando tag</string>
+    <string name="quick_text_tags_search_on_summary">Cerca emoji per tag quando la digitazione inizia con due punti (:)</string>
     <string name="hide_soft_when_physical">Nascondi tastiera su tasti fisici</string>
     <string name="hide_soft_when_physical_on_summary">Nascondi tastiera virtuale quando viene utilizzata la tastiera fisica</string>
     <string name="hide_soft_when_physical_off_summary">Mostra tastiera virtuale quando viene utilizzata la tastiera fisica</string>
@@ -188,7 +186,7 @@
     <string name="swipe_action_name_compact_layout_to_right">Compatta disposizione a destra</string>
     <string name="swipe_action_name_compact_layout_to_left">Compatta disposizione a sinistra</string>
     <string name="swipe_action_name_utility_keyboard">Mostra tastiera utility</string>
-    <string name="swipe_action_name_quick_text_popup">Mostra popup emoji</string>
+    <string name="swipe_action_name_quick_text_popup">Mostra pop-up emoji</string>
     <string name="settings_swipe_velocity_threshold_title">Soglia velocità di scorrimento</string>
     <string name="settings_swipe_velocity_threshold_summary">La velocità minima del gesto di scorrimento. Al momento, %s</string>
     <string name="settings_swipe_velocity_very_slow">Molto lenta</string>
@@ -335,6 +333,8 @@
     <string name="quick_fix_secon_disabled">…solo sulla prima lingua</string>
     <string name="quick_fix_secon_disabled_summ_on">Correzioni rapide ed abbreviazioni funzioneranno solo nella lingua della disposizione corrente</string>
     <string name="quick_fix_secon_disabled_summ_off">Correzioni rapide ed abbreviazioni funzioneranno su ogni lingua selezionata nella sovrascrizione dizionario predefinito</string>
+    <string name="try_split_words_for_correction">Correggi dividendo la parola digitata</string>
+    <string name="try_split_words_for_correction_summary_on">Dividere la parola digitata indovinando lo SPAZIO mancante.</string>
     <string name="allow_suggestions_restart">Riavvio suggerimenti</string>
     <string name="allow_suggestions_restart_summary">Riavvia il suggerimento delle parole al movimento del cursore</string>
     <!-- settings - keyboard group -->
@@ -408,7 +408,7 @@
     <string name="extension_kbd_bottom_ng_no_apo">Nuova generazione (senza apostrofi) - Test</string>
     <string name="extension_kbd_extension_numbers_symbols">Numeri e simboli</string>
     <string name="extension_kbd_bottom_minimal">Minimale</string>
-    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (niente emoticon)</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimale (nessuna emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimale (meno punteggiatura)</string>
     <string name="extension_kbd_bottom_minimal_alt">Minimale (alternativo)</string>
     <!-- Tutorials -->
@@ -426,12 +426,12 @@
     <string name="change_symbols_regular">123</string>
     <string name="select_keyboard_popup_title">Seleziona tastiera</string>
     <!-- dictionaries -->
-    <string name="simley_key_name">Tasto faccine</string>
-    <string name="short_smiley_key_name">Tasto faccine più corto</string>
-    <string name="quick_text_kaomoji">Kaomoticon</string>
+    <string name="simley_key_name">Faccine testuali</string>
+    <string name="short_smiley_key_name">Faccine testuali brevi</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Cronologia</string>
     <string name="default_quick_text_key_name">Emoticon semplici</string>
-    <string name="unicode_quick_text_key_name">Emoticon</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
     <string name="unicode_people_quick_text_key_name">Persone</string>
     <string name="unicode_gestures_quick_text_key_name">Gesti</string>
     <string name="unicode_accessories_quick_text_key_name">Accessori</string>
@@ -497,7 +497,7 @@
     <string name="initial_quick_text_tab_always_first_tab">Inizia sempre con il primo</string>
     <string name="initial_quick_text_tab_last_used_tab">Inizia con l\'ultimo gruppo usato</string>
     <string name="initial_quick_text_tab_history_tab">Inizia con il gruppo Cronologia</string>
-    <string name="emoji_default_skin_tone_title">Tonalità pelle emoticon predefinita</string>
+    <string name="emoji_default_skin_tone_title">Tonalità pelle emoji predefinita</string>
     <string name="emoji_default_skin_tone_summary">Tonalità pelle Fitzpatrick predefinita da usare: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Generica</string>
     <string name="emoji_default_skin_tone_value_type_2">Tonalità chiara</string>
@@ -506,7 +506,7 @@
     <string name="emoji_default_skin_tone_value_type_5">Tonalità medio-scura</string>
     <string name="emoji_default_skin_tone_value_type_6">Tonalità scura</string>
     <string name="emoji_default_skin_tone_value_random_type">Tonalità casuale</string>
-    <string name="emoji_default_gender_title">Sesso predefinito emoji</string>
+    <string name="emoji_default_gender_title">Sesso emoji predefinito</string>
     <string name="emoji_default_gender_summary">Sesso predefinito da usare: %s</string>
     <string name="emoji_default_gender_value_person">Persona</string>
     <string name="emoji_default_gender_value_woman">Donna</string>
@@ -588,9 +588,9 @@
     <string name="app_shortcut_gestures_disabled">Navigazione gesti disattivata</string>
     <string name="app_shortcut_gestures_long_label">Imposta gesti tastiera</string>
     <string name="app_shortcut_gestures_short_label">Gesti</string>
-    <string name="app_shortcut_quick_keys_disabled">Navigazione configurazione emoticon disattivata</string>
-    <string name="app_shortcut_quick_keys_long_label">Imposta emoticon</string>
-    <string name="app_shortcut_quick_keys_short_label">Imposta emoticon</string>
+    <string name="app_shortcut_quick_keys_disabled">Navigazione configurazione emoji disattivata</string>
+    <string name="app_shortcut_quick_keys_long_label">Impostazioni emoji</string>
+    <string name="app_shortcut_quick_keys_short_label">Impostazioni emoji</string>
     <string name="extension_keyboard_enabled_off_summary">Tastiera Extension disabilitata.</string>
     <string name="extension_keyboard_enabled_on_summary">La tastiera Extension verrà mostrata quando si scorrerà al di sopra della tastiera.</string>
     <string name="read_our_privacy_policy">Leggi la nostra Informativa sulla Riservatezza…</string>
@@ -607,6 +607,7 @@
     <string name="setup_wizard_welcome_start_action">Avvia messa a punto…</string>
     <string name="setup_wizard_welcome_info_footnote">*Naturalmente, AnySoftKeyboard non è malevola. Sei incoraggiato a guardare il nostro codice sorgente e verificarlo. Inoltre, non abbiamo le autorizzazioni di <i>RETE</i>, così non possiamo inviare alcun dato fuori dal dispositivo.</string>
     <string name="setup_wizard_welcome_privacy_action">Vai alla Informativa sulla Riservatezza…</string>
+    <string name="setup_wizard_skip">Salta</string>
     <string name="clear_all_dictionary_override">Cancella sostituzioni</string>
     <string name="theme_case_type_override_dialog_title">Scegli sostituzione del formato caratteri</string>
     <string name="theme_case_type_override_theme">Usa formato del tema</string>
@@ -658,4 +659,6 @@
     <string name="click_me_for_easter_egg_info">cliccami per una sorpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Non supportato sul tuo Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">Backup e ripristino non sono supportati per dispositivi con Android precedente a KitKat (versione 4.4).</string>
+    <string name="delete_all_clipboard_entries">Svuota appunti</string>
+    <string name="tip_swipe_from_backspace_to_clear">Suggerimento: puoi swipe-left dal backspace per cancellare la parola!</string>
 </resources>

@@ -27,10 +27,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Alterações</string>
-    <string name="search_market_for_addons">Procurar extras</string>
     <string name="search_market_for_keyboard_addons">Obter mais teclados na <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Obter mais <i>textos rápidos</i> e extras na <i>Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* A Google Play Store não foi encontrada no seu dispositivo. Não é possível procurar extras!</b></string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Fechar</string>
     <string name="delete_button">Eliminar</string>
@@ -43,6 +41,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Toque novamente para gravar</string>
     <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
+    <string name="hint_click_for_inline_suggestions">Sugestões de preenchimento automático disponíveis</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Reconhecimento de voz não instalado</string>
     <string name="voice_input_not_installed_text">Tem que instalar a entrada por voz da Google antes de poder utilizar esta função.</string>
@@ -680,6 +679,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
         </i>, por isso não é enviada nenhuma informação do seu dispositivo.
     </string>
     <string name="setup_wizard_welcome_privacy_action">Leia a Política de privacidade…</string>
+    <string name="setup_wizard_skip">Ignorar</string>
     <string name="clear_all_dictionary_override">Limpar substituições</string>
     <string name="theme_case_type_override_dialog_title">Selecionar substituição para letra maiúscula</string>
     <string name="theme_case_type_override_theme">Usar formato de maiúsculas do tema</string>
@@ -716,6 +716,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="gesture_typing_alert_title">Funcionalidade EXPERIMENTAL!</string>
     <string name="gesture_typing_alert_message">O recurso "escrita por gestos" ➿ está na fse <b>beta</b>. Tem alguns erros, não é muito rápido e não é tão completo.\nApesar disso, pode experimentar.</string>
     <string name="gesture_typing_alert_button">Entendi</string>
+    <string name="undo_gesture_typing">Desfazer escrita com gesto</string>
     <string name="apply_remote_app_colors_to_theme">Alterar as cores do tema com base na aplicação usada</string>
     <string name="apply_overlay_summary_on">As cores do teclado serão combinadas com a aplicação ativa (na medida do possível).</string>
     <string name="apply_overlay_summary_off">Usar sempre as cores do tema.</string>
@@ -730,4 +731,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Não suportado na sua versão do Android</string>
     <string name="backup_restore_not_support_before_kitkat_message">A cópia de segurança e restauração não são suportados em dispositivos  com o Android anterior ao KitKat (versão 4.4). Pedimos desculpa.</string>
+    <string name="delete_all_clipboard_entries">Limpar área de transferência</string>
+    <string name="tip_swipe_from_backspace_to_clear">Dica: pode-se deslizar com o dedo para a esquerda a partir do botão de apagar para limpar a palavra!</string>
 </resources>

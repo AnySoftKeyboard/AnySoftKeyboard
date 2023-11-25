@@ -13,38 +13,36 @@ import org.junit.runner.RunWith;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ScrollViewWithDisableTest {
 
-    private ScrollViewWithDisable mUnderTest;
+  private ScrollViewWithDisable mUnderTest;
 
-    @Before
-    public void setup() {
-        mUnderTest = new ScrollViewWithDisable(getApplicationContext());
-        mUnderTest.addView(new View(getApplicationContext()));
-    }
+  @Before
+  public void setup() {
+    mUnderTest = new ScrollViewWithDisable(getApplicationContext());
+    mUnderTest.addView(new View(getApplicationContext()));
+  }
 
-    @Test
-    public void testOnTouchEventEnabled() throws Exception {
-        mUnderTest.setEnabled(true);
+  @Test
+  public void testOnTouchEventEnabled() throws Exception {
+    mUnderTest.setEnabled(true);
 
-        Assert.assertTrue(
-                mUnderTest.onTouchEvent(
-                        MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
-    }
+    Assert.assertTrue(
+        mUnderTest.onTouchEvent(MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
+  }
 
-    @Test
-    public void testOnTouchEventDisabled() throws Exception {
-        mUnderTest.setEnabled(false);
+  @Test
+  public void testOnTouchEventDisabled() throws Exception {
+    mUnderTest.setEnabled(false);
 
-        Assert.assertFalse(
-                mUnderTest.onTouchEvent(
-                        MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
-    }
+    Assert.assertFalse(
+        mUnderTest.onTouchEvent(MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
+  }
 
-    @Test
-    public void onInterceptTouchEventDisabled() throws Exception {
-        mUnderTest.setEnabled(false);
+  @Test
+  public void onInterceptTouchEventDisabled() throws Exception {
+    mUnderTest.setEnabled(false);
 
-        Assert.assertFalse(
-                mUnderTest.onInterceptTouchEvent(
-                        MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
-    }
+    Assert.assertFalse(
+        mUnderTest.onInterceptTouchEvent(
+            MotionEvent.obtain(10, 10, MotionEvent.ACTION_DOWN, 1f, 1f, 0)));
+  }
 }

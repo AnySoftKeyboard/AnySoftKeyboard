@@ -1,0 +1,22 @@
+---
+name: "auto-approval"
+description: "Automatically approves PRs by admin users"
+author: "menny"
+
+inputs:
+  token:
+    description: "GitHub Token"
+    required: true
+  allowed_users:
+    description: "Which users can be auto-approved. Comma separated list."
+    required: true
+  review_as:
+    description: "Approver login."
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+
+branding:
+  icon: 'git-pull-request'
+  color: green

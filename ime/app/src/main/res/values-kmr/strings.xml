@@ -25,10 +25,8 @@
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Guhertina Bıgêra</string>
-    <string name="search_market_for_addons">Lê pêvekê bigere</string>
     <string name="search_market_for_keyboard_addons">Zêdetir klavyeyan li app store bistîne</string>
     <string name="search_market_for_quick_key_addons">Zêdetir bibin<i>Quick-Text</i> Ji bilî li sêr app store dikana bisti na…</string>
-    <string name="no_market_store_available">Nikare di cîhaza xwe de app store bibîne.\nNikare pêvekê bigere!</string>
     <string name="keyboard_theme_tweak_group">Rastbune</string>
     <string name="close_button">Girtin</string>
     <string name="delete_button">Jêbirin</string>
@@ -40,6 +38,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Ji bo hilanînê dîsa dest lê bidin</string>
     <string name="hint_double_tap_to_close">Dîsa ji bo rakirina pêşniyaran</string>
+    <string name="hint_click_for_inline_suggestions">Pêşniyarên xweber-dagirtina berdest</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Deng nikane barkirin</string>
     <string name="voice_input_not_installed_text">Deng Dikati nikane barkirin ser cîhaza.\nEw dikane sivik bi rastbe: ji ber firotanê hilbijêre ser app store.</string>
@@ -386,6 +385,8 @@
     <string name="quick_fix_secon_disabled_summ_on">Rastkirin û kurtkirinên bilez dê tenê li ser zimanê rêza heyî bixebitin</string>
     <string name="quick_fix_secon_disabled_summ_off">Kurte ziman û rastkirinên bilez dê li ser her zimanî bixebitin 
                   di ferhenga pêşdarazî ya nederbasbar de hatiye kontrolkirin</string>
+    <string name="try_split_words_for_correction">Bi dabeşkirina peyva tîpkirî rast bike</string>
+    <string name="try_split_words_for_correction_summary_on">Bi texmînkirina CIHÊ wenda peyvan perçe bike.</string>
     <string name="allow_suggestions_restart">Pêşniyar ji nû ve dest pê dikin</string>
     <string name="allow_suggestions_restart_summary">Pêşniyara peyvan a li ser tevgera nîşanek ji nû ve dest pê bike
     </string>
@@ -471,6 +472,7 @@
     <string name="extension_kbd_bottom_minimal">Kêmtirîn</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Kêmtirîn (emojî tune)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Kêmtirîn (kêm xalbendî)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Kêmtirîn (alternatîf)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Çûyin</string>
@@ -732,6 +734,7 @@
         </i>, ji ber vê yekê em nikarin daneyên ji cîhazê bişînin.
     </string>
     <string name="setup_wizard_welcome_privacy_action">Biçe Polîtîkaya Nepenîtiyê…</string>
+    <string name="setup_wizard_skip">Hilperkîn</string>
     <string name="clear_all_dictionary_override">Nederbasbar paqij bikin</string>
     <string name="theme_case_type_override_dialog_title">Hilbijartina name-doz hilbijêrin</string>
     <string name="theme_case_type_override_theme">Rûbara tema bi kar bîne</string>
@@ -768,6 +771,7 @@
     <string name="gesture_typing_alert_title">Taybetmendiya BETA!</string>
     <string name="gesture_typing_alert_message">Taybetmendiya nivîsandina-tevgerê ➿ taybetmendî <b>beta</b> ye. Hin çewtiyên hene, ew ne ew zû ye, û ew ne ew e ku temam e.\nHealthing, divê hûn biceribînin.</string>
     <string name="gesture_typing_alert_button">Min ew girt</string>
+    <string name="undo_gesture_typing">Tîpkirina tevgerê betal bike</string>
     <string name="apply_remote_app_colors_to_theme">Rengên dirbê li gor sepanên hatine bikaranîn biguherîne</string>
     <string name="apply_overlay_summary_on">Rengên Klavyeyê dê li gorî vê sepanê çalak bin (ji bo me ya herî baş).</string>
     <string name="apply_overlay_summary_off">Rengên dirbê her dem bi kar bîne.</string>
@@ -780,4 +784,8 @@
     <string name="app_share_menu_title">Bikaranîna AnySoftKeyboard parve bike</string>
     <string name="app_share_text">Bila ez pêşniyara çavkaniya vekirî, nepenî-fokus, belaş, pir taybetmendî, pir zimanî Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">ji bo surprîzekê bitikîne</string>
+    <string name="backup_restore_not_support_before_kitkat">Li ser Android-ya we nayê piştgirî kirin</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Ji bo cîhazên ku berê KitKat-ê (guhertoya 4.4) OS-ya Android-ê dixebitînin, paşvekêşandin û vegerandin nayê piştgirî kirin. Bibore.</string>
+    <string name="delete_all_clipboard_entries">Valakirin</string>
+    <string name="tip_swipe_from_backspace_to_clear">Serişte: hûn dikarin ji paşperdeya çepê swip bikin da ku peyvê paqij bikin!</string>
 </resources>

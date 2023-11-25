@@ -22,52 +22,50 @@ import android.os.Vibrator;
 
 @TargetApi(29)
 public class PressVibratorV29 extends PressVibratorV26 {
-    private boolean mSystemVibe;
-    private boolean mSystemHapticEnabled;
-    private static final int PRESS_PREDEFINED = VibrationEffect.EFFECT_CLICK;
-    private static final int LONG_PRESS_PREDEFINED = VibrationEffect.EFFECT_HEAVY_CLICK;
+  private boolean mSystemVibe;
+  private boolean mSystemHapticEnabled;
+  private static final int PRESS_PREDEFINED = VibrationEffect.EFFECT_CLICK;
+  private static final int LONG_PRESS_PREDEFINED = VibrationEffect.EFFECT_HEAVY_CLICK;
 
-    public PressVibratorV29(Vibrator vibe) {
-        super(vibe);
+  public PressVibratorV29(Vibrator vibe) {
+    super(vibe);
+  }
+
+  @Override
+  public void setDuration(int duration) {
+    this.mDuration = duration;
+    if (!mSystemVibe)
+      mVibration =
+          this.mDuration > 0 ? VibrationEffect.createOneShot(this.mDuration, AMPLITUDE) : null;
+  }
+
+  @Override
+  public void setLongPressDuration(int duration) {
+    mLongPressDuration = duration;
+    if (!mSystemVibe)
+      mLongPressVibration =
+          mLongPressDuration > 0
+              ? VibrationEffect.createOneShot(mLongPressDuration, AMPLITUDE)
+              : null;
+  }
+
+  @Override
+  public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
+    mSystemVibe = system;
+    mSystemHapticEnabled = systemWideHapticEnabled;
+    if (system) {
+      mVibration = VibrationEffect.createPredefined(PRESS_PREDEFINED);
+      mLongPressVibration = VibrationEffect.createPredefined(LONG_PRESS_PREDEFINED);
+    } else {
+      setDuration(mDuration);
+      setLongPressDuration(mLongPressDuration);
     }
+  }
 
-    @Override
-    public void setDuration(int duration) {
-        this.mDuration = duration;
-        if (!mSystemVibe)
-            mVibration =
-                    this.mDuration > 0
-                            ? VibrationEffect.createOneShot(this.mDuration, AMPLITUDE)
-                            : null;
-    }
+  @Override
+  public void vibrate(boolean longPress) {
+    if (mSystemVibe && !mSystemHapticEnabled) return;
 
-    @Override
-    public void setLongPressDuration(int duration) {
-        mLongPressDuration = duration;
-        if (!mSystemVibe)
-            mLongPressVibration =
-                    mLongPressDuration > 0
-                            ? VibrationEffect.createOneShot(mLongPressDuration, AMPLITUDE)
-                            : null;
-    }
-
-    @Override
-    public void setUseSystemVibration(boolean system, boolean systemWideHapticEnabled) {
-        mSystemVibe = system;
-        mSystemHapticEnabled = systemWideHapticEnabled;
-        if (system) {
-            mVibration = VibrationEffect.createPredefined(PRESS_PREDEFINED);
-            mLongPressVibration = VibrationEffect.createPredefined(LONG_PRESS_PREDEFINED);
-        } else {
-            setDuration(mDuration);
-            setLongPressDuration(mLongPressDuration);
-        }
-    }
-
-    @Override
-    public void vibrate(boolean longPress) {
-        if (mSystemVibe && !mSystemHapticEnabled) return;
-
-        super.vibrate(longPress);
-    }
+    super.vibrate(longPress);
+  }
 }

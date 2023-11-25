@@ -1,0 +1,28 @@
+
+apply plugin: 'com.diffplug.spotless'
+
+spotless {
+    format 'misc', {
+        // define the files to apply `misc` to
+        target '*.gradle', '*.md', '.gitignore'
+
+        // define the steps to apply to those files
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    java {
+        target 'src/*/java/**/*.java'
+        importOrder('java|javax', 'android|androidx', 'com.anysoftkeyboard', 'com.menny', '', '\\#com.anysoftkeyboard', '\\#')
+        removeUnusedImports()
+
+        // apply a specific flavor of google-java-format
+        googleJavaFormat('1.17.0').reflowLongStrings()
+        // fix formatting of type annotations
+        formatAnnotations()
+    }
+    yaml {
+        target '**/*.yaml', '**/*.yml'
+        jackson()
+    }
+}

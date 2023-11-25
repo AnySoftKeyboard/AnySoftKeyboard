@@ -28,40 +28,38 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class MainTweaksFragment extends PreferenceFragmentCompat {
 
-    @VisibleForTesting static final String DEV_TOOLS_KEY = "dev_tools";
+  @VisibleForTesting static final String DEV_TOOLS_KEY = "dev_tools";
 
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_main_tweaks);
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    addPreferencesFromResource(R.xml.prefs_main_tweaks);
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    Preference preference = findPreference(DEV_TOOLS_KEY);
+    if (preference == null) {
+      throw new NullPointerException(
+          "Preference with key '"
+              + DEV_TOOLS_KEY
+              + "' was not found in resource "
+              + R.xml.prefs_main_tweaks);
+    } else {
+      preference.setOnPreferenceClickListener(this::onDevToolsPreferenceClicked);
     }
+  }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+  @Override
+  public void onStart() {
+    super.onStart();
+    MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
+  }
 
-        Preference preference = findPreference(DEV_TOOLS_KEY);
-        if (preference == null) {
-            throw new NullPointerException(
-                    "Preference with key '"
-                            + DEV_TOOLS_KEY
-                            + "' was not found in resource "
-                            + R.xml.prefs_main_tweaks);
-        } else {
-            preference.setOnPreferenceClickListener(this::onDevToolsPreferenceClicked);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
-    }
-
-    private boolean onDevToolsPreferenceClicked(Preference p) {
-        Navigation.findNavController(requireView())
-                .navigate(
-                        MainTweaksFragmentDirections
-                                .actionMainTweaksFragmentToDeveloperToolsFragment());
-        return true;
-    }
+  private boolean onDevToolsPreferenceClicked(Preference p) {
+    Navigation.findNavController(requireView())
+        .navigate(MainTweaksFragmentDirections.actionMainTweaksFragmentToDeveloperToolsFragment());
+    return true;
+  }
 }
