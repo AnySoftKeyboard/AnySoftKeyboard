@@ -4,3 +4,5 @@ ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
 
 apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"
+
+tasks.named('spotlessYaml').get().dependsOn('makeDictionary')
