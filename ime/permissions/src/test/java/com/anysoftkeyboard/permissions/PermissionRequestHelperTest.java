@@ -25,14 +25,6 @@ public class PermissionRequestHelperTest {
         PermissionRequestHelper.getRationale(
             PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE));
     Assert.assertEquals(
-        R.string.storage_permission_rationale,
-        PermissionRequestHelper.getRationale(
-            PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE));
-    Assert.assertEquals(
-        R.string.storage_permission_rationale,
-        PermissionRequestHelper.getRationale(
-            PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE));
-    Assert.assertEquals(
         R.string.notifications_permissions_rationale,
         PermissionRequestHelper.getRationale(
             PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE));
@@ -65,22 +57,6 @@ public class PermissionRequestHelperTest {
   }
 
   @Test
-  public void testGetPermissionsStringsStorageNewDevice() {
-    Assert.assertArrayEquals(
-        new String[] {
-          Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
-        },
-        PermissionRequestHelper.getPermissionsStrings(
-            PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE));
-    Assert.assertArrayEquals(
-        new String[] {
-          Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
-        },
-        PermissionRequestHelper.getPermissionsStrings(
-            PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE));
-  }
-
-  @Test
   @Config(sdk = Build.VERSION_CODES.KITKAT)
   public void testCheckAlreadyHasPermissionsBeforeM() {
     try (var scenario = ActivityScenario.launch(TestFragmentActivity.class)) {
@@ -89,12 +65,6 @@ public class PermissionRequestHelperTest {
             Assert.assertTrue(
                 PermissionRequestHelper.check(
                     activity, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE));
-            Assert.assertTrue(
-                PermissionRequestHelper.check(
-                    activity, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE));
-            Assert.assertTrue(
-                PermissionRequestHelper.check(
-                    activity, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE));
             Assert.assertTrue(
                 PermissionRequestHelper.check(
                     activity, PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE));
@@ -107,22 +77,13 @@ public class PermissionRequestHelperTest {
   public void testCheckAlreadyHasPermissionsWithM() {
     var appShadow = Shadows.shadowOf(RuntimeEnvironment.getApplication());
     appShadow.grantPermissions(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.POST_NOTIFICATIONS,
-        Manifest.permission.READ_CONTACTS);
+        Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.READ_CONTACTS);
     try (var scenario = ActivityScenario.launch(TestFragmentActivity.class)) {
       scenario.onActivity(
           activity -> {
             Assert.assertTrue(
                 PermissionRequestHelper.check(
                     activity, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE));
-            Assert.assertTrue(
-                PermissionRequestHelper.check(
-                    activity, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE));
-            Assert.assertTrue(
-                PermissionRequestHelper.check(
-                    activity, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE));
             Assert.assertTrue(
                 PermissionRequestHelper.check(
                     activity, PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE));

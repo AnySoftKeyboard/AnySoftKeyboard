@@ -144,10 +144,10 @@ public class MainFragment extends Fragment {
             .navigate(MainFragmentDirections.actionMainFragmentToMainTweaksFragment());
         return true;
       case R.id.backup_prefs:
-        onBackupRequested();
+        mDialogController.showDialog(R.id.backup_prefs);
         return true;
       case R.id.restore_prefs:
-        onRestoreRequested();
+        mDialogController.showDialog(R.id.restore_prefs);
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -469,22 +469,6 @@ public class MainFragment extends Fragment {
   public void onDestroy() {
     mDisposable.dispose();
     super.onDestroy();
-  }
-
-  @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)
-  public void onRestoreRequested() {
-    if (PermissionRequestHelper.check(
-        this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
-      mDialogController.showDialog(R.id.restore_prefs);
-    }
-  }
-
-  @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)
-  public void onBackupRequested() {
-    if (PermissionRequestHelper.check(
-        this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
-      mDialogController.showDialog(R.id.backup_prefs);
-    }
   }
 
   @SuppressWarnings("deprecation") // required for permissions flow

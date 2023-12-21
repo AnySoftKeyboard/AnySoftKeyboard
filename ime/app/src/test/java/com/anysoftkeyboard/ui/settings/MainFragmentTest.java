@@ -177,26 +177,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
   }
 
   @Test
-  public void testDoesNotStartFlowIfHasNoPermission() throws Exception {
-    Shadows.shadowOf((Application) getApplicationContext())
-        .denyPermissions(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
-    final MainFragment fragment = startFragment();
-    final FragmentActivity activity = fragment.getActivity();
-
-    Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
-    Assert.assertNotNull(menu);
-    final MenuItem item = menu.findItem(R.id.backup_prefs);
-    Assert.assertNotNull(item);
-
-    fragment.onOptionsItemSelected(item);
-    TestRxSchedulers.foregroundFlushAllJobs();
-
-    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
-    Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
-  }
-
-  @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
   public void testBackupMenuItemNotSupportedPreKitKat() throws Exception {
     final MainFragment fragment = startFragment();
@@ -238,9 +218,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   public void testBackupMenuItem() throws Exception {
-    Shadows.shadowOf((Application) getApplicationContext())
-        .grantPermissions(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -279,8 +256,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
   @Test
   public void testRestorePickerCancel() throws Exception {
     final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
-    shadowApplication.grantPermissions(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -316,8 +291,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
   @Test
   public void testCompleteOperation() throws Exception {
     final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
-    shadowApplication.grantPermissions(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -412,9 +385,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   public void testRestoreMenuItem() throws Exception {
-    Shadows.shadowOf((Application) getApplicationContext())
-        .grantPermissions(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+    Shadows.shadowOf((Application) getApplicationContext());
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
