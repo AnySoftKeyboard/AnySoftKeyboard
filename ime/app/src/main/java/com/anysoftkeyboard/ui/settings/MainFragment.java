@@ -245,6 +245,7 @@ public class MainFragment extends Fragment {
     setNotificationPermissionCardVisibility();
   }
 
+  @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
   private void setNotificationPermissionCardVisibility() {
     mNoNotificationPermissionView.setVisibility(View.GONE);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -484,11 +485,6 @@ public class MainFragment extends Fragment {
         this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
       mDialogController.showDialog(R.id.backup_prefs);
     }
-  }
-
-  @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
-  public void onPostNotificationGranted() {
-    setNotificationPermissionCardVisibility();
   }
 
   @SuppressWarnings("deprecation") // required for permissions flow

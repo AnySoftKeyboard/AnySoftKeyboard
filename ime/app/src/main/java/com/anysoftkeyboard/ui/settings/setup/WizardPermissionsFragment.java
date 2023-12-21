@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.DrawableRes;
@@ -33,6 +34,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
     mStateIcon.setOnClickListener(this);
     view.findViewById(R.id.disable_contacts_dictionary).setOnClickListener(this);
     view.findViewById(R.id.open_permissions_wiki_action).setOnClickListener(this);
+    view.findViewById(R.id.ask_for_notification_permissions_action).setOnClickListener(this);
   }
 
   @Override
@@ -66,6 +68,21 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
         stateIcon = R.drawable.ic_wizard_contacts_off;
       }
       mStateIcon.setImageResource(stateIcon);
+
+      setNotificationPermissionCardVisibility();
+    }
+  }
+
+  @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
+  private void setNotificationPermissionCardVisibility() {
+    var notificationGroup = getView().findViewById(R.id.notification_permission_group);
+    notificationGroup.setVisibility(View.GONE);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      if (ContextCompat.checkSelfPermission(
+              requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+          != PackageManager.PERMISSION_GRANTED) {
+        notificationGroup.setVisibility(View.VISIBLE);
+      }
     }
   }
 
@@ -103,6 +120,9 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
               "Can not open '%' since there is nothing on the device that can handle" + " it.",
               browserIntent.getData());
         }
+        break;
+      case R.id.ask_for_notification_permissions_action:
+        AnyApplication.notifier(activity).askForNotificationPostPermission(this);
         break;
       default:
         throw new IllegalArgumentException(

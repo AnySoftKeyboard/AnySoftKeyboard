@@ -18,6 +18,7 @@ import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import org.junit.Assert;
 import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
@@ -149,5 +150,39 @@ public class WizardPermissionsFragmentTest
 
     Assert.assertNotNull(stateIconClickHandler);
     Assert.assertSame(stateIconClickHandler, linkClickHandler);
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.S_V2)
+  public void testDoesNotShowNotificationGroupBeforeT() {
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.GONE, group.getVisibility());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testDoesNotShowNotificationGroupIfGranted() {
+    var appShadow = Shadows.shadowOf(RuntimeEnvironment.getApplication());
+    appShadow.grantPermissions(Manifest.permission.POST_NOTIFICATIONS);
+
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.GONE, group.getVisibility());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testShowNotificationGroupIfNotGranted() {
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.VISIBLE, group.getVisibility());
+
+    var clickHandler =
+        Shadows.shadowOf(
+                (View)
+                    fragment.getView().findViewById(R.id.ask_for_notification_permissions_action))
+            .getOnClickListener();
+    Assert.assertNotNull(clickHandler);
   }
 }

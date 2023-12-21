@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/global_content_padding_side"
@@ -69,4 +70,31 @@
         android:padding="4dp"
         android:text="@string/read_more_about_permissions" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:id="@+id/notification_permission_group">
+        <TextView
+            android:id="@+id/ask_for_notification_permissions_action"
+            style="@style/Ask.Text.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/transparent_click_feedback_background"
+            android:drawablePadding="6dp"
+            android:padding="4dp"
+            android:text="@string/wizard_allow_notification_permission"
+            app:drawableTopCompat="@drawable/ic_notification_perm_required" />
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/setup_wizard_step_notification_permissions_details" />
+
+    </LinearLayout>
 </LinearLayout>
