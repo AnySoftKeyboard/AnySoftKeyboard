@@ -178,11 +178,24 @@ public class WizardPermissionsFragmentTest
     var group = fragment.getView().findViewById(R.id.notification_permission_group);
     Assert.assertEquals(View.VISIBLE, group.getVisibility());
 
-    var clickHandler =
-        Shadows.shadowOf(
-                (View)
-                    fragment.getView().findViewById(R.id.ask_for_notification_permissions_action))
-            .getOnClickListener();
+    View linkView = fragment.getView().findViewById(R.id.ask_for_notification_permissions_action);
+    var clickHandler = Shadows.shadowOf(linkView).getOnClickListener();
     Assert.assertNotNull(clickHandler);
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testHidesNotificationGroupIfNotGrantedButSkipped() {
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.VISIBLE, group.getVisibility());
+
+    View skipLink = fragment.getView().findViewById(R.id.skip_notification_permissions_action);
+    var clickSkipHandler = Shadows.shadowOf(skipLink).getOnClickListener();
+    Assert.assertNotNull(clickSkipHandler);
+
+    clickSkipHandler.onClick(skipLink);
+
+    Assert.assertEquals(View.GONE, group.getVisibility());
   }
 }

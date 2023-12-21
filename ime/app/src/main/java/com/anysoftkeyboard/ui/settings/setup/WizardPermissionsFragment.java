@@ -22,6 +22,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 public class WizardPermissionsFragment extends WizardPageBaseFragment
     implements View.OnClickListener {
 
+  private boolean mNotificationSkipped = false;
+
   @Override
   protected int getPageLayoutId() {
     return R.layout.keyboard_setup_wizard_page_permissions_layout;
@@ -30,19 +32,36 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
   @Override
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    mNotificationSkipped = false;
     view.findViewById(R.id.ask_for_permissions_action).setOnClickListener(this);
     mStateIcon.setOnClickListener(this);
     view.findViewById(R.id.disable_contacts_dictionary).setOnClickListener(this);
     view.findViewById(R.id.open_permissions_wiki_action).setOnClickListener(this);
     view.findViewById(R.id.ask_for_notification_permissions_action).setOnClickListener(this);
+    view.findViewById(R.id.skip_notification_permissions_action).setOnClickListener(this);
   }
 
   @Override
   protected boolean isStepCompleted(@NonNull Context context) {
+    return isContactsPermComplete(context) && isNotificationPermComplete(context);
+  }
+
+  private boolean isContactsPermComplete(@NonNull Context context) {
     return isContactsDictionaryDisabled(context)
         || // either the user disabled Contacts
         ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
             == PackageManager.PERMISSION_GRANTED; // or the user granted permission
+  }
+
+  private boolean isNotificationPermComplete(@NonNull Context context) {
+    if (mNotificationSkipped) return true;
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      return ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+          == PackageManager.PERMISSION_GRANTED;
+    }
+
+    return true;
   }
 
   private boolean isContactsDictionaryDisabled(Context context) {
@@ -76,13 +95,11 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
   @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
   private void setNotificationPermissionCardVisibility() {
     var notificationGroup = getView().findViewById(R.id.notification_permission_group);
-    notificationGroup.setVisibility(View.GONE);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      if (ContextCompat.checkSelfPermission(
-              requireContext(), Manifest.permission.POST_NOTIFICATIONS)
-          != PackageManager.PERMISSION_GRANTED) {
-        notificationGroup.setVisibility(View.VISIBLE);
-      }
+
+    if (isNotificationPermComplete(requireContext())) {
+      notificationGroup.setVisibility(View.GONE);
+    } else {
+      notificationGroup.setVisibility(View.VISIBLE);
     }
   }
 
@@ -92,18 +109,15 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
     if (activity == null) return;
 
     switch (v.getId()) {
-      case R.id.ask_for_permissions_action:
-      case R.id.step_state_icon:
-        enableContactsDictionary();
-        break;
-      case R.id.disable_contacts_dictionary:
+      case R.id.ask_for_permissions_action, R.id.step_state_icon -> enableContactsDictionary();
+      case R.id.disable_contacts_dictionary -> {
         mSharedPrefs
             .edit()
             .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
             .apply();
         refreshWizardPager();
-        break;
-      case R.id.open_permissions_wiki_action:
+      }
+      case R.id.open_permissions_wiki_action -> {
         Intent browserIntent =
             new Intent(
                 Intent.ACTION_VIEW,
@@ -120,13 +134,15 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
               "Can not open '%' since there is nothing on the device that can handle" + " it.",
               browserIntent.getData());
         }
-        break;
-      case R.id.ask_for_notification_permissions_action:
-        AnyApplication.notifier(activity).askForNotificationPostPermission(this);
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
+      }
+      case R.id.ask_for_notification_permissions_action -> AnyApplication.notifier(activity)
+          .askForNotificationPostPermission(this);
+      case R.id.skip_notification_permissions_action -> {
+        mNotificationSkipped = true;
+        refreshWizardPager();
+      }
+      default -> throw new IllegalArgumentException(
+          "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
     }
   }
 

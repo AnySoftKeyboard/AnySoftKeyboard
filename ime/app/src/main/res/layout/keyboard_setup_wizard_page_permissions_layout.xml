@@ -96,5 +96,16 @@
             android:gravity="center"
             android:text="@string/setup_wizard_step_notification_permissions_details" />
 
+        <TextView
+            android:id="@+id/skip_notification_permissions_action"
+            style="@style/Ask.Text.Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/transparent_click_feedback_background"
+            android:drawablePadding="6dp"
+            android:padding="4dp"
+            android:text="@string/wizard_skip_notification_permission"/>
+
     </LinearLayout>
 </LinearLayout>

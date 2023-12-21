@@ -950,4 +950,5 @@
     <string name="notification_read_contacts_ticker">Contacts permission needed</string>
     <string name="wizard_allow_notification_permission">Allow notifications from AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">In rare cases (for example app crashes) we would need to post a device notification. This is recommended but disallow notification will not affect the behavior of this app.</string>
+    <string name="wizard_skip_notification_permission">Do not allow notifications</string>
 </resources>
