@@ -16,6 +16,7 @@ public class VersionChangeLogs {
             12,
             "",
             Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94"),
+            "Support for Android 14.",
             "Improved clipboard support.",
             "Several fixes to the settings app navigation.",
             "Vibration fixes.",
