@@ -531,11 +531,6 @@
         не поддържа клавиатури от трети страни. AnySoftKeyboard не може да бъде активирана!
     </string>
     <string name="setup_wizard_step_permissions_title">Одобряване на разрешения</string>
-    <string name="setup_wizard_step_permissions_details">В тази стъпка можете да одобрите <i>
-        AnySoftKeyboard
-    </i> да четене контактите Ви, съхранени на вашето устройство. Ако искате да блокирате този достъп, можете да деактивирате
-        Речника с контакти.
-    </string>
     <string name="setup_wizard_step_two_title">Превключи към AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Вашата система може да използва <i>AnySoftKeyboard</i> сега, но
         не е зададена като активна. \nС превключването, <i>AnySoftKeyboard</i> ще бъде новата Ви

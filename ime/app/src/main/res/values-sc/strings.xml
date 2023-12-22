@@ -544,7 +544,6 @@
     <string name="setup_wizard_step_one_action">Bae a sas impostatziones <i>Limba e insertadura</i> tuas…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Errore: Su dispositivu tuo non suportat tastieras de tertzas partes (esternas). AnySoftKeyboard non podet èssere ativadu!</string>
     <string name="setup_wizard_step_permissions_title">Abìlita sos permissos</string>
-    <string name="setup_wizard_step_permissions_details">In custu passàgiu, podes permìtere a <i>AnySoftKeyboard</i> de lèghere sos cuntatos sarvados in su dispositivu tuo. Si cheres blocare custu atzessu podes disabilitare su Ditzionàriu de sos Cuntatos.</string>
     <string name="setup_wizard_step_two_title">Cola a AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Su sistema tuo como podet impreare <i>AnySoftKeyboard</i>, ma no est galu impostada comente tastiera ativa. \nAtivende·la, <i>AnySoftKeyboard</i> at a divènnere sa tastiera a ischermu noa tua, cun totu sas funtzionalidades suas!</string>
     <string name="setup_wizard_step_two_action">Càmbia sa tastiera ativa</string>

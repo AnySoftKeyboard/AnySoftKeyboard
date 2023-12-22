@@ -539,7 +539,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="setup_wizard_step_one_action"><i>Dil&amp;girişi ayarlarınıza</i> gidiniz…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Hata: Cihazınız 3üncü parti klavyeleri desteklemiyor. AnySoftKeyboard aktifleştirilemedi!</string>
     <string name="setup_wizard_step_permissions_title">İzinleri etkinleştir</string>
-    <string name="setup_wizard_step_permissions_details">Bu adımda,  <i>AnySoftKeyboard</i>\'un cihazınızda bulunan kişileri okumasına izin verebilirsiniz. Bu erişimi engellemek istiyorsanız Kişiler Sözlüğünden devre dışı bırakabilirsiniz.</string>
     <string name="setup_wizard_step_two_title">AnySoftKeyboard a geç</string>
     <string name="setup_wizard_step_two_details">Sisteminiz şuan <i>AnySoftKeyboard</i>\'u kullanabilir, fakat etkin klavye olarak ayarlanmamış.\nGeçiş yaptığınızda, <i>AnySoftKeyboard</i> bütün özellikleriyle birlikte yeni ekran klavyeniz olacaktır!</string>
     <string name="setup_wizard_step_two_action">Etkin klavyeleri değiştir</string>

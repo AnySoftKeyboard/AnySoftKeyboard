@@ -635,11 +635,6 @@
         არაა მხარდაჭერილი გარეშე კლავიატურები. AnySoftKeyboard ვერ ამუშავდება!
     </string>
     <string name="setup_wizard_step_permissions_title">ნებართვების მინიჭება</string>
-    <string name="setup_wizard_step_permissions_details">ამ საფეხურზე ნების მიცემით <i>
-        AnySoftKeyboard
-    </i> შეძლებს წვდომას ნომრებთან თქვენს მოწყობილობაზე. თუ გსურთ აირიდოთ ამგვარი წვდომა, შეგიძლიათ გამორთოთ
-        ნომრების ლექსიკონი.
-    </string>
     <string name="setup_wizard_step_two_title">გადართვა AnySoftKeyboard-ზე</string>
     <string name="setup_wizard_step_two_details">თქვენ სისტემას უკვე შეუძლია გამოიყენოს <i>AnySoftKeyboard</i>, მაგრამ
         არაა არჩეული მოქმედ კლავიატურად.\nგადართვის შედეგად, <i>AnySoftKeyboard</i> გახდება თქვენი ახალი

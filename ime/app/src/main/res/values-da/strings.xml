@@ -617,11 +617,6 @@
         ikke tredjeparts-tastaturer. AnySoftKeyboard kan ikke aktiveres!
     </string>
     <string name="setup_wizard_step_permissions_title">Aktivér tilladelser</string>
-    <string name="setup_wizard_step_permissions_details">I dette trin du kan godkende <i>
-        AnySoftKeyboard
-    </i> for at læse kontakter, der er gemt på din enhed. Hvis du ønsker at blokere for denne adgang, kan du deaktivere
-        Kontaktordbog.
-    </string>
     <string name="setup_wizard_step_two_title">Skift til AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Dit system kan nu bruge <i>AnySoftKeyboard</i>, men
         det er ikke indstillet som det aktive tastatur.\nVed at skifte vil <i>AnySoftKeyboard</i> blive dit nye

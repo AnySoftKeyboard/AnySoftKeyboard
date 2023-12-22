@@ -518,7 +518,6 @@
     <string name="setup_wizard_step_one_action">Перейти до <i>Налаштування мови та вводу</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Помилка: Пристрій підтримує третіх сторін клавіатур. AnySoftKeyboard не може бути активований!</string>
     <string name="setup_wizard_step_permissions_title">Включити дозволи</string>
-    <string name="setup_wizard_step_permissions_details">На цьому кроці ви можете надати <i>AnySoftKeyboard</i> доступ до контактів, що зберігаються на вашому пристрої. Якщо Ви хочете заблокувати доступ, Ви можете відключити словник з контактів.</string>
     <string name="setup_wizard_step_two_title">Вибрати AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Ваша система може використовувати <i>AnySoftKeyboard</i> зараз, але він не встановлений як активна клавіатура. \nПри перемиканні, <i>AnySoftKeyboard</i> буде ваша нова екранна клавіатура, разом з усіма його функціями!</string>
     <string name="setup_wizard_step_two_action">Перемикатися між активними клавіатурами</string>

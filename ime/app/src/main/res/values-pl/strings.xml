@@ -623,11 +623,6 @@ Zmiana
          nie obsługuje zewnętrznych klawiatur. AnySoftKeyboard nie może zostać aktywowane!
     </string>
     <string name="setup_wizard_step_permissions_title">Włącz uprawnienia</string>
-    <string name="setup_wizard_step_permissions_details">W tym kroku możesz przyznać <i>
-        AnySoftKeyboard
-    </i> dostęp do kontaktów. Jeśli się na to nie zgadzasz, możesz wyłączyć
-         słownik kontaktów.    </string>
-    <string name="setup_wizard_step_two_title">Zmień na AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Twój system może używać <i>AnySoftKeyboard</i>, ale
          nie jest ona ustawiona jako aktywna klawiatura.\nWłączając <i>AnySoftKeyboard</i> będzie Twoją nową
         klawiaturą ekranową wraz ze wszystkimi jej funkcjami!

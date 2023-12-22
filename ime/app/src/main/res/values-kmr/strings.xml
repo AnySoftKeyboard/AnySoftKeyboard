@@ -629,11 +629,6 @@
         piştgiriya klavyeyên partiya 3\' an nake. AnySoftKeyboard nikare were çalak kirin!
     </string>
     <string name="setup_wizard_step_permissions_title">Destûrnedanan çalak bike</string>
-    <string name="setup_wizard_step_permissions_details">Di vê pêngavê de hûn dikarin bikin <i>
-        AnySoftKeyboard
-    </i> ji bo ku tu agahiyên di cîhaza xwe de hildibijêre bixwînî. Eger tu dixwazî vê gihîştinê asteng bikî, dibe ku tu neçalak bikî
-        Ferhenga Têkiliyê.
-    </string>
     <string name="setup_wizard_step_two_title">Biguherîne AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Pergala we dikare niha <i>AnySoftKeyboard</i> bikar bîne, lê
         wekî klavyeya çalak nayê danîn.\nBi guherîna, <i>AnySoftKeyboard</i> dê bibe ya te ya nû

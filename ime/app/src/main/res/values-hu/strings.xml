@@ -596,11 +596,6 @@
         nem támogatja 3.fél billentyűzeteit. Az AnySoftKeyboard nem engedélyezhető!
     </string>
     <string name="setup_wizard_step_permissions_title">Engedélyek megadása</string>
-    <string name="setup_wizard_step_permissions_details">Most engedélyezheti, hogy az <i>
-        AnySoftKeyboard
-    </i> elérje a Névjegyeit. Ha később blokkolni akarja, letiltható a 
-        Névjegy Szótárban.
-    </string>
     <string name="setup_wizard_step_two_title">Váltás az AnySoftKeyboard-ra</string>
     <string name="setup_wizard_step_two_details">A rendszer mostantól használni tudja az <i>AnySoftKeyboard</i> -ot, de
         még nincs aktívvá téve.\nBekapcsolva az <i>AnySoftKeyboard</i> lesz az aktív képernyő-billentyűzet, minden hasznos funkciójával !

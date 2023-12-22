@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -33,8 +32,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mNotificationSkipped = false;
-    view.findViewById(R.id.ask_for_permissions_action).setOnClickListener(this);
-    mStateIcon.setOnClickListener(this);
+    view.findViewById(R.id.ask_for_contact_permissions_action).setOnClickListener(this);
     view.findViewById(R.id.disable_contacts_dictionary).setOnClickListener(this);
     view.findViewById(R.id.open_permissions_wiki_action).setOnClickListener(this);
     view.findViewById(R.id.ask_for_notification_permissions_action).setOnClickListener(this);
@@ -75,21 +73,8 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
   @Override
   public void refreshFragmentUi() {
     super.refreshFragmentUi();
-    if (getActivity() != null) {
-      @DrawableRes final int stateIcon;
-      if (isContactsDictionaryDisabled(getActivity())) {
-        mStateIcon.setClickable(true);
-        stateIcon = R.drawable.ic_wizard_contacts_disabled;
-      } else if (isStepCompleted(getActivity())) {
-        mStateIcon.setClickable(false);
-        stateIcon = R.drawable.ic_wizard_contacts_on;
-      } else {
-        stateIcon = R.drawable.ic_wizard_contacts_off;
-      }
-      mStateIcon.setImageResource(stateIcon);
-
-      setNotificationPermissionCardVisibility();
-    }
+    setContactsPermissionCardVisibility();
+    setNotificationPermissionCardVisibility();
   }
 
   @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
@@ -103,13 +88,24 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
     }
   }
 
+  @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
+  private void setContactsPermissionCardVisibility() {
+    var group = getView().findViewById(R.id.contacts_permission_group);
+
+    if (isContactsPermComplete(requireContext())) {
+      group.setVisibility(View.GONE);
+    } else {
+      group.setVisibility(View.VISIBLE);
+    }
+  }
+
   @Override
   public void onClick(View v) {
     AppCompatActivity activity = (AppCompatActivity) getActivity();
     if (activity == null) return;
 
     switch (v.getId()) {
-      case R.id.ask_for_permissions_action, R.id.step_state_icon -> enableContactsDictionary();
+      case R.id.ask_for_contact_permissions_action -> enableContactsDictionary();
       case R.id.disable_contacts_dictionary -> {
         mSharedPrefs
             .edit()

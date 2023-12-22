@@ -530,7 +530,6 @@
     <string name="setup_wizard_step_one_action">Ir a <i>Idiomas y entradas</i>…    </string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: El dispositivo no admite teclados de terceros, ¡AnySoftKeyboard no se puede activar!    </string>
     <string name="setup_wizard_step_permissions_title">Habilitar permisos</string>
-    <string name="setup_wizard_step_permissions_details">En este paso puede permitir que AnySoftKeyboard acceda a los contactos guardados en el dispositivo. Se puede retirar este acceso desactivando el Diccionario de contactos.    </string>
     <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Su dispositivo ya puede utilizar AnySoftKeyboard pero aún falta establecerlo como el teclado por defecto. Al hacerlo, ¡AnySoftKeyboard será su nuevo teclado y podrá disfrutar de todas sus características!    </string>
     <string name="setup_wizard_step_two_action">Cambiar teclados</string>

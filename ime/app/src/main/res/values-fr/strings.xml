@@ -539,7 +539,6 @@
     <string name="setup_wizard_step_one_action">Aller aux paramètres <i>Langue et saisie</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : cet appareil ne gère pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
     <string name="setup_wizard_step_permissions_title">Activer les autorisations</string>
-    <string name="setup_wizard_step_permissions_details">Dans cette étape, il est possible d\'approuver l\'accès de <i>AnySoftKeyboard</i> aux contacts stockés sur cet appareil. Pour bloquer cet accès, désactiver le dictionnaire des contacts.</string>
     <string name="setup_wizard_step_two_title">Changer pour AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Ce système peut utiliser <i>AnySoftKeyboard</i> maintenant, mais il n\'est pas défini comme le clavier actif.\nAvec cette modification, <i>AnySoftKeyboard</i> sera le nouveau clavier avec toutes ses fonctionnalités !</string>
     <string name="setup_wizard_step_two_action">Changer de clavier actif</string>

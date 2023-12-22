@@ -534,7 +534,6 @@
     <string name="setup_wizard_step_one_action">Gehe zu deinen <i>Sprach- und Eingabeeinstellungen</i> …</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbietertastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
     <string name="setup_wizard_step_permissions_title">Aktiviere die Berechtigungen</string>
-    <string name="setup_wizard_step_permissions_details">In diesem Schritt kann <i>AnySoftKeyboard</i> Zugriff auf die Kontakte genehmigt werden, die auf dem Gerät gespeichert sind. Wenn dieser Zugriff blockiert werden soll, kann das Kontaktwörterbuch deaktiviert werden.</string>
     <string name="setup_wizard_step_two_title">Wechsel zu AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als aktive Tastatur eingestellt.\nNach dem Wechsel wird <i>AnySoftKeyboard</i> deine neue Bildschirmtastatur mit all seinen Funktionen sein!</string>
     <string name="setup_wizard_step_two_action">Aktive Tastatur wechseln</string>

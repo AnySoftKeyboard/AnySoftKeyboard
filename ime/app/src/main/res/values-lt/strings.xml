@@ -547,7 +547,6 @@
     <string name="setup_wizard_step_one_action">Eikite į savo <i>Kalbos ir įvesties nustatymus</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Klaida: Jūsų įrenginys nepalaiko 3-iosios šalies klaviatūrų. „AnySoftKeyboard“ negali būti aktyvuota!</string>
     <string name="setup_wizard_step_permissions_title">Suteikti teises</string>
-    <string name="setup_wizard_step_permissions_details">Šiame žingsnyje galite leisti „<i>AnySoftKeyboard</i>“ skaityti jūsų įrenginyje saugomus kontaktus. Jei norite užblokuoti šią prieigą, galite išjungti Kontaktų žodyną.</string>
     <string name="setup_wizard_step_two_title">Perjungti į „AnySoftKeyboard“</string>
     <string name="setup_wizard_step_two_details">Dabar jūsų sistema gali naudoti „<i>AnySoftKeyboard</i>“, tačiau ji nenustatyta kaip aktyvi klaviatūra.\nPerjungus, „<i>AnySoftKeyboard</i>“ bus jūsų naujoji klaviatūra, kartu su visomis funkcijomis!</string>
     <string name="setup_wizard_step_two_action">Perjungti aktyvias klaviatūras</string>

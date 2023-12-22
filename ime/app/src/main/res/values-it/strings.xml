@@ -532,7 +532,6 @@
     <string name="setup_wizard_step_one_action">Vai alle impostazioni <i>Lingua e immissione</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Errore: Il tuo dispositivo non supporta tastiere di terze parti. AnySoftKeyboard non può essere attivata!</string>
     <string name="setup_wizard_step_permissions_title">Attiva autorizzazioni</string>
-    <string name="setup_wizard_step_permissions_details">In questo passaggio, puoi consentire a <i>AnySoftKeyboard</i> di leggere i Contatti memorizzati nel dispositivo. Se si desidera bloccare questo accesso, si può disabilitare il dizionario Contatti.</string>
     <string name="setup_wizard_step_two_title">Passa a AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Ora il tuo sistema può utilizzare <i>AnySoftKeyboard</i>, ma essa non è impostata come tastiera attiva.\nCambiando, <i>AnySoftKeyboard</i> sarà la tua nuova tastiera a schermo, insieme con tutte le sue funzioni!</string>
     <string name="setup_wizard_step_two_action">Scambia tastiere attive</string>

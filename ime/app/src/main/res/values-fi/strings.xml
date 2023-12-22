@@ -484,11 +484,6 @@
         3. osapuolen näppäimistöjä. AnySoftKeyboardia ei voida aktivoida!
     </string>
     <string name="setup_wizard_step_permissions_title">Anna käyttöoikeudet</string>
-    <string name="setup_wizard_step_permissions_details">Voit antaa <i>
-        AnySoftKeyboardille
-    </i> käyttöoikeuden laitteellesi tallennettujen yhteystietojen lukuun. Jos haluat estää tämän käytön, voit poistaa käytöstä
-        yhteystietosanakirjan.
-    </string>
     <string name="setup_wizard_step_two_title">Vaihda AnySoftKeyboardiin</string>
     <string name="setup_wizard_step_two_details">Järjestelmäsi voi käyttää nyt <i>AnySoftKeyboardia</i>, mutta
         se ei ole vielä aktiivinen näppäimistösi.\nAsettamalla <i>AnySoftKeyboardin</i> aktiiviseksi 

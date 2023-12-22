@@ -610,11 +610,6 @@
         තෙවන පාර්ශවීය යතුරුපුවරු සඳහා සහය නොදක්වයි. AnySoftKeyboard සක්‍රිය කළ නොහැක!
     </string>
     <string name="setup_wizard_step_permissions_title">අවසර සබල කරන්න</string>
-    <string name="setup_wizard_step_permissions_details">මෙම පියවරේදී, ඔබට ඔබගේ උපාංගයේ ගබඩා කර ඇති සම්බන්ධතා කියවීමට <i>
-        AnySoftKeyboard
-    </i> අනුමත කළ හැක. ඔබට මෙම ප්‍රවේශය අවහිර කිරීමට අවශ්‍ය නම්, ඔබට සම්බන්ධතා ශබ්දකෝෂය
-        අක්‍රිය කළ හැක.
-    </string>
     <string name="setup_wizard_step_two_title">AnySoftKeyboard වෙත මාරු වන්න</string>
     <string name="setup_wizard_step_two_details">ඔබගේ පද්ධතියට දැන් <i>AnySoftKeyboard</i> භාවිතා කළ හැක, නමුත්
         එය සක්‍රිය යතුරු පුවරුව ලෙස සකසා නොමැත.\nමාරු කිරීමෙන්, <i>AnySoftKeyboard</i> එහි සියලුම විශේෂාංග සමඟින් ඔබේ නව

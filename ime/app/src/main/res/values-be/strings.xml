@@ -543,7 +543,6 @@
     <string name="setup_wizard_step_one_action">Перайдзіце ў раздзел <i>Налады мовы і ўводу</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Адбылася памылка. Ваша прылада не падтрымлівае клавіятуры ад іншых распрацоўшчыкаў. Немагчыма актываваць AnySoftKeyboard!</string>
     <string name="setup_wizard_step_permissions_title">Уключыць дазволы</string>
-    <string name="setup_wizard_step_permissions_details">На гэтым кроку вы зможаце ўхваліць доступ <i>AnySoftKeyboard</i> да кантактаў, якія захоўваюцца на вашай прыладзе. Калі вы не хочаце даваць доступ, то можаце проста адключыць слоўнікавую падтрымку кантактаў.</string>
     <string name="setup_wizard_step_two_title">Пераключыцца на AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Ваша сістэма можа выкарыстоўваць <i>AnySoftKeyboard</i> зараз, але яна не ўсталяваная як актыўная клавіятура.\nУ час пераключэння на <i>AnySoftKeyboard</i>, яна будзе вашай новай экраннай клавіятурай з усімі яе функцыямі!</string>
     <string name="setup_wizard_step_two_action">Выбраць раскладку</string>

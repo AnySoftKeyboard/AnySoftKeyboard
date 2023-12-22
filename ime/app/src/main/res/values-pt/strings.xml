@@ -580,11 +580,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
         não suporta teclados externos de terceiros. O AnySoftKeyboard não pode ser ativado!
     </string>
     <string name="setup_wizard_step_permissions_title">Ativar permissões</string>
-    <string name="setup_wizard_step_permissions_details">Nesta etapa, pode conceder ao <i>
-        AnySoftKeyboard
-    </i> a permissão para ler os seus contactos. Se quiser bloquear este acesso pode desativar o
-        Dicionário de contactos.
-    </string>
     <string name="setup_wizard_step_two_title">Trocar para o AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">O seu sistema pode utilizar o <i>AnySoftKeyboard</i>, mas este não está definido como o teclado ativo.\nAo trocar, o <i>AnySoftKeyboard</i> será o seu novo teclado!</string>
     <string name="setup_wizard_step_two_action">Trocar teclado ativo</string>

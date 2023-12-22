@@ -527,7 +527,6 @@
     <string name="setup_wizard_step_one_action">Joan <i>Hizkuntza eta idazketa</i> atalera…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Errorea: zure gailuak ez ditu onartzen aparteko teklatuak. Ezin da AnySoftKeyboard gaitu!</string>
     <string name="setup_wizard_step_permissions_title">Gaitu baimenak</string>
-    <string name="setup_wizard_step_permissions_details">Urrats honetan <i>AnySoftKeyboard</i> teklatuari zure kontaktuak irakurtzeko baimena eman ahal diozu. Baimen hau kendu nahi baduzu, Kontaktuen hiztegia desgaitu dezakezu.</string>
     <string name="setup_wizard_step_two_title">Aldatu AnySoftKeyboard teklatura</string>
     <string name="setup_wizard_step_two_details">Zure sistemak <i>AnySoftKeyboard</i> erabili dezake orain, baina ez da oraindik teklatu aktibo bezala jarri.\nAldatuz gero, <i>AnySoftKeyboard</i> izango da zure pantailako teklatua, eta bere ezaugarri guztiak izango dituzu!</string>
     <string name="setup_wizard_step_two_action">Aldatu teklatu aktiboak</string>

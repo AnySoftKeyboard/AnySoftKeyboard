@@ -515,11 +515,6 @@
     <string name="setup_wizard_step_one_title">تفعيل AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_action">إنتقل إلى <i>إعدادت اللغة ثم إعدادات لوحة المفاتيح</i> …    </string>
     <string name="setup_wizard_step_permissions_title">تفعيل التصريحات</string>
-    <string name="setup_wizard_step_permissions_details">في هذه الخطوة يُمكنك السماح لـ <i>
-        AnySoftKeyboard
-    </i> بقراءة قائمة مراسليك المتواجدة على جهازك. إن كنت تود حظر هذا النفاذ، يمكنك تعطيل
-        قاموس جهات الإتصال.
-    </string>
     <string name="setup_wizard_step_two_title">إنتقل إلى AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">إنّ نظامك يستخدم <i>AnySoftKeyboard</i> الآن و لكن
         لم يتم تعيينه كلوحة مفاتيح مُفعّلة.\nبتبديله، سوف يصبح <i>AnySoftKeyboard</i> 

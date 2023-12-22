@@ -439,7 +439,6 @@
     <string name="setup_wizard_step_one_action">Pumunta sa iyong <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Mali: Ang iyong device ay hindi sumusuporta ng 3rd-party na mga keyboard. AnySoftKeyboard ay hindi maka-activate!</string>
     <string name="setup_wizard_step_permissions_title">Magpapagana ng mga permiso</string>
-    <string name="setup_wizard_step_permissions_details">Sa hakbang na ito, pwede mong aprubahan <i>AnySoftKeyboard</i> Basahin ang mga contact na nkaimbak sa iyong device. Kung gusto mong i-block ang access, pwede mo itong i-disable ang mga diksyunaryong ng mga contacts.</string>
     <string name="setup_wizard_step_two_title">Lumipat sa AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Iyong sustema ay maaring gamitin ang <i>AnySoftKeyboard</i> ngayon, ngunit hindi ito nakalagay sa aktibo na keyboard.\nBy switching, <i>AnySoftKeyboard</i> iyong bagong on-screen keyboard, kasama ang lahat ng tampok nito!</string>
     <string name="setup_wizard_step_two_action">Magpalit ng aktibong mga keyboard</string>
