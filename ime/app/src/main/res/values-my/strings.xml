@@ -14,12 +14,9 @@
     <string name="language_root_tile">ဘာသာစကားများ</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">ပြောင်းလဲမှုမှတ်တမ်း</string>
     <string name="search_market_for_keyboard_addons"><i>Play Store</i>မှ အခြားကီးဘုတ်များ ရယူပါ…</string>
     <string name="search_market_for_quick_key_addons"><i>ပလေးစတိုး</i>မှ <i>လိုအပ်သော</i>add-onsများ ရယူရန်…</string>
     <string name="keyboard_theme_tweak_group">ပြုပြင်ချက်များ</string>
-    <string name="close_button">ပိတ်ပါ</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">\u0020<xliff:g id="word">%s</xliff:g>ကို သိမ်းဆည်းပါ</string>
     <string name="revert_added_word_question">ဖျတ်ရန်?</string>

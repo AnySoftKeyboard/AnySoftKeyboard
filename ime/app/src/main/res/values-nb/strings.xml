@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Velg og still inn tastaturtemaer.</string>
     <string name="ui_effects_settings_tile">Tastatureffekter og opplevelse.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Endringslogg</string>
     <string name="search_market_for_keyboard_addons">Finn flere tastaturer i <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Få flere <i>Hurtigtekst</i>-tillegg i app-butikken…</string>
     <string name="keyboard_theme_tweak_group">Tilpasninger</string>
-    <string name="close_button">Lukk</string>
     <string name="delete_button">Slett</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Lagret:\u0020<xliff:g id="word">%s</xliff:g>
@@ -444,7 +441,6 @@
     <string name="not_configured_with_click_here">AnySoftKeyboard er ikke helt satt opp for bruk. Trykk her for å sette opp.
     </string>
     <string name="not_configured_with_just_click_here">Trykk her</string>
-    <string name="click_for_more">mer…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Legg til ord</string>
@@ -477,7 +473,6 @@
     <string name="setup_wizard_step_download_details"><i>AnySoftKeyboard</i> støtter dusinvis av språk. Bare last ned ønsket språkpakke og gled deg over å kunne skrive på språket du ønsker på enheten din.</string>
     <string name="setup_wizard_step_download_action">Last ned språkpakke</string>
     <string name="setup_wizard_step_download_skip_action">Hopp over</string>
-    <string name="ime_crashed_title">AnySoftKeyboard krasjet!</string>
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Avbryt</string>
     <string name="ime_crashed_intent_selector_title">Send krasjrapport via</string>
@@ -492,9 +487,7 @@
     <string name="next_word_prefs_clear_data_summary">Dette er irreversibelt. All din skrivehistorikk blir slettet.</string>
     <string name="notification_read_contacts_title">Tillate tilgang til dine kontakter?</string>
     <string name="notification_read_contacts_text">Kontakttilgang er nødvendig for å gi en bedre auto-fullføringsfunksjon.</string>
-    <string name="notification_read_contacts_ticker">Tillatelse for kontakter nødvendig</string>
     <string name="wizard_allow_contacts_permission">Tillat forslag basert på kontakter</string>
-    <string name="allow_permission">Tillat</string>
     <string name="turn_off_contacts_dictionary">Slå av kontaktordliste</string>
     <string name="read_more_about_permissions">Les mer om tillatelser…</string>
     <string name="app_shortcut_keyboards_disabled">Tastaturnavigering deaktivert</string>

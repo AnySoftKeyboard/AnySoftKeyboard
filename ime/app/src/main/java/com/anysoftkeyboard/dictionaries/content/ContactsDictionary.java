@@ -25,13 +25,13 @@ import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
 import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
+import com.anysoftkeyboard.notification.NotificationIds;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,14 +93,20 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
       PendingIntent pendingIntent =
           PendingIntent.getActivity(
               mContext, requestCode, intent, CompatUtils.appendImmutableFlag(0));
-      NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, "Permissions");
-      builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));
-      builder.setSmallIcon(R.drawable.ic_notification_contacts_permission_required);
-      builder.setContentIntent(pendingIntent);
-      builder.setContentTitle(mContext.getString(R.string.notification_read_contacts_title));
-      builder.setContentText(mContext.getString(R.string.notification_read_contacts_text));
-      builder.setAutoCancel(true);
-      NotificationManagerCompat.from(mContext).notify(requestCode, builder.build());
+
+      var notifier = AnyApplication.notifier(mContext);
+      var builder =
+          notifier
+              .buildNotification(
+                  NotificationIds.RequestContactsPermission,
+                  R.drawable.ic_notification_contacts_permission_required,
+                  R.string.notification_read_contacts_title)
+              .setContentText(mContext.getString(R.string.notification_read_contacts_text))
+              .setTicker(mContext.getString(R.string.notification_read_contacts_ticker))
+              .setContentIntent(pendingIntent)
+              .setAutoCancel(true);
+
+      notifier.notify(builder, true);
       // and failing. So it will try to read contacts again
       throw new RuntimeException("We do not have permission to read contacts!");
     }

@@ -20,12 +20,9 @@
     <string name="ui_theme_settings_tile">යතුරුපුවරු තේමාවන් තෝරා වින්‍යාස කරන්න.</string>
     <string name="ui_effects_settings_tile">යතුරුපුවරු බලපෑම් සහ අත්දැකීම්.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">ලොගය වෙනස් කරන්න</string>
     <string name="search_market_for_keyboard_addons">යෙදුම් වෙළඳසැලේ තවත් යතුරුපුවරු ලබා ගන්න</string>
     <string name="search_market_for_quick_key_addons">යෙදුම් වෙළඳසැල…හි ඉක්මන්-පෙළ&lt;/i&gt; ඇඩෝන &lt;i&gt;ක් ලබා ගන්න</string>
     <string name="keyboard_theme_tweak_group">tweaks</string>
-    <string name="close_button">වසන්න</string>
     <string name="delete_button">මකන්න</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">සුරැකි:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -591,7 +588,6 @@
         ක්ලික් කරන්න.
     </string>
     <string name="not_configured_with_just_click_here">මෙහි ක්ලික් කරන්න</string>
-    <string name="click_for_more">වැඩි…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">වචනය එකතු කරන්න</string>
@@ -614,11 +610,6 @@
         තෙවන පාර්ශවීය යතුරුපුවරු සඳහා සහය නොදක්වයි. AnySoftKeyboard සක්‍රිය කළ නොහැක!
     </string>
     <string name="setup_wizard_step_permissions_title">අවසර සබල කරන්න</string>
-    <string name="setup_wizard_step_permissions_details">මෙම පියවරේදී, ඔබට ඔබගේ උපාංගයේ ගබඩා කර ඇති සම්බන්ධතා කියවීමට <i>
-        AnySoftKeyboard
-    </i> අනුමත කළ හැක. ඔබට මෙම ප්‍රවේශය අවහිර කිරීමට අවශ්‍ය නම්, ඔබට සම්බන්ධතා ශබ්දකෝෂය
-        අක්‍රිය කළ හැක.
-    </string>
     <string name="setup_wizard_step_two_title">AnySoftKeyboard වෙත මාරු වන්න</string>
     <string name="setup_wizard_step_two_details">ඔබගේ පද්ධතියට දැන් <i>AnySoftKeyboard</i> භාවිතා කළ හැක, නමුත්
         එය සක්‍රිය යතුරු පුවරුව ලෙස සකසා නොමැත.\nමාරු කිරීමෙන්, <i>AnySoftKeyboard</i> එහි සියලුම විශේෂාංග සමඟින් ඔබේ නව
@@ -641,10 +632,6 @@
         ටයිප් කිරීමෙන් සතුටක් ලබන්න.</string>
     <string name="setup_wizard_step_download_action">භාෂා ඇසුරුම බාගන්න</string>
     <string name="setup_wizard_step_download_skip_action">මඟ හරින්න</string>
-    <string name="ime_crashed_title">AnySoftKeyboard බිඳ වැටුණි!</string>
-    <string name="ime_crashed_sub_text">අපොයි,…එනවා දැක්කේ නැහැ</string>
-    <string name="ime_crashed_ticker">අපොයි, AnySoftKeyboard කඩා වැටුණා,…
-    එන බව දැක්කේ නැහැ    </string>
     <string name="ime_crashed_text">අවාසනාවන්ත ලෙස, <i>AnySoftKeyboard</i>සමඟ ගැටළුවක් ඇත.
         කලබල නොවන්න, මෙය විසඳීමට උදවු කිරීමට ඔබට <b/> කළ හැකි දෙයක් තිබේ: බිඳ වැටීම්
         වාර්තාව අපට එවන්න, අපි මෙම බිඳවැටීම විසඳීමට සහ ඔබට නියම යතුරුපුවරු
@@ -663,16 +650,9 @@
     <string name="clipboard_paste_entries_title">ඇලවීමට පෙළ තෝරන්න</string>
     <string name="next_word_prefs_clear_data">ඊළඟ වචන දත්ත හිස් කරන්න</string>
     <string name="next_word_prefs_clear_data_summary">මෙය ආපසු හැරවිය නොහැකි ය. ඔබගේ සියලුම ටයිප් කිරීමේ ඉතිහාසය හිස් කරනු ඇත.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard හට ඔබගේ උපස්ථ ගොනු ගබඩා කිරීමට කියවීමට සහ ලිවීමට ඔබගේ අවසරය අවශ්‍ය වේ.</string>
     <string name="notification_read_contacts_title">මට ඔබේ සම්බන්ධතා කියවිය හැකිද?</string>
     <string name="notification_read_contacts_text">ඔබට වඩා හොඳ ස්වයංක්‍රීය-සම්පූර්ණ අත්දැකීමක් ලබා දීමට අපට ඔබගේ සම්බන්ධතා කියවීමට අවශ්‍ය වේ.</string>
-    <string name="notification_read_contacts_ticker">සම්බන්ධතා අවසරය අවශ්‍යයි</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard ඔබට පෞද්ගලීකරණය කළ වචන යෝජනාවක් ලබා දීමට ඔබේ සම්බන්ධතා නම්
-        භාවිතා කරයි: ඔබ වචනයක් ටයිප් කරන විට, අපි ඔබේ ටයිප් කිරීම ස්වයංක්‍රීයව සම්පූර්ණ කිරීමට සහ ස්වයංක්‍රීයව නිවැරදි කිරීමට සමාන වචන
-        ක් සොයමු.
-    </string>
     <string name="wizard_allow_contacts_permission">සම්බන්ධතා මත ටයිප් කිරීමේ යෝජනාවලට ඉඩ දෙන්න</string>
-    <string name="allow_permission">ඉඩ දෙන්න</string>
     <string name="turn_off_contacts_dictionary">සම්බන්ධතා ශබ්දකෝෂය අක්‍රිය කරන්න</string>
     <string name="read_more_about_permissions">අවසර…ගැන වැඩිදුර කියවන්න</string>
     <string name="ask_beta_link_promo">හේයි! අලුත් &lt;i&gt;AnySoftKeyboard&lt;/i&gt; දේවල් ඉක්මනින් අවශ්‍යද? එවිට

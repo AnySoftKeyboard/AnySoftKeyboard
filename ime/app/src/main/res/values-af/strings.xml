@@ -9,8 +9,6 @@
     <string name="ui_theme_settings_tile">Kies en stel sleutelbordtemas op.</string>
     <string name="ui_effects_settings_tile">Sleutelbord effekte en ervaring.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Veranderinge oor tyd</string>
     <string name="search_market_for_keyboard_addons">Kry meer sleutelborde by die toepassingwinkel</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->

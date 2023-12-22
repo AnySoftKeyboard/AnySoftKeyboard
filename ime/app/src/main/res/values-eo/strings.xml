@@ -9,10 +9,8 @@
     <!-- UI root menu -->
     <string name="ui_root_tile">Fasado</string>
     <!-- welcome -->
-    <!-- changelog -->
     <string name="search_market_for_keyboard_addons">Havigu al vi pliajn klavarojn ĉe <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Plibonigaĵoj</string>
-    <string name="close_button">Fermi</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Konservita:\u0020<xliff:g id="word">%s</xliff:g>
     </string>

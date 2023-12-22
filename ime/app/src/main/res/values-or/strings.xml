@@ -3,7 +3,6 @@
     <string name="language_root_tile">ଭାଷା</string>
     <!-- UI root menu -->
     <!-- welcome -->
-    <!-- changelog -->
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
     <string name="voice_input_not_installed_action_install">ଇନଷ୍ଟଲ୍ କରିବା</string>
@@ -61,7 +60,6 @@
     <string name="emoji_default_gender_value_woman">ମହିଳା</string>
     <string name="emoji_default_gender_value_man">ପୁରୁଷ</string>
     <string name="not_configured_with_just_click_here">ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ</string>
-    <string name="click_for_more">ଅଧିକ…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">ଶବ୍ଦ ଯୋଡ଼ନ୍ତୁ</string>

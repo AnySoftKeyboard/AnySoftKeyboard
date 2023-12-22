@@ -19,12 +19,9 @@
     <string name="ui_theme_settings_tile">Välj och konfigurera tangentbordsteman.</string>
     <string name="ui_effects_settings_tile">Tangentbordseffekter och erfarenhet.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Ändringslogg</string>
     <string name="search_market_for_keyboard_addons">Hämta fler tangentbord i app-butiken</string>
     <string name="search_market_for_quick_key_addons">Hämta fler <i>Snabbtext</i>-tillägg i app-butiken…</string>
     <string name="keyboard_theme_tweak_group">Justeringar</string>
-    <string name="close_button">Stäng</string>
     <string name="delete_button">Ta bort</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Sparad:\u0020<xliff:g id="word">%s</xliff:g></string>

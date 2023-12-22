@@ -1,10 +1,12 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -28,20 +30,21 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.palette.graphics.Palette;
-import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
+import com.anysoftkeyboard.releaseinfo.ChangeLogFragment;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
-import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -54,6 +57,7 @@ import io.reactivex.functions.Function;
 import java.util.List;
 import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
+import net.evendanan.pixel.UiUtils;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class MainFragment extends Fragment {
@@ -71,6 +75,8 @@ public class MainFragment extends Fragment {
   private final boolean mTestingBuild;
   @NonNull private final CompositeDisposable mDisposable = new CompositeDisposable();
   private AnimationDrawable mNotConfiguredAnimation = null;
+
+  private View mNoNotificationPermissionView;
   @NonNull private Disposable mPaletteDisposable = Disposables.empty();
   private DemoAnyKeyboardView mDemoAnyKeyboardView;
   private GeneralDialogController mDialogController;
@@ -83,22 +89,6 @@ public class MainFragment extends Fragment {
   @VisibleForTesting
   MainFragment(boolean testingBuild) {
     mTestingBuild = testingBuild;
-  }
-
-  public static void setupLink(
-      View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
-    TextView clickHere = root.findViewById(showMoreLinkId);
-    if (reorderLinkToLastChild) {
-      ViewGroup rootContainer = (ViewGroup) root;
-      rootContainer.removeView(clickHere);
-      rootContainer.addView(clickHere);
-    }
-
-    SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
-    sb.clearSpans(); // removing any previously (from instance-state) set click spans.
-    sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-    clickHere.setMovementMethod(LinkMovementMethod.getInstance());
-    clickHere.setText(sb);
   }
 
   @Override
@@ -117,13 +107,22 @@ public class MainFragment extends Fragment {
     final ViewGroup latestChangeLogCard = view.findViewById(R.id.latest_change_log_card);
     final View latestChangeLogCardContent =
         ChangeLogFragment.LatestChangeLogViewFactory.createLatestChangeLogView(
-            this, latestChangeLogCard);
+            this,
+            latestChangeLogCard,
+            () ->
+                Navigation.findNavController(requireView())
+                    .navigate(MainFragmentDirections.actionMainFragmentToFullChangeLogFragment()));
     latestChangeLogCard.addView(latestChangeLogCardContent);
     View testingView = view.findViewById(R.id.testing_build_message);
     testingView.setVisibility(mTestingBuild ? View.VISIBLE : View.GONE);
     View testerSignUp = view.findViewById(R.id.beta_sign_up);
     testerSignUp.setVisibility(mTestingBuild ? View.GONE : View.VISIBLE);
     mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
+    mNoNotificationPermissionView =
+        view.findViewById(R.id.no_notifications_permission_click_here_root);
+    mNoNotificationPermissionView.setOnClickListener(
+        v -> AnyApplication.notifier(requireContext()).askForNotificationPostPermission(this));
+
     setHasOptionsMenu(true);
   }
 
@@ -145,10 +144,10 @@ public class MainFragment extends Fragment {
             .navigate(MainFragmentDirections.actionMainFragmentToMainTweaksFragment());
         return true;
       case R.id.backup_prefs:
-        onBackupRequested();
+        mDialogController.showDialog(R.id.backup_prefs);
         return true;
       case R.id.restore_prefs:
-        onRestoreRequested();
+        mDialogController.showDialog(R.id.restore_prefs);
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -182,7 +181,7 @@ public class MainFragment extends Fragment {
     ClickableSpan csp =
         new ClickableSpan() {
           @Override
-          public void onClick(View v) {
+          public void onClick(@NonNull View v) {
             startActivity(new Intent(requireContext(), SetupWizardActivity.class));
           }
         };
@@ -193,7 +192,7 @@ public class MainFragment extends Fragment {
     ClickableSpan socialLink =
         new ClickableSpan() {
           @Override
-          public void onClick(View widget) {
+          public void onClick(@NonNull View widget) {
             Intent browserIntent =
                 new Intent(
                     Intent.ACTION_VIEW,
@@ -212,13 +211,13 @@ public class MainFragment extends Fragment {
             }
           }
         };
-    setupLink(getView(), R.id.ask_social_link, socialLink, false);
+    UiUtils.setupLink(getView(), R.id.ask_social_link, socialLink, false);
   }
 
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.how_to_pointer_title));
+    UiUtils.setActivityTitle(this, R.string.how_to_pointer_title);
 
     View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here_root);
     // checking if the IME is configured
@@ -241,6 +240,20 @@ public class MainFragment extends Fragment {
 
     if (mNotConfiguredAnimation != null) {
       mNotConfiguredAnimation.start();
+    }
+
+    setNotificationPermissionCardVisibility();
+  }
+
+  @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
+  private void setNotificationPermissionCardVisibility() {
+    mNoNotificationPermissionView.setVisibility(View.GONE);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      if (ContextCompat.checkSelfPermission(
+              requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+          != PackageManager.PERMISSION_GRANTED) {
+        mNoNotificationPermissionView.setVisibility(View.VISIBLE);
+      }
     }
   }
 
@@ -337,18 +350,18 @@ public class MainFragment extends Fragment {
 
     final String intentAction;
     switch (optionId) {
-      case R.id.backup_prefs:
+      case R.id.backup_prefs -> {
         actionTitle = R.string.word_editor_action_backup_words;
         intentAction = Intent.ACTION_CREATE_DOCUMENT;
         builder.setTitle(R.string.pick_prefs_providers_to_backup);
-        break;
-      case R.id.restore_prefs:
+      }
+      case R.id.restore_prefs -> {
         actionTitle = R.string.word_editor_action_restore_words;
         intentAction = Intent.ACTION_OPEN_DOCUMENT;
         builder.setTitle(R.string.pick_prefs_providers_to_restore);
-        break;
-      default:
-        throw new IllegalArgumentException("The option-id " + optionId + " is not supported here.");
+      }
+      default -> throw new IllegalArgumentException(
+          "The option-id " + optionId + " is not supported here.");
     }
 
     supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(requireContext());
@@ -456,22 +469,6 @@ public class MainFragment extends Fragment {
   public void onDestroy() {
     mDisposable.dispose();
     super.onDestroy();
-  }
-
-  @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)
-  public void onRestoreRequested() {
-    if (PermissionRequestHelper.check(
-        this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_READ_CODE)) {
-      mDialogController.showDialog(R.id.restore_prefs);
-    }
-  }
-
-  @AfterPermissionGranted(PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)
-  public void onBackupRequested() {
-    if (PermissionRequestHelper.check(
-        this, PermissionRequestHelper.STORAGE_PERMISSION_REQUEST_WRITE_CODE)) {
-      mDialogController.showDialog(R.id.backup_prefs);
-    }
   }
 
   @SuppressWarnings("deprecation") // required for permissions flow

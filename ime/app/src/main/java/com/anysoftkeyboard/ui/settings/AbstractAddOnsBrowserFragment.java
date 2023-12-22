@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import net.evendanan.pixel.UiUtils;
 
 public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fragment {
 
@@ -252,7 +253,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         mAllAddOns.size(),
         mEnabledAddOnsIds.size());
     mRecyclerView.getAdapter().notifyDataSetChanged();
-    MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
+    UiUtils.setActivityTitle(this, mFragmentTitleResId);
   }
 
   @NonNull private RecyclerView.LayoutManager createLayoutManager(@NonNull Context appContext) {

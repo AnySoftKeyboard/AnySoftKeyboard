@@ -19,12 +19,9 @@
     <string name="ui_theme_settings_tile">Pumili at i-configure ang tema ng keyboard.</string>
     <string name="ui_effects_settings_tile">Mga karanasan at epekto ng keyboard.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Changelog</string>
     <string name="search_market_for_keyboard_addons">Kumuha ng maraming keyboard sa app store</string>
     <string name="search_market_for_quick_key_addons">Kumuha ng higit <i>Madaling-Text</i> mga add-ons na nasa app store…</string>
     <string name="keyboard_theme_tweak_group">Mga Tweak</string>
-    <string name="close_button">Isara</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Nai-save:\u0020<xliff:g id="word">%s</xliff:g>    </string>
     <string name="revert_added_word_question">Tanggalin\?</string>
@@ -427,7 +424,6 @@
     <string name="created_mem_dump_file">Gumawa ng memori na mapagimbakan sa:<xliff:g id="file_path">%s</xliff:g>    </string>
     <string name="not_configured_with_click_here">Ang AnySoftKeyboard ay hindi lubusang nai-setup para ito gamitin. Mag click dito para ma-setup.</string>
     <string name="not_configured_with_just_click_here">Mag-click dio</string>
-    <string name="click_for_more">higit pa…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Magdagdag ng salita</string>
@@ -443,7 +439,6 @@
     <string name="setup_wizard_step_one_action">Pumunta sa iyong <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Mali: Ang iyong device ay hindi sumusuporta ng 3rd-party na mga keyboard. AnySoftKeyboard ay hindi maka-activate!</string>
     <string name="setup_wizard_step_permissions_title">Magpapagana ng mga permiso</string>
-    <string name="setup_wizard_step_permissions_details">Sa hakbang na ito, pwede mong aprubahan <i>AnySoftKeyboard</i> Basahin ang mga contact na nkaimbak sa iyong device. Kung gusto mong i-block ang access, pwede mo itong i-disable ang mga diksyunaryong ng mga contacts.</string>
     <string name="setup_wizard_step_two_title">Lumipat sa AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Iyong sustema ay maaring gamitin ang <i>AnySoftKeyboard</i> ngayon, ngunit hindi ito nakalagay sa aktibo na keyboard.\nBy switching, <i>AnySoftKeyboard</i> iyong bagong on-screen keyboard, kasama ang lahat ng tampok nito!</string>
     <string name="setup_wizard_step_two_action">Magpalit ng aktibong mga keyboard</string>
@@ -458,9 +453,6 @@
     <string name="setup_wizard_step_download_details">Ikaw\ ay maging masaya na malaman ang <i>AnySoftKeyboard</i> ay sumusuporta ng napakaraming wika. I-download ang iyong ninanais na language-pack at maenjoy ang pag-type sa anumang wika ng iyong device.</string>
     <string name="setup_wizard_step_download_action">I-download ang language pack</string>
     <string name="setup_wizard_step_download_skip_action">Laktawan</string>
-    <string name="ime_crashed_title">Nagcrash ang AnySoftKeyboard!</string>
-    <string name="ime_crashed_sub_text">Kaso, hindi nakitang parating…</string>
-    <string name="ime_crashed_ticker">Kaso, Ang AnySoftKeyboard ay nagcrashed. Hindi nakitang parating…</string>
     <string name="ime_crashed_text">Sa kasamaang palad, mayroong problema sa <i>AnySoftKeyboard</i>. Gawin ang hindi takot, mayroong isang bagay na magagawa <b>mo</b> upang malutas ito: ipadala sa amin ang mga ulat ng pag-crash, at gagawin natin ang lahat upang malutas ang mga ito ang madaliang at bumalik ka sa isang kasindak-sindak na keyboard karanasan ang we\! \n\nWith taos-pusong paghingi ng tawad, Dev team.</string>
     <string name="ime_crashed_send_button">Ipadala ang mga</string>
     <string name="ime_crashed_cancel_button">Kanselahin</string>
@@ -477,10 +469,7 @@
     <string name="next_word_prefs_clear_data_summary">Ito ay hindi maaaring pawalang-bisa. Ang iyong mga na type ay mawawala sa kasaysayan.</string>
     <string name="notification_read_contacts_title">Maari kong basahin ang iyong mga kontaks?</string>
     <string name="notification_read_contacts_text">Kailangan nating basahin ang iyong mga kontaks para mabigyan ka ng mas magandang awtomatikong-kumpletong karanasan.</string>
-    <string name="notification_read_contacts_ticker">Kailangan ng pahintulot ng mga kontak</string>
-    <string name="contacts_permissions_dialog_message">Ang AnySoftKeyboard ay gumagamit ng iyong contacts\' na mga pangalan para maibigay sa itong ng isang personalized na salitang mungkahi: Kun gmag type ka ng wika, uto ay parehong wika at awtomatikong mag correct sa uyong pag-type.</string>
     <string name="wizard_allow_contacts_permission">Payagan ang mga nakabaseng kontaks sa mga mungkahing nakatype</string>
-    <string name="allow_permission">Payagan</string>
     <string name="turn_off_contacts_dictionary">Patayin ang mga kontak sa diksyunaryu</string>
     <string name="read_more_about_permissions">Basahin pa ang tungkol sa mga permiso…</string>
     <string name="ask_beta_link_promo">Uy! Gusto mo ng bago <i>AnySoftKeyboard</i> mas mabilis ng stuff? Ngayon ikaw ay maswerte! <i>BETA</i> na channel ay pwede na para <b>SAYO</b>!\nmag signup lang sa link sa baba, at i-update mo gamit ang <i>Google Play</i> app store!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAt salamat sa pagtulong na pagpatay sa mga bugs bago ito makarating sa publiko.</string>

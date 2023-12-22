@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_permission">Allow</string>
+
+    <string name="contacts_permissions_rationale">AnySoftKeyboard is using your contacts\'
+        names to provide you with a personalized word suggestion: as you type a word, we look for
+        similar words to auto-complete and auto-correct your typing.
+    </string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboard may need to notify you with critical issues (such as missing permissions or crashes).</string>
+</resources>

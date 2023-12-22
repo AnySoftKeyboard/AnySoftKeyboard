@@ -41,6 +41,12 @@
         </module>
 
         <module name="RegexpSinglelineJava">
+            <property name="id" value="NeverUseNotificationsDirectly" />
+            <property name="format" value="androidx.core.app.Notification.*" />
+            <property name="message" value="Use NotificationDriver instead" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
             <property name="id" value="NeverUseConfigNEWEST_SDK" />
             <property name="format" value="Config.NEWEST_SDK" />
             <property name="message" value="Using Config.NEWEST_SDK may refer to an unstable API. Use com.anysoftkeyboard.test.TestUtils.NEWEST_STABLE_API_LEVEL" />
@@ -252,10 +258,6 @@
                 value="GenericWhitespace ''{0}'' should followed by whitespace." />
             <message key="ws.notPreceded"
                 value="GenericWhitespace ''{0}'' is not preceded with whitespace." />
-        </module>
-        <module name="CustomImportOrder">
-            <property name="sortImportsInGroupAlphabetically" value="false" />
-            <property name="separateLineBetweenGroups" value="true" />
         </module>
         <module name="MethodParamPad" />
         <module name="ParenPad" />

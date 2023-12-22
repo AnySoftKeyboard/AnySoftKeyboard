@@ -5,8 +5,6 @@
     <!-- UI root menu -->
     <string name="ui_root_tile">ইউআই</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="close_button">বন্ধ</string>
     <string name="delete_button">মুছে ফেলো</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
@@ -105,7 +103,6 @@
     <string name="emoji_default_gender_value_person">ব্যক্তি</string>
     <string name="emoji_default_gender_value_woman">নারী</string>
     <string name="emoji_default_gender_value_man">পুরুষ</string>
-    <string name="click_for_more">আরো…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_backup_words">ব্যাকআপ</string>
@@ -114,7 +111,6 @@
     <string name="ime_crashed_send_button">পাঠাও</string>
     <string name="ime_crashed_cancel_button">বাতিল</string>
     <string name="next_word_settings_group">সেটিংস</string>
-    <string name="allow_permission">অনুমোদন</string>
     <string name="app_shortcut_themes_short_label">রঙ</string>
     <string name="no_internet_fields_specific_layout">ছাড়া</string>
     <string name="bottom_nav_home">হ্যালো</string>

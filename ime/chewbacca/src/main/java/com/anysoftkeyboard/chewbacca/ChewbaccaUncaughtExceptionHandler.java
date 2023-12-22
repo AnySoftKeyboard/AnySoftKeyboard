@@ -22,17 +22,18 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.app.NotificationChannelCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.notification.NotificationDriver;
+import com.anysoftkeyboard.notification.NotificationIds;
+import com.anysoftkeyboard.notification.NotifyBuilder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -52,11 +53,15 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
   private static final String TAG = "ASKChewbacca";
   @NonNull protected final Context mApp;
   @Nullable private final UncaughtExceptionHandler mOsDefaultHandler;
+  @NonNull private final NotificationDriver mNotificationDriver;
 
   public ChewbaccaUncaughtExceptionHandler(
-      @NonNull Context app, @Nullable UncaughtExceptionHandler previous) {
+      @NonNull Context app,
+      @Nullable UncaughtExceptionHandler previous,
+      @NonNull NotificationDriver notificationDriver) {
     mApp = app;
     mOsDefaultHandler = previous;
+    mNotificationDriver = notificationDriver;
   }
 
   private static String getAckReportFilename() {
@@ -217,33 +222,25 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
             notificationIntent,
             CompatUtils.appendImmutableFlag(PendingIntent.FLAG_UPDATE_CURRENT));
 
-    NotificationChannelCompat notificationChannel =
-        new NotificationChannelCompat.Builder("crash", NotificationManagerCompat.IMPORTANCE_HIGH)
-            .setName("App Crash Report")
-            .setLightsEnabled(true)
-            .setLightsEnabled(true)
-            .build();
+    NotifyBuilder notifyBuilder =
+        mNotificationDriver.buildNotification(
+            NotificationIds.CrashDetected,
+            R.drawable.ic_crash_detected,
+            R.string.ime_crashed_title);
 
-    NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(mApp, notificationChannel.getId());
-    builder
-        .setWhen(System.currentTimeMillis())
+    notifyBuilder
+        .setContentText(mApp.getText(R.string.ime_crashed_content))
+        .setColor(Color.argb(255, 255, 100, 100))
         .setDefaults(Notification.DEFAULT_ALL)
         .setContentIntent(contentIntent)
         .setAutoCancel(true)
-        .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setOnlyAlertOnce(false);
-    setupNotification(builder);
 
     // notifying
-    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mApp);
-    notificationManager.createNotificationChannel(notificationChannel);
-    notificationManager.notify(R.id.notification_icon_app_error, builder.build());
+    mNotificationDriver.notify(notifyBuilder, true);
   }
 
   @NonNull protected abstract Intent createBugReportingActivityIntent();
-
-  protected abstract void setupNotification(@NonNull NotificationCompat.Builder builder);
 
   @NonNull protected abstract String getAppDetails();
 }

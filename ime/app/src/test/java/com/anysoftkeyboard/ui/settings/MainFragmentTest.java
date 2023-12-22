@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
@@ -176,26 +177,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
   }
 
   @Test
-  public void testDoesNotStartFlowIfHasNoPermission() throws Exception {
-    Shadows.shadowOf((Application) getApplicationContext())
-        .denyPermissions(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
-    final MainFragment fragment = startFragment();
-    final FragmentActivity activity = fragment.getActivity();
-
-    Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
-    Assert.assertNotNull(menu);
-    final MenuItem item = menu.findItem(R.id.backup_prefs);
-    Assert.assertNotNull(item);
-
-    fragment.onOptionsItemSelected(item);
-    TestRxSchedulers.foregroundFlushAllJobs();
-
-    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
-    Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
-  }
-
-  @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
   public void testBackupMenuItemNotSupportedPreKitKat() throws Exception {
     final MainFragment fragment = startFragment();
@@ -237,9 +218,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   public void testBackupMenuItem() throws Exception {
-    Shadows.shadowOf((Application) getApplicationContext())
-        .grantPermissions(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -278,8 +256,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
   @Test
   public void testRestorePickerCancel() throws Exception {
     final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
-    shadowApplication.grantPermissions(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -315,8 +291,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
   @Test
   public void testCompleteOperation() throws Exception {
     final var shadowApplication = Shadows.shadowOf((Application) getApplicationContext());
-    shadowApplication.grantPermissions(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -411,9 +385,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   public void testRestoreMenuItem() throws Exception {
-    Shadows.shadowOf((Application) getApplicationContext())
-        .grantPermissions(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+    Shadows.shadowOf((Application) getApplicationContext());
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
 
@@ -434,5 +406,35 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     Assert.assertEquals(
         GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext()).size(),
         dialog.getListView().getCount());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testShowNotificationPermissionCard() {
+    var fragment = startFragment();
+    var card = fragment.getView().findViewById(R.id.no_notifications_permission_click_here_root);
+    Assert.assertEquals(View.VISIBLE, card.getVisibility());
+
+    var viewShadow = Shadows.shadowOf(card);
+    Assert.assertNotNull(viewShadow.getOnClickListener());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.S_V2)
+  public void testDoNotShowNotificationPermissionCardBeforeT() {
+    var fragment = startFragment();
+    var card = fragment.getView().findViewById(R.id.no_notifications_permission_click_here_root);
+    Assert.assertEquals(View.GONE, card.getVisibility());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testDoNotShowNotificationPermissionCardIfGranted() {
+    var appShadow = Shadows.shadowOf(RuntimeEnvironment.getApplication());
+    appShadow.grantPermissions(Manifest.permission.POST_NOTIFICATIONS);
+
+    var fragment = startFragment();
+    var card = fragment.getView().findViewById(R.id.no_notifications_permission_click_here_root);
+    Assert.assertEquals(View.GONE, card.getVisibility());
   }
 }

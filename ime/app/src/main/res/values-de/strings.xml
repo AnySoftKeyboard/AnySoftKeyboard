@@ -20,12 +20,9 @@
     <string name="ui_theme_settings_tile">Wähle und konfiguriere Tastaturdesigns.</string>
     <string name="ui_effects_settings_tile">Tastatureffekte und Erfahrung.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Änderungsprotokoll</string>
     <string name="search_market_for_keyboard_addons">Erhalte mehr Tastaturen im Appstore</string>
     <string name="search_market_for_quick_key_addons">Erhalte weitere <i>Quick-Text</i> Erweiterungen im Appstore…</string>
     <string name="keyboard_theme_tweak_group">Optimierungen</string>
-    <string name="close_button">Schließen</string>
     <string name="delete_button">Löschen</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gespeichert:\u0020 <xliff:g id="word">%s</xliff:g></string>
@@ -94,7 +91,7 @@
     <string name="input_field_type_email">E-Mail-Eingabefeld</string>
     <string name="input_field_type_url">URL-Eingabefeld</string>
     <string name="input_field_type_im">Nachrichteneingabefeld</string>
-    <string name="sound_on">Ton bei Tastendruck</string>
+    <string name="sound_on">Ton bei Tastenanschlag</string>
     <string name="sound_on_summary">Toneffekte bei Bildschirmtastendruck.</string>
     <string name="use_custom_sound_volume">Benutzerdefinierte Lautstärke festlegen</string>
     <string name="use_custom_sound_volume_on_summary">Toneffektlautstärke ist benutzerdefiniert.</string>
@@ -170,7 +167,7 @@
     <string name="swipe_action_name_next_alphabet">Nächste Buchstabentastatur</string>
     <string name="swipe_action_name_next_symbols">Nächste Symboltastatur</string>
     <string name="swipe_action_name_next_inside_mode">Weiter im aktuellen Modus</string>
-    <string name="swipe_action_name_cycle_keyboards">Durchlauf aller Tastaturen</string>
+    <string name="swipe_action_name_cycle_keyboards">Blättere durch alle Tastaturen</string>
     <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts alle Tastaturen durchblättern</string>
     <string name="swipe_action_name_shift">Umschalttaste</string>
     <string name="swipe_action_name_space">Leerzeichen</string>
@@ -521,7 +518,6 @@
     <string name="created_mem_dump_file">Arbeitsspeicherabbild erstellt unter: <xliff:g id="file_path">%s </xliff:g>         </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard wurde noch nicht vollständig für den Einsatz konfiguriert. Klicken Sie hier, um die Einrichtung abzuschließen.</string>
     <string name="not_configured_with_just_click_here">Hier klicken</string>
-    <string name="click_for_more">mehr …</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Wort hinzufügen</string>
@@ -538,7 +534,6 @@
     <string name="setup_wizard_step_one_action">Gehe zu deinen <i>Sprach- und Eingabeeinstellungen</i> …</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbietertastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
     <string name="setup_wizard_step_permissions_title">Aktiviere die Berechtigungen</string>
-    <string name="setup_wizard_step_permissions_details">In diesem Schritt kann <i>AnySoftKeyboard</i> Zugriff auf die Kontakte genehmigt werden, die auf dem Gerät gespeichert sind. Wenn dieser Zugriff blockiert werden soll, kann das Kontaktwörterbuch deaktiviert werden.</string>
     <string name="setup_wizard_step_two_title">Wechsel zu AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als aktive Tastatur eingestellt.\nNach dem Wechsel wird <i>AnySoftKeyboard</i> deine neue Bildschirmtastatur mit all seinen Funktionen sein!</string>
     <string name="setup_wizard_step_two_action">Aktive Tastatur wechseln</string>
@@ -553,9 +548,6 @@
     <string name="setup_wizard_step_download_details">Es wird dich freuen zu hören, dass <i>AnySoftKeyboard</i> dutzende Sprachen unterstützt. Lade einfach das gewünschte Sprachpaket herunter und genieße das Tippen in jeder Sprache auf deinem Gerät.</string>
     <string name="setup_wizard_step_download_action">Sprachpaket herunterladen</string>
     <string name="setup_wizard_step_download_skip_action">Überspringen</string>
-    <string name="ime_crashed_title">AnySoftKeyboard ist abgestürzt!</string>
-    <string name="ime_crashed_sub_text">Ups, das habe ich nicht kommen sehen …</string>
-    <string name="ime_crashed_ticker">Ups, AnySoftKeyboard ist abgestürzt. Das habe ich nicht kommen sehen …</string>
     <string name="ime_crashed_text">Leider gibt es ein Problem mit <i>AnySoftKeyboard</i>. Keine Panik, es gibt etwas, dass <b>du</b> tun kannst, um uns zu helfen dieses Problem zu beheben: Sende uns den Absturzbericht und wir tun unser Bestes, um dieses Problem zu beheben, damit du wieder in den Genuss einer großartigen Tastaturerfahrung kommst!\n\nWir bitten um Entschuldigung, dein Entwicker-Team.</string>
     <string name="ime_crashed_send_button">Senden</string>
     <string name="ime_crashed_cancel_button">Abbrechen</string>
@@ -570,13 +562,9 @@
     <string name="clipboard_paste_entries_title">Text auswählen zum Einfügen</string>
     <string name="next_word_prefs_clear_data">Wortvorhersagedaten löschen</string>
     <string name="next_word_prefs_clear_data_summary">Das ist nicht rückgängig zu machen. Dein gesamter Eingabeverlauf wird gelöscht.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard benötigt die Berechtigung zum Lesen und Schreiben deiner Backup-Dateien.</string>
     <string name="notification_read_contacts_title">Darf ich deine Kontakte lesen?</string>
     <string name="notification_read_contacts_text">Wir müssen deine Kontakte lesen können, damit die automatische Vervollständigung besser funktioniert.</string>
-    <string name="notification_read_contacts_ticker">Kontaktzugriff erforderlich</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard nutzt die Namen deiner Kontakte, um personalisierte Wortvorschläge anzubieten: Wenn ein Wort eingegeben wird, suchen wir ähnliche Wörter für eine automatische Vervollständigung und Autokorrektur.</string>
     <string name="wizard_allow_contacts_permission">Kontaktbasierte Tippvorschläge zulassen</string>
-    <string name="allow_permission">Erlauben</string>
     <string name="turn_off_contacts_dictionary">Kontaktwörterbuch ausschalten</string>
     <string name="read_more_about_permissions">Lies mehr über Berechtigungen …</string>
     <string name="ask_beta_link_promo">Hey! Möchtest du <i>AnySoftKeyboard</i>-Updates schneller bekommen? Dann hast du Glück! Der <i>BETA</i>-Kanal ist jetzt für <b>DICH</b> verfügbar!\nWerde Tester durch den untenstehenden Link und update im <i>Google Play</i> Appstore!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nUnd danke, dass du dabei hilfst Fehler zu beheben bevor sie die Öffentlichkeit erreichen.</string>

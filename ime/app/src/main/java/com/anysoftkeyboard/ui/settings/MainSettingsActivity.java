@@ -22,12 +22,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import com.anysoftkeyboard.android.PermissionRequestHelper;
+import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pixel.EdgeEffectHacker;
@@ -41,17 +39,6 @@ public class MainSettingsActivity extends AppCompatActivity {
       "EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY";
 
   private CharSequence mTitle;
-
-  /**
-   * Will set the title in the hosting Activity's title. Will only set the title if the fragment is
-   * hosted by the Activity's manager, and not inner one.
-   */
-  public static void setActivityTitle(Fragment fragment, CharSequence title) {
-    FragmentActivity activity = fragment.requireActivity();
-    if (activity.getSupportFragmentManager() == fragment.getParentFragmentManager()) {
-      activity.setTitle(title);
-    }
-  }
 
   @Override
   protected void onCreate(Bundle icicle) {

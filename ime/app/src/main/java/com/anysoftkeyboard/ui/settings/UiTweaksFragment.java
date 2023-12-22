@@ -19,6 +19,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.os.Bundle;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
+import net.evendanan.pixel.UiUtils;
 
 public class UiTweaksFragment extends PreferenceFragmentCompat {
 
@@ -30,6 +31,6 @@ public class UiTweaksFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
+    UiUtils.setActivityTitle(this, getString(R.string.tweaks_group));
   }
 }

@@ -25,12 +25,9 @@
     <string name="ui_theme_settings_tile">Chọn và định cấu hình chủ đề bàn phím.</string>
     <string name="ui_effects_settings_tile">Hiệu ứng bàn phím và trải nghiệm.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Nhật ký thay đổi</string>
     <string name="search_market_for_keyboard_addons">Nhận thêm bàn phím tại cửa hàng ứng dụng</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
     <string name="keyboard_theme_tweak_group">Tinh chỉnh</string>
-    <string name="close_button">Đóng</string>
     <string name="delete_button">Xóa</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Đã lưu:\u0020<xliff:g id="word">%s</xliff:g></string>

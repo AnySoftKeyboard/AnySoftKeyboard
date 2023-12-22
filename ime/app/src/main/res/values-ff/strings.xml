@@ -16,11 +16,9 @@
     <string name="ui_root_tile">Daartorde</string>
     <string name="ui_theme_settings_tile">Cuɓagol e teeltagol ciŋkooje tappirɗe.</string>
     <!-- welcome -->
-    <!-- changelog -->
     <string name="search_market_for_keyboard_addons">Heɓ tappirɗe goɗɗe to <i>Pkay Store</i></string>
     <string name="search_market_for_quick_key_addons">Heɓ ɓeyditte goɗɗe <i>Binndi Jaawɗi</i> to jeere jaaɓɗe tog…</string>
     <string name="keyboard_theme_tweak_group">Peewnite</string>
-    <string name="close_button">Uddu</string>
     <string name="delete_button">Momtu</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Danndaama:\u0020<xliff:g id="word">%s</xliff:g></string>

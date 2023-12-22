@@ -25,6 +25,7 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
+import net.evendanan.pixel.UiUtils;
 
 public class LanguageTweaksFragment extends PreferenceFragmentCompat {
 
@@ -57,6 +58,6 @@ public class LanguageTweaksFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
+    UiUtils.setActivityTitle(this, getString(R.string.tweaks_group));
   }
 }

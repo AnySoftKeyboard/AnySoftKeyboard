@@ -20,13 +20,10 @@
     <string name="ui_theme_settings_tile">Elegir y configurar apariencia del teclado.</string>
     <string name="ui_effects_settings_tile">Efectos de teclado e interacción.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Registro de cambios</string>
     <string name="search_market_for_keyboard_addons">Obtener más teclados en la tienda de aplicaciones</string>
     <string name="search_market_for_quick_key_addons">Conseguir más complementos de <i>texto rápido</i> en la Play Store…
     </string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
-    <string name="close_button">Cerrar</string>
     <string name="delete_button">Eliminar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Guardada:\u0020<xliff:g id="word">%s</xliff:g>    </string>
@@ -517,7 +514,6 @@
     <string name="created_mem_dump_file">Archivo de volcado de memoria generado en: <xliff:g id="file_path">%s</xliff:g>    </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no se ha configurado complemente. Pulse aquí para configurarlo.    </string>
     <string name="not_configured_with_just_click_here">Pulse aquí</string>
-    <string name="click_for_more">más…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Agregar palabra</string>
@@ -534,7 +530,6 @@
     <string name="setup_wizard_step_one_action">Ir a <i>Idiomas y entradas</i>…    </string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: El dispositivo no admite teclados de terceros, ¡AnySoftKeyboard no se puede activar!    </string>
     <string name="setup_wizard_step_permissions_title">Habilitar permisos</string>
-    <string name="setup_wizard_step_permissions_details">En este paso puede permitir que AnySoftKeyboard acceda a los contactos guardados en el dispositivo. Se puede retirar este acceso desactivando el Diccionario de contactos.    </string>
     <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Su dispositivo ya puede utilizar AnySoftKeyboard pero aún falta establecerlo como el teclado por defecto. Al hacerlo, ¡AnySoftKeyboard será su nuevo teclado y podrá disfrutar de todas sus características!    </string>
     <string name="setup_wizard_step_two_action">Cambiar teclados</string>
@@ -549,9 +544,6 @@
     <string name="setup_wizard_step_download_details">Le alegrará saber que AnySoftKeyboard admite docenas de idiomas. Tan solo descargue el paquete idioma que quiera para poder escribir en cualquier idioma en su dispositivo.</string>
     <string name="setup_wizard_step_download_action">Descargar paquete de idioma</string>
     <string name="setup_wizard_step_download_skip_action">Omitir</string>
-    <string name="ime_crashed_title">¡AnySoftKeyboard falló inesperadamente!</string>
-    <string name="ime_crashed_sub_text">Ups, esto no debió pasar…</string>
-    <string name="ime_crashed_ticker">Ups, AnySoftKeyboard falló inesperadamente, eso no debió pasar…    </string>
     <string name="ime_crashed_text">Lo sentimos. AnySoftKeyboard tuvo un problema. Descuide, <b>usted</b> puede ayudarnos a arreglar el problema enviándonos el reporte de fallo. ¡Haremos lo posible para resolver el error y brindarle un teclado insuperable!\n\nUna sincera disculpa, el equipo de desarrollo.    </string>
     <string name="ime_crashed_send_button">Enviar</string>
     <string name="ime_crashed_cancel_button">Cancelar</string>
@@ -566,13 +558,9 @@
     <string name="clipboard_paste_entries_title">Elegir qué texto pegar</string>
     <string name="next_word_prefs_clear_data">Eliminar datos de sugerencias</string>
     <string name="next_word_prefs_clear_data_summary">Esta acción es irreversible. Se eliminará todo el historial de lo que ha escrito.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard requiere tu permiso para leer, escribir y almacenar tus archivos de respaldo.</string>
     <string name="notification_read_contacts_title">¿Permite el acceso a sus contactos?</string>
     <string name="notification_read_contacts_text">Es necesario que permita acceder sus contactos para una mejor corrección automática.</string>
-    <string name="notification_read_contacts_ticker">Permiso de acceso a contactos denegado</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard utiliza los nombres de sus contactos para darle sugerencias específicas. Al teclear una palabra, se buscan otras similares para corregir y completar automáticamente.    </string>
     <string name="wizard_allow_contacts_permission">Permitir sugerencias basadas en contactos</string>
-    <string name="allow_permission">Permitir</string>
     <string name="turn_off_contacts_dictionary">Desactivar el Diccionario de contactos</string>
     <string name="read_more_about_permissions">Más información acerca de permisos…</string>
     <string name="ask_beta_link_promo">¡Hola! ¿Le interesaría obtener novedades de AnySoftKeyboard más rápido? ¡Las tenemos para <b>usted</b> en nuestro canal <i>beta</i>!\nRegístrese a través del enlace de abajo y reciba actualizaciones directamente de la tienda de <i>Google Play</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nGracias por ayudarnos a corregir fallas antes de la versión pública.    </string>

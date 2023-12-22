@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
+import net.evendanan.pixel.UiUtils;
 
 public class AdditionalLanguageSettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceClickListener {
@@ -42,7 +43,7 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragmentCompat
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.language_tweaks_settings_tile));
+    UiUtils.setActivityTitle(this, R.string.language_tweaks_settings_tile);
   }
 
   @Override

@@ -21,12 +21,9 @@
     <string name="ui_theme_settings_tile">Vali ja seadista klaviatuuri välimus. </string>
     <string name="ui_effects_settings_tile">Klaviatuuri käitumine. </string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Muudatuste logi</string>
     <string name="search_market_for_keyboard_addons">Hangi eri keeletoega klaviatuurid rakenduste poest</string>
     <string name="search_market_for_quick_key_addons">Hangi <i>Quick-Text</i>-i lisad rakenduste poest…</string>
     <string name="keyboard_theme_tweak_group">Täiustused</string>
-    <string name="close_button">Sulge</string>
     <string name="delete_button">Kustuta</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Salvestatud sõna:\u0020<xliff:g id="word">%s</xliff:g></string>

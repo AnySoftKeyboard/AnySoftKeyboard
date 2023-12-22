@@ -10,11 +10,9 @@
     <string name="ui_theme_settings_tile">เลือกและกำหนดค่าธีมแป้นพิมพ์</string>
     <string name="ui_effects_settings_tile">เอฟเฟกต์แป้นพิมพ์ และประสบการณ์</string>
     <!-- welcome -->
-    <!-- changelog -->
     <string name="search_market_for_keyboard_addons">รับแป้นพิมพ์เพิ่มเติมที่ร้านค้าแอป</string>
     <string name="search_market_for_quick_key_addons">รับส่วนเสริม  <i>Quick-Text</i>  เพิ่มเติมที่ร้านค้าแอป…</string>
     <string name="keyboard_theme_tweak_group">ปรับแต่ง</string>
-    <string name="close_button">ปิด</string>
     <string name="delete_button">ลบ</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">บันทึกแล้ว:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -283,7 +281,6 @@
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="click_for_more">เพิ่มเติม…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">เพิ่มคำ</string>
@@ -296,9 +293,7 @@
     <string name="setup_wizard_step_download_details">คุณยินดีที่ทราบว่า <i>AnySoftKeyboard</i> รองรับหลายสิบภาษา เพียงดาวน์โหลดชุดภาษาที่ต้องการและสนุกกับการพิมพ์ภาษาใดก็ได้บนอุปกรณ์ของคุณ</string>
     <string name="setup_wizard_step_download_action">ดาวน์โหลดชุดภาษา</string>
     <string name="setup_wizard_step_download_skip_action">ข้าม​</string>
-    <string name="ime_crashed_sub_text">อ๊ะ ไม่เห็นว่าจะมา …</string>
     <string name="clipboard_paste_entries_title">เลือกข้อความที่จะวาง</string>
-    <string name="allow_permission">อนุญาต</string>
     <string name="app_shortcut_keyboards_long_label">เลือกรูปแบบแป้นพิมพ์ที่จะใช้</string>
     <string name="app_shortcut_keyboards_short_label">แป้นพิมพ์</string>
     <string name="app_shortcut_themes_long_label">เลือกธีมแป้นที่จะใช้</string>

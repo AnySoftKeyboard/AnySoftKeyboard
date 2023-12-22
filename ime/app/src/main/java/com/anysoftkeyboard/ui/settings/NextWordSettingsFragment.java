@@ -20,6 +20,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import net.evendanan.pixel.UiUtils;
 
 public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
@@ -73,7 +74,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.next_word_dict_settings));
+    UiUtils.setActivityTitle(this, getString(R.string.next_word_dict_settings));
     loadUsageStatistics();
   }
 

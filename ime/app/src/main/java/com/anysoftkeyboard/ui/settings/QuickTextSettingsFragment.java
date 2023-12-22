@@ -21,6 +21,7 @@ import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.menny.android.anysoftkeyboard.R;
+import net.evendanan.pixel.UiUtils;
 
 public class QuickTextSettingsFragment extends PreferenceFragmentCompat {
 
@@ -46,6 +47,6 @@ public class QuickTextSettingsFragment extends PreferenceFragmentCompat {
   @Override
   public void onStart() {
     super.onStart();
-    MainSettingsActivity.setActivityTitle(this, getString(R.string.quick_text_keys_group));
+    UiUtils.setActivityTitle(this, getString(R.string.quick_text_keys_group));
   }
 }

@@ -23,12 +23,9 @@
     <string name="ui_theme_settings_tile">Hautatu eta konfiguratu teklatuaren azalak.</string>
     <string name="ui_effects_settings_tile">Teklatuaren efektuak eta esperientzia.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">Aldaketa-egunkaria</string>
     <string name="search_market_for_keyboard_addons">Eskuratu teklatu gehiago <i>Google Play Store</i>n…</string>
     <string name="search_market_for_quick_key_addons">Eskuratu <i>Testu-azkarra</i> motako gehigarri gehiago <i>Google Play Store</i> biltegian…</string>
     <string name="keyboard_theme_tweak_group">Doikuntzak</string>
-    <string name="close_button">Itxi</string>
     <string name="delete_button">Ezabatu</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Gordeta:\u0020<xliff:g id="word">%s</xliff:g>
@@ -514,7 +511,6 @@
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard ez dago guztiz ezarrita. Egin klik hemen ezartzeko.</string>
     <string name="not_configured_with_just_click_here">Egin klik hemen</string>
-    <string name="click_for_more">gehiago…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Gehitu hitza</string>
@@ -531,7 +527,6 @@
     <string name="setup_wizard_step_one_action">Joan <i>Hizkuntza eta idazketa</i> atalera…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Errorea: zure gailuak ez ditu onartzen aparteko teklatuak. Ezin da AnySoftKeyboard gaitu!</string>
     <string name="setup_wizard_step_permissions_title">Gaitu baimenak</string>
-    <string name="setup_wizard_step_permissions_details">Urrats honetan <i>AnySoftKeyboard</i> teklatuari zure kontaktuak irakurtzeko baimena eman ahal diozu. Baimen hau kendu nahi baduzu, Kontaktuen hiztegia desgaitu dezakezu.</string>
     <string name="setup_wizard_step_two_title">Aldatu AnySoftKeyboard teklatura</string>
     <string name="setup_wizard_step_two_details">Zure sistemak <i>AnySoftKeyboard</i> erabili dezake orain, baina ez da oraindik teklatu aktibo bezala jarri.\nAldatuz gero, <i>AnySoftKeyboard</i> izango da zure pantailako teklatua, eta bere ezaugarri guztiak izango dituzu!</string>
     <string name="setup_wizard_step_two_action">Aldatu teklatu aktiboak</string>
@@ -546,9 +541,6 @@
     <string name="setup_wizard_step_download_details"><i>AnySoftKeiboard</i> teklatuak hamaika hizkuntza onartzen dituela jakieak poztuko zaitu. Besterik gabe deskargatu nahi duzun hizkuntza-paketea eta gozatu edozin hizkuntzatan idazten.</string>
     <string name="setup_wizard_step_download_action">Deskargatu hizkuntza paketea</string>
     <string name="setup_wizard_step_download_skip_action">Saltatu</string>
-    <string name="ime_crashed_title">AnySoftKeyboard kraskatu da!</string>
-    <string name="ime_crashed_sub_text">Ene, ez nuen halakorik espero…</string>
-    <string name="ime_crashed_ticker">Ene, AnySoftKeyboard kraskatu da, ez nuen halakorik espero…</string>
     <string name="ime_crashed_text">Zoritxarrez arazo bat dago <i>AnySoftKeyboard</i> teklatuarekin. Ez larritu, badago <b>zuk</b> egin dezakezun zerbait hau konpontzen laguntzeko: bidali kraskatze-txostena, eta guk ahalegina egingo dugu kraskatze hau konpondu eta zuri teklatu esperientzia zoragarri bat emateko!\n\nBarkatu eragozpenak, garapen taldea.</string>
     <string name="ime_crashed_send_button">Bidali</string>
     <string name="ime_crashed_cancel_button">Utzi</string>
@@ -565,10 +557,7 @@
     <string name="next_word_prefs_clear_data_summary">Ez dago honetan atzera egiterik. Zure idazketa historial osoa ezabatuko da.</string>
     <string name="notification_read_contacts_title">Zure kontaktuak irakurri ditzaket?</string>
     <string name="notification_read_contacts_text">Zure kontaktuak irakurtzeko baimena, osaketa automatiko hobe bat eskaintzeko behar dugu.</string>
-    <string name="notification_read_contacts_ticker">Kontaktuak irakurtzeko baimena behar da</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard teklatuak zure kontaktuen izenak erabiltzen ditu hitzen proposamen pertsonalizatu bat egiteko: idatzi ahala, antzeko hitzak bilatzen ditu eta osaketa automatikoa eta zuzenketa automatikoa eskaini.</string>
     <string name="wizard_allow_contacts_permission">Baimendu kontaktuetan oinarritutako idazketa proposamenak</string>
-    <string name="allow_permission">Baimendu</string>
     <string name="turn_off_contacts_dictionary">Desgaitu kontaktuen hiztegia</string>
     <string name="read_more_about_permissions">Irakurri gehiago baimenei buruz…</string>
     <string name="ask_beta_link_promo">Adi! <i>AnySoftKeyboard</i> teklatuaren berritasunak azkarrago lortu nahi dituzu? Zorionekoa zu, <i>BETA</i> kanala eskuragarri baitago <b>ZURETZAT</b>!\nEman izena beheko loturan eta eguneratu <i>Google Play-Store</i> bidez!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nEta eskerrik asko publikora zabaldu aurretik akatsak konpontzen laguntzeagatik.    </string>

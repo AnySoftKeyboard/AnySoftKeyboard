@@ -13,12 +13,13 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
-import com.anysoftkeyboard.android.PermissionRequestHelper;
+import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -53,8 +54,7 @@ public class MainSettingsActivityTest {
 
   @Test
   public void testBottomNavClicks() {
-    try (ActivityScenario<MainSettingsActivity> activityController =
-        ActivityScenario.launch(MainSettingsActivity.class)) {
+    try (var activityController = ActivityScenario.launch(MainSettingsActivity.class)) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
       activityController.onActivity(
@@ -100,7 +100,7 @@ public class MainSettingsActivityTest {
 
   @Test
   public void testKeyboardsAppShortcutPassed() {
-    try (ActivityScenario<MainSettingsActivity> activityController =
+    try (ActivityScenario<FragmentActivity> activityController =
         ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_keyboards))) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
@@ -117,7 +117,7 @@ public class MainSettingsActivityTest {
 
   @Test
   public void testThemesAppShortcutPassed() {
-    try (ActivityScenario<MainSettingsActivity> activityController =
+    try (ActivityScenario<FragmentActivity> activityController =
         ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_themes))) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
@@ -134,7 +134,7 @@ public class MainSettingsActivityTest {
 
   @Test
   public void testGesturesAppShortcutPassed() {
-    try (ActivityScenario<MainSettingsActivity> activityController =
+    try (ActivityScenario<FragmentActivity> activityController =
         ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_gestures))) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
@@ -153,7 +153,7 @@ public class MainSettingsActivityTest {
 
   @Test
   public void testQuickKeysAppShortcutPassed() {
-    try (ActivityScenario<MainSettingsActivity> activityController =
+    try (ActivityScenario<FragmentActivity> activityController =
         ActivityScenario.launch(createAppShortcutIntent(R.string.deeplink_url_quick_text))) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
@@ -177,8 +177,7 @@ public class MainSettingsActivityTest {
         .denyPermissions(Manifest.permission.READ_CONTACTS);
 
     Intent requestIntent = getContactsIntent();
-    try (ActivityScenario<MainSettingsActivity> activityController =
-        ActivityScenario.launch(requestIntent)) {
+    try (var activityController = ActivityScenario.launch(requestIntent)) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
       activityController.onActivity(
@@ -199,8 +198,7 @@ public class MainSettingsActivityTest {
     Intent requestIntent = getContactsIntent();
     requestIntent.putExtra(
         MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY, LOCATION_HARDWARE);
-    try (ActivityScenario<MainSettingsActivity> activityController =
-        ActivityScenario.launch(requestIntent)) {
+    try (var activityController = ActivityScenario.launch(requestIntent)) {
       activityController.moveToState(Lifecycle.State.RESUMED);
 
       activityController.onActivity(Assert::assertNotNull);

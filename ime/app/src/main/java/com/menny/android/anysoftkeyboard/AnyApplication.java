@@ -29,8 +29,6 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.multidex.MultiDexApplication;
 import com.anysoftkeyboard.AnySoftKeyboard;
@@ -51,17 +49,19 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.notification.NotificationDriver;
+import com.anysoftkeyboard.notification.NotificationDriverImpl;
 import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.releaseinfo.TesterNotification;
 import com.anysoftkeyboard.saywhat.EasterEggs;
 import com.anysoftkeyboard.saywhat.Notices;
 import com.anysoftkeyboard.saywhat.PublicNotice;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -97,6 +97,8 @@ public class AnyApplication extends MultiDexApplication {
   private QuickTextKeyFactory mQuickTextKeyFactory;
   private RxSharedPrefs mRxSharedPrefs;
   private ArrayList<PublicNotice> mPublicNotices;
+
+  private NotificationDriver mNotificationDriver;
 
   public static DeviceSpecific getDeviceSpecific() {
     return msDeviceSpecific;
@@ -153,6 +155,19 @@ public class AnyApplication extends MultiDexApplication {
     }
   }
 
+  public static NotificationDriver notifier(Context context) {
+    final Context applicationContext = context.getApplicationContext();
+    if (applicationContext instanceof AnyApplication) {
+      return ((AnyApplication) applicationContext).mNotificationDriver;
+    } else {
+      throw new IllegalStateException(
+          "What? expected 'context.getApplicationContext()' to be AnyApplication, but was"
+              + " '"
+              + applicationContext.getClass()
+              + "'!!");
+    }
+  }
+
   private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
     if (apiLevel < 16) return new DeviceSpecificV15();
     if (apiLevel < 19) return new DeviceSpecificV16();
@@ -166,6 +181,10 @@ public class AnyApplication extends MultiDexApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+
+    mNotificationDriver = new NotificationDriverImpl(this);
+    mNotificationDriver.initializeChannels(!BuildConfig.TESTING_BUILD);
+
     DirectBootAwareSharedPreferences.create(this, this::onSharedPreferencesReady);
 
     Logger.d(TAG, "** Starting application in DEBUG mode.");
@@ -229,7 +248,8 @@ public class AnyApplication extends MultiDexApplication {
   private void onSharedPreferencesReady(@NonNull SharedPreferences sp) {
     setupCrashHandler(sp);
     updateStatistics(sp);
-    TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
+    TesterNotification.showDragonsIfNeeded(
+        getApplicationContext(), mNotificationDriver, BuildConfig.TESTING_BUILD);
   }
 
   private void prefsAutoRestoreFunction(@NonNull File file) {
@@ -270,7 +290,7 @@ public class AnyApplication extends MultiDexApplication {
   }
 
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
+  public void onConfigurationChanged(@NonNull Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     mNightModeSubject.onNext(
         (newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
@@ -365,7 +385,7 @@ public class AnyApplication extends MultiDexApplication {
         resources.getString(R.string.settings_key_show_chewbacca),
         resources.getBoolean(R.bool.settings_default_show_chewbacca))) {
       final ChewbaccaUncaughtExceptionHandler chewbaccaUncaughtExceptionHandler =
-          new AnyChewbaccaUncaughtExceptionHandler(this, globalErrorHandler);
+          new AnyChewbaccaUncaughtExceptionHandler(this, globalErrorHandler, mNotificationDriver);
       Thread.setDefaultUncaughtExceptionHandler(chewbaccaUncaughtExceptionHandler);
       RxJavaPlugins.setErrorHandler(
           e -> chewbaccaUncaughtExceptionHandler.uncaughtException(Thread.currentThread(), e));
@@ -419,23 +439,15 @@ public class AnyApplication extends MultiDexApplication {
       extends ChewbaccaUncaughtExceptionHandler {
 
     public AnyChewbaccaUncaughtExceptionHandler(
-        @NonNull Context app, @Nullable Thread.UncaughtExceptionHandler previous) {
-      super(app, previous);
+        @NonNull Context app,
+        @Nullable Thread.UncaughtExceptionHandler previous,
+        @NonNull NotificationDriver notificationDriver) {
+      super(app, previous, notificationDriver);
     }
 
     @NonNull @Override
     protected Intent createBugReportingActivityIntent() {
       return new Intent(mApp, SendBugReportUiActivity.class);
-    }
-
-    @Override
-    protected void setupNotification(@NonNull NotificationCompat.Builder builder) {
-      builder
-          .setSmallIcon(R.drawable.ic_notification_error)
-          .setColor(ContextCompat.getColor(mApp, R.color.notification_background_error))
-          .setTicker(mApp.getText(R.string.ime_crashed_ticker))
-          .setContentTitle(mApp.getText(R.string.ime_name))
-          .setContentText(mApp.getText(R.string.ime_crashed_sub_text));
     }
 
     @NonNull @Override

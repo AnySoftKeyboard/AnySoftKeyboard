@@ -10,6 +10,7 @@ dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
     implementation project(':ime:pixel')
+    implementation project(':ime:notification')
 
     testImplementation project(":ime:base-test")
 }

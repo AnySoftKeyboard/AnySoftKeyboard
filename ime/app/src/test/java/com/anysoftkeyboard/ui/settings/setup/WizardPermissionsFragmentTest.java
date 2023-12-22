@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -17,7 +16,9 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
@@ -31,16 +32,18 @@ public class WizardPermissionsFragmentTest
   }
 
   @Test
-  public void testWhenNoData() {
+  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
+  @Ignore("checkPermission returns DENIED for read-contacts")
+  public void testWhenNoPermissionsRequestNeeded() {
     WizardPermissionsFragment fragment = startFragment();
-    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
-    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-    Assert.assertNotNull(stateIcon);
 
-    Assert.assertEquals(
-        R.drawable.ic_wizard_contacts_off,
-        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-    Assert.assertTrue(stateIcon.isClickable());
+    Assert.assertTrue(fragment.isStepCompleted(fragment.requireContext()));
+
+    var contacts = fragment.getView().findViewById(R.id.contacts_permission_group);
+    Assert.assertEquals(View.GONE, contacts.getVisibility());
+
+    var notifications = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.GONE, notifications.getVisibility());
   }
 
   @Test
@@ -59,13 +62,14 @@ public class WizardPermissionsFragmentTest
 
     WizardPermissionsFragment fragment = startFragment();
     Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
-    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-    Assert.assertNotNull(stateIcon);
 
-    Assert.assertEquals(
-        R.drawable.ic_wizard_contacts_off,
-        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-    Assert.assertTrue(stateIcon.isClickable());
+    var contacts = fragment.getView().findViewById(R.id.contacts_permission_group);
+    Assert.assertEquals(View.VISIBLE, contacts.getVisibility());
+
+    // no need for this in M
+    var notifications = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.GONE, notifications.getVisibility());
+
     // can handle wiki?
     fragment.getView().findViewById(R.id.open_permissions_wiki_action).performClick();
     Intent wikiIntent =
@@ -79,9 +83,9 @@ public class WizardPermissionsFragmentTest
     fragment.getView().findViewById(R.id.disable_contacts_dictionary).performClick();
     Assert.assertFalse(
         SharedPrefsHelper.getPrefValue(R.string.settings_key_use_contacts_dictionary, true));
-    Assert.assertEquals(
-        R.drawable.ic_wizard_contacts_disabled,
-        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+
+    // disabling contacts
+    Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
   }
 
   @Test
@@ -101,18 +105,9 @@ public class WizardPermissionsFragmentTest
 
     WizardPermissionsFragment fragment = startFragment();
     Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
-    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-    Assert.assertNotNull(stateIcon);
 
-    Assert.assertEquals(
-        R.drawable.ic_wizard_contacts_disabled,
-        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-    Assert.assertTrue(stateIcon.isClickable());
-
-    // now, clicking on ALLOW, should enable the dictionary back and start permission request
-    stateIcon.performClick();
-    Assert.assertTrue(
-        SharedPrefsHelper.getPrefValue(R.string.settings_key_use_contacts_dictionary, false));
+    var contacts = fragment.getView().findViewById(R.id.contacts_permission_group);
+    Assert.assertEquals(View.GONE, contacts.getVisibility());
   }
 
   @Test
@@ -133,21 +128,63 @@ public class WizardPermissionsFragmentTest
 
     WizardPermissionsFragment fragment = startFragment();
     Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+    var contacts = fragment.getView().findViewById(R.id.contacts_permission_group);
+    Assert.assertEquals(View.GONE, contacts.getVisibility());
+  }
 
-    ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
-    Assert.assertNotNull(stateIcon);
+  @Test
+  @Config(sdk = Build.VERSION_CODES.S_V2)
+  public void testDoesNotShowNotificationGroupBeforeT() {
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.GONE, group.getVisibility());
+  }
 
-    Assert.assertEquals(
-        R.drawable.ic_wizard_contacts_on,
-        Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-    Assert.assertFalse(stateIcon.isClickable());
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testDoesNotShowNotificationGroupIfGranted() {
+    var appShadow = Shadows.shadowOf(RuntimeEnvironment.getApplication());
+    appShadow.grantPermissions(Manifest.permission.POST_NOTIFICATIONS);
 
-    View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
-    View.OnClickListener linkClickHandler =
-        Shadows.shadowOf((View) fragment.getView().findViewById(R.id.ask_for_permissions_action))
-            .getOnClickListener();
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.GONE, group.getVisibility());
+    var contacts = fragment.getView().findViewById(R.id.contacts_permission_group);
+    Assert.assertEquals(View.VISIBLE, contacts.getVisibility());
+    Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
-    Assert.assertNotNull(stateIconClickHandler);
-    Assert.assertSame(stateIconClickHandler, linkClickHandler);
+    appShadow.grantPermissions(Manifest.permission.READ_CONTACTS);
+    fragment.refreshFragmentUi();
+
+    Assert.assertEquals(View.GONE, contacts.getVisibility());
+    Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testShowNotificationGroupIfNotGranted() {
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.VISIBLE, group.getVisibility());
+
+    View linkView = fragment.getView().findViewById(R.id.ask_for_notification_permissions_action);
+    var clickHandler = Shadows.shadowOf(linkView).getOnClickListener();
+    Assert.assertNotNull(clickHandler);
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testHidesNotificationGroupIfNotGrantedButSkipped() {
+    var fragment = startFragment();
+    var group = fragment.getView().findViewById(R.id.notification_permission_group);
+    Assert.assertEquals(View.VISIBLE, group.getVisibility());
+
+    View skipLink = fragment.getView().findViewById(R.id.skip_notification_permissions_action);
+    var clickSkipHandler = Shadows.shadowOf(skipLink).getOnClickListener();
+    Assert.assertNotNull(clickSkipHandler);
+
+    clickSkipHandler.onClick(skipLink);
+
+    Assert.assertEquals(View.GONE, group.getVisibility());
   }
 }

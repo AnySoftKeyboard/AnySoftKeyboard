@@ -101,6 +101,8 @@ dependencies {
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
     implementation project(':ime:nextword')
+    implementation project(':ime:notification')
+    implementation project(':ime:releaseinfo')
     implementation project(':ime:addons')
     implementation project(':ime:dictionaries')
     implementation project(':ime:dictionaries:jnidictionaryv1')
@@ -112,6 +114,7 @@ dependencies {
     implementation project(':ime:gesturetyping')
     implementation project(':ime:voiceime')
     implementation project(':ime:chewbacca')
+    implementation project(':ime:permissions')
     implementation project(':ime:fileprovider')
 
     implementation 'androidx.fragment:fragment:1.6.2'
@@ -124,7 +127,6 @@ dependencies {
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
-    implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'androidx.autofill:autofill:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 

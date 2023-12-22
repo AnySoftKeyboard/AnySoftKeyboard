@@ -6,20 +6,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import com.anysoftkeyboard.android.PermissionRequestHelper;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class WizardPermissionsFragment extends WizardPageBaseFragment
     implements View.OnClickListener {
+
+  private boolean mNotificationSkipped = false;
 
   @Override
   protected int getPageLayoutId() {
@@ -29,18 +31,35 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
   @Override
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    view.findViewById(R.id.ask_for_permissions_action).setOnClickListener(this);
-    mStateIcon.setOnClickListener(this);
+    mNotificationSkipped = false;
+    view.findViewById(R.id.ask_for_contact_permissions_action).setOnClickListener(this);
     view.findViewById(R.id.disable_contacts_dictionary).setOnClickListener(this);
     view.findViewById(R.id.open_permissions_wiki_action).setOnClickListener(this);
+    view.findViewById(R.id.ask_for_notification_permissions_action).setOnClickListener(this);
+    view.findViewById(R.id.skip_notification_permissions_action).setOnClickListener(this);
   }
 
   @Override
   protected boolean isStepCompleted(@NonNull Context context) {
+    return isContactsPermComplete(context) && isNotificationPermComplete(context);
+  }
+
+  private boolean isContactsPermComplete(@NonNull Context context) {
     return isContactsDictionaryDisabled(context)
         || // either the user disabled Contacts
         ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
             == PackageManager.PERMISSION_GRANTED; // or the user granted permission
+  }
+
+  private boolean isNotificationPermComplete(@NonNull Context context) {
+    if (mNotificationSkipped) return true;
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      return ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+          == PackageManager.PERMISSION_GRANTED;
+    }
+
+    return true;
   }
 
   private boolean isContactsDictionaryDisabled(Context context) {
@@ -54,18 +73,29 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
   @Override
   public void refreshFragmentUi() {
     super.refreshFragmentUi();
-    if (getActivity() != null) {
-      @DrawableRes final int stateIcon;
-      if (isContactsDictionaryDisabled(getActivity())) {
-        mStateIcon.setClickable(true);
-        stateIcon = R.drawable.ic_wizard_contacts_disabled;
-      } else if (isStepCompleted(getActivity())) {
-        mStateIcon.setClickable(false);
-        stateIcon = R.drawable.ic_wizard_contacts_on;
-      } else {
-        stateIcon = R.drawable.ic_wizard_contacts_off;
-      }
-      mStateIcon.setImageResource(stateIcon);
+    setContactsPermissionCardVisibility();
+    setNotificationPermissionCardVisibility();
+  }
+
+  @AfterPermissionGranted(PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE)
+  private void setNotificationPermissionCardVisibility() {
+    var notificationGroup = getView().findViewById(R.id.notification_permission_group);
+
+    if (isNotificationPermComplete(requireContext())) {
+      notificationGroup.setVisibility(View.GONE);
+    } else {
+      notificationGroup.setVisibility(View.VISIBLE);
+    }
+  }
+
+  @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
+  private void setContactsPermissionCardVisibility() {
+    var group = getView().findViewById(R.id.contacts_permission_group);
+
+    if (isContactsPermComplete(requireContext())) {
+      group.setVisibility(View.GONE);
+    } else {
+      group.setVisibility(View.VISIBLE);
     }
   }
 
@@ -75,18 +105,15 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
     if (activity == null) return;
 
     switch (v.getId()) {
-      case R.id.ask_for_permissions_action:
-      case R.id.step_state_icon:
-        enableContactsDictionary();
-        break;
-      case R.id.disable_contacts_dictionary:
+      case R.id.ask_for_contact_permissions_action -> enableContactsDictionary();
+      case R.id.disable_contacts_dictionary -> {
         mSharedPrefs
             .edit()
             .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
             .apply();
         refreshWizardPager();
-        break;
-      case R.id.open_permissions_wiki_action:
+      }
+      case R.id.open_permissions_wiki_action -> {
         Intent browserIntent =
             new Intent(
                 Intent.ACTION_VIEW,
@@ -103,10 +130,15 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
               "Can not open '%' since there is nothing on the device that can handle" + " it.",
               browserIntent.getData());
         }
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
+      }
+      case R.id.ask_for_notification_permissions_action -> AnyApplication.notifier(activity)
+          .askForNotificationPostPermission(this);
+      case R.id.skip_notification_permissions_action -> {
+        mNotificationSkipped = true;
+        refreshWizardPager();
+      }
+      default -> throw new IllegalArgumentException(
+          "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
     }
   }
 

@@ -20,12 +20,9 @@
     <string name="ui_theme_settings_tile">选择并配置键盘主题。</string>
     <string name="ui_effects_settings_tile">键盘效果和体验。</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">更新日志</string>
     <string name="search_market_for_keyboard_addons">在应用商店获得更多键盘</string>
     <string name="search_market_for_quick_key_addons">在应用商店获得更多 <i>快速文本</i> 附加组件…</string>
     <string name="keyboard_theme_tweak_group">微调</string>
-    <string name="close_button">关闭</string>
     <string name="delete_button">删除</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">已保存:\u0020<xliff:g id="word">%s</xliff:g></string>

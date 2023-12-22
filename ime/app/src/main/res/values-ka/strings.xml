@@ -25,14 +25,11 @@
     <string name="ui_theme_settings_tile">აირჩიეთ და გამართეთ კლავიატურის იერსახე.</string>
     <string name="ui_effects_settings_tile">კლავიატურის ეფექტები და შესაძლებლობები.</string>
     <!-- welcome -->
-    <!-- changelog -->
-    <string name="changelog">ცვლილებები</string>
     <string name="search_market_for_keyboard_addons">მოიძიეთ სხვა კლავიატურები მაღაზიაში</string>
     <string name="search_market_for_quick_key_addons">იხილეთ სხვა <i>Quick-Text</i> დამატებები
         მაღაზიაში…
     </string>
     <string name="keyboard_theme_tweak_group">მორგება</string>
-    <string name="close_button">დახურვა</string>
     <string name="delete_button">წაშლა</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">შენახულია:\u0020<xliff:g id="word">%s</xliff:g></string>
@@ -616,7 +613,6 @@
         აქ გასამართად.
     </string>
     <string name="not_configured_with_just_click_here">დაწკაპეთ აქ</string>
-    <string name="click_for_more">ვრცლად…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">სიტყვის დამატება</string>
@@ -639,11 +635,6 @@
         არაა მხარდაჭერილი გარეშე კლავიატურები. AnySoftKeyboard ვერ ამუშავდება!
     </string>
     <string name="setup_wizard_step_permissions_title">ნებართვების მინიჭება</string>
-    <string name="setup_wizard_step_permissions_details">ამ საფეხურზე ნების მიცემით <i>
-        AnySoftKeyboard
-    </i> შეძლებს წვდომას ნომრებთან თქვენს მოწყობილობაზე. თუ გსურთ აირიდოთ ამგვარი წვდომა, შეგიძლიათ გამორთოთ
-        ნომრების ლექსიკონი.
-    </string>
     <string name="setup_wizard_step_two_title">გადართვა AnySoftKeyboard-ზე</string>
     <string name="setup_wizard_step_two_details">თქვენ სისტემას უკვე შეუძლია გამოიყენოს <i>AnySoftKeyboard</i>, მაგრამ
         არაა არჩეული მოქმედ კლავიატურად.\nგადართვის შედეგად, <i>AnySoftKeyboard</i> გახდება თქვენი ახალი
@@ -666,10 +657,6 @@
         ნებისმიერი ანბანით აკრეფის შესაძლებლობით.</string>
     <string name="setup_wizard_step_download_action">ენის კრებულის ჩამოტვირთვა</string>
     <string name="setup_wizard_step_download_skip_action">გამოტოვება</string>
-    <string name="ime_crashed_title">AnySoftKeyboard უეცრად გაითიშა!</string>
-    <string name="ime_crashed_sub_text">უჰ, რაღაც წესრიგში ვერაა…</string>
-    <string name="ime_crashed_ticker">უჰ, AnySoftKeyboard გაითიშა, რაღაც წესრიგში ვერაა…
-    </string>
     <string name="ime_crashed_text">სამწუხაროთ, ვერ მუშაობს <i>AnySoftKeyboard</i>.
         არ აღელდეთ, ამის გამოსწორებაში <b>თქვენც</b> შეგიძლიათ დაგვეხმაროთ: გამოგზავნეთ გათიშვის
         მოხსენება, ჩვენ კი ყველანაირად შევეცდებით გამოვასწოროთ ხარვეზი და დაგიბრუნოთ გამართული
@@ -688,16 +675,9 @@
     <string name="clipboard_paste_entries_title">აიღეთ ტექსტი ჩასასმელად</string>
     <string name="next_word_prefs_clear_data">მომდევნო სიტყვის მონაცემების გასუფთავება</string>
     <string name="next_word_prefs_clear_data_summary">ეს შეუქცევადია. თქვენ მიერ აკრეფილი ტექსტები სრულად გასუფთავდება.</string>
-    <string name="storage_permission_rationale">AnySoftKeyboard საჭიროებს წაკითხვისა და ჩაწერის ნებართვას, მარქაფის შესანახად.</string>
     <string name="notification_read_contacts_title">შეიძლება ნომრებთან წვდომა?</string>
     <string name="notification_read_contacts_text">თქვენს ნომრებთან წვდომა გვესაჭიროება, თვითშევსების გასაუმჯობესებლად.</string>
-    <string name="notification_read_contacts_ticker">საჭიროებს ნომრებთან წვდომის ნებართვას</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard იყენებს თქვენი წიგნაკიდან
-        სახელებს მორგებული შემოთავაზებებისთვის: სიტყვის აკრეფისთანავე მოიძებნება
-        მსგავსი სიტყვები თვითდასრულებისა და თვითშესწორებისთვის.
-    </string>
     <string name="wizard_allow_contacts_permission">ნომრების წიგნაკიდან შემოთავაზების ნებართვა</string>
-    <string name="allow_permission">ნებართვა</string>
     <string name="turn_off_contacts_dictionary">ნომრების ლექსიკონის გამორთვა</string>
     <string name="read_more_about_permissions">იხილეთ ვრცლად ნებართვებზე…</string>
     <string name="ask_beta_link_promo">ჰეი! გსურთ ახალი <i>AnySoftKeyboard</i> მალევე მიიღოთ? მაშინ
