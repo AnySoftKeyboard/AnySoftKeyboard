@@ -110,6 +110,29 @@ public class WordsSplitterTest {
   }
 
   @Test
+  public void testDoesNotExceedMaxProvider() {
+    typeWord(
+        "bobachodabobach",
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false);
+    var result = splitToLists();
+    Assert.assertEquals(32, result.size());
+  }
+
+  @Test
   public void testDoesNotExceedMaxSplits() {
     typeWord("abcdefghi", true, true, true, true, true, true, true, true, true);
     var result = splitToLists();

@@ -180,7 +180,7 @@ public class WordsSplitter {
     }
 
     public void addProvider(@NonNull KeyCodesProvider provider) {
-      mSubWords[mSubWordsCount++] = provider;
+      if (mSubWordsCount < MAX_SPLITS) mSubWords[mSubWordsCount++] = provider;
     }
 
     @NonNull @Override
