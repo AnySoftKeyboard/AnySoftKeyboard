@@ -7,7 +7,4 @@
         id="91c4067a-177a-42ba-9c60-0f4249e99bd9"
         index="1" defaultDictionaryLocale="pi"
         description="Created by Brenda Pardal y Juliana Pardal"/>
-<!--    <Keyboard nameResId="@string/pilaga_keyboard_name_dvorak" iconResId="@drawable/ic_status_spain" layoutResId="@xml/pi_dvorak" id="85cafeb0-2146-11e7-9598-0800200c9a66" index="2" defaultDictionaryLocale="pi" description="Dvorak pilaga variant"/>-->
-<!--    <Keyboard nameResId="@string/pilaga_keyboard_with_symbols_name" iconResId="@drawable/ic_status_spain" layoutResId="@xml/pi_qwerty_with_symbols" id="7c75a557-b515-4e5c-a5a2-53b7eb78652d" index="3" defaultDictionaryLocale="pi" description="Pilagá Qwerty with Symbols"/>-->
-<!--    <Keyboard nameResId="@string/pilaga_keyboard_with_symbols_alt_name" iconResId="@drawable/ic_status_spain" layoutResId="@xml/pi_qwerty_with_symbols_alt" id="daa19c8c-9bce-4a6c-9b05-3f7c5da3beda" index="4" defaultDictionaryLocale="pi" description="Pilagá Querty with Symbols no ñ"/>-->
 </Keyboards>
