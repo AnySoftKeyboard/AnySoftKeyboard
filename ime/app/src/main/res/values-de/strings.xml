@@ -517,6 +517,7 @@
     <string name="failed_to_create_mem_dump">Fehler beim Erstellen des Arbeitsspeicherabbilds wegen: <xliff:g id="message">%s </xliff:g>     </string>
     <string name="created_mem_dump_file">Arbeitsspeicherabbild erstellt unter: <xliff:g id="file_path">%s </xliff:g>         </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard wurde noch nicht vollständig für den Einsatz konfiguriert. Klicken Sie hier, um die Einrichtung abzuschließen.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard hat keine Berechtigung, Benachrichtigungen anzuzeigen. Gelegentlich müssen wir dich über kritische Probleme informieren (wie Abstürze).</string>
     <string name="not_configured_with_just_click_here">Hier klicken</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -651,4 +652,8 @@
     <string name="backup_restore_not_support_before_kitkat_message">Backup und Wiederherstellung werden für Geräte mit Android OS vor KitKat (Version 4.4) nicht unterstützt. Entschuldigung.</string>
     <string name="delete_all_clipboard_entries">Leere Zwischenablage</string>
     <string name="tip_swipe_from_backspace_to_clear">Tipp: Sie können mit der Rücktaste nach links wischen, um das Wort zu löschen!</string>
+    <string name="notification_read_contacts_ticker">Kontakt-Berechtigung erforderlich</string>
+    <string name="wizard_allow_notification_permission">Benachrichtigungen von AnySoftKeyboard zulassen</string>
+    <string name="setup_wizard_step_notification_permissions_details">In seltenen Fällen (z. B. bei App-Abstürzen) müssen wir eine Gerätebenachrichtigung anzeigen. Dies wird empfohlen, aber das Deaktivieren davon wird das Verhalten dieser App nicht beeinträchtigen.</string>
+    <string name="wizard_skip_notification_permission">Benachrichtigungen nicht zulassen</string>
 </resources>

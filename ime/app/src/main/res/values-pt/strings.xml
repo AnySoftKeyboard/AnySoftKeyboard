@@ -359,6 +359,8 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="quick_fix_secon_disabled_summ_on">As correções rápidas e as abreviações só funcionarão no idioma do esquema atual</string>
     <string name="quick_fix_secon_disabled_summ_off">As correções rápidas e as abreviações funcionarão em todos os idiomas 
                   marcados no dicionário padrão</string>
+    <string name="try_split_words_for_correction">Corrigir dividindo a palavra digitada</string>
+    <string name="try_split_words_for_correction_summary_on">Dividir palavra digitada adivinhando um ESPAÇO em falta.</string>
     <string name="allow_suggestions_restart">Reiniciar sugestões</string>
     <string name="allow_suggestions_restart_summary">Reiniciar sugestões ao mover o cursor</string>
     <!-- settings - keyboard group -->
@@ -557,6 +559,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     
     </string>
     <string name="not_configured_with_click_here">O AnySoftKeyboard ainda não pode ser utilizado. Clique aqui para o configurar.</string>
+    <string name="not_notification_permission_text">O AnySoftKeyboard não tem permissão para publicar notificações. Em casos raros, ele pode precisar notificá-lo com problemas críticos (como falhas de sistema).</string>
     <string name="not_configured_with_just_click_here">Clique aqui</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -714,4 +717,8 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="backup_restore_not_support_before_kitkat_message">A cópia de segurança e restauração não são suportados em dispositivos  com o Android anterior ao KitKat (versão 4.4). Pedimos desculpa.</string>
     <string name="delete_all_clipboard_entries">Limpar área de transferência</string>
     <string name="tip_swipe_from_backspace_to_clear">Dica: pode-se deslizar com o dedo para a esquerda a partir do botão de apagar para limpar a palavra!</string>
+    <string name="notification_read_contacts_ticker">Necessária permissão de contatos</string>
+    <string name="wizard_allow_notification_permission">Permitir notificações do AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">Em casos raros (por exemplo, falhas na aplicação) precisaremos publicar uma notificação do dispositivo. Isto é recomendado mas a desativação da notificação não afetará o comportamento desta aplicação.</string>
+    <string name="wizard_skip_notification_permission">Não permitir notificações</string>
 </resources>

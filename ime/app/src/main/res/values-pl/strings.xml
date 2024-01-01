@@ -600,6 +600,7 @@ Zmiana
     <string name="not_configured_with_click_here">AnySoftKeyboard nie jest w pełni skonfigurowana. Dotknij
         tutaj, aby to zrobić.
     </string>
+    <string name="not_notification_permission_text">AnySoftKeyboard nie ma uprawnień do publikowania powiadomień. Możemy potrzebować, raczej rzadko, powiadomić Cię o krytycznych problemach (np. awariach).</string>
     <string name="not_configured_with_just_click_here">Dotknij tutaj</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -623,6 +624,7 @@ Zmiana
          nie obsługuje zewnętrznych klawiatur. AnySoftKeyboard nie może zostać aktywowane!
     </string>
     <string name="setup_wizard_step_permissions_title">Włącz uprawnienia</string>
+    <string name="setup_wizard_step_two_title">Zmień na AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Twój system może używać <i>AnySoftKeyboard</i>, ale
          nie jest ona ustawiona jako aktywna klawiatura.\nWłączając <i>AnySoftKeyboard</i> będzie Twoją nową
         klawiaturą ekranową wraz ze wszystkimi jej funkcjami!
@@ -760,4 +762,8 @@ Zmiana
     <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
     <string name="delete_all_clipboard_entries">Wyczyść schowek</string>
     <string name="tip_swipe_from_backspace_to_clear">Wskazówka: możesz przesunąć palcem w lewo od backspace, aby wyczyścić słowo!</string>
+    <string name="notification_read_contacts_ticker">Wymagane uprawnienie dostępu do kontaktów</string>
+    <string name="wizard_allow_notification_permission">Zezwól na powiadomienia od AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">W rzadkich przypadkach (np. awaria aplikacji) będziemy musieli wysłać powiadomienie na urządzenie. Jest to zalecane, ale wyłączenie powiadomień nie wpłynie na zachowanie tej aplikacji.</string>
+    <string name="wizard_skip_notification_permission">Nie zezwalaj na powiadomienia</string>
 </resources>
