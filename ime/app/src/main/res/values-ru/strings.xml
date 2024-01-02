@@ -332,6 +332,8 @@
     <string name="quick_fix_secon_disabled_summ_on">Быстрые исправления и сокращения будут работать только на текущей раскладке языка</string>
     <string name="quick_fix_secon_disabled_summ_off">Быстрые исправления и аббревиатуры будут работать на каждом языке 
                   отмеченном в переопределение стандартного словаря</string>
+    <string name="try_split_words_for_correction">Исправить, разделив набранное слово</string>
+    <string name="try_split_words_for_correction_summary_on">Разделите набранное слово, указав пропущенный ПРОБЕЛ.</string>
     <string name="allow_suggestions_restart">Предложение перезагрузить</string>
     <string name="allow_suggestions_restart_summary">Перезапуск предложенного слова при движении курсора</string>
     <!-- settings - keyboard group -->
@@ -515,6 +517,7 @@
     <string name="failed_to_create_mem_dump">Не удалось создать файл дампа памяти из-за: <xliff:g id="message">%s </xliff:g>     </string>
     <string name="created_mem_dump_file">Создан файл дампа памяти в: <xliff:g id="file_path">%s </xliff:g>     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard не включен. Нажмите здесь, чтобы включить.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard не имеет вашего разрешения на публикацию уведомлений. В редких случаях нам может потребоваться уведомить вас о критических проблемах (например, сбоях).</string>
     <string name="not_configured_with_just_click_here">Нажмите здесь</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -649,4 +652,8 @@
     <string name="backup_restore_not_support_before_kitkat_message">Резервное копирование и восстановление не поддерживаются для устройств с ОС Android до KitKat (версия 4.4).</string>
     <string name="delete_all_clipboard_entries">Пустой буфер обмена</string>
     <string name="tip_swipe_from_backspace_to_clear">Подсказка: Вы можете провести влево с кнопки Backspaсе, чтобы удалить слово!</string>
+    <string name="notification_read_contacts_ticker">Требуется разрешение на контакты</string>
+    <string name="wizard_allow_notification_permission">Разрешить уведомления от AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">В редких случаях (например, сбои приложения) нам необходимо опубликовать уведомление об устройстве. Это рекомендуется, но запрет на уведомление не повлияет на поведение этого приложения.</string>
+    <string name="wizard_skip_notification_permission">Запретить уведомления</string>
 </resources>
