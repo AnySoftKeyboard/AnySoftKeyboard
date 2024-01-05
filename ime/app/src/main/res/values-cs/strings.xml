@@ -336,6 +336,9 @@
     <string name="simley_key_name">Klávesa smajlíku</string>
     <string name="history_quick_text_key_name">Historie</string>
     <string name="default_quick_text_key_name">Jednoduché smajlíky</string>
+    <string name="unicode_quick_text_key_name">Smajlíci</string>
+    <string name="unicode_people_quick_text_key_name">Lidé</string>
+    <string name="unicode_animals_quick_text_key_name">Zvířata</string>
     <string name="unicode_food_quick_text_key_name">Jídlo</string>
     <string name="unicode_nature_quick_text_key_name">Příroda</string>
     <string name="unicode_transport_quick_text_key_name">Doprava</string>
@@ -382,6 +385,7 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Nemáte žádná slova v uživatelském slovníku. Nyní můžete přidat své první slovo.</string>
     <string name="should_swap_punctuation_and_space_title">Prohodit interpunkci a mezeru</string>
+    <string name="emoji_default_skin_tone_title">Výchozí barva pleti smajlíků</string>
     <string name="emoji_default_gender_value_person">Osoba</string>
     <string name="emoji_default_gender_value_woman">Žena</string>
     <string name="emoji_default_gender_value_man">Muž</string>
