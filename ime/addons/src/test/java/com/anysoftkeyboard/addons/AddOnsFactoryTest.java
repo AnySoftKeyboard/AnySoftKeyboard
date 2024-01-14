@@ -4,6 +4,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.util.AttributeSet;
 import androidx.annotation.StringRes;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -245,6 +246,23 @@ public class AddOnsFactoryTest {
     TestAddOn defaultAddOn = factory.getEnabledAddOns().get(0);
     Assert.assertSame(defaultAddOn, factory.getEnabledAddOn());
     Assert.assertEquals(defaultAddOn.getId(), initialAddOn.getId());
+  }
+
+  @Test
+  public void testSetNewConfiguration() {
+    TestableSingleAddOnsFactory factory = new TestableSingleAddOnsFactory();
+
+    var originalContext = factory.getEnabledAddOn().getPackageContext();
+    Assert.assertEquals(1, originalContext.getResources().getConfiguration().orientation);
+
+    var newConfig = new Configuration(getApplicationContext().getResources().getConfiguration());
+    newConfig.orientation = 2;
+
+    AddOnsFactory.onConfigurationChanged(newConfig, factory);
+
+    var updatedContext = factory.getEnabledAddOn().getPackageContext();
+    Assert.assertEquals(2, updatedContext.getResources().getConfiguration().orientation);
+    Assert.assertNotSame(originalContext, updatedContext);
   }
 
   public static void clearFactoryCache(AddOnsFactory<?> factory) {

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -110,7 +109,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
    */
   private boolean mShowSuggestions = false;
   private boolean mAutoComplete;
-  private int mOrientation;
 
   private static void fillSeparatorsSparseArray(
       SparseBooleanArray sparseBooleanArray, char[] chars) {
@@ -134,8 +132,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   @Override
   public void onCreate() {
     super.onCreate();
-
-    mOrientation = getResources().getConfiguration().orientation;
 
     mSuggest = createSuggest();
 
@@ -934,21 +930,17 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   }
 
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
-    if (newConfig.orientation != mOrientation) {
-      mOrientation = newConfig.orientation;
+  protected void onOrientationChanged(int oldOrientation, int newOrientation) {
+    super.onOrientationChanged(oldOrientation, newOrientation);
+    abortCorrectionAndResetPredictionState(false);
 
-      abortCorrectionAndResetPredictionState(false);
-
-      String sentenceSeparatorsForCurrentKeyboard =
-          getKeyboardSwitcher().getCurrentKeyboardSentenceSeparators();
-      if (sentenceSeparatorsForCurrentKeyboard == null) {
-        mSentenceSeparators.clear();
-      } else {
-        fillSeparatorsSparseArray(
-            mSentenceSeparators, sentenceSeparatorsForCurrentKeyboard.toCharArray());
-      }
+    String sentenceSeparatorsForCurrentKeyboard =
+        getKeyboardSwitcher().getCurrentKeyboardSentenceSeparators();
+    if (sentenceSeparatorsForCurrentKeyboard == null) {
+      mSentenceSeparators.clear();
+    } else {
+      fillSeparatorsSparseArray(
+          mSentenceSeparators, sentenceSeparatorsForCurrentKeyboard.toCharArray());
     }
   }
 

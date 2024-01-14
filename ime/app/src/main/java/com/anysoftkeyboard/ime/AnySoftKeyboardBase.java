@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.view.Gravity;
@@ -71,6 +72,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
       new ModifierKeyState(false /*does not support locked state*/);
 
   @NonNull protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
+  private int mOrientation;
 
   @Override
   @CallSuper
@@ -81,6 +83,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
         BuildConfig.VERSION_NAME,
         BuildConfig.VERSION_CODE);
     super.onCreate();
+    mOrientation = getResources().getConfiguration().orientation;
     if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
       try {
         DeveloperUtils.startTracing();
@@ -159,6 +162,25 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     super.updateFullscreenMode();
     updateSoftInputWindowLayoutParameters();
   }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    ((AnyApplication) getApplication()).setNewConfigurationToAllAddOns(newConfig);
+    super.onConfigurationChanged(newConfig);
+    if (newConfig.orientation != mOrientation) {
+      var lastOrientation = mOrientation;
+      mOrientation = newConfig.orientation;
+      onOrientationChanged(lastOrientation, mOrientation);
+    }
+  }
+
+  protected int getCurrentOrientation() {
+    // must use the current configuration, since mOrientation may lag a bit.
+    return getResources().getConfiguration().orientation;
+  }
+
+  @CallSuper
+  protected void onOrientationChanged(int oldOrientation, int newOrientation) {}
 
   private void updateSoftInputWindowLayoutParameters() {
     final Window window = getWindow().getWindow();

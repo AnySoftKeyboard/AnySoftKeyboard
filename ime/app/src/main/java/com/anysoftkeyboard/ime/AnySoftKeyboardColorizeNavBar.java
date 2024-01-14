@@ -62,10 +62,6 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     }
   }
 
-  private boolean isInPortrait() {
-    return getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE;
-  }
-
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
@@ -86,9 +82,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     final var w = getWindow().getWindow();
     final var inputContainer = getInputViewContainer();
     if (w != null && inputContainer != null) {
-      final var inPortrait = isInPortrait();
       final var doesOsShowNavigationBar = doesOsShowNavigationBar();
-      if (inPortrait && doesOsShowNavigationBar) {
+      if (doesOsShowNavigationBar) {
         final int navBarHeight = getNavBarHeight();
         if (navBarHeight > 0 && mPrefsToShow) {
           Logger.d(TAG, "Showing Colorized nav-bar with height %d", navBarHeight);
@@ -110,12 +105,7 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
           clearColorizedNavBar(w, inputContainer);
         }
       } else {
-        Logger.w(
-            TAG,
-            "Will not show Colorized nav-bar since isInPortrait %s and"
-                + " doesOsShowNavigationBar %s",
-            inPortrait,
-            doesOsShowNavigationBar);
+        Logger.w(TAG, "Will not show Colorized nav-bar since not doesOsShowNavigationBar");
         clearColorizedNavBar(w, inputContainer);
       }
     }

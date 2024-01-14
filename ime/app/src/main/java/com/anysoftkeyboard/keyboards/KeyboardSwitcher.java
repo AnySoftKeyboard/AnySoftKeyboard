@@ -597,6 +597,7 @@ public class KeyboardSwitcher {
     if (mKeyboardLocked) {
       return mContext.getString(R.string.keyboard_change_locked);
     } else {
+      ensureKeyboardsAreBuilt();
       int nextKeyboardIndex = getNextSymbolsKeyboardIndex();
       int tooltipResId;
       switch (nextKeyboardIndex) {
@@ -628,6 +629,7 @@ public class KeyboardSwitcher {
     if (mKeyboardLocked) {
       return mContext.getString(R.string.keyboard_change_locked);
     } else {
+      ensureKeyboardsAreBuilt();
       final int keyboardsCount = mAlphabetKeyboardsCreators.length;
       int selectedKeyboard = mLastSelectedKeyboardIndex;
       if (isAlphabetMode()) {

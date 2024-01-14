@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
@@ -39,7 +38,6 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
   @Nullable private AnyKeyboard mCurrentAlphabetKeyboard;
   @Nullable private AnyKeyboard mCurrentSymbolsKeyboard;
   private boolean mInAlphabetKeyboardMode = true;
-  private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
   @Nullable private CharSequence mExpectedSubtypeChangeKeyboardId;
 
@@ -49,17 +47,14 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
   public void onCreate() {
     super.onCreate();
 
-    mOrientation = getResources().getConfiguration().orientation;
     mKeyboardSwitcher = createKeyboardSwitcher();
   }
 
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
-    if (newConfig.orientation != mOrientation) {
-      mOrientation = newConfig.orientation;
-      mKeyboardSwitcher.flushKeyboardsCache();
-    }
+  protected void onOrientationChanged(int oldOrientation, int newOrientation) {
+    super.onOrientationChanged(oldOrientation, newOrientation);
+
+    mKeyboardSwitcher.flushKeyboardsCache();
   }
 
   @Override

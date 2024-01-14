@@ -18,6 +18,8 @@ package com.anysoftkeyboard.addons;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
@@ -35,7 +37,8 @@ public abstract class AddOnImpl implements AddOn {
   private final String mName;
   private final CharSequence mDescription;
   private final String mPackageName;
-  private final Context mAskAppContext;
+  private final boolean mIsLocalAddOn;
+  private Context mAskAppContext;
   private WeakReference<Context> mPackageContext;
   private final int mSortIndex;
   private final AddOnResourceMapping mAddOnResourceMapping;
@@ -57,9 +60,10 @@ public abstract class AddOnImpl implements AddOn {
     mName = name.toString();
     mDescription = description;
     mPackageName = packageContext.getPackageName();
-    mPackageContext = new WeakReference<>(packageContext);
     mSortIndex = sortIndex;
-    if (askContext.getPackageName().equals(packageContext.getPackageName())) {
+    mIsLocalAddOn = askContext.getPackageName().equals(packageContext.getPackageName());
+    mPackageContext = new WeakReference<>(packageContext);
+    if (mIsLocalAddOn) {
       mAddOnResourceMapping = new AddOnResourceMappingLocalImpl(apiVersion);
     } else {
       mAddOnResourceMapping = new AddOnResourceMappingImpl(this);
@@ -89,10 +93,15 @@ public abstract class AddOnImpl implements AddOn {
 
   @Nullable @Override
   public final Context getPackageContext() {
+    if (mIsLocalAddOn) return mAskAppContext;
+
     Context c = mPackageContext.get();
     if (c == null) {
       try {
         c = mAskAppContext.createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+          c = c.createConfigurationContext(mAskAppContext.getResources().getConfiguration());
+        }
         mPackageContext = new WeakReference<>(c);
       } catch (NameNotFoundException e) {
         Logger.w(TAG, "Failed to find package %s!", mPackageName);
@@ -127,6 +136,13 @@ public abstract class AddOnImpl implements AddOn {
   @NonNull @Override
   public AddOnResourceMapping getResourceMapping() {
     return mAddOnResourceMapping;
+  }
+
+  public void setNewConfiguration(@NonNull Configuration newConfiguration) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      mAskAppContext = mAskAppContext.createConfigurationContext(newConfiguration);
+    }
+    mPackageContext.clear();
   }
 
   private static class AddOnResourceMappingLocalImpl implements AddOnResourceMapping {
