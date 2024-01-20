@@ -220,7 +220,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
   @Test
   @Config(shadows = TestShadowResources.class, qualifiers = "w420dp-h640dp-land-mdpi")
-  public void testDoesNotSetPaddingInLandscape() throws Exception {
+  public void testSetsPaddingInLandscape() throws Exception {
     // was set to zero padding in the onStart in the setup method
     Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView()).setBottomOffset(0);
     Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
@@ -229,8 +229,8 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
         .setBottomOffset(Mockito.anyInt());
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
     simulateOnStartInputFlow();
-    // was set to zero padding
-    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView()).setBottomOffset(0);
+    // sets to needed padding
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView()).setBottomOffset(48);
   }
 
   @Test

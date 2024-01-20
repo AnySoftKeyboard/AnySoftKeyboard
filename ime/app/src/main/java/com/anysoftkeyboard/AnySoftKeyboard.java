@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -92,8 +93,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
   private boolean mAutoCap;
   private boolean mKeyboardAutoCap;
 
-  private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
-
   private static boolean isBackWordDeleteCodePoint(int c) {
     return Character.isLetterOrDigit(c);
   }
@@ -130,7 +129,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
   @Override
   public void onCreate() {
     super.onCreate();
-    mOrientation = getResources().getConfiguration().orientation;
     if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
       try {
         DeveloperUtils.startTracing();
@@ -194,7 +192,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             .subscribe(
                 type -> {
                   mPrefKeyboardInCondensedPortraitMode = type;
-                  setInitialCondensedState(getResources().getConfiguration());
+                  setInitialCondensedState(getCurrentOrientation());
                 },
                 GenericOnError.onError("settings_key_default_split_state_portrait")));
     addDisposable(
@@ -207,15 +205,22 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
             .subscribe(
                 type -> {
                   mPrefKeyboardInCondensedLandscapeMode = type;
-                  setInitialCondensedState(getResources().getConfiguration());
+                  setInitialCondensedState(getCurrentOrientation());
                 },
                 GenericOnError.onError("settings_key_default_split_state_landscape")));
 
-    setInitialCondensedState(getResources().getConfiguration());
+    setInitialCondensedState(getCurrentOrientation());
 
     mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     // register to receive packages changes
-    registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createIntentFilter());
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      registerReceiver(
+          mPackagesChangedReceiver,
+          mPackagesChangedReceiver.createIntentFilter(),
+          Context.RECEIVER_EXPORTED);
+    } else {
+      registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createIntentFilter());
+    }
 
     addDisposable(
         prefs()
@@ -324,7 +329,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
       }
     }
 
-    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+    if (getCurrentOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
       return mUseFullScreenInputInLandscape;
     } else {
       return mUseFullScreenInputInPortrait;
@@ -1301,18 +1306,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
   }
 
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
-    if (newConfig.orientation != mOrientation) {
-      mOrientation = newConfig.orientation;
-      setInitialCondensedState(newConfig);
-    }
+  protected void onOrientationChanged(int oldOrientation, int newOrientation) {
+    super.onOrientationChanged(oldOrientation, newOrientation);
+    setInitialCondensedState(newOrientation);
   }
 
-  private void setInitialCondensedState(Configuration configuration) {
+  private void setInitialCondensedState(int orientation) {
     final CondenseType previousCondenseType = mKeyboardInCondensedMode;
     mKeyboardInCondensedMode =
-        configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+        orientation == Configuration.ORIENTATION_LANDSCAPE
             ? mPrefKeyboardInCondensedLandscapeMode
             : mPrefKeyboardInCondensedPortraitMode;
 

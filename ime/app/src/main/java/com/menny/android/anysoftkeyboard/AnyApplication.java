@@ -289,11 +289,26 @@ public class AnyApplication extends MultiDexApplication {
     return Collections.unmodifiableList(mPublicNotices);
   }
 
+  public void setNewConfigurationToAllAddOns(@NonNull Configuration newConfiguration) {
+    // this may affect how add-ons are behaving
+    // we'll need to recreate their Context (at the least)
+    AddOnsFactory.onConfigurationChanged(
+        newConfiguration,
+        mTopRowFactory,
+        mBottomRowFactory,
+        mExtensionKeyboardFactory,
+        mExternalDictionaryFactory,
+        mKeyboardFactory,
+        mKeyboardThemeFactory,
+        mQuickTextKeyFactory);
+  }
+
   @Override
   public void onConfigurationChanged(@NonNull Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     mNightModeSubject.onNext(
         (newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
+    setNewConfigurationToAllAddOns(newConfig);
   }
 
   @Override

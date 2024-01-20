@@ -26,6 +26,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.text.TextUtils;
@@ -154,6 +155,17 @@ public abstract class AddOnsFactory<E extends AddOn> {
       }
     }
     if (cleared) ime.onAddOnsCriticalChange();
+  }
+
+  public static void onConfigurationChanged(
+      @NonNull Configuration newConfig, AddOnsFactory<?>... factories) {
+    for (AddOnsFactory<?> factory : factories) {
+      for (AddOn addOn : factory.mAddOns) {
+        if (addOn instanceof AddOnImpl) {
+          ((AddOnImpl) addOn).setNewConfiguration(newConfig);
+        }
+      }
+    }
   }
 
   public final List<E> getEnabledAddOns() {

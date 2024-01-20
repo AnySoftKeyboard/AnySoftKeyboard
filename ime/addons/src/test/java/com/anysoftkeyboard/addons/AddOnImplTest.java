@@ -3,6 +3,7 @@ package com.anysoftkeyboard.addons;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
@@ -86,11 +87,100 @@ public class AddOnImplTest {
         R.attr.keyDynamicEmblem, resourceMapping.getLocalAttrId(R.attr.keyDynamicEmblem));
   }
 
+  @Test
+  public void testSetNewConfiguration() {
+    var withLocal = new TestableAddOn("id1", "name111", 8);
+    Assert.assertSame(getApplicationContext(), withLocal.getPackageContext());
+    Assert.assertEquals(
+        1, withLocal.getPackageContext().getResources().getConfiguration().orientation);
+
+    var newConfig = getApplicationContext().getResources().getConfiguration();
+    newConfig.orientation = 2;
+    withLocal.setNewConfiguration(newConfig);
+    Assert.assertNotSame(getApplicationContext(), withLocal.getPackageContext());
+    Assert.assertEquals(
+        getApplicationContext().getPackageName(), withLocal.getPackageContext().getPackageName());
+    Assert.assertEquals(
+        2, withLocal.getPackageContext().getResources().getConfiguration().orientation);
+  }
+
+  @Test
+  public void testSetNewConfigurationOnRemote() throws Exception {
+    final Context local = Mockito.spy(getApplicationContext());
+    Mockito.doAnswer(
+            invocation -> {
+              final Context remote = Mockito.spy(getApplicationContext());
+              Mockito.doReturn("com.example.else").when(remote).getPackageName();
+
+              Mockito.doAnswer(
+                      remoteInvocation -> {
+                        final Resources remoteRes = Mockito.spy(remote.getResources());
+                        Mockito.doReturn(remoteInvocation.getArguments()[0])
+                            .when(remoteRes)
+                            .getConfiguration();
+
+                        return remote;
+                      })
+                  .when(remote)
+                  .createConfigurationContext(Mockito.any());
+
+              return remote;
+            })
+        .when(local)
+        .createPackageContext(Mockito.any(), Mockito.anyInt());
+
+    Mockito.doAnswer(
+            invocation -> {
+              final Resources res = Mockito.spy(local.getResources());
+              Mockito.doReturn(invocation.getArguments()[0]).when(res).getConfiguration();
+
+              return local;
+            })
+        .when(local)
+        .createConfigurationContext(Mockito.any());
+
+    final Context remote = Mockito.spy(getApplicationContext());
+    Mockito.doReturn("com.example.else").when(remote).getPackageName();
+
+    var addOnRemote = new TestableAddOn(local, remote, "id1", "name111", 8);
+    Assert.assertNotSame(getApplicationContext(), addOnRemote.getPackageContext());
+    Assert.assertSame(remote, addOnRemote.getPackageContext());
+
+    Assert.assertEquals(
+        1, addOnRemote.getPackageContext().getResources().getConfiguration().orientation);
+
+    var newConfig = getApplicationContext().getResources().getConfiguration();
+    newConfig.orientation = 2;
+    addOnRemote.setNewConfiguration(newConfig);
+    Assert.assertNotSame(remote, addOnRemote.getPackageContext());
+    Assert.assertEquals(remote.getPackageName(), addOnRemote.getPackageContext().getPackageName());
+    Assert.assertEquals(
+        2, addOnRemote.getPackageContext().getResources().getConfiguration().orientation);
+  }
+
+  @Test
+  public void testReturnsNullWhenNoSuchPackageAndDoesNotCrash() {
+    final Context remote = Mockito.spy(getApplicationContext());
+    Mockito.doReturn("com.example.else").when(remote).getPackageName();
+
+    var addOnRemote = new TestableAddOn(remote, "id1", "name111", 8);
+    Assert.assertSame(remote, addOnRemote.getPackageContext());
+
+    addOnRemote.setNewConfiguration(
+        new Configuration(getApplicationContext().getResources().getConfiguration()));
+    Assert.assertNull(addOnRemote.getPackageContext());
+  }
+
   private static class TestableAddOn extends AddOnImpl {
 
-    TestableAddOn(Context remoteContext, CharSequence id, CharSequence name, int apiVersion) {
+    TestableAddOn(
+        Context localContext,
+        Context remoteContext,
+        CharSequence id,
+        CharSequence name,
+        int apiVersion) {
       super(
-          getApplicationContext(),
+          localContext,
           remoteContext,
           apiVersion,
           id,
@@ -98,6 +188,10 @@ public class AddOnImplTest {
           name.toString() + id.toString(),
           false,
           1);
+    }
+
+    TestableAddOn(Context remoteContext, CharSequence id, CharSequence name, int apiVersion) {
+      this(getApplicationContext(), remoteContext, id, name, apiVersion);
     }
 
     TestableAddOn(CharSequence id, CharSequence name, int apiVersion) {
