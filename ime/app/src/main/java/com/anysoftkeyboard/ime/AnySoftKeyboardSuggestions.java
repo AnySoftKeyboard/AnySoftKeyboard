@@ -763,15 +763,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   private boolean isSpaceSwapCharacter(int primaryCode) {
     if (isSentenceSeparator(primaryCode)) {
       if (mFrenchSpacePunctuationBehavior) {
-        switch (primaryCode) {
-          case '!':
-          case '?':
-          case ':':
-          case ';':
-            return false;
-          default:
-            return true;
-        }
+        return switch (primaryCode) {
+          case '!', '?', ':', ';' -> false;
+          default -> true;
+        };
       } else {
         return true;
       }

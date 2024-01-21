@@ -183,8 +183,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
       aKey.x = (int) x;
       aKey.width = (int) (aKey.width - keyHorizontalGap); // the gap is on both sides
       aKey.centerX = aKey.x + aKey.width / 2;
+      aKey.endX = aKey.x + aKey.width;
       aKey.y = (int) y;
-      aKey.centerY = aKey.y + aKey.height;
+      aKey.centerY = aKey.y + aKey.height / 2;
+      aKey.endY = aKey.y + aKey.height;
       final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
       x += xOffset;
       rowWidth += xOffset;

@@ -139,4 +139,6 @@
 
     <bool name="settings_default_try_splitting_words_for_correction">true</bool>
 
+    <dimen name="key_hysteresis_distance">10dp</dimen>
+
 </resources>

@@ -331,10 +331,14 @@ public abstract class Keyboard {
 
     public int centerX;
 
+    public int endX;
+
     /** Y coordinate of the key in the mKeyboard layout */
     public int y;
 
     public int centerY;
+
+    public int endY;
 
     /** The current pressed state of this key */
     public boolean pressed;
@@ -470,7 +474,9 @@ public abstract class Keyboard {
       a.recycle();
 
       centerX = x + width / 2;
+      endX = x + width;
       centerY = y + height / 2;
+      endY = y + height;
 
       if (shiftedText == null) {
         shiftedText = text;

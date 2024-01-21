@@ -47,7 +47,6 @@
     <dimen name="candidate_strip_x_gap">15dp</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>
 
-    <dimen name="key_hysteresis_distance">10dp</dimen>
     <dimen name="key_preview_offset">0dp</dimen>
     <dimen name="mini_keyboard_slide_allowance">80dp</dimen>
 
