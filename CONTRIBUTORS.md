@@ -9,7 +9,7 @@ Thank you for the fine contributors:
 1. [martholomew](https://github.com/martholomew) (74)
 1. [nicoursi](https://github.com/nicoursi) (45)
 1. [justinmichaud](https://github.com/justinmichaud) (40)
-1. [VitaliPom](https://github.com/VitaliPom) (35)
+1. [abcdrfg777777777](https://github.com/abcdrfg777777777) (35)
 1. [lubenard](https://github.com/lubenard) (30)
 1. [kati42](https://github.com/kati42) (26)
 1. [rillian](https://github.com/rillian) (19)
