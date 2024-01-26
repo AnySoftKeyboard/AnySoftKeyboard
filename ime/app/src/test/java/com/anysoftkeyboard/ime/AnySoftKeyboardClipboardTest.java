@@ -28,6 +28,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -199,6 +200,19 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     Assert.assertEquals("text i", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
     Assert.assertEquals(" text i", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  @Ignore("Failing to attach window in setup")
+  public void testDoesNotShowToastInAndroid33() {
+    final String expectedText = "testing something very long";
+    mAnySoftKeyboardUnderTest.simulateTextTyping(expectedText);
+    mAnySoftKeyboardUnderTest.setSelectedText(
+        "testing ".length(), "testing something".length(), true);
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+    Assert.assertEquals(0, ShadowToast.shownToastCount());
   }
 
   @Test
@@ -658,7 +672,20 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     simulateOnStartInputFlow();
     Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
 
-    mClipboardManager.setPrimaryClip(ClipData.newPlainText("", ""));
+    mClipboardManager.setPrimaryClip(null /*I know what I'm doing with this null*/);
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.Q)
+  public void testHidesActionIconIfClipboardIsEmptyAndroid28() {
+    mClipboardManager.setPrimaryClip(
+        new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+
+    simulateOnStartInputFlow();
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
+
+    mClipboardManager.clearPrimaryClip();
     Assert.assertFalse(mAnySoftKeyboardUnderTest.getClipboardStripActionProvider().isVisible());
   }
 
