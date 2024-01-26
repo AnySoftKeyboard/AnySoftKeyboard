@@ -53,13 +53,13 @@ public class ClipboardV11 implements Clipboard {
   }
 
   @Override
-  public void setText(CharSequence text) {
-    mClipboardManager.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
+  public CharSequence getText(int entryIndex) {
+    return mEntries.get(entryIndex);
   }
 
   @Override
-  public CharSequence getText(int entryIndex) {
-    return mEntries.get(entryIndex);
+  public boolean isOsClipboardEmpty() {
+    return !mClipboardManager.hasPrimaryClip();
   }
 
   @Override
@@ -71,15 +71,18 @@ public class ClipboardV11 implements Clipboard {
   public void deleteEntry(int entryIndex) {
     mEntries.remove(entryIndex);
     if (entryIndex == 0) {
-      // also remove from clipboard
-      setText("");
+      clearPrimaryClip();
     }
+  }
+
+  protected void clearPrimaryClip() {
+    mClipboardManager.setPrimaryClip(ClipData.newPlainText("", ""));
   }
 
   @Override
   public void deleteAllEntries() {
     mEntries.clear();
-    setText("");
+    clearPrimaryClip();
   }
 
   protected CharSequence getTextFromClipItem(ClipData.Item item) {
@@ -87,15 +90,18 @@ public class ClipboardV11 implements Clipboard {
   }
 
   private void onPrimaryClipChanged() {
+    // this is call on every change in the clip:
+    // new item, clear clip, updated clip, etc.
+    // we will only notify the listener if the clip is new or cleared.
     final var addedListener = mClipboardEntryAddedListener;
     if (addedListener != null) {
-      var isEmpty = true;
-      var cp = mClipboardManager.getPrimaryClip();
-      if (cp != null) {
-        for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
-          final var text = getTextFromClipItem(cp.getItemAt(entryIndex));
-          if (TextUtils.isEmpty(text)) continue;
-          isEmpty = false;
+      var cp = mClipboardManager.hasPrimaryClip() ? mClipboardManager.getPrimaryClip() : null;
+      if (cp != null && cp.getItemCount() > 0) {
+        // we're only taking the first item!
+        // complex clips (multiple items) means that it was a multi-selection
+        // copy. This only works if we have the OS doing the paste.
+        final var text = getTextFromClipItem(cp.getItemAt(0));
+        if (!TextUtils.isEmpty(text)) {
           if (!alreadyKnownText(text)) {
             mEntries.add(0, text);
 
@@ -106,8 +112,7 @@ public class ClipboardV11 implements Clipboard {
             addedListener.onClipboardEntryAdded(text);
           }
         }
-      }
-      if (isEmpty) {
+      } else {
         addedListener.onClipboardCleared();
       }
     }
