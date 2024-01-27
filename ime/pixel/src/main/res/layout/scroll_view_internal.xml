@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:clipChildren="true"
+    android:fillViewport="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="true"
+        android:clipToOutline="true"
+        android:clipToPadding="true"
+        android:orientation="vertical"
+        android:fillViewport="false"
+        android:id="@+id/inner_layout">
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/bottom_gap_view"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</merge>

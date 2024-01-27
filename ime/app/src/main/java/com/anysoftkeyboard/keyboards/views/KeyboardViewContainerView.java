@@ -23,6 +23,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import net.evendanan.pixel.MainChild;
 
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
 
@@ -41,6 +42,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   private OverlayData mOverlayData = new OverlayData();
   private final Rect mExtraPaddingToMainKeyboard = new Rect();
   private ClicksExtraDraw mClicksDrawer;
+
+  private int mBottomPadding;
 
   public KeyboardViewContainerView(Context context) {
     super(context);
@@ -78,12 +81,16 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   @Override
   public void onViewAdded(View child) {
     super.onViewAdded(child);
-    if (mKeyboardActionListener != null && child instanceof InputViewActionsProvider) {
-      ((InputViewActionsProvider) child).setOnKeyboardActionListener(mKeyboardActionListener);
+    if (mKeyboardActionListener != null && child instanceof InputViewActionsProvider c) {
+      c.setOnKeyboardActionListener(mKeyboardActionListener);
     }
 
     setThemeForChildView(child);
     setActionsStripVisibility(mShowActionStrip);
+
+    if (child instanceof MainChild c) {
+      c.setBottomOffset(mBottomPadding);
+    }
 
     switch (child.getId()) {
       case R.id.candidate_view -> mCandidateView = (CandidateView) child;
@@ -246,9 +253,9 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   }
 
   private void setThemeForChildView(View child) {
-    if (child instanceof ThemeableChild && mKeyboardTheme != null) {
-      ((ThemeableChild) child).setKeyboardTheme(mKeyboardTheme);
-      ((ThemeableChild) child).setThemeOverlay(mOverlayData);
+    if (child instanceof ThemeableChild c && mKeyboardTheme != null) {
+      c.setKeyboardTheme(mKeyboardTheme);
+      c.setThemeOverlay(mOverlayData);
     }
   }
 
@@ -287,7 +294,12 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   }
 
   public void setBottomPadding(int bottomPadding) {
-    ((AnyKeyboardView) getStandardKeyboardView()).setBottomOffset(bottomPadding);
+    mBottomPadding = bottomPadding;
+    for (int childIndex = 0; childIndex < getChildCount(); childIndex++) {
+      if (getChildAt(childIndex) instanceof MainChild v) {
+        v.setBottomOffset(bottomPadding);
+      }
+    }
   }
 
   public interface StripActionProvider {
