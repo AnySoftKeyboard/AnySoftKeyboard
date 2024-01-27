@@ -17,6 +17,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import net.evendanan.pixel.ScrollViewAsMainChild;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -110,7 +111,7 @@ public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTes
     Assert.assertNull(
         mAnySoftKeyboardUnderTest
             .getInputViewContainer()
-            .findViewById(R.id.inline_suggestions_scroller));
+            .findViewById(R.id.inline_suggestions_list));
 
     Shadows.shadowOf(rootView).getOnClickListener().onClick(rootView);
     // removed icon from action strip
@@ -120,13 +121,12 @@ public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTes
             .findViewById(R.id.inline_suggestions_strip_root));
 
     var scroller =
-        mAnySoftKeyboardUnderTest
-            .getInputViewContainer()
-            .findViewById(R.id.inline_suggestions_scroller);
+        (ScrollViewAsMainChild)
+            mAnySoftKeyboardUnderTest
+                .getInputViewContainer()
+                .findViewById(R.id.inline_suggestions_list);
     Assert.assertNotNull(scroller);
-    var lister = (ViewGroup) scroller.findViewById(R.id.inline_suggestions_list);
-    Assert.assertNotNull(lister);
-    Assert.assertEquals(2, lister.getChildCount());
+    Assert.assertEquals(2, scroller.getItemsCount());
 
     Assert.assertEquals(
         View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
