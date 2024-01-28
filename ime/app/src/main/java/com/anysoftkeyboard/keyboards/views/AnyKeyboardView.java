@@ -201,7 +201,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     }
 
     final Keyboard.Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
-    mWatermarkEdgeX = lastKey.x + lastKey.width;
+    mWatermarkEdgeX = Keyboard.Key.getEndX(lastKey);
   }
 
   @Override
@@ -302,7 +302,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
             mExtensionKey.y = mExtensionKeyboardPopupOffset;
           }
           // so the popup will be right above your finger.
-          mExtensionKey.x = (int) me.getX();
+          mExtensionKey.x = ((int) me.getX());
 
           onLongPress(extKbd, mExtensionKey, mIsStickyExtensionKeyboard, getPointerTracker(me));
           return true;

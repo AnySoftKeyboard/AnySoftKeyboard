@@ -62,11 +62,11 @@ public class KeyPreviewsManagerTest {
     mTestKeys = new Keyboard.Key[10];
     for (int keyIndex = 0; keyIndex < 10; keyIndex++) {
       Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
-      key.x = 1 + keyIndex * 10;
-      key.y = 11;
       key.width = 10;
       key.showPreview = true;
       key.height = 20;
+      key.x = (1 + keyIndex * 10);
+      key.y = 11;
       key.label = "" + ((char) ('a' + keyIndex));
       Mockito.doReturn((int) 'a' + keyIndex).when(key).getPrimaryCode();
       Mockito.doReturn(1).when(key).getCodesCount();

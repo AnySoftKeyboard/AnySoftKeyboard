@@ -170,7 +170,9 @@ public class GestureTypingDetector {
       }
 
       lastLetter = c;
-      workspaceData.addPoint(keyHit.centerX, keyHit.centerY);
+      workspaceData.addPoint(
+              Keyboard.Key.getCenterX(keyHit),
+              Keyboard.Key.getCenterY(keyHit));
     }
 
     return getPathCorners(workspaceData);

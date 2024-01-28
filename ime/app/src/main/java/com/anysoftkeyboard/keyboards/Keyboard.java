@@ -329,16 +329,24 @@ public abstract class Keyboard {
     /** X coordinate of the key in the mKeyboard layout */
     public int x;
 
-    public int centerX;
+    public static int getCenterX(@NonNull final Key k) {
+      return k.x + k.width/2;
+    }
 
-    public int endX;
+    public static int getEndX(@NonNull final Key k) {
+      return k.x + k.width;
+    }
 
     /** Y coordinate of the key in the mKeyboard layout */
     public int y;
 
-    public int centerY;
+    public static int getCenterY(@NonNull final Key k) {
+      return k.y + k.height/2;
+    }
 
-    public int endY;
+    public static int getEndY(@NonNull final Key k) {
+      return k.y + k.height;
+    }
 
     /** The current pressed state of this key */
     public boolean pressed;
@@ -473,11 +481,6 @@ public abstract class Keyboard {
       }
       a.recycle();
 
-      centerX = x + width / 2;
-      endX = x + width;
-      centerY = y + height / 2;
-      endY = y + height;
-
       if (shiftedText == null) {
         shiftedText = text;
       }
@@ -609,9 +612,9 @@ public abstract class Keyboard {
       final boolean topEdge = (edgeFlags & EDGE_TOP) != 0;
       final boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) != 0;
       return (x >= this.x || (leftEdge && x <= this.x + this.width))
-          && (x < this.x + this.width || (rightEdge && x >= this.x))
-          && (y >= this.y || (topEdge && y <= this.y + this.height))
-          && (y < this.y + this.height || (bottomEdge && y >= this.y));
+              && (x < this.x + this.width || (rightEdge && x >= this.x))
+              && (y >= this.y || (topEdge && y <= this.y + this.height))
+              && (y < this.y + this.height || (bottomEdge && y >= this.y));
     }
 
     /**
@@ -624,9 +627,9 @@ public abstract class Keyboard {
      */
     public int squaredDistanceFrom(int x, int y) {
       final int closestX =
-          (x < this.x) ? this.x : (x > (this.x + this.width)) ? (this.x + this.width) : x;
+              (x < this.x) ? this.x : (x > (this.x + this.width)) ? (this.x + this.width) : x;
       final int closestY =
-          (y < this.y) ? this.y : (y > (this.y + this.height)) ? (this.y + this.height) : y;
+              (y < this.y) ? this.y : (y > (this.y + this.height)) ? (this.y + this.height) : y;
       final int xDist = closestX - x;
       final int yDist = closestY - y;
       /*
@@ -748,11 +751,11 @@ public abstract class Keyboard {
     mTotalWidth = 0;
     mTotalHeight = 0;
     for (Key key : mKeys) {
-      int x = key.x + key.gap + key.width;
+      int x = Key.getEndX(key) + key.gap;
       if (x > mTotalWidth) {
         mTotalWidth = x;
       }
-      int y = key.y + key.height;
+      int y = Key.getEndY(key);
       if (y > mTotalHeight) {
         mTotalHeight = y;
       }

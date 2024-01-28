@@ -97,11 +97,7 @@ public class KeyboardCondenser {
         k.width = originalSize.width;
         k.height = originalSize.height;
         k.x = originalSize.x;
-        k.centerX = k.x + k.width / 2;
-        k.endX = k.x + k.width;
         k.y = originalSize.y;
-        k.centerY = k.y + k.height / 2;
-        k.endY = k.y + k.height;
       }
     }
     // back to original state, no need to keep those key-size data anymore
@@ -164,7 +160,7 @@ public class KeyboardCondenser {
       if (k.getPrimaryCode() == KeyCodes.SPACE
           && k.x < watershedLineX
           && // one side is to the left,
-          k.x + k.width > watershedLineX) { // the other side of the key is to the right of the
+              Keyboard.Key.getEndX(k) > watershedLineX) { // the other side of the key is to the right of the
         // watershed-line
         // space is a special case, I want to make it as wide as
         // possible (since it is a space-bar in the middle of the screen
@@ -192,17 +188,15 @@ public class KeyboardCondenser {
 
   private int stackRightSideKeyForLater(
       Deque<Keyboard.Key> rightKeys, Keyboard.Key k, int targetWidth) {
-    final int currentRightX = k.x + k.width;
+    final int currentRightX = Keyboard.Key.getEndX(k);
     rightKeys.push(k);
     k.width = targetWidth;
     return currentRightX;
   }
 
   private int condenseLeftSide(int currentLeftX, Keyboard.Key k, int targetWidth) {
-    k.x = currentLeftX;
     k.width = targetWidth;
-    k.centerX = k.x + k.width / 2;
-    k.endX = k.x + k.width;
+    k.x= currentLeftX;
     currentLeftX += k.width;
     return currentLeftX;
   }
@@ -222,8 +216,6 @@ public class KeyboardCondenser {
       currentRightX -= halfHorizontalGap;
       currentRightX -= rightKey.width; // already holds the new width
       rightKey.x = currentRightX;
-      rightKey.centerX = rightKey.x + rightKey.width / 2;
-      rightKey.endX = rightKey.x + rightKey.width;
       currentRightX -= halfHorizontalGap;
     }
     // now to handle the space, which will hold as much as possible

@@ -153,8 +153,8 @@ public abstract class AnyKeyboard extends Keyboard {
     mDisplayWidth = newWidth;
     final double zoomFactor = ((double) newWidth) / ((double) oldWidth);
     for (Key key : getKeys()) {
-      key.x = (int) (zoomFactor * key.x);
       key.width = (int) (zoomFactor * key.width);
+      key.x = (int) (zoomFactor * key.x);
     }
   }
 
@@ -330,8 +330,6 @@ public abstract class AnyKeyboard extends Keyboard {
       // pushing the originals keys down a bit
       for (Key key : keys) {
         key.y += genericRowsHeight;
-        key.centerY = key.y + key.height / 2;
-        key.endY = key.y + key.height;
       }
     }
 
@@ -340,9 +338,7 @@ public abstract class AnyKeyboard extends Keyboard {
     final List<Key> rowKeys = genericRowKeyboard.getKeys();
     for (Key rowKey : rowKeys) {
       rowKey.y += rowKeyYOffset;
-      rowKey.centerY = rowKey.y + rowKey.height / 2;
-      rowKey.endY = rowKey.y + rowKey.height;
-      final int rowWidth = rowKey.x + rowKey.width;
+      final int rowWidth = Key.getEndX(rowKey);
       if (rowWidth > mMaxGenericRowsWidth) mMaxGenericRowsWidth = rowWidth;
       keys.add(rowKeyInsertIndex, rowKey);
       rowKeyInsertIndex++;

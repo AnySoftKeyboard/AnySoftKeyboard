@@ -21,10 +21,10 @@ public class AboveKeyboardPositionCalculatorTest {
   public void setup() {
     mUnderTest = new AboveKeyboardPositionCalculator();
     mTestKey = Mockito.mock(Keyboard.Key.class);
-    mTestKey.x = 12;
-    mTestKey.y = 11;
     mTestKey.width = 10;
     mTestKey.height = 20;
+    mTestKey.x = 12;
+    mTestKey.y = 11;
     mTheme = new PreviewPopupTheme();
     Drawable background = Mockito.mock(Drawable.class);
     mTheme.setPreviewKeyBackground(background);

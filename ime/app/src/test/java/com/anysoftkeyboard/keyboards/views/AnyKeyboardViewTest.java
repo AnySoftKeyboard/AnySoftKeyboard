@@ -79,18 +79,23 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     Mockito.verifyZeroInteractions(mMockKeyboardListener);
 
     MotionEvent motionEvent =
-        MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, key.centerX, key.centerY, 0);
+        MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN,
+                Keyboard.Key.getCenterX(key),
+                Keyboard.Key.getCenterY(key), 0);
     mViewUnderTest.onTouchEvent(motionEvent);
     motionEvent.recycle();
     Mockito.verify(mMockKeyboardListener).onPress(primaryCode);
     Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryCode);
     Mockito.verify(mMockKeyboardListener)
-        .onGestureTypingInputStart(eq(key.centerX), eq(key.centerY), same(key), anyLong());
+        .onGestureTypingInputStart(eq(Keyboard.Key.getCenterX(key)),
+                eq(Keyboard.Key.getCenterY(key)), same(key), anyLong());
     Mockito.verifyNoMoreInteractions(mMockKeyboardListener);
 
     Mockito.reset(mMockKeyboardListener);
 
-    motionEvent = MotionEvent.obtain(100, 110, MotionEvent.ACTION_UP, key.centerX, key.centerY, 0);
+    motionEvent = MotionEvent.obtain(100, 110, MotionEvent.ACTION_UP,
+            Keyboard.Key.getCenterX(key),
+            Keyboard.Key.getCenterY(key), 0);
     mViewUnderTest.onTouchEvent(motionEvent);
     motionEvent.recycle();
     InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
@@ -551,7 +556,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         new Point(
             mViewUnderTest.getThemedKeyboardDimens().getKeyboardMaxWidth() - 1, edgeKey.y + 5);
     Assert.assertTrue(edgeKey.isInside(edgeTouchPoint.x, edgeTouchPoint.y));
-    Assert.assertTrue(edgeTouchPoint.x > edgeKey.x + edgeKey.width + edgeKey.gap);
+    Assert.assertTrue(edgeTouchPoint.x > Keyboard.Key.getEndX(edgeKey) + edgeKey.gap);
 
     ViewTestUtils.navigateFromTo(mViewUnderTest, edgeTouchPoint, edgeTouchPoint, 40, true, true);
   }

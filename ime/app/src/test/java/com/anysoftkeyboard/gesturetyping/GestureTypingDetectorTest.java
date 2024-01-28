@@ -57,7 +57,7 @@ public class GestureTypingDetectorTest {
     return mKeys.stream()
         .filter(key -> key.getPrimaryCode() == character)
         .findFirst()
-        .map(key -> new Point(key.centerX, key.centerY))
+        .map(key -> new Point(Keyboard.Key.getCenterX(key), Keyboard.Key.getCenterY(key)))
         .orElseGet(
             () -> {
               throw new RuntimeException("Could not find key for character " + character);

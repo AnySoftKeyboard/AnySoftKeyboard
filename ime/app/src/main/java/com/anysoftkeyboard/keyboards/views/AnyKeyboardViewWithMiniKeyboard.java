@@ -259,7 +259,9 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
     setPopupKeyboardWithView(x, y, originX, originY, mMiniKeyboard);
 
-    setPopupStickinessValues(isSticky, !isSticky, popupKey.centerX, popupKey.centerY);
+    setPopupStickinessValues(isSticky, !isSticky,
+            Keyboard.Key.getCenterX(popupKey),
+            Keyboard.Key.getCenterY(popupKey));
 
     dismissAllKeyPreviews();
 

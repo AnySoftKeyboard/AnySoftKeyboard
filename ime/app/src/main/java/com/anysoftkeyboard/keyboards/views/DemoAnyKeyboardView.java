@@ -82,8 +82,8 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                 downEventTime,
                 eventTime,
                 isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
-                key.centerX,
-                key.centerY,
+                    Keyboard.Key.getCenterX(key),
+                    Keyboard.Key.getCenterY(key),
                 0);
         super.onTouchEvent(motionEvent);
         motionEvent.recycle();

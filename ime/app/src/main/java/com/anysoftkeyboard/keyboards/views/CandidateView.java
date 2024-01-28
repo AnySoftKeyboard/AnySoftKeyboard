@@ -326,7 +326,7 @@ public class CandidateView extends View implements ThemeableChild {
         // (+)This is the trick to get RTL/LTR text correct
         if (mAlwaysUseDrawText) {
           final int y = (int) (height + paint.getTextSize() - paint.descent()) / 2;
-          canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2, y, paint);
+          canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2f, y, paint);
         } else {
           final int y = (int) (height - paint.getTextSize() + paint.descent()) / 2;
           // no matter what: StaticLayout
