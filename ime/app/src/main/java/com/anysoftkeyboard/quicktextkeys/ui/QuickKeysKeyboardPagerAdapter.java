@@ -116,7 +116,7 @@ import java.util.List;
         for (Keyboard.Key key : keyboard.getKeys()) {
           key.y = currentY;
           key.x -= xSub;
-          if (key.x + key.width > keyboardViewMaxWidth) {
+          if (Keyboard.Key.getEndX(key) > keyboardViewMaxWidth) {
             currentY += key.height;
             xSub += key.x;
             key.y = currentY;

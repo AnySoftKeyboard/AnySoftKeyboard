@@ -329,16 +329,24 @@ public abstract class Keyboard {
     /** X coordinate of the key in the mKeyboard layout */
     public int x;
 
-    public int centerX;
+    public static int getCenterX(@NonNull final Key k) {
+      return k.x + k.width / 2;
+    }
 
-    public int endX;
+    public static int getEndX(@NonNull final Key k) {
+      return k.x + k.width;
+    }
 
     /** Y coordinate of the key in the mKeyboard layout */
     public int y;
 
-    public int centerY;
+    public static int getCenterY(@NonNull final Key k) {
+      return k.y + k.height / 2;
+    }
 
-    public int endY;
+    public static int getEndY(@NonNull final Key k) {
+      return k.y + k.height;
+    }
 
     /** The current pressed state of this key */
     public boolean pressed;
@@ -472,11 +480,6 @@ public abstract class Keyboard {
         mCodes = new int[] {Character.codePointAt(label, 0)};
       }
       a.recycle();
-
-      centerX = x + width / 2;
-      endX = x + width;
-      centerY = y + height / 2;
-      endY = y + height;
 
       if (shiftedText == null) {
         shiftedText = text;
@@ -748,11 +751,11 @@ public abstract class Keyboard {
     mTotalWidth = 0;
     mTotalHeight = 0;
     for (Key key : mKeys) {
-      int x = key.x + key.gap + key.width;
+      int x = Key.getEndX(key) + key.gap;
       if (x > mTotalWidth) {
         mTotalWidth = x;
       }
-      int y = key.y + key.height;
+      int y = Key.getEndY(key);
       if (y > mTotalHeight) {
         mTotalHeight = y;
       }

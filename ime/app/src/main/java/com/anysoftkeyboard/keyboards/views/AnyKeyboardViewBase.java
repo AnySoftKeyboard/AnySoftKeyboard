@@ -1143,8 +1143,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         && canvas.getClipBounds(clipRegion)
         && invalidKey.x + kbdPaddingLeft - 1 <= clipRegion.left
         && invalidKey.y + kbdPaddingTop - 1 <= clipRegion.top
-        && invalidKey.x + invalidKey.width + kbdPaddingLeft + 1 >= clipRegion.right
-        && invalidKey.y + invalidKey.height + kbdPaddingTop + 1 >= clipRegion.bottom) {
+        && Keyboard.Key.getEndX(invalidKey) + kbdPaddingLeft + 1 >= clipRegion.right
+        && Keyboard.Key.getEndY(invalidKey) + kbdPaddingTop + 1 >= clipRegion.bottom) {
       drawSingleKey = true;
     }
 
@@ -1158,8 +1158,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
       if (!mDirtyRect.intersects(
           key.x + kbdPaddingLeft,
           key.y + kbdPaddingTop,
-          key.x + key.width + kbdPaddingLeft,
-          key.y + key.height + kbdPaddingTop)) {
+          Keyboard.Key.getEndX(key) + kbdPaddingLeft,
+          Keyboard.Key.getEndY(key) + kbdPaddingTop)) {
         continue;
       }
       int[] drawableState = key.getCurrentDrawableState(mDrawableStatesProvider);
@@ -1729,14 +1729,14 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     mDirtyRect.union(
         key.x + getPaddingLeft(),
         key.y + getPaddingTop(),
-        key.x + key.width + getPaddingLeft(),
-        key.y + key.height + getPaddingTop());
+        Keyboard.Key.getEndX(key) + getPaddingLeft(),
+        Keyboard.Key.getEndY(key) + getPaddingTop());
     // doOnBufferDrawWithMemProtection(mCanvas);
     invalidate(
         key.x + getPaddingLeft(),
         key.y + getPaddingTop(),
-        key.x + key.width + getPaddingLeft(),
-        key.y + key.height + getPaddingTop());
+        Keyboard.Key.getEndX(key) + getPaddingLeft(),
+        Keyboard.Key.getEndY(key) + getPaddingTop());
   }
 
   @NonNull @Override

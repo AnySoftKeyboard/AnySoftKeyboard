@@ -121,7 +121,7 @@ public class LoadedKeyboardsVerificationTest {
                   + " char "
                   + ((char) key.getPrimaryCode());
           Assert.assertTrue(keyId, key.x >= 0);
-          Assert.assertTrue(keyId, key.centerX <= sTestKeyboardDimens.getKeyboardMaxWidth());
+          Assert.assertTrue(keyId, Keyboard.Key.getEndX(key) <= sTestKeyboardDimens.getKeyboardMaxWidth());
           Assert.assertTrue(keyId, key.y >= 0);
         }
       }

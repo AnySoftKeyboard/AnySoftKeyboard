@@ -44,6 +44,7 @@ public class ShadowDictionaryAddOnAndBuilder {
             Pair.create("he'll", 94),
             Pair.create("hell", 108),
             Pair.create("hello", 120),
+            Pair.create("is", 90),
             Pair.create("face", 141)),
         true);
   }

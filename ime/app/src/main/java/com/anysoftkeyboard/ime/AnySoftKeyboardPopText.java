@@ -90,7 +90,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
       mLastTextPop =
           new PopTextExtraDraw.PopOut(
               textToPop,
-              new Point(lastKey.x + lastKey.width / 2, lastKey.y),
+              new Point(Keyboard.Key.getCenterX(lastKey), lastKey.y),
               lastKey.y - anyKeyboardViewWithExtraDraw.getHeight() / 2);
       anyKeyboardViewWithExtraDraw.addExtraDraw(mLastTextPop);
     }

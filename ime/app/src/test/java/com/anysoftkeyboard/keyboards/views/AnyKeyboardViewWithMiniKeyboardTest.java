@@ -443,7 +443,11 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
 
     Mockito.verify(mMockKeyboardListener)
-        .onGestureTypingInputStart(eq(key.centerX), eq(key.centerY), same(key), anyLong());
+        .onGestureTypingInputStart(
+            eq(Keyboard.Key.getCenterX(key)),
+            eq(Keyboard.Key.getCenterY(key)),
+            same(key),
+            anyLong());
     Mockito.verifyNoMoreInteractions(mMockKeyboardListener);
 
     Assert.assertNull(mViewUnderTest.getMiniKeyboard());

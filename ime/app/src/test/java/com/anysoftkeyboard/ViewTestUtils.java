@@ -56,7 +56,7 @@ public class ViewTestUtils {
   }
 
   public static Point getKeyCenterPoint(Keyboard.Key key) {
-    return new Point(key.centerX, key.centerY);
+    return new Point(Keyboard.Key.getCenterX(key), Keyboard.Key.getCenterY(key));
   }
 
   public static int navigateFromTo(
