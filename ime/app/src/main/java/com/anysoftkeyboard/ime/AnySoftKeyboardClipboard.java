@@ -278,7 +278,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
       final CharSequence[] entries = nonEmpties.toArray(new CharSequence[0]);
       DialogInterface.OnClickListener onClickListener =
           (dialog, which) -> {
-            if (which == 0) {
+            if (which == 0 && !mClipboard.isOsClipboardEmpty()) {
               performPaste();
             } else {
               onText(key, entries[which]);
