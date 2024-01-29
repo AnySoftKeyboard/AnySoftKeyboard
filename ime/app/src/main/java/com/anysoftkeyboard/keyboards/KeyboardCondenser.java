@@ -98,8 +98,10 @@ public class KeyboardCondenser {
         k.height = originalSize.height;
         k.x = originalSize.x;
         k.centerX = k.x + k.width / 2;
+        k.endX = k.x + k.width;
         k.y = originalSize.y;
         k.centerY = k.y + k.height / 2;
+        k.endY = k.y + k.height;
       }
     }
     // back to original state, no need to keep those key-size data anymore
@@ -200,6 +202,7 @@ public class KeyboardCondenser {
     k.x = currentLeftX;
     k.width = targetWidth;
     k.centerX = k.x + k.width / 2;
+    k.endX = k.x + k.width;
     currentLeftX += k.width;
     return currentLeftX;
   }
@@ -220,6 +223,7 @@ public class KeyboardCondenser {
       currentRightX -= rightKey.width; // already holds the new width
       rightKey.x = currentRightX;
       rightKey.centerX = rightKey.x + rightKey.width / 2;
+      rightKey.endX = rightKey.x + rightKey.width;
       currentRightX -= halfHorizontalGap;
     }
     // now to handle the space, which will hold as much as possible

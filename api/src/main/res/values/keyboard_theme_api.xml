@@ -46,9 +46,6 @@
         <attr name="keyPreviewTextColor" format="reference|color"/>
         <attr name="keyPreviewLabelTextSize" format="reference|dimension"/>
 
-        <!-- Hysteresis distance for key debouncing -->
-        <attr name="keyHysteresisDistance" format="reference|dimension"/>
-
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
         <attr name="verticalCorrection" format="reference|dimension"/>
 

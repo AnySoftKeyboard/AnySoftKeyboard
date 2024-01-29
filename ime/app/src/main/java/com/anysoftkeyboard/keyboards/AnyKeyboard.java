@@ -331,6 +331,7 @@ public abstract class AnyKeyboard extends Keyboard {
       for (Key key : keys) {
         key.y += genericRowsHeight;
         key.centerY = key.y + key.height / 2;
+        key.endY = key.y + key.height;
       }
     }
 
@@ -340,6 +341,7 @@ public abstract class AnyKeyboard extends Keyboard {
     for (Key rowKey : rowKeys) {
       rowKey.y += rowKeyYOffset;
       rowKey.centerY = rowKey.y + rowKey.height / 2;
+      rowKey.endY = rowKey.y + rowKey.height;
       final int rowWidth = rowKey.x + rowKey.width;
       if (rowWidth > mMaxGenericRowsWidth) mMaxGenericRowsWidth = rowWidth;
       keys.add(rowKeyInsertIndex, rowKey);
