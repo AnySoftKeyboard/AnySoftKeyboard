@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -394,34 +393,6 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
       }
     }
     return false;
-  }
-
-  public void sendDownUpKeyEvents(int keyEventCode, int metaState) {
-    InputConnection ic = getCurrentInputConnection();
-    if (ic == null) return;
-    long eventTime = SystemClock.uptimeMillis();
-    ic.sendKeyEvent(
-        new KeyEvent(
-            eventTime,
-            eventTime,
-            KeyEvent.ACTION_DOWN,
-            keyEventCode,
-            0,
-            metaState,
-            KeyCharacterMap.VIRTUAL_KEYBOARD,
-            0,
-            KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
-    ic.sendKeyEvent(
-        new KeyEvent(
-            eventTime,
-            SystemClock.uptimeMillis(),
-            KeyEvent.ACTION_UP,
-            keyEventCode,
-            0,
-            metaState,
-            KeyCharacterMap.VIRTUAL_KEYBOARD,
-            0,
-            KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
   }
 
   @Override
