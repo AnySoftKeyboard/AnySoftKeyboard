@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -50,6 +51,7 @@ public class TestInputConnection extends BaseInputConnection {
   private String mLastCommitCorrection = "";
   private long mDelayedSelectionUpdate = 1L;
   private boolean mRealCapsMode = false;
+  private final List<KeyEvent> mKeyEvents = new ArrayList<>();
 
   public TestInputConnection(@NonNull AnySoftKeyboard ime) {
     super(new TextView(ime.getApplicationContext()), false);
@@ -425,8 +427,13 @@ public class TestInputConnection extends BaseInputConnection {
     return true;
   }
 
+  public List<KeyEvent> getSentKeyEvents() {
+    return Collections.unmodifiableList(mKeyEvents);
+  }
+
   @Override
   public boolean sendKeyEvent(KeyEvent event) {
+    mKeyEvents.add(event);
     /*
     ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
             KeyEvent.ACTION_DOWN, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,

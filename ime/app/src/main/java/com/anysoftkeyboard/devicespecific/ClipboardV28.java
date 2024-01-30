@@ -27,17 +27,7 @@ public class ClipboardV28 extends ClipboardV16 {
   }
 
   @Override
-  public void deleteEntry(int entryIndex) {
-    mEntries.remove(entryIndex);
-    if (entryIndex == 0) {
-      // actually removing from clipboard
-      mClipboardManager.clearPrimaryClip();
-    }
-  }
-
-  @Override
-  public void deleteAllEntries() {
-    mEntries.clear();
+  protected void clearPrimaryClip() {
     mClipboardManager.clearPrimaryClip();
   }
 }

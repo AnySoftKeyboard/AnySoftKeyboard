@@ -31,7 +31,7 @@ public interface Clipboard {
 
   int getClipboardEntriesCount();
 
-  void setText(CharSequence text);
+  boolean isOsClipboardEmpty();
 
   void deleteEntry(int entryIndex);
 
