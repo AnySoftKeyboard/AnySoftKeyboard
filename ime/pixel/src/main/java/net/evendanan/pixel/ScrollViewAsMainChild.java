@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
 
 public class ScrollViewAsMainChild extends ScrollView implements MainChild {
   private LinearLayout mItemsHolder;
@@ -52,38 +53,38 @@ public class ScrollViewAsMainChild extends ScrollView implements MainChild {
     // The only nice why I found to deal with this is to set them to INVISIBLE
     // when they scroll out of view.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      setOnScrollChangeListener(
-          (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            int childIndex;
-            // hiding all the children that above the scroll Y
-            for (childIndex = 0; childIndex < mItemsHolder.getChildCount(); childIndex++) {
-              var child = mItemsHolder.getChildAt(childIndex);
-              if (child.getBottom() < scrollY) child.setVisibility(View.INVISIBLE);
-              else break; // everything else is below the scroll, so we need to show
-            }
+      setOnScrollChangeListener(this::onScrollChanged);
+    }
+  }
 
-            final int topItemIndex = childIndex;
+  @VisibleForTesting
+  void onScrollChanged(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+    int childIndex;
+    // hiding all the children that above the scroll Y
+    for (childIndex = 0; childIndex < mItemsHolder.getChildCount(); childIndex++) {
+      var child = mItemsHolder.getChildAt(childIndex);
+      if (child.getBottom() < scrollY) child.setVisibility(View.INVISIBLE);
+      else break; // everything else is below the scroll, so we need to show
+    }
 
-            // how much do we need to scale-down the top item
-            final var topVisibleChild = mItemsHolder.getChildAt(topItemIndex);
-            final int visiblePartPixels = topVisibleChild.getBottom() - scrollY;
-            float scaleFactor = ((float) visiblePartPixels) / topVisibleChild.getHeight();
-            topVisibleChild.setVisibility(View.VISIBLE);
-            topVisibleChild.setScaleX(scaleFactor);
-            topVisibleChild.setScaleY(scaleFactor);
-            topVisibleChild.setPivotY(topVisibleChild.getHeight());
-            topVisibleChild.setPivotX(topVisibleChild.getWidth() / 2f);
+    final int topItemIndex = childIndex;
 
-            // the rest of the view should just be shown
-            for (childIndex = topItemIndex + 1;
-                childIndex < mItemsHolder.getChildCount();
-                childIndex++) {
-              var child = mItemsHolder.getChildAt(childIndex);
-              child.setVisibility(View.VISIBLE);
-              child.setScaleX(1f);
-              child.setScaleY(1f);
-            }
-          });
+    // how much do we need to scale-down the top item
+    final var topVisibleChild = mItemsHolder.getChildAt(topItemIndex);
+    final int visiblePartPixels = topVisibleChild.getBottom() - scrollY;
+    float scaleFactor = ((float) visiblePartPixels) / topVisibleChild.getHeight();
+    topVisibleChild.setVisibility(View.VISIBLE);
+    topVisibleChild.setScaleX(scaleFactor);
+    topVisibleChild.setScaleY(scaleFactor);
+    topVisibleChild.setPivotY(topVisibleChild.getHeight());
+    topVisibleChild.setPivotX(topVisibleChild.getWidth() / 2f);
+
+    // the rest of the view should just be shown
+    for (childIndex = topItemIndex + 1; childIndex < mItemsHolder.getChildCount(); childIndex++) {
+      var child = mItemsHolder.getChildAt(childIndex);
+      child.setVisibility(View.VISIBLE);
+      child.setScaleX(1f);
+      child.setScaleY(1f);
     }
   }
 
