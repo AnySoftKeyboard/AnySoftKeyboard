@@ -1,7 +1,5 @@
 package net.evendanan.pixel;
 
-import static org.junit.Assert.*;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
