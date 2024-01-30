@@ -44,6 +44,23 @@ public class KeyboardViewContainerViewTest {
   }
 
   @Test
+  public void testSettingPadding() {
+    AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
+    mUnderTest.addView(mock);
+    Mockito.verify(mock).setBottomOffset(0);
+
+    View mockRegular = Mockito.mock(View.class);
+    mUnderTest.addView(mockRegular);
+
+    mUnderTest.setBottomPadding(10);
+    Mockito.verify(mock).setBottomOffset(10);
+
+    AnyKeyboardView mock2 = Mockito.mock(AnyKeyboardView.class);
+    mUnderTest.addView(mock2);
+    Mockito.verify(mock2).setBottomOffset(10);
+  }
+
+  @Test
   public void testAddView() {
     AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
     mUnderTest.addView(mock);

@@ -46,9 +46,10 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
+import net.evendanan.pixel.MainChild;
 
 public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
-    implements InputViewBinder, ActionsStripSupportedChild {
+    implements InputViewBinder, ActionsStripSupportedChild, MainChild {
 
   private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35; // milliseconds
   private static final String TAG = "ASKKbdView";
@@ -127,6 +128,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
                 GenericOnError.onError("settings_key_is_sticky_extesion_keyboard")));
   }
 
+  @Override
   public void setBottomOffset(int extraBottomOffset) {
     mExtraBottomOffset = Math.max(extraBottomOffset, mMinimumKeyboardBottomPadding);
     setPadding(

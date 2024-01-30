@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.inline.InlinePresentationSpec;
 import androidx.annotation.NonNull;
@@ -27,6 +25,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import net.evendanan.pixel.ScrollViewAsMainChild;
 
 public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSuggestions {
 
@@ -119,14 +118,10 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     }
     var inputViewContainer = getInputViewContainer();
     if (inputViewContainer != null) {
-      var list = inputViewContainer.findViewById(R.id.inline_suggestions_scroller);
-      if (list != null) {
-        var itemsContainer = (ViewGroup) list.findViewById(R.id.inline_suggestions_list);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          list.setOnScrollChangeListener(null);
-        }
-        itemsContainer.removeAllViews();
-        inputViewContainer.removeView(list);
+      if (inputViewContainer.findViewById(R.id.inline_suggestions_list)
+          instanceof ScrollViewAsMainChild lister) {
+        lister.removeAllListItems();
+        inputViewContainer.removeView(lister);
         return true;
       }
     }
@@ -140,7 +135,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     var inputViewContainer = getInputViewContainer();
     Context viewContext = inputViewContainer.getContext();
     var lister =
-        (ScrollView)
+        (ScrollViewAsMainChild)
             LayoutInflater.from(viewContext)
                 .inflate(R.layout.inline_suggestions_list, inputViewContainer, false);
     final var actualInputView = (AnyKeyboardView) getInputView();
@@ -158,48 +153,47 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         new Size(
             actualInputView.getWidth(),
             getResources().getDimensionPixelOffset(R.dimen.inline_suggestion_min_height));
-    final LinearLayout itemsContainer = lister.findViewById(R.id.inline_suggestions_list);
+
+    // breaking suggestions to priority
+    var pinned = new ArrayList<InlineSuggestion>();
+    var notPinned = new ArrayList<InlineSuggestion>();
     for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
-      inlineSuggestion.inflate(
-          viewContext,
-          size,
-          getMainExecutor(),
-          v -> {
-            v.setOnClickListener(v1 -> cleanUpInlineLayouts(true));
-            itemsContainer.addView(v);
-          });
+      if (inlineSuggestion.getInfo().isPinned()) pinned.add(inlineSuggestion);
+      else notPinned.add(inlineSuggestion);
     }
-    // okay.. this is super weird:
-    // Since the items in the list are remote-views, they are drawn on top of our UI.
-    // this means that they think that itemsContainer is very large and so they
-    // draw themselves outside the scroll window.
-    // The only nice why I found to deal with this is to set them to INVISIBLE
-    // when they scroll out of view.
-    lister.setOnScrollChangeListener(
-        (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-          final int itemsOnTop = scrollY / size.getHeight();
-          for (int childIndex = 0; childIndex < itemsOnTop; childIndex++) {
-            itemsContainer.getChildAt(childIndex).setVisibility(View.INVISIBLE);
-          }
-          for (int childIndex = itemsOnTop;
-              childIndex < itemsContainer.getChildCount();
-              childIndex++) {
-            var child = itemsContainer.getChildAt(childIndex);
-            child.setVisibility(View.VISIBLE);
-            child.setScaleX(1f);
-            child.setScaleY(1f);
-          }
-          // how much do we need to scale-down the top item
-          float partOfTopItemShown = scrollY - (size.getHeight() * itemsOnTop);
-          final float scaleFactor = 1f - partOfTopItemShown / size.getHeight();
-          var topVisibleChild = itemsContainer.getChildAt(itemsOnTop);
-          topVisibleChild.setScaleX(scaleFactor);
-          topVisibleChild.setScaleY(scaleFactor);
-          topVisibleChild.setPivotY(size.getHeight());
-        });
+    for (InlineSuggestion inlineSuggestion : pinned) {
+      addInlineSuggestionToList(viewContext, lister, size, inlineSuggestion);
+    }
+    for (InlineSuggestion inlineSuggestion : notPinned) {
+      addInlineSuggestionToList(viewContext, lister, size, inlineSuggestion);
+    }
 
     actualInputView.setVisibility(View.GONE);
     return null;
+  }
+
+  @RequiresApi(Build.VERSION_CODES.R)
+  private void addInlineSuggestionToList(
+      @NonNull Context viewContext,
+      @NonNull ScrollViewAsMainChild lister,
+      @NonNull Size size,
+      @NonNull InlineSuggestion inlineSuggestion) {
+    var info = inlineSuggestion.getInfo();
+    Logger.i(
+        "ASK_Suggestion",
+        "Suggestion source '%s', is pinned %s, type '%s', hints '%s'",
+        info.getSource(),
+        info.isPinned(),
+        info.getType(),
+        String.join(",", info.getAutofillHints()));
+    inlineSuggestion.inflate(
+        viewContext,
+        size,
+        getMainExecutor(),
+        v -> {
+          v.setOnClickListener(v1 -> cleanUpInlineLayouts(true));
+          lister.addListItem(v);
+        });
   }
 
   static class InlineSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {
