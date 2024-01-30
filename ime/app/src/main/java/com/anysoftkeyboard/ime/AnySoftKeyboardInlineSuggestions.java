@@ -153,19 +153,47 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
         new Size(
             actualInputView.getWidth(),
             getResources().getDimensionPixelOffset(R.dimen.inline_suggestion_min_height));
+
+    // breaking suggestions to priority
+    var pinned = new ArrayList<InlineSuggestion>();
+    var notPinned = new ArrayList<InlineSuggestion>();
     for (InlineSuggestion inlineSuggestion : inlineSuggestions) {
-      inlineSuggestion.inflate(
-          viewContext,
-          size,
-          getMainExecutor(),
-          v -> {
-            v.setOnClickListener(v1 -> cleanUpInlineLayouts(true));
-            lister.addListItem(v);
-          });
+      if (inlineSuggestion.getInfo().isPinned()) pinned.add(inlineSuggestion);
+      else notPinned.add(inlineSuggestion);
+    }
+    for (InlineSuggestion inlineSuggestion : pinned) {
+      addInlineSuggestionToList(viewContext, lister, size, inlineSuggestion);
+    }
+    for (InlineSuggestion inlineSuggestion : notPinned) {
+      addInlineSuggestionToList(viewContext, lister, size, inlineSuggestion);
     }
 
     actualInputView.setVisibility(View.GONE);
     return null;
+  }
+
+  @RequiresApi(Build.VERSION_CODES.R)
+  private void addInlineSuggestionToList(
+      @NonNull Context viewContext,
+      @NonNull ScrollViewAsMainChild lister,
+      @NonNull Size size,
+      @NonNull InlineSuggestion inlineSuggestion) {
+    var info = inlineSuggestion.getInfo();
+    Logger.i(
+        "ASK_Suggestion",
+        "Suggestion source '%s', is pinned %s, type '%s', hints '%s'",
+        info.getSource(),
+        info.isPinned(),
+        info.getType(),
+        String.join(",", info.getAutofillHints()));
+    inlineSuggestion.inflate(
+        viewContext,
+        size,
+        getMainExecutor(),
+        v -> {
+          v.setOnClickListener(v1 -> cleanUpInlineLayouts(true));
+          lister.addListItem(v);
+        });
   }
 
   static class InlineSuggestionsAction implements KeyboardViewContainerView.StripActionProvider {

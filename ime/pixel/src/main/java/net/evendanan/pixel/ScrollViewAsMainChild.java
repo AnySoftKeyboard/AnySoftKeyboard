@@ -58,16 +58,24 @@ public class ScrollViewAsMainChild extends ScrollView implements MainChild {
             // hiding all the children that above the scroll Y
             for (childIndex = 0; childIndex < mItemsHolder.getChildCount(); childIndex++) {
               var child = mItemsHolder.getChildAt(childIndex);
-              child.setScaleX(1f);
-              child.setScaleY(1f);
-              if (child.getY() < scrollY) child.setVisibility(View.INVISIBLE);
-              else break;
+              if (child.getBottom() < scrollY) child.setVisibility(View.INVISIBLE);
+              else break; // everything else is below the scroll, so we need to show
             }
 
             final int topItemIndex = childIndex;
 
-            for (
-            /*childIndex holds the first visible child*/ ;
+            // how much do we need to scale-down the top item
+            final var topVisibleChild = mItemsHolder.getChildAt(topItemIndex);
+            final int visiblePartPixels = topVisibleChild.getBottom() - scrollY;
+            float scaleFactor = ((float) visiblePartPixels) / topVisibleChild.getHeight();
+            topVisibleChild.setVisibility(View.VISIBLE);
+            topVisibleChild.setScaleX(scaleFactor);
+            topVisibleChild.setScaleY(scaleFactor);
+            topVisibleChild.setPivotY(topVisibleChild.getHeight());
+            topVisibleChild.setPivotX(topVisibleChild.getWidth() / 2f);
+
+            // the rest of the view should just be shown
+            for (childIndex = topItemIndex + 1;
                 childIndex < mItemsHolder.getChildCount();
                 childIndex++) {
               var child = mItemsHolder.getChildAt(childIndex);
@@ -75,13 +83,6 @@ public class ScrollViewAsMainChild extends ScrollView implements MainChild {
               child.setScaleX(1f);
               child.setScaleY(1f);
             }
-            // how much do we need to scale-down the top item
-            final var topVisibleChild = mItemsHolder.getChildAt(topItemIndex);
-            final int visiblePartPixels = scrollY - topVisibleChild.getHeight();
-            float scaleFactor = ((float) visiblePartPixels) / topVisibleChild.getHeight();
-            topVisibleChild.setScaleX(scaleFactor);
-            topVisibleChild.setScaleY(scaleFactor);
-            topVisibleChild.setPivotY(visiblePartPixels);
           });
     }
   }
