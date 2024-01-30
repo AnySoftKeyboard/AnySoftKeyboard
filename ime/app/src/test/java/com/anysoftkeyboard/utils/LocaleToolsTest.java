@@ -11,6 +11,7 @@ import java.util.Locale;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
@@ -32,6 +33,7 @@ public class LocaleToolsTest {
 
   @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
+  @Ignore("Robolectric does not support this API")
   public void testSetAndResetValueAPI16() {
     Assert.assertEquals(
         "English (United States)",
@@ -55,6 +57,7 @@ public class LocaleToolsTest {
 
   @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR1)
+  @Ignore("Robolectric does not support this API")
   public void testSetAndResetValueAPI17WithKnownLocale() {
     Assert.assertEquals(
         "English (United States)",
@@ -78,6 +81,7 @@ public class LocaleToolsTest {
 
   @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR1)
+  @Ignore("Robolectric does not support this API")
   public void testSetAndResetValueAPI17WithUnknownLocale() {
     Assert.assertEquals(
         "English (United States)",
