@@ -160,7 +160,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testSelectionExpendingCancel() {
-    mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("some text he the input connection");
     mAnySoftKeyboardUnderTest.moveCursorToPosition("some ".length(), true);
 
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
@@ -175,7 +175,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     // selection ('te') was replaced with the letter 'k'
     Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "some kxt in the input connection",
+        "some kxt he the input connection",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     Assert.assertEquals(
         "some k".length(),
@@ -187,7 +187,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testSelectionExpendingWithAlreadySelectedText() {
-    mAnySoftKeyboardUnderTest.simulateTextTyping("some text in the input connection");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("some text he the input connection");
     mAnySoftKeyboardUnderTest.setSelectedText("some ".length(), "some text".length(), true);
     // we already have selection set
     Assert.assertEquals("text", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
@@ -198,9 +198,9 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
     Assert.assertEquals("text ", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
-    Assert.assertEquals("text i", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("text h", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
-    Assert.assertEquals(" text i", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals(" text h", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
   }
 
   @Test

@@ -465,14 +465,14 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
   @Test
   public void testShiftEnterSendsNewLine() {
     TestInputConnection inputConnection = getCurrentTestInputConnection();
-    mAnySoftKeyboardUnderTest.simulateTextTyping("this is a test");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("this he a test");
     mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
-    mAnySoftKeyboardUnderTest.simulateTextTyping("this is a test\n");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("this he a test\n");
     InOrder inOrder = Mockito.inOrder(inputConnection);
     inOrder.verify(inputConnection).beginBatchEdit();
     inOrder.verify(inputConnection).commitText("this", 1);
-    inOrder.verify(inputConnection).commitText("is", 1);
+    inOrder.verify(inputConnection).commitText("he", 1);
     inOrder.verify(inputConnection).commitText("a", 1);
     // test is not committed, it is just done composing.
     inOrder

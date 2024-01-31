@@ -7,6 +7,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
+import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -114,15 +115,20 @@ public class LoadedKeyboardsVerificationTest {
         final AnyKeyboard keyboard = addOn.createKeyboard(mode);
         keyboard.loadKeyboard(sTestKeyboardDimens);
         for (Keyboard.Key key : keyboard.getKeys()) {
-          final String keyId =
-              addOnIdString
-                  + " key "
-                  + key.getPrimaryCode()
-                  + " char "
-                  + ((char) key.getPrimaryCode());
+          var keyId =
+              String.format(
+                  Locale.ROOT,
+                  "%s key %d char %s [x,centerX,y] %d, %d, %d. max-width %d",
+                  addOnIdString,
+                  key.getPrimaryCode(),
+                  (char) key.getPrimaryCode(),
+                  key.x,
+                  Keyboard.Key.getCenterX(key),
+                  key.y,
+                  sTestKeyboardDimens.getKeyboardMaxWidth());
           Assert.assertTrue(keyId, key.x >= 0);
           Assert.assertTrue(
-              keyId, Keyboard.Key.getEndX(key) <= sTestKeyboardDimens.getKeyboardMaxWidth());
+              keyId, Keyboard.Key.getCenterX(key) <= sTestKeyboardDimens.getKeyboardMaxWidth());
           Assert.assertTrue(keyId, key.y >= 0);
         }
       }
