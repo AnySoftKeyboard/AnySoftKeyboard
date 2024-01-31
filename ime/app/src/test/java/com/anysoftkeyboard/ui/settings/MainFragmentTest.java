@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
@@ -178,6 +179,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
+  @Ignore("Robolectric does not support this API level")
   public void testBackupMenuItemNotSupportedPreKitKat() throws Exception {
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();
@@ -198,6 +200,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
   @Test
   @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
+  @Ignore("Robolectric does not support this API level")
   public void testRestoreMenuItemNotSupportedPreKitKat() throws Exception {
     final MainFragment fragment = startFragment();
     final FragmentActivity activity = fragment.getActivity();

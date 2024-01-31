@@ -37,7 +37,7 @@ public class WizardPagesAdapterTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
+  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
   public void testNoPermissionsPageBeforeAndroidM() {
     mRule
         .getScenario()
