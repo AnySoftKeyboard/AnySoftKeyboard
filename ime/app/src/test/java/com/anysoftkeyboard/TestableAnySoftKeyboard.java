@@ -400,7 +400,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
       if (mSpiedKeyboardView != null) {
         mSpiedKeyboardView
             .getKeyDetector()
-            .getKeyIndexAndNearbyCodes(key.centerX, key.centerY, nearByKeyCodes);
+            .getKeyIndexAndNearbyCodes(
+                Keyboard.Key.getCenterX(key), Keyboard.Key.getCenterY(key), nearByKeyCodes);
       }
 
     } else {

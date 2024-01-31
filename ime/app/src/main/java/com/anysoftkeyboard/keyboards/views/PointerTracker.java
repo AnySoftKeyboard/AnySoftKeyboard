@@ -435,9 +435,9 @@ class PointerTracker {
 
   private static int getSquareDistanceToKeyEdge(int x, int y, Keyboard.Key key) {
     final int left = key.x;
-    final int right = key.x + key.width;
+    final int right = Keyboard.Key.getEndX(key);
     final int top = key.y;
-    final int bottom = key.y + key.height;
+    final int bottom = Keyboard.Key.getEndY(key);
     final int edgeX = x < left ? left : Math.min(x, right);
     final int edgeY = y < top ? top : Math.min(y, bottom);
     final int dx = x - edgeX;

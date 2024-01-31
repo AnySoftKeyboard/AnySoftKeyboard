@@ -115,94 +115,94 @@ public class AnySoftKeyboardSelectionModificationTest extends AnySoftKeyboardBas
 
   @Test
   public void testWrapWithSpecials() {
-    final String inputText = "not this but this is quoted not this";
+    final String inputText = "not this but this he quoted not this";
     mAnySoftKeyboardUnderTest.simulateTextTyping(inputText.toLowerCase());
     mAnySoftKeyboardUnderTest.setSelectedText(
-        "not this but ".length(), "not this but this is quoted".length(), true);
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+        "not this but ".length(), "not this but this he quoted".length(), true);
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('\"');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"this is quoted\" not this",
+        "not this but \"this he quoted\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'this is quoted'\" not this",
+        "not this but \"'this he quoted'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('-');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-this is quoted-'\" not this",
+        "not this but \"'-this he quoted-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('_');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_this is quoted_-'\" not this",
+        "not this but \"'-_this he quoted_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('*');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*this is quoted*_-'\" not this",
+        "not this but \"'-_*this he quoted*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('`');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`this is quoted`*_-'\" not this",
+        "not this but \"'-_*`this he quoted`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     mAnySoftKeyboardUnderTest.simulateKeyPress('~');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~this is quoted~`*_-'\" not this",
+        "not this but \"'-_*`~this he quoted~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
     // special case () [] {}
     mAnySoftKeyboardUnderTest.simulateKeyPress('(');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(this is quoted)~`*_-'\" not this",
+        "not this but \"'-_*`~(this he quoted)~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress(')');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~((this is quoted))~`*_-'\" not this",
+        "not this but \"'-_*`~((this he quoted))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress('[');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(([this is quoted]))~`*_-'\" not this",
+        "not this but \"'-_*`~(([this he quoted]))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress(']');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(([[this is quoted]]))~`*_-'\" not this",
+        "not this but \"'-_*`~(([[this he quoted]]))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress('{');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(([[{this is quoted}]]))~`*_-'\" not this",
+        "not this but \"'-_*`~(([[{this he quoted}]]))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress('}');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(([[{{this is quoted}}]]))~`*_-'\" not this",
+        "not this but \"'-_*`~(([[{{this he quoted}}]]))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress('<');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(([[{{<this is quoted>}}]]))~`*_-'\" not this",
+        "not this but \"'-_*`~(([[{{<this he quoted>}}]]))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     mAnySoftKeyboardUnderTest.simulateKeyPress('>');
-    Assert.assertEquals("this is quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
+    Assert.assertEquals("this he quoted", mAnySoftKeyboardUnderTest.getCurrentSelectedText());
     Assert.assertEquals(
-        "not this but \"'-_*`~(([[{{<<this is quoted>>}}]]))~`*_-'\" not this",
+        "not this but \"'-_*`~(([[{{<<this he quoted>>}}]]))~`*_-'\" not this",
         mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
   }
 }

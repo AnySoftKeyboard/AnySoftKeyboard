@@ -22,8 +22,12 @@ import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.InMemoryDictionary;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.robolectric.annotation.Implements;
 import org.robolectric.annotation.RealObject;
+import org.robolectric.annotation.Resetter;
 
 @Implements(
     value = DictionaryAddOnAndBuilder.class,
@@ -33,18 +37,34 @@ public class ShadowDictionaryAddOnAndBuilder {
 
   @RealObject DictionaryAddOnAndBuilder mOriginalBuilder;
 
+  private static final Map<String, List<Pair<String, Integer>>> msOverrideDictionaryWords =
+      new HashMap<>();
+
+  private static final List<Pair<String, Integer>> DEFAULT_WORDS =
+      Arrays.asList(
+          Pair.create("he", 187),
+          Pair.create("he'll", 94),
+          Pair.create("hell", 108),
+          Pair.create("hello", 120),
+          Pair.create("face", 141));
+
+  @Resetter
+  static void resetDictionaryOverrides() {
+    msOverrideDictionaryWords.clear();
+  }
+
+  public static void setDictionaryOverrides(
+      String dictionaryName, List<Pair<String, Integer>> words) {
+    msOverrideDictionaryWords.put(dictionaryName, words);
+  }
+
   /** Shadows the native-dictionary creation. */
   public Dictionary createDictionary() throws Exception {
     return new InMemoryDictionary(
         mOriginalBuilder.getName(),
         ApplicationProvider.getApplicationContext(),
         // frequencies were taken from the original English AOSP file.
-        Arrays.asList(
-            Pair.create("he", 187),
-            Pair.create("he'll", 94),
-            Pair.create("hell", 108),
-            Pair.create("hello", 120),
-            Pair.create("face", 141)),
+        msOverrideDictionaryWords.getOrDefault(mOriginalBuilder.getName(), DEFAULT_WORDS),
         true);
   }
 }
