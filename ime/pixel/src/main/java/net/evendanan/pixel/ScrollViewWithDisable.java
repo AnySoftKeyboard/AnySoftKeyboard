@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.ui;
+package net.evendanan.pixel;
 
 import android.content.Context;
 import android.os.Build;

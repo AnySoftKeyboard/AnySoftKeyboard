@@ -18,13 +18,13 @@ import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.remote.MediaType;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.astuetz.PagerSlidingTabStrip;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import net.evendanan.pixel.ViewPagerWithDisable;
 
 public class QuickTextPagerView extends LinearLayout implements InputViewActionsProvider {
 

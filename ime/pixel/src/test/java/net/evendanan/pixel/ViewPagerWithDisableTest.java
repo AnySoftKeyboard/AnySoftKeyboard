@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.ui;
+package net.evendanan.pixel;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 

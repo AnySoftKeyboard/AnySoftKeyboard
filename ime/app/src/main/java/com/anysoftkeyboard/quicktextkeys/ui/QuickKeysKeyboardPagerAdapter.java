@@ -16,10 +16,10 @@ import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.ui.ScrollViewWithDisable;
-import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
+import net.evendanan.pixel.ScrollViewWithDisable;
+import net.evendanan.pixel.ViewPagerWithDisable;
 
 /*package*/ class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 
