@@ -68,6 +68,35 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
+  public void testExtraPadding() {
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 6);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    // still shows the TestShadowResources.NAVIGATION_BAR_HEIGHT since it is higher padding
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 12);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    // now uses the override since it is higher than TestShadowResources.NAVIGATION_BAR_HEIGHT
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(40 /*the minimum size*/ + 12);
+  }
+
+  @Test
   @Config(shadows = AnySoftKeyboardColorizeNavBarTest.TestShadowResourcesSmallHeight.class)
   public void testHappyPathForSmallNavigationBar() {
     // addView+onStartView

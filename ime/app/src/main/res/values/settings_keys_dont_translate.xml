@@ -344,4 +344,6 @@
 
     <string name="settings_key_zoom_percent_in_portrait">settings_key_zoom_percent_in_portrait</string>
     <string name="settings_key_zoom_percent_in_landscape">settings_key_zoom_percent_in_landscape</string>
+
+    <string name="settings_key_bottom_extra_padding_in_portrait">settings_key_bottom_extra_padding_in_portrait</string>
 </resources>
