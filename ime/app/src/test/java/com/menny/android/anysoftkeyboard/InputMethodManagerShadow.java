@@ -25,7 +25,7 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
     final InputMethodInfo askIme =
         new InputMethodInfo(
             "com.menny.android.anysoftkeyboard",
-            "SoftKeyboard",
+            "com.anysoftkeyboard.TestableAnySoftKeyboard",
             "AnySoftKeyboard",
             ".MainSettingsActivity");
     final InputMethodInfo gBoardIme =

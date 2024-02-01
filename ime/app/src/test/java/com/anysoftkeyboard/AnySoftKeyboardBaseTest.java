@@ -63,10 +63,14 @@ public abstract class AnySoftKeyboardBaseTest {
     mAnySoftKeyboardController = Robolectric.buildService(getServiceClass());
     mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
     mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
-    mAnySoftKeyboardUnderTest.onCreateInputMethodSessionInterface();
-
+    mAbstractInputMethod.createSession(
+        session -> {
+          mAnySoftKeyboardUnderTest.setInputSession(session);
+          session.toggleSoftInput(InputMethod.SHOW_EXPLICIT, 0);
+        });
     final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
 
+    // we'll need to remove this...
     mAbstractInputMethod.attachToken(mMockBinder);
 
     mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);

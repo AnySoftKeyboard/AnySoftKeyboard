@@ -1,7 +1,11 @@
 package com.menny.android.anysoftkeyboard;
 
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -17,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import org.mockito.Mockito;
+import org.robolectric.Shadows;
 
 public class AnyRoboApplication extends AnyApplication {
   private ExternalDictionaryFactory mDictionaryFactory;
@@ -34,6 +39,16 @@ public class AnyRoboApplication extends AnyApplication {
         Arrays.asList(
             Mockito.mock(OnKey.class), Mockito.mock(OnVisible.class), Mockito.mock(OnUiPage.class));
     super.onCreate();
+    var pm = getPackageManager();
+    var spm = Shadows.shadowOf(pm);
+    try {
+      var askService =
+          new ServiceInfo(pm.getServiceInfo(new ComponentName(this, SoftKeyboard.class), 0));
+      askService.name = TestableAnySoftKeyboard.class.getName();
+      spm.addOrUpdateService(askService);
+    } catch (PackageManager.NameNotFoundException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @NonNull @Override
