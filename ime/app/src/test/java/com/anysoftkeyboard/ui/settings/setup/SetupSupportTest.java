@@ -5,13 +5,19 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.content.ComponentName;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.animation.Animation;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.keyboards.KeyboardSupport;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyRoboApplication;
+import com.menny.android.anysoftkeyboard.R;
+import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import org.junit.After;
 import org.junit.Assert;
@@ -20,6 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SetupSupportTest {
@@ -232,5 +239,47 @@ public class SetupSupportTest {
 
     Assert.assertEquals(500, animation1.getStartOffset());
     Assert.assertEquals(900, animation2.getStartOffset());
+  }
+
+  @Test
+  public void testKeyboardZoomFactorPortrait() {
+    var context = RuntimeEnvironment.getApplication();
+    context.getResources().getConfiguration().orientation = Configuration.ORIENTATION_PORTRAIT;
+
+    List<Float> values = new ArrayList<>();
+    Disposable disposable = KeyboardSupport.getKeyboardHeightFactor(context).subscribe(values::add);
+
+    // default value
+    Assert.assertEquals(1.0f, values.remove(0), 0.001f);
+
+    // landscape does not affect it
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_zoom_percent_in_landscape, 120);
+    Assert.assertEquals(0, values.size());
+
+    // changing value
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_zoom_percent_in_portrait, 150);
+    Assert.assertEquals(1.5f, values.remove(0), 0.001f);
+    disposable.dispose();
+  }
+
+  @Test
+  public void testKeyboardZoomFactorLandscape() {
+    var context = RuntimeEnvironment.getApplication();
+    context.getResources().getConfiguration().orientation = Configuration.ORIENTATION_LANDSCAPE;
+
+    List<Float> values = new ArrayList<>();
+    Disposable disposable = KeyboardSupport.getKeyboardHeightFactor(context).subscribe(values::add);
+
+    // default value
+    Assert.assertEquals(1.0f, values.remove(0), 0.001f);
+
+    // portrait does not affect it
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_zoom_percent_in_portrait, 120);
+    Assert.assertEquals(0, values.size());
+
+    // changing value
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_zoom_percent_in_landscape, 150);
+    Assert.assertEquals(1.5f, values.remove(0), 0.001f);
+    disposable.dispose();
   }
 }

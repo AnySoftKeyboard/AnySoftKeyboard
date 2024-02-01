@@ -44,9 +44,6 @@
 
     <string name="settings_default_key_press_preview_popup_position">above_key</string>
 
-    <string name="settings_default_portrait_keyboard_height_factor">1.0</string>
-    <string name="settings_default_landscape_keyboard_height_factor">1.0</string>
-
     <string name="settings_default_tweak_animations_level">some</string>
 
     <bool name="settings_default_always_use_fallback_user_dictionary">true</bool>
@@ -141,4 +138,8 @@
 
     <dimen name="key_hysteresis_distance">10dp</dimen>
 
+    <integer name="settings_default_zoom_percent_in_portrait">100</integer>
+    <integer name="settings_default_zoom_percent_in_landscape">100</integer>
+
+    <integer name="settings_default_bottom_extra_padding_in_portrait">0</integer>
 </resources>

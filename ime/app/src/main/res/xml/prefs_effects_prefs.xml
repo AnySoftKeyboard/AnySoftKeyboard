@@ -64,6 +64,16 @@
             android:summaryOn="@string/colorize_nav_bar_summary_on"
             android:title="@string/colorize_nav_bar_title"/>
 
+        <net.evendanan.pixel.SlidePreference
+            android:defaultValue="@integer/settings_default_bottom_extra_padding_in_portrait"
+            android:key="@string/settings_key_bottom_extra_padding_in_portrait"
+            android:dependency="@string/settings_key_colorize_nav_bar"
+            android:persistent="true"
+            android:title="@string/bottom_padding_in_dp_title"
+            app:slideMaximum="@integer/settings_bottom_padding_max"
+            app:valueStringTemplate="@string/bottom_padding_in_dp_template"
+            app:slideMinimum="@integer/settings_bottom_padding_min" />
+
         <androidx.preference.ListPreference
             android:defaultValue="@string/settings_default_pop_text_option"
             android:dialogTitle="@string/pop_text_type_title"

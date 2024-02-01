@@ -122,7 +122,7 @@ public class RxSharedPrefsTest {
     new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
 
     Assert.assertFalse(preferences.contains("settings_key_vibrate_on_key_press_duration_int"));
-    Assert.assertEquals(12, preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
+    Assert.assertEquals(13, preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
   }
 
   @Test
@@ -163,6 +163,39 @@ public class RxSharedPrefsTest {
     new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
 
     Assert.assertEquals(0, preferences.getInt("settings_key_vibrate_on_key_press_duration_int", 0));
+  }
+
+  @Test
+  public void testDoesNotUpdateZoomFactorIfNotPresent() {
+    SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 12);
+
+    SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    Assert.assertFalse(preferences.contains("zoom_factor_keys_in_portrait"));
+    Assert.assertFalse(preferences.contains("zoom_factor_keys_in_landscape"));
+
+    new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
+
+    Assert.assertFalse(preferences.contains("settings_key_zoom_percent_in_portrait"));
+    Assert.assertFalse(preferences.contains("settings_key_zoom_percent_in_landscape"));
+  }
+
+  @Test
+  public void testUpdatesZoomFactorIfPresent() {
+    SharedPrefsHelper.setPrefsValue(RxSharedPrefs.CONFIGURATION_VERSION, 12);
+    SharedPrefsHelper.setPrefsValue("zoom_factor_keys_in_portrait", "1.2");
+    SharedPrefsHelper.setPrefsValue("zoom_factor_keys_in_landscape", "0.5");
+
+    SharedPreferences preferences =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+    new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
+
+    Assert.assertTrue(preferences.contains("settings_key_zoom_percent_in_portrait"));
+    Assert.assertTrue(preferences.contains("settings_key_zoom_percent_in_landscape"));
+
+    Assert.assertEquals(120, preferences.getInt("settings_key_zoom_percent_in_portrait", 100));
+    Assert.assertEquals(50, preferences.getInt("settings_key_zoom_percent_in_landscape", 100));
   }
 
   @Test
