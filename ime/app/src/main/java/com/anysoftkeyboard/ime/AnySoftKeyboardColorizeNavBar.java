@@ -68,7 +68,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
   }
 
   private int getMinimumBottomPadding() {
-    return mExtraBottomPadding + mNavigationBarMinHeight;
+    return (getCurrentOrientation() == Configuration.ORIENTATION_PORTRAIT ? mExtraBottomPadding : 0)
+        + mNavigationBarMinHeight;
   }
 
   private boolean doesOsShowNavigationBar() {

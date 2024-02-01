@@ -97,6 +97,36 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
+  @Config(shadows = TestShadowResources.class, qualifiers = "w420dp-h640dp-land-mdpi")
+  public void testNoExtraPaddingInLandscape() {
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 6);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    // no extra-padding in landscape
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 12);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    // no extra-padding in landscape
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+  }
+
+  @Test
   @Config(shadows = AnySoftKeyboardColorizeNavBarTest.TestShadowResourcesSmallHeight.class)
   public void testHappyPathForSmallNavigationBar() {
     // addView+onStartView
