@@ -46,7 +46,7 @@ import java.util.Set;
 
 public class RxSharedPrefs {
   static final String CONFIGURATION_VERSION = "configurationVersion";
-  static final int CONFIGURATION_LEVEL_VALUE = 12;
+  static final int CONFIGURATION_LEVEL_VALUE = 13;
   private static final String TAG = "ASK_Cfg";
 
   @VisibleForTesting static final String AUTO_APPLY_PREFS_FILENAME = "STARTUP_PREFS_APPLY.xml";
@@ -81,6 +81,31 @@ public class RxSharedPrefs {
     // upgrading should only be done when actually need to be done.
     final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
 
+    if (configurationVersion < 13) {
+      final Map<String, ?> allValues = sp.getAll();
+      if (allValues.containsKey("zoom_factor_keys_in_portrait")) {
+        try {
+          float prevValue = Float.parseFloat(sp.getString("zoom_factor_keys_in_portrait", "1.0"));
+          final Editor editor = sp.edit();
+          editor.putInt("settings_key_zoom_percent_in_portrait", (int) (100f * prevValue));
+          editor.remove("zoom_factor_keys_in_portrait");
+          editor.apply();
+        } catch (Exception e) {
+          Logger.w(TAG, e, "Failed to parse zoom factor in portrait");
+        }
+      }
+      if (allValues.containsKey("zoom_factor_keys_in_landscape")) {
+        try {
+          float prevValue = Float.parseFloat(sp.getString("zoom_factor_keys_in_landscape", "1.0"));
+          final Editor editor = sp.edit();
+          editor.putInt("settings_key_zoom_percent_in_landscape", (int) (100f * prevValue));
+          editor.remove("zoom_factor_keys_in_landscape");
+          editor.apply();
+        } catch (Exception e) {
+          Logger.w(TAG, e, "Failed to parse zoom factor in landscape");
+        }
+      }
+    }
     if (configurationVersion < 12) {
       // this means the user has used the app before this version, hence, might have used the
       // default android dictionary

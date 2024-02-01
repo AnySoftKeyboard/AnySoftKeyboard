@@ -137,8 +137,8 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
   }
 
   protected void onSharedPreferenceChange(String key) {
-    if (key.equals("zoom_factor_keys_in_portrait")
-        || key.equals("zoom_factor_keys_in_landscape")
+    if (key.equals(getString(R.string.settings_key_zoom_percent_in_portrait))
+        || key.equals(getString(R.string.settings_key_zoom_percent_in_landscape))
         || key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key))
         || key.equals(getString(R.string.settings_key_always_hide_language_key))) {
       onAddOnsCriticalChange();

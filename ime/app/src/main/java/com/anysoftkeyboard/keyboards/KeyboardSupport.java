@@ -91,20 +91,14 @@ public class KeyboardSupport {
         context.getResources().getConfiguration().orientation
             == Configuration.ORIENTATION_LANDSCAPE;
     return AnyApplication.prefs(context)
-        .getParsedString(
+        .getInteger(
             landscape
-                ? R.string.settings_key_landscape_keyboard_height_factor
-                : R.string.settings_key_portrait_keyboard_height_factor,
+                ? R.string.settings_key_zoom_percent_in_landscape
+                : R.string.settings_key_zoom_percent_in_portrait,
             landscape
-                ? R.string.settings_default_landscape_keyboard_height_factor
-                : R.string.settings_default_portrait_keyboard_height_factor,
-            Float::parseFloat)
-        .map(KeyboardSupport::zoomFactorLimitation);
-  }
-
-  private static float zoomFactorLimitation(float value) {
-    if (value > 2.0f) return 2.0f;
-    if (value < 0.2f) return 0.2f;
-    return value;
+                ? R.integer.settings_default_zoom_percent_in_landscape
+                : R.integer.settings_default_zoom_percent_in_portrait)
+        .asObservable()
+        .map(percent -> ((float) percent) / 100f);
   }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="keyboard_theme_tweak_group"
     android:title="@string/keyboard_theme_tweak_group">
 
@@ -90,28 +91,22 @@
         android:persistent="true"
         android:singleLine="true"/>
 
-    <EditTextPreference
-        android:autoText="false"
-        android:capitalize="none"
-        android:defaultValue="@string/settings_default_portrait_keyboard_height_factor"
-        android:dialogTitle="@string/zoom_factor_keys_in_portrait"
-        android:inputType="numberDecimal"
-        android:key="zoom_factor_keys_in_portrait"
-        android:lines="1"
+    <net.evendanan.pixel.SlidePreference
+        android:defaultValue="@integer/settings_default_zoom_percent_in_portrait"
+        android:key="@string/settings_key_zoom_percent_in_portrait"
         android:persistent="true"
-        android:singleLine="true"
-        android:title="@string/zoom_factor_keys_in_portrait" />
+        android:title="@string/zoom_factor_keys_in_portrait"
+        app:slideMaximum="@integer/settings_custom_zoom_factor_portrait_slide_max"
+        app:valueStringTemplate="@string/keys_zoom_factor_template"
+        app:slideMinimum="@integer/settings_custom_zoom_factor_portrait_slide_min" />
 
-    <EditTextPreference
-        android:autoText="false"
-        android:capitalize="none"
-        android:defaultValue="@string/settings_default_landscape_keyboard_height_factor"
-        android:dialogTitle="@string/zoom_factor_keys_in_landscape"
-        android:inputType="numberDecimal"
-        android:key="zoom_factor_keys_in_landscape"
-        android:lines="1"
+    <net.evendanan.pixel.SlidePreference
+        android:defaultValue="@integer/settings_default_zoom_percent_in_landscape"
+        android:key="@string/settings_key_zoom_percent_in_landscape"
         android:persistent="true"
-        android:singleLine="true"
-        android:title="@string/zoom_factor_keys_in_landscape" />
+        android:title="@string/zoom_factor_keys_in_landscape"
+        app:valueStringTemplate="@string/keys_zoom_factor_template"
+        app:slideMaximum="@integer/settings_custom_zoom_factor_landscape_slide_max"
+        app:slideMinimum="@integer/settings_custom_zoom_factor_landscape_slide_min" />
 
 </androidx.preference.PreferenceScreen>
