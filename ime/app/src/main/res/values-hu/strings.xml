@@ -573,6 +573,7 @@
     <string name="not_configured_with_click_here">Az AnySoftKeyboard még nem használatra kész. Kattintson
         a beállításhoz.
     </string>
+    <string name="not_notification_permission_text">Az AnySoftKeyboard-nak nincs engedélye értesítések megjelenítésére. Ritkán előfordulhat, hogy értesítenünk kellene Önt kritikus problémákról (például összeomlások).</string>
     <string name="not_configured_with_just_click_here">Kattintson</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -732,4 +733,8 @@
     <string name="backup_restore_not_support_before_kitkat_message">A biztonsági mentés és visszaállítás nem támogatott a KitKat (4.4-es verzió) előtti Android operációs rendszert futtató eszközökön. Sajnálom.</string>
     <string name="delete_all_clipboard_entries">Vágólap törlése</string>
     <string name="tip_swipe_from_backspace_to_clear">Tipp: a szóközről balra húzva törölheted a szót!</string>
+    <string name="notification_read_contacts_ticker">Névjegyek elérése engedély szükséges</string>
+    <string name="wizard_allow_notification_permission">Értesítések fogadása az AnySoftKeyboard-tól</string>
+    <string name="setup_wizard_step_notification_permissions_details">Ritka esetekben (például alkalmazásösszeomlás esetén) eszközértesítést kell megjelenítenünk. Ez ajánlott, de az értesítések letiltása nem befolyásolja az alkalmazás működését.</string>
+    <string name="wizard_skip_notification_permission">Ne küldjön éresítéseket</string>
 </resources>

@@ -515,6 +515,7 @@
     <string name="failed_to_create_mem_dump">Creazione file di dump memoria non riuscito a causa di:<xliff:g id="message">%s</xliff:g></string>
     <string name="created_mem_dump_file">File di dump memoria creato in: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">AnySoftKeyboard non è completamente messo a punto per l\'uso. Clicca qui per settare.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard non ha l\'autorizzazione alle notifiche push. Potremmo raramente, aver bisogno di avvisarti per problemi critici (come arresti anomali).</string>
     <string name="not_configured_with_just_click_here">Clicca qui</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -649,4 +650,8 @@
     <string name="backup_restore_not_support_before_kitkat_message">Backup e ripristino non sono supportati per dispositivi con Android precedente a KitKat (versione 4.4).</string>
     <string name="delete_all_clipboard_entries">Svuota appunti</string>
     <string name="tip_swipe_from_backspace_to_clear">Suggerimento: puoi swipe-left dal backspace per cancellare la parola!</string>
+    <string name="notification_read_contacts_ticker">Autorizzazione ai contatti necessaria</string>
+    <string name="wizard_allow_notification_permission">Consenti le notifiche da AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">In alcuni casi (come arresti anomali dell\'app) abbiamo bisogno di mostrarti una notifica sul tuo dispositivo. Questo è consigliato, ma non consentire le notifiche non influirà sul comportamento dell\'applicazione.</string>
+    <string name="wizard_skip_notification_permission">Non consentire le notifiche</string>
 </resources>

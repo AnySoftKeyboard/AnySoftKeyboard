@@ -522,6 +522,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="created_mem_dump_file">Bellek dökümü dosyası şurada oluşturuldu:        <xliff:g id="file_path">%s</xliff:g>
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard kullanım için tamamen kurulu değil. Kurmak için burayı tıklatın.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard\'un bildirim gösterme izni yok. Nadiren de olsa kritik sorunları (çökmeler gibi) bildirmemiz gerekebilir.</string>
     <string name="not_configured_with_just_click_here">Buraya tıklayın</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -657,4 +658,8 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="backup_restore_not_support_before_kitkat_message">Yedekleme ve geri yükleme, KitKat\'tan önceki (sürüm 4.4) Android işletim sistemini çalıştıran cihazlarda desteklenmiyor.  Üzgünüm.</string>
     <string name="delete_all_clipboard_entries">Panoyu temizle</string>
     <string name="tip_swipe_from_backspace_to_clear">İpucu: Boşluk tuşundan sola doğru kaydırarak kelimeyi silebilirsiniz!</string>
+    <string name="notification_read_contacts_ticker">Kişilere erişim izni gerekli</string>
+    <string name="wizard_allow_notification_permission">AnySoftKeyboard\'dan bildirimlere izin ver</string>
+    <string name="setup_wizard_step_notification_permissions_details">Nadir durumlarda (örneğin uygulama çökmeleri gibi) bildirim göndermemiz gerekebilir. İzin verilmesini öneririz ancak bildirim gönderme izin vermeme uygulamanın davranışını etkilemez.</string>
+    <string name="wizard_skip_notification_permission">Bildirimlere izin verme</string>
 </resources>

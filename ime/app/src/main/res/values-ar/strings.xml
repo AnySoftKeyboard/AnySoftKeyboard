@@ -191,6 +191,7 @@
     <string name="swipe_action_name_compact_layout_to_right">نسق اللوحة مُكدّس إلى الجهة اليمنى</string>
     <string name="swipe_action_name_compact_layout_to_left">نسق اللوحة مُكدّس إلى الجهة اليسرى</string>
     <string name="swipe_action_name_utility_keyboard">إظهر إستخدامات لوحة المفاتيح</string>
+    <string name="swipe_action_name_quick_text_popup">إظهار النوافذ المنبثقة للإيموجي</string>
     <string name="settings_swipe_velocity_threshold_title">سرعة الاستجابة عند السحب</string>
     <string name="settings_swipe_velocity_threshold_summary">السرعة الدنيا لحركة السحب. حاليا، %s</string>
     <string name="settings_swipe_velocity_very_slow">بطيء جدًا</string>
@@ -340,6 +341,8 @@
     <string name="candidates_off_summary">لن يُظهر أية إقتراحات</string>
     <string name="quick_fix">التصحيح السريع و الإختصارات</string>
     <string name="quick_fix_summary">يقوم بتصحيح الأخطاء الشائعة و يعرض الكلمات المختصرة</string>
+    <string name="quick_fix_secon_disabled">… في اللغة الأولى فقط</string>
+    <string name="try_split_words_for_correction">تصحيح بتقسيم الكلمة المكتوبة</string>
     <string name="allow_suggestions_restart">إعادة تشغيل الاقتراحات</string>
     <string name="allow_suggestions_restart_summary">إعادة اقتراح كلمة عند تحريك المؤشر</string>
     <!-- settings - keyboard group -->
@@ -392,6 +395,7 @@
     <string name="extension_kbd_top_nav">مفاتيح الإنتقال</string>
     <string name="extension_kbd_top_numbers_simple">بسيط و بالأرقام فقط</string>
     <string name="extension_kbd_top_terminal">الوِحدة الطّرَفية</string>
+    <string name="extension_kbd_top_text_editing">تعديل سريع للنصوص</string>
     <string name="extension_kbd_bottom_regular_with_voice">عادي</string>
     <string name="extension_kbd_bottom_regular">كلاسيكي (بدون مايكرفون)</string>
     <string name="extension_kbd_bottom_iphone">نسق الآيفون (بدون مايكرفون)</string>
@@ -400,6 +404,8 @@
     <string name="extension_kbd_bottom_alt_with_mic">استبدال بالمايكروفون</string>
     <string name="extension_kbd_bottom_old">للقُدَماء</string>
     <string name="extension_kbd_bottom_simple">بسيط</string>
+    <string name="extension_kbd_bottom_simple_alt">بديل بسيط</string>
+    <string name="extension_kbd_bottom_row_aosp">على نمط AOSP</string>
     <string name="extension_kbd_bottom_ng">الجيل الجديد - تجريبي</string>
     <string name="extension_kbd_extension_numbers_symbols">الأرقام و الرموز</string>
     <string name="extension_kbd_bottom_minimal">بسيط</string>
@@ -493,6 +499,7 @@
     <string name="emoji_default_skin_tone_value_type_5">لون داكن نسبيا</string>
     <string name="emoji_default_skin_tone_value_type_6">لون داكن</string>
     <string name="emoji_default_skin_tone_value_random_type">لون متغير</string>
+    <string name="emoji_default_gender_summary">استخدام الجنس الافتراضي: %s</string>
     <string name="emoji_default_gender_value_person">شخص</string>
     <string name="emoji_default_gender_value_woman">امرأة</string>
     <string name="emoji_default_gender_value_man">رجل</string>
@@ -571,6 +578,7 @@
     <string name="setup_wizard_welcome_info_2">حسنا، هل أنت جاهز ؟ إضغط أدناه للمواصلة، سوف أدُلّك على الخطوات.</string>
     <string name="setup_wizard_welcome_start_action">بداية التثبيت …</string>
     <string name="setup_wizard_welcome_privacy_action">انتقل إلى سياسة الخصوصية …</string>
+    <string name="setup_wizard_skip">تخطي</string>
     <string name="clear_all_dictionary_override">مسح البدائل</string>
     <string name="theme_case_type_override_os">دع نظام الأندرويد يختار (تلقائي)</string>
     <string name="theme_case_type_override_lower">أحرف صغيرة دائما</string>
@@ -593,9 +601,11 @@
     <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
     <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
     <string name="gesture_typing_settings">الكتابة بالحركة ➿</string>
+    <string name="gesture_typing_action">تمكين الكتابة الحركية [تجريبي]</string>
     <string name="gesture_typing_alert_title">ميزة تجريبية!</string>
     <string name="gesture_typing_alert_button">حسنا</string>
     <string name="apply_overlay_summary_off">استخدم ألوان السمة دائما.</string>
     <string name="app_share_title">مرحبا من AnySoftKeyboard</string>
     <string name="click_me_for_easter_egg_info">انقر علي لمفاجأة</string>
+    <string name="delete_all_clipboard_entries">تفريغ الحافظة</string>
 </resources>

@@ -414,6 +414,10 @@
     <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
     <string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
     <string name="zoom_factor_keys_in_landscape">Keys height factor in landscape mode</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+
+    <string name="bottom_padding_in_dp_title">Keyboard bottom offset</string>
+    <string name="bottom_padding_in_dp_template">%d points</string>
 
     <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word

@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
+    <string name="no_market_store_available_title">Impossibile cercare componenti aggiuntivi!</string>
+    <string name="no_market_store_available">Impossibile trovare un app store sul tuo dispositivo.\nImpossibile cercare componenti aggiuntivi!</string>
+    <string name="leaving_ask_to_market_title">Stai uscendo da AnySoftKeyboard</string>
+    <string name="leaving_ask_to_market_message">Cercare componenti aggiuntivi avviene in un\'altra applicazione.\nIl Play Store può mostrarti annunci e/o tracciarne il tuo utilizzo. Questo è al di fuori del controllo di AnySoftKeyboard.</string>
+    <string name="cta_continue_to_market">Cerca</string>
+</resources>
