@@ -1,5 +1,5 @@
 import { context } from '@actions/github';
-import { getActionInputs, shouldApprove, approvePr } from './approval';
+import { getActionInputs, shouldApprove, approvePr } from './approval.js';
 import { setFailed, getInput } from '@actions/core';
 
 const main = async () => {

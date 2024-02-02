@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ActionInputs, getActionInputs, shouldApprove } from './approval';
+import { ActionInputs, getActionInputs, shouldApprove } from './approval.js';
 
 describe('Approval', () => {
   const actionInputFunc = (key: string) => {

@@ -3,7 +3,12 @@
         "allowJs": true,
         "target": "es5",
         "outDir": "dist/",
-        "rootDir": "js/"
+        "rootDir": "js/",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext"
     },
-    "include": ["js/**/*"]
+    "include": ["js/**/*"],
+    "ts-node": {
+      "esm": true
+    }
 }

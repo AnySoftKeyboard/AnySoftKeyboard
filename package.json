@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "lint": "eslint --ext .ts js/",
     "lint-fix": "eslint --ext .ts js/ --fix",

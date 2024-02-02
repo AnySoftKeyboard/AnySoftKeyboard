@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Contributor, constructContributorsContext, generateMarkdownList, sortContributors } from './contributors';
+import { Contributor, constructContributorsContext, generateMarkdownList, sortContributors } from './contributors.js';
 
 describe('Contributors', () => {
   const listOfContributors: Contributor[] = [

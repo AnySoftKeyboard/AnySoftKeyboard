@@ -2,7 +2,7 @@
 
 import * as github from '@actions/github';
 import * as core from '@actions/core';
-import { WebhookPayload } from '@actions/github/lib/interfaces';
+import { WebhookPayload } from '@actions/github/lib/interfaces.js';
 
 export interface ActionInputs {
   token: string;
