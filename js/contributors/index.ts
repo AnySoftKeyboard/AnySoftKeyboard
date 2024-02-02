@@ -5,7 +5,7 @@ import {
   generateMarkdownList,
   getContributors,
   sortContributors,
-} from './contributors';
+} from './contributors.js';
 import { setFailed } from '@actions/core';
 import { writeFileSync } from 'fs';
 
