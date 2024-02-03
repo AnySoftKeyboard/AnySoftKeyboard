@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.7.20"
+    id "org.jetbrains.kotlin.jvm" version "1.9.0"
 }
 
 apply plugin: 'groovy'
@@ -16,9 +16,9 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
 
-    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-    implementation 'com.google.code.gson:gson:2.9.0'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.20"
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation 'com.google.code.gson:gson:2.10'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.0"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.github.stefanbirkner:system-rules:1.16.1'
@@ -35,10 +35,6 @@ gradlePlugin {
         deploymentsPlugin {
             id = 'anysoftkeyboard-deployment'
             implementationClass = 'deployment.DeploymentPlugin'
-        }
-        contributorsPlugin {
-            id = 'anysoftkeyboard-contributors'
-            implementationClass = 'contributors.ContributorsPlugin'
         }
         manualVersionPlugin {
             id = 'ask.net.evendanan.autoversion'
@@ -61,7 +57,7 @@ compileKotlin {
     targetCompatibility = JavaVersion.VERSION_17
 
     kotlinOptions {
-        jvmTarget = 11
+        jvmTarget = 17
     }
 }
 
@@ -70,6 +66,6 @@ compileTestKotlin {
     targetCompatibility = JavaVersion.VERSION_17
 
     kotlinOptions {
-        jvmTarget = 11
+        jvmTarget = 17
     }
 }
