@@ -326,6 +326,9 @@
     <string name="key_press_preview_popup_off_summary">Nincs felugró karakter gombnyomáskor</string>
     <string name="zoom_factor_keys_in_portrait">Gomb magassága álló módban</string>
     <string name="zoom_factor_keys_in_landscape">Gomb magassága fekvő módban</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Billentyűzet alsó eltolás</string>
+    <string name="bottom_padding_in_dp_template">%d pont</string>
     <string name="insert_space_after_word_suggestion_selection">Szó választása után szóköz</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Szóköz a javasolt szó
         kiválasztása után

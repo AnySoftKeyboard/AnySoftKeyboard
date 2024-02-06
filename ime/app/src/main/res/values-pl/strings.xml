@@ -343,6 +343,9 @@ Zmiana
     <string name="key_press_preview_popup_off_summary">Nie pokazuj naciśniętego klawisza</string>
     <string name="zoom_factor_keys_in_portrait">Współczynnik wysokości klawiszy (tryb pionowy)</string>
     <string name="zoom_factor_keys_in_landscape">Współczynnik wysokości klawiszy (tryb poziomy)</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Dolne przesunięcie klawiatury</string>
+    <string name="bottom_padding_in_dp_template">%d punktów</string>
     <string name="insert_space_after_word_suggestion_selection">Spacja po wyborze kandydata</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Wstaw spację po wybraniu
         sugerowanego słowa
