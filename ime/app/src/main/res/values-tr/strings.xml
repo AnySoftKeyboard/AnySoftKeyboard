@@ -307,6 +307,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="key_press_preview_popup_off_summary">Tuş basma sonrasında açılır pencereyi gösterme</string>
     <string name="zoom_factor_keys_in_portrait">Dikey modda tuşların yükseklik faktörü</string>
     <string name="zoom_factor_keys_in_landscape">Yatay modda tuşların yükseklik faktörü</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Klavye alt ofseti</string>
+    <string name="bottom_padding_in_dp_template">%d puan</string>
     <string name="insert_space_after_word_suggestion_selection">Aday seçme sonrasında boşluk</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Kelime önerisi seçimi sonrasına boşluk ekle    </string>
     <string name="double_space_to_period">Nokta koymak için iki kere boşluğa basma</string>
