@@ -126,6 +126,29 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
+  public void testNextWordPicksTypedIfValidButHasLongerNext() {
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+    verifySuggestions(true, "hell", "hello");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("o ");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("face hello face hello face hello face ");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("face ");
+    // next word suggest is "hello"
+    verifySuggestions(true, "hello");
+    // typing "hell", which is a valid word
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+    // seeing both suggesting
+    verifySuggestions(true, "hell", "hello");
+    Assert.assertEquals(
+        "hello face hello face hello face hello face face hell",
+        getCurrentTestInputConnection().getCurrentTextInInputConnection());
+    // doing auto-pick
+    mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
+    Assert.assertEquals(
+        "hello face hello face hello face hello face face hell ",
+        getCurrentTestInputConnection().getCurrentTextInInputConnection());
+  }
+
+  @Test
   public void testNextWordDeleteAfterPick() {
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello face hello face hello face hello face ");
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
