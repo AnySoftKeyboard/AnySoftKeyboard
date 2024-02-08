@@ -20,6 +20,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Function;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
@@ -46,7 +47,9 @@ public class SuggestImpl implements Suggest {
   private static final int TYPED_WORD_FREQUENCY = Integer.MAX_VALUE; // always the first
   @NonNull private final SuggestionsProvider mSuggestionsProvider;
   private final List<CharSequence> mSuggestions = new ArrayList<>();
-  private final List<CharSequence> mNextSuggestions = new ArrayList<>();
+  private final NextWordsHolderImpl mNextSuggestions =
+      new NextWordsHolderImpl(this::wrapWordFromPool);
+
   private final List<CharSequence> mStringPool = new ArrayList<>();
   private final Dictionary.WordCallback mAutoTextWordCallback;
   private final Dictionary.WordCallback mAbbreviationWordCallback;
@@ -166,24 +169,29 @@ public class SuggestImpl implements Suggest {
 
   @Override
   public List<CharSequence> getNextSuggestions(
-      final CharSequence previousWord, final boolean inAllUpperCaseState) {
+      final CharSequence previousWord,
+      final boolean inAllUpperCaseState,
+      final boolean isCapitalized) {
     if (previousWord.length() == 0) {
       return Collections.emptyList();
     }
 
-    mNextSuggestions.clear();
     mIsAllUpperCase = inAllUpperCaseState;
+    mIsFirstCharCapitalized = isCapitalized;
+    mNextSuggestions.clear();
 
     // only adding VALID words
     if (isValidWord(previousWord)) {
       final String currentWord = previousWord.toString();
       mSuggestionsProvider.getNextWords(currentWord, mNextSuggestions, mPrefMaxSuggestions);
+      var nextSuggestions = mNextSuggestions.getCollectedWords();
       if (BuildConfig.DEBUG) {
         Logger.d(
             TAG,
-            "getNextSuggestions from user-dictionary for '%s' (capital? %s):",
+            "getNextSuggestions from user-dictionary for '%s' (capital? %s, first-cap %s):",
             previousWord,
-            mIsAllUpperCase);
+            mIsAllUpperCase,
+            mIsFirstCharCapitalized);
         for (int suggestionIndex = 0;
             suggestionIndex < mNextSuggestions.size();
             suggestionIndex++) {
@@ -191,23 +199,14 @@ public class SuggestImpl implements Suggest {
               TAG,
               "* getNextSuggestions #%d :''%s'",
               suggestionIndex,
-              mNextSuggestions.get(suggestionIndex));
+              nextSuggestions.get(suggestionIndex));
         }
       }
-
-      if (mIsAllUpperCase) {
-        for (int suggestionIndex = 0;
-            suggestionIndex < mNextSuggestions.size();
-            suggestionIndex++) {
-          mNextSuggestions.set(
-              suggestionIndex,
-              mNextSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
-        }
-      }
+      return nextSuggestions;
     } else {
       Logger.d(TAG, "getNextSuggestions for '%s' is invalid.", previousWord);
+      return Collections.emptyList();
     }
-    return mNextSuggestions;
   }
 
   @Override
@@ -257,7 +256,7 @@ public class SuggestImpl implements Suggest {
     int nextWordInsertionIndex = mCorrectSuggestionIndex == 0 ? 1 : 0;
     // since the next-word-suggestions are order by usage, we'd like to add them at the
     // same order
-    for (CharSequence nextWordSuggestion : mNextSuggestions) {
+    for (CharSequence nextWordSuggestion : mNextSuggestions.getCollectedWords()) {
       if (nextWordSuggestion.length() >= typedWordLength
           && TextUtils.equals(
               nextWordSuggestion.subSequence(0, typedWordLength), mTypedOriginalWord)) {
@@ -556,7 +555,12 @@ public class SuggestImpl implements Suggest {
     }
   }
 
-  @NonNull private StringBuilder getStringBuilderFromPool(char[] word, int wordOffset, int wordLength) {
+  @NonNull private StringBuilder wrapWordFromPool(@NonNull CharSequence inWord) {
+    return getStringBuilderFromPool(inWord.toString().toCharArray(), 0, inWord.length());
+  }
+
+  @NonNull private StringBuilder getStringBuilderFromPool(
+      @NonNull char[] word, int wordOffset, int wordLength) {
     int poolSize = mStringPool.size();
     StringBuilder sb =
         poolSize > 0
@@ -574,5 +578,35 @@ public class SuggestImpl implements Suggest {
       sb.append(word, wordOffset, wordLength);
     }
     return sb;
+  }
+
+  @VisibleForTesting
+  static class NextWordsHolderImpl implements SuggestionsProvider.NextWordsHolder {
+
+    private final List<CharSequence> mNextSuggestions = new ArrayList<>();
+
+    private final Function<CharSequence, StringBuilder> mPool;
+
+    NextWordsHolderImpl(@NonNull Function<CharSequence, StringBuilder> pool) {
+      mPool = pool;
+    }
+
+    @Override
+    public void add(CharSequence nextWord) {
+      mNextSuggestions.add(mPool.apply(nextWord));
+    }
+
+    @Override
+    public int size() {
+      return mNextSuggestions.size();
+    }
+
+    public void clear() {
+      mNextSuggestions.clear();
+    }
+
+    public List<CharSequence> getCollectedWords() {
+      return mNextSuggestions;
+    }
   }
 }

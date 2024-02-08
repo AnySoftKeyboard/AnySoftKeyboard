@@ -33,7 +33,8 @@ public interface Suggest {
    *
    * @return list of suggestions.
    */
-  List<CharSequence> getNextSuggestions(CharSequence previousWord, boolean inAllUpperCaseState);
+  List<CharSequence> getNextSuggestions(
+      CharSequence previousWord, boolean isAllUpperCase, boolean isCapitalized);
 
   /**
    * Returns a list of words that match the list of character codes passed in. This list will be

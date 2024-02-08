@@ -6,6 +6,7 @@ import static com.anysoftkeyboard.ime.KeyboardUIStateHandler.MSG_RESTART_NEW_WOR
 
 import android.os.Looper;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
@@ -146,6 +147,35 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
     Assert.assertEquals(
         "hello face hello face hello face hello face face hell ",
         getCurrentTestInputConnection().getCurrentTextInInputConnection());
+  }
+
+  @Test
+  public void testNextWordRespectsShiftState() {
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello face hello face hello face hello face ");
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+    verifySuggestions(true, "face");
+    // pressing SHIFT to capitalize
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+    verifySuggestions(true, "Face");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+    verifySuggestions(true, "FACE");
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+    verifySuggestions(true, "face");
+  }
+
+  @Test
+  public void testNextWordRespectsTextFieldCapitalizeInfo() {
+    simulateFinishInputFlow();
+    mAnySoftKeyboardUnderTest.getTestInputConnection().setRealCapsMode(true);
+    EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+    editorInfo.inputType |= TextUtils.CAP_MODE_WORDS;
+    simulateOnStartInputFlow(false, editorInfo);
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello face hello face hello face hello face ");
+    Assert.assertEquals(
+        "Hello Face Hello Face Hello Face Hello Face ",
+        getCurrentTestInputConnection().getCurrentTextInInputConnection());
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+    verifySuggestions(true, "Face");
   }
 
   @Test

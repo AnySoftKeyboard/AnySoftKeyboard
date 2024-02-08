@@ -701,8 +701,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @Override
     public List<CharSequence> getNextSuggestions(
-        CharSequence previousWord, boolean inAllUpperCaseState) {
-      return mDelegate.getNextSuggestions(previousWord, inAllUpperCaseState);
+        CharSequence previousWord, boolean inAllUpperCaseState, boolean isCapitalized) {
+      return mDelegate.getNextSuggestions(previousWord, inAllUpperCaseState, isCapitalized);
     }
 
     @Override

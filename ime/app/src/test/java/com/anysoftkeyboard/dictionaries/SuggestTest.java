@@ -946,4 +946,26 @@ public class SuggestTest {
     Assert.assertEquals("hellonworld", suggestions.get(0).toString());
     Assert.assertEquals(-1, mUnderTest.getLastValidSuggestionIndex());
   }
+
+  @Test
+  public void testNextWordsHolderImpl() {
+    var underTest = new SuggestImpl.NextWordsHolderImpl(StringBuilder::new);
+
+    Assert.assertEquals(0, underTest.size());
+    Assert.assertTrue(underTest.getCollectedWords().isEmpty());
+
+    underTest.add("test");
+    Assert.assertEquals(1, underTest.size());
+    Assert.assertNotSame(Collections.emptyList(), underTest.getCollectedWords());
+    Assert.assertTrue(underTest.getCollectedWords().get(0) instanceof StringBuilder);
+    Assert.assertEquals("test", underTest.getCollectedWords().get(0).toString());
+    underTest.add("test2");
+    Assert.assertEquals(2, underTest.size());
+    Assert.assertNotSame(Collections.emptyList(), underTest.getCollectedWords());
+    Assert.assertEquals("test2", underTest.getCollectedWords().get(1).toString());
+
+    underTest.clear();
+    Assert.assertEquals(0, underTest.size());
+    Assert.assertTrue(underTest.getCollectedWords().isEmpty());
+  }
 }
