@@ -42,7 +42,7 @@ public interface Suggest {
    *
    * @return list of suggestions.
    */
-  List<CharSequence> getSuggestions(WordComposer wordComposer);
+  List<CharSequence> getSuggestions(WordComposer wordComposer, boolean isShiftActive, boolean isShiftLocked);
 
   /**
    * Returns the index of the valid word from the last call to getSuggestions. In most cases, if the

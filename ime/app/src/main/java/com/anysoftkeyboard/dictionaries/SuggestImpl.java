@@ -63,8 +63,6 @@ public class SuggestImpl implements Suggest {
   private int mCorrectSuggestionIndex = -1;
   @NonNull private String mLowerOriginalWord = "";
   @NonNull private String mTypedOriginalWord = "";
-  private boolean mIsFirstCharCapitalized;
-  private boolean mIsAllUpperCase;
   private int mCommonalityMaxLengthDiff = 1;
   private int mCommonalityMaxDistance = 1;
   private boolean mEnabledSuggestions;
@@ -176,8 +174,6 @@ public class SuggestImpl implements Suggest {
       return Collections.emptyList();
     }
 
-    mIsAllUpperCase = inAllUpperCaseState;
-    mIsFirstCharCapitalized = isCapitalized;
     mNextSuggestions.clear();
 
     // only adding VALID words
@@ -190,8 +186,8 @@ public class SuggestImpl implements Suggest {
             TAG,
             "getNextSuggestions from user-dictionary for '%s' (capital? %s, first-cap %s):",
             previousWord,
-            mIsAllUpperCase,
-            mIsFirstCharCapitalized);
+                inAllUpperCaseState,
+                isCapitalized);
         for (int suggestionIndex = 0;
             suggestionIndex < mNextSuggestions.size();
             suggestionIndex++) {
@@ -210,12 +206,10 @@ public class SuggestImpl implements Suggest {
   }
 
   @Override
-  public List<CharSequence> getSuggestions(WordComposer wordComposer) {
+  public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean isShiftActive, boolean isShiftLocked) {
     if (!mEnabledSuggestions) return Collections.emptyList();
 
     mCorrectSuggestionIndex = -1;
-    mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();
-    mIsAllUpperCase = wordComposer.isAllUpperCase();
     collectGarbage();
     Arrays.fill(mPriorities, 0);
 
@@ -513,7 +507,7 @@ public class SuggestImpl implements Suggest {
       final int[] priorities = mPriorities;
       final int prefMaxSuggestions = mPrefMaxSuggestions;
 
-      StringBuilder sb = getStringBuilderFromPool(word, wordOffset, wordLength);
+      StringBuilder sb = getStringBuilderFromPool(mTypedOriginalWord, word, wordOffset, wordLength);
 
       if (TextUtils.equals(mTypedOriginalWord, sb)) {
         frequency = VALID_TYPED_WORD_FREQUENCY;
@@ -556,10 +550,11 @@ public class SuggestImpl implements Suggest {
   }
 
   @NonNull private StringBuilder wrapWordFromPool(@NonNull CharSequence inWord) {
-    return getStringBuilderFromPool(inWord.toString().toCharArray(), 0, inWord.length());
+    return getStringBuilderFromPool(mTypedOriginalWord, inWord.toString().toCharArray(), 0, inWord.length());
   }
 
   @NonNull private StringBuilder getStringBuilderFromPool(
+          @NonNull CharSequence originalWord,
       @NonNull char[] word, int wordOffset, int wordLength) {
     int poolSize = mStringPool.size();
     StringBuilder sb =
@@ -567,6 +562,8 @@ public class SuggestImpl implements Suggest {
             ? (StringBuilder) mStringPool.remove(poolSize - 1)
             : new StringBuilder(Dictionary.MAX_WORD_LENGTH);
     sb.setLength(0);
+    sb.append(word, wordOffset, wordLength);
+    
     if (mIsAllUpperCase) {
       sb.append(new String(word, wordOffset, wordLength).toUpperCase(mLocale));
     } else if (mIsFirstCharCapitalized) {
@@ -575,7 +572,7 @@ public class SuggestImpl implements Suggest {
         sb.append(word, wordOffset + 1, wordLength - 1);
       }
     } else {
-      sb.append(word, wordOffset, wordLength);
+
     }
     return sb;
   }
