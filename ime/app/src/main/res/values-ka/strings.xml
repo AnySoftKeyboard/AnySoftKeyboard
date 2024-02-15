@@ -352,6 +352,9 @@
     <string name="key_press_preview_popup_off_summary">ამოხტომის გარეშე ღილაკზე დაჭერისას</string>
     <string name="zoom_factor_keys_in_portrait">ღილაკის სიმაღლის მამრავლი შვეულ რეჟიმში</string>
     <string name="zoom_factor_keys_in_landscape">ღილაკის სიმაღლის მამრავლი თარაზულ რეჟიმში</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">კლავიატურის დაშორება ქვემოდან</string>
+    <string name="bottom_padding_in_dp_template">%d პუნქტი</string>
     <string name="insert_space_after_word_suggestion_selection">დაშორება შერჩეულის შემდეგ</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">ადგილის გამოტოვება შემოთავაზებული
         სიტყვის შერჩევის შემდეგ
@@ -612,6 +615,7 @@
     <string name="not_configured_with_click_here">AnySoftKeyboard არაა სრულად გამართული გამოსაყენებლად. დაწკაპეთ
         აქ გასამართად.
     </string>
+    <string name="not_notification_permission_text">AnySoftKeyboard ნებართვის უქონლობის გამო ვერ გაჩვენებთ შეტყობინებებს. იშვიათად, შეიძლება  საჭირო იყოს გეცნობოთ მნიშვნელოვანი საკითხების შესახებ (თუნდაც უეცარი გათიშვების).</string>
     <string name="not_configured_with_just_click_here">დაწკაპეთ აქ</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -778,5 +782,6 @@
     <string name="tip_swipe_from_backspace_to_clear">რჩევა: უკუშლიდან მარცხნივ გაუსვით სიტყვის მოცილებისთვის!</string>
     <string name="notification_read_contacts_ticker">კონტაქტებზე ნებართვაა საჭირო</string>
     <string name="wizard_allow_notification_permission">შეტყობინენებების ნების დართვა AnySoftKeyboard-დან</string>
-    <string name="wizard_skip_notification_permission">შეტყობინებების არ დართვა</string>
+    <string name="setup_wizard_step_notification_permissions_details">იშვიათად (მაგალითად უეცარი გათიშვისას) საჭიროა გამოჩნდეს შეტყობინება მოწყობილობაზე. სასურველია ნებართვა, მაგრამ მისი უქონლობა არ იმოქმედეს მუშაობაზე.</string>
+    <string name="wizard_skip_notification_permission">შეტყობინებების უარყოფა</string>
 </resources>
