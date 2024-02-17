@@ -21,6 +21,7 @@ buildscript {
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7'
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.20.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0'
     }
 }
 

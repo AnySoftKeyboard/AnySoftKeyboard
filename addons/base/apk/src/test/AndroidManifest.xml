@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity android:name="com.anysoftkeyboard.addon.apk.TestMainActivity"
+            android:theme="@style/Theme.AskApp"/>
+    </application>
+</manifest>

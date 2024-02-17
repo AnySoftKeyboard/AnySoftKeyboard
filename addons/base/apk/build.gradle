@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/android_general.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
+
+dependencies {
+    implementation project(path: ':api')
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation project(path: ':ime:pixel')
+
+    testImplementation project(path: ':ime:base-test')
+}
+
+android {
+    namespace 'com.anysoftkeyboard.addon.base.apk'
+    dataBinding {
+        enabled = true
+    }
+}

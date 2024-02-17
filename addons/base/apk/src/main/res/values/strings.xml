@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+
+    <string name="welcome_title">Welcome</string>
+    <string name="welcome_subtitle_template">Thank you for installing\u0020<xliff:g id="app_name">%s</xliff:g>\u0020for AnySoftKeyboard.</string>
+    <string name="screenshot_content_description">A screenshot of the addon</string>
+    <string name="not_standalone_app_text">This app is <b>not</b> a standalone app, rather an expansion pack (add-on) for AnySoftKeyboard.</string>
+    <string name="add_on_type_language">Language pack</string>
+    <string name="add_on_type_theme">Keyboard theme</string>
+    <string name="ask_is_missing_need_install">AnySoftKeyboard is not installed on your device.\nIn order to use this expansion pack, you must first install AnySoftKeyboard.</string>
+    <string name="open_ask_in_vending">Go to Play Store</string>
+    <string name="ask_installed">AnySoftKeyboard is installed. You may need to set it up to start using this expansion pack.</string>
+    <string name="open_ask_main_settings">Open AnySoftKeyboard</string>
+    <string name="test_add_on_description">This is a test add on description, it can be anything</string>
+</resources>
