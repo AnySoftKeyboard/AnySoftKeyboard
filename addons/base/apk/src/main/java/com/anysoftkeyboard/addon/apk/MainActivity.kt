@@ -12,12 +12,12 @@ import androidx.databinding.DataBindingUtil
 import com.anysoftkeyboard.addon.base.apk.R
 import com.anysoftkeyboard.addon.base.apk.databinding.ActivityMainBinding
 
-
 const val ASK_PACKAGE_NAME = "com.menny.android.anysoftkeyboard"
 abstract class MainActivityBase(
     @StringRes private val addOnName: Int,
     @StringRes private val addOnDescription: Int,
-    @DrawableRes private val screenshot: Int) : AppCompatActivity() {
+    @DrawableRes private val screenshot: Int,
+) : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,11 +60,11 @@ abstract class MainActivityBase(
     }
 
     private fun isAnySoftKeyboardInstalled(): Boolean {
-        //TODO: we need to query for a broadcast-receiver, or something
+        // TODO: we need to query for a broadcast-receiver, or something
         return try {
             val services = packageManager.getPackageInfo(
                 ASK_PACKAGE_NAME,
-                PackageManager.GET_SERVICES
+                PackageManager.GET_SERVICES,
             )
             services.services.any { it.name == "com.menny.android.anysoftkeyboard.SoftKeyboard" }
         } catch (e: Exception) {

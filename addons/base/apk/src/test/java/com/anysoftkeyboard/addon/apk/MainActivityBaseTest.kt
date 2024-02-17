@@ -10,9 +10,9 @@ import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner
-import org.junit.Test
 import com.anysoftkeyboard.addon.base.apk.R
 import org.junit.Assert
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
@@ -29,19 +29,19 @@ class MainActivityBaseTest {
                     activity.findViewById<TextView>(R.id.welcome_description).let {
                         Assert.assertEquals(
                             "Thank you for installing Test Add On App Name for AnySoftKeyboard.",
-                            it.text
+                            it.text,
                         )
                     }
                     activity.findViewById<ImageView>(R.id.app_screenshot).let {
                         Assert.assertEquals(
                             R.drawable.test_screenshot,
-                            Shadows.shadowOf(it.drawable).createdFromResId
+                            Shadows.shadowOf(it.drawable).createdFromResId,
                         )
                     }
                     activity.findViewById<TextView>(R.id.pack_description).let {
                         Assert.assertEquals(
                             "This is a test add on description, it can be anything",
-                            it.text
+                            it.text,
                         )
                     }
                 }
@@ -60,13 +60,13 @@ class MainActivityBaseTest {
                     activity.findViewById<TextView>(R.id.action_description).run {
                         Assert.assertEquals(
                             "AnySoftKeyboard is not installed on your device.\nIn order to use this expansion pack, you must first install AnySoftKeyboard.",
-                            text
+                            text,
                         )
                     }
                     activity.findViewById<Button>(R.id.action_button).run {
                         Assert.assertEquals(
                             "Go to Play Store",
-                            text
+                            text,
                         )
                         Shadows.shadowOf(this).onClickListener.onClick(this)
                         Shadows.shadowOf(RuntimeEnvironment.getApplication()).let { app ->
@@ -76,12 +76,11 @@ class MainActivityBaseTest {
                                 Assert.assertEquals("search", searchIntent.data!!.authority)
                                 Assert.assertEquals(
                                     "q=com.menny.android.anysoftkeyboard",
-                                    searchIntent.data!!.query
+                                    searchIntent.data!!.query,
                                 )
                             }
                         }
                     }
-
                 }
         }
     }
@@ -96,8 +95,8 @@ class MainActivityBaseTest {
             pm.addServiceIfNotPresent(
                 ComponentName(
                     ASK_PACKAGE_NAME,
-                    "${ASK_PACKAGE_NAME}.SoftKeyboard"
-                )
+                    "${ASK_PACKAGE_NAME}.SoftKeyboard",
+                ),
             )
             ComponentName(ASK_PACKAGE_NAME, "${ASK_PACKAGE_NAME}.MainActivity").let { info ->
                 pm.addActivityIfNotPresent(info)
@@ -106,7 +105,7 @@ class MainActivityBaseTest {
                     IntentFilter().apply {
                         addAction(Intent.ACTION_MAIN)
                         addCategory(Intent.CATEGORY_LAUNCHER)
-                    }
+                    },
                 )
             }
         }
@@ -118,13 +117,13 @@ class MainActivityBaseTest {
                     activity.findViewById<TextView>(R.id.action_description).run {
                         Assert.assertEquals(
                             "AnySoftKeyboard is installed. You may need to set it up to start using this expansion pack.",
-                            text
+                            text,
                         )
                     }
                     activity.findViewById<Button>(R.id.action_button).run {
                         Assert.assertEquals(
                             "Open AnySoftKeyboard",
-                            text
+                            text,
                         )
                         Shadows.shadowOf(this).onClickListener.onClick(this)
                         Shadows.shadowOf(RuntimeEnvironment.getApplication()).let { app ->
@@ -138,7 +137,8 @@ class MainActivityBaseTest {
     }
 }
 
-class TestMainActivity: MainActivityBase(
+class TestMainActivity : MainActivityBase(
     R.string.test_app_name,
     R.string.test_add_on_description,
-    R.drawable.test_screenshot)
+    R.drawable.test_screenshot,
+)

@@ -25,4 +25,11 @@ spotless {
         target '**/*.yaml', '**/*.yml'
         jackson()
     }
+    kotlin {
+        target "**/*.kt"
+        trimTrailingWhitespace()
+        ktlint()
+        indentWithSpaces()
+        endWithNewline()
+    }
 }
