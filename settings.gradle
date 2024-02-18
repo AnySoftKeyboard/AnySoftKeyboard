@@ -51,6 +51,7 @@ include ':addons:languages:oldnortharabian:pack', ':addons:languages:oldnorthara
 include ':addons:languages:ossturkish:pack', ':addons:languages:ossturkish:apk'
 include ':addons:languages:persian:pack', ':addons:languages:persian:apk'
 include ':addons:languages:piedmontese:pack', ':addons:languages:piedmontese:apk'
+include ":addons:languages:pilaga:pack", ":addons:languages:pilaga:apk"
 include ':addons:languages:polish:pack', ':addons:languages:polish:apk'
 include ':addons:languages:portuguese:pack', ':addons:languages:portuguese:apk'
 include ':addons:languages:romanian:pack', ':addons:languages:romanian:apk'
