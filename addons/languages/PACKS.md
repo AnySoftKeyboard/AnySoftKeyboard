@@ -40,6 +40,7 @@
 1. <img src='ossturkish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Ossturkish: [Source](ossturkish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.ossturkish)
 1. <img src='persian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Persian: [Source](persian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.persian)
 1. <img src='piedmontese/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Piedmontese: [Source](piedmontese) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.piedmontese)
+1. <img src='pilaga/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Pilaga: [Source](pilaga) (not published reason: 'Not yet ready to be published.')
 1. <img src='polish/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Polish: [Source](polish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.osspolish)
 1. <img src='portuguese/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Portuguese: [Source](portuguese) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.portuguese)
 1. <img src='romanian/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Romanian: [Source](romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
