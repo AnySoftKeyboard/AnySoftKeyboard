@@ -307,6 +307,9 @@
     <string name="key_press_preview_popup_off_summary">No ammustres sa ventana a pustis de s\'incarcadura de sa tecla</string>
     <string name="zoom_factor_keys_in_portrait">Fatore de artària de sas teclas in modalidade verticale</string>
     <string name="zoom_factor_keys_in_landscape">Fatore de artària de sas teclas in modalidade oriziontale</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Iscostiamentu inferiore de su tecladu</string>
+    <string name="bottom_padding_in_dp_template">%d puntos</string>
     <string name="insert_space_after_word_suggestion_selection">Ispàtziu a pustis de s\'issèbera de su candidatu</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Inserta un\'ispàtziu a pustis de s\'issèbera de sa paràula cunsigiada
     </string>
@@ -527,6 +530,7 @@
         <xliff:g id="file_path">%s</xliff:g>
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no est impostada de su totu pro s\'impreu. Incarca inoghe pro l\'impostare.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard non tenet su permissu tuo de publicare notìficas. Diamus pòdere, in manera rara, tènnere bisòngiu de ti notificare problemas crìticos (che a sas tancaduras improvisas).</string>
     <string name="not_configured_with_just_click_here">Incarca inoghe</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -661,4 +665,8 @@
     <string name="backup_restore_not_support_before_kitkat_message">Sa còpia de seguresa e su riprìstinu non sunt suportados pro dispositivos chi tenent unu sistema operativu Android prus betzu de KitKat (version 4.4). Nos dispraghet.</string>
     <string name="delete_all_clipboard_entries">Punta de billete bòida</string>
     <string name="tip_swipe_from_backspace_to_clear">Impòsitu: podes trisinare a manca dae sa back-space pro iscantzellare sa paràula!</string>
+    <string name="notification_read_contacts_ticker">Permissu pro lèghere sos cuntatos netzessàriu</string>
+    <string name="wizard_allow_notification_permission">Permite sas notìficas dae AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">In casos raros (a esèmpiu sas tancaduras improvisas de s\'aplicatzione) diamus pòdere dèpere publicare una notìfica de su dispositivu. Custu est racumandadu ma non permitende sas notìficas no as a mudare su cumportamentu de s\'aplicatzione.</string>
+    <string name="wizard_skip_notification_permission">Non permitas sas notìficas</string>
 </resources>
