@@ -31,24 +31,24 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 //copy bundles and APKs to output
 android.applicationVariants.configureEach { variant ->
     def bundleProvider = tasks.named("sign${variant.name.capitalize()}Bundle")
-    def bundleCopy = tasks.register("Copy${variant.name.capitalize()}Aab", Copy)
-    bundleCopy.configure {
-        it.from "${project.buildDir.absolutePath}/outputs/bundle/${variant.name}/app-${variant.name}.aab"
-        it.destinationDir file("${rootDir.absolutePath}/outputs/bundle/")
-        rename ".*", "${project.parent.name}_${variant.name}.aab"
-        dependsOn bundleProvider
+    def bundleCopy = tasks.register("copy${variant.name.capitalize()}Aab", Copy)
+    bundleCopy.configure { copier ->
+        copier.from "${project.buildDir.absolutePath}/outputs/bundle/${variant.name}/${project.name}-${variant.name}.aab"
+        copier.destinationDir file("${rootDir.absolutePath}/outputs/bundle/")
+        copier.rename ".*", "${project.parent.name}_${variant.name}.aab"
+        copier.dependsOn bundleProvider
     }
     bundleProvider.configure {
         finalizedBy(bundleCopy)
     }
 
     def assembleProvider = tasks.named("assemble${variant.name.capitalize()}")
-    def apkCopy = tasks.register("Copy${variant.name.capitalize()}Apk", Copy)
-    apkCopy.configure {
-        it.from "${project.buildDir.absolutePath}/outputs/apk/${variant.name}/app-${variant.name}.apk"
-        it.destinationDir file("${rootDir.absolutePath}/outputs/apk/")
-        rename ".*", "${project.parent.name}_${variant.name}.apk"
-        dependsOn assembleProvider
+    def apkCopy = tasks.register("copy${variant.name.capitalize()}Apk", Copy)
+    apkCopy.configure { copier ->
+        copier.from "${project.buildDir.absolutePath}/outputs/apk/${variant.name}/${project.name}-${variant.name}.apk"
+        copier.destinationDir file("${rootDir.absolutePath}/outputs/apk/")
+        copier.rename ".*", "${project.parent.name}_${variant.name}.apk"
+        copier.dependsOn assembleProvider
     }
     assembleProvider.configure {
         finalizedBy(apkCopy)

@@ -27,7 +27,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt', 'proguard-anysoftkeyboard.txt'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt', 'proguard-anysoftkeyboard.txt', 'proguard-dont-obs.txt'
         }
 
         canary {

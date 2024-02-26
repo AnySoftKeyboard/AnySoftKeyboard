@@ -303,6 +303,7 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
+          ./gradlew generateStoreLogoIcon
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               assembleRelease assembleCanary \
               bundleRelease bundleCanary \

@@ -52,6 +52,9 @@ for f in $(find . -name 'alpha.txt'); do
   cp $f "$(dirname $f)/production.txt"
 done
 
+echo "Generating store assets..."
+./gradlew generateStoreLogoIcon
+
 DEPLOY_ARGS=()
 DEPLOY_TASKS=( "--rerun-tasks" "--continue" "--stacktrace" "-PwithAutoVersioning" "-PonlyPublishSupporting=${DEPLOY_CHANNEL}" )
 if [[ "${FRACTION}" == "1.00" ]]; then

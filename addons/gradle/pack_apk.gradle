@@ -48,6 +48,18 @@ android {
         multiDexEnabled true
     }
 
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            def ime_path = "${rootDir}/ime/app"
+            proguardFiles "${ime_path}/proguard-android-optimize.txt",
+                    "${ime_path}/proguard-rules.txt",
+                    "${ime_path}/proguard-anysoftkeyboard.txt",
+                    "${ime_path}/proguard-dont-obs.txt"
+        }
+    }
+
     sourceSets {
         main {
             res.srcDirs += activityResDir
@@ -72,9 +84,6 @@ def generateApkActivitySources = project.tasks.register("generateActivitySources
     it.outputResFolder = new File(activityResDir)
     it.outputSrcFolder = new File(activitySrcDir)
     it.outputManifestPath = new File(manifestPath)
-
-    //must generate icons before
-    it.dependsOn generateLogoTask
 }
 
 project.tasks.named("preBuild").configure {
