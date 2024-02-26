@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
 
     <string name="welcome_title">Welcome</string>
-    <string name="welcome_subtitle_template">Thank you for installing\u0020<xliff:g id="app_name">%s</xliff:g>\u0020for AnySoftKeyboard.</string>
+    <string name="welcome_subtitle_template">Thank you for installing\u0020<xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="release_notes_template">Release notes for v<xliff:g id="app_version">%s</xliff:g>:\n<xliff:g id="release_notes">%s</xliff:g></string>
+    <string name="add_on_website_template">Visit us at <xliff:g id="web_site">%s</xliff:g></string>
     <string name="screenshot_content_description">A screenshot of the addon</string>
     <string name="not_standalone_app_text">This app is <b>not</b> a standalone app, rather an expansion pack (add-on) for AnySoftKeyboard.</string>
     <string name="add_on_type_language">Language pack</string>

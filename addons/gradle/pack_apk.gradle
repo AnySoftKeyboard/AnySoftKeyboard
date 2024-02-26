@@ -28,3 +28,55 @@ def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
 
     generateLogoTask.configure { dependsOn.add(convert) }
 }
+
+dependencies {
+    implementation project(path: ':addons:base:apk')
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
+
+def activityResDir = "${buildDir.absolutePath}/generated/activity_res"
+def activitySrcDir = "${buildDir.absolutePath}/generated/activity_src"
+def manifestPath = "${buildDir.absolutePath}/generated/AndroidManifest.xml"
+
+android {
+    buildFeatures {
+        dataBinding true
+    }
+
+    defaultConfig {
+        multiDexEnabled true
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs += activityResDir
+            java.srcDirs += activitySrcDir
+            manifest.srcFile manifestPath
+        }
+    }
+}
+
+def rootPlayFolder = new File(project.projectDir, "src/main/play")
+def listingPlayFolder = new File(rootPlayFolder, "listings/en-US")
+
+def generateApkActivitySources = project.tasks.register("generateActivitySources", GeneratePackActivitySources) {
+    def firstScreenshot = Arrays.stream(new File(listingPlayFolder, "graphics/phone-screenshots").listFiles())
+        .sorted { File f1, File f2 -> f1.getAbsolutePath() <=> f2.getAbsolutePath() }
+        .findFirst().orElseThrow { return new Exception("Failed to find screenshot files")}
+    it.screenshotFile = firstScreenshot
+    it.titleFile = new File(listingPlayFolder, "title.txt")
+    it.descriptionFile = new File(listingPlayFolder, "full-description.txt")
+    it.releaseNotesFile = new File(rootPlayFolder, "release-notes/en-US/alpha.txt")
+    it.websiteFile = new File(rootPlayFolder, "contact-website.txt")
+    it.outputResFolder = new File(activityResDir)
+    it.outputSrcFolder = new File(activitySrcDir)
+    it.outputManifestPath = new File(manifestPath)
+
+    //must generate icons before
+    it.dependsOn generateLogoTask
+}
+
+project.tasks.named("preBuild").configure {
+    it.dependsOn.add(generateApkActivitySources)
+}

@@ -1,0 +1,12 @@
+package {{PACKAGE}};
+
+public class MainActivity extends com.anysoftkeyboard.addon.apk.MainActivityBase {
+    public MainActivity() {
+        super(
+            R.string.app_name,
+            R.string.app_description,
+            R.string.app_web_site,
+            R.string.app_release_notes,
+            R.drawable.screenshot);
+    }
+}

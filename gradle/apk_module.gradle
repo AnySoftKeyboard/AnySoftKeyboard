@@ -55,6 +55,8 @@ android.applicationVariants.configureEach { variant ->
     }
 }
 
+group calculateApplicationId(project)
+
 android {
     defaultConfig {
         applicationId calculateApplicationId(project)

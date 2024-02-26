@@ -1,3 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     <string name="test_app_name">Test Add On App Name</string>
+    <string name="test_web_site">https://example.com</string>
+    <string name="test_release_notes">* this\n* and that</string>
 </resources>

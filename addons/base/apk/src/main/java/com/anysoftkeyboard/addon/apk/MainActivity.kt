@@ -16,6 +16,8 @@ const val ASK_PACKAGE_NAME = "com.menny.android.anysoftkeyboard"
 abstract class MainActivityBase(
     @StringRes private val addOnName: Int,
     @StringRes private val addOnDescription: Int,
+    @StringRes private val addOnWebsite: Int,
+    @StringRes private val addOnReleaseNotes: Int,
     @DrawableRes private val screenshot: Int,
 ) : AppCompatActivity() {
 
@@ -25,7 +27,12 @@ abstract class MainActivityBase(
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.appScreenshot.setImageResource(screenshot)
         binding.welcomeDescription.text = getString(R.string.welcome_subtitle_template, getText(addOnName))
-        binding.packDescription.text = getText(addOnDescription)
+        binding.packDescription.setText(addOnDescription)
+        binding.addOnWebSite.text = getString(R.string.add_on_website_template, getText(addOnWebsite))
+        val version = packageManager.getPackageInfo(packageName, 0).run {
+            "$versionName ($versionCode)"
+        }
+        binding.releaseNotes.text = getString(R.string.release_notes_template, version, getText(addOnReleaseNotes))
 
         if (isAnySoftKeyboardInstalled()) {
             binding.actionDescription.setText(R.string.ask_installed)

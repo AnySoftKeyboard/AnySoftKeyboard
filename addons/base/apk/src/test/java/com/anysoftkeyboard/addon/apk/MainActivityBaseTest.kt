@@ -28,7 +28,7 @@ class MainActivityBaseTest {
                 .onActivity { activity ->
                     activity.findViewById<TextView>(R.id.welcome_description).let {
                         Assert.assertEquals(
-                            "Thank you for installing Test Add On App Name for AnySoftKeyboard.",
+                            "Thank you for installing Test Add On App Name.",
                             it.text,
                         )
                     }
@@ -41,6 +41,20 @@ class MainActivityBaseTest {
                     activity.findViewById<TextView>(R.id.pack_description).let {
                         Assert.assertEquals(
                             "This is a test add on description, it can be anything",
+                            it.text,
+                        )
+                    }
+                    activity.findViewById<TextView>(R.id.add_on_web_site).let {
+                        Assert.assertEquals(
+                            "https://example.com",
+                            it.text,
+                        )
+                    }
+                    activity.findViewById<TextView>(R.id.release_notes).let {
+                        Assert.assertEquals(
+                            """Release notes for vnull (0):
+* this
+* and that""",
                             it.text,
                         )
                     }
@@ -140,5 +154,7 @@ class MainActivityBaseTest {
 class TestMainActivity : MainActivityBase(
     R.string.test_app_name,
     R.string.test_add_on_description,
+    R.string.test_web_site,
+    R.string.test_release_notes,
     R.drawable.test_screenshot,
 )
