@@ -165,16 +165,18 @@ public class GeneratePackActivitySources extends DefaultTask {
         doc.setXmlStandalone(true);
         Element rootElement = doc.createElement("resources");
         doc.appendChild(rootElement);
+
         Element stringElement = doc.createElement("string");
         stringElement.setAttribute("name", stringId);
-
-        stringElement.setTextContent(text);
+        stringElement.appendChild(doc.createCDATASection(text.replace("'", "\\'")));
         rootElement.appendChild(stringElement);
 
         try(var writer = Files.newBufferedWriter(targetFile.toPath(), StandardCharsets.UTF_8)) {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(writer);

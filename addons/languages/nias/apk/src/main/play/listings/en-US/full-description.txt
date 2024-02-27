@@ -8,12 +8,12 @@ The spelling dictionary has over 10,000 words. It was built on word-list created
 
 For improving the word frequency rate, additional words scrapped from Sura Ni'amoni'ö by jw.org (https://www.jw.org/nia/publikasi/sura-niamonio/) were used.
 
-More information at <a href="https://niaskeyboard.blogspot.com/2021/04/anysoftkeyboard-memasang-huruf-o-dan-w.html">Nias Keyboard</a>.
+More information at https://niaskeyboard.blogspot.com/2021/04/anysoftkeyboard-memasang-huruf-o-dan-w.html.
 
 Note:
 
-Please make sure to install the main app <b>first</b> at <a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard">https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard</a> , before using this language pack.
+Please make sure to install the main app <b>first</b> at https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard, before using this language pack.
 
 <b>Then</b> install this language pack and <b>run</b> the AnySoftKeyboard app to set it up.
 
-Please <b>select</b> the Nias keyboard from AnySoftKeyboard Settings. In case you missed that during the setup, just run the AnySoftKeyboard app again, click the globe icon on the bottom of the screen (LANGUAGES), select ENABLE KEYBOARDS AND LANGUAGES, go to the end of the keyboard's list and select Nias.
+Please <b>select</b> the Nias keyboard from AnySoftKeyboard Settings. In case you missed that during the setup, just run the AnySoftKeyboard app again, click the globe icon on the bottom of the screen (LANGUAGES), select ENABLE KEYBOARDS AND LANGUAGES, go to the end of the keyboard list and select Nias.
