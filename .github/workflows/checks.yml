@@ -303,6 +303,8 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
+          apt update
+          apt install --fix-missing -y imagemagick
           ./gradlew generateStoreLogoIcon
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               assembleRelease assembleCanary \
