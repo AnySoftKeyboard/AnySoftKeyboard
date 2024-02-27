@@ -46,8 +46,8 @@ class MainActivityBaseTest {
                     }
                     activity.findViewById<TextView>(R.id.add_on_web_site).let {
                         Assert.assertEquals(
-                            "https://example.com",
-                            it.text,
+                            "Visit us at https://example.com",
+                            it.text.toString(),
                         )
                     }
                     activity.findViewById<TextView>(R.id.release_notes).let {

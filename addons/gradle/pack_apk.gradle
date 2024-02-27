@@ -77,6 +77,7 @@ def generateApkActivitySources = project.tasks.register("generateActivitySources
     def screenshotsFolder = new File(listingPlayFolder, "graphics/phone-screenshots")
     if (screenshotsFolder.isDirectory()) {
         firstScreenshot = Arrays.stream(screenshotsFolder.listFiles())
+                .filter { it.name.endsWith(".png") }
                 .sorted { File f1, File f2 -> f1.getAbsolutePath() <=> f2.getAbsolutePath() }
                 .findFirst()
                 .orElse(firstScreenshot)
@@ -98,6 +99,7 @@ def generateApkActivitySources = project.tasks.register("generateActivitySources
     it.outputManifestPath = new File(manifestPath)
 }
 
-project.tasks.named("preBuild").configure {
+tasks.named("preBuild").configure {
     it.dependsOn.add(generateApkActivitySources)
+    it.mustRunAfter.add(generateApkActivitySources)
 }
