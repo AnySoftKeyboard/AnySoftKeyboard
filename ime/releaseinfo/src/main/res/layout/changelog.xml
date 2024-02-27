@@ -10,15 +10,20 @@
 
         <ImageView
             android:id="@+id/change_log_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:contentDescription="@string/ime_name"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
             android:id="@+id/change_log_app_name"
