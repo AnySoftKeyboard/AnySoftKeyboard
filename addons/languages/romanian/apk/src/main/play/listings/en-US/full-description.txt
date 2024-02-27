@@ -4,4 +4,4 @@ Features:
 
 Romanian dictionary from AOSP.
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Spanish keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Spanish keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

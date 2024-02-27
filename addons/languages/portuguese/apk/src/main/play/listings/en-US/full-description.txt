@@ -3,4 +3,4 @@ Portuguese keyboard layout and dictionary.
 Dictionary comes from AOSP.
 
 Install [[com.menny.android.anysoftkeyboard]] first, then select the desired
-layout from AnySoftKeyboard's Settings->Keyboards menu.
+layout from AnySoftKeyboard Settings->Keyboards menu.

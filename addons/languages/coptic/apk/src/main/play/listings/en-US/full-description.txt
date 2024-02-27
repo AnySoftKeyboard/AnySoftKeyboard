@@ -12,4 +12,4 @@ That is, long-press on ⲡ for ⲯ, on ⲧ for ⲑ and ϯ, and so on.
 
 This is an expansion language pack for AnySoftKeyboard.
 Install AnySoftKeyboard first, and then select the Coptic keyboard
-from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

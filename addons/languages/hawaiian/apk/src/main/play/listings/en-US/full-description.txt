@@ -1,4 +1,4 @@
 AnySoftKeyboard keyboards pack:
 Hawaiian keyboard layout, dictionary is not included yet.
 
-** Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.
+** Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard Settings->Keyboards menu.

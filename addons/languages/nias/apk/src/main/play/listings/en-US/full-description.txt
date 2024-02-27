@@ -16,4 +16,4 @@ Please make sure to install the main app <b>first</b> at <a href="https://play.g
 
 <b>Then</b> install this language pack and <b>run</b> the AnySoftKeyboard app to set it up.
 
-Please <b>select</b> the Nias keyboard from AnySoftKeyboard's Settings. In case you missed that during the setup, just run the AnySoftKeyboard app again, click the globe icon on the bottom of the screen (LANGUAGES), select ENABLE KEYBOARDS AND LANGUAGES, go to the end of the keyboard's list and select Nias.
+Please <b>select</b> the Nias keyboard from AnySoftKeyboard Settings. In case you missed that during the setup, just run the AnySoftKeyboard app again, click the globe icon on the bottom of the screen (LANGUAGES), select ENABLE KEYBOARDS AND LANGUAGES, go to the end of the keyboard's list and select Nias.

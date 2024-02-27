@@ -8,7 +8,7 @@ Step0. You need to have Persian/Arabic fonts before using this language pack oth
 Step1. Find AnySoftKeyboard in the Android Market and Install it.
 Step2. Install this Persian layout pack.
 Step3. To activate: In Settings->Languages->tick AnySoftKeyboard
-Step4. Select Persian layout from AnySoftKeyboard's Settings> Keyboards menu.
+Step4. Select Persian layout from AnySoftKeyboard Settings> Keyboards menu.
 Step5. To set as default: Long press a text field, and select "Input method"
 
 Notes:

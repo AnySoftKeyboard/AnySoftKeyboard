@@ -1,4 +1,4 @@
 A PC-Style Numpad for AnySoftKeyboard keyboard app.
 
 This is an expansion layout for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the numpad layout from AnySoftKeyboard's Settings->Keyboards menu.
+Install AnySoftKeyboard first, and then select the numpad layout from AnySoftKeyboard Settings->Keyboards menu.
