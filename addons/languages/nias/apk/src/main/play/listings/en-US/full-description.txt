@@ -1,0 +1,19 @@
+NOTE: Please install AnySoftKeyboard along with this one. This package contains only Nias dictionary
+
+Nias language pack contains keyboard layouts with Nias characteristics, i.e. with characters ö (to the right of letter l) and ŵ (to the right of the letter p) as well as the frequently used apostroph key (to the right of ö) .
+
+In addition there is now a special keyboard layout for Wiki writing/editing for people who write a lot on Nias Wikipedia/Wiktionary (the most used codes are available on the top row).
+
+The spelling dictionary has over 10,000 words. It was built on word-list created from an <i>unpublished</i> translation of the New Testament by Fr. Hadrian Hess and Yulius Lahagu.
+
+For improving the word frequency rate, additional words scrapped from Sura Ni'amoni'ö by jw.org (https://www.jw.org/nia/publikasi/sura-niamonio/) were used.
+
+More information at <a href="https://niaskeyboard.blogspot.com/2021/04/anysoftkeyboard-memasang-huruf-o-dan-w.html">Nias Keyboard</a>.
+
+Note:
+
+Please make sure to install the main app <b>first</b> at <a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard">https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard</a> , before using this language pack.
+
+<b>Then</b> install this language pack and <b>run</b> the AnySoftKeyboard app to set it up.
+
+Please <b>select</b> the Nias keyboard from AnySoftKeyboard's Settings. In case you missed that during the setup, just run the AnySoftKeyboard app again, click the globe icon on the bottom of the screen (LANGUAGES), select ENABLE KEYBOARDS AND LANGUAGES, go to the end of the keyboard's list and select Nias.

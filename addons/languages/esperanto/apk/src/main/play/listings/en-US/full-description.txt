@@ -1,0 +1,6 @@
+AnySoftKeyboard keyboards pack:
+Esperanto layout and dictionary.
+Fixed: landscape height, and new dictionary
+
+This is an expansion layouts pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.

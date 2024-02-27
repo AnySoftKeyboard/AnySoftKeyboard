@@ -73,14 +73,26 @@ def rootPlayFolder = new File(project.projectDir, "src/main/play")
 def listingPlayFolder = new File(rootPlayFolder, "listings/en-US")
 
 def generateApkActivitySources = project.tasks.register("generateActivitySources", GeneratePackActivitySources) {
-    def firstScreenshot = Arrays.stream(new File(listingPlayFolder, "graphics/phone-screenshots").listFiles())
-        .sorted { File f1, File f2 -> f1.getAbsolutePath() <=> f2.getAbsolutePath() }
-        .findFirst().orElseThrow { return new Exception("Failed to find screenshot files")}
+    def firstScreenshot = new File(rootDir, "addons/StoreStuff/assets/logo-base/feature_graphics.png")
+    def screenshotsFolder = new File(listingPlayFolder, "graphics/phone-screenshots")
+    if (screenshotsFolder.isDirectory()) {
+        firstScreenshot = Arrays.stream(screenshotsFolder.listFiles())
+                .sorted { File f1, File f2 -> f1.getAbsolutePath() <=> f2.getAbsolutePath() }
+                .findFirst()
+                .orElse(firstScreenshot)
+    }
+
     it.screenshotFile = firstScreenshot
     it.titleFile = new File(listingPlayFolder, "title.txt")
     it.descriptionFile = new File(listingPlayFolder, "full-description.txt")
     it.releaseNotesFile = new File(rootPlayFolder, "release-notes/en-US/alpha.txt")
-    it.websiteFile = new File(rootPlayFolder, "contact-website.txt")
+
+    def contactWebSiteFile = new File(rootPlayFolder, "contact-website.txt")
+    if (!contactWebSiteFile.isFile()) {
+        contactWebSiteFile = new File(rootDir, "addons/StoreStuff/assets/default-contact-website.txt")
+    }
+    it.websiteFile = contactWebSiteFile
+
     it.outputResFolder = new File(activityResDir)
     it.outputSrcFolder = new File(activitySrcDir)
     it.outputManifestPath = new File(manifestPath)

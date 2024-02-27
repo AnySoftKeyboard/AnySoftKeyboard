@@ -1,8 +1,0 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'Part of the main AnySoftKeyboard app.'
-
-apply from: "$rootDir/addons/gradle/pack_apk.gradle"
-
-dependencies {
-    implementation project(path: ':addons:languages:english:pack')
-}
