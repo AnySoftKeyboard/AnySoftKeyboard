@@ -53,8 +53,6 @@ for f in $(find . -name 'alpha.txt'); do
 done
 
 echo "Generating store assets..."
-apt update
-apt install --fix-missing -y imagemagick
 ./gradlew generateStoreLogoIcon
 
 DEPLOY_ARGS=()

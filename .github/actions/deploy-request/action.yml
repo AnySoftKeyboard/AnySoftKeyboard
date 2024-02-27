@@ -21,7 +21,7 @@ inputs:
     required: true
 runs:
   using: "docker"
-  image: "docker://ghcr.io/menny/android_ndk:1.19.0"
+  image: "docker://ghcr.io/menny/android_ndk:1.20.0"
   env:
     TERM: dumb
     GRADLE_OPTS: "-Dorg.gradle.daemon=false"

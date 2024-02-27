@@ -21,7 +21,7 @@ env:
 jobs:
   general-maven-update:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -70,7 +70,7 @@ jobs:
               - https://github.com/diffplug/spotless
               - https://github.com/google/google-java-format/releases
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:

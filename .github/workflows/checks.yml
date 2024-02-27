@@ -45,7 +45,7 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3.5.0
@@ -78,7 +78,7 @@ jobs:
 
   linters:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v3.5.0
@@ -126,7 +126,7 @@ jobs:
 
   app-tests-shards:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     strategy:
       matrix:
@@ -171,7 +171,7 @@ jobs:
 
   app-all-sdks-tests:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3.5.0
@@ -211,7 +211,7 @@ jobs:
 
   app-less-tests:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3.5.0
@@ -251,7 +251,7 @@ jobs:
 
   verify-all-addons:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3.5.0
@@ -289,7 +289,7 @@ jobs:
 
   deploy-dry-run:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v3.5.0
@@ -303,8 +303,6 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
-          apt update
-          apt install --fix-missing -y imagemagick
           ./gradlew generateStoreLogoIcon
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               assembleRelease assembleCanary \
@@ -333,7 +331,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.19.0
+    container: ghcr.io/menny/android_base:1.20.0
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: ./.github/actions/deploy-request
@@ -349,7 +347,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.19.0
+    container: ghcr.io/menny/android_base:1.20.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:
