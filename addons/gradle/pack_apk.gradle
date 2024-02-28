@@ -31,12 +31,15 @@ def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
 
 dependencies {
     implementation project(path: ':addons:base:apk')
-
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    testImplementation project(path: ':ime:base-test')
+    testImplementation 'androidx.test:core:1.5.0'
 }
 
 def activityResDir = "${buildDir.absolutePath}/generated/activity_res"
 def activitySrcDir = "${buildDir.absolutePath}/generated/activity_src"
+def activityTestSrcDir = "${buildDir.absolutePath}/generated/activity_test_src"
 def manifestPath = "${buildDir.absolutePath}/generated/AndroidManifest.xml"
 
 android {
@@ -65,6 +68,10 @@ android {
             res.srcDirs += activityResDir
             java.srcDirs += activitySrcDir
             manifest.srcFile manifestPath
+        }
+
+        test {
+            java.srcDirs += activityTestSrcDir
         }
     }
 }
@@ -96,6 +103,7 @@ def generateApkActivitySources = project.tasks.register("generateActivitySources
 
     it.outputResFolder = new File(activityResDir)
     it.outputSrcFolder = new File(activitySrcDir)
+    it.outputTestSrcFolder = new File(activityTestSrcDir)
     it.outputManifestPath = new File(manifestPath)
 }
 

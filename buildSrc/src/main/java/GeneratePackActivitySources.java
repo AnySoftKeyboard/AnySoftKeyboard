@@ -35,6 +35,7 @@ public class GeneratePackActivitySources extends DefaultTask {
     private File outputResFolder;
     private File outputSrcFolder;
     private File outputManifestFile;
+    private File outputTestSrcFolder;
 
     @InputFile
     @PathSensitive(RELATIVE)
@@ -94,6 +95,12 @@ public class GeneratePackActivitySources extends DefaultTask {
 
     @InputFile
     @PathSensitive(RELATIVE)
+    public File getActivityTestTemplateFile() {
+        return new File(getProject().getRootDir(), "addons/StoreStuff/assets/MainActivityTest.java.template");
+    }
+
+    @InputFile
+    @PathSensitive(RELATIVE)
     public File getManifestTemplateFile() {
         return new File(getProject().getRootDir(), "addons/StoreStuff/assets/AndroidManifest.xml.addon.template");
     }
@@ -114,6 +121,14 @@ public class GeneratePackActivitySources extends DefaultTask {
     public void setOutputSrcFolder(File outputSrcFolder) {
         this.outputSrcFolder = outputSrcFolder;
     }
+    @OutputDirectory
+    public File getOutputTestSrcFolder() {
+        return outputTestSrcFolder;
+    }
+
+    public void setOutputTestSrcFolder(File outputSrcFolder) {
+        this.outputTestSrcFolder = outputSrcFolder;
+    }
 
     @OutputFile
     public File getOutputManifestPath() {
@@ -127,6 +142,7 @@ public class GeneratePackActivitySources extends DefaultTask {
     @TaskAction
     public void generatePackActivitySources() throws Exception {
         createActivityJavaSourceFile();
+        createActivityTestJavaSourceFile();
         createApkManifestSourceFile();
         copyScreenshotResourceFile();
         createStringResourceFile(getTitleFile(),  new File(getOutputResFolder(), "values/title.xml"), "app_name");
@@ -194,6 +210,17 @@ public class GeneratePackActivitySources extends DefaultTask {
                 Files.readString(getActivityTemplateFile().toPath())
                         .replace("{{PACKAGE}}", getProject().getGroup().toString())
                 );
+    }
+
+    private void createActivityTestJavaSourceFile() throws IOException {
+        var srcTarget = new File(getOutputTestSrcFolder(), "MainActivityTest.java");
+        clearTargetFile(srcTarget);
+
+        Files.writeString(
+                srcTarget.toPath(),
+                Files.readString(getActivityTestTemplateFile().toPath())
+                        .replace("{{PACKAGE}}", getProject().getGroup().toString())
+        );
     }
 
     private void createApkManifestSourceFile() throws IOException {
