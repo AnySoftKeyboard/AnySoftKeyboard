@@ -128,11 +128,6 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
-    strategy:
-      matrix:
-        index: [0, 1]
-        groups_count: [2]
-      fail-fast: false
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
@@ -144,8 +139,8 @@ jobs:
       - name: tests
         uses: ./.github/actions/test-shard-run
         with:
-          index: ${{ matrix.index }}
-          groups_count: ${{ matrix.groups_count }}
+          index: 0
+          groups_count: 1
           module: ":ime:app:"
           extra_args: "-PexcludeTestClasses=\"**/*AllSdkTest*\""
       - uses: ./.github/actions/codecov
@@ -212,7 +207,7 @@ jobs:
   app-less-tests:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.20.0
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
@@ -303,12 +298,20 @@ jobs:
         run: |
           mkdir -p /root/.android/ || true
           cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
+
           ./gradlew generateStoreLogoIcon
+
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               assembleRelease assembleCanary \
+              verifyReleaseResources
+          ./gradle clean
+
+          ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               bundleRelease bundleCanary \
-              signDebugBundle \
-              verifyReleaseResources \
+              signDebugBundle
+          ./gradle clean
+
+          ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
               generateReleasePlayResources generateCanaryPlayResources
           chmod -R a+rwx .
       - name: fix-fs
