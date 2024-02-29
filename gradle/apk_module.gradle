@@ -126,11 +126,23 @@ if (project.ext.shouldBePublished && !publishingTrack.isEmpty()) {
     }
 
     if (playStoreWhatsNewFile.text.length() > 500) {
-        println("Locale " + Locale.getDefault())
-        println("file encoding " + CharsetToolkit.defaultSystemCharset)
+        println("Locale ${Locale.getDefault()}")
+        println("file encoding ${CharsetToolkit.defaultSystemCharset}")
         println("File contents:")
-        println("***" + playStoreWhatsNewFile.text + "***")
-        throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
+        println("***${playStoreWhatsNewFile.text}***")
+        throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently ${playStoreWhatsNewFile.text.length()}")
+    }
+} else {
+    // creating fake Play tasks to support CI all tasks checks
+    tasks.register("generateReleasePlayResources").configure {
+        doLast {
+            println("running fake ${it.path}")
+        }
+    }
+    tasks.register("generateCanaryPlayResources").configure {
+        doLast {
+            println("running fake ${it.path}")
+        }
     }
 }
 

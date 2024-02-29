@@ -14,7 +14,7 @@ include ':addons:languages:afrikaans_oss:pack', ':addons:languages:afrikaans_oss
 include ':addons:languages:arabic:pack', ':addons:languages:arabic:apk'
 include ':addons:languages:armenian2:pack', ':addons:languages:armenian2:apk'
 include ':addons:languages:basque:pack', ':addons:languages:basque:apk'
-include ":addons:languages:belarusian:pack", ":addons:languages:belarusian:apk"
+include ':addons:languages:belarusian:pack', ':addons:languages:belarusian:apk'
 include ':addons:languages:brazilian:pack', ':addons:languages:brazilian:apk'
 include ':addons:languages:bribri:pack', ':addons:languages:bribri:apk'
 include ':addons:languages:bulgarian:pack', ':addons:languages:bulgarian:apk'
@@ -46,12 +46,12 @@ include ':addons:languages:lithuanian:pack', ':addons:languages:lithuanian:apk'
 include ':addons:languages:luxembourgish:pack', ':addons:languages:luxembourgish:apk'
 include ':addons:languages:nias:pack', ':addons:languages:nias:apk'
 include ':addons:languages:norwegian:pack', ':addons:languages:norwegian:apk'
-include ":addons:languages:numpad:pack", ":addons:languages:numpad:apk"
+include ':addons:languages:numpad:pack', ':addons:languages:numpad:apk'
 include ':addons:languages:oldnortharabian:pack', ':addons:languages:oldnortharabian:apk'
 include ':addons:languages:ossturkish:pack', ':addons:languages:ossturkish:apk'
 include ':addons:languages:persian:pack', ':addons:languages:persian:apk'
 include ':addons:languages:piedmontese:pack', ':addons:languages:piedmontese:apk'
-include ":addons:languages:pilaga:pack", ":addons:languages:pilaga:apk"
+include ':addons:languages:pilaga:pack', ':addons:languages:pilaga:apk'
 include ':addons:languages:polish:pack', ':addons:languages:polish:apk'
 include ':addons:languages:portuguese:pack', ':addons:languages:portuguese:apk'
 include ':addons:languages:romanian:pack', ':addons:languages:romanian:apk'
