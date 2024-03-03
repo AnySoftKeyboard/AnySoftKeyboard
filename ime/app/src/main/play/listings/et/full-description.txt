@@ -1,0 +1,17 @@
+Alternatiivne ekraaniklaviatuur mitmele keelele
+
+* Mitmekeelse klaviatuuri tugi (väliste pakettidega, standard: inglise)
+* Erinevate keelte sõnalõpu sõnastikud
+* Mitmikpuute tugi
+* Laiendusklaviatuur (tõmba sõrmega klaviatuuril alt üles klaviatuurist välja)
+* Viibete tugi: vaheta paigutusi tõmbega vasakule või paremale, suurtähed tõmbega üles ja tõmme alla, et klaviatuur sulgeda
+* Teemade tugi (vali meeldiv nahk)
+* Emootikonide klaviatuur ja märgi otsing - trüki ":emoji_nimi"
+* Sisseehitatud kasutaja sõnastiku sõnade toimeti
+* Valikuline 16-klahviga inglise klaviatuur
+* Kursori liigutamise tarkvaralised klahvid, mida saab siduda riistvara klahvidega
+* Toetab ARM, x86 ja MIPS arhitektuure otse
+* Häälkäsklused
+* Süsteemi lokaadi väljalülitamise võimalus
+
+Me proovime avaldada kõik keeletepaketid ja teemad, millel on XML lähtekood ja millel on sõnastike osundamine/litsents.

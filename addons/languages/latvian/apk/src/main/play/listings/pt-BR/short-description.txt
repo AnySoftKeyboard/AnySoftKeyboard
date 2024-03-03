@@ -1,0 +1,1 @@
+Pacote do idioma letão para AnySoftKeyboard

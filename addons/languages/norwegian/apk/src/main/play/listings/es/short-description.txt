@@ -1,0 +1,1 @@
+Paquete de idioma noruego para AnySoftKeyboard

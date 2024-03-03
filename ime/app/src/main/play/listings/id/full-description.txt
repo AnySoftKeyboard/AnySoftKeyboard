@@ -1,0 +1,17 @@
+Keyboard layar alternatif untuk banyak bahasa.
+
+* Dukungan keyboard multi-bahasa melalui paket eksternal (Bahasa Inggris sebagai standar)
+* Kamus lengkap untuk multi bahasa
+* Dukungan multisentuh
+* Ekstensi keyboard (geser jari Anda keatas sampai keluardari bidang keyboard)
+* Dukungan gestur: geser kiri atau kanan untuk mengubah tata letak; geser ke atas untuk pindah/tukar; geser ke bawah untuk menutup keyboard
+* Dukungan tema (dilengkapi dengan beberapa skin bawaan)
+* Emoji keyboard ditambah pencarian emoji dengan tag - ketik ":nama_emoji"
+* Dilengkapi dengan penyunting kamus pengguna bawaan
+* Pilihan 16-key keyboard Bahasa Inggris
+* Pergerakan soft-keys kursor yang dapat juga diterapkan pada hardware
+* Dukungan ARM, x86 dan MIPS secara bawaan
+*Input-suara
+* Mampu menimpa nilai bahasa (locale) dari sistem
+
+Kami akan mencoba untuk mempublikasikan paket bahasa apapun dan tema yang mempunyai sumber xml dan atribusi/lisensi untuk kamusnya.

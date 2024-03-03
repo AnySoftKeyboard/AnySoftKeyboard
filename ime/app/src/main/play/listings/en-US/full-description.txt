@@ -1,13 +1,13 @@
-Any Soft Keyboard is an open-source, on-screen keyboard with multiple languages support with emphasis on privacy.
+Any Soft Keyboard is an open-source, on-screen keyboard with multiple languages support with an emphasis on privacy.
 This is one of the most customizable keyboards available.
 
-To activate: Launch <i>'AnySoftKeyboard Settings'</i> App, and follow the instructions.
+To activate: Launch 'AnySoftKeyboard Settings' App, and follow the instructions.
 
 Main features:
-* Multi languages keyboard support via external packages.
+* Multi-languages keyboard support via external packages.
 * Completion dictionaries for multiple languages.
-* Also completes your typed words from you contacts names (Android 2.0+)!
-* And, learns your typing behavior to provide next-word prediction.
+* Also completes your typed words from your contacts names (Android 2.0+)!
+* And, learns your typing behavior to provide a next-word prediction.
 * Multi-Touch support (as in, pressing SHIFT along with other characters).
 * Extension keyboard (swipe your finger all the way up out of the keyboard).
 * Voice Input support (Android 2.2+).
@@ -23,9 +23,11 @@ Main features:
 * Build-in user dictionary words editor.
 * Build-in abbreviations dictionary: create shortcuts for words and sentences.
 * Utility keyboard (swipe up from space-bar):
-** Clipboard actions copy, paste, select-all, select selectively (long-press <i>select</i> and use arrow keys).
+** Clipboard actions copy, paste, select-all, select selectively (long-press SELECT and use arrow keys).
 ** Voice input
 ** Arrows
 * And many more features!
 
 Support at: https://github.com/AnySoftKeyboard
+
+We will try to publish any language packs and themes that have source xml and attribution/licence for the dictionaries.

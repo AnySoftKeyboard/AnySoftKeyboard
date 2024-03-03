@@ -1,0 +1,1 @@
+Мовний пакет для AnySoftKeyboard
