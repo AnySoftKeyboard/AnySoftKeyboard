@@ -190,6 +190,7 @@ woordenlijst
     <string name="swipe_action_name_compact_layout_to_right">Compacte indeling naar rechts</string>
     <string name="swipe_action_name_compact_layout_to_left">Compacte indeling naar links</string>
     <string name="swipe_action_name_utility_keyboard">Toon hulpprogramma toetsenbord</string>
+    <string name="swipe_action_name_quick_text_popup">Toon emoji pop-up</string>
     <string name="settings_swipe_velocity_threshold_title">Veegsnelheidsdrempel</string>
     <string name="settings_swipe_velocity_threshold_summary">De minimale veegsnelheid. Op dit moment %s</string>
     <string name="settings_swipe_velocity_very_slow">Zeer traag</string>
@@ -310,6 +311,7 @@ woordenlijst
     <string name="key_press_preview_popup_off_summary">Toon geen popup bij indrukken toets</string>
     <string name="zoom_factor_keys_in_portrait">Factor voor toetshoogte in portretmodus</string>
     <string name="zoom_factor_keys_in_landscape">Toetshoogtefactor in landschapsmodus</string>
+    <string name="bottom_padding_in_dp_template">%d punten</string>
     <string name="insert_space_after_word_suggestion_selection">Spatie na kandidaatselectie</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Spatie invoegen na selecteren suggestie</string>
     <string name="double_space_to_period">Dubbele spatie wordt punt</string>
@@ -340,6 +342,7 @@ woordenlijst
     <string name="quick_fix_secon_disabled_summ_on">Snelle verbeteringen en afkortingen zullen alleen werken in de huidige taal van de layout</string>
     <string name="quick_fix_secon_disabled_summ_off">Snelle verbeteringen en afkortingen werken op elke taal 
                   geselecteerd in het overschrijven van het standaard woordenboek</string>
+    <string name="try_split_words_for_correction">Corrigeer door het splitsen van het getypte woord</string>
     <string name="allow_suggestions_restart">Herstart suggesties</string>
     <string name="allow_suggestions_restart_summary">Herstart woordsuggesties bij cursorverplaatsing</string>
     <!-- settings - keyboard group -->
@@ -512,6 +515,12 @@ woordenlijst
     <string name="emoji_default_skin_tone_value_type_5">Gemiddelde donkere huidtint</string>
     <string name="emoji_default_skin_tone_value_type_6">Donkere huidtint</string>
     <string name="emoji_default_skin_tone_value_random_type">Willekeurige huidtint</string>
+    <string name="emoji_default_gender_title">Emoji standaard geslacht</string>
+    <string name="emoji_default_gender_summary">Standaard geslacht om te gebruiken: %s</string>
+    <string name="emoji_default_gender_value_person">Persoon</string>
+    <string name="emoji_default_gender_value_woman">Vrouw</string>
+    <string name="emoji_default_gender_value_man">Man</string>
+    <string name="emoji_default_gender_value_random_type">Willekeurig geslacht</string>
     <string name="developer_tools">Tools voor ontwikkelaars</string>
     <string name="click_for_developer_features">Tools voor ontwikkelaars</string>
     <string name="click_for_developer_features_summary">Verschillende tools voor AnySoftKeyboard-ontwikkelaars</string>
@@ -600,12 +609,17 @@ woordenlijst
     <string name="setup_wizard_welcome_start_action">Starten installatie…</string>
     <string name="setup_wizard_welcome_info_footnote">* Natuurlijk is AnySoftKeyboard niet kwaadaardig. We moedigen u aan om onze source code te bekijken en dit te verifiëren. Daarnaast hebben we geen <i>NETWERK</i> machtigingen, dus kunnen we geen data van het toestel versturen.</string>
     <string name="setup_wizard_welcome_privacy_action">Ga naar Privacybeleid…</string>
+    <string name="setup_wizard_skip">Overslaan</string>
     <string name="clear_all_dictionary_override">Verwijder omzeilingen</string>
     <string name="theme_case_type_override_dialog_title">Kies hoofdletteromzeiling</string>
     <string name="theme_case_type_override_theme">Gebruik hoofdletters van thema</string>
     <string name="theme_case_type_override_os">Laat Android beslissen (Automatisch)</string>
     <string name="theme_case_type_override_lower">Altijd in kleine letters</string>
     <string name="theme_case_type_override_upper">Altijd in hoofdletters</string>
+    <string name="settings_key_hint_size_none">Geen</string>
+    <string name="settings_key_hint_size_small">Klein</string>
+    <string name="settings_key_hint_size_normal">Normaal</string>
+    <string name="settings_key_hint_size_big">Groot</string>
     <string name="theme_case_type_override_title">Omzeil toetsenbordhoofdletters</string>
     <string name="theme_case_type_override_summary">Hoe hoofdletters op toetsenbord te tonen. Momenteel, %s</string>
     <string name="take_a_while_progress_message">Dit kan even duren…</string>
@@ -631,4 +645,8 @@ woordenlijst
     <string name="media_insertion_pending_message">Klik tekstbox om afbeelding in te voegen</string>
     <string name="aosp_dark_theme_name">AOSP-donkerthema</string>
     <string name="aosp_light_theme_name">AOSP-lichtthema</string>
+    <string name="backup_restore_not_support_before_kitkat">Niet ondersteund op uw Android</string>
+    <string name="delete_all_clipboard_entries">Leeg klembord</string>
+    <string name="notification_read_contacts_ticker">Leesrechten contacten nodig</string>
+    <string name="wizard_skip_notification_permission">Meldingen niet toestaan</string>
 </resources>
