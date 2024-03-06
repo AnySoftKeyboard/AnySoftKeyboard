@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.text.TextUtils;
 import androidx.annotation.RequiresApi;
@@ -167,6 +168,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
   @RequiresApi(api = Build.VERSION_CODES.N)
   @Test
   @Config(sdk = Build.VERSION_CODES.N)
+  @SuppressLint("UseSdkSuppress")
   public void testSetAndResetValueAPI24() {
     Assert.assertEquals(
         "System",

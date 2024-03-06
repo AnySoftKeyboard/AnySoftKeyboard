@@ -2,6 +2,7 @@ package com.anysoftkeyboard.utils;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
@@ -127,6 +128,7 @@ public class LocaleToolsTest {
     Assert.assertEquals("en", mContext.getResources().getConfiguration().locale.getLanguage());
   }
 
+  @SuppressLint("UseSdkSuppress")
   @RequiresApi(api = Build.VERSION_CODES.N)
   @Test
   @Config(sdk = Build.VERSION_CODES.N)
