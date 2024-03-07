@@ -163,8 +163,10 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
         run: ./scripts/download_robolectric_jars_to_machine.sh
+      - name: generate projects list for sharding
+        run: ./gradlew projects | grep Project > /tmp/projects.lst
       - name: shard
-        run: python3 scripts/modules_sharder.py "$PWD" ${{ matrix.actual_shard || matrix.shard_variant }} ${{ matrix.tasks }} /tmp/gradle.tasks.lst
+        run: python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.actual_shard || matrix.shard_variant }} ${{ matrix.tasks }} /tmp/gradle.tasks.lst
       - name: tests
         run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
       - uses: ./.github/actions/codecov
@@ -214,10 +216,12 @@ jobs:
           key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
+      - name: generate projects list for sharding
+        run: ./gradlew projects | grep Project > /tmp/projects.lst
       - name: addons-logos
         if: ${{ matrix.supports_logo }}
         run: |
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
           ./gradlew $(cat /tmp/gradle.tasks_logo.lst)
       - name: setup-keystore
         run: |
@@ -226,9 +230,9 @@ jobs:
           cp .github/actions/deploy/release_test.keystore /tmp/anysoftkeyboard.keystore
       - name: shard
         run: |
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} assembleRelease /tmp/gradle.tasks_assemble.lst
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} generateReleasePlayResources /tmp/gradle.tasks_play.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} assembleRelease /tmp/gradle.tasks_assemble.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} generateReleasePlayResources /tmp/gradle.tasks_play.lst
       - name: dry-run-release-build
         run: |
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
@@ -242,7 +246,7 @@ jobs:
       - name: dry-run-canary-build
         if: ${{ matrix.supports_canary }}
         run: |
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
 
           ./gradlew -PwithAutoVersioning -DdeployChannel=canart -PonlyPublishSupporting=canary \
               $(cat /tmp/gradle.tasks_canary.lst)

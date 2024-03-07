@@ -6,13 +6,12 @@ import sys
 from typing import List
 
 
-def _collect_gradle_modules(root_folder: str) -> List[str]:
+def _collect_gradle_modules(root_folder: str, projects_lst: str) -> List[str]:
     modules = list()
-    with open(os.path.join(root_folder, "settings.gradle"), "r+") as settings_f:
+    with open(projects_lst, "r+") as settings_f:
         for line in settings_f.readlines():
-            if re.match(r"^\s*include\s+", line):
-                module_groups = re.findall(r"\'([\w:]+?)\'", line)
-                modules.extend(module_groups)
+            module_groups = re.findall(r"---\s+Project\s+\'([\w:_]+?)\'", line)
+            modules.extend(module_groups)
     # Removing modules that do not have source files (thinking deployment, ime, pack, etc)
     def _has_src_file(module: str) -> bool:
         nonlocal root_folder
@@ -24,14 +23,15 @@ def _collect_gradle_modules(root_folder: str) -> List[str]:
 
 
 if __name__ == "__main__":
-    root_dir = sys.argv[1]
-    sharding_type = sys.argv[2]
-    tasks = sys.argv[3].split(",")
-    output_file = sys.argv[4]
-    modules_to_skip = list() if len(sys.argv) < 6 else sys.argv[5].split(",")
+    projects_lst = sys.argv[1]
+    root_dir = sys.argv[2]
+    sharding_type = sys.argv[3]
+    tasks = sys.argv[4].split(",")
+    output_file = sys.argv[5]
+    modules_to_skip = list() if len(sys.argv) < 7 else sys.argv[6].split(",")
 
     print(f"modules from {root_dir} for sharding {sharding_type}:")
-    all_modules = _collect_gradle_modules(root_dir)
+    all_modules = _collect_gradle_modules(root_dir, projects_lst)
     for module in all_modules:
         print(f" - {module}")
     for skip in modules_to_skip:
