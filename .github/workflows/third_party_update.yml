@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.20.0
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_ndk:1.20.0
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -104,7 +104,7 @@ jobs:
   general-js-deps:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v2

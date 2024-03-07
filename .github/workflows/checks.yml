@@ -25,7 +25,9 @@ jobs:
   js-checks:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: pnpm/action-setup@v2
         with:
           version: 8.6.9
@@ -48,11 +50,13 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -81,11 +85,13 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -146,11 +152,13 @@ jobs:
             tasks: "testAllAddOnsUnitTest"
             actual_shard: app
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
@@ -197,11 +205,13 @@ jobs:
             supports_canary: true
             supports_logo: false
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: actions/cache@v3.0.11
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: addons-logos
@@ -258,7 +268,9 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: ./.github/actions/deploy-request
         name: request-new-deploys
         with:
@@ -274,7 +286,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
