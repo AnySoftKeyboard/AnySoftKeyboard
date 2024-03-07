@@ -10,4 +10,9 @@ TARGET_FOLDER="${PWD}/build/jacoco"
 
 ls -al "${TARGET_FOLDER}"
 
-./scripts/retry.sh 5 ./codecov.sh -t "${CODECOV_TOKEN}" -X coveragepy -X xcode -X gcov -s "${TARGET_FOLDER}"
+#some values are auto-detected from env variables
+./codecov.sh -t "${CODECOV_TOKEN}" \
+    -v \
+    -n "job-name-${GITHUB_RUN_ID}" \
+    -X coveragepy -X xcode -X gcov \
+    -s "${TARGET_FOLDER}"

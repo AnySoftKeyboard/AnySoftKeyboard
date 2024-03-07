@@ -25,7 +25,9 @@ jobs:
   js-checks:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: pnpm/action-setup@v2
         with:
           version: 8.6.9
@@ -48,11 +50,13 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
+      - uses: actions/cache@v4.0.1
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -81,11 +85,13 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
+      - uses: actions/cache@v4.0.1
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -146,17 +152,21 @@ jobs:
             tasks: "testAllAddOnsUnitTest"
             actual_shard: app
     steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
+      - uses: actions/cache@v4.0.1
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
         run: ./scripts/download_robolectric_jars_to_machine.sh
+      - name: generate projects list for sharding
+        run: ./gradlew projects | grep Project > /tmp/projects.lst
       - name: shard
-        run: python3 scripts/modules_sharder.py "$PWD" ${{ matrix.actual_shard || matrix.shard_variant }} ${{ matrix.tasks }} /tmp/gradle.tasks.lst
+        run: python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.actual_shard || matrix.shard_variant }} ${{ matrix.tasks }} /tmp/gradle.tasks.lst
       - name: tests
         run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
       - uses: ./.github/actions/codecov
@@ -197,17 +207,21 @@ jobs:
             supports_canary: true
             supports_logo: false
     steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
+      - uses: actions/cache@v4.0.1
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
+      - name: generate projects list for sharding
+        run: ./gradlew projects | grep Project > /tmp/projects.lst
       - name: addons-logos
         if: ${{ matrix.supports_logo }}
         run: |
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
           ./gradlew $(cat /tmp/gradle.tasks_logo.lst)
       - name: setup-keystore
         run: |
@@ -216,9 +230,9 @@ jobs:
           cp .github/actions/deploy/release_test.keystore /tmp/anysoftkeyboard.keystore
       - name: shard
         run: |
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} assembleRelease /tmp/gradle.tasks_assemble.lst
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} generateReleasePlayResources /tmp/gradle.tasks_play.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} assembleRelease /tmp/gradle.tasks_assemble.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} generateReleasePlayResources /tmp/gradle.tasks_play.lst
       - name: dry-run-release-build
         run: |
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
@@ -232,7 +246,7 @@ jobs:
       - name: dry-run-canary-build
         if: ${{ matrix.supports_canary }}
         run: |
-          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
 
           ./gradlew -PwithAutoVersioning -DdeployChannel=canart -PonlyPublishSupporting=canary \
               $(cat /tmp/gradle.tasks_canary.lst)
@@ -258,7 +272,9 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
       - uses: ./.github/actions/deploy-request
         name: request-new-deploys
         with:
@@ -274,7 +290,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
