@@ -3,4 +3,4 @@ Sardinian keyboard layout and dictionary of over 100,000 words.
 Dictionary comes from a wordlist made for other open source projects. The source code is in another branch to the default.
 
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Sardinian keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Sardinian keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

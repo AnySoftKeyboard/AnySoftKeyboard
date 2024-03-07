@@ -7,4 +7,4 @@ French dictionary based on AOSP - https://android.googlesource.com/platform/pack
 Include three keyboard layouts, AZERTY, QWERTY and BÉPO, with many symbols and rapid acces to apostrophe and hyphen.
 
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the French keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the French keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

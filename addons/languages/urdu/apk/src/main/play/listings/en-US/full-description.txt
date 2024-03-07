@@ -1,4 +1,4 @@
 Urdu Language Pack for AnySoftKeyboard
 
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Urdu keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Urdu keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

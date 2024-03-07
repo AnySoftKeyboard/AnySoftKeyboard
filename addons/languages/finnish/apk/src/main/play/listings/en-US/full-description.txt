@@ -7,4 +7,4 @@ Finnish dictionary based on AOSP - https://android.googlesource.com/platform/pac
 Includes normal Finnish QWERTY keyboard layout and special layouts
 
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Finnish keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Finnish keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

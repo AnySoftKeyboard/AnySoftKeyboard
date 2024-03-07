@@ -12,7 +12,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v3.5.0
@@ -29,7 +29,7 @@ jobs:
           GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
         run: |
           ./scripts/ci/ci_setup.sh
-          mkdir -p outputs/apks || true
+          mkdir -p outputs/apk || true
           mkdir -p outputs/bundle || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
@@ -89,7 +89,7 @@ jobs:
         continue-on-error: true
         with:
           name: apks
-          path: outputs/apks
+          path: outputs/apk
       - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true

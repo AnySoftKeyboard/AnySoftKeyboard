@@ -46,7 +46,7 @@ afterEvaluate {
         //fail on all warnings
         task.options.compilerArgs << '-Xlint:all'
         //we need to support old devices, so we can trust Java's detection here.
-        task.options.compilerArgs << '-Xlint:-deprecation'
+        task.options.compilerArgs << '-Xlint:-deprecation' << '-Xlint:-processing'
         if (task.name.contains('UnitTest')) {
             //for tests, we do not check other stuff too
             task.options.compilerArgs << '-Xlint:-rawtypes' << '-Xlint:-cast' << '-Xlint:-unchecked' << '-Xlint:-classfile'

@@ -4,4 +4,4 @@ Features:
 
 Pilagá dictionary from AOSP with more than 1,000 words.
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Pilagá keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Pilagá keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

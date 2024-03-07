@@ -1,5 +1,5 @@
 This is a Cyrillic expansion pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.
+Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard Settings->Keyboards menu.
 
 This pack contains Cyrillic and phonetic Russian keyboard layouts, physical keyboard mapping and dictionary.
 

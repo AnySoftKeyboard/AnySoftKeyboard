@@ -1,0 +1,31 @@
+package {{PACKAGE}};
+
+import android.widget.ImageView;
+import androidx.lifecycle.Lifecycle;
+import androidx.test.core.app.ActivityScenario;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Shadows;
+
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+public class MainActivityTest {
+  @Test
+  public void testActivityIsValid() {
+    try (var scenario =
+        ActivityScenario.launch({{PACKAGE}}.MainActivity.class)) {
+      scenario
+          .moveToState(Lifecycle.State.RESUMED)
+          .onActivity(
+              activity -> {
+                ImageView screenshot = activity.findViewById({{PACKAGE}}.R.id.app_screenshot);
+                Assert.assertNotNull(screenshot);
+
+                Assert.assertEquals(
+                    {{PACKAGE}}.R.drawable.screenshot,
+                    Shadows.shadowOf(screenshot.getDrawable()).getCreatedFromResId());
+              });
+    }
+  }
+}

@@ -45,7 +45,7 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3.5.0
@@ -78,7 +78,7 @@ jobs:
 
   linters:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v3.5.0
@@ -124,15 +124,27 @@ jobs:
           name: linters-reports
           path: collected_reports
 
-  app-tests-shards:
+  tests:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     strategy:
       matrix:
-        index: [0, 1]
-        groups_count: [2]
-      fail-fast: false
+        shard_variant: [addons_0, addons_1, app, app_all_sdks, app_all_addons, non_app]
+        include:
+          - extra_args: ""
+            tasks: "testDebugUnitTest,testDebugUnitTestCoverage"
+          - shard_variant: app_all_sdks
+            tasks: "testDebugUnitTest"
+            extra_args: "--tests=\"*AllSdkTest*\" ime:app:testDebugUnitTestCoverage"
+            actual_shard: app
+          - shard_variant: app
+            tasks: "testDebugUnitTest"
+            extra_args: "-PexcludeTestClasses=\"**/*AllSdkTest*\" ime:app:testDebugUnitTestCoverage"
+          - shard_variant: app_all_addons
+            extra_args: "--tests=\"*LoadedKeyboardsVerificationTest*\" ime:app:testAllAddOnsUnitTestCoverage"
+            tasks: "testAllAddOnsUnitTest"
+            actual_shard: app
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
@@ -141,13 +153,12 @@ jobs:
           key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
+      - name: setup robolectric
+        run: ./scripts/download_robolectric_jars_to_machine.sh
+      - name: shard
+        run: python3 scripts/modules_sharder.py "$PWD" ${{ matrix.actual_shard || matrix.shard_variant }} ${{ matrix.tasks }} /tmp/gradle.tasks.lst
       - name: tests
-        uses: ./.github/actions/test-shard-run
-        with:
-          index: ${{ matrix.index }}
-          groups_count: ${{ matrix.groups_count }}
-          module: ":ime:app:"
-          extra_args: "-PexcludeTestClasses=\"**/*AllSdkTest*\""
+        run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
       - uses: ./.github/actions/codecov
       - name: fix-fs
         if: always()
@@ -160,137 +171,31 @@ jobs:
         if: always()
         continue-on-error: true
         with:
-          name: app-tests-${{ matrix.index }}
+          name: tests-${{ matrix.shard_variant }}
           path: collected_reports
       - uses: actions/upload-artifact@v3.1.1
         if: always()
         continue-on-error: true
         with:
-          name: app-tests-${{ matrix.index }}-build-logging
-          path: build/build-logging
-
-  app-all-sdks-tests:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
-        with:
-          path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: tests
-        uses: ./.github/actions/test-shard-run
-        with:
-          index: 0
-          groups_count: 1
-          module: ":ime:app:"
-          extra_args: "--tests=*AllSdkTest*"
-      - uses: ./.github/actions/codecov
-      - name: fix-fs
-        if: always()
-        run: ./scripts/ci/ci_fix_fs.sh
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
-          file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.1
-        if: always()
-        continue-on-error: true
-        with:
-          name: app-less-tests
-          path: collected_reports
-      - uses: actions/upload-artifact@v3.1.1
-        if: always()
-        continue-on-error: true
-        with:
-          name: app-all-sdks-tests-build-logging
-          path: build/build-logging
-
-  app-less-tests:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
-        with:
-          path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: tests
-        uses: ./.github/actions/test-shard-run
-        with:
-          index: 0
-          groups_count: 1
-          module: ""
-          extra_args: "-x :ime:app:testDebugUnitTest -x :ime:app:testDebugUnitTestCoverage"
-      - uses: ./.github/actions/codecov
-      - name: fix-fs
-        if: always()
-        run: ./scripts/ci/ci_fix_fs.sh
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
-          file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.1
-        if: always()
-        continue-on-error: true
-        with:
-          name: app-less-tests
-          path: collected_reports
-      - uses: actions/upload-artifact@v3.1.1
-        if: always()
-        continue-on-error: true
-        with:
-          name: app-less-tests-build-logging
-          path: build/build-logging
-
-  verify-all-addons:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: actions/cache@v3.0.11
-        with:
-          path: .github_cache_gradle/
-          key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: verify-add-ons
-        run: |
-          ./scripts/download_robolectric_jars_to_machine.sh
-          ./gradlew :ime:app:testAllAddOnsUnitTestCoverage :ime:app:testAllAddOnsUnitTest --tests="*LoadedKeyboardsVerificationTest*"
-          chmod -R a+rwx .
-      - uses: ./.github/actions/codecov
-      - name: fix-fs
-        if: always()
-        run: ./scripts/ci/ci_fix_fs.sh
-      - uses: ./.github/actions/collect-reports
-        if: always()
-        with:
-          file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.1
-        if: always()
-        continue-on-error: true
-        with:
-          name: verify-all-addons
-          path: collected_reports
-      - uses: actions/upload-artifact@v3.1.1
-        if: always()
-        continue-on-error: true
-        with:
-          name: verify-all-addons-build-logging
+          name: tests-build-logging-${{ matrix.shard_variant }}
           path: build/build-logging
 
   deploy-dry-run:
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.19.0
+    container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 30
+    env:
+      KEY_STORE_FILE_PASSWORD: password
+      KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD: alias_password
+    strategy:
+      matrix:
+        shard_type: [binaries_0, binaries_1, app]
+        include:
+          - supports_canary: false
+            supports_logo: true
+          - shard_type: app
+            supports_canary: true
+            supports_logo: false
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: actions/cache@v3.0.11
@@ -299,28 +204,49 @@ jobs:
           key: global-gradle-v8-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
       - name: setup
         run: ./scripts/ci/ci_setup.sh
-      - name: dry-run-release-build
+      - name: addons-logos
+        if: ${{ matrix.supports_logo }}
+        run: |
+          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
+          ./gradlew $(cat /tmp/gradle.tasks_logo.lst)
+      - name: setup-keystore
         run: |
           mkdir -p /root/.android/ || true
-          cp ./.github/actions/deploy/debug.keystore /root/.android/ || exit 1
+          cp ./.github/actions/deploy/debug.keystore /root/.android/
+          cp .github/actions/deploy/release_test.keystore /tmp/anysoftkeyboard.keystore
+      - name: shard
+        run: |
+          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} assembleRelease /tmp/gradle.tasks_assemble.lst
+          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
+          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} generateReleasePlayResources /tmp/gradle.tasks_play.lst
+      - name: dry-run-release-build
+        run: |
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
-              assembleRelease assembleCanary \
-              bundleRelease bundleCanary \
-              signDebugBundle \
-              verifyReleaseResources \
-              generateReleasePlayResources generateCanaryPlayResources
-          chmod -R a+rwx .
+              $(cat /tmp/gradle.tasks_assemble.lst)
+
+          ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
+              $(cat /tmp/gradle.tasks_bundle.lst)
+
+          ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
+              $(cat /tmp/gradle.tasks_play.lst)
+      - name: dry-run-canary-build
+        if: ${{ matrix.supports_canary }}
+        run: |
+          python3 scripts/modules_sharder.py "$PWD" ${{ matrix.shard_type}} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
+
+          ./gradlew -PwithAutoVersioning -DdeployChannel=canart -PonlyPublishSupporting=canary \
+              $(cat /tmp/gradle.tasks_canary.lst)
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh
       - uses: actions/upload-artifact@v3.1.1
         continue-on-error: true
         with:
-          name: fdroid-metadata-dry-run
+          name: fdroid-metadata-dry-run-${{ matrix.shard_type}}
           path: outputs/fdroid
 
   all-green-requirement:
-    needs: [static-checks, linters, app-all-sdks-tests, app-tests-shards, app-less-tests, deploy-dry-run, verify-all-addons, js-checks]
+    needs: [static-checks, linters, tests, deploy-dry-run, js-checks]
     runs-on: ubuntu-22.04
     steps:
       - name: ready
@@ -330,7 +256,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.19.0
+    container: ghcr.io/menny/android_base:1.20.0
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: ./.github/actions/deploy-request
@@ -346,7 +272,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
     runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.19.0
+    container: ghcr.io/menny/android_base:1.20.0
     steps:
       - uses: actions/checkout@v3.5.0
         with:

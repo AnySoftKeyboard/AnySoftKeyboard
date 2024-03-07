@@ -1,4 +1,4 @@
 Slovak keyboard layout and dictionary.
 
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Slovak keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Slovak keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

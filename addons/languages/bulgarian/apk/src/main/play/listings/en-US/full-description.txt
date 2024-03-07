@@ -2,4 +2,4 @@ Bulgarian layouts and dictionary for AnySoftKeyboard keyboard app.
 Includes BDS, BEKL and Phonetic layouts.
 
 This is an expansion layouts pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.
+Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard Settings->Keyboards menu.

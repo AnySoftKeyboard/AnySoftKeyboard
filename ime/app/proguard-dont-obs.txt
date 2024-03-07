@@ -1,0 +1,2 @@
+-dontobfuscate
+-optimizations !code/allocation/variable

@@ -28,3 +28,86 @@ def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
 
     generateLogoTask.configure { dependsOn.add(convert) }
 }
+
+dependencies {
+    implementation project(path: ':addons:base:apk')
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    testImplementation project(path: ':ime:base-test')
+    testImplementation 'androidx.test:core:1.5.0'
+}
+
+def activityResDir = "${buildDir.absolutePath}/generated/activity_res"
+def activitySrcDir = "${buildDir.absolutePath}/generated/activity_src"
+def activityTestSrcDir = "${buildDir.absolutePath}/generated/activity_test_src"
+def manifestPath = "${buildDir.absolutePath}/generated/AndroidManifest.xml"
+
+android {
+    buildFeatures {
+        dataBinding true
+    }
+
+    defaultConfig {
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            def ime_path = "${rootDir}/ime/app"
+            proguardFiles "${ime_path}/proguard-android-optimize.txt",
+                    "${ime_path}/proguard-rules.txt",
+                    "${ime_path}/proguard-anysoftkeyboard.txt",
+                    "${ime_path}/proguard-dont-obs.txt"
+        }
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs += activityResDir
+            java.srcDirs += activitySrcDir
+            manifest.srcFile manifestPath
+        }
+
+        test {
+            java.srcDirs += activityTestSrcDir
+        }
+    }
+}
+
+def rootPlayFolder = new File(project.projectDir, "src/main/play")
+def listingPlayFolder = new File(rootPlayFolder, "listings/en-US")
+
+def generateApkActivitySources = project.tasks.register("generateActivitySources", GeneratePackActivitySources) {
+    def firstScreenshot = new File(rootDir, "addons/StoreStuff/assets/logo-base/feature_graphics.png")
+    def screenshotsFolder = new File(listingPlayFolder, "graphics/phone-screenshots")
+    if (screenshotsFolder.isDirectory()) {
+        firstScreenshot = Arrays.stream(screenshotsFolder.listFiles())
+                .filter { it.name.endsWith(".png") }
+                .sorted { File f1, File f2 -> f1.getAbsolutePath() <=> f2.getAbsolutePath() }
+                .findFirst()
+                .orElse(firstScreenshot)
+    }
+
+    it.screenshotFile = firstScreenshot
+    it.titleFile = new File(listingPlayFolder, "title.txt")
+    it.descriptionFile = new File(listingPlayFolder, "full-description.txt")
+    it.releaseNotesFile = new File(rootPlayFolder, "release-notes/en-US/alpha.txt")
+
+    def contactWebSiteFile = new File(rootPlayFolder, "contact-website.txt")
+    if (!contactWebSiteFile.isFile()) {
+        contactWebSiteFile = new File(rootDir, "addons/StoreStuff/assets/default-contact-website.txt")
+    }
+    it.websiteFile = contactWebSiteFile
+
+    it.outputResFolder = new File(activityResDir)
+    it.outputSrcFolder = new File(activitySrcDir)
+    it.outputTestSrcFolder = new File(activityTestSrcDir)
+    it.outputManifestPath = new File(manifestPath)
+}
+
+tasks.named("preBuild").configure {
+    it.dependsOn.add(generateApkActivitySources)
+    it.mustRunAfter.add(generateApkActivitySources)
+}
