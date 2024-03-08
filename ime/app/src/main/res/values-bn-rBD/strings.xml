@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="menu_about_item">সম্পর্কে</string>
+    <string name="language_root_tile">ভাষা</string>
+    <!-- UI root menu -->
+    <string name="ui_root_tile">ইউআই</string>
+    <!-- welcome -->
+    <string name="delete_button">মুছে ফেলো</string>
+    <!-- Indicates that a word has been added to the dictionary -->
+    <!-- voice -->
+    <string name="voice_input_not_installed_action_install">ইনস্টল</string>
+    <string name="voice_input_not_installed_action_do_not_install">না</string>
+    <!-- Options menu -->
+    <!-- Dictionary override strings -->
+    <!-- Dictionary override toast messages -->
+    <!-- settings - effects-->
+    <string name="effects_group">প্রভাব</string>
+    <string name="night_mode_type_never">কখনো না</string>
+    <string name="night_mode_type_always">সবসময়</string>
+    <string name="power_save_mode_types_never">কখনো না</string>
+    <string name="power_save_mode_types_always">সবসময়</string>
+    <string name="pop_text_type_never">কখনো না</string>
+    <string name="swipe_action_name_shift">শিফট</string>
+    <string name="swipe_action_name_space">স্থান</string>
+    <string name="settings_swipe_velocity_slow">আস্তে</string>
+    <string name="settings_swipe_velocity_normal">সাধারণ</string>
+    <string name="settings_swipe_velocity_fast">দ্রুত</string>
+    <string name="settings_swipe_distance_short">খাটো</string>
+    <string name="settings_swipe_distance_normal">সাধারণ</string>
+    <string name="settings_swipe_distance_long">লম্বা</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">বন্ধ</string>
+    <string-array name="custom_hint_align_types">
+        <item>বামে</item>
+        <item>মাঝামাঝি</item>
+        <item>ডানে</item>
+    </string-array>
+    <string-array name="custom_hint_valign_types">
+        <item>শীর্ষ</item>
+        <item>নিচে</item>
+    </string-array>
+    <string name="tweak_animations_level_types_full">পূর্ণ</string>
+    <string name="tweak_animations_level_types_some">কিছু</string>
+    <string name="tweak_animations_level_types_none">একদম না</string>
+    <string name="grammar_group">ব্যাকরণ</string>
+    <!-- settings - keyboard group -->
+    <string name="symbols_keyboard">১২৩!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">১২৩</string>
+    <string name="symbols_phone_keyboard">ফোন</string>
+    <string name="symbols_numbers_keyboard">১২৩</string>
+    <string name="symbols_time_keyboard">সময়</string>
+    <string name="keyboard_change_locked">প্রযোজ্য না</string>
+    <!-- settings - quick text keys -->
+    <!-- settings - top generic row -->
+    <!-- settings - bottom generic row -->
+    <!-- extension keyboard type -->
+    <string name="extension_kbd_bottom_regular_with_voice">নিয়মিত</string>
+    <string name="extension_kbd_bottom_simple">সহজ</string>
+    <string name="extension_kbd_bottom_minimal">যতটুকু দরকার</string>
+    <!-- Tutorials -->
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">যাও</string>
+    <string name="label_next_key">পরবর্তী</string>
+    <string name="label_previous_key">পূর্ববর্তী</string>
+    <string name="label_send_key">পাঠাও</string>
+    <string name="label_search_key">অনুসন্ধান</string>
+    <string name="label_done_key">সম্পন্ন</string>
+    <string name="label_tab_key">ট্যাব</string>
+    <string name="label_home_key">মূল পাতা</string>
+    <string name="label_end_key">শেষ</string>
+    <string name="change_lang_regular">অকখ</string>
+    <string name="change_symbols_regular">১২৩</string>
+    <!-- dictionaries -->
+    <string name="quick_text_kaomoji">কাওমোজি</string>
+    <string name="history_quick_text_key_name">ইতিহাস</string>
+    <string name="unicode_people_quick_text_key_name">মানুষ</string>
+    <string name="unicode_animals_quick_text_key_name">প্রাণি</string>
+    <string name="unicode_food_quick_text_key_name">খাদ্য</string>
+    <string name="unicode_nature_quick_text_key_name">প্রকৃতি</string>
+    <string name="unicode_signs_quick_text_key_name">চিহ্ন</string>
+    <string name="unicode_city_quick_text_key_name">শহর</string>
+    <string name="unicode_scape_quick_text_key_name">পরিবেশ</string>
+    <string name="unicode_office_quick_text_key_name">অফিস</string>
+    <string name="unicode_flags_quick_text_key_name">পতাকা</string>
+    <string name="settings_multitap_timeout_faster">দ্রুত</string>
+    <string name="settings_multitap_timeout_fast">দ্রুত</string>
+    <string name="settings_multitap_timeout_normal">সাধারণ</string>
+    <string name="settings_multitap_timeout_slow">আস্তে</string>
+    <string name="settings_multitap_timeout_slower">ধীর</string>
+    <string name="settings_long_press_timeout_faster">দ্রুত</string>
+    <string name="settings_long_press_timeout_fast">দ্রুত</string>
+    <string name="settings_long_press_timeout_normal">সাধারণ</string>
+    <string name="settings_long_press_timeout_slow">আস্তে</string>
+    <string name="settings_long_press_timeout_slower">ধীর</string>
+    <string name="settings_long_press_timeout_never">কখনো না</string>
+    <!-- User dictionary settings -->
+    <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <!-- abbreviations editor -->
+    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
+    <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="emoji_default_skin_tone_value_generic">সাধারণ</string>
+    <string name="emoji_default_gender_value_person">ব্যক্তি</string>
+    <string name="emoji_default_gender_value_woman">নারী</string>
+    <string name="emoji_default_gender_value_man">পুরুষ</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_backup_words">ব্যাকআপ</string>
+    <string name="word_editor_action_restore_words">পুনরুদ্ধার</string>
+    <string name="setup_wizard_step_download_skip_action">উপেক্ষা</string>
+    <string name="ime_crashed_send_button">পাঠাও</string>
+    <string name="ime_crashed_cancel_button">বাতিল</string>
+    <string name="next_word_settings_group">সেটিংস</string>
+    <string name="app_shortcut_themes_short_label">রঙ</string>
+    <string name="no_internet_fields_specific_layout">ছাড়া</string>
+    <string name="bottom_nav_home">হ্যালো</string>
+    <string name="setup_wizard_welcome_title">স্বাগতম!</string>
+    <string name="setup_wizard_skip">উপেক্ষা</string>
+    <string name="settings_key_hint_size_none">ছাড়া</string>
+    <string name="settings_key_hint_size_small">ছোট</string>
+    <string name="settings_key_hint_size_normal">সাধারণ</string>
+    <string name="settings_key_hint_size_big">বড়</string>
+    <string name="prefs_providers_operation_success">সফল</string>
+    <string name="prefs_providers_operation_failed">ব্যর্থ!</string>
+    <string name="gesture_typing_alert_button">বুঝেছি</string>
+</resources>

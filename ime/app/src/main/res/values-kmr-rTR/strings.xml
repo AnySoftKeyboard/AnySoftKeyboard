@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="debug_tracing_starting">Şopandinê dest pê kir!\nPê ewle bine ku hûn wê li demek rawestînin
+    </string>
+    <string name="debug_tracing_starting_failed">Şopandina destpêkirinê têk çû! Logcat ji bo kontrol bikin
+         hûrgulî.
+    </string>
+    <string name="debug_tracing_finished">Şopandin qediya!\nPelê şopandinê ye\u0020<xliff:g id="trace_file">%s</xliff:g>
+    </string>
+    <string name="menu_about_item">Derbarê de</string>
+    <string name="how_to_pointer_title">Bi xêr hatî AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Guherandinên herî dawî ji bo v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Zêde:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">Ev versîyona beta ye. Bi hişyarî bi kar bîne!</string>
+    <string name="testers_version">Testker ava dikin!</string>
+    <string name="language_root_tile">Ziman</string>
+    <string name="language_keyboards_settings_tile">Klavye û zimanan çalak bikin.</string>
+    <string name="language_grammar_settings_tile">Tevgerên rastkirin û ferhengên din veava bike.</string>
+    <string name="language_tweaks_settings_tile">Rezîknameye û yên din.</string>
+    <!-- UI root menu -->
+    <string name="ui_root_tile">Navrûya Bikarhêner</string>
+    <string name="ui_theme_settings_tile">Hilbijêre klavyeyêntemê û hilbijêre.</string>
+    <string name="ui_effects_settings_tile">Bandor û tecrubeyên klavyeyê.</string>
+    <!-- welcome -->
+    <string name="search_market_for_keyboard_addons">Zêdetir klavyeyan li app store bistîne</string>
+    <string name="search_market_for_quick_key_addons">Zêdetir bibin<i>Quick-Text</i> Ji bilî li sêr app store dikana bisti na…</string>
+    <string name="keyboard_theme_tweak_group">Rastbune</string>
+    <string name="delete_button">Jêbirin</string>
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Rizgarkirin:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
+    <string name="revert_added_word_question">Rakirin\?</string>
+    <string name="removed_word">Rakirî:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
+    <string name="hint_add_to_dictionary">\u2190 Ji bo hilanînê dîsa dest lê bidin</string>
+    <string name="hint_double_tap_to_close">Dîsa ji bo rakirina pêşniyaran</string>
+    <string name="hint_click_for_inline_suggestions">Pêşniyarên xweber-dagirtina berdest</string>
+    <!-- voice -->
+    <string name="voice_input_not_installed_title">Deng nikane barkirin</string>
+    <string name="voice_input_not_installed_text">Deng Dikati nikane barkirin ser cîhaza.\nEw dikane sivik bi rastbe: ji ber firotanê hilbijêre ser app store.</string>
+    <string name="voice_input_not_installed_action_install">Saz bike</string>
+    <string name="voice_input_not_installed_action_do_not_install">Na</string>
+    <string name="voice_input_not_voice_pack_in_market">Ez dengê xwe nabînim
+        (com.google.android.voicesearch) li app store. Bibore, têveka deng dê li ser we nexebitîne
+        cîhaz.
+    </string>
+    <!-- Options menu -->
+    <string name="change_ime">Rêbaze digati xwu bîgera</string>
+    <string name="override_dictionary">Li ser ferheng seqet bîke</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Seqet bike\u0020<xliff:g id="word">%s</xliff:g>\u0020ferheng</string>
+    <!-- Dictionary override toast messages -->
+    <!-- settings - effects-->
+    <string name="gesture_settings">Bidest û ser çava</string>
+    <string name="effects_group">Tesîr</string>
+    <string name="ime_settings">Mîhengên klavyeyên</string>
+    <string name="switch_incognito">Nexwendin Awa</string>
+    <string name="use_system_vibration_title">Vibrasyona pergalê bikar bînin</string>
+    <string name="use_system_vibration_off_summary">Eyarên taybet ên tewrajê tê bikaranîn</string>
+    <string name="use_system_vibration_on_summary">Eyarên vibrasyona pergala Android tê bikaranîn</string>
+    <string name="vibrate_on_key_press_title">Li ser pelikır vibrator bika</string>
+    <string name="vibrate_on_key_press_value_template">%d mîlîçirkeyan</string>
+    <string name="night_mode_screen">Sazkariyên Moda Şevê</string>
+    <string name="night_mode_description">Moda Şevê wê van taybetiyan biguherîne:</string>
+    <string name="night_mode_state_summary">Vê gavê, Arandeya Moda Şevê:\u0020%s</string>
+    <string name="night_mode_dialog_title">Moda Şevê çalak e</string>
+    <string name="night_mode_type_never">Qet</string>
+    <string name="night_mode_type_follow_system">Pergala şopandinê</string>
+    <string name="night_mode_type_always">Herdem</string>
+    <string name="night_mode_app_night_theme">Sazkariyên Tarîkirinê yên Rûkara Sepanê</string>
+    <string name="night_mode_darken_keyboard_theme">Rûkara textekilîla tarî</string>
+    <string name="night_mode_sound_control">Dengên pêlîkirina kilîla neçalak bike</string>
+    <string name="night_mode_vibration_control">Dengê recifandina kilîla neçalak bike</string>
+    <string name="power_save_mode_screen">Sexbêriya hêz</string>
+    <string name="power_save_mode_description">Moda Teserûfa-Pîl dê bi seqetkirina taybetiyên xwe ve veberhênerên enerjiyê yên AnySoftKeyboard kêm bike:</string>
+    <string name="power_save_mode_state_summary">Niha, Teserûfa-Pîl kişok:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Sexbêriya hêzê biçalakîn</string>
+    <string name="power_save_mode_types_never">Qet</string>
+    <string name="power_save_mode_types_lower_battery">Dema pîleya baterya nizm bû</string>
+    <string name="power_save_mode_types_always">Herdem</string>
+    <string name="power_saving_keyboard_theme_name">Modela Power-Saving</string>
+    <string name="power_saving_keyboard_theme_description">Rengên sivik, hêsantir, ku dibe ku kêm hêza ji alavê pêwist be.</string>
+    <string name="power_save_mode_animation_control">Anîmasyon û pêşdîtinên sereke neçalakîn</string>
+    <string name="power_save_mode_sound_control">Dengê pêlîkirina tûşan neçalakîn</string>
+    <string name="power_save_mode_vibration_control">Recifandina pêlîkirina tûşan neçalakîn</string>
+    <string name="power_save_mode_suggestions_control">Pêşniyarên peyva nebêjin</string>
+    <string name="power_save_mode_gesture_typing_control">Nivîsandina Tevgerê Neçalak Bike</string>
+    <string name="power_save_mode_theme_control">Guhertina tarî, mijara hêsan</string>
+    <string name="pop_text_type_title">Pênivî ji hêla paceyê veşartî</string>
+    <string name="pop_text_type_summary">Dema ku tu nivîsa xwe ji bişkojkên pêlkirî derkevî. Niha:\u0020%s</string>
+    <string name="pop_text_type_dialog_title">Cûreya pop-text bijêre</string>
+    <string name="pop_text_type_never">Qet</string>
+    <string name="pop_text_type_on_correction">Serastkirina peyvan</string>
+    <string name="pop_text_type_on_word">Bi her çi peyvekê</string>
+    <string name="pop_text_type_any_key">Li ser her kilît</string>
+    <string name="input_field_type_password">Qada têxistina şîfreyê</string>
+    <string name="input_field_type_email">Qada agahdariya email</string>
+    <string name="input_field_type_url">Qada têxistina URL</string>
+    <string name="input_field_type_im">Qada têketina peyaman</string>
+    <string name="sound_on">Dengê pêlîkirina tûş an</string>
+    <string name="sound_on_summary">Di pêlîkirinê de efektên deng yê soft klavyeyê vekin.</string>
+    <string name="use_custom_sound_volume">Asta dengê taybet mîheng bik</string>
+    <string name="use_custom_sound_volume_on_summary">Dengê nimreya dengê bixweber e.</string>
+    <string name="use_custom_sound_volume_off_summary">Dengê bandorên dengan qebareya notên pergalê ye.</string>
+    <string name="custom_sound_volume"> Mifteya-çapemenî bend taybetî</string>
+    <string name="vibrate_on_long_press_title">Di pêlîkirina dirêj de birecifîne</string>
+    <string name="vibrate_on_long_press_summary_on">Dema ku çalakiyeke demdirêj a çapemeniyê tê gotin, tijîbûneke nerm e.</string>
+    <string name="switch_keyboard_on_space">Valahî klavyeyan diguherîne</string>
+    <string name="switch_keyboard_on_space_on_summary">Di dema pêlkirina cih de ji sembol/jimaran ber bi alfabeyê ve biguhere.</string>
+    <string name="switch_keyboard_on_space_off_summary">Di dema pêlkirina cih de ji sembol/jimaran ber bi alfabeyê ve neguherîne</string>
+    <string name="colorize_nav_bar_title">Li pişt bara navîgasyonê bikişîne</string>
+    <string name="colorize_nav_bar_summary_on">Wê paşxana klavyeyê li pişt navîgasyon-bar xêz bike. Ev yek ji aliyê hemû cîhazan ve nayê destekkirin.</string>
+    <string name="colorize_nav_bar_summary_off">Li pişt navîgasyon-bar nekêşe.</string>
+    <string name="persistent_layout_per_package_id_title">Li gorî Sepanê rêza alfabeyê ji bîr neke</string>
+    <string name="persistent_layout_per_package_id_off_summary">Ji bo hemû Sepanan heman nîskê bi kar bîne.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Bixweber biguhere rêza darişka ya ku di Sepan de tê bikaranîn.</string>
+    <string name="one_shot_quick_text_popup">Piştî mifteya-çapemeni bixweber bigire</string>
+    <string name="one_shot_quick_text_popup_on_summary">Piştî pêlkirina mifteyekê popupa Nivîsa-Lez bigire.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Heta ku bişkojka girtî nepêçe popupa Nivîsa-Lez vekirî bigire.</string>
+    <string name="quick_text_tags_search">Emojî bi bitîpkirinê pêşniyar bike</string>
+    <string name="quick_text_tags_search_on_summary">Emojîyan bi tagê bigere, dema ku nivîs dest pê dike bi
+        kolon :)
+    </string>
+    <string name="hide_soft_when_physical">Klavyeyê di mifteya fîzîkî de veşêre</string>
+    <string name="hide_soft_when_physical_on_summary">Dema klavyeya fîzîkî be klavyeya nerm veşêre
+        bikaranîn
+    </string>
+    <string name="hide_soft_when_physical_off_summary">Dema klavyeya fîzîkî be klavyeya nerm nîşan bide
+        bikaranîn
+    </string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space zimanan diguhere</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Reqalav Alt + Space diçe rêza din a berdest.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Reqalav Alt + Space dikeve valahiyekê.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space zimanan diguhere</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Reqalav Shift + Space bi guherîna rêza din a berdest.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Reqalav Shift + Space dikeve valahiyekê.</string>
+    <string name="fullscreen_input_connection_supported">Di perestgehê de edîtorê dîmender tije bi kar bîne
+    </string>
+    <string name="fullscreen_input_connection_supported_on_summary">Dema ku ekranê bi dest xwe ve bîne
+        Di perestgehê de nivîs têkevin
+    </string>
+    <string name="fullscreen_input_connection_supported_off_summary">Edîtorê dîmender tije bi kar nehîne
+        perestgeh
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported">Edîtorê dîmender tije bi kar bîne
+        portre
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Dema ku nivîsa di portreyê de têkevin ekranê bi dest xwe ve bînin</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Di portreyê de edîtorê dîmender tije bi kar neyne</string>
+    <string name="backword_support">Piştgiriya paş-peyv</string>
+    <string name="backword_support_on_summary">Backspace shifted dê peyva paşîn jê bibe</string>
+    <string name="backword_support_off_summary">Backspace shifted dê karaktera paşîn jê bibe</string>
+    <string name="swipe_up_action">Bişeqitînin jor</string>
+    <string name="swipe_up_action_summary">Çalakiya jêbirinê ya jêbirinê diyar bike. Niha, %s
+    </string>
+    <string name="swipe_up_action_title">Ya çalakiya dişeqitîni jor bijêrin</string>
+    <string name="swipe_up_from_spacebar_action">Dareke vala berbi jor ve şemitîn</string>
+    <string name="swipe_up_from_spacebar_action_summary">Dema ji çalakiya dareke vala vebijandinê diyar bike. Niha, %s</string>
+    <string name="swipe_up_from_spacebar_action_title">Çalakiya şemitîna dareke vala hilbijêre</string>
+    <string name="swipe_down_action">Bişeqitînin jêr</string>
+    <string name="swipe_down_action_summary">Çalakiya tevgerê ya dakêşandinê diyar bikin. Naha, %s</string>
+    <string name="swipe_down_action_title">Çalakiya şemitîna xwarê hilbijêrin</string>
+    <string name="swipe_left_action">Bişeqitînin çepê</string>
+    <string name="swipe_left_action_summary">Çalakiya tevgera çepê ya şemitînê diyar bikin. Naha, %s</string>
+    <string name="swipe_left_action_title">Çalakiya dişeqitîni çepê bijêre</string>
+    <string name="swipe_right_action">Bişeqitînin rastê</string>
+    <string name="swipe_right_action_summary">Çalakiya tevgera rastê ya şemitînê diyar bikin. Niha, %s</string>
+    <string name="swipe_right_action_title">Çalakiya rastê ya şemitînê hilbijêrin</string>
+    <string name="swipe_right_space_bar_action">Rastê li ser dareke vala şemitînê</string>
+    <string name="swipe_right_space_bar_action_summary">Daxistineke rastê ji çalakiya darikên vala diyar bike. Niha, %s</string>
+    <string name="swipe_right_space_bar_action_title">Çalakiya şêmitîna rastê hilbijêre</string>
+    <string name="swipe_left_space_bar_action">Darikê vala hilkişe çepê</string>
+    <string name="swipe_left_space_bar_action_summary">Ji tevgera tevgera darikê vala çepê diyar bikin. Niha, %s</string>
+    <string name="swipe_left_space_bar_action_title">Çalakiya şemitîna çepê hilbijêrin</string>
+    <string name="swipe_left_two_fingers_action">Du tiliyên xwe çepê şemitînîn</string>
+    <string name="swipe_left_two_fingers_action_summary">Çalakiya şemitînê tevgera çepê ya du-tilî diyar bikin. Evdem, %s</string>
+    <string name="swipe_right_two_fingers_action">Du tilî rastê şemitînê</string>
+    <string name="swipe_right_two_fingers_action_summary">Çalakiya şemitînê rastê bi du tiliyan diyar bike. Niha, %s</string>
+    <string name="swipe_right_two_fingers_action_title">Çalakiya şemitînê rastê hilbijêre</string>
+    <string name="pinch_gesture_action">Tevgerê şidandin</string>
+    <string name="pinch_gesture_action_title">Çalakiya şemitînê şidandin hilbijêre</string>
+    <string name="pinch_gesture_action_summary">Çalakiya şemitînê ya şidandin diyar bike. Niha, %s</string>
+    <string name="separate_gesture_action">Danûstendina dirêjkirinê</string>
+    <string name="separate_gesture_action_title">Çalakiya tevgera dirêjkirinê hilbijêrin</string>
+    <string name="separate_gesture_action_summary">Çalakiya tevgera dirêjkirinê diyar bikin. Naha, %s</string>
+    <string name="swipe_action_name_none">Çalakî tune</string>
+    <string name="swipe_action_name_next_alphabet">Klavyeya alfabeya pêşî</string>
+    <string name="swipe_action_name_next_symbols">Klavyeya sembolên pêşî</string>
+    <string name="swipe_action_name_next_inside_mode">Moda heyî de ya din</string>
+    <string name="swipe_action_name_cycle_keyboards">Bi hemû klavyeyan çerx bike</string>
+    <string name="swipe_action_name_reverse_cycle_keyboards">Di hemû klavyeyan de çerxa berevajî bike</string>
+    <string name="swipe_action_name_shift">Dor</string>
+    <string name="swipe_action_name_space">Meydan</string>
+    <string name="swipe_action_name_hide">Klavyeyê veşêre</string>
+    <string name="swipe_action_name_backspace">Paş-valahî</string>
+    <string name="swipe_action_name_backword">Paş-peyv</string>
+    <string name="swipe_action_name_clear_input">Paqij kirina tevahiya nivîsê </string>
+    <string name="swipe_action_name_cursor_up">Nîşanêk hilkişin jor</string>
+    <string name="swipe_action_name_cursor_down">Nîşanêk dakêşin xwar </string>
+    <string name="swipe_action_name_cursor_left">Nîşanêk çep hilde</string>
+    <string name="swipe_action_name_cursor_right">Nîşanêk rast bar bikin</string>
+    <string name="swipe_action_name_other_keyboards_mode">Modeya vesazkirinê veguherînin</string>
+    <string name="swipe_action_name_split_layout">Rêza parçebike</string>
+    <string name="swipe_action_name_merge_layout">Rêza yekkirina</string>
+    <string name="swipe_action_name_compact_layout_to_right">Ji bo rastê rêza kompûnê</string>
+    <string name="swipe_action_name_compact_layout_to_left">Bişkojka kompût ji bo çepê</string>
+    <string name="swipe_action_name_utility_keyboard">Klavyeya avîteyê nîşande</string>
+    <string name="swipe_action_name_quick_text_popup">Derkete emojî nîşan bide</string>
+    <string name="settings_swipe_velocity_threshold_title">Derbenda lêvegerê şemitîn</string>
+    <string name="settings_swipe_velocity_threshold_summary">Leza tevgera herî kêm a şemitîn. Niha, %s</string>
+    <string name="settings_swipe_velocity_very_slow">Pirr hêdî</string>
+    <string name="settings_swipe_velocity_slow">Hêdî</string>
+    <string name="settings_swipe_velocity_normal">Normal</string>
+    <string name="settings_swipe_velocity_fast">Zû</string>
+    <string name="settings_swipe_velocity_very_fast">Gelek zû</string>
+    <string name="settings_swipe_distance_threshold_title">Derbenda mesafeyê şemitînê</string>
+    <string name="settings_swipe_distance_threshold_summary">Dûrahiya jêçûnê ya şemitînê herî kêm. Niha, %s</string>
+    <string name="settings_swipe_distance_very_short">Pirr kin</string>
+    <string name="settings_swipe_distance_short">Kin</string>
+    <string name="settings_swipe_distance_normal">Normal</string>
+    <string name="settings_swipe_distance_long">Dirêj</string>
+    <string name="settings_swipe_distance_very_long">Pirr dirêj</string>
+    <string name="hardware_keys_group">Nexşkirina bişkojka reqalav</string>
+    <string name="volume_key_for_left_right_support">Bişkojka dengê ji bo çep/rastê</string>
+    <string name="volume_key_for_left_right_support_on_summary">Bi rêya jor/jêbirinê çep/rastê neçalak bike</string>
+    <string name="volume_key_for_left_right_support_off_summary">Vekirina dengê nîşanek çepê dizivire, kêmkirina dengê nîşanek rast dizivire</string>
+    <string name="more_ui_settings_group">Navrûya Bikarhêner</string>
+    <string name="special_dictionaries_group">Ferhengên taybetî</string>
+    <string name="special_dictionaries_group_summary">Ferhengên pêşniyarê yên ku têne bikar anîn</string>
+    <string name="use_user_dictionary">Ferhenga bikarnîvan</string>
+    <string name="use_user_dictionary_on_summary">Pêşniyara peyvên zêdekirî yên bikarhêner (du-tikandina pêşniyarek ji bo lêzêdekirinê)</string>
+    <string name="always_use_fallback_user_dictionary">Hilanîna taybet-Bikarhêner-Bikaranîn bikar bînin</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Mekanîzmaya ferhenga-bikarhêner a navborî AnySoftKeyboard\'a taybet bi kar bîne.</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Hewl bide ferhenga gerdûnî ya binavkirî ya Android bikar bîne.</string>
+    <string name="use_auto_dictionary">Ferhenga Otomatîkî</string>
+    <string name="use_auto_dictionary_dialog_title">Metoda hînbûnê hilbijêre</string>
+    <string name="use_auto_dictionary_summary">Bixweber peyvên nû fêr bibe. Metodê fêr bibe: %s</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">Piştî hendik bikaranîn</string>
+    <string name="auto_dictionary_threshold_type_immediately">Hema piştî ku ez dinivîsim</string>
+    <string name="auto_dictionary_threshold_type_off">Peyvên nû fêr nebûn</string>
+    <string name="use_next_words_dictionary">Pêşniyarên peyva paşîn</string>
+    <string name="next_words_dictionary_off">Gotina din pêşniyar nekin</string>
+    <string name="next_words_dictionary_words_only">Gotina din pêşniyar bikin</string>
+    <string name="next_words_dictionary_words_punctuations">Gotin û deqên pêş pêşniyaz bikin</string>
+    <string name="next_words_dictionary_summary">Ji bo pêşniyaran peyva berê bi kar bîne: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness">Gotina êrişkerîya din</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Pêşniyarên kêmtirîn</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Pêşniyarên navîn</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">gelek pêşinyarê nîşan bide</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Pêşniyara bêjeya din êrişkerî: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Êrişkerîya pêşniyarê bixweber-hilbijêrin</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Girtî</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Êrişkerîyên kêmtirîn</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Êrîşkariya nerm</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">Êrîşkariya bilind</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Êrîşkariya tund</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Asta êrîşkariyê: %s</string>
+    <string name="use_contacts_dictionary">Ferhenga Têkiliyê</string>
+    <string name="use_contacts_dictionary_on_summary">Ji lîsteya têkiliyan navên pêşniyaz bike</string>
+    <string name="tweaks_group">Rastbune</string>
+    <string name="tweak_sound_group">Dengê nêçira têkildar</string>
+    <string name="tweak_physical_keyboard_group">Mîhengên klavyeyê yên fîzîkî</string>
+    <string name="tweak_ui_group">Mîhengên grafîkî zirav</string>
+    <string name="tweak_ux_group">Mîhengên tevgerê yên zirav</string>
+    <string name="supported_keyboard_row_modes_title">Moda qada têxistinê ya bixweber çalak e</string>
+    <string name="supported_keyboard_row_modes_summary">Zevyeke têxê ya bijare hilbijêre (wek mînak,
+        şîfre, URL û hwd.) rêzên ji bo bikaranînê.
+    </string>
+    <string name="tweak_dictionary_group">Rastkirina ferhengê</string>
+    <string name="show_keyboard_name_text">Navê klavyeyê nîşande</string>
+    <string name="show_keyboard_name_on_summary">Di dareke vala de navê klavyeyê nîşan bide</string>
+    <string name="show_keyboard_name_off_summary">Navê klavyeyê qet nîşan nede</string>
+    <string name="show_hint_text">Nivîsê nîşan bide</string>
+    <string name="show_hint_text_on_summary">Ger tema piştgirî bike, hin nîşanên li ser mifteyan nîşande</string>
+    <string name="show_hint_text_off_summary">Tu carî nîşanên li ser mifteyan nîşan nede</string>
+    <string name="use_custom_hint_align">Pozîsyona nîşanê zêde bike</string>
+    <string name="use_custom_hint_align_on_summary">Cihê nivîsara nîşana sîteyê bi kar bîne</string>
+    <string name="use_custom_hint_align_off_summary">Cihê nîşana nivîsa tema bikar bîne</string>
+    <string name="custom_hint_align">Bijareya nîşana berevanî</string>
+    <string name="custom_hint_align_summary">Nivîsa nîşanê ya çepê, navendê an jî rastê ya mifteyê bihevre bike
+    </string>
+    <string name="settings_custom_hint_align_dialog_title">Ji bo hintê zewqeke seranser hilbijêre
+        nivîs
+    </string>
+    <string-array name="custom_hint_align_types">
+        <item>Çep</item>
+        <item>Navend</item>
+        <item>Rast</item>
+    </string-array>
+    <string name="custom_hint_valign">Rêzkirina tipa çikanî ya taybetî</string>
+    <string name="custom_hint_valign_summary">Nivîsa ravekê li jor an jî binî ya mifteyê bihevra bike</string>
+    <string name="settings_custom_hint_valign_dialog_title">Ji bo xuyangê rêzkirinek çikanî hilbijêrin
+          nivîstok
+    </string>
+    <string-array name="custom_hint_valign_types">
+        <item>Ser</item>
+        <item>Bin</item>
+    </string-array>
+    <string name="is_sticky_extesion_keyboard">Klavyaya jorîn ya berfirehbûnê bîne zeliqok</string>
+    <string name="is_sticky_extesion_keyboard_on_summary">Hheta ku bi rastî girtî bimîne li ber çav dimîne
+    </string>
+    <string name="is_sticky_extesion_keyboard_off_summary">Piştî çapa sereke tê girtin</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Îkona klavyeyê di dar-darekê de nîşan bide</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Îkona klavyeyê di cîhazê de nîşan dide
+        darikê statûyê.
+    </string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">Îkona dar-rewşan tune ye.</string>
+    <string name="is_extesion_keyboard_above_keyboard">Klavyeya Pêveka Bilind bi kar bîne</string>
+    <string name="show_settings_app_in_launcher">Ikona bername</string>
+    <string name="settings_key_show_settings_app_on_summary">Sepana mîhengan dê di
+        destpêker (dibe ku ji nû ve destpêkirin hewce bike)
+    </string>
+    <string name="settings_key_show_settings_app_off_summary">Pêveka Mîhengan Veşêre (dibe ku hewce be
+        ji nû ve destpêkirin)
+    </string>
+    <string name="always_hide_language_key">Ziman-mifteya her dem veşêre</string>
+    <string name="always_hide_language_key_on_summary">Wê ti carî ziman-kilît nîşan nede Jest
+        dê hê jî piştgiriya guherandina nîgara klavyeyê bike.
+    </string>
+    <string name="always_hide_language_key_off_summary">Dê bi tenê heke pirjimarî be dê ziman-mifte nîşan bide
+        nîskan têne çalak kirin.
+    </string>
+    <string name="show_crash_notification">Raport li ser qeyranê</string>
+    <string name="show_crash_notification_on_summary">Gava ku hûn ASK hilweşînin, danûstendina raporkirina pevçûnê vekin
+    </string>
+    <string name="show_crash_notification_off_summary">Bi bêdengî qezayan dike</string>
+    <string name="use_keyrepeat">Dubarekirina mifteyan bi kar bîne</string>
+    <string name="use_keyrepeat_on_summary">Dubarekirina mifteyê tê çalak kirin</string>
+    <string name="use_keyrepeat_off_summary">Dubarekirina mifteyê neçalak e</string>
+    <string name="emoticon_long_press_opens_popup">Serpêhatiya bi kenê dirêj</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Di pêveka dirêj de vebijhêrkan nîşande
+    </string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Di kurte-çapê de veberhênekan nîşan bide
+    </string>
+    <string name="default_smiley_text">Nivîstoka Smiley</string>
+    <string name="default_domain_text">Tesîra navperê nivîsar</string>
+    <string name="key_preview_position_override">Cihê pêşdîtinê yê sereke</string>
+    <string name="key_preview_position_override_summary">Li jor kilîta çapkirî an jî li jorê tevahî
+        klavye
+    </string>
+    <string name="key_preview_position_override_above_key">Mifteya çapkirî ya jorîn</string>
+    <string name="key_preview_position_override_above_keyboard">Li jorê klavyeyê</string>
+    <string name="key_press_preview_popup">Vebijka pêşdîtinê ya sereke</string>
+    <string name="key_press_preview_popup_on_summary">Li ser mifteyê popup nîşande</string>
+    <string name="key_press_preview_popup_off_summary">Li ser dema mifte tê girtin nîşan nede </string>
+    <string name="zoom_factor_keys_in_portrait">Di moda portreyê de faktora bilindahiya mifteyan</string>
+    <string name="zoom_factor_keys_in_landscape">Di moda perestgehê de faktora bilindahiya mifteyan</string>
+    <string name="insert_space_after_word_suggestion_selection">Cih piştî hilbijartina namzetan</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Li dû peyvê valahiyê bixin
+         pêşniyar hilbijêrin
+    </string>
+    <string name="double_space_to_period">Ji bo periyodê du qad</string>
+    <string name="double_space_to_period_summary">Tepika fezayê ya du qat dê bibe serdem+cîh</string>
+    <string name="tweak_animations_level_title">Jayandarî</string>
+    <string name="tweak_animations_level_summary">Divê çiqas anîmasyon werin bikar anîn. Evdem:
+        %s
+    </string>
+    <string name="tweak_animations_level_types_full">Tije</string>
+    <string name="tweak_animations_level_types_some">Hin</string>
+    <string name="tweak_animations_level_types_none">Netû</string>
+    <string name="cycle_all_symbols_keyboards">Di nav hemû sembolan de çerx bike</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Bişkojka sembolan wê di hemû klavyeyên sembolan de çerx bike.</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Bişkojka sembolan wê tenê klavyeya sembolên sereke nîşan bide.</string>
+    <string name="lang_key_shows_popup">Guhertoya ziman bi popup</string>
+    <string name="lang_key_shows_popup_on_summary">Dê kilîta zimên diyaloga hilbijartinê vebike</string>
+    <string name="lang_key_shows_popup_off_summary">Mifteya ziman dê zimanan çerx bike</string>
+    <string name="settings_os_clipboard_sync">Panelê bi OS\'ê re hevdem bikin</string>
+    <string name="settings_os_clipboard_sync_summary_on">Guherandinên panelê kifş bikin û bi AnySoftKeyboard re senkronîze bikin</string>
+    <string name="settings_os_clipboard_sync_summary_off">Li derveyî AnySoftKeyboard guh nedin çalakiyên panelê.</string>
+    <string name="auto_caps">Bixweber-kapîtalîzasyon</string>
+    <string name="grammar_group">Rêziman</string>
+    <string name="keyboard_behavior_group">Behsa Keyboard</string>
+    <string name="candidates_on">Pêşniyaran nîşan bikin</string>
+    <string name="candidates_on_summary">Lîsteya peyvên pêşniyazkirî dê li jor were pêşandan
+        klavye
+    </string>
+    <string name="candidates_off_summary">Ti pêşinyar nahê nîşandan</string>
+    <string name="quick_fix">Temîr û kurtekurtkirinên bilez</string>
+    <string name="quick_fix_summary">Şaşiyên ku bi gelemperî hatine nivîsîn rast dike û kurteçîrokan zêde dike</string>
+    <string name="quick_fix_secon_disabled">…tenê li ser zimanê yekem</string>
+    <string name="quick_fix_secon_disabled_summ_on">Rastkirin û kurtkirinên bilez dê tenê li ser zimanê rêza heyî bixebitin</string>
+    <string name="quick_fix_secon_disabled_summ_off">Kurte ziman û rastkirinên bilez dê li ser her zimanî bixebitin 
+                  di ferhenga pêşdarazî ya nederbasbar de hatiye kontrolkirin</string>
+    <string name="try_split_words_for_correction">Bi dabeşkirina peyva tîpkirî rast bike</string>
+    <string name="try_split_words_for_correction_summary_on">Bi texmînkirina CIHÊ wenda peyvan perçe bike.</string>
+    <string name="allow_suggestions_restart">Pêşniyar ji nû ve dest pê dikin</string>
+    <string name="allow_suggestions_restart_summary">Pêşniyara peyvan a li ser tevgera nîşanek ji nû ve dest pê bike
+    </string>
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Klavyeya</string>
+    <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">123</string>
+    <string name="symbols_phone_keyboard">têlefonê</string>
+    <string name="symbols_numbers_keyboard">123</string>
+    <string name="symbols_time_keyboard">dem</string>
+    <string name="keyboard_change_locked">n/a</string>
+    <!-- settings - quick text keys -->
+    <string name="quick_text_keys_group">Mifteyên nivîsê yên bilez</string>
+    <string name="quick_text_keys_order">Koma Nivîsan a Lezgîn û ferman</string>
+    <!-- settings - top generic row -->
+    <string name="top_generic_row_group">Rêzeya gelemperî ya jorîn a hevpar</string>
+    <string name="top_generic_row_dialog_title">Cureyê rêzê hilbijêrin</string>
+    <string name="top_generic_row_summary">Rêza jorîn a bijartî: %s</string>
+    <!-- settings - bottom generic row -->
+    <string name="bottom_generic_row_group">Rêzeya gelemperî ya jêrîn</string>
+    <string name="bottom_generic_row_dialog_title">Cureyê rêzê hilbijêrin</string>
+    <string name="bottom_generic_row_summary">Rêza jêrîn hilbijartî: %s</string>
+    <string name="keyboard_theme_list_title">Dirêj hilbijêrin</string>
+    <string name="dark_plain_keyboard_theme_name">Tema tarî ya sade</string>
+    <string name="dark_plain_keyboard_theme_description">Rengên tarî, grafîyên hêsan</string>
+    <string name="light_plain_keyboard_theme_name">Tema ronahiya sade</string>
+    <string name="light_plain_keyboard_theme_description">Rengên ronî, grafîyên hêsan</string>
+    <string name="blacktheme_keyboard_theme_name">Tîrêjên reş ên hêsan</string>
+    <string name="blacktheme_keyboard_theme_description">Tema reş a sade bi nîşaneyên rengan
+    </string>
+    <string name="lean_dark_keyboard_theme_name">Tarîtiya Lehî</string>
+    <string name="lean_dark_keyboard_theme_description">Dirba tarî, bi hêmanên UI yên kêmtir
+    </string>
+    <string name="lean_dark_2_keyboard_theme_name">Tarîtiya Lehî - Vebijêrk 2</string>
+    <string name="lean_dark_big_keyboard_theme_name">Tarîtiya Lehî - Bişkokên Mezin</string>
+    <string name="lean_dark_big_keyboard_theme_description">Tema Heman Tarî, lê bi bişkokên mezintir
+    </string>
+    <string name="lean_light_keyboard_theme_name">Ronahiya Xurî</string>
+    <string name="lean_light_keyboard_theme_description">Tema ronahiyê, bi hêmanên UI yên kêmtir</string>
+    <string name="lean_light_2_keyboard_theme_name">Ronahiya Xurî - Vebijêrk 2 </string>
+    <string name="lean_light_big_keyboard_theme_name">Ronahiya Xurî - Bişkojkên Mezin</string>
+    <string name="lean_light_big_keyboard_theme_description">Heman tema Ronahî, lê bi mezintir
+        mifte
+        </string>
+    <string name="lean_dark_gray_keyboard_theme_name">Xurîya Tarî Gewr</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Tema Gewr ya tarî, bi UI ya kêmtir
+        hêman
+    </string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees Tarî</string>
+    <string name="yochees_dark_keyboard_theme_description">Tema reş ji Algimantas</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees Tarî - Vebijêrk 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees Ronî</string>
+    <string name="yochees_light_keyboard_theme_description">Tema ronahî bike ji aliyê Algimantas</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Tema ronahî bike ji aliyê Algimantas bi
+        bişkojka mezin.
+    </string>
+    <!-- extension keyboard type -->
+    <string name="extension_kbd_top_none">Rêza jor tune</string>
+    <string name="extension_kbd_top_small">Bişkojkên piçûk</string>
+    <string name="extension_kbd_top_regular">Bişkojkên pîvana rêkûpêk</string>
+    <string name="extension_kbd_top_small_numbers">Hejmarên bişkojkan</string>
+    <string name="extension_kbd_top_numbers_alt">Mifteyên hejmarê yên alternatîf</string>
+    <string name="extension_kbd_top_nav">Bişkojka navîgasyonê</string>
+    <string name="extension_kbd_top_nav_alt">Alternatîfa bişkojka navîgasyonê</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Alternatîfa bişkojka navîgasyonê Di moda pwd de rêz tune</string>
+    <string name="extension_kbd_top_numbers_simple">Sade, tenê hejmar</string>
+    <string name="extension_kbd_top_terminal">Terminal</string>
+    <string name="extension_kbd_top_text_editing">Verastkirina nivîsê ya bilez</string>
+    <string name="extension_kbd_bottom_regular_with_voice">Rêzbirêz</string>
+    <string name="extension_kbd_bottom_regular">Klasîk</string>
+    <string name="extension_kbd_bottom_iphone">Şêwaza iPhone (bê mîk)</string>
+    <string name="extension_kbd_bottom_iphone_with_voice">Şêwaza mîkrofonê bi iPhone</string>
+    <string name="extension_kbd_bottom_alt">Alternatîf (bê mîkrofon)</string>
+    <string name="extension_kbd_bottom_alt_with_mic">Alternatîfa bi mîkrofonê</string>
+    <string name="extension_kbd_bottom_old">Dibistana kevn</string>
+    <string name="extension_kbd_bottom_simple">Sade</string>
+    <string name="extension_kbd_bottom_simple_alt">Vebijarka Sade</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP şêwaz kirin</string>
+    <string name="extension_kbd_bottom_ng">Nifşê Nû - Testkirin</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Nifşê Nû (bêyî tîpveqetok) - Testkirin</string>
+    <string name="extension_kbd_extension_numbers_symbols">Hejmar û sembol</string>
+    <string name="extension_kbd_bottom_minimal">Kêmtirîn</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Kêmtirîn (emojî tune)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Kêmtirîn (kêm xalbendî)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Kêmtirîn (alternatîf)</string>
+    <!-- Tutorials -->
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Çûyin</string>
+    <string name="label_next_key">Piştî</string>
+    <string name="label_previous_key">Berê</string>
+    <string name="label_send_key">Şandin</string>
+    <string name="label_search_key">Lê bigere</string>
+    <string name="label_done_key">Biqede</string>
+    <string name="label_tab_key">Hilpekîn</string>
+    <string name="label_home_key">Xane</string>
+    <string name="label_end_key">Dawî</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_regular">123</string>
+    <string name="select_keyboard_popup_title">Klavyeya hilbijêrin</string>
+    <!-- dictionaries -->
+    <string name="simley_key_name">Bişkojka bişirek</string>
+    <string name="short_smiley_key_name">Bişkojka Kurteya bişirek</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="history_quick_text_key_name">Dîrok</string>
+    <string name="default_quick_text_key_name">Emojîyên Hêsan</string>
+    <string name="unicode_quick_text_key_name">Emojîyên</string>
+    <string name="unicode_people_quick_text_key_name">Xelk</string>
+    <string name="unicode_gestures_quick_text_key_name">Jest</string>
+    <string name="unicode_accessories_quick_text_key_name">Amûr</string>
+    <string name="unicode_animals_quick_text_key_name">Heywanan</string>
+    <string name="unicode_food_quick_text_key_name">Xwarin</string>
+    <string name="unicode_nature_quick_text_key_name">Xweza</string>
+    <string name="unicode_transport_quick_text_key_name">Veguhastin</string>
+    <string name="unicode_signs_quick_text_key_name">Nîşaneyên</string>
+    <string name="unicode_city_quick_text_key_name">Bajar</string>
+    <string name="unicode_scape_quick_text_key_name">Revî</string>
+    <string name="unicode_activity_quick_text_key_name">Çalakî</string>
+    <string name="unicode_office_quick_text_key_name">Ofîs</string>
+    <string name="unicode_occasions_quick_text_key_name">Bûyer</string>
+    <string name="unicode_flags_quick_text_key_name">Al</string>
+    <string name="multitap_timeout_title">Dema bêdem a pir-têlêdan</string>
+    <string name="multitap_timeout_summary">Di navbera lêdanên mifteyan de demderbasbûn</string>
+    <string name="settings_multitap_timeout_disabled">Ne çalak</string>
+    <string name="settings_multitap_timeout_faster">Zûtir</string>
+    <string name="settings_multitap_timeout_fast">Zû</string>
+    <string name="settings_multitap_timeout_normal">Asayî</string>
+    <string name="settings_multitap_timeout_slow">Hêdî</string>
+    <string name="settings_multitap_timeout_slower">Hêdîtir</string>
+    <string name="settings_multitap_timeout_never">Her dem li bendê bimîne</string>
+    <string name="long_press_timeout_title">Dema dirêj ya çapameniyê</string>
+    <string name="long_press_timeout_summary">Dema sereke ya çapameniyê ku weke demdirêj-çapemenî tê heskirin</string>
+    <string name="settings_long_press_timeout_faster">Zûtir</string>
+    <string name="settings_long_press_timeout_fast">Zû</string>
+    <string name="settings_long_press_timeout_normal">Asayî</string>
+    <string name="settings_long_press_timeout_slow">Hêdî</string>
+    <string name="settings_long_press_timeout_slower">Hêdîtir</string>
+    <string name="settings_long_press_timeout_never">Qet</string>
+    <string name="settings_force_locale_title">Hêza Herêmî</string>
+    <string name="settings_force_locale_summary">Herêma hêza ku di AnySoftKeyboard de tê bikaranîn (digire
+        ji bo ku bandor bikin.) Niha: %s.
+    </string>
+    <string name="tweak_workarounds_group">Çareseriyên</string>
+    <string name="workaround_disable_rtl_fix">Mafê Çareserkirina Çepê ya Android bikar bînin</string>
+    <string name="workaround_disable_rtl_fix_summary_on">Karûbarê OS RTL bikar bînin. Divê li ser xweş bixebitin
+         alavên nûtir.
+    </string>
+    <string name="workaround_disable_rtl_fix_summary_off">Karanîna RTL ya AnySoftKeyboard bikar bînin.  Divêt
+         tenê heke OS RTL nekare were bikar anîn.
+    </string>
+    <string name="settings_split_state_title_portrait">Dabeşandina Qelişandin/Bihevkelyan destpêkê li hev bikin</string>
+    <string name="settings_split_state_title_landscape">Rewşa destpêkê ya Perestgehê Qelişandin/Bihevkelyan</string>
+    <string name="settings_split_state_summary">Diyar bike ka klavye wekî pêşdarazî parçe dibe an na.
+        Niha: %s
+    </string>
+    <string name="settings_split_state_merged_always">Birêkûpêk dest pê bike</string>
+    <string name="settings_split_state_split_always">Parçebûnê dest pê bike</string>
+    <string name="settings_split_state_compact_right_always">Destpêk bi rastê ve werin tewandin</string>
+    <string name="settings_split_state_compact_left_always">Çepê re dest pê kir</string>
+    <!-- User dictionary settings -->
+    <string name="user_dictionary_select_locale">Ziman:</string>
+    <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <string name="user_dict_settings_titlebar">Ferhenga bikarhêner</string>
+    <string name="user_dict_editor">Edîtorê peyvan</string>
+    <!-- abbreviations editor -->
+    <string name="abbreviation_dict_settings_titlebar">Edîtorê Kurtenavê</string>
+    <string name="abbreviation_dict_editor">Edîtoriya kurtavêjiyê</string>
+    <string name="abbreviation_dict_word_template">        <i>
+            <xliff:g id="abbreviation">%s</xliff:g>
+        </i>
+        \u0020\u2192\u0020
+        <i>
+            <xliff:g id="target">%s</xliff:g>
+        </i>
+    </string>
+    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
+    <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="user_dict_settings_empty_text">Di ferhenga bikarhêner de tu gotin tune.
+        Tu dikarî peyva xwe ya yekem niha lê zêde bikî.
+    </string>
+    <string name="should_swap_punctuation_and_space_title">Valahî û cih biguheze</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Cihê xwe naguheze û
+        deqkirin.
+    </string>
+    <string name="should_swap_punctuation_and_space_on_summary">Cihê bixweber û deqkirinê biguheze.
+    </string>
+    <string name="initial_quick_text_tab_title">Koma destpêkê</string>
+    <string name="initial_quick_text_tab_summary">Koma Bilez-Nivîsar ku dest pê bike bi: %s</string>
+    <string name="initial_quick_text_tab_always_first_tab">Her tim ji destpêkê ve dest pê bike</string>
+    <string name="initial_quick_text_tab_last_used_tab">Bi koma dawî ya hatiye bikaranîn dest pê bike</string>
+    <string name="initial_quick_text_tab_history_tab">Bi koma Dîrokê dest pê bike</string>
+    <string name="emoji_default_skin_tone_title">Emojî çerm-rengê bixweber</string>
+    <string name="emoji_default_skin_tone_summary">Pêşniyara karanîna çerm-rengê Fitzpatrick: %s</string>
+    <string name="emoji_default_skin_tone_value_generic">Gelemper</string>
+    <string name="emoji_default_skin_tone_value_type_2">Tonê Çermê Sivik</string>
+    <string name="emoji_default_skin_tone_value_type_3">Tonê Çermê Navîn-Ronahî</string>
+    <string name="emoji_default_skin_tone_value_type_4">Tonê Çermê Navîn</string>
+    <string name="emoji_default_skin_tone_value_type_5">Tonê Çermê Navîn-Tarî</string>
+    <string name="emoji_default_skin_tone_value_type_6">Tonê Çermê Tarî</string>
+    <string name="emoji_default_skin_tone_value_random_type">Tonê Çermê Tesadûfî</string>
+    <string name="emoji_default_gender_title">Zayendê emoji</string>
+    <string name="emoji_default_gender_summary">Zayendê xwerû ku bikar bînin: %s</string>
+    <string name="emoji_default_gender_value_person">Kes</string>
+    <string name="emoji_default_gender_value_woman">Jin</string>
+    <string name="emoji_default_gender_value_man">Mêr</string>
+    <string name="emoji_default_gender_value_random_type">Zayenda rasthatî</string>
+    <string name="developer_tools">Alavên pêşvebir</string>
+    <string name="click_for_developer_features">Amûrên pêşdebir</string>
+    <string name="click_for_developer_features_summary">Amûrên cûrbecûr ji bo AnySoftKeyboard
+         pêşdebiran
+    </string>
+    <string name="failed_to_create_mem_dump">Afirandina pelê dûxana bîrê bi ser neket ji ber:
+        <xliff:g id="message">%s</xliff:g>
+    </string>
+    <string name="created_mem_dump_file">Pela dûmanê ya bîrê hat afirandin li:
+        <xliff:g id="file_path">%s</xliff:g>
+    </string>
+    <string name="not_configured_with_click_here">AnySoftKeyboard bi temamî ji bo bikaranînê ne sazkar e. Tikandin
+        ji bo danîna vê derê.
+    </string>
+    <string name="not_configured_with_just_click_here">Li vir bitikin</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_add_word">Peyv lê zêde bike</string>
+    <string name="word_editor_action_backup_words">Yêdek</string>
+    <string name="word_editor_action_restore_words">Nûvdekirin</string>
+    <string name="click_to_add_new_word">Ji bo zêdekirina peyvek nû bikirtînin</string>
+    <string name="enter_word_hint">Gotina nû li vir binivîsin</string>
+    <string name="enter_abbreviation_hint">Kinkirî</string>
+    <string name="enter_abbreviation_target_hint">Hevoka tam</string>
+    <string name="toast_error_custom_path_backup">Çewtî: Her pêveka çarçoveyî dikare were vekirin</string>
+    <string name="about_additional_software_licenses">Lîsansên Nermalava Zêdetir</string>
+    <string name="setup_wizard_step_one_title">AnySoftKeyboard çalak bike</string>
+    <string name="setup_wizard_step_one_details">Di vê pêngavê de, hûn ê hewce ne ku bikin <i>
+        AnySoftKeyboard</i>. Ji kerema xwe <i>\'AnySoftKeyboard\'</i>  di ya te de
+<i>Ziman&amp;Beyan
+        mîhengên</i>. Ev ê dihêle em li ser cîhaza we bimeşin.
+    </string>
+    <string name="setup_wizard_step_one_action">Biçe mîhengên xwe yên<i>Ziman&amp;Têvedan</i>…
+    </string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Çewtî: Cîhaza te dike
+        piştgiriya klavyeyên partiya 3\' an nake. AnySoftKeyboard nikare were çalak kirin!
+    </string>
+    <string name="setup_wizard_step_permissions_title">Destûrnedanan çalak bike</string>
+    <string name="setup_wizard_step_two_title">Biguherîne AnySoftKeyboard</string>
+    <string name="setup_wizard_step_two_details">Pergala we dikare niha <i>AnySoftKeyboard</i> bikar bîne, lê
+        wekî klavyeya çalak nayê danîn.\nBi guherîna, <i>AnySoftKeyboard</i> dê bibe ya te ya nû
+        klavyeya li ser ekranê, tevî hemû taybetmendiyên wê!
+    </string>
+    <string name="setup_wizard_step_two_action">Klavyeyên çalak biguherîne</string>
+    <string name="setup_wizard_step_three_title">Ya dî çi ye</string>
+    <string name="setup_wizard_step_three_details">Spas ji bo hilbijartina <i>AnySoftKeyboard</i>.
+    </string>
+    <string name="setup_wizard_step_three_details_done"><b>Hûn hatine kirin 🎉\nGo ji bo ku hûn wê biceribînin biceribînin.</b>
+    </string>
+    <string name="setup_wizard_step_three_details_actions">An jî , hûn dikarin taybetû û kesane bikin
+        klavyeya liqên xwe:
+    </string>
+    <string name="setup_wizard_step_three_action_languages">Zimanên damezîne…</string>
+    <string name="setup_wizard_step_three_action_themes">Tema hilbijêre…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Her tiştên din vehewîne…</string>
+    <string name="setup_wizard_step_download_title">Pakêtên Zimên Dakêşin</string>
+    <string name="setup_wizard_step_download_details">Tu yê kêfxweş bibî ku <i>AnySoftKeyboard</i> bi dehan zimanan piştgirî dike. Tenê ziman-pakêta daxwazkirî dakêşin û kêfa xwe li nivîsandinê bistînin
+        di cîhaza te de her zimanek heye.</string>
+    <string name="setup_wizard_step_download_action">Pakêta ziman dakêşe</string>
+    <string name="setup_wizard_step_download_skip_action">Derbas bûn</string>
+    <string name="ime_crashed_text">Mixabin, pirsgirêkek bi <i>AnySoftKeyboard </i>.
+        Panîk neke, tiştekî ku <b>tu</b> ji bo çareserkirina vê yekê bike heye: qezayê ji me re bişîne
+        rapor bikin, û em ê ji bo çareserkirina vê qezayê û vegerîna te bi klavyeyeke ecêb bikin
+        tecrûbe!\n\nBi lêborîna ji dil, tîma Dev.</string>
+    <string name="ime_crashed_send_button">Bişîne</string>
+    <string name="ime_crashed_cancel_button">Betal</string>
+    <string name="ime_crashed_intent_selector_title">Bi rêya raporên qezayê bişîne</string>
+    <string name="next_word_dict_settings">Mîhengên Peyvê Pêş</string>
+    <string name="next_word_settings_group">Sazkarî</string>
+    <string name="next_word_stats_group">Statîstîkên Bikaranîna Peyvên Din</string>
+    <string name="next_words_statistics_count">Peyva pêşîn:\u0020<xliff:g id="first_word">%d</xliff:g>\nJimareya bêjeya navînî ya navîn:\u0020<xliff:g id="second_word">%d</xliff:g></string>
+    <string name="next_words_statistics_no_usage">Hîn karanîn tune. Hinekî din jî binivîse.</string>
+    <string name="clipboard_is_empty_toast">Panel vala ye, tiştek tune ku were zeliqî kirin.</string>
+    <string name="clipboard_copy_done_toast">Nivîsara bijartî li panelê hate kopî kirin.</string>
+    <string name="clipboard_paste_entries_title">Nivîsarê hilbijêrin da ku bavêjin</string>
+    <string name="next_word_prefs_clear_data">Daneyên peyva paşîn paqij bikin</string>
+    <string name="next_word_prefs_clear_data_summary">Ev bêveger e. Dê hemî dîroka nivîsandina we paqij bibe.</string>
+    <string name="notification_read_contacts_title">Ma ez dikarim têkiliyên we bixwînim?</string>
+    <string name="notification_read_contacts_text">Em hewce ne ku têkiliyên we bixwînin da ku ezmûnek çêtir çêkirina otomotîkê bidin we.</string>
+    <string name="wizard_allow_contacts_permission">Destûrê bide pêşniyarên tîpkirina têkiliyan</string>
+    <string name="turn_off_contacts_dictionary">Ferhenga Têkiliyan Veke</string>
+    <string name="read_more_about_permissions">Li ser destûrên bêtir bixwînin…</string>
+    <string name="ask_beta_link_promo">Hey! Dixwazî tiştên nû <i>AnySoftKeyboard</i> zûtir bikî? Piştre
+        tu di bextê xwe de yî! <i>BETA</i> niha ji bo <b>YOU</b>!\nTenê li ser tomar bike
+        lînka jêrîn, û bi rêya <i>Google Play</i> app store!\n\n rojane bike
+        https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nÛ Spas ji bo
+        berî ku bigihîjin gel, alîkariya kuştina kêzikan dikin.</string>
+    <string name="clipboard_fine_select_enabled_toast">Bijartina-nivîsar çalak e. Tîrên çep/rast bi kar bîne.</string>
+    <string name="app_shortcut_keyboards_disabled">Navîgasyona klavyeyê neçalak e</string>
+    <string name="app_shortcut_keyboards_long_label">Ji bo bikaranînê rêza klavyeyê hilbijêre</string>
+    <string name="app_shortcut_keyboards_short_label">Klavyeya</string>
+    <string name="app_shortcut_themes_disabled">Navîgasyona temayan neçalak e</string>
+    <string name="app_shortcut_themes_long_label">Ji bo bikaranînê tema nîskê hilbijêre</string>
+    <string name="app_shortcut_themes_short_label">Tema</string>
+    <string name="app_shortcut_gestures_disabled">Navîgasyona tevgerên seqet bû</string>
+    <string name="app_shortcut_gestures_long_label">Tevgerên klavyeyê saz bikin</string>
+    <string name="app_shortcut_gestures_short_label">Tevgerên</string>
+    <string name="app_shortcut_quick_keys_disabled">Navîgasyona sazkirinê ya emojî neçalak e</string>
+    <string name="app_shortcut_quick_keys_long_label">Emojî saz bikin</string>
+    <string name="app_shortcut_quick_keys_short_label">Emojî saz bikin</string>
+    <string name="extension_keyboard_enabled_off_summary">Klavyeya pêvekê nayê sekinandin.</string>
+    <string name="extension_keyboard_enabled_on_summary">Dema ku hûn li jorê klavyeyê hilkişin dê klavyeya pêvekê were nîşandan.</string>
+    <string name="read_our_privacy_policy">Polîtîkaya Mezin a Me bixwînin…</string>
+    <string name="visit_our_web_site">Malpera me ziyaret bike…</string>
+    <string name="keyboard_for_url_fields">Rêzkirin ji bo zeviyên URL</string>
+    <string name="keyboard_for_url_fields_summary">Dema ku di nav zeviyên URL/E-nameyê de be, ev verastkirin dê were bikar anîn. Naha, %s</string>
+    <string name="keyboard_for_url_fields_title">Ji bo têketina URL yê rêzikek hilbijêrin</string>
+    <string name="no_internet_fields_specific_layout">Netû</string>
+    <string name="bottom_nav_home">Slav</string>
+    <string name="setup_wizard_welcome_title">Hûn bi xêr hatin!</string>
+    <string name="setup_wizard_welcome_sub_title">Spas dikim ku we ceribandinek da AnySoftKeyboard!
+    </string>
+    <string name="setup_wizard_welcome_info">Wekî din klavyeya Androidê, ji we re lazim e ku
+        di rûpelên Mîhengên Android ê de AnySoftKeyboard çalak bike. Ev ji hêla Android ve tê xwestin ku pê ewle bike ku
+        daneyên te yên nivîsandî ji hêla klavyeyên xerab *ve nayê dizîn.
+    </string>
+    <string name="setup_wizard_welcome_info_2">Baş e, amade ye? ji bo destpêkê li jêr bitikin, ez ê bi rêya vê rêberiya te bikim.</string>
+    <string name="setup_wizard_welcome_start_action">Dest bi amadekirinê bike…</string>
+    <string name="setup_wizard_welcome_info_footnote">* Helbet, AnySoftKeyboard ne xerab e. Tu
+        tên teşwîqkirin ku li koda me ya çavkaniyê binêrin û vê yekê piştrast bikin. Wekî din, tora me ya <i>tune ye
+        </i>, ji ber vê yekê em nikarin daneyên ji cîhazê bişînin.
+    </string>
+    <string name="setup_wizard_welcome_privacy_action">Biçe Polîtîkaya Nepenîtiyê…</string>
+    <string name="setup_wizard_skip">Hilperkîn</string>
+    <string name="clear_all_dictionary_override">Nederbasbar paqij bikin</string>
+    <string name="theme_case_type_override_dialog_title">Hilbijartina name-doz hilbijêrin</string>
+    <string name="theme_case_type_override_theme">Rûbara tema bi kar bîne</string>
+    <string name="theme_case_type_override_os">Bila Android biryar bide (Bixweber)</string>
+    <string name="theme_case_type_override_lower">Her dem wekî pûlên bijare</string>
+    <string name="theme_case_type_override_upper">Her dem tîpên mezin</string>
+    <string name="settings_hint_size">Mezinahiya etîketa tipê</string>
+    <string name="settings_key_hint_size_summary">Li ser klavyeyê mezinahiya tipê diyar bike. Niha, %s</string>
+    <string name="settings_key_hint_size_none">Netû</string>
+    <string name="settings_key_hint_size_small">Biçûk</string>
+    <string name="settings_key_hint_size_normal">Asayî</string>
+    <string name="settings_key_hint_size_big">Mezin</string>
+    <string name="theme_case_type_override_title">Mezinahiya tîpa klavyeyê nederbasbar bike</string>
+    <string name="theme_case_type_override_summary">Di dîtina klavyeyê de tîpên çawa dikarin bên diyarkirin. Niha, %s</string>
+    <string name="take_a_while_progress_message">Dibe ku ev demek dirêj bike…</string>
+    <string name="shared_prefs_provider_name">Sazkariyên Sepanê</string>
+    <string name="user_dict_prefs_provider">Bêjeyên Bikarhêner</string>
+    <string name="next_word_dict_prefs_provider">Peyvên din</string>
+    <string name="abbreviation_dict_prefs_provider">Kurtekirin</string>
+    <string name="pick_prefs_providers_to_backup">Tu dixwaze çi paşkeft bike?</string>
+    <string name="pick_prefs_providers_to_restore">Tu dixwaze çi nûsaz bike?</string>
+    <string name="prefs_providers_operation_success">Serkeftî</string>
+    <string name="prefs_providers_operation_failed">Têkçûyî!</string>
+    <string name="prefs_providers_failed_backup_due_to">Ji ber %sê paşkeftkirina daneya te têk çû</string>
+    <string name="prefs_providers_backed_up_to">Bi serkeftî daneya te li %sê hate paştkeftkirin</string>
+    <string name="prefs_providers_failed_restore_due_to">Ji ber %sê nûsazkirina daneyên te têk çû</string>
+    <string name="prefs_providers_restored_to">Daneya te bi serkeftî ji %sê hate nûsazkirin</string>
+    <string name="allow_layouts_to_provide_generic_rows">Klavye dikarin rêzên gelemperî peyda bikin</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Her dem rêzên gelemperî yên hilbijartî bi kar bîne.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Destûr bide nîskan ku rêzên gelemperî di ser de binivîse.</string>
+    <string name="gesture_typing_settings">Bi Tevger-binivîse ➿</string>
+    <string name="gesture_typing_summary">Bi rêya nameyên xwe tiliya xwe bistirê, peyvekê têde binivîse.</string>
+    <string name="gesture_typing_action">Nivîsandina tevgerê çalak bike [BETA]</string>
+    <string name="gesture_typing_alert_title">Taybetmendiya BETA!</string>
+    <string name="gesture_typing_alert_message">Taybetmendiya nivîsandina-tevgerê ➿ taybetmendî <b>beta</b> ye. Hin çewtiyên hene, ew ne ew zû ye, û ew ne ew e ku temam e.\nHealthing, divê hûn biceribînin.</string>
+    <string name="gesture_typing_alert_button">Min ew girt</string>
+    <string name="undo_gesture_typing">Tîpkirina tevgerê betal bike</string>
+    <string name="apply_remote_app_colors_to_theme">Rengên dirbê li gor sepanên hatine bikaranîn biguherîne</string>
+    <string name="apply_overlay_summary_on">Rengên Klavyeyê dê li gorî vê sepanê çalak bin (ji bo me ya herî baş).</string>
+    <string name="apply_overlay_summary_off">Rengên dirbê her dem bi kar bîne.</string>
+    <string name="media_insertion_pending_message">Ji bo xistina wêneyê qutiya nivîsê bikirtînin</string>
+    <string name="aosp_dark_theme_name">Tema Reş a AOSP</string>
+    <string name="aosp_dark_theme_description">Tema klavyeya rengên tarî ya AOSP-Inspired</string>
+    <string name="aosp_light_theme_name">Tema Ronahiya AOSP</string>
+    <string name="aosp_light_theme_description">Tema klavyeya rengên ronahiyê a AOSP</string>
+    <string name="app_share_title">Silav ji AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Bikaranîna AnySoftKeyboard parve bike</string>
+    <string name="app_share_text">Bila ez pêşniyara çavkaniya vekirî, nepenî-fokus, belaş, pir taybetmendî, pir zimanî Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">ji bo surprîzekê bitikîne</string>
+    <string name="backup_restore_not_support_before_kitkat">Li ser Android-ya we nayê piştgirî kirin</string>
+    <string name="backup_restore_not_support_before_kitkat_message">Ji bo cîhazên ku berê KitKat-ê (guhertoya 4.4) OS-ya Android-ê dixebitînin, paşvekêşandin û vegerandin nayê piştgirî kirin. Bibore.</string>
+    <string name="delete_all_clipboard_entries">Valakirin</string>
+    <string name="tip_swipe_from_backspace_to_clear">Serişte: hûn dikarin ji paşperdeya çepê swip bikin da ku peyvê paqij bikin!</string>
+</resources>

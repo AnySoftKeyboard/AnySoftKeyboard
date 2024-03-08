@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_permission">Engedélyezés</string>
+    <string name="contacts_permissions_rationale">Az AnySoftKeyboard használja a névjegyeit,
+        hogy személyre szabott szójavaslatot nyújthassunk: 
+a szó beírása közben keresünk
+        hasonló szavakat a gépelés közbeni automatikus kiegészítéshez és javításhoz.
+    </string>
+    <string name="notifications_permissions_rationale">Előfordulhat, hogy az AnySoftKeyboard-nak értesítenie kell Önt a kritikus problémákról (például hiányzó engedélyekről vagy összeomlásokról).</string>
+</resources>

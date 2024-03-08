@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="ime_crashed_title">O AnySoftKeyboard bloqueou!</string>
+    <string name="ime_crashed_content">O AnySoftKeyboard teve uma falha de sistema. Não estava à espera disto…</string>
+</resources>
