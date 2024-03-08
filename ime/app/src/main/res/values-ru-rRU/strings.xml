@@ -543,7 +543,7 @@
     <string name="setup_wizard_step_three_details_done"><b>Готово 🎉\nПерейдите в Ваше любимое приложение чтобы попробовать.</b></string>
     <string name="setup_wizard_step_three_details_actions">Или вы можете настроить и персонализировать клавиатуру по своему вкусу:</string>
     <string name="setup_wizard_step_three_action_languages">Установка языков…</string>
-    <string name="setup_wizard_step_three_action_themes">Выбрать тему...</string>
+    <string name="setup_wizard_step_three_action_themes">Выбрать тему…</string>
     <string name="setup_wizard_step_three_action_all_settings">Персональные настройки…</string>
     <string name="setup_wizard_step_download_title">Скачать языковые пакеты</string>
     <string name="setup_wizard_step_download_details">Вы будете рады узнать, что <i>AnySoftKeyboard</i> поддерживает десятки языков. Просто загрузите нужный языковой пакет и наслаждайтесь печатанием на любом языке вашего устройства.</string>

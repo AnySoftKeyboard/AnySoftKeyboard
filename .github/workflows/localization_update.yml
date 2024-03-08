@@ -46,6 +46,10 @@ jobs:
           config: crowdin.yml
       - name: Update force-locale list
         run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
+      - name: Fix resource files special characters
+        run: |
+          echo "fixing ellipsis character..."
+          find . -type f -name "strings.xml" -exec sed -i 's/\.\.\./…/g' {} \;
       - name: fix git safe dir
         run: git config --global --add safe.directory "${PWD}"
       - name: Create pull request
