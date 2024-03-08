@@ -41,3 +41,8 @@ files:
     dest: /pixel_strings.xml
     type: android
     update_option: update_without_changes
+  - source: /addons/base/apk/src/main/res/values/strings.xml
+    translation: /addons/base/apk/src/main/res/values-%android_code%/strings.xml
+    dest: /addons_apk_strings.xml
+    type: android
+    update_option: update_without_changes
