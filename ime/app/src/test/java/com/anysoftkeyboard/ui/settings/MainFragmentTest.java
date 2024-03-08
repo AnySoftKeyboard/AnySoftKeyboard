@@ -29,6 +29,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -127,15 +129,14 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     Assert.assertNotNull(changeLogCard);
     final TextView title = changeLogCard.findViewById(R.id.changelog_version_title);
     Assert.assertNotNull(title);
+    String actual = title.getText().toString().trim();
+    var matchRegex =
+        getApplicationContext()
+            .getString(R.string.change_log_card_version_title_template, ".+")
+            .trim();
     Assert.assertTrue(
-        title
-            .getText()
-            .toString()
-            .trim()
-            .startsWith(
-                getApplicationContext()
-                    .getString(R.string.change_log_card_version_title_template, "")
-                    .trim()));
+        String.format(Locale.ROOT, "'%s' should match with '%s'", actual, matchRegex),
+        Pattern.matches(matchRegex, actual));
     Assert.assertEquals(View.VISIBLE, title.getVisibility());
   }
 
