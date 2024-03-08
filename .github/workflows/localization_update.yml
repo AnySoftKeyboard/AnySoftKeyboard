@@ -33,7 +33,7 @@ jobs:
           upload_sources: true
           upload_translations: false
           download_translations: false
-          config: crowdin.cfg
+          config: crowdin.yml
       - name: Crowdin pull
         uses: crowdin/github-action@v1
         with:
@@ -42,7 +42,7 @@ jobs:
           download_translations: true
           create_pull_request: false
           push_translations: false
-          config: crowdin.cfg
+          config: crowdin.yml
       - name: Update force-locale list
         run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
       - name: fix git safe dir

@@ -1,0 +1,43 @@
+---
+project_id: 356
+api_token_env: CROWDIN_PERSONAL_TOKEN
+base_path: .
+base_url: https://api.crowdin.com
+preserve_hierarchy: true
+
+files:
+  - source: /ime/app/src/main/res/values/strings.xml
+    translation: /ime/app/src/main/res/values-%android_code%/strings.xml
+    dest: /strings.xml
+    type: android
+    update_option: update_without_changes
+  - source: /ime/remote/src/main/res/values/strings.xml
+    translation: /ime/remote/src/main/res/values-%android_code%/strings.xml
+    dest: /remote_strings.xml
+    type: android
+    update_option: update_without_changes
+  - source: /ime/addons/src/main/res/values/strings.xml
+    translation: /ime/addons/src/main/res/values-%android_code%/strings.xml
+    dest: /addons_strings.xml
+    type: android
+    update_option: update_without_changes
+  - source: /ime/chewbacca/src/main/res/values/strings.xml
+    translation: /ime/chewbacca/src/main/res/values-%android_code%/strings.xml
+    dest: /chewbacca_strings.xml
+    type: android
+    update_option: update_without_changes
+  - source: /ime/releaseinfo/src/main/res/values/strings.xml
+    translation: /ime/releaseinfo/src/main/res/values-%android_code%/strings.xml
+    dest: /releaseinfo_strings.xml
+    type: android
+    update_option: update_without_changes
+  - source: /ime/permissions/src/main/res/values/strings.xml
+    translation: /ime/permissions/src/main/res/values-%android_code%/strings.xml
+    dest: /permissions_strings.xml
+    type: android
+    update_option: update_without_changes
+  - source: /ime/pixel/src/main/res/values/strings.xml
+    translation: /ime/pixel/src/main/res/values-%android_code%/strings.xml
+    dest: /pixel_strings.xml
+    type: android
+    update_option: update_without_changes
