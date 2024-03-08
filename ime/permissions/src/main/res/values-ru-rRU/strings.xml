@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="allow_permission">Разрешить</string>
     <string name="contacts_permissions_rationale">AnySoftKeyboard использует ваши контакты
         имена, чтобы предоставить вам персонализированное предложение слов: когда вы вводите слово, мы ищем
