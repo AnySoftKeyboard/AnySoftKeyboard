@@ -13,6 +13,7 @@ on:
     paths:
       - '**/res/values/strings.xml'
       - '.github/workflows/localization_update.yml'
+      - 'crowdin.yml'
 
 env:
   TERM: dumb
