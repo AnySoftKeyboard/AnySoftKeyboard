@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_permission">Consenti</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard sta usando i nomi dei tuoi contatti per fornirti il suggerimento personalizzato di parole: mentre scrivi una parola, cerchiamo parole simili per completare e correggere automaticamente la tua digitazione.</string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboard potrebbe aver bisogno di avvisarti per problemi critici (come autorizzazioni mancanti o arresti anomali).</string>
+</resources>

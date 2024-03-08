@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_permission">Erlauben</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard verwendet die Namen
+        deiner Kontakte, um dir personalisierte Wortvorschläge zu bieten: Wenn du ein Wort eingibst, suchen wir nach
+        ähnlichen Wörtern, um deine Eingabe automatisch zu vervollständigen und zu korrigieren.
+    </string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboard muss dich möglicherweise über kritische Probleme informieren (wie fehlende Berechtigungen oder Abstürze).</string>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="language_root_tile">ଭାଷା</string>
+    <!-- UI root menu -->
+    <!-- welcome -->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <!-- voice -->
+    <string name="voice_input_not_installed_action_install">ଇନଷ୍ଟଲ୍ କରିବା</string>
+    <string name="voice_input_not_installed_action_do_not_install">ନାହିଁ</string>
+    <!-- Options menu -->
+    <!-- Dictionary override strings -->
+    <!-- Dictionary override toast messages -->
+    <!-- settings - effects-->
+    <string name="gesture_settings">ଅଙ୍ଗଭଙ୍ଗୀ</string>
+    <string name="switch_incognito"> ଅପରିଚିତ ମୋଡ୍</string>
+    <string name="night_mode_type_follow_system">ସିଷ୍ଟମ୍‌କୁ ଅନୁସରଣ କରିବା</string>
+    <string name="night_mode_type_always">ସର୍ଵଦା</string>
+    <string name="power_save_mode_types_always">ସର୍ଵଦା</string>
+    <string name="swipe_up_action">ଉପରକୁ ସ୍ଵାଇପ୍ କଲେ</string>
+    <string name="swipe_down_action">ତଳକୁ ସ୍ଵାଇପ୍ କଲେ</string>
+    <string name="swipe_left_action">ବାମକୁ ସ୍ଵାଇପ୍ କଲେ</string>
+    <string name="swipe_right_action">ଡାହାଣକୁ ସ୍ଵାଇପ୍ କଲେ</string>
+    <string name="swipe_action_name_none">କିଛି କରନ୍ତୁନି</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">ବନ୍ଦ</string>
+    <string-array name="custom_hint_align_types">
+        <item>ବାମ</item>
+        <item>କେନ୍ଦ୍ର</item>
+        <item>ଡାହାଣ</item>
+    </string-array>
+    <string name="grammar_group">ବ୍ୟାକରଣ</string>
+    <string name="keyboard_behavior_group">କୀବୋର୍ଡ୍ ଆଚରଣ</string>
+    <!-- settings - keyboard group -->
+    <string name="symbols_phone_keyboard">ଫୋନ୍</string>
+    <string name="symbols_time_keyboard">ସମୟ</string>
+    <string name="keyboard_change_locked">ପ୍ର/ନୁ</string>
+    <!-- settings - quick text keys -->
+    <!-- settings - top generic row -->
+    <!-- settings - bottom generic row -->
+    <string name="keyboard_theme_list_title">ଥିମ୍ ଚୟନ କରନ୍ତୁ</string>
+    <!-- extension keyboard type -->
+    <!-- Tutorials -->
+    <!-- Special soft keyboard keys text -->
+    <string name="label_done_key">ହେଲା</string>
+    <string name="label_home_key">ଗୃହ</string>
+    <!-- dictionaries -->
+    <string name="history_quick_text_key_name">ଇତିଵୃତ୍ତି</string>
+    <string name="unicode_gestures_quick_text_key_name">ଅଙ୍ଗଭଙ୍ଗୀ</string>
+    <string name="unicode_food_quick_text_key_name">ଖାଦ୍ୟ</string>
+    <string name="unicode_nature_quick_text_key_name">ପ୍ରକୃତି</string>
+    <string name="unicode_city_quick_text_key_name">ସହର</string>
+    <string name="unicode_activity_quick_text_key_name">ଗତିବିଧି</string>
+    <!-- User dictionary settings -->
+    <string name="user_dictionary_select_locale">ଭାଷା:</string>
+    <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <!-- abbreviations editor -->
+    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
+    <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="emoji_default_gender_value_person">ବ୍ୟକ୍ତି</string>
+    <string name="emoji_default_gender_value_woman">ମହିଳା</string>
+    <string name="emoji_default_gender_value_man">ପୁରୁଷ</string>
+    <string name="not_configured_with_just_click_here">ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_add_word">ଶବ୍ଦ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="word_editor_action_backup_words">ବ୍ୟାକଅପ୍</string>
+    <string name="word_editor_action_restore_words">ପୁନରୁଦ୍ଧାର</string>
+    <string name="click_to_add_new_word">ଗୋଟେ ନୂଆ ଶବ୍ଦ ଯୋଡ଼ିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ</string>
+    <string name="enter_word_hint">ନୂଆ ଶବ୍ଦଟି ଏଠାରେ ଟାଇପ୍ କରନ୍ତୁ</string>
+    <string name="enter_abbreviation_target_hint">ସମ୍ପୂର୍ଣ୍ଣ ବାକ୍ୟ</string>
+    <string name="setup_wizard_step_three_action_themes">ଥିମ୍ ଚୟନ କରିବା…</string>
+    <string name="setup_wizard_step_download_skip_action">ବାଦ୍ ଦିଅ</string>
+    <string name="ime_crashed_send_button">ପଠାନ୍ତୁ</string>
+    <string name="ime_crashed_cancel_button">ବାତିଲ୍ କର</string>
+    <string name="read_more_about_permissions">ଅନୁମତିଗୁଡ଼ିକ ବିଷୟରେ ଅଧିକ ପଢ଼ନ୍ତୁ…</string>
+    <string name="app_shortcut_themes_short_label">ଥିମ୍</string>
+    <string name="app_shortcut_gestures_short_label">ଅଙ୍ଗଭଙ୍ଗୀ</string>
+    <string name="read_our_privacy_policy">ଆମର ଗୋପନୀୟତା ନୀତି ପଢ଼ନ୍ତୁ…</string>
+    <string name="bottom_nav_home">ନମସ୍କାର</string>
+    <string name="setup_wizard_welcome_title">ସ୍ୱାଗତ!</string>
+    <string name="settings_key_hint_size_small">ଛୋଟ</string>
+    <string name="settings_key_hint_size_normal">ସାଧାରଣ</string>
+    <string name="settings_key_hint_size_big">ବଡ଼</string>
+    <string name="prefs_providers_operation_failed">ବିଫଳ ହେଲା!</string>
+    <string name="gesture_typing_alert_button">ବୁଝିଗଲି</string>
+    <string name="aosp_dark_theme_name">AOSP ଗାଢ଼ ଥିମ୍</string>
+    <string name="aosp_light_theme_name">AOSP ହାଲୁକା ଥିମ୍</string>
+</resources>

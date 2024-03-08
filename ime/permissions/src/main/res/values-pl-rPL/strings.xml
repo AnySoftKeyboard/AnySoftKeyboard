@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allow_permission">Zezwól</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard używa nazw twoich kontaktów,
+         aby dostarczyć spersonalizowane sugestie: gdy wpisujesz słowo, szukamy
+        podobnych słów w kontaktach i używamy ich do automatycznego uzupełniania oraz korekty.
+    </string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboard może wymagać powiadomienia o krytycznych problemach (takich jak brak uprawnień lub awarie).</string>
+</resources>

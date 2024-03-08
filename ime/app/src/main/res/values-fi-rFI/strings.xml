@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="debug_tracing_starting">Seuranta aloitettu!\nVarmista, että pysäytät sen jossain vaiheessa</string>
+    <string name="debug_tracing_starting_failed">Seurannan käynnistäminen epäonnistui!
+        Katso lisätiedot Logcatista.
+    </string>
+    <string name="debug_tracing_finished">Seuranta päättyi!\nSeurantatiedosto on\u0020<xliff:g id="trace_file">%s</xliff:g></string>
+    <string name="menu_about_item">Tietoja</string>
+    <string name="how_to_pointer_title">Tervetuloa käyttämään AnySoftKeyboardia</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Viimeisimmät muutokset v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">More:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">Tämä on beta-versio. Käytä varoen!</string>
+    <string name="testers_version">Versio testaajille!</string>
+    <string name="language_root_tile">Kieli</string>
+    <string name="language_keyboards_settings_tile">Ota käyttöön näppäimistöt ja kielet.</string>
+    <string name="language_grammar_settings_tile">Hallitse korjauksen käyttäytymistä ja muita sanastoja.</string>
+    <string name="language_tweaks_settings_tile">Hienosäädöt ja muuta.</string>
+    <!-- UI root menu -->
+    <string name="ui_root_tile">UI</string>
+    <string name="ui_theme_settings_tile">Valitse ja määritä näppäimistön teemoja.</string>
+    <string name="ui_effects_settings_tile">Näppäimistön tehosteet ja kokemus.</string>
+    <!-- welcome -->
+    <string name="search_market_for_keyboard_addons">Hae lisää näppäimistöjä Kaupasta</string>
+    <string name="search_market_for_quick_key_addons">Hanki lisää  <i>Pikateksti</i>-lisäosia sovelluskaupasta…</string>
+    <string name="keyboard_theme_tweak_group">Hienosäädöt</string>
+    <string name="delete_button">Poista</string>
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Tallennettu:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
+    <string name="revert_added_word_question">Poista\?</string>
+    <string name="removed_word">Poistettu:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
+    <string name="hint_add_to_dictionary">\u2190 Kosketa uudelleen tallentaaksesi</string>
+    <string name="hint_double_tap_to_close">Napauta uudelleen poistaaksesi ehdotukset</string>
+    <!-- voice -->
+    <string name="voice_input_not_installed_title">Ääntä ei ole asennettu</string>
+    <string name="voice_input_not_installed_text">Äänisyötteitä ei ole asennettu laitteeseen.\nTämä on helposti korjattu: asenna ne Kaupasta.</string>
+    <string name="voice_input_not_installed_action_install">Asenna</string>
+    <string name="voice_input_not_installed_action_do_not_install">Ei</string>
+    <string name="voice_input_not_voice_pack_in_market">Äänen syöttöä ei löytynyt
+        (com.google.android.voicesearch) sovelluskaupasta. Valitettavasti äänisyöte ei toimi 
+        laitteellasi.
+    </string>
+    <!-- Options menu -->
+    <string name="change_ime">Muuta syöttötapa</string>
+    <string name="override_dictionary">Kumoa oletussanakirja</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Ohita\u0020<xliff:g id="word">%s</xliff:g>\u0020sanakirja</string>
+    <!-- Dictionary override toast messages -->
+    <!-- settings - effects-->
+    <string name="gesture_settings">Eleet</string>
+    <string name="effects_group">Efektit</string>
+    <string name="ime_settings">Näppäimistön asetukset</string>
+    <string name="switch_incognito">Incognito-tila</string>
+    <string name="use_system_vibration_title">Käytä järjestelmän värinää</string>
+    <string name="use_system_vibration_off_summary">Käytä mukautettua värinäasetusta</string>
+    <string name="vibrate_on_key_press_title">Värinä painettaessa</string>
+    <string name="vibrate_on_key_press_value_template">%d millisekuntia</string>
+    <string name="night_mode_screen">Yötilan asetukset</string>
+    <string name="night_mode_description">Yötila muuttaa näitä ominaisuuksia:</string>
+    <string name="night_mode_dialog_title">Ota yötila käyttöön</string>
+    <string name="night_mode_type_never">Ei koskaan</string>
+    <string name="night_mode_type_follow_system">Järjestelmän teema</string>
+    <string name="night_mode_type_always">Aina</string>
+    <string name="night_mode_darken_keyboard_theme">Tummenna näppäimistön teema</string>
+    <string name="night_mode_sound_control">Poista näppäinäänet käytöstä</string>
+    <string name="night_mode_vibration_control">Poista painalluksen värinä käytöstä</string>
+    <string name="power_save_mode_screen">Virransäästöasetukset</string>
+    <string name="power_save_mode_description">Virransäästötila vähentää AnySoftKeyboardin virrankulutusta poistamalla käytöstä seuraavat ominaisuudet:</string>
+    <string name="power_save_mode_dialog_title">Ota virransäästötila käyttöön</string>
+    <string name="power_save_mode_types_never">Ei koskaan</string>
+    <string name="power_save_mode_types_lower_battery">Alhainen lataustaso</string>
+    <string name="power_save_mode_types_always">Aina</string>
+    <string name="power_saving_keyboard_theme_name">Virransäästötilan teema</string>
+    <string name="power_saving_keyboard_theme_description">Tummat värit, yksinkertainen asettelu, joka voi viedä vähemmän virtaa laitteesta.</string>
+    <string name="power_save_mode_animation_control">Ota animaatiot ja näppäinten esikatselut pois käytöstä</string>
+    <string name="power_save_mode_sound_control">Poista näppäinäänet käytöstä</string>
+    <string name="power_save_mode_vibration_control">Poista painalluksen värinä käytöstä</string>
+    <string name="power_save_mode_suggestions_control">Poista sanaehdotukset käytöstä</string>
+    <string name="power_save_mode_gesture_typing_control">Poista elekirjoitus käytöstä</string>
+    <string name="power_save_mode_theme_control">Vaihda tummaan, yksinkertaiseen teemaan</string>
+    <string name="pop_text_type_never">Ei koskaan</string>
+    <string name="input_field_type_password">Salasanan syöttökenttä</string>
+    <string name="input_field_type_email">Sähköpostiosoitteen syöttökenttä</string>
+    <string name="input_field_type_url">URL-osoitteen syöttökenttä</string>
+    <string name="input_field_type_im">Viestien syöttökenttä</string>
+    <string name="sound_on">Näppäimistöäänet käytössä</string>
+    <string name="sound_on_summary">Ääniefektit käytössä ohjelmallista näppäimistöä käytettäessä.</string>
+    <string name="use_custom_sound_volume">Määritä mukautettu äänenvoimakkuus</string>
+    <string name="use_custom_sound_volume_on_summary">Ääniefektin voimakkuus on mukautettu.</string>
+    <string name="use_custom_sound_volume_off_summary">Ääniefektien äänenvoimakkuus on sama kuin järjestelmän ilmoitusten äänenvoimakkuus.</string>
+    <string name="custom_sound_volume">Mukauta näppäinpainalluksen ääntä</string>
+    <string name="vibrate_on_long_press_title">Värinä pitkällä painalluksella</string>
+    <string name="vibrate_on_long_press_summary_on">Kevyt värinä pitkän painalluksen toiminnossa.</string>
+    <string name="switch_keyboard_on_space">Välinäppäin vaihtaa näppäimmistöä</string>
+    <string name="switch_keyboard_on_space_on_summary">Vaihda symboleista/numeroista kirjaimiin välilyöntiä painamalla.</string>
+    <string name="switch_keyboard_on_space_off_summary">Älä vaihda symboleista/numeroista kirjaimiin välilyöntiä painamalla.</string>
+    <string name="colorize_nav_bar_title">Piirrä navigointipalkin taakse</string>
+    <string name="colorize_nav_bar_summary_on">Piirtää näppäimistön taustan navigointipalkin taakse. Kaikki laitteet eivät tue tätä.</string>
+    <string name="colorize_nav_bar_summary_off">Älä piirrä navigointipalkin taakse.</string>
+    <string name="persistent_layout_per_package_id_title">Muista yksilöllinen asettelu jokaiselle sovellukselle</string>
+    <string name="persistent_layout_per_package_id_off_summary">Käytä samaa asettelua kaikille sovelluksille.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Vaihda automaattisesti sovelluksessa aiemmin käytettyyn asetteluun.</string>
+    <string name="hide_soft_when_physical">Piilota näppäimistö laitteen näppäimellä</string>
+    <string name="hide_soft_when_physical_on_summary">Piilota näppäimistö, kun laitteen näppäimistöä käytetään</string>
+    <string name="hide_soft_when_physical_off_summary">Näytä ohjelmallinen näppäimistö, kun laitteen näppäimistöä käytetään</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Välilyönti vaihtaa kieliä</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Fyysisen näppäimistön Alt + Välilyönti vaihtaa seuraavaan saatavilla olevaan asetteluun</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Fyysisen näppäimistön Alt + Välilyönti lisää välilyönnin.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Välilyönti vaihtaa kieliä</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Fyysisen näppäimistön Shift + Välilyönti vaihtaa seuraavaan saatavilla olevaan asetteluun</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Fyysisen näppäimistön Shift + Välilyönti lisää välilyönnin.</string>
+    <string name="fullscreen_input_connection_supported">Käytä vaakasuuntaa täydellä näytöllä</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Älä käytä kokoruutu-tilaa vaaka-asennossa</string>
+    <string name="fullscreen_portrait_input_connection_supported">Käytä täyttä näyttöä pystyasennossa</string>
+    <string name="backword_support"> Taustakäännöstuki</string>
+    <string name="backword_support_on_summary">Vaihto+Askelpalautin poistaa viimeisen sanan</string>
+    <string name="backword_support_off_summary">Vaihto+Askelpalautin poistaa viimeisen merkin</string>
+    <string name="swipe_up_action">Hipaise ylös</string>
+    <string name="swipe_up_action_summary">Valitse pyyhkäisy ylös -toiminto. Tällä hetkellä, %s
+    </string>
+    <string name="swipe_up_action_title">Valitse hipaisu ylös -toiminto</string>
+    <string name="swipe_up_from_spacebar_action">Pyyhkäise välilyöntiä ylös</string>
+    <string name="swipe_down_action">Hipaise alas</string>
+    <string name="swipe_down_action_title">Valitse hipaisu alas -toiminto</string>
+    <string name="swipe_left_action">Hipaise vasemmalle</string>
+    <string name="swipe_left_action_title">Valitse hipaisu vasemmalle -toiminto</string>
+    <string name="swipe_right_action">Hipaise oikealle</string>
+    <string name="swipe_right_action_title">Valitse hipaisu oikealle -toiminto</string>
+    <string name="swipe_right_space_bar_action">Pyyhkäisy oikealle välilyöntinäppäimessä</string>
+    <string name="swipe_right_space_bar_action_title">Valitse toiminto oikealle pyyhkäisylle</string>
+    <string name="swipe_left_space_bar_action">Pyyhkäisy vasemmalle välilyöntinäppäimessä</string>
+    <string name="swipe_left_space_bar_action_title">Valitse toiminto vasemmalle pyyhkäisylle</string>
+    <string name="swipe_left_two_fingers_action">Kahden sormen pyyhkäisy vasemmalle</string>
+    <string name="swipe_left_two_fingers_action_summary">Määritä toiminto kahden sormen vasemmalle pyyhkäisylle. Tällä hetkellä %s </string>
+    <string name="swipe_right_two_fingers_action">Kahden sormen pyyhkäisy oikealle</string>
+    <string name="swipe_right_two_fingers_action_summary">Määritä toiminto kahden sormen oikealle pyyhkäisylle. Tällä hetkellä %s </string>
+    <string name="swipe_right_two_fingers_action_title">Valitse toiminto oikealle pyyhkäisylle</string>
+    <string name="pinch_gesture_action">Nipistysele</string>
+    <string name="pinch_gesture_action_title">Valitse nipistyseleen toiminto</string>
+    <string name="pinch_gesture_action_summary">Valitse nipistyseleen toiminto. Tällä hetkellä %s</string>
+    <string name="separate_gesture_action">Venytysele</string>
+    <string name="separate_gesture_action_title">Valitse venytyseleen toiminto</string>
+    <string name="separate_gesture_action_summary">Valitse venytyseleen toiminto. Tällä hetkellä %s</string>
+    <string name="swipe_action_name_none">Ei toimitoa</string>
+    <string name="swipe_action_name_next_alphabet">Seuraava aakkosnäppäimistö</string>
+    <string name="swipe_action_name_next_symbols">Seuraava symbolinäppäimistö</string>
+    <string name="swipe_action_name_next_inside_mode">Seuraava käytetyssä tilassa</string>
+    <string name="swipe_action_name_cycle_keyboards">Selaa näppäimistöjä</string>
+    <string name="swipe_action_name_reverse_cycle_keyboards">Selaa näppäimistöjä takaperin</string>
+    <string name="swipe_action_name_shift">Vaihto</string>
+    <string name="swipe_action_name_space">Välilyönti</string>
+    <string name="swipe_action_name_hide">Piilota näppäimistö</string>
+    <string name="swipe_action_name_backspace">Askelpalautin</string>
+    <string name="swipe_action_name_clear_input">Tyhjennä koko teksti</string>
+    <string name="swipe_action_name_cursor_up">Siirrä kohdistinta ylös</string>
+    <string name="swipe_action_name_cursor_down">Siirrä kohdistinta alas</string>
+    <string name="swipe_action_name_cursor_left">Siirrä kohdistinta vasemmalle</string>
+    <string name="swipe_action_name_cursor_right">Siirrä kohdistinta oikealle</string>
+    <string name="swipe_action_name_other_keyboards_mode">Vaihda asettelutilaa</string>
+    <string name="swipe_action_name_split_layout">Jaettu asettelu</string>
+    <string name="swipe_action_name_merge_layout">Yhdistä asettelu</string>
+    <string name="swipe_action_name_compact_layout_to_right">Tiivis asettelu oikealle</string>
+    <string name="swipe_action_name_compact_layout_to_left">Tiivis asettelu vasemmalle</string>
+    <string name="settings_swipe_velocity_threshold_title">Pyyhkäisyn nopeuden kynnys</string>
+    <string name="settings_swipe_velocity_threshold_summary">Pienin pyyhkäisynopeus. Tällä hetkellä %s</string>
+    <string name="settings_swipe_velocity_very_slow">Erittäin hidas</string>
+    <string name="settings_swipe_velocity_slow">Hidas</string>
+    <string name="settings_swipe_velocity_normal">Normaali</string>
+    <string name="settings_swipe_velocity_fast">Nopea</string>
+    <string name="settings_swipe_velocity_very_fast">Erittäin nopea</string>
+    <string name="settings_swipe_distance_threshold_title">Pyyhkäisyn etäisyyden kynnys</string>
+    <string name="settings_swipe_distance_threshold_summary">Pienin pyyhkäisyetäisyys. Tällä hetkellä %s</string>
+    <string name="settings_swipe_distance_very_short">Erittäin lyhyt</string>
+    <string name="settings_swipe_distance_short">Lyhyt</string>
+    <string name="settings_swipe_distance_normal">Normaali</string>
+    <string name="settings_swipe_distance_long">Pitkä</string>
+    <string name="settings_swipe_distance_very_long">Erittäin pitkä</string>
+    <string name="hardware_keys_group">Laitteistonäppäinten asetukset</string>
+    <string name="volume_key_for_left_right_support">Äänenvoimakkuus vasen/oikea-näppäimillä</string>
+    <string name="volume_key_for_left_right_support_on_summary">Poista äänensäätö vasen/oikea</string>
+    <string name="more_ui_settings_group">Käyttöliittymä</string>
+    <string name="special_dictionaries_group">Erikoissanakirjat</string>
+    <string name="use_user_dictionary">Käyttäjän sanasto</string>
+    <string name="use_auto_dictionary">Automaattinen sanasto</string>
+    <string name="use_auto_dictionary_dialog_title">Valitse oppimismenetelmä</string>
+    <string name="use_auto_dictionary_summary">Opi sanoja automaattisesti. Oppimismenetelmä: %s</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">Hetken käytön jälkeen</string>
+    <string name="auto_dictionary_threshold_type_immediately">Heti kirjoituksen jälkeen</string>
+    <string name="auto_dictionary_threshold_type_off">Älä opi uusia sanoja</string>
+    <string name="use_next_words_dictionary">Seuraavan sanan ehdotukset</string>
+    <string name="next_words_dictionary_off">Älä ehdota seuraavaa sanaa</string>
+    <string name="next_words_dictionary_words_only">Ehdota seuraavia sanoja</string>
+    <string name="next_words_dictionary_words_punctuations">Ehdota seuraavia sanoja ja välimerkkejä</string>
+    <string name="next_words_dictionary_summary">Käytä edellistä sanaa ehdotusten tekemiseen: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Näytä monta ehdotusta</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Pois</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Vähäinen aggressiivisuus</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Keskikorkea aggressiivisuus</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">Korkea aggressiivisuus</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Erittäin korkea aggressiivisuus</string>
+    <string name="use_contacts_dictionary">Yhteystietojen sanasto</string>
+    <string name="use_contacts_dictionary_on_summary">Ehdota nimiä yhteystietoluettelosta</string>
+    <string name="tweaks_group">Hienosäädöt</string>
+    <string name="tweak_sound_group">Ääneen liittyvät hienosäädöt</string>
+    <string name="tweak_physical_keyboard_group">Fyysisen näppäimistön hienosäädöt</string>
+    <string name="tweak_ui_group">Graafiset hienosäädöt</string>
+    <string name="tweak_dictionary_group">Sanakirjan hienosäädöt</string>
+    <string name="show_keyboard_name_text">Näytä näppäimistön nimi</string>
+    <string name="show_keyboard_name_on_summary">Näytä näppäimistön nimi välilyöntinäppäimessä</string>
+    <string name="show_keyboard_name_off_summary">Älä koskaan näytä näppäimistön nimeä</string>
+    <string name="show_hint_text">Näytä vihje</string>
+    <string name="show_hint_text_on_summary">Näytä vihjeet näppäimissä, jos teema tukee niitä</string>
+    <string name="show_hint_text_off_summary">Älä koskaan näytä vihjeitä näppäimissä</string>
+    <string name="use_custom_hint_align">Ohita vihjeen sijainti</string>
+    <string-array name="custom_hint_align_types">
+        <item>Vasen</item>
+        <item>Keski</item>
+        <item>Oikea</item>
+    </string-array>
+    <string name="settings_custom_hint_valign_dialog_title">Valitse pystysuuntainen sijainti
+        vihjeelle
+    </string>
+    <string-array name="custom_hint_valign_types">
+        <item>Ylä</item>
+        <item>Ala</item>
+    </string-array>
+    <string name="is_sticky_extesion_keyboard">Pysyvä laajennus-näppäimistö</string>
+    <string name="is_sticky_extesion_keyboard_on_summary">Pysyy näkyvissä, kunnes erikseen suljetaan</string>
+    <string name="is_sticky_extesion_keyboard_off_summary">Sulje painikkeen painalluksen jälkeen</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Näytä näppäimistön kuvake tilapalkissa</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Näyttää näppäimistön kuvakkeen laitteen
+        tilapalkissa.
+    </string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">Piilota tilapalkin kuvake.</string>
+    <string name="show_settings_app_in_launcher">Asetussovellus</string>
+    <string name="settings_key_show_settings_app_on_summary">Asetussovellus näkyy käynnistimessä
+         (saattaa vaatia uudelleenkäynnistyksen)
+    </string>
+    <string name="settings_key_show_settings_app_off_summary">Piilota asetussovellus (saattaa vaatia
+        uudelleenkäynnistyksen)
+    </string>
+    <string name="always_hide_language_key">Piilota kielenvalintapainike aina</string>
+    <string name="always_hide_language_key_on_summary">Kielenvalintapainiketta ei koskaan näytetä. Eleet
+        tukevat silti asettelun vaihtamista.
+    </string>
+    <string name="always_hide_language_key_off_summary">Näyttää kielenvalintapainikkeen vain, jos useita
+        asetteluja on käytössä.
+    </string>
+    <string name="show_crash_notification">Ilmoita kaatumisesta</string>
+    <string name="show_crash_notification_on_summary">Avaa kaatumisen yhteydessä kaatumisilmoituslomake
+    </string>
+    <string name="show_crash_notification_off_summary">Ohita kaatumiset taustalla</string>
+    <string name="use_keyrepeat">Käytä näppäintoistoa</string>
+    <string name="use_keyrepeat_on_summary">Näppäintoisto on käytössä</string>
+    <string name="use_keyrepeat_off_summary">Näppäintoisto on pois käytöstä</string>
+    <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Näytä emojien ponnahdusikkuna painettaessa pitkään</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Näytä emojien ponnahdusikkuna painettaessa lyhyesti</string>
+    <string name="default_smiley_text">Hymiöteksti</string>
+    <string name="default_domain_text">Domain-teksti</string>
+    <string name="key_preview_position_override">Näppäimen esikatselun sijainti</string>
+    <string name="key_preview_position_override_summary">Painettavan näppäimen yläpuolella tai koko
+        näppäimistön yläpuolella
+    </string>
+    <string name="key_preview_position_override_above_key">Näppäimen yläpuolella</string>
+    <string name="key_preview_position_override_above_keyboard">Näppäimistön yläpuolella</string>
+    <string name="key_press_preview_popup">Ponnahdusikkunan esikatselunäppäin</string>
+    <string name="key_press_preview_popup_on_summary">Näytä ponnahdusikkuna näppäinpainalluksella</string>
+    <string name="key_press_preview_popup_off_summary">Älä näytä ponnahdusikkunaa näppäinpainalluksella</string>
+    <string name="zoom_factor_keys_in_portrait">Näppäinten korkeussäätö pystyasennossa</string>
+    <string name="zoom_factor_keys_in_landscape">Näppäinten korkeussäätö vaakasuunnassa</string>
+    <string name="insert_space_after_word_suggestion_selection">Väli ehdotuksen valinnan jälkeen</string>
+    <string name="double_space_to_period">Tuplavälilyönti pisteeksi</string>
+    <string name="double_space_to_period_summary">Kaksoinvälilyönti muuttuu pisteeksi ja välilyönniksi</string>
+    <string name="tweak_animations_level_title">Animaatiot</string>
+    <string name="tweak_animations_level_summary">Kuinka paljon animaatioita käytetään. Tällä hetkellä:
+        %s
+    </string>
+    <string name="tweak_animations_level_types_full">Kaikki</string>
+    <string name="tweak_animations_level_types_some">Jotkut</string>
+    <string name="tweak_animations_level_types_none">Ei mitään</string>
+    <string name="cycle_all_symbols_keyboards">Näytä vuorotellen kaikki symbolit</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Symbolinäppäin näyttää vuorotellen kaikki symbolinäppäimistöt</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Symbolinäppäin näyttää ainoastaan pääsymbolinäppäimistön</string>
+    <string name="lang_key_shows_popup">Kielen valitseminen ponnahtusikkunasta</string>
+    <string name="lang_key_shows_popup_on_summary">Kielinäppäin avaa valintadialogin</string>
+    <string name="lang_key_shows_popup_off_summary">Kielinäppäin näyttää vuorotellen kielet</string>
+    <string name="settings_os_clipboard_sync">Synkronoi leikepöytä käyttöjärjestelmän kanssa</string>
+    <string name="settings_os_clipboard_sync_summary_on">Tunnista leikepöydän muutokset ja synkronoi ne AnySoftKeyboardin kanssa.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Älä kuuntele leikepöydän toimintoja AnySoftKeyboardin ulkopuolella.</string>
+    <string name="auto_caps">Automaattinen isot kirjaimet</string>
+    <string name="grammar_group">Kielioppi</string>
+    <string name="keyboard_behavior_group">Näppäimistön käyttäytyminen</string>
+    <string name="candidates_on">Näytä ehdotukset</string>
+    <string name="candidates_on_summary">Luettelo ehdotetuista sanoista näytetään
+        näppäimistön yläpuolella
+    </string>
+    <string name="candidates_off_summary">Ehdotuksia ei näytetä</string>
+    <string name="quick_fix">Nopeat korjaukset ja lyhenteet</string>
+    <string name="quick_fix_summary">Korjaa yleisesti kirjoitetut virheet ja laajentaa lyhenteitä</string>
+    <string name="quick_fix_secon_disabled">…vain ensimmäisellä kielellä</string>
+    <string name="quick_fix_secon_disabled_summ_on">Nopeat korjaukset ja lyhenteet toimivat vain nykyisellä asettelun kielellä</string>
+    <string name="quick_fix_secon_disabled_summ_off">Nopeat korjaukset ja lyhenteet toimivat kaikilla kielillä 
+                  jotka on valittu oletussanakirjan ohittamiseksi</string>
+    <string name="allow_suggestions_restart">Ehdotusten nollaus</string>
+    <string name="allow_suggestions_restart_summary">Nollaa ehdotukset, kun kohdistinta liikutetaan</string>
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Näppäimistöt</string>
+    <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">123</string>
+    <string name="symbols_phone_keyboard">puhelin</string>
+    <string name="symbols_numbers_keyboard">123</string>
+    <string name="symbols_time_keyboard">aika</string>
+    <string name="keyboard_change_locked">n/a</string>
+    <!-- settings - quick text keys -->
+    <string name="quick_text_keys_group">Pikatekstinäppäimet</string>
+    <string name="quick_text_keys_order">Pikatekstiryhmät ja järjestys</string>
+    <!-- settings - top generic row -->
+    <string name="top_generic_row_group">Yhteinen ylärivi</string>
+    <string name="top_generic_row_dialog_title">Valitse rivin tyyppi</string>
+    <string name="top_generic_row_summary">Valittu ylärivi: %s</string>
+    <!-- settings - bottom generic row -->
+    <string name="bottom_generic_row_group">Yhteinen alarivi</string>
+    <string name="bottom_generic_row_dialog_title">Valitse rivin tyyppi</string>
+    <string name="bottom_generic_row_summary">Valittu alarivi: %s</string>
+    <string name="keyboard_theme_list_title">Valitse teema</string>
+    <string name="dark_plain_keyboard_theme_name">Tavallinen tumma teema</string>
+    <string name="dark_plain_keyboard_theme_description">Tummat värit, yksinkertainen grafiikka</string>
+    <string name="light_plain_keyboard_theme_name">Tavallinen vaalea teema</string>
+    <string name="light_plain_keyboard_theme_description">Vaaleat värit, yksinkertainen grafiikka</string>
+    <string name="blacktheme_keyboard_theme_name">Yksinkertainen musta hehku</string>
+    <string name="blacktheme_keyboard_theme_description">Yksinkertainen musta teema värikorostuksilla</string>
+    <string name="lean_dark_keyboard_theme_name">Lean Dark</string>
+    <string name="lean_dark_keyboard_theme_description">Tumma teema, minimaalisilla käyttöliittymäelementeillä</string>
+    <string name="lean_dark_2_keyboard_theme_name">Lean Dark - Vaihtoehto 2</string>
+    <string name="lean_dark_big_keyboard_theme_name">Lean Dark - Isot Näppäimet</string>
+    <string name="lean_dark_big_keyboard_theme_description">Sama tumma teema suuremmilla näppäimillä</string>
+    <string name="lean_light_keyboard_theme_name">Pelkistetty vaalea</string>
+    <string name="lean_light_keyboard_theme_description">Vaalea teema minimaalisilla elementeillä</string>
+    <string name="lean_light_2_keyboard_theme_name">Pelkistetty vaalea - vaihtoehto 2</string>
+    <string name="lean_light_big_keyboard_theme_name">Pelkistetty vaalea - suuret näppäimet</string>
+    <string name="lean_light_big_keyboard_theme_description">Sama vaalea teema suuremmilla
+        näppäimillä
+    </string>
+    <string name="lean_dark_gray_keyboard_theme_name">Pelkistetty tummanharmaa</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Tummanharmaa teema minimaalisilla
+        elementeillä
+    </string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees-tumma</string>
+    <string name="yochees_dark_keyboard_theme_description">Tumma teema, tekijältä Algimantas.</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees tumma - vaihtoehto 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees vaalea</string>
+    <string name="yochees_light_keyboard_theme_description">Vaalea teema, tekijältä Algimantas.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Vaalea teema tekijältä Algimantas
+        isokirjaimisilla näppäimillä.
+    </string>
+    <!-- extension keyboard type -->
+    <string name="extension_kbd_top_none">Ei yläriviä</string>
+    <string name="extension_kbd_top_small">Pienet näppäimet</string>
+    <string name="extension_kbd_top_regular">Keskikokoiset näppäimet</string>
+    <string name="extension_kbd_top_small_numbers">Numeronäppäimet</string>
+    <string name="extension_kbd_top_numbers_alt">Vaihtoehtoiset numeronäppäimet</string>
+    <string name="extension_kbd_top_nav">Navigointipainikkeet</string>
+    <string name="extension_kbd_top_nav_alt">Vaihtoehtoiset navigointipainikkeet</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Vaihtoehtoiset navigointipainikkeet. Ei numeroriviä pwd-tilassa</string>
+    <string name="extension_kbd_top_numbers_simple">Yksinkertainen, vain numerot</string>
+    <string name="extension_kbd_top_terminal">Pääte</string>
+    <string name="extension_kbd_top_text_editing">Pikatekstin muokkaus</string>
+    <string name="extension_kbd_bottom_regular_with_voice">Tavallinen</string>
+    <string name="extension_kbd_bottom_regular">Klassinen (ei mikrofonia)</string>
+    <string name="extension_kbd_bottom_iphone">iPhone-tyylinen (ei mikrofonia)</string>
+    <string name="extension_kbd_bottom_iphone_with_voice">iPhone-tyylinen mikrofonilla</string>
+    <string name="extension_kbd_bottom_alt">Vaihtoehtoinen (ei mikrofonia)</string>
+    <string name="extension_kbd_bottom_alt_with_mic">Vaihtoehtoinen mikrofonilla</string>
+    <string name="extension_kbd_bottom_old">Old School</string>
+    <string name="extension_kbd_bottom_simple">Yksinkertainen</string>
+    <string name="extension_kbd_bottom_simple_alt">Yksinkertaistettu vaihtoehtoinen</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP-tyylinen</string>
+    <string name="extension_kbd_bottom_ng">Uusi sukupolvi - Testaus</string>
+    <string name="extension_kbd_extension_numbers_symbols">Numerot ja symbolit</string>
+    <string name="extension_kbd_bottom_minimal">Minimaalinen</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimaalinen (ei emojeita)</string>
+    <!-- Tutorials -->
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Siirry</string>
+    <string name="label_next_key">Seuraava</string>
+    <string name="label_previous_key">Edel.</string>
+    <string name="label_send_key">Lähetä</string>
+    <string name="label_search_key">Haku</string>
+    <string name="label_done_key">Valmis</string>
+    <string name="label_tab_key">Tab</string>
+    <string name="label_home_key">Home</string>
+    <string name="label_end_key">End</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_regular">123</string>
+    <string name="select_keyboard_popup_title">Valitse näppäimistö</string>
+    <!-- dictionaries -->
+    <string name="simley_key_name">Hymiönäppäin</string>
+    <string name="short_smiley_key_name">Lyhyempi hymiönäppäin</string>
+    <string name="quick_text_kaomoji">Kaomoji</string>
+    <string name="history_quick_text_key_name">Historia</string>
+    <string name="default_quick_text_key_name">Yksinkertaiset hymiöt</string>
+    <string name="unicode_quick_text_key_name">Hymiöt</string>
+    <string name="unicode_people_quick_text_key_name">Ihmiset</string>
+    <string name="unicode_gestures_quick_text_key_name">Eleet</string>
+    <string name="unicode_animals_quick_text_key_name">Eläimet</string>
+    <string name="unicode_food_quick_text_key_name">Ruoka</string>
+    <string name="unicode_nature_quick_text_key_name">Luonto</string>
+    <string name="unicode_transport_quick_text_key_name">Liikenne</string>
+    <string name="unicode_signs_quick_text_key_name">Merkit</string>
+    <string name="unicode_city_quick_text_key_name">Kaupungit</string>
+    <string name="unicode_scape_quick_text_key_name">Maisema</string>
+    <string name="unicode_activity_quick_text_key_name">Aktiviteetit</string>
+    <string name="unicode_office_quick_text_key_name">Konttori</string>
+    <string name="unicode_occasions_quick_text_key_name">Tapahtumat</string>
+    <string name="unicode_flags_quick_text_key_name">Liput</string>
+    <string name="multitap_timeout_title">Moninapautuksen aikakatkaisu</string>
+    <string name="multitap_timeout_summary">Aikakatkaisu napautusten välillä</string>
+    <string name="settings_multitap_timeout_disabled">Pois käytöstä</string>
+    <string name="settings_multitap_timeout_faster">Nopeampi</string>
+    <string name="settings_multitap_timeout_fast">Nopea</string>
+    <string name="settings_multitap_timeout_normal">Normaali</string>
+    <string name="settings_multitap_timeout_slow">Hidas</string>
+    <string name="settings_multitap_timeout_slower">Hitaampi</string>
+    <string name="settings_multitap_timeout_never">Odota ikuisesti</string>
+    <string name="long_press_timeout_title">Pitkän painalluksen aika</string>
+    <string name="long_press_timeout_summary">Pitkään painallukseen vaadittava aika</string>
+    <string name="settings_long_press_timeout_faster">Nopeampi</string>
+    <string name="settings_long_press_timeout_fast">Nopea</string>
+    <string name="settings_long_press_timeout_normal">Normaali</string>
+    <string name="settings_long_press_timeout_slow">Hidas</string>
+    <string name="settings_long_press_timeout_slower">Hitaampi</string>
+    <string name="settings_long_press_timeout_never">Ei lainkaan</string>
+    <string name="settings_force_locale_title">Pakota kieli</string>
+    <string name="settings_force_locale_summary">Pakota AnySoftKeyboardissa käytettävä kieli
+        (käyttöönotto saattaa kestää hetken). Tällä hetkellä: %s.
+    </string>
+    <string name="tweak_workarounds_group">Korjaukset</string>
+    <string name="workaround_disable_rtl_fix">Käytä Androidin oikealta vasemmalle -menetelmää</string>
+    <string name="workaround_disable_rtl_fix_summary_on">Käytä järjestelmän oikealta vasemmalle-menetelmää.
+        Pitäisi toimia uudemmissa laitteissa.
+    </string>
+    <string name="workaround_disable_rtl_fix_summary_off">Käytä AnySoftKeyboardin oikealta vasemmalle-menetelmää.
+        Käytä vain, jos käyttöjärjestelmän menetelmä ei toimi.
+    </string>
+    <!-- User dictionary settings -->
+    <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <!-- abbreviations editor -->
+    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
+    <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="emoji_default_skin_tone_value_generic">Yleinen</string>
+    <string name="emoji_default_skin_tone_value_type_2">Vaalea ihon sävy</string>
+    <string name="emoji_default_skin_tone_value_type_3">Keskivaalea ihon sävy</string>
+    <string name="emoji_default_skin_tone_value_type_4">Keskisävyinen iho</string>
+    <string name="emoji_default_skin_tone_value_type_5">Keskitumma ihon sävy</string>
+    <string name="emoji_default_skin_tone_value_type_6">Tumma ihon sävy</string>
+    <string name="emoji_default_skin_tone_value_random_type">Satunnainen ihon sävy</string>
+    <string name="developer_tools">Kehittäjätyökalut</string>
+    <string name="click_for_developer_features">Kehittäjätyökalut</string>
+    <string name="click_for_developer_features_summary">Eri työkaluja AnySoftKeyboard
+        kehittäjille
+    </string>
+    <string name="failed_to_create_mem_dump">Muistivedostiedoston luonti epäonnistui:
+        <xliff:g id="message">%s</xliff:g>
+    </string>
+    <string name="created_mem_dump_file">Muistivedostiedosto luotu:
+        <xliff:g id="file_path">%s</xliff:g></string>
+    <string name="not_configured_with_click_here">AnySoftKeyboardia ei ole täysin asettu käyttökuntoon.
+        Paina tästä asettaaksesi
+    </string>
+    <string name="not_configured_with_just_click_here">Paina tästä</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_add_word">Lisää sana</string>
+    <string name="word_editor_action_backup_words">Varmuuskopioi</string>
+    <string name="word_editor_action_restore_words">Palauta</string>
+    <string name="enter_abbreviation_hint">Lyhenne</string>
+    <string name="enter_abbreviation_target_hint">Koko lause</string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Virhe: Laitteesi ei tue
+        3. osapuolen näppäimistöjä. AnySoftKeyboardia ei voida aktivoida!
+    </string>
+    <string name="setup_wizard_step_permissions_title">Anna käyttöoikeudet</string>
+    <string name="setup_wizard_step_two_title">Vaihda AnySoftKeyboardiin</string>
+    <string name="setup_wizard_step_two_details">Järjestelmäsi voi käyttää nyt <i>AnySoftKeyboardia</i>, mutta
+        se ei ole vielä aktiivinen näppäimistösi.\nAsettamalla <i>AnySoftKeyboardin</i> aktiiviseksi 
+        siitä tulee uusi näppäimistösi kaikkine ominaisuuksineen!
+    </string>
+    <string name="setup_wizard_step_two_action">Vaihda käytettävää näppäimistöä</string>
+    <string name="setup_wizard_step_three_title">Mitä seuraavaksi?</string>
+    <string name="setup_wizard_step_three_details">Kiitos, että valitsit <i>AnySoftKeyboardin</i>.
+    </string>
+    <string name="setup_wizard_step_three_details_done">        <b>Olet valmis 🎉\nMene suosikkisovellukseesi kokeillaksesi sitä.</b>
+    </string>
+    <string name="setup_wizard_step_three_details_actions">Tai voit muokata ja personoida
+        näppäimistöä mieleiseksesi:
+    </string>
+    <string name="setup_wizard_step_three_action_languages">Valitse kielet…</string>
+    <string name="setup_wizard_step_three_action_themes">Valitse teema…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Hallitse kaikkea muuta…</string>
+    <string name="setup_wizard_step_download_title">Lataa kielipaketteja</string>
+    <string name="setup_wizard_step_download_details">Ilahdut varmasti siitä, että <i>AnySoftKeyboard</i> tukee kymmeniä kieliä. Lataa haluamasi kielipaketti ja nauti kirjoittamisesta laitteellasi
+        millä tahansa kielellä.</string>
+    <string name="setup_wizard_step_download_action">Lataa kielipaketti</string>
+    <string name="setup_wizard_step_download_skip_action">Ohita</string>
+    <string name="ime_crashed_text">Valitettavasti  <i>AnySoftKeyboardin</i> kanssa on ongelma.
+        Ei hätää, <b>sinä</b> voit auttaa ongelman ratkaisussa lähettämällä meille kaatumisilmoitus
+        ja teemme parhaamme ratkaistaksemme tämän ongelman ja saadaksemme sinulle takaisin upean
+        näppäimistökokemuksen!\n\nVilpittömällä anteeksipyynnöllä, sovelluksen kehittäjätiimi.
+    </string>
+    <string name="ime_crashed_send_button">Lähetä</string>
+    <string name="ime_crashed_cancel_button">Peruuta</string>
+    <string name="ime_crashed_intent_selector_title">Lähetä kaatumisilmoitus...</string>
+    <string name="next_word_settings_group">Asetukset</string>
+    <string name="clipboard_is_empty_toast">Leikepöytä on tyhjä, ei ole mitään liitettävää.</string>
+    <string name="clipboard_copy_done_toast">Valittu teksti on kopioitu leikepöydälle.</string>
+    <string name="clipboard_paste_entries_title">Valitse teksti liittääksesi</string>
+    <string name="next_word_prefs_clear_data_summary">Tämä on peruuttamatonta. Kaikki kirjoitushistoriasi tyhjennetään.</string>
+    <string name="notification_read_contacts_title">Voinko lukea yhteystietojasi?</string>
+    <string name="notification_read_contacts_text">Meidän täytyy lukea yhteystietojasi antaaksemme sinulle paremman kokemuksen automaattisesta täytöstä.</string>
+    <string name="wizard_allow_contacts_permission">Salli yhteystietopohjaiset kirjoitusehdotukset</string>
+    <string name="turn_off_contacts_dictionary">Poista yhteystietosanakirja käytöstä</string>
+    <string name="read_more_about_permissions">Lue lisää käyttöoikeuksista…</string>
+    <string name="ask_beta_link_promo">Hei! Haluatko uusia <i>AnySoftKeyboard</i> juttuja nopeammin? Sitten
+        olet onnekas! <i>BETA</i>-kanava on  <b>sinun</b> saatavillasi!\nRekisteröidy alla olevasta 
+        linkistä ja päivitä <i>Google Play</i> -sovelluskaupassa!\n\n
+        https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nJa kiitos
+        kun autat bugien tappamisessa, ennen kuin sovellus julkaistaan laajemmalle yleisölle.
+    </string>
+    <string name="clipboard_fine_select_enabled_toast">Tarkka tekstin valinta käytössä. Käytä vasen/oikeaa nuolta.</string>
+    <string name="app_shortcut_keyboards_long_label">Valitse käytettävät näppäimistöasettelut</string>
+    <string name="app_shortcut_keyboards_short_label">Näppäimistöt</string>
+    <string name="app_shortcut_themes_short_label">Teemat</string>
+    <string name="app_shortcut_gestures_disabled">Elenavigointi pois käytöstä</string>
+    <string name="app_shortcut_gestures_short_label">Eleet</string>
+    <string name="app_shortcut_quick_keys_long_label">Hallitse emojeita</string>
+    <string name="app_shortcut_quick_keys_short_label">Hallitse emojeita</string>
+    <string name="read_our_privacy_policy">Lue tietosuojakäytäntömme…</string>
+    <string name="visit_our_web_site">Vieraile verkkosivuillamme…</string>
+    <string name="no_internet_fields_specific_layout">Ei mitään</string>
+    <string name="gesture_typing_alert_title">BETA-ominaisuus!</string>
+    <string name="gesture_typing_alert_button">Ymmärsin</string>
+    <string name="apply_remote_app_colors_to_theme">Vaihda teeman värejä sovelluksen mukaan</string>
+    <string name="apply_overlay_summary_on">Näppäimistön värit täsmäävät sovelluksen kanssa (mahdollisimman hyvin).</string>
+    <string name="apply_overlay_summary_off">Käytä aina teeman värejä.</string>
+    <string name="media_insertion_pending_message">Paina tekstilaatikkoa lisätäksesi kuvan</string>
+    <string name="aosp_dark_theme_name">AOSP tumma teema</string>
+    <string name="aosp_dark_theme_description">Tummavärinen, AOSP-inspiroitu näppäimistön teema</string>
+    <string name="aosp_light_theme_name">AOSP vaalea teema</string>
+    <string name="aosp_light_theme_description">Vaaleavärinen, AOSP-inspiroitu näppäimistön teema</string>
+    <string name="app_share_title">Hei AnySoftKeyboardilta</string>
+    <string name="app_share_menu_title">Jaa AnySoftKeyboard...</string>
+    <string name="app_share_text">Saanen suositella avoimen lähdekoodin yksityisyyteen keskittynyttä, ilmaista ja muokattavaa monikielistä Android-näppäimistösovellusta AnySoftKeyboardia.\nHanki täältä:\nPlay-kauppa: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">Klikkaa minua, tiedossa yllätys</string>
+</resources>

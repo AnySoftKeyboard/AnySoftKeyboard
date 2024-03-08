@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="debug_tracing_starting">дума</string>
+    <string name="menu_about_item">Относно</string>
+    <string name="how_to_pointer_title">Добре дошли в AnySoftKeyboard</string>
+    <string name="change_log_card_version_title_template">\u0020\u0020Последни промени за v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+    <string name="change_log_url">Още:\u0020<xliff:g id="url">%s</xliff:g></string>
+    <string name="notification_text_testers">Това е бета версия. Използвайте внимателно!</string>
+    <string name="testers_version">Тестова версия!</string>
+    <string name="language_root_tile">Език</string>
+    <string name="language_keyboards_settings_tile">Активиране на клавиатури и езици.</string>
+    <string name="language_grammar_settings_tile">Конфигуриране на поведението за корекция и други речници.</string>
+    <string name="language_tweaks_settings_tile">Допълнителни настройки и още.</string>
+    <!-- UI root menu -->
+    <string name="ui_root_tile">Потреб. интерфейс</string>
+    <string name="ui_theme_settings_tile">Избор и конфигурация на теми за клавиатурата.</string>
+    <string name="ui_effects_settings_tile">Клавиатурни ефекти и изживяване.</string>
+    <!-- welcome -->
+    <string name="search_market_for_keyboard_addons">Вземете още клавиатури от магазина за приложения</string>
+    <string name="keyboard_theme_tweak_group">Допълнителни настройки</string>
+    <string name="delete_button">Изтриване</string>
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">Запазено:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="revert_added_word_question">Премахване\?</string>
+    <string name="removed_word">Премахнато:\u0020<xliff:g id="word">%s</xliff:g></string>
+    <string name="hint_add_to_dictionary">\u2190 Докоснете отново, за да запазите</string>
+    <string name="hint_double_tap_to_close">Отново за премахване на предложения</string>
+    <!-- voice -->
+    <string name="voice_input_not_installed_title">Гласово въвеждане не е инсталирано</string>
+    <string name="voice_input_not_installed_text">Гласово въвеждане не е инсталирано на вашето устройство.\nТова
+        може лесно да бъде решено: инсталирайте го сега от магазина за приложения.</string>
+    <string name="voice_input_not_installed_action_install">Инсталиране</string>
+    <string name="voice_input_not_installed_action_do_not_install">Не</string>
+    <string name="voice_input_not_voice_pack_in_market">Не е открито гласово въвеждане
+        (com.google.android.voicesearch) в магазина за приложения. За съжаление не можете да ползвате гласово въвеждане на вашето
+        устройство.
+    </string>
+    <!-- Options menu -->
+    <string name="change_ime">Промяна на метода за въвеждане</string>
+    <string name="override_dictionary">Замяна на речника по подразбиране</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Замяна на\u0020<xliff:g id="word">%s</xliff:g>\u0020речника</string>
+    <!-- Dictionary override toast messages -->
+    <!-- settings - effects-->
+    <string name="gesture_settings">Жестове</string>
+    <string name="effects_group">Ефекти</string>
+    <string name="ime_settings">Настройки на клавиатурата</string>
+    <string name="switch_incognito">Поверителен режим</string>
+    <string name="vibrate_on_key_press_title">Вибрация при натискане на клавиш</string>
+    <string name="vibrate_on_key_press_value_template">%d милисекунди</string>
+    <string name="night_mode_screen">Настройки за Нощен режим</string>
+    <string name="night_mode_description">Нощният режим ще промени тези функции:</string>
+    <string name="night_mode_state_summary">Настоящ спусък за нощен режим:\u0020%s</string>
+    <string name="night_mode_dialog_title">Активиране на Нощен режим</string>
+    <string name="night_mode_type_never">Никога</string>
+    <string name="night_mode_type_follow_system">Използвай системните</string>
+    <string name="night_mode_type_always">Винаги</string>
+    <string name="night_mode_app_night_theme">Потъмняване на потребителския интерфейс за настройки</string>
+    <string name="night_mode_darken_keyboard_theme">Потъмняване на клавиатурната тема</string>
+    <string name="night_mode_sound_control">Деактивиране на звуците при натискане на клавиш</string>
+    <string name="night_mode_vibration_control">Деактивиране на вибрациите при натискане на клавиши</string>
+    <string name="power_save_mode_screen">Настройки за Пестене на енергия</string>
+    <string name="power_save_mode_description">Режимът за пестене на енергия ще намали консумацията на енергия от AnySoftKeyboard, като деактивира функциите:</string>
+    <string name="power_save_mode_dialog_title">Активиране на режима за Пестене на енергия</string>
+    <string name="power_save_mode_types_never">Никога</string>
+    <string name="power_save_mode_types_lower_battery">Когато батерията е слаба</string>
+    <string name="power_save_mode_types_always">Винаги</string>
+    <string name="power_saving_keyboard_theme_name">Тема за режим Пестене на енергия</string>
+    <string name="power_saving_keyboard_theme_description">Тъмни цветове, просто оформление, което може да изисква по-малко енергия от устройството.</string>
+    <string name="power_save_mode_animation_control">Деактивиране на анимациите и клавишните визуализации</string>
+    <string name="power_save_mode_sound_control">Деактивиране на звуците при натискане на клавиш</string>
+    <string name="power_save_mode_vibration_control">Деактивиране на вибрациите при натискане на клавиши</string>
+    <string name="power_save_mode_suggestions_control">Деактивиране на предложения за думи</string>
+    <string name="power_save_mode_gesture_typing_control">Деактивиране на въвеждането с жестове</string>
+    <string name="power_save_mode_theme_control">Превключи към тъмна, опростена тема</string>
+    <string name="pop_text_type_title">Изскачащ текст от клавиши</string>
+    <string name="pop_text_type_summary">Кога да изскача текст от натиснати клавиши. Понастоящем:\u0020%s</string>
+    <string name="pop_text_type_dialog_title">Изберете тип на изскачащ текст</string>
+    <string name="pop_text_type_never">Никога</string>
+    <string name="pop_text_type_on_correction">При корекция на думи</string>
+    <string name="pop_text_type_on_word">При всяка дума</string>
+    <string name="pop_text_type_any_key">При всеки клавиш</string>
+    <string name="input_field_type_password">Поле за въвеждане на парола</string>
+    <string name="input_field_type_email">Поле за въвеждане на имейл</string>
+    <string name="input_field_type_url">Поле за въвеждане на URL</string>
+    <string name="input_field_type_im">Поле за въвеждане на съобщения</string>
+    <string name="sound_on">Звук при натискане на клавиш</string>
+    <string name="sound_on_summary">Звукови ефекти при натискане на клавиш от виртуалната клавиатура.</string>
+    <string name="use_custom_sound_volume">Настройване на персонализирана сила на звука</string>
+    <string name="use_custom_sound_volume_on_summary">Силата на звуковите ефекти е персонализирана.</string>
+    <string name="use_custom_sound_volume_off_summary">Силата на звуковите ефекти е системния звук за известия</string>
+    <string name="custom_sound_volume">Персонализирана сила на звука при натискане на клавиш</string>
+    <string name="vibrate_on_long_press_title">Вибрация при продължително натискане</string>
+    <string name="vibrate_on_long_press_summary_on">Лека вибрация при продължително натискане. </string>
+    <string name="switch_keyboard_on_space">Интервалът превключва клавиатурите</string>
+    <string name="switch_keyboard_on_space_on_summary">Промяна от символи/числа към азбука, при натискане на интервал.</string>
+    <string name="persistent_layout_per_package_id_off_summary">Използвайте едно и също оформление за всички Приложения.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Автоматично превключване към предишното оформление, използвано в Приложението.</string>
+    <string name="one_shot_quick_text_popup">Автоматично затваряне след натискане на клавиш</string>
+    <string name="hide_soft_when_physical">Скриване на клавиатурата при физически клавиш</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space превключва езиците </string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Хардуерно Alt + Space превключва към следващото налично оформление.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Хардуерно Alt + Space влиза в пространство.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space превключва езиците</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Хардуерно Shift + Space превключва към следващото налично оформление.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Хардуерно Shift + Space влиза в пространство.</string>
+    <string name="fullscreen_input_connection_supported">Използване на целия екран в режим пейзаж
+    </string>
+    <string name="fullscreen_input_connection_supported_on_summary">Поемане на екрана, при
+        въвеждате на текст в пейзаж
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported">Използване на целия екран в режим
+        портрет
+    </string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Поемане на екрана, при въвеждате на текст в портрет</string>
+    <string name="backword_support">Изтриване на дума</string>
+    <string name="backword_support_on_summary">Shift + Backspace ще изтрие последната дума</string>
+    <string name="backword_support_off_summary">Shift + Backspace ще изтрие последния символ</string>
+    <string name="swipe_up_action">Плъзгане нагоре</string>
+    <string name="swipe_up_action_summary">Определете действието на жеста с плъзгане нагоре. Понастоящем, %s
+    </string>
+    <string name="swipe_up_action_title">Избор на действие при плъзгане нагоре</string>
+    <string name="swipe_up_from_spacebar_action">Плъзгане на интервала нагоре</string>
+    <string name="swipe_up_from_spacebar_action_summary">Определете действието на жеста с плъзгане на клавиша за интервал нагоре. Понастоящем, %s</string>
+    <string name="swipe_up_from_spacebar_action_title">Избор на действие при плъзгане на клавиша за интервал нагоре</string>
+    <string name="swipe_down_action">Плъзгане надолу</string>
+    <string name="swipe_down_action_summary">Определете действието на жеста с плъзгане надолу. Понастоящем, %s</string>
+    <string name="swipe_down_action_title">Избор на действие при плъзгане надолу</string>
+    <string name="swipe_left_action">Плъзгане наляво</string>
+    <string name="swipe_left_action_summary">Определете действието на жеста с плъзгане наляво. Понастоящем, %s</string>
+    <string name="swipe_left_action_title">Избор на действие при плъзгане наляво</string>
+    <string name="swipe_right_action">Плъзгане надясно</string>
+    <string name="swipe_right_action_summary">Определете действието на жеста с плъзгане надясно. Понастоящем, %s</string>
+    <string name="swipe_right_action_title">Избор на действие при плъзгане надясно</string>
+    <string name="swipe_right_space_bar_action">Плъзгане на клавиша за интервал надясно</string>
+    <string name="swipe_right_space_bar_action_summary">Определете действието на жеста с плъзгане на клавиша за интервал надясно. Понастоящем, %s</string>
+    <string name="swipe_right_space_bar_action_title">Избор на действие при плъзгане надясно</string>
+    <string name="swipe_left_space_bar_action">Плъзгане на клавиша за интервал наляво</string>
+    <string name="swipe_left_space_bar_action_summary">Определете действието на жеста с плъзгане на клавиша за интервал наляво. Понастоящем, %s</string>
+    <string name="swipe_left_space_bar_action_title">Избор на действие при плъзгане наляво</string>
+    <string name="swipe_left_two_fingers_action">Плъзгане на два пръста наляво</string>
+    <string name="swipe_left_two_fingers_action_summary">Определете действието на жеста с плъзгане на два пръста наляво. Понастоящем, %s</string>
+    <string name="swipe_right_two_fingers_action">Плъзгане на два пръста надясно</string>
+    <string name="swipe_right_two_fingers_action_summary">Определете действието на жеста с плъзгане на два пръста надясно. Понастоящем, %s</string>
+    <string name="swipe_right_two_fingers_action_title">Избор на действие при плъзгане надясно</string>
+    <string name="swipe_action_name_none">Без действие</string>
+    <string name="swipe_action_name_next_alphabet">Следваща азбучна клавиатура</string>
+    <string name="swipe_action_name_next_symbols">Следваща символна клавиатура</string>
+    <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">Интервал</string>
+    <string name="swipe_action_name_hide">Скриване на клавиатурата</string>
+    <string name="swipe_action_name_backspace">Backspace</string>
+    <string name="swipe_action_name_clear_input">Изчистване на целия текст</string>
+    <string name="swipe_action_name_cursor_up">Преместване на курсора нагоре</string>
+    <string name="swipe_action_name_cursor_down">Преместване на курсора надолу</string>
+    <string name="swipe_action_name_cursor_left">Преместване на курсора наляво</string>
+    <string name="swipe_action_name_cursor_right">Преместване на курсора надясно</string>
+    <string name="swipe_action_name_other_keyboards_mode">Превключване на оформлението</string>
+    <string name="swipe_action_name_split_layout">Разделено оформление</string>
+    <string name="swipe_action_name_merge_layout">Обединено оформление</string>
+    <string name="swipe_action_name_compact_layout_to_right">Компактно оформление вдясно</string>
+    <string name="swipe_action_name_compact_layout_to_left">Компактно оформление вляво</string>
+    <string name="swipe_action_name_utility_keyboard">Показване на помощна клавиатура</string>
+    <string name="settings_swipe_velocity_threshold_title">Праг за скоростта на плъзгане</string>
+    <string name="settings_swipe_velocity_threshold_summary">Минималната скорост на плъзгащ жест. Понастоящем, %s</string>
+    <string name="settings_swipe_velocity_very_slow">Много бавно</string>
+    <string name="settings_swipe_velocity_slow">Бавно</string>
+    <string name="settings_swipe_velocity_normal">Нормално</string>
+    <string name="settings_swipe_velocity_fast">Бързо</string>
+    <string name="settings_swipe_velocity_very_fast">Много бързо</string>
+    <string name="settings_swipe_distance_threshold_title">Минимално разстояние на плъзгане</string>
+    <string name="settings_swipe_distance_threshold_summary">Минималното разстояние на плъзгащ жест. Понастоящем, %s</string>
+    <string name="settings_swipe_distance_very_short">Много кратко</string>
+    <string name="settings_swipe_distance_short">Кратко</string>
+    <string name="settings_swipe_distance_normal">Нормално</string>
+    <string name="settings_swipe_distance_long">Дълго</string>
+    <string name="settings_swipe_distance_very_long">Много дълго</string>
+    <string name="volume_key_for_left_right_support">Наляво/Надясно с бутона за звук</string>
+    <string name="volume_key_for_left_right_support_on_summary">Деактивиране наляво/надясно с бутона за звук</string>
+    <string name="volume_key_for_left_right_support_off_summary">Увеличаването на звука премества курсора наляво, намаляването на звука премества курсора надясно</string>
+    <string name="more_ui_settings_group">Потребителски интерфейс</string>
+    <string name="special_dictionaries_group">Специализирани речници</string>
+    <string name="special_dictionaries_group_summary">Речници с предложения за думи, изпозвани в AnySoftKeyboard</string>
+    <string name="use_user_dictionary">Потребителски речник</string>
+    <string name="use_user_dictionary_on_summary">Предлагане на добавени от потребителя думи (щракнете двукратно върху написано предложение, за да добавите)</string>
+    <string name="use_auto_dictionary">Автоматичен речник</string>
+    <string name="use_auto_dictionary_dialog_title">Избор на метод за учене</string>
+    <string name="use_auto_dictionary_summary">Автоматично научаване на нови думи. Метод за учене: %s</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">След известно използване</string>
+    <string name="auto_dictionary_threshold_type_immediately">Веднага след въвеждане</string>
+    <string name="auto_dictionary_threshold_type_off">Без учене на нови думи</string>
+    <string name="use_next_words_dictionary">Предложения за следваща дума</string>
+    <string name="next_words_dictionary_off">Да не се предлагат следващи думи</string>
+    <string name="next_words_dictionary_summary">Използване на предишната дума, за да се направят предложения: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness">Агресивност при следваща дума</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Минимални предложения</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Средна агресивност</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Показване на много предложения</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Агресивност при предлагане за следваща дума: %s</string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Автоматичен избор на агресивността към предложенията</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Изкл.</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Минимална агресивност</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Средна агресивност</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">Висока агресивност</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Изключителна агресивност</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Ниво на агресивност: %s</string>
+    <string name="use_contacts_dictionary">Речник с контакти</string>
+    <string name="use_contacts_dictionary_on_summary">Предлагане на имена от списъка с контакти</string>
+    <string name="tweaks_group">Допълнителни настройки</string>
+    <string name="tweak_sound_group">Допълнителни звукови настройки</string>
+    <string name="tweak_physical_keyboard_group">Допълнителни настройки за Физическа клавиатура</string>
+    <string name="tweak_ui_group">Допълнителни графични настройки</string>
+    <string name="tweak_ux_group">Допълнителни настройки за поведението</string>
+    <string name="supported_keyboard_row_modes_title">Активирани специализирани режими на полето за въвеждане</string>
+    <string name="tweak_dictionary_group">Допълнителни настройки на речника</string>
+    <string name="show_keyboard_name_text">Показване на името на клавиатурата</string>
+    <string name="show_keyboard_name_on_summary">Показване на името на клавиатурата върху клавиша за интервал</string>
+    <string name="show_keyboard_name_off_summary">Без показване на името на клавиатурата</string>
+    <string name="show_hint_text">Показване на подсказващ текст</string>
+    <string name="show_hint_text_on_summary">Показване на подсказки върху клавишите, ако темата го поддържа</string>
+    <string name="show_hint_text_off_summary">Без показване на подсказки върху клавишите</string>
+    <string name="use_custom_hint_align">Промяна на позицията на подсказките</string>
+    <string name="use_custom_hint_align_on_summary">Използване на персонализирана позиция за подсказващия текст</string>
+    <string name="use_custom_hint_align_off_summary">Използване на позиция за подсказващия текст, която е зададена от темата</string>
+    <string name="custom_hint_align">Персонализирано хоризонтално подравняване на подсказките</string>
+    <string name="custom_hint_align_summary">Подравняване на подсказващия текст вляво, централно или вдясно на клавиша
+    </string>
+    <string name="settings_custom_hint_align_dialog_title">Избор на хоризонтално подравняване за подсказващия
+        текст
+    </string>
+    <string-array name="custom_hint_align_types">
+        <item>Вляво</item>
+        <item>Централно</item>
+        <item>Вдясно</item>
+    </string-array>
+    <string name="custom_hint_valign">Персонализирано вертикално подравняване на подсказките</string>
+    <string name="custom_hint_valign_summary">Подравняване на подсказващия текст отгоре или отдолу на клавиша</string>
+    <string name="settings_custom_hint_valign_dialog_title">Избор на вертикално подравняване за подсказващия
+        текст
+    </string>
+    <string-array name="custom_hint_valign_types">
+        <item>Отгоре</item>
+        <item>Отдолу</item>
+    </string-array>
+    <string name="is_sticky_extesion_keyboard_on_summary">Остава видима до изрично затваряне
+    </string>
+    <string name="is_sticky_extesion_keyboard_off_summary">Затваря се след натискане на клавиш</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Показване на клавиатурна икона в лентата за състоянието</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Показва на клавиатурната икона в лентата
+         за състоянието.
+    </string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">Без икона на лентата за състоянието.</string>
+    <string name="show_settings_app_in_launcher">Приложение за настройки</string>
+    <string name="settings_key_show_settings_app_on_summary">Приложението за настройки ще се вижда в
+        стартовия панел (може да е необходимо рестартиране)
+    </string>
+    <string name="settings_key_show_settings_app_off_summary">Скриване на приложението за настройки (може да е необходимо
+        рестартиране)
+    </string>
+    <string name="always_hide_language_key">Скриване на езиковия клавиш</string>
+    <string name="always_hide_language_key_on_summary">Никога няма да показва езиковия клавиш. Жестовете
+        все още ще поддържат превключване на оформлението.
+    </string>
+    <string name="always_hide_language_key_off_summary">Ще показва езиков клавиш само ако са разрешени
+        множество оформления.
+    </string>
+    <string name="show_crash_notification">Доклад за срив</string>
+    <string name="show_crash_notification_on_summary">При срив на ASK отваряне на диалоговия прозорец за доклад
+    </string>
+    <string name="show_crash_notification_off_summary">Тихо абсорбиране на сривове</string>
+    <string name="use_keyrepeat">Използвай повторение на клавиши</string>
+    <string name="use_keyrepeat_on_summary">Повторение на клавиши е включено</string>
+    <string name="use_keyrepeat_off_summary">Повторение на клавиши е изключено</string>
+    <string name="emoticon_long_press_opens_popup">Показване на емотикони при продължително натискане</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Показване на емотикони при продължително натискане
+    </string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Показване на емотикони при кратко натискане
+    </string>
+    <string name="default_smiley_text">Текст за емотикони</string>
+    <string name="default_domain_text">Текст за домейни</string>
+    <string name="key_preview_position_override">Позиция на балончето</string>
+    <string name="key_preview_position_override_summary">Над натиснатия клавиш или над цялата
+        клавиатура
+    </string>
+    <string name="key_preview_position_override_above_key">Над натиснатия клавиш</string>
+    <string name="key_preview_position_override_above_keyboard">Над клавиатурата</string>
+    <string name="key_press_preview_popup">Балончета при натискане на клавиш</string>
+    <string name="key_press_preview_popup_on_summary">Показвай балончета при натискане на клавиш</string>
+    <string name="key_press_preview_popup_off_summary">Не показвай балончета при натискане на клавиш</string>
+    <string name="zoom_factor_keys_in_portrait">Височина на клавиатурата в режим портрет</string>
+    <string name="zoom_factor_keys_in_landscape">Височина на клавиатурата в режим пейзаж</string>
+    <string name="insert_space_after_word_suggestion_selection">Интервал след избиране на кандидат</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Вмъкване на интервал след избор на
+        предложение за дума
+    </string>
+    <string name="double_space_to_period">Точка при двоен интервал</string>
+    <string name="double_space_to_period_summary">Точка и интервал при двоен интервал</string>
+    <string name="tweak_animations_level_title">Анимации</string>
+    <string name="tweak_animations_level_summary">Колко анимации трябва да се използват. Понастоящем:
+        %s
+    </string>
+    <string name="tweak_animations_level_types_full">Всички</string>
+    <string name="tweak_animations_level_types_some">Някои</string>
+    <string name="tweak_animations_level_types_none">Без</string>
+    <string name="cycle_all_symbols_keyboards">Поред през всички символни клавиатури</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Клавиша за символи ще сменя символните клавиатури поред</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Клавиша за символи ще показва само главната символна клавиатура</string>
+    <string name="lang_key_shows_popup">Превключвай езиците от прозорец</string>
+    <string name="lang_key_shows_popup_on_summary">Клавиша за език ще покаже диалог за избор</string>
+    <string name="lang_key_shows_popup_off_summary">Клавиша за език ще променя подредбата поред</string>
+    <string name="settings_os_clipboard_sync">Синхр. на клипборда с ОС</string>
+    <string name="settings_os_clipboard_sync_summary_on">Откриване на промени в клипборда и синхронизиране с AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Без слушане на операции с клипборда извън AnySoftKeyboard.</string>
+    <string name="auto_caps">Автоматични главни букви</string>
+    <string name="grammar_group">Граматика</string>
+    <string name="keyboard_behavior_group">Поведение на клавиатурата</string>
+    <string name="candidates_on">Показване на предложения</string>
+    <string name="candidates_on_summary">Над клавиатурата ще се покаже списък с
+        предложени думи
+    </string>
+    <string name="candidates_off_summary">Няма да се показват предложения</string>
+    <string name="quick_fix">Бързи корекции и съкращения</string>
+    <string name="quick_fix_summary">Коригира често въвежданите грешки и разширява съкращенията</string>
+    <string name="quick_fix_secon_disabled">…само на първия език</string>
+    <string name="quick_fix_secon_disabled_summ_on">Бързите корекции и съкращения ще работят само на текущото езиково оформление</string>
+    <string name="quick_fix_secon_disabled_summ_off">Бързите корекции и съкращения ще работят на всеки език, 
+                  проверен в заместващия речник по подразбиране</string>
+    <string name="allow_suggestions_restart">Рестартиране на преложенията</string>
+    <string name="allow_suggestions_restart_summary">Рестартиране на предложенията за думи при движение на курсора
+    </string>
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Клавиатури</string>
+    <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">123</string>
+    <string name="symbols_phone_keyboard">телефон</string>
+    <string name="symbols_numbers_keyboard">123</string>
+    <string name="symbols_time_keyboard">време</string>
+    <string name="keyboard_change_locked">недостъпно</string>
+    <!-- settings - quick text keys -->
+    <string name="quick_text_keys_group">Клавиши за бърз текст</string>
+    <!-- settings - top generic row -->
+    <string name="top_generic_row_group">Избран вид на горния ред</string>
+    <string name="top_generic_row_dialog_title">Избор на тип ред</string>
+    <string name="top_generic_row_summary">Избран вид на горния ред: %s</string>
+    <!-- settings - bottom generic row -->
+    <string name="bottom_generic_row_group">Избран вид на долния ред</string>
+    <string name="bottom_generic_row_dialog_title">Избор на тип ред</string>
+    <string name="bottom_generic_row_summary">Избран вид на долния ред: %s</string>
+    <string name="keyboard_theme_list_title">Избор на тема</string>
+    <string name="dark_plain_keyboard_theme_name">Обикновена тъмна тема</string>
+    <string name="dark_plain_keyboard_theme_description">Тъмни цветове, опростени графики</string>
+    <string name="light_plain_keyboard_theme_name">Обикновена светла тема</string>
+    <string name="light_plain_keyboard_theme_description">Светли цветове, опростени графики</string>
+    <string name="blacktheme_keyboard_theme_name">Опростено черно сияние</string>
+    <string name="blacktheme_keyboard_theme_description">Опростена черна тема с цветни акценти
+    </string>
+    <string name="lean_dark_keyboard_theme_name">Тъмна тема</string>
+    <string name="lean_dark_keyboard_theme_description">Тъмна тема с минималистични графични елементи
+    </string>
+    <string name="lean_dark_2_keyboard_theme_name">Тъмна тема - вариант 2</string>
+    <string name="lean_dark_big_keyboard_theme_description">Същата Tъмна тема, но с по-големи клавиши
+    </string>
+    <string name="lean_light_keyboard_theme_description">Светла тема с минималистични графични елементи
+    </string>
+    <string name="lean_light_big_keyboard_theme_description">Същата Светла тема, но с по-големи
+        клавиши
+    </string>
+    <string name="lean_dark_gray_keyboard_theme_description">Тъмно Сива тема с минималистични графични
+        елементи
+    </string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees Тъмна</string>
+    <string name="yochees_dark_keyboard_theme_description">Тъмна тема от Algimantas.</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees Тъмна - Опция 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees Светла</string>
+    <string name="yochees_light_keyboard_theme_description">Светла тема от Algimantas.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Светла тема от Algimantas с
+        главни клавиши.
+    </string>
+    <!-- extension keyboard type -->
+    <string name="extension_kbd_top_none">Без горен ред</string>
+    <string name="extension_kbd_top_small">Малки клавиши</string>
+    <string name="extension_kbd_top_regular">Нормален размер клавиши</string>
+    <string name="extension_kbd_top_small_numbers">Цифрови клавиши</string>
+    <string name="extension_kbd_top_numbers_alt">Алтернативни цифрови клавиши</string>
+    <string name="extension_kbd_top_nav">Клавиши за навигация</string>
+    <string name="extension_kbd_top_nav_alt">Алтернативни клавиши за навигация</string>
+    <string name="extension_kbd_top_numbers_simple">Опростено, само цифри</string>
+    <string name="extension_kbd_top_terminal">Терминал</string>
+    <string name="extension_kbd_top_text_editing">Бързо редактиране на текст</string>
+    <string name="extension_kbd_bottom_regular_with_voice">Обикновен</string>
+    <string name="extension_kbd_bottom_regular">Класика (без микрофон)</string>
+    <string name="extension_kbd_bottom_iphone">iPhone стил (без микрофон)</string>
+    <string name="extension_kbd_bottom_iphone_with_voice">iPhone стил с микрофон</string>
+    <string name="extension_kbd_bottom_alt">Алтернативен (без микрофон)</string>
+    <string name="extension_kbd_bottom_alt_with_mic">Алтернативен с микрофон</string>
+    <string name="extension_kbd_bottom_old">Старомодно</string>
+    <string name="extension_kbd_bottom_simple">Опростено</string>
+    <string name="extension_kbd_bottom_simple_alt">Опростено Алтернативно</string>
+    <string name="extension_kbd_bottom_row_aosp">AOSP стил</string>
+    <string name="extension_kbd_bottom_ng">Следващо поколение - тестване</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Ново поколение (без апостроф) - тестово</string>
+    <string name="extension_kbd_extension_numbers_symbols">Цифри и символи</string>
+    <string name="extension_kbd_bottom_minimal">Минималистично</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Минималистично (без емотикони)</string>
+    <!-- Tutorials -->
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Напред</string>
+    <string name="label_next_key">Слдв</string>
+    <string name="label_previous_key">Предишен.</string>
+    <string name="label_send_key">Изпращане</string>
+    <string name="label_search_key">Търсене</string>
+    <string name="label_done_key">Готово</string>
+    <string name="label_tab_key">Tab</string>
+    <string name="label_home_key">Home</string>
+    <string name="label_end_key">End</string>
+    <string name="change_lang_regular">АБВ</string>
+    <string name="change_symbols_regular">123</string>
+    <string name="select_keyboard_popup_title">Избор на клавиатура</string>
+    <!-- dictionaries -->
+    <string name="simley_key_name">Смайли клавиш</string>
+    <string name="quick_text_kaomoji">Каомоджи</string>
+    <string name="history_quick_text_key_name">История</string>
+    <string name="default_quick_text_key_name">Опростени емотикони</string>
+    <string name="unicode_quick_text_key_name">Емотикони</string>
+    <string name="unicode_people_quick_text_key_name">Хора</string>
+    <string name="unicode_gestures_quick_text_key_name">Жестове</string>
+    <string name="unicode_accessories_quick_text_key_name">Аксесоари</string>
+    <string name="unicode_animals_quick_text_key_name">Животни</string>
+    <string name="unicode_food_quick_text_key_name">Храна</string>
+    <string name="unicode_nature_quick_text_key_name">Природа</string>
+    <string name="unicode_transport_quick_text_key_name">Транспорт</string>
+    <string name="unicode_signs_quick_text_key_name">Знаци</string>
+    <string name="unicode_city_quick_text_key_name">Град</string>
+    <string name="unicode_scape_quick_text_key_name">Ландшафт</string>
+    <string name="unicode_activity_quick_text_key_name">Дейност</string>
+    <string name="unicode_office_quick_text_key_name">Офис</string>
+    <string name="unicode_occasions_quick_text_key_name">Случаи</string>
+    <string name="unicode_flags_quick_text_key_name">Знамена</string>
+    <string name="multitap_timeout_title">Време за изчакване при множество натискания</string>
+    <string name="multitap_timeout_summary">Време за изчакване между клавишни натискания</string>
+    <string name="settings_multitap_timeout_disabled">Изключено</string>
+    <string name="settings_multitap_timeout_faster">По-бързо</string>
+    <string name="settings_multitap_timeout_fast">Бързо</string>
+    <string name="settings_multitap_timeout_normal">Нормално</string>
+    <string name="settings_multitap_timeout_slow">Бавно</string>
+    <string name="settings_multitap_timeout_slower">По-бавно</string>
+    <string name="settings_multitap_timeout_never">Чакай завинаги</string>
+    <string name="long_press_timeout_title">Време за продължително натискане</string>
+    <string name="long_press_timeout_summary">Време при натискане на клавиша, за да се счита за продължително натискане</string>
+    <string name="settings_long_press_timeout_faster">По-бързо</string>
+    <string name="settings_long_press_timeout_fast">Бързо</string>
+    <string name="settings_long_press_timeout_normal">Нормално</string>
+    <string name="settings_long_press_timeout_slow">Бавно</string>
+    <string name="settings_long_press_timeout_slower">По-бавно</string>
+    <string name="settings_long_press_timeout_never">Никога</string>
+    <string name="workaround_disable_rtl_fix">Използване обработката на Android от дясно наляво</string>
+    <string name="settings_split_state_compact_right_always">Започнете уплътнено вдясно</string>
+    <string name="settings_split_state_compact_left_always">Започнете уплътнено вляво</string>
+    <!-- User dictionary settings -->
+    <string name="user_dictionary_select_locale">Език:</string>
+    <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+    <string name="user_dict_settings_titlebar">Потребителски речник</string>
+    <string name="user_dict_editor">Редактор на думи</string>
+    <!-- abbreviations editor -->
+    <string name="abbreviation_dict_settings_titlebar">Редактор за съкращения</string>
+    <string name="abbreviation_dict_editor">Редактор за съкращения</string>
+    <string name="abbreviation_dict_word_template">        <i>
+            <xliff:g id="abbreviation">%s</xliff:g>
+        </i>
+        \u0020\u2192\u0020
+        <i>
+            <xliff:g id="target">%s</xliff:g>
+        </i>
+    </string>
+    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
+    <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+    <string name="user_dict_settings_empty_text">Нямате думи в потребителския речник.
+        Можете да добавите първата си дума сега.
+    </string>
+    <string name="should_swap_punctuation_and_space_title">Разменете пунктуация и интервал</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Не разменяйте интервал и
+        пунктуация.
+    </string>
+    <string name="initial_quick_text_tab_title">Първоначална група</string>
+    <string name="initial_quick_text_tab_last_used_tab">Започнете с последната използвана група</string>
+    <string name="initial_quick_text_tab_history_tab">Започнете с група „История“</string>
+    <string name="emoji_default_skin_tone_title">Тон на емоджи кожата по подразбиране</string>
+    <string name="emoji_default_skin_tone_value_type_2">Светъл тон на кожата</string>
+    <string name="emoji_default_skin_tone_value_type_3">Средно светъл тон на кожата</string>
+    <string name="emoji_default_skin_tone_value_type_4">Среден тон на кожата</string>
+    <string name="emoji_default_skin_tone_value_type_5">Средно тъмен тон на кожата</string>
+    <string name="emoji_default_skin_tone_value_type_6">Тъмен тон на кожата</string>
+    <string name="emoji_default_skin_tone_value_random_type">Случаен тон на кожата</string>
+    <string name="developer_tools">Инструменти за разработчици</string>
+    <string name="click_for_developer_features">Инструменти за разработчици</string>
+    <string name="click_for_developer_features_summary">Различни инструменти за AnySoftKeyboard
+        разработчици
+    </string>
+    <string name="failed_to_create_mem_dump">Неуспешно създаване на файл за изхвърляне на паметта поради:
+        <xliff:g id="message">%s</xliff:g>
+    </string>
+    <string name="created_mem_dump_file">Създаден файл за изхвърляне на памет при:
+        <xliff:g id="file_path">%s</xliff:g>
+    </string>
+    <string name="not_configured_with_click_here">AnySoftKeyboard не е напълно настроена за използване. Щракнете
+        тук, за да настроите.
+    </string>
+    <string name="not_configured_with_just_click_here">Щракнете тук</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="word_editor_action_add_word">Добавяне на дума</string>
+    <string name="word_editor_action_backup_words">Резервно копие</string>
+    <string name="word_editor_action_restore_words">Възстановяване</string>
+    <string name="click_to_add_new_word">Щракнете, за да добавите нова дума</string>
+    <string name="enter_word_hint">Въведете новата дума тук</string>
+    <string name="enter_abbreviation_hint">Абревиатура</string>
+    <string name="enter_abbreviation_target_hint">Пълно изречение</string>
+    <string name="toast_error_custom_path_backup">Грешка: Всяко контекстуално приложение може да бъде отворено</string>
+    <string name="about_additional_software_licenses">Допълнителни лицензи за софтуера</string>
+    <string name="setup_wizard_step_one_title">Активирай AnySoftKeyboard</string>
+    <string name="setup_wizard_step_one_details">В тази стъпка ще трябва да активирате <i>
+        AnySoftKeyboard</i>. Моля, проверете <i>\'AnySoftKeyboard\'</i> във Вашите <i>настройки за
+        Език и въвеждане</i>. Това ще ни позволи да работим с вашето устройство.
+    </string>
+    <string name="setup_wizard_step_one_action">Отидете при Вашите <i>настройки за Език и въвеждане</i>…
+    </string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Грешка: Вашето устройство
+        не поддържа клавиатури от трети страни. AnySoftKeyboard не може да бъде активирана!
+    </string>
+    <string name="setup_wizard_step_permissions_title">Одобряване на разрешения</string>
+    <string name="setup_wizard_step_two_title">Превключи към AnySoftKeyboard</string>
+    <string name="setup_wizard_step_two_details">Вашата система може да използва <i>AnySoftKeyboard</i> сега, но
+        не е зададена като активна. \nС превключването, <i>AnySoftKeyboard</i> ще бъде новата Ви
+        екранна клавиатура, заедно с всичките ѝ функции!
+    </string>
+    <string name="setup_wizard_step_two_action">Превключване на активните клавиатури</string>
+    <string name="setup_wizard_step_three_title">Какво следва</string>
+    <string name="setup_wizard_step_three_details">Благодарим Ви, че избрахте <i>AnySoftKeyboard</i>.
+    </string>
+    <string name="setup_wizard_step_three_details_done">        <b>Готови сте 🎉\nОтидете в любимото си приложение, за да я изпробвате.</b>
+    </string>
+    <string name="setup_wizard_step_three_details_actions">Или можете да персонализирате
+        клавиатурата според вашите предпочитания:
+    </string>
+    <string name="setup_wizard_step_three_action_languages">Настройте езиците…</string>
+    <string name="setup_wizard_step_three_action_themes">Изберете тема…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Конфигуриране на всичко останало…</string>
+    <string name="setup_wizard_step_download_title">Изтегляне на езикови пакети</string>
+    <string name="setup_wizard_step_download_details">Добрата новина е, че <i>AnySoftKeyboard</i> поддържа десетки езици. Просто изтеглете желания езиков пакет и се наслаждавайте на писане на
+        който и да е език във вашето устройство.</string>
+    <string name="setup_wizard_step_download_action">Изтегляне на езиков пакет</string>
+    <string name="setup_wizard_step_download_skip_action">Прескачане</string>
+    <string name="ime_crashed_text">За съжаление има проблем с <i>AnySoftKeyboard</i>.
+        Не се паникьосвайте, има нещо, което <b>Вие</b> можете да направите, за да разрешите това: изпратете ни 
+отчета
+        за срив и ние ще направим всичко възможно да разрешим този проблем и да Ви върнем страхотното клавиатурно
+        изживяване!\n\nИскрено извинение от екипа за разработка.</string>
+    <string name="ime_crashed_send_button">Изпращане</string>
+    <string name="ime_crashed_cancel_button">Отказ</string>
+    <string name="ime_crashed_intent_selector_title">Изпращане на отчет за срив чрез</string>
+    <string name="next_word_settings_group">Настройки</string>
+    <string name="next_words_statistics_no_usage">Все още няма употреба. Въвеждайте още малко.</string>
+    <string name="clipboard_is_empty_toast">Клипбордът е празен, няма какво да се постави.</string>
+    <string name="clipboard_copy_done_toast">Избраният текст е копиран в клипборда.</string>
+    <string name="clipboard_paste_entries_title">Изберете текст за поставяне</string>
+    <string name="next_word_prefs_clear_data_summary">Това е необратимо. Цялата ви история на писане ще бъде изчистена.</string>
+    <string name="notification_read_contacts_title">Мога ли да чета вашите контакти?</string>
+    <string name="notification_read_contacts_text">Трябва да прочетем Вашите контакти, за да Ви осигурим по-добро изживяване с автоматично попълване.</string>
+    <string name="wizard_allow_contacts_permission">Разрешаване на предложения за писане на базата на контакти</string>
+    <string name="turn_off_contacts_dictionary">Изключване на речника с контакти</string>
+    <string name="read_more_about_permissions">Прочетете повече за разрешенията…</string>
+    <string name="app_shortcut_keyboards_disabled">Клавиатурната навигация е изключена</string>
+    <string name="app_shortcut_keyboards_long_label">Изберете клавиатурни оформления, които да използвате</string>
+    <string name="app_shortcut_keyboards_short_label">Клавиатури</string>
+    <string name="app_shortcut_themes_disabled">Навигацията на теми е изключена</string>
+    <string name="app_shortcut_themes_long_label">Изберете тема за оформление, която да използвате</string>
+    <string name="app_shortcut_themes_short_label">Теми</string>
+    <string name="app_shortcut_gestures_disabled">Навигацията с жестове е деактивирана</string>
+    <string name="app_shortcut_gestures_long_label">Настройки за клавиатурни жестове</string>
+    <string name="app_shortcut_gestures_short_label">Жестове</string>
+    <string name="app_shortcut_quick_keys_long_label">Настройки на емоджита</string>
+    <string name="app_shortcut_quick_keys_short_label">Настройки на емоджита</string>
+    <string name="extension_keyboard_enabled_off_summary">Разширената клавиатура е изключена.</string>
+    <string name="read_our_privacy_policy">Прочетете нашата Политика за поверителност…</string>
+    <string name="visit_our_web_site">Посетете уебсайта ни…</string>
+    <string name="keyboard_for_url_fields">Оформление на полетата за URL</string>
+    <string name="keyboard_for_url_fields_summary">В URL/Имейл полета, ще се използва това оформление. Понастоящем, %s</string>
+    <string name="keyboard_for_url_fields_title">Изберете оформление за въвеждане на URL</string>
+    <string name="no_internet_fields_specific_layout">Нищо</string>
+    <string name="bottom_nav_home">Здравейте</string>
+    <string name="setup_wizard_welcome_title">Добре дошли!</string>
+    <string name="setup_wizard_welcome_sub_title">Благодарим Ви, че опитахте AnySoftKeyboard!
+    </string>
+    <string name="setup_wizard_welcome_info">Както при всяка друга клавиатура на Android, от вас се изисква да
+        активирайте AnySoftKeyboard в страниците с настройки на Android. Това се изисква от Android, за да се гарантира, че
+        данните Ви за писане не са откраднати от зли клавиатури *.
+    </string>
+    <string name="setup_wizard_welcome_info_2">Добре, готови ли сте? щракнете по-долу, за да започнете, ще ви въведа в това.</string>
+    <string name="setup_wizard_welcome_start_action">Започване на конфигурирането…</string>
+    <string name="setup_wizard_welcome_privacy_action">Към политиката за поверителност…</string>
+    <string name="theme_case_type_override_lower">Винаги с малки букви</string>
+    <string name="theme_case_type_override_upper">Винаги с главни букви</string>
+    <string name="settings_hint_size">Размер на етикета с подсказка</string>
+    <string name="settings_key_hint_size_summary">Задайте размер на подсказката в клавиатурата. Понастоящем, %s</string>
+    <string name="settings_key_hint_size_none">Без</string>
+    <string name="settings_key_hint_size_small">Малка</string>
+    <string name="settings_key_hint_size_normal">Нормална</string>
+    <string name="settings_key_hint_size_big">Голяма</string>
+    <string name="take_a_while_progress_message">Това може да отнеме известно време…</string>
+    <string name="shared_prefs_provider_name">Настройки на приложението</string>
+    <string name="user_dict_prefs_provider">Потребителски думи</string>
+    <string name="next_word_dict_prefs_provider">Следващи думи</string>
+    <string name="abbreviation_dict_prefs_provider">Абревиатури</string>
+    <string name="pick_prefs_providers_to_backup">Какво бихте искали да сложите в резервно копие?</string>
+    <string name="pick_prefs_providers_to_restore">Какво бихте искали да възстановите?</string>
+    <string name="prefs_providers_operation_success">Успех</string>
+    <string name="prefs_providers_operation_failed">Провалено!</string>
+    <string name="prefs_providers_failed_backup_due_to">Създаването на резервно копие за Вашите данни бе неуспешно поради %s</string>
+    <string name="prefs_providers_backed_up_to">Успешно създаване на резервно копие за Вашите данни в %s</string>
+    <string name="prefs_providers_failed_restore_due_to">Възстановяването на Вашите данни бе неуспешно поради %s</string>
+    <string name="prefs_providers_restored_to">Вашите данни бяха успешно възстановени от %s</string>
+    <string name="gesture_typing_settings">Въвеждане чрез жестове ➿</string>
+    <string name="gesture_typing_summary">Въведете дума, като плъзнете пръста си през нейните букви.</string>
+    <string name="gesture_typing_action">Активиране на въвеждане чрез жестове [BETA]</string>
+    <string name="gesture_typing_alert_title">БЕТА функция!</string>
+    <string name="gesture_typing_alert_message">Функцията за въвеждане чрез жестове ➿ е в <b>бета</b> зрялост. Има някои грешки, не толкова бързо и не толкова пълно.\nКазвайки това, трябва да го изпробвате.</string>
+    <string name="gesture_typing_alert_button">Разбрано</string>
+    <string name="apply_remote_app_colors_to_theme">Промяна на цветовете на темата въз основа на използваното приложение</string>
+    <string name="apply_overlay_summary_on">Цветовете на клавиатурата ще съответстват на активното приложение (доколкото това е възможно).</string>
+    <string name="apply_overlay_summary_off">Винаги да се използват цветовете на темата.</string>
+    <string name="media_insertion_pending_message">Щракнете върху текстовото поле, за да вмъкнете изображение</string>
+    <string name="aosp_dark_theme_name">AOSP Тъмна тема</string>
+    <string name="aosp_light_theme_name">AOSP Светла тема</string>
+    <string name="app_share_title">Привет от AnySoftKeyboard</string>
+    <string name="app_share_menu_title">Споделете AnySoftKeyboard с помощта на</string>
+    <string name="click_me_for_easter_egg_info">щракни ме за изненада</string>
+</resources>
