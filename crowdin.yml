@@ -28,7 +28,7 @@ files:
     update_option: update_without_changes
   - source: /ime/releaseinfo/src/main/res/values/strings.xml
     translation: /ime/releaseinfo/src/main/res/values-%android_code%/strings.xml
-    dest: /releaseinfo_strings.xml
+    dest: /release_info_strings.xml
     type: android
     update_option: update_without_changes
   - source: /ime/permissions/src/main/res/values/strings.xml
