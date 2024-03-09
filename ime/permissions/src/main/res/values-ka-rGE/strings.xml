@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="allow_permission">ნების დართვა</string>
     <string name="contacts_permissions_rationale">AnySoftKeyboard იყენებს თქვენი წიგნაკიდან
         სახელებს უკეთ მორგებული შემოთავაზებებისთვის: სიტყვის აკრეფისთანავე მოინახება

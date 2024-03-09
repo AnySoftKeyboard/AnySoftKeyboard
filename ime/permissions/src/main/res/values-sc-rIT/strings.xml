@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="allow_permission">Permite</string>
     <string name="contacts_permissions_rationale">AnySoftKeyboard impreat sos nùmenes
         de sos cuntatos tuos pro ti frunire impòsitos personalizados: comente ses iscriende una paràula amus a chircare
