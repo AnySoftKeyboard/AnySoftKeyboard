@@ -691,15 +691,16 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         if (mKeyboardNameTextSize == -1) return false;
         mKeyboardNameTextSize *= mKeysHeightFactor;
       }
-      case R.attr.keyboardNameTextColor -> mThemeOverlayCombiner.setThemeNameTextColor(
-          remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE));
+      case R.attr.keyboardNameTextColor ->
+          mThemeOverlayCombiner.setThemeNameTextColor(
+              remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE));
       case R.attr.shadowColor -> mShadowColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0);
-      case R.attr.shadowRadius -> mShadowRadius =
-          remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-      case R.attr.shadowOffsetX -> mShadowOffsetX =
-          remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-      case R.attr.shadowOffsetY -> mShadowOffsetY =
-          remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+      case R.attr.shadowRadius ->
+          mShadowRadius = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+      case R.attr.shadowOffsetX ->
+          mShadowOffsetX = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+      case R.attr.shadowOffsetY ->
+          mShadowOffsetY = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
       case R.attr.backgroundDimAmount -> {
         mBackgroundDimAmount = remoteTypedArray.getFloat(remoteTypedArrayIndex, -1f);
         if (mBackgroundDimAmount == -1f) return false;
@@ -709,8 +710,9 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         if (keyPreviewBackground == null) return false;
         mPreviewPopupTheme.setPreviewKeyBackground(keyPreviewBackground);
       }
-      case R.attr.keyPreviewTextColor -> mPreviewPopupTheme.setPreviewKeyTextColor(
-          remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
+      case R.attr.keyPreviewTextColor ->
+          mPreviewPopupTheme.setPreviewKeyTextColor(
+              remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
       case R.attr.keyPreviewTextSize -> {
         int keyPreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
         if (keyPreviewTextSize == -1) return false;
@@ -724,8 +726,9 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         keyPreviewLabelTextSize = (int) (keyPreviewLabelTextSize * mKeysHeightFactor);
         mPreviewPopupTheme.setPreviewLabelTextSize(keyPreviewLabelTextSize);
       }
-      case R.attr.keyPreviewOffset -> mPreviewPopupTheme.setVerticalOffset(
-          remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
+      case R.attr.keyPreviewOffset ->
+          mPreviewPopupTheme.setVerticalOffset(
+              remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
       case R.attr.previewAnimationType -> {
         int previewAnimationType = remoteTypedArray.getInteger(remoteTypedArrayIndex, -1);
         if (previewAnimationType == -1) return false;
@@ -776,14 +779,15 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         if (mHintTextSize == -1) return false;
         mHintTextSize *= mKeysHeightFactor;
       }
-      case R.attr.hintTextColor -> mThemeOverlayCombiner.setThemeHintTextColor(
-          remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000));
-      case R.attr.hintLabelVAlign -> mThemeHintLabelVAlign =
-          remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
-      case R.attr.hintLabelAlign -> mThemeHintLabelAlign =
-          remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
-      case R.attr.keyTextCaseStyle -> mTextCaseType =
-          remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
+      case R.attr.hintTextColor ->
+          mThemeOverlayCombiner.setThemeHintTextColor(
+              remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000));
+      case R.attr.hintLabelVAlign ->
+          mThemeHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
+      case R.attr.hintLabelAlign ->
+          mThemeHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
+      case R.attr.keyTextCaseStyle ->
+          mTextCaseType = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
     }
     return true;
   }
@@ -1899,10 +1903,10 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   private void sendOnXEvent(
       final int action, final long eventTime, final int x, final int y, PointerTracker tracker) {
     switch (action) {
-      case MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> onDownEvent(
-          tracker, x, y, eventTime);
-      case MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> onUpEvent(
-          tracker, x, y, eventTime);
+      case MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN ->
+          onDownEvent(tracker, x, y, eventTime);
+      case MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP ->
+          onUpEvent(tracker, x, y, eventTime);
       case MotionEvent.ACTION_CANCEL -> onCancelEvent(tracker);
     }
   }
