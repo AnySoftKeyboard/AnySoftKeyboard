@@ -119,6 +119,8 @@ jobs:
         run: pnpm upgrade --latest
       - name: Sanity verification
         run: pnpm build
+      - name: re-package node binaries
+        run: pnpm package
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6.0.1
         with:
