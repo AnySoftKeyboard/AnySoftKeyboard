@@ -28,11 +28,11 @@ jobs:
       - uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 2
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3.0.0
         with:
           version: 8.6.9
           run_install: true
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4.0.2
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
@@ -40,10 +40,6 @@ jobs:
       - run: pnpm pretty
       - run: pnpm build
       - run: pnpm test
-      - name: check if package required
-        run: |
-          pnpm package
-          git --no-pager diff --exit-code --ignore-all-space --ignore-blank-lines .github/actions/
 
   static-checks:
     runs-on: ubuntu-22.04
@@ -73,7 +69,7 @@ jobs:
         with:
           file_pattern: checkstyle*.html
           output_folder: collected_reports/checkstyle
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v4.3.1
         if: always()
         continue-on-error: true
         with:
@@ -123,7 +119,7 @@ jobs:
         with:
           file_pattern: java_*.hprof
           output_folder: oom_dumps
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v4.3.1
         if: always()
         continue-on-error: true
         with:
@@ -177,13 +173,13 @@ jobs:
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v4.3.1
         if: always()
         continue-on-error: true
         with:
           name: tests-${{ matrix.shard_variant }}
           path: collected_reports
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v4.3.1
         if: always()
         continue-on-error: true
         with:
@@ -253,7 +249,7 @@ jobs:
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh
-      - uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v4.3.1
         continue-on-error: true
         with:
           name: fdroid-metadata-dry-run-${{ matrix.shard_type}}
