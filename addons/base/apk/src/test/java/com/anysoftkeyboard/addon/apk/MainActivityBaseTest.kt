@@ -19,7 +19,6 @@ import org.robolectric.Shadows
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner::class)
 class MainActivityBaseTest {
-
     @Test
     fun testActivityShowsAddOnDetails() {
         ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
@@ -73,7 +72,9 @@ class MainActivityBaseTest {
                 .onActivity { activity ->
                     activity.findViewById<TextView>(R.id.action_description).run {
                         Assert.assertEquals(
-                            "AnySoftKeyboard is not installed on your device.\nIn order to use this expansion pack, you must first install AnySoftKeyboard.",
+                            "AnySoftKeyboard is not installed on your device.\n" +
+                                "In order to use this expansion pack, " +
+                                "you must first install AnySoftKeyboard.",
                             text,
                         )
                     }

@@ -194,8 +194,9 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
       case R.id.dev_share_trace_file -> onUserClickedShareTracingFile();
       case R.id.show_logcat_button -> onUserClickedShowLogCat();
       case R.id.share_logcat_button -> onUserClickedShareLogCat();
-      default -> throw new IllegalArgumentException(
-          "Failed to handle " + v.getId() + " in DeveloperToolsFragment");
+      default ->
+          throw new IllegalArgumentException(
+              "Failed to handle " + v.getId() + " in DeveloperToolsFragment");
     }
   }
 

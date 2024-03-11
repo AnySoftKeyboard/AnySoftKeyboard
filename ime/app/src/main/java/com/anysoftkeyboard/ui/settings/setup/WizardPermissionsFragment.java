@@ -131,14 +131,15 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
               browserIntent.getData());
         }
       }
-      case R.id.ask_for_notification_permissions_action -> AnyApplication.notifier(activity)
-          .askForNotificationPostPermission(this);
+      case R.id.ask_for_notification_permissions_action ->
+          AnyApplication.notifier(activity).askForNotificationPostPermission(this);
       case R.id.skip_notification_permissions_action -> {
         mNotificationSkipped = true;
         refreshWizardPager();
       }
-      default -> throw new IllegalArgumentException(
-          "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
+      default ->
+          throw new IllegalArgumentException(
+              "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
     }
   }
 

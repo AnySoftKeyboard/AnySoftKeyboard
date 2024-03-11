@@ -360,8 +360,9 @@ public class MainFragment extends Fragment {
         intentAction = Intent.ACTION_OPEN_DOCUMENT;
         builder.setTitle(R.string.pick_prefs_providers_to_restore);
       }
-      default -> throw new IllegalArgumentException(
-          "The option-id " + optionId + " is not supported here.");
+      default ->
+          throw new IllegalArgumentException(
+              "The option-id " + optionId + " is not supported here.");
     }
 
     supportedProviders = GlobalPrefsBackup.getAllPrefsProviders(requireContext());

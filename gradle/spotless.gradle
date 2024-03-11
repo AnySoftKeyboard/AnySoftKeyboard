@@ -17,7 +17,7 @@ spotless {
         removeUnusedImports()
 
         // apply a specific flavor of google-java-format
-        googleJavaFormat('1.17.0').reflowLongStrings()
+        googleJavaFormat('1.21.0').reflowLongStrings()
         // fix formatting of type annotations
         formatAnnotations()
     }

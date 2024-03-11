@@ -13,6 +13,7 @@ import com.anysoftkeyboard.addon.base.apk.R
 import com.anysoftkeyboard.addon.base.apk.databinding.ActivityMainBinding
 
 const val ASK_PACKAGE_NAME = "com.menny.android.anysoftkeyboard"
+
 abstract class MainActivityBase(
     @StringRes private val addOnName: Int,
     @StringRes private val addOnDescription: Int,
@@ -20,8 +21,8 @@ abstract class MainActivityBase(
     @StringRes private val addOnReleaseNotes: Int,
     @DrawableRes private val screenshot: Int,
 ) : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -29,9 +30,10 @@ abstract class MainActivityBase(
         binding.welcomeDescription.text = getString(R.string.welcome_subtitle_template, getText(addOnName))
         binding.packDescription.setText(addOnDescription)
         binding.addOnWebSite.text = getString(R.string.add_on_website_template, getText(addOnWebsite))
-        val version = packageManager.getPackageInfo(packageName, 0).run {
-            "$versionName ($versionCode)"
-        }
+        val version =
+            packageManager.getPackageInfo(packageName, 0).run {
+                "$versionName ($versionCode)"
+            }
         binding.releaseNotes.text = getString(R.string.release_notes_template, version, getText(addOnReleaseNotes))
 
         if (isAnySoftKeyboardInstalled()) {
@@ -52,11 +54,12 @@ abstract class MainActivityBase(
             binding.actionButton.setOnClickListener {
                 try {
                     val search = Intent(Intent.ACTION_VIEW)
-                    val uri = Uri.Builder()
-                        .scheme("market")
-                        .authority("search")
-                        .appendQueryParameter("q", ASK_PACKAGE_NAME)
-                        .build()
+                    val uri =
+                        Uri.Builder()
+                            .scheme("market")
+                            .authority("search")
+                            .appendQueryParameter("q", ASK_PACKAGE_NAME)
+                            .build()
                     search.setData(uri)
                     it.context.startActivity(search)
                 } catch (ex: Exception) {
@@ -69,10 +72,11 @@ abstract class MainActivityBase(
     private fun isAnySoftKeyboardInstalled(): Boolean {
         // TODO: we need to query for a broadcast-receiver, or something
         return try {
-            val services = packageManager.getPackageInfo(
-                ASK_PACKAGE_NAME,
-                PackageManager.GET_SERVICES,
-            )
+            val services =
+                packageManager.getPackageInfo(
+                    ASK_PACKAGE_NAME,
+                    PackageManager.GET_SERVICES,
+                )
             services.services.any { it.name == "com.menny.android.anysoftkeyboard.SoftKeyboard" }
         } catch (e: Exception) {
             false

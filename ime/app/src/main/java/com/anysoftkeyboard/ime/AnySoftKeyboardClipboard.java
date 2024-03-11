@@ -240,8 +240,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     if ((info.inputType & EditorInfo.TYPE_CLASS_TEXT) == 0) return false;
     return switch (info.inputType & EditorInfo.TYPE_MASK_VARIATION) {
       case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD,
-          EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD,
-          EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD -> true;
+              EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD,
+              EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ->
+          true;
       default -> false;
     };
   }
@@ -335,8 +336,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     abortCorrectionAndResetPredictionState(false);
     switch (primaryCode) {
       case KeyCodes.CLIPBOARD_PASTE -> performPaste();
-      case KeyCodes.CLIPBOARD_CUT, KeyCodes.CLIPBOARD_COPY -> performCopy(
-          primaryCode == KeyCodes.CLIPBOARD_CUT);
+      case KeyCodes.CLIPBOARD_CUT, KeyCodes.CLIPBOARD_COPY ->
+          performCopy(primaryCode == KeyCodes.CLIPBOARD_CUT);
       case KeyCodes.CLIPBOARD_SELECT_ALL -> {
         final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);
         final CharSequence toRight = ic.getTextAfterCursor(10240, 0);
@@ -354,10 +355,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         }
       }
       case KeyCodes.UNDO -> sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
-      case KeyCodes.REDO -> sendDownUpKeyEvents(
-          KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
-      default -> throw new IllegalArgumentException(
-          "The keycode " + primaryCode + " is not covered by handleClipboardOperation!");
+      case KeyCodes.REDO ->
+          sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
+      default ->
+          throw new IllegalArgumentException(
+              "The keycode " + primaryCode + " is not covered by handleClipboardOperation!");
     }
   }
 
