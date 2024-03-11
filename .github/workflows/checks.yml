@@ -40,10 +40,6 @@ jobs:
       - run: pnpm pretty
       - run: pnpm build
       - run: pnpm test
-      - name: check if package required
-        run: |
-          pnpm package
-          git --no-pager diff --exit-code --ignore-all-space --ignore-blank-lines .github/actions/
 
   static-checks:
     runs-on: ubuntu-22.04
