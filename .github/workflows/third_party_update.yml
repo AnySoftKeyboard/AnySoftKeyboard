@@ -46,7 +46,7 @@ jobs:
           branch: 'bot-pr/maven-update'
           delete-branch:
             true
-  
+
   github-actions-update:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
