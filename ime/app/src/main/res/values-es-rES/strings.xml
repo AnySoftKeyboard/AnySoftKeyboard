@@ -300,6 +300,9 @@
     <string name="key_press_preview_popup_off_summary">No mostrar cuadro emergente al pulsar una tecla</string>
     <string name="zoom_factor_keys_in_portrait">Factor de altura de teclas en modo vertical</string>
     <string name="zoom_factor_keys_in_landscape">Factor de altura de teclas en modo horizontal</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Desplazamiento inferior del teclado</string>
+    <string name="bottom_padding_in_dp_template">%d puntos</string>
     <string name="insert_space_after_word_suggestion_selection">Espacio luego de elegir la palabra</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insertar un espacio después de seleccionar la palabra sugerida</string>
     <string name="double_space_to_period">Doble espacio pone un punto</string>
@@ -514,6 +517,7 @@
     <string name="failed_to_create_mem_dump">Error al crear el archivo de volcado de memoria debido a: <xliff:g id="message">%s</xliff:g></string>
     <string name="created_mem_dump_file">Archivo de volcado de memoria creado en: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">AnySoftKeyboard no está configurado para su uso. Haz clic aquí para configurar.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard no tiene tu permiso para publicar notificaciones. Es posible que, en raras ocasiones, necesitemos notificarte problemas críticos (como fallas).</string>
     <string name="not_configured_with_just_click_here">Clic aquí</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -648,4 +652,8 @@
     <string name="backup_restore_not_support_before_kitkat_message">Respaldar y restaurar no son compatibles con dispositivos que tienen sistema operativo Android anterior a KitKat (versión 4.4). Lo siento.</string>
     <string name="delete_all_clipboard_entries">Vaciar portapapeles</string>
     <string name="tip_swipe_from_backspace_to_clear">Consejo: ¡puedes deslizar hacia la izquierda desde retroceso para borrar la palabra!</string>
+    <string name="notification_read_contacts_ticker">Necesita permiso para contactos</string>
+    <string name="wizard_allow_notification_permission">Permitir notificaciones de AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">En raras ocasiones (por ejemplo, si la aplicación falla) necesitaremos enviar una notificación al dispositivo. Esto se recomienda, pero no permitir la notificación no afectará el comportamiento de esta aplicación.</string>
+    <string name="wizard_skip_notification_permission">No permitir notificaciones</string>
 </resources>
