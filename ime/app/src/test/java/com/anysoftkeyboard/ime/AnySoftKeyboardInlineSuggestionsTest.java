@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionInfo;
 import android.view.inputmethod.InlineSuggestionsResponse;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.inline.InlineContentView;
 import androidx.core.util.Pair;
@@ -30,6 +31,11 @@ import org.robolectric.annotation.Config;
 @Config(sdk = Build.VERSION_CODES.R)
 public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTest {
   private static InlineSuggestionsResponse mockResponse(InlineContentView... views) {
+    return mockResponse(new String[0], views);
+  }
+
+  private static InlineSuggestionsResponse mockResponse(
+      String[] hints, InlineContentView... views) {
     var response = Mockito.mock(InlineSuggestionsResponse.class);
     Mockito.doReturn(
             Arrays.stream(views)
@@ -49,7 +55,7 @@ public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTes
                       Mockito.doReturn("android:autofill:action").when(info).getType();
                       Mockito.doReturn("android:autofill").when(info).getSource();
                       Mockito.doReturn(false).when(info).isPinned();
-                      Mockito.doReturn(new String[0]).when(info).getAutofillHints();
+                      Mockito.doReturn(hints).when(info).getAutofillHints();
                       Mockito.doReturn(info).when(p.first).getInfo();
 
                       return p.first;
@@ -89,6 +95,73 @@ public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTes
             .findViewById(R.id.inline_suggestions_strip_text);
     Assert.assertNotNull(countText);
     Assert.assertEquals("1", countText.getText().toString());
+  }
+
+  @Test
+  public void testActionStripAddedForGeneric() {
+    simulateOnStartInputFlow();
+    mAnySoftKeyboardUnderTest.onInlineSuggestionsResponse(
+        mockResponse(Mockito.mock(InlineContentView.class)));
+    ImageView icon =
+        mAnySoftKeyboardUnderTest
+            .getInputViewContainer()
+            .findViewById(R.id.inline_suggestions_strip_icon);
+    Assert.assertEquals(
+        R.drawable.ic_inline_suggestions,
+        Shadows.shadowOf(icon.getDrawable()).getCreatedFromResId());
+  }
+
+  @Test
+  public void testActionStripAddedForUnknown() {
+    simulateOnStartInputFlow();
+    mAnySoftKeyboardUnderTest.onInlineSuggestionsResponse(
+        mockResponse(
+            new String[] {"I", "do", "not", "know"}, Mockito.mock(InlineContentView.class)));
+    ImageView icon =
+        mAnySoftKeyboardUnderTest
+            .getInputViewContainer()
+            .findViewById(R.id.inline_suggestions_strip_icon);
+    Assert.assertEquals(
+        R.drawable.ic_inline_suggestions,
+        Shadows.shadowOf(icon.getDrawable()).getCreatedFromResId());
+  }
+
+  @Test
+  public void testActionStripAddedForAi() {
+    simulateOnStartInputFlow();
+    mAnySoftKeyboardUnderTest.onInlineSuggestionsResponse(
+        mockResponse(new String[] {"aiai", "newFeature"}, Mockito.mock(InlineContentView.class)));
+    ImageView icon =
+        mAnySoftKeyboardUnderTest
+            .getInputViewContainer()
+            .findViewById(R.id.inline_suggestions_strip_icon);
+    Assert.assertEquals(
+        R.drawable.ic_inline_suggestions_ai,
+        Shadows.shadowOf(icon.getDrawable()).getCreatedFromResId());
+  }
+
+  @Test
+  public void testActionStripAddedForSmartReply() {
+    simulateOnStartInputFlow();
+    mAnySoftKeyboardUnderTest.onInlineSuggestionsResponse(
+        mockResponse(new String[] {"aiai", "smartReply"}, Mockito.mock(InlineContentView.class)));
+    ImageView icon =
+        mAnySoftKeyboardUnderTest
+            .getInputViewContainer()
+            .findViewById(R.id.inline_suggestions_strip_icon);
+    Assert.assertEquals(
+        R.drawable.ic_inline_suggestions_ai_reply,
+        Shadows.shadowOf(icon.getDrawable()).getCreatedFromResId());
+
+    mAnySoftKeyboardUnderTest.onInlineSuggestionsResponse(
+        mockResponse(new String[] {"smartReply"}, Mockito.mock(InlineContentView.class)));
+    icon =
+        mAnySoftKeyboardUnderTest
+            .getInputViewContainer()
+            .findViewById(R.id.inline_suggestions_strip_icon);
+    Assert.assertEquals(
+        R.drawable.ic_inline_suggestions_ai_reply,
+        Shadows.shadowOf(icon.getDrawable()).getCreatedFromResId());
   }
 
   @Test

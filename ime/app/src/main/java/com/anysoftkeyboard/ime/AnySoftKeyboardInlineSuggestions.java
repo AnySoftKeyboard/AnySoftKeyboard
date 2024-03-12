@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.inline.InlinePresentationSpec;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -102,7 +104,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
       getInputViewContainer().setActionsStripVisibility(true);
     }
 
-    return inlineSuggestions.size() > 0;
+    return !inlineSuggestions.isEmpty();
   }
 
   private void removeActionStrip() {
@@ -201,6 +203,7 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     private final Runnable mRemoveStripAction;
     private final List<InlineSuggestion> mCurrentSuggestions;
     @Nullable private TextView mSuggestionsCount;
+    private ImageView mSuggestionTypeIcon;
 
     InlineSuggestionsAction(
         Function<List<InlineSuggestion>, Void> showSuggestionsFunction,
@@ -224,8 +227,8 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
           });
 
       mSuggestionsCount = root.findViewById(R.id.inline_suggestions_strip_text);
-      mSuggestionsCount.setText(
-          String.format(Locale.getDefault(), "%d", mCurrentSuggestions.size()));
+      mSuggestionTypeIcon = root.findViewById(R.id.inline_suggestions_strip_icon);
+      updateSuggestionsCountView();
       return root;
     }
 
@@ -238,10 +241,51 @@ public abstract class AnySoftKeyboardInlineSuggestions extends AnySoftKeyboardSu
     void onNewSuggestions(List<InlineSuggestion> suggestions) {
       mCurrentSuggestions.clear();
       mCurrentSuggestions.addAll(suggestions);
-      if (mSuggestionsCount != null) {
-        mSuggestionsCount.setText(
-            String.format(Locale.getDefault(), "%d", mCurrentSuggestions.size()));
+      updateSuggestionsCountView();
+    }
+
+    private void updateSuggestionsCountView() {
+      if (mSuggestionsCount == null) return;
+
+      mSuggestionsCount.setText(
+          String.format(Locale.getDefault(), "%d", mCurrentSuggestions.size()));
+      if (mCurrentSuggestions.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        // taking the type for the icon
+        var hints = mCurrentSuggestions.get(0).getInfo().getAutofillHints();
+        var icon = IconType.Generic;
+        if (hints != null) {
+          for (String hint : hints) {
+            switch (hint) {
+              case "aiai" -> {
+                if (icon.priority < IconType.AI.priority) {
+                  icon = IconType.AI;
+                }
+              }
+              case "smartReply" -> {
+                if (icon.priority < IconType.SMART_REPLY.priority) {
+                  icon = IconType.SMART_REPLY;
+                }
+              }
+            }
+          }
+          // setting the highest priority icon
+          mSuggestionTypeIcon.setImageResource(icon.drawable);
+        }
       }
+    }
+  }
+
+  private static enum IconType {
+    Generic(0, R.drawable.ic_inline_suggestions),
+    AI(1, R.drawable.ic_inline_suggestions_ai),
+    SMART_REPLY(2, R.drawable.ic_inline_suggestions_ai_reply);
+
+    public final int priority;
+    public final int drawable;
+
+    IconType(int priority, @DrawableRes int drawable) {
+      this.priority = priority;
+      this.drawable = drawable;
     }
   }
 }
