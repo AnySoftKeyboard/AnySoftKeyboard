@@ -1,5 +1,5 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'Not yet ready to be published.'
+ext.shouldBePublished = true
+ext.closedTestingTrackName = 'alpha'
 ext.override_release_key_alias = 'packs2'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
