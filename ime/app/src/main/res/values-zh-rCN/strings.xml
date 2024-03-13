@@ -173,6 +173,38 @@
     <string name="pinch_gesture_action_title">选择缩小手势</string>
     <string name="pinch_gesture_action_summary">定义缩小手势。目前为%s</string>
     <string name="separate_gesture_action">拉伸手势</string>
+    <string name="separate_gesture_action_title">选择缩小手势</string>
+    <string name="separate_gesture_action_summary">定义缩小手势。目前为%s</string>
+    <string name="swipe_action_name_none">无动作</string>
+    <string name="swipe_action_name_next_alphabet">下一个字母键盘</string>
+    <string name="swipe_action_name_next_symbols">下一个符号键盘</string>
+    <string name="swipe_action_name_next_inside_mode">当前模式下的下一个</string>
+    <string name="swipe_action_name_cycle_keyboards">循环到所有键盘</string>
+    <string name="swipe_action_name_reverse_cycle_keyboards">反向循环到所有键盘</string>
+    <string name="swipe_action_name_shift">Shift</string>
+    <string name="swipe_action_name_space">空格</string>
+    <string name="swipe_action_name_hide">隐藏键盘</string>
+    <string name="swipe_action_name_backspace">空格</string>
+    <string name="swipe_action_name_backword">后退</string>
+    <string name="swipe_action_name_clear_input">清除已输入的文字</string>
+    <string name="swipe_action_name_cursor_up">向上移动光标</string>
+    <string name="swipe_action_name_cursor_down">向下移动光标</string>
+    <string name="swipe_action_name_cursor_left">向左移动光标</string>
+    <string name="swipe_action_name_cursor_right">光标右移</string>
+    <string name="swipe_action_name_other_keyboards_mode">切换布局模式</string>
+    <string name="swipe_action_name_split_layout">拆分布局</string>
+    <string name="swipe_action_name_merge_layout">合并布局</string>
+    <string name="swipe_action_name_compact_layout_to_right">右边紧凑布局</string>
+    <string name="swipe_action_name_compact_layout_to_left">左边紧凑布局</string>
+    <string name="swipe_action_name_utility_keyboard">显示实用键盘</string>
+    <string name="swipe_action_name_quick_text_popup">显示表情窗口</string>
+    <string name="settings_swipe_velocity_threshold_title">修改滑动阈值</string>
+    <string name="settings_swipe_velocity_threshold_summary">最小的滑动手势。目前, %s</string>
+    <string name="settings_swipe_velocity_very_slow">非常慢</string>
+    <string name="settings_swipe_velocity_slow">慢</string>
+    <string name="settings_swipe_velocity_normal">正常</string>
+    <string name="settings_swipe_velocity_fast">快</string>
+    <string name="settings_swipe_velocity_very_fast">非常快</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
