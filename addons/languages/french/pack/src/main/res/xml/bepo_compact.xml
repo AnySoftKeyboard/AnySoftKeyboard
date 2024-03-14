@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="20%p">
+
+    <!-- Left hand of the Bépow layout. Primaries: home-row, secondaries: bottom-row -->
+    <Row>
+        <Key android:codes="97,122" android:keyLabel="az" android:keyEdgeFlags="left"/>
+        <Key android:codes="117,121" android:keyLabel="uy"/>
+        <Key android:codes="105,120" android:keyLabel="ix"/>
+        <Key android:codes="101" android:keyLabel="e"/>
+        <Key android:codes="111" android:keyLabel="o" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <!-- Right hand of the Bépow layout. Primaries: home-row, secondaries: bottom-row -->
+    <Row>
+        <Key android:codes="99,107" android:keyLabel="ck" android:keyEdgeFlags="left"/>
+        <Key android:codes="116,113" android:keyLabel="tq"/>
+        <Key android:codes="115,103" android:keyLabel="sg"/>
+        <Key android:codes="114,104" android:keyLabel="rh"/>
+        <Key android:codes="110,102" android:keyLabel="nf" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <!-- Top-row of the Bépow layout. -->
+    <Row>
+        <Key android:keyWidth="12%p" android:codes="-1"
+             android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:horizontalGap="3%p"
+	     android:keyWidth="14%p" android:codes="98,233" android:keyLabel="bé"/>
+        <Key android:keyWidth="14%p" android:codes="112,109" android:keyLabel="pm"/>
+        <Key android:keyWidth="14%p" android:codes="119,118" android:keyLabel="wv"/>
+        <Key android:keyWidth="14%p" android:codes="100,108" android:keyLabel="dl"/>
+	<Key android:keyWidth="14%p" android:codes="106" android:keyLabel="j"/>
+        <Key android:horizontalGap="3%p"
+	     android:keyWidth="12%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

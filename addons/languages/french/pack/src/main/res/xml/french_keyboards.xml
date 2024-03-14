@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
     <!-- Dictionary attributes:
      "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
@@ -19,6 +19,9 @@
     <Keyboard nameResId="@string/keyboard_bepo_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/bepo"
         landscapeResId="@xml/bepo"
         id="d8e88305-8511-474e-9473-560422420719" defaultDictionaryLocale="fr" description="@string/keyboard_bepo_description" index="4" />
+        <Keyboard nameResId="@string/keyboard_bepo_compact_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/bepo_compact"
+        landscapeResId="@xml/bepo_compact"
+        id="0f4367b5-d321-47f2-9ec4-8cb79b6d02d1" defaultDictionaryLocale="fr" description="@string/keyboard_bepo_compact_description" index="4" />
     <Keyboard nameResId="@string/keyboard_qwerty_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/ca_fr_qwerty"
         landscapeResId="@xml/ca_fr_qwerty"
         id="33bf649e-80b5-4e1e-a6c5-50af8c41c1db" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_description" index="5" />
