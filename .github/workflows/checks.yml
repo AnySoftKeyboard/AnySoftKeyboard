@@ -132,7 +132,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        shard_variant: [addons_0, addons_1, app, app_all_sdks, app_all_addons, non_app]
+        shard_variant: [addons_0, addons_1, addons_2, app, app_all_sdks, app_all_addons, non_app]
         include:
           - extra_args: ""
             tasks: "testDebugUnitTest,testDebugUnitTestCoverage"
@@ -195,7 +195,7 @@ jobs:
       KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD: alias_password
     strategy:
       matrix:
-        shard_type: [binaries_0, binaries_1, app]
+        shard_type: [binaries_0, binaries_1, binaries_2, app]
         include:
           - supports_canary: false
             supports_logo: true

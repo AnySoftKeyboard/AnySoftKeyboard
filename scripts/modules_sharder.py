@@ -40,19 +40,24 @@ if __name__ == "__main__":
             all_modules.remove(skip)
     
     extra_args = ""
-    if sharding_type in ['addons_0', 'addons_1']:
+    if sharding_type in ['addons_0', 'addons_1', 'addons_2']:
         packs = map(lambda apk: apk[:-4],
                     filter(lambda m: m.startswith(":addons:") and m.endswith(":apk") and not ":base:" in m, all_modules))
-        should_include = sharding_type.endswith('_0')
+        shard_index = 0
+        if sharding_type.endswith('_1'):
+            shard_index = 1
+        elif sharding_type.endswith('_2'):
+            shard_index = 2
         modules_to_shard = list()
         # group 0 includes the base
-        if should_include:
+        if shard_index == 0:
             modules_to_shard.extend([':addons:base', ':addons:base:apk'])
 
         for pack in packs:
-            if should_include:
+            if shard_index % 3 == 0:
                 modules_to_shard.extend([f"{pack}:pack", f"{pack}:apk"])
-            should_include = not should_include
+            shard_index += 1
+
     elif sharding_type == 'app':
         modules_to_shard = [":ime:app"]
         extra_args = "-PexcludeTestClasses=\"**/*AllSdkTest*\""
@@ -61,17 +66,21 @@ if __name__ == "__main__":
         extra_args = "--tests=\"*AllSdkTest*\""
     elif sharding_type == 'non_app':
         modules_to_shard = filter(lambda m: m != ":ime:app" and not m.startswith(":addons:"), all_modules)
-    elif sharding_type in ['binaries_0', 'binaries_1', 'binaries_app']:
+    elif sharding_type in ['binaries_0', 'binaries_1', 'binaries_2', 'binaries_app']:
         if sharding_type == 'binaries_app':
             modules_to_shard = [":ime:app"]
         else:
             packs = filter(lambda m: m.startswith(":addons:") and m.endswith(":apk") and not ":base:" in m, all_modules)
-            should_include = sharding_type.endswith('_0')
+            shard_index = 0
+            if sharding_type.endswith('_1'):
+                shard_index = 1
+            elif sharding_type.endswith('_2'):
+                shard_index = 2
             modules_to_shard = list()
             for pack in packs:
-                if should_include:
+                if shard_index % 3 == 0:
                     modules_to_shard.append(pack)
-                should_include = not should_include
+                shard_index += 1
     else:
         raise Exception(f"Unkown sharding_type '{sharding_type}'")
     
