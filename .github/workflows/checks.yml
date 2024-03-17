@@ -7,7 +7,7 @@ on:
       - deployment/halt_deployment_marker
     branches:
       - main
-      - release-branch-*
+      - 'release-branch-*-v*.*-r*'
   pull_request:
     paths-ignore:
       - deployment/halt_deployment_marker
@@ -297,12 +297,12 @@ jobs:
         uses: peter-evans/create-pull-request@v6.0.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Merge to default branch from ${{ github.ref }}.'
-          title: 'Automated Merge to default branch from ${{ github.ref }}'
+          commit-message: 'Merge to default branch from ${{ github.ref_name }}.'
+          title: 'Automated Merge to default branch from ${{ github.ref_name }}.'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
           body: 'Generated from commit ${{ github.sha }} on ${{ github.ref }}.'
           team-reviewers: maintainers
-          branch: 'bot-pr/merge-to-default-branch-from-${{ github.ref }}'
+          branch: 'bot-pr/merge-to-default-branch-from-${{ github.ref_name }}'
           base: main
           delete-branch: true
