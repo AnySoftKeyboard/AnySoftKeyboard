@@ -7,7 +7,7 @@ on:
       - deployment/halt_deployment_marker
     branches:
       - main
-      - release-branch-*
+      - 'release-branch-*-v*.*-r*'
   pull_request:
     paths-ignore:
       - deployment/halt_deployment_marker
