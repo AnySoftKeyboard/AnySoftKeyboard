@@ -1,5 +1,7 @@
 ext.shouldBePublished = true
 ext.override_app_id = 'com.anysoftkeyboard.languagepack.osspolish'
+ext.override_release_key_alias = 'packs'
+ext.closedTestingTrackName = 'alpha'
 
 apply from: "$rootDir/addons/gradle/pack_apk.gradle"
 
