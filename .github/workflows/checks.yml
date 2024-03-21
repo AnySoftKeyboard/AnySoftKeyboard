@@ -52,7 +52,9 @@ jobs:
       - uses: actions/cache@v4.0.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            global-v9
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -87,7 +89,9 @@ jobs:
       - uses: actions/cache@v4.0.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            global-v9
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -154,7 +158,10 @@ jobs:
       - uses: actions/cache@v4.0.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: tests-v9-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            tests-v9-${{ matrix.actual_shard }}
+            global-v9
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
@@ -209,7 +216,10 @@ jobs:
       - uses: actions/cache@v4.0.2
         with:
           path: .github_cache_gradle/
-          key: global-gradle-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: deploy-v9-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            deploy-v9-${{ matrix.shard_type }}
+            global-v9
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: generate projects list for sharding
@@ -217,7 +227,7 @@ jobs:
       - name: addons-logos
         if: ${{ matrix.supports_logo }}
         run: |
-          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type }} generateStoreLogoIcon /tmp/gradle.tasks_logo.lst
           ./gradlew $(cat /tmp/gradle.tasks_logo.lst)
       - name: setup-keystore
         run: |
@@ -226,9 +236,9 @@ jobs:
           cp .github/actions/deploy/release_test.keystore /tmp/anysoftkeyboard.keystore
       - name: shard
         run: |
-          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} assembleRelease /tmp/gradle.tasks_assemble.lst
-          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
-          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} generateReleasePlayResources /tmp/gradle.tasks_play.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type }} assembleRelease /tmp/gradle.tasks_assemble.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type }} bundleRelease,signDebugBundle /tmp/gradle.tasks_bundle.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type }} generateReleasePlayResources /tmp/gradle.tasks_play.lst
       - name: dry-run-release-build
         run: |
           ./gradlew -PwithAutoVersioning -DdeployChannel=production -PonlyPublishSupporting=production \
@@ -242,7 +252,7 @@ jobs:
       - name: dry-run-canary-build
         if: ${{ matrix.supports_canary }}
         run: |
-          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type}} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
+          python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.shard_type }} assembleCanary,bundleCanary,generateCanaryPlayResources /tmp/gradle.tasks_canary.lst
 
           ./gradlew -PwithAutoVersioning -DdeployChannel=canart -PonlyPublishSupporting=canary \
               $(cat /tmp/gradle.tasks_canary.lst)
@@ -252,7 +262,7 @@ jobs:
       - uses: actions/upload-artifact@v4.3.1
         continue-on-error: true
         with:
-          name: fdroid-metadata-dry-run-${{ matrix.shard_type}}
+          name: fdroid-metadata-dry-run-${{ matrix.shard_type }}
           path: outputs/fdroid
 
   all-green-requirement:
