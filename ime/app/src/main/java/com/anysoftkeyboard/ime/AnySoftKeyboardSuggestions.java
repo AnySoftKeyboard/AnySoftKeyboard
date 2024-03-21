@@ -746,7 +746,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       mSuggest.resetNextWordSentence();
       clearSuggestions();
     } else {
-      setSuggestions(mSuggest.getNextSuggestions(wordToOutput, typedWord.isAllUpperCase()), -1);
+      setSuggestions(
+          mSuggest.getNextSuggestions(
+              wordToOutput, mShiftKeyState.isLocked(), mShiftKeyState.isActive()),
+          -1);
     }
   }
 
@@ -1144,7 +1147,10 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (showingAddToDictionaryHint) {
           if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
         } else {
-          setSuggestions(mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), -1);
+          setSuggestions(
+              mSuggest.getNextSuggestions(
+                  suggestion, mShiftKeyState.isLocked(), mShiftKeyState.isActive()),
+              -1);
         }
       }
     } finally {
