@@ -32,6 +32,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Raak opnieuw aan om op te slaan</string>
     <string name="hint_double_tap_to_close">Opnieuw om suggesties te verwijderen</string>
+    <string name="hint_click_for_inline_suggestions">Beschikbare auto-invul suggesties </string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Gesproken invoer is niet geïnstalleerd</string>
     <string name="voice_input_not_installed_text">Het is noodzakelijk om Google\'s stem invoer uit de Play Store te installeren om deze functie te kunnen gebruiken.</string>
@@ -311,6 +312,8 @@ woordenlijst
     <string name="key_press_preview_popup_off_summary">Toon geen popup bij indrukken toets</string>
     <string name="zoom_factor_keys_in_portrait">Factor voor toetshoogte in portretmodus</string>
     <string name="zoom_factor_keys_in_landscape">Toetshoogtefactor in landschapsmodus</string>
+    <string name="keys_zoom_factor_template"></string>
+    <string name="bottom_padding_in_dp_title">Toetsenbord onderaan offset</string>
     <string name="bottom_padding_in_dp_template">%d punten</string>
     <string name="insert_space_after_word_suggestion_selection">Spatie na kandidaatselectie</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Spatie invoegen na selecteren suggestie</string>
@@ -343,6 +346,7 @@ woordenlijst
     <string name="quick_fix_secon_disabled_summ_off">Snelle verbeteringen en afkortingen werken op elke taal 
                   geselecteerd in het overschrijven van het standaard woordenboek</string>
     <string name="try_split_words_for_correction">Corrigeer door het splitsen van het getypte woord</string>
+    <string name="try_split_words_for_correction_summary_on">Splits getiept woord door ontbrekende SPATIE te raden.</string>
     <string name="allow_suggestions_restart">Herstart suggesties</string>
     <string name="allow_suggestions_restart_summary">Herstart woordsuggesties bij cursorverplaatsing</string>
     <!-- settings - keyboard group -->
@@ -420,6 +424,7 @@ woordenlijst
     <string name="extension_kbd_bottom_minimal">Minimaal</string>
     <string name="extension_kbd_bottom_minimal_no_emoji">Minimaal (geen emoji)</string>
     <string name="extension_kbd_bottom_minimal_less_punctuation">Minimaal (minder leestekens)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimaal (alternatief)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Ga</string>
@@ -529,6 +534,7 @@ woordenlijst
     <string name="created_mem_dump_file">Geheugendumpbestand gemaakt op: <xliff:g id="file_path">%s</xliff:g>
      </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard is niet volledig ingesteld. Klik hier als u wilt instellen.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard heeft geen toestemming om meldingen weer te geven. We gebruiken het - heel zelden - om je op de hoogte te stellen van kritieke problemen (zoals crashes).</string>
     <string name="not_configured_with_just_click_here">Klik hier</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -616,6 +622,7 @@ woordenlijst
     <string name="theme_case_type_override_os">Laat Android beslissen (Automatisch)</string>
     <string name="theme_case_type_override_lower">Altijd in kleine letters</string>
     <string name="theme_case_type_override_upper">Altijd in hoofdletters</string>
+    <string name="settings_hint_size">Afmeting Hint label</string>
     <string name="settings_key_hint_size_none">Geen</string>
     <string name="settings_key_hint_size_small">Klein</string>
     <string name="settings_key_hint_size_normal">Normaal</string>
