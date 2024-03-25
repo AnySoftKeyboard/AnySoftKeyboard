@@ -1,0 +1,56 @@
+---
+name: update-aosp-dictionaries
+
+on:
+  schedule:
+    - cron: '30 09 * * 5'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/update_aosp_dictionaries.yml'
+
+env:
+  TERM: dumb
+  TMPDIR: "/tmp"
+
+jobs:
+  aosp-dictionaries-update:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: pnpm/action-setup@v3.0.0
+        with:
+          version: 8.6.9
+          run_install: true
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version-file: ".nvmrc"
+          cache: 'pnpm'
+      - run: pnpm build
+      - name: fix git permissions for creating a PR
+        run: git config --global --add safe.directory "${PWD}"
+      - name: update AOSP dictionaries
+        run: |
+          node dist/update_aosp_dictionaries/index.js update \
+            --repository_root "${PWD}" \
+            --dictionaries_archive https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+archive/refs/heads/main/dictionaries.tar.gz \
+            --dictionaries_mapping "${PWD}/js/upadte_aosp_dictionaries/aosp_mapping.yml"
+      - name: update LineageOS dictionaries
+        run: |
+          node dist/upadte_aosp_dictionaries/index.js update \
+            --repository_root "${PWD}" \
+            --dictionaries_archive https://github.com/LineageOS/android_packages_inputmethods_LatinIME/archive/refs/heads/lineage-21.0.tar.gz \
+            --dictionaries_mapping "${PWD}/js/upadte_aosp_dictionaries/lineage_mapping.yml"
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6.0.2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated AOSP Dictionaries Update'
+          title: 'Automated AOSP Dictionaries Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: 'Generated from latest objects in AOSP main branch.'
+          team-reviewers: maintainers
+          branch: 'bot-pr/aosp-dict-update'
+          delete-branch: true

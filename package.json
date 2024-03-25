@@ -39,6 +39,9 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
-    "commander": "^12.0.0"
+    "commander": "^12.0.0",
+    "follow-redirects": "^1.15.6",
+    "js-yaml": "^4.1.0",
+    "tar": "^6.2.1"
   }
 }
