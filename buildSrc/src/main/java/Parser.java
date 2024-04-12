@@ -168,8 +168,8 @@ class Parser {
         switch (intChar) {
             case 8217: // back-tick `
                 return '\'';
-            case 8221: // fancy open-quotes î
-            case 8220: // fancy close-quotes ì
+            case 8221: // fancy open-quotes ‚Äú
+            case 8220: // fancy close-quotes ‚Äù
                 return '\"';
             default:
                 return (char) intChar;
