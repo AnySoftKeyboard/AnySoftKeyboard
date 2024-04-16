@@ -5,5 +5,8 @@
   "env": {
     "node": true // Enabling Node.js global variables
   },
-  "rules": {}
+  "rules": {
+    "no-unused-vars": ["off"],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
 }
