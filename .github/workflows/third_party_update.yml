@@ -35,7 +35,7 @@ jobs:
           ./gradlew :api:assembleDebug :api:lintDebug
           ./gradlew :api:assembleDebug :api:lintDebug
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.3
+        uses: peter-evans/create-pull-request@v6.0.4
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Maven Artifacts Update'
@@ -59,7 +59,7 @@ jobs:
       - name: update-github-actions
         run: ./scripts/ci/third-party-update/update_github_actions.sh
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.3
+        uses: peter-evans/create-pull-request@v6.0.4
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated GitHub Actions update from new releases in github.com'
@@ -113,7 +113,7 @@ jobs:
       - name: Add changed files
         run: ./scripts/ci/third-party-update/${{ matrix.type}}/add_files_to_commit.sh
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.3
+        uses: peter-evans/create-pull-request@v6.0.4
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated ${{ matrix.type}} ${{ env.LATEST_VERSION }} update'
@@ -146,7 +146,7 @@ jobs:
       - name: re-package node binaries
         run: pnpm package
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.3
+        uses: peter-evans/create-pull-request@v6.0.4
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated JS Dependencies Update Update'
