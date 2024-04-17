@@ -62,7 +62,7 @@ public class LocalProxyTest {
   @Config(shadows = ShadowFileProvider.class)
   public void testHappyPathKnownMime() throws IOException {
     var shadowMimeTypeMap = Shadows.shadowOf(MimeTypeMap.getSingleton());
-    shadowMimeTypeMap.addExtensionMimeTypMapping("png", "image/png");
+    shadowMimeTypeMap.addExtensionMimeTypeMapping("png", "image/png");
     final var uriSingle = LocalProxy.proxy(ApplicationProvider.getApplicationContext(), mUri);
     final Uri localUri = TestRxSchedulers.blockingGet(uriSingle);
 
