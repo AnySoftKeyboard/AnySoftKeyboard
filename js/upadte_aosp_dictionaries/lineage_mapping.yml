@@ -1,0 +1,7 @@
+---
+mapping:
+  - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/uk_wordlist.combined.gz, addons/languages/ukrainian/pack/dictionary/uk_wordlist.combined.gz]
+  - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/lb_wordlist.combined.gz, addons/languages/luxembourgish/pack/dictionary/lb_wordlist.combined.gz]
+  - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/ka_wordlist.combined.gz, addons/languages/georgian/pack/dictionary/ka_wordlist.combined.gz]
+  - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/hu_wordlist.combined.gz, addons/languages/hungarian/pack/dictionary/hu_wordlist.combined.gz]
+  - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/bg_wordlist.combined.gz, addons/languages/bulgarian/pack/dictionary/bg_wordlist.combined.gz]
