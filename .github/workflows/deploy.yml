@@ -33,7 +33,7 @@ jobs:
           mkdir -p outputs/bundle || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
-      - uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.2
         with:
           name: github_object
           path: build/github_object
@@ -72,31 +72,31 @@ jobs:
             -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
             -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
             -PrequestStatus.deployment_state="failure"
-      - uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.2
         if: always()
         continue-on-error: true
         with:
           name: deploy-logging
           path: build/build-logging
-      - uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.2
         if: always()
         continue-on-error: true
         with:
           name: bundles
           path: outputs/bundle
-      - uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.2
         if: always()
         continue-on-error: true
         with:
           name: apks
           path: outputs/apk
-      - uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.2
         if: always()
         continue-on-error: true
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
-      - uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.2
         continue-on-error: true
         if: always()
         with:
