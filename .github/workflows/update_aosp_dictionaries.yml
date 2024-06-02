@@ -43,7 +43,7 @@ jobs:
             --dictionaries_archive https://github.com/LineageOS/android_packages_inputmethods_LatinIME/archive/refs/heads/lineage-21.0.tar.gz \
             --dictionaries_mapping "${PWD}/js/upadte_aosp_dictionaries/lineage_mapping.yml"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.4
+        uses: peter-evans/create-pull-request@v6.0.5
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated AOSP Dictionaries Update'
