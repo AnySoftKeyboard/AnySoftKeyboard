@@ -29,14 +29,14 @@ jobs:
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Crowdin push
-        uses: crowdin/github-action@v1.20.2
+        uses: crowdin/github-action@v2.0.0
         with:
           upload_sources: true
           upload_translations: false
           download_translations: false
           config: crowdin.yml
       - name: Crowdin pull
-        uses: crowdin/github-action@v1.20.2
+        uses: crowdin/github-action@v2.0.0
         with:
           upload_sources: false
           upload_translations: false
