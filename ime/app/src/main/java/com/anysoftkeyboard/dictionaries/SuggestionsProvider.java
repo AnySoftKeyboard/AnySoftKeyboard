@@ -19,13 +19,18 @@ import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class SuggestionsProvider {
 
   private static final String TAG = "SuggestionsProvider";
+
+  public interface NextWordsHolder {
+    void add(CharSequence nextWord);
+
+    int size();
+  }
 
   private static final EditableDictionary NullDictionary =
       new EditableDictionary("NULL") {
@@ -194,19 +199,18 @@ public class SuggestionsProvider {
             .subscribe(
                 aggressiveness -> {
                   switch (aggressiveness) {
-                    case "medium_aggressiveness":
+                    case "medium_aggressiveness" -> {
                       mMaxNextWordSuggestionsCount = 5;
                       mMinWordUsage = 3;
-                      break;
-                    case "maximum_aggressiveness":
+                    }
+                    case "maximum_aggressiveness" -> {
                       mMaxNextWordSuggestionsCount = 8;
                       mMinWordUsage = 1;
-                      break;
-                    case "minimal_aggressiveness":
-                    default:
+                    }
+                    default -> {
                       mMaxNextWordSuggestionsCount = 3;
                       mMinWordUsage = 5;
-                      break;
+                    }
                   }
                 },
                 GenericOnError.onError("settings_key_next_word_suggestion_aggressiveness")));
@@ -219,19 +223,18 @@ public class SuggestionsProvider {
             .subscribe(
                 type -> {
                   switch (type) {
-                    case "off":
+                    case "off" -> {
                       mNextWordEnabled = false;
                       mAlsoSuggestNextPunctuations = false;
-                      break;
-                    case "words_punctuations":
+                    }
+                    case "words_punctuations" -> {
                       mNextWordEnabled = true;
                       mAlsoSuggestNextPunctuations = true;
-                      break;
-                    case "word":
-                    default:
+                    }
+                    default -> {
                       mNextWordEnabled = true;
                       mAlsoSuggestNextPunctuations = false;
-                      break;
+                    }
                   }
                 },
                 GenericOnError.onError("settings_key_next_word_dictionary_type")));
@@ -457,7 +460,7 @@ public class SuggestionsProvider {
   }
 
   public void getNextWords(
-      String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+      String currentWord, NextWordsHolder suggestionsHolder, int maxSuggestions) {
     if (!mNextWordEnabled) return;
 
     allDictionariesGetNextWord(
@@ -485,7 +488,7 @@ public class SuggestionsProvider {
   private void allDictionariesGetNextWord(
       List<NextWordSuggestions> nextWordDictionaries,
       String currentWord,
-      Collection<CharSequence> suggestionsHolder,
+      NextWordsHolder suggestionsHolder,
       int maxSuggestions) {
     for (NextWordSuggestions nextWordDictionary : nextWordDictionaries) {
 
@@ -494,6 +497,7 @@ public class SuggestionsProvider {
       for (String nextWordSuggestion :
           nextWordDictionary.getNextWords(
               currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
+
         suggestionsHolder.add(nextWordSuggestion);
         maxSuggestions--;
         if (maxSuggestions == 0) return;
