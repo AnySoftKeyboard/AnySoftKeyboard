@@ -9,7 +9,7 @@ jobs:
   check-for-auto-approval:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4.1.6
+      - uses: actions/checkout@v4.1.7
       - uses: ./.github/actions/auto_approval
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
