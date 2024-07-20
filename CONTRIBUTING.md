@@ -1,11 +1,15 @@
 # Development
 
 To develop this project, you'll need:
- * Java 11 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot). If you are using [jEnv](https://www.jenv.be/) then we have a `.java-version` file already set up.
+ * Java 17 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot). If you are using [jEnv](https://www.jenv.be/) then we have a `.java-version` file already set up.
  * git
  * [Android Studio](https://developer.android.com/studio/install) version 4.0.
- * You will need to point your Android-Studio to use the installed Java11. You can configure the path inside Android Studio menu: File > Project Structure > JDK Location.
+   * Android Studio archive page to download older versions of Android Studio: https://developer.android.com/studio/archive
+ * You will need to point your Android-Studio to use the installed Java17. You can configure the path inside Android Studio menu: File > Project Structure > JDK Location.
  * Android SDK API Level 28 installed.
+    * Check to see which APIs you currently have installed here: `~/AppData/Local/Android/Sdk/platforms` 
+    * In Android Studio 4.0 navigate to Settings > Appearance & Behavior > System Settings > Android SDK
+        * Uncheck unwanted API Levels and check Android 9.0 (Pie) API Level 28
     * Set up `local.properties` file to point to it (that is, ensure you have `sdk.dir=/path/to/android/sdk` in it).
  * Android NDK [r14b](https://developer.android.com/ndk/downloads/older_releases.html) installed.
     Set up `local.properties` file to point to it (that is, ensure you have `ndk.dir=/path/to/android/ndk` in it).
