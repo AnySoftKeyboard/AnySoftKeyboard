@@ -29,12 +29,12 @@
         <Key
             android:codes="y" android:popupCharacters="6" />
         <Key
-            android:codes="u" android:popupCharacters="7" />
+            android:codes="u" android:popupCharacters="ü7" />
         <Key
             android:codes="i" android:popupCharacters="ı8\u0130"
             ask:hintLabel="ı8"/>
         <Key
-            android:codes="o" android:popupCharacters="9" />
+            android:codes="o" android:popupCharacters="ö9" />
         <Key
             android:codes="p" android:popupCharacters="0°"
             ask:hintLabel="0" android:keyEdgeFlags="right" />
@@ -84,8 +84,8 @@
             android:codes="x" android:popupCharacters="+÷±√"
             ask:hintLabel="+" />
         <Key
-            android:codes="c" android:popupCharacters="\u0026\\"
-            ask:hintLabel="\u0026" />
+            android:codes="c" android:popupCharacters="ç\u0026\\"
+            ask:hintLabel="ç\u0026" />
         <Key
             android:codes="v" android:popupCharacters="\u0022\u201c\u201d"
             ask:hintLabel="\u0022" />
