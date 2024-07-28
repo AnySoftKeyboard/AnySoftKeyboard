@@ -11,7 +11,7 @@
         <Key android:codes="1094" android:keyLabel="" android:popupCharacters="2²₂" ask:hintLabel="2"/>
         <Key android:codes="1091" android:keyLabel="" android:popupCharacters="3³₃" ask:hintLabel="3"/>
         <Key android:codes="1082" android:keyLabel="" android:popupCharacters="4⁴₄" ask:hintLabel="4"/>
-        <Key android:codes="1077" android:keyLabel="" android:popupCharacters="5ё" ask:hintLabel="5ё"/>
+        <Key android:codes="1077" android:keyLabel="" android:popupCharacters="ё5" ask:hintLabel="ё5"/>
         <Key android:codes="1085" android:keyLabel="" android:popupCharacters="6" ask:hintLabel="6"/>
         <Key android:codes="1075" android:keyLabel="" android:popupCharacters="7" ask:hintLabel="7"/>
         <Key android:codes="1096" android:keyLabel="" android:popupCharacters="8" ask:hintLabel="8"/>
