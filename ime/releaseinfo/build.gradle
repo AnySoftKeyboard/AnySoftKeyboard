@@ -8,7 +8,7 @@ dependencies {
     implementation project(path: ':ime:notification')
     implementation project(path: ':ime:prefs')
     implementation project(path: ':ime:pixel')
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
     testImplementation project(path: ':ime:base-test')
