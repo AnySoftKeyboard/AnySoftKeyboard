@@ -13,7 +13,7 @@ dependencies {
     api "org.robolectric:robolectric:$robolectricVersion"
     api 'org.mockito:mockito-core:2.23.0'
     api project(':junit-sharding')
-    api 'androidx.test:core:1.5.0'
+    api 'androidx.test:core:1.6.1'
 }
 
 android {
