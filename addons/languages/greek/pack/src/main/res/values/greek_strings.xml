@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="greek_keyboard_name">Ελληνικό</string>
+    <string name="koine_greek_keyboard_name">Ἑληνική Κοινή</string>
     <string name="greek_dictionary_name">Ελληνικό</string>
 </resources>
