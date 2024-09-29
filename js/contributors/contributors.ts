@@ -39,7 +39,13 @@ export function sortContributors(contributors: Contributor[]): Contributor[] {
 }
 
 function isBot(login: string): boolean {
-  return login.toLowerCase() === 'anysoftkeyboard-bot';
+  switch (login.toLocaleLowerCase()) {
+    case 'anysoftkeyboard-bot':
+    case '[dependabot[bot]]':
+      return true;
+    default:
+      return false;
+  }
 }
 
 export function generateMarkdownList(contributors: Contributor[]): string {
