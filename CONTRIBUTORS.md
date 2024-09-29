@@ -75,6 +75,7 @@ Thank you for the fine contributors:
 1. [Unpublished](https://github.com/Unpublished) (3)
 1. [alex73](https://github.com/alex73) (2)
 1. [Blaimi](https://github.com/Blaimi) (2)
+1. [dependabot[bot]](https://github.com/dependabot[bot]) (2)
 1. [dgalaktionov](https://github.com/dgalaktionov) (2)
 1. [duchampdev](https://github.com/duchampdev) (2)
 1. [er2off](https://github.com/er2off) (2)
@@ -101,4 +102,3 @@ Thank you for the fine contributors:
 1. [burunduk](https://github.com/burunduk) (1)
 1. [Cyph0ZD](https://github.com/Cyph0ZD) (1)
 1. [David-Gil](https://github.com/David-Gil) (1)
-1. [dependabot[bot]](https://github.com/dependabot[bot]) (1)
