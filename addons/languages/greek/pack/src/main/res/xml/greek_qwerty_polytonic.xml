@@ -14,13 +14,13 @@
          -->
     <Row>
         <Key android:codes="903" android:keyEdgeFlags="left"/>
+        <Key android:codes="772"/>
         <Key android:codes="768"/>
         <Key android:codes="769"/>
-        <Key android:codes="772"/>
         <Key android:codes="776"/>
+        <Key android:codes="834"/>
         <Key android:codes="787"/>
         <Key android:codes="788"/>
-        <Key android:codes="834"/>
         <Key android:codes="837"/>
         <Key android:codes="989" android:popupCharacters="Ϟϡ" android:keyEdgeFlags="right"/>
     </Row>
