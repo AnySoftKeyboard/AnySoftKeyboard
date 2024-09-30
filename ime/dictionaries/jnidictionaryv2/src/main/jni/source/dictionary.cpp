@@ -224,11 +224,18 @@ namespace nativeime {
                         mWord[depth] = c;
                         if (mInputLength == inputIndex + 1) {
                             if (terminal) {
-                                if (INCLUDE_WORD_IF_VALID || !sameAsTyped(mWord, depth + 1)) {
-                                    int finalFreq = freq * snr * addedWeight;
-                                    if (mSkipPos < 0) finalFreq *= mFullWordMultiplier;
-                                    addWord(mWord, depth + 1, finalFreq);
+                                int finalFreq = 0;
+                                if (sameAsTyped(mWord, depth + 1)) {
+                                    if (INCLUDE_WORD_IF_VALID) {
+                                        finalFreq = 16 * 1024;
+                                    } else {
+                                        finalFreq = 0;
+                                    }
+                                } else {
+                                    finalFreq = freq * snr * addedWeight;
                                 }
+                                if (mSkipPos < 0) finalFreq *= mFullWordMultiplier;
+                                addWord(mWord, depth + 1, finalFreq);
                             }
                             if (childrenAddress != 0) {
                                 getWordsRec(childrenAddress, depth + 1,
@@ -339,6 +346,7 @@ namespace nativeime {
                 }
             }
             if (terminal) {
+                // if this is a terminal node, we also need to consume (and advance pos)
                 getFreq(&pos);
             }
             // There could be two instances of each alphabet - upper and lower case. So continue
