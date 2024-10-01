@@ -15,4 +15,12 @@
         index="1"
         layoutResId="@xml/greek_qwerty"
         nameResId="@string/greek_keyboard_name" />
+    <Keyboard
+        defaultDictionaryLocale="el"
+        description="For Ancient Greek"
+        iconResId="@drawable/ic_status_greek"
+        id="48decb20-63ac-11ef-8664-0800200c9a66"
+        index="2"
+        layoutResId="@xml/greek_qwerty_polytonic"
+        nameResId="@string/koine_greek_keyboard_name" />
 </Keyboards>
