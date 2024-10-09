@@ -23,7 +23,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SuggestionsProviderTest {
 
@@ -229,7 +228,6 @@ public class SuggestionsProviderTest {
   }
 
   @Test
-  @SuppressWarnings("unchecked")
   public void testDoesNotLearnWhenIncognito() throws Exception {
     mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
     Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
@@ -245,7 +243,8 @@ public class SuggestionsProviderTest {
     }
     // sanity: checking that "hello" is a valid word, so it would be checked with next-word
     Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
-    mSuggestionsProvider.getNextWords("hello", Mockito.mock(List.class), 10);
+    mSuggestionsProvider.getNextWords(
+        "hello", Mockito.mock(SuggestionsProvider.NextWordsHolder.class), 10);
     Mockito.verify(mSpiedNextWords)
         .getNextWords(Mockito.eq("hello"), Mockito.anyInt(), Mockito.anyInt());
     Mockito.verify(mSpiedNextWords, Mockito.never()).notifyNextTypedWord(Mockito.anyString());
@@ -254,7 +253,8 @@ public class SuggestionsProviderTest {
     Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
     Assert.assertTrue(mSuggestionsProvider.addWordToUserDictionary("SECRET"));
 
-    mSuggestionsProvider.getNextWords("hell", Mockito.mock(List.class), 10);
+    mSuggestionsProvider.getNextWords(
+        "hell", Mockito.mock(SuggestionsProvider.NextWordsHolder.class), 10);
     Mockito.verify(mSpiedNextWords)
         .getNextWords(Mockito.eq("hell"), Mockito.anyInt(), Mockito.anyInt());
     Mockito.verify(mSpiedNextWords).notifyNextTypedWord("hell");

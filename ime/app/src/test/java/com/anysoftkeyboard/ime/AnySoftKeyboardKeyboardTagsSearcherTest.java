@@ -226,7 +226,8 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
     Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest(), Mockito.never())
-        .getNextSuggestions(Mockito.any(CharSequence.class), Mockito.anyBoolean());
+        .getNextSuggestions(
+            Mockito.any(CharSequence.class), Mockito.anyBoolean(), Mockito.anyBoolean());
   }
 
   @Test

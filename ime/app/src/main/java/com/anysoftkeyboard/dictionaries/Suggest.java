@@ -33,7 +33,8 @@ public interface Suggest {
    *
    * @return list of suggestions.
    */
-  List<CharSequence> getNextSuggestions(CharSequence previousWord, boolean inAllUpperCaseState);
+  List<CharSequence> getNextSuggestions(
+      CharSequence previousWord, boolean isAllUpperCase, boolean isCapitalized);
 
   /**
    * Returns a list of words that match the list of character codes passed in. This list will be
@@ -41,7 +42,7 @@ public interface Suggest {
    *
    * @return list of suggestions.
    */
-  List<CharSequence> getSuggestions(WordComposer wordComposer);
+  List<CharSequence> getSuggestions(WordComposer wordComposer, boolean isShiftActive, boolean isShiftLocked);
 
   /**
    * Returns the index of the valid word from the last call to getSuggestions. In most cases, if the
