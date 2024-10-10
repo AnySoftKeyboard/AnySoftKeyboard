@@ -18,7 +18,7 @@ jobs:
         refname: [main, release-branch-addons-v5.0-r1]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           ref: ${{ matrix.refname }}
       - name: request-scheduled-promote

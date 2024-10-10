@@ -25,7 +25,7 @@ jobs:
   js-checks:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 2
       - uses: pnpm/action-setup@v4.0.0
@@ -46,7 +46,7 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 2
       - uses: actions/cache@v4.1.1
@@ -83,7 +83,7 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 2
       - uses: actions/cache@v4.1.1
@@ -152,7 +152,7 @@ jobs:
             tasks: "testAllAddOnsUnitTest"
             actual_shard: app
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 2
       - uses: actions/cache@v4.1.1
@@ -210,7 +210,7 @@ jobs:
             supports_canary: true
             supports_logo: false
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 2
       - uses: actions/cache@v4.1.1
@@ -278,7 +278,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 2
       - uses: ./.github/actions/deploy-request
@@ -296,7 +296,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
