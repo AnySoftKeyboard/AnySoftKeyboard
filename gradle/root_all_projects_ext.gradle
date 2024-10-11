@@ -3,7 +3,8 @@ allprojects {
         androidBuildTools = '34.0.0'
         robolectricVersion = '4.12.2'
 
-        sideBySideNdkVersion = '23.0.7599858'
+        sideBySideNdkVersion = (System.getProperty("os.arch") == "aarch64")?
+                '24.0.8215888' : '23.0.7599858'
 
         sdkTargetVersion = 33
         sdkCompileVersion = 34
