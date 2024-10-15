@@ -59,7 +59,7 @@ private:
 
     bool sameAsTyped(unsigned short *word, int length);
     bool checkFirstCharacter(unsigned short *word);
-    bool addWord(unsigned short *word, int length, int frequency);
+    bool addWord(unsigned short *word, int length, int frequency, bool isTyped);
     bool addWordBigram(unsigned short *word, int length, int frequency);
     unsigned short toLowerCase(unsigned short c);
     void getWordsRec(int pos, int depth, int maxDepth, bool completion, int frequency,
