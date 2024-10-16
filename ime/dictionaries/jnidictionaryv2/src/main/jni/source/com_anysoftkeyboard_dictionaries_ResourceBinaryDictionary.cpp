@@ -45,7 +45,7 @@ static jlong nativeime_ResourceBinaryDictionary_open
         (JNIEnv *env, jobject object, jobject dictDirectBuffer,
          jint typedLetterMultiplier, jint fullWordMultiplier) {
     void *dict = env->GetDirectBufferAddress(dictDirectBuffer);
-    if (dict == NULL) {
+    if (dict == nullptr) {
         fprintf(stderr, "DICT: Dictionary buffer is null\n");
         return 0;
     }
@@ -57,14 +57,14 @@ static int nativeime_ResourceBinaryDictionary_getSuggestions(
         JNIEnv *env, jobject object, jlong dict, jintArray inputArray, jint arraySize,
         jcharArray outputArray, jintArray frequencyArray, jint maxWordLength, jint maxWords,
         jint maxAlternatives, jint skipPos, jintArray nextLettersArray, jint nextLettersSize) {
-    Dictionary *dictionary = reinterpret_cast<Dictionary *>(dict);
-    if (dictionary == NULL) return 0;
+    auto *dictionary = reinterpret_cast<Dictionary *>(dict);
+    if (dictionary == nullptr) return 0;
 
-    int *frequencies = env->GetIntArrayElements(frequencyArray, NULL);
-    int *inputCodes = env->GetIntArrayElements(inputArray, NULL);
-    jchar *outputChars = env->GetCharArrayElements(outputArray, NULL);
-    int *nextLetters = nextLettersArray != NULL ? env->GetIntArrayElements(nextLettersArray, NULL)
-                                                : NULL;
+    int *frequencies = env->GetIntArrayElements(frequencyArray, nullptr);
+    int *inputCodes = env->GetIntArrayElements(inputArray, nullptr);
+    jchar *outputChars = env->GetCharArrayElements(outputArray, nullptr);
+    int *nextLetters = nextLettersArray != nullptr ? env->GetIntArrayElements(nextLettersArray, nullptr)
+                                                : nullptr;
 
     int count = dictionary->getSuggestions(inputCodes, arraySize, outputChars,
                                            frequencies, maxWordLength, maxWords, maxAlternatives,
