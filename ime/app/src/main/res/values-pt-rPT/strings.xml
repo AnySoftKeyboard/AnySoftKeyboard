@@ -328,6 +328,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="key_press_preview_popup_off_summary">Não ampliar tecla pressionada</string>
     <string name="zoom_factor_keys_in_portrait">Fator de altura no modo vertical</string>
     <string name="zoom_factor_keys_in_landscape">Fator de altura no modo horizontal</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Deslocamento inferior do teclado</string>
+    <string name="bottom_padding_in_dp_template">%d pontos</string>
     <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Inserir espaço após a seleção da palavra sugerida
     </string>
