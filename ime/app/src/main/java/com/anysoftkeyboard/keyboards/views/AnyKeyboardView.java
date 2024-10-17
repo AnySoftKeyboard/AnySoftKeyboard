@@ -26,7 +26,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -226,11 +225,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
     return mIsFirstDownEventInsideSpaceBar;
   }
 
-  @VisibleForTesting
-  protected int getDismissY() {
-    return mDismissYValue;
-  }
-
   @Override
   public boolean onTouchEvent(@NonNull MotionEvent me) {
     if (getKeyboard() == null) {
@@ -272,8 +266,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     // If the motion event is outside (up or down) the keyboard and it's a MOVE event
     // coming even before the first MOVE event into the extension/bottom area
-    Logger.d(TAG, "***ME y: %f.2 dismissY: %d", me.getY(), getDismissY());
-    if (action == MotionEvent.ACTION_MOVE && me.getY() > getDismissY()) {
+    if (action == MotionEvent.ACTION_MOVE && me.getY() > mDismissYValue) {
       MotionEvent cancel =
           MotionEvent.obtain(
               me.getDownTime(),
