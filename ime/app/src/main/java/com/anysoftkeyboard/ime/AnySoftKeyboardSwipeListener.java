@@ -45,54 +45,31 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
   private int mSeparateKeyCode;
 
   private static int getIntFromSwipeConfiguration(final String keyValue) {
-    switch (keyValue) {
-      case "next_alphabet":
-        return KeyCodes.MODE_ALPHABET;
-      case "next_symbols":
-        return KeyCodes.MODE_SYMBOLS;
-      case "cycle_keyboards":
-        return KeyCodes.KEYBOARD_CYCLE;
-      case "reverse_cycle_keyboards":
-        return KeyCodes.KEYBOARD_REVERSE_CYCLE;
-      case "shift":
-        return KeyCodes.SHIFT;
-      case "space":
-        return KeyCodes.SPACE;
-      case "hide":
-        return KeyCodes.CANCEL;
-      case "backspace":
-        return KeyCodes.DELETE;
-      case "backword":
-        return KeyCodes.DELETE_WORD;
-      case "clear_input":
-        return KeyCodes.CLEAR_INPUT;
-      case "cursor_up":
-        return KeyCodes.ARROW_UP;
-      case "cursor_down":
-        return KeyCodes.ARROW_DOWN;
-      case "cursor_left":
-        return KeyCodes.ARROW_LEFT;
-      case "cursor_right":
-        return KeyCodes.ARROW_RIGHT;
-      case "next_inside_mode":
-        return KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE;
-      case "switch_keyboard_mode":
-        return KeyCodes.KEYBOARD_MODE_CHANGE;
-      case "split_layout":
-        return KeyCodes.SPLIT_LAYOUT;
-      case "merge_layout":
-        return KeyCodes.MERGE_LAYOUT;
-      case "compact_to_left":
-        return KeyCodes.COMPACT_LAYOUT_TO_LEFT;
-      case "compact_to_right":
-        return KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
-      case "utility_keyboard":
-        return KeyCodes.UTILITY_KEYBOARD;
-      case "quick_text_popup":
-        return KeyCodes.QUICK_TEXT_POPUP;
-      default:
-        return 0; // 0 means no action
-    }
+    return switch (keyValue) {
+      case "next_alphabet" -> KeyCodes.MODE_ALPHABET;
+      case "next_symbols" -> KeyCodes.MODE_SYMBOLS;
+      case "cycle_keyboards" -> KeyCodes.KEYBOARD_CYCLE;
+      case "reverse_cycle_keyboards" -> KeyCodes.KEYBOARD_REVERSE_CYCLE;
+      case "shift" -> KeyCodes.SHIFT;
+      case "space" -> KeyCodes.SPACE;
+      case "hide" -> KeyCodes.CANCEL;
+      case "backspace" -> KeyCodes.DELETE;
+      case "backword" -> KeyCodes.DELETE_WORD;
+      case "clear_input" -> KeyCodes.CLEAR_INPUT;
+      case "cursor_up" -> KeyCodes.ARROW_UP;
+      case "cursor_down" -> KeyCodes.ARROW_DOWN;
+      case "cursor_left" -> KeyCodes.ARROW_LEFT;
+      case "cursor_right" -> KeyCodes.ARROW_RIGHT;
+      case "next_inside_mode" -> KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE;
+      case "switch_keyboard_mode" -> KeyCodes.KEYBOARD_MODE_CHANGE;
+      case "split_layout" -> KeyCodes.SPLIT_LAYOUT;
+      case "merge_layout" -> KeyCodes.MERGE_LAYOUT;
+      case "compact_to_left" -> KeyCodes.COMPACT_LAYOUT_TO_LEFT;
+      case "compact_to_right" -> KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
+      case "utility_keyboard" -> KeyCodes.UTILITY_KEYBOARD;
+      case "quick_text_popup" -> KeyCodes.QUICK_TEXT_POPUP;
+      default -> 0; // 0 means no action
+    };
   }
 
   private void subPrefs(

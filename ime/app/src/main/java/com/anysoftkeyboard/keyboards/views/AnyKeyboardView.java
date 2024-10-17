@@ -26,6 +26,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -64,6 +65,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
   private boolean mExtensionVisible = false;
   private int mExtensionKeyboardYActivationPoint;
   private int mExtensionKeyboardYDismissPoint;
+  private int mDismissYValue = Integer.MAX_VALUE;
   private Keyboard.Key mExtensionKey;
   private Keyboard.Key mUtilityKey;
   private Keyboard.Key mSpaceBarKey = null;
@@ -204,6 +206,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
 
     final Keyboard.Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
     mWatermarkEdgeX = Keyboard.Key.getEndX(lastKey);
+    mDismissYValue =
+        newKeyboard.getHeight()
+            + getResources().getDimensionPixelOffset(R.dimen.dismiss_keyboard_point);
   }
 
   @Override
@@ -219,6 +224,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
   @Override
   protected final boolean isFirstDownEventInsideSpaceBar() {
     return mIsFirstDownEventInsideSpaceBar;
+  }
+
+  @VisibleForTesting
+  protected int getDismissY() {
+    return mDismissYValue;
   }
 
   @Override
@@ -260,8 +270,25 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw
       mGestureTypingPathShouldBeDrawn = false;
     }
 
-    // If the motion event is above the keyboard and it's a MOVE event
-    // coming even before the first MOVE event into the extension area
+    // If the motion event is outside (up or down) the keyboard and it's a MOVE event
+    // coming even before the first MOVE event into the extension/bottom area
+    Logger.d(TAG, "***ME y: %f.2 dismissY: %d", me.getY(), getDismissY());
+    if (action == MotionEvent.ACTION_MOVE && me.getY() > getDismissY()) {
+      MotionEvent cancel =
+          MotionEvent.obtain(
+              me.getDownTime(),
+              me.getEventTime(),
+              MotionEvent.ACTION_CANCEL,
+              me.getX(),
+              me.getY(),
+              0);
+      super.onTouchEvent(cancel);
+      mGestureDetector.onTouchEvent(cancel);
+      cancel.recycle();
+      mKeyboardActionListener.onSwipeDown();
+      // Touch handled
+      return true;
+    }
     if (!mIsFirstDownEventInsideSpaceBar
         && me.getY() < mExtensionKeyboardYActivationPoint
         && !mMiniKeyboardPopup.isShowing()
