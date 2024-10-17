@@ -175,8 +175,8 @@ public class ViewTestUtils {
 
   public static int navigateFromTo(
       final View view,
-      Point start,
-      Point end,
+      @NonNull Point start,
+      @NonNull Point end,
       final int duration,
       final boolean alsoDown,
       final boolean alsoUp) {
@@ -184,9 +184,9 @@ public class ViewTestUtils {
   }
 
   public static int navigateFromTo(
-      final View view,
-      Keyboard.Key start,
-      Keyboard.Key end,
+      @NonNull View view,
+      @NonNull Keyboard.Key start,
+      @NonNull Keyboard.Key end,
       final int duration,
       final boolean alsoDown,
       final boolean alsoUp) {

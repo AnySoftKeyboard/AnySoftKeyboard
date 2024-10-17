@@ -57,6 +57,11 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     return new AnyKeyboardView(context, null) {
 
       @Override
+      protected int getDismissY() {
+        return getKeyboard().getHeight() + 10;
+      }
+
+      @Override
       protected boolean setValueFromTheme(
           TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
         mThemeWasSet = true;
@@ -762,5 +767,52 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     inOrder.verify(canvas).translate(-x + dimen + margin, -y);
     inOrder.verify(canvas).translate(x - dimen - dimen - margin - margin, y);
     inOrder.verify(canvas).translate(-x + dimen + dimen + margin + margin, -y);
+  }
+
+  @Test
+  public void testSwipeDownWhenGestureTypingIsDisabled() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
+    sleep(1225);
+    Mockito.doReturn(false)
+        .when(mMockKeyboardListener)
+        .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+    final AnyKeyboard.AnyKey topKey = requireFindKey('t');
+    final AnyKeyboard.AnyKey bottomKey = requireFindKey('c');
+    ViewTestUtils.navigateFromTo(mViewUnderTest, topKey, bottomKey, 100, true, true);
+
+    Mockito.verify(mMockKeyboardListener).onSwipeDown();
+  }
+
+  @Test
+  public void testSmallSwipeDownWhenGestureTypingIsEnabled() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
+    sleep(1225);
+    Mockito.doReturn(true)
+        .when(mMockKeyboardListener)
+        .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+    final AnyKeyboard.AnyKey topKey = requireFindKey('t');
+    final AnyKeyboard.AnyKey bottomKey = requireFindKey('c');
+    ViewTestUtils.navigateFromTo(mViewUnderTest, topKey, bottomKey, 100, true, true);
+
+    Mockito.verify(mMockKeyboardListener, Mockito.never()).onSwipeDown();
+  }
+
+  @Test
+  public void testLargeSwipeDownWhenGestureTypingIsEnabled() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
+    sleep(1225);
+    Mockito.doReturn(true)
+        .when(mMockKeyboardListener)
+        .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+    final AnyKeyboard.AnyKey topKey = requireFindKey('t');
+    final var bottomPoint = getKeyCenterPoint(requireFindKey(' '));
+    bottomPoint.offset(0, topKey.height);
+    ViewTestUtils.navigateFromTo(
+        mViewUnderTest, getKeyCenterPoint(topKey), bottomPoint, 100, true, true);
+
+    Mockito.verify(mMockKeyboardListener).onSwipeDown();
   }
 }

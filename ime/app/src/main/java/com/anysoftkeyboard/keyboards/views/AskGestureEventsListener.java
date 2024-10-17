@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.view.MotionEvent;
+import androidx.annotation.NonNull;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -32,7 +33,8 @@ final class AskGestureEventsListener implements AskOnGestureListener {
   }
 
   @Override
-  public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+  public boolean onScroll(
+      MotionEvent e1, @NonNull MotionEvent e2, float distanceX, float distanceY) {
     // in two fingers state we might still want to report a scroll, if BOTH pointers are moving
     // in the same direction
     if (mKeyboardView.isAtTwoFingersState() && !pointersMovingInTheSameDirection(e1, e2)) {
@@ -112,7 +114,8 @@ final class AskGestureEventsListener implements AskOnGestureListener {
   }
 
   @Override
-  public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+  public boolean onFling(
+      MotionEvent me1, @NonNull MotionEvent me2, float velocityX, float velocityY) {
     if (mKeyboardView.isAtTwoFingersState()) {
       Logger.v(TAG, "onFling ignored due to isAtTwoFingersState");
       return false;
