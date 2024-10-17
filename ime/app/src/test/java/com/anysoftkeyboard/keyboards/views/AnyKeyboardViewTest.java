@@ -57,11 +57,6 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     return new AnyKeyboardView(context, null) {
 
       @Override
-      protected int getDismissY() {
-        return getKeyboard().getHeight() + 10;
-      }
-
-      @Override
       protected boolean setValueFromTheme(
           TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
         mThemeWasSet = true;
