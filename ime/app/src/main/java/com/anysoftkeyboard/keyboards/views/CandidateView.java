@@ -252,10 +252,8 @@ public class CandidateView extends View implements ThemeableChild {
    * If the canvas is null, then only touch calculations are performed to pick the target candidate.
    */
   @Override
-  protected void onDraw(Canvas canvas) {
-    if (canvas != null) {
-      super.onDraw(canvas);
-    }
+  protected void onDraw(@NonNull Canvas canvas) {
+    super.onDraw(canvas);
     mTotalWidth = 0;
 
     final int height = getHeight();
@@ -285,6 +283,7 @@ public class CandidateView extends View implements ThemeableChild {
       final int wordLength = suggestion.length();
 
       paint.setColor(themeResources.getNameTextColor());
+      paint.setTypeface(Typeface.DEFAULT);
       if (i == mHighlightedIndex) {
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setColor(themeResources.getKeyTextColor().getDefaultColor());
@@ -312,7 +311,7 @@ public class CandidateView extends View implements ThemeableChild {
           && !scrolled
           && touchX + scrollX >= x
           && touchX + scrollX < x + wordWidth) {
-        if (canvas != null && !mShowingAddToDictionary) {
+        if (!mShowingAddToDictionary) {
           canvas.translate(x, 0);
           mSelectionHighlight.setBounds(0, bgPadding.top, wordWidth, height);
           mSelectionHighlight.draw(canvas);
@@ -322,41 +321,39 @@ public class CandidateView extends View implements ThemeableChild {
         mSelectedIndex = i;
       }
 
-      if (canvas != null) {
-        // (+)This is the trick to get RTL/LTR text correct
-        if (mAlwaysUseDrawText) {
-          final int y = (int) (height + paint.getTextSize() - paint.descent()) / 2;
-          canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2f, y, paint);
-        } else {
-          final int y = (int) (height - paint.getTextSize() + paint.descent()) / 2;
-          // no matter what: StaticLayout
-          float textX = x + (wordWidth / 2) - mHorizontalGap;
-          float textY = y - bgPadding.bottom - bgPadding.top;
+      // (+)This is the trick to get RTL/LTR text correct
+      if (mAlwaysUseDrawText) {
+        final int y = (int) (height + paint.getTextSize() - paint.descent()) / 2;
+        canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2f, y, paint);
+      } else {
+        final int y = (int) (height - paint.getTextSize() + paint.descent()) / 2;
+        // no matter what: StaticLayout
+        float textX = x + (wordWidth / 2.0f) - mHorizontalGap;
+        float textY = y - bgPadding.bottom - bgPadding.top;
 
-          canvas.translate(textX, textY);
-          mTextPaint.setTypeface(paint.getTypeface());
-          mTextPaint.setColor(paint.getColor());
+        canvas.translate(textX, textY);
+        mTextPaint.setTypeface(paint.getTypeface());
+        mTextPaint.setColor(paint.getColor());
 
-          StaticLayout suggestionText =
-              new StaticLayout(
-                  suggestion, mTextPaint, wordWidth, Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
-          suggestionText.draw(canvas);
+        StaticLayout suggestionText =
+            new StaticLayout(
+                suggestion, mTextPaint, wordWidth, Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+        suggestionText.draw(canvas);
 
-          canvas.translate(-textX, -textY);
-        }
-        // (-)
-        paint.setColor(themeResources.getHintTextColor());
-        canvas.translate(x + wordWidth, 0);
-        // Draw a divider unless it's after the hint
-        // or the last suggested word
-        if (count > 1 && !mShowingAddToDictionary && i != (count - 1)) {
-          canvas.translate(0, dividerYOffset);
-          mDivider.draw(canvas);
-          canvas.translate(0, -dividerYOffset);
-        }
-        canvas.translate(-x - wordWidth, 0);
+        canvas.translate(-textX, -textY);
       }
-      paint.setTypeface(Typeface.DEFAULT);
+      // (-)
+      //paint.setColor(themeResources.getHintTextColor());
+      canvas.translate(x + wordWidth, 0);
+      // Draw a divider unless it's after the hint
+      // or the last suggested word
+      if (count > 1 && !mShowingAddToDictionary && i != (count - 1)) {
+        canvas.translate(0, dividerYOffset);
+        mDivider.draw(canvas);
+        canvas.translate(0, -dividerYOffset);
+      }
+      canvas.translate(-x - wordWidth, 0);
+      //paint.setTypeface(Typeface.DEFAULT);
       x += wordWidth;
     }
     mTotalWidth = x;
@@ -516,18 +513,10 @@ public class CandidateView extends View implements ThemeableChild {
   }
 
   public void replaceTypedWord(CharSequence typedWord) {
-    if (mSuggestions.size() > 0) {
+    if (!mSuggestions.isEmpty()) {
       mSuggestions.set(0, typedWord);
       invalidate();
     }
-  }
-
-  public int getTextOthersColor() {
-    return mThemeOverlayCombiner.getThemeResources().getHintTextColor();
-  }
-
-  public float getTextSize() {
-    return mPaint.getTextSize();
   }
 
   public Drawable getCloseIcon() {
