@@ -69,6 +69,7 @@ import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.NullKeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.overlay.ThemeOverlayCombiner;
 import com.anysoftkeyboard.overlay.ThemeResourcesHolder;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
@@ -188,7 +189,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   protected final Subject<AnimationsLevel> mAnimationLevelSubject =
       BehaviorSubject.createDefault(AnimationsLevel.Some);
   private float mKeysHeightFactor = 1f;
-  @NonNull protected OverlayData mThemeOverlay = new OverlayData();
+  @NonNull protected OverlayData mThemeOverlay = new OverlayDataImpl();
   // overrideable theme resources
   private final ThemeOverlayCombiner mThemeOverlayCombiner = new ThemeOverlayCombiner();
 

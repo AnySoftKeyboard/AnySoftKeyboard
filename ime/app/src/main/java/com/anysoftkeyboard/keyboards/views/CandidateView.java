@@ -40,6 +40,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
 import com.anysoftkeyboard.overlay.ThemeOverlayCombiner;
 import com.anysoftkeyboard.overlay.ThemeResourcesHolder;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -112,7 +113,10 @@ public class CandidateView extends View implements ThemeableChild {
 
   @Override
   public void setThemeOverlay(OverlayData overlay) {
-    mThemeOverlayCombiner.setOverlayData(overlay);
+    var normalized =
+        OverlayDataNormalizer.normalize(
+            overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
+    mThemeOverlayCombiner.setOverlayData(normalized);
     setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
     invalidate();
   }
@@ -343,7 +347,7 @@ public class CandidateView extends View implements ThemeableChild {
         canvas.translate(-textX, -textY);
       }
       // (-)
-      //paint.setColor(themeResources.getHintTextColor());
+      // paint.setColor(themeResources.getHintTextColor());
       canvas.translate(x + wordWidth, 0);
       // Draw a divider unless it's after the hint
       // or the last suggested word
@@ -353,7 +357,7 @@ public class CandidateView extends View implements ThemeableChild {
         canvas.translate(0, -dividerYOffset);
       }
       canvas.translate(-x - wordWidth, 0);
-      //paint.setTypeface(Typeface.DEFAULT);
+      // paint.setTypeface(Typeface.DEFAULT);
       x += wordWidth;
     }
     mTotalWidth = x;

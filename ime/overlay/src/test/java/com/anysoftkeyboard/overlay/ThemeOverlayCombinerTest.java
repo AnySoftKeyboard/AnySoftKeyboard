@@ -16,14 +16,16 @@ import org.robolectric.Shadows;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ThemeOverlayCombinerTest {
 
+  private OverlayData overlay(
+      int primaryColor, int darkPrimaryColor, int textColor, int secondaryTextColor) {
+    return new OverlayDataImpl(primaryColor, darkPrimaryColor, 0, textColor, secondaryTextColor);
+  }
+
   @Test
   public void testProvidesColorDrawableIfThemeDidNotProvideDrawables() {
     ThemeOverlayCombiner combiner = new ThemeOverlayCombiner();
 
-    OverlayData data = new OverlayData();
-    data.setPrimaryColor(1);
-    data.setPrimaryDarkColor(2);
-    data.setPrimaryTextColor(3);
+    OverlayData data = overlay(1, 2, 3, 0);
     Assert.assertTrue(data.isValid());
 
     combiner.setOverlayData(data);
@@ -44,11 +46,7 @@ public class ThemeOverlayCombinerTest {
     combiner.setThemeKeyBackground(image1);
     Assert.assertNull(image1.getColorFilter());
 
-    OverlayData data = new OverlayData();
-    data.setPrimaryColor(1);
-    data.setPrimaryDarkColor(2);
-    data.setPrimaryTextColor(3);
-    data.setSecondaryTextColor(4);
+    OverlayData data = overlay(1, 2, 3, 4);
     Assert.assertTrue(data.isValid());
     combiner.setOverlayData(data);
 
@@ -68,11 +66,7 @@ public class ThemeOverlayCombinerTest {
     combiner.setThemeKeyBackground(resources.getDrawable(R.drawable.test_image_1));
     combiner.setThemeKeyboardBackground(resources.getDrawable(R.drawable.test_image_2));
 
-    OverlayData data = new OverlayData();
-    data.setPrimaryColor(1);
-    data.setPrimaryDarkColor(2);
-    data.setPrimaryTextColor(3);
-    data.setSecondaryTextColor(4);
+    OverlayData data = overlay(1, 2, 3, 4);
     Assert.assertTrue(data.isValid());
 
     combiner.setOverlayData(data);
@@ -90,10 +84,7 @@ public class ThemeOverlayCombinerTest {
     Assert.assertEquals(3, themeResources.getKeyTextColor().getDefaultColor());
     Assert.assertEquals(4, themeResources.getNameTextColor());
 
-    data.setPrimaryColor(4);
-    data.setPrimaryDarkColor(5);
-    data.setPrimaryTextColor(6);
-    data.setSecondaryTextColor(7);
+    data = overlay(4, 5, 6, 7);
     Assert.assertTrue(data.isValid());
     combiner.setOverlayData(data);
     Assert.assertEquals(4, extractColorFromFilter(themeResources.getKeyBackground()));
@@ -102,7 +93,7 @@ public class ThemeOverlayCombinerTest {
     Assert.assertEquals(7, themeResources.getNameTextColor());
 
     // setting invalid value
-    combiner.setOverlayData(new OverlayData());
+    combiner.setOverlayData(new OverlayDataImpl());
     themeResources = combiner.getThemeResources();
     Assert.assertEquals(
         R.drawable.test_image_3,
@@ -145,9 +136,7 @@ public class ThemeOverlayCombinerTest {
     combiner.clearFromIcon(icon);
     Assert.assertNull(icon.getColorFilter());
 
-    final OverlayData data = new OverlayData();
-    data.setPrimaryTextColor(Color.WHITE);
-    data.setPrimaryColor(Color.BLUE);
+    OverlayData data = overlay(Color.BLUE, 0, Color.WHITE, 0);
     combiner.setOverlayData(data);
 
     combiner.applyOnIcon(icon);
@@ -155,7 +144,7 @@ public class ThemeOverlayCombinerTest {
     combiner.clearFromIcon(icon);
     Assert.assertNull(icon.getColorFilter());
 
-    combiner.setOverlayData(new OverlayData());
+    combiner.setOverlayData(new OverlayDataImpl());
     combiner.applyOnIcon(icon);
     Assert.assertNull(icon.getColorFilter());
     combiner.clearFromIcon(icon);
