@@ -13,7 +13,7 @@ public class ThemeOverlayCombiner {
 
   private static final int[][] NO_STATES = new int[][] {{0}};
 
-  private OverlayData mOverlayData = new OverlayData();
+  private OverlayData mOverlayData = new OverlayDataImpl();
 
   private final ThemeResourcesHolderImpl mThemeOriginalResources = new ThemeResourcesHolderImpl();
   private final ThemeResourcesHolderImpl mCalculatedResources = new ThemeResourcesHolderImpl();

@@ -13,21 +13,21 @@ import org.mockito.Mockito;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class OverlayDataOverriderTest {
 
+  private OverlayData overlay(int primaryColor, int darkPrimaryColor, int textColor) {
+    return new OverlayDataImpl(primaryColor, darkPrimaryColor, 0, textColor, 0);
+  }
+
   private OverlayDataOverrider mUnderTest;
   private OverlyDataCreator mOriginal;
 
   @Before
   public void setup() {
     mOriginal = Mockito.mock(OverlyDataCreator.class);
-    OverlayData originalData = new OverlayData();
-    originalData.setPrimaryColor(Color.GRAY);
-    originalData.setPrimaryDarkColor(Color.DKGRAY);
-    originalData.setPrimaryTextColor(Color.WHITE);
+    OverlayData originalData = overlay(Color.GRAY, Color.DKGRAY, Color.WHITE);
     Mockito.doReturn(originalData).when(mOriginal).createOverlayData(Mockito.any());
 
     HashMap<String, OverlayData> overrides = new HashMap<>();
-    overrides.put("com.example", new OverlayData());
-    overrides.get("com.example").setPrimaryColor(Color.BLUE);
+    overrides.put("com.example", overlay(Color.BLUE, 0, 0));
 
     mUnderTest = new OverlayDataOverrider(mOriginal, overrides);
   }

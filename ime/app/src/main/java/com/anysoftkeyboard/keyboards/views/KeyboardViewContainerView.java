@@ -17,6 +17,7 @@ import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,7 +40,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   private CandidateView mCandidateView;
   private OnKeyboardActionListener mKeyboardActionListener;
   private KeyboardTheme mKeyboardTheme;
-  private OverlayData mOverlayData = new OverlayData();
+  private OverlayData mOverlayData = new OverlayDataImpl();
   private final Rect mExtraPaddingToMainKeyboard = new Rect();
   private ClicksExtraDraw mClicksDrawer;
 

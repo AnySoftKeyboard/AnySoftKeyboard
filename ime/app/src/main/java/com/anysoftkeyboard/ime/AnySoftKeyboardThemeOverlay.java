@@ -9,6 +9,7 @@ import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
 import com.anysoftkeyboard.overlay.OverlayDataOverrider;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
@@ -82,9 +83,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
         private final OverlyDataCreator mActualCreator =
             new OverlayDataOverrider(
                 new OverlayDataNormalizer(
-                    new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this),
-                    96,
-                    true),
+                    new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this), 96),
                 createOverridesForOverlays());
 
         @Override
@@ -149,7 +148,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     return view;
   }
 
-  private static class EmptyOverlayData extends OverlayData {
+  private static class EmptyOverlayData extends OverlayDataImpl {
     @Override
     public boolean isValid() {
       return false;
