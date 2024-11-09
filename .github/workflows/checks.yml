@@ -25,14 +25,14 @@ jobs:
   js-checks:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
       - uses: pnpm/action-setup@v4.0.0
         with:
           version: 8.6.9
           run_install: true
-      - uses: actions/setup-node@v4.0.4
+      - uses: actions/setup-node@v4.1.0
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
@@ -46,10 +46,10 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
-      - uses: actions/cache@v4.1.1
+      - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
           key: global-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -83,10 +83,10 @@ jobs:
     container: ghcr.io/menny/android_ndk:1.20.0
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
-      - uses: actions/cache@v4.1.1
+      - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
           key: global-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -152,10 +152,10 @@ jobs:
             tasks: "testAllAddOnsUnitTest"
             actual_shard: app
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
-      - uses: actions/cache@v4.1.1
+      - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
           key: tests-v9-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -210,10 +210,10 @@ jobs:
             supports_canary: true
             supports_logo: false
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
-      - uses: actions/cache@v4.1.1
+      - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
           key: deploy-v9-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
@@ -278,7 +278,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
       - uses: ./.github/actions/deploy-request
@@ -296,7 +296,7 @@ jobs:
     runs-on: ubuntu-22.04
     container: ghcr.io/menny/android_base:1.20.0
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
