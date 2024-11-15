@@ -418,7 +418,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         // apostrophe),
         // and disable this check on URL tex fields.
         CharSequence toLeft = ic.getTextBeforeCursor(MAX_CHARS_PER_CODE_POINT, 0);
-        if (toLeft.length() == 0) {
+        if (toLeft == null) {
+          Logger.w(TAG, "InputConnection was not null, but return null from getTextBeforeCursor. Assuming this means the ic is dead.");
+          return
+        } else if (toLeft.length() == 0) {
           Logger.v(TAG, "Beginning of text found, not adding a space.");
         } else {
           int lastCodePoint = Character.codePointBefore(toLeft, toLeft.length());
