@@ -3,12 +3,11 @@ allprojects {
         androidBuildTools = '35.0.0'
         robolectricVersion = '4.12.2'
 
-        sideBySideNdkVersion = (System.getProperty("os.arch") == "aarch64")?
-                '24.0.8215888' : '23.0.7599858'
+        sideBySideNdkVersion = '27.2.12479018'
 
-        sdkTargetVersion = 33
+        sdkTargetVersion = 34
         sdkCompileVersion = 34
-        sdkMinimumVersion = 15
+        sdkMinimumVersion = 21
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")
         isGithubAction = 'true' == System.getenv("GITHUB_ACTIONS")
