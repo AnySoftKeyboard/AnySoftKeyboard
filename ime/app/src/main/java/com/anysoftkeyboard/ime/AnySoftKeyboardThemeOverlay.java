@@ -78,31 +78,27 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
   }
 
   protected OverlyDataCreator createOverlayDataCreator() {
-    if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
-      return new OverlyDataCreator() {
-        private final OverlyDataCreator mActualCreator =
-            new OverlayDataOverrider(
-                new OverlayDataNormalizer(
-                    new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this), 96),
-                createOverridesForOverlays());
+    return new OverlyDataCreator() {
+      private final OverlyDataCreator mActualCreator =
+          new OverlayDataOverrider(
+              new OverlayDataNormalizer(
+                  new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this), 96),
+              createOverridesForOverlays());
 
-        @Override
-        public OverlayData createOverlayData(ComponentName remoteApp) {
-          if (mApplyRemoteAppColors) {
-            if (CompatUtils.objectEquals(remoteApp.getPackageName(), mLastOverlayPackage)) {
-              return mCurrentOverlayData;
-            } else {
-              mLastOverlayPackage = remoteApp.getPackageName();
-              return mActualCreator.createOverlayData(remoteApp);
-            }
+      @Override
+      public OverlayData createOverlayData(ComponentName remoteApp) {
+        if (mApplyRemoteAppColors) {
+          if (CompatUtils.objectEquals(remoteApp.getPackageName(), mLastOverlayPackage)) {
+            return mCurrentOverlayData;
           } else {
-            return INVALID_OVERLAY_DATA;
+            mLastOverlayPackage = remoteApp.getPackageName();
+            return mActualCreator.createOverlayData(remoteApp);
           }
+        } else {
+          return INVALID_OVERLAY_DATA;
         }
-      };
-    } else {
-      return remoteApp -> INVALID_OVERLAY_DATA;
-    }
+      }
+    };
   }
 
   @Override

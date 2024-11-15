@@ -6,7 +6,7 @@ apply from: "${rootDir}/gradle/spotless.gradle"
 android {
     lint {
         checkDependencies true
-        lintConfig file("$rootDir/config/lint.xml")
+        lintConfig file("${rootDir}/config/lint.xml")
     }
 
     packagingOptions {

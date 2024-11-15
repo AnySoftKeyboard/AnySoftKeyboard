@@ -714,7 +714,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="app_share_text">Recomendo a aplicação de teclado Android AnySoftKeyboard de código-fonte aberto, com foco na privacidade, gratuitamente, personalizável e com vários idiomas.\nPode-se descarregar em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
     <string name="backup_restore_not_support_before_kitkat">Não suportado na sua versão do Android</string>
-    <string name="backup_restore_not_support_before_kitkat_message">A cópia de segurança e restauração não são suportados em dispositivos  com o Android anterior ao KitKat (versão 4.4). Pedimos desculpa.</string>
+    
     <string name="delete_all_clipboard_entries">Limpar área de transferência</string>
     <string name="tip_swipe_from_backspace_to_clear">Dica: pode-se deslizar com o dedo para a esquerda a partir do botão de apagar para limpar a palavra!</string>
     <string name="notification_read_contacts_ticker">Necessária permissão de contatos</string>

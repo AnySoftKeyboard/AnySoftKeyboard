@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import static com.anysoftkeyboard.overlay.OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 import android.content.Context;
@@ -52,7 +51,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.collection.ArrayMap;
-import androidx.core.view.ViewCompat;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -594,13 +592,11 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   @CallSuper
   public void setThemeOverlay(OverlayData overlay) {
     mThemeOverlay = overlay;
-    if (OS_SUPPORT_FOR_ACCENT) {
-      clearKeyIconsCache(true);
-      mThemeOverlayCombiner.setOverlayData(overlay);
-      final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
-      ViewCompat.setBackground(this, themeResources.getKeyboardBackground());
-      invalidateAllKeys();
-    }
+    clearKeyIconsCache(true);
+    mThemeOverlayCombiner.setOverlayData(overlay);
+    final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
+    setBackground(themeResources.getKeyboardBackground());
+    invalidateAllKeys();
   }
 
   protected KeyDetector createKeyDetector(final float slide) {
@@ -633,8 +629,7 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
         if (keyboardBackground == null) return false;
         mThemeOverlayCombiner.setThemeKeyboardBackground(keyboardBackground);
-        ViewCompat.setBackground(
-            this, mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
+        setBackground(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
       }
       case android.R.attr.paddingLeft -> {
         padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);

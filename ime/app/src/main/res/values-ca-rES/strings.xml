@@ -619,7 +619,7 @@
     <string name="app_share_text">Et recomano l\'AnySoftKeyboard; un teclat per a Android de codi lliure i gratuït, multillengua i molt personalitzable, focalitzat en la privadesa.\nGet Disponible al:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Sorprèn-me</string>
     <string name="backup_restore_not_support_before_kitkat">No suportat al vostre Android</string>
-    <string name="backup_restore_not_support_before_kitkat_message">La còpia de seguretat i restauració no estan suportades en sistemes anteriors a KitKat (versió 4.4)…</string>
+    
     <string name="delete_all_clipboard_entries">Buida el porta-retalls</string>
     <string name="tip_swipe_from_backspace_to_clear">Truc: podeu lliscar la tecla retrocès cap a l\'esquerra per suprimir el mot!</string>
 </resources>

@@ -649,7 +649,7 @@
     <string name="app_share_text">Позвольте мне порекомендовать вам приватно-ориентированное, бесплатное, легконастраиваемое, многоязычное приложение с открытым исходным кодом для Android AnySoftKeyboard.\nЗагрузите его из:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">нажмите сюда, чтобы увидеть сюрприз</string>
     <string name="backup_restore_not_support_before_kitkat">Не поддерживается на вашем Android</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Резервное копирование и восстановление не поддерживаются для устройств с ОС Android до KitKat (версия 4.4).</string>
+    
     <string name="delete_all_clipboard_entries">Пустой буфер обмена</string>
     <string name="tip_swipe_from_backspace_to_clear">Подсказка: Вы можете провести влево с кнопки Backspaсе, чтобы удалить слово!</string>
     <string name="notification_read_contacts_ticker">Требуется разрешение на контакты</string>

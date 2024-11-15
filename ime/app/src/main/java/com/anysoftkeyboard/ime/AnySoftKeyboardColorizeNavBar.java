@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.BoolRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.view.WindowCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
@@ -32,28 +31,26 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     super.onCreate();
     mNavigationBarMinHeight =
         getResources().getDimensionPixelOffset(R.dimen.navigation_bar_min_height);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      // use androidx.core.view.WindowInsetsCompat
-      mNavigationBarHeightId =
-          getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-      mNavigationBarShownId =
-          getResources().getIdentifier("config_showNavigationBar", "bool", "android");
+    // use androidx.core.view.WindowInsetsCompat
+    mNavigationBarHeightId =
+        getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+    mNavigationBarShownId =
+        getResources().getIdentifier("config_showNavigationBar", "bool", "android");
 
-      Logger.d(
-          TAG,
-          "Colorized nav-bar resources: navigation_bar_height %d," + " config_showNavigationBar %d",
-          mNavigationBarHeightId,
-          mNavigationBarShownId);
+    Logger.d(
+        TAG,
+        "Colorized nav-bar resources: navigation_bar_height %d," + " config_showNavigationBar %d",
+        mNavigationBarHeightId,
+        mNavigationBarShownId);
 
-      addDisposable(
-          prefs()
-              .getBoolean(
-                  R.string.settings_key_colorize_nav_bar, R.bool.settings_default_colorize_nav_bar)
-              .asObservable()
-              .subscribe(
-                  val -> mPrefsToShow = val,
-                  GenericOnError.onError("settings_key_colorize_nav_bar")));
-    }
+    addDisposable(
+        prefs()
+            .getBoolean(
+                R.string.settings_key_colorize_nav_bar, R.bool.settings_default_colorize_nav_bar)
+            .asObservable()
+            .subscribe(
+                val -> mPrefsToShow = val,
+                GenericOnError.onError("settings_key_colorize_nav_bar")));
 
     addDisposable(
         prefs()
@@ -90,12 +87,9 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
   @Override
   public void onStartInputView(EditorInfo info, boolean restarting) {
     super.onStartInputView(info, restarting);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      setColorizedNavBar();
-    }
+    setColorizedNavBar();
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   private void setColorizedNavBar() {
     final var w = getWindow().getWindow();
     final var inputContainer = getInputViewContainer();
@@ -129,7 +123,6 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
     }
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   private void clearColorizedNavBar(
       @NonNull Window w, @NonNull KeyboardViewContainerView containerView) {
     w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);

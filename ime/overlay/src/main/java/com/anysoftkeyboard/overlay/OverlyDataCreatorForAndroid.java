@@ -7,17 +7,12 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.util.TypedValue;
 import androidx.annotation.AttrRes;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 
 public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
-
-  public static final boolean OS_SUPPORT_FOR_ACCENT =
-      Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
   private static final OverlayData EMPTY = new InvalidOverlayData();
 
@@ -30,10 +25,6 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
   @Override
   public OverlayData createOverlayData(ComponentName remoteApp) {
-    if (!OS_SUPPORT_FOR_ACCENT) {
-      return EMPTY;
-    }
-
     try {
       final ActivityInfo activityInfo =
           mLocalContext
@@ -58,7 +49,6 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     }
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   protected void fetchRemoteColors(Context context) {
     // ensuring text colors are completely opaque by apply Color.BLACK
     final TypedValue typedValue = new TypedValue();
@@ -120,7 +110,6 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     }
 
     @Override
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     protected void fetchRemoteColors(Context context) {
       final TypedValue typedValue = new TypedValue();
       mCurrentOverlayData.setPrimaryColor(

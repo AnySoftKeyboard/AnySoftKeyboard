@@ -3,7 +3,6 @@ package com.anysoftkeyboard.test;
 import android.app.Dialog;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import io.reactivex.Observable;
@@ -12,7 +11,6 @@ import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
 
-@VisibleForTesting
 public class GeneralDialogTestUtil {
 
   public static final AlertDialog NO_DIALOG = Mockito.mock(AlertDialog.class);

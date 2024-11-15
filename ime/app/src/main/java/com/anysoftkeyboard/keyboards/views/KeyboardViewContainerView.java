@@ -6,13 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
@@ -64,7 +62,6 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     constructorInit();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public KeyboardViewContainerView(
       Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
@@ -368,7 +365,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     }
 
     public boolean shouldDraw() {
-      return mClicks.size() > 0 && mClicks.size() % 10 == 0;
+      return !mClicks.isEmpty() && mClicks.size() % 10 == 0;
     }
   }
 }
