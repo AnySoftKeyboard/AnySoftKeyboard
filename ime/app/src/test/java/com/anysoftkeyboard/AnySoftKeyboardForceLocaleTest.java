@@ -12,7 +12,6 @@ import java.util.Locale;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
@@ -28,111 +27,6 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
   @After
   public void tearDownLocale() {
     Locale.setDefault(Locale.US);
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
-  @Ignore("Robolectric does not support this API")
-  public void testSetAndResetValueAPI16() {
-    Assert.assertEquals(
-        "System",
-        getApplicationContext().getString(R.string.settings_default_force_locale_setting));
-    Assert.assertEquals(
-        "English (United States)",
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "de");
-
-    Assert.assertEquals(
-        "de", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
-    Assert.assertTrue(
-        mAnySoftKeyboardUnderTest
-            .getResources()
-            .getConfiguration()
-            .locale
-            .getDisplayName()
-            .contains("German"));
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
-
-    Assert.assertSame(
-        Locale.getDefault(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale);
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "NONE_EXISTING");
-
-    Assert.assertEquals(
-        "none_existing",
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR1)
-  @Ignore("Robolectric does not support this API")
-  public void testSetAndResetValueAPI17WithKnownLocale() {
-    Assert.assertEquals(
-        "System",
-        getApplicationContext().getString(R.string.settings_default_force_locale_setting));
-    Assert.assertEquals(
-        "English (United States)",
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "de");
-
-    Assert.assertEquals(
-        "de", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
-    Assert.assertTrue(
-        mAnySoftKeyboardUnderTest
-            .getResources()
-            .getConfiguration()
-            .locale
-            .getDisplayName()
-            .contains("German"));
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
-
-    Assert.assertSame(
-        Locale.getDefault(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale);
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "NONE_EXISTING");
-
-    Assert.assertEquals(
-        "none_existing",
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR1)
-  @Ignore("Robolectric does not support this API")
-  public void testSetAndResetValueAPI17WithUnknownLocale() {
-    Assert.assertEquals(
-        "System",
-        getApplicationContext().getString(R.string.settings_default_force_locale_setting));
-    Assert.assertEquals(
-        "English (United States)",
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "eu");
-
-    Assert.assertEquals(
-        "eu", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
-    Assert.assertTrue(
-        mAnySoftKeyboardUnderTest
-            .getResources()
-            .getConfiguration()
-            .locale
-            .getDisplayName()
-            .contains("Basque"));
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
-
-    Assert.assertSame(
-        Locale.getDefault(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale);
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "NONE_EXISTING");
-
-    Assert.assertEquals(
-        "none_existing",
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
   }
 
   @Test

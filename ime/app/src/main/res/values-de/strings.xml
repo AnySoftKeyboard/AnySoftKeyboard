@@ -648,7 +648,7 @@
     <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
     <string name="app_share_text">Lass mich dir die Open-Source, Privatsphäre-fokussierte, kostenlose, höchst anpassbare, mehrsprachige Android Tastatur-App AnySoftKeyboard empfehlen.\nHole sie dir vom:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">für eine Überraschung klicken</string>
-    <string name="backup_restore_not_support_before_kitkat">Wird von deinem Gerät nicht unterstützt.</string>
+    
     
     <string name="delete_all_clipboard_entries">Leere Zwischenablage</string>
     <string name="tip_swipe_from_backspace_to_clear">Tipp: Sie können mit der Rücktaste nach links wischen, um das Wort zu löschen!</string>

@@ -661,7 +661,7 @@
     <string name="app_share_menu_title">Cumpartzi AnySoftKeyboard impreende</string>
     <string name="app_share_text">Lassa chi ti cunsìgies s\'aplicatzione pro sa tastiera de Android a mitza aberta, chi rispetat sa ridervadesa tua, de badas, personalizabile meda e in prus limbas: AnySoftKeyboard.\nIscàrriga·la dae su:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">incarca·mi pro una sorpresa</string>
-    <string name="backup_restore_not_support_before_kitkat">Non suportadu in s\'Android tuo</string>
+    
     
     <string name="delete_all_clipboard_entries">Punta de billete bòida</string>
     <string name="tip_swipe_from_backspace_to_clear">Impòsitu: podes trisinare a manca dae sa back-space pro iscantzellare sa paràula!</string>

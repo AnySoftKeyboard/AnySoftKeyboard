@@ -940,7 +940,7 @@
     <string name="app_share_text">Let me recommend the open-source, privacy-focus, free, highly customizable, multi-language Android keyboard app AnySoftKeyboard.\nGet it from:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
 
     <string name="click_me_for_easter_egg_info">click me for a surprise</string>
-    <string name="backup_restore_not_support_before_kitkat">Not supported on your Android</string>
+    
     
     <string name="delete_all_clipboard_entries">Empty clipboard</string>
 

@@ -56,7 +56,6 @@ public class SetUpKeyboardWizardTest {
             });
   }
 
-  @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
   @Test
   /*I don't want to also verify the permissions page too*/
   @Config(sdk = Build.VERSION_CODES.LOLLIPOP)

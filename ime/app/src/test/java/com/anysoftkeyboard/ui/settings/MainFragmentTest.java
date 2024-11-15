@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
@@ -176,48 +175,6 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
     Fragment aboutFragment = getCurrentFragment();
     Assert.assertNotNull(aboutFragment);
     Assert.assertTrue(aboutFragment instanceof MainTweaksFragment);
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
-  @Ignore("Robolectric does not support this API level")
-  public void testBackupMenuItemNotSupportedPreKitKat() throws Exception {
-    final MainFragment fragment = startFragment();
-    final FragmentActivity activity = fragment.getActivity();
-
-    Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
-    Assert.assertNotNull(menu);
-    final MenuItem item = menu.findItem(R.id.backup_prefs);
-
-    fragment.onOptionsItemSelected(item);
-    TestRxSchedulers.foregroundFlushAllJobs();
-
-    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
-    Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
-    Assert.assertEquals(
-        getApplicationContext().getText(R.string.backup_restore_not_support_before_kitkat),
-        GeneralDialogTestUtil.getTitleFromDialog(dialog));
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
-  @Ignore("Robolectric does not support this API level")
-  public void testRestoreMenuItemNotSupportedPreKitKat() throws Exception {
-    final MainFragment fragment = startFragment();
-    final FragmentActivity activity = fragment.getActivity();
-
-    Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
-    Assert.assertNotNull(menu);
-    final MenuItem item = menu.findItem(R.id.restore_prefs);
-
-    fragment.onOptionsItemSelected(item);
-    TestRxSchedulers.foregroundFlushAllJobs();
-
-    final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
-    Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
-    Assert.assertEquals(
-        getApplicationContext().getText(R.string.backup_restore_not_support_before_kitkat),
-        GeneralDialogTestUtil.getTitleFromDialog(dialog));
   }
 
   @Test

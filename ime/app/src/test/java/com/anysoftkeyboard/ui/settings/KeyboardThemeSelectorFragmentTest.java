@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
-import org.robolectric.annotation.Config;
 
 public class KeyboardThemeSelectorFragmentTest
     extends RobolectricFragmentTestCase<KeyboardThemeSelectorFragment> {
@@ -59,27 +57,6 @@ public class KeyboardThemeSelectorFragmentTest
     Assert.assertEquals(View.GONE, demoAppsRoot.getVisibility());
     checkbox.performClick();
     Assert.assertEquals(View.VISIBLE, demoAppsRoot.getVisibility());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.KITKAT)
-  public void testDoesNotShowOverlayConfigBeforeLollipop() {
-    KeyboardThemeSelectorFragment fragment = startFragment();
-    final View checkbox = fragment.getView().findViewById(R.id.apply_overlay);
-    final View demoAppsRoot = fragment.getView().findViewById(R.id.overlay_demo_apps_root);
-    Assert.assertEquals(View.GONE, checkbox.getVisibility());
-    Assert.assertEquals(View.GONE, demoAppsRoot.getVisibility());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.KITKAT)
-  public void testDoesNotShowOverlayConfigBeforeLollipopEvenIfEnabled() {
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
-    KeyboardThemeSelectorFragment fragment = startFragment();
-    final View checkbox = fragment.getView().findViewById(R.id.apply_overlay);
-    final View demoAppsRoot = fragment.getView().findViewById(R.id.overlay_demo_apps_root);
-    Assert.assertEquals(View.GONE, checkbox.getVisibility());
-    Assert.assertEquals(View.GONE, demoAppsRoot.getVisibility());
   }
 
   @Test
