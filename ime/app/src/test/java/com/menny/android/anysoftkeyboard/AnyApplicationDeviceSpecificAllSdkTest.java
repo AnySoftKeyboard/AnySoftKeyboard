@@ -73,6 +73,8 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           DeviceSpecificV29.class,
           DeviceSpecificV29.class, // 30
           DeviceSpecificV29.class,
+          DeviceSpecificV29.class,
+          DeviceSpecificV29.class,
           DeviceSpecificV29.class);
 
   private final List<Class<? extends Clipboard>> mExpectedClipboardClass =
@@ -108,6 +110,8 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           ClipboardV28.class, // 28
           ClipboardV28.class,
           ClipboardV28.class, // 30
+          ClipboardV28.class,
+          ClipboardV28.class,
           ClipboardV28.class,
           ClipboardV28.class);
 
@@ -145,6 +149,8 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           AskV19GestureDetector.class,
           AskV19GestureDetector.class, // 30
           AskV19GestureDetector.class,
+          AskV19GestureDetector.class,
+          AskV19GestureDetector.class,
           AskV19GestureDetector.class);
 
   private final List<Class<? extends PressVibrator>> mExpectedPressVibratorClass =
@@ -181,6 +187,8 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
           PressVibratorV29.class,
           PressVibratorV29.class, // 30
           PressVibratorV29.class,
+          PressVibratorV29.class,
+          PressVibratorV29.class,
           PressVibratorV29.class);
 
   void testCreateDeviceSpecificImplementationImpl() {
@@ -212,28 +220,28 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
         mExpectedPressVibratorClass.get(Build.VERSION.SDK_INT), pressVibrator.getClass());
   }
 
-  public static class AnyApplicationDeviceSpecificAllSdkTest1
+  public static class AnyApplicationDeviceSpecificAllSdkShard1Test
       extends AnyApplicationDeviceSpecificAllSdkTest {
     @Test
-    @Config(minSdk = OLDEST_SDK, maxSdk = 21)
+    @Config(minSdk = OLDEST_SDK, maxSdk = 23)
     public void testCreateDeviceSpecificImplementation() {
       testCreateDeviceSpecificImplementationImpl();
     }
   }
 
-  public static class AnyApplicationDeviceSpecificAllSdkTest2
+  public static class AnyApplicationDeviceSpecificAllSdkShard2Test
       extends AnyApplicationDeviceSpecificAllSdkTest {
     @Test
-    @Config(minSdk = 22, maxSdk = 25)
+    @Config(minSdk = 24, maxSdk = 28)
     public void testCreateDeviceSpecificImplementation() {
       testCreateDeviceSpecificImplementationImpl();
     }
   }
 
-  public static class AnyApplicationDeviceSpecificAllSdkTest3
+  public static class AnyApplicationDeviceSpecificAllSdkShard3Test
       extends AnyApplicationDeviceSpecificAllSdkTest {
     @Test
-    @Config(minSdk = 26, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
+    @Config(minSdk = 29, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
     public void testCreateDeviceSpecificImplementation() {
       testCreateDeviceSpecificImplementationImpl();
     }
