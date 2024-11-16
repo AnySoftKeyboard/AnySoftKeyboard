@@ -40,7 +40,7 @@ public class RemoteInsertionImpl implements RemoteInsertion {
         mContext,
         mMediaInsertionAvailableReceiver,
         MediaInsertionAvailableReceiver.createIntentFilter(),
-        ContextCompat.RECEIVER_NOT_EXPORTED);
+        ContextCompat.RECEIVER_EXPORTED);
   }
 
   @Override

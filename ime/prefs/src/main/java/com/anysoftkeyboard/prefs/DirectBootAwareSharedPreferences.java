@@ -98,7 +98,7 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
               }
             },
             new IntentFilter(Intent.ACTION_USER_UNLOCKED),
-            ContextCompat.RECEIVER_NOT_EXPORTED);
+            ContextCompat.RECEIVER_EXPORTED);
       }
     } else {
       Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: old device");
