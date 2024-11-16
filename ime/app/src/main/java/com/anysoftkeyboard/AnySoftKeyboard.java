@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.collection.SparseArrayCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -213,14 +213,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     // register to receive packages changes
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      registerReceiver(
-          mPackagesChangedReceiver,
-          mPackagesChangedReceiver.createIntentFilter(),
-          Context.RECEIVER_EXPORTED);
-    } else {
-      registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createIntentFilter());
-    }
+    ContextCompat.registerReceiver(
+        this,
+        mPackagesChangedReceiver,
+        mPackagesChangedReceiver.createIntentFilter(),
+        ContextCompat.RECEIVER_EXPORTED);
 
     addDisposable(
         prefs()

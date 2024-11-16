@@ -9,6 +9,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
 import com.anysoftkeyboard.api.MediaInsertion;
 import com.anysoftkeyboard.fileprovider.LocalProxy;
@@ -35,8 +36,11 @@ public class RemoteInsertionImpl implements RemoteInsertion {
     mLocalProxy = localProxy;
     mContext = context;
     mMediaInsertionAvailableReceiver = new MediaInsertionAvailableReceiver(this);
-    mContext.registerReceiver(
-        mMediaInsertionAvailableReceiver, MediaInsertionAvailableReceiver.createIntentFilter());
+    ContextCompat.registerReceiver(
+        mContext,
+        mMediaInsertionAvailableReceiver,
+        MediaInsertionAvailableReceiver.createIntentFilter(),
+        ContextCompat.RECEIVER_NOT_EXPORTED);
   }
 
   @Override
