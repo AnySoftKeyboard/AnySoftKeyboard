@@ -19,10 +19,13 @@
     <Keyboard nameResId="@string/keyboard_bepo_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/bepo"
         landscapeResId="@xml/bepo"
         id="d8e88305-8511-474e-9473-560422420719" defaultDictionaryLocale="fr" description="@string/keyboard_bepo_description" index="4" />
+    <Keyboard nameResId="@string/keyboard_ergol_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/ergol"
+        landscapeResId="@xml/ergol"
+        id="25639dc0-8d45-11ef-b559-0800200c9a66" defaultDictionaryLocale="fr" description="@string/keyboard_ergol_description" index="5" />
     <Keyboard nameResId="@string/keyboard_qwerty_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/ca_fr_qwerty"
         landscapeResId="@xml/ca_fr_qwerty"
-        id="33bf649e-80b5-4e1e-a6c5-50af8c41c1db" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_description" index="5" />
+        id="33bf649e-80b5-4e1e-a6c5-50af8c41c1db" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_description" index="6" />
     <Keyboard nameResId="@string/keyboard_qwerty_with_symbols_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/qwerty_with_symbols"
         landscapeResId="@xml/qwerty_with_symbols"
-        id="9b21a2b6-afcc-45da-9950-b95d02306993" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_with_symbols_description" index="6" />
+        id="9b21a2b6-afcc-45da-9950-b95d02306993" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_with_symbols_description" index="7" />
 </Keyboards>
