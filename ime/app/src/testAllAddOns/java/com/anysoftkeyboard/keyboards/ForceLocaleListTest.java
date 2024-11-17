@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@Config(sdk = TestUtils.NEWEST_STABLE_API_LEVEL)
+@Config(sdk = TestUtils.LATEST_STABLE_API_LEVEL)
 public class ForceLocaleListTest {
 
   @Test

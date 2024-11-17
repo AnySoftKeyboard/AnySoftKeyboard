@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class TestUtils {
-  public static final int NEWEST_STABLE_API_LEVEL = Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
+  public static final int LATEST_STABLE_API_LEVEL = Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
+  // This is the latest version that does not fail with
+  // "IllegalStateException: The Window Context should have been attached to a DisplayArea"
+  public static final int LATEST_WINDOW_SUPPORTING_API_LEVEL = Build.VERSION_CODES.S;
 
   public static <T> List<T> convertToList(Iterable<T> iterable) {
     ArrayList<T> list = new ArrayList<>();

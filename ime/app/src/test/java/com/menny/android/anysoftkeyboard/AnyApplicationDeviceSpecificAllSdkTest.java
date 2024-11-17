@@ -241,7 +241,7 @@ public abstract class AnyApplicationDeviceSpecificAllSdkTest {
   public static class AnyApplicationDeviceSpecificAllSdkShard3Test
       extends AnyApplicationDeviceSpecificAllSdkTest {
     @Test
-    @Config(minSdk = 29, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
+    @Config(minSdk = 29, maxSdk = TestUtils.LATEST_STABLE_API_LEVEL)
     public void testCreateDeviceSpecificImplementation() {
       testCreateDeviceSpecificImplementationImpl();
     }

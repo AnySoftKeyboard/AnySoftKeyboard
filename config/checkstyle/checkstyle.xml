@@ -49,7 +49,7 @@
         <module name="RegexpSinglelineJava">
             <property name="id" value="NeverUseConfigNEWEST_SDK" />
             <property name="format" value="Config.NEWEST_SDK" />
-            <property name="message" value="Using Config.NEWEST_SDK may refer to an unstable API. Use com.anysoftkeyboard.test.TestUtils.NEWEST_STABLE_API_LEVEL" />
+            <property name="message" value="Using Config.NEWEST_SDK may refer to an unstable API. Use com.anysoftkeyboard.test.TestUtils.LATEST_STABLE_API_LEVEL" />
         </module>
 
         <module name="RegexpSinglelineJava">

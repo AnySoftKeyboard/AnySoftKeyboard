@@ -22,7 +22,7 @@ import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 /*since we are sensitive to actual latest unicode emojis*/
-@Config(sdk = TestUtils.NEWEST_STABLE_API_LEVEL)
+@Config(sdk = TestUtils.LATEST_WINDOW_SUPPORTING_API_LEVEL)
 public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
   private static final String KEY_OUTPUT = "\uD83D\uDE03";
 

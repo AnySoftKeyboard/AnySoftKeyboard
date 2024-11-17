@@ -58,7 +58,7 @@ public abstract class AnySoftKeyboardStartUpAllSdkTest extends AnySoftKeyboardBa
   public static class AnySoftKeyboardStartUpAllSdkShard3Test
       extends AnySoftKeyboardStartUpAllSdkTest {
     @Test
-    @Config(minSdk = 29, maxSdk = TestUtils.NEWEST_STABLE_API_LEVEL)
+    @Config(minSdk = 29, maxSdk = TestUtils.LATEST_STABLE_API_LEVEL)
     public void testBasicWorks() {
       testBasicWorks_impl();
     }
