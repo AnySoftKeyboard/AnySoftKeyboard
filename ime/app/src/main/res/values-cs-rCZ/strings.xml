@@ -422,7 +422,7 @@
     <string name="ime_crashed_cancel_button">Zrušit</string>
     <string name="ime_crashed_intent_selector_title">Odeslat hlášení o pádu přes</string>
     <string name="next_word_settings_group">Nastavení</string>
-    <string name="read_more_about_permissions"></string>
+    <string name="read_more_about_permissions"/>
     <string name="app_shortcut_keyboards_short_label">Klávesnice</string>
     <string name="app_shortcut_themes_short_label">Motivy</string>
     <string name="app_shortcut_gestures_short_label">Gesta</string>

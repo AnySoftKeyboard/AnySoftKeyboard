@@ -9,6 +9,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.core.os.UserManagerCompat;
 import androidx.core.util.Consumer;
 import androidx.preference.PreferenceManager;
@@ -81,7 +82,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
         Logger.w("DirectBootAwareSharedPreferences", "Device locked! Will fake Shared-Preferences");
         mActual = new NoOpSharedPreferences();
         Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: registerReceiver");
-        mContext.registerReceiver(
+        ContextCompat.registerReceiver(
+            mContext,
             new BroadcastReceiver() {
               @Override
               public void onReceive(Context context, Intent intent) {
@@ -95,7 +97,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                 }
               }
             },
-            new IntentFilter(Intent.ACTION_USER_UNLOCKED));
+            new IntentFilter(Intent.ACTION_USER_UNLOCKED),
+            ContextCompat.RECEIVER_EXPORTED);
       }
     } else {
       Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: old device");

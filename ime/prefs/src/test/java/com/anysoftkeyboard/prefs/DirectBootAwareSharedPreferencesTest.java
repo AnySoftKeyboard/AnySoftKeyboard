@@ -52,7 +52,7 @@ public class DirectBootAwareSharedPreferencesTest {
         .putStringSet("set", Collections.singleton("a value"))
         .commit();
 
-    Assert.assertEquals(true, underTest.getBoolean("boolean", false));
+    Assert.assertTrue(underTest.getBoolean("boolean", false));
     Assert.assertEquals(1.1f, underTest.getFloat("float", 3.3f), 0.2f);
     Assert.assertEquals("a string", underTest.getString("string", "not a string"));
     Assert.assertEquals(42, underTest.getInt("int", 1));
@@ -81,7 +81,7 @@ public class DirectBootAwareSharedPreferencesTest {
         .commit();
 
     // returns the defaults
-    Assert.assertEquals(false, underTest.getBoolean("boolean", false));
+    Assert.assertFalse(underTest.getBoolean("boolean", false));
     Assert.assertEquals(3.3f, underTest.getFloat("float", 3.3f), 0.2f);
     Assert.assertEquals("not a string", underTest.getString("string", "not a string"));
     Assert.assertEquals(1, underTest.getInt("int", 1));
@@ -101,12 +101,12 @@ public class DirectBootAwareSharedPreferencesTest {
 
     underTest.edit().putBoolean("boolean", true).commit();
     // returns the defaults
-    Assert.assertEquals(false, underTest.getBoolean("boolean", false));
+    Assert.assertFalse(underTest.getBoolean("boolean", false));
 
     mFactory.setInDirectBoot(false);
     underTest.edit().putBoolean("boolean", true).commit();
     // returns the saved value
-    Assert.assertEquals(true, underTest.getBoolean("boolean", false));
+    Assert.assertTrue(underTest.getBoolean("boolean", false));
   }
 
   @Test

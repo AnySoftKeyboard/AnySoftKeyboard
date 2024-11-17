@@ -648,8 +648,8 @@
     <string name="app_share_menu_title">Compartir uso de AnySoftKeyboard</string>
     <string name="app_share_text">Permítanme recomendar la aplicación de teclado para Android de código abierto, enfocada en la privacidad, gratuita, altamente personalizable y en varios idiomas, AnySoftKeyboard.\nConsíguelo en:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clic para una sorpresa</string>
-    <string name="backup_restore_not_support_before_kitkat">No es compatible con tu Android</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Respaldar y restaurar no son compatibles con dispositivos que tienen sistema operativo Android anterior a KitKat (versión 4.4). Lo siento.</string>
+    
+    
     <string name="delete_all_clipboard_entries">Vaciar portapapeles</string>
     <string name="tip_swipe_from_backspace_to_clear">Consejo: ¡puedes deslizar hacia la izquierda desde retroceso para borrar la palabra!</string>
     <string name="notification_read_contacts_ticker">Necesita permiso para contactos</string>

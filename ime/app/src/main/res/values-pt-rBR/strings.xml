@@ -679,6 +679,6 @@ simplistas    </string>
     <string name="app_share_menu_title">Compartilhar AnySoftKeyboard via</string>
     <string name="app_share_text">Deixe-me recomendar um app de teclado - AnySoftKeyboard para Android, ele é de software livre, focado na privacidade, gratuito, personalizável, e multilíngue.\nBaixe na:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique aqui para uma surpresa</string>
-    <string name="backup_restore_not_support_before_kitkat">Não suportado em seu Android</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Backup e restauração não são suportados para dispositivos rodando o sistema operacional anterior ao Android KitKat (versão 4.4). Desculpe.</string>
+    
+    
 </resources>

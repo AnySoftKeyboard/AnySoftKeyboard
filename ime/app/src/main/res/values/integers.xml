@@ -10,7 +10,7 @@
     <integer name="settings_custom_zoom_factor_landscape_slide_min">20</integer>
     <integer name="settings_custom_zoom_factor_landscape_slide_max">200</integer>
     <integer name="maximum_instances_of_preview_popups">5</integer>
-    <integer name="maximum_dictionary_words_to_load">3000</integer>
+    <integer name="maximum_dictionary_words_to_load">5000</integer>
     <integer name="settings_bottom_padding_min">0</integer>
     <integer name="settings_bottom_padding_max">100</integer>
 </resources>

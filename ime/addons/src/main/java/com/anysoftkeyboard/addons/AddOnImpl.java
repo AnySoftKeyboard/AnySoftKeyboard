@@ -19,7 +19,6 @@ package com.anysoftkeyboard.addons;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
@@ -98,10 +97,10 @@ public abstract class AddOnImpl implements AddOn {
     Context c = mPackageContext.get();
     if (c == null) {
       try {
-        c = mAskAppContext.createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-          c = c.createConfigurationContext(mAskAppContext.getResources().getConfiguration());
-        }
+        c =
+            mAskAppContext
+                .createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY)
+                .createConfigurationContext(mAskAppContext.getResources().getConfiguration());
         mPackageContext = new WeakReference<>(c);
       } catch (NameNotFoundException e) {
         Logger.w(TAG, "Failed to find package %s!", mPackageName);
@@ -139,9 +138,7 @@ public abstract class AddOnImpl implements AddOn {
   }
 
   public void setNewConfiguration(@NonNull Configuration newConfiguration) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      mAskAppContext = mAskAppContext.createConfigurationContext(newConfiguration);
-    }
+    mAskAppContext = mAskAppContext.createConfigurationContext(newConfiguration);
     mPackageContext.clear();
   }
 

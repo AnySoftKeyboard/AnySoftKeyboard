@@ -1,11 +1,9 @@
 package net.evendanan.pixel;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
-import androidx.annotation.RequiresApi;
 
 public class ScrollViewWithDisable extends ScrollView {
   public ScrollViewWithDisable(Context context) {
@@ -20,7 +18,6 @@ public class ScrollViewWithDisable extends ScrollView {
     super(context, attrs, defStyleAttr);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public ScrollViewWithDisable(
       Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);

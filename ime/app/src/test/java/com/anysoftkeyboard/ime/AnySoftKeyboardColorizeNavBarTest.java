@@ -237,22 +237,6 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
-  @Config(shadows = TestShadowResources.class, sdk = Build.VERSION_CODES.KITKAT)
-  public void testDoesNotSetPaddingBeforeLollipop() throws Exception {
-    // addView
-    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView()).setBottomOffset(0);
-
-    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
-
-    simulateFinishInputFlow();
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
-    simulateOnStartInputFlow();
-
-    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView(), Mockito.never())
-        .setBottomOffset(Mockito.anyInt());
-  }
-
-  @Test
   @Config(shadows = {TestShadowResources.class, TestShadowResourcesFalseConfig.class})
   public void testDoesNotSetPaddingIfOsSaysNoNavBar() throws Exception {
     // was set as zero padding addView+onStartView

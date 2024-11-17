@@ -16,12 +16,10 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputMethodSubtype;
 
-@TargetApi(19)
 public class DeviceSpecificV19 extends DeviceSpecificV16 {
   @Override
   public String getApiLevel() {

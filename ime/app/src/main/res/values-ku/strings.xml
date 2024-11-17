@@ -751,5 +751,5 @@
     <string name="app_share_menu_title">بڵاوکردنەوە لەڕێی</string>
     <string name="app_share_text">یەکێک لە باشترین و خیڕاترین تەختەکلیلەکانی سیستەمی ئەندرۆید کە چەندین تایبەتمەندی جیاواز و پێشکەوتوی تێدایە وەک ڕووکاری هەمەڕەنگ، بەشی سەرەو خواری جیاواز، سەدان ئیممۆجی نایاب بەتەنها لە AnySoftKeyboard.\nدابەزاندن لە گۆگڵ پلەی:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">پەنجەبنێ بێرەدا بۆ سوپرایز</string>
-    <string name="backup_restore_not_support_before_kitkat">لە ئەندرۆیدەکەی تۆدا پشتگیری نەکراوە</string>
+    
 </resources>

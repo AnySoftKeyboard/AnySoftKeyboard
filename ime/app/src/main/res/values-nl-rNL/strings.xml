@@ -312,7 +312,7 @@ woordenlijst
     <string name="key_press_preview_popup_off_summary">Toon geen popup bij indrukken toets</string>
     <string name="zoom_factor_keys_in_portrait">Factor voor toetshoogte in portretmodus</string>
     <string name="zoom_factor_keys_in_landscape">Toetshoogtefactor in landschapsmodus</string>
-    <string name="keys_zoom_factor_template"></string>
+    <string name="keys_zoom_factor_template"/>
     <string name="bottom_padding_in_dp_title">Toetsenbord onderaan offset</string>
     <string name="bottom_padding_in_dp_template">%d punten</string>
     <string name="insert_space_after_word_suggestion_selection">Spatie na kandidaatselectie</string>
@@ -652,7 +652,7 @@ woordenlijst
     <string name="media_insertion_pending_message">Klik tekstbox om afbeelding in te voegen</string>
     <string name="aosp_dark_theme_name">AOSP-donkerthema</string>
     <string name="aosp_light_theme_name">AOSP-lichtthema</string>
-    <string name="backup_restore_not_support_before_kitkat">Niet ondersteund op uw Android</string>
+    
     <string name="delete_all_clipboard_entries">Leeg klembord</string>
     <string name="notification_read_contacts_ticker">Leesrechten contacten nodig</string>
     <string name="wizard_skip_notification_permission">Meldingen niet toestaan</string>

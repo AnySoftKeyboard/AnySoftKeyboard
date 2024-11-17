@@ -57,7 +57,7 @@ public class PermissionRequestHelperTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.KITKAT)
+  @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
   public void testCheckAlreadyHasPermissionsBeforeM() {
     try (var scenario = ActivityScenario.launch(TestFragmentActivity.class)) {
       scenario.onActivity(
@@ -73,7 +73,7 @@ public class PermissionRequestHelperTest {
   }
 
   @Test
-  @Config(sdk = Build.VERSION_CODES.KITKAT)
+  @Config(sdk = Build.VERSION_CODES.M)
   public void testCheckAlreadyHasPermissionsWithM() {
     var appShadow = Shadows.shadowOf(RuntimeEnvironment.getApplication());
     appShadow.grantPermissions(

@@ -4,11 +4,9 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.PowerManager;
 import androidx.annotation.BoolRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
@@ -42,16 +40,14 @@ public class PowerSaving {
             (powerSavingPref, enabledPref, batteryIntent, chargerIntent, osPowerSavingState) -> {
               if (!enabledPref) return false;
 
-              switch (powerSavingPref) {
-                case "never":
-                  return false;
-                case "always":
-                  return true;
-                default:
-                  return osPowerSavingState
-                      || (Intent.ACTION_BATTERY_LOW.equals(batteryIntent.getAction())
-                          && Intent.ACTION_POWER_DISCONNECTED.equals(chargerIntent.getAction()));
-              }
+              return switch (powerSavingPref) {
+                case "never" -> false;
+                case "always" -> true;
+                default ->
+                    osPowerSavingState
+                        || (Intent.ACTION_BATTERY_LOW.equals(batteryIntent.getAction())
+                            && Intent.ACTION_POWER_DISCONNECTED.equals(chargerIntent.getAction()));
+              };
             })
         .distinctUntilChanged();
   }
@@ -63,18 +59,13 @@ public class PowerSaving {
   }
 
   private static Observable<Boolean> getOsPowerSavingStateObservable(Context context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      final PowerManager powerManager =
-          (PowerManager) context.getSystemService(Service.POWER_SERVICE);
-      return RxBroadcastReceivers.fromIntentFilter(context, getPowerSavingIntentFilter())
-          .map(i -> powerManager.isPowerSaveMode())
-          .startWith(false);
-    } else {
-      return Observable.just(false);
-    }
+    final PowerManager powerManager =
+        (PowerManager) context.getSystemService(Service.POWER_SERVICE);
+    return RxBroadcastReceivers.fromIntentFilter(context, getPowerSavingIntentFilter())
+        .map(i -> powerManager.isPowerSaveMode())
+        .startWith(false);
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   private static IntentFilter getPowerSavingIntentFilter() {
     IntentFilter filter = new IntentFilter();
     filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);

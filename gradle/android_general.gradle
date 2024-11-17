@@ -6,7 +6,7 @@ apply from: "${rootDir}/gradle/spotless.gradle"
 android {
     lint {
         checkDependencies true
-        lintConfig file("$rootDir/config/lint.xml")
+        lintConfig file("${rootDir}/config/lint.xml")
     }
 
     packagingOptions {
@@ -42,7 +42,7 @@ android {
 apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 afterEvaluate {
-    tasks.withType(JavaCompile) { JavaCompile task ->
+    tasks.withType(JavaCompile).configureEach { JavaCompile task ->
         //fail on all warnings
         task.options.compilerArgs << '-Xlint:all'
         //we need to support old devices, so we can trust Java's detection here.

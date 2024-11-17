@@ -3,7 +3,6 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -94,11 +93,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     mBottomPadding = bottomPadding;
     findViewById(R.id.quick_keys_popup_quick_keys_insert_media)
         .setVisibility(supportedMediaTypes.isEmpty() ? View.GONE : VISIBLE);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-      setBackground(keyboardDrawable);
-    } else {
-      setBackgroundDrawable(keyboardDrawable);
-    }
+    setBackground(keyboardDrawable);
   }
 
   @Override

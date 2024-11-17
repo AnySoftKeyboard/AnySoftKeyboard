@@ -16,11 +16,9 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.Context;
 
-@TargetApi(16)
 public class ClipboardV16 extends ClipboardV11 {
 
   ClipboardV16(Context context) {
