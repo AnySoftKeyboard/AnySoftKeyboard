@@ -7,11 +7,11 @@ public class GenericAutoClose implements AutoCloseable {
 
   private final Runnable mCloseFunction;
 
-  public static GenericAutoClose close(@NonNull Runnable closeFunction) {
+  @NonNull public static GenericAutoClose close(@NonNull Runnable closeFunction) {
     return new GenericAutoClose(closeFunction);
   }
 
-  public static GenericAutoClose batchEdit(@NonNull InputConnection ic) {
+  @NonNull public static GenericAutoClose batchEdit(@NonNull InputConnection ic) {
     ic.beginBatchEdit();
     return new ICAutoClose(ic);
   }
@@ -23,6 +23,10 @@ public class GenericAutoClose implements AutoCloseable {
   @Override
   public void close() {
     mCloseFunction.run();
+  }
+
+  public void noop() {
+    /*needed till we use Java 22 and can use _ as var name*/
   }
 
   private static class ICAutoClose extends GenericAutoClose {

@@ -3,6 +3,10 @@
 @com.anysoftkeyboard.base.RemovableInRelease <methods>;
 }
 
+-assumenosideeffects class com.anysoftkeyboard.base.utils.GenericAutoClose {
+    public void noop();
+}
+
 -assumenosideeffects class com.anysoftkeyboard.base.utils.Logger {
     public static void v(...);
     public static void i(...);

@@ -403,6 +403,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
 
         try (var closer = GenericAutoClose.batchEdit(ic)) {
+          closer.noop();
           abortCorrectionAndResetPredictionState(false);
 
           CharSequence word = gestureTypingPossibilities.get(0);
