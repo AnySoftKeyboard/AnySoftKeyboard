@@ -52,9 +52,9 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: global-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v10-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            global-v9
+            global-v10
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -89,9 +89,9 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: global-v9-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v10-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            global-v9
+            global-v10
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -158,10 +158,10 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-v9-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: tests-v10-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            tests-v9-${{ matrix.actual_shard }}
-            global-v9
+            tests-v10-${{ matrix.actual_shard }}
+            global-v10
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
@@ -216,10 +216,10 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: deploy-v9-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: deploy-v10-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            deploy-v9-${{ matrix.shard_type }}
-            global-v9
+            deploy-v10-${{ matrix.shard_type }}
+            global-v10
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: generate projects list for sharding
