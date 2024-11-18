@@ -3,7 +3,7 @@ import fs from 'fs';
 import https from 'follow-redirects';
 import { tmpdir } from 'os';
 import zlib from 'zlib';
-import tar from 'tar';
+import * as tar from 'tar';
 import { join } from 'path';
 import { setFailed } from '@actions/core';
 import yaml from 'js-yaml';

@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "target": "es5",
         "outDir": "dist/",
         "rootDir": "js/",
+        "moduleResolution": "nodenext",
         "module": "NodeNext",
-        "moduleResolution": "nodenext"
+        "target": "es2015",
     },
     "include": ["js/**/*"],
     "ts-node": {
