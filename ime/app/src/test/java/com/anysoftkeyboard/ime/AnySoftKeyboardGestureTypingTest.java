@@ -143,6 +143,20 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
+  public void testDoesNotFailWhenInputConnectionReturnsNullAsTextInInput() {
+    // This test is simulating dead IC
+
+    // This can happen if the IC dies while running
+    Mockito.doReturn(null)
+        .when(mAnySoftKeyboardUnderTest.getCurrentTestInputConnection())
+        .getTextBeforeCursor(Mockito.anyInt(), Mockito.anyInt());
+
+    // Returns false since the gesture was not handled
+    Assert.assertFalse(simulateGestureProcess("hello"));
+    Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+  }
+
+  @Test
   public void testOutputCapitalisedOnShiftLocked() {
     mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
     simulateGestureProcess("hello");

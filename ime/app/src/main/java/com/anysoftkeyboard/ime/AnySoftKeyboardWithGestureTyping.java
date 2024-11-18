@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.GenericAutoClose;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
@@ -401,55 +402,58 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
           }
         }
 
-        ic.beginBatchEdit();
-        abortCorrectionAndResetPredictionState(false);
+        try (var closer = GenericAutoClose.batchEdit(ic)) {
+          abortCorrectionAndResetPredictionState(false);
 
-        CharSequence word = gestureTypingPossibilities.get(0);
+          CharSequence word = gestureTypingPossibilities.get(0);
 
-        // This is used when correcting
-        final WordComposer currentComposedWord = getCurrentComposedWord();
-        currentComposedWord.reset();
-        currentComposedWord.setAutoCapitalized(isShifted || isCapsLocked);
-        currentComposedWord.simulateTypedWord(word);
+          // This is used when correcting
+          final WordComposer currentComposedWord = getCurrentComposedWord();
+          currentComposedWord.reset();
+          currentComposedWord.setAutoCapitalized(isShifted || isCapsLocked);
+          currentComposedWord.simulateTypedWord(word);
 
-        currentComposedWord.setPreferredWord(currentComposedWord.getTypedWord());
-        // If there's any non-separator before the cursor, add a space:
-        // TODO: Improve the detection of mid-word separations (not hardcode a hyphen and an
-        // apostrophe),
-        // and disable this check on URL tex fields.
-        CharSequence toLeft = ic.getTextBeforeCursor(MAX_CHARS_PER_CODE_POINT, 0);
-        if (toLeft == null) {
-          Logger.w(TAG, "InputConnection was not null, but return null from getTextBeforeCursor. Assuming this means the ic is dead.");
-          return
-        } else if (toLeft.length() == 0) {
-          Logger.v(TAG, "Beginning of text found, not adding a space.");
-        } else {
-          int lastCodePoint = Character.codePointBefore(toLeft, toLeft.length());
-          if (Character.isWhitespace(lastCodePoint)
-              || lastCodePoint == (int) '\''
-              || lastCodePoint == (int) '-') {
-            Logger.v(TAG, "Separator found, not adding a space.");
+          currentComposedWord.setPreferredWord(currentComposedWord.getTypedWord());
+          // If there's any non-separator before the cursor, add a space:
+          // TODO: Improve the detection of mid-word separations (not hardcode a hyphen and an
+          // apostrophe),
+          // and disable this check on URL tex fields.
+          CharSequence toLeft = ic.getTextBeforeCursor(MAX_CHARS_PER_CODE_POINT, 0);
+          if (toLeft == null) {
+            Logger.w(
+                TAG,
+                "InputConnection was not null, but return null from getTextBeforeCursor. Assuming"
+                    + " this means the ic is dead.");
+            return false;
+          } else if (toLeft.length() == 0) {
+            Logger.v(TAG, "Beginning of text found, not adding a space.");
           } else {
-            ic.commitText(new String(new int[] {KeyCodes.SPACE}, 0, 1), 1);
-            Logger.v(TAG, "Non-separator found, adding a space.");
+            int lastCodePoint = Character.codePointBefore(toLeft, toLeft.length());
+            if (Character.isWhitespace(lastCodePoint)
+                || lastCodePoint == (int) '\''
+                || lastCodePoint == (int) '-') {
+              Logger.v(TAG, "Separator found, not adding a space.");
+            } else {
+              ic.commitText(new String(new int[] {KeyCodes.SPACE}, 0, 1), 1);
+              Logger.v(TAG, "Non-separator found, adding a space.");
+            }
           }
+          ic.setComposingText(currentComposedWord.getTypedWord(), 1);
+
+          mJustPerformedGesture = true;
+          mClearLastGestureAction.setVisibility(View.VISIBLE);
+
+          if (gestureTypingPossibilities.size() > 1) {
+            setSuggestions(gestureTypingPossibilities, 0);
+          } else {
+            // clearing any suggestion shown
+            setSuggestions(Collections.emptyList(), -1);
+          }
+
+          markExpectingSelectionUpdate();
+
+          return true;
         }
-        ic.setComposingText(currentComposedWord.getTypedWord(), 1);
-
-        mJustPerformedGesture = true;
-        mClearLastGestureAction.setVisibility(View.VISIBLE);
-
-        if (gestureTypingPossibilities.size() > 1) {
-          setSuggestions(gestureTypingPossibilities, 0);
-        } else {
-          // clearing any suggestion shown
-          setSuggestions(Collections.emptyList(), -1);
-        }
-
-        markExpectingSelectionUpdate();
-        ic.endBatchEdit();
-
-        return true;
       }
 
       currentGestureDetector.clearGesture();
