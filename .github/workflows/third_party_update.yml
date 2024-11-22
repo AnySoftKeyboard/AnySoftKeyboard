@@ -73,6 +73,7 @@ jobs:
 
   third-party-update:
     strategy:
+      fail-fast: false
       matrix:
         type: [gradle, robolectric, build_tools, error_prone, spotless]
         include:
