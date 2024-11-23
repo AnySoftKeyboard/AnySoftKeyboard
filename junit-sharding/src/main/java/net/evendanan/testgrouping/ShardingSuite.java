@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeSet;
 import org.junit.Test;
 import org.junit.runner.Description;
@@ -182,7 +183,7 @@ public class ShardingSuite extends Suite {
     }
 
     /** Finds all classes that live in or below the given package. */
-    private static TreeSet<Class<?>> findAllClassesClasses(Class<?> clazz) {
+    private static Set<Class<?>> findAllClassesClasses(Class<?> clazz) {
         final String packageName = clazz.getPackage().getName();
         TreeSet<Class<?>> result = new TreeSet<>(new TestClassNameComparator());
         final String packagePrefix = (packageName + '.').replace('/', '.');
