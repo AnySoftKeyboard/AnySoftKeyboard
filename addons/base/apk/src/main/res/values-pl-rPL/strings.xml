@@ -6,8 +6,8 @@
     <string name="add_on_website_template">Odwiedź nas na <xliff:g id="web_site">%s</xliff:g></string>
     <string name="screenshot_content_description">Zrzut ekranu dodatku</string>
     <string name="not_standalone_app_text">Ta aplikacja <b>nie</b> jest samodzielną aplikacją, a raczej rozszerzeniem (dodatkiem) dla AnySoftKeyboard.</string>
-    <string name="add_on_type_language">Pakiet językowy</string>
-    <string name="add_on_type_theme">Motyw klawiatury</string>
+    <string name="add_on_type_language" tools:ignore="UnusedResources">Pakiet językowy</string>
+    <string name="add_on_type_theme" tools:ignore="UnusedResources">Motyw klawiatury</string>
     <string name="ask_is_missing_need_install">AnySoftKeyboard nie jest zainstalowany na twoim urządzeniu.\nAby korzystać z tego pakietu rozszerzeń, musisz najpierw zainstalować AnySoftKeyboard.</string>
     <string name="open_ask_in_vending">Przejdź do sklepu Play</string>
     <string name="ask_installed">AnySoftKeyboard jest zainstalowany. Może być konieczne skonfigurowanie go, aby rozpocząć korzystanie z tego pakietu rozszerzeń.</string>

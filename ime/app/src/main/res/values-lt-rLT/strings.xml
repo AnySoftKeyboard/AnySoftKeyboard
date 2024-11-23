@@ -661,8 +661,6 @@
     <string name="app_share_text">Leiskite man rekomenduoti atviro kodo, privatumo-orientuota, nemokamą, daugumos kalbų „Android“ klaviatūrą
 „AnySoftKeyboard“!\nGaukite ją iš:\n„Google Play Parduotuvės“: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\n„F-Droid“: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">spausk mane dėl siurprizo</string>
-    
-    
     <string name="delete_all_clipboard_entries">Tuštinti mainų sritį</string>
     <string name="tip_swipe_from_backspace_to_clear">Patarimas: Jūs gali slinkti kairėn nuo atgal mygtuko, kad pašalintumėte žodį!</string>
 </resources>

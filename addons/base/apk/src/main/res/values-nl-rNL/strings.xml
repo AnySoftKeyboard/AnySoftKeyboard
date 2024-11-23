@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="welcome_title">Welkom</string>
+    <string name="welcome_subtitle_template">Dank u voor het installeren van\u0020<xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="release_notes_template">Release notes voor v<xliff:g id="app_version">%s</xliff:g>:n<xliff:g id="release_notes">%s</xliff:g></string>
+    <string name="add_on_website_template">Bezoek ons op <xliff:g id="web_site">%s</xliff:g></string>
+    <string name="screenshot_content_description">Een schermafbeelding van de add-on</string>
+    <string name="not_standalone_app_text">Deze app is <b>geen</b> op zichzelf staande app, maar een uitbreidingspakket (add-on) voor AnySoftKeyboard.</string>
+    <string name="add_on_type_language" tools:ignore="UnusedResources">Taalpakket</string>
+    <string name="add_on_type_theme" tools:ignore="UnusedResources">Toetsenbordthema</string>
+    <string name="ask_is_missing_need_install">AnySoftKeyboard is niet geïnstalleerd op uw apparaat.\nOm dit uitbreidingspakket te gebruiken, moet u eerst AnySoftKeyboard installeren.</string>
+    <string name="open_ask_in_vending">Ga naar Play Store</string>
+    <string name="ask_installed">AnySoftKeyboard is geïnstalleerd. Mogelijk moet u het instellen om dit uitbreidingspakket te kunnen gebruiken.</string>
+    <string name="open_ask_main_settings">AnySoftKeyboard openen</string>
+    <string name="test_add_on_description">Dit is een test-add-on-beschrijving, het kan van alles zijn</string>
+</resources>

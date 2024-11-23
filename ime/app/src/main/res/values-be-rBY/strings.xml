@@ -656,8 +656,6 @@
     <string name="app_share_menu_title">Парайце AnySoftKeyboard іншым</string>
     <string name="app_share_text">Я хачу параіць вам экранную клавіятуру для Android адметнымі рысамі якой з\'яўляюцца: адкрытасць зыходнага кода, бясплатнае распаўсюджанне, падтрымка ўводу амаль на ўсіх мовах свету, клопат пра прыватнасць вашых даных, тонкая настройка пад вашы задачы. \nАтрымаць па спасылцы ў Play Store:\nhttps://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">націсні на мяне для сюрпрызу</string>
-    
-    
     <string name="delete_all_clipboard_entries">Ачысціць буфер абмену</string>
     <string name="tip_swipe_from_backspace_to_clear">Парада: чырканнем у левы бок ад прабелу вы можаце ачысціць слова!</string>
 </resources>

@@ -328,6 +328,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="key_press_preview_popup_off_summary">Não ampliar tecla pressionada</string>
     <string name="zoom_factor_keys_in_portrait">Fator de altura no modo vertical</string>
     <string name="zoom_factor_keys_in_landscape">Fator de altura no modo horizontal</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Deslocamento inferior do teclado</string>
+    <string name="bottom_padding_in_dp_template">%d pontos</string>
     <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Inserir espaço após a seleção da palavra sugerida
     </string>
@@ -713,8 +716,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="app_share_menu_title">Partilhar o AnySoftKeyboard utilizando</string>
     <string name="app_share_text">Recomendo a aplicação de teclado Android AnySoftKeyboard de código-fonte aberto, com foco na privacidade, gratuitamente, personalizável e com vários idiomas.\nPode-se descarregar em:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">clique em mim para ter uma surpresa</string>
-    
-    
     <string name="delete_all_clipboard_entries">Limpar área de transferência</string>
     <string name="tip_swipe_from_backspace_to_clear">Dica: pode-se deslizar com o dedo para a esquerda a partir do botão de apagar para limpar a palavra!</string>
     <string name="notification_read_contacts_ticker">Necessária permissão de contatos</string>

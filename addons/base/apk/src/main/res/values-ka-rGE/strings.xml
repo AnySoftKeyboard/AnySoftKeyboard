@@ -6,8 +6,8 @@
     <string name="add_on_website_template">გვეწვიეთ მისამართზე <xliff:g id="web_site">%s</xliff:g></string>
     <string name="screenshot_content_description">ეკრანის სურათი ამ დანამატის</string>
     <string name="not_standalone_app_text">ეს აპი <b>არაა</b> ცალკე პროგრამა, მხოლოდ გაფართოებაა (დანამატია) პროგრამისთვის AnySoftKeyboard.</string>
-    <string name="add_on_type_language">ენის კრებული</string>
-    <string name="add_on_type_theme">კლავიატურის იერსახე</string>
+    <string name="add_on_type_language" tools:ignore="UnusedResources">ენის კრებული</string>
+    <string name="add_on_type_theme" tools:ignore="UnusedResources">კლავიატურის იერსახე</string>
     <string name="ask_is_missing_need_install">AnySoftKeyboard არაა დაყენებული თქვენს მოწყობილობაზე.\nამ გაფართოების გამოსაყენებლად, ჯერ უნდა დააყენოთ AnySoftKeyboard.</string>
     <string name="open_ask_in_vending">იხილეთ Play Store</string>
     <string name="ask_installed">AnySoftKeyboard არაა დაყენებული. საჭიროა მისი გამართვა ამ გაფართოებით სარგებლობისთვის.</string>
