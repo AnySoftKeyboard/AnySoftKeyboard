@@ -4,5 +4,6 @@
     <string name="no_market_store_available_title">Kan niet zoeken naar add-ons!</string>
     <string name="no_market_store_available">Kan geen app store vinden op uw apparaat.\nKan niet zoeken naar add-ons!</string>
     <string name="leaving_ask_to_market_title">AnySoftKeyboard verlaten</string>
+    <string name="leaving_ask_to_market_message">Het zoeken naar extra add-ons gebeurt in een externe app.\nDe Play Store kan advertenties tonen en/of je gebruik volgen. Dit valt buiten de controle van AnySoftKeyboard.</string>
     <string name="cta_continue_to_market">Zoeken</string>
 </resources>
