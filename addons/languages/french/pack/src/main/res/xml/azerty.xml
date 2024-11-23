@@ -43,8 +43,7 @@
     </Row>
     
     <Row>
-    <!-- android:codes="-1" =  SHIFT key -->
-        <Key android:codes="-1" android:keyWidth="15%p" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_code_shift" android:keyWidth="15%p" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w" android:popupCharacters="/÷ŵ" ask:hintLabel="/"/>
         <Key android:codes="120" android:keyLabel="x" android:popupCharacters="*·×" ask:hintLabel="*"/>
         <Key android:codes="99" android:keyLabel="c" android:popupCharacters="_—çćĉč" ask:hintLabel="_"/>
@@ -52,9 +51,9 @@
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="\u003D"/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="&lt;ñńň" ask:hintLabel="&lt;"/>
     <!-- add 1 little key for apostrophe -->
-    <Key ask:isFunctional="true" android:codes="\u0027" android:popupCharacters="\u0022«"/>
-    <!-- android:codes="-5" =  BACKSPACE key -->
-        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key ask:isFunctional="true" android:codes="\u0027" android:popupCharacters="\u0022«"/>
+    <!-- -->
+        <Key android:keyWidth="15%p" android:codes="@integer/key_code_delete" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>
     
