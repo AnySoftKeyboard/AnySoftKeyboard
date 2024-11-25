@@ -23,7 +23,7 @@ env:
 
 jobs:
   js-checks:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -42,8 +42,8 @@ jobs:
       - run: pnpm test
 
   static-checks:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.0
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4.2.2
@@ -79,8 +79,8 @@ jobs:
           path: collected_reports
 
   linters:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.0
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4.2.2
@@ -131,8 +131,8 @@ jobs:
           path: collected_reports
 
   tests:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.0
     timeout-minutes: 15
     strategy:
       matrix:
@@ -194,8 +194,8 @@ jobs:
           path: build/build-logging
 
   deploy-dry-run:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.0
     timeout-minutes: 30
     env:
       KEY_STORE_FILE_PASSWORD: password
@@ -267,7 +267,7 @@ jobs:
 
   all-green-requirement:
     needs: [static-checks, linters, tests, deploy-dry-run, js-checks]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: ready
         run: echo "DONE"
@@ -275,8 +275,8 @@ jobs:
   deploy-request:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android_base:1.21.0
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -293,8 +293,8 @@ jobs:
   merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android_base:1.21.0
     steps:
       - uses: actions/checkout@v4.2.2
         with:
