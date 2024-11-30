@@ -21,7 +21,7 @@ env:
 jobs:
   general-maven-update:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -49,7 +49,7 @@ jobs:
 
   github-actions-update:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -95,7 +95,7 @@ jobs:
               - https://github.com/diffplug/spotless
               - https://github.com/google/google-java-format/releases
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:

@@ -43,7 +43,7 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4.2.2
@@ -80,7 +80,7 @@ jobs:
 
   linters:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4.2.2
@@ -132,7 +132,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     timeout-minutes: 15
     strategy:
       matrix:
@@ -195,7 +195,7 @@ jobs:
 
   deploy-dry-run:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     timeout-minutes: 30
     env:
       KEY_STORE_FILE_PASSWORD: password
@@ -276,7 +276,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.1
+    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -294,7 +294,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_base:1.21.1
+    container: ghcr.io/menny/android_base:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:

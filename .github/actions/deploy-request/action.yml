@@ -21,7 +21,7 @@ inputs:
     required: true
 runs:
   using: "docker"
-  image: "docker://ghcr.io/menny/android:1.21.1"
+  image: "docker://ghcr.io/menny/android:1.21.2"
   env:
     TERM: dumb
     GRADLE_OPTS: "-Dorg.gradle.daemon=false"

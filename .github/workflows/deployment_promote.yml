@@ -12,7 +12,7 @@ env:
 jobs:
   promote:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_base:1.21.1
+    container: ghcr.io/menny/android_base:1.21.2
     strategy:
       matrix:
         refname: [main, release-branch-addons-v5.0-r1]
