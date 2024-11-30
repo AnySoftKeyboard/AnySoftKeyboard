@@ -43,7 +43,7 @@ jobs:
 
   static-checks:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.0
+    container: ghcr.io/menny/android:1.21.1
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4.2.2
@@ -52,9 +52,9 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: global-v10-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v11-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            global-v10
+            global-v11-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -80,7 +80,7 @@ jobs:
 
   linters:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.0
+    container: ghcr.io/menny/android:1.21.1
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4.2.2
@@ -89,9 +89,9 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: global-v10-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v11-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            global-v10
+            global-v11-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -132,7 +132,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.0
+    container: ghcr.io/menny/android:1.21.1
     timeout-minutes: 15
     strategy:
       matrix:
@@ -158,10 +158,10 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: tests-v10-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: tests-v11-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            tests-v10-${{ matrix.actual_shard }}
-            global-v10
+            tests-v11-${{ matrix.actual_shard }}-
+            global-v11-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
@@ -195,7 +195,7 @@ jobs:
 
   deploy-dry-run:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.0
+    container: ghcr.io/menny/android:1.21.1
     timeout-minutes: 30
     env:
       KEY_STORE_FILE_PASSWORD: password
@@ -216,10 +216,10 @@ jobs:
       - uses: actions/cache@v4.1.2
         with:
           path: .github_cache_gradle/
-          key: deploy-v10-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: deploy-v11-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            deploy-v10-${{ matrix.shard_type }}
-            global-v10
+            deploy-v11-${{ matrix.shard_type }}-
+            global-v11
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: generate projects list for sharding
@@ -276,7 +276,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_base:1.21.0
+    container: ghcr.io/menny/android_base:1.21.1
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -294,7 +294,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_base:1.21.0
+    container: ghcr.io/menny/android_base:1.21.1
     steps:
       - uses: actions/checkout@v4.2.2
         with:

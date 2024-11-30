@@ -16,7 +16,7 @@ env:
 jobs:
   packs-md-update:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.0
+    container: ghcr.io/menny/android:1.21.1
     steps:
       - uses: actions/checkout@v4.2.2
         with:
