@@ -276,7 +276,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_base:1.21.1
+    container: ghcr.io/menny/android:1.21.1
     steps:
       - uses: actions/checkout@v4.2.2
         with:
