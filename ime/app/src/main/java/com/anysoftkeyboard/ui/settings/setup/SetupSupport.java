@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -38,10 +39,13 @@ public class SetupSupport {
   }
 
   public static boolean isThisKeyboardEnabled(@NonNull Context context) {
-    final String enabledIMEList =
-        Settings.Secure.getString(
-            context.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS);
-    return isThisKeyboardEnabled(enabledIMEList, context.getPackageName());
+    var inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    for (var method : inputManager.getEnabledInputMethodList()) {
+      if (method.getPackageName().equals(context.getPackageName())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @VisibleForTesting
