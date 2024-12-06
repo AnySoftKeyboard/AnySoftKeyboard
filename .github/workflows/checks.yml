@@ -40,6 +40,8 @@ jobs:
       - run: pnpm pretty
       - run: pnpm build
       - run: pnpm test
+      - name: internal checkers
+        run: node dist/checkers/index.js --root_dir "${{ github.workspace }}"
 
   static-checks:
     runs-on: ubuntu-24.04

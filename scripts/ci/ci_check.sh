@@ -4,8 +4,6 @@ set -e
 # Ensure we can perform git operations
 git config --global --add safe.directory "$PWD"
 
-pnpm build && node dist/checkers/index.js --root_dir "$PWD"
-
 git clean -f -d
 git reset --hard HEAD
 
