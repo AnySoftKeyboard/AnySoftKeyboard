@@ -4,13 +4,7 @@ set -e
 # Ensure we can perform git operations
 git config --global --add safe.directory "$PWD"
 
-DUPLICATE_ID=$(find . -type f -path '*/build/*' -prune -o -name "*dictionaries.xml" -o -name "*keyboards.xml" -exec grep -Eo "\\sid=\"([A-Za-z0-9\\-]+)\"" {} \; | sort | uniq -d)
-
-if [[ -n "${DUPLICATE_ID}" ]]; then
-  echo "Found duplicate add-ons ID:"
-  echo "${DUPLICATE_ID}"
-  exit 1
-fi
+pnpm build && node dist/checkers/index.js --root_dir "$PWD"
 
 git clean -f -d
 git reset --hard HEAD
