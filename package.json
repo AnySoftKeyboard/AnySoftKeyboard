@@ -6,7 +6,7 @@
     "pretty": "prettier --check \"js/**/*.ts\"",
     "pretty-fix": "prettier --write \"js/**/*.ts\"",
     "build": "tsc",
-    "test": "pnpm build && mocha \"dist/**/*.test.js\"",
+    "test": "pnpm build && mocha --enable-source-maps \"dist/**/*.test.js\"",
     "package_approval": "ncc build dist/auto_approval/index.js -o .github/actions/auto_approval/dist",
     "package": "pnpm package_approval"
   },
