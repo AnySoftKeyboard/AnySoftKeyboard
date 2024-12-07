@@ -22,6 +22,24 @@ env:
   TMPDIR: "/tmp"
 
 jobs:
+  bazel:
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android_bazel:1.21.2
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 2
+      - uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 8.6.9
+          run_install: true
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: 'pnpm'
+      - run: bazel query //...
+      - run: bazel build //...
+
   js-checks:
     runs-on: ubuntu-24.04
     steps:
@@ -268,7 +286,7 @@ jobs:
           path: outputs/fdroid
 
   all-green-requirement:
-    needs: [static-checks, linters, tests, deploy-dry-run, js-checks]
+    needs: [static-checks, linters, tests, deploy-dry-run, js-checks, bazel]
     runs-on: ubuntu-24.04
     steps:
       - name: ready
