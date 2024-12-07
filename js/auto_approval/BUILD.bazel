@@ -1,0 +1,17 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+ts_project(
+    name = "auto_approval_lib",
+    srcs = ["approval.ts"],
+    out_dir = ".",
+    transpiler = "tsc",
+    source_map = True,
+    composite = True,
+    tsconfig = "//js:tsconfig",
+    isolated_typecheck = True,
+    deps = [
+        "//:node_modules/@actions/core",
+        "//:node_modules/@actions/github",
+        "//:node_modules/@types/node",
+    ],
+)

@@ -65,7 +65,7 @@ export function shouldApprove(actionInputs: ActionInputs): boolean {
   }
 }
 
-export async function approvePr(token: string) {
+export async function approvePr(token: string): Promise<void> {
   const octokit = github.getOctokit(token);
 
   await octokit.rest.pulls.createReview({

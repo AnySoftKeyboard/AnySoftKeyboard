@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
-        "allowJs": true,
-        "outDir": "dist/",
-        "rootDir": "js/",
         "moduleResolution": "nodenext",
         "sourceMap": true,
+        "isolatedDeclarations": true,
+        "composite": true,
+        "isolatedModules": true,
         "module": "NodeNext",
-        "target": "es2015",
+        "target": "es2023",
     },
-    "include": ["js/**/*"],
     "ts-node": {
       "esm": true
     }
