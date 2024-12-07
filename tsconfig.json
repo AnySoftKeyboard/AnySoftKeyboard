@@ -4,6 +4,7 @@
         "outDir": "dist/",
         "rootDir": "js/",
         "moduleResolution": "nodenext",
+        "sourceMap": true,
         "module": "NodeNext",
         "target": "es2015",
     },
