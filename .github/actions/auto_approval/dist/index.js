@@ -31730,7 +31730,7 @@ function approvePr(token) {
         yield octokit.rest.pulls.createReview(Object.assign(Object.assign({}, github.context.repo), { pull_number: github.context.payload.number, event: 'APPROVE' }));
     });
 }
-
+//# sourceMappingURL=approval.js.map
 ;// CONCATENATED MODULE: ./dist/auto_approval/index.js
 var auto_approval_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -31751,4 +31751,4 @@ const main = () => auto_approval_awaiter(void 0, void 0, void 0, function* () {
     }
 });
 main().catch((err) => (0,core.setFailed)(err.message));
-
+//# sourceMappingURL=index.js.map
