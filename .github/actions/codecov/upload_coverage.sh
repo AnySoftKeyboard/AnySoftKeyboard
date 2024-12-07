@@ -6,7 +6,7 @@ CODECOV_TOKEN="${1}"
 wget --tries=5 --waitretry=5 --progress=dot:mega --output-document=codecov.sh https://codecov.io/bash
 chmod +x codecov.sh
 
-TARGET_FOLDER="${PWD}/build/jacoco"
+TARGET_FOLDER="${2}"
 
 ls -al "${TARGET_FOLDER}"
 

@@ -8,6 +8,10 @@ inputs:
     description: "API token used to upload coverage"
     required: false
     default: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
+  cov_files:
+    description: "Path to the report loction"
+    required: false
+    default: "${{ github.workspace }}/build/jacoco"
 
 runs:
   using: "docker"
