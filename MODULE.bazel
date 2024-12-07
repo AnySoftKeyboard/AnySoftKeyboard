@@ -1,0 +1,43 @@
+"Declare dependencies for bzlmod, see https://bazel.build/build/bzlmod"
+
+# We declare all of the direct dependencies of all of the code in this
+# workspace. A single version of each of these is declared, implying that all of
+# the code will use the same version of all of these tools and libraries listed.
+# For bzlmod dependencies, this implements the "single version policy".
+
+bazel_dep(name = "aspect_bazel_lib", version = "2.9.4")
+bazel_dep(name = "aspect_rules_js", version = "2.1.2")
+bazel_dep(name = "aspect_rules_ts", version = "3.3.2")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+
+#########################
+# JavaScript and TypeScript
+# https://github.com/aspect-build/rules_js/tree/main/e2e/bzlmod
+# https://github.com/aspect-build/rules_ts/tree/main/e2e/bzlmod
+
+# In keeping with the single version policy, in this example, the NPM ecosystem
+# dependencies are specified at the top level rather than in each sub-project.
+# However, it is possible to have multiple different sets of NPM dependencies
+# across a workspace.
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+# Allows developers to get a local node_modules tree, using
+# bazel run -- @pnpm//:pnpm --dir $PWD install
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+    dev_dependency = True,
+)
+rules_ts_ext.deps()
+use_repo(rules_ts_ext, "npm_typescript")

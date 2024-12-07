@@ -1,0 +1,15 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+package(default_visibility = ["//:__subpackages__"])
+
+npm_link_all_packages(name = "node_modules")
+
+js_library(
+    name = "eslintrc",
+    srcs = ["eslint.config.mjs"],
+    deps = [
+        ":node_modules/@eslint/js",
+        ":node_modules/@typescript-eslint",
+    ],
+)
