@@ -54,13 +54,18 @@
     <Row
         android:keyboardMode="@integer/keyboard_mode_normal"
         android:rowEdgeFlags="bottom">
-        <Key android:codes="@integer/key_normal_height" android:isModifier="true" android:isSticky="true"
+        <Key android:codes="@integer/key_code_shift" android:isModifier="true" android:isSticky="true"
             android:keyWidth="12.5%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="@integer/key_code_voice_input" />
-        <Key android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup"/>
-        <Key android:codes="@integer/key_code_space" android:keyWidth="25%p"/>
-        <Key android:codes="39,34,8217" android:keyLabel="\'" android:popupCharacters='"’«»„“”‘’' ask:hintLabel='" ’'/>
-        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_voice_input"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_space"
+            android:keyWidth="30%p" />
+        <Key android:codes="39,34,8217" android:keyLabel="\'" android:popupCharacters='"’«»„“”‘’' ask:hintLabel='" ’'
+            android:keyWidth="10%p" />
+        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"
+            android:keyWidth="12.5%p" />
         <Key android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings"
             android:keyWidth="12.5%p" android:keyEdgeFlags="right" />
     </Row>
@@ -68,13 +73,18 @@
     <Row
         android:keyboardMode="@integer/keyboard_mode_im"
         android:rowEdgeFlags="bottom">
-        <Key android:codes="@integer/key_normal_height" android:isModifier="true" android:isSticky="true"
+        <Key android:codes="@integer/key_code_shift" android:isModifier="true" android:isSticky="true"
             android:keyWidth="12.5%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="@integer/key_code_voice_input"/>
-        <Key android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup"/>
-        <Key android:codes="@integer/key_code_space" android:keyWidth="25%p"/>
-        <Key android:codes="39,34,8217" android:keyLabel="\'" android:popupCharacters='"’«»„“”‘’' ask:hintLabel='" ’'/>
-        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_voice_input"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_space"
+            android:keyWidth="30%p" />
+        <Key android:codes="39,34,8217" android:keyLabel="\'" android:popupCharacters='"’«»„“”‘’' ask:hintLabel='" ’'
+            android:keyWidth="10%p" />
+        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"
+            android:keyWidth="12.5%p" />
         <Key android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings"
             android:keyWidth="12.5%p" android:keyEdgeFlags="right" />
     </Row>
@@ -82,13 +92,18 @@
     <Row
         android:keyboardMode="@integer/keyboard_mode_url"
         android:rowEdgeFlags="bottom">
-        <Key android:codes="@integer/key_normal_height" android:isModifier="true" android:isSticky="true"
+        <Key android:codes="@integer/key_code_shift" android:isModifier="true" android:isSticky="true"
             android:keyWidth="12.5%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="@integer/key_code_voice_input"/>
-        <Key android:codes="@integer/key_code_domain"/>
-        <Key android:codes="@integer/key_code_space" android:keyWidth="25%p"/>
-        <Key android:codes="47" android:popupCharacters="\@=#%&amp;_-"/>
-        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_voice_input"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_domain"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_space"
+            android:keyWidth="30%p" />
+        <Key android:codes="47" android:popupCharacters="\@=#%&amp;_-"
+            android:keyWidth="10%p" />
+        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"
+            android:keyWidth="12.5%p" />
         <Key android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings"
             android:keyWidth="12.5%p" android:keyEdgeFlags="right" />
     </Row>
@@ -96,13 +111,18 @@
     <Row
         android:keyboardMode="@integer/keyboard_mode_email"
         android:rowEdgeFlags="bottom">
-        <Key android:codes="@integer/key_normal_height" android:isModifier="true" android:isSticky="true"
+        <Key android:codes="@integer/key_code_shift" android:isModifier="true" android:isSticky="true"
             android:keyWidth="12.5%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="@integer/key_code_voice_input"/>
-        <Key android:codes="@integer/key_code_domain"/>
-        <Key android:codes="@integer/key_code_space" android:keyWidth="25%p"/>
-        <Key android:codes="64" android:popupCharacters="/=#%&amp;_-+~"/>
-        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_voice_input"
+            android:keyWidth="11.5%p"/>
+        <Key android:codes="@integer/key_code_domain"
+            android:keyWidth="11.5%p" />
+        <Key android:codes="@integer/key_code_space"
+            android:keyWidth="30%p" />
+        <Key android:codes="64" android:popupCharacters="/=#%&amp;_-+~"
+            android:keyWidth="10%p" />
+        <Key android:codes="@integer/key_code_delete" android:isRepeatable="true"
+            android:keyWidth="12.5%p" />
         <Key android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings"
             android:keyWidth="12.5%p" android:keyEdgeFlags="right" />
     </Row>
