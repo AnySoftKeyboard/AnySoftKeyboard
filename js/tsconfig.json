@@ -8,6 +8,7 @@
         "target": "es2023",
         "inlineSourceMap": true,
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "outDir": "../dist"
     },
 }

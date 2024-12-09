@@ -5,7 +5,7 @@
     "lint-fix": "eslint js/ --fix",
     "pretty": "prettier --check \"js/**/*.ts\"",
     "pretty-fix": "prettier --write \"js/**/*.ts\"",
-    "build": "tsc",
+    "build": "tsc --project js/tsconfig.json",
     "test": "pnpm build && mocha --enable-source-maps \"dist/**/*.test.js\"",
     "package_approval": "ncc build dist/auto_approval/index.js -o .github/actions/auto_approval/dist",
     "package": "pnpm package_approval"
