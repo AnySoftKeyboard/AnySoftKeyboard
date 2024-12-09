@@ -1,0 +1,10 @@
+{
+    "testEnvironment": "node",
+    "testMatch": ["<rootDir>/**/*.test.(ts|js)"],
+    "transformIgnorePatterns": ["node_modules/"],
+    "transform": {
+        "^.+\\.(ts|tsx)$": "ts-jest",
+        "^.+\\.js$": "babel-jest"
+    },
+    "verbose": true
+}

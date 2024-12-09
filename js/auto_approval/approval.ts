@@ -18,6 +18,7 @@ export function getActionInputs(
   getActionInputFunc: (key: string) => string,
   githubPayload: WebhookPayload,
 ): ActionInputs {
+  const pullRequest = githubPayload.pull_request!;
   return {
     token: getActionInputFunc('token'),
     review_as: getActionInputFunc('review_as'),
@@ -25,10 +26,12 @@ export function getActionInputs(
       .split(',')
       .map((u) => u.trim())
       .filter((u) => u.length > 0),
-    sender_login: githubPayload.pull_request.user.login,
-    requested_reviewers: githubPayload.pull_request.requested_reviewers.map((u) => u.login).filter((u) => u.length > 0),
-    source_git: githubPayload.pull_request.base.git_url,
-    target_git: githubPayload.pull_request.head.git_url,
+    sender_login: pullRequest.user.login,
+    requested_reviewers: pullRequest.requested_reviewers
+      .map((u: { login: string }) => u.login)
+      .filter((u: string) => u.length > 0),
+    source_git: pullRequest.base.git_url,
+    target_git: pullRequest.head.git_url,
   };
 }
 

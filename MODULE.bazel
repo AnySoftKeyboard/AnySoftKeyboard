@@ -37,7 +37,12 @@ use_repo(npm, "npm")
 rules_ts_ext = use_extension(
     "@aspect_rules_ts//ts:extensions.bzl",
     "ext",
-    dev_dependency = True,
 )
-rules_ts_ext.deps()
+rules_ts_ext.deps(
+    # This keeps the TypeScript version in-sync with the editor, which is typically best.
+    ts_version_from = "//:package.json",
+    ts_integrity = "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==",
+)
 use_repo(rules_ts_ext, "npm_typescript")
+
+bazel_dep(name = "aspect_rules_jest", version = "0.22.0")

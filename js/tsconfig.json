@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
-        "moduleResolution": "nodenext",
-        "sourceMap": true,
         "isolatedDeclarations": true,
         "composite": true,
         "isolatedModules": true,
-        "module": "NodeNext",
+        "module": "ES2022",
+        "moduleResolution": "node",
         "target": "es2023",
+        "inlineSourceMap": true,
+        "strict": true,
+        "esModuleInterop": true
     },
-    "ts-node": {
-      "esm": true
-    }
 }

@@ -5,7 +5,6 @@ ts_project(
     srcs = ["approval.ts"],
     out_dir = ".",
     transpiler = "tsc",
-    source_map = True,
     composite = True,
     tsconfig = "//js:tsconfig",
     isolated_typecheck = True,

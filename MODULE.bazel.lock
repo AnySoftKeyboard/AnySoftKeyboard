@@ -12,6 +12,8 @@
     "https://bcr.bazel.build/modules/aspect_bazel_lib/2.9.3/MODULE.bazel": "66baf724dbae7aff4787bf2245cc188d50cb08e07789769730151c0943587c14",
     "https://bcr.bazel.build/modules/aspect_bazel_lib/2.9.4/MODULE.bazel": "ccc41028429f894b02fde7ef67d416cba3ba5084ed9ddb9bb6107aa82d118776",
     "https://bcr.bazel.build/modules/aspect_bazel_lib/2.9.4/source.json": "9e20ebe57de2e7657a188af6e132a9562fa26c201b2d999bc0a8981e8f3b6c36",
+    "https://bcr.bazel.build/modules/aspect_rules_jest/0.22.0/MODULE.bazel": "60a8ad6fe18540d2a726d34f31cf3775f00958d8cc499c588792ac26f8a6983c",
+    "https://bcr.bazel.build/modules/aspect_rules_jest/0.22.0/source.json": "16dacd163b2f35c9da4e39cd16ec0b271af2539799aa4cd6dbe81b25827e4b9f",
     "https://bcr.bazel.build/modules/aspect_rules_js/2.0.0/MODULE.bazel": "b45b507574aa60a92796e3e13c195cd5744b3b8aff516a9c0cb5ae6a048161c5",
     "https://bcr.bazel.build/modules/aspect_rules_js/2.1.2/MODULE.bazel": "05bbb900d2de0ac08c260af149ee6f1394c37b0ca388571305e33be00d7c3b97",
     "https://bcr.bazel.build/modules/aspect_rules_js/2.1.2/source.json": "6eadb3c46d212fe4af0669f527d005331ad0acfdc3b0999b770a057e5d4177e2",
@@ -693,7 +695,7 @@
     "@@aspect_rules_ts~//ts:extensions.bzl%ext": {
       "general": {
         "bzlTransitiveDigest": "AxwoH2qYblqv6TvxcNpwVl7VZrNm0E+uCvYAbpbTDZ0=",
-        "usagesDigest": "KrtIXYD5SXmhBL7naWSZw66Aw5PQXls8A800FfZmhcg=",
+        "usagesDigest": "AJcvkPE5ZNK8iBNYXBZyhap63AtRm6KV9vpqU3Pw3wQ=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -703,8 +705,9 @@
             "ruleClassName": "http_archive_version",
             "attributes": {
               "bzlmod": true,
-              "version": "5.6.3",
-              "integrity": "",
+              "version": "",
+              "version_from": "@@//:package.json",
+              "integrity": "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==",
               "build_file": "@@aspect_rules_ts~//ts:BUILD.typescript",
               "build_file_substitutions": {
                 "bazel_worker_version": "5.4.2",
