@@ -1,14 +1,1 @@
-load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
-load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
-
-ts_config(
-    name = "tsconfig",
-    src = "tsconfig.json",
-    visibility = [":__subpackages__"],
-)
-
-copy_to_bin(
-    name = "jest.config",
-    srcs = ["jest.config.json"],
-    visibility = [":__subpackages__"]
-)
+package(default_visibility = ["//:__subpackages__"])

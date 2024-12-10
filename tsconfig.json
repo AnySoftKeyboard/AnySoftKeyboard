@@ -9,6 +9,11 @@
         "inlineSourceMap": true,
         "strict": true,
         "esModuleInterop": true,
-        "outDir": "../dist"
+        "outDir": "dist",
+        "skipLibCheck": true,
     },
+    "exclude": [
+        "bazel-*",
+        "dist",
+    ]
 }

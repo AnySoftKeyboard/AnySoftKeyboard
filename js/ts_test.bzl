@@ -1,5 +1,5 @@
 """Helpers for testing"""
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load(":ts.bzl", "ts_library")
 load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
 
 def ts_jest_test(name, srcs, deps):
@@ -20,20 +20,16 @@ def ts_jest_test(name, srcs, deps):
     ]
     test_data.extend(deps)
 
-    ts_project(
+    ts_library(
         name = lib_target_name,
         srcs = srcs,
         testonly = True,
-        transpiler = "tsc",
-        composite = True,
-        tsconfig = "//js:tsconfig",
-        isolated_typecheck = True,
         deps = test_data,
     )
 
     jest_test(
         name = name,
-        config = "//js:jest.config",
+        config = "//:jest.config",
         data = [lib_target_name] + test_data,
         node_modules = "//:node_modules",
         node_options = [

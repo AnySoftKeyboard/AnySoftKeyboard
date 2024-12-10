@@ -1,6 +1,6 @@
 {
     "testEnvironment": "node",
-    "testMatch": ["<rootDir>/**/*.test.(ts|js)"],
+    "testMatch": ["<rootDir>/js/**/*.test.(ts|js)"],
     "transformIgnorePatterns": ["node_modules/"],
     "transform": {
         "^.+\\.(ts|tsx)$": "ts-jest",
