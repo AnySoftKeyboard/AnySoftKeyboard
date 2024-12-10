@@ -46,3 +46,5 @@ rules_ts_ext.deps(
 use_repo(rules_ts_ext, "npm_typescript")
 
 bazel_dep(name = "aspect_rules_jest", version = "0.22.0")
+
+bazel_dep(name = "aspect_rules_lint", version = "1.0.7")

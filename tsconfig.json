@@ -13,6 +13,6 @@
         "skipLibCheck": true,
     },
     "include": [
-        "js/"
+        "js/**/*"
     ],
 }

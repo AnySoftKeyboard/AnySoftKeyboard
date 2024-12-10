@@ -6,13 +6,13 @@ load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
-    visibility = [":__subpackages__"],
+    visibility = ["//visibility:public"],
 )
 
 copy_to_bin(
     name = "jest.config",
     srcs = ["jest.config.json"],
-    visibility = [":__subpackages__"]
+    visibility = ["//visibility:public"],
 )
 
 npm_link_all_packages(name = "node_modules")
@@ -21,7 +21,10 @@ js_library(
     name = "eslintrc",
     srcs = ["eslint.config.mjs"],
     deps = [
-        ":node_modules/@eslint/js",
-        ":node_modules/@typescript-eslint",
+        "//:node_modules/@eslint/js",
+        "//:node_modules/@typescript-eslint",
+        "//:node_modules/globals",
+        "//:node_modules/@eslint/eslintrc",
     ],
+    visibility = ["//visibility:public"],
 )

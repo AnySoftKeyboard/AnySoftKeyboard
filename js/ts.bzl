@@ -1,5 +1,6 @@
 """Helpers for testing"""
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("//tools:linters.bzl", "eslint_test")
 
 def ts_library(name, srcs, deps, **kwargs):
     """
@@ -23,4 +24,10 @@ def ts_library(name, srcs, deps, **kwargs):
         isolated_typecheck = True,
         deps = deps,
         **kwargs,
+    )
+
+    eslint_test(
+        name = "{}_eslint_test".format(name),
+        srcs = [name],
+        testonly = True,
     )

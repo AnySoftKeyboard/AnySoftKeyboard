@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { isAddOnsFile, getAddOnsFromXml } from './unique_addon_id.js'; // Replace with actual file name
+import { isAddOnsFile, getAddOnsFromXml } from './unique_addon_id.js';
 
 describe('Add-on utilities', () => {
   describe('isAddOnsFile', () => {
