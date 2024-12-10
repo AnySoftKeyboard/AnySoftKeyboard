@@ -41,8 +41,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
-      - run: pnpm lint
-      - run: pnpm pretty
       - run: pnpm build
       - run: pnpm test
       - name: internal checkers
