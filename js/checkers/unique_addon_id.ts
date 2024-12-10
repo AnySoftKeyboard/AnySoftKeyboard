@@ -14,12 +14,13 @@ export function isAddOnsFile(fileName: string): boolean {
   return supportedOddOns.some((postFix) => fileName.toLowerCase().endsWith(postFix[2]));
 }
 
-export function getAddOnsFromXml(root): string[] {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getAddOnsFromXml(root: any): string[] {
   const addOnType = supportedOddOns.find((addOnType) => addOnType[0] in root);
   if (addOnType) {
     const addons = root[addOnType[0]][addOnType[1]];
     if (typeof addons[Symbol.iterator] === 'function') {
-      return addons.map((addon) => addon.attr_id);
+      return addons.map((addon: { attr_id: string }) => addon.attr_id);
     } else {
       return [addons.attr_id];
     }

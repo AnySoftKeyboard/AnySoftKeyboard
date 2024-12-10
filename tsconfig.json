@@ -1,15 +1,19 @@
 {
     "compilerOptions": {
-        "allowJs": true,
-        "outDir": "dist/",
-        "rootDir": "js/",
-        "moduleResolution": "nodenext",
-        "sourceMap": true,
-        "module": "NodeNext",
-        "target": "es2015",
+        "isolatedDeclarations": true,
+        "composite": true,
+        "isolatedModules": true,
+        "module": "ES2022",
+        "moduleResolution": "node",
+        "target": "es2023",
+        "inlineSourceMap": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "outDir": "dist",
+        "skipLibCheck": true,
     },
-    "include": ["js/**/*"],
-    "ts-node": {
-      "esm": true
-    }
+    "exclude": [
+        "bazel-*",
+        "dist",
+    ]
 }

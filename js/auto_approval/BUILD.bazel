@@ -1,0 +1,11 @@
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "auto_approval_lib",
+    srcs = ["approval.ts"],
+    deps = [
+        "//:node_modules/@actions/core",
+        "//:node_modules/@actions/github",
+        "//:node_modules/@types/node",
+    ],
+)

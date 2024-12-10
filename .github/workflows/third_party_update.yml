@@ -134,7 +134,6 @@ jobs:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v4.0.0
         with:
-          version: 8.6.9
           run_install: true
       - uses: actions/setup-node@v4.1.0
         with:
