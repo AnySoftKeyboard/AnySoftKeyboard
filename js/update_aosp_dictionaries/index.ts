@@ -30,6 +30,10 @@ async function decompressTarGz(tarGzFilePath: string): Promise<string> {
   return new Promise((resolve, reject) => {
     return fs.promises
       .mkdir(join(tmpdir(), Math.random().toString(16).substring(2)), { recursive: true })
+      .then((folder) => {
+        if (folder) return folder;
+        else throw Error('could not create a folder in tmp-dir');
+      })
       .then((destinationFolder) => {
         fs.createReadStream(tarGzFilePath)
           .on('error', (err) => reject(err))
@@ -47,6 +51,10 @@ async function decompressGz(gzFilePath: string): Promise<string> {
   return new Promise((resolve, reject) => {
     return fs.promises
       .mkdir(join(tmpdir(), Math.random().toString(16).substring(2)), { recursive: true })
+      .then((folder) => {
+        if (folder) return folder;
+        else throw Error('could not create a folder in tmp-dir');
+      })
       .then((destinationFolder) => {
         fs.createReadStream(gzFilePath)
           .on('error', (err) => reject(err))
@@ -71,9 +79,9 @@ async function compareArchives(src: string, trgt: string): Promise<Array<string>
   const targetFile = await decompressGz(trgt);
   console.log(`Target file: ${targetFile}`);
 
-  const differ = new TextFileDiff.default();
+  const differ = new TextFileDiff();
 
-  const diffs = [];
+  const diffs: string[] = [];
   differ.on('-', (line) => diffs.push(` * REMOVED: '${line}'`));
   differ.on('+', (line) => diffs.push(` * NEW: '${line}'`));
 

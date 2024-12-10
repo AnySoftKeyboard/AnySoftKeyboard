@@ -1,0 +1,13 @@
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "checkers",
+    srcs = [
+        "checker.ts",
+        "unique_addon_id.ts"
+    ],
+    deps = [
+        "//:node_modules/fast-xml-parser",
+        "//:node_modules/@types/node",
+    ],
+)

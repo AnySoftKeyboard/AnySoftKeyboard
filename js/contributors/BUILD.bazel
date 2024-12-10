@@ -1,10 +1,9 @@
 load("//js:ts.bzl", "ts_library")
 
 ts_library(
-    name = "approval",
-    srcs = ["approval.ts"],
+    name = "contributors",
+    srcs = ["contributors.ts"],
     deps = [
-        "//:node_modules/@actions/core",
         "//:node_modules/@actions/github",
         "//:node_modules/@types/node",
     ],

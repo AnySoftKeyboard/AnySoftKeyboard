@@ -12,8 +12,7 @@
         "outDir": "dist",
         "skipLibCheck": true,
     },
-    "exclude": [
-        "bazel-*",
-        "dist",
-    ]
+    "include": [
+        "js/"
+    ],
 }
