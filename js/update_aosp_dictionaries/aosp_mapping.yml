@@ -1,4 +1,3 @@
----
 mapping:
   - [en_wordlist.combined.gz, addons/languages/english/pack/dictionary/en_wordlist.combined.gz]
   - [iw_wordlist.combined.gz, addons/languages/hebrew/pack/dictionary/iw_wordlist.combined.gz]

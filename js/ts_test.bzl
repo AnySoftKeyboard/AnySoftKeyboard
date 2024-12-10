@@ -1,6 +1,7 @@
 """Helpers for testing"""
-load(":ts.bzl", "ts_library")
+
 load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
+load(":ts.bzl", "ts_library")
 
 def ts_jest_test(name, srcs, deps):
     """

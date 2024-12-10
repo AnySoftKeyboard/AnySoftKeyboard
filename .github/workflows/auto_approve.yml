@@ -1,10 +1,7 @@
----
 name: auto-approve-pr
-
 on:
   pull_request:
     types: [review_requested]
-
 jobs:
   check-for-auto-approval:
     runs-on: ubuntu-24.04

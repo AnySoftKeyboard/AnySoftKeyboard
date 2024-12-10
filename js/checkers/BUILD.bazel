@@ -4,10 +4,10 @@ ts_library(
     name = "checkers",
     srcs = [
         "checker.ts",
-        "unique_addon_id.ts"
+        "unique_addon_id.ts",
     ],
     deps = [
-        "//:node_modules/fast-xml-parser",
         "//:node_modules/@types/node",
+        "//:node_modules/fast-xml-parser",
     ],
 )

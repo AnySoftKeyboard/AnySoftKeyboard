@@ -1,6 +1,4 @@
----
 name: update-aosp-dictionaries
-
 on:
   schedule:
     - cron: '30 09 * * 5'
@@ -9,11 +7,9 @@ on:
       - main
     paths:
       - '.github/workflows/update_aosp_dictionaries.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
-
 jobs:
   aosp-dictionaries-update:
     runs-on: ubuntu-24.04

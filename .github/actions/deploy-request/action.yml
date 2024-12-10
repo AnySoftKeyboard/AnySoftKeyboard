@@ -1,8 +1,6 @@
----
 name: "deploy-request"
 description: "Request a deployment"
 author: "menny"
-
 inputs:
   sha:
     description: "SHA to deploy. Either a specific commit, or HEAD."
@@ -26,7 +24,6 @@ runs:
     TERM: dumb
     GRADLE_OPTS: "-Dorg.gradle.daemon=false"
     GRADLE_USER_HOME: ".github_cache_gradle/"
-
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy-request/deployment_request.sh
@@ -35,7 +32,6 @@ runs:
     - ${{ inputs.new_deploy }}
     - ${{ inputs.api_username }}
     - ${{ inputs.api_token }}
-
 branding:
   icon: 'upload-cloud'
   color: 'blue'

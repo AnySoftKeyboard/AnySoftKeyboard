@@ -39,12 +39,12 @@ rules_ts_ext = use_extension(
     "ext",
 )
 rules_ts_ext.deps(
+    ts_integrity = "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==",
     # This keeps the TypeScript version in-sync with the editor, which is typically best.
     ts_version_from = "//:package.json",
-    ts_integrity = "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==",
 )
 use_repo(rules_ts_ext, "npm_typescript")
 
 bazel_dep(name = "aspect_rules_jest", version = "0.22.0")
-
 bazel_dep(name = "aspect_rules_lint", version = "1.0.7")
+bazel_dep(name = "buildifier_prebuilt", version = "7.3.1")

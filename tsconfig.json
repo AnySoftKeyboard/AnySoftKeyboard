@@ -1,18 +1,16 @@
 {
-    "compilerOptions": {
-        "isolatedDeclarations": true,
-        "composite": true,
-        "isolatedModules": true,
-        "module": "ES2022",
-        "moduleResolution": "node",
-        "target": "es2023",
-        "inlineSourceMap": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "outDir": "dist",
-        "skipLibCheck": true,
-    },
-    "include": [
-        "js/**/*"
-    ],
+  "compilerOptions": {
+    "isolatedDeclarations": true,
+    "composite": true,
+    "isolatedModules": true,
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "target": "es2023",
+    "inlineSourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "skipLibCheck": true
+  },
+  "include": ["js/**/*"]
 }

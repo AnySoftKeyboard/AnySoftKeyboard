@@ -1,6 +1,4 @@
----
 name: third-party-update
-
 # always run on the default branch: main
 on:
   schedule:
@@ -11,13 +9,11 @@ on:
     paths:
       - 'scripts/ci/third-party-update/**/*'
       - '.github/workflows/third_party_update.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-
 jobs:
   general-maven-update:
     runs-on: ubuntu-24.04
@@ -44,9 +40,7 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/maven-update'
-          delete-branch:
-            true
-
+          delete-branch: true
   github-actions-update:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
@@ -68,9 +62,7 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/github-actions-update'
-          delete-branch:
-            true
-
+          delete-branch: true
   third-party-update:
     strategy:
       fail-fast: false
@@ -125,7 +117,6 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/auto-update-${{ matrix.type}}'
           delete-branch: true
-
   general-js-deps:
     runs-on: ubuntu-24.04
     steps:
@@ -155,5 +146,4 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/js-deps-update'
-          delete-branch:
-            true
+          delete-branch: true

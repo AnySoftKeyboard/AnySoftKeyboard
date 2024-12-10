@@ -1,8 +1,6 @@
----
 name: "deploy"
 description: "Deploys the AnySoftKeyboard artifacts to Play Store"
 author: "menny"
-
 inputs:
   deployment_environment:
     description: "Deploy to which environment"
@@ -36,7 +34,6 @@ runs:
     TERM: dumb
     GRADLE_OPTS: "-Dorg.gradle.daemon=false"
     GRADLE_USER_HOME: ".github_cache_gradle/"
-
   entrypoint: /bin/bash
   args:
     - .github/actions/deploy/deploy.sh
@@ -47,7 +44,6 @@ runs:
     - ${{ inputs.secrets_repo_folder }}
     - ${{ inputs.keystore_password }}
     - ${{ inputs.keystore_key_password }}
-
 branding:
   icon: 'upload-cloud'
   color: 'blue'

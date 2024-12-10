@@ -1,4 +1,5 @@
 """Helpers for testing"""
+
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("//tools:linters.bzl", "eslint_test")
 
@@ -23,7 +24,7 @@ def ts_library(name, srcs, deps, **kwargs):
         tsconfig = "//:tsconfig",
         isolated_typecheck = True,
         deps = deps,
-        **kwargs,
+        **kwargs
     )
 
     eslint_test(

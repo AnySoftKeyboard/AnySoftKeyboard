@@ -1,15 +1,11 @@
----
 name: contributors-lists
-
 on:
   push:
     branches:
       - main
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
-
 jobs:
   contributors-md-update:
     runs-on: ubuntu-24.04
