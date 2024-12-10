@@ -2,6 +2,7 @@
 
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("//tools:linters.bzl", "eslint_test")
+load("@aspect_rules_lint//format:defs.bzl", "format_test")
 
 def ts_library(name, srcs, deps, **kwargs):
     """
@@ -31,4 +32,10 @@ def ts_library(name, srcs, deps, **kwargs):
         name = "{}_eslint_test".format(name),
         srcs = [name],
         testonly = True,
+    )
+
+    format_test(
+        name = "{}_format_test".format(name),
+        javascript = "//tools:prettier",
+        srcs = srcs,
     )

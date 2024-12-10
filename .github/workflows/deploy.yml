@@ -36,6 +36,7 @@ jobs:
         run: >
           ./gradlew --stacktrace :deployment:updateDeploymentState \
 
+
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
             -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
@@ -54,6 +55,7 @@ jobs:
         run: >
           ./gradlew --stacktrace :deployment:updateDeploymentSuccess \
 
+
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
             -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
@@ -64,6 +66,7 @@ jobs:
         if: failure()
         run: >
           ./gradlew --stacktrace :deployment:updateDeploymentState \
+
 
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \

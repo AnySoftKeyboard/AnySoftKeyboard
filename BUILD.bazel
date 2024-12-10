@@ -3,22 +3,26 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
+package(default_visibility = ["//visibility:public"])
+
 ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
-    visibility = ["//visibility:public"],
 )
 
 copy_to_bin(
     name = "jest.config",
     srcs = ["jest.config.json"],
-    visibility = ["//visibility:public"],
 )
 
 copy_to_bin(
     name = "prettierrc",
     srcs = [".prettierrc"],
-    visibility = ["//visibility:public"],
+)
+
+copy_to_bin(
+    name = "prettierignore",
+    srcs = [".prettierignore"],
 )
 
 npm_link_all_packages(name = "node_modules")
@@ -26,7 +30,6 @@ npm_link_all_packages(name = "node_modules")
 js_library(
     name = "eslintrc",
     srcs = ["eslint.config.mjs"],
-    visibility = ["//visibility:public"],
     deps = [
         "//:node_modules/@eslint/eslintrc",
         "//:node_modules/@eslint/js",
