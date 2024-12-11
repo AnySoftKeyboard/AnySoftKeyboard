@@ -20,11 +20,13 @@ env:
 jobs:
   bazel:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_bazel:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
+      - uses: bazel-contrib/setup-bazel@0.9.1
         with:
-          fetch-depth: 2
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - run: bazel query //...
       - run: bazel build //...
       - run: bazel test --build_tests_only //...
