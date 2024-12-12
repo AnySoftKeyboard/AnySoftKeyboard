@@ -12,8 +12,12 @@ inputs:
     description: "Approver login."
     required: true
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "composite"
+  entrypoint: /bin/bash
+  args:
+    - bazel
+    - run
+    - //js/auto_approval:auto_approval
 branding:
   icon: 'git-pull-request'
   color: green

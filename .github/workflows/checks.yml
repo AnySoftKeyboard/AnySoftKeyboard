@@ -30,6 +30,8 @@ jobs:
       - run: bazel query //...
       - run: bazel build //...
       - run: bazel test --build_tests_only //...
+      - name: internal checkers
+        run: bazel run //js/checkers -- --root_dir "${{ github.workspace }}"
   js-checks:
     runs-on: ubuntu-24.04
     steps:
@@ -43,10 +45,7 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
-      - run: pnpm build
       - run: pnpm test
-      - name: internal checkers
-        run: node dist/checkers/index.js --root_dir "${{ github.workspace }}"
   static-checks:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2

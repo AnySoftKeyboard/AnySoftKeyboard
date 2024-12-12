@@ -11,18 +11,15 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: pnpm/action-setup@v4.0.0
+      - uses: bazel-contrib/setup-bazel@0.9.1
         with:
-          run_install: true
-      - uses: actions/setup-node@v4.1.0
-        with:
-          node-version-file: ".nvmrc"
-          cache: 'pnpm'
-      - run: pnpm build
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - name: update contributors list
         run: |
           git config --global --add safe.directory "${PWD}"
-          node dist/contributors/index.js generate --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file CONTRIBUTORS.md
+          bazel run //js/contributors:contributors -- --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file "${{ github.workspace }}/CONTRIBUTORS.md"
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.5
         with:
