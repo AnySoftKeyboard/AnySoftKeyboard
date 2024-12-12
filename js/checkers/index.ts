@@ -8,7 +8,7 @@ program.name('checkers').description('CLI to run various checkers on the codebas
 
 function skip_predicate(dirname: string): boolean {
   const lowerCase = dirname.toLowerCase();
-  return lowerCase.indexOf('build') >= 0 || lowerCase.indexOf('.git') >= 0;
+  return lowerCase.indexOf('build') >= 0 ||lowerCase.indexOf('.git') >= 0 || lowerCase.indexOf('node_modules') >= 0 || lowerCase.indexOf('bazel-') >= 0;
 }
 
 program.requiredOption('--root_dir <path>', 'Path to the root of the repo.').action(async (options) => {
