@@ -12,6 +12,7 @@ ts_library(
         "//:node_modules/@actions/core",
         "//:node_modules/@actions/github",
         "//:node_modules/@types/node",
+        "//:node_modules/commander",
         "//:node_modules/undici",
     ],
 )

@@ -4,6 +4,12 @@ import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { WebhookPayload } from '@actions/github/lib/interfaces.js';
 
+export interface CommandLineInputs {
+  token: string;
+  allowed_review_for: string;
+  review_as: string;
+}
+
 export interface ActionInputs {
   token: string;
   allowed_review_for: string[];
@@ -15,14 +21,14 @@ export interface ActionInputs {
 }
 
 export function getActionInputs(
-  getActionInputFunc: (key: string) => string,
+  commandLineInputs: CommandLineInputs,
   githubPayload: WebhookPayload,
 ): ActionInputs {
   const pullRequest = githubPayload.pull_request!;
   return {
-    token: getActionInputFunc('token'),
-    review_as: getActionInputFunc('review_as'),
-    allowed_review_for: getActionInputFunc('allowed_users')
+    token: commandLineInputs.token,
+    review_as: commandLineInputs.review_as,
+    allowed_review_for: commandLineInputs.allowed_review_for
       .split(',')
       .map((u) => u.trim())
       .filter((u) => u.length > 0),
