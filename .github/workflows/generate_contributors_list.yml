@@ -19,7 +19,7 @@ jobs:
       - name: update contributors list
         run: |
           git config --global --add safe.directory "${PWD}"
-          bazel run //js/contributors:contributors -- --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file "${{ github.workspace }}/CONTRIBUTORS.md"
+          bazel run //js/contributors:contributors -- generate --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file "${{ github.workspace }}/CONTRIBUTORS.md"
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.5
         with:
