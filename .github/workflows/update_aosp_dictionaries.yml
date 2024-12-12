@@ -1,6 +1,4 @@
----
 name: update-aosp-dictionaries
-
 on:
   schedule:
     - cron: '30 09 * * 5'
@@ -9,39 +7,29 @@ on:
       - main
     paths:
       - '.github/workflows/update_aosp_dictionaries.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
-
 jobs:
   aosp-dictionaries-update:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: pnpm/action-setup@v4.0.0
+      - uses: bazel-contrib/setup-bazel@0.9.1
         with:
-          version: 8.6.9
-          run_install: true
-      - uses: actions/setup-node@v4.1.0
-        with:
-          node-version-file: ".nvmrc"
-          cache: 'pnpm'
-      - run: pnpm build
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - name: fix git permissions for creating a PR
         run: git config --global --add safe.directory "${PWD}"
       - name: update AOSP dictionaries
         run: |
-          node dist/update_aosp_dictionaries/index.js update \
+          bazel run //js/update_aosp_dictionaries -- update \
             --repository_root "${PWD}" \
             --dictionaries_archive https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+archive/refs/heads/main/dictionaries.tar.gz \
             --dictionaries_mapping "${PWD}/js/update_aosp_dictionaries/aosp_mapping.yml"
       - name: update LineageOS dictionaries
-        run: |
-          node dist/update_aosp_dictionaries/index.js update \
-            --repository_root "${PWD}" \
-            --dictionaries_archive https://github.com/LineageOS/android_packages_inputmethods_LatinIME/archive/refs/heads/lineage-21.0.tar.gz \
-            --dictionaries_mapping "${PWD}/js/update_aosp_dictionaries/lineage_mapping.yml"
+        run: "bazel run //js/update_aosp_dictionaries -- update \n  --repository_root \"${PWD}\" \\\n  --dictionaries_archive https://github.com/LineageOS/android_packages_inputmethods_LatinIME/archive/refs/heads/lineage-21.0.tar.gz \\\n  --dictionaries_mapping \"${PWD}/js/update_aosp_dictionaries/lineage_mapping.yml\"\n"
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.5
         with:

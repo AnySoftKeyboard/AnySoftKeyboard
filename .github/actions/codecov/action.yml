@@ -1,14 +1,11 @@
----
 name: "code-coverage"
 author: "menny"
 description: "action which locate coverage files and uploads them"
-
 inputs:
   codecov_token:
     description: "API token used to upload coverage"
     required: false
     default: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
-
 runs:
   using: "docker"
   image: "docker://ghcr.io/menny/android_base:1.21.2"
@@ -18,7 +15,6 @@ runs:
   args:
     - .github/actions/codecov/upload_coverage.sh
     - ${{ inputs.codecov_token }}
-
 branding:
   icon: 'pie-chart'
   color: 'green'

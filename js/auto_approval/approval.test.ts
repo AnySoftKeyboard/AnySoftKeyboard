@@ -1,19 +1,11 @@
 import { assert } from 'chai';
-import { ActionInputs, getActionInputs, shouldApprove } from './approval.js';
+import { ActionInputs, getActionInputs, shouldApprove, CommandLineInputs } from './approval.js';
 
 describe('Approval', () => {
-  const actionInputFunc = (key: string) => {
-    switch (key) {
-      case 'token':
-        return 'GH_TOKEN';
-      case 'review_as':
-        return 'a_reviewer';
-      case 'allowed_users':
-        return 'allowed_1,allowed_2';
-      default: {
-        throw new Error(`unknown key ${key}!`);
-      }
-    }
+  const actionInput: CommandLineInputs = {
+    token: 'GH_TOKEN',
+    review_as: 'a_reviewer',
+    allowed_review_for: 'allowed_1,allowed_2',
   };
 
   const expectedInputs: ActionInputs = {
@@ -28,7 +20,7 @@ describe('Approval', () => {
 
   describe('Action Inputs', () => {
     it('should return a full class', () => {
-      const result = getActionInputs(actionInputFunc, {
+      const result = getActionInputs(actionInput, {
         pull_request: {
           number: 123,
           body: 'blah',
@@ -75,7 +67,7 @@ describe('Approval', () => {
 
   describe('Approving', () => {
     it('happy path', () => {
-      const result = getActionInputs(actionInputFunc, {
+      const result = getActionInputs(actionInput, {
         pull_request: {
           number: 123,
           body: 'blah',

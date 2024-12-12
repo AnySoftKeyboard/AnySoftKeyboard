@@ -1,6 +1,4 @@
----
 name: localization
-
 # always run on the default branch: main
 on:
   # schedule is used to fetch new, async, translations
@@ -14,12 +12,10 @@ on:
       - '**/res/values/strings.xml'
       - '.github/workflows/localization_update.yml'
       - 'crowdin.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
   CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_PERSONAL_TOKEN }}
-
 jobs:
   localization-update:
     runs-on: ubuntu-24.04

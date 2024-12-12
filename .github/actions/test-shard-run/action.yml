@@ -1,8 +1,6 @@
----
 name: "Run tests"
 author: "menny"
 description: "Runs tests using Gradle and sharding support"
-
 inputs:
   index:
     description: "zero-based index of the shard"
@@ -26,7 +24,6 @@ runs:
     - ${{ inputs.index }}
     - ${{ inputs.module }}
     - ${{ inputs.extra_args }}
-
 branding:
   icon: 'activity'
   color: 'yellow'

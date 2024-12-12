@@ -1,6 +1,4 @@
----
 name: packs-lists
-
 on:
   push:
     branches:
@@ -8,11 +6,9 @@ on:
     paths:
       - 'addons/**'
       - '.github/workflows/packs_md_update.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
-
 jobs:
   packs-md-update:
     runs-on: ubuntu-24.04

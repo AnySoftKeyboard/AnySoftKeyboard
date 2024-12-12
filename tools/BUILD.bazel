@@ -1,0 +1,36 @@
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
+load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
+load("@npm//:prettier/package_json.bzl", prettier = "bin")
+
+package(default_visibility = ["//visibility:public"])
+
+eslint_bin.eslint_binary(name = "eslint")
+
+prettier.prettier_binary(
+    name = "prettier",
+    data = [
+        "//:prettierignore",
+        "//:prettierrc",
+    ],
+    # Allow the binary to be run outside bazel
+    env = {"BAZEL_BINDIR": "."},
+    fixed_args = [
+        # `require` statements in the config file will be resolved relative to its location
+        # Therefore to make it hermetic, prettier must be pointed at the copy of the config file
+        # in the runfiles folder rather than the one in the source folder.
+        "--config=$(rlocationpath //:prettierrc)",
+        "--ignore-path=$(rlocationpath //:prettierignore)",
+        "--log-level=warn",
+    ],
+)
+
+# `run`ing this target will format the entire repo
+format_multirun(
+    name = "format",
+    css = ":prettier",
+    html = ":prettier",
+    javascript = ":prettier",
+    markdown = ":prettier",
+    starlark = "@buildifier_prebuilt//:buildifier",
+    yaml = "@aspect_rules_lint//format:yamlfmt",
+)

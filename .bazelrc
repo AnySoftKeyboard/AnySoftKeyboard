@@ -1,0 +1,1 @@
+common --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig

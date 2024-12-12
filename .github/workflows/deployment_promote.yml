@@ -1,14 +1,10 @@
----
 name: deployment-promote
-
 on:
   schedule:
     - cron: '04 04 * * *'
-
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
 jobs:
   promote:
     runs-on: ubuntu-24.04

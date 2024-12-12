@@ -1,6 +1,4 @@
----
 name: checks
-
 on:
   push:
     paths-ignore:
@@ -13,15 +11,27 @@ on:
       - deployment/halt_deployment_marker
     branches:
       - '*'
-
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   GRADLE_USER_HOME: ".github_cache_gradle/user_home/"
   GRADLE_HOME: ".github_cache_gradle/gradle_home/"
   TMPDIR: "/tmp"
-
 jobs:
+  bazel:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: bazel-contrib/setup-bazel@0.9.1
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - run: bazel query //...
+      - run: bazel build //...
+      - run: bazel test --build_tests_only //...
+      - name: internal checkers
+        run: bazel run //js/checkers -- --root_dir "${{ github.workspace }}"
   js-checks:
     runs-on: ubuntu-24.04
     steps:
@@ -30,19 +40,12 @@ jobs:
           fetch-depth: 2
       - uses: pnpm/action-setup@v4.0.0
         with:
-          version: 8.6.9
           run_install: true
       - uses: actions/setup-node@v4.1.0
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
-      - run: pnpm lint
-      - run: pnpm pretty
-      - run: pnpm build
       - run: pnpm test
-      - name: internal checkers
-        run: node dist/checkers/index.js --root_dir "${{ github.workspace }}"
-
   static-checks:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
@@ -79,7 +82,6 @@ jobs:
         with:
           name: checks-reports
           path: collected_reports
-
   linters:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
@@ -131,7 +133,6 @@ jobs:
         with:
           name: linters-reports
           path: collected_reports
-
   tests:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
@@ -194,7 +195,6 @@ jobs:
         with:
           name: tests-build-logging-${{ matrix.shard_variant }}
           path: build/build-logging
-
   deploy-dry-run:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
@@ -266,14 +266,12 @@ jobs:
         with:
           name: fdroid-metadata-dry-run-${{ matrix.shard_type }}
           path: outputs/fdroid
-
   all-green-requirement:
-    needs: [static-checks, linters, tests, deploy-dry-run, js-checks]
+    needs: [static-checks, linters, tests, deploy-dry-run, js-checks, bazel]
     runs-on: ubuntu-24.04
     steps:
       - name: ready
         run: echo "DONE"
-
   deploy-request:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
@@ -291,7 +289,6 @@ jobs:
           new_deploy: true
           api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
           api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-
   merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]

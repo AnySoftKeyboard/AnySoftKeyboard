@@ -44,3 +44,6 @@ addons/.generated_pack_version
 #js
 node_modules
 /dist
+
+#bazel
+/bazel-*

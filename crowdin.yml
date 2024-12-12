@@ -1,10 +1,8 @@
----
 project_id: 356
 api_token_env: CROWDIN_PERSONAL_TOKEN
 base_path: .
 base_url: https://api.crowdin.com
 preserve_hierarchy: true
-
 files:
   - source: /ime/app/src/main/res/values/strings.xml
     translation: /ime/app/src/main/res/values-%android_code%/strings.xml

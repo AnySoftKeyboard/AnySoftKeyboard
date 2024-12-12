@@ -1,14 +1,9 @@
----
 name: deployment
-
-on:
-  deployment
-
+on: deployment
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   GRADLE_USER_HOME: ".github_cache_gradle/"
-
 jobs:
   deploy:
     runs-on: ubuntu-24.04
@@ -38,7 +33,7 @@ jobs:
           name: github_object
           path: build/github_object
       - name: status-in-progress
-        run: >
+        run: |
           ./gradlew --stacktrace :deployment:updateDeploymentState \
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
@@ -55,7 +50,7 @@ jobs:
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
       - name: status-success
-        run: >
+        run: |
           ./gradlew --stacktrace :deployment:updateDeploymentSuccess \
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
@@ -65,7 +60,7 @@ jobs:
             -PrequestStatus.sha="${{ github.event.deployment.sha }}"
       - name: status-failure
         if: failure()
-        run: >
+        run: |
           ./gradlew --stacktrace :deployment:updateDeploymentState \
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
