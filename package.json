@@ -58,6 +58,7 @@
     "follow-redirects": "^1.15.9",
     "js-yaml": "^4.1.0",
     "tar": "^7.4.3",
-    "text-file-diff": "^1.4.8"
+    "text-file-diff": "^1.4.8",
+    "undici": "^7.1.0"
   }
 }

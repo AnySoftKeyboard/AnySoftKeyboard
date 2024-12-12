@@ -9,6 +9,7 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.9.4")
 bazel_dep(name = "aspect_rules_js", version = "2.1.2")
 bazel_dep(name = "aspect_rules_ts", version = "3.3.2")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "aspect_rules_esbuild", version = "0.21.0")
 
 #########################
 # JavaScript and TypeScript

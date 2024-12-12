@@ -1,8 +1,8 @@
 """Helpers for testing"""
 
+load("@aspect_rules_lint//format:defs.bzl", "format_test")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("//tools:linters.bzl", "eslint_test")
-load("@aspect_rules_lint//format:defs.bzl", "format_test")
 
 def ts_library(name, srcs, deps, **kwargs):
     """

@@ -8,7 +8,10 @@ eslint_bin.eslint_binary(name = "eslint")
 
 prettier.prettier_binary(
     name = "prettier",
-    data = ["//:prettierrc", "//:prettierignore"],
+    data = [
+        "//:prettierignore",
+        "//:prettierrc",
+    ],
     # Allow the binary to be run outside bazel
     env = {"BAZEL_BINDIR": "."},
     fixed_args = [
@@ -19,10 +22,9 @@ prettier.prettier_binary(
         "--ignore-path=$(rlocationpath //:prettierignore)",
         "--log-level=warn",
     ],
-
 )
 
-# `run`ing this target will format the entire repo 
+# `run`ing this target will format the entire repo
 format_multirun(
     name = "format",
     css = ":prettier",

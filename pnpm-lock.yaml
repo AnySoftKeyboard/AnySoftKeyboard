@@ -23,6 +23,9 @@ importers:
       text-file-diff:
         specifier: ^1.4.8
         version: 1.4.8
+      undici:
+        specifier: ^7.1.0
+        version: 7.1.0
     devDependencies:
       '@actions/core':
         specifier: ^1.11.1
@@ -1957,6 +1960,9 @@ packages:
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==, tarball: 'https://registry.npmjs.org/undici/-/undici-5.28.4.tgz'}
     engines: {node: '>=14.0'}
+  undici@7.1.0:
+    resolution: {integrity: sha512-3+mdX2R31khuLCm2mKExSlMdJsfol7bJkIMH80tdXA74W34rT1jKemUTlYR7WY3TqsV4wfOgpatWmmB2Jl1+5g==, tarball: 'https://registry.npmjs.org/undici/-/undici-7.1.0.tgz'}
+    engines: {node: '>=20.18.1'}
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==, tarball: 'https://registry.npmjs.org/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-2.0.1.tgz'}
     engines: {node: '>=4'}
@@ -4348,6 +4354,7 @@ snapshots:
   undici@5.28.4:
     dependencies:
       '@fastify/busboy': 2.1.1
+  undici@7.1.0: {}
   unicode-canonical-property-names-ecmascript@2.0.1: {}
   unicode-match-property-ecmascript@2.0.0:
     dependencies:
