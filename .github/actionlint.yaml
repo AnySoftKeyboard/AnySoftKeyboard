@@ -16,4 +16,6 @@ config-variables: null
 paths:
   .github/workflows/**/*.yml:
     ignore:
-      - file "/bin/bash" does not exist in
+      - 'file "/bin/bash" does not exist in'
+      # all shellcheck errors
+      - '.+[shellcheck].*'
