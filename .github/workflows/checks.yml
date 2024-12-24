@@ -40,6 +40,7 @@ jobs:
           bazel run //:format
           if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors"; exit 1; fi
   js-checks:
+    # Test js code, since we have not migrated to bazel yet
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4.2.2
