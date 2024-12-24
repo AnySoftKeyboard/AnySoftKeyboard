@@ -40,11 +40,26 @@ native_binary(
     ],
 )
 
+java_binary(
+    name = "java-format",
+    jvm_flags = [
+        "--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
+    ],
+    main_class = "com.google.googlejavaformat.java.Main",
+    runtime_deps = ["@google-java-format//jar"],
+    args = ["--set-exit-if-changed"],
+)
+
 # `run`ing this target will format the entire repo
 format_multirun(
     name = "format",
     css = ":prettier",
     html = ":prettier",
+    java = ":java-format",
     javascript = ":prettier",
     markdown = ":prettier",
     starlark = "@buildifier_prebuilt//:buildifier",
