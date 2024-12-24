@@ -19,7 +19,7 @@ spotless {
         target "**/*.kt"
         trimTrailingWhitespace()
         ktlint()
-        indentWithSpaces()
+        ktfmt()
         endWithNewline()
     }
 }
