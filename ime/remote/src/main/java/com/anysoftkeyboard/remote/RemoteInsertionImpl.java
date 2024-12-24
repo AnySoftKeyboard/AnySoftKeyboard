@@ -56,7 +56,8 @@ public class RemoteInsertionImpl implements RemoteInsertion {
     mContext.startActivity(pickingIntent);
   }
 
-  @NonNull @VisibleForTesting
+  @NonNull
+  @VisibleForTesting
   static Intent getMediaInsertRequestIntent(@NonNull String[] mimeTypes, int requestId) {
     final Intent pickingIntent = new Intent(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION);
     pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

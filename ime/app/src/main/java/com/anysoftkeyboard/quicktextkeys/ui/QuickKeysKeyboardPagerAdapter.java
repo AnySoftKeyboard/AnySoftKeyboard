@@ -64,7 +64,8 @@ import net.evendanan.pixel.ViewPagerWithDisable;
     return mPopupKeyboards.length;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public Object instantiateItem(@NonNull ViewGroup container, int position) {
     View root =
         mLayoutInflater.inflate(R.layout.quick_text_popup_autorowkeyboard_view, container, false);

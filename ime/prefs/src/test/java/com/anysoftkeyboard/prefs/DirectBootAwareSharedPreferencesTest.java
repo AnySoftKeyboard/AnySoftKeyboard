@@ -303,7 +303,8 @@ public class DirectBootAwareSharedPreferencesTest {
       }
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public SharedPreferences create(@NonNull Context context) {
       if (mInDirectBootState) {
         throw new IllegalStateException("in direct-boot state");

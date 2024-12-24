@@ -56,14 +56,14 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardPowerSaving 
     switch (newValue) {
       case "any_key":
         mPopTextOnKeyPress = true;
-        // letting the switch cases to fall-through - each value level enables additional
-        // flag
-        // fall through
+      // letting the switch cases to fall-through - each value level enables additional
+      // flag
+      // fall through
       case "on_word":
         mPopTextOnWord = true;
-        // letting the switch cases to fall-through - each value level enables additional
-        // flag
-        // fall through
+      // letting the switch cases to fall-through - each value level enables additional
+      // flag
+      // fall through
       case "on_correction":
         mPopTextOnCorrection = true;
         break;

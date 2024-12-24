@@ -109,7 +109,8 @@ public class QuickTextKey extends AddOnImpl {
     return mKeyOutputText;
   }
 
-  @Nullable public CharSequence getKeyLabel() {
+  @Nullable
+  public CharSequence getKeyLabel() {
     return mKeyLabel;
   }
 }

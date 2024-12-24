@@ -116,11 +116,13 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     for (char separator : chars) sparseBooleanArray.put(separator, true);
   }
 
-  @Nullable protected Keyboard.Key getLastUsedKey() {
+  @Nullable
+  protected Keyboard.Key getLastUsedKey() {
     return mLastKey;
   }
 
-  @NonNull private static CompletionInfo[] copyCompletionsFromAndroid(
+  @NonNull
+  private static CompletionInfo[] copyCompletionsFromAndroid(
       @Nullable CompletionInfo[] completions) {
     if (completions == null) {
       return new CompletionInfo[0];
@@ -919,7 +921,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
   }
 
-  @NonNull protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
+  @NonNull
+  protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
       @NonNull AnyKeyboard currentAlphabetKeyboard) {
     return NO_OP_DICTIONARY_LOADER_LISTENER;
   }
@@ -1010,12 +1013,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
   }
 
-  @NonNull protected Suggest getSuggest() {
+  @NonNull
+  protected Suggest getSuggest() {
     return mSuggest;
   }
 
   @Override
-  @NonNull protected List<Drawable> generateWatermark() {
+  @NonNull
+  protected List<Drawable> generateWatermark() {
     final List<Drawable> watermark = super.generateWatermark();
     if (mSuggest.isIncognitoMode()) {
       watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_incognito));
@@ -1023,7 +1028,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     return watermark;
   }
 
-  @NonNull protected Suggest createSuggest() {
+  @NonNull
+  protected Suggest createSuggest() {
     return new SuggestImpl(this);
   }
 

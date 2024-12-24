@@ -90,7 +90,8 @@ public abstract class AddOnImpl implements AddOn {
     return mApiVersion;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public final Context getPackageContext() {
     if (mIsLocalAddOn) return mAskAppContext;
 
@@ -132,7 +133,8 @@ public abstract class AddOnImpl implements AddOn {
         && ((AddOn) o).getApiVersion() == getApiVersion();
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public AddOnResourceMapping getResourceMapping() {
     return mAddOnResourceMapping;
   }

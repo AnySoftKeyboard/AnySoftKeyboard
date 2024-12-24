@@ -91,7 +91,8 @@ public abstract class ChangeLogFragment extends Fragment {
         setHasStableIds(true);
       }
 
-      @NonNull @Override
+      @NonNull
+      @Override
       public ChangeLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ChangeLogViewHolder(
             getLayoutInflater().inflate(R.layout.changelogentry_item, parent, false));
@@ -127,7 +128,8 @@ public abstract class ChangeLogFragment extends Fragment {
 
   public static class LatestChangeLogViewFactory {
 
-    @NonNull public static View createLatestChangeLogView(
+    @NonNull
+    public static View createLatestChangeLogView(
         @NonNull Fragment fragment,
         @NonNull ViewGroup changeLogViewParent,
         @NonNull Runnable onClick) {

@@ -187,7 +187,8 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
       }
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public String toString() {
       return String.format(Locale.ROOT, "ToggleOverlayCreator %s %s", mOwner, super.toString());
     }

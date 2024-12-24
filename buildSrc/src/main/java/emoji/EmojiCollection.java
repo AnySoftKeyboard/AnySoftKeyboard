@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface EmojiCollection {
 
-    String getResourceFileName();
+  String getResourceFileName();
 
-    List<EmojiData> generateOwnedEmojis();
+  List<EmojiData> generateOwnedEmojis();
 }

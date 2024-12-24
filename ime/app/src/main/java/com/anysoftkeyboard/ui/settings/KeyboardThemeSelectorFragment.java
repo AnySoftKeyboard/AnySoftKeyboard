@@ -48,7 +48,8 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected AddOnsFactory<KeyboardTheme> getAddOnFactory() {
     return AnyApplication.getKeyboardThemeFactory(requireContext());
   }
@@ -153,7 +154,8 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     return R.string.search_market_for_keyboard_addons;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   protected String getMarketSearchKeyword() {
     return "theme";
   }

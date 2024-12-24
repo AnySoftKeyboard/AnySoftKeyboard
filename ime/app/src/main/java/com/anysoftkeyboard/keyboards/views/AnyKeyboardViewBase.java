@@ -115,7 +115,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(64);
   private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(64);
 
-  @NonNull protected final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData =
+  @NonNull
+  protected final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData =
       new PointerTracker.SharedPointerTrackersData();
 
   private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
@@ -428,7 +429,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     mTouchesAreDisabledTillLastFingerIsUp = true;
   }
 
-  @Nullable protected KeyboardTheme getLastSetKeyboardTheme() {
+  @Nullable
+  protected KeyboardTheme getLastSetKeyboardTheme() {
     return mLastSetTheme;
   }
 
@@ -1507,7 +1509,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     }
   }
 
-  @NonNull private CharSequence guessLabelForKey(int keyCode) {
+  @NonNull
+  private CharSequence guessLabelForKey(int keyCode) {
     switch (keyCode) {
       case KeyCodes.ENTER -> {
         switch (mKeyboardActionType) {
@@ -1582,7 +1585,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     return getIconForKeyCode(key.getPrimaryCode());
   }
 
-  @Nullable public Drawable getDrawableForKeyCode(int keyCode) {
+  @Nullable
+  public Drawable getDrawableForKeyCode(int keyCode) {
     Drawable icon = mKeysIcons.get(keyCode);
 
     if (icon == null) {
@@ -1607,7 +1611,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     return icon;
   }
 
-  @Nullable private Drawable getIconForKeyCode(int keyCode) {
+  @Nullable
+  private Drawable getIconForKeyCode(int keyCode) {
     Drawable icon = getDrawableForKeyCode(keyCode);
     // maybe a drawable state is required
     if (icon != null) {
@@ -1739,7 +1744,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
         Keyboard.Key.getEndY(key) + getPaddingTop());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public KeyboardDimens getThemedKeyboardDimens() {
     return mKeyboardDimens;
   }
@@ -1888,7 +1894,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     return true;
   }
 
-  @NonNull public final KeyDetector getKeyDetector() {
+  @NonNull
+  public final KeyDetector getKeyDetector() {
     return mKeyDetector;
   }
 
@@ -1945,7 +1952,8 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
     mPointerQueue.remove(tracker);
   }
 
-  @Nullable protected Keyboard.Key findKeyByPrimaryKeyCode(int keyCode) {
+  @Nullable
+  protected Keyboard.Key findKeyByPrimaryKeyCode(int keyCode) {
     if (getKeyboard() == null) {
       return null;
     }

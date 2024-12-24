@@ -20,7 +20,8 @@ public class OverlayDataNormalizer implements OverlyDataCreator {
     mRequiredTextColorDiff = textColorDiff;
   }
 
-  @NonNull public static OverlayData normalize(
+  @NonNull
+  public static OverlayData normalize(
       @NonNull OverlayData original,
       @IntRange(from = 1, to = 250) int textColorDiff,
       @ColorInt int primaryColor,

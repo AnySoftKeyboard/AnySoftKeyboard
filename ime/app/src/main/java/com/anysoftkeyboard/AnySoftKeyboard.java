@@ -1035,7 +1035,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
       ic.beginBatchEdit();
       final String selectedTextString = selectedText.toString();
       AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-      @NonNull Locale locale =
+      @NonNull
+      Locale locale =
           currentAlphabetKeyboard != null ? currentAlphabetKeyboard.getLocale() : Locale.ROOT;
       // The rules:
       // lowercase -> Capitalized

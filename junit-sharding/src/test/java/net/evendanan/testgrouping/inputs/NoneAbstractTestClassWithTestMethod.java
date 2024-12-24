@@ -4,8 +4,8 @@ import org.junit.Test;
 
 public abstract class NoneAbstractTestClassWithTestMethod {
 
-    @Test
-    public void testMethod() {
-        throw new IllegalStateException("this should not run");
-    }
+  @Test
+  public void testMethod() {
+    throw new IllegalStateException("this should not run");
+  }
 }

@@ -25,7 +25,8 @@ import org.robolectric.shadows.ShadowContentResolver;
 public class WizardPageEnableKeyboardFragmentTest
     extends RobolectricWizardFragmentTestCase<WizardPageEnableKeyboardFragment> {
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected WizardPageEnableKeyboardFragment createFragment() {
     return new WizardPageEnableKeyboardFragment();
   }

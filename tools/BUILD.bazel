@@ -42,6 +42,9 @@ native_binary(
 
 java_binary(
     name = "java-format",
+    args = [
+        "--set-exit-if-changed",
+    ],
     jvm_flags = [
         "--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
         "--add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
@@ -51,7 +54,6 @@ java_binary(
     ],
     main_class = "com.google.googlejavaformat.java.Main",
     runtime_deps = ["@google-java-format//jar"],
-    args = ["--set-exit-if-changed"],
 )
 
 # `run`ing this target will format the entire repo

@@ -57,7 +57,8 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
     }
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public String getKeyboardId() {
     return mKeyboardId;
   }

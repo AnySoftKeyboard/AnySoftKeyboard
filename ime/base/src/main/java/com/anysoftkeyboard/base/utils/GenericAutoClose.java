@@ -7,11 +7,13 @@ public class GenericAutoClose implements AutoCloseable {
 
   private final Runnable mCloseFunction;
 
-  @NonNull public static GenericAutoClose close(@NonNull Runnable closeFunction) {
+  @NonNull
+  public static GenericAutoClose close(@NonNull Runnable closeFunction) {
     return new GenericAutoClose(closeFunction);
   }
 
-  @NonNull public static GenericAutoClose batchEdit(@NonNull InputConnection ic) {
+  @NonNull
+  public static GenericAutoClose batchEdit(@NonNull InputConnection ic) {
     ic.beginBatchEdit();
     return new ICAutoClose(ic);
   }

@@ -8,11 +8,13 @@ public abstract class AnySoftKeyboardService extends AnySoftKeyboardBase {
 
   @Nullable private IBinder mImeToken = null;
 
-  @Nullable protected IBinder getImeToken() {
+  @Nullable
+  protected IBinder getImeToken() {
     return mImeToken;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public AbstractInputMethodImpl onCreateInputMethodInterface() {
     return new InputMethod();
   }

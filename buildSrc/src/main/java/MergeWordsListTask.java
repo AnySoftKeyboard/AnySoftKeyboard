@@ -41,230 +41,226 @@ import org.xml.sax.helpers.DefaultHandler;
 /** Task to merge several word-list files into one */
 @CacheableTask
 public class MergeWordsListTask extends DefaultTask {
-    @TaskAction
-    public void mergeWordsLists() throws IOException, ParserConfigurationException, SAXException {
-        if (inputWordsListFiles == null || inputWordsListFiles.length == 0) {
-            throw new IllegalArgumentException("Must specify at least one inputWordsListFiles");
-        }
-        if (outputWordsListFile == null) {
-            throw new IllegalArgumentException("Must supply outputWordsListFile");
-        }
+  @TaskAction
+  public void mergeWordsLists() throws IOException, ParserConfigurationException, SAXException {
+    if (inputWordsListFiles == null || inputWordsListFiles.length == 0) {
+      throw new IllegalArgumentException("Must specify at least one inputWordsListFiles");
+    }
+    if (outputWordsListFile == null) {
+      throw new IllegalArgumentException("Must supply outputWordsListFile");
+    }
 
-        System.out.printf(
-                Locale.ENGLISH,
-                "Merging %d files for maximum %d words, and writing into '%s'. Discarding %d words.%n",
-                inputWordsListFiles.length,
-                maxWordsInList,
-                outputWordsListFile.getName(),
-                wordsToDiscard.length);
-        final HashMap<String, Integer> allWords = new HashMap<>();
-        final List<String> inputFilesWithDuplicates = new ArrayList<>();
-        for (File inputFile : inputWordsListFiles) {
-            System.out.printf(Locale.ENGLISH, "Reading %s...%n", inputFile.getName());
-            if (!inputFile.exists()) throw new FileNotFoundException(inputFile.getAbsolutePath());
-            SAXParserFactory parserFactor = SAXParserFactory.newInstance();
-            SAXParser parser = parserFactor.newSAXParser();
+    System.out.printf(
+        Locale.ENGLISH,
+        "Merging %d files for maximum %d words, and writing into '%s'. Discarding %d words.%n",
+        inputWordsListFiles.length,
+        maxWordsInList,
+        outputWordsListFile.getName(),
+        wordsToDiscard.length);
+    final HashMap<String, Integer> allWords = new HashMap<>();
+    final List<String> inputFilesWithDuplicates = new ArrayList<>();
+    for (File inputFile : inputWordsListFiles) {
+      System.out.printf(Locale.ENGLISH, "Reading %s...%n", inputFile.getName());
+      if (!inputFile.exists()) throw new FileNotFoundException(inputFile.getAbsolutePath());
+      SAXParserFactory parserFactor = SAXParserFactory.newInstance();
+      SAXParser parser = parserFactor.newSAXParser();
 
-            Set<String> duplicateWords = new HashSet<>();
-            try (final InputStreamReader inputStream =
-                    new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8)) {
-                InputSource inputSource = new InputSource(inputStream);
-                parser.parse(inputSource, new MySaxHandler(allWords, duplicateWords));
-                System.out.printf(Locale.ENGLISH, "Loaded %d words in total...%n", allWords.size());
+      Set<String> duplicateWords = new HashSet<>();
+      try (final InputStreamReader inputStream =
+          new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8)) {
+        InputSource inputSource = new InputSource(inputStream);
+        parser.parse(inputSource, new MySaxHandler(allWords, duplicateWords));
+        System.out.printf(Locale.ENGLISH, "Loaded %d words in total...%n", allWords.size());
+      }
+
+      boolean isBuildDir =
+          inputFile
+              .getAbsolutePath()
+              .contains((File.separator).concat("build").concat(File.separator));
+      if (duplicateWords.size() > 0 && !isBuildDir) {
+        inputFilesWithDuplicates.add(inputFile.getAbsolutePath());
+        filterWordsFromInputFile(inputFile, duplicateWords);
+      }
+    }
+
+    // discarding unwanted words
+    if (wordsToDiscard.length > 0) {
+      System.out.print("Discarding words...");
+      Arrays.stream(wordsToDiscard)
+          .forEach(
+              word -> {
+                if (allWords.remove(word) != null) System.out.print(".");
+              });
+      System.out.println();
+    }
+
+    System.out.println("Creating output XML file...");
+    try (WordListWriter writer = new WordListWriter(outputWordsListFile)) {
+      for (Map.Entry<String, Integer> entry : allWords.entrySet()) {
+        WordListWriter.writeWordWithRuntimeException(writer, entry.getKey(), entry.getValue());
+      }
+      System.out.println("Done.");
+    }
+
+    if (inputFilesWithDuplicates.size() > 0) {
+      throw new RuntimeException(
+          "Found duplicate words in: " + String.join(",", inputFilesWithDuplicates));
+    }
+  }
+
+  private static final Pattern WORD_LIST_ENTRY =
+      Pattern.compile("\\s*<w\\s+f=\"\\d+\">(.+)</w>\\s*");
+
+  private static void filterWordsFromInputFile(File inputFile, Set<String> duplicateWords)
+      throws IOException {
+    File tempFile = Files.createTempFile("filtered_word_list", "tmp").toFile();
+
+    System.out.printf(
+        Locale.ENGLISH, "Removing duplicate words from '%s': ", inputFile.getAbsolutePath());
+    try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        String currentLine;
+        while ((currentLine = reader.readLine()) != null) {
+          Matcher matcher = WORD_LIST_ENTRY.matcher(currentLine);
+          if (matcher.find()) {
+            String word = matcher.group(1);
+            if (duplicateWords.contains(word)) {
+              System.out.printf(Locale.ENGLISH, "%s, ", word);
+              continue;
             }
+          }
 
-            boolean isBuildDir =
-                    inputFile
-                            .getAbsolutePath()
-                            .contains((File.separator).concat("build").concat(File.separator));
-            if (duplicateWords.size() > 0 && !isBuildDir) {
-                inputFilesWithDuplicates.add(inputFile.getAbsolutePath());
-                filterWordsFromInputFile(inputFile, duplicateWords);
-            }
+          writer.write(currentLine);
+          writer.newLine();
         }
-
-        // discarding unwanted words
-        if (wordsToDiscard.length > 0) {
-            System.out.print("Discarding words...");
-            Arrays.stream(wordsToDiscard)
-                    .forEach(
-                            word -> {
-                                if (allWords.remove(word) != null) System.out.print(".");
-                            });
-            System.out.println();
-        }
-
-        System.out.println("Creating output XML file...");
-        try (WordListWriter writer = new WordListWriter(outputWordsListFile)) {
-            for (Map.Entry<String, Integer> entry : allWords.entrySet()) {
-                WordListWriter.writeWordWithRuntimeException(
-                        writer, entry.getKey(), entry.getValue());
-            }
-            System.out.println("Done.");
-        }
-
-        if (inputFilesWithDuplicates.size() > 0) {
-            throw new RuntimeException(
-                    "Found duplicate words in: " + String.join(",", inputFilesWithDuplicates));
-        }
+      }
     }
 
-    private static final Pattern WORD_LIST_ENTRY =
-            Pattern.compile("\\s*<w\\s+f=\"\\d+\">(.+)</w>\\s*");
+    Files.copy(tempFile.toPath(), inputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    System.out.println("Done!");
+  }
 
-    private static void filterWordsFromInputFile(File inputFile, Set<String> duplicateWords)
-            throws IOException {
-        File tempFile = Files.createTempFile("filtered_word_list", "tmp").toFile();
+  @InputFiles
+  @PathSensitive(RELATIVE)
+  public File[] getInputWordsListFiles() {
+    return inputWordsListFiles;
+  }
 
-        System.out.printf(
-                Locale.ENGLISH,
-                "Removing duplicate words from '%s': ",
-                inputFile.getAbsolutePath());
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-                String currentLine;
-                while ((currentLine = reader.readLine()) != null) {
-                    Matcher matcher = WORD_LIST_ENTRY.matcher(currentLine);
-                    if (matcher.find()) {
-                        String word = matcher.group(1);
-                        if (duplicateWords.contains(word)) {
-                            System.out.printf(Locale.ENGLISH, "%s, ", word);
-                            continue;
-                        }
-                    }
+  public void setInputWordsListFiles(File[] inputWordsListFiles) {
+    this.inputWordsListFiles = inputWordsListFiles;
+  }
 
-                    writer.write(currentLine);
-                    writer.newLine();
-                }
-            }
-        }
+  @OutputFile
+  public File getOutputWordsListFile() {
+    return outputWordsListFile;
+  }
 
-        Files.copy(tempFile.toPath(), inputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("Done!");
+  public void setOutputWordsListFile(File outputWordsListFile) {
+    this.outputWordsListFile = outputWordsListFile;
+  }
+
+  @Input
+  public String[] getWordsToDiscard() {
+    return wordsToDiscard;
+  }
+
+  public void setWordsToDiscard(String[] wordsToDiscard) {
+    this.wordsToDiscard = wordsToDiscard;
+  }
+
+  @Input
+  public int getMaxWordsInList() {
+    return maxWordsInList;
+  }
+
+  public void setMaxWordsInList(int maxWordsInList) {
+    this.maxWordsInList = maxWordsInList;
+  }
+
+  private File[] inputWordsListFiles;
+  private File outputWordsListFile;
+  private String[] wordsToDiscard = new String[0];
+  private int maxWordsInList = Integer.MAX_VALUE;
+
+  private static class MySaxHandler extends DefaultHandler {
+
+    private final HashMap<String, Integer> allWords;
+    private final Set<String> seenBeforeWords;
+    private final Set<String> duplicateWords;
+    private boolean inWord;
+    private final StringBuilder word = new StringBuilder();
+    private int freq;
+
+    public MySaxHandler(HashMap<String, Integer> allWords, Set<String> duplicateWords) {
+      this.allWords = allWords;
+      this.seenBeforeWords = Set.copyOf(allWords.keySet());
+      this.duplicateWords = duplicateWords;
     }
 
-    @InputFiles
-    @PathSensitive(RELATIVE)
-    public File[] getInputWordsListFiles() {
-        return inputWordsListFiles;
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes)
+        throws SAXException {
+      super.startElement(uri, localName, qName, attributes);
+      if (qName.equals("w")) {
+        inWord = true;
+        freq = Integer.parseInt(attributes.getValue("f"));
+        word.setLength(0);
+      } else {
+        inWord = false;
+      }
     }
 
-    public void setInputWordsListFiles(File[] inputWordsListFiles) {
-        this.inputWordsListFiles = inputWordsListFiles;
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+      super.characters(ch, start, length);
+      if (inWord) {
+        word.append(ch, start, length);
+      }
     }
 
-    @OutputFile
-    public File getOutputWordsListFile() {
-        return outputWordsListFile;
+    @Override
+    public void skippedEntity(String name) throws SAXException {
+      System.out.print("Skipped " + name);
+      super.skippedEntity(name);
     }
 
-    public void setOutputWordsListFile(File outputWordsListFile) {
-        this.outputWordsListFile = outputWordsListFile;
+    @Override
+    public void warning(SAXParseException e) throws SAXException {
+      System.out.print("Warning! " + e);
+      super.warning(e);
     }
 
-    @Input
-    public String[] getWordsToDiscard() {
-        return wordsToDiscard;
+    @Override
+    public void error(SAXParseException e) throws SAXException {
+      System.out.print("Error! " + e);
+      super.error(e);
     }
 
-    public void setWordsToDiscard(String[] wordsToDiscard) {
-        this.wordsToDiscard = wordsToDiscard;
+    @Override
+    public void fatalError(SAXParseException e) throws SAXException {
+      System.out.print("Fatal-Error! " + e);
+      super.fatalError(e);
     }
 
-    @Input
-    public int getMaxWordsInList() {
-        return maxWordsInList;
+    @Override
+    public void unparsedEntityDecl(
+        String name, String publicId, String systemId, String notationName) throws SAXException {
+      System.out.print("unparsed-Entity-Decl! " + name);
+      super.unparsedEntityDecl(name, publicId, systemId, notationName);
     }
 
-    public void setMaxWordsInList(int maxWordsInList) {
-        this.maxWordsInList = maxWordsInList;
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+      super.endElement(uri, localName, qName);
+      if (qName.equals("w") && inWord) {
+        String word = this.word.toString();
+        if (seenBeforeWords.contains(word)) {
+          duplicateWords.add(word);
+        }
+        allWords.compute(word, (key, value) -> Math.max(value == null ? 0 : value, freq));
+      }
+
+      inWord = false;
     }
-
-    private File[] inputWordsListFiles;
-    private File outputWordsListFile;
-    private String[] wordsToDiscard = new String[0];
-    private int maxWordsInList = Integer.MAX_VALUE;
-
-    private static class MySaxHandler extends DefaultHandler {
-
-        private final HashMap<String, Integer> allWords;
-        private final Set<String> seenBeforeWords;
-        private final Set<String> duplicateWords;
-        private boolean inWord;
-        private final StringBuilder word = new StringBuilder();
-        private int freq;
-
-        public MySaxHandler(HashMap<String, Integer> allWords, Set<String> duplicateWords) {
-            this.allWords = allWords;
-            this.seenBeforeWords = Set.copyOf(allWords.keySet());
-            this.duplicateWords = duplicateWords;
-        }
-
-        @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes)
-                throws SAXException {
-            super.startElement(uri, localName, qName, attributes);
-            if (qName.equals("w")) {
-                inWord = true;
-                freq = Integer.parseInt(attributes.getValue("f"));
-                word.setLength(0);
-            } else {
-                inWord = false;
-            }
-        }
-
-        @Override
-        public void characters(char[] ch, int start, int length) throws SAXException {
-            super.characters(ch, start, length);
-            if (inWord) {
-                word.append(ch, start, length);
-            }
-        }
-
-        @Override
-        public void skippedEntity(String name) throws SAXException {
-            System.out.print("Skipped " + name);
-            super.skippedEntity(name);
-        }
-
-        @Override
-        public void warning(SAXParseException e) throws SAXException {
-            System.out.print("Warning! " + e);
-            super.warning(e);
-        }
-
-        @Override
-        public void error(SAXParseException e) throws SAXException {
-            System.out.print("Error! " + e);
-            super.error(e);
-        }
-
-        @Override
-        public void fatalError(SAXParseException e) throws SAXException {
-            System.out.print("Fatal-Error! " + e);
-            super.fatalError(e);
-        }
-
-        @Override
-        public void unparsedEntityDecl(
-                String name, String publicId, String systemId, String notationName)
-                throws SAXException {
-            System.out.print("unparsed-Entity-Decl! " + name);
-            super.unparsedEntityDecl(name, publicId, systemId, notationName);
-        }
-
-        @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException {
-            super.endElement(uri, localName, qName);
-            if (qName.equals("w") && inWord) {
-                String word = this.word.toString();
-                if (seenBeforeWords.contains(word)) {
-                    duplicateWords.add(word);
-                }
-                allWords.compute(word, (key, value) -> Math.max(value == null ? 0 : value, freq));
-            }
-
-            inWord = false;
-        }
-    }
+  }
 }

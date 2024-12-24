@@ -38,7 +38,8 @@ public abstract class AnySoftKeyboardNightMode extends AnySoftKeyboardThemeOverl
                 mToggleOverlayCreator::setToggle, GenericOnError.onError("night-mode theme")));
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected List<Drawable> generateWatermark() {
     final List<Drawable> watermark = super.generateWatermark();
     if (mNightMode) {

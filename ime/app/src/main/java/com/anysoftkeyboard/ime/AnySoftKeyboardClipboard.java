@@ -57,7 +57,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
   @VisibleForTesting
   protected interface ClipboardActionOwner {
-    @NonNull Context getContext();
+    @NonNull
+    Context getContext();
 
     void outputClipboardText();
 
@@ -67,7 +68,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
   @VisibleForTesting
   protected final ClipboardActionOwner mClipboardActionOwnerImpl =
       new ClipboardActionOwner() {
-        @NonNull @Override
+        @NonNull
+        @Override
         public Context getContext() {
           return AnySoftKeyboardClipboard.this;
         }
@@ -240,8 +242,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     if ((info.inputType & EditorInfo.TYPE_CLASS_TEXT) == 0) return false;
     return switch (info.inputType & EditorInfo.TYPE_MASK_VARIATION) {
       case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD,
-              EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD,
-              EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ->
+          EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD,
+          EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ->
           true;
       default -> false;
     };
@@ -410,7 +412,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
       super(context, R.layout.clipboard_dialog_entry, R.id.clipboard_entry_text, items);
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
       View view = super.getView(position, convertView, parent);
       View deleteView = view.findViewById(R.id.clipboard_entry_delete);

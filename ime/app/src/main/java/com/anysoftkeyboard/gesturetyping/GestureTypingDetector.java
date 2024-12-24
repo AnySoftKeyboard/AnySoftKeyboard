@@ -70,7 +70,8 @@ public class GestureTypingDetector {
     mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
   }
 
-  @NonNull public Observable<LoadingState> state() {
+  @NonNull
+  public Observable<LoadingState> state() {
     return mGenerateStateSubject;
   }
 

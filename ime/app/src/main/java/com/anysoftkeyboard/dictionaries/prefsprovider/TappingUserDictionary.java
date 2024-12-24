@@ -17,12 +17,14 @@ class TappingUserDictionary extends UserDictionary {
     mWordsTapper = wordsTapper;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
     return new TappedAndroidUserDictionary(context, locale, mWordsTapper);
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
     return new TappedUserFallbackUserDictionary(context, locale, mWordsTapper);
   }
