@@ -18,7 +18,8 @@ import org.robolectric.shadows.ShadowApplication;
 public class WizardPageDoneAndMoreSettingsFragmentTest
     extends RobolectricWizardFragmentTestCase<WizardPageDoneAndMoreSettingsFragment> {
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected WizardPageDoneAndMoreSettingsFragment createFragment() {
     return new WizardPageDoneAndMoreSettingsFragment();
   }

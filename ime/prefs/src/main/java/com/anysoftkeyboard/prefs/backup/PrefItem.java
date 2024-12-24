@@ -26,7 +26,8 @@ public class PrefItem {
     return Collections.unmodifiableCollection(mValues.entrySet());
   }
 
-  @Nullable public String getValue(String key) {
+  @Nullable
+  public String getValue(String key) {
     return mValues.get(key);
   }
 

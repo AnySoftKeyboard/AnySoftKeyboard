@@ -718,7 +718,8 @@ public abstract class Keyboard {
     mModifierKeys = new ArrayList<>();
   }
 
-  @NonNull public AddOn getKeyboardAddOn() {
+  @NonNull
+  public AddOn getKeyboardAddOn() {
     return mAddOn;
   }
 
@@ -774,7 +775,8 @@ public abstract class Keyboard {
     return mShifted;
   }
 
-  @Nullable public Key getShiftKey() {
+  @Nullable
+  public Key getShiftKey() {
     return mShiftKey;
   }
 
@@ -827,7 +829,8 @@ public abstract class Keyboard {
     return new int[0];
   }
 
-  @Nullable protected Row createRowFromXml(
+  @Nullable
+  protected Row createRowFromXml(
       @NonNull AddOn.AddOnResourceMapping resourceMapping,
       Resources res,
       XmlResourceParser parser,
@@ -1027,7 +1030,8 @@ public abstract class Keyboard {
     return defValue;
   }
 
-  @NonNull AddOn.AddOnResourceMapping getKeyboardResourceMap() {
+  @NonNull
+  AddOn.AddOnResourceMapping getKeyboardResourceMap() {
     return mKeyboardResourceMap;
   }
 }

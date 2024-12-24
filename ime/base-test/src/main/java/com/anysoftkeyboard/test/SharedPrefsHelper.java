@@ -70,7 +70,8 @@ public class SharedPrefsHelper {
     return getSharedPreferences().getString(key, defaultValue);
   }
 
-  @NonNull public static SharedPreferences getSharedPreferences() {
+  @NonNull
+  public static SharedPreferences getSharedPreferences() {
     return PreferenceManager.getDefaultSharedPreferences(
         ApplicationProvider.getApplicationContext());
   }

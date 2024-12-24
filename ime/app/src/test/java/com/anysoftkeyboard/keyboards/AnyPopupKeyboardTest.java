@@ -21,7 +21,8 @@ import org.robolectric.annotation.Config;
 @Config(shadows = MyShadowPaint.class)
 public class AnyPopupKeyboardTest {
 
-  @NonNull private AnyPopupKeyboard createAnyPopupKeyboard(
+  @NonNull
+  private AnyPopupKeyboard createAnyPopupKeyboard(
       int keyboardResId, JavaEmojiUtils.SkinTone skinTone, JavaEmojiUtils.Gender gender) {
     return new AnyPopupKeyboard(
         new DefaultAddOn(getApplicationContext(), getApplicationContext()),

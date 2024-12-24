@@ -1,3 +1,4 @@
+---
 name: deployment-promote
 on:
   schedule:

@@ -20,7 +20,8 @@ public class NextWordsStorage {
     mNextWordsStorageFilename = "next_words_" + locale + ".txt";
   }
 
-  @NonNull public Iterable<NextWordsContainer> loadStoredNextWords() {
+  @NonNull
+  public Iterable<NextWordsContainer> loadStoredNextWords() {
     try (final FileInputStream inputStream = mContext.openFileInput(mNextWordsStorageFilename)) {
       final int version = inputStream.read();
       if (version < 1) {

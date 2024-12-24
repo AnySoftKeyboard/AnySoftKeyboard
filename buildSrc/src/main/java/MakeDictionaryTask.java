@@ -13,53 +13,53 @@ import org.gradle.api.tasks.TaskAction;
 @CacheableTask
 public class MakeDictionaryTask extends DefaultTask {
 
-    public MakeDictionaryTask() {
-        setGroup("AnySoftKeyboard");
-        setDescription("Creating AnySoftKeyboard binary dictionary");
+  public MakeDictionaryTask() {
+    setGroup("AnySoftKeyboard");
+    setDescription("Creating AnySoftKeyboard binary dictionary");
+  }
+
+  @TaskAction
+  public void makeDictionary() throws Exception {
+    if (resourcesFolder == null)
+      resourcesFolder = new File(getProject().getProjectDir(), "/src/main/res/");
+
+    if (!getResourcesFolder().exists() && !getResourcesFolder().mkdirs()) {
+      throw new IllegalArgumentException(
+          "Failed to create output folder " + getResourcesFolder().getAbsolutePath());
     }
 
-    @TaskAction
-    public void makeDictionary() throws Exception {
-        if (resourcesFolder == null)
-            resourcesFolder = new File(getProject().getProjectDir(), "/src/main/res/");
+    MainClass.buildDictionary(getInputWordsListFile(), getResourcesFolder(), getPrefix());
+  }
 
-        if (!getResourcesFolder().exists() && !getResourcesFolder().mkdirs()) {
-            throw new IllegalArgumentException(
-                    "Failed to create output folder " + getResourcesFolder().getAbsolutePath());
-        }
+  @InputFile
+  @PathSensitive(RELATIVE)
+  public File getInputWordsListFile() {
+    return inputWordsListFile;
+  }
 
-        MainClass.buildDictionary(getInputWordsListFile(), getResourcesFolder(), getPrefix());
-    }
+  public void setInputWordsListFile(File inputWordsListFile) {
+    this.inputWordsListFile = inputWordsListFile;
+  }
 
-    @InputFile
-    @PathSensitive(RELATIVE)
-    public File getInputWordsListFile() {
-        return inputWordsListFile;
-    }
+  @OutputDirectory
+  public File getResourcesFolder() {
+    return resourcesFolder;
+  }
 
-    public void setInputWordsListFile(File inputWordsListFile) {
-        this.inputWordsListFile = inputWordsListFile;
-    }
+  public void setResourcesFolder(File resourcesFolder) {
+    this.resourcesFolder = resourcesFolder;
+  }
 
-    @OutputDirectory
-    public File getResourcesFolder() {
-        return resourcesFolder;
-    }
+  @Input
+  public String getPrefix() {
+    return prefix;
+  }
 
-    public void setResourcesFolder(File resourcesFolder) {
-        this.resourcesFolder = resourcesFolder;
-    }
+  public void setPrefix(String prefix) {
+    this.prefix = prefix;
+  }
 
-    @Input
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    private File inputWordsListFile;
-    private File resourcesFolder;
-    private String prefix;
+  private File inputWordsListFile;
+  private File resourcesFolder;
+  private String prefix;
 }

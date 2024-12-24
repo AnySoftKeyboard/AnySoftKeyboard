@@ -1,3 +1,4 @@
+---
 name: auto-approve-pr
 on:
   pull_request:

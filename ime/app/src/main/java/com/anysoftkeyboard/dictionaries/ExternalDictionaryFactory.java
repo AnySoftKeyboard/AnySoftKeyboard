@@ -181,7 +181,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
   }
 
-  @NonNull public List<DictionaryAddOnAndBuilder> getBuildersForKeyboard(AnyKeyboard keyboard) {
+  @NonNull
+  public List<DictionaryAddOnAndBuilder> getBuildersForKeyboard(AnyKeyboard keyboard) {
     List<DictionaryAddOnAndBuilder> builders = new ArrayList<>();
     final String dictionaryValue =
         mSharedPreferences.getString(getDictionaryOverrideKey(keyboard), null);
@@ -220,7 +221,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     editor.apply();
   }
 
-  @NonNull public static Iterable<String> getLocalesFromDictionaryAddOns(@NonNull Context context) {
+  @NonNull
+  public static Iterable<String> getLocalesFromDictionaryAddOns(@NonNull Context context) {
     return Observable.fromIterable(
             AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
         .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))

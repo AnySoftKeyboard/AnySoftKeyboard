@@ -60,7 +60,8 @@ public class SuggestionsProvider {
   private static final NextWordSuggestions NULL_NEXT_WORD_SUGGESTIONS =
       new NextWordSuggestions() {
         @Override
-        @NonNull public Iterable<String> getNextWords(
+        @NonNull
+        public Iterable<String> getNextWords(
             @NonNull String currentWord, int maxResults, int minWordUsage) {
           return Collections.emptyList();
         }
@@ -359,7 +360,8 @@ public class SuggestionsProvider {
     }
   }
 
-  @NonNull @VisibleForTesting
+  @NonNull
+  @VisibleForTesting
   protected ContactsDictionary createRealContactsDictionary() {
     return new ContactsDictionary(mContext);
   }
@@ -369,7 +371,8 @@ public class SuggestionsProvider {
     return Arrays.hashCode(dictionaryBuilders.toArray());
   }
 
-  @NonNull protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
+  @NonNull
+  protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
     return new UserDictionary(mContext, locale);
   }
 

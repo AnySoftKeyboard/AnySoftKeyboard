@@ -19,143 +19,138 @@ import org.robolectric.Shadows
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner::class)
 class MainActivityBaseTest {
-    @Test
-    fun testActivityShowsAddOnDetails() {
-        ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
-            scenario
-                .moveToState(Lifecycle.State.RESUMED)
-                .onActivity { activity ->
-                    activity.findViewById<TextView>(R.id.welcome_description).let {
-                        Assert.assertEquals(
-                            "Thank you for installing Test Add On App Name.",
-                            it.text,
-                        )
-                    }
-                    activity.findViewById<ImageView>(R.id.app_screenshot).let {
-                        Assert.assertEquals(
-                            R.drawable.test_screenshot,
-                            Shadows.shadowOf(it.drawable).createdFromResId,
-                        )
-                    }
-                    activity.findViewById<TextView>(R.id.pack_description).let {
-                        Assert.assertEquals(
-                            "This is a test add on description, it can be anything",
-                            it.text,
-                        )
-                    }
-                    activity.findViewById<TextView>(R.id.add_on_web_site).let {
-                        Assert.assertEquals(
-                            "Visit us at https://example.com",
-                            it.text.toString(),
-                        )
-                    }
-                    activity.findViewById<TextView>(R.id.release_notes).let {
-                        Assert.assertEquals(
-                            """Release notes for vnull (0):
+  @Test
+  fun testActivityShowsAddOnDetails() {
+    ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
+      scenario.moveToState(Lifecycle.State.RESUMED).onActivity { activity ->
+        activity.findViewById<TextView>(R.id.welcome_description).let {
+          Assert.assertEquals(
+              "Thank you for installing Test Add On App Name.",
+              it.text,
+          )
+        }
+        activity.findViewById<ImageView>(R.id.app_screenshot).let {
+          Assert.assertEquals(
+              R.drawable.test_screenshot,
+              Shadows.shadowOf(it.drawable).createdFromResId,
+          )
+        }
+        activity.findViewById<TextView>(R.id.pack_description).let {
+          Assert.assertEquals(
+              "This is a test add on description, it can be anything",
+              it.text,
+          )
+        }
+        activity.findViewById<TextView>(R.id.add_on_web_site).let {
+          Assert.assertEquals(
+              "Visit us at https://example.com",
+              it.text.toString(),
+          )
+        }
+        activity.findViewById<TextView>(R.id.release_notes).let {
+          Assert.assertEquals(
+              """Release notes for vnull (0):
 * this
 * and that""",
-                            it.text,
-                        )
-                    }
-                }
+              it.text,
+          )
         }
+      }
     }
+  }
 
-    @Test
-    fun testInstallAnySoftKeyboardFlow() {
-        Shadows.shadowOf(RuntimeEnvironment.getApplication().packageManager)
-            .deletePackage(ASK_PACKAGE_NAME)
+  @Test
+  fun testInstallAnySoftKeyboardFlow() {
+    Shadows.shadowOf(RuntimeEnvironment.getApplication().packageManager)
+        .deletePackage(ASK_PACKAGE_NAME)
 
-        ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
-            scenario
-                .moveToState(Lifecycle.State.RESUMED)
-                .onActivity { activity ->
-                    activity.findViewById<TextView>(R.id.action_description).run {
-                        Assert.assertEquals(
-                            "AnySoftKeyboard is not installed on your device.\n" +
-                                "In order to use this expansion pack, " +
-                                "you must first install AnySoftKeyboard.",
-                            text,
-                        )
-                    }
-                    activity.findViewById<Button>(R.id.action_button).run {
-                        Assert.assertEquals(
-                            "Go to Play Store",
-                            text,
-                        )
-                        Shadows.shadowOf(this).onClickListener.onClick(this)
-                        Shadows.shadowOf(RuntimeEnvironment.getApplication()).let { app ->
-                            app.nextStartedActivity.let { searchIntent ->
-                                Assert.assertEquals(Intent.ACTION_VIEW, searchIntent.action)
-                                Assert.assertEquals("market", searchIntent.data!!.scheme)
-                                Assert.assertEquals("search", searchIntent.data!!.authority)
-                                Assert.assertEquals(
-                                    "q=com.menny.android.anysoftkeyboard",
-                                    searchIntent.data!!.query,
-                                )
-                            }
-                        }
-                    }
-                }
+    ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
+      scenario.moveToState(Lifecycle.State.RESUMED).onActivity { activity ->
+        activity.findViewById<TextView>(R.id.action_description).run {
+          Assert.assertEquals(
+              "AnySoftKeyboard is not installed on your device.\n" +
+                  "In order to use this expansion pack, " +
+                  "you must first install AnySoftKeyboard.",
+              text,
+          )
         }
-    }
-
-    @Test
-    fun testAlreadyInstalledAnySoftKeyboardFlow() {
-        Shadows.shadowOf(RuntimeEnvironment.getApplication().packageManager).let { pm ->
-            PackageInfo().let { info ->
-                info.packageName = ASK_PACKAGE_NAME
-                pm.installPackage(info)
+        activity.findViewById<Button>(R.id.action_button).run {
+          Assert.assertEquals(
+              "Go to Play Store",
+              text,
+          )
+          Shadows.shadowOf(this).onClickListener.onClick(this)
+          Shadows.shadowOf(RuntimeEnvironment.getApplication()).let { app ->
+            app.nextStartedActivity.let { searchIntent ->
+              Assert.assertEquals(Intent.ACTION_VIEW, searchIntent.action)
+              Assert.assertEquals("market", searchIntent.data!!.scheme)
+              Assert.assertEquals("search", searchIntent.data!!.authority)
+              Assert.assertEquals(
+                  "q=com.menny.android.anysoftkeyboard",
+                  searchIntent.data!!.query,
+              )
             }
-            pm.addServiceIfNotPresent(
-                ComponentName(
-                    ASK_PACKAGE_NAME,
-                    "${ASK_PACKAGE_NAME}.SoftKeyboard",
-                ),
-            )
-            ComponentName(ASK_PACKAGE_NAME, "${ASK_PACKAGE_NAME}.MainActivity").let { info ->
-                pm.addActivityIfNotPresent(info)
-                pm.addIntentFilterForActivity(
-                    info,
-                    IntentFilter().apply {
-                        addAction(Intent.ACTION_MAIN)
-                        addCategory(Intent.CATEGORY_LAUNCHER)
-                    },
-                )
-            }
+          }
         }
-
-        ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
-            scenario
-                .moveToState(Lifecycle.State.RESUMED)
-                .onActivity { activity ->
-                    activity.findViewById<TextView>(R.id.action_description).run {
-                        Assert.assertEquals(
-                            "AnySoftKeyboard is installed. You may need to set it up to start using this expansion pack.",
-                            text,
-                        )
-                    }
-                    activity.findViewById<Button>(R.id.action_button).run {
-                        Assert.assertEquals(
-                            "Open AnySoftKeyboard",
-                            text,
-                        )
-                        Shadows.shadowOf(this).onClickListener.onClick(this)
-                        Shadows.shadowOf(RuntimeEnvironment.getApplication()).let { app ->
-                            app.nextStartedActivity.let { launcherIntent ->
-                                Assert.assertEquals(ASK_PACKAGE_NAME, launcherIntent.`package`)
-                            }
-                        }
-                    }
-                }
-        }
+      }
     }
+  }
+
+  @Test
+  fun testAlreadyInstalledAnySoftKeyboardFlow() {
+    Shadows.shadowOf(RuntimeEnvironment.getApplication().packageManager).let { pm ->
+      PackageInfo().let { info ->
+        info.packageName = ASK_PACKAGE_NAME
+        pm.installPackage(info)
+      }
+      pm.addServiceIfNotPresent(
+          ComponentName(
+              ASK_PACKAGE_NAME,
+              "${ASK_PACKAGE_NAME}.SoftKeyboard",
+          ),
+      )
+      ComponentName(ASK_PACKAGE_NAME, "${ASK_PACKAGE_NAME}.MainActivity").let { info ->
+        pm.addActivityIfNotPresent(info)
+        pm.addIntentFilterForActivity(
+            info,
+            IntentFilter().apply {
+              addAction(Intent.ACTION_MAIN)
+              addCategory(Intent.CATEGORY_LAUNCHER)
+            },
+        )
+      }
+    }
+
+    ActivityScenario.launch(TestMainActivity::class.java).use { scenario ->
+      scenario.moveToState(Lifecycle.State.RESUMED).onActivity { activity ->
+        activity.findViewById<TextView>(R.id.action_description).run {
+          Assert.assertEquals(
+              "AnySoftKeyboard is installed. You may need to set it up to start using this expansion pack.",
+              text,
+          )
+        }
+        activity.findViewById<Button>(R.id.action_button).run {
+          Assert.assertEquals(
+              "Open AnySoftKeyboard",
+              text,
+          )
+          Shadows.shadowOf(this).onClickListener.onClick(this)
+          Shadows.shadowOf(RuntimeEnvironment.getApplication()).let { app ->
+            app.nextStartedActivity.let { launcherIntent ->
+              Assert.assertEquals(ASK_PACKAGE_NAME, launcherIntent.`package`)
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-class TestMainActivity : MainActivityBase(
-    R.string.test_app_name,
-    R.string.test_add_on_description,
-    R.string.test_web_site,
-    R.string.test_release_notes,
-    R.drawable.test_screenshot,
-)
+class TestMainActivity :
+    MainActivityBase(
+        R.string.test_app_name,
+        R.string.test_add_on_description,
+        R.string.test_web_site,
+        R.string.test_release_notes,
+        R.drawable.test_screenshot,
+    )

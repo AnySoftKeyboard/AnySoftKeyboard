@@ -1,3 +1,4 @@
+---
 name: localization
 # always run on the default branch: main
 on:

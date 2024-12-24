@@ -288,7 +288,8 @@ public class RxSharedPrefs {
       mSharedPreferences = sharedPreferences;
     }
 
-    @Nullable private static String getTypeOf(Object value) {
+    @Nullable
+    private static String getTypeOf(Object value) {
       if (value == null) return null;
 
       if (value instanceof Integer) return "int";

@@ -25,11 +25,13 @@ public class RxSchedulers {
     RxAndroidPlugins.setInitMainThreadSchedulerHandler(callable -> msMainThread);
   }
 
-  @NonNull public static Scheduler mainThread() {
+  @NonNull
+  public static Scheduler mainThread() {
     return msMainThread;
   }
 
-  @NonNull public static Scheduler background() {
+  @NonNull
+  public static Scheduler background() {
     return msBackground;
   }
 }

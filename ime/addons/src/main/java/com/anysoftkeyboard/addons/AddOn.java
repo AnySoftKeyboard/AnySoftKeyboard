@@ -39,11 +39,13 @@ public interface AddOn {
 
   String getPackageName();
 
-  @Nullable Context getPackageContext();
+  @Nullable
+  Context getPackageContext();
 
   int getSortIndex();
 
-  @NonNull AddOnResourceMapping getResourceMapping();
+  @NonNull
+  AddOnResourceMapping getResourceMapping();
 
   int getApiVersion();
 }

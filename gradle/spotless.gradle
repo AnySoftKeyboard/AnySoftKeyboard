@@ -13,23 +13,13 @@ spotless {
     }
     java {
         target 'src/*/java/**/*.java'
-        importOrder('java|javax', 'android|androidx', 'com.anysoftkeyboard', 'com.menny', '', '\\#com.anysoftkeyboard', '\\#')
         removeUnusedImports()
-
-        // apply a specific flavor of google-java-format
-        googleJavaFormat('1.21.0').reflowLongStrings()
-        // fix formatting of type annotations
-        formatAnnotations()
-    }
-    yaml {
-        target '**/*.yaml', '**/*.yml'
-        jackson()
     }
     kotlin {
         target "**/*.kt"
         trimTrailingWhitespace()
         ktlint()
-        indentWithSpaces()
+        ktfmt()
         endWithNewline()
     }
 }

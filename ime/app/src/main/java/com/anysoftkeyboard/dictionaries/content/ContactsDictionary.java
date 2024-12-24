@@ -222,7 +222,8 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
   }
 
   @Override
-  @NonNull public Iterable<String> getNextWords(
+  @NonNull
+  public Iterable<String> getNextWords(
       @NonNull String currentWord, int maxResults, int minWordUsage) {
     if (mNextNameParts.containsKey(currentWord)) {
       return Arrays.asList(mNextNameParts.get(currentWord));

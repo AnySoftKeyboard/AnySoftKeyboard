@@ -56,7 +56,8 @@ public abstract class PermissionRequestHelper {
     };
   }
 
-  @NonNull @VisibleForTesting
+  @NonNull
+  @VisibleForTesting
   static String[] getPermissionsStrings(int requestCode) {
     switch (requestCode) {
       case CONTACTS_PERMISSION_REQUEST_CODE -> {

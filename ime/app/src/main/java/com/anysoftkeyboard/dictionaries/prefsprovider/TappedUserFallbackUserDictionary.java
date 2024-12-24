@@ -14,7 +14,8 @@ class TappedUserFallbackUserDictionary extends FallbackUserDictionary {
     mWordsTapper = wordsTapper;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected WordReadListener createWordReadListener() {
     return mWordsTapper;
   }

@@ -109,11 +109,13 @@ public class UserDictionary extends EditableDictionary {
     }
   }
 
-  @NonNull protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
+  @NonNull
+  protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
     return new FallbackUserDictionary(context, locale);
   }
 
-  @NonNull protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
+  @NonNull
+  protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
     return new AndroidUserDictionary(context, locale);
   }
 

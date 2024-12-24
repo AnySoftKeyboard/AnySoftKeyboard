@@ -1,3 +1,4 @@
+---
 name: packs-lists
 on:
   push:

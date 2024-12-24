@@ -32,7 +32,8 @@ public class UserDictionaryEditorFragmentTest
     return R.id.userDictionaryEditorFragment;
   }
 
-  @NonNull private UserDictionaryEditorFragment startEditorFragment() {
+  @NonNull
+  private UserDictionaryEditorFragment startEditorFragment() {
     UserDictionaryEditorFragment fragment = startFragment();
     fragment
         .getSpinnerItemSelectedListener()

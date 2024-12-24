@@ -23,7 +23,8 @@ public class WizardLanguagePackFragmentTest
     Locale.setDefault(Locale.US);
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected WizardLanguagePackFragment createFragment() {
     return new WizardLanguagePackFragment();
   }

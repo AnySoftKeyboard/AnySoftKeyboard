@@ -51,37 +51,44 @@ public class AnyRoboApplication extends AnyApplication {
     }
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected ExternalDictionaryFactory createExternalDictionaryFactory() {
     return mDictionaryFactory = Mockito.spy(super.createExternalDictionaryFactory());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected KeyboardExtensionFactory createBottomKeyboardExtensionFactory() {
     return mBottomRowFactory = Mockito.spy(super.createBottomKeyboardExtensionFactory());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected KeyboardExtensionFactory createToolsKeyboardExtensionFactory() {
     return mToolsKeyboardFactory = Mockito.spy(super.createToolsKeyboardExtensionFactory());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected KeyboardExtensionFactory createTopKeyboardExtensionFactory() {
     return mTopRowFactory = Mockito.spy(super.createTopKeyboardExtensionFactory());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected KeyboardFactory createKeyboardFactory() {
     return mKeyboardFactory = Mockito.spy(super.createKeyboardFactory());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected KeyboardThemeFactory createKeyboardThemeFactory() {
     return mThemeFactory = Mockito.spy(super.createKeyboardThemeFactory());
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected QuickTextKeyFactory createQuickTextKeyFactory() {
     return mQuickKeyFactory = Mockito.spy(super.createQuickTextKeyFactory());
   }

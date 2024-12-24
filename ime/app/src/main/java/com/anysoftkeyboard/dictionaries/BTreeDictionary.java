@@ -65,7 +65,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
     readWordsFromActualStorage(listener);
   }
 
-  @NonNull protected WordReadListener createWordReadListener() {
+  @NonNull
+  protected WordReadListener createWordReadListener() {
     return new WordReadListener() {
       private int mReadWords = 0;
 

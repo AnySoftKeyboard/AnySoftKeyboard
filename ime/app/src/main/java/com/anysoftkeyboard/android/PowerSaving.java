@@ -18,7 +18,8 @@ import io.reactivex.annotations.CheckReturnValue;
 public class PowerSaving {
 
   @CheckReturnValue
-  @NonNull public static Observable<Boolean> observePowerSavingState(
+  @NonNull
+  public static Observable<Boolean> observePowerSavingState(
       @NonNull Context context, @StringRes int enablePrefResId, @BoolRes int defaultValueResId) {
     final RxSharedPrefs prefs = AnyApplication.prefs(context);
     return Observable.combineLatest(
@@ -53,7 +54,8 @@ public class PowerSaving {
   }
 
   @CheckReturnValue
-  @NonNull public static Observable<Boolean> observePowerSavingState(
+  @NonNull
+  public static Observable<Boolean> observePowerSavingState(
       @NonNull Context context, @StringRes int enablePrefResId) {
     return observePowerSavingState(context, enablePrefResId, R.bool.settings_default_true);
   }

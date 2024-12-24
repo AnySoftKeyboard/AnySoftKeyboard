@@ -42,7 +42,8 @@ public class TagsExtractorImpl implements TagsExtractor {
 
   private final ArrayMap<String, List<CharSequence>> mTagsForOutputs = new ArrayMap<>();
 
-  @NonNull private final AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList =
+  @NonNull
+  private final AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList =
       new AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList();
 
   @NonNull @VisibleForTesting final InMemoryDictionary mTagsDictionary;

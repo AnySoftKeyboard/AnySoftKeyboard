@@ -7,7 +7,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class TestClassWithRunnerAnnotation {
 
-    public void testMethod() {
-        throw new IllegalStateException("this should not run");
-    }
+  public void testMethod() {
+    throw new IllegalStateException("this should not run");
+  }
 }

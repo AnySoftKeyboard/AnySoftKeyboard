@@ -1,3 +1,4 @@
+---
 name: third-party-update
 # always run on the default branch: main
 on:

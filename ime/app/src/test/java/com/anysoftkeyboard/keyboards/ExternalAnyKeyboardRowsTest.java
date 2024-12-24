@@ -71,7 +71,8 @@ public class ExternalAnyKeyboardRowsTest {
     mKeyboardBuilder = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn();
   }
 
-  @NonNull private AnyKeyboard createAndLoadKeyboardForModeWithTopRowIndex(
+  @NonNull
+  private AnyKeyboard createAndLoadKeyboardForModeWithTopRowIndex(
       @Keyboard.KeyboardRowModeId int mode, int topRowIndex) throws Exception {
     AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(mode));
 
@@ -87,7 +88,8 @@ public class ExternalAnyKeyboardRowsTest {
     return keyboard;
   }
 
-  @NonNull private AnyKeyboard createAndLoadKeyboardForModeWithBottomRowIndex(
+  @NonNull
+  private AnyKeyboard createAndLoadKeyboardForModeWithBottomRowIndex(
       @Keyboard.KeyboardRowModeId int mode, int bottomRowIndex) throws Exception {
     AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(mode));
 
@@ -105,7 +107,8 @@ public class ExternalAnyKeyboardRowsTest {
     return keyboard;
   }
 
-  @NonNull private AnyKeyboard createAndLoadKeyboardForModeWithRowsIndex(
+  @NonNull
+  private AnyKeyboard createAndLoadKeyboardForModeWithRowsIndex(
       @Keyboard.KeyboardRowModeId int mode, int topRowIndex, int bottomRowIndex) throws Exception {
     AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(mode));
 

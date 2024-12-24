@@ -112,7 +112,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     return (int) Math.min(3.0 /*no more than three rows*/, Math.ceil(count / MAX_KEYS_PER_ROW));
   }
 
-  @Nullable private static Key findKeyWithSkinToneAndGender(
+  @Nullable
+  private static Key findKeyWithSkinToneAndGender(
       List<Key> keys,
       @Nullable JavaEmojiUtils.SkinTone skinTone,
       @Nullable JavaEmojiUtils.Gender gender) {
@@ -131,7 +132,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     return findKeyWithPredicate(keys, checker);
   }
 
-  @Nullable private static Key findKeyWithPredicate(List<Key> keys, Predicate<CharSequence> checker) {
+  @Nullable
+  private static Key findKeyWithPredicate(List<Key> keys, Predicate<CharSequence> checker) {
     for (Key key : keys) {
       if (checker.test(key.text)) {
         return key;
@@ -217,7 +219,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
   }
 
   @Override
-  @NonNull public CharSequence getKeyboardName() {
+  @NonNull
+  public CharSequence getKeyboardName() {
     return mKeyboardName;
   }
 
@@ -226,7 +229,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     return -1;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public String getKeyboardId() {
     return "keyboard_popup";
   }

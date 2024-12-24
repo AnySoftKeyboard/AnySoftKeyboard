@@ -101,7 +101,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     setHasOptionsMenu(mHasTweaksOption || getMarketSearchTitle() != 0);
   }
 
-  @NonNull private ItemTouchHelper.SimpleCallback createItemTouchCallback(int itemDragDirectionFlags) {
+  @NonNull
+  private ItemTouchHelper.SimpleCallback createItemTouchCallback(int itemDragDirectionFlags) {
     return new ItemTouchHelper.SimpleCallback(itemDragDirectionFlags, 0) {
 
       @Override
@@ -150,7 +151,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     };
   }
 
-  @NonNull protected abstract AddOnsFactory<E> getAddOnFactory();
+  @NonNull
+  protected abstract AddOnsFactory<E> getAddOnFactory();
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -256,7 +258,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     UiUtils.setActivityTitle(this, mFragmentTitleResId);
   }
 
-  @NonNull private RecyclerView.LayoutManager createLayoutManager(@NonNull Context appContext) {
+  @NonNull
+  private RecyclerView.LayoutManager createLayoutManager(@NonNull Context appContext) {
     GridLayoutManager manager =
         new GridLayoutManager(appContext, mColumnsCount, LinearLayoutManager.VERTICAL, false);
     manager.setSpanSizeLookup(
@@ -277,7 +280,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
   protected abstract void applyAddOnToDemoKeyboardView(
       @NonNull final E addOn, @NonNull final DemoAnyKeyboardView demoKeyboardView);
 
-  @Nullable protected abstract String getMarketSearchKeyword();
+  @Nullable
+  protected abstract String getMarketSearchKeyword();
 
   @StringRes
   protected abstract int getMarketSearchTitle();
@@ -349,7 +353,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
       mLayoutInflater = LayoutInflater.from(getActivity());
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       if (viewType == 0) {
         View itemView = mLayoutInflater.inflate(R.layout.add_on_browser_view_item, parent, false);

@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 public class NoneTestClassWithSuiteAnnotation {
 
-    public void testMethod() {
-        throw new IllegalStateException("this should not run");
-    }
+  public void testMethod() {
+    throw new IllegalStateException("this should not run");
+  }
 }

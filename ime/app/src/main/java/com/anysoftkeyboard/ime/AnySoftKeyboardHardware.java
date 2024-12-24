@@ -139,9 +139,9 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
         // DO NOT DELAY VOLUME DOWN KEY with unneeded checks in default
         // mark
         return super.onKeyDown(keyEventKeyCode, event);
-        /*
-         * END of SPECIAL translated HW keys code section
-         */
+      /*
+       * END of SPECIAL translated HW keys code section
+       */
       case KeyEvent.KEYCODE_BACK:
         if (event.getRepeatCount() == 0 && getInputView() != null && handleCloseRequest()) {
           // consuming the meta keys
@@ -169,8 +169,8 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
           switchToNextPhysicalKeyboard(ic);
           return true;
         }
-        // NOTE:
-        // letting it fall through to the "default"
+      // NOTE:
+      // letting it fall through to the "default"
       default:
 
         // Fix issue 185, check if we should process key repeat
@@ -221,7 +221,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
   @Override
   public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
     switch (keyCode) {
-        // Issue 248
+      // Issue 248
       case KeyEvent.KEYCODE_VOLUME_DOWN:
       case KeyEvent.KEYCODE_VOLUME_UP:
         if (!isInputViewShown()) {
