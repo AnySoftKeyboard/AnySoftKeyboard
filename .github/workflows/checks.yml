@@ -33,6 +33,8 @@ jobs:
       - run: bazel test --build_tests_only //...
       - name: internal checkers
         run: bazel run //js/checkers -- --root_dir "${{ github.workspace }}"
+      - name: Github Action Linter
+        run: bazel run @multitool//tools/actionlint:cwd -- -config-file "${{ github.workspace }}/.github/actionlint.yaml"
   js-checks:
     runs-on: ubuntu-24.04
     steps:
@@ -65,8 +67,6 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: check
         run: ./scripts/ci/ci_check.sh
-      - name: check-all-yamls
-        run: ./scripts/ci/ci_check_yamls.sh
       - name: verify-version-classes-greps
         run: ./scripts/ci/third-party-update/verify-third-party-update-greps.sh
       - name: fix-fs

@@ -36,6 +36,42 @@
       }
     ]
   },
+  "actionlint": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://github.com/rhysd/actionlint/releases/download/v1.7.4/actionlint_1.7.4_linux_arm64.tar.gz",
+        "file": "actionlint",
+        "sha256": "ede03682dc955381d057dde95bb85ce9ca418122209a8a313b617d4adec56416",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/rhysd/actionlint/releases/download/v1.7.4/actionlint_1.7.4_linux_amd64.tar.gz",
+        "file": "actionlint",
+        "sha256": "fc0a6886bbb9a23a39eeec4b176193cadb54ddbe77cdbb19b637933919545395",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/rhysd/actionlint/releases/download/v1.7.4/actionlint_1.7.4_darwin_arm64.tar.gz",
+        "file": "actionlint",
+        "sha256": "cbd193bb490f598d77e179261d7b76dfebd049dddede5803ba21cbf6a469aeee",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/rhysd/actionlint/releases/download/v1.7.4/actionlint_1.7.4_darwin_amd64.tar.gz",
+        "file": "actionlint",
+        "sha256": "63a3ba90ee2325afad3ff2e64a4d80688c261e6c68be8e6ab91214637bf936b8",
+        "os": "macos",
+        "cpu": "x86_64"
+      }
+    ]
+  },
   "shellcheck": {
     "binaries": [
       {
