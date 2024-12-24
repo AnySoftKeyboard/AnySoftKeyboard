@@ -1,5 +1,4 @@
 # Packs in this repository
-
 1. <img src='afrikaans_oss/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Afrikaans_oss: [Source](afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
 1. <img src='arabic/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Arabic: [Source](arabic) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.arabic)
 1. <img src='armenian2/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;Armenian2: [Source](armenian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.armenian2)
