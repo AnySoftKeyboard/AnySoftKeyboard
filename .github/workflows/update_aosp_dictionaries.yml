@@ -1,3 +1,4 @@
+---
 name: update-aosp-dictionaries
 on:
   schedule:

@@ -16,13 +16,18 @@ copy_to_bin(
 )
 
 copy_to_bin(
-    name = "prettierrc",
-    srcs = [".prettierrc"],
+    name = "prettierignore",
+    srcs = [".prettierignore"],
 )
 
 copy_to_bin(
-    name = "prettierignore",
-    srcs = [".prettierignore"],
+    name = "gitignore",
+    srcs = [".gitignore"],
+)
+
+copy_to_bin(
+    name = "yamlfmt.yml",
+    srcs = [".yamlfmt.yml"],
 )
 
 npm_link_all_packages(name = "node_modules")
@@ -36,6 +41,11 @@ js_library(
         "//:node_modules/@typescript-eslint",
         "//:node_modules/globals",
     ],
+)
+
+js_library(
+    name = "prettierrc",
+    srcs = [".prettier.config.cjs"],
 )
 
 alias(

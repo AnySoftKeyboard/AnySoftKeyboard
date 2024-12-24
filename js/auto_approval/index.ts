@@ -13,14 +13,14 @@ program
 const main = async () => {
   program.parse();
   const opts = program.opts();
-  
+
   const actionInputs = getActionInputs(
     {
       token: opts['token'],
       review_as: opts['review_as'],
       allowed_review_for: opts['allowed_users'],
     },
-    context.payload
+    context.payload,
   );
 
   if (shouldApprove(actionInputs)) {
@@ -32,4 +32,3 @@ main().catch((err) => {
   console.error(err);
   exit(-1);
 });
-

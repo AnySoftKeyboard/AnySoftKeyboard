@@ -93,7 +93,8 @@
     "https://bcr.bazel.build/modules/rules_multirun/0.9.0/MODULE.bazel": "32d628ef586b5b23f67e55886b7bc38913ea4160420d66ae90521dda2ff37df0",
     "https://bcr.bazel.build/modules/rules_multirun/0.9.0/source.json": "e882ba77962fa6c5fe68619e5c7d0374ec9a219fb8d03c42eadaf6d0243771bd",
     "https://bcr.bazel.build/modules/rules_multitool/0.4.0/MODULE.bazel": "15517987d5c00c9e7faab41fbe22ee67a350b6eabcc1e08baded5c6d9025897f",
-    "https://bcr.bazel.build/modules/rules_multitool/0.4.0/source.json": "d73b450b7c6d9683e400d6cebc463fbc2b870cc5d8e2e75080d6278805aaab08",
+    "https://bcr.bazel.build/modules/rules_multitool/1.0.0/MODULE.bazel": "7f75dc8378368a10dcedcff6cbfee8254fff10748a219a6cb8de94fde4b6a574",
+    "https://bcr.bazel.build/modules/rules_multitool/1.0.0/source.json": "5b92dc9b267b024bb2174bdf5d8e32821abb53fd84545e00699c4e35826a1c78",
     "https://bcr.bazel.build/modules/rules_nodejs/5.8.2/MODULE.bazel": "6bc03c8f37f69401b888023bf511cb6ee4781433b0cb56236b2e55a21e3a026a",
     "https://bcr.bazel.build/modules/rules_nodejs/6.2.0/MODULE.bazel": "ec27907f55eb34705adb4e8257952162a2d4c3ed0f0b3b4c3c1aad1fac7be35e",
     "https://bcr.bazel.build/modules/rules_nodejs/6.3.0/MODULE.bazel": "45345e4aba35dd6e4701c1eebf5a4e67af4ed708def9ebcdc6027585b34ee52d",
@@ -1101,76 +1102,6 @@
             "bazel_tools"
           ]
         ]
-      }
-    },
-    "@@rules_multitool~//multitool:extension.bzl%multitool": {
-      "general": {
-        "bzlTransitiveDigest": "AtvPzG/SAawYMKVVHcMoJq4EXkVPTIhS3AeNwENXp9E=",
-        "usagesDigest": "TtQpVjHzj67OpjWm5kXSiLgp7BJpgCV+dW5S+til5VI=",
-        "recordedFileInputs": {},
-        "recordedDirentsInputs": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "multitool.linux_x86_64": {
-            "bzlFile": "@@rules_multitool~//multitool/private:multitool.bzl",
-            "ruleClassName": "_env_specific_tools",
-            "attributes": {
-              "lockfiles": [
-                "@@aspect_rules_lint~//format:multitool.lock.json",
-                "@@aspect_rules_lint~//lint:multitool.lock.json"
-              ],
-              "os": "linux",
-              "cpu": "x86_64"
-            }
-          },
-          "multitool.linux_arm64": {
-            "bzlFile": "@@rules_multitool~//multitool/private:multitool.bzl",
-            "ruleClassName": "_env_specific_tools",
-            "attributes": {
-              "lockfiles": [
-                "@@aspect_rules_lint~//format:multitool.lock.json",
-                "@@aspect_rules_lint~//lint:multitool.lock.json"
-              ],
-              "os": "linux",
-              "cpu": "arm64"
-            }
-          },
-          "multitool.macos_x86_64": {
-            "bzlFile": "@@rules_multitool~//multitool/private:multitool.bzl",
-            "ruleClassName": "_env_specific_tools",
-            "attributes": {
-              "lockfiles": [
-                "@@aspect_rules_lint~//format:multitool.lock.json",
-                "@@aspect_rules_lint~//lint:multitool.lock.json"
-              ],
-              "os": "macos",
-              "cpu": "x86_64"
-            }
-          },
-          "multitool.macos_arm64": {
-            "bzlFile": "@@rules_multitool~//multitool/private:multitool.bzl",
-            "ruleClassName": "_env_specific_tools",
-            "attributes": {
-              "lockfiles": [
-                "@@aspect_rules_lint~//format:multitool.lock.json",
-                "@@aspect_rules_lint~//lint:multitool.lock.json"
-              ],
-              "os": "macos",
-              "cpu": "arm64"
-            }
-          },
-          "multitool": {
-            "bzlFile": "@@rules_multitool~//multitool/private:multitool.bzl",
-            "ruleClassName": "_multitool_hub",
-            "attributes": {
-              "lockfiles": [
-                "@@aspect_rules_lint~//format:multitool.lock.json",
-                "@@aspect_rules_lint~//lint:multitool.lock.json"
-              ]
-            }
-          }
-        },
-        "recordedRepoMappingEntries": []
       }
     },
     "@@rules_nodejs~//nodejs:extensions.bzl%node": {

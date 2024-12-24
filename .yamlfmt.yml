@@ -1,1 +1,8 @@
+---
 gitignore_excludes: true
+indent: 3
+regex_exclude:
+  - "pnpm-lock.yaml"
+formatter:
+  type: basic
+  include_document_start: true

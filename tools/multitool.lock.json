@@ -1,0 +1,75 @@
+{
+  "$schema": "https://raw.githubusercontent.com/theoremlp/rules_multitool/main/lockfile.schema.json",
+  "yamlfmt": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://github.com/google/yamlfmt/releases/download/v0.14.0/yamlfmt_0.14.0_Linux_arm64.tar.gz",
+        "file": "yamlfmt",
+        "sha256": "5412d6633d11a6df08db919007fbe69feeaa06a3927ffa73eae2ed51726ccb5e",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/google/yamlfmt/releases/download/v0.14.0/yamlfmt_0.14.0_Linux_x86_64.tar.gz",
+        "file": "yamlfmt",
+        "sha256": "9bef16ce258a6d7e9ad93bb373d85af19624339308e24d3e491305bd95529ff8",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/google/yamlfmt/releases/download/v0.14.0/yamlfmt_0.14.0_Darwin_arm64.tar.gz",
+        "file": "yamlfmt",
+        "sha256": "3ba8e7b3311bed78c18db75449a861bd32e5ff002c1e839e861ac5a025909434",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/google/yamlfmt/releases/download/v0.14.0/yamlfmt_0.14.0_Darwin_x86_64.tar.gz",
+        "file": "yamlfmt",
+        "sha256": "55584952ebf88406ebfe6e47e9df270209b68e77dcd1ff16932f6a097239f200",
+        "os": "macos",
+        "cpu": "x86_64"
+      }
+    ]
+  },
+  "shellcheck": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.aarch64.tar.xz",
+        "file": "shellcheck-v0.10.0/shellcheck",
+        "sha256": "324a7e89de8fa2aed0d0c28f3dab59cf84c6d74264022c00c22af665ed1a09bb",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
+        "file": "shellcheck-v0.10.0/shellcheck",
+        "sha256": "6c881ab0698e4e6ea235245f22832860544f17ba386442fe7e9d629f8cbedf87",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.darwin.aarch64.tar.xz",
+        "file": "shellcheck-v0.10.0/shellcheck",
+        "sha256": "bbd2f14826328eee7679da7221f2bc3afb011f6a928b848c80c321f6046ddf81",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.darwin.x86_64.tar.xz",
+        "file": "shellcheck-v0.10.0/shellcheck",
+        "sha256": "ef27684f23279d112d8ad84e0823642e43f838993bbb8c0963db9b58a90464c2",
+        "os": "macos",
+        "cpu": "x86_64"
+      }
+    ]
+  }
+}

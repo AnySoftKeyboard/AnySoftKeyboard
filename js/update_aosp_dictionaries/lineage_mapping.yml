@@ -1,3 +1,4 @@
+---
 mapping:
   - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/uk_wordlist.combined.gz, addons/languages/ukrainian/pack/dictionary/uk_wordlist.combined.gz]
   - [android_packages_inputmethods_LatinIME-lineage-21.0/dictionaries/lb_wordlist.combined.gz, addons/languages/luxembourgish/pack/dictionary/lb_wordlist.combined.gz]

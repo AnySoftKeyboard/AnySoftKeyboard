@@ -20,10 +20,7 @@ export interface ActionInputs {
   target_git: string;
 }
 
-export function getActionInputs(
-  commandLineInputs: CommandLineInputs,
-  githubPayload: WebhookPayload,
-): ActionInputs {
+export function getActionInputs(commandLineInputs: CommandLineInputs, githubPayload: WebhookPayload): ActionInputs {
   const pullRequest = githubPayload.pull_request!;
   return {
     token: commandLineInputs.token,

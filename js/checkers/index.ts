@@ -5,7 +5,12 @@ import { exit } from 'process';
 
 function skip_predicate(dirname: string): boolean {
   const lowerCase = dirname.toLowerCase();
-  return lowerCase.indexOf('build') >= 0 ||lowerCase.indexOf('.git') >= 0 || lowerCase.indexOf('node_modules') >= 0 || lowerCase.indexOf('bazel-') >= 0;
+  return (
+    lowerCase.indexOf('build') >= 0 ||
+    lowerCase.indexOf('.git') >= 0 ||
+    lowerCase.indexOf('node_modules') >= 0 ||
+    lowerCase.indexOf('bazel-') >= 0
+  );
 }
 
 const program = new Command();

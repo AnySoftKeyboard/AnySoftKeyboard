@@ -1,4 +1,5 @@
-load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
 load("@npm//:prettier/package_json.bzl", prettier = "bin")
 
@@ -18,9 +19,24 @@ prettier.prettier_binary(
         # `require` statements in the config file will be resolved relative to its location
         # Therefore to make it hermetic, prettier must be pointed at the copy of the config file
         # in the runfiles folder rather than the one in the source folder.
-        "--config=$(rlocationpath //:prettierrc)",
+        "--config=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath //:prettierrc)",
         "--ignore-path=$(rlocationpath //:prettierignore)",
         "--log-level=warn",
+    ],
+)
+
+native_binary(
+    name = "yamlfmt_runner",
+    src = "@multitool//tools/yamlfmt",
+    args = [
+        "-conf",
+        "$(rlocationpath //:yamlfmt.yml)",
+        "-output_format",
+        "default",
+    ],
+    data = [
+        "//:gitignore",
+        "//:yamlfmt.yml",
     ],
 )
 
@@ -32,5 +48,5 @@ format_multirun(
     javascript = ":prettier",
     markdown = ":prettier",
     starlark = "@buildifier_prebuilt//:buildifier",
-    yaml = "@aspect_rules_lint//format:yamlfmt",
+    yaml = ":yamlfmt_runner",
 )

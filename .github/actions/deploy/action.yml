@@ -1,3 +1,4 @@
+---
 name: "deploy"
 description: "Deploys the AnySoftKeyboard artifacts to Play Store"
 author: "menny"
