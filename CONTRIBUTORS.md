@@ -2,7 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (6.3k)
+1. [menny](https://github.com/menny) (6.4k)
 1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.5k) 🤖
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
@@ -29,6 +29,7 @@ Thank you for the fine contributors:
 1. [PFischbeck](https://github.com/PFischbeck) (8)
 1. [Aiq0](https://github.com/Aiq0) (7)
 1. [azzamsa](https://github.com/azzamsa) (7)
+1. [Camille019](https://github.com/Camille019) (7)
 1. [hsnamr](https://github.com/hsnamr) (7)
 1. [semaurer01](https://github.com/semaurer01) (7)
 1. [somini](https://github.com/somini) (7)
@@ -41,8 +42,8 @@ Thank you for the fine contributors:
 1. [pelya](https://github.com/pelya) (6)
 1. [ViXXoR](https://github.com/ViXXoR) (6)
 1. [Afudu](https://github.com/Afudu) (5)
-1. [ajgrf](https://github.com/ajgrf) (5)
 1. [antonok-edm](https://github.com/antonok-edm) (5)
+1. [axgfn](https://github.com/axgfn) (5)
 1. [drew-sinha](https://github.com/drew-sinha) (5)
 1. [jakubfabijan](https://github.com/jakubfabijan) (5)
 1. [lulucca12](https://github.com/lulucca12) (5)
@@ -78,7 +79,6 @@ Thank you for the fine contributors:
 1. [alex73](https://github.com/alex73) (2)
 1. [Azim](https://github.com/Azim) (2)
 1. [Blaimi](https://github.com/Blaimi) (2)
-1. [Camille019](https://github.com/Camille019) (2)
 1. [dependabot[bot]](https://github.com/dependabot[bot]) (2)
 1. [dgalaktionov](https://github.com/dgalaktionov) (2)
 1. [duchampdev](https://github.com/duchampdev) (2)
