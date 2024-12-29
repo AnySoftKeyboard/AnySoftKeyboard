@@ -30,7 +30,7 @@ native_binary(
     src = "@multitool//tools/yamlfmt",
     args = [
         "-conf",
-        "$(rlocationpath //:yamlfmt.yml)",
+        "$(execpath //:yamlfmt.yml)",
         "-output_format",
         "default",
     ],
