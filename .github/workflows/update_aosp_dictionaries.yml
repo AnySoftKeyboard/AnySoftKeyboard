@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: bazel-contrib/setup-bazel@0.9.1
+      - uses: bazel-contrib/setup-bazel@v0.10.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
@@ -32,7 +32,7 @@ jobs:
       - name: update LineageOS dictionaries
         run: "bazel run //js/update_aosp_dictionaries -- update \n  --repository_root \"${PWD}\" \\\n  --dictionaries_archive https://github.com/LineageOS/android_packages_inputmethods_LatinIME/archive/refs/heads/lineage-21.0.tar.gz \\\n  --dictionaries_mapping \"${PWD}/js/update_aosp_dictionaries/lineage_mapping.yml\"\n"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
+        uses: peter-evans/create-pull-request@v7.0.6
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated AOSP Dictionaries Update'
