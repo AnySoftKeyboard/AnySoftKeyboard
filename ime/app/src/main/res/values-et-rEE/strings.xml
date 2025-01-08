@@ -75,6 +75,9 @@
     <string name="one_shot_quick_text_popup_on_summary">Sulge Quick-Text\'i mull klahvi puudutusel.</string>
     <string name="one_shot_quick_text_popup_off_summary">Quick-Text\'i mull hoitakse avatuna, kuni vajutate sulgemise klahvi.</string>
     <string name="hide_soft_when_physical">Füüsilisele nupule vajutades peidetakse klaviatuur</string>
+    <string name="hide_soft_when_physical_off_summary">Näita tarkvara klaviatuuri kui füüsiline klaviatuur on
+        kasutuses
+    </string>
     <string name="enable_alt_space_language_shortcut">Alt + Tühik vahetab klaviatuuri keelte vahel</string>
     <string name="enable_shift_space_language_shortcut">Shift + Tühik vahetab keelt</string>
     <string name="swipe_up_action">Lohista üles</string>
