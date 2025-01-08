@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="notifications_permissions_rationale">AnySoftKeyboardil võib olla vaja teavitada sind kriitilistest küsimustest (nagu puuduvad load või tarkvara krahhid).</string>
+</resources>
