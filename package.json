@@ -30,10 +30,10 @@
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.10.2",
+    "@types/node": "22.10.5",
     "@types/sinon": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.18.2",
-    "@typescript-eslint/parser": "^8.18.2",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
     "@vercel/ncc": "^0.38.3",
     "babel-jest": "^29.7.0",
     "chai": "^5.1.2",
@@ -50,7 +50,7 @@
     "typescript": "5.7.2"
   },
   "dependencies": {
-    "commander": "^12.1.0",
+    "commander": "^13.0.0",
     "fast-xml-parser": "^4.5.1",
     "follow-redirects": "^1.15.9",
     "js-yaml": "^4.1.0",
