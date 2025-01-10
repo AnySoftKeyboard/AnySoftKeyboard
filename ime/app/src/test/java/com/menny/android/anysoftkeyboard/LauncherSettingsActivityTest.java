@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static org.junit.Assert.assertFalse;
 
 import android.app.Activity;
 import android.app.Application;
@@ -8,14 +9,15 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.settings.setup.SetupWizardActivity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 
@@ -25,10 +27,10 @@ public class LauncherSettingsActivityTest {
   @Test
   public void testOnCreateWhenASKNotEnabled() throws Exception {
     // mocking ASK as disabled and inactive
-    Settings.Secure.putString(
-        ApplicationProvider.getApplicationContext().getContentResolver(),
-        Settings.Secure.ENABLED_INPUT_METHODS,
-        new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
+    var application = RuntimeEnvironment.getApplication();
+    InputMethodManagerShadow.setKeyboardEnabled(application, false);
+    assertFalse(SetupSupport.isThisKeyboardEnabled(application));
+
     Settings.Secure.putString(
         getApplicationContext().getContentResolver(),
         Settings.Secure.DEFAULT_INPUT_METHOD,
@@ -36,17 +38,21 @@ public class LauncherSettingsActivityTest {
 
     Assert.assertNull(
         Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity());
-    Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
-    Intent startWizardActivityIntent =
-        Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
-    Assert.assertNotNull(startWizardActivityIntent);
+    try (ActivityController<LauncherSettingsActivity> controller =
+        Robolectric.buildActivity(LauncherSettingsActivity.class)) {
+      controller.create().resume();
+      Intent startWizardActivityIntent =
+          Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
+      Assert.assertNotNull(startWizardActivityIntent);
 
-    Intent expectIntent = new Intent(getApplicationContext(), SetupWizardActivity.class);
+      Intent expectIntent = new Intent(getApplicationContext(), SetupWizardActivity.class);
 
-    Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
-    Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());
-    Assert.assertFalse(
-        startWizardActivityIntent.hasExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
+      Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
+      Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());
+      Assert.assertFalse(
+          startWizardActivityIntent.hasExtra(
+              "FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
+    }
   }
 
   @Test

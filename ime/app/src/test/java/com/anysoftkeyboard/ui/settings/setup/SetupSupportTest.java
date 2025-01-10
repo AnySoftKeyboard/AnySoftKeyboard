@@ -4,8 +4,9 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import android.content.ComponentName;
+import android.app.Application;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.view.View;
 import android.view.animation.Animation;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -14,6 +15,7 @@ import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyRoboApplication;
+import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SetupSupportTest {
@@ -45,120 +48,23 @@ public class SetupSupportTest {
   }
 
   @Test
-  public void testIsThisKeyboardSetAsDefaultIME() throws Exception {
-    final String MY_IME_PACKAGE = "net.evendanan.ime";
-    assertFalse(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName("net.some.one.else", "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName("net.some.one.else", ".IME").flattenToString(), MY_IME_PACKAGE));
-    assertFalse(SetupSupport.isThisKeyboardSetAsDefaultIME(null, MY_IME_PACKAGE));
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testIsThisKeyboardSetAsDefaultIME_before34() throws Exception {
+    var app = RuntimeEnvironment.getApplication();
+    InputMethodManagerShadow.setKeyboardAsCurrent(app, true);
+    assertTrue(SetupSupport.isThisKeyboardSetAsDefaultIME(app));
 
-    assertTrue(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName(MY_IME_PACKAGE, MY_IME_PACKAGE + ".IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName(MY_IME_PACKAGE, "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName(MY_IME_PACKAGE, ".IME").flattenToString(), MY_IME_PACKAGE));
+    InputMethodManagerShadow.setKeyboardAsCurrent(app, false);
+    assertFalse(SetupSupport.isThisKeyboardSetAsDefaultIME(app));
   }
 
   @Test
   public void testIsThisKeyboardEnabled() throws Exception {
-    final String MY_IME_PACKAGE = "net.evendanan.ime";
-    assertFalse(SetupSupport.isThisKeyboardEnabled("", MY_IME_PACKAGE));
-    // one keyboard
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", ".IME").flattenToString(), MY_IME_PACKAGE));
-    assertFalse(SetupSupport.isThisKeyboardEnabled(null, MY_IME_PACKAGE));
+    Application application = RuntimeEnvironment.getApplication();
+    assertTrue(SetupSupport.isThisKeyboardEnabled(application));
 
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName(MY_IME_PACKAGE, MY_IME_PACKAGE + ".IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName(MY_IME_PACKAGE, "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName(MY_IME_PACKAGE, ".IME").flattenToString(), MY_IME_PACKAGE));
-
-    // now, two keyboards
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", "net.some.other.IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", ".IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString(),
-            MY_IME_PACKAGE));
-
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName(MY_IME_PACKAGE, MY_IME_PACKAGE + ".IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString()
-                + ":"
-                + new ComponentName(MY_IME_PACKAGE, "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName(MY_IME_PACKAGE, ".IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString(),
-            MY_IME_PACKAGE));
-
-    // last test, three
-    assertFalse(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", "net.some.one.e1.IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e2", "net.some.one.e2.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardEnabled(
-            new ComponentName("net.some.one.e2", ".IME").flattenToString()
-                + ":"
-                + new ComponentName(MY_IME_PACKAGE, ".IME").flattenToString()
-                + ":"
-                + new ComponentName("net.some.one.e1", ".IME").flattenToString(),
-            MY_IME_PACKAGE));
+    InputMethodManagerShadow.setKeyboardEnabled(application, false);
+    assertFalse(SetupSupport.isThisKeyboardEnabled(application));
   }
 
   @Test
