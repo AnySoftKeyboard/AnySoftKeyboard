@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.view.View;
 import android.view.animation.Animation;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -29,6 +29,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SetupSupportTest {
@@ -47,32 +48,14 @@ public class SetupSupportTest {
   }
 
   @Test
-  public void testIsThisKeyboardSetAsDefaultIME() throws Exception {
-    final String MY_IME_PACKAGE = "net.evendanan.ime";
-    assertFalse(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName("net.some.one.else", "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertFalse(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName("net.some.one.else", ".IME").flattenToString(), MY_IME_PACKAGE));
-    assertFalse(SetupSupport.isThisKeyboardSetAsDefaultIME(null, MY_IME_PACKAGE));
+  @Config(sdk = Build.VERSION_CODES.TIRAMISU)
+  public void testIsThisKeyboardSetAsDefaultIME_before34() throws Exception {
+    var app = RuntimeEnvironment.getApplication();
+    InputMethodManagerShadow.setKeyboardAsCurrent(app, true);
+    assertTrue(SetupSupport.isThisKeyboardSetAsDefaultIME(app));
 
-    assertTrue(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName(MY_IME_PACKAGE, MY_IME_PACKAGE + ".IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName(MY_IME_PACKAGE, "net.some.other.IME").flattenToString(),
-            MY_IME_PACKAGE));
-    assertTrue(
-        SetupSupport.isThisKeyboardSetAsDefaultIME(
-            new ComponentName(MY_IME_PACKAGE, ".IME").flattenToString(), MY_IME_PACKAGE));
+    InputMethodManagerShadow.setKeyboardAsCurrent(app, false);
+    assertFalse(SetupSupport.isThisKeyboardSetAsDefaultIME(app));
   }
 
   @Test
