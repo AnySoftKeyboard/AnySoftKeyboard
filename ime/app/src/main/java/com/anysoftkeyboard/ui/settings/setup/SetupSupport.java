@@ -31,11 +31,7 @@ public class SetupSupport {
     if (TextUtils.isEmpty(defaultIME)) return false;
 
     ComponentName defaultInputMethod = ComponentName.unflattenFromString(defaultIME);
-    if (defaultInputMethod.getPackageName().equals(myPackageName)) {
-      return true;
-    } else {
-      return false;
-    }
+    return defaultInputMethod != null && defaultInputMethod.getPackageName().equals(myPackageName);
   }
 
   public static boolean isThisKeyboardEnabled(@NonNull Context context) {
@@ -45,21 +41,6 @@ public class SetupSupport {
         return true;
       }
     }
-    return false;
-  }
-
-  @VisibleForTesting
-  /*package*/ static boolean isThisKeyboardEnabled(String enabledIMEList, String myPackageName) {
-    if (TextUtils.isEmpty(enabledIMEList)) return false;
-
-    String[] enabledIMEs = enabledIMEList.split(":", -1);
-    for (String enabledIMEId : enabledIMEs) {
-      ComponentName enabledIME = ComponentName.unflattenFromString(enabledIMEId);
-      if (enabledIME != null && enabledIME.getPackageName().equals(myPackageName)) {
-        return true;
-      }
-    }
-
     return false;
   }
 

@@ -3,7 +3,6 @@ package com.anysoftkeyboard.ui.settings.setup;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.provider.Settings;
 import android.view.View;
@@ -12,11 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowContentResolver;
@@ -24,6 +24,11 @@ import org.robolectric.shadows.ShadowContentResolver;
 @SuppressWarnings("cast")
 public class WizardPageEnableKeyboardFragmentTest
     extends RobolectricWizardFragmentTestCase<WizardPageEnableKeyboardFragment> {
+
+  @Before
+  public void setupWizard() {
+    InputMethodManagerShadow.setKeyboardEnabled(RuntimeEnvironment.getApplication(), false);
+  }
 
   @NonNull
   @Override
@@ -94,13 +99,7 @@ public class WizardPageEnableKeyboardFragmentTest
 
   @Test
   public void testKeyboardEnabled() {
-    final String flatASKComponent =
-        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-            .flattenToString();
-    Settings.Secure.putString(
-        getApplicationContext().getContentResolver(),
-        Settings.Secure.ENABLED_INPUT_METHODS,
-        flatASKComponent);
+    InputMethodManagerShadow.setKeyboardEnabled(RuntimeEnvironment.getApplication(), true);
 
     WizardPageEnableKeyboardFragment fragment = startFragment();
     Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
@@ -207,13 +206,7 @@ public class WizardPageEnableKeyboardFragmentTest
     shadowApplication.clearNextStartedActivities();
 
     // enabling this IME
-    final String flatASKComponent =
-        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-            .flattenToString();
-    Settings.Secure.putString(
-        getApplicationContext().getContentResolver(),
-        Settings.Secure.ENABLED_INPUT_METHODS,
-        flatASKComponent);
+    InputMethodManagerShadow.setKeyboardEnabled(RuntimeEnvironment.getApplication(), true);
 
     shadowContentResolver
         .getContentObservers(Settings.Secure.CONTENT_URI)

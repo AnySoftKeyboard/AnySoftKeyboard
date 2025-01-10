@@ -1,13 +1,17 @@
 package com.menny.android.anysoftkeyboard;
 
+import android.app.Service;
+import android.content.Context;
 import android.os.IBinder;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
+import org.robolectric.shadow.api.Shadow;
 
 @Implements(value = InputMethodManager.class)
 public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInputMethodManager {
@@ -46,6 +50,18 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
 
     setInputMethodInfoList(ImmutableList.copyOf(inputMethodInfos));
     setEnabledInputMethodInfoList(ImmutableList.copyOf(enabledInputMethods));
+  }
+
+  public static void setKeyboardEnabled(Context context, boolean enabled) {
+    InputMethodManager imeService =
+        (InputMethodManager) context.getSystemService(Service.INPUT_METHOD_SERVICE);
+    var inputMethodManagerShadow = (InputMethodManagerShadow) Shadow.extract(imeService);
+    List<InputMethodInfo> allInputs = imeService.getInputMethodList();
+    inputMethodManagerShadow.setEnabledInputMethodInfoList(
+        allInputs.stream()
+            .filter(
+                ime -> enabled || !Objects.equals(ime.getPackageName(), context.getPackageName()))
+            .toList());
   }
 
   @Implementation
