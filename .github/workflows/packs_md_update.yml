@@ -22,6 +22,12 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update packs list
         run: ./gradlew :addons:languages:generatePacksMarkDown :addons:themes:generatePacksMarkDown :addons:quicktexts:generatePacksMarkDown
+      - uses: bazel-contrib/setup-bazel@0.9.1
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - run: bazel run //:format
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.5
         with:
