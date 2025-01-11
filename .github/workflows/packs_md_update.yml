@@ -22,7 +22,7 @@ jobs:
         run: ./scripts/ci/ci_setup.sh
       - name: update packs list
         run: ./gradlew :addons:languages:generatePacksMarkDown :addons:themes:generatePacksMarkDown :addons:quicktexts:generatePacksMarkDown
-      - uses: bazel-contrib/setup-bazel@0.9.1
+      - uses: bazel-contrib/setup-bazel@v0.12.1
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
