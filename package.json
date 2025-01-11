@@ -47,7 +47,7 @@
     "sinon": "^19.0.2",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
-    "typescript": "5.7.2"
+    "typescript": "5.7.3"
   },
   "dependencies": {
     "commander": "^13.0.0",
@@ -56,6 +56,6 @@
     "js-yaml": "^4.1.0",
     "tar": "^7.4.3",
     "text-file-diff": "^1.4.8",
-    "undici": "^7.2.0"
+    "undici": "^7.2.1"
   }
 }
