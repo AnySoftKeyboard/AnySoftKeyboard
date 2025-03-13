@@ -2,7 +2,7 @@
 
 To develop this project, you'll need:
 
-- Java 11 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot). If you are using [jEnv](https://www.jenv.be/) then we have a `.java-version` file already set up.
+- Java 17 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot). If you are using [jEnv](https://www.jenv.be/) then we have a `.java-version` file already set up.
 - git
 - [Android Studio](https://developer.android.com/studio/install) version 4.0.
 - You will need to point your Android-Studio to use the installed Java11. You can configure the path inside Android Studio menu: File > Project Structure > JDK Location.
