@@ -7,7 +7,7 @@
 
 bazel_dep(name = "aspect_bazel_lib", version = "2.9.4")
 bazel_dep(name = "aspect_rules_js", version = "2.1.2")
-bazel_dep(name = "aspect_rules_ts", version = "3.3.2")
+bazel_dep(name = "aspect_rules_ts", version = "3.5.2")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "aspect_rules_esbuild", version = "0.21.0")
 bazel_dep(name = "rules_multitool", version = "1.0.0")
@@ -46,7 +46,7 @@ rules_ts_ext = use_extension(
     "ext",
 )
 rules_ts_ext.deps(
-    ts_integrity = "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==",
+    ts_integrity = "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
     # This keeps the TypeScript version in-sync with the editor, which is typically best.
     ts_version_from = "//:package.json",
 )
