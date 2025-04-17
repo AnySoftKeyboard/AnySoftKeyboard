@@ -16,6 +16,7 @@
     <!-- UI root menu -->
     <string name="ui_root_tile">UI</string>
     <string name="ui_theme_settings_tile">Vyberte a nastavte motivy klávesnice.</string>
+    <string name="ui_effects_settings_tile">Efekty a používání</string>
     <!-- welcome -->
     <string name="search_market_for_keyboard_addons">Získejte více klávesnic v <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Získejte více rozšíření <i>rychlého textu</i> v <i>Obchodu Play</i>…</string>
@@ -29,6 +30,7 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 ťukněte ještě jednou pro uložení</string>
     <string name="hint_double_tap_to_close">Znovu ke skrytí návrhů</string>
+    <string name="hint_click_for_inline_suggestions">Dostupné návrhy pro doplnění</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Hlasový vstup není nainstalován</string>
     <string name="voice_input_not_installed_text">Před použitím této vlastnosti je vyžadována instalace hlasového vstupu Google z Obchodu Play.</string>
@@ -58,16 +60,32 @@
     <string name="night_mode_type_never">Nikdy</string>
     <string name="night_mode_type_follow_system">Podle systému</string>
     <string name="night_mode_type_always">Vždy</string>
+    <string name="night_mode_darken_keyboard_theme">Ztmavit téma klávesnice</string>
     <string name="night_mode_sound_control">Zakázat zvuky stisku kláves</string>
     <string name="night_mode_vibration_control">Zakázat vibrace stisku kláves</string>
     <string name="power_save_mode_screen">Nastavení úsporného režimu</string>
     <string name="power_save_mode_description">Režim úspory sníží spotřebu energie AnySoftKeyboard vypnutím funkcí:</string>
+    <string name="power_save_mode_state_summary">Aktuálně se režim šetření baterie zapne při:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Zapnout režim šetření baterie</string>
     <string name="power_save_mode_types_never">Nikdy</string>
     <string name="power_save_mode_types_lower_battery">Při nízkém stavu baterie</string>
     <string name="power_save_mode_types_always">Vždy</string>
+    <string name="power_saving_keyboard_theme_name">Téma režimu šetření baterie</string>
+    <string name="power_saving_keyboard_theme_description">Tmavé barvy a jednodušší rozvržení které mohou snížit nároky.</string>
+    <string name="power_save_mode_animation_control">Vypnout animace a náhledy kláves</string>
+    <string name="power_save_mode_sound_control">Vypnout zvuky při psaní</string>
+    <string name="power_save_mode_vibration_control">Vypnout vibrace při psaní</string>
+    <string name="power_save_mode_suggestions_control">Vypnout návrhy slov</string>
+    <string name="power_save_mode_gesture_typing_control">Vypnout psaní gesty</string>
+    <string name="power_save_mode_theme_control">Přepnout na jednodušší tmavé téma</string>
     <string name="pop_text_type_never">Nikdy</string>
+    <string name="pop_text_type_on_correction">Při opravě slova</string>
+    <string name="pop_text_type_on_word">Při každém slovu</string>
+    <string name="pop_text_type_any_key">Při každé klávese</string>
+    <string name="input_field_type_password">Textový vstup pro heslo</string>
     <string name="input_field_type_email">Vstupní pole e-mailu</string>
     <string name="input_field_type_url">Vstupní pole URL</string>
+    <string name="input_field_type_im">Textový vstup pro psaní zpráv</string>
     <string name="sound_on">Zvuk při stisku klávesy</string>
     <string name="sound_on_summary">Zvukové efekty při stisku softwarové klávesnice.</string>
     <string name="use_custom_sound_volume">Vlastní hlasitost</string>
@@ -75,10 +93,14 @@
     <string name="use_custom_sound_volume_off_summary">Hlasitost zvukových efektů je hlasitost systémových oznámení.</string>
     <string name="custom_sound_volume">Vlastní hlasitost stisku klávesy</string>
     <string name="vibrate_on_long_press_title">Vibrovat při dlouhém stisku</string>
+    <string name="vibrate_on_long_press_summary_on">Slabá vibrace když je spuštěna akce dlouhého podržení</string>
     <string name="switch_keyboard_on_space">Mezerník přepíná klávesnice</string>
     <string name="switch_keyboard_on_space_on_summary">Přepnout ze symbolů/čísel na abecedu, když se stiskne mezerník</string>
     <string name="switch_keyboard_on_space_off_summary">Nepřepínat ze symbolů/čísel na abecedu, když se stiskne mezerník</string>
     <string name="colorize_nav_bar_summary_off">Nevykreslovat pod navigační listu</string>
+    <string name="persistent_layout_per_package_id_title">Zapamatovat rozložení klávesnice pro každou aplikaci</string>
+    <string name="persistent_layout_per_package_id_off_summary">Použít jedno rozložení klávesnice pro všechny aplikace.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Automaticky přepnout na rozložení klávesnice které bylo v aplikaci použito posledně.</string>
     <string name="one_shot_quick_text_popup">Zavřít po stisku klávesy</string>
     <string name="hide_soft_when_physical">Skrýt klávesnici při fyzické klávese</string>
     <string name="hide_soft_when_physical_on_summary">Skrýt softwarovou klávesnici, když se používá fyzická</string>
@@ -177,6 +199,10 @@
     <string name="auto_dictionary_threshold_type_off">Neučit se nová slova</string>
     <string name="use_next_words_dictionary">Návrh dalšího slova</string>
     <string name="next_words_dictionary_off">Nenavrhujte další slovo</string>
+    <string name="next_words_dictionary_words_only">Doporučovat další slova</string>
+    <string name="next_words_dictionary_words_punctuations">Doporučovat další slova a diakritiku</string>
+    <string name="next_words_dictionary_summary">Používat předchozí slova pro doporučování: %s</string>
+    <string name="use_next_words_dictionary_aggressiveness">Agresivita dalších slov</string>
     <string name="use_next_words_dictionary_aggressiveness_medium">Středně agresivní</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">Zobrazit mnoho návrhů</string>
     <string name="use_next_words_dictionary_aggressiveness_summary">Agresivita návrhu dalšího slova: %s</string>
@@ -222,11 +248,17 @@
     <string name="is_sticky_extesion_keyboard">Vyskakovací rozš. klávesnice</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Zůstává viditelná, dokud není explicitně ukončena</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Ukončí se po stisku klávesy</string>
+    <string name="show_keyboard_icon_in_status_bar_title">Zobrazovat ikonu klávesnice ve stavové liště</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Zobrazí ikonu klávesnice ve stavové liště zařízení.</string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">Nezobrazovat stavovou ikonu.</string>
     <string name="is_extesion_keyboard_above_keyboard">Horní rozš. klávesnice</string>
     <string name="show_settings_app_in_launcher">Nastavení aplikace</string>
     <string name="settings_key_show_settings_app_on_summary">Nastavení aplikace bude viditelné v seznamu aplikací (může vyžadovat restart)
     </string>
     <string name="settings_key_show_settings_app_off_summary">Skrýt nastavení aplikace (může vyžadovat restart)</string>
+    <string name="always_hide_language_key">Nikdy nezobrazovat klávesu přepínání jazyků</string>
+    <string name="always_hide_language_key_on_summary">Nikdy nezobrazí klávesu pro přepínání jazyků. Klávesnice bude stále možné přepínat gesty.</string>
+    <string name="always_hide_language_key_off_summary">Zobrazovat klávesu přepínání jazyků jen pokud jich je více.</string>
     <string name="show_crash_notification">Hlášení o pádu</string>
     <string name="show_crash_notification_on_summary">Po pádu ASK otevřít dialog hlášení o pádu</string>
     <string name="show_crash_notification_off_summary">Tiše pohlcovat pády</string>
@@ -247,6 +279,8 @@
     <string name="key_press_preview_popup_off_summary">Nezobrazovat vyskakovací nabídku na stisk klávesy</string>
     <string name="zoom_factor_keys_in_portrait">Faktor výšky kláves svisle</string>
     <string name="zoom_factor_keys_in_landscape">Faktor výšky kláves vodorovně</string>
+    <string name="bottom_padding_in_dp_title">Odsazení spodní části klávesnice</string>
+    <string name="bottom_padding_in_dp_template">%d bodů</string>
     <string name="insert_space_after_word_suggestion_selection">Mezera po návrhu</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Vložit mezeru za vybraný návrh slova</string>
     <string name="double_space_to_period">Dvě mezery na tečku</string>
@@ -262,6 +296,9 @@
     <string name="lang_key_shows_popup">Nabídka přepínání jazyků</string>
     <string name="lang_key_shows_popup_on_summary">Klávesa jazyka zobrazí vyskakovací dialog výběru</string>
     <string name="lang_key_shows_popup_off_summary">Klávesa jazyka rotuje přes jazyky</string>
+    <string name="settings_os_clipboard_sync">Synchronizovat schránku s operačním systémem</string>
+    <string name="settings_os_clipboard_sync_summary_on">Detekovat změny schránky a synchronizovat s AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Ignorovat změny schránky mimo AnySoftKeyboard.</string>
     <string name="auto_caps">Autom. velká písmena</string>
     <string name="grammar_group">Gramatika</string>
     <string name="keyboard_behavior_group">Chování klávesnice</string>
@@ -270,6 +307,9 @@
     <string name="candidates_off_summary">Nezobrazí se žádné návrhy</string>
     <string name="quick_fix">Rychlé opravy a zkratky</string>
     <string name="quick_fix_summary">Opravuje běžně zadávané chyby a rozvinuje zkratky</string>
+    <string name="quick_fix_secon_disabled">…pouze v prvním jazyce</string>
+    <string name="quick_fix_secon_disabled_summ_on">Rychlé opravy a zkratky budou fungovat pouze v aktuálním jazyce rozvržení</string>
+    <string name="quick_fix_secon_disabled_summ_off">Rychlé opravy a zkratky budou fungovat pro každý jazyk</string>
     <string name="allow_suggestions_restart">Nové spuštění návrhů</string>
     <string name="allow_suggestions_restart_summary">Znovu spustit návrhy po pohybu kurzoru</string>
     <!-- settings - keyboard group -->
@@ -301,6 +341,21 @@
     <string name="lean_dark_keyboard_theme_name">Holý tmavý</string>
     <string name="lean_dark_keyboard_theme_description">Tmavý motiv s minimálními prvky rozhraní</string>
     <string name="lean_dark_2_keyboard_theme_name">Holý tmavý - alternativa 2</string>
+    <string name="lean_dark_big_keyboard_theme_name">Štíhlá tmavá - velké klávesy</string>
+    <string name="lean_dark_big_keyboard_theme_description">Stejně tmavé téma, s většími klávesami</string>
+    <string name="lean_light_keyboard_theme_name">Štíhlá světlá</string>
+    <string name="lean_light_keyboard_theme_description">Světlé téma s minimem kláves</string>
+    <string name="lean_light_2_keyboard_theme_name">Štíhlá světlá 2</string>
+    <string name="lean_light_big_keyboard_theme_name">Štíhlá světlá - velké klávesy</string>
+    <string name="lean_light_big_keyboard_theme_description">Stejně světlé téma, s většími klávesami</string>
+    <string name="lean_dark_gray_keyboard_theme_name">Štíhlá tmavě šedá</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Tmavě šedé téma s minimem kláves</string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees tmavá</string>
+    <string name="yochees_dark_keyboard_theme_description">Algimantas tmavá</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees tmavá 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees světlá</string>
+    <string name="yochees_light_keyboard_theme_description">Algimantas světlá</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Algimantas světlá s kapitálkami.</string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">Bez horního řádku</string>
     <string name="extension_kbd_top_small">Malé klávesy</string>
@@ -308,6 +363,9 @@
     <string name="extension_kbd_top_small_numbers">Číselné klávesy</string>
     <string name="extension_kbd_top_numbers_alt">Alternativní číselné klávesy</string>
     <string name="extension_kbd_top_nav">Navigační klávesy</string>
+    <string name="extension_kbd_top_nav_alt">Navigace, alternativní</string>
+    <string name="extension_kbd_top_nav_alt_no_numb">Navigace, alternativní, bez čísel v režimu hesel</string>
+    <string name="extension_kbd_top_numbers_simple">Jednoduchá, pouze čísla</string>
     <string name="extension_kbd_top_terminal">Terminál</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normální</string>
     <string name="extension_kbd_bottom_regular">Klasický (bez mikrofonu)</string>
@@ -315,9 +373,17 @@
     <string name="extension_kbd_bottom_iphone_with_voice">Styl iPhone s mikrofonem</string>
     <string name="extension_kbd_bottom_alt">Alternativní (bez mikrofonu)</string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternativní s mikrofonem</string>
+    <string name="extension_kbd_bottom_old">Stará škola</string>
+    <string name="extension_kbd_bottom_simple">Jednoduchá</string>
+    <string name="extension_kbd_bottom_simple_alt">Jednoduchá, alternativní</string>
+    <string name="extension_kbd_bottom_row_aosp">Ve stylu AOSP</string>
     <string name="extension_kbd_bottom_ng">Nová generace - testování</string>
+    <string name="extension_kbd_bottom_ng_no_apo">Nová generace (bez apostrofu) - testovací</string>
     <string name="extension_kbd_extension_numbers_symbols">Čísla a symboly</string>
     <string name="extension_kbd_bottom_minimal">Minimální</string>
+    <string name="extension_kbd_bottom_minimal_no_emoji">Minimální (bez emoji)</string>
+    <string name="extension_kbd_bottom_minimal_less_punctuation">Minimální (bez interpunkce)</string>
+    <string name="extension_kbd_bottom_minimal_alt">Minimální (alternativní)</string>
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Jít</string>
@@ -338,6 +404,7 @@
     <string name="default_quick_text_key_name">Jednoduché smajlíky</string>
     <string name="unicode_quick_text_key_name">Smajlíci</string>
     <string name="unicode_people_quick_text_key_name">Lidé</string>
+    <string name="unicode_gestures_quick_text_key_name">Gesta</string>
     <string name="unicode_animals_quick_text_key_name">Zvířata</string>
     <string name="unicode_food_quick_text_key_name">Jídlo</string>
     <string name="unicode_nature_quick_text_key_name">Příroda</string>
@@ -362,6 +429,8 @@
     <string name="settings_long_press_timeout_slow">Pomalu</string>
     <string name="settings_long_press_timeout_slower">Pomaleji</string>
     <string name="settings_long_press_timeout_never">Nikdy</string>
+    <string name="settings_force_locale_title">Vynutit lokalizaci</string>
+    <string name="settings_force_locale_summary">Vynutit lokalizaci použitou v AnySoftKeyboard (může to chvíli trvat). Aktuálně: %s.</string>
     <string name="tweak_workarounds_group">Zástupná řešení</string>
     <string name="workaround_disable_rtl_fix">Zadávání zprava doleva</string>
     <string name="workaround_disable_rtl_fix_summary_on">Použít zpracování RTL v OS (pro SE telefony)</string>
@@ -385,7 +454,17 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">Nemáte žádná slova v uživatelském slovníku. Nyní můžete přidat své první slovo.</string>
     <string name="should_swap_punctuation_and_space_title">Prohodit interpunkci a mezeru</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Neprohazovat mezerník a interpunkci.</string>
+    <string name="should_swap_punctuation_and_space_on_summary">Automaticky nahrazovat automatickou mezeru a interpunkci.</string>
     <string name="emoji_default_skin_tone_title">Výchozí barva pleti smajlíků</string>
+    <string name="emoji_default_skin_tone_value_type_2">Světlá barva pleti</string>
+    <string name="emoji_default_skin_tone_value_type_3">Středně-světlá barva pleti</string>
+    <string name="emoji_default_skin_tone_value_type_4">Střední barva pleti</string>
+    <string name="emoji_default_skin_tone_value_type_5">Středně-tmavá barva pleti</string>
+    <string name="emoji_default_skin_tone_value_type_6">Tmavá barva pleti</string>
+    <string name="emoji_default_skin_tone_value_random_type">Náhodná barva pleti</string>
+    <string name="emoji_default_gender_title">Výchozí pohlaví emoji</string>
+    <string name="emoji_default_gender_summary">Aktuální výchozí pohlaví: %s</string>
     <string name="emoji_default_gender_value_person">Osoba</string>
     <string name="emoji_default_gender_value_woman">Žena</string>
     <string name="emoji_default_gender_value_man">Muž</string>
@@ -396,6 +475,7 @@
     <string name="failed_to_create_mem_dump">Nepodařilo se vytvořit soubor se stavem paměti kvůli: <xliff:g id="message">%s</xliff:g></string>
     <string name="created_mem_dump_file">Byl vytvořen soubor se stavem paměti: <xliff:g id="file_path">%s</xliff:g></string>
     <string name="not_configured_with_click_here">Aplikace AnySoftKeyboard není plně nakonfigurována pro používání. Klikněte sem pro nastavení.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard nemá vaše oprávnění k odesílání oznámení. Mohli bychom vás jen zřídka upozornit, že vás musíme informovat o kritických problémech (jako jsou pády).</string>
     <string name="not_configured_with_just_click_here">Klikněte sem</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -406,22 +486,41 @@
     <string name="enter_word_hint">Zadejte sem nové slovo</string>
     <string name="enter_abbreviation_hint">Zkratka</string>
     <string name="enter_abbreviation_target_hint">Celá věta</string>
+    <string name="toast_error_custom_path_backup">Chyba: Jakákoliv kontextová aplikace může být otevřena</string>
     <string name="about_additional_software_licenses">Další softwarové licence</string>
     <string name="setup_wizard_step_one_title">Povolit AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">V tomto kroku potřebujete povolit <i>AnySoftKeyboard</i>. Zaškrtněte prosím <i>\'AnySoftKeyboard\'</i> ve vaší nabídce <i>Jazyk a zadávání</i>. Tím umožníte spuštění na vašem zařízení.</string>
     <string name="setup_wizard_step_one_action">Jděte do vašeho nastavení <i>Jazyk a zadávání</i>…</string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Chyba: Vaše zařízení nepodporuje klávesnice třetích stran. AnySoftKeyboard není možné aktivovat.</string>
+    <string name="setup_wizard_step_permissions_title">Povolit oprávnění</string>
     <string name="setup_wizard_step_two_title">Přepnout na AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_details">Váš systém může nyní používat <i>AnySoftKeyboard</i>, ale aplikace není nastavena jako aktivní klávesnice.\nPřepnutím se stane <i>AnySoftKeyboard</i> vaší novou klávesnicí na obrazovce spolu se všemi svými funkcemi!</string>
     <string name="setup_wizard_step_two_action">Přepněte aktivní klávesnice</string>
+    <string name="setup_wizard_step_three_title">Co bude další</string>
+    <string name="setup_wizard_step_three_details">Děkujeme, že jste si vybrali <i>AnySoftKeyboard</i>.</string>
+    <string name="setup_wizard_step_three_details_done"> <b>Jste hotovi 🎉\nPřejděte do své oblíbené aplikace a vyzkoušejte to.</b></string>
+    <string name="setup_wizard_step_three_details_actions">Nebo si klávesnici můžete přizpůsobit dle libosti:</string>
     <string name="setup_wizard_step_three_action_languages">Nastavte jazyky…</string>
     <string name="setup_wizard_step_three_action_themes">Vyberte motiv…</string>
     <string name="setup_wizard_step_three_action_all_settings">Konfigurujte všechno ostatní…</string>
+    <string name="setup_wizard_step_download_title">Stáhnout jazykové balíčky</string>
+    <string name="setup_wizard_step_download_details">Můžete se radovat, <i>AnySoftKeyboard</i> podporuje desítky jazyků. Stačí si je stáhnout.</string>
+    <string name="setup_wizard_step_download_action">Stáhnout jazykový balíček</string>
     <string name="setup_wizard_step_download_skip_action">Přeskočit</string>
     <string name="ime_crashed_text">Naneštěstí je s aplikací <i>AnySoftKeyboard</i> nějaký problém. Nepanikařte, <b>vy sami</b> můžete pomoci to vyřešit: odešlete nám zprávu o pádu a my se budeme snažit tento pád vyřešit, jak nejlépe dovedeme, abychom vám opět poskytli úchvatný zážitek s klávesnicí!\n\nS upřímnou omluvou tým vývojářů.</string>
     <string name="ime_crashed_send_button">Odeslat</string>
     <string name="ime_crashed_cancel_button">Zrušit</string>
     <string name="ime_crashed_intent_selector_title">Odeslat hlášení o pádu přes</string>
+    <string name="next_word_dict_settings">Nastavení doporučování dalšího slova</string>
     <string name="next_word_settings_group">Nastavení</string>
+    <string name="next_word_stats_group">Statistiky doporučování dalšího slova</string>
+    <string name="next_words_statistics_count">Počet počátečních slov:\u0020<xliff:g id="first_word">%d</xliff:g>\nPrůměrný počet dalších slov:\u0020<xliff:g id="second_word">%d</xliff:g></string>
+    <string name="next_words_statistics_no_usage">Zatím nic. Pište dál.</string>
+    <string name="clipboard_is_empty_toast">Schránka je prázdná, není co vložit.</string>
+    <string name="clipboard_copy_done_toast">Vybraný text byl zkopírován do schránky.</string>
+    <string name="clipboard_paste_entries_title">Vyberte text pro vložení</string>
+    <string name="next_word_prefs_clear_data">Vymazat data doporučování dalších slov</string>
+    <string name="next_word_prefs_clear_data_summary">Toto je nevratné. Celá vaše historie psaní bude vyčištěna.</string>
     <string name="read_more_about_permissions"></string>
     <string name="app_shortcut_keyboards_short_label">Klávesnice</string>
     <string name="app_shortcut_themes_short_label">Motivy</string>
@@ -439,6 +538,8 @@
     <string name="shared_prefs_provider_name">Nastavení aplikace</string>
     <string name="next_word_dict_prefs_provider">Další slova</string>
     <string name="aosp_dark_theme_name">Tmavý motiv AOSP</string>
+    <string name="aosp_dark_theme_description">Tmavá ve stylu AOSP</string>
     <string name="aosp_light_theme_name">Světlý motiv AOSP</string>
+    <string name="aosp_light_theme_description">Světlá ve stylu AOSP</string>
     <string name="delete_all_clipboard_entries">Prázdná schránka</string>
 </resources>

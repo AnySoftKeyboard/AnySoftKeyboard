@@ -30,8 +30,8 @@
     "https://bcr.bazel.build/modules/aspect_rules_lint/0.12.0/MODULE.bazel": "e767c5dbfeb254ec03275a7701b5cfde2c4d2873676804bc7cb27ddff3728fed",
     "https://bcr.bazel.build/modules/aspect_rules_lint/1.0.7/MODULE.bazel": "9e238fdd21dd3fe0ed802b93e2cdd0a491f98ad897c3fa556bdb8f3dc392810e",
     "https://bcr.bazel.build/modules/aspect_rules_lint/1.0.7/source.json": "bf9c92d4ece08f9109fa3b83592c821cf16b786210a955decab4f2f6f9154150",
-    "https://bcr.bazel.build/modules/aspect_rules_ts/3.3.2/MODULE.bazel": "8f1fead2790489dc989ae67d64def91c0ffe9c95e166b3742e0337555e5fd0f6",
-    "https://bcr.bazel.build/modules/aspect_rules_ts/3.3.2/source.json": "5c40b1b359c71989d2315333c698b40980f77bc0da3807c32071a2899d3829ed",
+    "https://bcr.bazel.build/modules/aspect_rules_ts/3.5.2/MODULE.bazel": "c9f025dabb9a8ed57daf27f11dd994278929be3b1d2773f25e0290f50b8cb20c",
+    "https://bcr.bazel.build/modules/aspect_rules_ts/3.5.2/source.json": "f1d54ab81008ece46da91d5927ba2d42c7c81056972c7a852d8893fdfe55b614",
     "https://bcr.bazel.build/modules/bazel_features/0.1.0/MODULE.bazel": "47011d645b0f949f42ee67f2e8775188a9cf4a0a1528aa2fa4952f2fd00906fd",
     "https://bcr.bazel.build/modules/bazel_features/1.1.1/MODULE.bazel": "27b8c79ef57efe08efccbd9dd6ef70d61b4798320b8d3c134fd571f78963dbcd",
     "https://bcr.bazel.build/modules/bazel_features/1.11.0/MODULE.bazel": "f9382337dd5a474c3b7d334c2f83e50b6eaedc284253334cf823044a26de03e8",
@@ -889,8 +889,8 @@
     },
     "@@aspect_rules_ts~//ts:extensions.bzl%ext": {
       "general": {
-        "bzlTransitiveDigest": "AxwoH2qYblqv6TvxcNpwVl7VZrNm0E+uCvYAbpbTDZ0=",
-        "usagesDigest": "gembgTlEIQnyk9evsPHOkSW+iOettJOSJ1t7JUnrXzU=",
+        "bzlTransitiveDigest": "Oe8HBnMn9m0PPzgCfLLdkpayFJfw62mvo1s6QpbEvJA=",
+        "usagesDigest": "rTPJfI3SFLVNvber36ijVs1s5xz85XeTjkHh1QLd0jY=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -902,7 +902,7 @@
               "bzlmod": true,
               "version": "",
               "version_from": "@@//:package.json",
-              "integrity": "sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==",
+              "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
               "build_file": "@@aspect_rules_ts~//ts:BUILD.typescript",
               "build_file_substitutions": {
                 "bazel_worker_version": "5.4.2",

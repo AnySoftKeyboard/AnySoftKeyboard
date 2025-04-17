@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="allow_permission">Leyfa</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard er að nota nöfn
+        tengiliðanna þinna til að gefa þér persónuaðlagaðar tillögur um orð: um leið og þú skrifar, er leitað að svipuðum
+        orðum til að klára og leiðrétta sjálfkrafa það sem þú skrifar.
+    </string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboard gæti þurft að láta þig vita um alvarleg vandamál (eins og hrun eða heimildir sem vantar).</string>
+</resources>
