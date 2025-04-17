@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="welcome_title">Vítejte</string>
+    <string name="welcome_subtitle_template">Děkujeme vám za instalaci\u0020<xliff:g id="app_name">%s</xliff:g>.</string>
+    <string name="release_notes_template">Změny pro <xliff:g id="app_version">%s</xliff:g>:\n<xliff:g id="release_notes">%s</xliff:g></string>
+    <string name="add_on_website_template">Navštivte nás na <xliff:g id="web_site">%s</xliff:g></string>
+    <string name="screenshot_content_description">Snímek doplňku</string>
+    <string name="not_standalone_app_text">Tato aplikace <b>není</b> samostatná, jde o rozšíření (add-on) pro AnySoftKeyboard.</string>
+    <string name="add_on_type_language" tools:ignore="UnusedResources">Jazykový balíček</string>
+    <string name="add_on_type_theme" tools:ignore="UnusedResources">Téma klávesnice</string>
+    <string name="ask_is_missing_need_install">AnySoftKeyboard není na vašem zařízení nainstalována.\nPro použití tohoto rozšiřovacího balíčku musíte nejdříve nainstalovat AnySoftKeyboard.</string>
+    <string name="open_ask_in_vending">Přejít do Obchodu Play</string>
+    <string name="ask_installed">AnySoftKeyboard je nainstalována. Pro použití tohoto rozšíření ji můžete muset nastavit.</string>
+    <string name="open_ask_main_settings">Otevřít AnySoftKeyboard</string>
+    <string name="test_add_on_description">Toto je popis testovacího doplňku, může být cokoliv</string>
+</resources>
