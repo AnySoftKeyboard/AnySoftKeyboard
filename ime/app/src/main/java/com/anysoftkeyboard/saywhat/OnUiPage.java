@@ -12,5 +12,6 @@ public interface OnUiPage extends PublicNotice {
    *
    * @return may return null if do not need to show anything.
    */
-  @Nullable View inflateContentView(@NonNull Context context);
+  @Nullable
+  View inflateContentView(@NonNull Context context);
 }

@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         //taken from https://github.com/tbroyer/gradle-errorprone-plugin
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:3.1.0'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:4.1.0'
     }
 }
 
@@ -16,7 +16,7 @@ dependencies {
     //annotationProcessor "com.uber.nullaway:nullaway:0.6.4"
 
     //taken from https://github.com/google/error-prone/releases
-    errorprone 'com.google.errorprone:error_prone_core:2.19.1'
+    errorprone 'com.google.errorprone:error_prone_core:2.37.0'
     implementation 'com.google.errorprone:error_prone_annotations:2.15.0'
 }
 

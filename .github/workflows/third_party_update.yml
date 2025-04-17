@@ -1,6 +1,5 @@
 ---
 name: third-party-update
-
 # always run on the default branch: main
 on:
   schedule:
@@ -11,19 +10,17 @@ on:
     paths:
       - 'scripts/ci/third-party-update/**/*'
       - '.github/workflows/third_party_update.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-
 jobs:
   general-maven-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.2
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -35,7 +32,7 @@ jobs:
           ./gradlew :api:assembleDebug :api:lintDebug
           ./gradlew :api:assembleDebug :api:lintDebug
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.5
+        uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Maven Artifacts Update'
@@ -44,14 +41,12 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/maven-update'
-          delete-branch:
-            true
-
+          delete-branch: true
   github-actions-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_base:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.2
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -59,7 +54,7 @@ jobs:
       - name: update-github-actions
         run: ./scripts/ci/third-party-update/update_github_actions.sh
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.5
+        uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated GitHub Actions update from new releases in github.com'
@@ -68,11 +63,10 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/github-actions-update'
-          delete-branch:
-            true
-
+          delete-branch: true
   third-party-update:
     strategy:
+      fail-fast: false
       matrix:
         type: [gradle, robolectric, build_tools, error_prone, spotless]
         include:
@@ -93,10 +87,10 @@ jobs:
               - https://plugins.gradle.org/m2/com/diffplug/spotless/spotless-plugin-gradle/maven-metadata.xml
               - https://github.com/diffplug/spotless
               - https://github.com/google/google-java-format/releases
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.2
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -113,7 +107,7 @@ jobs:
       - name: Add changed files
         run: ./scripts/ci/third-party-update/${{ matrix.type}}/add_files_to_commit.sh
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.5
+        uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated ${{ matrix.type}} ${{ env.LATEST_VERSION }} update'
@@ -124,29 +118,23 @@ jobs:
           team-reviewers: infra, maintainers
           branch: 'bot-pr/auto-update-${{ matrix.type}}'
           delete-branch: true
-
   general-js-deps:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v4.0.0
         with:
-          version: 8.6.9
           run_install: true
-      - uses: actions/setup-node@v4.0.2
+      - uses: actions/setup-node@v4.1.0
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
       - name: upgrade to latest deps using pnpm
         run: pnpm upgrade --latest
-      - name: Sanity verification
-        run: pnpm build
-      - name: re-package node binaries
-        run: pnpm package
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.5
+        uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated JS Dependencies Update Update'
@@ -155,5 +143,4 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/js-deps-update'
-          delete-branch:
-            true
+          delete-branch: true

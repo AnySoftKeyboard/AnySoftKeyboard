@@ -93,7 +93,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     return editorInfo;
   }
 
-  @Nullable public static Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
+  @Nullable
+  public static Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
     for (Keyboard.Key aKey : keyboard.getKeys()) {
       if (aKey.getPrimaryCode() == keyCode) {
         return aKey;
@@ -181,7 +182,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
   }
 
   @VisibleForTesting
-  @NonNull @Override
+  @NonNull
+  @Override
   public Suggest getSuggest() {
     return super.getSuggest();
   }
@@ -194,13 +196,15 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     return mCandidateShowsHint;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected Suggest createSuggest() {
     return Mockito.spy(
         new TestableSuggest(
             new SuggestImpl(
                 new SuggestionsProvider(this) {
-                  @NonNull @Override
+                  @NonNull
+                  @Override
                   protected ContactsDictionary createRealContactsDictionary() {
                     return Mockito.mock(ContactsDictionary.class);
                   }
@@ -288,7 +292,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     return mEditorInfo;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected KeyboardSwitcher createKeyboardSwitcher() {
     return mTestableKeyboardSwitcher = new TestableKeyboardSwitcher(this);
   }
@@ -419,7 +424,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
   }
 
-  @Nullable public Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode) {
+  @Nullable
+  public Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode) {
     return findKeyWithPrimaryKeyCode(keyCode, getCurrentKeyboard());
   }
 
@@ -477,7 +483,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     return mCreatedInputMethodSession;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public AbstractInputMethodImpl onCreateInputMethodInterface() {
     return mCreatedInputMethodInterface = super.onCreateInputMethodInterface();
   }
@@ -490,7 +497,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     return mInputConnection;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(
       @NonNull AnyKeyboard currentAlphabetKeyboard) {
     final DictionaryBackgroundLoader.Listener dictionaryLoadedListener =

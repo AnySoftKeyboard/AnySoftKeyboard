@@ -51,7 +51,8 @@ public class NextWordDictionary implements NextWordSuggestions {
   }
 
   @Override
-  @NonNull public Iterable<String> getNextWords(
+  @NonNull
+  public Iterable<String> getNextWords(
       @NonNull String currentWord, int maxResults, final int minWordUsage) {
     maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
 

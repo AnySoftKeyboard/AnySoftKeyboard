@@ -115,7 +115,8 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
         sortIndex);
   }
 
-  @NonNull @CheckReturnValue
+  @NonNull
+  @CheckReturnValue
   public static Observable<KeyboardTheme> observeCurrentTheme(@NonNull Context context) {
     final KeyboardThemeFactory factory = AnyApplication.getKeyboardThemeFactory(context);
     return Observable.<String>create(

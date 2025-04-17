@@ -4,6 +4,12 @@ import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { WebhookPayload } from '@actions/github/lib/interfaces.js';
 
+export interface CommandLineInputs {
+  token: string;
+  allowed_review_for: string;
+  review_as: string;
+}
+
 export interface ActionInputs {
   token: string;
   allowed_review_for: string[];
@@ -14,21 +20,21 @@ export interface ActionInputs {
   target_git: string;
 }
 
-export function getActionInputs(
-  getActionInputFunc: (key: string) => string,
-  githubPayload: WebhookPayload,
-): ActionInputs {
+export function getActionInputs(commandLineInputs: CommandLineInputs, githubPayload: WebhookPayload): ActionInputs {
+  const pullRequest = githubPayload.pull_request!;
   return {
-    token: getActionInputFunc('token'),
-    review_as: getActionInputFunc('review_as'),
-    allowed_review_for: getActionInputFunc('allowed_users')
+    token: commandLineInputs.token,
+    review_as: commandLineInputs.review_as,
+    allowed_review_for: commandLineInputs.allowed_review_for
       .split(',')
       .map((u) => u.trim())
       .filter((u) => u.length > 0),
-    sender_login: githubPayload.pull_request.user.login,
-    requested_reviewers: githubPayload.pull_request.requested_reviewers.map((u) => u.login).filter((u) => u.length > 0),
-    source_git: githubPayload.pull_request.base.git_url,
-    target_git: githubPayload.pull_request.head.git_url,
+    sender_login: pullRequest.user.login,
+    requested_reviewers: pullRequest.requested_reviewers
+      .map((u: { login: string }) => u.login)
+      .filter((u: string) => u.length > 0),
+    source_git: pullRequest.base.git_url,
+    target_git: pullRequest.head.git_url,
   };
 }
 
@@ -65,7 +71,7 @@ export function shouldApprove(actionInputs: ActionInputs): boolean {
   }
 }
 
-export async function approvePr(token: string) {
+export async function approvePr(token: string): Promise<void> {
   const octokit = github.getOctokit(token);
 
   await octokit.rest.pulls.createReview({

@@ -340,6 +340,8 @@
     <string name="key_press_preview_popup_off_summary">Vis ikke popup ved tastetryk</string>
     <string name="zoom_factor_keys_in_portrait">Knap højde i stående tilstand</string>
     <string name="zoom_factor_keys_in_landscape">Knap højde i landskabs-mode</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_template">%d point</string>
     <string name="insert_space_after_word_suggestion_selection">Mellemrum efter kandidatvalg</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Indsæt mellemrum efter valg af
         ordforslag
@@ -752,6 +754,5 @@
     <string name="app_share_menu_title">Del AnySoftKeyboard med</string>
     <string name="app_share_text">Lad mig anbefale den open source, privatlivfokuseret, gratis, tilpasningsdygtige, flersproget Android tastatur-app AnySoftKeyboard.\nHent den fra:\nPlay Butik: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.android.anysoftkeyboard /</string>
     <string name="click_me_for_easter_egg_info">klik på mig for en overraskelse</string>
-    <string name="backup_restore_not_support_before_kitkat">Ikke understøttet på din Android</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Backup og gendannelse understøttes ikke for enheder, der kører Android OS før KitKat (version 4. 4). Beklager.</string>
+    <string name="wizard_skip_notification_permission">Tillad ikke notifikationer</string>
 </resources>

@@ -1,26 +1,28 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.os.Build;
 import android.provider.Settings;
 import androidx.lifecycle.Lifecycle;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 import java.util.Collection;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowContentResolver;
@@ -31,6 +33,11 @@ public class SetUpKeyboardWizardTest {
   @Rule
   public ActivityScenarioRule<SetupWizardActivity> mActivityScenarioRule =
       new ActivityScenarioRule<>(SetupWizardActivity.class);
+
+  @Before
+  public void setup() {
+    InputMethodManagerShadow.setKeyboardEnabled(RuntimeEnvironment.getApplication(), false);
+  }
 
   @TargetApi(Build.VERSION_CODES.M)
   @Test
@@ -56,9 +63,8 @@ public class SetUpKeyboardWizardTest {
             });
   }
 
-  @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
   @Test
-  /*I don't want to also verify the permissions page too*/
+  /*I don't want to also verify the permissions page*/
   @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
   public void testHappyPath() {
     mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.STARTED);
@@ -94,15 +100,11 @@ public class SetUpKeyboardWizardTest {
     mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.CREATED);
     TestRxSchedulers.drainAllTasks();
 
-    final String flatASKComponent =
-        new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
-            .flattenToString();
-    final ContentResolver contentResolver =
-        ApplicationProvider.getApplicationContext().getContentResolver();
-    Settings.Secure.putString(
-        contentResolver, Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+    Application application = RuntimeEnvironment.getApplication();
+    InputMethodManagerShadow.setKeyboardEnabled(application, true);
     final Collection<ContentObserver> contentObservers =
-        Shadows.shadowOf(contentResolver).getContentObservers(Settings.Secure.CONTENT_URI);
+        Shadows.shadowOf(application.getContentResolver())
+            .getContentObservers(Settings.Secure.CONTENT_URI);
     contentObservers.iterator().next().dispatchChange(false, Settings.Secure.CONTENT_URI);
     TestRxSchedulers.drainAllTasks();
     // notifying about the change.
@@ -124,6 +126,9 @@ public class SetUpKeyboardWizardTest {
         .getScenario()
         .onActivity(
             activity -> {
+              final String flatASKComponent =
+                  new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName())
+                      .flattenToString();
               Settings.Secure.putString(
                   activity.getContentResolver(),
                   Settings.Secure.DEFAULT_INPUT_METHOD,
@@ -148,6 +153,8 @@ public class SetUpKeyboardWizardTest {
     mActivityScenarioRule.getScenario().moveToState(Lifecycle.State.DESTROYED);
     Assert.assertEquals(
         0,
-        Shadows.shadowOf(contentResolver).getContentObservers(Settings.Secure.CONTENT_URI).size());
+        Shadows.shadowOf(application.getContentResolver())
+            .getContentObservers(Settings.Secure.CONTENT_URI)
+            .size());
   }
 }

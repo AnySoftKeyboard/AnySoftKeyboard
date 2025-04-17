@@ -8,11 +8,11 @@ import org.junit.runner.Description;
  */
 public abstract class SimpleHashingStrategyBase implements HashingStrategy {
 
-    @Override
-    public int calculateHashFromDescription(final Description description, final int groupsCount) {
-        return Math.abs(calculateHashFromDescription(description)) % groupsCount;
-    }
+  @Override
+  public int calculateHashFromDescription(final Description description, final int groupsCount) {
+    return Math.abs(calculateHashFromDescription(description)) % groupsCount;
+  }
 
-    /** calculates a hashing value for the given description. */
-    protected abstract int calculateHashFromDescription(Description description);
+  /** calculates a hashing value for the given description. */
+  protected abstract int calculateHashFromDescription(Description description);
 }

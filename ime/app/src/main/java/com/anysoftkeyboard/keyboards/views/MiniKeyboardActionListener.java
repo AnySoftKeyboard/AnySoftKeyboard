@@ -8,7 +8,8 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
   public interface OnKeyboardActionListenerProvider {
-    @NonNull OnKeyboardActionListener listener();
+    @NonNull
+    OnKeyboardActionListener listener();
   }
 
   @NonNull private final OnKeyboardActionListenerProvider mParentListener;

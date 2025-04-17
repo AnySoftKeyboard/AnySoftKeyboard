@@ -9,6 +9,8 @@
     <string name="keyboard_azerty_accents_description">Clavier français - AZERTY avec priorité aux accents</string>
     <string name="keyboard_bepo_name">BÉPO</string>
     <string name="keyboard_bepo_description">Clavier français - BÉPO</string>
+    <string name="keyboard_ergol_name">Ergo-L</string>
+    <string name="keyboard_ergol_description">Clavier français - Ergol-L</string>
     <string name="keyboard_qwerty_name">QWERTY CA - FR</string>
     <string name="keyboard_qwerty_description">Clavier français - QWERTY</string>
     <string name="keyboard_qwerty_with_symbols_name">QWERTY CA - FR</string>

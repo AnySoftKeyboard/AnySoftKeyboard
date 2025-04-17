@@ -1,0 +1,24 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "approval",
+    srcs = [
+        "approval.ts",
+        "index.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@actions/core",
+        "//:node_modules/@actions/github",
+        "//:node_modules/@types/node",
+        "//:node_modules/commander",
+        "//:node_modules/undici",
+    ],
+)
+
+js_binary(
+    name = "auto_approval",
+    data = [":approval"],
+    entry_point = "dist/index.js",
+)

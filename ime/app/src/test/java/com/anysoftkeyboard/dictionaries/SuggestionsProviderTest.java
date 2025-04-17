@@ -50,12 +50,14 @@ public class SuggestionsProviderTest {
 
     mSuggestionsProvider =
         new SuggestionsProvider(getApplicationContext()) {
-          @NonNull @Override
+          @NonNull
+          @Override
           protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
             return mTestUserDictionary;
           }
 
-          @NonNull @Override
+          @NonNull
+          @Override
           protected ContactsDictionary createRealContactsDictionary() {
             return mFakeContactsDictionary = Mockito.mock(ContactsDictionary.class);
           }
@@ -517,7 +519,8 @@ public class SuggestionsProviderTest {
       return mSpiedDictionary;
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public List<String> createInitialSuggestions() {
       return Arrays.asList(";", ".");
     }

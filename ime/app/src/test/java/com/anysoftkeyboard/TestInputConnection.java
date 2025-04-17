@@ -542,7 +542,8 @@ public class TestInputConnection extends BaseInputConnection {
     return false;
   }
 
-  @NonNull public String getCurrentTextInInputConnection() {
+  @NonNull
+  public String getCurrentTextInInputConnection() {
     return mInputText.toString();
   }
 

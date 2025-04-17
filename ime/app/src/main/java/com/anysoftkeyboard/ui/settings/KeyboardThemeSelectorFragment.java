@@ -31,7 +31,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.overlay.OverlayData;
-import com.anysoftkeyboard.overlay.OverlyDataCreatorForAndroid;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -42,13 +42,14 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
   private TextView mApplySummaryText;
   private Preference<Boolean> mApplyPrefs;
   private DemoAnyKeyboardView mSelectedKeyboardView;
-  private OverlayData mOverlayData = new OverlayData();
+  private OverlayData mOverlayData = new OverlayDataImpl();
 
   public KeyboardThemeSelectorFragment() {
     super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected AddOnsFactory<KeyboardTheme> getAddOnFactory() {
     return AnyApplication.getKeyboardThemeFactory(requireContext());
   }
@@ -77,20 +78,15 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     demoView.addView(applyOverlayView);
     mApplySummaryText = applyOverlayView.findViewById(R.id.apply_overlay_summary);
     CheckBox checkBox = applyOverlayView.findViewById(R.id.apply_overlay);
-    if (!OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
-      mApplySummaryText.setVisibility(View.GONE);
-      checkBox.setVisibility(View.GONE);
-    }
     View demoAppsRoot = applyOverlayView.findViewById(R.id.overlay_demo_apps_root);
     checkBox.setOnCheckedChangeListener(
         (v, isChecked) -> {
-          isChecked &= OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
           mApplyPrefs.set(isChecked);
           mApplySummaryText.setText(
               isChecked ? R.string.apply_overlay_summary_on : R.string.apply_overlay_summary_off);
           demoAppsRoot.setVisibility(isChecked ? View.VISIBLE : View.GONE);
           if (!isChecked) {
-            mOverlayData = new OverlayData(); /*empty one, to clear overlay*/
+            mOverlayData = new OverlayDataImpl(); /*empty one, to clear overlay*/
             mSelectedKeyboardView.setThemeOverlay(mOverlayData);
           }
         });
@@ -143,7 +139,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
 
     Activity activity = requireActivity();
     mOverlayData =
-        new OverlayData(
+        new OverlayDataImpl(
             ContextCompat.getColor(activity, primaryBackground),
             ContextCompat.getColor(activity, secondaryBackground),
             ContextCompat.getColor(activity, primaryText),
@@ -158,7 +154,8 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     return R.string.search_market_for_keyboard_addons;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   protected String getMarketSearchKeyword() {
     return "theme";
   }

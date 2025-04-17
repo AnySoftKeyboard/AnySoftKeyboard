@@ -1,6 +1,5 @@
 ---
 name: localization
-
 # always run on the default branch: main
 on:
   # schedule is used to fetch new, async, translations
@@ -14,29 +13,27 @@ on:
       - '**/res/values/strings.xml'
       - '.github/workflows/localization_update.yml'
       - 'crowdin.yml'
-
 env:
   TERM: dumb
   TMPDIR: "/tmp"
   CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_PERSONAL_TOKEN }}
-
 jobs:
   localization-update:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.2
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Crowdin push
-        uses: crowdin/github-action@v2.0.0
+        uses: crowdin/github-action@v2.3.0
         with:
           upload_sources: true
           upload_translations: false
           download_translations: false
           config: crowdin.yml
       - name: Crowdin pull
-        uses: crowdin/github-action@v2.0.0
+        uses: crowdin/github-action@v2.3.0
         with:
           upload_sources: false
           upload_translations: false
@@ -53,7 +50,7 @@ jobs:
       - name: fix git safe dir
         run: git config --global --add safe.directory "${PWD}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6.0.5
+        uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'

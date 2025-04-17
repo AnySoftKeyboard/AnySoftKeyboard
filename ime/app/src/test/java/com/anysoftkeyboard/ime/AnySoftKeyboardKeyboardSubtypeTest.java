@@ -15,7 +15,6 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import java.util.List;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -350,44 +349,6 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     // ensuring keyboard was changed
     Assert.assertSame(
         nextKeyboard.getId(),
-        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
-  }
-
-  @Test
-  @Ignore("Robolectric does not support gingerbread")
-  @Config(sdk = Build.VERSION_CODES.GINGERBREAD_MR1)
-  public void testKeyboardDoesSwitchWithoutSubtypeReported() {
-    // enabling ALL keyboards for this test
-    for (int i = 0;
-        i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size();
-        i++) {
-      AddOnTestUtils.ensureKeyboardAtIndexEnabled(i, true);
-    }
-
-    simulateOnStartInputFlow();
-    // switching to the next keyboard
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-    final KeyboardAddOnAndBuilder keyboardBuilderOne =
-        AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
-    // ensuring keyboard was changed
-    Assert.assertSame(
-        keyboardBuilderOne.getId(),
-        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
-    // NOT reporting, and performing another language change
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-    final KeyboardAddOnAndBuilder keyboardBuilderTwo =
-        AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(2);
-    // ensuring keyboard was changed
-    Assert.assertSame(
-        keyboardBuilderTwo.getId(),
-        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
-
-    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-    final KeyboardAddOnAndBuilder keyboardBuilderThree =
-        AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(3);
-    // ensuring keyboard was changed
-    Assert.assertSame(
-        keyboardBuilderThree.getId(),
         mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
   }
 }

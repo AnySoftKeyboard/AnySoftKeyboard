@@ -183,12 +183,14 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
       super(app, previous, driver);
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     protected Intent createBugReportingActivityIntent() {
       return new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     protected String getAppDetails() {
       return "This is the app details in a test";
     }

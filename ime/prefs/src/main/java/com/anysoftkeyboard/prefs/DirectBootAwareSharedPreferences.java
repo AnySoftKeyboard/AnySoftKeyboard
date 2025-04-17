@@ -9,6 +9,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.core.os.UserManagerCompat;
 import androidx.core.util.Consumer;
 import androidx.preference.PreferenceManager;
@@ -39,11 +40,13 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
     obtainSharedPreferences();
   }
 
-  @NonNull public static SharedPreferences create(@NonNull Context context) {
+  @NonNull
+  public static SharedPreferences create(@NonNull Context context) {
     return create(context, sp -> {} /*no op listener*/);
   }
 
-  @NonNull public static SharedPreferences create(
+  @NonNull
+  public static SharedPreferences create(
       @NonNull Context context, @NonNull Consumer<SharedPreferences> onReadyListener) {
     // CHECKSTYLE:OFF
     return new DirectBootAwareSharedPreferences(
@@ -81,7 +84,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
         Logger.w("DirectBootAwareSharedPreferences", "Device locked! Will fake Shared-Preferences");
         mActual = new NoOpSharedPreferences();
         Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: registerReceiver");
-        mContext.registerReceiver(
+        ContextCompat.registerReceiver(
+            mContext,
             new BroadcastReceiver() {
               @Override
               public void onReceive(Context context, Intent intent) {
@@ -95,7 +99,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
                 }
               }
             },
-            new IntentFilter(Intent.ACTION_USER_UNLOCKED));
+            new IntentFilter(Intent.ACTION_USER_UNLOCKED),
+            ContextCompat.RECEIVER_EXPORTED);
       }
     } else {
       Logger.i("DirectBootAwareSharedPreferences", "obtainSharedPreferences: old device");
@@ -109,12 +114,14 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
     return mActual.getAll();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public String getString(String key, @Nullable String defValue) {
     return mActual.getString(key, defValue);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Set<String> getStringSet(String key, @Nullable Set<String> defValues) {
     return mActual.getStringSet(key, defValues);
   }
@@ -161,7 +168,8 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
   }
 
   interface SharedPreferencesFactory {
-    @NonNull SharedPreferences create(@NonNull Context context);
+    @NonNull
+    SharedPreferences create(@NonNull Context context);
   }
 
   private static class NoOpSharedPreferences implements SharedPreferences {
@@ -172,12 +180,14 @@ public class DirectBootAwareSharedPreferences implements SharedPreferences {
       return Collections.emptyMap();
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public String getString(String key, @Nullable String defValue) {
       return defValue;
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public Set<String> getStringSet(String key, @Nullable Set<String> defValues) {
       return defValues;
     }

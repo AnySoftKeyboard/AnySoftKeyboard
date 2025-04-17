@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="all">
+        <ignore path="**/build/generated/**/*.xml" />
+        <ignore path="**/build/generated/*.xml" />
+        <ignore path="build" />
+    </issue>
+
+    <issue id="MissingClass">
+        <ignore path="**/build/generated/*.xml" />
+    </issue>
+
+    <issue id="TypographyEllipsis">
+        <ignore path="**/build/generated/**/*.xml" />
+    </issue>
+
+    <issue id="Typos" severity="error">
+        <ignore path="**/bbcodes/apk/build/generated/activity_res/values/description.xml"/>
+    </issue>
+
     <issue id="ObsoleteSdkInt" severity="error" />
 
     <issue id="IgnoreWithoutReason" severity="error" />
@@ -39,6 +57,7 @@
     <issue id="UnusedResources" severity="error">
         <ignore path="**/strings_do_not_translate.xml" />
         <ignore path="**/layout/*.xml" />
+        <ignore path="**/ime/pixel/**/res/*/*.xml" />
     </issue>
 
     <issue id="MissingTranslation" severity="error">

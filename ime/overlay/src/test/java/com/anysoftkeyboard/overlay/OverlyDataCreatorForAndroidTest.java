@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
-import android.os.Build;
 import androidx.annotation.StyleRes;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -18,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowPackageManager;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -54,13 +52,6 @@ public class OverlyDataCreatorForAndroidTest {
     applicationInfo.packageName = mComponentName.getPackageName();
 
     shadowPackageManager.addPackage(packageInfo);
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.KITKAT)
-  public void testAlwaysInvalidWhenPriorToLollipop() {
-    setupReturnedColors(R.style.HappyPathRawColors);
-    Assert.assertFalse(mUnderTest.createOverlayData(mComponentName).isValid());
   }
 
   @Test

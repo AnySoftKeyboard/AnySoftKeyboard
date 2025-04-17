@@ -5,12 +5,10 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.annotation.VisibleForTesting;
 import androidx.preference.PreferenceManager;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
 
-@VisibleForTesting
 public class SharedPrefsHelper {
   public static SharedPreferences setPrefsValue(@StringRes int keyRes, String value) {
     return setPrefsValue(getApplicationContext().getResources().getString(keyRes), value);
@@ -72,7 +70,8 @@ public class SharedPrefsHelper {
     return getSharedPreferences().getString(key, defaultValue);
   }
 
-  @NonNull public static SharedPreferences getSharedPreferences() {
+  @NonNull
+  public static SharedPreferences getSharedPreferences() {
     return PreferenceManager.getDefaultSharedPreferences(
         ApplicationProvider.getApplicationContext());
   }

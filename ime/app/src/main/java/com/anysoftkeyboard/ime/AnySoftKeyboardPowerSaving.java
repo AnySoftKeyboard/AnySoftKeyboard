@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.android.PowerSaving;
-import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
@@ -37,7 +37,8 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardNightMod
                 mToggleOverlayCreator::setToggle, GenericOnError.onError("Power-Saving theme")));
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected List<Drawable> generateWatermark() {
     final List<Drawable> watermark = super.generateWatermark();
     if (mPowerState) {
@@ -52,7 +53,7 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardNightMod
         new ToggleOverlayCreator(
             super.createOverlayDataCreator(),
             this,
-            new OverlayData(Color.BLACK, Color.BLACK, Color.DKGRAY, Color.GRAY, Color.DKGRAY),
+            new OverlayDataImpl(Color.BLACK, Color.BLACK, Color.DKGRAY, Color.GRAY, Color.DKGRAY),
             "PowerSaving");
   }
 }

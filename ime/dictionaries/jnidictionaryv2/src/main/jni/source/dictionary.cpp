@@ -56,6 +56,16 @@ namespace nativeime {
 
         getWordsRec(0, 0, mInputLength * 3, false, 1, 0, 0);
 
+        if (mFrequencies[0] == 0) {
+            // We do not have a typed word, so we need to shift the outputs
+            // to disregard the empty "typed" cell.
+            memmove((char *) mFrequencies,
+                    (char *) mFrequencies + sizeof(mFrequencies[0]),
+                    (mMaxWords - 1) * sizeof(mFrequencies[0]));
+            memmove((char *) mOutputChars,
+                    (char *) mOutputChars + mMaxWordLength * sizeof(short),
+                    (mMaxWords - 1) * sizeof(short) * mMaxWordLength);
+        }
         // Get the word count
         suggWords = 0;
         while (suggWords < mMaxWords && mFrequencies[suggWords] > 0) suggWords++;
@@ -110,18 +120,21 @@ namespace nativeime {
     }
 
     bool
-    Dictionary::addWord(unsigned short *word, int length, int frequency) {
+    Dictionary::addWord(unsigned short *word, int length, int frequency, bool isTyped) {
         word[length] = 0;
 
-        // Find the right insertion point
         int insertAt = 0;
-        while (insertAt < mMaxWords) {
-            if (frequency > mFrequencies[insertAt]
-                || (mFrequencies[insertAt] == frequency
-                    && length < wideStrLen(mOutputChars + insertAt * mMaxWordLength))) {
-                break;
+        if (!isTyped) {
+            // Find the right insertion point (after the typed word)
+            insertAt = 1;
+            while (insertAt < mMaxWords) {
+                if (frequency > mFrequencies[insertAt]
+                    || (mFrequencies[insertAt] == frequency
+                        && length < wideStrLen(mOutputChars + insertAt * mMaxWordLength))) {
+                    break;
+                }
+                insertAt++;
             }
-            insertAt++;
         }
         if (insertAt < mMaxWords) {
             memmove((char *) mFrequencies + (insertAt + 1) * sizeof(mFrequencies[0]),
@@ -169,7 +182,7 @@ namespace nativeime {
             return;
         }
         const int count = getCount(&pos);
-        int *currentChars = NULL;
+        int *currentChars = nullptr;
         if (mInputLength <= inputIndex) {
             completion = true;
         } else {
@@ -194,10 +207,10 @@ namespace nativeime {
             // -- after add or freq
 
             // If we are only doing completions, no need to look at the typed characters.
-            if (completion) {
+            if (completion || currentChars == nullptr/*basically, the same since currentChars is null if completion is set to true*/) {
                 mWord[depth] = c;
                 if (terminal) {
-                    addWord(mWord, depth + 1, freq * snr);
+                    addWord(mWord, depth + 1, freq * snr, false);
                     if (depth >= mInputLength && mSkipPos < 0) {
                         registerNextLetter(mWord[mInputLength]);
                     }
@@ -209,7 +222,7 @@ namespace nativeime {
             } else {
                 int j = 0;
                 while (currentChars[j] > 0) {
-                    const unsigned short currentChar = (const unsigned short) currentChars[j];
+                    auto currentChar = (const unsigned short) currentChars[j];
                     const unsigned short lowerCurrentChar = CharUtils::toBaseLowerCase(currentChar);
                     //currentChar can be upper or lower
                     //c can be upper or lower
@@ -224,10 +237,11 @@ namespace nativeime {
                         mWord[depth] = c;
                         if (mInputLength == inputIndex + 1) {
                             if (terminal) {
-                                if (INCLUDE_WORD_IF_VALID || !sameAsTyped(mWord, depth + 1)) {
+                                auto isTyped = sameAsTyped(mWord, depth + 1);
+                                if (INCLUDE_WORD_IF_VALID || !isTyped) {
                                     int finalFreq = freq * snr * addedWeight;
                                     if (mSkipPos < 0) finalFreq *= mFullWordMultiplier;
-                                    addWord(mWord, depth + 1, finalFreq);
+                                    addWord(mWord, depth + 1, finalFreq, isTyped);
                                 }
                             }
                             if (childrenAddress != 0) {
@@ -339,6 +353,7 @@ namespace nativeime {
                 }
             }
             if (terminal) {
+                // if this is a terminal node, we also need to consume (and advance pos)
                 getFreq(&pos);
             }
             // There could be two instances of each alphabet - upper and lower case. So continue

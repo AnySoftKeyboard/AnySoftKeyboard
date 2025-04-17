@@ -6,8 +6,8 @@
     <string name="add_on_website_template">Visítanos en <xliff:g id="web_site">%s</xliff:g></string>
     <string name="screenshot_content_description">Una captura de pantalla del complemento</string>
     <string name="not_standalone_app_text">Esta aplicación <b>no</b> es una aplicación independiente, sino un paquete de expansión (complemento) para AnySoftKeyboard.</string>
-    <string name="add_on_type_language">Paquete de idioma</string>
-    <string name="add_on_type_theme">Tema de teclado</string>
+    <string name="add_on_type_language" tools:ignore="UnusedResources">Paquete de idioma</string>
+    <string name="add_on_type_theme" tools:ignore="UnusedResources">Tema de teclado</string>
     <string name="ask_is_missing_need_install">AnySoftKeyboard no está instalado en tu dispositivo.\nPara utilizar este paquete de expansión, primero debes instalar AnySoftKeyboard.</string>
     <string name="open_ask_in_vending">Ir a la Play Store</string>
     <string name="ask_installed">AnySoftKeyboard está instalado. Es posible que necesites configurarlo para comenzar a utilizar este paquete de expansión.</string>

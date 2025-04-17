@@ -7,7 +7,7 @@
      "dictionaryResourceId" : a reference to the raw resource of the words dictionary
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
-    <Dictionary nameResId="@string/turkish_dictionary_name" locale="tr" id="048aa6d0-e03a-11e7-8f1a-0800200c9a66" type="binary_resource"
+    <Dictionary nameResId="@string/turkish_dictionary_name" locale="tr" id="048aa6d0-e03a-11e7-8f1a-0800200c9a65" type="binary_resource"
     dictionaryResourceId="@array/ossturkish_words_dict_array" autoTextResourceId="@xml/turkish_autotext"
     description="Türkçe"/>
 </Dictionaries>

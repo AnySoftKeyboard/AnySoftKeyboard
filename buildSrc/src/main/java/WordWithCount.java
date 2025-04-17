@@ -18,60 +18,59 @@ import java.util.HashMap;
 import java.util.Map;
 
 class WordWithCount implements Comparable<WordWithCount> {
-    private final String mKey;
-    private final Map<String, Integer> mWordVariants = new HashMap<>();
-    private int mFreq;
+  private final String mKey;
+  private final Map<String, Integer> mWordVariants = new HashMap<>();
+  private int mFreq;
 
-    public WordWithCount(String word) {
-        mKey = word.toLowerCase();
-        mWordVariants.put(word, 1);
-        mFreq = 0;
+  public WordWithCount(String word) {
+    mKey = word.toLowerCase();
+    mWordVariants.put(word, 1);
+    mFreq = 0;
+  }
+
+  public WordWithCount(String word, int frequency) {
+    mKey = word.toLowerCase();
+    mWordVariants.put(word, 1);
+    mFreq = frequency;
+  }
+
+  public String getKey() {
+    return mKey;
+  }
+
+  public String getWord() {
+    String mostUsedWord = mKey;
+    int mostUsedValue = Integer.MIN_VALUE;
+    for (Map.Entry<String, Integer> variant : mWordVariants.entrySet()) {
+      if (variant.getValue() > mostUsedValue) {
+        mostUsedValue = variant.getValue();
+        mostUsedWord = variant.getKey();
+      }
     }
 
-    public WordWithCount(String word, int frequency) {
-        mKey = word.toLowerCase();
-        mWordVariants.put(word, 1);
-        mFreq = frequency;
-    }
+    return mostUsedWord;
+  }
 
-    public String getKey() {
-        return mKey;
-    }
+  public int getFreq() {
+    return mFreq;
+  }
 
-    public String getWord() {
-        String mostUsedWord = mKey;
-        int mostUsedValue = Integer.MIN_VALUE;
-        for (Map.Entry<String, Integer> variant : mWordVariants.entrySet()) {
-            if (variant.getValue() > mostUsedValue) {
-                mostUsedValue = variant.getValue();
-                mostUsedWord = variant.getKey();
-            }
-        }
+  public void addFreq(String word) {
+    if (mFreq < Integer.MAX_VALUE) mFreq++;
+    mWordVariants.compute(word, (s, usages) -> usages == null ? 1 : usages + 1);
+  }
 
-        return mostUsedWord;
+  public void addOtherWord(WordWithCount wordWithCount) {
+    mFreq = Math.max(mFreq, wordWithCount.mFreq);
+    for (Map.Entry<String, Integer> variant : mWordVariants.entrySet()) {
+      mWordVariants.compute(
+          variant.getKey(),
+          (s, usages) -> usages == null ? variant.getValue() : usages + variant.getValue());
     }
+  }
 
-    public int getFreq() {
-        return mFreq;
-    }
-
-    public void addFreq(String word) {
-        if (mFreq < Integer.MAX_VALUE) mFreq++;
-        mWordVariants.compute(word, (s, usages) -> usages == null ? 1 : usages + 1);
-    }
-
-    public void addOtherWord(WordWithCount wordWithCount) {
-        mFreq = Math.max(mFreq, wordWithCount.mFreq);
-        for (Map.Entry<String, Integer> variant : mWordVariants.entrySet()) {
-            mWordVariants.compute(
-                    variant.getKey(),
-                    (s, usages) ->
-                            usages == null ? variant.getValue() : usages + variant.getValue());
-        }
-    }
-
-    @Override
-    public int compareTo(WordWithCount o) {
-        return o.mFreq - mFreq;
-    }
+  @Override
+  public int compareTo(WordWithCount o) {
+    return o.mFreq - mFreq;
+  }
 }

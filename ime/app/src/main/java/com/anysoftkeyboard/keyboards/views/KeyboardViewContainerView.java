@@ -6,17 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,7 +38,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   private CandidateView mCandidateView;
   private OnKeyboardActionListener mKeyboardActionListener;
   private KeyboardTheme mKeyboardTheme;
-  private OverlayData mOverlayData = new OverlayData();
+  private OverlayData mOverlayData = new OverlayDataImpl();
   private final Rect mExtraPaddingToMainKeyboard = new Rect();
   private ClicksExtraDraw mClicksDrawer;
 
@@ -63,7 +62,6 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     constructorInit();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public KeyboardViewContainerView(
       Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
@@ -303,7 +301,8 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
   }
 
   public interface StripActionProvider {
-    @NonNull View inflateActionView(@NonNull ViewGroup parent);
+    @NonNull
+    View inflateActionView(@NonNull ViewGroup parent);
 
     void onRemoved();
   }
@@ -367,7 +366,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     }
 
     public boolean shouldDraw() {
-      return mClicks.size() > 0 && mClicks.size() % 10 == 0;
+      return !mClicks.isEmpty() && mClicks.size() % 10 == 0;
     }
   }
 }

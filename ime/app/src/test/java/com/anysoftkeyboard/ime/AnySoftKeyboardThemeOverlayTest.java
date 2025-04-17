@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.ComponentName;
-import android.os.Build;
 import android.view.inputmethod.EditorInfo;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
@@ -18,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
@@ -134,27 +132,6 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
 
     simulateFinishInputFlow();
 
-    simulateOnStartInputFlow();
-
-    Assert.assertFalse(captureOverlay().isValid());
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.KITKAT)
-  public void testDoesNotWorkPriorToLollipop() {
-    simulateFinishInputFlow();
-    simulateOnStartInputFlow();
-
-    Assert.assertFalse(captureOverlay().isValid());
-
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, true);
-
-    simulateFinishInputFlow();
-    simulateOnStartInputFlow();
-
-    Assert.assertFalse(captureOverlay().isValid());
-
-    simulateFinishInputFlow();
     simulateOnStartInputFlow();
 
     Assert.assertFalse(captureOverlay().isValid());

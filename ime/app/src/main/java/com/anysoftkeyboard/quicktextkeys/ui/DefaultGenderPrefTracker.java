@@ -40,7 +40,8 @@ public class DefaultGenderPrefTracker implements Disposable {
                 });
   }
 
-  @Nullable public JavaEmojiUtils.Gender getDefaultGender() {
+  @Nullable
+  public JavaEmojiUtils.Gender getDefaultGender() {
     if (mRandom) {
       if (new Random().nextBoolean()) {
         return JavaEmojiUtils.Gender.Woman;

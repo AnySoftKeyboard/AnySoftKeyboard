@@ -213,15 +213,15 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
     Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
     mAnySoftKeyboardUnderTest.onFirstDownKey('x');
-    Assert.assertEquals(false, mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+    Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
     mAnySoftKeyboardUnderTest.onSwipeDown();
     Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
     // same keyboard
     Assert.assertEquals(
         currentKeyboard.getKeyboardId(),
-        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
-    Assert.assertEquals(true, mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
   }
 
   @Test

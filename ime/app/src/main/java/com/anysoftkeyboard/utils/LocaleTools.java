@@ -2,7 +2,6 @@ package com.anysoftkeyboard.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,33 +15,18 @@ public class LocaleTools {
     final Locale forceLocale = LocaleTools.getLocaleForLocaleString(localeString);
 
     final Configuration configuration = context.getResources().getConfiguration();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      configuration.setLocale(forceLocale);
-    } else {
-      //noinspection deprecation
-      configuration.locale = forceLocale;
-    }
+    configuration.setLocale(forceLocale);
     context.getResources().updateConfiguration(configuration, null);
   }
 
-  @NonNull public static Locale getLocaleForLocaleString(@Nullable String localeString) {
+  @NonNull
+  public static Locale getLocaleForLocaleString(@Nullable String localeString) {
     if ("System".equals(localeString) || TextUtils.isEmpty(localeString)) {
       return Locale.getDefault();
     } else {
       try {
         final Locale parsedLocale;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          parsedLocale = Locale.forLanguageTag(localeString);
-        } else {
-          // first, we'll try to be nice citizens
-          for (Locale locale : Locale.getAvailableLocales()) {
-            if (localeString.equals(locale.getLanguage())) {
-              return locale;
-            }
-          }
-          // couldn't find it. Trying to force it.
-          parsedLocale = new Locale(localeString);
-        }
+        parsedLocale = Locale.forLanguageTag(localeString);
 
         if (TextUtils.isEmpty(parsedLocale.getLanguage())) {
           return Locale.getDefault();

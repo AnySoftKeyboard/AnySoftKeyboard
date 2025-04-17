@@ -4,13 +4,12 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 
 public class GeneralDialogController {
 
-  @VisibleForTesting public static final int TAG_ID = R.id.progress_dialog_message_text_view;
-  @VisibleForTesting public static final String TAG_VALUE = "GeneralDialogController";
+  public static final int TAG_ID = R.id.progress_dialog_message_text_view;
+  public static final String TAG_VALUE = "GeneralDialogController";
 
   private final Context mContext;
   private final @StyleRes int mStyle;

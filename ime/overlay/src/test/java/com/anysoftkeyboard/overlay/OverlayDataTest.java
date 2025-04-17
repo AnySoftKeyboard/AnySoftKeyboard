@@ -3,19 +3,11 @@ package com.anysoftkeyboard.overlay;
 import android.graphics.Color;
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AnySoftKeyboardPlainTestRunner.class)
 public class OverlayDataTest {
-
-  private OverlayData mUnderTest;
-
-  @Before
-  public void setup() {
-    mUnderTest = new OverlayData();
-  }
 
   @Test
   public void isValidIfTextColorIsDifferentThanBackground() {
@@ -31,9 +23,6 @@ public class OverlayDataTest {
   }
 
   private OverlayData overlay(int primaryColor, int darkPrimaryColor, int textColor) {
-    mUnderTest.setPrimaryColor(primaryColor);
-    mUnderTest.setPrimaryDarkColor(darkPrimaryColor);
-    mUnderTest.setPrimaryTextColor(textColor);
-    return mUnderTest;
+    return new OverlayDataImpl(primaryColor, darkPrimaryColor, 0, textColor, 0);
   }
 }

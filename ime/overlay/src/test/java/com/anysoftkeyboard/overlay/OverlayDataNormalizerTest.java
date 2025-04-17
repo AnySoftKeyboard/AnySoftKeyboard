@@ -19,7 +19,7 @@ public class OverlayDataNormalizerTest {
   @Before
   public void setup() {
     mOriginal = Mockito.mock(OverlyDataCreator.class);
-    mUnderTest = new OverlayDataNormalizer(mOriginal, 96, false);
+    mUnderTest = new OverlayDataNormalizer(mOriginal, 96);
     mTestComponent = new ComponentName("com.example", "com.example.Activity");
   }
 
@@ -35,19 +35,19 @@ public class OverlayDataNormalizerTest {
   }
 
   @Test
-  public void testReturnsOriginalIfInvalid() {
-    OverlayData original = setupOriginal(Color.GRAY, Color.GRAY, Color.GRAY);
+  public void testReturnsOriginalIfIAllGood() {
+    OverlayData original = setupOriginal(Color.WHITE, Color.GRAY, Color.BLACK);
     final OverlayData fixed = mUnderTest.createOverlayData(mTestComponent);
-    Assert.assertSame(original, fixed);
-    Assert.assertFalse(fixed.isValid());
+    Assert.assertSame(original, original);
+    Assert.assertTrue(fixed.isValid());
   }
 
   @Test
   public void testReturnsFixedIfInvalidButWasAskedToFix() {
-    mUnderTest = new OverlayDataNormalizer(mOriginal, 96, true);
+    mUnderTest = new OverlayDataNormalizer(mOriginal, 96);
     OverlayData original = setupOriginal(Color.GRAY, Color.GRAY, Color.GRAY);
     final OverlayData fixed = mUnderTest.createOverlayData(mTestComponent);
-    Assert.assertSame(original, fixed);
+    Assert.assertNotSame(original, fixed);
     Assert.assertTrue(fixed.isValid());
     Assert.assertEquals(Color.GRAY, fixed.getPrimaryColor());
     Assert.assertEquals(Color.GRAY, fixed.getPrimaryDarkColor());
@@ -59,7 +59,7 @@ public class OverlayDataNormalizerTest {
   public void testReturnsFixedIfTextIsTooClose() {
     OverlayData original = setupOriginal(Color.GRAY, Color.DKGRAY, Color.LTGRAY);
     final OverlayData fixed = mUnderTest.createOverlayData(mTestComponent);
-    Assert.assertSame(original, fixed);
+    Assert.assertNotSame(original, fixed);
     Assert.assertTrue(fixed.isValid());
     Assert.assertEquals(Color.GRAY, fixed.getPrimaryColor());
     Assert.assertEquals(Color.DKGRAY, fixed.getPrimaryDarkColor());
@@ -71,7 +71,7 @@ public class OverlayDataNormalizerTest {
   public void testReturnsFixedToWhiteIfDarkIfTextIsTooClose() {
     OverlayData original = setupOriginal(Color.DKGRAY, Color.DKGRAY, Color.GRAY);
     final OverlayData fixed = mUnderTest.createOverlayData(mTestComponent);
-    Assert.assertSame(original, fixed);
+    Assert.assertNotSame(original, fixed);
     Assert.assertTrue(fixed.isValid());
     Assert.assertEquals(Color.DKGRAY, fixed.getPrimaryColor());
     Assert.assertEquals(Color.DKGRAY, fixed.getPrimaryDarkColor());
@@ -83,7 +83,7 @@ public class OverlayDataNormalizerTest {
   public void testReturnsFixedToBlackIfLightIfTextIsTooClose() {
     OverlayData original = setupOriginal(Color.LTGRAY, Color.DKGRAY, Color.GRAY);
     final OverlayData fixed = mUnderTest.createOverlayData(mTestComponent);
-    Assert.assertSame(original, fixed);
+    Assert.assertNotSame(original, fixed);
     Assert.assertTrue(fixed.isValid());
     Assert.assertEquals(Color.LTGRAY, fixed.getPrimaryColor());
     Assert.assertEquals(Color.DKGRAY, fixed.getPrimaryDarkColor());
@@ -103,10 +103,7 @@ public class OverlayDataNormalizerTest {
   }
 
   private OverlayData setupOriginal(int primary, int darkPrimary, int textColor) {
-    OverlayData data = new OverlayData();
-    data.setPrimaryColor(primary);
-    data.setPrimaryDarkColor(darkPrimary);
-    data.setPrimaryTextColor(textColor);
+    OverlayData data = new OverlayDataImpl(primary, darkPrimary, 0, textColor, 0);
 
     Mockito.doReturn(data).when(mOriginal).createOverlayData(Mockito.any());
 

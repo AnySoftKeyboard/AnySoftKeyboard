@@ -20,7 +20,8 @@ public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
         public void handleTouchEvent(MotionEvent event) {}
       };
 
-  @NonNull public static GestureTypingPathDraw create(
+  @NonNull
+  public static GestureTypingPathDraw create(
       @NonNull OnInvalidateCallback callback, @NonNull GestureTrailTheme theme) {
     if (theme.maxTrailLength <= 0) return NO_OP;
     return new GestureTypingPathDrawHelper(callback, theme);
@@ -79,7 +80,7 @@ public class GestureTypingPathDrawHelper implements GestureTypingPathDraw {
       case MotionEvent.ACTION_DOWN:
         mPointsCurrentIndex = 0;
         mPointsCircularArray[mArraysSize - 1].set(END_OF_PATH);
-        // falling through, on purpose
+      // falling through, on purpose
       case MotionEvent.ACTION_MOVE:
         mPointsCircularArray[mPointsCurrentIndex % mArraysSize].set(x, y);
         mPointsCurrentIndex++;

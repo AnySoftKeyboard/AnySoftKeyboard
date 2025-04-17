@@ -1,17 +1,21 @@
 ---
 name: auto-approve-pr
-
 on:
   pull_request:
-    types: [review_requested]
-
+    types: [review_requested, synchronize]
 jobs:
   check-for-auto-approval:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4.1.7
-      - uses: ./.github/actions/auto_approval
+      - uses: actions/checkout@v4.2.2
+      - uses: bazel-contrib/setup-bazel@0.9.1
         with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          allowed_users: menny
-          review_as: anysoftkeyboard-bot
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - name: Trying to approve
+        run: |
+          bazel run //js/auto_approval -- \
+            --token "${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --allowed_users menny \
+            --review_as anysoftkeyboard-bot

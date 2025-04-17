@@ -624,5 +624,4 @@
     <string name="aosp_light_theme_name">AOSP Світла тема</string>
     <string name="aosp_light_theme_description">AOSP-навіяна тема світлих кольорів клавіатури</string>
     <string name="app_share_title">Вітаємо в AnySoftKeyboard</string>
-    <string name="backup_restore_not_support_before_kitkat">Не підтримується на вашому Android</string>
 </resources>

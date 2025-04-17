@@ -5,12 +5,10 @@ codecov:
   notify:
     wait_for_ci: false
     after_n_builds: 2
-
 coverage:
   precision: 2
   round: down
   range: "65...100"
-
   ignore:
     - "ime/app/src/canary"
     - "ime/app/src/test"
@@ -18,7 +16,6 @@ coverage:
     - "ime/app/src/main/java/android"
     - "ime/app/src/main/java/com/google/android/voiceime"
     - "ime/app/src/main/java/com/emtronics/dragsortrecycler/DragSortRecycler.java"
-
   status:
     project:
       default:

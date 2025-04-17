@@ -316,7 +316,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
   }
 
-  @NonNull private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
+  @NonNull
+  private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
     String[] split = keyCodesArray.split(",", -1);
     int[] keyCodes = new int[split.length];
     for (int i = 0; i < keyCodes.length; i++) {
@@ -350,7 +351,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     return mLocale;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public String getKeyboardId() {
     return getKeyboardAddOn().getId();
   }
@@ -360,7 +362,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     return mIconId;
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   public CharSequence getKeyboardName() {
     return mName;
   }

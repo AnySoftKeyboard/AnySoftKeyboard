@@ -127,7 +127,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
   }
 
-  @Nullable protected static CharSequence getTextFromResourceOrText(
+  @Nullable
+  protected static CharSequence getTextFromResourceOrText(
       Context context, AttributeSet attrs, String attributeName) {
     final int stringResId =
         attrs.getAttributeResourceValue(null, attributeName, AddOn.INVALID_RES_ID);
@@ -463,7 +464,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
     return addOns;
   }
 
-  @Nullable private E createAddOnFromXmlAttributes(AttributeSet attrs, Context packContext) {
+  @Nullable
+  private E createAddOnFromXmlAttributes(AttributeSet attrs, Context packContext) {
     final CharSequence prefId =
         getTextFromResourceOrText(packContext, attrs, XML_PREF_ID_ATTRIBUTE);
     final CharSequence name =

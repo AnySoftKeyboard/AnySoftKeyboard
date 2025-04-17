@@ -623,6 +623,7 @@ woordenlijst
     <string name="theme_case_type_override_lower">Altijd in kleine letters</string>
     <string name="theme_case_type_override_upper">Altijd in hoofdletters</string>
     <string name="settings_hint_size">Afmeting Hint label</string>
+    <string name="settings_key_hint_size_summary">Stel hint-grootte in op het toetsenbord. Op dit moment %s</string>
     <string name="settings_key_hint_size_none">Geen</string>
     <string name="settings_key_hint_size_small">Klein</string>
     <string name="settings_key_hint_size_normal">Normaal</string>
@@ -645,15 +646,29 @@ woordenlijst
     <string name="allow_layouts_to_provide_generic_rows">Toetsenborden kunnen algemene rijen bieden</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Gebruik altijd geselecteerde algemene rijen.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Sta layouts toe algemene rijen te overschrijven.</string>
+    <string name="gesture_typing_settings">Typen met gebaren ➿</string>
+    <string name="gesture_typing_summary">Voer een woord in door je vinger over de letters te schuiven.</string>
+    <string name="gesture_typing_action">Enable gesture-typing [BETA]</string>
     <string name="gesture_typing_alert_title">Bètafeature!</string>
+    <string name="gesture_typing_alert_message">De functie voor het typen met gebaren ➿ is in <b>bèta-status</b>. Het heeft wat bugs, niet zo snel en niet zo compleet.\nDat gezegd hebbende, je zou het eens moeten proberen.</string>
     <string name="gesture_typing_alert_button">Begrepen</string>
+    <string name="undo_gesture_typing">Typen met gebaren ongedaan maken</string>
     <string name="apply_remote_app_colors_to_theme">Pas themakleuren aan naar gebruikte app</string>
+    <string name="apply_overlay_summary_on">De kleuren van het toetsenbord komen overeen met de actieve app (naar ons beste vermogen).</string>
     <string name="apply_overlay_summary_off">Gebruik altijd themakleuren.</string>
     <string name="media_insertion_pending_message">Klik tekstbox om afbeelding in te voegen</string>
     <string name="aosp_dark_theme_name">AOSP-donkerthema</string>
+    <string name="aosp_dark_theme_description">AOSP-geïnspireerd toetsenbordthema met donkere kleuren</string>
     <string name="aosp_light_theme_name">AOSP-lichtthema</string>
-    <string name="backup_restore_not_support_before_kitkat">Niet ondersteund op uw Android</string>
+    <string name="aosp_light_theme_description">AOSP-geïnspireerd toetsenbordthema met lichte kleuren</string>
+    <string name="app_share_title">Hello van AnySoftKeyboard</string>
+    <string name="app_share_menu_title">AnySoftKeyboard delen met</string>
+    <string name="app_share_text">Laat me de open-source, privacygerichte, gratis, zeer aanpasbare, meertalige Android-toetsenbord-app AnySoftKeyboard aanbevelen.\nHaal het van:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboardnF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
+    <string name="click_me_for_easter_egg_info">klik op mij voor een verrassing</string>
     <string name="delete_all_clipboard_entries">Leeg klembord</string>
+    <string name="tip_swipe_from_backspace_to_clear">Tip: je kunt vanaf de achtergrond naar links vegen om het woord te verwijderen!</string>
     <string name="notification_read_contacts_ticker">Leesrechten contacten nodig</string>
+    <string name="wizard_allow_notification_permission">Meldingen van AnySoftKeyboard toestaan</string>
+    <string name="setup_wizard_step_notification_permissions_details">In zeldzame gevallen (bijvoorbeeld app-crashes) moeten we een apparaatmelding plaatsen. Dit wordt aanbevolen, maar het niet toestaan van meldingen heeft geen invloed op het gedrag van deze app.</string>
     <string name="wizard_skip_notification_permission">Meldingen niet toestaan</string>
 </resources>

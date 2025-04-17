@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="debug_tracing_starting">Śledzenie rozpoczęte! \nZatrzymaj je po jakimś czasie
+    <string name="debug_tracing_starting">Śledzenie rozpoczęte!\nUpewnij się, że zatrzymasz je po jakimś czasie 
     </string>
     <string name="debug_tracing_starting_failed">Inicjacja śledzenia nieudana! Sprawdź szczegóły         w logcat.    </string>
     <string name="debug_tracing_finished">Śledzenie zakończone!\nPlik śledzenia to\u0020<xliff:g id="trace_file">%s</xliff:g>
@@ -14,13 +14,13 @@
     <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
     <string name="testers_version">Wersja dla testerów!</string>
     <string name="language_root_tile">Język</string>
-    <string name="language_keyboards_settings_tile">Dodaj klawiatury i języki.</string>
+    <string name="language_keyboards_settings_tile">Włącz klawiatury i języki.</string>
     <string name="language_grammar_settings_tile">Skonfiguruj zachowanie korekty i słowniki.</string>
-    <string name="language_tweaks_settings_tile">Więcej ustawień.</string>
+    <string name="language_tweaks_settings_tile">Ulepszenia i więcej.</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">Interfejs użytkownika</string>
     <string name="ui_theme_settings_tile">Wybierz i skonfiguruj motywy klawiatury.</string>
-    <string name="ui_effects_settings_tile">Efekty i doświadczenia użytkownika.</string>
+    <string name="ui_effects_settings_tile">Efekty klawiatury i doświadczenia użytkownika </string>
     <!-- welcome -->
     <string name="search_market_for_keyboard_addons">Pobierz więcej klawiatur ze sklepu z aplikacjami</string>
     <string name="search_market_for_quick_key_addons">Pobierz więcej dodatków <i>Quick-Text</i> w Sklepie Google Play…</string>
@@ -34,7 +34,7 @@
     <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
     <string name="hint_click_for_inline_suggestions">Dostępne propozycje autouzupełniania</string>
     <!-- voice -->
-    <string name="voice_input_not_installed_title">Wprowadzanie głosowe niezainstalowane</string>
+    <string name="voice_input_not_installed_title">Głos nie jest zainstalowany</string>
     <string name="voice_input_not_installed_text">Pisanie głosowe nie jest zainstalowane na twoim urządzeniu\nMożna
         to łatwo naprawić: pobierz je ze sklepu z aplikacjami.
     </string>
@@ -761,8 +761,6 @@ Zmiana
     <string name="app_share_menu_title">Udostępnij AnySoftKeyboard używając</string>
     <string name="app_share_text">Pozwól mi polecić aplikację o otwartym kodzie, skoncentrowaną na prywatności, bezpłatną, wysoce konfigurowalną, wielojęzyczną klawiaturę dla systemu Android: AnySoftKeyboard.\nPobierz ją z:\nSklep Google Play: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Dotknij, to niespodzianka</string>
-    <string name="backup_restore_not_support_before_kitkat">Nieobsługiwane na twoim Androidzie</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Kopia zapasowa i przywracanie nie są obsługiwane w przypadku urządzeń z systemem operacyjnym Android w wersji wcześniejszej niż KitKat (wersja 4.4). Przepraszamy.</string>
     <string name="delete_all_clipboard_entries">Wyczyść schowek</string>
     <string name="tip_swipe_from_backspace_to_clear">Wskazówka: możesz przesunąć palcem w lewo od backspace, aby wyczyścić słowo!</string>
     <string name="notification_read_contacts_ticker">Wymagane uprawnienie dostępu do kontaktów</string>

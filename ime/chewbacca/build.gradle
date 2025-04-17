@@ -3,10 +3,10 @@ apply plugin: 'com.android.library'
 apply from: "${rootDir}/gradle/android_general.gradle"
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.7.1'
+    implementation 'androidx.annotation:annotation:1.9.1'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.fragment:fragment:1.6.2'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.fragment:fragment:1.8.3'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation project(':ime:base')
     implementation project(':ime:base-rx')
     implementation project(':ime:pixel')

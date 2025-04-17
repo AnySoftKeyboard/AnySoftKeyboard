@@ -25,91 +25,90 @@ import org.gradle.api.tasks.TaskAction;
  */
 @CacheableTask
 public class GenerateWordsListFromAOSPTask extends DefaultTask {
-    private static final Pattern mWordLineRegex =
-            Pattern.compile("^\\s*word=([\\w\\p{L}'\"-]+),f=(\\d+).*$");
+  private static final Pattern mWordLineRegex =
+      Pattern.compile("^\\s*word=([\\w\\p{L}'\"-]+),f=(\\d+).*$");
 
-    private File inputFile;
-    private File outputWordsListFile;
-    private int maxWordsInList = 500000;
+  private File inputFile;
+  private File outputWordsListFile;
+  private int maxWordsInList = 500000;
 
-    @TaskAction
-    public void generateWordsList() throws IOException {
-        if (inputFile == null) {
-            throw new IllegalArgumentException("Please provide inputFile value.");
+  @TaskAction
+  public void generateWordsList() throws IOException {
+    if (inputFile == null) {
+      throw new IllegalArgumentException("Please provide inputFile value.");
+    }
+    if (!inputFile.isFile()) throw new IllegalArgumentException("inputFile must be a file!");
+    if (outputWordsListFile == null) {
+      throw new IllegalArgumentException("Please provide outputWordsListFile value.");
+    }
+
+    final long inputSize = inputFile.length();
+    System.out.println(
+        "Reading input file " + inputFile.getName() + " (size " + inputSize + ")...");
+
+    InputStream fileInput = new FileInputStream(inputFile);
+    if (inputFile.getName().endsWith(".zip")) {
+      fileInput = new ZipInputStream(fileInput);
+    } else if (inputFile.getName().endsWith(".gz")) {
+      fileInput = new GZIPInputStream(fileInput);
+    }
+    BufferedReader reader =
+        new BufferedReader(new InputStreamReader(fileInput, StandardCharsets.UTF_8));
+    String wordDataLine;
+
+    try (WordListWriter wordListWriter = new WordListWriter(outputWordsListFile)) {
+      long read = 0;
+      long wordsWritten = 0;
+      while (null != (wordDataLine = reader.readLine())) {
+        read += wordDataLine.length();
+        // word=heh,f=0,flags=,originalFreq=53,possibly_offensive=true
+        Matcher matcher = mWordLineRegex.matcher(wordDataLine);
+        if (matcher.matches()) {
+          String word = matcher.group(1);
+          int frequency = Integer.parseInt(matcher.group(2));
+          wordListWriter.addEntry(word, frequency);
+          if ((wordsWritten % 50000) == 0) {
+            System.out.print("." + ((100 * read) / inputSize) + "%.");
+          }
+          wordsWritten++;
+          if (maxWordsInList == wordsWritten) {
+            System.out.println("!!!!");
+            System.out.println("Reached " + maxWordsInList + " words! Breaking parsing.");
+            break;
+          }
         }
-        if (!inputFile.isFile()) throw new IllegalArgumentException("inputFile must be a file!");
-        if (outputWordsListFile == null) {
-            throw new IllegalArgumentException("Please provide outputWordsListFile value.");
-        }
-
-        final long inputSize = inputFile.length();
-        System.out.println(
-                "Reading input file " + inputFile.getName() + " (size " + inputSize + ")...");
-
-        InputStream fileInput = new FileInputStream(inputFile);
-        if (inputFile.getName().endsWith(".zip")) {
-            fileInput = new ZipInputStream(fileInput);
-        } else if (inputFile.getName().endsWith(".gz")) {
-            fileInput = new GZIPInputStream(fileInput);
-        }
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(fileInput, StandardCharsets.UTF_8));
-        String wordDataLine;
-
-        try (WordListWriter wordListWriter = new WordListWriter(outputWordsListFile)) {
-            long read = 0;
-            long wordsWritten = 0;
-            while (null != (wordDataLine = reader.readLine())) {
-                read += wordDataLine.length();
-                // word=heh,f=0,flags=,originalFreq=53,possibly_offensive=true
-                Matcher matcher = mWordLineRegex.matcher(wordDataLine);
-                if (matcher.matches()) {
-                    String word = matcher.group(1);
-                    int frequency = Integer.parseInt(matcher.group(2));
-                    wordListWriter.addEntry(word, frequency);
-                    if ((wordsWritten % 50000) == 0) {
-                        System.out.print("." + ((100 * read) / inputSize) + "%.");
-                    }
-                    wordsWritten++;
-                    if (maxWordsInList == wordsWritten) {
-                        System.out.println("!!!!");
-                        System.out.println(
-                                "Reached " + maxWordsInList + " words! Breaking parsing.");
-                        break;
-                    }
-                }
-            }
-            System.out.print(".100%.");
-        }
-
-        System.out.println("Done.");
+      }
+      System.out.print(".100%.");
     }
 
-    @InputFile
-    @PathSensitive(RELATIVE)
-    public File getInputFile() {
-        return inputFile;
-    }
+    System.out.println("Done.");
+  }
 
-    public void setInputFile(File inputFile) {
-        this.inputFile = inputFile;
-    }
+  @InputFile
+  @PathSensitive(RELATIVE)
+  public File getInputFile() {
+    return inputFile;
+  }
 
-    @OutputFile
-    public File getOutputWordsListFile() {
-        return outputWordsListFile;
-    }
+  public void setInputFile(File inputFile) {
+    this.inputFile = inputFile;
+  }
 
-    public void setOutputWordsListFile(File outputWordsListFile) {
-        this.outputWordsListFile = outputWordsListFile;
-    }
+  @OutputFile
+  public File getOutputWordsListFile() {
+    return outputWordsListFile;
+  }
 
-    @Input
-    public int getMaxWordsInList() {
-        return maxWordsInList;
-    }
+  public void setOutputWordsListFile(File outputWordsListFile) {
+    this.outputWordsListFile = outputWordsListFile;
+  }
 
-    public void setMaxWordsInList(int maxWordsInList) {
-        this.maxWordsInList = maxWordsInList;
-    }
+  @Input
+  public int getMaxWordsInList() {
+    return maxWordsInList;
+  }
+
+  public void setMaxWordsInList(int maxWordsInList) {
+    this.maxWordsInList = maxWordsInList;
+  }
 }

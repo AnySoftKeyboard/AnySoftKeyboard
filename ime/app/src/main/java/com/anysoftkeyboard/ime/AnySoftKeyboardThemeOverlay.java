@@ -9,6 +9,7 @@ import androidx.annotation.VisibleForTesting;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
 import com.anysoftkeyboard.overlay.OverlayDataOverrider;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
@@ -77,33 +78,27 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
   }
 
   protected OverlyDataCreator createOverlayDataCreator() {
-    if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
-      return new OverlyDataCreator() {
-        private final OverlyDataCreator mActualCreator =
-            new OverlayDataOverrider(
-                new OverlayDataNormalizer(
-                    new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this),
-                    96,
-                    true),
-                createOverridesForOverlays());
+    return new OverlyDataCreator() {
+      private final OverlyDataCreator mActualCreator =
+          new OverlayDataOverrider(
+              new OverlayDataNormalizer(
+                  new OverlyDataCreatorForAndroid.Light(AnySoftKeyboardThemeOverlay.this), 96),
+              createOverridesForOverlays());
 
-        @Override
-        public OverlayData createOverlayData(ComponentName remoteApp) {
-          if (mApplyRemoteAppColors) {
-            if (CompatUtils.objectEquals(remoteApp.getPackageName(), mLastOverlayPackage)) {
-              return mCurrentOverlayData;
-            } else {
-              mLastOverlayPackage = remoteApp.getPackageName();
-              return mActualCreator.createOverlayData(remoteApp);
-            }
+      @Override
+      public OverlayData createOverlayData(ComponentName remoteApp) {
+        if (mApplyRemoteAppColors) {
+          if (CompatUtils.objectEquals(remoteApp.getPackageName(), mLastOverlayPackage)) {
+            return mCurrentOverlayData;
           } else {
-            return INVALID_OVERLAY_DATA;
+            mLastOverlayPackage = remoteApp.getPackageName();
+            return mActualCreator.createOverlayData(remoteApp);
           }
+        } else {
+          return INVALID_OVERLAY_DATA;
         }
-      };
-    } else {
-      return remoteApp -> INVALID_OVERLAY_DATA;
-    }
+      }
+    };
   }
 
   @Override
@@ -149,7 +144,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     return view;
   }
 
-  private static class EmptyOverlayData extends OverlayData {
+  private static class EmptyOverlayData extends OverlayDataImpl {
     @Override
     public boolean isValid() {
       return false;
@@ -192,7 +187,8 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
       }
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public String toString() {
       return String.format(Locale.ROOT, "ToggleOverlayCreator %s %s", mOwner, super.toString());
     }

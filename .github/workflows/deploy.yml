@@ -1,24 +1,20 @@
 ---
 name: deployment
-
-on:
-  deployment
-
+on: deployment
 env:
   TERM: dumb
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   GRADLE_USER_HOME: ".github_cache_gradle/"
-
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
-    container: ghcr.io/menny/android_ndk:1.20.0
+    runs-on: ubuntu-24.04
+    container: ghcr.io/menny/android:1.21.2
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.2
         with:
           repository: ${{ secrets.SECRETS_REPOSITORY }}
           token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}
@@ -33,12 +29,12 @@ jobs:
           mkdir -p outputs/bundle || true
           mkdir -p outputs/fdroid || true
           mkdir -p ime/app/build/outputs/mapping || true
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.4.3
         with:
           name: github_object
           path: build/github_object
       - name: status-in-progress
-        run: >
+        run: |
           ./gradlew --stacktrace :deployment:updateDeploymentState \
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
@@ -55,7 +51,7 @@ jobs:
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
       - name: status-success
-        run: >
+        run: |
           ./gradlew --stacktrace :deployment:updateDeploymentSuccess \
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
@@ -65,38 +61,38 @@ jobs:
             -PrequestStatus.sha="${{ github.event.deployment.sha }}"
       - name: status-failure
         if: failure()
-        run: >
+        run: |
           ./gradlew --stacktrace :deployment:updateDeploymentState \
             -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
             -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
             -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
             -PrequestStatus.deployment_state="failure"
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.4.3
         if: always()
         continue-on-error: true
         with:
           name: deploy-logging
           path: build/build-logging
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.4.3
         if: always()
         continue-on-error: true
         with:
           name: bundles
           path: outputs/bundle
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.4.3
         if: always()
         continue-on-error: true
         with:
           name: apks
           path: outputs/apk
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.4.3
         if: always()
         continue-on-error: true
         with:
           name: proguard-mapping
           path: ime/app/build/outputs/mapping
-      - uses: actions/upload-artifact@v4.3.3
+      - uses: actions/upload-artifact@v4.4.3
         continue-on-error: true
         if: always()
         with:

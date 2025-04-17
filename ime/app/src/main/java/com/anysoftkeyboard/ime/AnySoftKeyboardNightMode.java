@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.android.NightMode;
-import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataImpl;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
@@ -38,7 +38,8 @@ public abstract class AnySoftKeyboardNightMode extends AnySoftKeyboardThemeOverl
                 mToggleOverlayCreator::setToggle, GenericOnError.onError("night-mode theme")));
   }
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected List<Drawable> generateWatermark() {
     final List<Drawable> watermark = super.generateWatermark();
     if (mNightMode) {
@@ -53,7 +54,7 @@ public abstract class AnySoftKeyboardNightMode extends AnySoftKeyboardThemeOverl
         new ToggleOverlayCreator(
             super.createOverlayDataCreator(),
             this,
-            new OverlayData(0xFF222222, 0xFF000000, Color.DKGRAY, Color.GRAY, Color.DKGRAY),
+            new OverlayDataImpl(0xFF222222, 0xFF000000, Color.DKGRAY, Color.GRAY, Color.DKGRAY),
             "NightMode");
   }
 }

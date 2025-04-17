@@ -1,0 +1,13 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
+
+http_jar(
+    name = "google-java-format",
+    sha256 = "25157797a0a972c2290b5bc71530c4f7ad646458025e3484412a6e5a9b8c9aa6",
+    url = "https://github.com/google/google-java-format/releases/download/v1.25.2/google-java-format-1.25.2-all-deps.jar",
+)
+
+http_jar(
+    name = "ktfmt",
+    integrity = "sha256-dtBcYU/hhkeIVXFw/olBD3UTSGap+EAR+b1XDKElJrE=",
+    url = "https://repo1.maven.org/maven2/com/facebook/ktfmt/0.53/ktfmt-0.53-jar-with-dependencies.jar",
+)

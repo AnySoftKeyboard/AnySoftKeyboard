@@ -302,6 +302,9 @@
     <string name="key_press_preview_popup_off_summary">Zeige keine Vorschau bei Tastendruck</string>
     <string name="zoom_factor_keys_in_portrait">Tastenhöhefaktor im Hochformat</string>
     <string name="zoom_factor_keys_in_landscape">Tastenhöhefaktor im Querformat</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Versatz der Tastaturunterseite</string>
+    <string name="bottom_padding_in_dp_template">%d Punkt</string>
     <string name="insert_space_after_word_suggestion_selection">Leerzeichen nach Auswahl eines Wortvorschlages</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Füge Leerzeichen nach Auswahl des Wortvorschlags hinzu</string>
     <string name="double_space_to_period">Doppeltes Leerzeichen wird zu Punkt</string>
@@ -648,8 +651,6 @@
     <string name="app_share_menu_title">Teile AnySoftKeyboard mittels</string>
     <string name="app_share_text">Lass mich dir die Open-Source, Privatsphäre-fokussierte, kostenlose, höchst anpassbare, mehrsprachige Android Tastatur-App AnySoftKeyboard empfehlen.\nHole sie dir vom:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard\nF-Droid: https://f-droid.org/en/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">für eine Überraschung klicken</string>
-    <string name="backup_restore_not_support_before_kitkat">Wird von deinem Gerät nicht unterstützt.</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Backup und Wiederherstellung werden für Geräte mit Android OS vor KitKat (Version 4.4) nicht unterstützt. Entschuldigung.</string>
     <string name="delete_all_clipboard_entries">Leere Zwischenablage</string>
     <string name="tip_swipe_from_backspace_to_clear">Tipp: Sie können mit der Rücktaste nach links wischen, um das Wort zu löschen!</string>
     <string name="notification_read_contacts_ticker">Kontakt-Berechtigung erforderlich</string>

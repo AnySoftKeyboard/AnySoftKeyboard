@@ -2,7 +2,6 @@
 name: "Run tests"
 author: "menny"
 description: "Runs tests using Gradle and sharding support"
-
 inputs:
   index:
     description: "zero-based index of the shard"
@@ -14,7 +13,7 @@ inputs:
     default: ""
 runs:
   using: "docker"
-  image: "docker://ghcr.io/menny/android_ndk:1.20.0"
+  image: "docker://ghcr.io/menny/android:1.21.2"
   env:
     TERM: dumb
     GRADLE_USER_HOME: ".github_cache_gradle/"
@@ -26,7 +25,6 @@ runs:
     - ${{ inputs.index }}
     - ${{ inputs.module }}
     - ${{ inputs.extra_args }}
-
 branding:
   icon: 'activity'
   color: 'yellow'

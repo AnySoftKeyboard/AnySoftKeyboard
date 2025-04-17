@@ -1,0 +1,57 @@
+"Declare dependencies for bzlmod, see https://bazel.build/build/bzlmod"
+
+# We declare all of the direct dependencies of all of the code in this
+# workspace. A single version of each of these is declared, implying that all of
+# the code will use the same version of all of these tools and libraries listed.
+# For bzlmod dependencies, this implements the "single version policy".
+
+bazel_dep(name = "aspect_bazel_lib", version = "2.9.4")
+bazel_dep(name = "aspect_rules_js", version = "2.1.2")
+bazel_dep(name = "aspect_rules_ts", version = "3.5.2")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "aspect_rules_esbuild", version = "0.21.0")
+bazel_dep(name = "rules_multitool", version = "1.0.0")
+bazel_dep(name = "rules_java", version = "8.6.3")
+
+multitool = use_extension("@rules_multitool//multitool:extension.bzl", "multitool")
+multitool.hub(lockfile = "//tools:multitool.lock.json")
+use_repo(multitool, "multitool")
+
+#########################
+# JavaScript and TypeScript
+# https://github.com/aspect-build/rules_js/tree/main/e2e/bzlmod
+# https://github.com/aspect-build/rules_ts/tree/main/e2e/bzlmod
+
+# In keeping with the single version policy, in this example, the NPM ecosystem
+# dependencies are specified at the top level rather than in each sub-project.
+# However, it is possible to have multiple different sets of NPM dependencies
+# across a workspace.
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+# Allows developers to get a local node_modules tree, using
+# bazel run -- @pnpm//:pnpm --dir $PWD install
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+)
+rules_ts_ext.deps(
+    ts_integrity = "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
+    # This keeps the TypeScript version in-sync with the editor, which is typically best.
+    ts_version_from = "//:package.json",
+)
+use_repo(rules_ts_ext, "npm_typescript")
+
+bazel_dep(name = "aspect_rules_jest", version = "0.22.0")
+bazel_dep(name = "aspect_rules_lint", version = "1.0.7")
+bazel_dep(name = "buildifier_prebuilt", version = "7.3.1")

@@ -44,7 +44,8 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
   private static final float SYSTEM_VOLUME = -1.0f;
   @NonNull private final PublishSubject<Long> mKeyPreviewSubject = PublishSubject.create();
 
-  @NonNull private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
+  @NonNull
+  private final PublishSubject<Boolean> mKeyPreviewForPasswordSubject = PublishSubject.create();
 
   private AudioManager mAudioManager;
   private float mCustomSoundVolume = SILENT;
@@ -251,7 +252,8 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     return view;
   }
 
-  @NonNull private KeyPreviewsController createKeyPreviewController(
+  @NonNull
+  private KeyPreviewsController createKeyPreviewController(
       Boolean enabled,
       AnimationsLevel animationsLevel,
       String position,

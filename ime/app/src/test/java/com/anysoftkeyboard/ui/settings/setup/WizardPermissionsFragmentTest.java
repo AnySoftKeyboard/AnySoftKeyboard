@@ -26,7 +26,8 @@ import org.robolectric.annotation.Config;
 public class WizardPermissionsFragmentTest
     extends RobolectricWizardFragmentTestCase<WizardPermissionsFragment> {
 
-  @NonNull @Override
+  @NonNull
+  @Override
   protected WizardPermissionsFragment createFragment() {
     return new WizardPermissionsFragment();
   }

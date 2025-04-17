@@ -1,0 +1,8 @@
+---
+gitignore_excludes: true
+indent: 2
+exclude:
+  - pnpm-lock.yaml
+formatter:
+  type: basic
+  include_document_start: true

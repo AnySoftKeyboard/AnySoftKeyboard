@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
 public class ScrollViewAsMainChild extends ScrollView implements MainChild {
@@ -29,7 +28,6 @@ public class ScrollViewAsMainChild extends ScrollView implements MainChild {
     init();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public ScrollViewAsMainChild(
       Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);

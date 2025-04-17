@@ -13,27 +13,27 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 
 class HttpClientCreator {
-    public static CloseableHttpClient create(String username, String password) {
-        BasicCredentialsProvider creds = new BasicCredentialsProvider();
-        creds.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
+  public static CloseableHttpClient create(String username, String password) {
+    BasicCredentialsProvider creds = new BasicCredentialsProvider();
+    creds.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
 
-        return HttpClientBuilder.create()
-                .setRedirectStrategy(new LaxRedirectStrategy())
-                .setDefaultCredentialsProvider(creds)
-                .build();
-    }
+    return HttpClientBuilder.create()
+        .setRedirectStrategy(new LaxRedirectStrategy())
+        .setDefaultCredentialsProvider(creds)
+        .build();
+  }
 
-    static HttpClientContext createContext(String username, String password) {
-        BasicCredentialsProvider creds = new BasicCredentialsProvider();
-        creds.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
+  static HttpClientContext createContext(String username, String password) {
+    BasicCredentialsProvider creds = new BasicCredentialsProvider();
+    creds.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
 
-        AuthCache authCache = new BasicAuthCache();
-        authCache.put(new HttpHost("api.github.com", 443, "https"), new BasicScheme());
-        // Add AuthCache to the execution context
-        HttpClientContext context = HttpClientContext.create();
-        context.setCredentialsProvider(creds);
-        context.setAuthCache(authCache);
+    AuthCache authCache = new BasicAuthCache();
+    authCache.put(new HttpHost("api.github.com", 443, "https"), new BasicScheme());
+    // Add AuthCache to the execution context
+    HttpClientContext context = HttpClientContext.create();
+    context.setCredentialsProvider(creds);
+    context.setAuthCache(authCache);
 
-        return context;
-    }
+    return context;
+  }
 }

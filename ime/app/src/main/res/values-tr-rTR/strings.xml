@@ -657,8 +657,6 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="app_share_menu_title">AnySoftKeyboard kullanmayı paylaş</string>
     <string name="app_share_text">Açık-kaynak, mahremiyet-odaklı, özgür, fazlasıyla kişiselleştirilebilen, çok-dilli Android klavye uygulaması AnySoftKeyboard\'u tavsiye ediyorum.\nEdinebileceğiniz adresler:\nPlay Store: https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&amp;hl=tr\nF-Droid: https://f-droid.org/tr/packages/com.menny.android.anysoftkeyboard/</string>
     <string name="click_me_for_easter_egg_info">Bir şaşırtma için bana tıklayın</string>
-    <string name="backup_restore_not_support_before_kitkat">Android cihazınızda desteklenmiyor</string>
-    <string name="backup_restore_not_support_before_kitkat_message">Yedekleme ve geri yükleme, KitKat\'tan önceki (sürüm 4.4) Android işletim sistemini çalıştıran cihazlarda desteklenmiyor.  Üzgünüm.</string>
     <string name="delete_all_clipboard_entries">Panoyu temizle</string>
     <string name="tip_swipe_from_backspace_to_clear">İpucu: Boşluk tuşundan sola doğru kaydırarak kelimeyi silebilirsiniz!</string>
     <string name="notification_read_contacts_ticker">Kişilere erişim izni gerekli</string>

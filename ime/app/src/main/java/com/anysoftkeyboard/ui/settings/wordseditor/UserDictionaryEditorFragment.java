@@ -277,7 +277,8 @@ public class UserDictionaryEditorFragment extends Fragment
   }
 
   protected interface MyEditableDictionary {
-    @NonNull List<LoadedWord> getLoadedWords();
+    @NonNull
+    List<LoadedWord> getLoadedWords();
   }
 
   public static class LoadedWord {
@@ -313,17 +314,20 @@ public class UserDictionaryEditorFragment extends Fragment
       super(context, locale);
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public List<LoadedWord> getLoadedWords() {
       return ((MyEditableDictionary) super.getActualDictionary()).getLoadedWords();
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
       return new MyAndroidUserDictionary(context, locale);
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
       return new MyFallbackUserDictionary(context, locale);
     }
@@ -349,7 +353,8 @@ public class UserDictionaryEditorFragment extends Fragment
       super.readWordsFromActualStorage(myListener);
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public List<LoadedWord> getLoadedWords() {
       return mLoadedWords;
     }
@@ -375,7 +380,8 @@ public class UserDictionaryEditorFragment extends Fragment
       super.readWordsFromActualStorage(myListener);
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public List<LoadedWord> getLoadedWords() {
       return mLoadedWords;
     }

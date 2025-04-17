@@ -556,7 +556,8 @@ public class SuggestImpl implements Suggest {
     }
   }
 
-  @NonNull private StringBuilder getStringBuilderFromPool(char[] word, int wordOffset, int wordLength) {
+  @NonNull
+  private StringBuilder getStringBuilderFromPool(char[] word, int wordOffset, int wordLength) {
     int poolSize = mStringPool.size();
     StringBuilder sb =
         poolSize > 0

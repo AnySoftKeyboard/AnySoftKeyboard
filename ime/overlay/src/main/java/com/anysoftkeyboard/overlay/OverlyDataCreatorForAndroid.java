@@ -7,22 +7,17 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.util.TypedValue;
 import androidx.annotation.AttrRes;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
 
 public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
-  public static final boolean OS_SUPPORT_FOR_ACCENT =
-      Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-
   private static final OverlayData EMPTY = new InvalidOverlayData();
 
   private final Context mLocalContext;
-  private final OverlayData mCurrentOverlayData = new OverlayData();
+  protected final OverlayDataImpl mCurrentOverlayData = new OverlayDataImpl();
 
   public OverlyDataCreatorForAndroid(Context localContext) {
     mLocalContext = localContext;
@@ -30,10 +25,6 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
   @Override
   public OverlayData createOverlayData(ComponentName remoteApp) {
-    if (!OS_SUPPORT_FOR_ACCENT) {
-      return EMPTY;
-    }
-
     try {
       final ActivityInfo activityInfo =
           mLocalContext
@@ -43,7 +34,7 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
           mLocalContext.createPackageContext(remoteApp.getPackageName(), CONTEXT_IGNORE_SECURITY);
 
       context.setTheme(activityInfo.getThemeResource());
-      fetchRemoteColors(mCurrentOverlayData, context);
+      fetchRemoteColors(context);
 
       Logger.d(
           "OverlyDataCreatorForAndroid",
@@ -58,33 +49,38 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     }
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-  protected void fetchRemoteColors(OverlayData data, Context context) {
+  protected void fetchRemoteColors(Context context) {
     // ensuring text colors are completely opaque by apply Color.BLACK
     final TypedValue typedValue = new TypedValue();
-    data.setPrimaryColor(
+    mCurrentOverlayData.setPrimaryColor(
         Color.BLACK
             | getColorFromThemeAttribute(
                 context, typedValue, android.R.attr.colorPrimary, Color.BLACK));
-    data.setPrimaryDarkColor(
+    mCurrentOverlayData.setPrimaryDarkColor(
         Color.BLACK
             | getColorFromThemeAttribute(
-                context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
-    data.setAccentColor(
+                context,
+                typedValue,
+                android.R.attr.colorPrimaryDark,
+                mCurrentOverlayData.getPrimaryColor()));
+    mCurrentOverlayData.setAccentColor(
         Color.BLACK
             | getColorFromThemeAttribute(
-                context, typedValue, android.R.attr.colorAccent, data.getPrimaryColor()));
-    data.setPrimaryTextColor(
+                context,
+                typedValue,
+                android.R.attr.colorAccent,
+                mCurrentOverlayData.getPrimaryColor()));
+    mCurrentOverlayData.setPrimaryTextColor(
         Color.BLACK
             | getColorFromThemeAttribute(
                 context, typedValue, android.R.attr.textColorPrimary, Color.BLACK));
-    data.setSecondaryTextColor(
+    mCurrentOverlayData.setSecondaryTextColor(
         Color.BLACK
             | getColorFromThemeAttribute(
                 context,
                 typedValue,
                 android.R.attr.textColorSecondary,
-                data.getPrimaryTextColor()));
+                mCurrentOverlayData.getPrimaryTextColor()));
   }
 
   private static int getColorFromThemeAttribute(
@@ -100,7 +96,7 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     }
   }
 
-  private static class InvalidOverlayData extends OverlayData {
+  private static class InvalidOverlayData extends OverlayDataImpl {
     @Override
     public boolean isValid() {
       return false;
@@ -114,18 +110,20 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     }
 
     @Override
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    protected void fetchRemoteColors(OverlayData data, Context context) {
+    protected void fetchRemoteColors(Context context) {
       final TypedValue typedValue = new TypedValue();
-      data.setPrimaryColor(
+      mCurrentOverlayData.setPrimaryColor(
           getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimary, 0));
-      data.setPrimaryDarkColor(
+      mCurrentOverlayData.setPrimaryDarkColor(
           getColorFromThemeAttribute(
-              context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
+              context,
+              typedValue,
+              android.R.attr.colorPrimaryDark,
+              mCurrentOverlayData.getPrimaryColor()));
       // these will be static
-      data.setAccentColor(data.getPrimaryColor());
-      data.setPrimaryTextColor(Color.WHITE);
-      data.setSecondaryTextColor(Color.LTGRAY);
+      mCurrentOverlayData.setAccentColor(mCurrentOverlayData.getPrimaryColor());
+      mCurrentOverlayData.setPrimaryTextColor(Color.WHITE);
+      mCurrentOverlayData.setSecondaryTextColor(Color.LTGRAY);
     }
   }
 }

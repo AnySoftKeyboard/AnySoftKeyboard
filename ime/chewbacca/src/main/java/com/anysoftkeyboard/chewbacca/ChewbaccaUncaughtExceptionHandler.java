@@ -240,7 +240,9 @@ public abstract class ChewbaccaUncaughtExceptionHandler implements UncaughtExcep
     mNotificationDriver.notify(notifyBuilder, true);
   }
 
-  @NonNull protected abstract Intent createBugReportingActivityIntent();
+  @NonNull
+  protected abstract Intent createBugReportingActivityIntent();
 
-  @NonNull protected abstract String getAppDetails();
+  @NonNull
+  protected abstract String getAppDetails();
 }

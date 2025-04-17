@@ -6,8 +6,8 @@
     <string name="add_on_website_template">Látogassa meg a weboldalunkat: <xliff:g id="web_site">%s</xliff:g></string>
     <string name="screenshot_content_description">Egy képernyőfotó a bővítményről</string>
     <string name="not_standalone_app_text">Ez az alkalmazás <b>nem</b> önálló alkalmazás, hanem az AnySoftKeyboard bővítőcsomagja (bővítménye).</string>
-    <string name="add_on_type_language">Nyelvi csomag</string>
-    <string name="add_on_type_theme">Billentyűzet téma</string>
+    <string name="add_on_type_language" tools:ignore="UnusedResources">Nyelvi csomag</string>
+    <string name="add_on_type_theme" tools:ignore="UnusedResources">Billentyűzet téma</string>
     <string name="ask_is_missing_need_install">Az AnySoftKeyboard nincs telepítve az eszközre.\nA bővítőcsomag használatához először telepítenie kell az AnySoftKeyboard-ot.</string>
     <string name="open_ask_in_vending">Ugrás a Play Áruházba</string>
     <string name="ask_installed">Az AnySoftKeyboard telepítve van. Előfordulhat, hogy be kell állítania a bővítőcsomag használatának megkezdéséhez.</string>
