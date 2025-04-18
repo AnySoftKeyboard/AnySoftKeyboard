@@ -18,7 +18,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.6.1'
         classpath 'com.github.triplet.gradle:play-publisher:3.7.0'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:4.1.0'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:4.2.0'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.8.1'
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:7.0.3'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0'
