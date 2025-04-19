@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="menu_about_item">Par lietotni</string>
+    <string name="language_root_tile">Valoda</string>
     <!-- UI root menu -->
     <!-- welcome -->
+    <string name="delete_button">Dzēst</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <!-- voice -->
     <!-- Options menu -->
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="grammar_group">Gramatika</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
@@ -16,6 +20,14 @@
     <!-- Tutorials -->
     <!-- Special soft keyboard keys text -->
     <!-- dictionaries -->
+    <string name="unicode_people_quick_text_key_name">Cilvēki</string>
+    <string name="unicode_animals_quick_text_key_name">Dzīvnieki</string>
+    <string name="unicode_food_quick_text_key_name">Pārtika</string>
+    <string name="unicode_nature_quick_text_key_name">Daba</string>
+    <string name="unicode_transport_quick_text_key_name">Transports</string>
+    <string name="unicode_signs_quick_text_key_name">Zīmes</string>
+    <string name="unicode_city_quick_text_key_name">Pilsēta</string>
+    <string name="unicode_flags_quick_text_key_name">Karogi</string>
     <!-- User dictionary settings -->
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <!-- abbreviations editor -->
