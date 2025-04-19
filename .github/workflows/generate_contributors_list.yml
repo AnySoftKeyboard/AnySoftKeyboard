@@ -22,7 +22,7 @@ jobs:
           git config --global --add safe.directory "${PWD}"
           bazel run //js/contributors:contributors -- generate --api_token ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} --output_file "${{ github.workspace }}/CONTRIBUTORS.md"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
+        uses: peter-evans/create-pull-request@v7.0.8
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Contributors List Update'
