@@ -2,8 +2,8 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (6.4k)
-1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.5k) 🤖
+1. [menny](https://github.com/menny) (6.5k)
+1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.6k) 🤖
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
 1. [martholomew](https://github.com/martholomew) (74)
@@ -77,6 +77,7 @@ Thank you for the fine contributors:
 1. [steelman](https://github.com/steelman) (3)
 1. [Unpublished](https://github.com/Unpublished) (3)
 1. [alex73](https://github.com/alex73) (2)
+1. [AngryHands](https://github.com/AngryHands) (2)
 1. [Azim](https://github.com/Azim) (2)
 1. [Blaimi](https://github.com/Blaimi) (2)
 1. [dependabot[bot]](https://github.com/dependabot[bot]) (2)
@@ -101,4 +102,3 @@ Thank you for the fine contributors:
 1. [Apflkuacha](https://github.com/Apflkuacha) (1)
 1. [baduhai](https://github.com/baduhai) (1)
 1. [BisarOmer](https://github.com/BisarOmer) (1)
-1. [bquast](https://github.com/bquast) (1)
