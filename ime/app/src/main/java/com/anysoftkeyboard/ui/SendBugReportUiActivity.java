@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -55,6 +56,8 @@ public class SendBugReportUiActivity extends FragmentActivity {
             "Activity started without " + BugReportDetails.EXTRA_KEY_BugReportDetails + " extra!");
       finish();
     }
+
+    ((TextView) findViewById(R.id.errorHeader)).setText(mCrashReportDetails.crashHeader);
   }
 
   public void onCancelCrashReport(View v) {
