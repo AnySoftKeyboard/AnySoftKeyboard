@@ -5,8 +5,8 @@ allprojects {
 
         sideBySideNdkVersion = '27.2.12479018'
 
-        sdkTargetVersion = 34
-        sdkCompileVersion = 34
+        sdkTargetVersion = 35
+        sdkCompileVersion = 36
         sdkMinimumVersion = 21
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")
