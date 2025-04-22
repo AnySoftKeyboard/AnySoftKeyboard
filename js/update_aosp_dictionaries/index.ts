@@ -7,7 +7,7 @@ import * as tar from 'tar';
 import { join } from 'path';
 import { setFailed } from '@actions/core';
 import yaml from 'js-yaml';
-import TextFileDiff from 'text-file-diff';
+import { TextFileDiff } from './differ.js';
 
 async function downloadFileToTemp(url: string): Promise<string> {
   const tempFile = join(tmpdir(), `${Math.random().toString(16).substring(2)}_dictionaries.tar.gz`);
@@ -93,7 +93,6 @@ program.name('update-aosp-dictionaries').description('CLI to update AOSP gz aosp
 
 program
   .command('update')
-  .requiredOption('--repository_root <root_path>', 'Path to the repository root folder')
   .requiredOption('--dictionaries_archive <http_url>', 'URL to download the archive')
   .requiredOption('--dictionaries_mapping <path>', 'Path mapping file')
   .action(async (options) => {
@@ -109,7 +108,7 @@ program
 
     for (const mapping of mappings) {
       const src = `${dictionaries_folder}/${mapping[0]}`;
-      const trgt = `${options.repository_root}/${mapping[1]}`;
+      const trgt = `${process.env.BUILD_WORKSPACE_DIRECTORY}/${mapping[1]}`;
       console.log('********************');
       console.log(` - comparing remote ${src} to local ${trgt}`);
       try {
