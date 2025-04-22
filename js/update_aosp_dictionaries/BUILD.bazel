@@ -4,6 +4,7 @@ load("//js:ts.bzl", "ts_library")
 ts_library(
     name = "update_aosp_dictionaries_lib",
     srcs = [
+        "differ.ts",
         "index.ts",
     ],
     visibility = ["//visibility:private"],
@@ -14,7 +15,6 @@ ts_library(
         "//:node_modules/@types/node",
         "//:node_modules/commander",
         "//:node_modules/tar",
-        "//:node_modules/text-file-diff",
     ],
 )
 
