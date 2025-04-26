@@ -274,10 +274,13 @@ jobs:
           path: outputs/fdroid
   all-green-requirement:
     needs: [static-checks, linters, tests, deploy-dry-run, js-checks, bazel]
+    if: always()
     runs-on: ubuntu-24.04
+    env:
+      ALL_PASSED: ${{ needs.*.result }}
     steps:
-      - name: ready
-        run: echo "DONE"
+      - name: checking if all passed
+        run: echo "$ALL_PASSED"
   deploy-request:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
