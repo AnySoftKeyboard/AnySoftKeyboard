@@ -28,6 +28,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
+import java.util.Objects;
 import net.evendanan.pixel.EdgeEffectHacker;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
@@ -48,7 +49,9 @@ public class MainSettingsActivity extends AppCompatActivity {
     mTitle = getTitle();
 
     final NavController navController =
-        ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment))
+        ((NavHostFragment)
+                Objects.requireNonNull(
+                    getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)))
             .getNavController();
     final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
     NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -69,7 +72,7 @@ public class MainSettingsActivity extends AppCompatActivity {
         && intent.hasExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY)) {
       final String permission = intent.getStringExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
       intent.removeExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
-      if (permission.equals(Manifest.permission.READ_CONTACTS)) {
+      if (Objects.equals(permission, Manifest.permission.READ_CONTACTS)) {
         startContactsPermissionRequest();
       } else {
         throw new IllegalArgumentException("Unknown permission request " + permission);

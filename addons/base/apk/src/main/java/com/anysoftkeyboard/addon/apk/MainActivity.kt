@@ -77,7 +77,8 @@ abstract class MainActivityBase(
               ASK_PACKAGE_NAME,
               PackageManager.GET_SERVICES,
           )
-      services.services.any { it.name == "com.menny.android.anysoftkeyboard.SoftKeyboard" }
+      services.services?.any { it.name == "com.menny.android.anysoftkeyboard.SoftKeyboard" }
+          ?: false
     } catch (e: Exception) {
       false
     }

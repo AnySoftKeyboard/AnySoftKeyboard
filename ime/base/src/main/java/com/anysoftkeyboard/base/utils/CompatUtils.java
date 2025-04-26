@@ -29,13 +29,11 @@ import com.getkeepsafe.relinker.MissingLibraryException;
 import com.getkeepsafe.relinker.ReLinker;
 
 public class CompatUtils {
-  private static String TAG = "ASK-CompatUtils";
+  private static final String TAG = "ASK-CompatUtils";
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
   public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-      popupWindow.setAttachedInDecor(false);
-    }
+    popupWindow.setAttachedInDecor(false);
   }
 
   public static void unbindDrawable(Drawable d) {

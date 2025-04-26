@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.9.0"
+    id "org.jetbrains.kotlin.jvm" version "2.0.0"
 }
 
 apply plugin: 'groovy'
@@ -17,8 +17,8 @@ dependencies {
     implementation localGroovy()
 
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
-    implementation 'com.google.code.gson:gson:2.10'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.0"
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:2.1.0"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.github.stefanbirkner:system-rules:1.16.1'
