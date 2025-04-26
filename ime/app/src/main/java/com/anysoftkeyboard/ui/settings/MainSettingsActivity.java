@@ -28,10 +28,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.pixel.EdgeEffectHacker;
-
 import java.util.Objects;
-
+import net.evendanan.pixel.EdgeEffectHacker;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class MainSettingsActivity extends AppCompatActivity {
@@ -51,7 +49,9 @@ public class MainSettingsActivity extends AppCompatActivity {
     mTitle = getTitle();
 
     final NavController navController =
-        ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)))
+        ((NavHostFragment)
+                Objects.requireNonNull(
+                    getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)))
             .getNavController();
     final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
     NavigationUI.setupWithNavController(bottomNavigationView, navController);

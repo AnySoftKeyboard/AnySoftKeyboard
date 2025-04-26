@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.AskApp" parent="Theme.AppCompat.DayNight">
+    <style name="Theme.AskAppBase" parent="Theme.AppCompat.DayNight">
         <item name="android:textColorLink">@color/text_color_link</item>
         <item name="colorAccent">@color/app_accent</item>
         <!-- I'm going to use the keyboard's background, so no need for double drawing -->
@@ -14,7 +14,10 @@
         <item name="android:textAppearance">@style/Ask.Text.Normal</item>
         <item name="android:textAppearanceSmall">@style/Ask.Text.Small</item>
         <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
+    <!--This theme is used to override stuff in higher API levels-->
+    <style name="Theme.AskApp" parent="Theme.AskAppBase"/>
 
     <style name="Theme.AskPreference" parent="Theme.AskApp">
         <item name="android:textAppearanceLarge">@style/Ask.Text.Normal.Bold</item>
