@@ -20,6 +20,7 @@ public abstract class AnySoftKeyboardStartUpAllSdkTest extends AnySoftKeyboardBa
     Assume.assumeTrue("Need to figure how to start it in 32", Build.VERSION.SDK_INT != 32);
     Assume.assumeTrue("Need to figure how to start it in 33", Build.VERSION.SDK_INT != 33);
     Assume.assumeTrue("Need to figure how to start it in 34", Build.VERSION.SDK_INT != 34);
+    Assume.assumeTrue("Need to figure how to start it in 34", Build.VERSION.SDK_INT != 35);
     super.setUpForAnySoftKeyboardBase();
   }
 

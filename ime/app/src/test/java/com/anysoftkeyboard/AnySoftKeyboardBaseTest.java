@@ -2,7 +2,6 @@ package com.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Service;
 import android.inputmethodservice.AbstractInputMethodService;
@@ -51,7 +50,6 @@ public abstract class AnySoftKeyboardBaseTest {
     return TestableAnySoftKeyboard.class;
   }
 
-  @TargetApi(Build.VERSION_CODES.KITKAT)
   @Before
   public void setUpForAnySoftKeyboardBase() throws Exception {
     final Application application = getApplicationContext();

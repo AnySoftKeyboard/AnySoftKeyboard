@@ -1,0 +1,22 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "check_all_green_lib",
+    srcs = [
+        "green_checker.ts",
+        "index.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/commander",
+        "//:node_modules/undici",
+    ],
+)
+
+js_binary(
+    name = "check_all_green",
+    data = [":check_all_green_lib"],
+    entry_point = "dist/index.js",
+)

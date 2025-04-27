@@ -274,10 +274,20 @@ jobs:
           path: outputs/fdroid
   all-green-requirement:
     needs: [static-checks, linters, tests, deploy-dry-run, js-checks, bazel]
+    if: always()
     runs-on: ubuntu-24.04
     steps:
-      - name: ready
-        run: echo "DONE"
+      - uses: actions/checkout@v4.2.2
+      - uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - name: checking if all passed
+        run: |
+          echo '${{ toJSON(needs) }}' > "${{ runner.temp }}/needs_context.json"
+          cat "${{ runner.temp }}/needs_context.json"
+          bazel run //js/check_all_green -- --github_event_file "${{ runner.temp }}/needs_context.json"
   deploy-request:
     if: github.event_name == 'push'
     needs: [all-green-requirement]

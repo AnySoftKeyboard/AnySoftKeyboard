@@ -16,11 +16,11 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.os.Vibrator;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
-@TargetApi(29)
+@RequiresApi(29)
 public class DeviceSpecificV29 extends DeviceSpecificV28 {
   @Override
   public String getApiLevel() {
