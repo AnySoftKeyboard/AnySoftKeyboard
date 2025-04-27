@@ -1,6 +1,6 @@
 common --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig
 # Java configs
-common --java_language_version=17
-common --java_runtime_version=remotejdk_17
-common --tool_java_language_version=17
-common --tool_java_runtime_version=remotejdk_17
+common --java_language_version=21
+common --java_runtime_version=remotejdk_21
+common --tool_java_language_version=21
+common --tool_java_runtime_version=remotejdk_21
