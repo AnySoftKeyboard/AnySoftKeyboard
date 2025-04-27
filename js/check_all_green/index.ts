@@ -13,7 +13,7 @@ const main = async () => {
 
   const jsonContent = fs.readFileSync(opts.github_event_file, 'utf8');
   if (!checkJobStatuses(jsonContent)) {
-    throw new Error("not all checks passed!")
+    throw new Error('not all checks passed!');
   }
 };
 
