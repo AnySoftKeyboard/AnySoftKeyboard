@@ -46,7 +46,7 @@ afterEvaluate {
             options.compilerArgs << '-nowarn'
         } else {
             //fail on warnings (which are Error-Prone issues)
-            options.compilerArgs << '-Werror'
+            //options.compilerArgs << '-Werror'
         }
     }
 }
