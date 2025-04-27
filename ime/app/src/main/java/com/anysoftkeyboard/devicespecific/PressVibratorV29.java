@@ -16,11 +16,11 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import androidx.annotation.RequiresApi;
 
-@TargetApi(29)
+@RequiresApi(29)
 public class PressVibratorV29 extends PressVibratorV26 {
   private boolean mSystemVibe;
   private boolean mSystemHapticEnabled;

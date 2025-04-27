@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.base.utils;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -31,9 +30,10 @@ import com.getkeepsafe.relinker.ReLinker;
 public class CompatUtils {
   private static final String TAG = "ASK-CompatUtils";
 
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
   public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {
-    popupWindow.setAttachedInDecor(false);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+      popupWindow.setAttachedInDecor(false);
+    }
   }
 
   public static void unbindDrawable(Drawable d) {
