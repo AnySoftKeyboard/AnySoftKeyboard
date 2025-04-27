@@ -309,6 +309,6 @@
         android:label="LogCatViewFragment" />
     <fragment
         android:id="@+id/fullChangeLogFragment"
-        android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$FullChangeLogFragment"
+        android:name="com.anysoftkeyboard.releaseinfo.ChangeLogFragment$FullChangeLogFragment"
         android:label="FullChangeLogFragment" />
 </navigation>
