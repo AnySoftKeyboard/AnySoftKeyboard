@@ -1,4 +1,4 @@
-* Support for Android 14.
+* Support for Android 15.
 * Clipboard support improvements.
 * A few Settings app navigation fixes.
 * Vibration fixes.
