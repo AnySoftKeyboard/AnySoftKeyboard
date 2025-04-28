@@ -30,7 +30,7 @@
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.2",
     "@types/sinon": "^17.0.4",
     "@typescript-eslint/eslint-plugin": "^8.31.0",
     "@typescript-eslint/parser": "^8.31.0",
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "commander": "^13.1.0",
-    "fast-xml-parser": "^5.2.0",
+    "fast-xml-parser": "^5.2.1",
     "follow-redirects": "^1.15.9",
     "js-yaml": "^4.1.0",
     "tar": "^7.4.3",
