@@ -9,7 +9,7 @@ ext.override_release_key_alias = 'anysoftkeyboard'
 ext.closedTestingTrackName = 'alpha'
 ext.openTestingTrackName = 'beta'
 
-apply from: "${rootDir}/gradle/apk_module.gradle"
+apply from: "${rootProject.projectDir}/gradle/apk_module.gradle"
 
 apply plugin: 'androidx.navigation.safeargs'
 

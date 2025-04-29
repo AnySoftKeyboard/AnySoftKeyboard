@@ -55,7 +55,7 @@ android {
         release {
             shrinkResources true
             minifyEnabled true
-            def ime_path = "${rootDir}/ime/app"
+            def ime_path = "${rootProject.projectDir}/ime/app"
             proguardFiles "${ime_path}/proguard-android-optimize.txt",
                     "${ime_path}/proguard-rules.txt",
                     "${ime_path}/proguard-anysoftkeyboard.txt",

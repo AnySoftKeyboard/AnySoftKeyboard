@@ -67,4 +67,4 @@ android {
     }
 }
 
-apply from: "${rootDir}/gradle/jacoco.gradle"
+apply from: "${rootProject.projectDir}/gradle/jacoco.gradle"

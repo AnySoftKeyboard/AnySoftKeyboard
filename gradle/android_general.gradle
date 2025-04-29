@@ -1,12 +1,12 @@
 
-apply from: "${rootDir}/gradle/errorprone.gradle"
-apply from: "${rootDir}/gradle/checkstyle.gradle"
-apply from: "${rootDir}/gradle/spotless.gradle"
+apply from: "${rootProject.projectDir}/gradle/errorprone.gradle"
+apply from: "${rootProject.projectDir}/gradle/checkstyle.gradle"
+apply from: "${rootProject.projectDir}/gradle/spotless.gradle"
 
 android {
     lint {
         checkDependencies true
-        lintConfig file("${rootDir}/config/lint.xml")
+        lintConfig file("${rootProject.projectDir}/config/lint.xml")
     }
 
     packagingOptions {
@@ -39,7 +39,7 @@ android {
     }
 }
 
-apply from: "${rootDir}/gradle/android_unit_test.gradle"
+apply from: "${rootProject.projectDir}/gradle/android_unit_test.gradle"
 
 afterEvaluate {
     tasks.withType(JavaCompile).configureEach { JavaCompile task ->

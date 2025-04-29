@@ -35,9 +35,9 @@ allprojects {
     }
 }
 
-apply from: "${rootDir}/gradle/emoji_generator.gradle"
-apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
-apply from: "${rootDir}/gradle/fdroid_yaml_output.gradle"
+apply from: "${rootProject.projectDir}/gradle/emoji_generator.gradle"
+apply from: "${rootProject.projectDir}/gradle/root_all_projects_ext.gradle"
+apply from: "${rootProject.projectDir}/gradle/fdroid_yaml_output.gradle"
 
 def cleanOthers = tasks.register("cleanOthers", Delete) {
     delete buildDir

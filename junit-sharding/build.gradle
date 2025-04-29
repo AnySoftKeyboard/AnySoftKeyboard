@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
-apply from: "${rootDir}/gradle/jacoco.gradle"
-apply from: "${rootDir}/gradle/errorprone.gradle"
+apply from: "${rootProject.projectDir}/gradle/jacoco.gradle"
+apply from: "${rootProject.projectDir}/gradle/errorprone.gradle"
 
 dependencies {
     implementation 'junit:junit:4.13.2'

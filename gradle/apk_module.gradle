@@ -26,7 +26,7 @@ static String calculateApplicationId(Project proj) {
     return getExtValue(proj, "override_app_id", defaultId)
 }
 
-apply from: "${rootDir}/gradle/android_general.gradle"
+apply from: "${rootProject.projectDir}/gradle/android_general.gradle"
 
 //copy bundles and APKs to output
 android.applicationVariants.configureEach { variant ->
