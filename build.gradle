@@ -60,3 +60,14 @@ def cleanOthers = tasks.register("cleanOthers", Delete) {
 tasks.register('clean').configure({
     it.finalizedBy(cleanOthers)
 })
+
+tasks.register('printProjectPaths').configure {
+    description = 'Prints the paths of all configured projects.'
+    group = 'Help'
+
+    doLast {
+        rootProject.allprojects.each { proj ->
+            println "- Configured project: " + proj.path
+        }
+    }
+}

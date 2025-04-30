@@ -83,7 +83,8 @@ if [[ "${DEPLOYMENT_TASK}" == "deploy" ]]; then
 
     addOns*)
       DEPLOY_ARGS+=( "--track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "assembleRelease" "bundleRelease" "publishReleaseBundle" "-x" "ime:app:assembleRelease" "-x" "ime:app:bundleRelease" "-x" "ime:app:publishReleaseBundle" )
+      # This can be shard with "awk 'NR % 2 == ${SHARD_NUMBER}'"
+      DEPLOY_TASKS+=( $(./gradlew :printProjectPaths | grep "Configured project:" | grep ":addons:" | grep ":apk" | grep -v ":addons:base:apk" | cut -d ' ' -f 4 | awk '{ print $0 ":assembleRelease"; print $0 ":bundleRelease"; print $0 ":publishReleaseBundle"; }') )
       ;;
 
     *)
@@ -103,7 +104,7 @@ elif [[ "${DEPLOYMENT_TASK}" == "deploy:migration" ]]; then
 
     addOns*)
       DEPLOY_ARGS+=( "--from-track" "${PREVIOUS_DEPLOY_CHANNEL}" "--promote-track" "${DEPLOY_CHANNEL}" )
-      DEPLOY_TASKS+=( "promoteReleaseArtifact" "-x" "ime:app:promoteReleaseArtifact" )
+      DEPLOY_TASKS+=( $(./gradlew :printProjectPaths | grep "Configured project:" | grep ":addons:" | grep ":apk" | grep -v ":addons:base:apk" | cut -d ' ' -f 4 | awk '{ print $0 ":promoteReleaseArtifact"; }') )
       ;;
 
   esac
