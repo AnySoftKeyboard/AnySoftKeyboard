@@ -47,19 +47,17 @@ public class EditorWordsAdapter
 
   @Override
   public EditorWordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    switch (viewType) {
-      case R.id.word_editor_view_type_editing_row:
-        return new EditorWordViewHolderEditing(inflateEditingRowView(mLayoutInflater, parent));
-      case R.id.word_editor_view_type_empty_view_row:
-        return new EditorWordViewHolderAddNew(
-            mLayoutInflater.inflate(R.layout.word_editor_empty_view, parent, false));
-      case R.id.word_editor_view_type_add_new_row:
-        return new EditorWordViewHolderAddNew(
-            mLayoutInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false));
-      default:
-        return new EditorWordViewHolderNormal(
-            mLayoutInflater.inflate(R.layout.user_dictionary_word_row, parent, false));
+    if (viewType == R.id.word_editor_view_type_editing_row) {
+      return new EditorWordViewHolderEditing(inflateEditingRowView(mLayoutInflater, parent));
+    } else if (viewType == R.id.word_editor_view_type_empty_view_row) {
+      return new EditorWordViewHolderAddNew(
+              mLayoutInflater.inflate(R.layout.word_editor_empty_view, parent, false));
+    } else if (viewType == R.id.word_editor_view_type_add_new_row) {
+      return new EditorWordViewHolderAddNew(
+              mLayoutInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false));
     }
+    return new EditorWordViewHolderNormal(
+            mLayoutInflater.inflate(R.layout.user_dictionary_word_row, parent, false));
   }
 
   protected View inflateEditingRowView(LayoutInflater layoutInflater, ViewGroup parent) {
