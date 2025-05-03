@@ -724,36 +724,26 @@ public abstract class AnyKeyboard extends Keyboard {
             resourceMapping.getLocalAttrId(remoteStyleableArrayFromLocal[remoteIndex]);
 
         try {
-          switch (localAttrId) {
-            case R.attr.shiftedCodes:
-              mShiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
-              break;
-            case R.attr.longPressCode:
-              longPressCode = a.getInt(remoteIndex, 0);
-              break;
-            case R.attr.isFunctional:
-              mFunctionalKey = a.getBoolean(remoteIndex, false);
-              break;
-            case R.attr.shiftedKeyLabel:
-              shiftedKeyLabel = a.getString(remoteIndex);
-              break;
-            case R.attr.isShiftAlways:
-              mShiftCodesAlwaysOverride = true;
-              mShiftCodesAlways = a.getBoolean(remoteIndex, false);
-              break;
-            case R.attr.hintLabel:
-              hintLabel = a.getString(remoteIndex);
-              break;
-            case R.attr.showInLayout:
-              //noinspection WrongConstant
-              showKeyInLayout = a.getInt(remoteIndex, SHOW_KEY_ALWAYS);
-              break;
-            case R.attr.tags:
-              String tags = a.getString(remoteIndex);
-              if (!TextUtils.isEmpty(tags)) {
-                mKeyTags = Arrays.asList(tags.split(","));
-              }
-              break;
+          if (localAttrId == R.attr.shiftedCodes) {
+            mShiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+          } else if (localAttrId == R.attr.longPressCode) {
+            longPressCode = a.getInt(remoteIndex, 0);
+          } else if (localAttrId == R.attr.isFunctional) {
+            mFunctionalKey = a.getBoolean(remoteIndex, false);
+          } else if (localAttrId == R.attr.shiftedKeyLabel) {
+            shiftedKeyLabel = a.getString(remoteIndex);
+          } else if (localAttrId == R.attr.isShiftAlways) {
+            mShiftCodesAlwaysOverride = true;
+            mShiftCodesAlways = a.getBoolean(remoteIndex, false);
+          } else if (localAttrId == R.attr.hintLabel) {
+            hintLabel = a.getString(remoteIndex);
+          } else if (localAttrId == R.attr.showInLayout) {//noinspection WrongConstant
+            showKeyInLayout = a.getInt(remoteIndex, SHOW_KEY_ALWAYS);
+          } else if (localAttrId == R.attr.tags) {
+            String tags = a.getString(remoteIndex);
+            if (!TextUtils.isEmpty(tags)) {
+              mKeyTags = Arrays.asList(tags.split(","));
+            }
           }
         } catch (Exception e) {
           Logger.w(TAG, "Failed to set data from XML!", e);
