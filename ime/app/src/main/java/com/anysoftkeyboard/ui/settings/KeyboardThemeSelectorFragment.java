@@ -108,33 +108,29 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     final int secondaryBackground;
     final int primaryText;
     final int secondaryText;
-    switch (view.getId()) {
-      case R.id.theme_app_demo_phone:
-        primaryBackground = R.color.overlay_demo_app_phone_primary_background;
-        secondaryBackground = R.color.overlay_demo_app_phone_secondary_background;
-        primaryText = R.color.overlay_demo_app_phone_primary_text;
-        secondaryText = R.color.overlay_demo_app_phone_primary_text;
-        break;
-      case R.id.theme_app_demo_twitter:
-        primaryBackground = R.color.overlay_demo_app_twitter_primary_background;
-        secondaryBackground = R.color.overlay_demo_app_twitter_secondary_background;
-        primaryText = R.color.overlay_demo_app_twitter_primary_text;
-        secondaryText = R.color.overlay_demo_app_twitter_primary_text;
-        break;
-      case R.id.theme_app_demo_whatsapp:
-        primaryBackground = R.color.overlay_demo_app_whatsapp_primary_background;
-        secondaryBackground = R.color.overlay_demo_app_whatsapp_secondary_background;
-        primaryText = R.color.overlay_demo_app_whatsapp_primary_text;
-        secondaryText = R.color.overlay_demo_app_whatsapp_primary_text;
-        break;
-      case R.id.theme_app_demo_gmail:
-        primaryBackground = R.color.overlay_demo_app_gmail_primary_background;
-        secondaryBackground = R.color.overlay_demo_app_gmail_secondary_background;
-        primaryText = R.color.overlay_demo_app_gmail_primary_text;
-        secondaryText = R.color.overlay_demo_app_gmail_primary_text;
-        break;
-      default:
-        throw new IllegalArgumentException("Unknown demo app view ID " + view.getId());
+    int id = view.getId();
+    if (id == R.id.theme_app_demo_phone) {
+      primaryBackground = R.color.overlay_demo_app_phone_primary_background;
+      secondaryBackground = R.color.overlay_demo_app_phone_secondary_background;
+      primaryText = R.color.overlay_demo_app_phone_primary_text;
+      secondaryText = R.color.overlay_demo_app_phone_primary_text;
+    } else if (id == R.id.theme_app_demo_twitter) {
+      primaryBackground = R.color.overlay_demo_app_twitter_primary_background;
+      secondaryBackground = R.color.overlay_demo_app_twitter_secondary_background;
+      primaryText = R.color.overlay_demo_app_twitter_primary_text;
+      secondaryText = R.color.overlay_demo_app_twitter_primary_text;
+    } else if (id == R.id.theme_app_demo_whatsapp) {
+      primaryBackground = R.color.overlay_demo_app_whatsapp_primary_background;
+      secondaryBackground = R.color.overlay_demo_app_whatsapp_secondary_background;
+      primaryText = R.color.overlay_demo_app_whatsapp_primary_text;
+      secondaryText = R.color.overlay_demo_app_whatsapp_primary_text;
+    } else if (id == R.id.theme_app_demo_gmail) {
+      primaryBackground = R.color.overlay_demo_app_gmail_primary_background;
+      secondaryBackground = R.color.overlay_demo_app_gmail_secondary_background;
+      primaryText = R.color.overlay_demo_app_gmail_primary_text;
+      secondaryText = R.color.overlay_demo_app_gmail_primary_text;
+    } else {
+      throw new IllegalArgumentException("Unknown demo app view ID " + view.getId());
     }
 
     Activity activity = requireActivity();
