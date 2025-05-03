@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -99,50 +100,52 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment
     }
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
   @Override
   public void onClick(View v) {
     AppCompatActivity activity = (AppCompatActivity) getActivity();
     if (activity == null) return;
 
-    switch (v.getId()) {
-      case R.id.ask_for_contact_permissions_action -> enableContactsDictionary();
-      case R.id.disable_contacts_dictionary -> {
-        mSharedPrefs
-            .edit()
-            .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
-            .apply();
-        refreshWizardPager();
+    // Resource IDs cannot be used in a switch statement in Android library modules
+    // Fixing by replacing switch with if-else if.
+    final int viewId = v.getId();
+    if (viewId == R.id.ask_for_contact_permissions_action) {
+      enableContactsDictionary();
+    } else if (viewId == R.id.disable_contacts_dictionary) {
+      mSharedPrefs
+              .edit()
+              .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
+              .apply();
+      refreshWizardPager();
+    } else if (viewId == R.id.open_permissions_wiki_action) {
+      Intent browserIntent =
+              new Intent(
+                      Intent.ACTION_VIEW,
+                      Uri.parse(getResources().getString(R.string.permissions_wiki_site_url)));
+      try {
+        startActivity(browserIntent);
+      } catch (ActivityNotFoundException weirdException) {
+        // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/516
+        // this means that there is nothing on the device
+        // that can handle Intent.ACTION_VIEW with "https" schema..
+        // silently swallowing it
+        Logger.w(
+                "WizardPermissionsFragment",
+                "Can not open '%' since there is nothing on the device that can handle" + " it.",
+                browserIntent.getData());
       }
-      case R.id.open_permissions_wiki_action -> {
-        Intent browserIntent =
-            new Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(getResources().getString(R.string.permissions_wiki_site_url)));
-        try {
-          startActivity(browserIntent);
-        } catch (ActivityNotFoundException weirdException) {
-          // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/516
-          // this means that there is nothing on the device
-          // that can handle Intent.ACTION_VIEW with "https" schema..
-          // silently swallowing it
-          Logger.w(
-              "WizardPermissionsFragment",
-              "Can not open '%' since there is nothing on the device that can handle" + " it.",
-              browserIntent.getData());
-        }
-      }
-      case R.id.ask_for_notification_permissions_action ->
-          AnyApplication.notifier(activity).askForNotificationPostPermission(this);
-      case R.id.skip_notification_permissions_action -> {
-        mNotificationSkipped = true;
-        refreshWizardPager();
-      }
-      default ->
-          throw new IllegalArgumentException(
+    } else if (viewId == R.id.ask_for_notification_permissions_action) {
+      AnyApplication.notifier(activity).askForNotificationPostPermission(this);
+    } else if (viewId == R.id.skip_notification_permissions_action) {
+      mNotificationSkipped = true;
+      refreshWizardPager();
+    } else {
+      throw new IllegalArgumentException(
               "Failed to handle " + v.getId() + " in WizardPermissionsFragment");
     }
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
   @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
   public void enableContactsDictionary() {
     mSharedPrefs
