@@ -42,31 +42,28 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
   @Override
   public void onClick(View v) {
     final AppCompatActivity activity = (AppCompatActivity) requireActivity();
-    switch (v.getId()) {
-      case R.id.go_to_languages_action:
-        startActivity(
-            new Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(requireContext().getString(R.string.deeplink_url_keyboards)),
-                requireContext(),
-                MainSettingsActivity.class));
-        break;
-      case R.id.go_to_theme_action:
-        startActivity(
-            new Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(requireContext().getString(R.string.deeplink_url_themes)),
-                requireContext(),
-                MainSettingsActivity.class));
-        break;
-      case R.id.go_to_all_settings_action:
-        startActivity(new Intent(getContext(), MainSettingsActivity.class));
-        // not returning to this Activity any longer.
-        activity.finish();
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + v.getId() + " in WizardPageDoneAndMoreSettingsFragment");
+    int id = v.getId();
+    if (id == R.id.go_to_languages_action) {
+      startActivity(
+              new Intent(
+                      Intent.ACTION_VIEW,
+                      Uri.parse(requireContext().getString(R.string.deeplink_url_keyboards)),
+                      requireContext(),
+                      MainSettingsActivity.class));
+    } else if (id == R.id.go_to_theme_action) {
+      startActivity(
+              new Intent(
+                      Intent.ACTION_VIEW,
+                      Uri.parse(requireContext().getString(R.string.deeplink_url_themes)),
+                      requireContext(),
+                      MainSettingsActivity.class));
+    } else if (id == R.id.go_to_all_settings_action) {
+      startActivity(new Intent(getContext(), MainSettingsActivity.class));
+      // not returning to this Activity any longer.
+      activity.finish();
+    } else {
+      throw new IllegalArgumentException(
+              "Failed to handle " + v.getId() + " in WizardPageDoneAndMoreSettingsFragment");
     }
   }
 
