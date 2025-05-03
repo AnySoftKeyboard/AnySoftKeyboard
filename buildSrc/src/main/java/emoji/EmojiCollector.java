@@ -31,6 +31,7 @@ public abstract class EmojiCollector implements EmojiCollection {
           "cat-face",
           "monkey-face",
           "emotion",
+          "heart",
           "hand-fingers-open",
           "hand-fingers-partial",
           "hand-single-finger",
