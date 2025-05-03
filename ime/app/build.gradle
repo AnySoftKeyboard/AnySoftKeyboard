@@ -23,6 +23,7 @@ android {
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
 
         multiDexEnabled true
+        minSdkVersion 21
     }
 
     buildTypes {
