@@ -53,25 +53,22 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
   @Override
   public void onClick(View view) {
     final NavController navController = Navigation.findNavController(requireView());
-    switch (view.getId()) {
-      case R.id.settings_tile_themes:
-        navController.navigate(
-            UserInterfaceSettingsFragmentDirections
-                .actionUserInterfaceSettingsFragmentToKeyboardThemeSelectorFragment());
-        break;
-      case R.id.settings_tile_effects:
-        navController.navigate(
-            UserInterfaceSettingsFragmentDirections
-                .actionUserInterfaceSettingsFragmentToEffectsSettingsFragment());
-        break;
-      case R.id.settings_tile_even_more:
-        navController.navigate(
-            UserInterfaceSettingsFragmentDirections
-                .actionUserInterfaceSettingsFragmentToAdditionalUiSettingsFragment());
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + view.getId() + " in UserInterfaceSettingsFragment");
+    int id = view.getId();
+    if (id == R.id.settings_tile_themes) {
+      navController.navigate(
+              UserInterfaceSettingsFragmentDirections
+                      .actionUserInterfaceSettingsFragmentToKeyboardThemeSelectorFragment());
+    } else if (id == R.id.settings_tile_effects) {
+      navController.navigate(
+              UserInterfaceSettingsFragmentDirections
+                      .actionUserInterfaceSettingsFragmentToEffectsSettingsFragment());
+    } else if (id == R.id.settings_tile_even_more) {
+      navController.navigate(
+              UserInterfaceSettingsFragmentDirections
+                      .actionUserInterfaceSettingsFragmentToAdditionalUiSettingsFragment());
+    } else {
+      throw new IllegalArgumentException(
+              "Failed to handle " + view.getId() + " in UserInterfaceSettingsFragment");
     }
   }
 }
