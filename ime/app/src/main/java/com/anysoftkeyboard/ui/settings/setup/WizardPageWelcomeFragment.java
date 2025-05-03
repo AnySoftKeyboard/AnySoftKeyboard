@@ -54,23 +54,20 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment
 
   @Override
   public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.go_to_start_setup:
-        mSharedPrefs.edit().putBoolean(STARTED_PREF_KEY, true).apply();
-        refreshWizardPager();
-        break;
-      case R.id.setup_wizard_welcome_privacy_action:
-        String privacyUrl = getString(R.string.privacy_policy);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
-        break;
-      case R.id.skip_setup_wizard:
-        startActivity(new Intent(getContext(), MainSettingsActivity.class));
-        // not returning to this Activity any longer.
-        requireActivity().finish();
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + v.getId() + " in WizardPageDoneAndMoreSettingsFragment");
+    int id = v.getId();
+    if (id == R.id.go_to_start_setup) {
+      mSharedPrefs.edit().putBoolean(STARTED_PREF_KEY, true).apply();
+      refreshWizardPager();
+    } else if (id == R.id.setup_wizard_welcome_privacy_action) {
+      String privacyUrl = getString(R.string.privacy_policy);
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+    } else if (id == R.id.skip_setup_wizard) {
+      startActivity(new Intent(getContext(), MainSettingsActivity.class));
+      // not returning to this Activity any longer.
+      requireActivity().finish();
+    } else {
+      throw new IllegalArgumentException(
+              "Failed to handle " + v.getId() + " in WizardPageDoneAndMoreSettingsFragment");
     }
   }
 
