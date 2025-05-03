@@ -498,71 +498,51 @@ public abstract class Keyboard {
 
     private void setDataFromTypedArray(
         Row parent, KeyboardDimens keyboardDimens, TypedArray a, int remoteIndex, int localAttrId) {
-      switch (localAttrId) {
-        case android.R.attr.keyWidth:
-          width =
-              getDimensionOrFraction(a, remoteIndex, mKeyboard.mDisplayWidth, parent.defaultWidth);
-          break;
-        case android.R.attr.keyHeight:
-          int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
-          height =
-              KeyboardSupport.getKeyHeightFromHeightCode(
-                  keyboardDimens, heightCode, row.mParent.mKeysHeightFactor);
-          break;
-        case android.R.attr.horizontalGap:
-          gap =
-              getDimensionOrFraction(
-                  a, remoteIndex, mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
-          break;
-        case android.R.attr.codes:
-          mCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
-          break;
-        case android.R.attr.iconPreview:
-          iconPreview = a.getDrawable(remoteIndex);
-          KeyboardSupport.updateDrawableBounds(iconPreview);
-          break;
-        case android.R.attr.popupCharacters:
-          popupCharacters = a.getText(remoteIndex);
-          break;
-        case android.R.attr.popupKeyboard:
-          popupResId = a.getResourceId(remoteIndex, 0);
-          break;
-        case android.R.attr.isRepeatable:
-          repeatable = a.getBoolean(remoteIndex, false);
-          break;
-        case R.attr.showPreview:
-          showPreview = a.getBoolean(remoteIndex, mKeyboard.showPreview);
-          break;
-        case R.attr.keyDynamicEmblem:
-          dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
-          break;
-        case android.R.attr.isModifier:
-          modifier = a.getBoolean(remoteIndex, false);
-          break;
-        case android.R.attr.keyEdgeFlags:
-          //noinspection WrongConstant
-          edgeFlags = a.getInt(remoteIndex, 0);
-          edgeFlags |= parent.rowEdgeFlags;
-          break;
-        case android.R.attr.keyIcon:
-          icon = a.getDrawable(remoteIndex);
-          KeyboardSupport.updateDrawableBounds(icon);
-          break;
-        case android.R.attr.keyLabel:
-          label = a.getText(remoteIndex);
-          break;
-        case android.R.attr.keyOutputText:
-          text = a.getText(remoteIndex);
-          break;
-        case R.attr.shiftedKeyOutputText:
-          shiftedText = a.getText(remoteIndex);
-          break;
-        case R.attr.keyOutputTyping:
-          typedText = a.getText(remoteIndex);
-          break;
-        case R.attr.shiftedKeyOutputTyping:
-          shiftedTypedText = a.getText(remoteIndex);
-          break;
+      if (localAttrId == android.R.attr.keyWidth) {
+        width =
+                getDimensionOrFraction(a, remoteIndex, mKeyboard.mDisplayWidth, parent.defaultWidth);
+      } else if (localAttrId == android.R.attr.keyHeight) {
+        int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
+        height =
+                KeyboardSupport.getKeyHeightFromHeightCode(
+                        keyboardDimens, heightCode, row.mParent.mKeysHeightFactor);
+      } else if (localAttrId == android.R.attr.horizontalGap) {
+        gap =
+                getDimensionOrFraction(
+                        a, remoteIndex, mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
+      } else if (localAttrId == android.R.attr.codes) {
+        mCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+      } else if (localAttrId == android.R.attr.iconPreview) {
+        iconPreview = a.getDrawable(remoteIndex);
+        KeyboardSupport.updateDrawableBounds(iconPreview);
+      } else if (localAttrId == android.R.attr.popupCharacters) {
+        popupCharacters = a.getText(remoteIndex);
+      } else if (localAttrId == android.R.attr.popupKeyboard) {
+        popupResId = a.getResourceId(remoteIndex, 0);
+      } else if (localAttrId == android.R.attr.isRepeatable) {
+        repeatable = a.getBoolean(remoteIndex, false);
+      } else if (localAttrId == R.attr.showPreview) {
+        showPreview = a.getBoolean(remoteIndex, mKeyboard.showPreview);
+      } else if (localAttrId == R.attr.keyDynamicEmblem) {
+        dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
+      } else if (localAttrId == android.R.attr.isModifier) {
+        modifier = a.getBoolean(remoteIndex, false);
+      } else if (localAttrId == android.R.attr.keyEdgeFlags) {//noinspection WrongConstant
+        edgeFlags = a.getInt(remoteIndex, 0);
+        edgeFlags |= parent.rowEdgeFlags;
+      } else if (localAttrId == android.R.attr.keyIcon) {
+        icon = a.getDrawable(remoteIndex);
+        KeyboardSupport.updateDrawableBounds(icon);
+      } else if (localAttrId == android.R.attr.keyLabel) {
+        label = a.getText(remoteIndex);
+      } else if (localAttrId == android.R.attr.keyOutputText) {
+        text = a.getText(remoteIndex);
+      } else if (localAttrId == R.attr.shiftedKeyOutputText) {
+        shiftedText = a.getText(remoteIndex);
+      } else if (localAttrId == R.attr.keyOutputTyping) {
+        typedText = a.getText(remoteIndex);
+      } else if (localAttrId == R.attr.shiftedKeyOutputTyping) {
+        shiftedTypedText = a.getText(remoteIndex);
       }
     }
 
@@ -983,27 +963,20 @@ public abstract class Keyboard {
           addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
 
       try {
-        switch (localAttrId) {
-          case android.R.attr.keyWidth:
-            mDefaultWidth =
-                getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
-            break;
-          case android.R.attr.keyHeight:
-            mDefaultHeightCode = getKeyHeightCode(a, remoteIndex, -1);
-            break;
-          case android.R.attr.horizontalGap:
-            mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, 0);
-            break;
-          case R.attr.showPreview:
-            showPreview = a.getBoolean(remoteIndex, true /*showing preview by default*/);
-            break;
-          case android.R.attr.verticalGap:
-            mDefaultVerticalGap =
-                getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
-            break;
-          case R.attr.autoCap:
-            autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
-            break;
+        if (localAttrId == android.R.attr.keyWidth) {
+          mDefaultWidth =
+                  getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
+        } else if (localAttrId == android.R.attr.keyHeight) {
+          mDefaultHeightCode = getKeyHeightCode(a, remoteIndex, -1);
+        } else if (localAttrId == android.R.attr.horizontalGap) {
+          mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, 0);
+        } else if (localAttrId == R.attr.showPreview) {
+          showPreview = a.getBoolean(remoteIndex, true /*showing preview by default*/);
+        } else if (localAttrId == android.R.attr.verticalGap) {
+          mDefaultVerticalGap =
+                  getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
+        } else if (localAttrId == R.attr.autoCap) {
+          autoCap = a.getBoolean(remoteIndex, true /*auto caps by default*/);
         }
       } catch (Exception e) {
         Logger.w(TAG, "Failed to set data from XML!", e);
