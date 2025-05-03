@@ -90,9 +90,11 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
       c.setBottomOffset(mBottomPadding);
     }
 
-    switch (child.getId()) {
-      case R.id.candidate_view -> mCandidateView = (CandidateView) child;
-      case R.id.AnyKeyboardMainView -> mStandardKeyboardView = (InputViewBinder) child;
+    final int childId = child.getId();
+    if (childId == R.id.candidate_view) {
+      mCandidateView = (CandidateView) child;
+    } else if (childId == R.id.AnyKeyboardMainView) {
+      mStandardKeyboardView = (InputViewBinder) child;
     }
   }
 
