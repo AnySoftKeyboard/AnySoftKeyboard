@@ -21,6 +21,8 @@ android {
         println 'crash report email is: ' + support_email_address
 
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
+        buildConfigField "String", "VERSION_NAME", "\"vhk-alpha-vname\""
+        buildConfigField "int", "VERSION_CODE", "1"
 
         multiDexEnabled true
         minSdkVersion 21
