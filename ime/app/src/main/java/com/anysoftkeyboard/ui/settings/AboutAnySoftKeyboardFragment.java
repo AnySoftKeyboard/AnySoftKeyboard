@@ -50,33 +50,28 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
 
   @Override
   public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.about_legal_stuff_link:
-        Navigation.findNavController(requireView())
-            .navigate(
-                AboutAnySoftKeyboardFragmentDirections
-                    .actionAboutAnySoftKeyboardFragmentToAdditionalSoftwareLicensesFragment());
-        break;
-      case R.id.about_privacy_link:
-        String privacyUrl = getString(R.string.privacy_policy);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
-        break;
-      case R.id.about_web_site_link:
-        String siteWebPage = getString(R.string.main_site_url);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
-        break;
-      case R.id.share_app_details:
-        shareAppDetails();
-        break;
-      case R.id.rate_app_in_store:
-        startActivity(
-            new Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(getString(R.string.rate_app_in_store_url, BuildConfig.APPLICATION_ID))));
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + v.getId() + " in AboutAnySoftKeyboardFragment");
+    int id = v.getId();
+    if (id == R.id.about_legal_stuff_link) {
+      Navigation.findNavController(requireView())
+              .navigate(
+                      AboutAnySoftKeyboardFragmentDirections
+                              .actionAboutAnySoftKeyboardFragmentToAdditionalSoftwareLicensesFragment());
+    } else if (id == R.id.about_privacy_link) {
+      String privacyUrl = getString(R.string.privacy_policy);
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+    } else if (id == R.id.about_web_site_link) {
+      String siteWebPage = getString(R.string.main_site_url);
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
+    } else if (id == R.id.share_app_details) {
+      shareAppDetails();
+    } else if (id == R.id.rate_app_in_store) {
+//      startActivity(
+//              new Intent(
+//                      Intent.ACTION_VIEW,
+//                      Uri.parse(getString(R.string.rate_app_in_store_url, BuildConfig.APPLICATION_ID))));
+    } else {
+      throw new IllegalArgumentException(
+              "Failed to handle " + v.getId() + " in AboutAnySoftKeyboardFragment");
     }
   }
 
