@@ -783,66 +783,59 @@ public class AnyKeyboardViewBase extends View implements InputViewBinder, Pointe
   }
 
   private boolean setKeyIconValueFromTheme(
-      KeyboardTheme theme,
-      TypedArray remoteTypeArray,
-      final int localAttrId,
-      final int remoteTypedArrayIndex) {
-    final int keyCode =
-        switch (localAttrId) {
-          case R.attr.iconKeyShift -> KeyCodes.SHIFT;
-          case R.attr.iconKeyControl -> KeyCodes.CTRL;
-          case R.attr.iconKeyAction -> KeyCodes.ENTER;
-          case R.attr.iconKeyBackspace -> KeyCodes.DELETE;
-          case R.attr.iconKeyCancel -> KeyCodes.CANCEL;
-          case R.attr.iconKeyGlobe -> KeyCodes.MODE_ALPHABET;
-          case R.attr.iconKeySpace -> KeyCodes.SPACE;
-          case R.attr.iconKeyTab -> KeyCodes.TAB;
-          case R.attr.iconKeyArrowDown -> KeyCodes.ARROW_DOWN;
-          case R.attr.iconKeyArrowLeft -> KeyCodes.ARROW_LEFT;
-          case R.attr.iconKeyArrowRight -> KeyCodes.ARROW_RIGHT;
-          case R.attr.iconKeyArrowUp -> KeyCodes.ARROW_UP;
-          case R.attr.iconKeyInputMoveHome -> KeyCodes.MOVE_HOME;
-          case R.attr.iconKeyInputMoveEnd -> KeyCodes.MOVE_END;
-          case R.attr.iconKeyMic -> KeyCodes.VOICE_INPUT;
-          case R.attr.iconKeySettings -> KeyCodes.SETTINGS;
-          case R.attr.iconKeyCondenseNormal -> KeyCodes.MERGE_LAYOUT;
-          case R.attr.iconKeyCondenseSplit -> KeyCodes.SPLIT_LAYOUT;
-          case R.attr.iconKeyCondenseCompactToRight -> KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
-          case R.attr.iconKeyCondenseCompactToLeft -> KeyCodes.COMPACT_LAYOUT_TO_LEFT;
-          case R.attr.iconKeyClipboardCopy -> KeyCodes.CLIPBOARD_COPY;
-          case R.attr.iconKeyClipboardCut -> KeyCodes.CLIPBOARD_CUT;
-          case R.attr.iconKeyClipboardPaste -> KeyCodes.CLIPBOARD_PASTE;
-          case R.attr.iconKeyClipboardSelect -> KeyCodes.CLIPBOARD_SELECT_ALL;
-          case R.attr.iconKeyClipboardFineSelect -> KeyCodes.CLIPBOARD_SELECT;
-          case R.attr.iconKeyQuickTextPopup -> KeyCodes.QUICK_TEXT_POPUP;
-          case R.attr.iconKeyQuickText -> KeyCodes.QUICK_TEXT;
-          case R.attr.iconKeyUndo -> KeyCodes.UNDO;
-          case R.attr.iconKeyRedo -> KeyCodes.REDO;
-          case R.attr.iconKeyForwardDelete -> KeyCodes.FORWARD_DELETE;
-          case R.attr.iconKeyImageInsert -> KeyCodes.IMAGE_MEDIA_POPUP;
-          case R.attr.iconKeyClearQuickTextHistory -> KeyCodes.CLEAR_QUICK_TEXT_HISTORY;
-          default -> 0;
-        };
+          KeyboardTheme theme,
+          TypedArray remoteTypeArray,
+          final int localAttrId,
+          final int remoteTypedArrayIndex) {
+
+    final int resId = remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0);
+    int keyCode = 0;
+
+    if (localAttrId == R.attr.iconKeyShift) keyCode = KeyCodes.SHIFT;
+    else if (localAttrId == R.attr.iconKeyControl) keyCode = KeyCodes.CTRL;
+    else if (localAttrId == R.attr.iconKeyAction) keyCode = KeyCodes.ENTER;
+    else if (localAttrId == R.attr.iconKeyBackspace) keyCode = KeyCodes.DELETE;
+    else if (localAttrId == R.attr.iconKeyCancel) keyCode = KeyCodes.CANCEL;
+    else if (localAttrId == R.attr.iconKeyGlobe) keyCode = KeyCodes.MODE_ALPHABET;
+    else if (localAttrId == R.attr.iconKeySpace) keyCode = KeyCodes.SPACE;
+    else if (localAttrId == R.attr.iconKeyTab) keyCode = KeyCodes.TAB;
+    else if (localAttrId == R.attr.iconKeyArrowDown) keyCode = KeyCodes.ARROW_DOWN;
+    else if (localAttrId == R.attr.iconKeyArrowLeft) keyCode = KeyCodes.ARROW_LEFT;
+    else if (localAttrId == R.attr.iconKeyArrowRight) keyCode = KeyCodes.ARROW_RIGHT;
+    else if (localAttrId == R.attr.iconKeyArrowUp) keyCode = KeyCodes.ARROW_UP;
+    else if (localAttrId == R.attr.iconKeyInputMoveHome) keyCode = KeyCodes.MOVE_HOME;
+    else if (localAttrId == R.attr.iconKeyInputMoveEnd) keyCode = KeyCodes.MOVE_END;
+    else if (localAttrId == R.attr.iconKeyMic) keyCode = KeyCodes.VOICE_INPUT;
+    else if (localAttrId == R.attr.iconKeySettings) keyCode = KeyCodes.SETTINGS;
+    else if (localAttrId == R.attr.iconKeyCondenseNormal) keyCode = KeyCodes.MERGE_LAYOUT;
+    else if (localAttrId == R.attr.iconKeyCondenseSplit) keyCode = KeyCodes.SPLIT_LAYOUT;
+    else if (localAttrId == R.attr.iconKeyCondenseCompactToRight) keyCode = KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
+    else if (localAttrId == R.attr.iconKeyCondenseCompactToLeft) keyCode = KeyCodes.COMPACT_LAYOUT_TO_LEFT;
+    else if (localAttrId == R.attr.iconKeyClipboardCopy) keyCode = KeyCodes.CLIPBOARD_COPY;
+    else if (localAttrId == R.attr.iconKeyClipboardCut) keyCode = KeyCodes.CLIPBOARD_CUT;
+    else if (localAttrId == R.attr.iconKeyClipboardPaste) keyCode = KeyCodes.CLIPBOARD_PASTE;
+    else if (localAttrId == R.attr.iconKeyClipboardSelect) keyCode = KeyCodes.CLIPBOARD_SELECT_ALL;
+    else if (localAttrId == R.attr.iconKeyClipboardFineSelect) keyCode = KeyCodes.CLIPBOARD_SELECT;
+    else if (localAttrId == R.attr.iconKeyQuickTextPopup) keyCode = KeyCodes.QUICK_TEXT_POPUP;
+    else if (localAttrId == R.attr.iconKeyQuickText) keyCode = KeyCodes.QUICK_TEXT;
+    else if (localAttrId == R.attr.iconKeyUndo) keyCode = KeyCodes.UNDO;
+    else if (localAttrId == R.attr.iconKeyRedo) keyCode = KeyCodes.REDO;
+    else if (localAttrId == R.attr.iconKeyForwardDelete) keyCode = KeyCodes.FORWARD_DELETE;
+    else if (localAttrId == R.attr.iconKeyImageInsert) keyCode = KeyCodes.IMAGE_MEDIA_POPUP;
+    else if (localAttrId == R.attr.iconKeyClearQuickTextHistory) keyCode = KeyCodes.CLEAR_QUICK_TEXT_HISTORY;
+
     if (keyCode == 0) {
       if (BuildConfig.DEBUG) {
-        throw new IllegalArgumentException(
-            "No valid keycode for attr " + remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+        throw new IllegalArgumentException("No valid keycode for attr " + resId);
       }
-      Logger.w(
-          TAG,
-          "No valid keycode for attr %d",
-          remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+      Logger.w(TAG, "No valid keycode for attr %d", resId);
       return false;
     } else {
       mKeysIconBuilders.put(
-          keyCode, DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
-      Logger.d(
-          TAG,
-          "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)",
-          mKeysIconBuilders.size(),
-          keyCode,
-          remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0),
-          remoteTypedArrayIndex);
+              keyCode, DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+      Logger.d(TAG,
+              "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)",
+              mKeysIconBuilders.size(), keyCode, resId, remoteTypedArrayIndex);
       return true;
     }
   }
