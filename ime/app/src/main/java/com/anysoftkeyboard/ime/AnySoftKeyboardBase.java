@@ -83,8 +83,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService
     Logger.i(
         TAG,
         "****** AnySoftKeyboard v%s (%d) service started.",
-        BuildConfig.VERSION_NAME,
-        BuildConfig.VERSION_CODE);
+        "BuildConfig.VERSION_NAME",
+        "BuildConfig.VERSION_CODE");
     super.onCreate();
     mOrientation = getResources().getConfiguration().orientation;
     if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
