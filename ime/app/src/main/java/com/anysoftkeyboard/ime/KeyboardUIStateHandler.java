@@ -30,29 +30,27 @@ public final class KeyboardUIStateHandler extends Handler {
     removeAllSuggestionMessages();
     removeMessages(MSG_CLOSE_DICTIONARIES);
   }
-
+  
   @Override
   public void handleMessage(Message msg) {
-    AnySoftKeyboardSuggestions ask = mKeyboard.get();
+    final AnySoftKeyboardSuggestions ask = mKeyboard.get();
 
     if (ask == null) {
       // delayed posts and such may result in the reference gone
       return;
     }
-    final InputConnection ic = ask.getCurrentInputConnection();
 
-    switch (msg.what) {
-      case MSG_UPDATE_SUGGESTIONS:
-        ask.performUpdateSuggestions();
-        break;
-      case MSG_RESTART_NEW_WORD_SUGGESTIONS:
-        ask.performRestartWordSuggestion(ic);
-        break;
-      case MSG_CLOSE_DICTIONARIES:
-        ask.closeDictionaries();
-        break;
-      default:
-        super.handleMessage(msg);
+    final InputConnection ic = ask.getCurrentInputConnection();
+    final int what = msg.what;
+
+    if (what == MSG_UPDATE_SUGGESTIONS) {
+      ask.performUpdateSuggestions();
+    } else if (what == MSG_RESTART_NEW_WORD_SUGGESTIONS) {
+      ask.performRestartWordSuggestion(ic);
+    } else if (what == MSG_CLOSE_DICTIONARIES) {
+      ask.closeDictionaries();
+    } else {
+      super.handleMessage(msg);
     }
   }
 }
