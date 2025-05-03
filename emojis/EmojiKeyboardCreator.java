@@ -1,4 +1,4 @@
-package emoji;
+package emojis;
 
 import emoji.utils.JavaEmojiUtils;
 import java.io.File;

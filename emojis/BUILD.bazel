@@ -1,0 +1,30 @@
+java_library(
+    name = "emoji_utils",
+    srcs = [
+        "utils/JavaEmojiUtils.java",
+    ],
+)
+
+java_library(
+    name = "emoji_generator_lib",
+    srcs = [
+        "EmojiCollection.java",
+        "EmojiCollector.java",
+        "EmojiData.java",
+        "EmojiKeyboardCreator.java",
+        "EmojiKeyboardsExtractor.java",
+        "UnicodeOrgEmojiTestDataParser.java",
+        "VariantDetector.java",
+    ],
+    deps = [":emoji_utils"],
+)
+
+# Data get be taken from https://unicode.org/Public/emoji/latest/emoji-test.txt
+# Usually will run this with:
+# bazel run //emojis:emoji_generator -- "$PWD/emojis/data/emoji-test.txt" "$PWD/ime/app/src/main/res/xml-v35"
+java_binary(
+    name = "emoji_generator",
+    srcs = ["EmojiLayoutsGenerator.java"],
+    main_class = "emojis.EmojiLayoutsGenerator",
+    deps = [":emoji_generator_lib"],
+)
