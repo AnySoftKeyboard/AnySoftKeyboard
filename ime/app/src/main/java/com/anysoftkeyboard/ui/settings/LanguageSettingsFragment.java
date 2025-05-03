@@ -35,25 +35,22 @@ public class LanguageSettingsFragment extends Fragment implements View.OnClickLi
   @Override
   public void onClick(View view) {
     final NavController navController = Navigation.findNavController(requireView());
-    switch (view.getId()) {
-      case R.id.settings_tile_keyboards:
-        navController.navigate(
-            LanguageSettingsFragmentDirections
-                .actionLanguageSettingsFragmentToKeyboardAddOnBrowserFragment());
-        break;
-      case R.id.settings_tile_grammar:
-        navController.navigate(
-            LanguageSettingsFragmentDirections
-                .actionLanguageSettingsFragmentToDictionariesFragment());
-        break;
-      case R.id.settings_tile_even_more:
-        navController.navigate(
-            LanguageSettingsFragmentDirections
-                .actionLanguageSettingsFragmentToAdditionalLanguageSettingsFragment());
-        break;
-      default:
-        throw new IllegalArgumentException(
-            "Failed to handle " + view.getId() + " in LanguageSettingsFragment");
+    int id = view.getId();
+    if (id == R.id.settings_tile_keyboards) {
+      navController.navigate(
+              LanguageSettingsFragmentDirections
+                      .actionLanguageSettingsFragmentToKeyboardAddOnBrowserFragment());
+    } else if (id == R.id.settings_tile_grammar) {
+      navController.navigate(
+              LanguageSettingsFragmentDirections
+                      .actionLanguageSettingsFragmentToDictionariesFragment());
+    } else if (id == R.id.settings_tile_even_more) {
+      navController.navigate(
+              LanguageSettingsFragmentDirections
+                      .actionLanguageSettingsFragmentToAdditionalLanguageSettingsFragment());
+    } else {
+      throw new IllegalArgumentException(
+              "Failed to handle " + view.getId() + " in LanguageSettingsFragment");
     }
   }
 }

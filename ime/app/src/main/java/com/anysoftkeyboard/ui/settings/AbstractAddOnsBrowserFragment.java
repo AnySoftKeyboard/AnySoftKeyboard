@@ -221,16 +221,15 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.tweaks_menu_option:
-        onTweaksOptionSelected();
-        return true;
-      case R.id.add_on_market_search_menu_option:
-        if (mMarketSearchController != null) mMarketSearchController.searchForAddOns();
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+    int itemId = item.getItemId();
+    if (itemId == R.id.tweaks_menu_option) {
+      onTweaksOptionSelected();
+      return true;
+    } else if (itemId == R.id.add_on_market_search_menu_option) {
+      if (mMarketSearchController != null) mMarketSearchController.searchForAddOns();
+      return true;
     }
+    return super.onOptionsItemSelected(item);
   }
 
   protected void onTweaksOptionSelected() {}
