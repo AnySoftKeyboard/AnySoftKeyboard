@@ -1,0 +1,47 @@
+---
+name: update-aosp-dictionaries
+on:
+  schedule:
+    - cron: '27 10 * * 2'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/update_emoji_layouts.yml'
+      - 'emojis/**'
+env:
+  TERM: dumb
+  TMPDIR: "/tmp"
+  TARGET_API: "35"
+  TARGET_FOLDER: "ime/app/src/main/res"
+jobs:
+  emoji-update:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - name: fix git permissions for creating a PR
+        run: git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+      - name: download emoji data latest
+        run: |
+          wget -O emojis/data/emoji-test.txt https://unicode.org/Public/emoji/latest/emoji-test.txt
+      - name: delete old quick-text layout
+        run: rm "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"/quick_text_unicode_*.xml
+      - name: update emoji dictionaries
+        run: bazel run //emojis:emoji_generator -- "${GITHUB_WORKSPACE}/emojis/data/emoji-test.txt" "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7.0.5
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated EMOJI Update'
+          title: 'Automated EMOJI Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          body: 'Generated from latest https://unicode.org/Public/emoji/latest/emoji-test.txt'
+          team-reviewers: maintainers
+          branch: 'bot-pr/emoji-update'
+          delete-branch: true
