@@ -1,5 +1,5 @@
 ---
-name: update-aosp-dictionaries
+name: update-emoji-layoyts
 on:
   schedule:
     - cron: '27 10 * * 2'
