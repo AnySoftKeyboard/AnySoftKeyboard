@@ -27,30 +27,5 @@
     <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127996;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
     <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127997;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
     <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127998;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129309;&#127995;" android:keyOutputText="&#129309;&#127995;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129309;&#127996;" android:keyOutputText="&#129309;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129309;&#127997;" android:keyOutputText="&#129309;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129309;&#127998;" android:keyOutputText="&#129309;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129309;&#127999;" android:keyOutputText="&#129309;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127995;‍&#129778;&#127996;" android:keyOutputText="&#129777;&#127995;‍&#129778;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127995;‍&#129778;&#127997;" android:keyOutputText="&#129777;&#127995;‍&#129778;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127995;‍&#129778;&#127998;" android:keyOutputText="&#129777;&#127995;‍&#129778;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127995;‍&#129778;&#127999;" android:keyOutputText="&#129777;&#127995;‍&#129778;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127996;‍&#129778;&#127995;" android:keyOutputText="&#129777;&#127996;‍&#129778;&#127995;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127996;‍&#129778;&#127997;" android:keyOutputText="&#129777;&#127996;‍&#129778;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127996;‍&#129778;&#127998;" android:keyOutputText="&#129777;&#127996;‍&#129778;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127996;‍&#129778;&#127999;" android:keyOutputText="&#129777;&#127996;‍&#129778;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127997;‍&#129778;&#127995;" android:keyOutputText="&#129777;&#127997;‍&#129778;&#127995;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127997;‍&#129778;&#127996;" android:keyOutputText="&#129777;&#127997;‍&#129778;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127997;‍&#129778;&#127998;" android:keyOutputText="&#129777;&#127997;‍&#129778;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127997;‍&#129778;&#127999;" android:keyOutputText="&#129777;&#127997;‍&#129778;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127998;‍&#129778;&#127995;" android:keyOutputText="&#129777;&#127998;‍&#129778;&#127995;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127998;‍&#129778;&#127996;" android:keyOutputText="&#129777;&#127998;‍&#129778;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127998;‍&#129778;&#127997;" android:keyOutputText="&#129777;&#127998;‍&#129778;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127998;‍&#129778;&#127999;" android:keyOutputText="&#129777;&#127998;‍&#129778;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127995;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127995;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127996;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127997;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#129777;&#127999;‍&#129778;&#127998;" android:keyOutputText="&#129777;&#127999;‍&#129778;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
   </Row>
 </Keyboard>

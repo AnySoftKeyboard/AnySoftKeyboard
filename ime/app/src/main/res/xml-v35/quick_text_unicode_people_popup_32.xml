@@ -7,10 +7,5 @@
     <Key android:keyLabel="&#128104;&#127997;‍&#129457;" android:keyOutputText="&#128104;&#127997;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
     <Key android:keyLabel="&#128104;&#127998;‍&#129457;" android:keyOutputText="&#128104;&#127998;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
     <Key android:keyLabel="&#128104;&#127999;‍&#129457;" android:keyOutputText="&#128104;&#127999;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128104;&#127995;‍&#129457;" android:keyOutputText="&#128104;&#127995;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128104;&#127996;‍&#129457;" android:keyOutputText="&#128104;&#127996;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128104;&#127997;‍&#129457;" android:keyOutputText="&#128104;&#127997;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128104;&#127998;‍&#129457;" android:keyOutputText="&#128104;&#127998;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128104;&#127999;‍&#129457;" android:keyOutputText="&#128104;&#127999;‍&#129457;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
   </Row>
 </Keyboard>
