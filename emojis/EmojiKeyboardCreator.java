@@ -1,6 +1,6 @@
 package emojis;
 
-import emoji.utils.JavaEmojiUtils;
+import emojis.utils.JavaEmojiUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -162,6 +162,7 @@ class EmojiKeyboardCreator {
             EmojiData data =
                 new EmojiData(
                     i1,
+                    "",
                     "",
                     emojiData.grouping,
                     variant,

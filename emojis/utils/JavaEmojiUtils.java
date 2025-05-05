@@ -1,4 +1,4 @@
-package emoji.utils;
+package emojis.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
