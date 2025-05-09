@@ -52,3 +52,19 @@ java_junit5_test(
         "@maven//:org_junit_jupiter_junit_jupiter_api",
     ] + JUNIT5_DEPS,
 )
+
+java_junit5_test(
+    name = "emoji_keyboard_creator_tests",
+    srcs = ["EmojiKeyboardCreatorTest.java"],
+    data = [
+        "fixtures/expected_test_keyboard.xml",
+        "fixtures/expected_test_keyboard_with_genders_and_skin_tones.xml",
+        "fixtures/expected_test_keyboard_with_popups.xml",
+        "fixtures/expected_test_keyboard_with_popups_popup_0.xml",
+    ],
+    test_class = "emojis.EmojiKeyboardCreatorTest",
+    deps = [
+        "//emojis:emoji_generator_lib",
+        "@maven//:org_junit_jupiter_junit_jupiter_api",
+    ] + JUNIT5_DEPS,
+)

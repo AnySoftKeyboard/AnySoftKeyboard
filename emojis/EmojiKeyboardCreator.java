@@ -29,7 +29,7 @@ class EmojiKeyboardCreator {
   private final String comment;
   private final boolean splitToRows;
 
-  EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector) throws IOException {
+  EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector) {
     this(xmlResourceFolder, collector, null, false, "20%p");
   }
 
@@ -38,8 +38,7 @@ class EmojiKeyboardCreator {
       EmojiCollection collector,
       String comment,
       boolean splitToRows,
-      String keyWidth)
-      throws IOException {
+      String keyWidth) {
     this.keyboardResourceFile = new File(xmlResourceFolder, collector.getResourceFileName());
     this.collector = collector;
     this.keyWidth = keyWidth;
@@ -72,12 +71,6 @@ class EmojiKeyboardCreator {
     Document doc = docBuilder.newDocument();
     Element keyboardElement = doc.createElement("Keyboard");
     if (comment != null) keyboardElement.appendChild(doc.createComment(comment));
-    /*
-    <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-        android:keyHeight="@integer/key_normal_height"
-        android:keyWidth="20%p"
-        android:popupCharacters="asdasdas" >
-    */
     keyboardElement.setAttributeNS(
         "http://schemas.android.com/apk/res/android",
         "android:keyHeight",
@@ -139,10 +132,24 @@ class EmojiKeyboardCreator {
             "http://schemas.android.com/apk/res/android",
             "android:keyOutputText",
             emojiData.output);
-        keyElement.setAttributeNS(
-            "http://schemas.android.com/apk/res-auto",
-            "ask:tags",
-            String.join(",", adjustTags(emojiData.tags)));
+        if (!emojiData.tags.isEmpty()) {
+          keyElement.setAttributeNS(
+              "http://schemas.android.com/apk/res-auto",
+              "ask:tags",
+              String.join(",", adjustTags(emojiData.tags)));
+        }
+        if (!emojiData.orderedGenders.isEmpty()) {
+          keyElement.setAttributeNS(
+              "http://schemas.android.com/apk/res-auto",
+              "ask:genders",
+              String.join(",", adjustEnums(emojiData.orderedGenders)));
+        }
+        if (!emojiData.orderedSkinTones.isEmpty()) {
+          keyElement.setAttributeNS(
+              "http://schemas.android.com/apk/res-auto",
+              "ask:skinTones",
+              String.join(",", adjustEnums(emojiData.orderedSkinTones)));
+        }
         final List<String> variants = emojiData.getVariants();
         if (variants.size() > 0) {
           final String collectorName =
@@ -218,11 +225,13 @@ class EmojiKeyboardCreator {
     return parentEmojiDataList.size();
   }
 
-  private List<String> adjustTags(List<String> tags) {
+  private static List<String> adjustEnums(List<? extends Enum> tags) {
+    return tags.stream().distinct().map(Enum::toString).collect(Collectors.toList());
+  }
+
+  private static List<String> adjustTags(List<String> tags) {
     return tags.stream()
         .distinct()
-        // removing skin-tone, since that doesn't make sense in tags
-        .filter(tag -> !tag.contains("skin tone"))
         .map(String::trim)
         .filter(tag -> !tag.isBlank())
         // allowing searching for complete tags

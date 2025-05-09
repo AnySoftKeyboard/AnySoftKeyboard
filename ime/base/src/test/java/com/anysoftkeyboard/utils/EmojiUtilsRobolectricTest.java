@@ -28,4 +28,13 @@ public class EmojiUtilsRobolectricTest {
 
     Assert.assertTrue(EmojiUtils.isRenderable(paint, "\uD83D\uDC75"));
   }
+
+  @Test
+  public void testIsLabelOfEmoji() {
+    Assert.assertTrue(EmojiUtils.isLabelOfEmoji("\uD83D\uDC4D"));
+    Assert.assertTrue(EmojiUtils.isLabelOfEmoji("\uD83D\uDC69\u200D\u2708\uFE0F"));
+
+    Assert.assertFalse(EmojiUtils.isLabelOfEmoji("☺"));
+    Assert.assertFalse(EmojiUtils.isLabelOfEmoji("A"));
+  }
 }

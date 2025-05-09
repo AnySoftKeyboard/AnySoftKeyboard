@@ -40,6 +40,7 @@ import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
+import emoji.utils.JavaEmojiUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -690,6 +691,8 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mFunctionalKey;
     private boolean mEnabled;
     @NonNull private List<String> mKeyTags = Collections.emptyList();
+    @NonNull private List<JavaEmojiUtils.Gender> mKeyGenders = Collections.emptyList();
+    @NonNull private List<JavaEmojiUtils.SkinTone> mKeySkinTones = Collections.emptyList();
 
     public AnyKey(Row row, KeyboardDimens keyboardDimens) {
       super(row, keyboardDimens);
@@ -752,6 +755,24 @@ public abstract class AnyKeyboard extends Keyboard {
               String tags = a.getString(remoteIndex);
               if (!TextUtils.isEmpty(tags)) {
                 mKeyTags = Arrays.asList(tags.split(","));
+              }
+              break;
+            case R.attr.genders:
+              String genders = a.getString(remoteIndex);
+              if (!TextUtils.isEmpty(genders)) {
+                mKeyGenders =
+                    Arrays.asList(
+                        Arrays.stream(genders.split(","))
+                            .map(s -> Enum.valueOf(JavaEmojiUtils.Gender.class, s)));
+              }
+              break;
+            case R.attr.skinTones:
+              String tones = a.getString(remoteIndex);
+              if (!TextUtils.isEmpty(tones)) {
+                mKeySkinTones =
+                    Arrays.asList(
+                        Arrays.stream(tones.split(","))
+                            .map(s -> Enum.valueOf(JavaEmojiUtils.SkinTone.class, s)));
               }
               break;
           }
