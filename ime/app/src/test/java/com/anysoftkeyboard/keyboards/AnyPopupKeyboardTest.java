@@ -55,6 +55,17 @@ public class AnyPopupKeyboardTest {
         ((AnyKeyboard.AnyKey) keyboard.getKeys().get(1)).getKeyTags().toArray());
   }
 
+  @Test
+  @Config(sdk = Build.VERSION_CODES.N)
+  public void testKeyboardResourceConstructorReadsTagsWithExtension() throws Exception {
+    AnyPopupKeyboard keyboard =
+        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+
+    Assert.assertArrayEquals(
+        "grinning,face,grinning_face".split(","),
+        ((AnyKeyboard.AnyKey) keyboard.getKeys().get(0)).getKeyTags().toArray());
+  }
+
   private void assertKeyValues(AnyPopupKeyboard keyboard, int primaryCode, int y) {
     assertKeyValues(keyboard, primaryCode, y, -1);
   }
@@ -369,19 +380,15 @@ public class AnyPopupKeyboardTest {
   public void testKeyboardSwitchesSkinTone() throws Exception {
     AnyPopupKeyboard keyboardWithGeneric =
         createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
-    for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
-      var aKey = (AnyKeyboard.AnyKey) keyboardWithGeneric.getKeys().get(0);
-      Assert.assertFalse(aKey.getSkinTones().contains(skinTone));
-    }
+    Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).text);
+    Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).label);
 
     AnyPopupKeyboard keyboardWithSkinTone =
         createAnyPopupKeyboard(
             R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
-    for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
-      var aKey = (AnyKeyboard.AnyKey) keyboardWithSkinTone.getKeys().get(0);
-      Assert.assertEquals(
-          skinTone == EmojiUtils.SkinTone.Fitzpatrick_2, aKey.getSkinTones().contains(skinTone));
-    }
+
+    Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).text);
+    Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).label);
   }
 
   @Test

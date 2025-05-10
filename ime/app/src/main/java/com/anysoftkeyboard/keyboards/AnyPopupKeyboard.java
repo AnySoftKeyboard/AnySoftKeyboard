@@ -111,15 +111,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
   private static Key findKeyWithSkinToneAndGender(
       List<Key> keys, @Nullable EmojiUtils.SkinTone skinTone, @Nullable EmojiUtils.Gender gender) {
     final Predicate<AnyKey> checker;
-    if (skinTone != null && gender != null) {
-      checker = aKey -> aKey.getSkinTones().contains(skinTone)
-      /*&& EmojiUtils.containsGender(text, gender)*/ ;
-    } else if (skinTone != null) {
+    if (skinTone != null) {
       checker = aKey -> aKey.getSkinTones().contains(skinTone);
-    } /*else if (gender != null) {
-          checker = text -> EmojiUtils.containsGender(text, gender);
-      } */ else {
-      throw new IllegalArgumentException("can not have both skin-tone and gender set to null!");
+    } else {
+      throw new IllegalArgumentException("can not have skin-tone set to null!");
     }
 
     return findKeyWithPredicate(keys, checker);
