@@ -11,7 +11,7 @@ import java.util.Set;
 
 public abstract class EmojiCollector implements EmojiCollection {
 
-  public static final Map<String, List<String>> ADDITION_TAGS_FOR_EMOJI = new HashMap<>();
+  private static final Map<String, List<String>> ADDITION_TAGS_FOR_EMOJI = new HashMap<>();
   public static final EmojiCollector EMOTICONS_COLLECTOR =
       new GroupEmojiCollector(
           "quick_text_unicode_emoticons.xml",
@@ -162,8 +162,9 @@ public abstract class EmojiCollector implements EmojiCollection {
 
   static {
     ADDITION_TAGS_FOR_EMOJI.put("\uD83C\uDDE6\uD83C\uDDEA", Arrays.asList("UAE"));
-    ADDITION_TAGS_FOR_EMOJI.put("\uD83D\uDE4F", Arrays.asList("pray"));
+    ADDITION_TAGS_FOR_EMOJI.put("\uD83D\uDE4F", Arrays.asList("pray", "thanks", "thank_you"));
     ADDITION_TAGS_FOR_EMOJI.put("\uD83C\uDDFA\uD83C\uDDF8", Arrays.asList("USA", "US"));
+    ADDITION_TAGS_FOR_EMOJI.put("\uD83E\uDD17", Arrays.asList("hug"));
   }
 
   private final String mResourceFileName;
@@ -210,6 +211,10 @@ public abstract class EmojiCollector implements EmojiCollection {
                   }
                 });
             workspace.removeIf(variants::contains);
+            // add additional tags
+            if (ADDITION_TAGS_FOR_EMOJI.containsKey(emojiData.output)) {
+              emojiData.tags.addAll(ADDITION_TAGS_FOR_EMOJI.get(emojiData.output));
+            }
           }
         });
 

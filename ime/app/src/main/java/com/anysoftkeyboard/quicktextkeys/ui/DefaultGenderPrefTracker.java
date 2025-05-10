@@ -2,8 +2,8 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import androidx.annotation.Nullable;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
-import emoji.utils.JavaEmojiUtils;
 import io.reactivex.disposables.Disposable;
 import java.util.Random;
 
@@ -11,7 +11,7 @@ public class DefaultGenderPrefTracker implements Disposable {
 
   private final Disposable mDisposable;
 
-  @Nullable private JavaEmojiUtils.Gender mDefaultGender = null;
+  @Nullable private EmojiUtils.Gender mDefaultGender = null;
   private boolean mRandom = false;
 
   public DefaultGenderPrefTracker(RxSharedPrefs prefs) {
@@ -26,10 +26,10 @@ public class DefaultGenderPrefTracker implements Disposable {
                   mDefaultGender = null;
                   switch (value) {
                     case "woman":
-                      mDefaultGender = JavaEmojiUtils.Gender.Woman;
+                      mDefaultGender = EmojiUtils.Gender.Woman;
                       break;
                     case "man":
-                      mDefaultGender = JavaEmojiUtils.Gender.Man;
+                      mDefaultGender = EmojiUtils.Gender.Man;
                       break;
                     case "random":
                       mRandom = true;
@@ -41,12 +41,12 @@ public class DefaultGenderPrefTracker implements Disposable {
   }
 
   @Nullable
-  public JavaEmojiUtils.Gender getDefaultGender() {
+  public EmojiUtils.Gender getDefaultGender() {
     if (mRandom) {
       if (new Random().nextBoolean()) {
-        return JavaEmojiUtils.Gender.Woman;
+        return EmojiUtils.Gender.Woman;
       } else {
-        return JavaEmojiUtils.Gender.Man;
+        return EmojiUtils.Gender.Man;
       }
     }
     return mDefaultGender;

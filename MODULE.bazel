@@ -12,6 +12,8 @@ bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "aspect_rules_esbuild", version = "0.21.0")
 bazel_dep(name = "rules_multitool", version = "1.0.0")
 bazel_dep(name = "rules_java", version = "8.6.3")
+bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
+bazel_dep(name = "rules_jvm_external", version = "6.7")
 
 multitool = use_extension("@rules_multitool//multitool:extension.bzl", "multitool")
 multitool.hub(lockfile = "//tools:multitool.lock.json")
@@ -55,3 +57,20 @@ use_repo(rules_ts_ext, "npm_typescript")
 bazel_dep(name = "aspect_rules_jest", version = "0.22.0")
 bazel_dep(name = "aspect_rules_lint", version = "1.0.7")
 bazel_dep(name = "buildifier_prebuilt", version = "7.3.1")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    name = "maven",
+    artifacts = [
+        "org.junit.jupiter:junit-jupiter-api:5.8.2",
+        "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+        "org.junit.platform:junit-platform-launcher:1.8.2",
+        "org.junit.platform:junit-platform-reporting:1.8.2",
+    ],
+    fetch_sources = True,
+    lock_file = "//:maven_install.json",
+)
+use_repo(
+    maven,
+    "maven",
+)

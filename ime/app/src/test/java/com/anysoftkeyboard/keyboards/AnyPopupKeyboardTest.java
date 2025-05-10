@@ -10,9 +10,7 @@ import com.anysoftkeyboard.MyShadowPaint;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
-import emoji.utils.JavaEmojiUtils;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
@@ -23,7 +21,7 @@ public class AnyPopupKeyboardTest {
 
   @NonNull
   private AnyPopupKeyboard createAnyPopupKeyboard(
-      int keyboardResId, JavaEmojiUtils.SkinTone skinTone, JavaEmojiUtils.Gender gender) {
+      int keyboardResId, EmojiUtils.SkinTone skinTone, EmojiUtils.Gender gender) {
     return new AnyPopupKeyboard(
         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
         getApplicationContext(),
@@ -55,6 +53,17 @@ public class AnyPopupKeyboardTest {
     Assert.assertArrayEquals(
         "eye,face,grin,smile".split(","),
         ((AnyKeyboard.AnyKey) keyboard.getKeys().get(1)).getKeyTags().toArray());
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.N)
+  public void testKeyboardResourceConstructorReadsTagsWithExtension() throws Exception {
+    AnyPopupKeyboard keyboard =
+        createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null, null);
+
+    Assert.assertArrayEquals(
+        "grinning,face,grinning_face".split(","),
+        ((AnyKeyboard.AnyKey) keyboard.getKeys().get(0)).getKeyTags().toArray());
   }
 
   private void assertKeyValues(AnyPopupKeyboard keyboard, int primaryCode, int y) {
@@ -371,49 +380,15 @@ public class AnyPopupKeyboardTest {
   public void testKeyboardSwitchesSkinTone() throws Exception {
     AnyPopupKeyboard keyboardWithGeneric =
         createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
-    for (JavaEmojiUtils.SkinTone skinTone : JavaEmojiUtils.SkinTone.values()) {
-      Assert.assertFalse(
-          EmojiUtils.containsSkinTone(keyboardWithGeneric.getKeys().get(0).text, skinTone));
-    }
+    Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).text);
+    Assert.assertEquals("\uD83D\uDC85", keyboardWithGeneric.getKeys().get(1).label);
 
     AnyPopupKeyboard keyboardWithSkinTone =
         createAnyPopupKeyboard(
-            R.xml.quick_text_unicode_people, JavaEmojiUtils.SkinTone.Fitzpatrick_2, null);
-    for (JavaEmojiUtils.SkinTone skinTone : JavaEmojiUtils.SkinTone.values()) {
-      Assert.assertEquals(
-          skinTone == JavaEmojiUtils.SkinTone.Fitzpatrick_2,
-          EmojiUtils.containsSkinTone(keyboardWithSkinTone.getKeys().get(0).text, skinTone));
-    }
-  }
+            R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
 
-  @Test
-  @Config(sdk = Build.VERSION_CODES.N)
-  @Ignore("TODO when gender-filter is working")
-  public void testKeyboardSwitchesGender() throws Exception {
-    AnyPopupKeyboard keyboardWithSkinTone =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, JavaEmojiUtils.Gender.Man);
-    for (JavaEmojiUtils.Gender gender : JavaEmojiUtils.Gender.values()) {
-      Assert.assertEquals(
-          gender == JavaEmojiUtils.Gender.Man,
-          EmojiUtils.containsGender(keyboardWithSkinTone.getKeys().get(0).text, gender));
-    }
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.N)
-  @Ignore("TODO when gender-filter is working")
-  public void testKeyboardSwitchesGenderAndSkinTone() throws Exception {
-    AnyPopupKeyboard keyboardWithSkinTone =
-        createAnyPopupKeyboard(
-            R.xml.quick_text_unicode_people,
-            JavaEmojiUtils.SkinTone.Fitzpatrick_5,
-            JavaEmojiUtils.Gender.Woman);
-    Assert.assertTrue(
-        EmojiUtils.containsGender(
-            keyboardWithSkinTone.getKeys().get(0).text, JavaEmojiUtils.Gender.Woman));
-    Assert.assertTrue(
-        EmojiUtils.containsSkinTone(
-            keyboardWithSkinTone.getKeys().get(0).text, JavaEmojiUtils.SkinTone.Fitzpatrick_5));
+    Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).text);
+    Assert.assertEquals("\uD83D\uDC85\uD83C\uDFFB", keyboardWithSkinTone.getKeys().get(1).label);
   }
 
   @Test

@@ -2,10 +2,10 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="15%p">
   <!--Variants for 🚶‍♀️‍➡️-->
   <Row>
-    <Key android:keyLabel="&#128694;&#127995;‍♀️‍➡️" android:keyOutputText="&#128694;&#127995;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128694;&#127996;‍♀️‍➡️" android:keyOutputText="&#128694;&#127996;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128694;&#127997;‍♀️‍➡️" android:keyOutputText="&#128694;&#127997;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128694;&#127998;‍♀️‍➡️" android:keyOutputText="&#128694;&#127998;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
-    <Key android:keyLabel="&#128694;&#127999;‍♀️‍➡️" android:keyOutputText="&#128694;&#127999;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+    <Key android:keyLabel="&#128694;&#127995;‍♀️‍➡️" android:keyOutputText="&#128694;&#127995;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:genders="Woman" ask:skinTones="Fitzpatrick_2"/>
+    <Key android:keyLabel="&#128694;&#127996;‍♀️‍➡️" android:keyOutputText="&#128694;&#127996;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:genders="Woman" ask:skinTones="Fitzpatrick_3"/>
+    <Key android:keyLabel="&#128694;&#127997;‍♀️‍➡️" android:keyOutputText="&#128694;&#127997;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:genders="Woman" ask:skinTones="Fitzpatrick_4"/>
+    <Key android:keyLabel="&#128694;&#127998;‍♀️‍➡️" android:keyOutputText="&#128694;&#127998;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:genders="Woman" ask:skinTones="Fitzpatrick_5"/>
+    <Key android:keyLabel="&#128694;&#127999;‍♀️‍➡️" android:keyOutputText="&#128694;&#127999;‍♀️‍➡️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:genders="Woman" ask:skinTones="Fitzpatrick_6"/>
   </Row>
 </Keyboard>
