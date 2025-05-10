@@ -11,7 +11,6 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
@@ -371,48 +370,18 @@ public class AnyPopupKeyboardTest {
     AnyPopupKeyboard keyboardWithGeneric =
         createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
     for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
-      Assert.assertFalse(
-          EmojiUtils.containsSkinTone(keyboardWithGeneric.getKeys().get(0).text, skinTone));
+      var aKey = (AnyKeyboard.AnyKey) keyboardWithGeneric.getKeys().get(0);
+      Assert.assertFalse(aKey.getSkinTones().contains(skinTone));
     }
 
     AnyPopupKeyboard keyboardWithSkinTone =
         createAnyPopupKeyboard(
             R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
     for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
+      var aKey = (AnyKeyboard.AnyKey) keyboardWithSkinTone.getKeys().get(0);
       Assert.assertEquals(
-          skinTone == EmojiUtils.SkinTone.Fitzpatrick_2,
-          EmojiUtils.containsSkinTone(keyboardWithSkinTone.getKeys().get(0).text, skinTone));
+          skinTone == EmojiUtils.SkinTone.Fitzpatrick_2, aKey.getSkinTones().contains(skinTone));
     }
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.N)
-  @Ignore("TODO when gender-filter is working")
-  public void testKeyboardSwitchesGender() throws Exception {
-    AnyPopupKeyboard keyboardWithSkinTone =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, EmojiUtils.Gender.Man);
-    for (EmojiUtils.Gender gender : EmojiUtils.Gender.values()) {
-      Assert.assertEquals(
-          gender == EmojiUtils.Gender.Man,
-          EmojiUtils.containsGender(keyboardWithSkinTone.getKeys().get(0).text, gender));
-    }
-  }
-
-  @Test
-  @Config(sdk = Build.VERSION_CODES.N)
-  @Ignore("TODO when gender-filter is working")
-  public void testKeyboardSwitchesGenderAndSkinTone() throws Exception {
-    AnyPopupKeyboard keyboardWithSkinTone =
-        createAnyPopupKeyboard(
-            R.xml.quick_text_unicode_people,
-            EmojiUtils.SkinTone.Fitzpatrick_5,
-            EmojiUtils.Gender.Woman);
-    Assert.assertTrue(
-        EmojiUtils.containsGender(
-            keyboardWithSkinTone.getKeys().get(0).text, EmojiUtils.Gender.Woman));
-    Assert.assertTrue(
-        EmojiUtils.containsSkinTone(
-            keyboardWithSkinTone.getKeys().get(0).text, EmojiUtils.SkinTone.Fitzpatrick_5));
   }
 
   @Test
