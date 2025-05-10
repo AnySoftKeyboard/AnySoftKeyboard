@@ -7,25 +7,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class UnicodeOrgEmojiTestDataParserTest {
   /** Utility method to feed a string as input to the parse function. */
-  List<EmojiData> parseFromString(String data, Map<String, List<String>> extraTags)
-      throws IOException {
+  List<EmojiData> parseFromString(String data) throws IOException {
     File tempFile = File.createTempFile("emoji-test", ".txt");
     tempFile.deleteOnExit();
     try (FileWriter writer = new FileWriter(tempFile)) {
       writer.write(data);
     }
-    return UnicodeOrgEmojiTestDataParser.parse(tempFile, extraTags);
-  }
-
-  List<EmojiData> parseFromString(String data) throws IOException {
-    return parseFromString(data, Collections.emptyMap());
+    return UnicodeOrgEmojiTestDataParser.parse(tempFile);
   }
 
   @Test
@@ -149,9 +142,9 @@ class UnicodeOrgEmojiTestDataParserTest {
 
     assertEquals(5, result.size());
     assertEquals("✋", result.get(0).output);
-    assertEquals(Arrays.asList("raised", "hand"), result.get(0).tags);
+    assertEquals(Arrays.asList("raised", "hand", "raised_hand"), result.get(0).tags);
     assertEquals("✋🏻", result.get(1).output);
-    assertEquals(Arrays.asList("raised", "hand"), result.get(1).tags);
+    assertEquals(Arrays.asList("raised", "hand", "raised_hand"), result.get(1).tags);
   }
 
   @Test
