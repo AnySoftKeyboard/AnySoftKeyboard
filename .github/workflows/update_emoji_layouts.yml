@@ -34,7 +34,7 @@ jobs:
       - name: update emoji dictionaries
         run: bazel run //emojis:emoji_generator -- "${GITHUB_WORKSPACE}/emojis/data/emoji-test.txt" "${GITHUB_WORKSPACE}/${TARGET_FOLDER}/xml-v${TARGET_API}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
+        uses: peter-evans/create-pull-request@v7.0.8
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated EMOJI Update'
