@@ -27,7 +27,6 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
-import emoji.utils.JavaEmojiUtils;
 import java.util.List;
 
 public class AnyPopupKeyboard extends AnyKeyboard {
@@ -35,8 +34,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
   private static final char[] EMPTY_CHAR_ARRAY = new char[0];
   private static final int MAX_KEYS_PER_ROW = 5;
   private final CharSequence mKeyboardName;
-  @Nullable private final JavaEmojiUtils.SkinTone mDefaultSkinTone;
-  @Nullable private final JavaEmojiUtils.Gender mDefaultGender;
+  @Nullable private final EmojiUtils.SkinTone mDefaultSkinTone;
+  @Nullable private final EmojiUtils.Gender mDefaultGender;
   private final Paint mPaint = new Paint();
   private int mAdditionalWidth = 0;
 
@@ -46,8 +45,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
       int xmlLayoutResId,
       @NonNull final KeyboardDimens keyboardDimens,
       @NonNull CharSequence keyboardName,
-      @Nullable JavaEmojiUtils.SkinTone defaultSkinTone,
-      @Nullable JavaEmojiUtils.Gender defaultGender) {
+      @Nullable EmojiUtils.SkinTone defaultSkinTone,
+      @Nullable EmojiUtils.Gender defaultGender) {
     super(keyboardAddOn, askContext, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
     mDefaultSkinTone = defaultSkinTone;
     mDefaultGender = defaultGender;
@@ -90,16 +89,12 @@ public class AnyPopupKeyboard extends AnyKeyboard {
   }
 
   private static int getPopupLayout(CharSequence popupCharacters) {
-    switch (getPopupRowsCount(popupCharacters)) {
-      case 1:
-        return R.xml.popup_one_row;
-      case 2:
-        return R.xml.popup_two_rows;
-      case 3:
-        return R.xml.popup_three_rows;
-      default:
-        throw new RuntimeException("AnyPopupKeyboard supports 1, 2, and 3 rows only!");
-    }
+    return switch (getPopupRowsCount(popupCharacters)) {
+      case 1 -> R.xml.popup_one_row;
+      case 2 -> R.xml.popup_two_rows;
+      case 3 -> R.xml.popup_three_rows;
+      default -> throw new RuntimeException("AnyPopupKeyboard supports 1, 2, and 3 rows only!");
+    };
   }
 
   @Override
@@ -114,15 +109,13 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
   @Nullable
   private static Key findKeyWithSkinToneAndGender(
-      List<Key> keys,
-      @Nullable JavaEmojiUtils.SkinTone skinTone,
-      @Nullable JavaEmojiUtils.Gender gender) {
-    final Predicate<CharSequence> checker;
+      List<Key> keys, @Nullable EmojiUtils.SkinTone skinTone, @Nullable EmojiUtils.Gender gender) {
+    final Predicate<AnyKey> checker;
     if (skinTone != null && gender != null) {
-      checker = text -> EmojiUtils.containsSkinTone(text, skinTone)
+      checker = aKey -> aKey.getSkinTones().contains(skinTone)
       /*&& EmojiUtils.containsGender(text, gender)*/ ;
     } else if (skinTone != null) {
-      checker = text -> EmojiUtils.containsSkinTone(text, skinTone);
+      checker = aKey -> aKey.getSkinTones().contains(skinTone);
     } /*else if (gender != null) {
           checker = text -> EmojiUtils.containsGender(text, gender);
       } */ else {
@@ -133,10 +126,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
   }
 
   @Nullable
-  private static Key findKeyWithPredicate(List<Key> keys, Predicate<CharSequence> checker) {
+  private static AnyKey findKeyWithPredicate(List<Key> keys, Predicate<AnyKey> checker) {
     for (Key key : keys) {
-      if (checker.test(key.text)) {
-        return key;
+      var aKey = (AnyKey) key;
+      if (checker.test(aKey)) {
+        return aKey;
       }
     }
 

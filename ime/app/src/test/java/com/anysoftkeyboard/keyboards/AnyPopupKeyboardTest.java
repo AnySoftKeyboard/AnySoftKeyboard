@@ -10,7 +10,6 @@ import com.anysoftkeyboard.MyShadowPaint;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
-import emoji.utils.JavaEmojiUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class AnyPopupKeyboardTest {
 
   @NonNull
   private AnyPopupKeyboard createAnyPopupKeyboard(
-      int keyboardResId, JavaEmojiUtils.SkinTone skinTone, JavaEmojiUtils.Gender gender) {
+      int keyboardResId, EmojiUtils.SkinTone skinTone, EmojiUtils.Gender gender) {
     return new AnyPopupKeyboard(
         new DefaultAddOn(getApplicationContext(), getApplicationContext()),
         getApplicationContext(),
@@ -371,17 +370,17 @@ public class AnyPopupKeyboardTest {
   public void testKeyboardSwitchesSkinTone() throws Exception {
     AnyPopupKeyboard keyboardWithGeneric =
         createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, null);
-    for (JavaEmojiUtils.SkinTone skinTone : JavaEmojiUtils.SkinTone.values()) {
+    for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
       Assert.assertFalse(
           EmojiUtils.containsSkinTone(keyboardWithGeneric.getKeys().get(0).text, skinTone));
     }
 
     AnyPopupKeyboard keyboardWithSkinTone =
         createAnyPopupKeyboard(
-            R.xml.quick_text_unicode_people, JavaEmojiUtils.SkinTone.Fitzpatrick_2, null);
-    for (JavaEmojiUtils.SkinTone skinTone : JavaEmojiUtils.SkinTone.values()) {
+            R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2, null);
+    for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
       Assert.assertEquals(
-          skinTone == JavaEmojiUtils.SkinTone.Fitzpatrick_2,
+          skinTone == EmojiUtils.SkinTone.Fitzpatrick_2,
           EmojiUtils.containsSkinTone(keyboardWithSkinTone.getKeys().get(0).text, skinTone));
     }
   }
@@ -391,10 +390,10 @@ public class AnyPopupKeyboardTest {
   @Ignore("TODO when gender-filter is working")
   public void testKeyboardSwitchesGender() throws Exception {
     AnyPopupKeyboard keyboardWithSkinTone =
-        createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, JavaEmojiUtils.Gender.Man);
-    for (JavaEmojiUtils.Gender gender : JavaEmojiUtils.Gender.values()) {
+        createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null, EmojiUtils.Gender.Man);
+    for (EmojiUtils.Gender gender : EmojiUtils.Gender.values()) {
       Assert.assertEquals(
-          gender == JavaEmojiUtils.Gender.Man,
+          gender == EmojiUtils.Gender.Man,
           EmojiUtils.containsGender(keyboardWithSkinTone.getKeys().get(0).text, gender));
     }
   }
@@ -406,14 +405,14 @@ public class AnyPopupKeyboardTest {
     AnyPopupKeyboard keyboardWithSkinTone =
         createAnyPopupKeyboard(
             R.xml.quick_text_unicode_people,
-            JavaEmojiUtils.SkinTone.Fitzpatrick_5,
-            JavaEmojiUtils.Gender.Woman);
+            EmojiUtils.SkinTone.Fitzpatrick_5,
+            EmojiUtils.Gender.Woman);
     Assert.assertTrue(
         EmojiUtils.containsGender(
-            keyboardWithSkinTone.getKeys().get(0).text, JavaEmojiUtils.Gender.Woman));
+            keyboardWithSkinTone.getKeys().get(0).text, EmojiUtils.Gender.Woman));
     Assert.assertTrue(
         EmojiUtils.containsSkinTone(
-            keyboardWithSkinTone.getKeys().get(0).text, JavaEmojiUtils.SkinTone.Fitzpatrick_5));
+            keyboardWithSkinTone.getKeys().get(0).text, EmojiUtils.SkinTone.Fitzpatrick_5));
   }
 
   @Test
