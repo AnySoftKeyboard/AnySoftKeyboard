@@ -30,7 +30,7 @@
     <Key android:keyLabel="&#129322;" android:keyOutputText="&#129322;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="zany,face,zany_face"/>
     <Key android:keyLabel="&#128541;" android:keyOutputText="&#128541;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="squinting,face,with,tongue,squinting_face_with_tongue"/>
     <Key android:keyLabel="&#129297;" android:keyOutputText="&#129297;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="money-mouth,face,money-mouth_face"/>
-    <Key android:keyLabel="&#129303;" android:keyOutputText="&#129303;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,open,hands,smiling_face_with_open_hands"/>
+    <Key android:keyLabel="&#129303;" android:keyOutputText="&#129303;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,open,hands,smiling_face_with_open_hands,hug"/>
     <Key android:keyLabel="&#129325;" android:keyOutputText="&#129325;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,hand,over,mouth,face_with_hand_over_mouth"/>
     <Key android:keyLabel="&#129762;" android:keyOutputText="&#129762;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,open,eyes,and,hand,over,mouth,face_with_open_eyes_and_hand_over_mouth"/>
     <Key android:keyLabel="&#129763;" android:keyOutputText="&#129763;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,peeking,eye,face_with_peeking_eye"/>
@@ -209,11 +209,6 @@
     <Key android:keyLabel="&#128080;" android:keyOutputText="&#128080;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_205" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="open,hands,open_hands"/>
     <Key android:keyLabel="&#129330;" android:keyOutputText="&#129330;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_206" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="palms,up,together,palms_up_together"/>
     <Key android:keyLabel="&#129309;" android:keyOutputText="&#129309;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_207" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="handshake"/>
-    <Key android:keyLabel="&#128591;" android:keyOutputText="&#128591;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands,pray"/>
-    <Key android:keyLabel="&#128591;&#127995;" android:keyOutputText="&#128591;&#127995;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands"/>
-    <Key android:keyLabel="&#128591;&#127996;" android:keyOutputText="&#128591;&#127996;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands"/>
-    <Key android:keyLabel="&#128591;&#127997;" android:keyOutputText="&#128591;&#127997;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands"/>
-    <Key android:keyLabel="&#128591;&#127998;" android:keyOutputText="&#128591;&#127998;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands"/>
-    <Key android:keyLabel="&#128591;&#127999;" android:keyOutputText="&#128591;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands"/>
+    <Key android:keyLabel="&#128591;" android:keyOutputText="&#128591;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_208" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands,folded_hands,pray,thanks,thank_you"/>
   </Row>
 </Keyboard>

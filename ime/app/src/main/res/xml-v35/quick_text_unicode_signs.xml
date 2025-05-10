@@ -179,18 +179,18 @@
     <Key android:keyLabel="®️" android:keyOutputText="®️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="registered"/>
     <Key android:keyLabel="™️" android:keyOutputText="™️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="trade,mark,trade_mark"/>
     <Key android:keyLabel="&#129759;" android:keyOutputText="&#129759;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="splatter"/>
-    <Key android:keyLabel="*️⃣" android:keyOutputText="*️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,*"/>
-    <Key android:keyLabel="0️⃣" android:keyOutputText="0️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,0"/>
-    <Key android:keyLabel="1️⃣" android:keyOutputText="1️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,1"/>
-    <Key android:keyLabel="2️⃣" android:keyOutputText="2️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,2"/>
-    <Key android:keyLabel="3️⃣" android:keyOutputText="3️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,3"/>
-    <Key android:keyLabel="4️⃣" android:keyOutputText="4️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,4"/>
-    <Key android:keyLabel="5️⃣" android:keyOutputText="5️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,5"/>
-    <Key android:keyLabel="6️⃣" android:keyOutputText="6️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,6"/>
-    <Key android:keyLabel="7️⃣" android:keyOutputText="7️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,7"/>
-    <Key android:keyLabel="8️⃣" android:keyOutputText="8️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,8"/>
-    <Key android:keyLabel="9️⃣" android:keyOutputText="9️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,9"/>
-    <Key android:keyLabel="&#128287;" android:keyOutputText="&#128287;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap,10"/>
+    <Key android:keyLabel="*️⃣" android:keyOutputText="*️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="0️⃣" android:keyOutputText="0️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="1️⃣" android:keyOutputText="1️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="2️⃣" android:keyOutputText="2️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="3️⃣" android:keyOutputText="3️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="4️⃣" android:keyOutputText="4️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="5️⃣" android:keyOutputText="5️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="6️⃣" android:keyOutputText="6️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="7️⃣" android:keyOutputText="7️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="8️⃣" android:keyOutputText="8️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="9️⃣" android:keyOutputText="9️⃣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
+    <Key android:keyLabel="&#128287;" android:keyOutputText="&#128287;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keycap"/>
     <Key android:keyLabel="&#128288;" android:keyOutputText="&#128288;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="input,latin,uppercase,input_latin_uppercase"/>
     <Key android:keyLabel="&#128289;" android:keyOutputText="&#128289;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="input,latin,lowercase,input_latin_lowercase"/>
     <Key android:keyLabel="&#128290;" android:keyOutputText="&#128290;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="input,numbers,input_numbers"/>
