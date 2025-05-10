@@ -28,14 +28,14 @@ jobs:
       - name: Delete current translations
         run: git ls-files "**/values-*/strings.xml" | xargs rm -f
       - name: Crowdin push
-        uses: crowdin/github-action@v2.3.0
+        uses: crowdin/github-action@v2.7.0
         with:
           upload_sources: true
           upload_translations: false
           download_translations: false
           config: crowdin.yml
       - name: Crowdin pull
-        uses: crowdin/github-action@v2.3.0
+        uses: crowdin/github-action@v2.7.0
         with:
           upload_sources: false
           upload_translations: false
@@ -52,7 +52,7 @@ jobs:
       - name: fix git safe dir
         run: git config --global --add safe.directory "${PWD}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
+        uses: peter-evans/create-pull-request@v7.0.8
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'
