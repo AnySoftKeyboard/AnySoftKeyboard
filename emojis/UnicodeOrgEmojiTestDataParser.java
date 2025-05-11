@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class UnicodeOrgEmojiTestDataParser {
   // group start: "# group: Flags"
@@ -25,8 +25,7 @@ class UnicodeOrgEmojiTestDataParser {
       Pattern.compile("#\\s+.+E\\d+\\.\\d+\\s+(.+)$");
   private static final StringBuilder msEscapeCodesBuilder = new StringBuilder(32);
 
-  static List<EmojiData> parse(File testDataFile, Map<String, List<String>> extraTags)
-      throws IOException {
+  static List<EmojiData> parse(File testDataFile) throws IOException {
     List<EmojiData> parsedEmojiData = new ArrayList<>();
 
     String group = "";
@@ -41,13 +40,13 @@ class UnicodeOrgEmojiTestDataParser {
           System.out.flush();
           final Matcher groupMatcher = GROUP_ROW_PATTERN.matcher(line);
           if (groupMatcher.find()) {
-            group = groupMatcher.group(1);
+            group = groupMatcher.group(1).trim();
             subgroup = "";
             System.out.println("New emoji group " + group);
           } else {
             final Matcher subGroupMatcher = SUB_GROUP_ROW_PATTERN.matcher(line);
             if (subGroupMatcher.find()) {
-              subgroup = subGroupMatcher.group(1);
+              subgroup = subGroupMatcher.group(1).trim();
               System.out.println("Entering emoji subgroup " + group + "/" + subgroup);
             } else {
               final int tagsIndex = line.lastIndexOf("#");
@@ -58,26 +57,27 @@ class UnicodeOrgEmojiTestDataParser {
                     TAGS_PART_ROW_PATTERN.matcher(line.substring(tagsIndex));
                 if (dataRowMatcher.find() && tagsRowMatcher.find()) {
                   emojis++;
-                  final String description = tagsRowMatcher.group(1);
+                  final var fullDescription = tagsRowMatcher.group(1);
+                  int baseOutputBreaker = fullDescription.indexOf(':');
+                  if (baseOutputBreaker == -1) baseOutputBreaker = fullDescription.length();
+                  final var description = fullDescription.substring(0, baseOutputBreaker);
                   List<String> tags =
-                      Arrays.stream(description.split("[:,]", -1))
+                      Stream.concat(
+                              Arrays.stream(description.split("[, ]", -1)),
+                              Stream.of(description.replaceAll(" ", "_")))
                           .filter(s -> !s.isEmpty())
+                          .distinct()
                           .collect(Collectors.toList());
                   final String output = convertToEscapeCodes(dataRowMatcher.group(1));
-                  if (extraTags.containsKey(output)) {
-                    extraTags
-                        .get(output)
-                        .forEach(
-                            newTag -> {
-                              if (!tags.contains(newTag)) tags.add(newTag);
-                            });
-                  }
 
                   EmojiData emojiData =
                       new EmojiData(
                           emojis,
+                          fullDescription,
                           description,
-                          group.replace(' ', '-') + "-" + subgroup.replace(' ', '-'),
+                          subgroup.isBlank()
+                              ? group.replace(' ', '-')
+                              : group.replace(' ', '-') + "-" + subgroup.replace(' ', '-'),
                           output,
                           tags);
 

@@ -110,6 +110,10 @@ Copyright (C) 2013 Menny Even-Danan
 
         <!-- coma separated tags for this key. Might be used for completions -->
         <attr name="tags" format="reference|string"/>
+        <!-- coma separated genders for this key. Might be used for completions -->
+        <attr name="genders" format="reference|string"/>
+        <!-- coma separated skin-tones for this key. Might be used for completions -->
+        <attr name="skinTones" format="reference|string"/>
 
         <attr name="extra_key_data" format="reference|string"/>
     </declare-styleable>

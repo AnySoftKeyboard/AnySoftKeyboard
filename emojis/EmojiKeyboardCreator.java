@@ -1,10 +1,9 @@
 package emojis;
 
-import emoji.utils.JavaEmojiUtils;
+import emojis.utils.JavaEmojiUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +28,7 @@ class EmojiKeyboardCreator {
   private final String comment;
   private final boolean splitToRows;
 
-  EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector) throws IOException {
+  EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector) {
     this(xmlResourceFolder, collector, null, false, "20%p");
   }
 
@@ -38,8 +37,7 @@ class EmojiKeyboardCreator {
       EmojiCollection collector,
       String comment,
       boolean splitToRows,
-      String keyWidth)
-      throws IOException {
+      String keyWidth) {
     this.keyboardResourceFile = new File(xmlResourceFolder, collector.getResourceFileName());
     this.collector = collector;
     this.keyWidth = keyWidth;
@@ -59,12 +57,11 @@ class EmojiKeyboardCreator {
     List<EmojiKeyboardCreator> additionalPopupCreators = new ArrayList<>();
 
     final List<EmojiData> parentEmojiDataList = collector.generateOwnedEmojis();
-    System.out.print(
-        String.format(
-            Locale.US,
-            "EmojiKeyboardCreator will write to %s with %d emojis...",
-            keyboardResourceFile,
-            parentEmojiDataList.size()));
+    System.out.printf(
+        Locale.US,
+        "EmojiKeyboardCreator will write to %s with %d emojis...",
+        keyboardResourceFile,
+        parentEmojiDataList.size());
 
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -72,12 +69,6 @@ class EmojiKeyboardCreator {
     Document doc = docBuilder.newDocument();
     Element keyboardElement = doc.createElement("Keyboard");
     if (comment != null) keyboardElement.appendChild(doc.createComment(comment));
-    /*
-    <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-        android:keyHeight="@integer/key_normal_height"
-        android:keyWidth="20%p"
-        android:popupCharacters="asdasdas" >
-    */
     keyboardElement.setAttributeNS(
         "http://schemas.android.com/apk/res/android",
         "android:keyHeight",
@@ -139,12 +130,26 @@ class EmojiKeyboardCreator {
             "http://schemas.android.com/apk/res/android",
             "android:keyOutputText",
             emojiData.output);
-        keyElement.setAttributeNS(
-            "http://schemas.android.com/apk/res-auto",
-            "ask:tags",
-            String.join(",", adjustTags(emojiData.tags)));
+        if (!emojiData.tags.isEmpty()) {
+          keyElement.setAttributeNS(
+              "http://schemas.android.com/apk/res-auto",
+              "ask:tags",
+              String.join(",", emojiData.tags));
+        }
+        if (!emojiData.orderedGenders.isEmpty()) {
+          keyElement.setAttributeNS(
+              "http://schemas.android.com/apk/res-auto",
+              "ask:genders",
+              String.join(",", adjustEnums(emojiData.orderedGenders)));
+        }
+        if (!emojiData.orderedSkinTones.isEmpty()) {
+          keyElement.setAttributeNS(
+              "http://schemas.android.com/apk/res-auto",
+              "ask:skinTones",
+              String.join(",", adjustEnums(emojiData.orderedSkinTones)));
+        }
         final List<String> variants = emojiData.getVariants();
-        if (variants.size() > 0) {
+        if (!variants.isEmpty()) {
           final String collectorName =
               collector
                   .getResourceFileName()
@@ -163,6 +168,7 @@ class EmojiKeyboardCreator {
                 new EmojiData(
                     i1,
                     "",
+                    "",
                     emojiData.grouping,
                     variant,
                     Collections.emptyList() /*let's say that variants should not show tags*/);
@@ -173,6 +179,36 @@ class EmojiKeyboardCreator {
                 @Override
                 public String getResourceFileName() {
                   return popupKeysLayoutName + ".xml";
+                }
+
+                @Override
+                public String getKeyboardId() {
+                  return "";
+                }
+
+                @Override
+                public String getNameResId() {
+                  return "";
+                }
+
+                @Override
+                public String getIconResId() {
+                  return "";
+                }
+
+                @Override
+                public String getLabelResId() {
+                  return "";
+                }
+
+                @Override
+                public String getDefaultOutputResId() {
+                  return "";
+                }
+
+                @Override
+                public String getDescription() {
+                  return "";
                 }
 
                 @Override
@@ -206,7 +242,7 @@ class EmojiKeyboardCreator {
 
     transformer.transform(source, result);
 
-    if (additionalPopupCreators.size() > 0) {
+    if (!additionalPopupCreators.isEmpty()) {
       System.out.println("Building variants popup files...");
       for (EmojiKeyboardCreator creator : additionalPopupCreators) {
         creator.buildKeyboardFile();
@@ -217,23 +253,7 @@ class EmojiKeyboardCreator {
     return parentEmojiDataList.size();
   }
 
-  private List<String> adjustTags(List<String> tags) {
-    return tags.stream()
-        .distinct()
-        // removing skin-tone, since that doesn't make sense in tags
-        .filter(tag -> !tag.contains("skin tone"))
-        .map(String::trim)
-        .filter(tag -> !tag.isBlank())
-        // allowing searching for complete tags
-        .map(tag -> Arrays.asList(tag, tag.replaceAll("\\s+", "_")))
-        .flatMap(List::stream)
-        // breaking tags on spaces
-        .map(tag -> tag.split("\\s+", -1))
-        .map(Arrays::asList)
-        .flatMap(List::stream)
-        .map(String::trim)
-        .filter(tag -> !tag.isBlank())
-        .distinct()
-        .collect(Collectors.toList());
+  private static List<String> adjustEnums(List<? extends Enum> tags) {
+    return tags.stream().distinct().map(Enum::toString).collect(Collectors.toList());
   }
 }

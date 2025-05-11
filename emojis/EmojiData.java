@@ -1,6 +1,6 @@
 package emojis;
 
-import emoji.utils.JavaEmojiUtils;
+import emojis.utils.JavaEmojiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,18 +19,22 @@ class EmojiData {
   private final int[] uniqueOutput;
   private final List<String> mVariants = new ArrayList<>();
 
-  EmojiData(int position, String description, String grouping, String output, List<String> tags) {
+  EmojiData(
+      int position,
+      String description,
+      String baseOutputDescription,
+      String grouping,
+      String output,
+      List<String> tags) {
     if (description.contains("older person"))
       description = description.replace("older person", "old person");
     this.position = position;
     this.grouping = grouping;
     this.description = description;
+    this.baseOutputDescription = baseOutputDescription;
     this.output = output;
     this.tags = tags;
     uniqueOutput = output.chars().filter(i -> i != FULLY_QUALIFIED_POSTFIX).toArray();
-    int baseOutputBreaker = description.indexOf(':');
-    if (baseOutputBreaker == -1) baseOutputBreaker = description.length();
-    baseOutputDescription = description.substring(0, baseOutputBreaker);
     orderedGenders = JavaEmojiUtils.getAllGenders(output);
     // extracting genders from description
     orderedSkinTones = JavaEmojiUtils.getAllSkinTones(output);
