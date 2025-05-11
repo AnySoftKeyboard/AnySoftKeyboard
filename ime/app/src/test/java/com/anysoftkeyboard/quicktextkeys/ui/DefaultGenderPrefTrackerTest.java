@@ -29,8 +29,8 @@ public class DefaultGenderPrefTrackerTest {
             .getResources()
             .getStringArray(R.array.settings_key_default_emoji_gender_values);
     Assert.assertNotNull(values);
-    // random + person
-    Assert.assertEquals(EmojiUtils.Gender.values().length + 2, values.length);
+    // Enum values + random
+    Assert.assertEquals(EmojiUtils.Gender.values().length + 1, values.length);
 
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_emoji_gender, values[1]);
     Assert.assertEquals(EmojiUtils.Gender.Woman, tracker.getDefaultGender());
@@ -58,7 +58,10 @@ public class DefaultGenderPrefTrackerTest {
       seen.add(gender);
     }
 
-    Assert.assertEquals(EmojiUtils.Gender.values().length, seen.size());
+    // Do not give Person as a gender
+    Assert.assertEquals(2, seen.size());
+    Assert.assertTrue(seen.contains(EmojiUtils.Gender.Woman));
+    Assert.assertTrue(seen.contains(EmojiUtils.Gender.Man));
   }
 
   @Test
