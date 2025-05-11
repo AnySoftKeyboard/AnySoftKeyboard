@@ -22,6 +22,36 @@ class EmojiKeyboardCreatorTest {
           }
 
           @Override
+          public String getKeyboardId() {
+            return "";
+          }
+
+          @Override
+          public String getNameResId() {
+            return "";
+          }
+
+          @Override
+          public String getIconResId() {
+            return "";
+          }
+
+          @Override
+          public String getLabelResId() {
+            return "";
+          }
+
+          @Override
+          public String getDefaultOutputResId() {
+            return "";
+          }
+
+          @Override
+          public String getDescription() {
+            return "";
+          }
+
+          @Override
           public List<EmojiData> generateOwnedEmojis() {
             return Arrays.asList(
                 new EmojiData(
@@ -65,6 +95,36 @@ class EmojiKeyboardCreatorTest {
           @Override
           public String getResourceFileName() {
             return "test_keyboard_with_popups.xml";
+          }
+
+          @Override
+          public String getKeyboardId() {
+            return "";
+          }
+
+          @Override
+          public String getNameResId() {
+            return "";
+          }
+
+          @Override
+          public String getIconResId() {
+            return "";
+          }
+
+          @Override
+          public String getLabelResId() {
+            return "";
+          }
+
+          @Override
+          public String getDefaultOutputResId() {
+            return "";
+          }
+
+          @Override
+          public String getDescription() {
+            return "";
           }
 
           @Override
@@ -122,6 +182,36 @@ class EmojiKeyboardCreatorTest {
           @Override
           public String getResourceFileName() {
             return "test_keyboard_with_genders_and_skin_tones.xml";
+          }
+
+          @Override
+          public String getKeyboardId() {
+            return "";
+          }
+
+          @Override
+          public String getNameResId() {
+            return "";
+          }
+
+          @Override
+          public String getIconResId() {
+            return "";
+          }
+
+          @Override
+          public String getLabelResId() {
+            return "";
+          }
+
+          @Override
+          public String getDefaultOutputResId() {
+            return "";
+          }
+
+          @Override
+          public String getDescription() {
+            return "";
           }
 
           @Override

@@ -57,12 +57,11 @@ class EmojiKeyboardCreator {
     List<EmojiKeyboardCreator> additionalPopupCreators = new ArrayList<>();
 
     final List<EmojiData> parentEmojiDataList = collector.generateOwnedEmojis();
-    System.out.print(
-        String.format(
-            Locale.US,
-            "EmojiKeyboardCreator will write to %s with %d emojis...",
-            keyboardResourceFile,
-            parentEmojiDataList.size()));
+    System.out.printf(
+        Locale.US,
+        "EmojiKeyboardCreator will write to %s with %d emojis...",
+        keyboardResourceFile,
+        parentEmojiDataList.size());
 
     DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -150,7 +149,7 @@ class EmojiKeyboardCreator {
               String.join(",", adjustEnums(emojiData.orderedSkinTones)));
         }
         final List<String> variants = emojiData.getVariants();
-        if (variants.size() > 0) {
+        if (!variants.isEmpty()) {
           final String collectorName =
               collector
                   .getResourceFileName()
@@ -180,6 +179,36 @@ class EmojiKeyboardCreator {
                 @Override
                 public String getResourceFileName() {
                   return popupKeysLayoutName + ".xml";
+                }
+
+                @Override
+                public String getKeyboardId() {
+                  return "";
+                }
+
+                @Override
+                public String getNameResId() {
+                  return "";
+                }
+
+                @Override
+                public String getIconResId() {
+                  return "";
+                }
+
+                @Override
+                public String getLabelResId() {
+                  return "";
+                }
+
+                @Override
+                public String getDefaultOutputResId() {
+                  return "";
+                }
+
+                @Override
+                public String getDescription() {
+                  return "";
                 }
 
                 @Override
@@ -213,7 +242,7 @@ class EmojiKeyboardCreator {
 
     transformer.transform(source, result);
 
-    if (additionalPopupCreators.size() > 0) {
+    if (!additionalPopupCreators.isEmpty()) {
       System.out.println("Building variants popup files...");
       for (EmojiKeyboardCreator creator : additionalPopupCreators) {
         creator.buildKeyboardFile();
