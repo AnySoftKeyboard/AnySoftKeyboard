@@ -1,0 +1,21 @@
+import { Command } from 'commander';
+import { deleteLocalizationFiles } from './deleter.js';
+import { exit } from 'process';
+
+const program = new Command();
+program.name('localization_tools').description('CLI for various localization tools').version('0.0.1');
+
+program
+  .command('delete')
+  .requiredOption('--crowdinFile <path>', 'Path to crowdin config file')
+  .action(async (options) => {
+    console.log('Deleting localization files...');
+    const workspaceDir = process.env.BUILD_WORKSPACE_DIRECTORY || process.cwd();
+    deleteLocalizationFiles(workspaceDir, options.crowdinFile);
+  });
+
+const main = async () => {
+  program.parse();
+};
+
+main().catch((_) => exit(-1));

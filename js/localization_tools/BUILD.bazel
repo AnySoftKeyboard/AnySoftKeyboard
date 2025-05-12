@@ -1,0 +1,30 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "delete_localization_files",
+    srcs = [
+        "deleter.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@types/js-yaml",
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
+    name = "cli",
+    srcs = ["index.ts"],
+    deps = [
+        ":delete_localization_files",
+        "//:node_modules/@types/node",
+        "//:node_modules/commander",
+    ],
+)
+
+js_binary(
+    name = "localization_tools",
+    data = [":cli"],
+    entry_point = "dist/index.js",
+)
