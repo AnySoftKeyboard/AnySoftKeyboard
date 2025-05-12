@@ -14,10 +14,22 @@ ts_library(
 )
 
 ts_library(
+    name = "generate_locales",
+    srcs = [
+        "locales_generator.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
     name = "cli",
     srcs = ["index.ts"],
     deps = [
         ":delete_localization_files",
+        ":generate_locales",
         "//:node_modules/@types/node",
         "//:node_modules/commander",
     ],

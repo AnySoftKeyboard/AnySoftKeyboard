@@ -51,7 +51,10 @@ jobs:
           push_translations: false
           config: crowdin.yml
       - name: Update force-locale list
-        run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
+        run: |
+          bazel run //js/localization_tools -- generateLocale \
+              --resourcesFolder="$PWD/ime/app/src/main/res" \
+              --targetFile="$PWD/ime/app/src/main/res/values/force_locale_array_generated.xml"
       - name: Fix resource files special characters
         run: |
           echo "fixing ellipsis character..."

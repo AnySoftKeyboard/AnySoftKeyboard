@@ -21,16 +21,8 @@ export const deleteLocalizationFiles = (repoRoot: string, crowdinFile: string): 
         .filter((folder) => folder.match(/^values-.*$/))
         .forEach((folder) => {
           const localizedStringsPath = path.join(folderPath, folder, 'strings.xml');
-          try {
-            fs.unlinkSync(localizedStringsPath);
-            console.log(`Deleted: ${localizedStringsPath}`);
-          } catch (err: any) {
-            if (err.code === 'ENOENT') {
-              console.warn(`File not found, skipping: ${localizedStringsPath}`);
-            } else {
-              console.error(`Error deleting file ${localizedStringsPath}: ${err}`);
-            }
-          }
+          fs.unlinkSync(localizedStringsPath);
+          console.log(`Deleted: ${localizedStringsPath}`);
         });
     });
   }
