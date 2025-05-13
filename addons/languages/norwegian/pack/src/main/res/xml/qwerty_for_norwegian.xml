@@ -2,16 +2,16 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyWidth="9.09%p">
 
     <Row>
-        <Key android:codes="q" android:keyEdgeFlags="left" android:popupCharacters="" />
-        <Key android:codes="w" android:popupCharacters="" />
+        <Key android:codes="q" android:keyEdgeFlags="left" android:popupCharacters="1" />
+        <Key android:codes="w" android:popupCharacters="2" />
         <Key android:codes="e" android:popupKeyboard="@xml/norwegian_popup_e" />
-        <Key android:codes="r" android:popupCharacters="" />
-        <Key android:codes="t" android:popupCharacters="" />
+        <Key android:codes="r" android:popupCharacters="4" />
+        <Key android:codes="t" android:popupCharacters="5" />
         <Key android:codes="y" android:popupKeyboard="@xml/norwegian_popup_y" />
         <Key android:codes="u" android:popupKeyboard="@xml/norwegian_popup_u" />
         <Key android:codes="i" android:popupKeyboard="@xml/norwegian_popup_i" />
         <Key android:codes="o" android:popupKeyboard="@xml/norwegian_popup_o" />
-        <Key android:codes="p" android:popupCharacters=""/>
+        <Key android:codes="p" android:popupCharacters="0"/>
         <Key android:codes="å" android:keyEdgeFlags="right" />
     </Row>
 
