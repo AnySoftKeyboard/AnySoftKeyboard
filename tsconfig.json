@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "isolatedDeclarations": true,
+    "declaration": true,
     "composite": true,
     "isolatedModules": true,
     "module": "ES2022",
     "moduleResolution": "node",
     "target": "es2023",
     "inlineSourceMap": true,
+    "inlineSources": true,
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",

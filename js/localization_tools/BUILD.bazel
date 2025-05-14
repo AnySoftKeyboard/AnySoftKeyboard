@@ -27,6 +27,7 @@ ts_library(
 ts_library(
     name = "cli",
     srcs = ["index.ts"],
+    visibility = ["//visibility:private"],
     deps = [
         ":delete_localization_files",
         ":generate_locales",

@@ -1,5 +1,3 @@
-'use strict';
-
 export interface JobResult {
   result: string;
 }

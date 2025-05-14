@@ -1,4 +1,5 @@
 {
+  "preset": "ts-jest",
   "testEnvironment": "node",
   "testMatch": ["<rootDir>/js/**/*.test.(ts|js)"],
   "transformIgnorePatterns": ["node_modules/"],

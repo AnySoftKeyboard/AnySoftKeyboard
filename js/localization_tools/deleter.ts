@@ -2,12 +2,18 @@ import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 import * as path from 'path';
 
+// Minimal crowdin yaml structure
+
+interface CrowdinConfig {
+  files: { source: string }[];
+}
+
 export const deleteLocalizationFiles = (repoRoot: string, crowdinFile: string): void => {
   const fileContent = fs.readFileSync(crowdinFile, 'utf8');
-  const data = yaml.load(fileContent) as any;
+  const data = yaml.load(fileContent) as CrowdinConfig;
 
   if (data && data.files && Array.isArray(data.files)) {
-    const sourceFiles: string[] = data.files.map((file: any) => file.source);
+    const sourceFiles: string[] = data.files.map((file: { source: string }) => file.source);
 
     sourceFiles.forEach((sourcePath) => {
       // sourcePath is the default path for strings.xml
