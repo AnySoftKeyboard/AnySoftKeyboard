@@ -1,8 +1,6 @@
-'use strict';
-
 import * as github from '@actions/github';
 import * as core from '@actions/core';
-import { WebhookPayload } from '@actions/github/lib/interfaces.js';
+import { WebhookPayload } from '@actions/github/lib/interfaces';
 
 export interface CommandLineInputs {
   token: string;

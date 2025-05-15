@@ -21,6 +21,7 @@ def ts_library(name, srcs, deps, **kwargs):
         out_dir = "dist",
         transpiler = "tsc",
         composite = True,
+        declaration = True,
         tsconfig = "//:tsconfig",
         isolated_typecheck = True,
         deps = deps,

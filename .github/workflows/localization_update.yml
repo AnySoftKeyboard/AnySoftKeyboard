@@ -25,10 +25,15 @@ jobs:
       - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - name: fix git safe dir
         run: git config --global --add safe.directory "${PWD}"
       - name: Delete current translations
-        run: git ls-files "**/values-*/strings.xml" | xargs rm -f
+        run: bazel run //js/localization_tools -- delete --crowdinFile="$PWD/crowdin.yml"
       - name: Crowdin push
         uses: crowdin/github-action@v2.3.0
         with:
@@ -46,7 +51,10 @@ jobs:
           push_translations: false
           config: crowdin.yml
       - name: Update force-locale list
-        run: ./gradlew :ime:app:generateForceLocaleArrayResourceFile
+        run: |
+          bazel run //js/localization_tools -- generateLocale \
+              --resourcesFolder="$PWD/ime/app/src/main/res" \
+              --targetFile="$PWD/ime/app/src/main/res/values/force_locale_array_generated.xml"
       - name: Fix resource files special characters
         run: |
           echo "fixing ellipsis character..."
