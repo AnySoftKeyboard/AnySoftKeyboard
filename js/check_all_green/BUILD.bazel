@@ -1,5 +1,6 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("//js:ts.bzl", "ts_library")
+load("//js:ts_test.bzl", "ts_test")
 
 ts_library(
     name = "check_all_green_lib",
@@ -19,4 +20,10 @@ js_binary(
     name = "check_all_green",
     data = [":check_all_green_lib"],
     entry_point = "dist/index.js",
+)
+
+ts_test(
+    name = "green_checker_tests",
+    entry_point = "green_checker.test.ts",
+    deps = [":check_all_green_lib"],
 )

@@ -39,21 +39,6 @@ jobs:
         run: |
           bazel run //:format
           if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors"; exit 1; fi
-  js-checks:
-    # Test js code, since we have not migrated to bazel yet
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4.2.2
-        with:
-          fetch-depth: 2
-      - uses: pnpm/action-setup@v4.0.0
-        with:
-          run_install: true
-      - uses: actions/setup-node@v4.1.0
-        with:
-          node-version-file: ".nvmrc"
-          cache: 'pnpm'
-      - run: pnpm test
   static-checks:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2

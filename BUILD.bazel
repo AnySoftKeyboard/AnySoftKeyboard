@@ -11,11 +11,6 @@ ts_config(
 )
 
 copy_to_bin(
-    name = "jest.config",
-    srcs = ["jest.config.json"],
-)
-
-copy_to_bin(
     name = "prettierignore",
     srcs = [".prettierignore"],
 )

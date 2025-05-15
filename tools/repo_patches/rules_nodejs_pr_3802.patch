@@ -1,0 +1,30 @@
+diff --git a/nodejs/extensions.bzl b/nodejs/extensions.bzl
+index 10dd5c7b45..4342861d3a 100644
+--- a/nodejs/extensions.bzl
++++ b/nodejs/extensions.bzl
+@@ -1,5 +1,6 @@
+ "extensions for bzlmod"
+ 
++load("//nodejs/private:node_versions.bzl", "NODE_VERSIONS")
+ load(
+     ":repositories.bzl",
+     "DEFAULT_NODE_REPOSITORY",
+@@ -47,6 +48,7 @@ def _toolchain_extension(module_ctx):
+         nodejs_register_toolchains(
+             name = k,
+             node_version = v.node_version,
++            node_repositories = v.node_versions,
+             node_version_from_nvmrc = v.node_version_from_nvmrc,
+             node_urls = v.node_urls,
+             include_headers = v.include_headers,
+@@ -62,6 +64,10 @@ _ATTRS = {
+         doc = "Version of the Node.js interpreter",
+         default = DEFAULT_NODE_VERSION,
+     ),
++    "node_versions": attr.string_list_dict(
++        doc = "Overrides to the default list of Node.js versions to download.",
++        default = NODE_VERSIONS,
++    ),
+     "node_version_from_nvmrc": attr.label(
+         allow_single_file = True,
+         doc = """The .nvmrc file containing the version of Node.js to use.

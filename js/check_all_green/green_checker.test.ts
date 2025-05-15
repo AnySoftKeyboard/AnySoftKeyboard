@@ -1,9 +1,10 @@
-import { assert } from 'chai';
+import test from 'node:test';
+import assert from 'node:assert';
 import { checkJobStatuses } from './green_checker.js';
 
-describe('Check Greens', () => {
-  describe('syntactic', () => {
-    it('All success', () => {
+test.describe('Check Greens', () => {
+  test.describe('syntactic', () => {
+    test.test('All success', () => {
       const jsonInput = JSON.stringify({
         job1: {
           result: 'success',
@@ -19,7 +20,7 @@ describe('Check Greens', () => {
       assert.equal(checkJobStatuses(jsonInput), true);
     });
 
-    it('Some skipped', () => {
+    test.test('Some skipped', () => {
       const jsonInput = JSON.stringify({
         job1: {
           result: 'success',
@@ -35,7 +36,7 @@ describe('Check Greens', () => {
       assert.equal(checkJobStatuses(jsonInput), false);
     });
 
-    it('Some failed', () => {
+    test.test('Some failed', () => {
       const jsonInput = JSON.stringify({
         job1: {
           result: 'success',
@@ -51,7 +52,7 @@ describe('Check Greens', () => {
       assert.equal(checkJobStatuses(jsonInput), false);
     });
 
-    it('Some unknown', () => {
+    test.test('Some unknown', () => {
       const jsonInput = JSON.stringify({
         job1: {
           result: 'success',
@@ -67,19 +68,19 @@ describe('Check Greens', () => {
       assert.equal(checkJobStatuses(jsonInput), false);
     });
 
-    it('no needs', () => {
+    test.test('no needs', () => {
       const jsonInput = `{}`;
 
       assert.equal(checkJobStatuses(jsonInput), true);
     });
 
-    it('empty result', () => {
+    test.test('empty result', () => {
       const jsonInput = `{"job1": {}}`;
 
       assert.equal(checkJobStatuses(jsonInput), false);
     });
 
-    it('some empty result', () => {
+    test.test('some empty result', () => {
       const jsonInput = `{
           "job1": {
             "result": "success"
@@ -91,8 +92,8 @@ describe('Check Greens', () => {
     });
   });
 
-  describe('from github', () => {
-    it('Some failures', () => {
+  test.describe('from github', () => {
+    test.test('Some failures', () => {
       const jsonInput = JSON.stringify({
         'static-checks': {
           result: 'failure',

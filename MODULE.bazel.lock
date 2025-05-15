@@ -29,8 +29,6 @@
     "https://bcr.bazel.build/modules/aspect_bazel_lib/2.9.4/source.json": "9e20ebe57de2e7657a188af6e132a9562fa26c201b2d999bc0a8981e8f3b6c36",
     "https://bcr.bazel.build/modules/aspect_rules_esbuild/0.21.0/MODULE.bazel": "77dc393c43ad79398b05865444c5200c6f1aae6765615544f2c7730b5858d533",
     "https://bcr.bazel.build/modules/aspect_rules_esbuild/0.21.0/source.json": "062b1d3dba8adcfeb28fe60c185647f5a53ec0487ffe93cf0ae91566596e4b49",
-    "https://bcr.bazel.build/modules/aspect_rules_jest/0.22.0/MODULE.bazel": "60a8ad6fe18540d2a726d34f31cf3775f00958d8cc499c588792ac26f8a6983c",
-    "https://bcr.bazel.build/modules/aspect_rules_jest/0.22.0/source.json": "16dacd163b2f35c9da4e39cd16ec0b271af2539799aa4cd6dbe81b25827e4b9f",
     "https://bcr.bazel.build/modules/aspect_rules_js/1.33.1/MODULE.bazel": "db3e7f16e471cf6827059d03af7c21859e7a0d2bc65429a3a11f005d46fc501b",
     "https://bcr.bazel.build/modules/aspect_rules_js/1.40.0/MODULE.bazel": "01a1014e95e6816b68ecee2584ae929c7d6a1b72e4333ab1ff2d2c6c30babdf1",
     "https://bcr.bazel.build/modules/aspect_rules_js/2.0.0/MODULE.bazel": "b45b507574aa60a92796e3e13c195cd5744b3b8aff516a9c0cb5ae6a048161c5",
@@ -261,10 +259,8 @@
     "https://bcr.bazel.build/modules/rules_multitool/0.4.0/MODULE.bazel": "15517987d5c00c9e7faab41fbe22ee67a350b6eabcc1e08baded5c6d9025897f",
     "https://bcr.bazel.build/modules/rules_multitool/1.0.0/MODULE.bazel": "7f75dc8378368a10dcedcff6cbfee8254fff10748a219a6cb8de94fde4b6a574",
     "https://bcr.bazel.build/modules/rules_multitool/1.0.0/source.json": "5b92dc9b267b024bb2174bdf5d8e32821abb53fd84545e00699c4e35826a1c78",
-    "https://bcr.bazel.build/modules/rules_nodejs/5.8.2/MODULE.bazel": "6bc03c8f37f69401b888023bf511cb6ee4781433b0cb56236b2e55a21e3a026a",
-    "https://bcr.bazel.build/modules/rules_nodejs/6.2.0/MODULE.bazel": "ec27907f55eb34705adb4e8257952162a2d4c3ed0f0b3b4c3c1aad1fac7be35e",
-    "https://bcr.bazel.build/modules/rules_nodejs/6.3.0/MODULE.bazel": "45345e4aba35dd6e4701c1eebf5a4e67af4ed708def9ebcdc6027585b34ee52d",
-    "https://bcr.bazel.build/modules/rules_nodejs/6.3.0/source.json": "1254ffd8d0d908a19c67add7fb5e2a1f604df133bc5d206425264293e2e537fc",
+    "https://bcr.bazel.build/modules/rules_nodejs/6.3.5/MODULE.bazel": "b4f94d8748203ee31e654bd648979d8b6522638985a899361d5dc7ac052336a2",
+    "https://bcr.bazel.build/modules/rules_nodejs/6.3.5/source.json": "880ec1583454cba273d523c52540711e2fab1017db2129dd530f8bc391061ab5",
     "https://bcr.bazel.build/modules/rules_pkg/0.7.0/MODULE.bazel": "df99f03fc7934a4737122518bb87e667e62d780b610910f0447665a7e2be62dc",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/MODULE.bazel": "5b1df97dbc29623bccdf2b0dcd0f5cb08e2f2c9050aab1092fd39a41e82686ff",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/source.json": "bd82e5d7b9ce2d31e380dd9f50c111d678c3bdaca190cb76b0e1c71b05e1ba8a",
@@ -1753,8 +1749,8 @@
     },
     "@@rules_nodejs~//nodejs:extensions.bzl%node": {
       "general": {
-        "bzlTransitiveDigest": "SqbzUarOVzAfK28Ca5+NIU3LUwnW/b3h0xXBUS97oyI=",
-        "usagesDigest": "YjeLMdnGJThZ/Cz6SLMu+oXuyoC+1Y+Z1T0DitNAxK4=",
+        "bzlTransitiveDigest": "u0Xc7MC/B2igVszbLA705qAarQ4LnMPIiZpbXhvrD/c=",
+        "usagesDigest": "DyIM7puK9R91UUDJxIhDY+a3lA8gxkskfqjNKpxDpmk=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1771,11 +1767,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "linux_s390x"
             }
@@ -1785,11 +1823,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "windows_amd64"
             }
@@ -1806,11 +1886,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "linux_amd64"
             }
@@ -1820,11 +1942,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "linux_ppc64le"
             }
@@ -1834,11 +1998,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "darwin_amd64"
             }
@@ -1848,11 +2054,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "linux_arm64"
             }
@@ -1869,11 +2117,53 @@
             "ruleClassName": "_nodejs_repositories",
             "attributes": {
               "node_download_auth": {},
-              "node_repositories": {},
+              "node_repositories": {
+                "23.11.0-darwin_arm64": [
+                  "node-v23.11.0-darwin-arm64.tar.gz",
+                  "node-v23.11.0-darwin-arm64",
+                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                ],
+                "23.11.0-darwin_amd64": [
+                  "node-v23.11.0-darwin-x64.tar.gz",
+                  "node-v23.11.0-darwin-x64",
+                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                ],
+                "23.11.0-linux_arm64": [
+                  "node-v23.11.0-linux-arm64.tar.xz",
+                  "node-v23.11.0-linux-arm64",
+                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                ],
+                "23.11.0-linux_amd64": [
+                  "node-v23.11.0-linux-x64.tar.xz",
+                  "node-v23.11.0-linux-x64",
+                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                ],
+                "18.20.8-darwin_arm64": [
+                  "node-v18.20.8-darwin-arm64.tar.gz",
+                  "node-v18.20.8-darwin-arm64",
+                  "bae4965d29d29bd32f96364eefbe3bca576a03e917ddbb70b9330d75f2cacd76"
+                ],
+                "18.20.8-darwin_amd64": [
+                  "node-v18.20.8-darwin-x64.tar.gz",
+                  "node-v18.20.8-darwin-x64",
+                  "ed2554677188f4afc0d050ecd8bd56effb2572d6518f8da6d40321ede6698509"
+                ],
+                "18.20.8-linux_arm64": [
+                  "node-v18.20.8-linux-arm64.tar.xz",
+                  "node-v18.20.8-linux-arm64",
+                  "224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+                ],
+                "18.20.8-linux_amd64": [
+                  "node-v18.20.8-linux-x64.tar.xz",
+                  "node-v18.20.8-linux-x64",
+                  "5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+                ]
+              },
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "18.20.4",
+              "node_version": "18.20.8",
+              "node_version_from_nvmrc": "@@//:.nvmrc",
               "include_headers": false,
               "platform": "darwin_arm64"
             }
