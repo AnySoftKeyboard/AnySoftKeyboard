@@ -46,7 +46,7 @@ jobs:
           codecov_yml_path: "${{ github.workspace }}/codecov_bazel.yml"
           token: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
           directory: "${{ github.workspace }}/bazel-out"
-          flags: unittests
+          flags: tooling-unit-test
           name: "job-name-${{ github.run_id }}"
           verbose: true
   static-checks:
@@ -183,7 +183,7 @@ jobs:
           codecov_yml_path: "${{ github.workspace }}/codecov_android.yml"
           token: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
           directory: "${{ github.workspace }}/build/jacoco"
-          flags: unittests
+          flags: android-unit-test
           name: "job-name-${{ github.run_id }}"
           verbose: true
       - name: fix-fs
