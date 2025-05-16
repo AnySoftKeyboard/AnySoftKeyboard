@@ -9,6 +9,10 @@ coverage:
   precision: 2
   round: down
   range: "65...100"
+  ignore:
+    - "bazel-*/**"
+    - "build/**"
+    - "**/build/**"
   status:
     project:
       default:
