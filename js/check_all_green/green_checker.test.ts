@@ -111,10 +111,6 @@ test.describe('Check Greens', () => {
           result: 'success',
           outputs: {},
         },
-        'js-checks': {
-          result: 'success',
-          outputs: {},
-        },
         bazel: {
           result: 'failure',
           outputs: {},

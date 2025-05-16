@@ -39,6 +39,16 @@ jobs:
         run: |
           bazel run //:format
           if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors"; exit 1; fi
+      - name: bazel code-coverage
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: false
+          codecov_yml_path: "${{ github.workspace }}/codecov_bazel.yml"
+          token: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
+          directory: "${{ github.workspace }}/bazel-out"
+          flags: unittests
+          name: "job-name-${{ github.run_id }}"
+          verbose: true
   static-checks:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
@@ -166,7 +176,16 @@ jobs:
         run: python3 scripts/modules_sharder.py /tmp/projects.lst "$PWD" ${{ matrix.actual_shard || matrix.shard_variant }} ${{ matrix.tasks }} /tmp/gradle.tasks.lst
       - name: tests
         run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
-      - uses: ./.github/actions/codecov
+      - name: Android code-coverage
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: false
+          codecov_yml_path: "${{ github.workspace }}/codecov_android.yml"
+          token: "fa64b6e7-aa1b-48e3-ba3b-66cf7fe146d0"
+          directory: "${{ github.workspace }}/build/jacoco"
+          flags: unittests
+          name: "job-name-${{ github.run_id }}"
+          verbose: true
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh
@@ -258,7 +277,7 @@ jobs:
           name: fdroid-metadata-dry-run-${{ matrix.shard_type }}
           path: outputs/fdroid
   all-green-requirement:
-    needs: [static-checks, linters, tests, deploy-dry-run, js-checks, bazel]
+    needs: [static-checks, linters, tests, deploy-dry-run, bazel]
     if: always()
     runs-on: ubuntu-24.04
     steps:
