@@ -34,6 +34,7 @@ java_binary(
 
 java_junit5_test(
     name = "parser_tests",
+    size = "small",
     srcs = ["UnicodeOrgEmojiTestDataParserTest.java"],
     test_class = "emojis.UnicodeOrgEmojiTestDataParserTest",
     deps = [
@@ -45,6 +46,7 @@ java_junit5_test(
 
 java_junit5_test(
     name = "variant_detector_tests",
+    size = "small",
     srcs = ["VariantDetectorTest.java"],
     test_class = "emojis.VariantDetectorTest",
     deps = [
@@ -55,6 +57,7 @@ java_junit5_test(
 
 java_junit5_test(
     name = "emoji_keyboard_creator_tests",
+    size = "small",
     srcs = ["EmojiKeyboardCreatorTest.java"],
     data = [
         "fixtures/expected_test_keyboard.xml",

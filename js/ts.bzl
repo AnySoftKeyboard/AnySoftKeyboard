@@ -32,4 +32,5 @@ def ts_library(name, srcs, deps, **kwargs):
         name = "{}_eslint_test".format(name),
         srcs = [name],
         testonly = True,
+        size = "small",
     )

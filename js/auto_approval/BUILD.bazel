@@ -1,5 +1,6 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("//js:ts.bzl", "ts_library")
+load("//js:ts_test.bzl", "ts_test")
 
 ts_library(
     name = "approval",
@@ -21,4 +22,10 @@ js_binary(
     name = "auto_approval",
     data = [":approval"],
     entry_point = "dist/index.js",
+)
+
+ts_test(
+    name = "green_checker_tests",
+    entry_point = "approval.test.ts",
+    deps = [":approval"],
 )

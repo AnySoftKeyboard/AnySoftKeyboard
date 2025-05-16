@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "test": "pnpm build && mocha --enable-source-maps \"dist/**/*.test.js\""
+    "build": "exit 1",
+    "test": "exit 1"
   },
   "repository": "git@github.com:AnySoftKeyboard/AnySoftKeyboard.git",
   "author": {
@@ -24,28 +24,17 @@
     "@babel/preset-env": "^7.27.2",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.26.0",
-    "@jest/globals": "^29.7.0",
-    "@types/chai": "^5.2.2",
     "@types/follow-redirects": "^1.14.4",
-    "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
-    "@types/mocha": "^10.0.10",
     "@types/node": "22.15.17",
     "@types/sinon": "^17.0.4",
     "@typescript-eslint/eslint-plugin": "^8.32.0",
     "@typescript-eslint/parser": "^8.32.0",
     "@vercel/ncc": "^0.38.3",
-    "babel-jest": "^29.7.0",
-    "chai": "^5.2.0",
     "eslint": "^9.26.0",
     "globals": "^16.1.0",
-    "jest": "^29.7.0",
-    "jest-cli": "^29.7.0",
-    "jest-junit": "^16.0.0",
-    "mocha": "^11.2.2",
     "prettier": "^3.5.3",
     "sinon": "^20.0.0",
-    "ts-jest": "^29.3.2",
     "ts-loader": "^9.5.2",
     "typescript": "5.8.3"
   },

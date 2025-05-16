@@ -1,0 +1,31 @@
+---
+codecov:
+  branch: main
+  require_ci_to_pass: false
+  notify:
+    wait_for_ci: false
+    after_n_builds: 2
+coverage:
+  precision: 2
+  round: down
+  range: "65...100"
+  ignore:
+    - "bazel-*/**"
+    - "build/**"
+    - "**/build/**"
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 5%
+        base: auto
+        # advanced settings
+        branches:
+          - main
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: error
+        only_pulls: false
+comment:
+  layout: "diff, files"
+  behavior: default

@@ -1,7 +1,8 @@
-import { assert } from 'chai';
+import test from 'node:test';
+import assert from 'node:assert';
 import { Contributor, constructContributorsContext, generateMarkdownList, sortContributors } from './contributors.js';
 
-describe('Contributors', () => {
+test.describe('Contributors', () => {
   const listOfContributors: Contributor[] = [
     { login: 'a_user', contributions: 123 },
     { login: 'b_user', contributions: 123 },
@@ -21,12 +22,12 @@ describe('Contributors', () => {
     { login: 'e_user', contributions: 1 },
   ];
 
-  it('sorting correctly', () => {
+  test.describe('sorting correctly', () => {
     const result = sortContributors(listOfContributors);
     assert.deepEqual(result, listOfContributorsSorted);
   });
 
-  it('generate markdown list correctly', () => {
+  test.describe('generate markdown list correctly', () => {
     const result = generateMarkdownList(listOfContributorsSorted);
     assert.equal(
       result,
@@ -40,7 +41,7 @@ describe('Contributors', () => {
     );
   });
 
-  it('contructs markdown file', () => {
+  test.describe('contructs markdown file', () => {
     const result = constructContributorsContext('1.line1\n1.line2');
     assert.equal(
       result,

@@ -1,5 +1,6 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("//js:ts.bzl", "ts_library")
+load("//js:ts_test.bzl", "ts_test")
 
 ts_library(
     name = "checkers_lib",
@@ -20,4 +21,10 @@ js_binary(
     name = "checkers",
     data = [":checkers_lib"],
     entry_point = "dist/index.js",
+)
+
+ts_test(
+    name = "unique_addon_id_tests",
+    entry_point = "unique_addon_id.test.ts",
+    deps = [":checkers_lib"],
 )
