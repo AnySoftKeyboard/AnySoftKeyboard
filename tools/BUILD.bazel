@@ -78,3 +78,8 @@ format_multirun(
     starlark = "@buildifier_prebuilt//:buildifier",
     yaml = ":yamlfmt_runner",
 )
+
+config_setting(
+    name = "collect_code_coverage",
+    values = {"collect_code_coverage": "true"},
+)
