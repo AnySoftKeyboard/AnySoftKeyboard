@@ -1,6 +1,6 @@
 import { Command } from 'commander';
-import { deleteLocalizationFiles } from './deleter';
-import { generateLocaleArrayXml } from './locales_generator';
+import { deleteLocalizationFiles } from './deleter.js';
+import { generateLocaleArrayXml } from './locales_generator.js';
 import { exit } from 'process';
 
 const program = new Command();
