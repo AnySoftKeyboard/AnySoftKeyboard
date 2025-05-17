@@ -60,7 +60,7 @@ jobs:
           echo "fixing ellipsis character..."
           find . -type f -name "strings.xml" -exec sed -i 's/\.\.\./…/g' {} \;
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
+        uses: peter-evans/create-pull-request@v7.0.8
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Localization Update from crowdin'
