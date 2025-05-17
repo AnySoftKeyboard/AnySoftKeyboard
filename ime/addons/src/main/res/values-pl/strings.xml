@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="search_market_for_addons">Szukaj dodatków</string>
-    <string name="no_market_store_available_title">Nie można wyszukać dodatków!</string>
-    <string name="no_market_store_available">Na twoim urządzeniu nie odnaleziono sklepu z aplikacjami.\nNie udało się wyszukać dodatków!</string>
-    <string name="leaving_ask_to_market_title">Opuszczanie AnySoftKeyboard</string>
-    <string name="leaving_ask_to_market_message">Wyszukiwanie dodatkowych dodatków odbywa się w zewnętrznej aplikacji.\nSklep Play może pokazywać reklamy i/lub śledzić twoje użycie. To jest poza kontrolą AnySoftKeyboard.</string>
-    <string name="cta_continue_to_market">Szukaj</string>
-</resources>
