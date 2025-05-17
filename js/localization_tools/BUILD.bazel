@@ -1,5 +1,6 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("//js:ts.bzl", "ts_library")
+load("//js:ts_test.bzl", "ts_test")
 
 ts_library(
     name = "delete_localization_files",
@@ -10,6 +11,7 @@ ts_library(
     deps = [
         "//:node_modules/@types/js-yaml",
         "//:node_modules/@types/node",
+        "//:node_modules/js-yaml",
     ],
 )
 
@@ -40,4 +42,20 @@ js_binary(
     name = "localization_tools",
     data = [":cli"],
     entry_point = "dist/index.js",
+)
+
+ts_test(
+    name = "generate_locales_tests",
+    entry_point = "locales_generator.test.ts",
+    deps = [":generate_locales"],
+)
+
+ts_test(
+    name = "delete_localization_files_tests",
+    entry_point = "deleter.test.ts",
+    deps = [
+        ":delete_localization_files",
+        "//:node_modules/@types/js-yaml",
+        "//:node_modules/js-yaml",
+    ],
 )

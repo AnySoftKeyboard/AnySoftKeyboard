@@ -25,10 +25,11 @@ export const deleteLocalizationFiles = (repoRoot: string, crowdinFile: string): 
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => dirent.name)
         .filter((folder) => folder.match(/^values-.*$/))
-        .forEach((folder) => {
-          const localizedStringsPath = path.join(folderPath, folder, 'strings.xml');
-          fs.unlinkSync(localizedStringsPath);
-          console.log(`Deleted: ${localizedStringsPath}`);
+        .map((folder) => path.join(folderPath, folder, 'strings.xml'))
+        .filter((possibleTranslationFile) => fs.existsSync(possibleTranslationFile))
+        .forEach((translationFile) => {
+          fs.unlinkSync(translationFile);
+          console.log(`Deleted: ${translationFile}`);
         });
     });
   }

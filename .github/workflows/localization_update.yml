@@ -12,6 +12,7 @@ on:
     paths:
       - '**/res/values/strings.xml'
       - '.github/workflows/localization_update.yml'
+      - 'js/localization_tools/**'
       - 'crowdin.yml'
 env:
   TERM: dumb
@@ -20,7 +21,6 @@ env:
 jobs:
   localization-update:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:
