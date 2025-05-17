@@ -33,7 +33,10 @@ jobs:
       - name: fix git safe dir
         run: git config --global --add safe.directory "${PWD}"
       - name: Delete current translations
-        run: bazel run //js/localization_tools -- delete --crowdinFile="$PWD/crowdin.yml"
+        run: |
+          bazel run //js/localization_tools -- delete --crowdinFile="$PWD/crowdin.yml"
+          git status
+          git add .
       - name: Crowdin
         uses: crowdin/github-action@v2.7.0
         with:
@@ -46,13 +49,19 @@ jobs:
           config: crowdin.yml
       - name: Update force-locale list
         run: |
+          git status
+          git add .
           bazel run //js/localization_tools -- generateLocale \
               --resourcesFolder="$PWD/ime/app/src/main/res" \
               --targetFile="$PWD/ime/app/src/main/res/values/force_locale_array_generated.xml"
+          git status
+          git add .
       - name: Fix resource files special characters
         run: |
           echo "fixing ellipsis character..."
           find . -type f -name "strings.xml" -exec sed -i 's/\.\.\./…/g' {} \;
+          git status
+          git add .
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.5
         with:
