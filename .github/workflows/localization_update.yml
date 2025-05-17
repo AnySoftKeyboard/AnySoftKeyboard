@@ -34,21 +34,14 @@ jobs:
         run: git config --global --add safe.directory "${PWD}"
       - name: Delete current translations
         run: bazel run //js/localization_tools -- delete --crowdinFile="$PWD/crowdin.yml"
-      - name: Crowdin push
-        uses: crowdin/github-action@v2.3.0
+      - name: Crowdin
+        uses: crowdin/github-action@v2.7.0
         with:
           upload_sources: true
           upload_translations: false
-          download_translations: false
-          config: crowdin.yml
-      - name: Crowdin pull
-        uses: crowdin/github-action@v2.3.0
-        with:
-          upload_sources: false
-          upload_translations: false
           download_translations: true
-          create_pull_request: false
-          push_translations: false
+          skip_untranslated_strings: true
+          skip_untranslated_files: true
           config: crowdin.yml
       - name: Update force-locale list
         run: |
