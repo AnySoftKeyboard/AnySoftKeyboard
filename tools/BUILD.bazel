@@ -57,6 +57,12 @@ java_binary(
 )
 
 java_binary(
+    name = "crowdin",
+    main_class = "com.crowdin.cli.Cli",
+    runtime_deps = ["@crowdin_cli//:crowdin-cli.jar"],
+)
+
+java_binary(
     name = "ktfmt",
     args = [
         "--set-exit-if-changed",
