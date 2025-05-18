@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_crashed_title">AnySoftKeyboard a generat erori!</string>
-    <string name="ime_crashed_content">Hopa, AnySoftKeyboard s-a blocat, nu am văzut asta venind…</string>
+    <string name="ime_crashed_content">Hopa, AnySoftKeyboard s-a blocat, nu am văzut asta venind...</string>
 </resources>

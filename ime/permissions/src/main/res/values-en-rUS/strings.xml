@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Allow</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard is using your contacts\'
-        names to provide you with a personalized word suggestion: as you type a word, we look for
-        similar words to auto-complete and auto-correct your typing.
-    </string>
-</resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>

@@ -542,9 +542,9 @@
     <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.</string>
     <string name="setup_wizard_step_three_details_done"><b>Estás listo 🎉\nVe a tu aplicación favorita para probarlo.</b></string>
     <string name="setup_wizard_step_three_details_actions">O bien, puedes personalizar el teclado según tus gustos:</string>
-    <string name="setup_wizard_step_three_action_languages">Configuración de idiomas…</string>
-    <string name="setup_wizard_step_three_action_themes">Seleccionar tema…</string>
-    <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás…</string>
+    <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
+    <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
+    <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
     <string name="setup_wizard_step_download_title">Descargar paquetes de idioma</string>
     <string name="setup_wizard_step_download_details">Te alegrará saber que <i>AnySoftKeyboard</i> admite docenas de idiomas. Simplemente descarga el paquete de idioma deseado y disfruta escribiendo en cualquier idioma en tu dispositivo.</string>
     <string name="setup_wizard_step_download_action">Descargar paquete de idioma</string>

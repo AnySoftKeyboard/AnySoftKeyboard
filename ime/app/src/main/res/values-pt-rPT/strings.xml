@@ -597,9 +597,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
     <string name="setup_wizard_step_three_details_actions">Ou pode personalizar e personalizar o
         teclado a seu gosto:
     </string>
-    <string name="setup_wizard_step_three_action_languages">Configurar idiomas…</string>
-    <string name="setup_wizard_step_three_action_themes">Escolher tema…</string>
-    <string name="setup_wizard_step_three_action_all_settings">Outras configurações…</string>
+    <string name="setup_wizard_step_three_action_languages">Configurar idiomas...</string>
+    <string name="setup_wizard_step_three_action_themes">Escolher tema...</string>
+    <string name="setup_wizard_step_three_action_all_settings">Outras configurações...</string>
     <string name="setup_wizard_step_download_title">Descarregar pacotes de idiomas</string>
     <string name="setup_wizard_step_download_details">Ficará feliz em saber que o <i>AnySoftKeyboard</i> suporta dezenas de idiomas. Basta descarregar o pacote de idioma que quer para poder digitar em
         qualquer idioma do seu dispositivo.</string>

@@ -597,7 +597,7 @@
     <string name="app_shortcut_quick_keys_short_label">Налады эмодзі</string>
     <string name="extension_keyboard_enabled_off_summary">Пашыраная клавіятура адключаная.</string>
     <string name="extension_keyboard_enabled_on_summary">Пашыраная клавіятура з\'явіцца пры чырканні уверх над клавіятурай.</string>
-    <string name="read_our_privacy_policy">Азнаёмцеся з нашай палітыкай прыватнасці…</string>
+    <string name="read_our_privacy_policy">Азнаёмцеся з нашай палітыкай прыватнасці...</string>
     <string name="visit_our_web_site">Наведайце нашу старонку…</string>
     <string name="keyboard_for_url_fields">Раскладка для радкоў з URL-адрасамі</string>
     <string name="keyboard_for_url_fields_summary">Падчас запаўнення радкоў з URL ці з адрасамі электроннай пошты будзе выкарыстана гэта раскладка. У дадзены час: %s</string>
