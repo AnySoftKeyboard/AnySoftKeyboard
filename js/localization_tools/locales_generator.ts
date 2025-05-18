@@ -1,13 +1,16 @@
 import * as fs from 'fs';
+import { locateStringResourcesFoldersInRes } from './utils.js';
+import path from 'path';
 
 export const generateLocaleArrayXml = (resPath: string, outputFile: string): void => {
   console.log(`Will read locals from ${resPath}...`);
-  const localeEntries: string[] = fs
-    .readdirSync(resPath, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name)
-    .filter((folderName) => folderName.match(/^values-v\d+$/) === null) // Exclude values-vXX directories (as in API levels)
-    .map((folderName) => folderName.match(/^values-(\w{2,3}(-r\w+)?)$/)) // Match values-xx or values-xx-rYY
+  const localeEntries = locateStringResourcesFoldersInRes(resPath)
+    .map(path.dirname)
+    .map((f) => {
+      console.log(f);
+      return f;
+    })
+    .map((folderName) => folderName.match(/.*values-([a-z]{2,3}(-r[A-Z]+)?)$/)) // Match values-xx or values-xx-rYY
     .filter((match) => match !== null)
     .map((match) => match[1].replace('-r', '-'))
     .filter((locale) => locale !== '') // Remove any empty strings just in case

@@ -5,11 +5,14 @@ import * as path from 'path';
 import { generateLocaleArrayXml } from './locales_generator.js';
 
 test.describe('locales generation tests', () => {
-  const tmp = fs.mkdtempSync(path.join(process.cwd(), 'locales-test-'));
+  const tmpRoot = fs.mkdtempSync('locales-test-');
+  const tmp = path.join(tmpRoot, 'res');
+  fs.mkdirSync(tmp);
 
   function createLocaleDirs(basePath: string, dirs: string[]) {
     dirs.forEach((dir) => {
       fs.mkdirSync(path.join(basePath, dir));
+      fs.writeFileSync(path.join(basePath, dir, 'strings.xml'), 'blah');
     });
   }
 
@@ -46,6 +49,6 @@ test.describe('locales generation tests', () => {
 
   test.after(() => {
     // Cleanup temp files and dirs
-    fs.rmSync(tmp, { recursive: true, force: true });
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
   });
 });

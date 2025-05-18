@@ -44,9 +44,10 @@ jobs:
               --resourcesFolder="$PWD/ime/app/src/main/res" \
               --targetFile="$PWD/ime/app/src/main/res/values/force_locale_array_generated.xml"
       - name: Fix resource files special characters
+        run: bazel run //js/localization_tools -- replaceEllipsis --crowdinFile="$PWD/crowdin.yml"
+      - name: Fix formatting
         run: |
-          echo "fixing ellipsis character..."
-          find . -type f -name "strings.xml" -exec sed -i 's/\.\.\./…/g' {} \;
+          bazel run //:format
           git status
           git add .
       - name: Create pull request
