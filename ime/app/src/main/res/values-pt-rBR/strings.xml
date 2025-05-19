@@ -599,7 +599,7 @@ simplistas    </string>
     <string name="notification_read_contacts_text">Precisa de ler seus contatos para lhe proporcionar uma melhor experiência de sugestões.</string>
     <string name="wizard_allow_contacts_permission">Permitir sugestão de palavras baseada no nome de seus contatos</string>
     <string name="turn_off_contacts_dictionary">Desligue o dicionário de contatos</string>
-    <string name="read_more_about_permissions">Leia mais sobre permissões...</string>
+    <string name="read_more_about_permissions">Leia mais sobre permissões…</string>
     <string name="ask_beta_link_promo">Ei! Quer ver coisas novas do <i>AnySoftKeyboard</i> mais rápido? Então você está com sorte! O Canal <i>BETA</i> já está disponível para <b>você</b>!\nCadastre-se no link abaixo e atualize através da <i>Google Play-Store</i>! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\n Obrigado por ajudar a encontrar os bugs antes do lançamento final.</string>
     <string name="clipboard_fine_select_enabled_toast">Seleção precisa de texto ativada. Use as setas direcionais.</string>
     <string name="app_shortcut_keyboards_disabled">Navegação do teclado desativada</string>

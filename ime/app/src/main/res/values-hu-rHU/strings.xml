@@ -643,7 +643,7 @@
     <string name="notification_read_contacts_text">A névjegyekhez való hozzáféréssel jobb auto-kiegészítés találatokat tudnánk adni.</string>
     <string name="wizard_allow_contacts_permission">Engedélyezze a névjegy-alapú gépelési javaslatokat</string>
     <string name="turn_off_contacts_dictionary">A névjegyszótár kikapcsolása</string>
-    <string name="read_more_about_permissions">További információ az engedélyekről...</string>
+    <string name="read_more_about_permissions">További információ az engedélyekről…</string>
     <string name="ask_beta_link_promo">Hé! Szeretné az <i>AnySoftKeyboard</i> új funkcióit hamarabb kipróbálni? Szerencséje van! <i>BETA</i> csatornánk elérhető az <b>ÖN</b> számára is!\nCsak regisztráljon a lenti linken, és frissítsen a <i>Google Play</i> -ben!\n\n
         https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nÉs köszönet, hogy segíti a hibák javítását, mielőtt azok a nyilvánosság elé kerülnének.
     </string>
@@ -662,8 +662,8 @@
     <string name="app_shortcut_quick_keys_short_label">Emojik beállítása</string>
     <string name="extension_keyboard_enabled_off_summary">Kiegészítő billentyűzet jelenleg tiltva.</string>
     <string name="extension_keyboard_enabled_on_summary">A kiegészítő billentyűzet megjelenik felfele húzással</string>
-    <string name="read_our_privacy_policy">Adatvédelmi irányelvek...</string>
-    <string name="visit_our_web_site">Az app weboldala...</string>
+    <string name="read_our_privacy_policy">Adatvédelmi irányelvek…</string>
+    <string name="visit_our_web_site">Az app weboldala…</string>
     <string name="keyboard_for_url_fields">Elrendezés webcímeknél</string>
     <string name="keyboard_for_url_fields_summary">Webcím/email kitöltésekor a kijelölt elrendezés kerül használatra. Jelenleg: %s</string>
     <string name="keyboard_for_url_fields_title">Elrendezés URL bevitelhez</string>
@@ -676,12 +676,12 @@
         egy gonosz billentyűzetapp ne figyelhesse titokban a gépelését *.
     </string>
     <string name="setup_wizard_welcome_info_2">Oké, kezdhetjük? Kattintson, végigvezetjük a folyamaton.</string>
-    <string name="setup_wizard_welcome_start_action">Beállítások megkezdése...</string>
+    <string name="setup_wizard_welcome_start_action">Beállítások megkezdése…</string>
     <string name="setup_wizard_welcome_info_footnote">* Természetesen az AnySoftKeyboard nem gonosz.
         Arra biztatjuk, hogy nézze meg forráskódunkat és ellenőrizze azt. Ráadásul nem kérünk hozzáférést  a <i>HÁLÓZATHOZ,
         </i> így adatokat nem is tudnánk küldeni..
     </string>
-    <string name="setup_wizard_welcome_privacy_action">Az adatvédelmi irányelvekhez...</string>
+    <string name="setup_wizard_welcome_privacy_action">Az adatvédelmi irányelvekhez…</string>
     <string name="setup_wizard_skip">Kihagyás</string>
     <string name="clear_all_dictionary_override">Egyértelmű felülbírálás</string>
     <string name="theme_case_type_override_dialog_title">A módszer kiválasztása</string>
@@ -697,7 +697,7 @@
     <string name="settings_key_hint_size_big">Nagy</string>
     <string name="theme_case_type_override_title">Nagybetűsítés beállításai</string>
     <string name="theme_case_type_override_summary">Mi alapján döntsön a nagybetűsítésről. Jelenleg: %s</string>
-    <string name="take_a_while_progress_message">Ez eltarthat egy ideig ...</string>
+    <string name="take_a_while_progress_message">Ez eltarthat egy ideig …</string>
     <string name="shared_prefs_provider_name">App beállítások</string>
     <string name="user_dict_prefs_provider">Saját szólista</string>
     <string name="next_word_dict_prefs_provider">Következő szavak</string>
