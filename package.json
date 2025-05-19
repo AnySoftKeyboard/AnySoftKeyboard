@@ -23,15 +23,15 @@
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^9.27.0",
     "@types/follow-redirects": "^1.14.4",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "22.15.17",
+    "@types/node": "22.15.19",
     "@types/sinon": "^17.0.4",
-    "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.32.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
     "@vercel/ncc": "^0.38.3",
-    "eslint": "^9.26.0",
+    "eslint": "^9.27.0",
     "globals": "^16.1.0",
     "prettier": "^3.5.3",
     "sinon": "^20.0.0",
@@ -39,11 +39,11 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "commander": "^13.1.0",
-    "fast-xml-parser": "^5.2.2",
+    "commander": "^14.0.0",
+    "fast-xml-parser": "^5.2.3",
     "follow-redirects": "^1.15.9",
     "js-yaml": "^4.1.0",
     "tar": "^7.4.3",
-    "undici": "^7.8.0"
+    "undici": "^7.9.0"
   }
 }
