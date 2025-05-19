@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="search_market_for_addons">Nach Add-ons suchen</string>
-    <string name="no_market_store_available_title">Suche nach Add-ons nicht möglich!</string>
-    <string name="no_market_store_available">Kein App Store auf deinem Gerät gefunden.\nSuche nach Add-ons nicht möglich!</string>
-    <string name="leaving_ask_to_market_title">AnySoftKeyboard verlassen</string>
-    <string name="leaving_ask_to_market_message">Die Suche nach zusätzlichen Add-ons erfolgt in einer externen App.\nDer Play Store kann Werbung anzeigen und/oder deine Nutzung verfolgen. Dies liegt außerhalb der Kontrolle von AnySoftKeyboard.</string>
-    <string name="cta_continue_to_market">Suche</string>
-</resources>

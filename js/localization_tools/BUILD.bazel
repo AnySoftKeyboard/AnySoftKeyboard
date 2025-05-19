@@ -3,9 +3,9 @@ load("//js:ts.bzl", "ts_library")
 load("//js:ts_test.bzl", "ts_test")
 
 ts_library(
-    name = "delete_localization_files",
+    name = "tools_utils",
     srcs = [
-        "deleter.ts",
+        "utils.ts",
     ],
     visibility = ["//visibility:private"],
     deps = [
@@ -16,9 +16,33 @@ ts_library(
 )
 
 ts_library(
+    name = "delete_localization_files",
+    srcs = [
+        "deleter.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":tools_utils",
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
     name = "generate_locales",
     srcs = [
         "locales_generator.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":tools_utils",
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
+    name = "replace_ellipsis",
+    srcs = [
+        "replace_ellipsis.ts",
     ],
     visibility = ["//visibility:private"],
     deps = [
@@ -33,6 +57,7 @@ ts_library(
     deps = [
         ":delete_localization_files",
         ":generate_locales",
+        ":replace_ellipsis",
         "//:node_modules/@types/node",
         "//:node_modules/commander",
     ],
