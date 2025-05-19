@@ -6,128 +6,69 @@
     <!-- this should hold the locales the app is translated to, and any addon-->
     <!-- https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/locale_config.xml -->
     <string-array name="settings_key_force_locale_values">
-        <item>af</item>
         <item>af-ZA</item>
-        <item>ar</item>
         <item>ar-SA</item>
-        <item>be</item>
         <item>be-BY</item>
-        <item>bg</item>
         <item>bg-BG</item>
-        <item>bn</item>
         <item>bn-BD</item>
         <item>bn-IN</item>
-        <item>ca</item>
         <item>ca-ES</item>
-        <item>ckb</item>
         <item>ckb-IR</item>
-        <item>cs</item>
         <item>cs-CZ</item>
-        <item>da</item>
         <item>da-DK</item>
-        <item>de</item>
         <item>de-DE</item>
-        <item>el</item>
         <item>el-GR</item>
-        <item>en</item>
-        <item>en-GB</item>
         <item>en-PT</item>
         <item>en-US</item>
-        <item>eo</item>
         <item>eo-UY</item>
-        <item>es</item>
         <item>es-AR</item>
         <item>es-ES</item>
         <item>es-MX</item>
-        <item>et</item>
         <item>et-EE</item>
-        <item>eu</item>
         <item>eu-ES</item>
-        <item>fa</item>
         <item>fa-IR</item>
-        <item>ff</item>
         <item>ff-ZA</item>
-        <item>fi</item>
         <item>fi-FI</item>
-        <item>fil</item>
         <item>fil-PH</item>
-        <item>fo</item>
         <item>fo-FO</item>
-        <item>fr</item>
         <item>fr-FR</item>
-        <item>hr</item>
         <item>hr-HR</item>
-        <item>hu</item>
         <item>hu-HU</item>
-        <item>hy</item>
         <item>hy-AM</item>
-        <item>id</item>
-        <item>in</item>
         <item>in-ID</item>
-        <item>is</item>
         <item>is-IS</item>
-        <item>it</item>
         <item>it-IT</item>
-        <item>iw</item>
         <item>iw-IL</item>
-        <item>ji</item>
         <item>ji-DE</item>
-        <item>ka</item>
         <item>ka-GE</item>
-        <item>kmr</item>
         <item>kmr-TR</item>
-        <item>kn</item>
         <item>kn-IN</item>
-        <item>ku</item>
         <item>ku-TR</item>
-        <item>lt</item>
         <item>lt-LT</item>
         <item>lv-LV</item>
-        <item>mk</item>
         <item>mk-MK</item>
         <item>ml-IN</item>
-        <item>my</item>
         <item>my-MM</item>
-        <item>nb</item>
         <item>nb-NO</item>
-        <item>nl</item>
         <item>nl-NL</item>
-        <item>or</item>
         <item>or-IN</item>
-        <item>pl</item>
         <item>pl-PL</item>
-        <item>pt</item>
         <item>pt-BR</item>
         <item>pt-PT</item>
-        <item>ro</item>
         <item>ro-RO</item>
-        <item>ru</item>
         <item>ru-RU</item>
-        <item>sc</item>
         <item>sc-IT</item>
-        <item>se</item>
         <item>si-LK</item>
-        <item>sk</item>
         <item>sk-SK</item>
-        <item>sl</item>
         <item>sl-SI</item>
-        <item>sq</item>
         <item>sq-AL</item>
         <item>sv-SE</item>
-        <item>ta</item>
         <item>ta-IN</item>
-        <item>th</item>
         <item>th-TH</item>
-        <item>tl</item>
-        <item>tlh</item>
         <item>tlh-AA</item>
-        <item>tr</item>
         <item>tr-TR</item>
-        <item>uk</item>
         <item>uk-UA</item>
-        <item>vi</item>
         <item>vi-VN</item>
-        <item>wo</item>
         <item>wo-SN</item>
         <item>zh-CN</item>
     </string-array>
