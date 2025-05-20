@@ -38,11 +38,15 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "@types/xml2js": "^0.4.14",
     "commander": "^14.0.0",
     "fast-xml-parser": "^5.2.3",
     "follow-redirects": "^1.15.9",
     "js-yaml": "^4.1.0",
+    "node-fetch": "^3.3.2",
     "tar": "^7.4.3",
-    "undici": "^7.10.0"
+    "undici": "^7.10.0",
+    "xml2js": "^0.6.2"
   }
 }
