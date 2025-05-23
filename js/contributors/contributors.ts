@@ -42,6 +42,7 @@ function isBot(login: string): boolean {
   switch (login.toLocaleLowerCase()) {
     case 'anysoftkeyboard-bot':
     case '[dependabot[bot]]':
+    case 'google-labs-jules':
       return true;
     default:
       return false;
