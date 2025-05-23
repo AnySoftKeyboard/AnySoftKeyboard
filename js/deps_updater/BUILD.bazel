@@ -1,0 +1,106 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("//js:ts.bzl", "ts_library")
+load("//js:ts_test.bzl", "ts_test")
+
+ts_library(
+    name = "latest_version_locator",
+    srcs = [
+        "latest_version_locator.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/@types/node-fetch",
+        "//:node_modules/@types/xml2js",
+        "//:node_modules/node-fetch",
+        "//:node_modules/xml2js",
+    ],
+)
+
+ts_library(
+    name = "gradle_deps_to_update",
+    srcs = [
+        "gradle_deps_to_update.ts",
+    ],
+    visibility = ["//visibility:private"],
+    # No internal deps for this one, only types if needed by consumers through other libs
+)
+
+ts_library(
+    name = "github_actions_updater",
+    srcs = [
+        "github_actions_updater.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":latest_version_locator",
+        "//:node_modules/@types/node",
+        "//:node_modules/fast-glob", # Assuming fs.globSync was replaced or provided by a dep
+    ],
+)
+
+ts_library(
+    name = "gradle_deps_updater",
+    srcs = [
+        "gradle_deps_updater.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":latest_version_locator",
+        ":gradle_deps_to_update", # Now a direct dependency
+        "//:node_modules/@types/node",
+        "//:node_modules/fast-glob", # Assuming fs.globSync was replaced or provided by a dep
+    ],
+)
+
+ts_library(
+    name = "cli",
+    srcs = ["index.ts"],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":github_actions_updater",
+        ":gradle_deps_updater",
+        ":latest_version_locator",
+        "//:node_modules/@types/node",
+        "//:node_modules/commander",
+    ],
+)
+
+js_binary(
+    name = "deps_updater",
+    data = [":cli"],
+    entry_point = "dist/index.js",
+)
+
+# Test Targets
+
+ts_test(
+    name = "latest_version_locator_tests",
+    entry_point = "latest_version_locator.test.ts",
+    deps = [":latest_version_locator"],
+)
+
+ts_test(
+    name = "gradle_deps_to_update_tests",
+    entry_point = "gradle_deps_to_update.test.ts",
+    deps = [":gradle_deps_to_update"],
+)
+
+ts_test(
+    name = "github_actions_updater_tests",
+    entry_point = "github_actions_updater.test.ts",
+    deps = [
+        ":github_actions_updater",
+        ":latest_version_locator", # For mocking getLatestGitHubRelease
+    ],
+)
+
+ts_test(
+    name = "gradle_deps_updater_tests",
+    entry_point = "gradle_deps_updater.test.ts",
+    deps = [
+        ":gradle_deps_updater",
+        ":gradle_deps_to_update", # For the Dep type and potentially direct import
+        ":latest_version_locator", # For mocking getLatestMavenVersion
+    ],
+)
