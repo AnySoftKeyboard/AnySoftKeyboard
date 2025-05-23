@@ -22,19 +22,16 @@ export const generateLocaleArrayXml = (resPath: string, outputFile: string): voi
   // Iterate over a copy of the original localeEntries to find specific locales
   // (those containing a hyphen) and add their generic counterparts to the Set.
   // Use [...localeEntries] to iterate over a copy, as localeEntries itself might be modified if not careful
-  for (const locale of [...localeEntries]) { 
+  for (const locale of [...localeEntries]) {
     if (locale.includes('-')) {
       const genericLocale = locale.split('-')[0];
-      localeSet.add(genericLocale); 
+      localeSet.add(genericLocale);
     }
   }
 
   // Convert the Set back to an array, sort it, and update localeEntries.
   // First, clear localeEntries by reassigning.
   localeEntries = Array.from(localeSet).sort();
-
-  // Add "System" as the first item.
-  localeEntries.unshift("System");
 
   const xmlContent = `<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
@@ -44,8 +41,8 @@ export const generateLocaleArrayXml = (resPath: string, outputFile: string): voi
     <!-- this should hold the locales the app is translated to, and any addon-->
     <!-- https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/locale_config.xml -->
     <string-array name="settings_key_force_locale_values">
-${localeEntries.map((entry) => `        <item>${entry}</item>`).join('
-')}
+        <item>System</item>
+${localeEntries.map((entry) => `        <item>${entry}</item>`).join('\n')}
     </string-array>
 </resources>
 `;

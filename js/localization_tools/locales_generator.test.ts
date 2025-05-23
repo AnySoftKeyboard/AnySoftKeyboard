@@ -34,7 +34,7 @@ test.describe('locales generation tests', () => {
     generateLocaleArrayXml(tmp, outputFile);
 
     const xml = fs.readFileSync(outputFile, 'utf8');
-    
+
     // Extract all items into an array
     const items = [];
     const itemRegex = /<item>(.*?)<\/item>/g;
@@ -44,14 +44,14 @@ test.describe('locales generation tests', () => {
     }
 
     // Define the expected order and content of locales
-    const expectedLocales = ["System", "en", "en-US", "es", "fr", "pt", "pt-BR", "ru"];
-    
+    const expectedLocales = ['System', 'en', 'en-US', 'es', 'fr', 'pt', 'pt-BR', 'ru'];
+
     // Assert that the extracted items match the expected locales
-    assert.deepStrictEqual(items, expectedLocales, "Locales are not in the expected order or content");
+    assert.deepStrictEqual(items, expectedLocales, 'Locales are not in the expected order or content');
 
     // These checks are implicitly covered by deepStrictEqual, but it's good to be explicit about what should NOT be there.
-    assert.doesNotMatch(xml, /v21/, "Should not contain v21");
-    assert.doesNotMatch(xml, /not-a-locale/, "Should not contain not-a-locale");
+    assert.doesNotMatch(xml, /v21/, 'Should not contain v21');
+    assert.doesNotMatch(xml, /not-a-locale/, 'Should not contain not-a-locale');
     assert.doesNotMatch(xml, /<item>values<\/item>/, "Should not contain 'values' as an item");
   });
 
