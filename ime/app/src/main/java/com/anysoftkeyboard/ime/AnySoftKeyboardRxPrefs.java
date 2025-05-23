@@ -47,8 +47,11 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
                 R.string.settings_key_force_locale, R.string.settings_default_force_locale_setting)
             .asObservable()
             .subscribe(
-                forceLocaleValue ->
-                    LocaleTools.applyLocaleToContext(getApplicationContext(), forceLocaleValue),
+                forceLocaleValue -> {
+                    String systemLocaleValue = getString(R.string.settings_default_force_locale_setting);
+                    String valueToApply = systemLocaleValue.equals(forceLocaleValue) ? null : forceLocaleValue;
+                    LocaleTools.applyLocaleToContext(getApplicationContext(), valueToApply);
+                },
                 GenericOnError.onError("settings_key_force_locale")));
     addDisposable(
         mRxPrefs

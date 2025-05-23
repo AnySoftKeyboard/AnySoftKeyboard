@@ -47,7 +47,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
         "Russian",
         mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
 
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, getApplicationContext().getString(R.string.settings_default_force_locale_setting));
 
     Assert.assertEquals(
         Locale.getDefault().getLanguage(),
@@ -99,7 +99,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
             .get(0)
             .getDisplayName());
 
-    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, getApplicationContext().getString(R.string.settings_default_force_locale_setting));
 
     Assert.assertEquals(
         Locale.getDefault().getLanguage(),
