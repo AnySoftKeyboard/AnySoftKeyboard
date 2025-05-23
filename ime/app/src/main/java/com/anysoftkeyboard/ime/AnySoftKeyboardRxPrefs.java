@@ -41,14 +41,18 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvid
 
     mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(mGeneralShardPrefChangedListener);
 
+    final var defaultSystemLocaleValue = getString(R.string.settings_default_force_locale_setting);
     addDisposable(
         mRxPrefs
             .getString(
                 R.string.settings_key_force_locale, R.string.settings_default_force_locale_setting)
             .asObservable()
             .subscribe(
-                forceLocaleValue ->
-                    LocaleTools.applyLocaleToContext(getApplicationContext(), forceLocaleValue),
+                forceLocaleValue -> {
+                  String valueToApply =
+                      defaultSystemLocaleValue.equals(forceLocaleValue) ? null : forceLocaleValue;
+                  LocaleTools.applyLocaleToContext(getApplicationContext(), valueToApply);
+                },
                 GenericOnError.onError("settings_key_force_locale")));
     addDisposable(
         mRxPrefs

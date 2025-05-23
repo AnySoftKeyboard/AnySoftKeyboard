@@ -34,17 +34,25 @@ test.describe('locales generation tests', () => {
     generateLocaleArrayXml(tmp, outputFile);
 
     const xml = fs.readFileSync(outputFile, 'utf8');
-    // Check that the XML contains the expected locales
-    assert.match(xml, /<item>en<\/item>/);
-    assert.match(xml, /<item>fr<\/item>/);
-    assert.match(xml, /<item>es<\/item>/);
-    assert.match(xml, /<item>ru<\/item>/);
-    assert.match(xml, /<item>en-US<\/item>/);
-    assert.match(xml, /<item>pt-BR<\/item>/);
-    // Should not contain v21, values, or not-a-locale
-    assert.doesNotMatch(xml, /v21/);
-    assert.doesNotMatch(xml, /not-a-locale/);
-    assert.doesNotMatch(xml, /<item>values<\/item>/);
+
+    // Extract all items into an array
+    const items = [];
+    const itemRegex = /<item>(.*?)<\/item>/g;
+    let match;
+    while ((match = itemRegex.exec(xml)) !== null) {
+      items.push(match[1]);
+    }
+
+    // Define the expected order and content of locales
+    const expectedLocales = ['System', 'en', 'en-US', 'es', 'fr', 'pt', 'pt-BR', 'ru'];
+
+    // Assert that the extracted items match the expected locales
+    assert.deepStrictEqual(items, expectedLocales, 'Locales are not in the expected order or content');
+
+    // These checks are implicitly covered by deepStrictEqual, but it's good to be explicit about what should NOT be there.
+    assert.doesNotMatch(xml, /v21/, 'Should not contain v21');
+    assert.doesNotMatch(xml, /not-a-locale/, 'Should not contain not-a-locale');
+    assert.doesNotMatch(xml, /<item>values<\/item>/, "Should not contain 'values' as an item");
   });
 
   test.after(() => {
