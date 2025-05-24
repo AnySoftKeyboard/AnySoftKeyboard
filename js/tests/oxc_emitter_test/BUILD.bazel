@@ -1,0 +1,31 @@
+load("//js:oxc_emitter.bzl", "oxc_emit_dts")
+
+# Rule to generate .d.ts files
+oxc_emit_dts(
+    name = "emit_declarations",
+    srcs = [
+        "test.ts",
+        "another.ts",
+    ],
+)
+
+# Filegroup to collect the generated .d.ts files
+# This helps verify that the rule produces the expected outputs.
+# The generated files will be: test.d.ts and another.d.ts
+filegroup(
+    name = "generated_declarations",
+    srcs = [
+        ":emit_declarations", # This implicitly refers to the DefaultInfo outputs
+        # Alternatively, and more explicitly for .d.ts files:
+        # "test.d.ts",
+        # "another.d.ts",
+        # However, these would be source files if listed directly.
+        # Using the rule output directly is the common pattern.
+    ],
+    # Ensure that this target can be built, which means oxc_emit_dts must succeed.
+)
+
+# Optional: A sh_test to verify contents if possible, but for now,
+# just ensuring it builds is a good first step.
+# For example, a test could check if "test.d.ts" contains "greet".
+# This is out of scope for the current subtask of just adding a *basic* example.
