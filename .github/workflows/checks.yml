@@ -40,7 +40,7 @@ jobs:
           bazel run //:format
           if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors"; exit 1; fi
       - name: bazel code-coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.4.3
         with:
           fail_ci_if_error: false
           codecov_yml_path: "${{ github.workspace }}/codecov_bazel.yml"
@@ -177,7 +177,7 @@ jobs:
       - name: tests
         run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
       - name: Android code-coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.4.3
         with:
           fail_ci_if_error: false
           codecov_yml_path: "${{ github.workspace }}/codecov_android.yml"
