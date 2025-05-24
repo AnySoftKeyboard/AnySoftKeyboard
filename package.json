@@ -26,7 +26,7 @@
     "@eslint/js": "^9.27.0",
     "@types/follow-redirects": "^1.14.4",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "22.15.19",
+    "@types/node": "22.15.21",
     "@types/sinon": "^17.0.4",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
@@ -44,6 +44,6 @@
     "follow-redirects": "^1.15.9",
     "js-yaml": "^4.1.0",
     "tar": "^7.4.3",
-    "undici": "^7.9.0"
+    "undici": "^7.10.0"
   }
 }
