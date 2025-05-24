@@ -21,7 +21,7 @@ ts_library(
 js_binary(
     name = "auto_approval",
     data = [":approval"],
-    entry_point = "dist/index.js",
+    entry_point = "index.js",
 )
 
 ts_test(

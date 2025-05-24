@@ -21,7 +21,7 @@ ts_library(
 js_binary(
     name = "contributors",
     data = [":contributors_lib"],
-    entry_point = "dist/index.js",
+    entry_point = "index.js",
 )
 
 ts_test(
