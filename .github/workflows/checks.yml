@@ -42,7 +42,7 @@ jobs:
       - name: ensure all bazel binaries are working
         run: bazel query 'kind('js_binary', //...) union kind('java_binary', //...)' | xargs -I %s bazel run %s -- -h || true
       - name: bazel code-coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.4.3
         with:
           fail_ci_if_error: false
           codecov_yml_path: "${{ github.workspace }}/codecov_bazel.yml"
@@ -79,7 +79,7 @@ jobs:
         with:
           file_pattern: checkstyle*.html
           output_folder: collected_reports/checkstyle
-      - uses: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v4.6.2
         if: always()
         continue-on-error: true
         with:
@@ -130,7 +130,7 @@ jobs:
         with:
           file_pattern: java_*.hprof
           output_folder: oom_dumps
-      - uses: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v4.6.2
         if: always()
         continue-on-error: true
         with:
@@ -179,7 +179,7 @@ jobs:
       - name: tests
         run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
       - name: Android code-coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.4.3
         with:
           fail_ci_if_error: false
           codecov_yml_path: "${{ github.workspace }}/codecov_android.yml"
@@ -195,13 +195,13 @@ jobs:
         if: always()
         with:
           file_pattern: "**/build/reports/tests/**"
-      - uses: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v4.6.2
         if: always()
         continue-on-error: true
         with:
           name: tests-${{ matrix.shard_variant }}
           path: collected_reports
-      - uses: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v4.6.2
         if: always()
         continue-on-error: true
         with:
@@ -273,7 +273,7 @@ jobs:
       - name: fix-fs
         if: always()
         run: ./scripts/ci/ci_fix_fs.sh
-      - uses: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v4.6.2
         continue-on-error: true
         with:
           name: fdroid-metadata-dry-run-${{ matrix.shard_type }}
@@ -325,7 +325,7 @@ jobs:
       - name: create-merge-commit
         run: ./scripts/ci/ci_merge_to_default_branch.sh ${{ github.ref }}
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
+        uses: peter-evans/create-pull-request@v7.0.8
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Merge to default branch from ${{ github.ref_name }}.'
