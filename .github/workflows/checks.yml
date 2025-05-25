@@ -39,6 +39,8 @@ jobs:
         run: |
           bazel run //:format
           if [[ $(git status --porcelain) ]]; then echo "**** run 'bazel run //:format' to fix formatting errors"; exit 1; fi
+      - name: ensure all bazel binaries are working
+        run: bazel query 'kind('js_binary', //...) union kind('java_binary', //...)' | xargs -I %s bazel run %s -- -h || true
       - name: bazel code-coverage
         uses: codecov/codecov-action@v5
         with:
