@@ -9,8 +9,7 @@
     "name": "menny"
   },
   "engines": {
-    "node": "23.11.0",
-    "yarn": "1.22.19"
+    "node": "23.11.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": []

@@ -4,7 +4,9 @@ import java.io.File;
 
 public class EmojiLayoutsGenerator {
   public static void main(String[] args) throws Exception {
-    if (args.length != 2) {
+    if (args.length == 1 && args[0].equals("-h")) {
+      System.out.println("Usage: EmojiLayoutGenerator <emoji-test.txt path> <output folder path>");
+    } else if (args.length != 2) {
       System.err.println("Usage: EmojiLayoutGenerator <emoji-test.txt path> <output folder path>");
       System.exit(1);
     }

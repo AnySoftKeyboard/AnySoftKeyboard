@@ -20,7 +20,7 @@ ts_library(
 js_binary(
     name = "checkers",
     data = [":checkers_lib"],
-    entry_point = "dist/index.js",
+    entry_point = "index.js",
 )
 
 ts_test(

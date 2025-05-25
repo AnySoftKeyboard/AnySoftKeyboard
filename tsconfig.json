@@ -1,18 +1,29 @@
 {
   "compilerOptions": {
-    "isolatedDeclarations": true,
     "declaration": true,
-    "composite": true,
+    "isolatedDeclarations": true,
     "isolatedModules": true,
-    "module": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "node",
     "target": "es2023",
     "inlineSourceMap": true,
     "inlineSources": true,
-    "strict": true,
     "esModuleInterop": true,
-    "outDir": "dist",
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "useUnknownInCatchVariables": true,
+    "strictBuiltinIteratorReturn": true
   },
   "include": ["js/**/*"]
 }

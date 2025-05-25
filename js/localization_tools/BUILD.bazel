@@ -46,6 +46,7 @@ ts_library(
     ],
     visibility = ["//visibility:private"],
     deps = [
+        ":tools_utils",
         "//:node_modules/@types/node",
     ],
 )
@@ -66,7 +67,7 @@ ts_library(
 js_binary(
     name = "localization_tools",
     data = [":cli"],
-    entry_point = "dist/index.js",
+    entry_point = "index.js",
 )
 
 ts_test(
