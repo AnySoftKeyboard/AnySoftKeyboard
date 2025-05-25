@@ -107,5 +107,41 @@
         "cpu": "x86_64"
       }
     ]
+  },
+  "rust_oxc_dts_emit": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://github.com/menny/rust_oxc_dts_emit/releases/download/v0.1.2/oxc_dts_emit_linux_arm64.tar.gz",
+        "file": "oxc_dts_emit",
+        "sha256": "2940bb73a5251678d58b8117fecc3f06c21ba38b21327fafaee52609cb729734",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/menny/rust_oxc_dts_emit/releases/download/v0.1.2/oxc_dts_emit_linux_x86.tar.gz",
+        "file": "oxc_dts_emit",
+        "sha256": "f36dd78b5386a8e4799e8d509f7d148fd57303e2e1152144b08f8c708ef08bab",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/menny/rust_oxc_dts_emit/releases/download/v0.1.2/oxc_dts_emit_macos_arm64.tar.gz",
+        "file": "oxc_dts_emit",
+        "sha256": "cc1edab13ff2347ddcbc05dfdd62d0df195f5ad476d21a2f28fc750128114c29",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/menny/rust_oxc_dts_emit/releases/download/v0.1.2/oxc_dts_emit_macos_x86.tar.gz",
+        "file": "oxc_dts_emit",
+        "sha256": "9106c3202aa971ec26f9d602706d4815da45045b9bb6e6b5cf5b2eaaeeab926f",
+        "os": "macos",
+        "cpu": "x86_64"
+      }
+    ]
   }
 }
