@@ -128,7 +128,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
     implementation 'androidx.autofill:autofill:1.1.0'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0'
 
     implementation 'androidx.navigation:navigation-fragment:2.9.0'
     implementation 'androidx.navigation:navigation-ui:2.9.0'
