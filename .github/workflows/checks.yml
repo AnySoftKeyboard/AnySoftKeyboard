@@ -42,7 +42,7 @@ jobs:
       - name: ensure all bazel binaries are working
         run: bazel query 'kind('js_binary', //...) union kind('java_binary', //...)' | xargs -I %s bazel run %s -- -h || true
       - name: bazel code-coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.4.3
         with:
           fail_ci_if_error: false
           codecov_yml_path: "${{ github.workspace }}/codecov_bazel.yml"
@@ -179,7 +179,7 @@ jobs:
       - name: tests
         run: ./gradlew $(cat /tmp/gradle.tasks.lst) ${{ matrix.extra_args }}
       - name: Android code-coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.4.3
         with:
           fail_ci_if_error: false
           codecov_yml_path: "${{ github.workspace }}/codecov_android.yml"
