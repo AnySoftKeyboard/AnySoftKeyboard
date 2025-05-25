@@ -31,7 +31,7 @@ jobs:
       - name: update-github-actions
         run: |
           bazel run //js/deps_updater -- gh_actions \
-            --workflowFolderPath="${{ github.workspace }}" \
+            --workflowFolderPath="${{ github.workspace }}/.github/workflows" \
             --gh_user="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             --gh_token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}"
       - name: Create pull request
