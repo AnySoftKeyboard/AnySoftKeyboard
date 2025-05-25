@@ -8,6 +8,7 @@ on:
     branches:
       - main
     paths:
+      - 'js/deps_updater/**/*'
       - 'scripts/ci/third-party-update/**/*'
       - '.github/workflows/third_party_update.yml'
 env:
@@ -16,43 +17,23 @@ env:
   BOT_USERNAME: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
   BOT_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
 jobs:
-  general-maven-update:
-    runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.2
-    steps:
-      - uses: actions/checkout@v4.2.2
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
-      - name: update-to-maven-deps
-        run: ./scripts/ci/third-party-update/update_third_party_artifacts.sh
-      - name: Sanity verification
-        run: |
-          ./gradlew :api:assembleDebug :api:lintDebug
-          ./gradlew :api:assembleDebug :api:lintDebug
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.5
-        with:
-          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-          commit-message: 'Automated Maven Artifacts Update'
-          title: 'Automated Maven Artifacts Update'
-          committer: 'Polyglot <ask@evendanan.net>'
-          author: 'Polyglot <ask@evendanan.net>'
-          team-reviewers: infra, maintainers
-          branch: 'bot-pr/maven-update'
-          delete-branch: true
   github-actions-update:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-      - name: setup
-        run: ./scripts/ci/ci_setup.sh
+      - uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - name: update-github-actions
-        run: ./scripts/ci/third-party-update/update_github_actions.sh
+        run: |
+          bazel run //js/deps_updater -- gh_actions \
+            --workflowFolderPath="${{ github.workspace }}" \
+            --gh_user="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --gh_token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}"
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.5
         with:
@@ -63,6 +44,30 @@ jobs:
           author: 'Polyglot <ask@evendanan.net>'
           team-reviewers: infra, maintainers
           branch: 'bot-pr/github-actions-update'
+          delete-branch: true
+  general-maven-update:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - name: update-gradle-deps
+        run: bazel run //js/deps_updater -- gradle_deps --rootFolder="${{ github.workspace }}"
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7.0.5
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          commit-message: 'Automated Android Deps update from maven'
+          title: 'Automated Android Deps Update'
+          committer: 'Polyglot <ask@evendanan.net>'
+          author: 'Polyglot <ask@evendanan.net>'
+          team-reviewers: infra, maintainers
+          branch: 'bot-pr/gradle-deps-update'
           delete-branch: true
   third-party-update:
     strategy:
