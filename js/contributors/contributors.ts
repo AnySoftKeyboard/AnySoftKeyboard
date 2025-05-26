@@ -39,10 +39,11 @@ export function sortContributors(contributors: Contributor[]): Contributor[] {
 }
 
 function isBot(login: string): boolean {
+  const simpleUserName = login.toLocaleLowerCase();
+  if (simpleUserName.endsWith('[bot]') || simpleUserName.endsWith('[bot]]')) return true;
+
   switch (login.toLocaleLowerCase()) {
     case 'anysoftkeyboard-bot':
-    case '[dependabot[bot]]':
-    case 'google-labs-jules':
       return true;
     default:
       return false;
@@ -52,7 +53,14 @@ function isBot(login: string): boolean {
 export function generateMarkdownList(contributors: Contributor[]): string {
   const simpleNumber = (c: Contributor): string => {
     if (isBot(c.login)) {
-      return `${(c.contributions / 1000.0).toFixed(1)}k`;
+      // a bit different counting
+      if (c.contributions > 999) {
+        return `${(c.contributions / 1000.0).toFixed(1)}k`;
+      } else if (c.contributions > 10) {
+        return `${(c.contributions / 1000.0).toFixed(2)}k`;
+      } else {
+        return `${c.contributions.toFixed(0)}`;
+      }
     } else {
       if (c.contributions > 999) {
         return `${(c.contributions / 1000.0).toFixed(1)}k`;
@@ -64,12 +72,21 @@ export function generateMarkdownList(contributors: Contributor[]): string {
     }
   };
 
+  const simpleLogin = (c: Contributor): string => {
+    return c.login
+      .replace(/\[bot]/, '')
+      .replace(/^\[/, '')
+      .replace(/\]$/, '');
+  };
+
   return contributors
     .map((c) => {
-      return `1. [${c.login}](https://github.com/${c.login}) (${simpleNumber(c)})${
-        isBot(c.login) ? ' \uD83E\uDD16' : ''
-      }`;
+      return { c, user: simpleLogin(c), contributions: simpleNumber(c) };
     })
+    .map((c) => {
+      return { ...c, postFix: isBot(c.c.login) ? ' 🤖' : '' };
+    })
+    .map((c) => `1. [${c.user}](https://github.com/${c.user}) (${c.contributions})${c.postFix}`)
     .join('\n');
 }
 
