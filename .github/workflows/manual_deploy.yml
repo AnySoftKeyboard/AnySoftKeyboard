@@ -1,0 +1,44 @@
+---
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'The commit SHA to deploy (e.g., a07917069183ae5db95735639f02f7a99f999999)'
+        required: true
+        type: string
+      branch_ref:
+        description: 'The branch name for the deployment (e.g., main, release-branch-addons-v5.0-r1)'
+        required: true
+        type: string
+      # Consider making new_deploy an input if more flexibility is needed.
+      # For now, it will be hardcoded to true in the job.
+
+env:
+  TERM: dumb # Ensures clean output in logs
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false" # Recommended for CI environments
+
+jobs:
+  request_manual_deployment:
+    name: Request Manual Deployment
+    runs-on: ubuntu-24.04
+    # Using the same container as deployment_promote.yml for consistency
+    container: ghcr.io/menny/android_base:1.21.2 
+    steps:
+      # Checkout the repository to make the local action accessible
+      # We checkout 'main' because the action is in the repo.
+      # The actual deployment will use the specified 'commit_sha'.
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: main # Or the default branch where the action is located
+
+      - name: Request Deployment
+        uses: ./.github/actions/deploy-request
+        with:
+          sha: ${{ github.event.inputs.commit_sha }}
+          ref: ${{ github.event.inputs.branch_ref }}
+          new_deploy: true # Manual deployments are typically new
+          api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
