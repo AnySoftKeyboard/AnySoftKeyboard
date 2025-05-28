@@ -1,6 +1,5 @@
 ---
 name: Manual Deployment
-
 on:
   workflow_dispatch:
     inputs:
@@ -12,19 +11,17 @@ on:
         description: 'The branch name for the deployment (e.g., main, release-branch-addons-v5.0-r1)'
         required: true
         type: string
-      # Consider making new_deploy an input if more flexibility is needed.
-      # For now, it will be hardcoded to true in the job.
-
+        # Consider making new_deploy an input if more flexibility is needed.
+        # For now, it will be hardcoded to true in the job.
 env:
   TERM: dumb # Ensures clean output in logs
   GRADLE_OPTS: "-Dorg.gradle.daemon=false" # Recommended for CI environments
-
 jobs:
   request_manual_deployment:
     name: Request Manual Deployment
     runs-on: ubuntu-24.04
     # Using the same container as deployment_promote.yml for consistency
-    container: ghcr.io/menny/android_base:1.21.2 
+    container: ghcr.io/menny/android_base:1.21.2
     steps:
       # Checkout the repository to make the local action accessible
       # We checkout 'main' because the action is in the repo.
@@ -33,7 +30,6 @@ jobs:
         uses: actions/checkout@v4.2.2
         with:
           ref: main # Or the default branch where the action is located
-
       - name: Request Deployment
         uses: ./.github/actions/deploy-request
         with:
