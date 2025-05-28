@@ -8,6 +8,9 @@ on:
       - main
     paths:
       - '.github/workflows/update_aosp_dictionaries.yml'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   TERM: dumb
   TMPDIR: "/tmp"

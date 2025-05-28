@@ -7,6 +7,9 @@ on:
     paths:
       - 'addons/**'
       - '.github/workflows/packs_md_update.yml'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   TERM: dumb
   TMPDIR: "/tmp"
