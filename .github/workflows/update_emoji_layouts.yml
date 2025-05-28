@@ -9,6 +9,9 @@ on:
     paths:
       - '.github/workflows/update_emoji_layouts.yml'
       - 'emojis/**'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   TERM: dumb
   TMPDIR: "/tmp"

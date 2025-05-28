@@ -11,6 +11,9 @@ on:
       - 'js/deps_updater/**/*'
       - 'scripts/ci/third-party-update/**/*'
       - '.github/workflows/third_party_update.yml'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   TERM: dumb
   TMPDIR: "/tmp"
