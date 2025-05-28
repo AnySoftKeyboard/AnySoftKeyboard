@@ -139,8 +139,17 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
+      - uses: bazel-contrib/setup-bazel@0.15.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - name: upgrade to latest deps using pnpm
         run: pnpm upgrade --latest
+      - name: checking building still works - and MODULE is updated
+        run: |
+          bazel build //...
+          bazel test //...
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.8
         with:
