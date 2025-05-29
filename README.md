@@ -1,8 +1,7 @@
 # AnySoftKeyboard&nbsp;[![Latest release](https://img.shields.io/github/release/AnySoftKeyboard/AnySoftKeyboard.svg)](https://github.com/AnySoftKeyboard/AnySoftKeyboard/releases)
 
 Discussions can be found on&nbsp;[💬&nbsp;GitHub](https://github.com/AnySoftKeyboard/AnySoftKeyboard/discussions)<br/>
-Follow us on <a rel="me" href="https://hachyderm.io/@anysoftkeyboard">Mastodon</a><br/>
-Support chat-channels can be found on&nbsp;[![Gitter chat](https://badges.gitter.im/AnySoftKeyboard/gitter.png)](https://gitter.im/AnySoftKeyboard)<br/>
+Follow us on <a rel="me" href="https://hachyderm.io/@anysoftkeyboard">Mastodon</a>
 <br/>
 `main` latest build&nbsp;![](https://github.com/AnySoftKeyboard/AnySoftKeyboard/workflows/checks/badge.svg?event=push&branch=main)<br/>
 `main` coverage&nbsp;[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/main/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)<br/>
