@@ -2,7 +2,7 @@
 name: update-aosp-dictionaries
 on:
   schedule:
-    - cron: '30 09 * * 5'
+    - cron: '30 09 1,15 * *'
   push:
     branches:
       - main

@@ -4,7 +4,7 @@ name: localization
 on:
   # schedule is used to fetch new, async, translations
   schedule:
-    - cron: '24 02 * * *'
+    - cron: '24 02 * * 1,4'
   # push is used to upload new system strings
   push:
     branches:
