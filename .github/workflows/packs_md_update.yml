@@ -39,19 +39,19 @@ jobs:
           branch: 'bot-pr/packs-list-update'
           delete-branch: true
       - name: Generate PACKS.yml
-        if: steps.create_pr_packs_md.outputs.pull_request_number != '' && steps.create_pr_packs_md.outputs.pull_request_operation != 'closed'
-        run: ./gradlew :addons:generatePacksYaml
+        if: steps.create_pr_packs_md.outputs.pull-request-number != ''
+        run: ./gradlew :addons:languages:generatePacksYaml
       - name: Checkout AnySoftKeyboard.github.io repository
-        if: steps.create_pr_packs_md.outputs.pull_request_number != '' && steps.create_pr_packs_md.outputs.pull_request_operation != 'closed'
+        if: steps.create_pr_packs_md.outputs.pull-request-number != ''
         uses: actions/checkout@v4
         with:
           repository: AnySoftKeyboard/AnySoftKeyboard.github.io
           path: anysoftkeyboard.github.io
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: Commit and Push PACKS.yml to .github.io repo
-        if: steps.create_pr_packs_md.outputs.pull_request_number != '' && steps.create_pr_packs_md.outputs.pull_request_operation != 'closed'
+        if: steps.create_pr_packs_md.outputs.pull-request-number != ''
         run: |
-          mv ./PACKS.yml ./anysoftkeyboard.github.io/PACKS.yml
+          mv ./PACKS.yml ./anysoftkeyboard.github.io/languages.yml
           cd ./anysoftkeyboard.github.io
           git config user.name "Polyglot"
           git config user.email "ask@evendanan.net"
@@ -59,7 +59,7 @@ jobs:
           git add PACKS.yml
           # Only commit if PACKS.yml has changed
           if ! git diff --staged --quiet; then
-            git commit -m "Automated PACKS.yml update from main repository"
+            git commit -m "Automated languages.yml update\n\nfrom PR ${{steps.create_pr_packs_md.outputs.pull-request-url}}"
             git push --force origin packs-list-update
           else
             echo "No changes to PACKS.yml to commit."

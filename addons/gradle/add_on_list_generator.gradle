@@ -21,16 +21,27 @@ tasks.register("generatePacksYaml") {
                 if (it.ext.shouldBePublished) {
                     playStoreLink = "https://play.google.com/store/apps/details?id=${it.android.defaultConfig.applicationId}"
                 }
+                def addOnDir = rootProject.projectDir.relativePath(it.projectDir)
                 // Default to a placeholder if 'githubRootUrl' is not defined
                 def githubBaseUrl = project.hasProperty('githubRootUrl') ? project.property('githubRootUrl') : "https://github.com/AnySoftKeyboard/AnySoftKeyboard"
-                def githubLink = "${githubBaseUrl}/${project.projectDir.relativePath(it.parent.projectDir)}"
-                def fdroidLink = "#"
+                def githubLink = "${githubBaseUrl}/tree/main/${addOnDir}"
+                def fdroidLink = "https://f-droid.org/bo/packages/${it.android.defaultConfig.applicationId}/"
 
+                // pack icon
+                def image = "https://raw.githubusercontent.com/AnySoftKeyboard/AnySoftKeyboard/refs/heads/main/${addOnDir}/flag/{{IMAGE_FILENAME}}"
+                if (it.file("flag/flag.png").exists()) {
+                    image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
+                } else if (it.file("flag/flag.svg").exists()) {
+                    image = image.replace("{{IMAGE_FILENAME}}", "flag.svg?sanitize=1")
+                } else {
+                    image = ""
+                }
                 def packDetails = [
                     name: packName,
                     play: playStoreLink,
                     'f-droid': fdroidLink,
-                    github: githubLink
+                    github: githubLink,
+                    icon: image
                 ]
                 allPacksData.add(packDetails)
             }
@@ -43,6 +54,7 @@ tasks.register("generatePacksYaml") {
                 writer.writeLine("  play: \"${packData.play}\"")
                 writer.writeLine("  f-droid: \"${packData['f-droid']}\"")
                 writer.writeLine("  github: \"${packData.github}\"")
+                writer.writeLine("  icon: \"${packData.icon}\"")
             }
         }
     }
