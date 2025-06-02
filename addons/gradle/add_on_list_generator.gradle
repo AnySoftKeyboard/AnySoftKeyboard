@@ -6,6 +6,22 @@ static boolean hasNonBlackProperty(Project proj, String key) {
     }
 }
 
+def validateLink(url) {
+    try {
+        def connection = new URL(url).openConnection() as HttpURLConnection
+        connection.requestMethod = "HEAD"
+        connection.connectTimeout = 5000
+        connection.readTimeout = 5000
+        connection.connect()
+        if (connection.responseCode >= 400) {
+            url = ""
+        }
+    } catch (Exception e) {
+        url = ""
+    }
+    return url
+}
+
 tasks.register("generatePacksYaml") {
     group "AnySoftKeyboard"
     description "Writing a YAML list of ${project.name} to PACKS.yml."
@@ -25,7 +41,8 @@ tasks.register("generatePacksYaml") {
                 // Default to a placeholder if 'githubRootUrl' is not defined
                 def githubBaseUrl = project.hasProperty('githubRootUrl') ? project.property('githubRootUrl') : "https://github.com/AnySoftKeyboard/AnySoftKeyboard"
                 def githubLink = "${githubBaseUrl}/tree/main/${addOnDir}"
-                def fdroidLink = "https://f-droid.org/bo/packages/${it.android.defaultConfig.applicationId}/"
+                // Not all packages are published to f-droid. Checking.
+                def fdroidLink = validateLink("https://f-droid.org/en/packages/${it.android.defaultConfig.applicationId}/")
 
                 // pack icon
                 def image = "https://raw.githubusercontent.com/AnySoftKeyboard/AnySoftKeyboard/refs/heads/main/${addOnDir}/flag/{{IMAGE_FILENAME}}"
@@ -89,6 +106,12 @@ tasks.register("generatePacksMarkDown") {
                         }
                     } else if (it.ext.notPublishingReason) {
                         packReadMeDetails += " (not published reason: '${it.ext.notPublishingReason}')"
+                    }
+
+                    // Add F-Droid link if available
+                    def fdroidLink = validateLink("https://f-droid.org/en/packages/${it.android.defaultConfig.applicationId}/")
+                    if (fdroidLink) {
+                        packReadMeDetails += " • [F-Droid](${fdroidLink})"
                     }
 
                     writer.writeLine(packReadMeDetails)
