@@ -14,6 +14,8 @@ ts_library(
         "//:node_modules/@types/js-yaml",
         "//:node_modules/@types/node",
         "//:node_modules/commander",
+        "//:node_modules/follow-redirects",
+        "//:node_modules/js-yaml",
         "//:node_modules/tar",
     ],
 )
