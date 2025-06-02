@@ -40,7 +40,7 @@ jobs:
           delete-branch: true
       - name: Generate PACKS.yml
         if: steps.create_pr_packs_md.outputs.pull-request-number != ''
-        run: ./gradlew :addons:languages:generatePacksYaml
+        run: ./gradlew :addons:languages:generatePacksYaml :addons:themes:generatePacksYaml :addons:quicktexts:generatePacksYaml
       - name: Checkout AnySoftKeyboard.github.io repository
         if: steps.create_pr_packs_md.outputs.pull-request-number != ''
         uses: actions/checkout@v4
@@ -51,7 +51,9 @@ jobs:
       - name: Commit and Push PACKS.yml to .github.io repo
         if: steps.create_pr_packs_md.outputs.pull-request-number != ''
         run: |
-          mv ./PACKS.yml ./anysoftkeyboard.github.io/_data/languages.yml
+          mv ./addons/languages/PACKS.yml ./anysoftkeyboard.github.io/_data/languages.yml
+          mv ./addons/themes/PACKS.yml ./anysoftkeyboard.github.io/_data/themes.yml
+          mv ./addons/quicktexts/PACKS.yml ./anysoftkeyboard.github.io/_data/quicktexts.yml
           cd ./anysoftkeyboard.github.io
           git config user.name "Polyglot"
           git config user.email "ask@evendanan.net"
