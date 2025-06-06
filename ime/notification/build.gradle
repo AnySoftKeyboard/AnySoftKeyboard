@@ -6,7 +6,7 @@ dependencies {
 
     implementation project(path: ':ime:base')
     implementation project(path: ':ime:permissions')
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
 
     testImplementation project(path: ':ime:base-test')
 }
