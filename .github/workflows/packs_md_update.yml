@@ -43,7 +43,7 @@ jobs:
         run: ./gradlew :addons:languages:generatePacksYaml :addons:themes:generatePacksYaml :addons:quicktexts:generatePacksYaml
       - name: Checkout AnySoftKeyboard.github.io repository
         if: steps.create_pr_packs_md.outputs.pull-request-number != ''
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           repository: AnySoftKeyboard/AnySoftKeyboard.github.io
           path: anysoftkeyboard.github.io
