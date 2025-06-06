@@ -54,10 +54,10 @@ export function generateMarkdownList(contributors: Contributor[]): string {
   const simpleNumber = (c: Contributor): string => {
     if (isBot(c.login)) {
       // a bit different counting
-      if (c.contributions > 999) {
+      if (c.contributions >= 1500) {
+        return `${Math.floor(c.contributions / 1000)}k`;
+      } else if (c.contributions >= 100) {
         return `${(c.contributions / 1000.0).toFixed(1)}k`;
-      } else if (c.contributions > 10) {
-        return `${(c.contributions / 1000.0).toFixed(2)}k`;
       } else {
         return `${c.contributions.toFixed(0)}`;
       }
