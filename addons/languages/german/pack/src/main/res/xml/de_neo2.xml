@@ -21,7 +21,7 @@
     <!-- key codes: http://r12a.github.io/apps/conversion/ -->
     <Key android:codes="49" android:keyLabel="1" ask:shiftedCodes="176" android:keyEdgeFlags="left" android:popupCharacters="°¹ª₁¬"/>
     <Key android:codes="50" android:keyLabel="2" ask:shiftedCodes="167" android:popupCharacters="§²º₂∨"/>
-    <Key android:codes="51" android:keyLabel="3" ask:shiftedCodes="8467" android:popupCharacters="ℓ³№₃∧"/>
+    <Key android:codes="51" android:keyLabel="3" ask:isShiftAlways="false" ask:shiftedCodes="8467" android:popupCharacters="ℓ³№₃∧"/>
     <Key android:codes="52" android:keyLabel="4" ask:shiftedCodes="187" android:popupCharacters="»›♀⊥"/>
     <Key android:codes="53" android:keyLabel="5" ask:shiftedCodes="171" android:popupCharacters="«‹·♂∡"/>
     <Key android:codes="54" android:keyLabel="6" ask:shiftedCodes="36" android:popupCharacters="$¢£⚥∥"/>
