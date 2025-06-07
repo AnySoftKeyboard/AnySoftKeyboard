@@ -15,7 +15,7 @@ jobs:
     container: ghcr.io/menny/android_base:1.21.2
     strategy:
       matrix:
-        refname: [main, release-branch-addons-v5.0-r1]
+        refname: [main, release-branch-addons-v5.1-r1]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4.2.2
