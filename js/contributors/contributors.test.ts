@@ -32,7 +32,7 @@ test.describe('Contributors', () => {
     assert.equal(
       result,
       `1. [d_user](https://github.com/d_user) (1.1k)
-1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.73k) 🤖
+1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.7k) 🤖
 1. [a_user](https://github.com/a_user) (123)
 1. [b_user](https://github.com/b_user) (123)
 1. [c_user](https://github.com/c_user) (12)
@@ -44,6 +44,7 @@ test.describe('Contributors', () => {
   test('correctly detects bots', () => {
     const withBots: Contributor[] = [
       { login: 'd_user', contributions: 1123 },
+      { login: 'busy[bot]', contributions: 2311 },
       { login: 'anysoftkeyboard-bot', contributions: 1733 },
       { login: 'some[bot]', contributions: 123 },
       { login: '[another[bot]]', contributions: 1 },
@@ -52,8 +53,9 @@ test.describe('Contributors', () => {
     assert.equal(
       result,
       `1. [d_user](https://github.com/d_user) (1.1k)
+1. [busy](https://github.com/busy) (2k) 🤖
 1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (1.7k) 🤖
-1. [some](https://github.com/some) (0.12k) 🤖
+1. [some](https://github.com/some) (0.1k) 🤖
 1. [another](https://github.com/another) (1) 🤖`,
     );
   });
