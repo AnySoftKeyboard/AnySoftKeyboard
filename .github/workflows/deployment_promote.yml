@@ -12,7 +12,6 @@ env:
 jobs:
   promote:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android_base:1.21.2
     strategy:
       matrix:
         refname: [main, release-branch-addons-v5.1-r1]
@@ -21,11 +20,18 @@ jobs:
       - uses: actions/checkout@v4.2.2
         with:
           ref: ${{ matrix.refname }}
-      - name: request-scheduled-promote
-        uses: ./.github/actions/deploy-request
+      - uses: bazel-contrib/setup-bazel@0.15.0
         with:
-          sha: HEAD
-          ref: ${{ matrix.refname }}
-          new_deploy: false
-          api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - name: request-scheduled-promote
+        run: |-
+          bazel run //js/github_deployments -- deploy \
+            --api-username=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} \
+            --token=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} \
+            --owner=${{ github.repository_owner }} \
+            --repo=AnySoftKeyboard \
+            --sha=HEAD \
+            --refname=${{ matrix.refname }} \
+            --step=1

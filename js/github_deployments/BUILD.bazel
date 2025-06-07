@@ -1,0 +1,27 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "github_deployments_lib",
+    srcs = [
+        "deployment.ts",
+        "deployment_config.ts",
+        "deployment_request.ts",
+        "deployment_status.ts",
+        "github_api.ts",
+        "index.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@actions/core",
+        "//:node_modules/@actions/github",
+        "//:node_modules/@types/node",
+        "//:node_modules/commander",
+    ],
+)
+
+js_binary(
+    name = "github_deployments",
+    data = [":github_deployments_lib"],
+    entry_point = "index.js",
+)
