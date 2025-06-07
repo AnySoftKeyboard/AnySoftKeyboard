@@ -2,7 +2,7 @@
 name: deployment
 on: deployment
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.deployment.task }}-${{ github.event.deployment.environment }}-${{ github.event.deployment.payload.previous_environment }}
   cancel-in-progress: true
 env:
   TERM: dumb
