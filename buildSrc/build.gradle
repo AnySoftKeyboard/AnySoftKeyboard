@@ -32,10 +32,6 @@ gradlePlugin {
             id = 'make-dictionary'
             implementationClass = 'MakeDictionaryPlugin'
         }
-        deploymentsPlugin {
-            id = 'anysoftkeyboard-deployment'
-            implementationClass = 'deployment.DeploymentPlugin'
-        }
         manualVersionPlugin {
             id = 'ask.net.evendanan.autoversion'
             implementationClass = 'net.evendanan.versiongenerator.VersionGeneratorPlugin'
