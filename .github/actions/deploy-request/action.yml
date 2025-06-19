@@ -32,6 +32,7 @@ runs:
         disk-cache: ${{ github.workflow }}
         repository-cache: true
     - name: Request IME Deployment
+      shell: bash
       run: |
         bazel run //js/github_deployments -- deploy \
           --api-username="${{ inputs.gh_user }}" \
@@ -43,6 +44,7 @@ runs:
           --shardName=ime \
           --deployMode="${{ inputs.deploy_mode }}"
     - name: Request add-ons Deployment
+      shell: bash
       run: |
         bazel run //js/github_deployments -- deploy \
           --api-username="${{ inputs.gh_user }}" \
