@@ -24,6 +24,8 @@ jobs:
           ref: main
       - uses: ./.github/actions/deploy-request
         with:
+          gh_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          gh_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           sha: "${{ github.event.inputs.commit_sha }}"
           refname: "${{ github.event.inputs.branch_ref }}"
           deploy_mode: force_new

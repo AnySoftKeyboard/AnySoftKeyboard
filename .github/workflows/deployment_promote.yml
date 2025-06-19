@@ -22,5 +22,7 @@ jobs:
           ref: ${{ matrix.refname }}
       - uses: ./.github/actions/deploy-request
         with:
+          gh_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          gh_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           refname: "${{ matrix.refname }}"
           deploy_mode: force_promote

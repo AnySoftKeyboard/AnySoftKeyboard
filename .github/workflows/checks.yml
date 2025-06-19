@@ -302,6 +302,9 @@ jobs:
       - uses: actions/checkout@v4.2.2
       - uses: ./.github/actions/deploy-request
         with:
+          gh_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
+          gh_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          refname: ${{ github.ref_name }}
           deploy_mode: force_new
   merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
