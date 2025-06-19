@@ -13,11 +13,7 @@ program
   .description('GitHub Deployments CLI tool')
   .version('1.0.0')
   .requiredOption('--api-username <username>', 'API username')
-  .requiredOption(
-    '--token <githubClient>',
-    'GitHub token',
-    (token: string, _: GitHubApi) => new OctokitGitHubApi(token),
-  )
+  .requiredOption('--token <token>', 'GitHub token')
   .requiredOption('--owner <owner>', 'Repository owner')
   .requiredOption('--repo <repo>', 'Repository name');
 
@@ -35,7 +31,7 @@ program
   .action(async (options, command) => {
     try {
       const globalOpts = command.parent.opts();
-      const ghClient = globalOpts.githubClient as GitHubApi;
+      const ghClient = new OctokitGitHubApi(globalOpts.token);
       const processor = new DeploymentProcessor(ghClient, globalOpts.owner, globalOpts.repo);
 
       const response = await processor.requestDeployment(

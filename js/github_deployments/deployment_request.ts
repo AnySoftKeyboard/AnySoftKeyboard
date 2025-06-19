@@ -34,7 +34,7 @@ export class DeploymentRequestProcessor {
       .map((name) => this.getEnvironmentNameFromParts(configuration.name, name))
       .filter((env) => env !== environmentToDeploy);
 
-    const response = await this.githubApi.createDeployment({
+    const request = {
       owner: this.owner,
       repo: this.repo,
       ref: sha,
@@ -47,7 +47,9 @@ export class DeploymentRequestProcessor {
         environments_to_kill: environmentsToKill,
         previous_environment: previousEnvironment,
       },
-    });
+    };
+    console.log(`Will create a deployment in github with:\n${JSON.stringify(request)}`);
+    const response = await this.githubApi.createDeployment(request);
 
     const deploymentResponse: DeploymentCreateResponse = {
       id: response.id.toString(),
