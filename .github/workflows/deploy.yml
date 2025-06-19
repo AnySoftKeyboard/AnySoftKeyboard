@@ -6,12 +6,9 @@ concurrency:
   cancel-in-progress: true
 env:
   TERM: dumb
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  GRADLE_USER_HOME: ".github_cache_gradle/"
 jobs:
   deploy:
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.2
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4.2.2
@@ -28,19 +25,6 @@ jobs:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
           repository-cache: true
-      - name: setup
-        env:
-          GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
-        run: |
-          ./scripts/ci/ci_setup.sh
-          mkdir -p outputs/apk || true
-          mkdir -p outputs/bundle || true
-          mkdir -p outputs/fdroid || true
-          mkdir -p ime/app/build/outputs/mapping || true
-      - uses: actions/upload-artifact@v4.6.2
-        with:
-          name: github_object
-          path: build/github_object
       - name: status-in-progress
         run: |
           bazel run //js/github_deployments -- status \

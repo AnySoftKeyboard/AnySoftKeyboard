@@ -16,6 +16,13 @@ shift
 export KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD="${1}"
 shift
 
+# Setup the android env for ASK
+./scripts/ci/ci_setup.sh
+mkdir -p outputs/apk || true
+mkdir -p outputs/bundle || true
+mkdir -p outputs/fdroid || true
+mkdir -p ime/app/build/outputs/mapping || true
+
 function deployProcessFromEnvironmentName() {
     #imeMain_alpha_100
     [[ $1 =~ ([a-zA-Z]+)_.*_.* ]]
