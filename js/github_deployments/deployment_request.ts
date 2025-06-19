@@ -28,6 +28,19 @@ export class DeploymentRequestProcessor {
     configuration: DeploymentConfiguration,
     stepIndex: number,
   ): Promise<DeploymentCreateResponse> {
+    if (!this.shouldDeploy(configuration, stepIndex)) {
+      console.log(`Configuration ${configuration.name} is marked not to deploy for step ${stepIndex} on sha ${sha}.`);
+      return {
+        id: '',
+        environment: '',
+        sha: sha,
+        ref: '',
+        task: '',
+        payload: {
+          environments_to_kill: [],
+        },
+      };
+    }
     const environmentToDeploy = this.getEnvironmentName(configuration, stepIndex);
     const previousEnvironment = this.getPreviousEnvironmentName(configuration, stepIndex);
     const environmentsToKill = configuration.environmentSteps
@@ -75,6 +88,10 @@ export class DeploymentRequestProcessor {
 
   private getEnvironmentName(environment: DeploymentConfiguration, index: number): string {
     return this.getEnvironmentNameFromParts(environment.name, environment.environmentSteps[index]);
+  }
+
+  private shouldDeploy(environment: DeploymentConfiguration, index: number): boolean {
+    return environment.environmentSteps[index] !== undefined && environment.environmentSteps[index].trim() !== '';
   }
 
   private getPreviousEnvironmentName(environment: DeploymentConfiguration, index: number): string {

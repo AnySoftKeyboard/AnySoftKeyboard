@@ -45,6 +45,8 @@ export class DeploymentProcessor {
         stepIndex = config.getStepIndex(currentDate, shaToDeploy.date.getUTCMilliseconds());
         if (stepIndex === 0) stepIndex = 1;
         break;
+      default:
+        throw new Error(`Unknown value for deployMode: ${deployMode}`);
     }
 
     if (stepIndex >= config.environmentSteps.length) stepIndex = config.environmentSteps.length - 1;

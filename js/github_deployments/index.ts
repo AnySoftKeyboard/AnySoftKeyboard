@@ -35,11 +35,11 @@ program
       const processor = new DeploymentProcessor(ghClient, globalOpts.owner, globalOpts.repo);
 
       const response = await processor.requestDeployment(
-        globalOpts.deployMode,
+        options.deployMode,
         new Date().getUTCMilliseconds(),
-        globalOpts.sha,
-        globalOpts.refname,
-        globalOpts.shard,
+        options.sha,
+        options.refname,
+        options.shard,
         (githubApi: GitHubApi, owner: string, repo: string) => new DeploymentRequestProcessor(githubApi, owner, repo),
       );
       console.log(`Deployment request completed successfully:\n${JSON.stringify(response)}`);

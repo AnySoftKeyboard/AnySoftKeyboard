@@ -86,5 +86,16 @@ test.describe('DeploymentRequestProcessor', () => {
 
       assert.deepEqual(createDeploymentParams.required_contexts, ['all-green-requirement']);
     });
+
+    test.test('throws error when step value is empty', async () => {
+      createDeploymentParams = null;
+      const config = new DeploymentConfiguration('test', ['env1', '', 'env3'], () => 1);
+      const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
+
+      const response = await processor.processDeploymentStep('sha', config, 1);
+      // API was not called
+      assert.equal(createDeploymentParams, null);
+      assert.equal(response.id, '');
+    });
   });
 });
