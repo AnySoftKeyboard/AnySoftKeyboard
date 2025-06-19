@@ -298,19 +298,11 @@ jobs:
     if: github.event_name == 'push'
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.21.2
     steps:
       - uses: actions/checkout@v4.2.2
-        with:
-          fetch-depth: 2
       - uses: ./.github/actions/deploy-request
-        name: request-new-deploys
         with:
-          sha: ${{ github.sha }}
-          ref: ${{ github.ref }}
-          new_deploy: true
-          api_username: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
-          api_token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          deploy_mode: force_new
   merge-to-main:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release-branch-')
     needs: [all-green-requirement]

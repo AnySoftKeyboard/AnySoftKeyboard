@@ -13,6 +13,7 @@ coverage:
     - "bazel-*/**"
     - "build/**"
     - "**/build/**"
+    - "js/**/index.*"
   status:
     project:
       default:

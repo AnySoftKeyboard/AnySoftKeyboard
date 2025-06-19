@@ -23,6 +23,11 @@ jobs:
           token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}
           path: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
           ref: main
+      - uses: bazel-contrib/setup-bazel@0.15.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
       - name: setup
         env:
           GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
@@ -38,12 +43,14 @@ jobs:
           path: build/github_object
       - name: status-in-progress
         run: |
-          ./gradlew --stacktrace :deployment:updateDeploymentState \
-            -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
-            -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
-            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
-            -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
-            -PrequestStatus.deployment_state="in_progress"
+          bazel run //js/github_deployments -- status \
+            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --owner=${{ github.repository_owner }} \
+            --repo="AnySoftKeyboard" \
+            --environment="${{ github.event.deployment.environment }}" \
+            --deployment-id="${{ github.event.deployment.id }}" \
+            --state=in_progress
       - uses: ./.github/actions/deploy
         with:
           deployment_environment: ${{ github.event.deployment.environment }}
@@ -54,23 +61,26 @@ jobs:
           keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
           keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
       - name: status-success
+        if: success()
         run: |
-          ./gradlew --stacktrace :deployment:updateDeploymentSuccess \
-            -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
-            -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
-            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
-            -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
-            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
-            -PrequestStatus.sha="${{ github.event.deployment.sha }}"
+          bazel run //js/github_deployments -- success \
+            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --owner=${{ github.repository_owner }} \
+            --repo="AnySoftKeyboard" \
+            --environment="${{ github.event.deployment.environment }}" \
+            --sha="${{ github.event.deployment.sha }}"
       - name: status-failure
         if: failure()
         run: |
-          ./gradlew --stacktrace :deployment:updateDeploymentState \
-            -PRequest.apiUsername="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
-            -PRequest.apiUserToken="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
-            -PrequestStatus.environment="${{ github.event.deployment.environment }}" \
-            -PrequestStatus.deployment_id="${{ github.event.deployment.id }}" \
-            -PrequestStatus.deployment_state="failure"
+          bazel run //js/github_deployments -- status \
+            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --owner=${{ github.repository_owner }} \
+            --repo="AnySoftKeyboard" \
+            --environment="${{ github.event.deployment.environment }}" \
+            --deployment-id="${{ github.event.deployment.id }}" \
+            --state=failure
       - uses: actions/upload-artifact@v4.6.2
         if: always()
         continue-on-error: true
