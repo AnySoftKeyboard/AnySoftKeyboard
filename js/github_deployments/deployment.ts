@@ -51,6 +51,6 @@ export class DeploymentProcessor {
 
     if (stepIndex >= config.environmentSteps.length) stepIndex = config.environmentSteps.length - 1;
 
-    return requester.processDeploymentStep(shaToDeploy.sha, config, stepIndex);
+    return requester.processDeploymentStep(shaToDeploy.sha, refname, config, stepIndex);
   }
 }

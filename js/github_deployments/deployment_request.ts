@@ -25,16 +25,19 @@ export class DeploymentRequestProcessor {
 
   async processDeploymentStep(
     sha: string,
+    refname: string,
     configuration: DeploymentConfiguration,
     stepIndex: number,
   ): Promise<DeploymentCreateResponse> {
     if (!this.shouldDeploy(configuration, stepIndex)) {
-      console.log(`Configuration ${configuration.name} is marked not to deploy for step ${stepIndex} on sha ${sha}.`);
+      console.log(
+        `Configuration ${configuration.name} is marked not to deploy for step ${stepIndex} on sha ${sha} in ref ${refname}.`,
+      );
       return {
         id: '',
         environment: '',
         sha: sha,
-        ref: '',
+        ref: refname,
         task: '',
         payload: {
           environments_to_kill: [],
@@ -50,7 +53,8 @@ export class DeploymentRequestProcessor {
     const request = {
       owner: this.owner,
       repo: this.repo,
-      ref: sha,
+      sha: sha,
+      ref: refname,
       task: stepIndex === 0 ? 'deploy' : 'deploy:migration',
       auto_merge: false,
       environment: environmentToDeploy,

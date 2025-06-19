@@ -31,7 +31,7 @@ test.describe('DeploymentRequestProcessor', () => {
         () => 1, // step index 1 means env2 is current
       );
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
-      await processor.processDeploymentStep('sha', config, 1);
+      await processor.processDeploymentStep('sha', 'ref', config, 1);
 
       assert.deepEqual(createDeploymentParams.payload.environments_to_kill.sort(), ['test_env1', 'test_env3'].sort());
     });
@@ -43,7 +43,7 @@ test.describe('DeploymentRequestProcessor', () => {
         () => 1, // step index 1 means env2 is current
       );
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
-      await processor.processDeploymentStep('sha', config, 1);
+      await processor.processDeploymentStep('sha', 'ref', config, 1);
 
       assert.equal(createDeploymentParams.payload.previous_environment, 'test_env1');
     });
@@ -55,7 +55,7 @@ test.describe('DeploymentRequestProcessor', () => {
         () => 0, // step index 0 means env1 is current
       );
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
-      await processor.processDeploymentStep('sha', config, 0);
+      await processor.processDeploymentStep('sha', 'ref', config, 0);
 
       assert.equal(createDeploymentParams.payload.previous_environment, 'NONE');
     });
@@ -64,17 +64,17 @@ test.describe('DeploymentRequestProcessor', () => {
       const config = new DeploymentConfiguration('test', ['env1', 'env2'], () => 0);
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
 
-      await processor.processDeploymentStep('sha', config, 0);
+      await processor.processDeploymentStep('sha', 'ref', config, 0);
       assert.equal(createDeploymentParams.task, 'deploy');
 
-      await processor.processDeploymentStep('sha', config, 1);
+      await processor.processDeploymentStep('sha', 'ref', config, 1);
       assert.equal(createDeploymentParams.task, 'deploy:migration');
     });
 
     test.test('environment is set to correct step value', async () => {
       const config = new DeploymentConfiguration('test', ['env1', 'env2', 'env3'], () => 1);
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
-      await processor.processDeploymentStep('sha', config, 1);
+      await processor.processDeploymentStep('sha', 'ref', config, 1);
 
       assert.equal(createDeploymentParams.environment, 'test_env2');
     });
@@ -82,9 +82,17 @@ test.describe('DeploymentRequestProcessor', () => {
     test.test('required_contexts is exactly ["all-green-requirement"]', async () => {
       const config = new DeploymentConfiguration('test', ['env1'], () => 0);
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
-      await processor.processDeploymentStep('sha', config, 0);
+      await processor.processDeploymentStep('sha', 'ref', config, 0);
 
       assert.deepEqual(createDeploymentParams.required_contexts, ['all-green-requirement']);
+    });
+
+    test.test('ref name is passed', async () => {
+      const config = new DeploymentConfiguration('test', ['env1'], () => 0);
+      const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
+      await processor.processDeploymentStep('sha', 'ref', config, 0);
+
+      assert.deepEqual(createDeploymentParams.ref, 'ref');
     });
 
     test.test('throws error when step value is empty', async () => {
@@ -92,7 +100,7 @@ test.describe('DeploymentRequestProcessor', () => {
       const config = new DeploymentConfiguration('test', ['env1', '', 'env3'], () => 1);
       const processor = new DeploymentRequestProcessor(mockApi, 'owner', 'repo');
 
-      const response = await processor.processDeploymentStep('sha', config, 1);
+      const response = await processor.processDeploymentStep('sha', 'ref', config, 1);
       // API was not called
       assert.equal(createDeploymentParams, null);
       assert.equal(response.id, '');

@@ -25,7 +25,7 @@ const mockGitHubApi: GitHubApi = {
 test.describe('DeploymentProcessor', () => {
   test.test('requestDeployment calls processDeploymentStep with correct stepIndex for force_new', async () => {
     let calledWithStepIndex: number | undefined;
-    const mockProcessDeploymentStep = async (_sha: string, _config: never, stepIndex: number) => {
+    const mockProcessDeploymentStep = async (_sha: string, _ref: string, _config: never, stepIndex: number) => {
       calledWithStepIndex = stepIndex;
       return {
         id: '1',
@@ -55,7 +55,7 @@ test.describe('DeploymentProcessor', () => {
 
   test.test('requestDeployment calls processDeploymentStep with correct stepIndex for force_promote', async () => {
     let calledWithStepIndex: number | undefined;
-    const mockProcessDeploymentStep = async (_sha: string, _config: never, stepIndex: number) => {
+    const mockProcessDeploymentStep = async (_sha: string, _ref: string, _config: never, stepIndex: number) => {
       calledWithStepIndex = stepIndex;
       return {
         id: '2',
@@ -111,7 +111,7 @@ test.describe('DeploymentProcessor', () => {
         date: new Date('2024-06-12T12:00:00Z'),
       }),
     };
-    const mockProcessDeploymentStep = async (sha: string, _config: never, _stepIndex: number) => {
+    const mockProcessDeploymentStep = async (sha: string, _ref: string, _config: never, _stepIndex: number) => {
       usedSha = sha;
       return {
         id: '3',
@@ -141,7 +141,7 @@ test.describe('DeploymentProcessor', () => {
         date: new Date('2024-06-12T12:00:00Z'),
       }),
     };
-    const mockProcessDeploymentStep = async (sha: string, _config: never, _stepIndex: number) => {
+    const mockProcessDeploymentStep = async (sha: string, _ref: string, _config: never, _stepIndex: number) => {
       usedSha = sha;
       return {
         id: '4',
