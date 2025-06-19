@@ -22,7 +22,7 @@ program
   .description('Create a deployment request')
   .requiredOption('--sha <sha>', 'SHA to deploy. If HEAD, it will be calculated from refname.')
   .requiredOption('--refname <refname>', 'Name of branch to deploy.')
-  .addOption(new Option('--shardName <shard>', 'ime or addons').makeOptionMandatory(true).choices(['ime', 'addons']))
+  .addOption(new Option('--shardName <shardName>', 'ime or addons').makeOptionMandatory(true).choices(['ime', 'addons']))
   .addOption(
     new Option('--deployMode <deployMode>', 'force_new, force_promote')
       .makeOptionMandatory(true)
@@ -39,7 +39,7 @@ program
         new Date().getUTCMilliseconds(),
         options.sha,
         options.refname,
-        options.shard,
+        options.shardName,
         (githubApi: GitHubApi, owner: string, repo: string) => new DeploymentRequestProcessor(githubApi, owner, repo),
       );
       console.log(`Deployment request completed successfully:\n${JSON.stringify(response)}`);
