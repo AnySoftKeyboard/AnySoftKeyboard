@@ -3,6 +3,7 @@ import { OctokitGitHubApi, GitHubApi, DeploymentState } from './github_api.js';
 import { exit } from 'process';
 import { DeploymentProcessor } from './deployment.js';
 import { DeploymentStatusProcessor } from './deployment_status.js';
+import { DeploymentRequestProcessor } from './deployment_request.js';
 
 const program = new Command();
 
@@ -43,6 +44,7 @@ program
         globalOpts.sha,
         globalOpts.refname,
         globalOpts.shard,
+        (githubApi: GitHubApi, owner: string, repo: string) => new DeploymentRequestProcessor(githubApi, owner, repo),
       );
       console.log(`Deployment request completed successfully:\n${JSON.stringify(response)}`);
     } catch (error) {

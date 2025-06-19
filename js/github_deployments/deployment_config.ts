@@ -18,12 +18,12 @@ export class DeploymentConfiguration extends DeploymentSteps {
 }
 
 // 3 represents Wednesday (0 is Sunday)
-const promoteOnWednesday: PromotionStepGetter = (currentEpoch: number, _: number) => {
+export const promoteOnWednesday: PromotionStepGetter = (currentEpoch: number, _: number) => {
   const current = new Date(currentEpoch);
   return current.getDay() === 3 ? 1 : 0;
 };
 
-const promoteByDay: PromotionStepGetter = (currentEpoch: number, headCommitEpoch: number) => {
+export const promoteByDay: PromotionStepGetter = (currentEpoch: number, headCommitEpoch: number) => {
   const diffInDays = Math.floor((currentEpoch - headCommitEpoch) / (1000 * 60 * 60 * 24));
   return diffInDays;
 };

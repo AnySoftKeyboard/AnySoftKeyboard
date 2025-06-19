@@ -21,8 +21,9 @@ export class DeploymentProcessor {
     sha: string,
     refname: string,
     shard: string,
+    requestProcessorFactory: (githubApi: GitHubApi, owner: string, repo: string) => DeploymentRequestProcessor,
   ): Promise<DeploymentCreateResponse> {
-    const requester = new DeploymentRequestProcessor(this.githubApi, this.owner, this.repo);
+    const requester = requestProcessorFactory(this.githubApi, this.owner, this.repo);
 
     const config = getDeploymentConfiguration(calculateDeploymentName(refname, shard));
 
@@ -48,6 +49,6 @@ export class DeploymentProcessor {
 
     if (stepIndex >= config.environmentSteps.length) stepIndex = config.environmentSteps.length - 1;
 
-    return requester.processDeploymentStep(sha, config, stepIndex);
+    return requester.processDeploymentStep(shaToDeploy.sha, config, stepIndex);
   }
 }

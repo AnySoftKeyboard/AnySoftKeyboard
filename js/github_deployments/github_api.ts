@@ -57,8 +57,9 @@ export interface GitHubApi {
 export class OctokitGitHubApi implements GitHubApi {
   private octokit: ReturnType<typeof getOctokit>;
 
-  constructor(token: string) {
-    this.octokit = getOctokit(token);
+  constructor(token: string, octokitFactory?: (token: string) => ReturnType<typeof getOctokit>) {
+    if (!octokitFactory) octokitFactory = getOctokit;
+    this.octokit = octokitFactory(token);
   }
 
   async getCommit(params: { owner: string; repo: string; ref_or_sha: string }): Promise<{
