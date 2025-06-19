@@ -22,7 +22,9 @@ program
   .description('Create a deployment request')
   .requiredOption('--sha <sha>', 'SHA to deploy. If HEAD, it will be calculated from refname.')
   .requiredOption('--refname <refname>', 'Name of branch to deploy.')
-  .addOption(new Option('--shardName <shardName>', 'ime or addons').makeOptionMandatory(true).choices(['ime', 'addons']))
+  .addOption(
+    new Option('--shardName <shardName>', 'ime or addons').makeOptionMandatory(true).choices(['ime', 'addons']),
+  )
   .addOption(
     new Option('--deployMode <deployMode>', 'force_new, force_promote')
       .makeOptionMandatory(true)
