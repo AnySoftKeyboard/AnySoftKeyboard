@@ -1,38 +1,43 @@
 ---
-name: "deploy-request"
-description: "Request a deployment"
-author: "menny"
+name: 'Deploy Request'
+description: 'Request deployment of the IMA and all AddOns'
 inputs:
   sha:
-    description: "SHA to deploy. Either a specific commit, or HEAD."
-    required: true
-  ref:
-    description: "branch to deploy"
-    required: true
-  new_deploy:
-    description: "whether this is a new deploy"
-    required: true
-  api_username:
-    description: "username for github api"
-    required: true
-  api_token:
-    description: "token for github api"
+    description: 'Commit SHA to deploy'
+    default: 'HEAD'
+  refname:
+    description: 'Branch name to release'
+    default: '${{ github.ref_name }}'
+  deploy_mode:
+    description: 'What to deploy'
     required: true
 runs:
-  using: "docker"
-  image: "docker://ghcr.io/menny/android:1.21.2"
-  env:
-    TERM: dumb
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-    GRADLE_USER_HOME: ".github_cache_gradle/"
-  entrypoint: /bin/bash
-  args:
-    - .github/actions/deploy-request/deployment_request.sh
-    - ${{ inputs.sha }}
-    - ${{ inputs.ref }}
-    - ${{ inputs.new_deploy }}
-    - ${{ inputs.api_username }}
-    - ${{ inputs.api_token }}
-branding:
-  icon: 'upload-cloud'
-  color: 'blue'
+  using: "composite"
+  steps:
+    - uses: bazel-contrib/setup-bazel@0.15.0
+      with:
+        bazelisk-cache: true
+        disk-cache: ${{ github.workflow }}
+        repository-cache: true
+    - name: Request IME Deployment
+      run: |
+        bazel run //js/github_deployments -- deploy \
+          --api-username=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} \
+          --token=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} \
+          --owner=${{ github.repository_owner }} \
+          --repo=AnySoftKeyboard \
+          --sha="${{ inputs.sha }}" \
+          --refname="${{ inputs.refname }}" \
+          --shardName=ime \
+          --deployMode="${{ inputs.deploy_mode }}"
+    - name: Request add-ons Deployment
+      run: |
+        bazel run //js/github_deployments -- deploy \
+          --api-username=${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }} \
+          --token=${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }} \
+          --owner=${{ github.repository_owner }} \
+          --repo=AnySoftKeyboard \
+          --sha="${{ inputs.sha }}" \
+          --refname="${{ inputs.refname }}" \
+          --shardName=addons \
+          --deployMode="${{ inputs.deploy_mode }}"

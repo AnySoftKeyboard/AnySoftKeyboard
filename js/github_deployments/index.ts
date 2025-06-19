@@ -26,6 +26,11 @@ program
   .requiredOption('--sha <sha>', 'SHA to deploy. If HEAD, it will be calculated from refname.')
   .requiredOption('--refname <refname>', 'Name of branch to deploy.')
   .addOption(new Option('--shardName <shard>', 'ime or addons').makeOptionMandatory(true).choices(['ime', 'addons']))
+  .addOption(
+    new Option('--deployMode <deployMode>', 'force_new, force_promote')
+      .makeOptionMandatory(true)
+      .choices(['force_new', 'force_promote']),
+  )
   .action(async (options, command) => {
     try {
       const globalOpts = command.parent.opts();
@@ -33,6 +38,7 @@ program
       const processor = new DeploymentProcessor(ghClient, globalOpts.owner, globalOpts.repo);
 
       const response = await processor.requestDeployment(
+        globalOpts.deployMode,
         new Date().getUTCMilliseconds(),
         globalOpts.sha,
         globalOpts.refname,

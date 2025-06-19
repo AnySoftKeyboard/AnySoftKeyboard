@@ -2,6 +2,8 @@ import { calculateDeploymentName, getDeploymentConfiguration } from './deploymen
 import { DeploymentCreateResponse, DeploymentRequestProcessor } from './deployment_request.js';
 import { GitHubApi } from './github_api.js';
 
+export type DeployMode = 'force_new' | 'force_promote';
+
 export class DeploymentProcessor {
   private githubApi: GitHubApi;
   private owner: string;
@@ -14,6 +16,7 @@ export class DeploymentProcessor {
   }
 
   public async requestDeployment(
+    deployMode: DeployMode,
     currentDate: number,
     sha: string,
     refname: string,
@@ -32,7 +35,17 @@ export class DeploymentProcessor {
       throw new Error(`Could not fetch date for ref ${refname} and sha ${sha}`);
     }
 
-    let stepIndex = config.getStepIndex(currentDate, shaToDeploy.date.getUTCMilliseconds());
+    let stepIndex: number;
+    switch (deployMode) {
+      case 'force_new':
+        stepIndex = 0;
+        break;
+      case 'force_promote':
+        stepIndex = config.getStepIndex(currentDate, shaToDeploy.date.getUTCMilliseconds());
+        if (stepIndex === 0) stepIndex = 1;
+        break;
+    }
+
     if (stepIndex >= config.environmentSteps.length) stepIndex = config.environmentSteps.length - 1;
 
     return requester.processDeploymentStep(sha, config, stepIndex);
