@@ -4,7 +4,7 @@ import { locateStringResourcesFolders } from './utils.js';
 /**
  * Replace all occurrences of '...' with '…' in the given file.
  */
-function replaceEllipsisInFile(filePath: string): boolean {
+export function replaceEllipsisInFile(filePath: string): boolean {
   const content = fs.readFileSync(filePath, 'utf8');
   const replaced = content.replace(/\.\.\./g, '…');
   if (content !== replaced) {

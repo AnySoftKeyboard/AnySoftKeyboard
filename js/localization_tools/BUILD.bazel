@@ -15,6 +15,15 @@ ts_library(
     ],
 )
 
+ts_test(
+    name = "replace_ellipsis_tests",
+    entry_point = "replace_ellipsis.test.ts",
+    deps = [
+        ":replace_ellipsis",
+        "//:node_modules/@types/node",
+    ],
+)
+
 ts_library(
     name = "delete_localization_files",
     srcs = [
