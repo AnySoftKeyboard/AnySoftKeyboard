@@ -2,12 +2,12 @@ import * as test from 'node:test';
 import * as assert from 'node:assert';
 import * as fs from 'fs';
 import * as path from 'path';
-import { tmpdir } from 'os'; // Import tmpdir from os
-import { join } from 'path'; // Import join from path
-import { replaceEllipsisInFile } from './replace_ellipsis.js'; // Changed import path
+import { tmpdir } from 'os';
+import { join } from 'path';
+import { replaceEllipsisInFile } from './replace_ellipsis.js';
 
 test.describe('replaceEllipsisInFile', () => {
-  let tmpDir; // Declare tmpDir
+  let tmpDir: string;
 
   test.beforeEach(() => {
     // Create a unique temporary directory before each test
