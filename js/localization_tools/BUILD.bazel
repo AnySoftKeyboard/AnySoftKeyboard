@@ -20,6 +20,13 @@ ts_test(
     entry_point = "replace_ellipsis.test.ts",
     deps = [
         ":replace_ellipsis",
+)
+
+ts_test(
+    name = "tools_utils_tests",
+    entry_point = "utils.test.ts",
+    deps = [
+        ":tools_utils",
         "//:node_modules/@types/node",
     ],
 )
