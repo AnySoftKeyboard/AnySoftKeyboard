@@ -20,6 +20,8 @@ ts_test(
     entry_point = "replace_ellipsis.test.ts",
     deps = [
         ":replace_ellipsis",
+        "//:node_modules/@types/node",
+    ],
 )
 
 ts_test(
