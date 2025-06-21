@@ -15,11 +15,11 @@ Thank you for the fine contributors:
 1. [kati42](https://github.com/kati42) (26)
 1. [rillian](https://github.com/rillian) (19)
 1. [apederson94](https://github.com/apederson94) (14)
+1. [google-labs-jules](https://github.com/google-labs-jules) (14) 🤖
 1. [rimas-kudelis](https://github.com/rimas-kudelis) (14)
 1. [pokerazor](https://github.com/pokerazor) (13)
 1. [sslaia](https://github.com/sslaia) (13)
 1. [wishawa](https://github.com/wishawa) (13)
-1. [google-labs-jules](https://github.com/google-labs-jules) (12) 🤖
 1. [danielrparks](https://github.com/danielrparks) (11)
 1. [Taknok](https://github.com/Taknok) (10)
 1. [xoomerq](https://github.com/xoomerq) (10)
