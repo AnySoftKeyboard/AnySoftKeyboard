@@ -24,6 +24,15 @@ ts_test(
     ],
 )
 
+ts_test(
+    name = "tools_utils_tests",
+    entry_point = "utils.test.ts",
+    deps = [
+        ":tools_utils",
+        "//:node_modules/@types/node",
+    ],
+)
+
 ts_library(
     name = "delete_localization_files",
     srcs = [
