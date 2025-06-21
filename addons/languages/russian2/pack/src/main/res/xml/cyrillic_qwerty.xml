@@ -30,7 +30,7 @@
         <Key android:codes="1088" android:keyLabel="р"/>
         <Key android:codes="1086" android:keyLabel="о" android:popupCharacters="ӧөӫѳѻ"/>
         <Key android:codes="1083" android:keyLabel="л" android:popupCharacters="љѧѩ"/>
-        <Key android:codes="1076" android:keyLabel="д"/>
+        <Key android:codes="1076" android:keyLabel="д" android:popupCharacters="ј"/>
         <Key android:codes="1078" android:keyLabel="ж" android:popupCharacters="ђҗӂӝѫѭ"/>
         <Key android:codes="1101" android:keyLabel="э" android:popupCharacters="є" android:keyEdgeFlags="right"/>
     </Row>
