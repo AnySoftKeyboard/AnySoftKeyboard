@@ -166,4 +166,66 @@ test.describe('DeploymentProcessor', () => {
     );
     assert.equal(usedSha, 'my-commit-sha');
   });
+
+  test.test('requestDeployment does not call deploy if not the right branch for addons', async () => {
+    let called: boolean = false;
+    const mockProcessDeploymentStep = async (sha: string, _ref: string, _config: never, _stepIndex: number) => {
+      called = true;
+      return {
+        id: '4',
+        environment: 'env',
+        sha,
+        ref: 'ref',
+        task: 'deploy',
+        payload: { environments_to_kill: [] },
+      };
+    };
+    const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
+      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+    };
+    const processor = new DeploymentProcessor(mockGitHubApi, 'owner', 'repo');
+    const emptyResult = await processor.requestDeployment(
+      'force_new',
+      Date.now(),
+      'my-commit-sha',
+      '',
+      'addons',
+      mockRequestProcessorFactory,
+    );
+    assert.equal(called, false);
+    assert.equal(emptyResult.id, '');
+    assert.equal(emptyResult.task, '');
+    assert.equal(emptyResult.environment, '');
+  });
+
+  test.test('requestDeployment does not call deploy if not the right branch for ime', async () => {
+    let called: boolean = false;
+    const mockProcessDeploymentStep = async (sha: string, _ref: string, _config: never, _stepIndex: number) => {
+      called = true;
+      return {
+        id: '4',
+        environment: 'env',
+        sha,
+        ref: 'ref',
+        task: 'deploy',
+        payload: { environments_to_kill: [] },
+      };
+    };
+    const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
+      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+    };
+    const processor = new DeploymentProcessor(mockGitHubApi, 'owner', 'repo');
+    const emptyResult = await processor.requestDeployment(
+      'force_new',
+      Date.now(),
+      'my-commit-sha',
+      '',
+      'ime',
+      mockRequestProcessorFactory,
+    );
+    assert.equal(called, false);
+    assert.equal(emptyResult.id, '');
+    assert.equal(emptyResult.task, '');
+    assert.equal(emptyResult.environment, '');
+  });
 });

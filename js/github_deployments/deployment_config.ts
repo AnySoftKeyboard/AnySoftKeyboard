@@ -63,14 +63,15 @@ const deploymentConfigurations: Record<string, DeploymentSteps> = {
   addOnsProduction: new DeploymentSteps(['production_010', '', 'production_050', '', 'production_100'], promoteByDay),
 };
 
-export type DeploymentNameType = keyof typeof deploymentConfigurations;
+export type DeploymentNameType = keyof typeof deploymentConfigurations | '';
 
-export const getDeploymentConfiguration = (deploymentName: DeploymentNameType): DeploymentConfiguration => {
+export const getDeploymentConfiguration = (deploymentName: DeploymentNameType): DeploymentConfiguration | undefined => {
+  if (!deploymentName) return undefined;
   const steps = deploymentConfigurations[deploymentName];
   return new DeploymentConfiguration(deploymentName, steps.environmentSteps, steps.getStepIndex);
 };
 
-export const calculateDeploymentName = (refname: string, shardName: string): DeploymentNameType => {
+export const calculateDeploymentName = (refname: string, shardName: 'ime' | 'addons'): DeploymentNameType => {
   if (refname === 'main') {
     if (shardName === 'ime') {
       return 'imeMain';
@@ -78,10 +79,12 @@ export const calculateDeploymentName = (refname: string, shardName: string): Dep
       return 'addOnsMain';
     }
   } else {
-    if (shardName === 'ime') {
+    if (shardName === 'ime' && /^release-branch-ime-.*$/.test(refname)) {
       return 'imeProduction';
-    } else {
+    } else if (shardName === 'addons' && /^release-branch-addons-.*$/.test(refname)) {
       return 'addOnsProduction';
+    } else {
+      return '';
     }
   }
 };
