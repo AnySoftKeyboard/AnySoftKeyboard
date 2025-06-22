@@ -46,13 +46,31 @@ test.describe('deployment_config', () => {
       assert.equal(calculateDeploymentName('main', 'ime'), 'imeMain');
     });
     test.test('main ref, addOns shard', () => {
-      assert.equal(calculateDeploymentName('main', 'addOns'), 'addOnsMain');
+      assert.equal(calculateDeploymentName('main', 'addons'), 'addOnsMain');
     });
-    test.test('non-main ref, ime shard', () => {
-      assert.equal(calculateDeploymentName('release_branch', 'ime'), 'imeProduction');
+    test.test('release-branch-ime ref, ime shard', () => {
+      assert.equal(calculateDeploymentName('release-branch-ime-20240722', 'ime'), 'imeProduction');
     });
-    test.test('non-main ref, addOns shard', () => {
-      assert.equal(calculateDeploymentName('release_branch', 'addOns'), 'addOnsProduction');
+    test.test('release-branch-addons ref, addOns shard', () => {
+      assert.equal(calculateDeploymentName('release-branch-addons-20240722', 'addons'), 'addOnsProduction');
+    });
+    test.test('non-matching release-branch-ime ref, ime shard should be empty', () => {
+      assert.equal(calculateDeploymentName('release-branch-something-20240722', 'ime'), '');
+    });
+    test.test('non-matching release-branch-addons ref, addOns shard should be empty', () => {
+      assert.equal(calculateDeploymentName('release-branch-something-v1.12-r5', 'addons'), '');
+    });
+    test.test('non-matching shard for ime release branch should be empty', () => {
+      assert.equal(calculateDeploymentName('release-branch-ime-v1.12-r5', 'addons'), '');
+    });
+    test.test('non-matching shard for addons release branch should be empty', () => {
+      assert.equal(calculateDeploymentName('release-branch-addons-v5.2-r1', 'ime'), '');
+    });
+    test.test('random branch name for ime shard should be empty', () => {
+      assert.equal(calculateDeploymentName('feature-branch', 'ime'), '');
+    });
+    test.test('random branch name for addOns shard should be empty', () => {
+      assert.equal(calculateDeploymentName('feature-branch', 'addons'), '');
     });
   });
 });
