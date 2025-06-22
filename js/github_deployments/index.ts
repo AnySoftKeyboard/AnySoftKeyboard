@@ -44,7 +44,11 @@ program
         options.shardName,
         (githubApi: GitHubApi, owner: string, repo: string) => new DeploymentRequestProcessor(githubApi, owner, repo),
       );
-      console.log(`Deployment request completed successfully:\n${JSON.stringify(response)}`);
+      if (response.id === '') {
+        console.log(`Deployment request ignored:\n${JSON.stringify(response)}`);
+      } else {
+        console.log(`Deployment request completed successfully:\n${JSON.stringify(response)}`);
+      }
     } catch (error) {
       console.error('Deployment request failed:', error);
       exit(1);
