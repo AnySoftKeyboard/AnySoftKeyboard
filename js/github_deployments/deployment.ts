@@ -20,12 +20,25 @@ export class DeploymentProcessor {
     currentDate: number,
     sha: string,
     refname: string,
-    shard: string,
+    shard: 'ime' | 'addons',
     requestProcessorFactory: (githubApi: GitHubApi, owner: string, repo: string) => DeploymentRequestProcessor,
   ): Promise<DeploymentCreateResponse> {
     const requester = requestProcessorFactory(this.githubApi, this.owner, this.repo);
 
     const config = getDeploymentConfiguration(calculateDeploymentName(refname, shard));
+    if (!config) {
+      console.log(`refname and shard combination is not eligible for deployment: ${sha}, ${refname}, ${shard}.`);
+      return {
+        id: '',
+        environment: '',
+        sha: sha,
+        ref: refname,
+        task: '',
+        payload: {
+          environments_to_kill: [],
+        },
+      };
+    }
 
     const shaToDeploy = await this.githubApi.getCommit({
       owner: this.owner,
