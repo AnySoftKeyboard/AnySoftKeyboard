@@ -1,0 +1,30 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Building
+- this project uses Bazel build system for TypeScript and some Java code.
+- this project uses Gradle build system for Android related code (mostly under the forlder `/ime`, `/api` and `/addons`).
+- Prefer not adding new 3rd party dependencies.
+- Do not add 3rd-party dependencies without approval. If you have a solution that requires a new 3rd party, ask for an approval before implementing this solution.
+  
+# Lint and Format
+- don't try to fix linting or formatting issues, we have auto-fixers for that. This is applicable for *all* code in the codebase.
+- You can run the auto-fixers with `bazel run //:format`. This is applicable for *all* code in the codebase.
+- for Android code, you should also run `./gradle spotlessApply`, which had additional formating and linting.
+
+# Tests
+- when ask to suggest tests for a function or file:
+  - Do not implement anything or suggest how to implement.
+  - You should only look at the code and suggest tests based on functionality and error cases.
+  - Identify the "happy path" - core functionality - cases and mark them as such in your suggestions
+  - Identify the error cases and mark them as such in your suggestions. Estimate importance based on likelyhood.
+  - Identify the edge cases and mark them as such in your suggestions. Estimate importance based on likelyhood.
+
+## Bazel Tests
+- To run tests use `bazel test //...`
+- For TypeScript code we are using `node` test runner.
+
+## Gradle Tests
+- To run tests use `./gradlew :[path]:[to]:[module]:testDebugUnitTest`. For example, to run test under `ime/base-rx`, call `./gradlew :ime:base-rx:testDebugUnitTest`.
