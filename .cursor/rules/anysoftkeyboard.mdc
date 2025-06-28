@@ -28,3 +28,11 @@ alwaysApply: true
 
 ## Gradle Tests
 - To run tests use `./gradlew :[path]:[to]:[module]:testDebugUnitTest`. For example, to run test under `ime/base-rx`, call `./gradlew :ime:base-rx:testDebugUnitTest`.
+
+# Naming
+- use inclusive language when creating variables, functions, class names, stubs, etc:
+  - Do not use "dummy", instead use "fake", "mock", "noop" etc.
+  - Do not use "blacklist", instead use "disallow-list"
+  - Do not use "whilelist", instead use "allow-list"
+  - Stay away from: "master", "slave", "insane", "dumb", etc.
+  - Use gender neutral pronouns
