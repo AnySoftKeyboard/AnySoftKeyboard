@@ -38,7 +38,7 @@ program
 
       const response = await processor.requestDeployment(
         options.deployMode,
-        new Date().getUTCMilliseconds(),
+        Date.now(),
         options.sha,
         options.refname,
         options.shardName,
