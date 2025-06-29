@@ -23,8 +23,6 @@ export class DeploymentProcessor {
     shard: string,
     requestProcessorFactory: (githubApi: GitHubApi, owner: string, repo: string) => DeploymentRequestProcessor,
   ): Promise<DeploymentCreateResponse> {
-    const requester = requestProcessorFactory(this.githubApi, this.owner, this.repo);
-
     const config = getDeploymentConfiguration(calculateDeploymentName(refname, shard));
 
     const shaToDeploy = await this.githubApi.getCommit({
@@ -42,7 +40,7 @@ export class DeploymentProcessor {
         stepIndex = 0;
         break;
       case 'force_promote':
-        stepIndex = config.getStepIndex(currentDate, shaToDeploy.date.getUTCMilliseconds());
+        stepIndex = config.getStepIndex(currentDate, shaToDeploy.date.getTime());
         if (stepIndex === 0) stepIndex = 1;
         break;
       default:
@@ -51,6 +49,7 @@ export class DeploymentProcessor {
 
     if (stepIndex >= config.environmentSteps.length) stepIndex = config.environmentSteps.length - 1;
 
+    const requester = requestProcessorFactory(this.githubApi, this.owner, this.repo);
     return requester.processDeploymentStep(shaToDeploy.sha, refname, config, stepIndex);
   }
 }

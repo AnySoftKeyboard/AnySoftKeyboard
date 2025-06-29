@@ -65,7 +65,7 @@ export class DeploymentRequestProcessor {
         previous_environment: previousEnvironment,
       },
     };
-    console.log(`Will create a deployment in github with:\n${JSON.stringify(request)}`);
+    console.log(`Will create a deployment in github with for step ${stepIndex}:\n${JSON.stringify(request)}`);
     const response = await this.githubApi.createDeployment(request);
 
     const deploymentResponse: DeploymentCreateResponse = {
