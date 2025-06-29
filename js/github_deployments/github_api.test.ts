@@ -9,8 +9,8 @@ const mockOctokit = {
     repos: {
       getCommit: async ({ owner: _owner, repo: _repo, ref: _ref }: never) => ({
         data: {
+          sha: 'tree-sha',
           commit: {
-            tree: { sha: 'tree-sha' },
             author: { email: 'author@email.com', date: '2024-06-12T12:00:00Z' },
           },
           author: { login: 'octocat' },
