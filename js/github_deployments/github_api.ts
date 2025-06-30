@@ -75,7 +75,7 @@ export class OctokitGitHubApi implements GitHubApi {
     });
     const commit = response.data;
     return {
-      sha: commit.commit.tree.sha,
+      sha: commit.sha,
       login: commit.author?.login,
       email: commit.commit.author?.email,
       date: commit.commit.author?.date ? new Date(commit.commit.author?.date) : undefined,
