@@ -98,7 +98,7 @@ Thank you for the fine contributors:
 1. [singpolyma](https://github.com/singpolyma) (2)
 1. [suntabu](https://github.com/suntabu) (2)
 1. [1000283](https://github.com/1000283) (1)
+1. [andrewrabert](https://github.com/andrewrabert) (1)
 1. [Andy3153](https://github.com/Andy3153) (1)
 1. [AnXh3L0](https://github.com/AnXh3L0) (1)
 1. [Apflkuacha](https://github.com/Apflkuacha) (1)
-1. [baduhai](https://github.com/baduhai) (1)
