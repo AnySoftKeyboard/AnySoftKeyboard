@@ -30,6 +30,14 @@ import org.robolectric.annotation.LooperMode;
 public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
 
   @Test
+  public void testPredictionOnInDefaultTextField() {
+    final EditorInfo editorInfo =
+        createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
+    simulateOnStartInputFlow(false, editorInfo);
+    Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
+  }
+
+  @Test
   public void testStripActionLifeCycle() {
     Assert.assertNotNull(
         mAnySoftKeyboardUnderTest
