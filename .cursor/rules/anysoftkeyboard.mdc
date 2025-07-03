@@ -21,7 +21,10 @@ alwaysApply: true
   - Identify the "happy path" - core functionality - cases and mark them as such in your suggestions
   - Identify the error cases and mark them as such in your suggestions. Estimate importance based on likelyhood.
   - Identify the edge cases and mark them as such in your suggestions. Estimate importance based on likelyhood.
-
+- when implementing tests:
+  - prefer creating fakes over mocks or patches. But, if it is simpler to patch or mock, do that.
+  - it is not very important to type mocks/spies/patch. You can use `any`. In such cases, ignore the typing with `// @ts-expect-error any in tests is fine`
+ 
 ## Bazel Tests
 - To run tests use `bazel test //...`
 - For TypeScript code we are using `node` test runner.
