@@ -4,7 +4,12 @@ import { getLatestGitHubRelease } from './latest_version_locator.js';
 
 const GITHUB_ACTION_REGEX = /uses:\s*([\w-]+\/[\w-]+)@([\w\.-]+)/g;
 
-export const update_gh_actions = async (workflowFolder: string, gh_user: string, gh_token: string): Promise<void> => {
+export const update_gh_actions = async (
+  workflowFolder: string,
+  gh_user: string,
+  gh_token: string,
+  latestVersionGetter: typeof getLatestGitHubRelease = getLatestGitHubRelease,
+): Promise<void> => {
   const actions = new Set<string>();
   const files = fs.globSync(path.join(workflowFolder, '*.yml'), { withFileTypes: false });
 
@@ -26,7 +31,7 @@ export const update_gh_actions = async (workflowFolder: string, gh_user: string,
 
   const actionVersions: Record<string, string> = {};
   const promises = Array.from(actions).map((action) =>
-    getLatestGitHubRelease(gh_user, gh_token, action).then((version) => {
+    latestVersionGetter(gh_user, gh_token, action).then((version) => {
       if (version) {
         actionVersions[action] = version;
         console.log(` - ${action}: latest version ${version}`);

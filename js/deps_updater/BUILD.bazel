@@ -66,3 +66,9 @@ ts_test(
     entry_point = "latest_version_locator.test.ts",
     deps = [":latest_version_locator"],
 )
+
+ts_test(
+    name = "github_actions_updater_tests",
+    entry_point = "github_actions_updater.test.ts",
+    deps = [":github_actions_updater"],
+)

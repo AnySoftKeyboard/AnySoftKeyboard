@@ -21,13 +21,16 @@ alwaysApply: true
   - Identify the "happy path" - core functionality - cases and mark them as such in your suggestions
   - Identify the error cases and mark them as such in your suggestions. Estimate importance based on likelyhood.
   - Identify the edge cases and mark them as such in your suggestions. Estimate importance based on likelyhood.
-
-## Bazel Tests
-- To run tests use `bazel test //...`
-- For TypeScript code we are using `node` test runner.
-
-## Gradle Tests
-- To run tests use `./gradlew :[path]:[to]:[module]:testDebugUnitTest`. For example, to run test under `ime/base-rx`, call `./gradlew :ime:base-rx:testDebugUnitTest`.
+- when implementing tests:
+  - For TypeScript, the test file name follows the pattern `[original_file_name].test.ts`
+  - For Java and Kotlin, the test file name follows the pattern `[original_file_name]Test.java`
+  - For typescript, use `node` test runner. Look at other test files for inspiration. 
+  - prefer creating fakes over mocks or patches. But, if it is simpler to patch or mock, do that.
+  - it is not very important to type mocks/spies/patch. You can use `any`. In such cases, ignore the typing with `// @ts-expect-error any in tests is fine`
+ 
+## Running Tests
+- To run tests in bazel use `bazel test //...`
+- To run tests in gradle use `./gradlew :[path]:[to]:[module]:testDebugUnitTest`. For example, to run test under `ime/base-rx`, call `./gradlew :ime:base-rx:testDebugUnitTest`.
 
 # Naming
 - use inclusive language when creating variables, functions, class names, stubs, etc:
