@@ -294,6 +294,29 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
   }
 
   @Test
+  public void testSuggestionsRestartWhenMovingCursorEvenWhenRestarting() {
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
+    simulateOnStartInputFlow(
+        true, createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT));
+
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hell yes");
+    Assert.assertEquals(
+        "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+
+    mAnySoftKeyboardUnderTest.resetMockCandidateView();
+    mAnySoftKeyboardUnderTest.moveCursorToPosition(2, true);
+    TestRxSchedulers.drainAllTasksUntilEnd();
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.getCurrentComposedWord().cursorPosition());
+    Assert.assertEquals(
+        "hell yes", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+    verifySuggestions(true, "hell", "hello");
+    Assert.assertEquals(
+        "hell", mAnySoftKeyboardUnderTest.getCurrentComposedWord().getTypedWord().toString());
+    Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+  }
+
+  @Test
   public void testDoesNotPostRestartOnBackspaceWhilePredicting() {
     simulateFinishInputFlow();
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);

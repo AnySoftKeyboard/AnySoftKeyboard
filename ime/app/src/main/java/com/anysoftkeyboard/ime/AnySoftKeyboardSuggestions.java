@@ -97,7 +97,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
   private boolean mInputFieldSupportsAutoPick;
   private boolean mAutoCorrectOn;
   private boolean mAllowSuggestionsRestart = true;
-  private boolean mCurrentlyAllowSuggestionRestart = true;
+
   private boolean mJustAutoAddedWord = false;
 
   @VisibleForTesting
@@ -243,18 +243,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES);
 
     abortCorrectionAndResetPredictionState(false);
-
-    if (!restarting) {
-      mCurrentlyAllowSuggestionRestart = mAllowSuggestionsRestart;
-    } else {
-      // something very fishy happening here...
-      // this is the only way I can get around it.
-      // it seems that when a onStartInput is called with restarting ==
-      // true
-      // suggestions restart fails :(
-      // see Browser when editing multiline textbox
-      mCurrentlyAllowSuggestionRestart = false;
-    }
   }
 
   @Override
@@ -973,7 +961,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     final InputViewBinder inputView = getInputView();
     if (!isPredictionOn()
         || !mAllowSuggestionsRestart
-        || !mCurrentlyAllowSuggestionRestart
         || inputView == null
         || !inputView.isShown()) {
       // why?
@@ -987,10 +974,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
       Logger.d(
           TAG,
           "performRestartWordSuggestion: no need to restart: isPredictionOn=%s,"
-              + " mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s",
+              + " mAllowSuggestionsRestart=%s",
           isPredictionOn(),
-          mAllowSuggestionsRestart,
-          mCurrentlyAllowSuggestionRestart);
+          mAllowSuggestionsRestart);
       return false;
     } else if (!isCursorTouchingWord()) {
       Logger.d(TAG, "User moved cursor to no-man land. Bye bye.");
