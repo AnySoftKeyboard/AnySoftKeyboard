@@ -38,7 +38,7 @@ public class GestureTypingDetector {
 
   @NonNull private final Iterable<Keyboard.Key> mKeys;
 
-  @NonNull private final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
+  @NonNull private SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
 
   @NonNull private List<char[][]> mWords = Collections.emptyList();
   @NonNull private List<int[]> mWordFrequencies = Collections.emptyList();
@@ -53,7 +53,7 @@ public class GestureTypingDetector {
   }
 
   private final ReplaySubject<LoadingState> mGenerateStateSubject = ReplaySubject.createWithSize(1);
-  private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
+  private ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
   public GestureTypingDetector(
       double frequencyFactor,
@@ -91,6 +91,10 @@ public class GestureTypingDetector {
     mGeneratingDisposable.dispose();
     mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
     mGenerateStateSubject.onComplete();
+    mWords = Collections.emptyList();
+    mWordFrequencies = Collections.emptyList();
+    mWordsCorners = new ArrayList<>();
+    mKeysByCharacter = new SparseArray<>();
   }
 
   private static Single<LoadingState> generateCornersInBackground(
@@ -398,7 +402,7 @@ public class GestureTypingDetector {
   }
 
   private static class WorkspaceData {
-    static final int MAX_GESTURE_LENGTH = 2048;
+    static final int MAX_GESTURE_LENGTH = 1024;
     private int mCurrentGestureArraySize = 0;
     private final int[] mCurrentGestureXs = new int[MAX_GESTURE_LENGTH];
     private final int[] mCurrentGestureYs = new int[MAX_GESTURE_LENGTH];

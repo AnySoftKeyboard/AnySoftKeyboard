@@ -14,6 +14,15 @@ alwaysApply: true
 - You can run the auto-fixers with `bazel run //:format`. This is applicable for *all* code in the codebase.
 - for Android code, you should also run `./gradle spotlessApply`, which had additional formating and linting.
 
+# Git Commit Guidelines
+Before creating a commit always run `bazel run //:format`.
+If the changed code is related to Android, also run `./gradle spotlessApply`.
+
+## Commit Message
+When creating a commit message, follow these guidelines:
+- **Title:** Use a concise title.
+- **Description:** The description should include a short description of the issue (bug, feature-request, crash, chore, etc) and a short description of the solution.
+
 # Tests
 - when ask to suggest tests for a function or file:
   - Do not implement anything or suggest how to implement.
