@@ -40,6 +40,7 @@ When creating a commit message, follow these guidelines:
 ## Running Tests
 - To run tests in bazel use `bazel test //...`
 - To run tests in gradle use `./gradlew :[path]:[to]:[module]:testDebugUnitTest`. For example, to run test under `ime/base-rx`, call `./gradlew :ime:base-rx:testDebugUnitTest`.
+- When running tests in the module `:ime:app`, ensure you are using the test filter `--tests` and filter for the desired test class. For example, to run tests for `KeyPreviewsManagerTest` in `:ime:app`, use `./gradlew :ime:app:testDebugUnitTest --tests "com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManagerTest"`.
 
 # Naming
 - use inclusive language when creating variables, functions, class names, stubs, etc:
