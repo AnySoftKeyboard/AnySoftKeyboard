@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        refname: [main, release-branch-addons-v5.1-r2]
+        refname: [main, release-branch-addons-v5.1-r2, release-branch-ime-v1.12-r1]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4.2.2
