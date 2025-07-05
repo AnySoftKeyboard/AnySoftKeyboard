@@ -2,7 +2,7 @@
 
 Thank you for the fine contributors:
 
-1. [menny](https://github.com/menny) (6.6k)
+1. [menny](https://github.com/menny) (6.7k)
 1. [anysoftkeyboard-bot](https://github.com/anysoftkeyboard-bot) (0.6k) 🤖
 1. [herrlado](https://github.com/herrlado) (127)
 1. [ArenaL5](https://github.com/ArenaL5) (76)
@@ -14,8 +14,8 @@ Thank you for the fine contributors:
 1. [lubenard](https://github.com/lubenard) (30)
 1. [kati42](https://github.com/kati42) (26)
 1. [rillian](https://github.com/rillian) (19)
+1. [google-labs-jules](https://github.com/google-labs-jules) (17) 🤖
 1. [apederson94](https://github.com/apederson94) (14)
-1. [google-labs-jules](https://github.com/google-labs-jules) (14) 🤖
 1. [rimas-kudelis](https://github.com/rimas-kudelis) (14)
 1. [pokerazor](https://github.com/pokerazor) (13)
 1. [sslaia](https://github.com/sslaia) (13)
@@ -98,7 +98,7 @@ Thank you for the fine contributors:
 1. [singpolyma](https://github.com/singpolyma) (2)
 1. [suntabu](https://github.com/suntabu) (2)
 1. [1000283](https://github.com/1000283) (1)
+1. [andrewrabert](https://github.com/andrewrabert) (1)
 1. [Andy3153](https://github.com/Andy3153) (1)
 1. [AnXh3L0](https://github.com/AnXh3L0) (1)
 1. [Apflkuacha](https://github.com/Apflkuacha) (1)
-1. [baduhai](https://github.com/baduhai) (1)
