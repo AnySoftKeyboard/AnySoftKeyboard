@@ -130,6 +130,7 @@ if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; t
     git config --global --add safe.directory "${PWD}"
     BRANCH_NAME="$(git name-rev --name-only HEAD)"
     echo "Will create ${MARKER_FILE} to halt future releases in the branch '${BRANCH_NAME}'."
+    mkdir -p "$(dirname "${MARKER_FILE}")"
     echo "Full deployment to production '${DEPLOYMENT_ENVIRONMENT}' was successful." > "${MARKER_FILE}"
     git config --global user.email "ask@evendanan.net"
     git config --global user.name "Polyglot"
