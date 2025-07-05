@@ -73,14 +73,10 @@ public class KeyCodes {
     if (code > 0) {
       return true;
     } else {
-      switch (code) {
-        case DELETE:
-        case DELETE_WORD:
-        case FORWARD_DELETE:
-          return true;
-        default:
-          return false;
-      }
+      return switch (code) {
+        case DELETE, DELETE_WORD, FORWARD_DELETE -> true;
+        default -> false;
+      };
     }
   }
 }

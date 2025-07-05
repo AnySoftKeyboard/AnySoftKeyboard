@@ -57,4 +57,36 @@ public class KeyCodesTest {
       Assert.assertEquals("Field " + field, int.class, field.getType());
     }
   }
+
+  @Test
+  public void testIsOutputKeyCodePositive() {
+    Assert.assertTrue(KeyCodes.isOutputKeyCode(KeyCodes.SPACE));
+    Assert.assertTrue(KeyCodes.isOutputKeyCode(KeyCodes.ENTER));
+    Assert.assertTrue(KeyCodes.isOutputKeyCode((int) 'a'));
+    Assert.assertTrue(KeyCodes.isOutputKeyCode((int) 'A'));
+    Assert.assertTrue(KeyCodes.isOutputKeyCode((int) '1'));
+  }
+
+  @Test
+  public void testIsOutputKeyCodeDeletes() {
+    Assert.assertTrue(KeyCodes.isOutputKeyCode(KeyCodes.DELETE));
+    Assert.assertTrue(KeyCodes.isOutputKeyCode(KeyCodes.DELETE_WORD));
+    Assert.assertTrue(KeyCodes.isOutputKeyCode(KeyCodes.FORWARD_DELETE));
+  }
+
+  @Test
+  public void testIsOutputKeyCodeNegativeNonDelete() {
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.SHIFT));
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.ALT));
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.CTRL));
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.MODE_SYMBOLS));
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.MODE_ALPHABET));
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.CANCEL));
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.SETTINGS));
+  }
+
+  @Test
+  public void testIsOutputKeyCodeDisabled() {
+    Assert.assertFalse(KeyCodes.isOutputKeyCode(KeyCodes.DISABLED));
+  }
 }
