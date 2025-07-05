@@ -462,7 +462,7 @@
                   checked in override default dictionary</string>
 
 
-    <string name="try_split_words_for_correction">Correct by splitting typed word</string>
+    <string name="try_split_words_for_correction">[beta] Correct by splitting typed word</string>
     <string name="try_split_words_for_correction_summary_on">Split typed word by guessing missing SPACE.</string>
     <string name="try_split_words_for_correction_summary_off"/>
 

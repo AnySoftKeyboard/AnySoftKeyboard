@@ -134,7 +134,7 @@
 
     <bool name="settings_default_workaround_disable_rtl_fix">true</bool>
 
-    <bool name="settings_default_try_splitting_words_for_correction">true</bool>
+    <bool name="settings_default_try_splitting_words_for_correction">false</bool>
 
     <dimen name="key_hysteresis_distance">10dp</dimen>
 

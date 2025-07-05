@@ -295,7 +295,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
   public void testSettingCorrectModeFromPrefs() {
     SharedPrefsHelper.setPrefsValue(
         "settings_key_auto_pick_suggestion_aggressiveness", "minimal_aggressiveness");
-    Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest()).setCorrectionMode(true, 1, 1, true);
+    Mockito.verify(mAnySoftKeyboardUnderTest.getSuggest())
+        .setCorrectionMode(true, 1, 1, false /*the default*/);
   }
 
   @Test
