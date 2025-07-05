@@ -1,10 +1,6 @@
 ---
 codecov:
-  branch: main
-  require_ci_to_pass: false
-  notify:
-    wait_for_ci: false
-    after_n_builds: 2
+  require_ci_to_pass: yes
 coverage:
   precision: 2
   round: down
@@ -31,7 +27,7 @@ coverage:
         branches:
           - main
         if_no_uploads: error
-        if_not_found: success
+        if_not_found: error
         if_ci_failed: error
         only_pulls: false
 comment:
