@@ -1,1 +1,12 @@
-* New owner
+1. Improved the nias wiki layout:
+- removed the double click feature for producing apostroph sign in the Nias language
+- added the necessary ö and ŵ keys (no need of double clicking)
+- adjusted the bottom row keys (followed the Gboard keys arrangement for consistenty)
+- added the / keys at the bottom row for url mode
+- nias wiki layout is now enabled by default
+
+2. Improved the nias qwerty layout:
+- adjusted the bottom row keys (followed the Gboard keys arrangement for consistenty)
+- added the / keys at the bottom row for url mode
+
+3. Updated the graphics to reflect the new keyboard layouts

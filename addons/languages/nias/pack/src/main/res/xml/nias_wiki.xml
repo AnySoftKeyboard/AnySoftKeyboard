@@ -3,7 +3,7 @@
     xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p">
     <!--
-    Standard US keyboard with addtional top bar with the most frequent wiki codes
+    Standard US keyboard with additional top bar with the most frequent wiki codes
     and double click w/o to get ŵ/ö characters in Nias language
     -->
 
@@ -22,20 +22,21 @@
     </Row>
 
     <!-- Main keyboard rows -->
-    <Row>
+    <Row android:keyWidth="9.09%p">
         <Key android:codes="113" android:keyLabel="q" android:popupCharacters="1!½⅓¼⅛" ask:hintLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="119,373" android:keyLabel="w" android:popupCharacters="2@ŵ⅔²" ask:hintLabel="2"/>
-        <Key android:codes="101,39" android:keyLabel="e" android:popupCharacters="3#¾èéêëęē" ask:hintLabel="3"/>
+        <Key android:codes="119" android:keyLabel="w" android:popupCharacters="2@ŵ⅔²" ask:hintLabel="2"/>
+        <Key android:codes="101" android:keyLabel="e" android:popupCharacters="3#¾èéêëęē" ask:hintLabel="3"/>
         <Key android:codes="114" android:keyLabel="r" android:popupCharacters="4$€£" ask:hintLabel="4"/>
         <Key android:codes="116" android:keyLabel="t" android:popupCharacters="5%" ask:hintLabel="5"/>
         <Key android:codes="121" android:keyLabel="y" android:popupCharacters="6^" ask:hintLabel="6"/>
-        <Key android:codes="117,39" android:keyLabel="u" android:popupCharacters="7&amp;ü" ask:hintLabel="7"/>
-        <Key android:codes="105,39" android:keyLabel="i" android:popupCharacters="8*⅛⅜⅞" ask:hintLabel="8"/>
-        <Key android:codes="111,246" android:keyLabel="o" android:popupCharacters="9(öõòóôǒōő" ask:hintLabel="9"/>
-        <Key android:codes="112" android:keyLabel="p" android:popupCharacters="0)" ask:hintLabel="0" android:keyEdgeFlags="right"/>
+        <Key android:codes="117" android:keyLabel="u" android:popupCharacters="7&amp;ü" ask:hintLabel="7"/>
+        <Key android:codes="105" android:keyLabel="i" android:popupCharacters="8*⅛⅜⅞" ask:hintLabel="8"/>
+        <Key android:codes="111" android:keyLabel="o" android:popupCharacters="9(öõòóôǒōő" ask:hintLabel="9"/>
+        <Key android:codes="112" android:keyLabel="p" android:popupCharacters="0)" ask:hintLabel="0"/>
+        <Key android:codes="373" android:keyLabel="ŵ" android:keyEdgeFlags="right"/>
     </Row>
-    <Row>
-        <Key android:codes="97,39" android:keyLabel="a" android:popupCharacters="@ä" ask:hintLabel="@" android:keyEdgeFlags="left"/>
+    <Row android:keyWidth="9.09%p">
+        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="\@ä" ask:hintLabel="\@" android:keyEdgeFlags="left"/>
         <Key android:codes="115" android:keyLabel="s" android:popupCharacters="ß"/>
         <Key android:codes="100" android:keyLabel="d" android:popupCharacters="&amp;"/>
         <Key android:codes="102" android:keyLabel="f" android:popupCharacters="%"/>
@@ -44,6 +45,7 @@
         <Key android:codes="106" android:keyLabel="j" android:popupCharacters="="/>
         <Key android:codes="107" android:keyLabel="k" android:popupCharacters="/"/>
         <Key android:codes="108" android:keyLabel="l" android:popupCharacters="!"/>
+        <Key android:codes="246" android:keyLabel="ö"/>
         <Key android:codes="39" android:keyLabel="'" android:popupCharacters="&quot;?!" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
@@ -75,7 +77,9 @@
     <!-- email address bottom row -->
     <Row android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@integer/key_normal_height">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_keyboard_mode_change" android:keyEdgeFlags="left"/>
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/>
+        <!-- <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/> -->
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
+            ask:longPressCode="@integer/key_code_mode_alphabet_popup" ask:keyDynamicEmblem="icon"/>
         <Key ask:isFunctional="true" android:codes="64" android:keyLabel="\@"/>
 
         <Key ask:isFunctional="true" android:codes="@integer/key_code_space" ask:longPressCode="@integer/key_code_mode_alphabet" android:keyWidth="40%p"/>
@@ -88,8 +92,9 @@
     <!-- url address bottom row -->
     <Row android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@integer/key_normal_height">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_keyboard_mode_change" android:keyEdgeFlags="left"/>
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/>
-        <Key ask:isFunctional="true" android:codes="58" android:keyLabel=":" android:popupCharacters="/"/>
+        <!-- <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/> -->
+        <Key android:codes="47" android:keyLabel="/"/>
+        <Key ask:isFunctional="true" android:codes="58" android:keyLabel=":"/>
 
         <Key ask:isFunctional="true" android:codes="@integer/key_code_space" ask:longPressCode="@integer/key_code_mode_alphabet" android:keyWidth="40%p"/>
 

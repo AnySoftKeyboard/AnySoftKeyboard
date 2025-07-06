@@ -1,4 +1,4 @@
-NOTE: Please install AnySoftKeyboard along with this one. This package contains only Nias dictionary
+NOTE: Please install AnySoftKeyboard along with this language addon. This package contains only Nias dictionary
 
 Nias language pack contains keyboard layouts with Nias characteristics, i.e. with characters ö (to the right of letter l) and ŵ (to the right of the letter p) as well as the frequently used apostroph key (to the right of ö) .
 
