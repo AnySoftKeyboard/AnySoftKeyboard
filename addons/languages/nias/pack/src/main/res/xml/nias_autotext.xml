@@ -20,8 +20,8 @@
     <!-- this dictionary is used for common typing mistakes -->
     <!-- the attribute 'src' will be replace by the node's value: -->
     <!-- rght will be converted to right -->
-    <!-- <word src="yahowu">ya'ahowu</word>
-    <word src="hiza'i">hiza i</word>
+    <word src="yahowu">ya'ahowu</word>
+    <!-- <word src="hiza'i">hiza i</word>
     <word src="Jumat">Jumaha</word>
     <word src="ma'atö">ma atö</word>
     <word src="sidadao">si dadao</word>
