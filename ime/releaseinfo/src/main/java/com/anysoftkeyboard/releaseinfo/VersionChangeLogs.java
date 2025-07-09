@@ -13,6 +13,13 @@ public class VersionChangeLogs {
     log.add(
         new VersionChangeLog(
             1,
+            13,
+            "",
+            Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/95"),
+            "Work in progress for 1.13."));
+    log.add(
+        new VersionChangeLog(
+            1,
             12,
             "",
             Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/94"),
