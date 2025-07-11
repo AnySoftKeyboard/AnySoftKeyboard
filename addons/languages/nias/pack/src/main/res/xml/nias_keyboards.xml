@@ -2,7 +2,7 @@
 <Keyboards>
     <Keyboard
         defaultDictionaryLocale="nia"
-        defaultEnabled="true"
+        defaultEnabled="false"
         description="@string/nias_qwerty_description"
         iconResId="@drawable/ic_status_nias"
         id="da2f8fc4-cc9c-4990-8f8d-57ef1e97cf0d"
@@ -11,7 +11,7 @@
         nameResId="@string/nias_qwerty" />
     <Keyboard
         defaultDictionaryLocale="nia"
-        defaultEnabled="false"
+        defaultEnabled="true"
         description="@string/nias_wiki_description"
         iconResId="@drawable/ic_status_nias"
         id="3587e42e-389f-4240-a754-f37231f5912e"

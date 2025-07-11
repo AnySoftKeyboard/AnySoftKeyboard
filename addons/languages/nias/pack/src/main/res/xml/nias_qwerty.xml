@@ -3,7 +3,8 @@
     xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p">
     <!--
-    Standard US keyboard with addtional ŵ and ö keys for writing in Nias language.
+    Standard US keyboard with additional ŵ and ö keys for writing in Nias language.
+
     -->
 
     <!-- password top row -->
@@ -76,7 +77,9 @@
     <!-- email address bottom row -->
     <Row android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@integer/key_normal_height">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_keyboard_mode_change" android:keyEdgeFlags="left"/>
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/>
+        <!-- <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/> -->
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
+            ask:longPressCode="@integer/key_code_mode_alphabet_popup" ask:keyDynamicEmblem="icon"/>
         <Key ask:isFunctional="true" android:codes="64" android:keyLabel="\@"/>
 
         <Key ask:isFunctional="true" android:codes="@integer/key_code_space" ask:longPressCode="@integer/key_code_mode_alphabet" android:keyWidth="40%p"/>
@@ -89,7 +92,8 @@
     <!-- url address bottom row -->
     <Row android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@integer/key_normal_height">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_keyboard_mode_change" android:keyEdgeFlags="left"/>
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/>
+        <!-- <Key ask:isFunctional="true" android:codes="@integer/key_code_domain"/> -->
+        <Key android:codes="47" android:keyLabel="/"/>
         <Key ask:isFunctional="true" android:codes="58" android:keyLabel=":" android:popupCharacters="/"/>
 
         <Key ask:isFunctional="true" android:codes="@integer/key_code_space" ask:longPressCode="@integer/key_code_mode_alphabet" android:keyWidth="40%p"/>
