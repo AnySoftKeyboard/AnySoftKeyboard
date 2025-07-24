@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="allow_permission">Baimendu</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard teklatuak zure kontaktuen izenak erabiltzen ditu hitzen proposamen pertsonalizatu bat egiteko: idatzi ahala, antzeko hitzak bilatzen ditu eta osaketa automatikoa eta zuzenketa automatikoa eskaini    </string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboardek arazo larriak gertatzen direnean zuri jakinarazpenak bidaltzeko beharra izan dezake (baimenen bat falta bada edo aplikazioak huts egiten badu).</string>
+</resources>
