@@ -24,6 +24,31 @@ ts_test(
     ],
 )
 
+ts_library(
+    name = "diff_parser",
+    srcs = ["diff_parser.ts"],
+    deps = [
+        ":tools_utils",
+        "//:node_modules/@types/node",
+        "//:node_modules/xmlbuilder2",
+    ],
+)
+
+ts_test(
+    name = "diff_parser_tests",
+    data = [
+        "fake_diff.txt",
+        "fake_strings.xml",
+    ],
+    entry_point = "diff_parser.test.ts",
+    deps = [
+        ":diff_parser",
+        "//:node_modules/@types/mock-fs",
+        "//:node_modules/@types/node",
+        "//:node_modules/mock-fs",
+    ],
+)
+
 ts_test(
     name = "tools_utils_tests",
     entry_point = "utils.test.ts",
