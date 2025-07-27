@@ -3,7 +3,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load(":ts.bzl", "ts_library")
 
-def ts_test(name, entry_point, deps, size = "small"):
+def ts_test(name, entry_point, deps, data = [], size = "small"):
     """
     A macro to create a jest-based test.
 
@@ -11,6 +11,7 @@ def ts_test(name, entry_point, deps, size = "small"):
         name: The name of the test target to create.
         entry_point: The test entry-point file.
         deps: The needed dependencies, including the code-under-test.
+        data: The data dependencies of the test.
         size: the declared size of the test.
     """
     test_data = []
@@ -42,7 +43,7 @@ def ts_test(name, entry_point, deps, size = "small"):
     js_test(
         name = name,
         entry_point = lib_entry_point_name,
-        data = [lib_entry_point_name] + test_data,
+        data = [lib_entry_point_name] + test_data + data,
         args = [
             # args passed to process.argv
         ],

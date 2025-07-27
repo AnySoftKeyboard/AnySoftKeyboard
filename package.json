@@ -24,8 +24,10 @@
     "@google/gemini-cli": "^0.1.12",
     "@types/follow-redirects": "^1.14.4",
     "@types/js-yaml": "^4.0.9",
+    "@types/mock-fs": "^4.13.4",
     "@types/node": "24.0.14",
     "@types/node-fetch": "^2.6.12",
+    "@types/sinon": "^17.0.4",
     "@types/xml2js": "^0.4.14",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
@@ -35,11 +37,16 @@
     "follow-redirects": "^1.15.9",
     "globals": "^16.3.0",
     "js-yaml": "^4.1.0",
+    "mock-fs": "^5.5.0",
     "node-fetch": "^3.3.2",
     "prettier": "^3.6.2",
+    "sinon": "^21.0.0",
     "tar": "^7.4.3",
     "typescript": "5.8.3",
     "undici": "^7.11.0",
     "xml2js": "^0.6.2"
+  },
+  "dependencies": {
+    "xmlbuilder2": "^3.1.1"
   }
 }
