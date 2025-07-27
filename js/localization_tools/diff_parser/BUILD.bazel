@@ -1,0 +1,12 @@
+load("//js:ts.bzl", "ts_library")
+
+ts_library(
+    name = "diff_parser_bin",
+    srcs = [
+        "index.ts",
+    ],
+    deps = [
+        "//js/localization_tools:diff_parser",
+        "//:node_modules/commander",
+    ],
+)
