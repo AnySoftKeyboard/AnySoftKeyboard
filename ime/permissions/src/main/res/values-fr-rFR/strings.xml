@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="allow_permission">Autoriser</string>
+    <string name="contacts_permissions_rationale">AnySoftKeyboard utilise les noms de vos contacts
+        pour vous fournir une suggestion de mot personnalisée : lorsque vous tapez un mot, nous recherchons
+        des mots similaires pour compléter et corriger automatiquement votre frappe.
+    </string>
+    <string name="notifications_permissions_rationale">AnySoftKeyboard peut être amené à vous notifier des problèmes critiques (tels que des permissions manquantes ou des plantages).</string>
+</resources>
