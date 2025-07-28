@@ -43,14 +43,19 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
         mNavigationBarHeightId,
         mNavigationBarShownId);
 
-    addDisposable(
-        prefs()
-            .getBoolean(
-                R.string.settings_key_colorize_nav_bar, R.bool.settings_default_colorize_nav_bar)
-            .asObservable()
-            .subscribe(
-                val -> mPrefsToShow = val,
-                GenericOnError.onError("settings_key_colorize_nav_bar")));
+    if (Build.VERSION.SDK_INT >= 36) {
+      mPrefsToShow = true;
+    } else {
+      addDisposable(
+          prefs()
+              .getBoolean(
+                  R.string.settings_key_colorize_nav_bar,
+                  R.bool.settings_default_colorize_nav_bar)
+              .asObservable()
+              .subscribe(
+                  val -> mPrefsToShow = val,
+                  GenericOnError.onError("settings_key_colorize_nav_bar")));
+    }
 
     addDisposable(
         prefs()
