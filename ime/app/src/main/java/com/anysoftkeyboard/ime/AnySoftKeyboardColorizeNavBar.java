@@ -49,8 +49,7 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
       addDisposable(
           prefs()
               .getBoolean(
-                  R.string.settings_key_colorize_nav_bar,
-                  R.bool.settings_default_colorize_nav_bar)
+                  R.string.settings_key_colorize_nav_bar, R.bool.settings_default_colorize_nav_bar)
               .asObservable()
               .subscribe(
                   val -> mPrefsToShow = val,

@@ -82,11 +82,11 @@ public class RxSharedPrefs {
     final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
 
     if (configurationVersion < 14) {
-        if (android.os.Build.VERSION.SDK_INT >= 36) {
-            final Editor editor = sp.edit();
-            editor.putBoolean("settings_key_colorize_nav_bar", true);
-            editor.apply();
-        }
+      if (android.os.Build.VERSION.SDK_INT >= 36) {
+        final Editor editor = sp.edit();
+        editor.putBoolean("settings_key_colorize_nav_bar", true);
+        editor.apply();
+      }
     }
     if (configurationVersion < 13) {
       final Map<String, ?> allValues = sp.getAll();
