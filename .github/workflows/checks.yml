@@ -275,12 +275,12 @@ jobs:
         continue-on-error: true
         with:
           name: fdroid-metadata-dry-run-${{ matrix.shard_type }}
-          path: outputs/apk
+          path: outputs/fdroid
       - uses: actions/upload-artifact@v4.6.2
         continue-on-error: true
         with:
           name: binaries-dry-run-${{ matrix.shard_type }}
-          path: outputs/fdroid
+          path: outputs/apk
   all-green-requirement:
     needs: [static-checks, linters, tests, deploy-dry-run, bazel]
     if: always()
