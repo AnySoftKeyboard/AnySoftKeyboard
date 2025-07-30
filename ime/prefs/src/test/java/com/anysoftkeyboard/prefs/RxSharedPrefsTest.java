@@ -122,7 +122,7 @@ public class RxSharedPrefsTest {
     new RxSharedPrefs(getApplicationContext(), this::testRestoreFunction);
 
     Assert.assertFalse(preferences.contains("settings_key_vibrate_on_key_press_duration_int"));
-    Assert.assertEquals(13, preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
+    Assert.assertEquals(14, preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
   }
 
   @Test
