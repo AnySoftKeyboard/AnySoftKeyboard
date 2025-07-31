@@ -62,6 +62,12 @@ public class EffectsSettingsFragment extends PreferenceFragmentCompat {
       svPref.setVisible(false);
       svPref.setSelectable(false);
     }
+
+    if (Build.VERSION.SDK_INT >= 36) {
+      Preference navBarPref = findPreference(getText(R.string.settings_key_colorize_nav_bar));
+      navBarPref.setVisible(false);
+      navBarPref.setSelectable(false);
+    }
   }
 
   @Override

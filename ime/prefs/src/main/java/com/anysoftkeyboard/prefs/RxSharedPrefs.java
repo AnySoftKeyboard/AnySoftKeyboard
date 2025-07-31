@@ -46,7 +46,7 @@ import java.util.Set;
 
 public class RxSharedPrefs {
   static final String CONFIGURATION_VERSION = "configurationVersion";
-  static final int CONFIGURATION_LEVEL_VALUE = 13;
+  static final int CONFIGURATION_LEVEL_VALUE = 14;
   private static final String TAG = "ASK_Cfg";
 
   @VisibleForTesting static final String AUTO_APPLY_PREFS_FILENAME = "STARTUP_PREFS_APPLY.xml";
@@ -81,6 +81,13 @@ public class RxSharedPrefs {
     // upgrading should only be done when actually need to be done.
     final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
 
+    if (configurationVersion < 14) {
+      if (android.os.Build.VERSION.SDK_INT >= 36) {
+        final Editor editor = sp.edit();
+        editor.putBoolean("settings_key_colorize_nav_bar", true);
+        editor.apply();
+      }
+    }
     if (configurationVersion < 13) {
       final Map<String, ?> allValues = sp.getAll();
       if (allValues.containsKey("zoom_factor_keys_in_portrait")) {
