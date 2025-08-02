@@ -27,6 +27,7 @@ ts_test(
 ts_library(
     name = "diff_parser",
     srcs = ["diff_parser.ts"],
+    visibility = ["//js/localization_tools/diff_parser:__pkg__"],
     deps = [
         ":tools_utils",
         "//:node_modules/@types/node",
