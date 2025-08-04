@@ -198,6 +198,7 @@ public class AnyApplication extends MultiDexApplication {
             + msDeviceSpecific.getClass().getName());
 
     mRxSharedPrefs = new RxSharedPrefs(this, this::prefsAutoRestoreFunction);
+    com.anysoftkeyboard.prefs.RxSharedPrefsProvider.setInstance(mRxSharedPrefs);
 
     mKeyboardFactory = createKeyboardFactory();
     mExternalDictionaryFactory = createExternalDictionaryFactory();
