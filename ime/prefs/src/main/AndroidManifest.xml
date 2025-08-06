@@ -1,11 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application>
-        <receiver
-            android:name=".SharedPreferencesChangeReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.anysoftkeyboard.ACTION_CHANGE_PREF" />
-            </intent-filter>
-        </receiver>
-    </application>
-</manifest>
+<manifest/>
