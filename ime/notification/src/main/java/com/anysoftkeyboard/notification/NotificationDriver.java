@@ -19,4 +19,6 @@ public interface NotificationDriver {
   boolean askForNotificationPostPermission(@NonNull Activity activity);
 
   boolean askForNotificationPostPermission(@NonNull Fragment fragment);
+
+  void cancel(@NonNull NotificationIds notificationId);
 }
