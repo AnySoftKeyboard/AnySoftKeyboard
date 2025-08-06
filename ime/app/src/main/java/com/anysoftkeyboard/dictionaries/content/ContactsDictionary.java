@@ -30,8 +30,6 @@ import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.notification.NotificationIds;
-import com.anysoftkeyboard.prefs.PrefType;
-import com.anysoftkeyboard.prefs.SharedPreferencesChangeReceiver;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -97,21 +95,16 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
               mContext, approveRequestCode, intent, CompatUtils.appendImmutableFlag(0));
 
       final int dismissRequestCode = 456452;
-      Intent dismissIntent =
-          new Intent(mContext.getApplicationContext(), SharedPreferencesChangeReceiver.class);
-      dismissIntent.setAction(SharedPreferencesChangeReceiver.ACTION_CHANGE_PREF);
+      Intent dismissIntent = new Intent(MainSettingsActivity.ACTION_REVOKE_PERMISSION_ACTIVITY);
       dismissIntent.putExtra(
-          SharedPreferencesChangeReceiver.EXTRA_PREF_KEY,
-          mContext.getString(R.string.settings_key_use_contacts_dictionary));
-      dismissIntent.putExtra(SharedPreferencesChangeReceiver.EXTRA_PREF_TYPE, PrefType.BOOLEAN);
-      // we want to turn this feature OFF
-      dismissIntent.putExtra(SharedPreferencesChangeReceiver.EXTRA_PREF_VALUE, false);
-      PendingIntent dismissPendingIntent =
-          PendingIntent.getBroadcast(
-              mContext,
-              dismissRequestCode,
-              dismissIntent,
-              CompatUtils.appendImmutableFlag(PendingIntent.FLAG_UPDATE_CURRENT));
+          MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY,
+          Manifest.permission.READ_CONTACTS);
+      dismissIntent.setClass(mContext, MainSettingsActivity.class);
+      // we are running OUTSIDE an Activity
+      dismissIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      PendingIntent revokePendingIntent =
+          PendingIntent.getActivity(
+              mContext, dismissRequestCode, dismissIntent, CompatUtils.appendImmutableFlag(0));
 
       var notifier = AnyApplication.notifier(mContext);
       var builder =
@@ -124,13 +117,13 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
               .setTicker(mContext.getString(R.string.notification_read_contacts_ticker))
               .setContentIntent(approvePendingIntent)
               .addAction(
-                  R.drawable.ic_notification_action_approve_permission,
+                  R.drawable.ic_accept,
                   mContext.getString(R.string.notification_action_approve_permission),
                   approvePendingIntent)
               .addAction(
-                  R.drawable.ic_notification_action_dismiss_permission,
+                  R.drawable.ic_cancel,
                   mContext.getString(R.string.notification_action_dismiss_permission),
-                  dismissPendingIntent)
+                  revokePendingIntent)
               .setAutoCancel(true);
 
       notifier.notify(builder, true);

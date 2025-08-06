@@ -5,20 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import androidx.annotation.VisibleForTesting;
 
 public class SharedPreferencesChangeReceiver extends BroadcastReceiver {
 
-  @VisibleForTesting
   public static final String ACTION_CHANGE_PREF = "com.anysoftkeyboard.ACTION_CHANGE_PREF";
 
-  @VisibleForTesting
   public static final String EXTRA_PREF_KEY = "com.anysoftkeyboard.EXTRA_PREF_KEY";
 
-  @VisibleForTesting
   public static final String EXTRA_PREF_VALUE = "com.anysoftkeyboard.EXTRA_PREF_VALUE";
 
-  @VisibleForTesting
   public static final String EXTRA_PREF_TYPE = "com.anysoftkeyboard.EXTRA_PREF_TYPE";
 
   @Override
