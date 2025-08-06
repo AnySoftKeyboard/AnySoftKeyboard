@@ -91,4 +91,36 @@ public class NotificationDriverImplTest {
               });
     }
   }
+
+  @Test
+  public void testCancelsNotifications() {
+    var context = RuntimeEnvironment.getApplication();
+    var appShadow = Shadows.shadowOf(context);
+    appShadow.grantPermissions(Manifest.permission.POST_NOTIFICATIONS);
+    var manager = context.getSystemService(NotificationManager.class);
+    var shadowManager = Shadows.shadowOf(manager);
+    try (var scenario = ActivityScenario.launch(TestFragmentActivity.class)) {
+      scenario
+          .moveToState(Lifecycle.State.RESUMED)
+          .onActivity(
+              activity -> {
+                Assert.assertNull(
+                    shadowManager.getNotification(
+                        NotificationIds.RequestContactsPermission.mNotificationId));
+                var builder =
+                    mUnderTest.buildNotification(
+                        NotificationIds.RequestContactsPermission,
+                        android.R.drawable.ic_delete,
+                        android.R.string.ok);
+                mUnderTest.notify(builder, true);
+                Assert.assertNotNull(
+                    shadowManager.getNotification(
+                        NotificationIds.RequestContactsPermission.mNotificationId));
+                mUnderTest.cancel(NotificationIds.RequestContactsPermission);
+                Assert.assertNull(
+                    shadowManager.getNotification(
+                        NotificationIds.RequestContactsPermission.mNotificationId));
+              });
+    }
+  }
 }

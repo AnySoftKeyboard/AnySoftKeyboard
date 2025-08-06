@@ -946,6 +946,8 @@
 
     <string name="tip_swipe_from_backspace_to_clear">Tip: you can swipe-left from the backspace to clear the word!</string>
     <string name="notification_read_contacts_ticker">Contacts permission needed</string>
+    <string name="notification_action_approve_permission">Approve permission</string>
+    <string name="notification_action_dismiss_permission">Disable Contacts Dictionary</string>
     <string name="wizard_allow_notification_permission">Allow notifications from AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">In rare cases (for example app crashes) we would need to post a device notification. This is recommended but disallow notification will not affect the behavior of this app.</string>
     <string name="wizard_skip_notification_permission">Do not allow notifications</string>

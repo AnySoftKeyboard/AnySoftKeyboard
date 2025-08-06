@@ -89,10 +89,22 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
       // we are running OUTSIDE an Activity
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       // showing a notification, so the user's flow will not be interrupted.
-      final int requestCode = 456451;
-      PendingIntent pendingIntent =
+      final int approveRequestCode = 456451;
+      PendingIntent approvePendingIntent =
           PendingIntent.getActivity(
-              mContext, requestCode, intent, CompatUtils.appendImmutableFlag(0));
+              mContext, approveRequestCode, intent, CompatUtils.appendImmutableFlag(0));
+
+      final int dismissRequestCode = 456452;
+      Intent dismissIntent = new Intent(MainSettingsActivity.ACTION_REVOKE_PERMISSION_ACTIVITY);
+      dismissIntent.putExtra(
+          MainSettingsActivity.EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY,
+          Manifest.permission.READ_CONTACTS);
+      dismissIntent.setClass(mContext, MainSettingsActivity.class);
+      // we are running OUTSIDE an Activity
+      dismissIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      PendingIntent revokePendingIntent =
+          PendingIntent.getActivity(
+              mContext, dismissRequestCode, dismissIntent, CompatUtils.appendImmutableFlag(0));
 
       var notifier = AnyApplication.notifier(mContext);
       var builder =
@@ -103,7 +115,15 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
                   R.string.notification_read_contacts_title)
               .setContentText(mContext.getString(R.string.notification_read_contacts_text))
               .setTicker(mContext.getString(R.string.notification_read_contacts_ticker))
-              .setContentIntent(pendingIntent)
+              .setContentIntent(approvePendingIntent)
+              .addAction(
+                  R.drawable.ic_accept,
+                  mContext.getString(R.string.notification_action_approve_permission),
+                  approvePendingIntent)
+              .addAction(
+                  R.drawable.ic_cancel,
+                  mContext.getString(R.string.notification_action_dismiss_permission),
+                  revokePendingIntent)
               .setAutoCancel(true);
 
       notifier.notify(builder, true);
