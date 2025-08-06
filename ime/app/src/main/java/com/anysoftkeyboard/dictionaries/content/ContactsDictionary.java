@@ -30,6 +30,8 @@ import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.notification.NotificationIds;
+import com.anysoftkeyboard.prefs.PrefType;
+import com.anysoftkeyboard.prefs.SharedPreferencesChangeReceiver;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -89,10 +91,27 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
       // we are running OUTSIDE an Activity
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       // showing a notification, so the user's flow will not be interrupted.
-      final int requestCode = 456451;
-      PendingIntent pendingIntent =
+      final int approveRequestCode = 456451;
+      PendingIntent approvePendingIntent =
           PendingIntent.getActivity(
-              mContext, requestCode, intent, CompatUtils.appendImmutableFlag(0));
+              mContext, approveRequestCode, intent, CompatUtils.appendImmutableFlag(0));
+
+      final int dismissRequestCode = 456452;
+      Intent dismissIntent =
+          new Intent(mContext.getApplicationContext(), SharedPreferencesChangeReceiver.class);
+      dismissIntent.setAction(SharedPreferencesChangeReceiver.ACTION_CHANGE_PREF);
+      dismissIntent.putExtra(
+          SharedPreferencesChangeReceiver.EXTRA_PREF_KEY,
+          mContext.getString(R.string.settings_key_use_contacts_dictionary));
+      dismissIntent.putExtra(SharedPreferencesChangeReceiver.EXTRA_PREF_TYPE, PrefType.BOOLEAN);
+      // we want to turn this feature OFF
+      dismissIntent.putExtra(SharedPreferencesChangeReceiver.EXTRA_PREF_VALUE, false);
+      PendingIntent dismissPendingIntent =
+          PendingIntent.getBroadcast(
+              mContext,
+              dismissRequestCode,
+              dismissIntent,
+              CompatUtils.appendImmutableFlag(PendingIntent.FLAG_UPDATE_CURRENT));
 
       var notifier = AnyApplication.notifier(mContext);
       var builder =
@@ -103,7 +122,15 @@ public class ContactsDictionary extends ContentObserverDictionary implements Nex
                   R.string.notification_read_contacts_title)
               .setContentText(mContext.getString(R.string.notification_read_contacts_text))
               .setTicker(mContext.getString(R.string.notification_read_contacts_ticker))
-              .setContentIntent(pendingIntent)
+              .setContentIntent(approvePendingIntent)
+              .addAction(
+                  R.drawable.ic_notification_action_approve_permission,
+                  mContext.getString(R.string.notification_action_approve_permission),
+                  approvePendingIntent)
+              .addAction(
+                  R.drawable.ic_notification_action_dismiss_permission,
+                  mContext.getString(R.string.notification_action_dismiss_permission),
+                  dismissPendingIntent)
               .setAutoCancel(true);
 
       notifier.notify(builder, true);
