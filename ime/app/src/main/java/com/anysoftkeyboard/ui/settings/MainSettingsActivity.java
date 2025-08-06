@@ -25,8 +25,11 @@ import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import com.anysoftkeyboard.notification.NotificationIds;
 import com.anysoftkeyboard.permissions.PermissionRequestHelper;
+import com.anysoftkeyboard.prefs.DirectBootAwareSharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 import java.util.Objects;
 import net.evendanan.pixel.EdgeEffectHacker;
@@ -36,6 +39,8 @@ public class MainSettingsActivity extends AppCompatActivity {
 
   public static final String ACTION_REQUEST_PERMISSION_ACTIVITY =
       "ACTION_REQUEST_PERMISSION_ACTIVITY";
+  public static final String ACTION_REVOKE_PERMISSION_ACTIVITY =
+      "ACTION_REVOKE_PERMISSION_ACTIVITY";
   public static final String EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY =
       "EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY";
 
@@ -62,13 +67,18 @@ public class MainSettingsActivity extends AppCompatActivity {
     super.onPostCreate(savedInstanceState);
     // applying my very own Edge-Effect color
     EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
-
     handlePermissionRequest(getIntent());
   }
 
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    handlePermissionRequest(intent);
+  }
+
   private void handlePermissionRequest(Intent intent) {
-    if (intent != null
-        && ACTION_REQUEST_PERMISSION_ACTIVITY.equals(intent.getAction())
+    if (intent == null) return;
+    if (ACTION_REQUEST_PERMISSION_ACTIVITY.equals(intent.getAction())
         && intent.hasExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY)) {
       final String permission = intent.getStringExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
       intent.removeExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
@@ -78,10 +88,27 @@ public class MainSettingsActivity extends AppCompatActivity {
         throw new IllegalArgumentException("Unknown permission request " + permission);
       }
     }
+
+    if (ACTION_REVOKE_PERMISSION_ACTIVITY.equals(intent.getAction())
+        && intent.hasExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY)) {
+      final String permission = intent.getStringExtra(EXTRA_KEY_ACTION_REQUEST_PERMISSION_ACTIVITY);
+      intent.removeExtra(ACTION_REVOKE_PERMISSION_ACTIVITY);
+      if (Objects.equals(permission, Manifest.permission.READ_CONTACTS)) {
+        AnyApplication.notifier(this).cancel(NotificationIds.RequestContactsPermission);
+        DirectBootAwareSharedPreferences.create(getApplicationContext())
+            .edit()
+            .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
+            .apply();
+        finish();
+      } else {
+        throw new IllegalArgumentException("Unknown permission request " + permission);
+      }
+    }
   }
 
   @AfterPermissionGranted(PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE)
   public void startContactsPermissionRequest() {
+    AnyApplication.notifier(this).cancel(NotificationIds.RequestContactsPermission);
     PermissionRequestHelper.check(this, PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE);
   }
 
