@@ -22,6 +22,7 @@ import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.permissions.PermissionRequestHelper;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.anysoftkeyboard.rx.TestRxSchedulers;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
@@ -189,6 +190,27 @@ public class MainSettingsActivityTest {
             Assert.assertEquals(
                 PermissionRequestHelper.CONTACTS_PERMISSION_REQUEST_CODE,
                 lastRequestedPermission.requestCode);
+          });
+    }
+  }
+
+  @Test
+  @Config(sdk = Build.VERSION_CODES.M)
+  public void testContactsPermissionRevokedFromNotification() {
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_contacts_dictionary, true);
+    Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext())
+        .denyPermissions(Manifest.permission.READ_CONTACTS);
+
+    Intent requestIntent = getContactsIntent();
+    requestIntent.setAction(MainSettingsActivity.ACTION_REVOKE_PERMISSION_ACTIVITY);
+    try (var activityController = ActivityScenario.launch(requestIntent)) {
+      activityController.moveToState(Lifecycle.State.RESUMED);
+
+      activityController.onActivity(
+          activity -> {
+            Assert.assertFalse(
+                SharedPrefsHelper.getPrefValue(
+                    R.string.settings_key_use_contacts_dictionary, true));
           });
     }
   }

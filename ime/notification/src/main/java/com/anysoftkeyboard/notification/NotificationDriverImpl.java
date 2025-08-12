@@ -85,4 +85,9 @@ public class NotificationDriverImpl implements NotificationDriver {
     return PermissionRequestHelper.check(
         fragment, PermissionRequestHelper.NOTIFICATION_PERMISSION_REQUEST_CODE);
   }
+
+  @Override
+  public void cancel(@NonNull NotificationIds notificationId) {
+    mManager.cancel(notificationId.mNotificationId);
+  }
 }
