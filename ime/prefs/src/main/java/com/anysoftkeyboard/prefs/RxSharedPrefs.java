@@ -82,7 +82,7 @@ public class RxSharedPrefs {
     final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
 
     if (configurationVersion < 14) {
-      if (android.os.Build.VERSION.SDK_INT >= 36) {
+      if (android.os.Build.VERSION.SDK_INT >= 35) {
         final Editor editor = sp.edit();
         editor.putBoolean("settings_key_colorize_nav_bar", true);
         editor.apply();
