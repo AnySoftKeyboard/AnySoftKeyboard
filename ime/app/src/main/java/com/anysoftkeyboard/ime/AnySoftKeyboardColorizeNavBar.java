@@ -43,7 +43,7 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
         mNavigationBarHeightId,
         mNavigationBarShownId);
 
-    if (Build.VERSION.SDK_INT >= 36) {
+    if (Build.VERSION.SDK_INT >= 35) {
       mPrefsToShow = true;
     } else {
       addDisposable(
