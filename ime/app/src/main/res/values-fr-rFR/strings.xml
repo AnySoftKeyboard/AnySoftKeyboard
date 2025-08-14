@@ -303,6 +303,9 @@
     <string name="key_press_preview_popup_off_summary">Ne pas afficher un aperçu de la touche lors de l\'appui</string>
     <string name="zoom_factor_keys_in_portrait">Ratio de hauteur des touches en mode portrait</string>
     <string name="zoom_factor_keys_in_landscape">Ratio de hauteur des touches en mode paysage</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Offset du bas du clavier</string>
+    <string name="bottom_padding_in_dp_template">%d points</string>
     <string name="insert_space_after_word_suggestion_selection">Espace après le choix d\'une suggestion</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insérer une espace après le mot suggéré sélectionné</string>
     <string name="double_space_to_period">Appui double sur Espace devient point+espace</string>
@@ -522,6 +525,7 @@
         <xliff:g id="file_path">%s</xliff:g>
     </string>
     <string name="not_configured_with_click_here">AnySoftKeyboard n\'est pas totalement configuré pour être utilisé. Appuyer ici pour configurer.</string>
+    <string name="not_notification_permission_text">AnySoftKeyboard n\'a pas votre permission d\'envoyer des notifications. Nous pouvons, rarement, avoir besoin de vous notifier des problèmes critiques (comme des plantages).</string>
     <string name="not_configured_with_just_click_here">Appuyez ici</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
@@ -655,4 +659,8 @@
     <string name="click_me_for_easter_egg_info">Cliquer pour une surprise</string>
     <string name="delete_all_clipboard_entries">Vider le presse-papiers</string>
     <string name="tip_swipe_from_backspace_to_clear">Astuce : glisser vers la gauche depuis l\'arrière plan pour effacer le mot !</string>
+    <string name="notification_read_contacts_ticker">Permission de contacts nécessaire</string>
+    <string name="wizard_allow_notification_permission">Autoriser les notifications de AnySoftKeyboard</string>
+    <string name="setup_wizard_step_notification_permissions_details">Dans de rares cas (par exemple en cas de plantage de l\'application), nous devrons envoyer une notification à l\'appareil. Ceci est recommandé, mais le fait de ne pas autoriser les notifications n\'affectera pas le comportement de l\'application.</string>
+    <string name="wizard_skip_notification_permission">Ne pas autoriser les notifications</string>
 </resources>

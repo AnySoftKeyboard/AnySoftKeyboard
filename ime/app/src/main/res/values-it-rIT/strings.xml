@@ -300,6 +300,9 @@
     <string name="key_press_preview_popup_off_summary">Non mostrare pop-up alla pressione del tasto</string>
     <string name="zoom_factor_keys_in_portrait">Fattore altezza tasti in modalità verticale</string>
     <string name="zoom_factor_keys_in_landscape">Fattore altezza tasti in modalità orizzontale</string>
+    <string name="keys_zoom_factor_template">%d%%</string>
+    <string name="bottom_padding_in_dp_title">Scostamento tastiera dal bordo inferiore</string>
+    <string name="bottom_padding_in_dp_template">%d punti</string>
     <string name="insert_space_after_word_suggestion_selection">Spazio dopo scelta del suggerimento</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Inserisci uno spazio dopo che è stata selezionata la parola suggerita
     </string>
