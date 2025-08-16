@@ -7,7 +7,7 @@ jobs:
   check-for-auto-approval:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5.0.0
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
           bazelisk-cache: true
