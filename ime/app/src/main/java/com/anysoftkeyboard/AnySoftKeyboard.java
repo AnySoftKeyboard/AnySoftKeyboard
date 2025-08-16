@@ -38,6 +38,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.collection.SparseArrayCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import com.anysoftkeyboard.addons.UserUnlockedReceiver;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
@@ -75,6 +76,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
   private final PackagesChangedReceiver mPackagesChangedReceiver =
       new PackagesChangedReceiver(this);
+  private final UserUnlockedReceiver mUserUnlockedReceiver =
+      new UserUnlockedReceiver(this::onAddOnsCriticalChange);
 
   private final StringBuilder mTextCapitalizerWorkspace = new StringBuilder();
   private boolean mShowKeyboardIconInStatusBar;
@@ -219,6 +222,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         mPackagesChangedReceiver.createIntentFilter(),
         ContextCompat.RECEIVER_EXPORTED);
 
+    ContextCompat.registerReceiver(
+        this,
+        mUserUnlockedReceiver,
+        mUserUnlockedReceiver.createIntentFilter(),
+        ContextCompat.RECEIVER_NOT_EXPORTED);
+
     addDisposable(
         prefs()
             .getBoolean(
@@ -238,6 +247,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
   public void onDestroy() {
     Logger.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
     unregisterReceiver(mPackagesChangedReceiver);
+    unregisterReceiver(mUserUnlockedReceiver);
 
     final IBinder imeToken = getImeToken();
     if (imeToken != null) mInputMethodManager.hideStatusIcon(imeToken);
