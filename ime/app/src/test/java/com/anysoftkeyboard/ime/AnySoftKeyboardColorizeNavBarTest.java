@@ -93,7 +93,46 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     // now uses the override since it is higher than TestShadowResources.NAVIGATION_BAR_HEIGHT
     Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
-        .setBottomOffset(40 /*the minimum size*/ + 12);
+        .setBottomOffset(mMinimumHeight + 12);
+  }
+
+  @Test
+  public void testExtraPaddingWithNegativeValue() {
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, -10);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    // still shows the TestShadowResources.NAVIGATION_BAR_HEIGHT since negative value will be
+    // converted to 0
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(TestShadowResources.NAVIGATION_BAR_HEIGHT);
+
+    simulateFinishInputFlow();
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 12);
+    Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+    simulateOnStartInputFlow();
+
+    // now uses the override since it is higher than TestShadowResources.NAVIGATION_BAR_HEIGHT
+    // and mMinimumHeight
+    int expectedPadding =
+        (int)
+                (ApplicationProvider.getApplicationContext()
+                        .getResources()
+                        .getDisplayMetrics()
+                        .density
+                    * 12)
+            + mMinimumHeight;
+    Mockito.verify((AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView())
+        .setBottomOffset(expectedPadding);
   }
 
   @Test
