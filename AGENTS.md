@@ -21,7 +21,7 @@ If the changed code is related to Android, also run `./gradle spotlessApply`.
 ## Commit Message
 When creating a commit message, follow these guidelines:
 - **Title:** Use a concise title. Prefix the title with "[LLM]"
-- **Description:** The description should include a short description of the issue (bug, feature-request, crash, chore, etc) and a short description of the solution.
+- **Description:** The description should include a short description of the issue (bug, feature-request, crash, chore, etc) and a short description of the solution. Add your name at the end of the description to signify the commit was made by an AI Agent.
 
 # Tests
 - when ask to suggest tests for a function or file:
