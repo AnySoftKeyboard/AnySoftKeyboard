@@ -1092,7 +1092,11 @@
         "bzlTransitiveDigest": "QfHaI1MLS5sjEgCn4QVGyNCOYnMN64WWuH3NGcDz48s=",
         "usagesDigest": "rTPJfI3SFLVNvber36ijVs1s5xz85XeTjkHh1QLd0jY=",
         "recordedFileInputs": {
+<<<<<<< HEAD
           "@@//package.json": "f69aae3c304824885694828ad6c0f94875a5b03bb90a0fa52be2c045b55440c5"
+=======
+          "@@//package.json": "1da9d1a4d4d11c1edf8086e239d3bd59aa6a2fa877e18640dd7475bd9175ca6d"
+>>>>>>> 730f2aac4 (Automated JS Dependencies Update Update)
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
