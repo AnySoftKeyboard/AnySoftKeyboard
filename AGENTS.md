@@ -20,7 +20,7 @@ If the changed code is related to Android, also run `./gradle spotlessApply`.
 
 ## Commit Message
 When creating a commit message, follow these guidelines:
-- **Title:** Use a concise title. Prefix the title with `[Gemini-cli]`.
+- **Title:** Use a concise title. Prefix the title with "[LLM]"
 - **Description:** The description should include a short description of the issue (bug, feature-request, crash, chore, etc) and a short description of the solution.
 
 # Tests
