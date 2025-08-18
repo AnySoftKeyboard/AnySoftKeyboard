@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +39,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.collection.SparseArrayCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import com.anysoftkeyboard.addons.PackagesChangedReceiver;
+import com.anysoftkeyboard.addons.UserUnlockedReceiver;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
@@ -53,7 +56,6 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
-import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DevStripActionProvider;
@@ -74,7 +76,8 @@ import net.evendanan.pixel.GeneralDialogController;
 public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
   private final PackagesChangedReceiver mPackagesChangedReceiver =
-      new PackagesChangedReceiver(this);
+      new PackagesChangedReceiver(this::onCriticalPackageChanged);
+  @Nullable private UserUnlockedReceiver mUserUnlockedReceiver;
 
   private final StringBuilder mTextCapitalizerWorkspace = new StringBuilder();
   private boolean mShowKeyboardIconInStatusBar;
@@ -216,8 +219,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     ContextCompat.registerReceiver(
         this,
         mPackagesChangedReceiver,
-        mPackagesChangedReceiver.createIntentFilter(),
+        PackagesChangedReceiver.createIntentFilter(),
         ContextCompat.RECEIVER_EXPORTED);
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      mUserUnlockedReceiver = new UserUnlockedReceiver(this::onUserUnlocked);
+      ContextCompat.registerReceiver(
+          this,
+          mUserUnlockedReceiver,
+          UserUnlockedReceiver.createIntentFilter(),
+          ContextCompat.RECEIVER_EXPORTED);
+    }
 
     addDisposable(
         prefs()
@@ -238,6 +250,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
   public void onDestroy() {
     Logger.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
     unregisterReceiver(mPackagesChangedReceiver);
+    if (mUserUnlockedReceiver != null) unregisterReceiver(mUserUnlockedReceiver);
+    mUserUnlockedReceiver = null;
 
     final IBinder imeToken = getImeToken();
     if (imeToken != null) mInputMethodManager.hideStatusIcon(imeToken);
@@ -254,6 +268,21 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
     }
 
     super.onDestroy();
+  }
+
+  public void onCriticalPackageChanged(Intent eventIntent) {
+    if (((AnyApplication) getApplication()).onPackageChanged(eventIntent)) {
+      onAddOnsCriticalChange();
+    }
+  }
+
+  public void onUserUnlocked(Intent eventIntent) {
+    var receiver = mUserUnlockedReceiver;
+    if (receiver != null) {
+      unregisterReceiver(mUserUnlockedReceiver);
+      mUserUnlockedReceiver = null;
+      onCriticalPackageChanged(eventIntent);
+    }
   }
 
   @Override
