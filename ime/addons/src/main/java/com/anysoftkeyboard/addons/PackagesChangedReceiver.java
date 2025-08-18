@@ -14,50 +14,33 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.receivers;
+package com.anysoftkeyboard.addons;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import com.anysoftkeyboard.AnySoftKeyboard;
+import androidx.core.util.Consumer;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.BuildConfig;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
   private static final String TAG = "ASKPkgChanged";
 
-  private final AnySoftKeyboard mIme;
-  private final StringBuilder mStringBuffer = new StringBuilder();
+  private final Consumer<Intent> mOnPackageChanged;
 
-  public PackagesChangedReceiver(AnySoftKeyboard ime) {
-    mIme = ime;
+  public PackagesChangedReceiver(Consumer<Intent> onPackageChanged) {
+    this.mOnPackageChanged = onPackageChanged;
   }
 
   @Override
   public void onReceive(Context context, Intent intent) {
     if (intent == null || intent.getData() == null || context == null) return;
-
-    if (BuildConfig.TESTING_BUILD) {
-      mStringBuffer.setLength(0);
-      String text =
-          mStringBuffer
-              .append("Package '")
-              .append(intent.getData())
-              .append("' have been changed.")
-              .toString();
-      Logger.d(TAG, text);
-    }
-    try {
-      ((AnyApplication) mIme.getApplicationContext()).onPackageChanged(intent, mIme);
-    } catch (Exception e) {
-      Logger.e(TAG, "Failed to parse changed package. Ignoring.", e);
-    }
+    Logger.d(TAG, "Package changed: %s", intent.getData());
+    mOnPackageChanged.accept(intent);
   }
 
-  public IntentFilter createIntentFilter() {
+  public static IntentFilter createIntentFilter() {
     /*
     receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
         <intent-filter>
