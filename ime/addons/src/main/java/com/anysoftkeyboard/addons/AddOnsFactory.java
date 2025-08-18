@@ -139,8 +139,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
   }
 
-  public static void onExternalPackChanged(
-      Intent eventIntent, OnCriticalAddOnChangeListener ime, AddOnsFactory<?>... factories) {
+  public static boolean onExternalPackChanged(Intent eventIntent, AddOnsFactory<?>... factories) {
     boolean cleared = false;
     for (AddOnsFactory<?> factory : factories) {
       try {
@@ -155,7 +154,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         Logger.w("AddOnsFactory", e, "Failed to notify onExternalPackChanged on %s", factory);
       }
     }
-    if (cleared) ime.onAddOnsCriticalChange();
+    return cleared;
   }
 
   public static void onConfigurationChanged(
@@ -216,6 +215,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
   private boolean isEventRequiresCacheRefresh(Intent eventIntent) throws NameNotFoundException {
     String action = eventIntent.getAction();
+    if (Intent.ACTION_USER_UNLOCKED.equals(action)) {
+      Logger.d(mTag, "After device unlock!");
+      return true;
+    }
     String packageNameSchemePart = eventIntent.getData().getSchemeSpecificPart();
     if (Intent.ACTION_PACKAGE_ADDED.equals(action)) {
       // will reset only if the new package has my addons
@@ -528,10 +531,6 @@ public abstract class AddOnsFactory<E extends AddOn> {
       boolean isHidden,
       int sortIndex,
       AttributeSet attrs);
-
-  public interface OnCriticalAddOnChangeListener {
-    void onAddOnsCriticalChange();
-  }
 
   private static final class AddOnsComparator implements Comparator<AddOn>, Serializable {
     static final long serialVersionUID = 1276823L;

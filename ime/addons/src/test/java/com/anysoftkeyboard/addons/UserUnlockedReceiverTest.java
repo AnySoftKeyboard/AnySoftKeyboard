@@ -1,49 +1,53 @@
 package com.anysoftkeyboard.addons;
 
+import android.app.Application;
 import android.content.Intent;
 import androidx.test.core.app.ApplicationProvider;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import org.robolectric.Shadows;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class UserUnlockedReceiverTest {
 
-  private Runnable mMockUnlockRunnable;
+  private AtomicReference<Intent> mMockUnlockConsumer;
   private UserUnlockedReceiver mUnderTest;
+  private Application mApp;
 
   @Before
   public void setUp() {
-    mMockUnlockRunnable = Mockito.mock(Runnable.class);
-    mUnderTest = new UserUnlockedReceiver(mMockUnlockRunnable);
+    mApp = ApplicationProvider.getApplicationContext();
+    mMockUnlockConsumer = new AtomicReference<>(null);
+    mUnderTest = new UserUnlockedReceiver(mMockUnlockConsumer::set);
   }
 
   @Test
   public void testDoesNotRunOnNullIntent() {
-    mUnderTest.onReceive(ApplicationProvider.getApplicationContext(), null);
-    Mockito.verify(mMockUnlockRunnable, Mockito.never()).run();
+    mUnderTest.onReceive(mApp, null);
+    Assert.assertNull(mMockUnlockConsumer.get());
   }
 
   @Test
   public void testDoesNotRunOnWrongAction() {
-    mUnderTest.onReceive(
-        ApplicationProvider.getApplicationContext(), new Intent(Intent.ACTION_BOOT_COMPLETED));
-    Mockito.verify(mMockUnlockRunnable, Mockito.never()).run();
+    mUnderTest.onReceive(mApp, new Intent(Intent.ACTION_BOOT_COMPLETED));
+    Assert.assertNull(mMockUnlockConsumer.get());
   }
 
   @Test
   public void testRunsOnUserUnlocked() {
-    mUnderTest.onReceive(
-        ApplicationProvider.getApplicationContext(), new Intent(Intent.ACTION_USER_UNLOCKED));
-    Mockito.verify(mMockUnlockRunnable).run();
+    var intent = new Intent(Intent.ACTION_USER_UNLOCKED);
+    var shadowApp = Shadows.shadowOf(mApp);
+    mUnderTest.onReceive(mApp, intent);
+    Assert.assertSame(mMockUnlockConsumer.get(), intent);
   }
 
   @Test
   public void testCreatesValidIntentFilter() {
-    var filter = mUnderTest.createIntentFilter();
+    var filter = UserUnlockedReceiver.createIntentFilter();
     Assert.assertNotNull(filter);
     Assert.assertEquals(1, filter.countActions());
     Assert.assertTrue(filter.hasAction(Intent.ACTION_USER_UNLOCKED));

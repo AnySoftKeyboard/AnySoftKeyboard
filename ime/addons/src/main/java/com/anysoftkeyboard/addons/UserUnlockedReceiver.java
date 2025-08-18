@@ -20,13 +20,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
+import androidx.annotation.RequiresApi;
+import androidx.core.util.Consumer;
 import com.anysoftkeyboard.base.utils.Logger;
 
 public class UserUnlockedReceiver extends BroadcastReceiver {
   private static final String TAG = "ASKUserUnlocked";
-  private final Runnable mOnUnlock;
+  private final Consumer<Intent> mOnUnlock;
 
-  public UserUnlockedReceiver(Runnable onUnlock) {
+  public UserUnlockedReceiver(Consumer<Intent> onUnlock) {
     mOnUnlock = onUnlock;
   }
 
@@ -34,11 +37,12 @@ public class UserUnlockedReceiver extends BroadcastReceiver {
   public void onReceive(Context context, Intent intent) {
     if (intent != null && Intent.ACTION_USER_UNLOCKED.equals(intent.getAction())) {
       Logger.i(TAG, "User unlocked device, will reload addons.");
-      mOnUnlock.run();
+      mOnUnlock.accept(intent);
     }
   }
 
-  public IntentFilter createIntentFilter() {
+  @RequiresApi(api = Build.VERSION_CODES.N)
+  public static IntentFilter createIntentFilter() {
     return new IntentFilter(Intent.ACTION_USER_UNLOCKED);
   }
 }
