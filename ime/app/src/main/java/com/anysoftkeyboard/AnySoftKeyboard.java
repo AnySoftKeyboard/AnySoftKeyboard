@@ -77,8 +77,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
   private final PackagesChangedReceiver mPackagesChangedReceiver =
       new PackagesChangedReceiver(this::onCriticalPackageChanged);
-  private UserUnlockedReceiver mUserUnlockedReceiver =
-      new UserUnlockedReceiver(this::onUserUnlocked);
+  @Nullable private UserUnlockedReceiver mUserUnlockedReceiver;
 
   private final StringBuilder mTextCapitalizerWorkspace = new StringBuilder();
   private boolean mShowKeyboardIconInStatusBar;
@@ -224,6 +223,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
         ContextCompat.RECEIVER_EXPORTED);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      mUserUnlockedReceiver = new UserUnlockedReceiver(this::onUserUnlocked);
       ContextCompat.registerReceiver(
           this,
           mUserUnlockedReceiver,
