@@ -1,12 +1,19 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { create } from 'xmlbuilder2';
-import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
+import { Builder } from 'xml2js';
 
 interface ChangedString {
   file: string;
   id: string;
   value: string;
+}
+
+interface ChangeItem {
+  $: { id: string; default: string };
+  translation: Array<{
+    $: { localeCode: string; localeName: string };
+    _: string;
+  }>;
 }
 
 // Get human-readable locale name using Intl.DisplayNames
@@ -158,9 +165,13 @@ export const getLanguageFromFilePath = (filePath: string): string | null => {
 };
 
 export const generateXmlReport = (repoRoot: string, changedStrings: ChangedString[]): string => {
-  const root = create({ version: '1.0' }).ele('changes');
+  const builder = new Builder({
+    headless: false, // Include XML declaration
+    renderOpts: { pretty: true, indent: '  ' },
+    xmldec: { version: '1.0' }, // Only include version, not encoding or standalone
+  });
 
-  const changes = new Map<string, XMLBuilder>();
+  const changes: { [key: string]: ChangeItem } = {};
 
   for (const changedString of changedStrings) {
     // Validate changedString structure
@@ -170,24 +181,33 @@ export const generateXmlReport = (repoRoot: string, changedStrings: ChangedStrin
 
     const defaultText = getDefaultStringValue(repoRoot, changedString.file, changedString.id);
     if (defaultText) {
-      if (!changes.has(changedString.id)) {
-        const changeNode = root.ele('change', { id: changedString.id, default: defaultText });
-        changes.set(changedString.id, changeNode);
+      if (!changes[changedString.id]) {
+        changes[changedString.id] = {
+          $: { id: changedString.id, default: defaultText },
+          translation: [],
+        };
       }
 
       const lang = getLanguageFromFilePath(changedString.file);
-      const change = changes.get(changedString.id);
-      if (lang && change) {
+      if (lang) {
         const localeName = getLocaleName(lang);
-        change
-          .ele('translation', {
+        changes[changedString.id].translation.push({
+          $: {
             localeCode: lang,
             localeName: localeName,
-          })
-          .txt(changedString.value);
+          },
+          _: changedString.value,
+        });
       }
     }
   }
 
-  return root.end({ prettyPrint: true });
+  // Create the proper structure for xml2js
+  const xmlObject = {
+    changes: {
+      change: Object.values(changes),
+    },
+  };
+
+  return builder.buildObject(xmlObject);
 };

@@ -31,7 +31,8 @@ ts_library(
     deps = [
         ":tools_utils",
         "//:node_modules/@types/node",
-        "//:node_modules/xmlbuilder2",
+        "//:node_modules/@types/xml2js",
+        "//:node_modules/xml2js",
     ],
 )
 

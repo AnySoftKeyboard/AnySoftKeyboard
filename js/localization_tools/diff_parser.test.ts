@@ -204,6 +204,14 @@ describe('generateXmlReport', () => {
   });
 
   it('should generate valid XML structure', () => {
+    // Mock the default strings.xml file
+    mock({
+      'values/strings.xml': `<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test">Default Test Value</string>
+</resources>`,
+    });
+
     const changedStrings = [{ file: 'values-fr/strings.xml', id: 'test', value: 'Test Value' }];
 
     const result = generateXmlReport('.', changedStrings);
@@ -214,9 +222,21 @@ describe('generateXmlReport', () => {
     // Should have proper root element
     assert.ok(result.includes('<changes>') || result.includes('<changes/>'));
     assert.ok(result.includes('</changes>') || result.includes('<changes/>'));
+
+    mock.restore();
   });
 
   it('should handle multiple ChangedString objects', () => {
+    // Mock the default strings.xml files for each locale
+    mock({
+      'values/strings.xml': `<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello</string>
+    <string name="goodbye">Goodbye</string>
+    <string name="welcome">Welcome</string>
+</resources>`,
+    });
+
     const changedStrings = [
       { file: 'values-fr/strings.xml', id: 'hello', value: 'Bonjour' },
       { file: 'values-es/strings.xml', id: 'goodbye', value: 'Adiós' },
@@ -230,9 +250,19 @@ describe('generateXmlReport', () => {
     assert.ok(result.includes('<changes'));
     // Handle both self-closing and regular closing tags
     assert.ok(result.includes('</changes>') || result.includes('<changes/>'));
+
+    mock.restore();
   });
 
   it('should handle strings with special characters', () => {
+    // Mock the default strings.xml file
+    mock({
+      'values/strings.xml': `<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="complex_string">Default complex string</string>
+</resources>`,
+    });
+
     const changedStrings = [
       {
         file: 'values-fr/strings.xml',
@@ -248,6 +278,8 @@ describe('generateXmlReport', () => {
     assert.ok(result.includes('<changes'));
     // Handle both self-closing and regular closing tags
     assert.ok(result.includes('</changes>') || result.includes('<changes/>'));
+
+    mock.restore();
   });
 
   it('should include localeCode and localeName attributes in translation nodes', () => {
