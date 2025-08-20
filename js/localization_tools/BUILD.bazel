@@ -38,8 +38,8 @@ ts_library(
 ts_test(
     name = "diff_parser_tests",
     data = [
-        "fake_diff.txt",
-        "fake_strings.xml",
+        "test_fixtures/fake_diff.txt",
+        "test_fixtures/fake_strings.xml",
     ],
     entry_point = "diff_parser.test.ts",
     deps = [
@@ -101,6 +101,7 @@ ts_library(
     visibility = ["//visibility:private"],
     deps = [
         ":delete_localization_files",
+        ":diff_parser",
         ":generate_locales",
         ":replace_ellipsis",
         "//:node_modules/@types/node",

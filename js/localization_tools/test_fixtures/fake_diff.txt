@@ -6,5 +6,5 @@
 --- a/ime/app/src/main/res/values-es/strings.xml
 +++ b/ime/app/src/main/res/values-es/strings.xml
 @@ -1,1 +1,1 @@
--<string name="test_string">valor antiguo</string>
-+<string name="test_string">valor nuevo</string>
+-    <string name="test_string">valor antiguo</string>
++    <string name="test_string">valor nuevo</string>

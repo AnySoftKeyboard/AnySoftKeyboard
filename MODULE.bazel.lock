@@ -320,6 +320,25 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
+    "@@apple_rules_lint~//lint:extensions.bzl%linter": {
+      "general": {
+        "bzlTransitiveDigest": "g7izj5kLCmsajh8IospHh4ZQ35dyM0FIrA8D4HapAsM=",
+        "usagesDigest": "izp/BHH8GoERAs1H1JHt2ZlFhu4GhfoZB9R7DiH38DA=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "apple_linters": {
+            "bzlFile": "@@apple_rules_lint~//lint/private:register_linters.bzl",
+            "ruleClassName": "register_linters",
+            "attributes": {
+              "linters": {}
+            }
+          }
+        },
+        "recordedRepoMappingEntries": []
+      }
+    },
     "@@apple_support~//crosstool:setup.bzl%apple_cc_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "ltCGFbl/LQQZXn/LEMXfKX7pGwyqNiOCHcmiQW0tmjM=",
@@ -1064,6 +1083,44 @@
             "bazel_features~",
             "bazel_features_version",
             "bazel_features~~version_extension~bazel_features_version"
+          ]
+        ]
+      }
+    },
+    "@@aspect_rules_ts~//ts:extensions.bzl%ext": {
+      "general": {
+        "bzlTransitiveDigest": "QfHaI1MLS5sjEgCn4QVGyNCOYnMN64WWuH3NGcDz48s=",
+        "usagesDigest": "rTPJfI3SFLVNvber36ijVs1s5xz85XeTjkHh1QLd0jY=",
+        "recordedFileInputs": {
+          "@@//package.json": "6e20ea79aa4484234ff83ba6d1f8e3939785d9509fcdca39fbc6ca4244122ff1"
+        },
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "npm_typescript": {
+            "bzlFile": "@@aspect_rules_ts~//ts/private:npm_repositories.bzl",
+            "ruleClassName": "http_archive_version",
+            "attributes": {
+              "bzlmod": true,
+              "version": "",
+              "version_from": "@@//:package.json",
+              "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
+              "build_file": "@@aspect_rules_ts~//ts:BUILD.typescript",
+              "build_file_substitutions": {
+                "bazel_worker_version": "5.4.2",
+                "google_protobuf_version": "3.20.1"
+              },
+              "urls": [
+                "https://registry.npmjs.org/typescript/-/typescript-{}.tgz"
+              ]
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "aspect_rules_ts~",
+            "bazel_tools",
+            "bazel_tools"
           ]
         ]
       }
