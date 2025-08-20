@@ -53,6 +53,8 @@ jobs:
           bazel run //:format
           git status
           git add .
+      - name: Generate diff report
+        run: ./scripts/ci/localization_update_summary.sh
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.8
         with:
