@@ -3,7 +3,7 @@
     <string name="search_market_for_addons">البحث عن إضافات</string>
     <string name="no_market_store_available_title">تعذر البحث عن إضافات!</string>
     <string name="no_market_store_available">تعذر العثور على متجر التطبيقات على جهازك.\n لذا لا يمكن البحث عن إضافات!</string>
-    <string name="leaving_ask_to_market_title">مغادرة</string>
+    <string name="leaving_ask_to_market_title">مغادرة AnySoftKeyboard</string>
     <string name="leaving_ask_to_market_message">يُجرَى البحث عن إضافات إضافية على تطبيق خارجي. قد يظهر متجر التطبيقات إعلانات أو قد يتعقب استخدامك، وهذا خارج عن تحكم AnySoftKeyboard.</string>
     <string name="cta_continue_to_market">بحث</string>
 </resources>
