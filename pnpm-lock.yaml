@@ -29,6 +29,9 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
       '@types/node':
         specifier: 24.1.0
         version: 24.1.0
@@ -62,6 +65,9 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
+      mock-fs:
+        specifier: ^5.5.0
+        version: 5.5.0
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
@@ -502,6 +508,9 @@ packages:
 
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==, tarball: https://registry.npmjs.org/@types/minimatch/-/minimatch-5.1.2.tgz}
+
+  '@types/mock-fs@4.13.4':
+    resolution: {integrity: sha512-mXmM0o6lULPI8z3XNnQCpL0BGxPwx1Ul1wXYEPBGl4efShyxW2Rln0JOPEWGyZaYZMM6OVXM/15zUuFMY52ljg==, tarball: https://registry.npmjs.org/@types/mock-fs/-/mock-fs-4.13.4.tgz}
 
   '@types/node-fetch@2.6.12':
     resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==, tarball: https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.12.tgz}
@@ -1569,6 +1578,10 @@ packages:
     resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==, tarball: https://registry.npmjs.org/mkdirp/-/mkdirp-3.0.1.tgz}
     engines: {node: '>=10'}
     hasBin: true
+
+  mock-fs@5.5.0:
+    resolution: {integrity: sha512-d/P1M/RacgM3dB0sJ8rjeRNXxtapkPCUnMGmIN0ixJ16F/E4GUZCvWcSGfWGz8eaXYvn1s9baUwNjI4LOPEjiA==, tarball: https://registry.npmjs.org/mock-fs/-/mock-fs-5.5.0.tgz}
+    engines: {node: '>=12.0.0'}
 
   module-details-from-path@1.0.4:
     resolution: {integrity: sha512-EGWKgxALGMgzvxYF1UyGTy0HXX/2vHLkw6+NvDKW2jypWbHpjQuj4UMcqQWXHERJhVGKikolT06G3bcKe4fi7w==, tarball: https://registry.npmjs.org/module-details-from-path/-/module-details-from-path-1.0.4.tgz}
@@ -2757,6 +2770,10 @@ snapshots:
 
   '@types/minimatch@5.1.2': {}
 
+  '@types/mock-fs@4.13.4':
+    dependencies:
+      '@types/node': 24.1.0
+
   '@types/node-fetch@2.6.12':
     dependencies:
       '@types/node': 24.1.0
@@ -3870,6 +3887,8 @@ snapshots:
       minipass: 7.1.2
 
   mkdirp@3.0.1: {}
+
+  mock-fs@5.5.0: {}
 
   module-details-from-path@1.0.4: {}
 
