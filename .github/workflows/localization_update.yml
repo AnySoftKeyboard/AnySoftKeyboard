@@ -54,7 +54,21 @@ jobs:
           git status
           git add .
       - name: Generate diff report
-        run: ./scripts/ci/localization_update_summary.sh
+        run: |
+          ./scripts/ci/localization_update_summary.sh "${{ secrets.GEMINI_2_5_FLASH_API_KEY }}" "/tmp/translation_report.md"
+          echo "Translations update from crowdin service." > /tmp/translation_report_commit_body.md
+          echo "" >> /tmp/translation_report_commit_body.md
+          echo "# AI Report" >> /tmp/translation_report_commit_body.md
+          echo "" >> /tmp/translation_report_commit_body.md
+          cat /tmp/translation_report.md >> /tmp/translation_report_commit_body.md
+      - name: Upload translation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: translation-verification-reports
+          path: |
+            /tmp/translation_report.md
+            /tmp/localization_changes.xml
+          retention-days: 30
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7.0.8
         with:
@@ -63,7 +77,7 @@ jobs:
           title: 'Automated Localization Update from crowdin'
           committer: 'Polyglot <ask@evendanan.net>'
           author: 'Polyglot <ask@evendanan.net>'
-          body: 'Generated from latest _main_ strings and crowdin data.'
+          body-path: /tmp/translation_report_commit_body.md
           team-reviewers: add-on-maintainers
           branch: 'bot-pr/localization-update'
           delete-branch: true
