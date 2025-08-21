@@ -15,7 +15,7 @@
     <string name="notification_text_testers">Hau beta bertsio bat da, kontuz ibili!</string>
     <string name="testers_version">Probetarako konpilazioa!</string>
     <string name="language_root_tile">Hizkuntza</string>
-    <string name="language_keyboards_settings_tile">Gaitu teklatuak eta.</string>
+    <string name="language_keyboards_settings_tile">Gaitu teklatuak eta hizkuntzak.</string>
     <string name="language_grammar_settings_tile">Konfiguratu zuzenketaren portaera eta beste hiztegiak.</string>
     <string name="language_tweaks_settings_tile">Doikuntzak eta gehiago.</string>
     <!-- UI root menu -->
