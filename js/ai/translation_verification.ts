@@ -46,8 +46,18 @@ For your review report, analyze each change and provide:
      - 3: Neutral - neither rude nor particularly polite
      - 4: Polite - maintains or exceeds the politeness level of the original
    - **Overall Grade**: PASS (if correctness ≥ 3 AND politeness ≥ 3) or FAIL and provide reasoning.
+4. **Source Text Analysis**:
+   - **Clarity Assessment**: Rate how clear and unambiguous the original English text is (1-4)
+   - **Translation Difficulty**: Assess how challenging this text would be to translate accurately (1-4)
+   - **Context Notes**: Identify any cultural references, idioms, or technical terms that might affect translation quality
+   - **Revision Suggestion** (optional): Suggest a revision to the source text if it has issues.
 
-Format your response using markdown with clear headings and structured tables.
+Format your response using markdown with the following structure:
+- **Summary**: Brief overview of findings (PASS/FAIL counts)
+- **Detailed Analysis**: One section per change ID with:
+  - Original text and analysis
+  - Translation ratings in a table format
+  - Overall grade and reasoning
 `;
 export class TranslationVerifier {
   private model: ChatGoogleGenerativeAI;
