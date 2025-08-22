@@ -22,11 +22,11 @@
     <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
     <string name="hint_double_tap_to_close">לחץ שנית להסרת ההצעות</string>
     <!-- voice -->
-    <string name="voice_input_not_installed_title"></string>
+    <string name="voice_input_not_installed_title">קלט קול אינו מותקן</string>
     <string name="voice_input_not_installed_action_install">התקן</string>
-    <string name="voice_input_not_installed_action_do_not_install"></string>
+    <string name="voice_input_not_installed_action_do_not_install">אל תתקין</string>
     <!-- Options menu -->
-    <string name="change_ime"></string>
+    <string name="change_ime">החלף IME</string>
     <string name="override_dictionary">בחירת מילון</string>
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
@@ -136,7 +136,7 @@
     <string name="tweaks_group">הגדרות נוספות</string>
     <string name="tweak_sound_group">שיפורי צליל</string>
     <string name="tweak_physical_keyboard_group">התאמת מקלדת חומרה</string>
-    <string name="tweak_ui_group"> גרפיקה</string>
+    <string name="tweak_ui_group">שיפורי גרפיקה</string>
     <string name="tweak_ux_group">שיפורי התנהגות</string>
     <string name="tweak_dictionary_group">הגדרות מילון נוספות</string>
     <string name="show_keyboard_name_text">הצגת שם המקלדת</string>
