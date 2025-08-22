@@ -97,36 +97,44 @@ jobs:
         with:
           name: fdroid-metadata
           path: outputs/fdroid
-  create_github_release:
-    name: Create GitHub Release
+  post_deployment:
+    name: Post-Deployment Actions
     needs: deploy
     runs-on: ubuntu-24.04
-    if: success() && needs.deploy.outputs.deployment_environment == 'imeProduction_production_010'
+    if: success() && startsWith(needs.deploy.outputs.deployment_environment, 'imeProduction_production_')
+    env:
+      GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v5.0.0
         with:
-          name: apks
-          path: apks
-      - uses: actions/download-artifact@v4
-        with:
-          name: bundles
-          path: bundles
-      - uses: actions/download-artifact@v4
-        with:
-          name: proguard-mapping
-          path: proguard-mapping
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: "Derive tag and version from branch"
         run: |
           VERSION_WITH_V=$(echo "${{ github.event.deployment.ref }}" | sed 's/release-branch-ime-//')
           echo "VERSION_WITH_V=${VERSION_WITH_V}" >> $GITHUB_ENV
           TAG_NAME=$(echo "${VERSION_WITH_V}" | sed 's/^v//')
           echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
+      - uses: actions/download-artifact@v4
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
+        with:
+          name: apks
+          path: apks
+      - uses: actions/download-artifact@v4
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
+        with:
+          name: bundles
+          path: bundles
+      - uses: actions/download-artifact@v4
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
+        with:
+          name: proguard-mapping
+          path: proguard-mapping
       - name: "Delete prior release and tag"
-        env:
-          GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
         run: gh release delete "${{ env.TAG_NAME }}" --cleanup-tag --yes || true
-      - uses: softprops/action-gh-release@v2
+      - name: Create GitHub Pre-Release
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
+        uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           tag_name: ${{ env.TAG_NAME }}
@@ -137,3 +145,34 @@ jobs:
             apks/*.apk
             bundles/*.aab
             proguard-mapping/**/*.txt
+      - name: Update GitHub Release to Stable
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_100')
+        run: gh release edit "${{ env.TAG_NAME }}" --prerelease=false
+      - name: Create halt marker file
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_100')
+        run: |-
+          MARKER_FILE="deployment/halt_deployment_marker"
+          git config --global --add safe.directory "${PWD}"
+          BRANCH_NAME="${{ github.event.deployment.ref }}"
+          echo "Will create ${MARKER_FILE} to halt future releases in the branch '${BRANCH_NAME}'."
+
+          # Check if marker file already exists
+          if [[ -f "${MARKER_FILE}" ]]; then
+            echo "Halt marker file already exists. Skipping creation."
+            exit 0
+          fi
+
+          mkdir -p "$(dirname "${MARKER_FILE}")"
+          echo "Full deployment to '${{ needs.deploy.outputs.deployment_environment }}' in branch '${BRANCH_NAME}' was successful." > "${MARKER_FILE}"
+          git config --global user.email "ask@evendanan.net"
+          git config --global user.name "Polyglot"
+          git add "${MARKER_FILE}"
+          git commit -m "Halting deploy for ${{ needs.deploy.outputs.deployment_environment }}" || {
+            echo "Failed to commit halt marker file"
+            exit 1
+          }
+          git push origin "HEAD:${BRANCH_NAME}" || {
+            echo "Failed to push to origin HEAD:${BRANCH_NAME}"
+            git remote -v
+            exit 1
+          }
