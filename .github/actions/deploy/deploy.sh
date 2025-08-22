@@ -120,27 +120,6 @@ echo "Counter is ${BUILD_COUNT_FOR_VERSION}, crash email: ${ANYSOFTKEYBOARD_CRAS
 
 ./gradlew "${DEPLOY_TASKS[@]}" "${DEPLOY_ARGS[@]}" --continue
 
-#Making sure no future deployments will happen on this branch.
-if [[ "${FRACTION}" == "1.00" ]] && [[ "${DEPLOY_CHANNEL}" == "production" ]]; then
-  echo "A successful full deploy to production has finished."
-  MARKER_FILE="deployment/halt_deployment_marker"
-  if [[ -f "${MARKER_FILE}" ]]; then
-    echo "${MARKER_FILE} exits. No need to create another."
-  else
-    git config --global --add safe.directory "${PWD}"
-    BRANCH_NAME="$(git name-rev --name-only HEAD)"
-    echo "Will create ${MARKER_FILE} to halt future releases in the branch '${BRANCH_NAME}'."
-    mkdir -p "$(dirname "${MARKER_FILE}")"
-    echo "Full deployment to production '${DEPLOYMENT_ENVIRONMENT}' was successful." > "${MARKER_FILE}"
-    git config --global user.email "ask@evendanan.net"
-    git config --global user.name "Polyglot"
-    git add "${MARKER_FILE}"
-    git commit -m "Halting deploy to ${DEPLOYMENT_ENVIRONMENT}"
-    git push origin "HEAD:${BRANCH_NAME}" || {
-      echo "Failed to push to origin HEAD:${BRANCH_NAME}"
-      git remote -v
-    }
-  fi
-fi
+
 
 [[ -n "${GITHUB_ACTIONS}" ]] && chmod -R a+rwx .
