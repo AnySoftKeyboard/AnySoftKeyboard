@@ -23,6 +23,8 @@ jobs:
             --head-sha "${{ github.event.pull_request.head.sha }}" \
             --output-file "/tmp/ai_review_report.md"
       - name: Comment PR with AI Review
+        env:
+          GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
         run: |
           if [ -s "/tmp/ai_review_report.md" ]; then
             gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/ai_review_report.md
