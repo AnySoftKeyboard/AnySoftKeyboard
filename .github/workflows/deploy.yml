@@ -152,7 +152,7 @@ jobs:
         run: gh release edit "${{ env.TAG_NAME }}" --prerelease=false
       - name: Create halt marker file
         if: needs.deploy.outputs.deployment_environment == 'imeProduction_production_100'
-        run: |
+        run: |-
           MARKER_FILE="deployment/halt_deployment_marker"
           git config --global --add safe.directory "${PWD}"
           BRANCH_NAME="$(git name-rev --name-only HEAD)"
