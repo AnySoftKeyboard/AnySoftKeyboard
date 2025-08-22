@@ -1,19 +1,71 @@
---api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}"
-            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}"
-            --owner=${{ github.repository_owner }}
-            --repo="AnySoftKeyboard"
-            --environment="${{ github.event.deployment.environment }}"
+---
+name: deployment
+on: deployment
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.deployment.task }}-${{ github.event.deployment.environment }}-${{ github.event.deployment.payload.previous_environment }}
+  cancel-in-progress: true
+env:
+  TERM: dumb
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    outputs:
+      deployment_environment: ${{ github.event.deployment.environment }}
+    steps:
+      - uses: actions/checkout@v5.0.0
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: actions/checkout@v5.0.0
+        with:
+          repository: ${{ secrets.SECRETS_REPOSITORY }}
+          token: ${{ secrets.BOT_SECRETS_R_GITHUB_TOKEN }}
+          path: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
+          ref: main
+      - uses: bazel-contrib/setup-bazel@0.15.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+      - name: status-in-progress
+        run: |
+          bazel run //js/github_deployments -- status \
+            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --owner=${{ github.repository_owner }} \
+            --repo="AnySoftKeyboard" \
+            --environment="${{ github.event.deployment.environment }}" \
+            --deployment-id="${{ github.event.deployment.id }}" \
+            --state=in_progress
+      - uses: ./.github/actions/deploy
+        with:
+          deployment_environment: ${{ github.event.deployment.environment }}
+          previous_deployment_environment: ${{ github.event.deployment.payload.previous_environment }}
+          deployment_task: ${{ github.event.deployment.task }}
+          crash_report_email: ${{ secrets.ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL }}
+          secrets_repo_folder: ${{ secrets.SECRETS_REPOSITORY_FOLDER }}
+          keystore_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_PASSWORD }}
+          keystore_key_password: ${{ secrets.ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD }}
+      - name: status-success
+        if: success()
+        run: |
+          bazel run //js/github_deployments -- success \
+            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --owner=${{ github.repository_owner }} \
+            --repo="AnySoftKeyboard" \
+            --environment="${{ github.event.deployment.environment }}" \
             --sha="${{ github.event.deployment.sha }}"
       - name: status-failure
         if: failure()
         run: |
           bazel run //js/github_deployments -- status \
-            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}"
-            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}"
-            --owner=${{ github.repository_owner }}
-            --repo="AnySoftKeyboard"
-            --environment="${{ github.event.deployment.environment }}"
-            --deployment-id="${{ github.event.deployment.id }}"
+            --api-username="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
+            --token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}" \
+            --owner=${{ github.repository_owner }} \
+            --repo="AnySoftKeyboard" \
+            --environment="${{ github.event.deployment.environment }}" \
+            --deployment-id="${{ github.event.deployment.id }}" \
             --state=failure
       - uses: actions/upload-artifact@v4.6.2
         if: always()
@@ -45,7 +97,6 @@
         with:
           name: fdroid-metadata
           path: outputs/fdroid
-
   create_github_release:
     name: Create GitHub Release
     needs: deploy
@@ -74,8 +125,7 @@
       - name: "Delete prior release and tag"
         env:
           GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
-        run: |
-          gh release delete ${{ env.TAG_NAME }} --cleanup-tag --yes || true
+        run: gh release delete "${{ env.TAG_NAME }}" --cleanup-tag --yes || true
       - uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
