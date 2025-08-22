@@ -1,5 +1,5 @@
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { HumanMessage, MessageContentComplex, SystemMessage } from '@langchain/core/messages';
+import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { DuckDuckGoSearch } from '@langchain/community/tools/duckduckgo_search';
 import { createReadMultipleFilesTool } from './mcp_read_multiple_files.js';
 
