@@ -71,6 +71,17 @@ program
 
       const reviewer = new AiCodeReviewer(options.geminiApiKey);
       const report = await reviewer.review(diff);
+      if (options.outputFile) {
+        try {
+          fs.writeFileSync(options.outputFile, report, 'utf-8');
+          console.log(`\nReport written to: ${options.outputFile}`);
+        } catch (writeError) {
+          console.error(
+            `Error writing to output file: ${writeError instanceof Error ? writeError.message : writeError}`,
+          );
+          exit(1);
+        }
+      }
       console.info(report);
     } catch (error) {
       console.error('Error:', error instanceof Error ? error.message : error);
