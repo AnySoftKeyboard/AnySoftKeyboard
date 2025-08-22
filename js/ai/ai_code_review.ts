@@ -3,11 +3,6 @@ import { HumanMessage, MessageContentComplex, SystemMessage } from '@langchain/c
 import { DuckDuckGoSearch } from '@langchain/community/tools/duckduckgo_search';
 import { createReadMultipleFilesTool } from './mcp_read_multiple_files.js';
 
-// ## Available tools:
-// You have tools you can use for research:
-// - read_multiple_files - Use this tool to read the full content of changed files when you need more context
-// - duckduckgo-search - Use this web-search tool to research best practices, libraries, or technologies mentioned in the code
-
 const _PROMPT = `
 You are a senior software engineer with extensive experience in Java, Kotlin, and TypeScript. You have in-depth knowledge of the codebase in the repository.
 You can read additional guidelines in the @AGENTS.md file.
@@ -16,6 +11,7 @@ Your task is to review a code change. You will be given a git diff.
 
 ## Available tools:
 You have tools you can use for research:
+- read_multiple_files - Use this tool to read the full content of changed files when you need more context
 - duckduckgo-search - Use this web-search tool to research best practices, libraries, or technologies mentioned in the code
 
 
