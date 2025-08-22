@@ -62,7 +62,7 @@ jobs:
           echo "" >> /tmp/translation_report_commit_body.md
           cat /tmp/translation_report.md >> /tmp/translation_report_commit_body.md
       - name: Upload translation artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: translation-verification-reports
           path: |
