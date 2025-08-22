@@ -10,6 +10,8 @@ jobs:
   deploy:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
+    outputs:
+      deployment_environment: ${{ github.event.deployment.environment }}
     steps:
       - uses: actions/checkout@v5.0.0
         with:
@@ -95,3 +97,43 @@ jobs:
         with:
           name: fdroid-metadata
           path: outputs/fdroid
+  create_github_release:
+    name: Create GitHub Release
+    needs: deploy
+    runs-on: ubuntu-24.04
+    if: success() && needs.deploy.outputs.deployment_environment == 'imeProduction_production_010'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: apks
+          path: apks
+      - uses: actions/download-artifact@v4
+        with:
+          name: bundles
+          path: bundles
+      - uses: actions/download-artifact@v4
+        with:
+          name: proguard-mapping
+          path: proguard-mapping
+      - name: "Derive tag and version from branch"
+        run: |
+          VERSION_WITH_V=$(echo "${{ github.event.deployment.ref }}" | sed 's/release-branch-ime-//')
+          echo "VERSION_WITH_V=${VERSION_WITH_V}" >> $GITHUB_ENV
+          TAG_NAME=$(echo "${VERSION_WITH_V}" | sed 's/^v//')
+          echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
+      - name: "Delete prior release and tag"
+        env:
+          GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+        run: gh release delete "${{ env.TAG_NAME }}" --cleanup-tag --yes || true
+      - uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+          tag_name: ${{ env.TAG_NAME }}
+          name: ${{ env.VERSION_WITH_V }}
+          body_path: ime/app/src/main/play/release-notes/en-US/alpha.txt
+          prerelease: true
+          files: |
+            apks/*.apk
+            bundles/*.aab
+            proguard-mapping/**/*.txt
