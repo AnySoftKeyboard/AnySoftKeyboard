@@ -8,11 +8,29 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 10
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}
           repository-cache: true
+      - name: AI Code Review
+        run: |
+          bazel run //js/ai -- codeReview \
+            --gemini-api-key "${{ secrets.GEMINI_2_5_FLASH_API_KEY }}" \
+            --base-sha "${{ github.event.pull_request.base.sha }}" \
+            --head-sha "${{ github.event.pull_request.head.sha }}" \
+            --output-file "/tmp/ai_review_report.md"
+      - name: Comment PR with AI Review
+        env:
+          GH_TOKEN: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+        run: |
+          if [ -s "/tmp/ai_review_report.md" ]; then
+            gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/ai_review_report.md
+          else
+            echo "AI review report not found or is empty, skipping comment"
+          fi
       - name: Trying to approve
         run: |
           bazel run //js/auto_approval -- \

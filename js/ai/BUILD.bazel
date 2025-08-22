@@ -2,6 +2,16 @@ load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("//js:ts.bzl", "ts_library")
 
 ts_library(
+    name = "mcps",
+    srcs = ["mcp_read_multiple_files.ts"],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:node_modules/@langchain/core",
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
     name = "translation_verification",
     srcs = [
         "translation_verification.ts",
@@ -15,10 +25,26 @@ ts_library(
 )
 
 ts_library(
+    name = "ai_core_review",
+    srcs = [
+        "ai_code_review.ts",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":mcps",
+        "//:node_modules/@langchain/community",
+        "//:node_modules/@langchain/core",
+        "//:node_modules/@langchain/google-genai",
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
     name = "ai_cli",
     srcs = ["index.ts"],
     visibility = ["//visibility:private"],
     deps = [
+        ":ai_core_review",
         ":translation_verification",
         "//:node_modules/@types/node",
         "//:node_modules/commander",
