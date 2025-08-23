@@ -1054,10 +1054,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2481
     // the host app may report -1 as indexes (when nothing is selected)
-    if (et.text == null
-        || selectionStart == selectionEnd
-        || selectionEnd == -1
-        || selectionStart == -1) return;
+    if (et.text == null || selectionStart == selectionEnd || selectionEnd < 0 || selectionStart < 0)
+      return;
     final CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
 
     if (selectedText.length() > 0) {
@@ -1111,10 +1109,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardColorizeNavBar {
 
     // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2481
     // the host app may report -1 as indexes (when nothing is selected)
-    if (et.text == null
-        || selectionStart == selectionEnd
-        || selectionEnd == -1
-        || selectionStart == -1) return;
+    if (et.text == null || selectionStart == selectionEnd || selectionEnd < 0 || selectionStart < 0)
+      return;
     final CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
 
     if (selectedText.length() > 0) {
