@@ -16,6 +16,7 @@ jobs:
           disk-cache: ${{ github.workflow }}
           repository-cache: true
       - name: AI Code Review
+        if: contains(github.event.pull_request.labels.*.name, 'ai-code-review')
         run: |
           bazel run //js/ai -- codeReview \
             --gemini-api-key "${{ secrets.GEMINI_2_5_FLASH_API_KEY }}" \
