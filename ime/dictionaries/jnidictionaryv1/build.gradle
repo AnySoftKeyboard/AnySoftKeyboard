@@ -5,8 +5,8 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 android {
     ndkVersion sideBySideNdkVersion
     externalNativeBuild {
-        ndkBuild {
-            path 'Android.mk'
+        cmake {
+            path 'CMakeLists.txt'
         }
     }
     namespace 'com.anysoftkeyboard.jnidictionaryv1'
