@@ -117,7 +117,7 @@ dependencies {
     implementation project(':ime:permissions')
     implementation project(':ime:fileprovider')
 
-    implementation 'androidx.fragment:fragment:1.8.8'
+    implementation 'androidx.fragment:fragment:1.8.9'
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
