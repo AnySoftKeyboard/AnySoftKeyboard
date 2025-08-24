@@ -12,7 +12,7 @@ Thank you for the fine contributors:
 1. [abcdrfg777777777](https://github.com/abcdrfg777777777) (35)
 1. [hdlopes](https://github.com/hdlopes) (34)
 1. [lubenard](https://github.com/lubenard) (30)
-1. [google-labs-jules](https://github.com/google-labs-jules) (26) 🤖
+1. [google-labs-jules](https://github.com/google-labs-jules) (28) 🤖
 1. [kati42](https://github.com/kati42) (26)
 1. [rillian](https://github.com/rillian) (19)
 1. [sslaia](https://github.com/sslaia) (18)
