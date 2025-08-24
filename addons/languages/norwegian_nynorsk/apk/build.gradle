@@ -1,0 +1,10 @@
+ext.shouldBePublished = false
+ext.notPublishingReason = "Initial version has not been published yet"
+ext.override_release_key_alias = 'packs'
+ext.closedTestingTrackName = 'alpha'
+
+apply from: "$rootDir/addons/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':addons:languages:norwegian_nynorsk:pack')
+}

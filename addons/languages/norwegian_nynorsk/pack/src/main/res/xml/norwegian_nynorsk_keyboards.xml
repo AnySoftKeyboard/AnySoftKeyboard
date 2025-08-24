@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Keyboards>
+    <Keyboard nameResId="Nynorsk Qwerty" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/qwerty_for_norwegian_nynorsk" id="1cd44d2c-9c86-44d5-a178-277b49a88822" defaultDictionaryLocale="nn" description="Qwerty for Nynorsk" index="1" />
+    <Keyboard nameResId="Nynorsk Workman" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_workman" id="8bd173b3-e483-4438-98f4-7bf9b1f3037e" defaultDictionaryLocale="nn" description="Nynorsk Workman" index="2" />
+    <Keyboard nameResId="Nynorsk Colemak" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_colemak" id="e8135b2f-0b9d-478c-b5a7-5fe33871ec7a" defaultDictionaryLocale="nn" description="Nynorsk Colemak" index="3" />
+    <Keyboard nameResId="Nynorsk Qwerty" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_qwerty" id="c3c28ec4-86ba-4959-ba9b-761eff1745cb" defaultDictionaryLocale="nn" description="Nynorsk Qwerty" index="4" />
+    <Keyboard nameResId="Nynorsk Azerty" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_azerty" id="5941a9e9-cd74-42e0-9286-8709690888d2" defaultDictionaryLocale="nn" description="Nynorsk Azerty" index="5" />
+    <Keyboard nameResId="Nynorsk Qwertz" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_qwertz" id="95d2329f-2587-4d1a-bfca-2018cb93ca66" defaultDictionaryLocale="nn" description="Nynorsk Qwertz" index="6" />
+    <Keyboard nameResId="Nynorsk Dvorak" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_dvorak" id="ebe88c8e-77a7-4eec-84bb-15f681bfe7b1" defaultDictionaryLocale="nn" description="Nynorsk Dvorak" index="7" />
+    <Keyboard nameResId="Nynorsk Qzerty" iconResId="@drawable/ic_status_norwegian_nynorsk" layoutResId="@xml/norwegian_nynorsk_qzerty" id="8f0001a7-03f9-4664-98b9-b182ad919d2e" defaultDictionaryLocale="nn" description="Nynorsk Qzerty" index="8" />
+</Keyboards>

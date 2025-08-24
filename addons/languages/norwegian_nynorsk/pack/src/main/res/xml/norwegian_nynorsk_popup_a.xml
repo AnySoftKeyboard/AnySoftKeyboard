@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row>
+        <Key android:codes="æ" />
+        <Key android:codes="á" />
+        <Key android:codes="à" />
+        <Key android:codes="â" />
+        <Key android:codes="ä" />
+        <Key android:codes="å" />
+    </Row>
+</Keyboard>

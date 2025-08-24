@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Dictionaries>
+    <Dictionary
+        autoTextResourceId="@xml/norwegian_nynorsk_autotext"
+        description="Norwegian Nynorsk Dictionary"
+        dictionaryResourceId="@array/norwegian_nynorsk_words_dict_array"
+        id="c65a0661-21a4-4798-831c-38e7ab8b5926"
+        locale="nn"
+        nameResId="Norwegian Nynorsk Dictionary"
+        type="binary_resource" />
+</Dictionaries>
