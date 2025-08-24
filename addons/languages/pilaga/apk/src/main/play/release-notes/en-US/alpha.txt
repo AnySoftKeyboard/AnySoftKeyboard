@@ -1,3 +1,0 @@
-Adding missing accent letters.
-Adding new Pilagá layout: pi qwerty with symbols
-Adding popup_domains for pilagá locales

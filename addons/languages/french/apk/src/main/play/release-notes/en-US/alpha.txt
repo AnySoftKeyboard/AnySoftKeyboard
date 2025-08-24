@@ -1,3 +1,0 @@
-
-Updated French language pack :
- - Add Ergo-L keyboard layout

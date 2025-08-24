@@ -1,4 +1,0 @@
-* Simple cyrillic layout
-* Extended cyrillic layout
-* Simple latin layout
-* Extended latin layout

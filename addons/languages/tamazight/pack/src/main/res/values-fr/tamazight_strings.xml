@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="tamazight_keyboard_name">Tamazight</string>
-    <string name="tamazight_dictionary_name">Dictionnaire kabyle</string>
-    <string name="tamazight_tifinagh_keyboard">Tifinagh</string>
-    <string name="tamazight_arabic_keyboard">Arabe</string>
-    <string name="tamazight_arabic_dictionary">Dictionnaire arabe</string>
-    <string name="tamazight_tifinagh_dictionary">Dictionnaire tifinagh</string>
-</resources>

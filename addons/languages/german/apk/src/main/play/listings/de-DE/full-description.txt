@@ -1,4 +1,0 @@
-AnySoftKeyboard Tastatur-Paket: Deutsche Tastatur und Wörterbuch.
-
-Dies ist ein Erweiterungspaket für AnySoftKeyboard.
-Installiere zuerst AnySoftKeyboard und wähle dann die gewünschte Tastaturbelegung in AnySoftKeyboards Menü Einstellungen->Keyboards.

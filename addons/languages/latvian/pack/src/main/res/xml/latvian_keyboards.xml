@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/latvian_keyboard" iconResId="@drawable/ic_status_latvian"
-              layoutResId="@xml/qwerty" id="d980f4b6-e283-47ef-bb7d-d9ee2f27e578"
-              defaultDictionaryLocale="lv" description="@string/latvian_keyboard_description"
-              index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/latvian_physical" />
-</Keyboards>

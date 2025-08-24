@@ -1,5 +1,0 @@
-ext.status_icon_text = 'pms'
-ext.dictionaryInputPossibleCharacters = "abcdefghilmnopqrstuvzjàèìòùéëABCDEFGHILMNOPQRSTUVZJÀÈÌÒÙÉË".toCharArray()
-ext.dictionaryInputAdditionalInnerCharacters = "·\"'".toCharArray()
-
-apply from: "$rootDir/addons/gradle/language_pack_lib.gradle"

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/basque_keyboard" iconResId="@drawable/ic_status_basque"
-              layoutResId="@xml/qwerty" id="d47cc333-a4c5-43f7-b48b-496b8c2f0b61"
-              defaultDictionaryLocale="eu" description="@string/basque_keyboard_description"
-              index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/basque_physical" />
-</Keyboards>

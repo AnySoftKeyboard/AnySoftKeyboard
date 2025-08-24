@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/sinhala_keyboard" iconResId="@drawable/ic_status_sinhala"
-              layoutResId="@xml/sinhala" id="97e49518-1694-44ae-a970-51d4bc1bc12c"
-              defaultDictionaryLocale="si" description="@string/sinhala_keyboard_description"
-              index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/sinhala_physical" />
-</Keyboards>

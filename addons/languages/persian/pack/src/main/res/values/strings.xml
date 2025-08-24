@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="persian_dictionary">persian Dictionary</string>
-    <string name="persian_dictionary_description">persian for anysoftkey</string>
-    <string name="persian_qwerty">فارسی</string>
-    <string name="persian_qwerty_compact">فارسی ۱۸ کلید</string>
-</resources>

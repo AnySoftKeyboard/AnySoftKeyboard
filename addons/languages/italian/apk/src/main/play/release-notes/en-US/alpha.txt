@@ -1,4 +1,0 @@
-* Added a new layout: "QWERTY Italian keyboard with symbols and numbers row with no apostrophe"
-* Added a new layout: "QWERTZ Italian keyboard with symbols and numbers row with no apostrophe"
-* Added a new layout: "QWERTY Italian keyboard with symbols and italian diacritics only, no apostrophe"
-

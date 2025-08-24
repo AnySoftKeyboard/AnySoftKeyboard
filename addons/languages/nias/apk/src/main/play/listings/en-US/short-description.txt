@@ -1,1 +1,0 @@
-Nias language addon for AnySoftKeyboard

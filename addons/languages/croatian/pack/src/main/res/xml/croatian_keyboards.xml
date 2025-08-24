@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/croatian_keyboard" iconResId="@drawable/ic_status_croatian"
-              layoutResId="@xml/qwertz" id="a11bf7bf-2fb0-4394-a2c4-a76f993198b2"
-              defaultDictionaryLocale="hr" description="@string/croatian_keyboard_description"
-              index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/croatian_physical" />
-</Keyboards>

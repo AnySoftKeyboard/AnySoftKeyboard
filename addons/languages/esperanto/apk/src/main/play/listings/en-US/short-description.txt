@@ -1,1 +1,0 @@
-Esperanto support for AnySoftKeyboard

@@ -1,9 +1,0 @@
-ext.shouldBePublished = true
-ext.closedTestingTrackName = 'alpha'
-ext.override_release_key_alias = 'packs2'
-
-apply from: "$rootDir/addons/gradle/pack_apk.gradle"
-
-dependencies {
-    implementation project(path: ':addons:languages:hackerkeyboardlayout:pack')
-}

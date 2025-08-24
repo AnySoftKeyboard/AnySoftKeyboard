@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/numpad_keyboard" iconResId="@drawable/ic_status_numpad"
-              layoutResId="@xml/numpad" id="d47bf4f6-c741-4b79-8666-6dc563d74305"
-              defaultDictionaryLocale="en" description="@string/numpad_keyboard_description"
-              index="1"/>
-</Keyboards>

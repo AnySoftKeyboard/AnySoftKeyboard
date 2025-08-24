@@ -1,4 +1,0 @@
-AnySoftKeyboard: íslenskur tungumálapakki - lyklaborð og orðabók
-
-Þetta er viðbótarpakki fyrir AnySoftKeyboard.
-Settu fyrst upp AnySoftKeyboard og veldu síðan viðeigandi lyklaborðsuppsetningu í valmyndinni Stillingar->Lyklaborð AnySoftKeyboard.

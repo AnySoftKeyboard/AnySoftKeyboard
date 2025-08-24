@@ -1,4 +1,0 @@
-Adding missing accent letters.
-Adding new Spanish layout: Es qwerty with symbols
-Adding new Spanish layout: Es Querty with symbols alt (without ñ)
-Adding popup_domains for spanish locales

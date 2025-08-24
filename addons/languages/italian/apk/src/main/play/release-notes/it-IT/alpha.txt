@@ -1,4 +1,0 @@
-* Aggiunta una nuova tastiera: "QWERTY Italiano con simboli, riga numerica e senza apostrofo"
-* Aggiunta una nuova tastiera: "QWERTZ Italiano con simboli, riga numerica e senza apostrofo"
-* Aggiunta una nuova tastiera: "QWERTY Italiano con simboli, solo accenti italiani e senza apostrofo"
-

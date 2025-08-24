@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/songhay_keyboard_name" iconResId="@drawable/ic_status_songhay" layoutResId="@xml/songhay_layout"
-        landscapeResId="@xml/songhay_layout"
-        id="c5519225-54e7-4625-81e9-33f91cde8bdf" defaultDictionaryLocale="son" description="@string/songhay_keyboard_description" index="1" />
-</Keyboards>

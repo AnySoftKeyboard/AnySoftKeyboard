@@ -1,7 +1,0 @@
-Czech Language pack
-
-Features:
-
-Czech dictionary from AOSP with more than 100,000 words.
-This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Czech keyboard from AnySoftKeyboard Settings -> Languages -> Keyboards menu.

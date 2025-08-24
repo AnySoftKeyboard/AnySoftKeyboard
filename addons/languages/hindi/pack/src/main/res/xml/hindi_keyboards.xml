@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/hindi_keyboard" iconResId="@drawable/ic_status_hindi"
-              layoutResId="@xml/hindi_inscript" id="0700096a-c705-4998-9a40-ddb4876bab44"
-              defaultDictionaryLocale="hi" description="@string/hindi_keyboard_description"
-              index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/hindi_physical" />
-</Keyboards>

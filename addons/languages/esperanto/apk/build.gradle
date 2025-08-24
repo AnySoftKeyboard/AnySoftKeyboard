@@ -1,7 +1,0 @@
-ext.shouldBePublished = true
-
-apply from: "$rootDir/addons/gradle/pack_apk.gradle"
-
-dependencies {
-    implementation project(path: ':addons:languages:esperanto:pack')
-}

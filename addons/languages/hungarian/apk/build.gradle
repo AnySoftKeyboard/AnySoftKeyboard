@@ -1,8 +1,0 @@
-ext.shouldBePublished = true
-ext.override_app_id = 'com.anysoftkeyboard.languagepack.hungarian_oss'
-
-apply from: "$rootDir/addons/gradle/pack_apk.gradle"
-
-dependencies {
-    implementation project(path: ':addons:languages:hungarian:pack')
-}

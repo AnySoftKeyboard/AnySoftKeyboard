@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Keyboards>
-    <Keyboard nameResId="@string/slovene_keyboard" iconResId="@drawable/ic_status_slovene"
-              layoutResId="@xml/qwertz" id="85deebb8-9fb8-4228-8ea7-a0e4c9f7fe54"
-              defaultDictionaryLocale="sl" description="@string/slovene_keyboard_description"
-              index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/slovene_physical" />
-</Keyboards>

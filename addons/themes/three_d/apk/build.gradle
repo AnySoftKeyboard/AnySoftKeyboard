@@ -1,8 +1,0 @@
-ext.shouldBePublished = false
-ext.notPublishingReason = 'App was suspended by Google.'
-
-apply from: "$rootDir/addons/gradle/pack_apk.gradle"
-
-dependencies {
-    implementation project(path: ':addons:themes:three_d:pack')
-}

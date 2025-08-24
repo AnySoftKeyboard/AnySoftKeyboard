@@ -1,8 +1,0 @@
-<resources>
-    <string name="nias_dictionary">Nias</string>
-    <string name="nias_dictionary_description">Bahasa Nias</string>
-    <string name="nias_qwerty">Nias</string>
-    <string name="nias_qwerty_description">Papan ketik Nias dengan tombol ŵ dan ö</string>
-    <string name="nias_wiki">Wiki</string>
-    <string name="nias_wiki_description">Papan ketik Nias dengan tombol kode wiki</string>
-</resources>

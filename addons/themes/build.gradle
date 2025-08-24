@@ -1,1 +1,0 @@
-apply from: "$rootDir/addons/gradle/add_on_list_generator.gradle"
