@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
-    <string name="changelog">Actualitzacions de versió</string>
-    <string name="change_log_card_version_title_template">\u0020\u0020Darrers canvis per a la v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
-    <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
-    <string name="change_log_url">Més:\u0020<xliff:g id="url">%s</xliff:g></string>
-    <string name="notification_text_testers">Això és una versió beta. Empreu-la amb precaució!</string>
-    <string name="testers_version">Versió Beta tester!</string>
-</resources>

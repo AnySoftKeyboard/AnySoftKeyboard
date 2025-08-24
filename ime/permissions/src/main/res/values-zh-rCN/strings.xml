@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">同意</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard 使用您联系人的姓名为您提供个性化的单词建议：当您输入文字时，我们会寻找相似文字并自动补全和自动更正您的打字的文字。</string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard可能需要通知您关键的问题(例如缺少权限或崩溃)。</string>
-</resources>

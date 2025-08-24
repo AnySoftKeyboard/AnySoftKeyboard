@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Разрешить</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard использует ваши контакты
-        имена, чтобы предоставить вам персонализированное предложение слов: когда вы вводите слово, мы ищем
-        подобные слова для автозаполнения и автоисправления ввода.</string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard может потребоваться уведомить вас о критических проблемах (например, об отсутствии разрешений или сбоях).</string>
-</resources>

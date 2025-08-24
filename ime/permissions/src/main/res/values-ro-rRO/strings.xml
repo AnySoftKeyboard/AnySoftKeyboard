@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Permite</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard folosește numele
-        contactelor pentru a oferi o sugestie de cuvinte personalizate: pe măsură ce tastezi un cuvânt, căutăm
-        cuvinte similare pentru completarea și corectarea automată a tastării.
-    </string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard poate avea nevoie să notifice despre probleme critice (cum ar fi permisiuni lipsă sau blocări).</string>
-</resources>

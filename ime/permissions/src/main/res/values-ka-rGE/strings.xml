@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">ნების დართვა</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard იყენებს თქვენი წიგნაკიდან
-        სახელებს უკეთ მორგებული შემოთავაზებებისთვის: სიტყვის აკრეფისთანავე მოინახება
-        მსგავსი სიტყვები ნაწერის თვითდასრულებისა და თვითშესწორებისთვის.
-    </string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard დროდადრო გაცნობებთ მნიშვნელოვანი საკითხების შესახებ (როგორიცაა, საჭირო ნებართვის უქნოლობა ან უეცარი გათიშვები).</string>
-</resources>

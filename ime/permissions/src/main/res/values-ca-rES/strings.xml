@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Permet</string>
-    <string name="contacts_permissions_rationale">L\'AnySoftKeyboard utilitza els noms dels vostres contactes
-        contactes com a suggeriments: En escriure una paraula, es verifica si existeixen de similars
-        per a autocompletar i corregir la vostra escriptura.
-    </string>
-    <string name="notifications_permissions_rationale">És possible que l\'AnySoftKeyboard us hagi de notificar d\'errors crítics (com ara permisos faltants o fallades).</string>
-</resources>

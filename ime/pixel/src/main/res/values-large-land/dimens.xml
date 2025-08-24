@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Global content UI padding, bottom -->
-    <dimen name="global_content_padding_bottom">4dp</dimen>
-    <!-- Global content UI padding, sides -->
-    <dimen name="global_content_padding_side">32dp</dimen>
-</resources>

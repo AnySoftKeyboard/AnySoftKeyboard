@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Povolit</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard používá jména vašich kontaktů pro lepší personalizaci: používáme je při doporučování a opravě slov při psaní.</string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard vás může potřebovat upozornit na kritické chyby (jako jsou chybějící oprávnění nebo chyby aplikace).</string>
-</resources>

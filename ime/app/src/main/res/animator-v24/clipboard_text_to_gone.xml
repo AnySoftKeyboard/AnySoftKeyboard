@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<objectAnimator android:duration="@integer/extendingAnimTime"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <propertyValuesHolder android:propertyName="alpha" android:valueFrom="1.0f" android:valueTo="0.0f"/>
-    <propertyValuesHolder android:propertyName="scaleX" android:valueFrom="1.0f" android:valueTo="0.0f"/>
-    <propertyValuesHolder android:propertyName="scaleY" android:valueFrom="1.0f" android:valueTo="0.0f"/>
-</objectAnimator>

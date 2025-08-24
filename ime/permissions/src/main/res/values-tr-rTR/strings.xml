@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">İzin ver</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard, kişiselleştirilmiş kelime önerileri sunmak için kişi isimlerini kullanır: bir kelime yazarken, yazınızı otomatik olarak tamamlamak ve düzeltmek için benzer kelimeleri ararız.</string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard\'ın kritik sorunları (eksik izinler veya çökmeler gibi) bildirmesi gerekebilir.</string>
-</resources>

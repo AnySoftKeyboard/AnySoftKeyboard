@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Permitir</string>
-    <string name="contacts_permissions_rationale">O AnySoftKeyboard está a usar os nomes dos seus contactos
-        para fornecer uma sugestão personalizada de palavra: ao digitar uma palavra, são procuradas
-        palavras semelhantes para completar e corrigir automaticamente a digitação.
-    </string>
-    <string name="notifications_permissions_rationale">O AnySoftKeyboard pode necessitar de notificá-lo com problemas críticos (tais como falta de permissões ou falhas de sistema).</string>
-</resources>

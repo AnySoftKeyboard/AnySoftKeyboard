@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="allow_permission">Toestaan</string>
-    <string name="contacts_permissions_rationale">AnySoftKeyboard gebruikt de gegevens van uw contact-
-        namen om u een gepersonaliseerde woordsuggestie te geven: terwijl u een woord typt, zoeken we naar
-        vergelijkbare woorden om uw tekst automatisch aan te vullen en te corrigeren.
-    </string>
-    <string name="notifications_permissions_rationale">AnySoftKeyboard moet u mogelijk op de hoogte stellen van kritieke problemen (zoals ontbrekende machtigingen of crashes).</string>
-</resources>

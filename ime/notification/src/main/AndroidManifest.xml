@@ -1,5 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- Required by Android 13 (API level 33) -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-</manifest>
