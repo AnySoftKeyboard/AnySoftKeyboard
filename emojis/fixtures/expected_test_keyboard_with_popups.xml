@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
-  <Row>
-    <Key android:keyLabel="&#128512;" android:keyOutputText="&#128512;" android:popupKeyboard="@xml/test_keyboard_with_popups_popup_0" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smile"/>
-    <Key android:keyLabel="&#128514;" android:keyOutputText="&#128514;"/>
-  </Row>
-</Keyboard>
