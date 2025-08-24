@@ -1,6 +1,0 @@
-node_modules/
-dist/
-bazel-*/
-**/external
-**/tools/format.bash.runfiles
-**/dictionary/inputs/
