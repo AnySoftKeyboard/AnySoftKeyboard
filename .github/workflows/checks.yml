@@ -61,9 +61,9 @@ jobs:
       - uses: actions/cache@v4.2.4
         with:
           path: .github_cache_gradle/
-          key: global-v11-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v12-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            global-v11-
+            global-v12-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -95,9 +95,9 @@ jobs:
       - uses: actions/cache@v4.2.4
         with:
           path: .github_cache_gradle/
-          key: global-v11-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: global-v12-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            global-v11-
+            global-v12-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: check
@@ -163,10 +163,10 @@ jobs:
       - uses: actions/cache@v4.2.4
         with:
           path: .github_cache_gradle/
-          key: tests-v11-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: tests-v12-${{ matrix.actual_shard }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            tests-v11-${{ matrix.actual_shard }}-
-            global-v11-
+            tests-v12-${{ matrix.actual_shard }}-
+            global-v12-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: setup robolectric
@@ -228,10 +228,10 @@ jobs:
       - uses: actions/cache@v4.2.4
         with:
           path: .github_cache_gradle/
-          key: deploy-v11-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
+          key: deploy-v12-${{ matrix.shard_type }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
-            deploy-v11-${{ matrix.shard_type }}-
-            global-v11
+            deploy-v12-${{ matrix.shard_type }}-
+            global-v12-
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: generate projects list for sharding
