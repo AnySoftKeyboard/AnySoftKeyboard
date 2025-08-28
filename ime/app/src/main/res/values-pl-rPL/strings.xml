@@ -764,6 +764,8 @@ Zmiana
     <string name="delete_all_clipboard_entries">Wyczyść schowek</string>
     <string name="tip_swipe_from_backspace_to_clear">Wskazówka: możesz przesunąć palcem w lewo od backspace, aby wyczyścić słowo!</string>
     <string name="notification_read_contacts_ticker">Wymagane uprawnienie dostępu do kontaktów</string>
+    <string name="notification_action_approve_permission">Zatwierdź uprawnienie</string>
+    <string name="notification_action_dismiss_permission">Wyłącz słownik kontaktów</string>
     <string name="wizard_allow_notification_permission">Zezwól na powiadomienia od AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">W rzadkich przypadkach (np. awaria aplikacji) będziemy musieli wysłać powiadomienie na urządzenie. Jest to zalecane, ale wyłączenie powiadomień nie wpłynie na zachowanie tej aplikacji.</string>
     <string name="wizard_skip_notification_permission">Nie zezwalaj na powiadomienia</string>
