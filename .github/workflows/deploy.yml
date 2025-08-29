@@ -114,17 +114,17 @@ jobs:
           echo "VERSION_WITH_V=${VERSION_WITH_V}" >> $GITHUB_ENV
           TAG_NAME=$(echo "${VERSION_WITH_V}" | sed 's/^v//')
           echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5.0.0
         if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
         with:
           name: apks
           path: apks
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5.0.0
         if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
         with:
           name: bundles
           path: bundles
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5.0.0
         if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
         with:
           name: proguard-mapping
@@ -134,7 +134,7 @@ jobs:
         run: gh release delete "${{ env.TAG_NAME }}" --cleanup-tag --yes || true
       - name: Create GitHub Pre-Release
         if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.3.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           tag_name: ${{ env.TAG_NAME }}
