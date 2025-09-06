@@ -32,6 +32,7 @@ public class ShardingSuiteTest {
         .when(runnerBuilder)
         .runners(Mockito.any(Class.class), Mockito.any(Class[].class));
     final ShardingSuite suiteUnderTest = new ShardingSuite(SuiteToTest.class, runnerBuilder);
+    Assert.assertEquals(SuiteToTest.class, suiteUnderTest.getTestClass().getJavaClass());
     ArgumentCaptor<Class[]> testClasses = ArgumentCaptor.forClass(Class[].class);
     Mockito.verify(runnerBuilder).runners(Mockito.eq(SuiteToTest.class), testClasses.capture());
     mCapturedTestClasses = testClasses.getValue();
@@ -119,6 +120,7 @@ public class ShardingSuiteTest {
         .when(runnerBuilder)
         .runners(Mockito.any(Class.class), Mockito.any(Class[].class));
     final ShardingSuite suiteUnderTest = new ShardingSuite(SuiteToTest.class, runnerBuilder);
+    Assert.assertEquals(SuiteToTest.class, suiteUnderTest.getTestClass().getJavaClass());
     ArgumentCaptor<Class[]> testClasses = ArgumentCaptor.forClass(Class[].class);
     Mockito.verify(runnerBuilder).runners(Mockito.eq(SuiteToTest.class), testClasses.capture());
     mCapturedTestClasses = testClasses.getValue();
@@ -135,6 +137,7 @@ public class ShardingSuiteTest {
         .when(runnerBuilder)
         .runners(Mockito.any(Class.class), Mockito.any(Class[].class));
     final ShardingSuite suiteUnderTest = new ShardingSuite(SuiteToTest.class, runnerBuilder);
+    Assert.assertEquals(SuiteToTest.class, suiteUnderTest.getTestClass().getJavaClass());
     ArgumentCaptor<Class[]> testClasses = ArgumentCaptor.forClass(Class[].class);
     Mockito.verify(runnerBuilder).runners(Mockito.eq(SuiteToTest.class), testClasses.capture());
     mCapturedTestClasses = testClasses.getValue();
@@ -150,5 +153,6 @@ public class ShardingSuiteTest {
         .runners(Mockito.any(Class.class), Mockito.any(Class[].class));
     final ShardingSuite suiteUnderTest =
         new ShardingSuite(SuiteToTestWithoutShardUsing.class, runnerBuilder);
+    Assert.assertEquals(SuiteToTest.class, suiteUnderTest.getTestClass().getJavaClass());
   }
 }
