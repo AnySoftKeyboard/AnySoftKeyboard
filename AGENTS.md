@@ -10,6 +10,7 @@ alwaysApply: true
 - this project uses Gradle build system for Android related code (mostly under the forlder `/ime`, `/api` and `/addons`).
 - Prefer not adding new 3rd party dependencies.
 - Do not add 3rd-party dependencies without approval. If you have a solution that requires a new 3rd party, ask for an approval before implementing this solution.
+- Do not use the build task `build` in gradle! This task is usually not compatible with Android builds. Prefer using `assembleDebug`.
 
 # Lint and Format
 

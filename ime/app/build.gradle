@@ -117,7 +117,7 @@ dependencies {
     implementation project(':ime:permissions')
     implementation project(':ime:fileprovider')
 
-    implementation 'androidx.fragment:fragment:1.8.8'
+    implementation 'androidx.fragment:fragment:1.8.9'
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
@@ -125,7 +125,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.9.1'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'androidx.preference:preference:1.2.1'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.13.0'
     implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
     implementation 'androidx.autofill:autofill:1.3.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
