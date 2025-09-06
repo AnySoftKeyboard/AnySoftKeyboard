@@ -30,9 +30,9 @@ if [ -s /tmp/changed_localization_files.txt ]; then
   echo "Verifying translations with AI:"
   if [ -n "$OUTPUT_FILE" ]; then
     echo "Output will be written to: $OUTPUT_FILE"
-    bazel run //js/ai -- translationsVerification --gemini-api-key "$1" --diff-file /tmp/localization_changes.xml --output-file "$OUTPUT_FILE"
+    bazel run //js/ai -- translationsVerification --gemini-api-key "$LLM_API_KEY" --diff-file /tmp/localization_changes.xml --output-file "$OUTPUT_FILE"
   else
-    bazel run //js/ai -- translationsVerification --gemini-api-key "$1" --diff-file /tmp/localization_changes.xml
+    bazel run //js/ai -- translationsVerification --gemini-api-key "$LLM_API_KEY" --diff-file /tmp/localization_changes.xml
   fi
 else
   echo "No localization files were changed in this workflow run"
