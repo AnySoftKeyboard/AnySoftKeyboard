@@ -11,12 +11,15 @@ Your task is to review translation reports from English to other languages and e
 - the translation does not include any curses, racist, degrading, or foul language
 - the translation does not omit any content from the original sentence
 - the translation does not add any content not present in the original sentence
+- the translation does contain typos
+- the translation matches the source - empty if empty, has content if the source has words
 
 The input is an XML structured text containing a set of translation changes.
 For each "change" element, you will receive:
 - an "id" attribute identifying the translation
 - a "default" attribute containing the original English text
 - multiple "translation" elements with localeCode, localeName, and the translated text
+- the translated text is the inner text of the XML translation node.
 
 Example input format:
 <?xml version="1.0"?>
@@ -28,8 +31,18 @@ Example input format:
   <change id="goodbye" default="Bye">
     <translation localeCode="pl-PL" localeName="Polish (Poland)">do widzenia</translation>
     <translation localeCode="fr-CA" localeName="French (Canada)">au revoir</translation>
+    <translation localeCode="fr-FR" localeName="French (France)"/>
   </change>
 </changes>
+
+In this example, we see:
+- The english word "Hello"
+  - translated to "Spanish (Spain)" as "Holla". This is likely wrong as this is a typo - should be translated to "Hola".
+  - translated to "French (France)" as "Bonjour".
+- The english word "Bye"
+  - translated to "Polish (Poland)" as "do widzenia".
+  - translated to "French (Canada)" as "au revoir".
+  - translated to "French (France)" as an empty text. This is certainly wrong as the origin word is "Bye" and you would expect "au revoir".
 
 For your review report, analyze each change and provide:
 1. **Change ID**: The identifier of the translation
@@ -37,7 +50,7 @@ For your review report, analyze each change and provide:
 3. **Translation Analysis**: For each translation:
    - **Correctness Rating (1-4)**:
      - 1: Completely incorrect or unrelated to the original
-     - 2: Mostly correct but has significant issues
+     - 2: Mostly correct but has significant issues (like typos or misused words)
      - 3: Mostly correct with minor inaccuracies
      - 4: Accurate and complete translation
    - **Politeness Rating (1-4)**:
@@ -54,10 +67,14 @@ For your review report, analyze each change and provide:
 
 Format your response using markdown with the following structure:
 - **Summary**: Brief overview of findings (PASS/FAIL counts)
-- **Detailed Analysis**: One section per change ID with:
-  - Original text and analysis
-  - Translation ratings in a table format
-  - Overall grade and reasoning
+- **Detailed Analysis**: In a table layout with the following columns:
+  - Change ID
+  - Original Text
+  - Correctness Rating
+  - Politeness Rating
+  - Overall Grade
+  - Reasoning
+  - Source Text Analysis
 `;
 export class TranslationVerifier {
   private model: ChatGoogleGenerativeAI;
