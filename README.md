@@ -71,7 +71,6 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 - [Theme](addons/themes/PACKS.md) add-ons in this repo.
 - [Quick-Text](addons/quicktexts/PACKS.md) add-ons in this repo.
 - [Crowdin](https://crowdin.com/project/anysoftkeyboard) to translate the app to your language. [![Crowdin](https://badges.crowdin.net/anysoftkeyboard/localized.svg)](https://crowdin.com/project/anysoftkeyboard)
-- Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bounties and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!
 
 # Development/Contributing
 
