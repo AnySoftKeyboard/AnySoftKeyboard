@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="12%p"
+    android:horizontalGap="1px"
+    android:verticalGap="0px"
+    android:isRepeatable="false">
+    
+    <Row android:keyWidth="14%p">
+        <Key android:codes="113" android:keyEdgeFlags="left" android:keyOutputText="q" android:keyIcon="@drawable/piqad_letter_q"/>
+        <Key android:codes="117" android:keyOutputText="u" android:keyIcon="@drawable/piqad_letter_u"/>
+        <Key android:codes="106" android:keyOutputText="j" android:keyIcon="@drawable/piqad_letter_j"/>
+        <Key android:codes="97" android:keyOutputText="a" android:keyIcon="@drawable/piqad_letter_a"/>
+        <Key android:codes="39" android:keyOutputText="&apos;" android:keyIcon="@drawable/piqad_letter_apos"/>
+        <Key android:keyWidth="28%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+
+    <Row android:keyWidth="14%p">
+        <Key android:codes="81" android:keyEdgeFlags="left" android:keyOutputText="Q" android:keyIcon="@drawable/piqad_letter_qu"/>
+        <Key android:codes="109" android:keyOutputText="m" android:keyIcon="@drawable/piqad_letter_m"/>
+        <Key android:codes="73" android:keyOutputText="I" android:keyIcon="@drawable/piqad_letter_iu"/>
+        <Key android:codes="84" android:popupCharacters="cdfghiksxz" android:keyOutputText="tlh" android:keyIcon="@drawable/piqad_letter_tlh"/>
+        <Key android:codes="111" android:keyOutputText="o" android:keyIcon="@drawable/piqad_letter_o"/>
+        <Key android:codes="101" android:keyOutputText="e" android:keyIcon="@drawable/piqad_letter_e"/>
+        <Key android:codes="82" android:keyEdgeFlags="right" android:keyOutputText="H" android:keyIcon="@drawable/piqad_letter_hu"/>
+    </Row>
+
+    <Row android:keyWidth="14%p">
+        <Key android:codes="68" android:keyEdgeFlags="left" android:keyOutputText="D" android:keyIcon="@drawable/piqad_letter_du"/>
+        <Key android:codes="118" android:keyOutputText="v" android:keyIcon="@drawable/piqad_letter_v"/>
+        <Key android:codes="108" android:keyOutputText="l" android:keyIcon="@drawable/piqad_letter_l"/>
+        <Key android:codes="116" android:keyOutputText="t" android:keyIcon="@drawable/piqad_letter_t"/>
+        <Key android:codes="98" android:keyOutputText="b" android:keyIcon="@drawable/piqad_letter_b"/>
+        <Key android:codes="83" android:keyOutputText="S" android:keyIcon="@drawable/piqad_letter_su"/>
+        <Key android:codes="112" android:keyEdgeFlags="right" android:keyOutputText="p" android:keyIcon="@drawable/piqad_letter_p"/>
+    </Row>
+
+    <Row android:keyWidth="14%p">
+        <Key android:codes="99" android:keyEdgeFlags="left" android:keyOutputText="ch" android:keyIcon="@drawable/piqad_letter_ch"/>
+        <Key android:codes="121" android:keyOutputText="y" android:keyIcon="@drawable/piqad_letter_y"/>
+        <Key android:codes="119" android:keyOutputText="w" android:keyIcon="@drawable/piqad_letter_w"/>
+        <Key android:codes="103" android:keyOutputText="gh" android:keyIcon="@drawable/piqad_letter_gh"/>
+        <Key android:codes="114" android:keyOutputText="r" android:keyIcon="@drawable/piqad_letter_r"/>
+        <Key android:codes="110" android:keyOutputText="n" android:keyIcon="@drawable/piqad_letter_n"/>
+        <Key android:codes="88" android:keyEdgeFlags="right" android:keyOutputText="ng" android:keyIcon="@drawable/piqad_letter_ng"/>
+    </Row>
+</Keyboard>
