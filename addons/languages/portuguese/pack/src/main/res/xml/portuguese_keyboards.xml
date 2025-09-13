@@ -22,4 +22,11 @@
         index="2"
         defaultEnabled="false"
         />
+    <Keyboard nameResId="@string/portuguese_keyboard_name" iconResId="@drawable/ic_status_portuguese"
+        layoutResId="@xml/qwerty" landscapeResId="@xml/hcesar"
+        id="c9b1f3e2-5c3e-4b8e-9c1e-5f3b1e2c4a7d"
+        defaultDictionaryLocale="pt-PT"
+        description="Portuguese HCESAR"
+        index="1"
+        />
 </Keyboards>
