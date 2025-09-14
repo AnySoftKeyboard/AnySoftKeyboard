@@ -213,7 +213,7 @@
         <!-- N -->
         <Key
             android:codes="\u0646"
-            android:popupCharacters="\u061B:\u06BA"
+            android:popupCharacters="\u061B:\u06BA\u0768\u0658"
             ask:hintLabel="\u061B"
             ask:shiftedCodes="\u06BA" />
         <!-- M -->
