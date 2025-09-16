@@ -1,10 +1,11 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
     <Row>
         <Key android:codes="\u0638" />
-        <Key android:codes="\=" />
+        <Key android:codes="\u0615" />
     </Row>
     <Row>
         <Key android:codes="+" />
         <Key android:codes="±" />
+        <Key android:codes="\=" />
     </Row>
 </Keyboard>
