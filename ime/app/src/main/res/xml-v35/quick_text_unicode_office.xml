@@ -54,8 +54,9 @@
     <Key android:keyLabel="&#128209;" android:keyOutputText="&#128209;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bookmark,tabs,bookmark_tabs"/>
     <Key android:keyLabel="&#128278;" android:keyOutputText="&#128278;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bookmark"/>
     <Key android:keyLabel="&#127991;️" android:keyOutputText="&#127991;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="label"/>
-    <Key android:keyLabel="&#128176;" android:keyOutputText="&#128176;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="money,bag,money_bag"/>
     <Key android:keyLabel="&#129689;" android:keyOutputText="&#129689;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="coin"/>
+    <Key android:keyLabel="&#128176;" android:keyOutputText="&#128176;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="money,bag,money_bag"/>
+    <Key android:keyLabel="&#129678;" android:keyOutputText="&#129678;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="treasure,chest,treasure_chest"/>
     <Key android:keyLabel="&#128180;" android:keyOutputText="&#128180;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="yen,banknote,yen_banknote"/>
     <Key android:keyLabel="&#128181;" android:keyOutputText="&#128181;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dollar,banknote,dollar_banknote"/>
     <Key android:keyLabel="&#128182;" android:keyOutputText="&#128182;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="euro,banknote,euro_banknote"/>
