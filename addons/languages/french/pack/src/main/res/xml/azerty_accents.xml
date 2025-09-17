@@ -46,7 +46,7 @@
         <Key android:codes="@integer/key_code_shift" android:keyWidth="15%p" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w" android:popupCharacters="/÷ŵ" ask:hintLabel="/"/>
         <Key android:codes="120" android:keyLabel="x" android:popupCharacters="*·×" ask:hintLabel="*"/>
-        <Key android:codes="99" android:keyLabel="c" android:popupCharacters="çĉ\u00A2—-čć" ask:hintLabel="−"/>
+        <Key android:codes="99" android:keyLabel="c" android:popupCharacters="ç\u00A2—ĉč-ć" ask:hintLabel="−"/>
         <Key android:codes="118" android:keyLabel="v" android:popupCharacters="+±\u0026" ask:hintLabel="+"/>
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="\u003D"/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńň" ask:hintLabel="&lt;"/>
