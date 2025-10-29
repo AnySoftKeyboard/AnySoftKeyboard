@@ -7,13 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@langchain/community':
-        specifier: ^1.0.0
-        version: 1.0.0(@browserbasehq/sdk@2.6.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.55.0)(deepmerge@4.3.1)(dotenv@17.2.3)(openai@6.7.0(ws@8.18.3)(zod@4.1.12))(zod@4.1.12))(@ibm-cloud/watsonx-ai@1.6.10)(@langchain/core@1.0.2(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(openai@6.7.0(ws@8.18.3)(zod@4.1.12)))(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(duck-duck-scrape@2.2.7)(fast-xml-parser@5.3.0)(google-auth-library@9.15.1)(googleapis@137.1.0)(html-to-text@9.0.5)(ibm-cloud-sdk-core@5.4.2)(ignore@5.3.2)(jsonwebtoken@9.0.2)(openai@6.7.0(ws@8.18.3)(zod@4.1.12))(playwright@1.55.0)(ws@8.18.3)
-      duck-duck-scrape:
-        specifier: ^2.2.7
-        version: 2.2.7
     devDependencies:
       '@actions/core':
         specifier: ^1.11.1
@@ -30,6 +23,9 @@ importers:
       '@google/gemini-cli':
         specifier: ^0.11.0
         version: 0.11.0(@opentelemetry/core@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))
+      '@langchain/community':
+        specifier: ^1.0.0
+        version: 1.0.0(@browserbasehq/sdk@2.6.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.55.0)(deepmerge@4.3.1)(dotenv@17.2.3)(openai@6.7.0(ws@8.18.3)(zod@4.1.12))(zod@4.1.12))(@ibm-cloud/watsonx-ai@1.6.10)(@langchain/core@1.0.2(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(openai@6.7.0(ws@8.18.3)(zod@4.1.12)))(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(duck-duck-scrape@2.2.7)(fast-xml-parser@5.3.0)(google-auth-library@9.15.1)(googleapis@137.1.0)(html-to-text@9.0.5)(ibm-cloud-sdk-core@5.4.2)(ignore@5.3.2)(jsonwebtoken@9.0.2)(openai@6.7.0(ws@8.18.3)(zod@4.1.12))(playwright@1.55.0)(ws@8.18.3)
       '@langchain/core':
         specifier: ^1.0.2
         version: 1.0.2(@opentelemetry/api@1.9.0)(@opentelemetry/exporter-trace-otlp-proto@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(openai@6.7.0(ws@8.18.3)(zod@4.1.12))
@@ -63,6 +59,9 @@ importers:
       commander:
         specifier: ^14.0.2
         version: 14.0.2
+      duck-duck-scrape:
+        specifier: ^2.2.7
+        version: 2.2.7
       eslint:
         specifier: ^9.38.0
         version: 9.38.0

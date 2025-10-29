@@ -24,9 +24,9 @@
     "@google/gemini-cli": "^0.11.0",
     "@langchain/core": "^1.0.2",
     "@langchain/google-genai": "^1.0.0",
+    "@types/mock-fs": "^4.13.4",
     "@types/follow-redirects": "^1.14.4",
     "@types/js-yaml": "^4.0.9",
-    "@types/mock-fs": "^4.13.4",
     "@types/node": "24.9.2",
     "@types/node-fetch": "^2.6.13",
     "@types/xml2js": "^0.4.14",
@@ -44,9 +44,7 @@
     "tar": "^7.5.1",
     "typescript": "5.9.3",
     "undici": "^7.16.0",
-    "xml2js": "^0.6.2"
-  },
-  "dependencies": {
+    "xml2js": "^0.6.2",
     "@langchain/community": "^1.0.0",
     "duck-duck-scrape": "^2.2.7"
   }

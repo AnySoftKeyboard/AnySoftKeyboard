@@ -320,25 +320,6 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "@@apple_rules_lint~//lint:extensions.bzl%linter": {
-      "general": {
-        "bzlTransitiveDigest": "g7izj5kLCmsajh8IospHh4ZQ35dyM0FIrA8D4HapAsM=",
-        "usagesDigest": "izp/BHH8GoERAs1H1JHt2ZlFhu4GhfoZB9R7DiH38DA=",
-        "recordedFileInputs": {},
-        "recordedDirentsInputs": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "apple_linters": {
-            "bzlFile": "@@apple_rules_lint~//lint/private:register_linters.bzl",
-            "ruleClassName": "register_linters",
-            "attributes": {
-              "linters": {}
-            }
-          }
-        },
-        "recordedRepoMappingEntries": []
-      }
-    },
     "@@apple_support~//crosstool:setup.bzl%apple_cc_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "ltCGFbl/LQQZXn/LEMXfKX7pGwyqNiOCHcmiQW0tmjM=",
@@ -1090,13 +1071,9 @@
     "@@aspect_rules_ts~//ts:extensions.bzl%ext": {
       "general": {
         "bzlTransitiveDigest": "QfHaI1MLS5sjEgCn4QVGyNCOYnMN64WWuH3NGcDz48s=",
-        "usagesDigest": "rTPJfI3SFLVNvber36ijVs1s5xz85XeTjkHh1QLd0jY=",
+        "usagesDigest": "cLdOPlK1rx48Pq2W/Vg7vljF42DzYOxqeySsAuhQCeY=",
         "recordedFileInputs": {
-<<<<<<< HEAD
-          "@@//package.json": "f69aae3c304824885694828ad6c0f94875a5b03bb90a0fa52be2c045b55440c5"
-=======
-          "@@//package.json": "1da9d1a4d4d11c1edf8086e239d3bd59aa6a2fa877e18640dd7475bd9175ca6d"
->>>>>>> 730f2aac4 (Automated JS Dependencies Update Update)
+          "@@//package.json": "30472a8d9eec5af3b5ab405a2a2638200e4ab782cd7099d2a604c935f2daf9eb"
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1108,7 +1085,7 @@
               "bzlmod": true,
               "version": "",
               "version_from": "@@//:package.json",
-              "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
+              "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
               "build_file": "@@aspect_rules_ts~//ts:BUILD.typescript",
               "build_file_substitutions": {
                 "bazel_worker_version": "5.4.2",
@@ -1756,7 +1733,7 @@
     "@@rules_nodejs~//nodejs:extensions.bzl%node": {
       "general": {
         "bzlTransitiveDigest": "u0Xc7MC/B2igVszbLA705qAarQ4LnMPIiZpbXhvrD/c=",
-        "usagesDigest": "DyIM7puK9R91UUDJxIhDY+a3lA8gxkskfqjNKpxDpmk=",
+        "usagesDigest": "EtduviBLHhykg+cULJWYsgeA4ZjVPRrNaBkBQbMulzE=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1774,25 +1751,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
@@ -1830,25 +1807,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
@@ -1893,25 +1870,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
@@ -1949,25 +1926,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
@@ -2005,25 +1982,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
@@ -2061,25 +2038,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
@@ -2124,25 +2101,25 @@
             "attributes": {
               "node_download_auth": {},
               "node_repositories": {
-                "23.11.0-darwin_arm64": [
-                  "node-v23.11.0-darwin-arm64.tar.gz",
-                  "node-v23.11.0-darwin-arm64",
-                  "635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
+                "24.7.0-darwin_arm64": [
+                  "node-v24.7.0-darwin-arm64.tar.gz",
+                  "node-v24.7.0-darwin-arm64",
+                  "ff8298faaf82c85444aad7f1e12a4882496286ea9008702029b359d7fac7f8b3"
                 ],
-                "23.11.0-darwin_amd64": [
-                  "node-v23.11.0-darwin-x64.tar.gz",
-                  "node-v23.11.0-darwin-x64",
-                  "a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
+                "24.7.0-darwin_amd64": [
+                  "node-v24.7.0-darwin-x64.tar.gz",
+                  "node-v24.7.0-darwin-x64",
+                  "b99548ef56ec86da2ce50eff041d97e14077b77b517c4bcce0925d14c26cbee3"
                 ],
-                "23.11.0-linux_arm64": [
-                  "node-v23.11.0-linux-arm64.tar.xz",
-                  "node-v23.11.0-linux-arm64",
-                  "85915f885fe7eab2be4a6e3de840cb83db4fc53749274d31383a0e1721a883c6"
+                "24.7.0-linux_arm64": [
+                  "node-v24.7.0-linux-arm64.tar.xz",
+                  "node-v24.7.0-linux-arm64",
+                  "3c238d671b2cc2e1c62b8b068c346b9830708f90df1e4a37305f4a5c2bb230b8"
                 ],
-                "23.11.0-linux_amd64": [
-                  "node-v23.11.0-linux-x64.tar.xz",
-                  "node-v23.11.0-linux-x64",
-                  "fa9ae28d8796a6cfb7057397e1eea30ca1c61002b42b8897f354563a254e7cf5"
+                "24.7.0-linux_amd64": [
+                  "node-v24.7.0-linux-x64.tar.xz",
+                  "node-v24.7.0-linux-x64",
+                  "2fb405154d017f04d21b3d2273cc1cdfa824cfeffbd4225976454d06d5e381a4"
                 ],
                 "18.20.8-darwin_arm64": [
                   "node-v18.20.8-darwin-arm64.tar.gz",
