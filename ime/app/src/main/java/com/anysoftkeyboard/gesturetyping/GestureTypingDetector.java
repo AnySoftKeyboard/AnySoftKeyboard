@@ -119,31 +119,46 @@ public class GestureTypingDetector {
             data ->
                 Observable.<LoadingState>create(
                     e -> {
-                      Logger.d(TAG, "generating in BG.");
+                      try {
+                        Logger.d(TAG, "generating in BG.");
 
-                      // Fill keysByCharacter map for faster path generation.
-                      // This is called for each dictionary,
-                      // but we only need to do it once.
-                      if (data.mKeysByCharacter.size() == 0) {
-                        for (Keyboard.Key key : data.mKeys) {
-                          for (int i = 0; i < key.getCodesCount(); ++i) {
-                            char c = Character.toLowerCase((char) key.getCodeAtIndex(i, false));
-                            data.mKeysByCharacter.put(c, key);
+                        // Fill keysByCharacter map for faster path generation.
+                        // This is called for each dictionary,
+                        // but we only need to do it once.
+                        if (data.mKeysByCharacter.size() == 0) {
+                          for (Keyboard.Key key : data.mKeys) {
+                            for (int i = 0; i < key.getCodesCount(); ++i) {
+                              char c = Character.toLowerCase((char) key.getCodeAtIndex(i, false));
+                              data.mKeysByCharacter.put(c, key);
+                            }
                           }
                         }
-                      }
 
-                      for (char[] word : data.mWords) {
-                        int[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
-                        if (e.isDisposed()) {
-                          return;
+                        for (char[] word : data.mWords) {
+                          if (e.isDisposed()) {
+                            Logger.d(TAG, "generation cancelled during word processing");
+                            return;
+                          }
+                          int[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
+                          data.mWordsCorners.add(path);
                         }
-                        data.mWordsCorners.add(path);
-                      }
 
-                      Logger.d(TAG, "generating done");
-                      e.onNext(LoadingState.LOADED);
-                      e.onComplete();
+                        if (!e.isDisposed()) {
+                          Logger.d(TAG, "generating done");
+                          e.onNext(LoadingState.LOADED);
+                          e.onComplete();
+                        }
+                      } catch (OutOfMemoryError oomError) {
+                        Logger.e(TAG, oomError, "OOM during corner generation");
+                        if (!e.isDisposed()) {
+                          e.onError(oomError);
+                        }
+                      } catch (Exception exception) {
+                        Logger.e(TAG, exception, "Error during corner generation");
+                        if (!e.isDisposed()) {
+                          e.onError(exception);
+                        }
+                      }
                     }))
         .subscribeOn(RxSchedulers.background())
         .lastOrError()
