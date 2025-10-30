@@ -1,5 +1,5 @@
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 
 const _PROMPT = `
 You are an expert translator and translation reviewer. You are a native English speaker who understands English grammar, syntax, and nuances very well.
@@ -85,7 +85,7 @@ export class TranslationVerifier {
     }
 
     this.model = new ChatGoogleGenerativeAI({
-      modelName: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash',
       maxOutputTokens: 4096,
       apiKey: apiKey,
     });
