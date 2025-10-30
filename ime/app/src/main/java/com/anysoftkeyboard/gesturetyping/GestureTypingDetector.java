@@ -53,7 +53,7 @@ public class GestureTypingDetector {
   }
 
   private final ReplaySubject<LoadingState> mGenerateStateSubject = ReplaySubject.createWithSize(1);
-  private ArrayList<int[]> mWordsCorners = new ArrayList<>();
+  private ArrayList<short[]> mWordsCorners = new ArrayList<>();
 
   public GestureTypingDetector(
       double frequencyFactor,
@@ -99,7 +99,7 @@ public class GestureTypingDetector {
 
   private static Single<LoadingState> generateCornersInBackground(
       Iterable<char[][]> words,
-      Collection<int[]> wordsCorners,
+      Collection<short[]> wordsCorners,
       Iterable<Keyboard.Key> keys,
       SparseArray<Keyboard.Key> keysByCharacter,
       WorkspaceData workspaceData) {
@@ -139,7 +139,7 @@ public class GestureTypingDetector {
                             Logger.d(TAG, "generation cancelled during word processing");
                             return;
                           }
-                          int[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
+                          short[] path = generatePath(word, data.mKeysByCharacter, data.mWorkspace);
                           data.mWordsCorners.add(path);
                         }
 
@@ -166,7 +166,7 @@ public class GestureTypingDetector {
         .observeOn(RxSchedulers.mainThread());
   }
 
-  private static int[] generatePath(
+  private static short[] generatePath(
       char[] word, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspaceData) {
     workspaceData.reset();
     // word = Normalizer.normalize(word, Normalizer.Form.NFD);
@@ -224,7 +224,7 @@ public class GestureTypingDetector {
     mWorkspaceData.reset();
   }
 
-  private static int[] getPathCorners(WorkspaceData workspaceData) {
+  private static short[] getPathCorners(WorkspaceData workspaceData) {
     workspaceData.mMaximaArraySize = 0;
     if (workspaceData.mCurrentGestureArraySize > 0) {
       workspaceData.addMaximaPointOfIndex(0);
@@ -243,7 +243,7 @@ public class GestureTypingDetector {
       workspaceData.addMaximaPointOfIndex(workspaceData.mCurrentGestureArraySize - 1);
     }
 
-    int[] arr = new int[workspaceData.mMaximaArraySize];
+    short[] arr = new short[workspaceData.mMaximaArraySize];
     System.arraycopy(workspaceData.mMaximaWorkspace, 0, arr, 0, workspaceData.mMaximaArraySize);
     return arr;
   }
@@ -287,7 +287,7 @@ public class GestureTypingDetector {
       return mCandidates;
     }
 
-    final int[] corners = getPathCorners(mWorkspaceData);
+    final short[] corners = getPathCorners(mWorkspaceData);
 
     Keyboard.Key startKey = null;
     for (Keyboard.Key k : mKeys) {
@@ -349,7 +349,7 @@ public class GestureTypingDetector {
   }
 
   private static double calculateDistanceBetweenUserPathAndWord(
-      int[] actualUserPath, int[] generatedWordPath) {
+      short[] actualUserPath, short[] generatedWordPath) {
     // Debugging is still needed, but at least ASK won't crash this way
     if (actualUserPath.length < 2 || generatedWordPath.length == 0) {
       Logger.w(
@@ -423,7 +423,7 @@ public class GestureTypingDetector {
     private final int[] mCurrentGestureYs = new int[MAX_GESTURE_LENGTH];
 
     private int mMaximaArraySize = 0;
-    private final int[] mMaximaWorkspace = new int[4 * MAX_GESTURE_LENGTH];
+    private final short[] mMaximaWorkspace = new short[4 * MAX_GESTURE_LENGTH];
 
     void reset() {
       mCurrentGestureArraySize = 0;
@@ -444,23 +444,23 @@ public class GestureTypingDetector {
     }
 
     void addMaximaPointOfIndex(int gesturePointIndex) {
-      mMaximaWorkspace[mMaximaArraySize] = mCurrentGestureXs[gesturePointIndex];
+      mMaximaWorkspace[mMaximaArraySize] = (short) mCurrentGestureXs[gesturePointIndex];
       mMaximaArraySize++;
-      mMaximaWorkspace[mMaximaArraySize] = mCurrentGestureYs[gesturePointIndex];
+      mMaximaWorkspace[mMaximaArraySize] = (short) mCurrentGestureYs[gesturePointIndex];
       mMaximaArraySize++;
     }
   }
 
   private static class CornersGenerationData {
     private final char[][] mWords;
-    private final Collection<int[]> mWordsCorners;
+    private final Collection<short[]> mWordsCorners;
     private final Iterable<Keyboard.Key> mKeys;
     private final SparseArray<Keyboard.Key> mKeysByCharacter;
     private final WorkspaceData mWorkspace;
 
     CornersGenerationData(
         char[][] words,
-        Collection<int[]> wordsCorners,
+        Collection<short[]> wordsCorners,
         Iterable<Keyboard.Key> keys,
         SparseArray<Keyboard.Key> keysByCharacter,
         WorkspaceData workspace) {
