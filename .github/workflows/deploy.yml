@@ -129,6 +129,11 @@ jobs:
         with:
           name: proguard-mapping
           path: proguard-mapping
+      - uses: actions/download-artifact@v5.0.0
+        if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
+        with:
+          name: fdroid-metadata
+          path: fdroid-metadata
       - name: "Delete prior release and tag"
         if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
         run: gh release delete "${{ env.TAG_NAME }}" --cleanup-tag --yes || true
@@ -145,6 +150,7 @@ jobs:
             apks/*.apk
             bundles/*.aab
             proguard-mapping/**/*.txt
+            fdroid-metadata/version.txt
       - name: Update GitHub Release to Stable
         if: endsWith(needs.deploy.outputs.deployment_environment, '_100')
         run: gh release edit "${{ env.TAG_NAME }}" --prerelease=false
