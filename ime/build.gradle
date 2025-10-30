@@ -9,4 +9,6 @@ autoVersioning {
     buildCounterOffset = 6305
     /*decrementing due to minor, every minor/major bump, this should be decremented*/
     patchOffset = -5170-1790-668-1084
+    /*F-Droid version file generation*/
+    generateVersionFile = true
 }

@@ -49,10 +49,31 @@ class SimpleVersionGeneratorPlugin : Plugin<Project> {
 
                     project.version = verData.versionName
                     project.allprojects.forEach { it.version = verData.versionName }
+
+                    if (versionConf.generateVersionFile) {
+                      generateVersionFile(project, versionConf, verData)
+                    }
                   }
         }
       }
     }
+  }
+
+  private fun generateVersionFile(
+      project: Project,
+      config: SimpleConfiguration,
+      versionData: VersionData
+  ) {
+    val outputFile = project.rootProject.file(config.versionFileOutputPath)
+    outputFile.parentFile.mkdirs()
+
+    // Write version file in Wire Android format
+    val content =
+        """VersionCode: ${versionData.versionCode}
+VersionName: ${versionData.versionName}
+"""
+
+    outputFile.writeText(content)
   }
 
   // This class has to be `open` so Gradle will be able to create a Proxy to it.
@@ -65,6 +86,8 @@ class SimpleVersionGeneratorPlugin : Plugin<Project> {
     var patchOffset = 0
     var defaultBuildCount = 1
     var versionData: VersionData? = null
+    var generateVersionFile = false
+    var versionFileOutputPath = "outputs/fdroid/version.txt"
   }
 
   companion object {
