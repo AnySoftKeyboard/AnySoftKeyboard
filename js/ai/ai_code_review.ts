@@ -54,7 +54,7 @@ export class AiCodeReviewer {
     }
 
     this.model = new ChatGoogleGenerativeAI({
-      modelName: 'gemini-2.5-pro',
+      model: 'gemini-2.5-pro',
       apiKey: apiKey,
     });
   }
