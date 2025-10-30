@@ -30,7 +30,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,9 +39,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
   public static final long MINIMUM_GESTURE_TIME_MS = 40;
+  private static final int MAX_CACHED_DETECTORS = 2;
 
   private boolean mGestureTypingEnabled;
-  protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
+  protected final Map<String, GestureTypingDetector> mGestureTypingDetectors =
+      new LinkedHashMap<String, GestureTypingDetector>(4, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, GestureTypingDetector> eldest) {
+          if (size() > MAX_CACHED_DETECTORS) {
+            Logger.d(TAG, "LRU evicting detector for key: %s", eldest.getKey());
+            eldest.getValue().destroy();
+            return true;
+          }
+          return false;
+        }
+      };
   @Nullable private GestureTypingDetector mCurrentGestureDetector;
   private boolean mDetectorReady = false;
   private boolean mJustPerformedGesture = false;
