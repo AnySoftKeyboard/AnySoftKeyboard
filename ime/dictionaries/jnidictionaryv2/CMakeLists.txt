@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.4.1)
+project(jnidictionaryv2)
 
 add_library(anysoftkey2_jni SHARED
     src/main/jni/source/char_utils.cpp

@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.4.1)
+project(jnidictionaryv1)
 
 add_library(anysoftkey_jni SHARED
     src/main/jni/source/com_anysoftkeyboard_dictionaries_BinaryDictionary.cpp
