@@ -704,6 +704,237 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
   }
 
+  // Tests for onTrimMemory() functionality
+
+  @Test
+  public void testOnTrimMemoryRunningModerateKeepsCurrentDestroysOthers() {
+    AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+    simulateOnStartInputFlow();
+    final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detector1State =
+        createLatestStateProvider(detector1);
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detector2State =
+        createLatestStateProvider(detector2);
+
+    // Call onTrimMemory at TRIM_MEMORY_RUNNING_MODERATE (level 5)
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    TestRxSchedulers.drainAllTasks();
+
+    // Should keep detector2 (current) and destroy detector1
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, detector1State.get());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2State.get());
+  }
+
+  @Test
+  public void testOnTrimMemoryRunningLowTrimsCurrentDetector() {
+    simulateOnStartInputFlow();
+    TestRxSchedulers.drainAllTasks();
+    final GestureTypingDetector currentDetector = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detectorState =
+        createLatestStateProvider(currentDetector);
+
+    // Ensure detector is loaded
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detectorState.get());
+
+    // Generate some candidates to populate internal data structures
+    simulateGestureProcess("hello");
+
+    // Call onTrimMemory at TRIM_MEMORY_RUNNING_LOW (level 10)
+    mAnySoftKeyboardUnderTest.onTrimMemory(10);
+    TestRxSchedulers.drainAllTasks();
+
+    // Should keep detector but trim its memory
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    Assert.assertSame(currentDetector, getCurrentGestureTypingDetectorFromMap());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detectorState.get());
+
+    // Detector should still work after trimming
+    Assert.assertTrue(simulateGestureProcess("welcome"));
+  }
+
+  @Test
+  public void testOnTrimMemoryRunningModerateWithNoCurrentDestroysAll() {
+    simulateOnStartInputFlow();
+    TestRxSchedulers.drainAllTasks();
+    final GestureTypingDetector detector = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detectorState =
+        createLatestStateProvider(detector);
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    // Switch to symbols keyboard to clear current detector reference
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMBOLS);
+    TestRxSchedulers.drainAllTasks();
+
+    // Call onTrimMemory at TRIM_MEMORY_RUNNING_MODERATE
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    TestRxSchedulers.drainAllTasks();
+
+    // Should destroy all detectors since there's no current one (symbols mode)
+    Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, detectorState.get());
+  }
+
+  @Test
+  public void testOnTrimMemoryWithOnlyCachedDetectorDoesNotCrash() {
+    simulateOnStartInputFlow();
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    final GestureTypingDetector detector = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detectorState =
+        createLatestStateProvider(detector);
+
+    // Call onTrimMemory at TRIM_MEMORY_RUNNING_MODERATE with only one detector
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    TestRxSchedulers.drainAllTasks();
+
+    // Should keep the current detector
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    Assert.assertSame(detector, getCurrentGestureTypingDetectorFromMap());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detectorState.get());
+  }
+
+  @Test
+  public void testOnTrimMemoryBeforeDetectorsFullyLoaded() {
+    AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+    simulateOnStartInputFlow();
+    final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detector2State =
+        createLatestStateProvider(detector2);
+
+    // Detector2 is still loading
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, detector2State.get());
+
+    // Call onTrimMemory while detector2 is still loading
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
+
+    // Complete loading and verify detector2 still works
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2State.get());
+  }
+
+  @Test
+  public void testOnTrimMemoryBelowRunningModerateDoesNothing() {
+    AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+    simulateOnStartInputFlow();
+    final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+    TestRxSchedulers.drainAllTasks();
+
+    // Call onTrimMemory at level 3 (below TRIM_MEMORY_RUNNING_MODERATE = 5)
+    mAnySoftKeyboardUnderTest.onTrimMemory(3);
+    TestRxSchedulers.drainAllTasks();
+
+    // Should not affect detectors
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+  }
+
+  @Test
+  public void testOnTrimMemoryCalledMultipleTimesInSequence() {
+    AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+    simulateOnStartInputFlow();
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    TestRxSchedulers.drainAllTasks();
+
+    final GestureTypingDetector currentDetector = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detectorState =
+        createLatestStateProvider(currentDetector);
+
+    // Call onTrimMemory multiple times
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    mAnySoftKeyboardUnderTest.onTrimMemory(10);
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    // Detector should still be in good state
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detectorState.get());
+    Assert.assertSame(currentDetector, getCurrentGestureTypingDetectorFromMap());
+  }
+
+  @Test
+  public void testOnTrimMemoryAfterSwitchingKeyboards() {
+    AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+    simulateOnStartInputFlow();
+    final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    TestRxSchedulers.drainAllTasks();
+    final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+    Supplier<GestureTypingDetector.LoadingState> detector2State =
+        createLatestStateProvider(detector2);
+
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    TestRxSchedulers.drainAllTasks();
+    // Back to detector1
+    Assert.assertSame(detector1, getCurrentGestureTypingDetectorFromMap());
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    // Call onTrimMemory - should keep detector1 (current), destroy detector2
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    TestRxSchedulers.drainAllTasks();
+
+    Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    Assert.assertSame(detector1, getCurrentGestureTypingDetectorFromMap());
+    Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, detector2State.get());
+  }
+
+  @Test
+  public void testOnTrimMemoryAfterGestureTypingDisabled() {
+    AddOnTestUtils.ensureKeyboardAtIndexEnabled(1, true);
+    simulateOnStartInputFlow();
+    mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    // Disable gesture typing
+    SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+    // Call onTrimMemory after disabling - should not crash
+    mAnySoftKeyboardUnderTest.onTrimMemory(5);
+    mAnySoftKeyboardUnderTest.onTrimMemory(10);
+    Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+  }
+
+  @Test
+  public void testOnTrimMemoryPreservesDetectorFunctionalityAfterTrim() {
+    simulateOnStartInputFlow();
+    TestRxSchedulers.drainAllTasks();
+
+    // Generate a gesture before trim
+    Assert.assertTrue(simulateGestureProcess("hello"));
+    Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+    // Trim memory at RUNNING_LOW level
+    mAnySoftKeyboardUnderTest.onTrimMemory(10);
+    TestRxSchedulers.drainAllTasks();
+
+    // Generate another gesture after trim - should still work
+    Assert.assertTrue(simulateGestureProcess("welcome"));
+    Assert.assertEquals("hello welcome", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+  }
+
   private boolean simulateGestureProcess(String pathKeys) {
     long time = SystemClock.uptimeMillis();
     Keyboard.Key startKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(0));

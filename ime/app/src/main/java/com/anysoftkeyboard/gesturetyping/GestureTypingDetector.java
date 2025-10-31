@@ -97,6 +97,27 @@ public class GestureTypingDetector {
     mKeysByCharacter = new SparseArray<>();
   }
 
+  /**
+   * Called when system is under memory pressure. Clears temporary data that can be regenerated.
+   * Does NOT clear the word list or pre-computed corners.
+   */
+  public void trimMemory() {
+    Logger.d(TAG, "trimMemory() called, clearing temporary data");
+
+    // Clear candidate results (can be regenerated on next gesture)
+    mCandidates.clear();
+    mCandidateWeights.clear();
+
+    // Trim ArrayList capacity to actual size
+    mCandidates.trimToSize();
+    mCandidateWeights.trimToSize();
+
+    // Reset gesture workspace
+    mWorkspaceData.reset();
+
+    Logger.d(TAG, "trimMemory() completed");
+  }
+
   private static Single<LoadingState> generateCornersInBackground(
       Iterable<char[][]> words,
       Collection<short[]> wordsCorners,
