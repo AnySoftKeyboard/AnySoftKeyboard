@@ -32,7 +32,6 @@ ts_library(
     visibility = ["//visibility:private"],
     deps = [
         ":mcps",
-        "//:node_modules/@langchain/community",
         "//:node_modules/@langchain/core",
         "//:node_modules/@langchain/google-genai",
         "//:node_modules/@types/node",
