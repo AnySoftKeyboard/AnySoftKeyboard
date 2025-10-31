@@ -1,6 +1,5 @@
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
-import { DuckDuckGoSearch } from '@langchain/community/tools/duckduckgo_search';
 import { createReadMultipleFilesTool } from './mcp_read_multiple_files.js';
 
 const _PROMPT = `
@@ -10,16 +9,14 @@ You can read additional guidelines in the @AGENTS.md file.
 Your task is to review a code change. You will be given a git diff.
 
 ## Available tools:
-You have tools you can use for research:
+You have a tool you can use for research:
 - read_multiple_files - Use this tool to read the full content of changed files when you need more context
-- duckduckgo-search - Use this web-search tool to research best practices, libraries, or technologies mentioned in the code
 
 
 ## Review Process:
 1. First, read the entire content of any changed files using the read_multiple_files tool
 2. Analyze the diff in context of the full files
-3. Research any unfamiliar patterns, libraries, or technologies if needed
-4. Provide a comprehensive review
+3. Provide a comprehensive review
 
 ## Review Guidelines:
 - Focus on functionality, logic, and potential issues
@@ -65,10 +62,7 @@ export class AiCodeReviewer {
     }
 
     try {
-      const modelWithTools = this.model.bindTools([
-        new DuckDuckGoSearch({ maxResults: 5 }),
-        createReadMultipleFilesTool(),
-      ]);
+      const modelWithTools = this.model.bindTools([createReadMultipleFilesTool()]);
 
       const response = await modelWithTools.invoke([new SystemMessage(_PROMPT), new HumanMessage(diff)]);
 
