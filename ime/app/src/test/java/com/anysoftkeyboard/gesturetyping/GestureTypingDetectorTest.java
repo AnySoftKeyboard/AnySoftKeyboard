@@ -408,6 +408,174 @@ public class GestureTypingDetectorTest {
     Assert.assertFalse(GestureTypingDetector.hasEnoughCurvature(Xs, Ys, 1));
   }
 
+  // Tests for trimMemory() functionality
+
+  @Test
+  public void testTrimMemoryClearsCandidatesAndWeights() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Generate candidates first
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("helo")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidatesBeforeTrim = mDetectorUnderTest.getCandidates();
+    Assert.assertEquals(MAX_SUGGESTIONS, candidatesBeforeTrim.size());
+
+    // Call trimMemory
+    mDetectorUnderTest.trimMemory();
+
+    // Verify candidates can still be generated (data structures are cleared but functional)
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("helo")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidatesAfterTrim = mDetectorUnderTest.getCandidates();
+    Assert.assertEquals(MAX_SUGGESTIONS, candidatesAfterTrim.size());
+  }
+
+  @Test
+  public void testTrimMemoryResetsWorkspaceData() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Add some gesture points
+    mDetectorUnderTest.clearGesture();
+    final Point startPoint = getPointForCharacter('h');
+    mDetectorUnderTest.addPoint(startPoint.x, startPoint.y);
+    final Point endPoint = getPointForCharacter('e');
+    mDetectorUnderTest.addPoint(endPoint.x, endPoint.y);
+
+    // Call trimMemory
+    mDetectorUnderTest.trimMemory();
+
+    // Verify workspace is reset by checking that new gesture can be added
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("help")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
+    Assert.assertEquals("help", candidates.get(0));
+  }
+
+  @Test
+  public void testTrimMemoryWhenNoCandidatesExist() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Call trimMemory without generating any candidates
+    mDetectorUnderTest.trimMemory();
+
+    // Verify detector still works
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("god")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertEquals(3, candidates.size());
+  }
+
+  @Test
+  public void testTrimMemoryWhenWorkspaceAlreadyReset() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Clear gesture to reset workspace
+    mDetectorUnderTest.clearGesture();
+
+    // Call trimMemory on already-reset workspace
+    mDetectorUnderTest.trimMemory();
+
+    // Verify detector still works - start a new gesture
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("good")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertTrue(candidates.size() > 0);
+    Assert.assertEquals("good", candidates.get(0));
+  }
+
+  @Test
+  public void testTrimMemoryCanBeCalledMultipleTimes() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Generate candidates
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("help")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    Assert.assertEquals(MAX_SUGGESTIONS, mDetectorUnderTest.getCandidates().size());
+
+    // Call trimMemory multiple times
+    mDetectorUnderTest.trimMemory();
+    mDetectorUnderTest.trimMemory();
+    mDetectorUnderTest.trimMemory();
+
+    // Verify detector still works
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("good")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertEquals(3, candidates.size());
+    Assert.assertEquals("good", candidates.get(0));
+  }
+
+  @Test
+  public void testTrimMemoryDoesNotAffectLoadedState() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Call trimMemory
+    mDetectorUnderTest.trimMemory();
+
+    // Verify state is still LOADED
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+  }
+
+  @Test
+  public void testTrimMemoryDoesNotClearWordsAndCorners() {
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Generate candidates to verify words are loaded
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("hello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidatesBeforeTrim = mDetectorUnderTest.getCandidates();
+    Assert.assertTrue(candidatesBeforeTrim.contains("hello"));
+
+    // Call trimMemory
+    mDetectorUnderTest.trimMemory();
+
+    // Verify words and corners are still available by generating candidates again
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("hello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidatesAfterTrim = mDetectorUnderTest.getCandidates();
+    Assert.assertTrue(candidatesAfterTrim.contains("hello"));
+    // Verify same candidates can be generated, proving words/corners weren't cleared
+    Assert.assertEquals(candidatesBeforeTrim.size(), candidatesAfterTrim.size());
+  }
+
+  @Test
+  public void testTrimMemoryBeforeLoadingComplete() {
+    // Don't drain tasks - leave detector in LOADING state
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, mCurrentState.get());
+
+    // Call trimMemory while still loading
+    mDetectorUnderTest.trimMemory();
+
+    // Complete loading
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Verify detector works correctly after trimMemory during loading
+    mDetectorUnderTest.clearGesture();
+    generatePointsStreamOfKeysString("hero")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+    Assert.assertTrue(candidates.size() > 0);
+    Assert.assertEquals("hero", candidates.get(0));
+  }
+
   private Stream<Point> generatePointsStreamOfKeysString(String path) {
     return path.chars()
         .boxed()
