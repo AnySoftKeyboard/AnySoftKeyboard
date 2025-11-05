@@ -1,10 +1,11 @@
 package com.anysoftkeyboard.addon.apk
 
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -69,18 +70,14 @@ abstract class MainActivityBase(
     }
   }
 
-  private fun isAnySoftKeyboardInstalled(): Boolean {
-    // TODO: we need to query for a broadcast-receiver, or something
-    return try {
-      val services =
-          packageManager.getPackageInfo(
-              ASK_PACKAGE_NAME,
-              PackageManager.GET_SERVICES,
-          )
-      services.services?.any { it.name == "com.menny.android.anysoftkeyboard.SoftKeyboard" }
-          ?: false
-    } catch (e: Exception) {
-      false
-    }
-  }
+  private fun isAnySoftKeyboardInstalled(): Boolean =
+      try {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.inputMethodList.any { inputMethodInfo ->
+          inputMethodInfo.packageName == ASK_PACKAGE_NAME
+        }
+      } catch (e: Exception) {
+        false
+      }
 }

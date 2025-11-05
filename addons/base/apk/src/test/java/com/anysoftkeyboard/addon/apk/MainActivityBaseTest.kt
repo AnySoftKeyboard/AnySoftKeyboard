@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageInfo
+import android.view.inputmethod.InputMethodInfo
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -103,12 +104,22 @@ class MainActivityBaseTest {
         info.packageName = ASK_PACKAGE_NAME
         pm.installPackage(info)
       }
-      pm.addServiceIfNotPresent(
+      val imeComponent =
           ComponentName(
               ASK_PACKAGE_NAME,
               "${ASK_PACKAGE_NAME}.SoftKeyboard",
-          ),
-      )
+          )
+      pm.addServiceIfNotPresent(imeComponent)
+
+      // Register the IME with InputMethodManager
+      val imeInfo = InputMethodInfo(ASK_PACKAGE_NAME, imeComponent.className, "AnySoftKeyboard", "")
+      Shadows.shadowOf(
+              RuntimeEnvironment.getApplication()
+                  .getSystemService(android.content.Context.INPUT_METHOD_SERVICE)
+                  as android.view.inputmethod.InputMethodManager,
+          )
+          .setInputMethodInfoList(listOf(imeInfo))
+
       ComponentName(ASK_PACKAGE_NAME, "${ASK_PACKAGE_NAME}.MainActivity").let { info ->
         pm.addActivityIfNotPresent(info)
         pm.addIntentFilterForActivity(
