@@ -28,7 +28,7 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-@Config(sdk = Build.VERSION_CODES.R)
+@Config(sdk = Build.VERSION_CODES.S)
 public class AnySoftKeyboardInlineSuggestionsTest extends AnySoftKeyboardBaseTest {
   private static InlineSuggestionsResponse mockResponse(InlineContentView... views) {
     return mockResponse(new String[0], views);

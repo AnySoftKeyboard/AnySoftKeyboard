@@ -117,6 +117,8 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
       // Set up WindowInsets listener on the decor view
       // Using decor view is recommended for IME to ensure we get all system insets
+      // Note: On API 30 in Robolectric test environments, WindowInsets handling has known issues
+      // where returning any WindowInsetsCompat causes NPEs when converting back to platform types
       ViewCompat.setOnApplyWindowInsetsListener(
           w.getDecorView(),
           (v, windowInsets) -> {
@@ -157,9 +159,10 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
     } else {
       Logger.d(TAG, "Clearing colorized nav-bar (prefs disabled)");
-      clearColorizedNavBar(w, inputContainer);
-      // Remove the insets listener when feature is disabled
+      // Remove the insets listener FIRST before clearing window settings
+      // This prevents WindowInsets dispatch issues on API 30 in Robolectric
       ViewCompat.setOnApplyWindowInsetsListener(w.getDecorView(), null);
+      clearColorizedNavBar(w, inputContainer);
     }
   }
 
