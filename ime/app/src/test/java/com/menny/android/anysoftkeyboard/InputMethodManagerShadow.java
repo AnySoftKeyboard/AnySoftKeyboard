@@ -22,6 +22,7 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
   private String mLastStatusIconPackageName;
   private int mLastStatusIconId;
   private IBinder mLastStatusIconImeToken;
+  private InputMethodInfo mCurrentInputMethodInfo;
 
   public InputMethodManagerShadow() {
     // adding three IMEs, ASK, Google, and AOSP (disabled)
@@ -67,13 +68,40 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
   }
 
   public static void setKeyboardAsCurrent(Context context, boolean isCurrent) {
-    // TODO support API 34
+    // Set up for pre-API 34 (Settings.Secure approach)
     var currentFlat =
         isCurrent
             ? new ComponentName(context, ".SoftKeyboard").flattenToString()
             : new ComponentName("com.example", ".OtherSoftKeyboard").flattenToString();
     Settings.Secure.putString(
         context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, currentFlat);
+
+    // Set up for API 34+ (getCurrentInputMethodInfo approach)
+    InputMethodManager imeService =
+        (InputMethodManager) context.getSystemService(Service.INPUT_METHOD_SERVICE);
+    var inputMethodManagerShadow = (InputMethodManagerShadow) Shadow.extract(imeService);
+    if (isCurrent) {
+      // Find ASK IME from the list
+      List<InputMethodInfo> allInputs = imeService.getInputMethodList();
+      inputMethodManagerShadow.mCurrentInputMethodInfo =
+          allInputs.stream()
+              .filter(ime -> Objects.equals(ime.getPackageName(), context.getPackageName()))
+              .findFirst()
+              .orElse(null);
+    } else {
+      // Find a different IME (e.g., Google keyboard)
+      List<InputMethodInfo> allInputs = imeService.getInputMethodList();
+      inputMethodManagerShadow.mCurrentInputMethodInfo =
+          allInputs.stream()
+              .filter(ime -> !Objects.equals(ime.getPackageName(), context.getPackageName()))
+              .findFirst()
+              .orElse(null);
+    }
+  }
+
+  @Implementation
+  public InputMethodInfo getCurrentInputMethodInfo() {
+    return mCurrentInputMethodInfo;
   }
 
   @Implementation

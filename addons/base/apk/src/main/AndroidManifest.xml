@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <!-- Allow querying and launching AnySoftKeyboard on Android 11+ -->
+        <package android:name="com.menny.android.anysoftkeyboard" />
+    </queries>
+</manifest>
