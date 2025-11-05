@@ -101,6 +101,7 @@
     <Key android:keyLabel="&#128051;" android:keyOutputText="&#128051;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spouting,whale,spouting_whale"/>
     <Key android:keyLabel="&#128011;" android:keyOutputText="&#128011;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="whale"/>
     <Key android:keyLabel="&#128044;" android:keyOutputText="&#128044;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dolphin"/>
+    <Key android:keyLabel="&#129741;" android:keyOutputText="&#129741;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="orca"/>
     <Key android:keyLabel="&#129453;" android:keyOutputText="&#129453;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="seal"/>
     <Key android:keyLabel="&#128031;" android:keyOutputText="&#128031;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish"/>
     <Key android:keyLabel="&#128032;" android:keyOutputText="&#128032;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tropical,fish,tropical_fish"/>

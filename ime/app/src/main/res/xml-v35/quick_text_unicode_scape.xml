@@ -10,6 +10,7 @@
     <Key android:keyLabel="&#129517;" android:keyOutputText="&#129517;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="compass"/>
     <Key android:keyLabel="&#127956;️" android:keyOutputText="&#127956;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snow-capped,mountain,snow-capped_mountain"/>
     <Key android:keyLabel="⛰️" android:keyOutputText="⛰️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mountain"/>
+    <Key android:keyLabel="&#128728;" android:keyOutputText="&#128728;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="landslide"/>
     <Key android:keyLabel="&#127755;" android:keyOutputText="&#127755;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="volcano"/>
     <Key android:keyLabel="&#128507;" android:keyOutputText="&#128507;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mount,fuji,mount_fuji"/>
     <Key android:keyLabel="&#127957;️" android:keyOutputText="&#127957;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="camping"/>
