@@ -37,7 +37,9 @@ test.describe('DeploymentProcessor', () => {
       };
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: mockProcessDeploymentStep,
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(mockGitHubApi, 'owner', 'repo');
     const result = await processor.requestDeployment(
@@ -67,7 +69,9 @@ test.describe('DeploymentProcessor', () => {
       };
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: mockProcessDeploymentStep,
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(mockGitHubApi, 'owner', 'repo');
     // Use Wednesday so getStepIndex returns 1
@@ -91,7 +95,9 @@ test.describe('DeploymentProcessor', () => {
       getCommit: async () => ({ sha: 'sha' }),
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: async () => ({}) } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: async () => ({}),
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(badGitHubApi, 'owner', 'repo');
     await assert.rejects(
@@ -123,7 +129,9 @@ test.describe('DeploymentProcessor', () => {
       };
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: mockProcessDeploymentStep,
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(mockGitHubApiHead, 'owner', 'repo');
     await processor.requestDeployment('force_new', Date.now(), 'HEAD', 'main', 'ime', mockRequestProcessorFactory);
@@ -153,7 +161,9 @@ test.describe('DeploymentProcessor', () => {
       };
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: mockProcessDeploymentStep,
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(mockGitHubApiCommit, 'owner', 'repo');
     await processor.requestDeployment(
@@ -181,7 +191,9 @@ test.describe('DeploymentProcessor', () => {
       };
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: mockProcessDeploymentStep,
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(mockGitHubApi, 'owner', 'repo');
     const emptyResult = await processor.requestDeployment(
@@ -212,7 +224,9 @@ test.describe('DeploymentProcessor', () => {
       };
     };
     const mockRequestProcessorFactory = (_githubApi: GitHubApi, _owner: string, _repo: string) => {
-      return { processDeploymentStep: mockProcessDeploymentStep } as unknown as DeploymentRequestProcessor;
+      return {
+        processDeploymentStep: mockProcessDeploymentStep,
+      } as unknown as DeploymentRequestProcessor;
     };
     const processor = new DeploymentProcessor(mockGitHubApi, 'owner', 'repo');
     const emptyResult = await processor.requestDeployment(

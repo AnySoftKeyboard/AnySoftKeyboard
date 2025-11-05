@@ -14,7 +14,9 @@ export const update_gradle_deps = async (rootFolder: string, depsToUpdate: Dep[]
 
   // Writing new versions
   const writePromises = fs
-    .globSync(path.join(rootFolder, '**', 'build.gradle'), { withFileTypes: false })
+    .globSync(path.join(rootFolder, '**', 'build.gradle'), {
+      withFileTypes: false,
+    })
     .map((fileName) => {
       return { fileName, content: fs.readFileSync(fileName, 'utf-8') };
     })
@@ -29,7 +31,12 @@ export const update_gradle_deps = async (rootFolder: string, depsToUpdate: Dep[]
       });
       return { fileName: data.fileName, content: newContent };
     })
-    .map((data) => fs.promises.writeFile(data.fileName, data.content, { encoding: 'utf-8', flag: 'w' }));
+    .map((data) =>
+      fs.promises.writeFile(data.fileName, data.content, {
+        encoding: 'utf-8',
+        flag: 'w',
+      }),
+    );
 
   await Promise.all(writePromises);
 };

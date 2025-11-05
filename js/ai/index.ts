@@ -64,7 +64,9 @@ program
       console.log('Creating git diff...');
 
       // Create git diff from base-sha to head-sha
-      const diff = execSync(`git diff ${options.baseSha} ${options.headSha}`, { encoding: 'utf-8' });
+      const diff = execSync(`git diff ${options.baseSha} ${options.headSha}`, {
+        encoding: 'utf-8',
+      });
 
       console.log(`Git diff created from ${options.baseSha} to ${options.headSha}`);
       console.log(`Diff length: ${diff.length} characters`);

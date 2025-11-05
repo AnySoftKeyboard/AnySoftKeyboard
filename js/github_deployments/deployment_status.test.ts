@@ -10,7 +10,12 @@ test.describe('DeploymentStatusProcessor', () => {
     const mockApi: GitHubApi = {
       createDeploymentStatus: async (params) => {
         calls.push({ method: 'createDeploymentStatus', params });
-        return { id: params.deployment_id, state: params.state, description: '', environment: params.environment };
+        return {
+          id: params.deployment_id,
+          state: params.state,
+          description: '',
+          environment: params.environment,
+        };
       },
       listDeployments: async () => [
         { id: 1, environment: 'prod_010' },
@@ -19,7 +24,13 @@ test.describe('DeploymentStatusProcessor', () => {
         { id: 4, environment: 'prod_030' },
       ],
       getCommit: async () => ({ sha: '' }),
-      createDeployment: async () => ({ id: 0, environment: '', sha: '', ref: '', task: '' }),
+      createDeployment: async () => ({
+        id: 0,
+        environment: '',
+        sha: '',
+        ref: '',
+        task: '',
+      }),
     };
     const processor = new DeploymentStatusProcessor(mockApi, 'owner', 'repo');
     await processor.updateDeploymentSuccess('sha', 'prod_020');
@@ -42,14 +53,25 @@ test.describe('DeploymentStatusProcessor', () => {
     const mockApi: GitHubApi = {
       createDeploymentStatus: async (params) => {
         calls.push({ method: 'createDeploymentStatus', params });
-        return { id: params.deployment_id, state: params.state, description: '', environment: params.environment };
+        return {
+          id: params.deployment_id,
+          state: params.state,
+          description: '',
+          environment: params.environment,
+        };
       },
       listDeployments: async () => [
         { id: 1, environment: 'foo_010' },
         { id: 2, environment: 'bar_020' },
       ],
       getCommit: async () => ({ sha: '' }),
-      createDeployment: async () => ({ id: 0, environment: '', sha: '', ref: '', task: '' }),
+      createDeployment: async () => ({
+        id: 0,
+        environment: '',
+        sha: '',
+        ref: '',
+        task: '',
+      }),
     };
     const processor = new DeploymentStatusProcessor(mockApi, 'owner', 'repo');
     await processor.updateDeploymentSuccess('sha', 'foo_010');
@@ -71,11 +93,22 @@ test.describe('DeploymentStatusProcessor', () => {
     const mockApi: GitHubApi = {
       createDeploymentStatus: async (params) => {
         calledParams = params;
-        return { id: params.deployment_id, state: params.state, description: '', environment: params.environment };
+        return {
+          id: params.deployment_id,
+          state: params.state,
+          description: '',
+          environment: params.environment,
+        };
       },
       listDeployments: async () => [],
       getCommit: async () => ({ sha: '' }),
-      createDeployment: async () => ({ id: 0, environment: '', sha: '', ref: '', task: '' }),
+      createDeployment: async () => ({
+        id: 0,
+        environment: '',
+        sha: '',
+        ref: '',
+        task: '',
+      }),
     };
     const processor = new DeploymentStatusProcessor(mockApi, 'owner', 'repo');
     await processor.updateDeploymentStatus('env', '42', 'success');

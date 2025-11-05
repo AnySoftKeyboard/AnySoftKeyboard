@@ -293,7 +293,13 @@ describe('generateXmlReport', () => {
 </resources>`,
     });
 
-    const changedStrings = [{ file: 'res/values-eu-ES/strings.xml', id: 'test_string', value: 'Proba Balioa' }];
+    const changedStrings = [
+      {
+        file: 'res/values-eu-ES/strings.xml',
+        id: 'test_string',
+        value: 'Proba Balioa',
+      },
+    ];
 
     const result = generateXmlReport('.', changedStrings);
 

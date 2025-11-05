@@ -19,7 +19,11 @@ test.describe('DeploymentRequestProcessor', () => {
           task: params.task,
         };
       },
-      createDeploymentStatus: async () => ({ id: 0, state: '', description: '' }),
+      createDeploymentStatus: async () => ({
+        id: 0,
+        state: '',
+        description: '',
+      }),
       listDeployments: async () => [],
       getCommit: async () => ({ sha: '' }),
     };

@@ -47,7 +47,11 @@ const mockOctokit = {
 test.describe('OctokitGitHubApi', () => {
   test.test('getCommit returns correct commit info', async () => {
     const api = new OctokitGitHubApi('token', (_) => mockOctokit);
-    const result = await api.getCommit({ owner: 'o', repo: 'r', ref_or_sha: 'sha' });
+    const result = await api.getCommit({
+      owner: 'o',
+      repo: 'r',
+      ref_or_sha: 'sha',
+    });
     assert.equal(result.sha, 'tree-sha');
     assert.equal(result.login, 'octocat');
     assert.equal(result.email, 'author@email.com');
@@ -91,7 +95,11 @@ test.describe('OctokitGitHubApi', () => {
 
   test.test('listDeployments returns deployments', async () => {
     const api = new OctokitGitHubApi('token', (_) => mockOctokit);
-    const result = await api.listDeployments({ owner: 'o', repo: 'r', sha: 'sha' });
+    const result = await api.listDeployments({
+      owner: 'o',
+      repo: 'r',
+      sha: 'sha',
+    });
     assert.deepEqual(result, [
       { id: 1, environment: 'env1' },
       { id: 2, environment: 'env2' },

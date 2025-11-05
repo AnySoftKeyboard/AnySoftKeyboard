@@ -17,7 +17,11 @@ function makeFakeResponse({ ok, statusText, jsonData }: { ok: boolean; statusTex
 
 function makeFakeFetcher(releases: unknown[], ok = true) {
   return async (_url: unknown, _init?: unknown) =>
-    makeFakeResponse({ ok, statusText: ok ? 'OK' : 'Error', jsonData: releases });
+    makeFakeResponse({
+      ok,
+      statusText: ok ? 'OK' : 'Error',
+      jsonData: releases,
+    });
 }
 
 test.describe('test getLatestGitHubRelease', async () => {
@@ -95,7 +99,11 @@ test.describe('test getLatestMavenVersion', async () => {
     const versions = ['1.2.3', '2.0.0-beta', '1.2.4', '1.2.5-alpha', '1.3.0'];
     const xml = makeMavenXml(versions);
     const fakeFetcher = async (_url: unknown) =>
-      new Response(xml, { status: 200, statusText: 'OK', headers: { 'Content-Type': 'application/xml' } });
+      new Response(xml, {
+        status: 200,
+        statusText: 'OK',
+        headers: { 'Content-Type': 'application/xml' },
+      });
     const latest = await getLatestMavenVersion('https://repo.maven.org/maven2', 'com.example', 'lib', fakeFetcher);
     assert.equal(latest, '1.3.0');
   });
@@ -103,7 +111,11 @@ test.describe('test getLatestMavenVersion', async () => {
   test('throws if no versions found', async () => {
     const xml = makeMavenXml(['2.0.0-beta']); // since this is not a stable version, we'll skip it.
     const fakeFetcher = async (_url: unknown) =>
-      new Response(xml, { status: 200, statusText: 'OK', headers: { 'Content-Type': 'application/xml' } });
+      new Response(xml, {
+        status: 200,
+        statusText: 'OK',
+        headers: { 'Content-Type': 'application/xml' },
+      });
     await assert.rejects(
       () => getLatestMavenVersion('https://repo.maven.org/maven2', 'com.example', 'lib', fakeFetcher),
       /No stable versions found\./,
@@ -124,7 +136,11 @@ test.describe('test getLatestMavenVersion', async () => {
     const xml = makeMavenXml(versions);
     const fakeFetcher = async (url: unknown) => {
       capturedUrl = String(url);
-      return new Response(xml, { status: 200, statusText: 'OK', headers: { 'Content-Type': 'application/xml' } });
+      return new Response(xml, {
+        status: 200,
+        statusText: 'OK',
+        headers: { 'Content-Type': 'application/xml' },
+      });
     };
     await getLatestMavenVersion('https://repo.maven.org/maven2', 'com.example', 'lib', fakeFetcher);
     assert.equal(
