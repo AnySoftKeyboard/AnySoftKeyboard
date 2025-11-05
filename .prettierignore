@@ -5,3 +5,4 @@ bazel-*/
 **/tools/format.bash.runfiles
 **/dictionary/inputs/
 CLAUDE.md
+**/CLAUDE.md

@@ -29,7 +29,9 @@ async function downloadFileToTemp(url: string): Promise<string> {
 async function decompressTarGz(tarGzFilePath: string): Promise<string> {
   return new Promise((resolve, reject) => {
     return fs.promises
-      .mkdir(join(tmpdir(), Math.random().toString(16).substring(2)), { recursive: true })
+      .mkdir(join(tmpdir(), Math.random().toString(16).substring(2)), {
+        recursive: true,
+      })
       .then((folder) => {
         if (folder) return folder;
         else throw Error('could not create a folder in tmp-dir');
@@ -50,7 +52,9 @@ async function decompressGz(gzFilePath: string): Promise<string> {
   const targetFilename = gzFilePath.replace(/^.*[\\/]/, '').replace('.gz', '');
   return new Promise((resolve, reject) => {
     return fs.promises
-      .mkdir(join(tmpdir(), Math.random().toString(16).substring(2)), { recursive: true })
+      .mkdir(join(tmpdir(), Math.random().toString(16).substring(2)), {
+        recursive: true,
+      })
       .then((folder) => {
         if (folder) return folder;
         else throw Error('could not create a folder in tmp-dir');

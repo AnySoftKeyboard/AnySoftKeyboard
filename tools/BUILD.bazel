@@ -20,7 +20,8 @@ prettier.prettier_binary(
         # Therefore to make it hermetic, prettier must be pointed at the copy of the config file
         # in the runfiles folder rather than the one in the source folder.
         "--config=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath //:prettierrc)",
-        "--ignore-path=$(rlocationpath //:prettierignore)",
+        "--ignore-path=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath //:prettierignore)",
+        "--ignore-unknown",
         "--log-level=warn",
     ],
 )
