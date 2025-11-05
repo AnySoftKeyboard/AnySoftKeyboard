@@ -46,7 +46,7 @@ abstract class MainActivityBase(
             it.context.startActivity(intent)
           }
         } catch (ex: Exception) {
-          Log.e("ASK_ADD_ON", "Could not launch Store search!", ex)
+          Log.e("ASK_ADD_ON", "Could not launch AnySoftKeyboard!", ex)
         }
       }
     } else {
