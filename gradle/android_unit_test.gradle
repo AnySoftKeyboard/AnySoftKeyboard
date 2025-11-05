@@ -67,4 +67,8 @@ android {
     }
 }
 
+tasks.withType(AbstractTestTask).configureEach {
+    failOnNoDiscoveredTests = false
+}
+
 apply from: "${rootDir}/gradle/jacoco.gradle"
