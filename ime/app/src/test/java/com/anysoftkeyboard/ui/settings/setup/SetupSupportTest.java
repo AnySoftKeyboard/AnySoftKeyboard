@@ -59,6 +59,17 @@ public class SetupSupportTest {
   }
 
   @Test
+  @Config(sdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+  public void testIsThisKeyboardSetAsDefaultIME_api34AndAbove() throws Exception {
+    var app = RuntimeEnvironment.getApplication();
+    InputMethodManagerShadow.setKeyboardAsCurrent(app, true);
+    assertTrue(SetupSupport.isThisKeyboardSetAsDefaultIME(app));
+
+    InputMethodManagerShadow.setKeyboardAsCurrent(app, false);
+    assertFalse(SetupSupport.isThisKeyboardSetAsDefaultIME(app));
+  }
+
+  @Test
   public void testIsThisKeyboardEnabled() throws Exception {
     Application application = RuntimeEnvironment.getApplication();
     assertTrue(SetupSupport.isThisKeyboardEnabled(application));

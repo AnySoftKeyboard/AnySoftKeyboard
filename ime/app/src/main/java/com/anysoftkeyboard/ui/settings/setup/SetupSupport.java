@@ -25,7 +25,7 @@ public class SetupSupport {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
       InputMethodInfo currentInputMethodInfo = inputManager.getCurrentInputMethodInfo();
       return currentInputMethodInfo != null
-          && !Objects.equals(currentInputMethodInfo.getPackageName(), context.getPackageName());
+          && Objects.equals(currentInputMethodInfo.getPackageName(), context.getPackageName());
     } else {
       final String defaultIME =
           Settings.Secure.getString(
