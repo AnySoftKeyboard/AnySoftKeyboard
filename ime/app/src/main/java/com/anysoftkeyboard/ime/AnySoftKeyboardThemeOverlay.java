@@ -109,6 +109,11 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
   }
 
   protected void applyThemeOverlay(EditorInfo info) {
+    // Note: While Android 11+ (API 30) introduced package visibility restrictions, IMEs have
+    // automatic visibility to the apps they're actively serving input to. This means
+    // getLaunchIntentForPackage() works for EditorInfo.packageName without requiring
+    // <queries> declarations, even though this behavior is not explicitly documented.
+    // This has been verified to work in production on Android 11+.
     final Intent launchIntentForPackage =
         info.packageName == null
             ? null
