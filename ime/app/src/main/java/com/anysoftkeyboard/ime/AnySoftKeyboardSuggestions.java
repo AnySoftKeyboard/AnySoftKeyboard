@@ -37,6 +37,7 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -346,8 +347,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
-    if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-        == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) {
+    if (IMEUtil.shouldHonorNoSuggestionsFlag(textFlag)) {
       Logger.d(TAG, "Input requested NO_SUGGESTIONS.");
       mPredictionOn = false;
     }

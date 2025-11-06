@@ -858,4 +858,41 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
   public void testWayOverExpectedDelayedOnSelectionUpdate() {
     testDelayedOnSelectionUpdate(TestableAnySoftKeyboard.MAX_TIME_TO_EXPECT_SELECTION_UPDATE * 2);
   }
+
+  @Test
+  public void testSuggestionsShownWhenNoSuggestionsContradictsAutoCorrect() {
+    // Google Keep scenario: NO_SUGGESTIONS + AUTO_CORRECT (contradictory flags)
+    // Keyboard should show suggestions because AUTO_CORRECT requires them
+    simulateFinishInputFlow();
+    final EditorInfo editorInfo =
+        createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
+    // Set Google Keep's actual flags: 0xac000
+    // = NO_SUGGESTIONS (0x80000) + MULTI_LINE (0x20000) + AUTO_CORRECT (0x8000) + CAP_SENTENCES
+    // (0x4000)
+    editorInfo.inputType =
+        EditorInfo.TYPE_CLASS_TEXT
+            | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+            | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE
+            | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT
+            | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES;
+    simulateOnStartInputFlow(false, editorInfo);
+
+    // Should have prediction enabled despite NO_SUGGESTIONS flag
+    Assert.assertTrue(
+        "Prediction should be enabled when NO_SUGGESTIONS contradicts AUTO_CORRECT",
+        mAnySoftKeyboardUnderTest.isPredictionOn());
+
+    // Should show suggestions strip
+    Assert.assertNotNull(
+        "Suggestions strip should be visible",
+        mAnySoftKeyboardUnderTest
+            .getInputViewContainer()
+            .findViewById(R.id.close_suggestions_strip_text));
+
+    // Should actually predict when typing
+    mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+    Assert.assertTrue(
+        "Should be predicting when typing", mAnySoftKeyboardUnderTest.isCurrentlyPredicting());
+    verifySuggestions(true, "hell", "hello");
+  }
 }

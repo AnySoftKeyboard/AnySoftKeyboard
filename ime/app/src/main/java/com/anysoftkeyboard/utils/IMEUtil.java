@@ -136,4 +136,51 @@ public class IMEUtil {
       return editorInfo.imeOptions & EditorInfo.IME_MASK_ACTION;
     }
   }
+
+  /**
+   * Determines whether the TYPE_TEXT_FLAG_NO_SUGGESTIONS flag should be honored based on other
+   * flags present.
+   *
+   * <p>Some apps (like Google Keep) incorrectly set contradictory flags:
+   * TYPE_TEXT_FLAG_NO_SUGGESTIONS along with TYPE_TEXT_FLAG_AUTO_CORRECT or
+   * TYPE_TEXT_FLAG_AUTO_COMPLETE. Since auto-correction and auto-completion require suggestions to
+   * function, we ignore NO_SUGGESTIONS when these flags are present.
+   *
+   * @param textFlags The input type flags from EditorInfo (use EditorInfo.TYPE_MASK_FLAGS to
+   *     extract)
+   * @return true if NO_SUGGESTIONS should be honored (disable suggestions), false if it should be
+   *     ignored
+   */
+  public static boolean shouldHonorNoSuggestionsFlag(int textFlags) {
+    final boolean hasNoSuggestions =
+        (textFlags & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+            == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+
+    if (!hasNoSuggestions) {
+      // NO_SUGGESTIONS is not set, nothing to honor
+      return false;
+    }
+
+    // Check for contradictory flags
+    final boolean hasAutoCorrect =
+        (textFlags & EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT)
+            == EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT;
+    final boolean hasAutoComplete =
+        (textFlags & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE)
+            == EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+
+    if (hasAutoCorrect || hasAutoComplete) {
+      // NO_SUGGESTIONS contradicts AUTO_CORRECT or AUTO_COMPLETE, ignore it
+      Logger.d(
+          TAG,
+          "Ignoring TYPE_TEXT_FLAG_NO_SUGGESTIONS due to contradictory flags: "
+              + "hasAutoCorrect=%s, hasAutoComplete=%s",
+          hasAutoCorrect,
+          hasAutoComplete);
+      return false;
+    }
+
+    // NO_SUGGESTIONS is set and not contradicted, honor it
+    return true;
+  }
 }
