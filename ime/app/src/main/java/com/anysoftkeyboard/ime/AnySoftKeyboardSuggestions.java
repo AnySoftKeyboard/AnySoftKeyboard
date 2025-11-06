@@ -37,6 +37,7 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -346,8 +347,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
-    if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-        == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) {
+    if (IMEUtil.shouldHonorNoSuggestionsFlag(textFlag)) {
       Logger.d(TAG, "Input requested NO_SUGGESTIONS.");
       mPredictionOn = false;
     }
@@ -365,6 +365,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     super.onFinishInput();
     mCancelSuggestionsAction.setCancelIconVisible(false);
     mPredictionOn = false;
+    // Cancel any pending suggestion messages to prevent them from executing after input ends
+    mKeyboardHandler.removeAllSuggestionMessages();
     mKeyboardHandler.sendEmptyMessageDelayed(
         KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
     mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
@@ -570,11 +572,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
           isCurrentlyPredicting());
     }
 
-    if (mWord.charCount() == 0 && isAlphabet(primaryCode)) {
+    if (mWord.charCount() == 0) {
       mWordRevertLength = 0;
       mWord.reset();
       mAutoCorrectOn = isPredictionOn() && mAutoComplete && mInputFieldSupportsAutoPick;
-      if (mShiftKeyState.isActive()) {
+      if (isAlphabet(primaryCode) && mShiftKeyState.isActive()) {
         mWord.setFirstCharCapitalized(true);
       }
     }
@@ -582,8 +584,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
 
     final InputConnection ic = getCurrentInputConnection();
-    mWord.add(primaryCode, nearByKeyCodes);
     if (isPredictionOn()) {
+      mWord.add(primaryCode, nearByKeyCodes);
       if (ic != null) {
         int newCursorPosition;
         if (mWord.cursorPosition() != mWord.charCount()) {
@@ -963,14 +965,14 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         || !mAllowSuggestionsRestart
         || inputView == null
         || !inputView.isShown()) {
-      // why?
-      // mPredicting - if I'm predicting a word, I can not restart it..
-      // right? I'm inside that word!
-      // isPredictionOn() - this is obvious.
-      // mAllowSuggestionsRestart - config settings
-      // mCurrentlyAllowSuggestionRestart - workaround for
-      // onInputStart(restarting == true)
-      // mInputView == null - obvious, no?
+      // Conditions checked:
+      // - isPredictionOn(): Global prediction must be enabled for the current input field
+      // - mAllowSuggestionsRestart: User setting to enable/disable suggestion restart
+      // - inputView visibility: Input view must be shown
+      //
+      // Note: We don't check isCurrentlyPredicting() here because this method is called
+      // AFTER abortCorrectionAndResetPredictionState() in onUpdateSelection(). Any previous
+      // prediction has already been aborted before we reach this point.
       Logger.d(
           TAG,
           "performRestartWordSuggestion: no need to restart: isPredictionOn=%s,"
