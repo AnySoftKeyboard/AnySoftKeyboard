@@ -139,7 +139,7 @@ jobs:
         run: gh release delete "${{ env.TAG_NAME }}" --cleanup-tag --yes || true
       - name: Create GitHub Pre-Release
         if: endsWith(needs.deploy.outputs.deployment_environment, '_010')
-        uses: softprops/action-gh-release@v2.4.1
+        uses: softprops/action-gh-release@v2.4.2
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           tag_name: ${{ env.TAG_NAME }}
