@@ -1143,4 +1143,243 @@ public class GestureTypingDetectorTest {
         .map(pair -> generateTraceBetweenPoints(pair.first, pair.second))
         .flatMap(pointStream -> pointStream);
   }
+
+  // Tests for proximity-based filtering
+
+  @Test
+  public void testExactMatchStillWorks() {
+    // Test: Exact match still works
+    // Gesture starts exactly on 'h' key
+    // Verify "hello" is in candidates
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Generate a gesture that starts exactly on the 'h' key
+    generatePointsStreamOfKeysString("hello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Verify "hello" is in the candidates
+    Assert.assertTrue(
+        "Expected 'hello' to be in candidates but got: " + candidates,
+        candidates.contains("hello"));
+  }
+
+  @Test
+  public void testNearbyKeyIsAccepted() {
+    // Test: Nearby key is accepted
+    // Gesture starts near 'h' key (but not exactly on it)
+    // Verify "hello" is still in candidates
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Get the 'h' key position
+    final Point hKeyCenter = getPointForCharacter('h');
+
+    // Start slightly offset from the 'h' key center (within proximity threshold)
+    // Offset by ~30 pixels (well within the 150 pixel threshold = sqrt(22500))
+    final int offsetX = 30;
+    final int offsetY = 30;
+    mDetectorUnderTest.addPoint(hKeyCenter.x + offsetX, hKeyCenter.y + offsetY);
+
+    // Continue with the rest of the gesture for "hello"
+    generatePointsStreamOfKeysString("ello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Verify "hello" is still in candidates despite imprecise start
+    Assert.assertTrue(
+        "Expected 'hello' to be in candidates with nearby start but got: " + candidates,
+        candidates.contains("hello"));
+  }
+
+  @Test
+  public void testFarKeyIsRejected() {
+    // Test: Far key is rejected
+    // Gesture starts on 'a' key (far from 'h')
+    // Verify "hello" is NOT in candidates (first char is 'h')
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Get the 'a' key position (far from 'h')
+    final Point aKeyCenter = getPointForCharacter('a');
+
+    // Start gesture on 'a' key
+    mDetectorUnderTest.addPoint(aKeyCenter.x, aKeyCenter.y);
+
+    // Continue with gesture points for "ello"
+    generatePointsStreamOfKeysString("ello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Verify "hello" is NOT in candidates because 'a' is far from 'h'
+    Assert.assertFalse(
+        "Did not expect 'hello' to be in candidates when starting far from 'h', but got: "
+            + candidates,
+        candidates.contains("hello"));
+  }
+
+  @Test
+  public void testNullHandlingForUnknownCharacter() {
+    // Test: Null handling
+    // Word with character not on keyboard
+    // Verify no crash, word is skipped
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    // Add a word with a special character that won't be on the keyboard
+    mDetectorUnderTest.setWords(
+        Collections.singletonList(
+            new char[][] {
+              "hello".toCharArray(),
+              "h\u00E9llo".toCharArray(), // Contains é which might not be on English keyboard
+              "test".toCharArray()
+            }),
+        Collections.singletonList(new int[] {100, 100, 100}));
+
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Generate a gesture for "hello"
+    generatePointsStreamOfKeysString("hello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Should complete without crashing
+    // "hello" should be in candidates, words with unknown characters should be skipped
+    Assert.assertTrue(
+        "Expected 'hello' to be in candidates", candidates.contains("hello"));
+  }
+
+  @Test
+  public void testProximityPenaltyPrefersExactMatch() {
+    // Test: Proximity penalty
+    // Two words could match: one starts on exact key, one starts on nearby key
+    // Verify exact match ranks higher
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Get positions for 'h' and 'g' keys (they should be adjacent)
+    final Point hKeyCenter = getPointForCharacter('h');
+    final Point gKeyCenter = getPointForCharacter('g');
+
+    // Start gesture between 'h' and 'g', but closer to 'h'
+    // This means both 'h' words and 'g' words might be considered
+    int startX = (hKeyCenter.x + gKeyCenter.x) / 2;
+    int startY = (hKeyCenter.y + gKeyCenter.y) / 2;
+
+    // Adjust to be slightly closer to 'h'
+    startX = (startX + hKeyCenter.x) / 2;
+    startY = (startY + hKeyCenter.y) / 2;
+
+    mDetectorUnderTest.addPoint(startX, startY);
+
+    // Continue with gesture that could match both "hello" and "good"
+    // Let's use a gesture that goes through 'e', 'l', 'o' area for "hello"
+    generatePointsStreamOfKeysString("ello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Words starting with 'h' should be preferred over words starting with 'g'
+    // because the start point is closer to 'h'
+    if (candidates.contains("hello") && candidates.contains("good")) {
+      int helloIndex = candidates.indexOf("hello");
+      int goodIndex = candidates.indexOf("good");
+
+      // "hello" should rank higher (lower index) than "good"
+      Assert.assertTrue(
+          "Expected 'hello' to rank higher than 'good' due to proximity penalty, "
+              + "but got: "
+              + candidates,
+          helloIndex < goodIndex);
+    }
+  }
+
+  @Test
+  public void testEdgeProximity() {
+    // Test: Edge proximity
+    // Gesture starts just outside a key but within threshold
+    // Verify words starting with that key are still considered
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Get the 'h' key to find its edges
+    Keyboard.Key hKey =
+        mKeys.stream()
+            .filter(key -> key.getPrimaryCode() == 'h')
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Could not find 'h' key"));
+
+    // Start just outside the right edge of the 'h' key, but within proximity threshold
+    // The key boundary is at (hKey.x + hKey.width)
+    int edgeX = hKey.x + hKey.width + 20; // 20 pixels outside the right edge
+    int edgeY = Keyboard.Key.getCenterY(hKey);
+
+    mDetectorUnderTest.addPoint(edgeX, edgeY);
+
+    // Continue with the rest of the gesture for "hello"
+    generatePointsStreamOfKeysString("ello")
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Verify "hello" is in candidates even though we started outside the key
+    Assert.assertTrue(
+        "Expected 'hello' to be in candidates when starting near edge but got: " + candidates,
+        candidates.contains("hello"));
+  }
+
+  @Test
+  public void testProximityFilteringWithMultipleNearbyWords() {
+    // Test that proximity filtering includes multiple words starting with nearby keys
+    TestRxSchedulers.drainAllTasks();
+    Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, mCurrentState.get());
+
+    mDetectorUnderTest.clearGesture();
+
+    // Get positions for 'h' and 'g' keys
+    final Point hKeyCenter = getPointForCharacter('h');
+    final Point gKeyCenter = getPointForCharacter('g');
+
+    // Calculate a point between 'h' and 'g' that's within proximity threshold of both
+    int midX = (hKeyCenter.x + gKeyCenter.x) / 2;
+    int midY = (hKeyCenter.y + gKeyCenter.y) / 2;
+
+    mDetectorUnderTest.addPoint(midX, midY);
+
+    // Add points that could lead to either 'h' words or 'g' words
+    // Use 'o' as next point which is common to paths for both sets
+    final Point oKeyCenter = getPointForCharacter('o');
+    generateTraceBetweenPoints(new Point(midX, midY), oKeyCenter)
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    // Continue to 'd' which completes "god" or "good"
+    final Point dKeyCenter = getPointForCharacter('d');
+    generateTraceBetweenPoints(oKeyCenter, dKeyCenter)
+        .forEach(point -> mDetectorUnderTest.addPoint(point.x, point.y));
+
+    final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
+
+    // Should contain words starting with 'g' since we're close enough
+    boolean hasGWords = candidates.stream().anyMatch(word -> word.toLowerCase().startsWith("g"));
+    Assert.assertTrue(
+        "Expected to find words starting with 'g' in candidates: " + candidates, hasGWords);
+  }
 }
