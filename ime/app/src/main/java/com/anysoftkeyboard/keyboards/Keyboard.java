@@ -612,9 +612,9 @@ public abstract class Keyboard {
       final boolean topEdge = (edgeFlags & EDGE_TOP) != 0;
       final boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) != 0;
       return (x >= this.x || (leftEdge && x <= this.x + this.width))
-          && (x < this.x + this.width || (rightEdge && x >= this.x))
+          && (x <= this.x + this.width || (rightEdge && x >= this.x))
           && (y >= this.y || (topEdge && y <= this.y + this.height))
-          && (y < this.y + this.height || (bottomEdge && y >= this.y));
+          && (y <= this.y + this.height || (bottomEdge && y >= this.y));
     }
 
     /**
