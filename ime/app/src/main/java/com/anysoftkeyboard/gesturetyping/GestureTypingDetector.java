@@ -26,6 +26,19 @@ public class GestureTypingDetector {
   private static final int CURVATURE_NEIGHBORHOOD = 1;
   private static final double MINIMUM_DISTANCE_FILTER = 1000000;
 
+  /**
+   * Maximum squared distance from gesture start point to accept a word's starting key.
+   * This allows for imprecise gesture starts while filtering obviously wrong candidates.
+   * Value is approximately 1.5 key widths squared (assuming ~100 pixel keys).
+   */
+  private static final int START_KEY_PROXIMITY_THRESHOLD_SQUARED = 22500;
+
+  /**
+   * Penalty factor for words that start near but not on the exact starting key.
+   * Lower value = less penalty, higher value = more penalty.
+   */
+  private static final double PROXIMITY_PENALTY_FACTOR = 0.1;
+
   // How far away do two points of the gesture have to be (distance squared)?
   private final int mMinPointDistanceSquared;
 
@@ -329,10 +342,17 @@ public class GestureTypingDetector {
       final char[][] words = mWords.get(dictIndex);
       final int[] wordFrequencies = mWordFrequencies.get(dictIndex);
       for (int i = 0; i < words.length; i++) {
-        // Check if current word would start with the same key
+        // Check if current word starts with a key close to the gesture start point
         final Keyboard.Key wordStartKey = mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
-        // filtering all words that do not start with the initial pressed key
-        if (wordStartKey != startKey) {
+        if (wordStartKey == null) {
+          continue; // Character not found on keyboard
+        }
+
+        // Calculate squared distance from gesture start to word's starting key
+        final int distanceSquared = wordStartKey.squaredDistanceFrom(corners[0], corners[1]);
+
+        // Filter out words whose starting key is too far from gesture start
+        if (distanceSquared > START_KEY_PROXIMITY_THRESHOLD_SQUARED) {
           continue;
         }
 
@@ -347,14 +367,24 @@ public class GestureTypingDetector {
         final double revisedDistanceFromCurve =
             distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
 
+        // Add a small penalty if the word doesn't start on the exact starting key
+        // This biases towards words that start on the gesture starting key
+        double proximityPenalty = 0;
+        if (wordStartKey != startKey) {
+          // Small penalty proportional to distance from start point
+          proximityPenalty = Math.sqrt(distanceSquared) * PROXIMITY_PENALTY_FACTOR;
+        }
+
+        final double finalWeight = revisedDistanceFromCurve + proximityPenalty;
+
         int candidateDistanceSortedIndex = 0;
         while (candidateDistanceSortedIndex < mCandidateWeights.size()
-            && mCandidateWeights.get(candidateDistanceSortedIndex) <= revisedDistanceFromCurve) {
+            && mCandidateWeights.get(candidateDistanceSortedIndex) <= finalWeight) {
           candidateDistanceSortedIndex++;
         }
 
         if (candidateDistanceSortedIndex < mMaxSuggestions) {
-          mCandidateWeights.add(candidateDistanceSortedIndex, revisedDistanceFromCurve);
+          mCandidateWeights.add(candidateDistanceSortedIndex, finalWeight);
           mCandidates.add(candidateDistanceSortedIndex, new String(words[i]));
           if (mCandidateWeights.size() > mMaxSuggestions) {
             mCandidateWeights.remove(mMaxSuggestions);
