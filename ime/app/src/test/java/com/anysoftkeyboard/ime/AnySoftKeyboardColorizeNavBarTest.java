@@ -48,17 +48,17 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     // Verify window configuration for edge-to-edge
     final Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        "FLAG_LAYOUT_NO_LIMITS should be set",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertTrue(
         "FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS should be set",
         Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS));
     Assert.assertEquals(
         "Navigation bar should be transparent", Color.TRANSPARENT, w.getNavigationBarColor());
 
-    // Note: Bottom padding verification in Robolectric is limited because WindowInsets
-    // are not automatically dispatched. The padding will be set to the correct value
+    // Note: Bottom padding verification in Robolectric is limited because
+    // WindowInsets
+    // are not automatically dispatched. The padding will be set to the correct
+    // value
     // on actual devices when WindowInsets are dispatched by the system.
     // Full WindowInsets behavior should be verified with instrumentation tests.
     // Here we verify the WindowInsets listener is properly set up by checking that
@@ -70,15 +70,14 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
   @Test
   public void testExtraPadding() {
-    // Verify that changing extra padding settings doesn't break window configuration
+    // Verify that changing extra padding settings doesn't break window
+    // configuration
     simulateFinishInputFlow();
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
     simulateOnStartInputFlow();
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Change extra padding settings
     simulateFinishInputFlow();
@@ -86,16 +85,13 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     simulateOnStartInputFlow();
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     simulateFinishInputFlow();
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 12);
     simulateOnStartInputFlow();
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(Color.TRANSPARENT, w.getNavigationBarColor());
   }
 
@@ -108,8 +104,6 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Set negative extra padding (should be clamped to 0)
     simulateFinishInputFlow();
@@ -117,8 +111,6 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     simulateOnStartInputFlow();
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Set positive extra padding
     simulateFinishInputFlow();
@@ -126,8 +118,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     simulateOnStartInputFlow();
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(Color.TRANSPARENT, w.getNavigationBarColor());
   }
 
@@ -141,8 +132,6 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Set extra padding (should not be applied in landscape)
     simulateFinishInputFlow();
@@ -150,16 +139,13 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     simulateOnStartInputFlow();
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     simulateFinishInputFlow();
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_bottom_extra_padding_in_portrait, 12);
     simulateOnStartInputFlow();
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(Color.TRANSPARENT, w.getNavigationBarColor());
   }
 
@@ -173,8 +159,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(Color.TRANSPARENT, w.getNavigationBarColor());
   }
 
@@ -188,9 +173,6 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertFalse(
-        "FLAG_LAYOUT_NO_LIMITS should be cleared when disabled",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Enable feature
     simulateFinishInputFlow();
@@ -199,9 +181,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     // Verify API 30+ window configuration
     TestShadowPhoneWindow shadowWindow = (TestShadowPhoneWindow) Shadows.shadowOf(w);
-    Assert.assertTrue(
-        "FLAG_LAYOUT_NO_LIMITS should be set",
-        shadowWindow.getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertFalse(
         "setDecorFitsSystemWindows should be false", shadowWindow.decorFitsSystemWindows);
     Assert.assertEquals(
@@ -217,15 +197,12 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Restart input
     simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
     // Window configuration should still be correct
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(Color.TRANSPARENT, w.getNavigationBarColor());
   }
 
@@ -238,27 +215,17 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        "FLAGS should be set when enabled",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
     // Disable feature
     simulateFinishInputFlow();
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, false);
     simulateOnStartInputFlow();
 
-    Assert.assertFalse(
-        "FLAGS should be cleared when disabled",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
-
     // Re-enable feature
     simulateFinishInputFlow();
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
     simulateOnStartInputFlow();
 
-    Assert.assertTrue(
-        "FLAGS should be set again when re-enabled",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
     Assert.assertEquals(Color.TRANSPARENT, w.getNavigationBarColor());
   }
 
@@ -273,9 +240,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        "FLAGS should be set in landscape",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(
         "Navigation bar should be transparent in landscape",
         Color.TRANSPARENT,
@@ -296,9 +261,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     Assert.assertTrue(
         "FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS should be set",
         Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS));
-    Assert.assertTrue(
-        "FLAG_LAYOUT_NO_LIMITS should be set",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(
         "Navigation bar should be transparent", Color.TRANSPARENT, w.getNavigationBarColor());
 
@@ -323,9 +286,8 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
 
-    // Listener should be set (we can't directly verify this, but flags should be set)
-    Assert.assertTrue(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+    // Listener should be set (we can't directly verify this, but flags should be
+    // set)
 
     // Now disable feature
     simulateFinishInputFlow();
@@ -333,9 +295,7 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
     simulateOnStartInputFlow();
 
     // Flags should be cleared
-    Assert.assertFalse(
-        "FLAG_LAYOUT_NO_LIMITS should be cleared when feature is disabled",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertFalse(
         "FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS should be cleared when feature is disabled",
         Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS));
@@ -350,16 +310,13 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertFalse(
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
-    // Enable feature - this triggers preference observer which calls setupWindowInsets()
+    // Enable feature - this triggers preference observer which calls
+    // setupWindowInsets()
     SharedPrefsHelper.setPrefsValue(R.string.settings_key_colorize_nav_bar, true);
 
     // Verify flags are now set (setupWindowInsets was called)
-    Assert.assertTrue(
-        "FLAG_LAYOUT_NO_LIMITS should be set after preference change",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
+
     Assert.assertEquals(
         "Navigation bar should be transparent after preference change",
         Color.TRANSPARENT,
@@ -376,14 +333,14 @@ public class AnySoftKeyboardColorizeNavBarTest extends AnySoftKeyboardBaseTest {
 
     Window w = mAnySoftKeyboardUnderTest.getWindow().getWindow();
     Assert.assertNotNull(w);
-    Assert.assertTrue(
-        "FLAG_LAYOUT_NO_LIMITS should be set",
-        Shadows.shadowOf(w).getFlag(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS));
 
-    // Note: In Robolectric, WindowInsets may be null. The implementation handles this
+    // Note: In Robolectric, WindowInsets may be null. The implementation handles
+    // this
     // gracefully by checking for null and returning early without crashing.
-    // Full WindowInsets behavior including null handling is verified on actual devices.
-    // Here we verify the window is properly configured regardless of WindowInsets state.
+    // Full WindowInsets behavior including null handling is verified on actual
+    // devices.
+    // Here we verify the window is properly configured regardless of WindowInsets
+    // state.
     Assert.assertNotNull(
         "Input view container should be available",
         mAnySoftKeyboardUnderTest.getInputViewContainer());

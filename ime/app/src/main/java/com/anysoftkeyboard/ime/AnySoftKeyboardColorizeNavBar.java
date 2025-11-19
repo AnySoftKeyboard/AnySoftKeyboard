@@ -102,7 +102,6 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
       // Configure window for edge-to-edge on all API levels
       w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       w.setNavigationBarColor(Color.TRANSPARENT);
-      w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         // API 30+: Use modern WindowCompat API
@@ -117,8 +116,10 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
 
       // Set up WindowInsets listener on the decor view
       // Using decor view is recommended for IME to ensure we get all system insets
-      // Note: On API 30 in Robolectric test environments, WindowInsets handling has known issues
-      // where returning any WindowInsetsCompat causes NPEs when converting back to platform types
+      // Note: On API 30 in Robolectric test environments, WindowInsets handling has
+      // known issues
+      // where returning any WindowInsetsCompat causes NPEs when converting back to
+      // platform types
       ViewCompat.setOnApplyWindowInsetsListener(
           w.getDecorView(),
           (v, windowInsets) -> {
@@ -169,7 +170,7 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
   private void clearColorizedNavBar(
       @NonNull Window w, @NonNull KeyboardViewContainerView containerView) {
     // Clear flags on all API levels
-    w.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
     w.clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
