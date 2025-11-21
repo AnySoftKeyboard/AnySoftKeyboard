@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -43,7 +43,7 @@ jobs:
         run: ./gradlew :addons:languages:generatePacksYaml :addons:themes:generatePacksYaml :addons:quicktexts:generatePacksYaml
       - name: Checkout AnySoftKeyboard.github.io repository
         if: steps.create_pr_packs_md.outputs.pull-request-number != ''
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.0
         with:
           repository: AnySoftKeyboard/AnySoftKeyboard.github.io
           path: anysoftkeyboard.github.io

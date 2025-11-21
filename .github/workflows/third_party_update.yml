@@ -23,7 +23,7 @@ jobs:
   github-actions-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: bazel-contrib/setup-bazel@0.15.0
@@ -51,7 +51,7 @@ jobs:
   general-maven-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: bazel-contrib/setup-bazel@0.15.0
@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.21.2
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -129,7 +129,7 @@ jobs:
   general-js-deps:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v4.2.0
