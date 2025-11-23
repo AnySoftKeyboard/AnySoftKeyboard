@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -115,25 +116,23 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
       }
 
       // Set up WindowInsets listener on the decor view
-      // Using decor view is recommended for IME to ensure we get all system insets
-      // Note: On API 30 in Robolectric test environments, WindowInsets handling has
-      // known issues
-      // where returning any WindowInsetsCompat causes NPEs when converting back to
-      // platform types
       ViewCompat.setOnApplyWindowInsetsListener(
           w.getDecorView(),
           (v, windowInsets) -> {
             if (windowInsets == null) {
-              // In test environments, WindowInsets may be null
               Logger.w(TAG, "WindowInsets is null, skipping padding update");
               return WindowInsetsCompat.CONSUMED;
             }
 
             try {
               // Get navigation bar insets from the system
-              // Using fully qualified name to avoid conflict with InputMethodService.Insets
+              // We use systemBars() to get the most comprehensive insets (including caption
+              // bar, etc.)
+              // and displayCutout() to handle notches.
               final androidx.core.graphics.Insets navBarInsets =
-                  windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars());
+                  windowInsets.getInsets(
+                      WindowInsetsCompat.Type.systemBars()
+                          | WindowInsetsCompat.Type.displayCutout());
 
               // Calculate the bottom padding, respecting minimum and user preferences
               final int bottomPadding = Math.max(navBarInsets.bottom, getMinimumBottomPadding());
@@ -151,17 +150,38 @@ public abstract class AnySoftKeyboardColorizeNavBar extends AnySoftKeyboardIncog
               // Return insets unconsumed to allow other views to handle them if needed
               return windowInsets;
             } catch (Exception e) {
-              // Handle any errors during insets processing (e.g., in test environments)
               Logger.w(TAG, "Error processing WindowInsets, applying minimum padding", e);
               inputContainer.setBottomPadding(getMinimumBottomPadding());
               return WindowInsetsCompat.CONSUMED;
             }
           });
 
+      // Request insets to be applied immediately to ensure the listener is called
+      // This fixes a potential race condition where the initial insets might be
+      // missed
+      // We post this to avoid potential recursion or layout issues during setup
+      w.getDecorView()
+          .post(
+              () -> {
+                try {
+                  // Robolectric has issues with dispatching insets in some configurations
+                  // (causing NPE in ViewGroup.dispatchApplyWindowInsets).
+                  // We skip this explicit request in tests.
+                  if (!CompatUtils.isRobolectric()) {
+                    // Fetch the window again to ensure it's still valid and attached
+                    final var currentWindow = getWindow().getWindow();
+                    if (currentWindow != null) {
+                      ViewCompat.requestApplyInsets(currentWindow.getDecorView());
+                    }
+                  }
+                } catch (Exception e) {
+                  Logger.w(TAG, "Failed to apply insets", e);
+                }
+              });
+
     } else {
       Logger.d(TAG, "Clearing colorized nav-bar (prefs disabled)");
       // Remove the insets listener FIRST before clearing window settings
-      // This prevents WindowInsets dispatch issues on API 30 in Robolectric
       ViewCompat.setOnApplyWindowInsetsListener(w.getDecorView(), null);
       clearColorizedNavBar(w, inputContainer);
     }
