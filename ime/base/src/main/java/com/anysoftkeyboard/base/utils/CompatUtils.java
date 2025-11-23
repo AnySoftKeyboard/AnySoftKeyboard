@@ -83,7 +83,7 @@ public class CompatUtils {
 
   // this is needed since we do not have access to Objects.equals till API19
   public static boolean objectEquals(@Nullable Object first, @Nullable Object second) {
-    //noinspection EqualsReplaceableByObjectsCall
+    // noinspection EqualsReplaceableByObjectsCall
     return (first == second) || (first != null && first.equals(second));
   }
 
@@ -92,6 +92,15 @@ public class CompatUtils {
       return flags | PendingIntent.FLAG_IMMUTABLE;
     } else {
       return flags;
+    }
+  }
+
+  public static boolean isRobolectric() {
+    try {
+      Class.forName("org.robolectric.Robolectric");
+      return true;
+    } catch (ClassNotFoundException e) {
+      return false;
     }
   }
 }
