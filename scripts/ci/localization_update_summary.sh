@@ -21,6 +21,15 @@ if [ -s /tmp/changed_localization_files.txt ]; then
   
   git diff --cached -- "**/values-*/strings.xml" > /tmp/localization_diff.patch
   
+  echo "Cleaning up invalid empty translations..."
+  bazel run //js/localization_tools -- cleanEmptyTranslations --diff-file /tmp/localization_diff.patch
+  
+  # Update index with potential changes
+  git add .
+  
+  # Regenerate diff for the report
+  git diff --cached -- "**/values-*/strings.xml" > /tmp/localization_diff.patch
+
   bazel run //js/localization_tools -- diffReport -i /tmp/localization_diff.patch -o /tmp/localization_changes.xml
   
   echo "=== LOCALIZATION CHANGES REPORT ==="

@@ -97,10 +97,21 @@ ts_library(
 )
 
 ts_library(
+    name = "clean_empty_translations",
+    srcs = ["clean_empty_translations.ts"],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":diff_parser",
+        "//:node_modules/@types/node",
+    ],
+)
+
+ts_library(
     name = "cli",
     srcs = ["index.ts"],
     visibility = ["//visibility:private"],
     deps = [
+        ":clean_empty_translations",
         ":delete_localization_files",
         ":diff_parser",
         ":generate_locales",
@@ -129,5 +140,16 @@ ts_test(
         ":delete_localization_files",
         "//:node_modules/@types/js-yaml",
         "//:node_modules/js-yaml",
+    ],
+)
+
+ts_test(
+    name = "clean_empty_translations_tests",
+    entry_point = "clean_empty_translations.test.ts",
+    deps = [
+        ":clean_empty_translations",
+        "//:node_modules/@types/mock-fs",
+        "//:node_modules/@types/node",
+        "//:node_modules/mock-fs",
     ],
 )
