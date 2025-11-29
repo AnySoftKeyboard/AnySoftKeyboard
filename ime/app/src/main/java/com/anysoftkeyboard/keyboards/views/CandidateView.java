@@ -113,10 +113,13 @@ public class CandidateView extends View implements ThemeableChild {
 
   @Override
   public void setThemeOverlay(OverlayData overlay) {
-    var normalized =
-        OverlayDataNormalizer.normalize(
-            overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
-    mThemeOverlayCombiner.setOverlayData(normalized);
+    if (overlay.getPrimaryDarkColor() != Color.TRANSPARENT || overlay.getSecondaryTextColor() != Color.TRANSPARENT) {
+      var normalized = OverlayDataNormalizer.normalize(
+          overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
+      mThemeOverlayCombiner.setOverlayData(normalized);
+    } else {
+      mThemeOverlayCombiner.setOverlayData(overlay);
+    }
     setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
     invalidate();
   }
