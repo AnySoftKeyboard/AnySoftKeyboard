@@ -124,7 +124,7 @@ export const parseGitDiff = (diff: string): ChangedString[] => {
   return changedStrings;
 };
 
-const getDefaultStringValue = (repoRoot: string, changedFilePath: string, stringId: string): string | null => {
+export const getDefaultStringValue = (repoRoot: string, changedFilePath: string, stringId: string): string | null => {
   const resFolder = path.dirname(path.dirname(changedFilePath));
   const defaultStringsFile = path.join(resFolder, 'values', 'strings.xml');
   const fullPath = path.join(repoRoot, defaultStringsFile);
@@ -137,17 +137,12 @@ const getDefaultStringValue = (repoRoot: string, changedFilePath: string, string
   }
 
   const content = fs.readFileSync(fullPath, 'utf-8');
-  const lines = content.split('\n');
 
-  // Use the same improved regex pattern as in parseGitDiff
-  const stringResourceRegex = /^\s*<string\s+name\s*=\s*"([^"]+)"\s*>(.*?)<\/string>\s*$/;
-
-  for (const line of lines) {
-    const trimmedLine = line.trim();
-    const match = trimmedLine.match(stringResourceRegex);
-    if (match && match[1] === stringId) {
-      return match[2].trim();
-    }
+  // Use regex that matches across lines
+  const stringResourceRegex = new RegExp(`^\\s*<string\\s+name\\s*=\\s*"${stringId}"\\s*>([\\s\\S]*?)<\\/string>`, 'm');
+  const match = content.match(stringResourceRegex);
+  if (match) {
+    return match[1].trim();
   }
   console.error(
     `Error while getDefaultStringValue. Could not find string id ${stringId} in ${fullPath} for ${changedFilePath}.`,
