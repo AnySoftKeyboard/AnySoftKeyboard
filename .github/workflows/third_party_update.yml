@@ -96,7 +96,7 @@ jobs:
               - https://github.com/diffplug/spotless
               - https://github.com/google/google-java-format/releases
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.22.2
+    container: ghcr.io/menny/android:1.22.3
     steps:
       - uses: actions/checkout@v6.0.0
         with:

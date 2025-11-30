@@ -13,7 +13,7 @@ inputs:
     default: ""
 runs:
   using: "docker"
-  image: "docker://ghcr.io/menny/android:1.22.2"
+  image: "docker://ghcr.io/menny/android:1.22.3"
   env:
     TERM: dumb
     GRADLE_USER_HOME: ".github_cache_gradle/"
