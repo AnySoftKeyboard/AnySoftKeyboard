@@ -12,7 +12,7 @@ inputs:
     required: true
 runs:
   using: "docker"
-  image: "docker://ghcr.io/menny/android_base:1.21.2"
+  image: "docker://ghcr.io/menny/android_base:1.22.3"
   entrypoint: /bin/bash
   args:
     - .github/actions/collect-reports/collect.sh

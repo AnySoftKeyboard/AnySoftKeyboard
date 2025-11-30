@@ -45,7 +45,8 @@ public class ScrollViewAsMainChild extends ScrollView implements MainChild {
     mBottomGap = findViewById(R.id.bottom_gap_view);
 
     // okay.. this is super weird:
-    // Since the items in the list are remote-views, they are drawn on top of our UI.
+    // Since the items in the list are remote-views, they are drawn on top of our
+    // UI.
     // this means that they think that itemsContainer is very large and so they
     // draw themselves outside the scroll window.
     // The only nice why I found to deal with this is to set them to INVISIBLE

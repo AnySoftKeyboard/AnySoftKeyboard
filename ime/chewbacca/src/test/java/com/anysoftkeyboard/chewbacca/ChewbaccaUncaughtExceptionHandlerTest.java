@@ -162,7 +162,7 @@ public class ChewbaccaUncaughtExceptionHandlerTest {
     Assert.assertTrue(newReport.isFile());
     List<String> text = Files.readAllLines(newReport.toPath());
     Assert.assertEquals(
-        44 /*this is fragile, and can change when crash report is changed*/, text.size());
+        42 /*this is fragile, and can change when crash report is changed*/, text.size());
     Assert.assertEquals(
         "Hi. It seems that we have crashed.... Here are some details:", text.get(0));
     Assert.assertEquals(
