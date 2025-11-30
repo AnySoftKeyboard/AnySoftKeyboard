@@ -2,7 +2,7 @@ apply plugin: 'checkstyle'
 
 checkstyle {
     showViolations true
-    toolVersion '8.40'
+    toolVersion '10.17.0'
 }
 
 tasks.register("checkstyleMain", Checkstyle) { task ->
