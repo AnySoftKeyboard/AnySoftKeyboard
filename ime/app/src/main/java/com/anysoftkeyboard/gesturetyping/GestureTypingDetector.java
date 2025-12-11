@@ -350,11 +350,6 @@ public class GestureTypingDetector {
       }
     }
 
-    if (startKey == null) {
-      Logger.w(TAG, "Could not find a key that is inside %d,%d", corners[0], corners[1]);
-      return mCandidates;
-    }
-
     mCandidateWeights.clear();
     int dictionaryWordsCornersOffset = 0;
     for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
