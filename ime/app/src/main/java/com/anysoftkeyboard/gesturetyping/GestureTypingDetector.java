@@ -37,13 +37,6 @@ public class GestureTypingDetector {
   private static final double DIRECTION_PENALTY_FACTOR = 1.0;
 
   /**
-   * Maximum squared distance from gesture start point to accept a word's starting key.
-   * This allows for imprecise gesture starts while filtering obviously wrong candidates.
-   * Value is approximately 1.5 key widths squared (assuming ~100 pixel keys).
-   */
-  private static final int START_KEY_PROXIMITY_THRESHOLD_SQUARED = 22500;
-
-  /**
    * Penalty factor for words that start near but not on the exact starting key.
    * Lower value = less penalty, higher value = more penalty.
    */
@@ -51,6 +44,13 @@ public class GestureTypingDetector {
 
   // How far away do two points of the gesture have to be (distance squared)?
   private final int mMinPointDistanceSquared;
+
+  /**
+   * Maximum squared distance from gesture start point to accept a word's starting key.
+   * This allows for imprecise gesture starts while filtering obviously wrong candidates.
+   * Value is approximately 1.5 key widths squared (assuming ~100 pixel keys).
+   */
+  private final int mStartKeyProximityThresholdSquared;
 
   private final ArrayList<String> mCandidates;
   private final double mFrequencyFactor;
@@ -82,12 +82,14 @@ public class GestureTypingDetector {
       double frequencyFactor,
       int maxSuggestions,
       int minPointDistance,
+      int startKeyProximityThreshold,
       @NonNull Iterable<Keyboard.Key> keys) {
     mFrequencyFactor = frequencyFactor;
     mMaxSuggestions = maxSuggestions;
     mCandidates = new ArrayList<>(mMaxSuggestions * 3);
     mCandidateWeights = new ArrayList<>(mMaxSuggestions * 3);
     mMinPointDistanceSquared = minPointDistance * minPointDistance;
+    mStartKeyProximityThresholdSquared = startKeyProximityThreshold * startKeyProximityThreshold;
     mKeys = keys;
 
     mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
@@ -366,7 +368,7 @@ public class GestureTypingDetector {
         final int distanceSquared = wordStartKey.squaredDistanceFrom(corners[0], corners[1]);
 
         // Filter out words whose starting key is too far from gesture start
-        if (distanceSquared > START_KEY_PROXIMITY_THRESHOLD_SQUARED) {
+        if (distanceSquared > mStartKeyProximityThresholdSquared) {
           continue;
         }
 
