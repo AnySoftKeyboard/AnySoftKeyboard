@@ -80,6 +80,7 @@ public class GestureTypingDetectorTest {
             context.getResources().getDimension(R.dimen.gesture_typing_frequency_factor),
             MAX_SUGGESTIONS,
             context.getResources().getDimensionPixelSize(R.dimen.gesture_typing_min_point_distance),
+            context.getResources().getDimensionPixelSize(R.dimen.gesture_typing_proximity_threshold),
             mKeys);
 
     mCurrentState = new AtomicReference<>();
