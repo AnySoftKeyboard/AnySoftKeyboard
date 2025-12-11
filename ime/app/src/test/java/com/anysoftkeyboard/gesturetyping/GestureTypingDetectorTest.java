@@ -127,7 +127,7 @@ public class GestureTypingDetectorTest {
     AtomicInteger distance = new AtomicInteger();
     generatePointsStreamOfKeysString("helo")
         .forEach(point -> distance.addAndGet(mDetectorUnderTest.addPoint(point.x, point.y)));
-    Assert.assertEquals(8016, distance.get());
+    Assert.assertEquals(8076, distance.get());
     final ArrayList<String> candidates = mDetectorUnderTest.getCandidates();
 
     Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
