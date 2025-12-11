@@ -363,6 +363,9 @@ public class GestureTypingDetector {
       for (int i = 0; i < words.length; i++) {
         // Check if current word starts with a key close to the gesture start point
         final Keyboard.Key wordStartKey = mKeysByCharacter.get(Dictionary.toLowerCase(words[i][0]));
+        if (wordStartKey == null) {
+          continue; // Character not found on keyboard
+        }
 
         // Calculate squared distance from gesture start to word's starting key
         final int distanceSquared = wordStartKey.squaredDistanceFrom(corners[0], corners[1]);
