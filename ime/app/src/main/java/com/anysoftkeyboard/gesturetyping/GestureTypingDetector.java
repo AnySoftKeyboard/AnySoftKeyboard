@@ -408,7 +408,7 @@ public class GestureTypingDetector {
    * @return the cumulative distance between gesture path corners and word path corners, for each
    *     segment multiplied by the reward/penalty factor for adhering to the direction.
    */
-  private static double calculateDistanceBetweenUserPathAndWord(
+  static double calculateDistanceBetweenUserPathAndWord(
       short[] actualUserPath, short[] generatedWordPath) {
     // Debugging is still needed, but at least ASK won't crash this way
     if (actualUserPath.length < 2 || generatedWordPath.length == 0) {
@@ -532,7 +532,7 @@ public class GestureTypingDetector {
    * @return cosine of angle between vectors, in range [-1, 1]. Returns 1.0 (no penalty) if either
    *     vector has zero length.
    */
-  private static double calculateCosineOfAngleBetweenVectors(
+  static double calculateCosineOfAngleBetweenVectors(
       double v1x, double v1y, double v2x, double v2y) {
     double magnitudeSquared1 = v1x * v1x + v1y * v1y;
     double magnitudeSquared2 = v2x * v2x + v2y * v2y;
