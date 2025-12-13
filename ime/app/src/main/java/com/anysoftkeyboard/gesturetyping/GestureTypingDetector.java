@@ -447,7 +447,7 @@ public class GestureTypingDetector {
         if (distanceToNextGeneratedCorner < distanceToGeneratedCorner) {
           generatedWordCornerIndex += 2;
           distanceToGeneratedCorner = distanceToNextGeneratedCorner;
-          wx = nextWy;
+          wx = nextWx;
           wy = nextWy;
         }
       }
