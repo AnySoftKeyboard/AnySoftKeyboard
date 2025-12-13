@@ -123,9 +123,9 @@ public class CandidateView extends View implements ThemeableChild {
   @VisibleForTesting
   static OverlayData getNormalizedOverlayData(OverlayData overlay) {
     if (overlay.getPrimaryDarkColor() != Color.TRANSPARENT
-            || overlay.getSecondaryTextColor() != Color.TRANSPARENT) {
-      return OverlayDataNormalizer.normalize(overlay, 96, overlay.getPrimaryDarkColor(),
-              overlay.getSecondaryTextColor());
+        || overlay.getSecondaryTextColor() != Color.TRANSPARENT) {
+      return OverlayDataNormalizer.normalize(
+          overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
     } else {
       return overlay;
     }
