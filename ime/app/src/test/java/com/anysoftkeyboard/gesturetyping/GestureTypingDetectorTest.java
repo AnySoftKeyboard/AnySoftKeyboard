@@ -80,7 +80,9 @@ public class GestureTypingDetectorTest {
             context.getResources().getDimension(R.dimen.gesture_typing_frequency_factor),
             MAX_SUGGESTIONS,
             context.getResources().getDimensionPixelSize(R.dimen.gesture_typing_min_point_distance),
-            context.getResources().getDimensionPixelSize(R.dimen.gesture_typing_proximity_threshold),
+            context
+                .getResources()
+                .getDimensionPixelSize(R.dimen.gesture_typing_proximity_threshold),
             mKeys);
 
     mCurrentState = new AtomicReference<>();
@@ -1260,8 +1262,7 @@ public class GestureTypingDetectorTest {
 
     // Should complete without crashing
     // "hello" should be in candidates, words with unknown characters should be skipped
-    Assert.assertTrue(
-        "Expected 'hello' to be in candidates", candidates.contains("hello"));
+    Assert.assertTrue("Expected 'hello' to be in candidates", candidates.contains("hello"));
   }
 
   @Test

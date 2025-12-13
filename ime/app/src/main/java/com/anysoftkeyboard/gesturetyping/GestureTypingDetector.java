@@ -37,8 +37,8 @@ public class GestureTypingDetector {
   private static final double DIRECTION_PENALTY_FACTOR = 1.0;
 
   /**
-   * Penalty factor for words that start near but not on the exact starting key.
-   * Lower value = less penalty, higher value = more penalty.
+   * Penalty factor for words that start near but not on the exact starting key. Lower value = less
+   * penalty, higher value = more penalty.
    */
   private static final double PROXIMITY_PENALTY_FACTOR = 0.1;
 
@@ -46,9 +46,9 @@ public class GestureTypingDetector {
   private final int mMinPointDistanceSquared;
 
   /**
-   * Maximum squared distance from gesture start point to accept a word's starting key.
-   * This allows for imprecise gesture starts while filtering obviously wrong candidates.
-   * Value is approximately 1.5 key widths squared (assuming ~100 pixel keys).
+   * Maximum squared distance from gesture start point to accept a word's starting key. This allows
+   * for imprecise gesture starts while filtering obviously wrong candidates. Value is approximately
+   * 1.5 key widths squared (assuming ~100 pixel keys).
    */
   private final int mStartKeyProximityThresholdSquared;
 
