@@ -476,8 +476,8 @@ public class GestureTypingDetector {
             calculateCosineOfAngleBetweenVectors(
                 gestureDirX, gestureDirY, generatedDirX, generatedDirY);
 
-        // Apply penalty: 0.0 for same direction (cos=1), up to 2.0 for opposite (cos=-1)
-        directionPenaltyMultiplier = DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
+        // Apply penalty-factor: 1.0 for same direction (cos=1), up to 3.0 for opposite (cos=-1)
+        directionPenaltyMultiplier = 1.0 + DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
 
         // Store last gesture direction for potential use in second loop
         lastGestureDirX = gestureDirX;
@@ -514,8 +514,8 @@ public class GestureTypingDetector {
             calculateCosineOfAngleBetweenVectors(
                 lastGestureDirX, lastGestureDirY, generatedDirX, generatedDirY);
 
-        // Apply penalty: 0.0 for same direction (cos=1), up to 2.0 for opposite (cos=-1)
-        directionPenaltyMultiplier = DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
+        // Apply penalty-factor: 1.0 for same direction (cos=1), up to 3.0 for opposite (cos=-1)
+        directionPenaltyMultiplier = 1.0 + DIRECTION_PENALTY_FACTOR * (1.0 - cosAngle);
       }
 
       cumulativeDistance += distance * directionPenaltyMultiplier;

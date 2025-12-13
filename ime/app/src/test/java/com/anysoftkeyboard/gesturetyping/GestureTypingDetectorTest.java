@@ -154,8 +154,8 @@ public class GestureTypingDetectorTest {
     Assert.assertEquals(MAX_SUGGESTIONS, candidates.size());
     Assert.assertEquals("help", candidates.get(0));
     Assert.assertEquals("hell", candidates.get(1));
-    Assert.assertEquals("hero", candidates.get(2));
-    Assert.assertEquals("Hall", candidates.get(3));
+    Assert.assertEquals("Hall", candidates.get(2));
+    Assert.assertEquals("hero", candidates.get(3));
   }
 
   @Test
