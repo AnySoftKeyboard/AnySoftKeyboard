@@ -35,6 +35,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -113,12 +114,21 @@ public class CandidateView extends View implements ThemeableChild {
 
   @Override
   public void setThemeOverlay(OverlayData overlay) {
-    var normalized =
-        OverlayDataNormalizer.normalize(
-            overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
-    mThemeOverlayCombiner.setOverlayData(normalized);
+    OverlayData normalizedOverlay = getNormalizedOverlayData(overlay);
+    mThemeOverlayCombiner.setOverlayData(normalizedOverlay);
     setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
     invalidate();
+  }
+
+  @VisibleForTesting
+  static OverlayData getNormalizedOverlayData(OverlayData overlay) {
+    if (overlay.getPrimaryDarkColor() != Color.TRANSPARENT
+        || overlay.getSecondaryTextColor() != Color.TRANSPARENT) {
+      return OverlayDataNormalizer.normalize(
+          overlay, 96, overlay.getPrimaryDarkColor(), overlay.getSecondaryTextColor());
+    } else {
+      return overlay;
+    }
   }
 
   @Override
