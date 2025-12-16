@@ -16,7 +16,7 @@ dependencies {
     //annotationProcessor "com.uber.nullaway:nullaway:0.6.4"
 
     //taken from https://github.com/google/error-prone/releases
-    errorprone 'com.google.errorprone:error_prone_core:2.42.0'
+    errorprone 'com.google.errorprone:error_prone_core:2.45.0'
     implementation 'com.google.errorprone:error_prone_annotations:2.15.0'
 }
 
