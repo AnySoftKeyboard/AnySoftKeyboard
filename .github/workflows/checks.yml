@@ -20,7 +20,7 @@ jobs:
   bazel:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
           bazelisk-cache: true
@@ -53,7 +53,7 @@ jobs:
     container: ghcr.io/menny/android:1.22.3
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
       - uses: gradle/actions/setup-gradle@v4
@@ -82,7 +82,7 @@ jobs:
     container: ghcr.io/menny/android:1.22.3
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
       - uses: gradle/actions/setup-gradle@v4
@@ -145,7 +145,7 @@ jobs:
             tasks: "testAllAddOnsUnitTest"
             actual_shard: app
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
       - uses: gradle/actions/setup-gradle@v4
@@ -204,7 +204,7 @@ jobs:
             supports_canary: true
             supports_logo: false
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
       - uses: gradle/actions/setup-gradle@v4
@@ -262,7 +262,7 @@ jobs:
     if: always()
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
       - uses: bazel-contrib/setup-bazel@0.15.0
         with:
           bazelisk-cache: true
@@ -278,7 +278,7 @@ jobs:
     needs: [all-green-requirement]
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
       - uses: ./.github/actions/deploy-request
         with:
           gh_user: ${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}
@@ -291,7 +291,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android_base:1.22.3
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           fetch-depth: 0
@@ -299,7 +299,7 @@ jobs:
       - name: create-merge-commit
         run: ./scripts/ci/ci_merge_to_default_branch.sh ${{ github.ref }}
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.8
+        uses: peter-evans/create-pull-request@v8.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Merge to default branch from ${{ github.ref_name }}.'

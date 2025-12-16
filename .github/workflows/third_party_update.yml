@@ -23,7 +23,7 @@ jobs:
   github-actions-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: bazel-contrib/setup-bazel@0.15.0
@@ -38,7 +38,7 @@ jobs:
             --gh_user="${{ secrets.BOT_MASTER_RW_GITHUB_USERNAME }}" \
             --gh_token="${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.8
+        uses: peter-evans/create-pull-request@v8.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated GitHub Actions update from new releases in github.com'
@@ -51,7 +51,7 @@ jobs:
   general-maven-update:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: bazel-contrib/setup-bazel@0.15.0
@@ -62,7 +62,7 @@ jobs:
       - name: update-gradle-deps
         run: bazel run //js/deps_updater -- gradle_deps --rootFolder="${{ github.workspace }}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.8
+        uses: peter-evans/create-pull-request@v8.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated Android Deps update from maven'
@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: ghcr.io/menny/android:1.22.3
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - name: setup
@@ -115,7 +115,7 @@ jobs:
       - name: Add changed files
         run: ./scripts/ci/third-party-update/${{ matrix.type}}/add_files_to_commit.sh
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.8
+        uses: peter-evans/create-pull-request@v8.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated ${{ matrix.type}} ${{ env.LATEST_VERSION }} update'
@@ -129,7 +129,7 @@ jobs:
   general-js-deps:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v4.2.0
@@ -151,7 +151,7 @@ jobs:
           bazel build //...
           bazel test //...
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7.0.8
+        uses: peter-evans/create-pull-request@v8.0.0
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
           commit-message: 'Automated JS Dependencies Update Update'
