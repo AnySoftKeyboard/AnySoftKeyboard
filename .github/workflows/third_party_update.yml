@@ -135,7 +135,7 @@ jobs:
       - uses: pnpm/action-setup@v4.2.0
         with:
           run_install: true
-      - uses: actions/setup-node@v6.0.0
+      - uses: actions/setup-node@v6.1.0
         with:
           node-version-file: ".nvmrc"
           cache: 'pnpm'
