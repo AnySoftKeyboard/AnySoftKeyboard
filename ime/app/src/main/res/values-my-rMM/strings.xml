@@ -11,7 +11,7 @@
     <string name="change_log_entry_header_template_without_name">\u0020\u0020ဗားရှင်း<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <string name="notification_text_testers">သတိထားပါ။ စမ်းသပ်ဗားရှင်းသာဖြစ်ပါသည်!</string>
     <string name="testers_version">စမ်းသပ်သူများ ပြုလုပ်ထားမှု!</string>
-    <string name="language_root_tile">ဘာသာစကားများ</string>
+    <string name="language_root_tile">ဘာသာစကားများlang_key_shows_popup</string>
     <!-- UI root menu -->
     <!-- welcome -->
     <string name="search_market_for_keyboard_addons"><i>Play Store</i>မှ အခြားကီးဘုတ်များ ရယူပါ…</string>
@@ -131,8 +131,8 @@
     <string name="cycle_all_symbols_keyboards_on_summary">စင်ဘယ်လ်ကီးသည်ဆိုင်လ်အမှတ်သားကိုစင်ဘလ်ကီးဘုတ်အားလုံးအပေါ်တွင်ပြုလုပ်လိမ့်မည်</string>
     <string name="cycle_all_symbols_keyboards_off_summary">စင်ဘလ်ကီးသည်အဓိကစင်ဘလ်ကီးဘုတ်ကိုသာပြလိမ့်မည်</string>
     <string name="lang_key_shows_popup">ဘာသာစကားပြောင်းရန်</string>
-    <string name="lang_key_shows_popup_on_summary">ဘာသာစကားဆိုထေပါ်ြပပါလိမ့်မည်င်ရာကီးသည်အြပန်လှန်ဆက်သွယ်မှုဆိုင်ရာေရွးချယ်ြခင်းကို</string>
-    <string name="lang_key_shows_popup_off_summary">လုံးကိုဆိုင်ကလ်လုပ်လိမ့်မည်</string>
+    <string name="lang_key_shows_popup_on_summary">ဘာသာစကားဆိုထေပါ်ြပပါလိမ့်မည်င်ရာကီးသည်အြပန်လှန်ဆက်သွယ်မှုဆိုင်ရာေရွးချယ်ြခင်းကိုlang_key_shows_popup</string>
+    <string name="lang_key_shows_popup_off_summary">lang_key_shows_popupလုံးကိုဆိုင်ကလ်လုပ်လိမ့်မည်</string>
     <string name="auto_caps">အလိုအလျှောက်စာလုံးကြီးခြင်း</string>
     <string name="candidates_on">အကြံပြုချက်များ</string>
     <!-- settings - keyboard group -->
@@ -185,4 +185,8 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="setup_wizard_step_one_action">lang_key_shows_popup</string>
+    <string name="setup_wizard_step_three_action_languages">lang_key_shows_popup</string>
+    <string name="setup_wizard_step_download_title">lang_key_shows_popup</string>
+    <string name="setup_wizard_step_download_action">lang_key_shows_popup</string>
 </resources>

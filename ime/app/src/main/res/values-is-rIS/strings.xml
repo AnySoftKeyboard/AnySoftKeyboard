@@ -745,6 +745,8 @@
     <string name="delete_all_clipboard_entries">Autt klippispjald</string>
     <string name="tip_swipe_from_backspace_to_clear">Ábending: Þú getur strokið til vinstri af bakk-lykli til að hreinsa orðið!</string>
     <string name="notification_read_contacts_ticker">Heimildir fyrir tengiliði vantar</string>
+    <string name="notification_action_approve_permission">Samþykkja heimild</string>
+    <string name="notification_action_dismiss_permission">Gera orðasafn óvirkt í tengiliðaskrá</string>
     <string name="wizard_allow_notification_permission">Leyfa tilkynningar frá AnySoftKeyboard</string>
     <string name="setup_wizard_step_notification_permissions_details">Í einstaka tilfellum (t.d. þegar forritið hrynur) þarf að birta tilkynningu á tækinu. Mælt er með því að það sé leyft, en þótt tilkynningar séu ekki leyfðar hefur það ekki áhrif á hegðun forritsins.</string>
     <string name="wizard_skip_notification_permission">Ekki leyfa tilkynningar</string>
