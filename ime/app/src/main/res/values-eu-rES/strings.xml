@@ -662,6 +662,8 @@
     <string name="delete_all_clipboard_entries">Hustu arbela</string>
     <string name="tip_swipe_from_backspace_to_clear">Aholkua: ezabatzeko tekla ezkerrera arrastatu dezakezu hitz osorik ezabatzeko!</string>
     <string name="notification_read_contacts_ticker">Kontaktuak irakurtzeko baimena behar da</string>
+    <string name="notification_action_approve_permission">Onartu baimena</string>
+    <string name="notification_action_dismiss_permission">Desgaitu kontaktuen hiztegia</string>
     <string name="wizard_allow_notification_permission">Onartu AnySoftKeyboard-ek bidalitako jakinarazpenak</string>
     <string name="setup_wizard_step_notification_permissions_details">Kasu arraro batzuetan (adibidez aplikazioak huts egiten duenean), gailura jakinarazpena bidaltzeko beharra edukiko genuke. Hau aktibatzea gomendatzen da, baina ez baduzu aktibatzen aplikazioak berdin funtzionatuko du.</string>
     <string name="wizard_skip_notification_permission">Ez onartu jakinarazpenik</string>

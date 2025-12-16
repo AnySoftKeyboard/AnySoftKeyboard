@@ -779,6 +779,8 @@
     <string name="delete_all_clipboard_entries">აღებული ასლის წაშლა</string>
     <string name="tip_swipe_from_backspace_to_clear">რჩევა: უკუშლიდან მარცხნივ გაუსვით სიტყვის მოცილებისთვის!</string>
     <string name="notification_read_contacts_ticker">კონტაქტებზე ნებართვაა საჭირო</string>
+    <string name="notification_action_approve_permission">ნებართვის დამოწმება</string>
+    <string name="notification_action_dismiss_permission">ნომრების ლექსიკონის გამორთვა</string>
     <string name="wizard_allow_notification_permission">შეტყობინენებების ნების დართვა AnySoftKeyboard-დან</string>
     <string name="setup_wizard_step_notification_permissions_details">იშვიათად (მაგალითად უეცარი გათიშვისას) საჭიროა გამოჩნდეს შეტყობინება მოწყობილობაზე. სასურველია დართოთ ნება, მაგრამ ამის გარეშეც ჩვეულებრივ იმუშავებს.</string>
     <string name="wizard_skip_notification_permission">შეტყობინებების უარყოფა</string>
