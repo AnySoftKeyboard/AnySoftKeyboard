@@ -362,12 +362,20 @@ public class GestureTypingDetector {
           continue; // Character not found on keyboard
         }
 
-        // Calculate squared distance from gesture start to word's starting key
-        final int distanceSquared = wordStartKey.squaredDistanceFrom(corners[0], corners[1]);
+        // Add a small penalty if the word doesn't start on the exact starting key
+        // This biases towards words that start on the gesture starting key
+        double proximityPenalty = 0;
+        if (wordStartKey != startKey) {
+          // Calculate squared distance from gesture start to word's starting key
+          final int distanceSquared = wordStartKey.squaredDistanceFrom(corners[0], corners[1]);
 
-        // Filter out words whose starting key is too far from gesture start
-        if (distanceSquared > mStartKeyProximityThresholdSquared) {
-          continue;
+          // Filter out words whose starting key is too far from gesture start
+          if (distanceSquared > mStartKeyProximityThresholdSquared) {
+            continue;
+          }
+
+          // Small penalty proportional to distance from start point
+          proximityPenalty = Math.sqrt(distanceSquared) * PROXIMITY_PENALTY_FACTOR;
         }
 
         final double distanceFromCurve =
@@ -380,14 +388,6 @@ public class GestureTypingDetector {
         // TODO: convert wordFrequencies to a double[] in the loading phase.
         final double revisedDistanceFromCurve =
             distanceFromCurve - (mFrequencyFactor * ((double) wordFrequencies[i]));
-
-        // Add a small penalty if the word doesn't start on the exact starting key
-        // This biases towards words that start on the gesture starting key
-        double proximityPenalty = 0;
-        if (wordStartKey != startKey) {
-          // Small penalty proportional to distance from start point
-          proximityPenalty = Math.sqrt(distanceSquared) * PROXIMITY_PENALTY_FACTOR;
-        }
 
         final double finalWeight = revisedDistanceFromCurve + proximityPenalty;
 
