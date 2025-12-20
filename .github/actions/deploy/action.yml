@@ -38,9 +38,9 @@ runs:
     - uses: android-actions/setup-android@v3
       with:
         cmdline-tools-version: 13114758
-    - uses: nttld/setup-ndk@v1
-      with:
-        id: 29.0.14206865
+    - name: Install NDK
+      shell: bash
+      run: echo "y" | sdkmanager "ndk;29.0.14206865"
     - shell: bash
       env:
         TERM: dumb
