@@ -29,22 +29,32 @@ inputs:
     description: "APK signing keystore default key password"
     required: true
 runs:
-  using: "docker"
-  image: "docker://ghcr.io/menny/android:1.22.3"
-  env:
-    TERM: dumb
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-    GRADLE_USER_HOME: ".github_cache_gradle/"
-  entrypoint: /bin/bash
-  args:
-    - .github/actions/deploy/deploy.sh
-    - ${{ inputs.deployment_environment }}
-    - ${{ inputs.previous_deployment_environment }}
-    - ${{ inputs.deployment_task }}
-    - ${{ inputs.crash_report_email }}
-    - ${{ inputs.secrets_repo_folder }}
-    - ${{ inputs.keystore_password }}
-    - ${{ inputs.keystore_key_password }}
+  using: "composite"
+  steps:
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - uses: android-actions/setup-android@v3
+      with:
+        cmdline-tools-version: 13114758
+    - uses: nttld/setup-ndk@v1
+      with:
+        id: 29.0.14206865
+    - shell: bash
+      env:
+        TERM: dumb
+        GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        GRADLE_USER_HOME: ".github_cache_gradle/"
+      run: |
+        .github/actions/deploy/deploy.sh \
+          "${{ inputs.deployment_environment }}" \
+          "${{ inputs.previous_deployment_environment }}" \
+          "${{ inputs.deployment_task }}" \
+          "${{ inputs.crash_report_email }}" \
+          "${{ inputs.secrets_repo_folder }}" \
+          "${{ inputs.keystore_password }}" \
+          "${{ inputs.keystore_key_password }}"
 branding:
   icon: 'upload-cloud'
   color: 'blue'

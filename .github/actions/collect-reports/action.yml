@@ -11,13 +11,13 @@ inputs:
     description: "pattern for files"
     required: true
 runs:
-  using: "docker"
-  image: "docker://ghcr.io/menny/android_base:1.22.3"
-  entrypoint: /bin/bash
-  args:
-    - .github/actions/collect-reports/collect.sh
-    - ${{ inputs.output_folder }}
-    - ${{ inputs.file_pattern }}
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        .github/actions/collect-reports/collect.sh \
+          "${{ inputs.output_folder }}" \
+          "${{ inputs.file_pattern }}"
 branding:
   icon: 'package'
   color: 'green'
