@@ -239,6 +239,8 @@ jobs:
           cmdline-tools-version: 13114758
       - name: Install NDK
         run: echo "y" | sdkmanager "ndk;29.0.14206865"
+      - name: Install ImageMagick
+        run: sudo apt-get install -y imagemagick
       - uses: gradle/actions/setup-gradle@v4
       - name: setup
         run: ./scripts/ci/ci_setup.sh
