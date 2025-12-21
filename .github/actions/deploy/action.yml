@@ -41,6 +41,9 @@ runs:
     - name: Install NDK
       shell: bash
       run: echo "y" | sdkmanager "ndk;29.0.14206865"
+    - name: Install ImageMagick
+      shell: bash
+      run: sudo apt-get install -y imagemagick
     - shell: bash
       env:
         TERM: dumb
