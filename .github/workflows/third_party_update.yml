@@ -96,11 +96,19 @@ jobs:
               - https://github.com/diffplug/spotless
               - https://github.com/google/google-java-format/releases
     runs-on: ubuntu-24.04
-    container: ghcr.io/menny/android:1.22.3
     steps:
       - uses: actions/checkout@v6.0.1
         with:
           token: ${{ secrets.BOT_MASTER_RW_GITHUB_TOKEN }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 13114758
+      - name: Install NDK
+        run: echo "y" | sdkmanager "ndk;29.0.14206865"
       - name: setup
         run: ./scripts/ci/ci_setup.sh
       - name: Find latest version
