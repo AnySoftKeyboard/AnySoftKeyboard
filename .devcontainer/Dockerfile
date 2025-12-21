@@ -1,1 +1,1 @@
-FROM ghcr.io/menny/android:1.21.2
+FROM ghcr.io/menny/android:1.22.3
