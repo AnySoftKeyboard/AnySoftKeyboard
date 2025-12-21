@@ -253,8 +253,8 @@ jobs:
           ./gradlew $(cat /tmp/gradle.tasks_logo.lst)
       - name: setup-keystore
         run: |
-          mkdir -p /root/.android/ || true
-          cp ./.github/actions/deploy/debug.keystore /root/.android/
+          mkdir -p $HOME/.android/
+          cp ./.github/actions/deploy/debug.keystore $HOME/.android/
           cp .github/actions/deploy/release_test.keystore /tmp/anysoftkeyboard.keystore
       - name: shard
         run: |
