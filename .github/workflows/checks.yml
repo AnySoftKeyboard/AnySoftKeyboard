@@ -55,11 +55,11 @@ jobs:
       - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5.1.0
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v3.2.2
         with:
           cmdline-tools-version: 13114758
       - name: Install NDK
@@ -92,11 +92,11 @@ jobs:
       - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5.1.0
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v3.2.2
         with:
           cmdline-tools-version: 13114758
       - name: Install NDK
@@ -163,11 +163,11 @@ jobs:
       - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5.1.0
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v3.2.2
         with:
           cmdline-tools-version: 13114758
       - name: Install NDK
@@ -230,11 +230,11 @@ jobs:
       - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 2
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5.1.0
         with:
           distribution: 'temurin'
           java-version: '21'
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v3.2.2
         with:
           cmdline-tools-version: 13114758
       - name: Install NDK
