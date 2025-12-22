@@ -10,8 +10,10 @@ const supportedOddOns = [
   ['KeyboardThemes', 'KeyboardTheme', 'themes.xml'],
 ];
 
+const supportedOddOnsSuffixes = supportedOddOns.map((addOn) => addOn[2]);
 export function isAddOnsFile(fileName: string): boolean {
-  return supportedOddOns.some((postFix) => fileName.toLowerCase().endsWith(postFix[2]));
+  const lowerCaseFileName = fileName.toLowerCase();
+  return supportedOddOnsSuffixes.some((postFix) => lowerCaseFileName.endsWith(postFix));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
