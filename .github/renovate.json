@@ -33,6 +33,15 @@
       "groupName": "GitHub Actions"
     },
     {
+      "description": "Run spotlessApply after spotless plugin update to reformat code with new version",
+      "matchPackageNames": ["com.diffplug.spotless"],
+      "postUpgradeTasks": {
+        "commands": ["./gradlew spotlessApply"],
+        "fileFilters": ["**/*.java", "**/*.kt", "**/*.gradle", "**/*.md"],
+        "executionMode": "branch"
+      }
+    },
+    {
       "description": "Group JavaScript dependencies and update Bazel MODULE lockfile",
       "matchManagers": ["npm"],
       "groupName": "JavaScript dependencies",
